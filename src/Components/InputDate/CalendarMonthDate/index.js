@@ -95,7 +95,7 @@ export default class CalendarMonthDate extends React.Component {
 		let monthDateAll = [];
 		let {year,month,date} = this.props;
 		var lastDate = this.getDaysInMonth(year,month);
-		var nowTime = new Date(`${year}-${month}-${1}`);
+		var nowTime = new Date(year,month-1,1);
 		var placeholderSize = nowTime.getDay();
 		for(var i = 1;i<=placeholderSize;i++){
 				monthDateAll.push(this.createPlaceholderElement(i));
