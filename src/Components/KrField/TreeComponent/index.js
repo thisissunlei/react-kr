@@ -154,6 +154,11 @@ export default class TreeComponent extends React.Component {
 
 			}
 		}
+        
+        if(listValue!="请选择项目类型"&&listValue!=placeholder){
+        	color="#666";
+        }
+
         var blockListStyle={};
         var heightList1='0';
         var $treeUi=document.getElementsByClassName('ui-treeList')[0];

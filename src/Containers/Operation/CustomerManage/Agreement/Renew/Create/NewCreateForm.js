@@ -166,7 +166,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -289,6 +289,13 @@ class NewCreateForm extends Component {
 		form.stationVos = JSON.stringify(stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
+		if(form.totalrent == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 		const {
 			onSubmit
 		} = this.props;

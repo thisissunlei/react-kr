@@ -45,6 +45,7 @@ function getUrl(path, params = {},mode = false) {
     if(url.indexOf('mockjsdata') !==-1){
     	server='';
     }
+
     try {
         server += APIS[path].url;
     } catch(err) {
@@ -52,6 +53,8 @@ function getUrl(path, params = {},mode = false) {
         return false;
     }
     
+
+
 
     if(Object.keys(params).length){
         for (let item in params) {

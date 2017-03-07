@@ -314,8 +314,8 @@ const validate = values =>{
 
 		if (!values.company) {
 			errors.company = '请填写公司名称';
-		}else if(values.company.length>20){
-			errors.company = '最多输入20个字符';
+		}else if(values.company.length>80){
+			errors.company = '最多输入80个字符';
 		}
 		if(values.teamNum && isNaN(values.teamNum)){
 			errors.teamNum = '请输入数字';

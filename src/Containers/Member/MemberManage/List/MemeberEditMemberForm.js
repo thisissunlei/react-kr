@@ -102,6 +102,7 @@ export default class MemeberEditMemberForm extends Component {
 				item.value = item.id;
 				item.label = item.jobName;
 			})
+			console.log("response.memberInfoVO",response.memberInfoVO);
 			Store.dispatch(initialize('memeberEditMemberForm', response.memberInfoVO));
 
 			_this.setState({
@@ -137,7 +138,7 @@ export default class MemeberEditMemberForm extends Component {
 					 })
 				 return;
 			 }else{
-				 Message.warn('该邮箱已被绑定','error');
+				 Message.warntimeout('该邮箱已被绑定','error');
 
 					 _this.setState({
 						 onsubmit:false
@@ -169,13 +170,13 @@ export default class MemeberEditMemberForm extends Component {
 						 onsubmitCode:true
 					 })
 					 return;
-				 }else if(response.phone == '-1'){
-					 Message.warn('会员卡号未录入','error');
+				 }else if(response.phone !='-1' && response.id){
+					 Message.warntimeout('会员卡号已注册','error');
 					 _this.setState({
 						 onsubmitCode:false
 					 })
 				 }else{
-				 	Message.warn('会员卡号已注册','error');
+				 	Message.warntimeout(response.name,'error');
 					 _this.setState({
 						 onsubmitCode:false
 					 })
@@ -217,7 +218,7 @@ export default class MemeberEditMemberForm extends Component {
 					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode}/>
 
 					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange}  requireLabel={true}/>
+					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange} />
 
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
 
@@ -245,9 +246,9 @@ const validate = values => {
 		errors.communityId = '请输入社区名称';
 	}
 
-	if (!values.email) {
-		errors.email = '请输入邮箱';
-	}
+	// if (!values.email) {
+	// 	errors.email = '请输入邮箱';
+	// }
 	if (!values.companyId) {
 		errors.companyId = '请输入公司名称';
 	}

@@ -46,7 +46,7 @@ const APIS = {
       method: 'get'
    },
 
-   // 上传文件
+   // 上传文件
    'uploadSingleFile': {
       url: '/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile',
       method: 'post'
@@ -647,7 +647,12 @@ const APIS = {
  	},
 
   //运营平台-会员管理-会员配置-会员卡激活-会卡列表
- 'CardActivationList': {
+  'CardActivationList': {
+   url:'/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
+   method:'get'
+ },
+  //运营平台-会员管理-会员配置-列表
+ 'memberCardList':{
    url:'/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
    method:'get'
  },
@@ -828,16 +833,125 @@ const APIS = {
  },
  //计算工位总价
  'getAllRent':{
-   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total?stationList={stationList}',
-   method:'get'
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total',
+   method:'post'
  },
  //减租计算工位总价
  'reduceGetAllRent':{
-   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total?stationList={stationList}&billId={billId}',
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
+   method:'post'
+ },
+
+
+//运营平台-基础配置-设备定义-设备列表
+ 'equipmentList': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-list?communityId={communityId}&deviceCode={deviceCode}&floor={floor}&functionId={functionId}&hardwareId={hardwareId}&page={page}&pageSize={pageSize}&propertyId={propertyId}&typeId={typeId}',
    method:'get'
  },
+  //运营平台-基础配置-设备定义-新增或编辑
+ 'equipmentNewCreateOrEdit': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-definition',
+   method:'post'
+ },
+  //运营平台-基础配置-设备定义-门编号、智能硬件ID判重
+ 'doorNumberAndHardwareId': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/door-hardware-repetition?type={type}&code={code}&id={id}',
+   method:'get'
+ },
+ //运营平台-基础配置-设备定义-获取楼层
+ 'getFloorByComunity': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
+   method:'get'
+ },
+ //运营平台-基础配置-设备定义-根据属性获取对应位置
+ 'getLocationByProperty': {
+   url:'/api/krspace-finance-web/community/community-boardroom?communityId={communityId}&whereFloor={whereFloor}',
+   method:'get'
+ },
+ //运营平台-基础配置-设备定义-传图片
+ 'postEquipmentImg': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
+   method:'post'
+ },
+ //运营平台-基础配置-设备定义-根据设备上下线
+ 'onlineOrOffline': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/editOnlineForSysDeviceDefinition',
+   method:'post'
+ },
+ //运营平台-基础配置-设备定义-向指定社区推送图片(单张)
+  'uploadImgToEquipmentSingle': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/single-push-device',
+   method:'post'
+ },
+ //运营平台-基础配置-设备定义-向指定社区推送图片（多张）
+ 'oploadImgToEquipment': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/push-device',
+   method:'post'
+ },
+ //运营平台-基础配置-设备定义-获取真实设备ID
+ 'getEquipmentNum': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-filter',
+   method:'post'
+ },
+  //运营平台-基础配置-设备定义-获取社区机器之下设备
+  'getCommunityEquipment': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/community-hardware',
+   method:'get'
+ },
+  //运营平台-基础配置-设备定义-轮询获取推送结果
+  'getPushImgRes': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/getPollingResult',
+   method:'get'
+ },
+ //运营平台-基础配置-设备定义-获取上传图片成功／失败数据
+  'getSuccedOrErrData': {
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
+   method:'get'
+ },
+
+
+
+//会员卡列表
+   'memberCardList': {
+      url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      method: 'get'
+   },
+   //会员卡批量入库
+   'memberCardImport': {
+      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      method: 'put'
+   },
+   //会员卡领用
+   'memberCardUse': {
+      url: '/api/krspace-finance-web/member/card/actions/receive',
+      method: 'post'
+   },
+   //会员卡删除
+   'memberCardDelete': {
+      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      method: 'delete'
+   },
+   //会员卡查看
+   'memberCardView': {
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
+   // 会员卡原领用人列表
+   'memberRecvList':{
+      url: '/api/krspace-finance-web/member/card/recv-list',
+      method: 'get'
+   },
+   //查询领用人的会员卡数
+   'memberCardNum':{
+      url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
+      method: 'get'
+   },
+   //会员卡转移
+   'transferMemberCard':{
+      url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
+      method: 'put'
+   }
 
  }
 
  module.exports = APIS;
-

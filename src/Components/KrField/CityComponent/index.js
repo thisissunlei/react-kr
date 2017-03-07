@@ -234,6 +234,11 @@ export default class CityComponent extends React.Component {
 				city=cityName;
 			}
 		}
+        
+        if(city!="请选择"){
+          color="#666";	
+        }
+
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

@@ -5,25 +5,12 @@ import { Link } from 'react-router';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 
-import { AppBar, Menu, MenuItem, DropDownMenu, IconMenu, IconButton, RaisedButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
+import { AppBar, Menu, MenuItem,IconMenu, IconButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
 
-
-import ActionHome from 'material-ui/svg-icons/action/home';
-
-import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
-
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
-import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import './index.less';
 
 
@@ -73,9 +60,7 @@ class Header extends Component {
 		url = url.split('/')[1];
 		let _this = this;
 		let currentTab = false;
-		// let hasInfoListTab = ['community'];
 		this.hasInfoListTab.map((item)=>{
-			// console.log('hasInfoListTab',item,url);
 			if(item.url == url){
 				currentTab = true;
 			}
@@ -156,12 +141,15 @@ class Header extends Component {
 	};
 
 	touchTitle() {
-		//this.context.router.push('/');
 		window.location.href = 'http://krspace.cn';
 	}
 
 	renderHeaderNav(item, index) {
 
+		if(!item.permission){
+			return null;
+		}
+		
 		let styles = {
 			color: '#666666',
 			width: 'auto',
@@ -200,12 +188,7 @@ class Header extends Component {
 			flag,
 			right_bar
 		} = this.props;
-		// let {right_bar} = this.state;
 		actions.switchRightBar(!!!right_bar.switch_value);
-
-		// this.setState({
-		// 	right_bar:!this.state.right_bar.switch_value
-		// })
 	}
 	onClose=()=>{
 		this.setState({
@@ -231,24 +214,15 @@ class Header extends Component {
 			height: "60px",
 			zIndex: 10
 		};
-		// let width = document.body.clientWidth * 0.4;
-		// if(width<570){
-		// 	width = 570;
-		// }
+
 		let width = 570;
 
 		var {
 			switch_value
 		} = this.props.sidebar_nav;
 
-		if (switch_value) {
-			//styles.paddingLeft = 50;
-		}
 		let {inforLogoShow,infoTab,hasUnRead} = this.state;
-		console.log('header',infoTab,hasUnRead);
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
-
-
 		const HeaderBar = (props) => {
 
 			var iconClassName = '';
@@ -325,9 +299,7 @@ class Header extends Component {
 			<div className="no-print">
 				{this.props.header_nav.switch_value && <HeaderBar/>}
 				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
-
 					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
-
 				</Drawer>
 				<Drawer open={this.props.right_bar.switch_value} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
@@ -363,29 +335,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-/*
-			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
-			<ContentAdd />
-			</FloatingActionButton>
-
-			<Popover
-			open={this.props.bottom_nav.switch_value}
-			anchorEl={this.props.bottom_nav.anchor_el}
-			anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-			targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-			onRequestClose={this.handleRequestClose}
-			animation={PopoverAnimationVertical}
-			>
-			<Menu>
-			<MenuItem primaryText="Refresh" />
-			<MenuItem primaryText="Help &amp; feedback" />
-			<MenuItem primaryText="Settings" />
-			<MenuItem primaryText="Sign out" />
-			</Menu>
-			</Popover>
-
-*/
-/*<Popover>
-
-	*/
