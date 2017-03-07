@@ -567,14 +567,12 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -611,7 +609,7 @@ class NewCreateForm extends Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
-		console.log("6666666",stationVos);
+		console.log("6666666");
 
 		return (
 
@@ -664,14 +662,14 @@ class NewCreateForm extends Component {
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
-									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
-									</TableRowColumn>
-									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+										<TableRowColumn>{item.stationName}</TableRowColumn>
+											<TableRowColumn>
+													<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
+											</TableRowColumn>
+										<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
-									</TableRow>
+								</TableRow>
 							);
 						})}
 						</TableBody>
@@ -684,57 +682,57 @@ class NewCreateForm extends Component {
             		 <div style={{marginTop:'-20px',marginBottom:60,display:"none"}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
                     
 					 </div>
-		<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同文本信息</label></div>
-				<div className="small-cheek" style={{paddingBottom:0}}>
-					
-				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
-				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
-				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
-				<KrField grid={1/2}  name="contractVersionType" type="hidden" component="input" />
+				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同文本信息</label></div>
+					<div className="small-cheek" style={{paddingBottom:0}}>
+							
+						<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
+						<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
+						<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+						<KrField grid={1/2}  name="contractVersionType" type="hidden" component="input" />
 
-				<KrField style={{width:262,marginLeft:25}} name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
-				<KrField style={{width:262,marginLeft:25}}  name="lessorAddress" inline={false} type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/>
+						<KrField style={{width:262,marginLeft:25}} name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
+						<KrField style={{width:262,marginLeft:25}}  name="lessorAddress" inline={false} type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+						<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/>
 
-				<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
-				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+						<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
+						requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-				<KrField style={{width:262,marginLeft:25}}  component="labelText" inline={false} label="承租方" value={optionValues.customerName}/>
+						<KrField style={{width:262,marginLeft:25}}  component="labelText" inline={false} label="承租方" value={optionValues.customerName}/>
 
-				<KrField style={{width:262,marginLeft:25}}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
-				requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
+						<KrField style={{width:262,marginLeft:25}}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
+						requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
-				<KrField style={{width:262,marginLeft:25}}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
-				requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
-				<KrField style={{width:262,marginLeft:25}}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}
-				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+						<KrField style={{width:262,marginLeft:25}}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
+						requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
+						<KrField style={{width:262,marginLeft:25}}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}
+						requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-				<KrField style={{width:262,marginLeft:25}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
+						<KrField style={{width:262,marginLeft:25}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
 
-				
-                <KrField style={{width:262,marginLeft:25}}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true}
-								requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-				<KrField style={{width:262,marginLeft:25}} name="paymentId"  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
+						
+		                <KrField style={{width:262,marginLeft:25}}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true}
+										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
+						<KrField style={{width:262,marginLeft:25}} name="paymentId"  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-				<KrField style={{width:262,marginLeft:25}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
-				<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" label="签署日期"  />
+						<KrField style={{width:262,marginLeft:25}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
+						requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+						<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" label="签署日期"  />
 
-				
-				<KrField style={{width:545,marginLeft:25}} component="group" label="租赁项目" requireLabel={true}>
-								<KrField style={{width:262}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue={0} />
-								<KrField style={{width:240,marginLeft:25}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
-				</KrField>
-				<KrField  name="templockday"  style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
-				requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
-				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
-				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
-				
+						
+						<KrField style={{width:545,marginLeft:25}} component="group" label="租赁项目" requireLabel={true}>
+										<KrField style={{width:262}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue={0} />
+										<KrField style={{width:240,marginLeft:25}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
+						</KrField>
+						<KrField  name="templockday"  style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
+						requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
+						<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
+						<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+						
+					</div>
+
+					<div className="end-round"></div>
 				</div>
-
-				<div className="end-round"></div>
-		</div>
-	</div>
+			</div>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
                
