@@ -15,6 +15,14 @@ export default class DialogComponent extends Component {
 	static defaultProps = {
 		autoScrollBodyContent: false,
 	}
+	constructor(props, context) {
+		super(props, context);
+
+		this.state = {
+			contentStyle:{}
+		}
+
+	}
 
 	static propTypes = {
 		/**
@@ -46,10 +54,17 @@ export default class DialogComponent extends Component {
 	}
 
 	componentDidMount(){
+			var elem=document.getElementById("dialog-content");
+			this.setState({
+				contentStyle:{marginTop:-elem.innerHeight/2}
+			})
 			this.initializeStyles();
 			window.addEventListener('resize',function(){
 				this.initializeStyles();
+				
 			}.bind(this));
+
+
 	}
 
 
@@ -129,6 +144,7 @@ export default class DialogComponent extends Component {
 		} = this.props;
 
 		let styles = {};
+		let content=Object.assign(contentStyle,this.state.contentStyle);
 
 		if(open){
 				styles.display = 'block';
@@ -140,7 +156,7 @@ export default class DialogComponent extends Component {
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
 				<div className="dialog-modal"></div>
-				<div className="dialog-content" style={contentStyle}>
+				<div id="dialog-content" className="dialog-content" style={content}>
 						<div className="dialog-header">
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose}></span>
