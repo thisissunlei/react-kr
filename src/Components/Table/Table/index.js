@@ -29,6 +29,9 @@ export default class Table extends React.Component {
 		footer: false,
 		exportSwitch: false,
 		defaultSelectedRows: [],
+		fold:false,
+		foldSize:10,
+		foldOpen:false,
 	}
 
 	static PropTypes = {
@@ -61,6 +64,11 @@ export default class Table extends React.Component {
 		onLoaded: React.PropTypes.func,
 		onSelect: React.PropTypes.func,
 		onProcessData: React.PropTypes.func,
+
+		fold:React.PropTypes.bool,
+		foldSize:React.PropTypes.string,
+		foldOpen:React.PropTypes.bool,
+		onFold:React.PropTypes.func,
 	}
 
 	constructor(props) {
@@ -107,6 +115,8 @@ export default class Table extends React.Component {
 			allRowsSelected: false,
 			selectedRows: [],
 			visibilityRows: [],
+			fold:false,
+			foldOpen:this.props.foldOpen,
 			defaultValue: {
 				checkboxWidth: 50
 			}
@@ -239,6 +249,7 @@ export default class Table extends React.Component {
 
 	}
 
+
 	onExport() {
 
 		let {
@@ -299,7 +310,7 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
-
+		console.log("http",ajaxUrlName);
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
 			_this.onInitial({
 				response: response,
@@ -309,12 +320,14 @@ export default class Table extends React.Component {
 				totalCount: response.totalCount,
 				isLoaded: true,
 				loading:false,
+				allRowsSelected:false
 			});
 		}).catch(function(err) {
 
 			_this.onInitial({
 				isLoaded: true,
 				loading:false,
+				allRowsSelected:false
 			});
 
 			Notify.show([{
@@ -326,11 +339,44 @@ export default class Table extends React.Component {
 
 	}
 
+	onFold = ()=>{
+
+		const {onFold,foldSize} = this.props;
+
+		var {visibilityRows} = this.state;
+
+		var foldOpen = !this.state.foldOpen;
+		visibilityRows = visibilityRows.toString().replace(/,/gi,'');
+
+		if(foldOpen){
+				visibilityRows = visibilityRows.substr(0,foldSize) + visibilityRows.substr(foldSize+1,visibilityRows.length).replace(/0/gi,1);
+		}else{
+				visibilityRows = visibilityRows.substr(0,foldSize) + visibilityRows.substr(foldSize+1,visibilityRows.length).replace(/1/gi,0);
+		}
+
+		visibilityRows = visibilityRows.split('');
+
+		this.setState({
+			foldOpen,
+			visibilityRows
+		},function(){
+			onFold && onFold();
+		});
+	}
+
 	componentDidMount() {
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.maxRows + 1).join(1).split('');
+		const {foldOpen,fold,foldSize} = this.props;
+
+		var visibilityRows = new Array(this.maxRows + 1).join(1);
+
+		if(fold){
+			visibilityRows = (new Array(foldSize+1)).join(1)+(new Array(Number(this.maxRows)-Number(foldSize+1))).join(0);
+		}
+
+		visibilityRows = visibilityRows.split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility || '';
@@ -358,10 +404,12 @@ export default class Table extends React.Component {
 
 			default:
 				{
+					/*
 					visibilityRows.forEach(function(item, index) {
 						visibilityRows[index] = 1;
 					});
 					break;
+					*/
 				}
 		}
 
@@ -401,7 +449,7 @@ export default class Table extends React.Component {
 			this.onSelect();
 		});
 
-		if (event.hasOwnProperty('target') && event.target.nodeName.toLowerCase() == 'input') {
+		if (event&&event.hasOwnProperty('target') && event.target.nodeName.toLowerCase() == 'input') {
 			return;
 		}
 		//显示子元素
@@ -426,10 +474,13 @@ export default class Table extends React.Component {
 			visibilityRows
 		} = this.state;
 
+		var allRowsSelected = true;
 		var result = [];
 		visibilityRows.forEach(function(item, index) {
 			if (item && parseInt(selectedRows[index])) {
 				result.push(index);
+			}else{
+				allRowsSelected = false;
 			}
 		});
 
@@ -437,6 +488,10 @@ export default class Table extends React.Component {
 			onSelect
 		} = this.props;
 		onSelect && onSelect(result);
+
+		this.setState({
+			allRowsSelected
+		});
 	}
 
 	onSelectAll() {
@@ -652,21 +707,40 @@ export default class Table extends React.Component {
 		);
 	}
 
+	renderFold = ()=>{
+
+		const {fold} = this.props;
+
+		if(!fold){
+			return null ;
+		}
+
+		return (
+		<div>
+				<div className="btn-collapse">
+				{this.state.foldOpen&&<span className="recordDevelop" onClick={this.onFold}>展开</span>}
+			    {!this.state.foldOpen&&<span className="recordClose" onClick={this.onFold}>收起</span>}
+			    </div>
+		</div>
+
+		);
+
+	}
+
 	render() {
-
-
 
 		let {
 			className,
 			children,
 			style,
-			ajax
+			ajax,
+			fold
 		} = this.props;
 		let {
 			listData,
 			loading
 		} = this.state;
-
+		fold=fold||this.state.fold;
 		if (loading) {
 			return this.renderLoading();
 		}
@@ -676,11 +750,14 @@ export default class Table extends React.Component {
 		}
 
 		return (
-			<table className={"ui-table "+className} style={style}>
-				{this.renderTableHeader()}
-				{this.renderTableBody()}
-				{this.renderTableFooter()}
-			</table>
+			<div className="ui-table-wrap">
+				<table className={"ui-table "+className} style={style}>
+					{this.renderTableHeader()}
+					{this.renderTableBody()}
+					{this.renderTableFooter()}
+				</table>
+				{this.renderFold()}
+			</div>
 		);
 
 	}

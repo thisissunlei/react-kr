@@ -47,7 +47,7 @@ export default class FileUploadComponent extends React.Component {
 			form: {},
 			files: defaultValue,
 			isUploading: false,
-			progress: 0
+			progress: 10
 		}
 
 	}
@@ -62,7 +62,6 @@ export default class FileUploadComponent extends React.Component {
 		let {
 			defaultValue
 		} = this.props;
-		console.log('---defaultValue', defaultValue);
 	}
 
 
@@ -161,7 +160,6 @@ export default class FileUploadComponent extends React.Component {
 
 		files.unshift(response);
         
-		console.log('files', files);
 		this.setState({
 			files,
 			progress: 0,
@@ -196,7 +194,6 @@ export default class FileUploadComponent extends React.Component {
 
 
 		let file = event.target.files[0];
-		console.log('file-----', file)
 		if (!file) {
 			return;
 		}
@@ -207,12 +204,12 @@ export default class FileUploadComponent extends React.Component {
 
 
 		if (file) {
-			var progress = 0;
+			var progress = 10;
 			var timer = window.setInterval(function() {
-				if (progress >= 100) {
+				if (progress >= 90) {
 					window.clearInterval(timer);
 					_this.setState({
-						progress: 0,
+						progress: 10,
 						isUploading: false
 					});
 				}
@@ -232,7 +229,6 @@ export default class FileUploadComponent extends React.Component {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-
 					var response = xhr.response.data;
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
@@ -283,7 +279,6 @@ export default class FileUploadComponent extends React.Component {
 		xhr.responseType = 'json';
 		xhr.send(null);
 	}
-
 	render() {
 
 		let {
@@ -305,17 +300,20 @@ export default class FileUploadComponent extends React.Component {
 			progress,
 			isUploading
 		} = this.state;
+		console.log('upload',progress,isUploading);
 
 		let fileBgStyles = {};
+		// let showList = (files.length>=6)?'hidden':'visible';
+		let showList = (files.length>=6)?'none':'block';
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-				<div className="ui-file">
+				<div className="ui-file" style={{visibility:'visible',display:showList}}>
 					<div className="file-button">
 						<span className="file-icon">+</span>
 						<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
 						添加文件
-						{isUploading && <span className="progress" style={{width:progress}}></span>}
+						{isUploading && <span className="progress" style={{width:progress}}>{progress}%</span>}
 					</div>
 				</div>
 				<ul className="file-list">

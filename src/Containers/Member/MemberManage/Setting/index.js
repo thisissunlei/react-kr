@@ -132,6 +132,7 @@ export default class List extends Component {
 	}
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
+		// console.log("values",values);
 		var _this=this;
 		const params={};
 		params.foreignCode=values.foreignCode;
@@ -145,7 +146,7 @@ export default class List extends Component {
 			if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="该卡已被激活,请重刷"){
-		 		err.message="会员卡"+values.interCode+"已被激活，请换卡重刷！"
+		 		err.message="会员卡"+values.foreignCode+"已被激活，请换卡重刷！"
 		 	}else if(err.message=="Failed to fetch"){
 		 		err.message="连接不到服务器!";
 		 	}
@@ -181,6 +182,7 @@ export default class List extends Component {
 		if(values.interCode==this.state.itemDetail.interCode){
 			
 			this.openEditDetailDialog();
+			Message.success("编辑成功");
 			return;
 		}
 		params.id=values.id;
@@ -189,11 +191,13 @@ export default class List extends Component {
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
 			_this.openEditDetailDialog();
 			_this.onFlush();
+			Message.success("编辑成功");
+			
 		}).catch(function(err) {
 			if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="该卡已被激活,请重刷"){
-		 		err.message="会员卡"+values.interCode+"已被激活，请换卡重刷！"
+		 		err.message="会员卡"+values.foreignCode+"已被激活，请换卡重刷！"
 		 	}else if(err.message=="Failed to fetch"){
 		 		err.message="连接不到服务器!";
 		 	}else if(err.message=="卡号错误"){
@@ -216,17 +220,17 @@ export default class List extends Component {
 			searchParams: obj
 		});
 	}
-	 //打开弹跳
+	 //打开弹条
 	 openMessageBar=(text,type)=>{
 	 	var style={};
 	 	var className="";
 	 	var barStyle={};
 	 	if(type=="ok"){
-	 		style={position:'fixed',right:0,display:"inline-block",height:40,color:"#000",top:20};
+	 		style={position:'fixed',right:0,height:40,color:"#000",top:20};
 	 		barStyle={display:"inline-block",backgroundColor:"#edffe2",borderRadius:3,padding:'0px 8px',border:"1px solid #cce6a0"};
 	 		className="messagesBarIconOk"
 	 	}else{
-	 		style={position:'fixed',right:0,display:"inline-block",height:40,color:"#000",top:20};
+	 		style={position:'fixed',right:0,height:40,color:"#000",top:20};
 	 		barStyle={display:"inline-block",backgroundColor:"#ffe9e9",borderRadius:3,padding:'0px 8px',border:"1px solid #ffb8b8"};
 	 		className="messagesBarIconError";
 	 	}

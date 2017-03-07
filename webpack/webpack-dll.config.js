@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const buildPath = path.join(process.cwd(), '/dist');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -10,17 +12,23 @@ const configs = {
     lib: [
       'react',
       'react-dom',
+      'redux',
+      'react-redux',
+      'mobx',
+      'mobx-react',
+      'react-router',
       'material-ui',
       'lodash',
     ]
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'lib.js',
+    path: path.resolve(buildPath),
+    filename: 'scripts/lib.js',
     library: 'lib',
   },
   plugins: [
 
+    new CleanWebpackPlugin([path.resolve(buildPath)]),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin({
@@ -38,21 +46,11 @@ const configs = {
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 
     new webpack.DllPlugin({
-      path: path.join(__dirname,'dist','manifest.json'),
+      path: path.resolve(buildPath,'manifest.json'),
       name: 'lib',
       context:__dirname
     })
   ]
 };
-
-if(env === 'development'){
-
-  configs.plugins.push(
-    new CopyWebpackPlugin([
-          { from: path.join(__dirname,'dist','lib.js'), to: path.join(__dirname,'../static','lib.js') },
-        ], {copyUnmodified: true})
-  );
-
-}
 
 module.exports = configs;
