@@ -86,8 +86,21 @@ export default class CalendarMonthDate extends React.Component {
 
 	}
 
-	createPlaceholderElement = (key)=>{
-		return ( <span className="calendar-day placeholder" key={key}>&nbsp;</span> );
+	createPlaceholderElement = (date,key)=>{
+		let handlers = {
+			onClick:this.context.onSelectedDate
+		};
+		let props = {
+			value:date,
+			key:key,
+			date:this.props.date,
+			year:this.props.year,
+			month:this.props.month,
+			disable:true
+		};
+
+		return <CalendarDay {...props} {...handlers} />
+		//return ( <span className="calendar-day placeholder" key={key}>&nbsp;</span> );
 	}
 
 	renderMonthDate =()=>{
@@ -95,10 +108,16 @@ export default class CalendarMonthDate extends React.Component {
 		let monthDateAll = [];
 		let {year,month,date} = this.props;
 		var lastDate = this.getDaysInMonth(year,month);
+
+		//preTime
+		var preLastDate = this.getDaysInMonth(year,month-1);
+
+		console.log('pre',preLastDate)
+		//
 		var nowTime = new Date(year,month-1,1);
 		var placeholderSize = nowTime.getDay();
-		for(var i = 1;i<=placeholderSize;i++){
-				monthDateAll.push(this.createPlaceholderElement(i));
+		for(var i = placeholderSize-1;i>=0;i--){
+				monthDateAll.push(this.createPlaceholderElement(preLastDate-i,i));
 		}
 		for(i = 1;i<=lastDate;i++){
 				monthDateAll.push(this.createDate(i,i+placeholderSize));
