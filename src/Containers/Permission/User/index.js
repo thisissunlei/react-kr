@@ -41,85 +41,8 @@ import {
 import './index.less';
 import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
-class SearchForm extends Component {
-	constructor(props) {
-		super(props);
+import SearchForm from './SearchForm';
 
-	}
-	onSubmit(form) {
-		console.log('form', form)
-			/*let {
-				page,
-				pageSize,
-				communityids,
-				ids,
-				formValues,
-				istip
-			} = this.state
-
-			formValues = {
-				type: form.filter || 'BILL',
-				value: form.content,
-				communityids: communityids || 0,
-				page: page,
-				pageSize: pageSize
-
-			}
-
-			const {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(formValues, istip);*/
-
-
-
-	}
-
-
-	onFilter = (value) => {
-		let {
-			onFilter
-		} = this.props;
-		onFilter && onFilter(value);
-	}
-
-
-
-	render() {
-
-
-
-		let options = [{
-				label: '名称',
-				value: 'name'
-			}, {
-				label: '类型',
-				value: 'MEMBER'
-			}, {
-				label: '编码',
-				value: 'PHONE'
-			},
-
-		];
-
-		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
-				<SearchForms 
-						onSubmit={this.onSubmit} 
-						searchFilter={options} 
-						style={{marginTop:5}} 
-						onFilter={this.onFilter}
-				/>
-			</form>
-
-		);
-	}
-}
-
-SearchForm = reduxForm({
-	form: 'searchForm'
-})(SearchForm);
 
 class Operations extends Component {
 
@@ -132,7 +55,8 @@ class Operations extends Component {
 				pageSize: 15
 			},
 			itemDetail: '',
-			openDeleteDialog: false
+			openDeleteDialog: false,
+			openCreateDialog: false,
 		}
 	}
 
@@ -160,6 +84,7 @@ class Operations extends Component {
 			openDeleteDialog: !this.state.openDeleteDialog
 		})
 	}
+
 	onDeleteSubmit = () => {
 		let {
 			itemDetail
@@ -170,12 +95,44 @@ class Operations extends Component {
 		})).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功')
+			window.location.reload();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
-			Message.error(err.message)
+			Message.error(err.message);
 		});
 	}
+	onSearch = (form) => {
+		var searchParams = {}
+		if (form.filter == "name") {
+			searchParams = {
+				name: form.content
+			}
+		} else if (form.filter == "code") {
+			searchParams = {
+				code: form.content
+			}
+		}
+		this.setState({
+			searchParams: searchParams
+		});
+	}
+	openCreateDialog = () => {
+		this.setState({
+			openCreateDialog: !this.state.openCreateDialog
+		})
+	}
+	onCreatSubmit = (form) => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('createRole', {}, form)).then(function(response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			window.location.reload();
+		}).catch(function(err) {
+			_this.openCreateDialog();
+			Message.error(err.message);
+		});
 
+	}
 
 	render() {
 		let {
@@ -184,7 +141,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="角色列表" >
-					<SearchForm  /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
+					<SearchForm onSubmit={this.onSearch} onCreate={this.openCreateDialog}/> 
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -229,8 +186,17 @@ class Operations extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+					< /Dialog>
+					 <Dialog
+						title="新建"
+						modal={true}
+						onClose={this.openCreateDialog}
+						open={this.state.openCreateDialog}
+						contentStyle={{width:460,height:500}}
+						>
+						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 						
- 					< /Dialog>
+					 </Dialog>
 				</Section>
 					
 			</div>

@@ -637,7 +637,6 @@ const APIS = {
         url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
         method: 'get'
     },
-
     //运营平台-会员管理-会员配置-会员卡激活-会卡列表
     'CardActivationList': {
         url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
@@ -830,7 +829,7 @@ const APIS = {
     },
     //权限系统-权限项-获取列表数据
     'findPage': {
-        url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}',
+        url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}&code={code}&name={name}&type={type}',
         method: 'get'
     },
     //权限--登录
@@ -898,14 +897,9 @@ const APIS = {
         url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editSsoUser',
         method: 'post'
     },
-    //权限--账户列表--新建登录账户
-    // 'editSsoUser': {
-    //     url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/createSsoUser',
-    //     method: 'post'
-    // },
     //权限--角色列表--获取角色列表
     'UserfindPage': {
-        url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}',
+        url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',
         method: 'get'
     },
     //权限--操作项--删除
@@ -926,6 +920,16 @@ const APIS = {
     //权限--角色--查看人员--移除
     'deleteUser': {
         url: '/api/krspace-sso-web/sso/role/deleteUser?roleId={roleId}&userId={userId}',
+        method: 'get'
+    },
+    //权限--角色--新建--保存
+    'createRole': {
+        url: '/api/krspace-sso-web/sso/role/createRole',
+        method: 'post'
+    },
+    //权限--角色--新建--获取操作项列表
+    'getModuleData': {
+        url: '/api/krspace-sso-web/sso/role/getModuleData',
         method: 'get'
     }
 }
