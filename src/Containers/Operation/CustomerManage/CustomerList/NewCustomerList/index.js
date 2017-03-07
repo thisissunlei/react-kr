@@ -266,9 +266,9 @@ const validate = values =>{
 			errors.mail = '联系人邮箱格式错误';
 		}
 
-		if(!values.intentionCommunityId){
-			errors.intentionCommunityId="意向社区类型不能为空";
-		}
+		// if(!values.intentionCommunityId){
+		// 	errors.intentionCommunityId="意向社区类型不能为空";
+		// }
 
 		if(values.wechat&&values.wechat.length>50){
 			errors.wechat="最多输入50个字符";
