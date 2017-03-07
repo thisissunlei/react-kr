@@ -112,15 +112,23 @@ export default class CalendarMonthDate extends React.Component {
 		//preTime
 		var preLastDate = this.getDaysInMonth(year,month-1);
 
-		console.log('pre',preLastDate)
-		//
 		var nowTime = new Date(year,month-1,1);
 		var placeholderSize = nowTime.getDay();
+		var key = 0;
 		for(var i = placeholderSize-1;i>=0;i--){
-				monthDateAll.push(this.createPlaceholderElement(preLastDate-i,i));
+				monthDateAll.push(this.createPlaceholderElement(preLastDate-i,key));
+				key++;
 		}
 		for(i = 1;i<=lastDate;i++){
-				monthDateAll.push(this.createDate(i,i+placeholderSize));
+				monthDateAll.push(this.createDate(i,key));
+				key++;
+		}
+
+		var nextMonth = (7-key%7)%7;
+
+		for(var j = 1;j<=nextMonth;j++){
+				monthDateAll.push(this.createPlaceholderElement(j,key));
+				key++;
 		}
 		return monthDateAll;
 
