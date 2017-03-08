@@ -45,7 +45,7 @@ export default class KrDate extends React.Component {
 		} catch (err) {
 			//let time = new Date(value * 1)
 			//result = DateFormat(time,format);
-			return = value;
+			result = value;
 		}
 
 		return (
