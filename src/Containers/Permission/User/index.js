@@ -41,6 +41,7 @@ import {
 import './index.less';
 import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
+import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
 
 
@@ -57,6 +58,8 @@ class Operations extends Component {
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
+			openEditDialog: false,
+			moduleDetail: ''
 		}
 	}
 
@@ -66,11 +69,21 @@ class Operations extends Component {
 		this.setState({
 			itemDetail
 		});
-
+		var _this = this;
 		if (type == 'delete') {
 			this.openDeleteDialog();
 		} else if (type == 'edit') {
-			this.openEditDetailDialog();
+			Store.dispatch(Actions.callAPI('getRoleData', {
+				id: itemDetail.id
+			})).then(function(response) {
+				_this.setState({
+					moduleDetail: response.moduleAndResources
+				})
+				_this.openEditDialog();
+			}).catch(function(err) {
+
+			});
+
 		} else if (type == 'view') {
 			this.openView(itemDetail.id);
 		}
@@ -133,11 +146,30 @@ class Operations extends Component {
 		});
 
 	}
+	openEditDialog = () => {
+		this.setState({
+			openEditDialog: !this.state.openEditDialog
+		})
+	}
+	onEditSubmit = (form) => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('editRole', {}, form)).then(function(response) {
+			_this.openCreateDialog();
+			Message.success('修改成功');
+			window.location.reload();
+		}).catch(function(err) {
+			_this.openCreateDialog();
+			Message.error(err.message);
+		});
+	}
 
 	render() {
 		let {
-			openDeleteDialog
+			openDeleteDialog,
+			itemDetail,
+			moduleDetail
 		} = this.state;
+
 		return (
 			<div className="g-operation">
 				<Section title="角色列表" >
@@ -170,7 +202,7 @@ class Operations extends Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
+									<Button label="编辑"   type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>
 									<Button label="查看人员"  type="operation" operation="view"/>
 							 </TableRowColumn>
@@ -195,8 +227,16 @@ class Operations extends Component {
 						contentStyle={{width:460,height:500}}
 						>
 						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
-						
-					 </Dialog>
+					</Dialog>
+					 <Dialog
+						title="编辑"
+						modal={true}
+						onClose={this.openEditDialog}
+						open={this.state.openEditDialog}
+						contentStyle={{width:460,height:500}}
+						>
+						<Editdialog  detail={itemDetail}  moduleDetail={moduleDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
+					</Dialog>
 				</Section>
 					
 			</div>

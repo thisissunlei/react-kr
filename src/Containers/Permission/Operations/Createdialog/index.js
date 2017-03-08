@@ -37,11 +37,15 @@ import {
 import './index.less';
 
 
-export default class Createdialog extends Component {
+class Createdialog extends Component {
 	constructor(props, context) {
 		super(props, context);
-
-
+		this.state = {
+			ModuleList: [],
+			resourceIds: [],
+			errorTip: false
+		}
+		this.getOperation();
 	}
 	onCancel = () => {
 		let {
@@ -49,32 +53,134 @@ export default class Createdialog extends Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-	onSubmit = () => {
+	onSubmit = (form) => {
 		let {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit();
+			resourceIds
+		} = this.state;
+
+		if (resourceIds.length > 0) {
+			form.resourceIds = resourceIds;
+
+			let {
+				onSubmit
+			} = this.props;
+			onSubmit && onSubmit(form);
+
+		} else {
+			this.setState({
+				errorTip: true
+			})
+		}
+
+	}
+	getOperation = () => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getModuleData', {}, {})).then(function(response) {
+			_this.setState({
+				ModuleList: response.moduleAndResources
+			})
+		}).catch(function(err) {
+
+		});
+	}
+	getValue = (e) => {
+		var check = e.target.checked;
+		var id = e.target.value;
+		var idList = this.state.resourceIds;
+		if (check) {
+			idList.push(id);
+			this.setState({
+				resourceIds: idList
+			})
+
+		} else {
+			var index = idList.indexOf(id);
+			if (index > -1) {
+				idList.splice(index, 1);
+			}
+			this.setState({
+				resourceIds: idList
+			})
+		}
+		if (this.state.resourceIds.length > 0) {
+			this.setState({
+				errorTip: false
+			})
+		}
 	}
 
 
 	render() {
+		let {
+			error,
+			handleSubmit,
+			pristine,
+			reset,
+			submitting,
+			initialValues,
+			changeValues,
+			optionValues
+		} = this.props;
+		let {
+			ModuleList,
+			resourceIds,
+			errorTip
+		} = this.state;
 
 		return (
-			<div className="g-delete">
-				<div className="u-delete-title">
-					确定要删除该数据吗？
-				</div>	
-				<Row style={{marginTop:50,marginBottom:15}}>
-				<Col md={12} align="center"> 
-					<ButtonGroup>
-						<div  className='ui-btn-center'><Button  label="确定" type="button"   onTouchTap={this.onSubmit} height={34} width={90}/></div>
-						<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
-					</ButtonGroup>
-					
-				 </Col>
-				 </Row>
+			<div className="g-create">
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
+					<KrField
+							style={{width:300,marginLeft:40,marginBottom:16}} 
+							name="name" type="text" 
+							component="input" label="姓名"  
+							requireLabel={true}
+							requiredValue={true}
+							errors={{requiredValue:'姓名为必填项'}}
+							inline={true}
+					/>
+					<KrField
+							style={{width:300,marginLeft:40,marginBottom:16}} 
+							name="code" type="text" 
+							component="input" label="编号"  
+							requireLabel={true}
+							requiredValue={true}
+							errors={{requiredValue:'编码为必填项'}}
+							inline={true}
+					/>
+					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="enableflag" component="group" label="类型" inline={true} requireLabel={true}>
+	                	<KrField name="enableflag" label="菜单" type="radio" value="MENU" checked={true}/>
+	               		 <KrField name="enableflag" label="操作" type="radio" value="OPERATION" />
+	              	</KrField>
+					<div className="u-operation">
+						
+
+					</div>
+					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
+				</form>
+				
 			</div>
 		);
 	}
 
 }
+const validate = values => {
+
+	const errors = {}
+	if (!values.name) {
+		errors.name = '请输入姓名';
+	}
+
+	if (!values.code) {
+		errors.code = '请输入编号';
+	}
+
+
+	return errors
+}
+export default Createdialog = reduxForm({
+	form: 'createdialog',
+	validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true,
+})(Createdialog);

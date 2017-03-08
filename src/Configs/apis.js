@@ -933,6 +933,16 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/role/getModuleData',
     method: 'get'
   },
+  //权限--角色--获取编辑数据
+  'getRoleData': {
+    url: '/api/krspace-sso-web/sso/role/getRoleData?id={id}',
+    method: 'get'
+  },
+  //权限--角色--获取编辑数据--保存
+  'editRole': {
+    url: '/api/krspace-sso-web/sso/role/editRole',
+    method: 'post'
+  },
 
 }
 

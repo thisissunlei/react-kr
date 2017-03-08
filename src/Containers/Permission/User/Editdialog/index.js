@@ -12,7 +12,8 @@ import {
 import {
 	reduxForm,
 	formValueSelector,
-	change
+	change,
+	initialize
 } from 'redux-form';
 import {
 	KrField,
@@ -37,15 +38,23 @@ import {
 import './index.less';
 
 
-class Createdialog extends Component {
+class Editdialog extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
 			ModuleList: [],
 			resourceIds: [],
-			errorTip: false
+			errorTip: false,
+			checked: true
 		}
-		this.getOperation();
+
+	}
+	componentDidMount() {
+		let {
+			detail,
+			moduleDetail
+		} = this.props;
+		Store.dispatch(initialize('editdialog', detail));
 	}
 	onCancel = () => {
 		let {
@@ -73,20 +82,12 @@ class Createdialog extends Component {
 		}
 
 	}
-	getOperation = () => {
-		var _this = this;
-		Store.dispatch(Actions.callAPI('getModuleData', {}, {})).then(function(response) {
-			_this.setState({
-				ModuleList: response.moduleAndResources
-			})
-		}).catch(function(err) {
 
-		});
-	}
 	getValue = (e) => {
 		var check = e.target.checked;
 		var id = e.target.value;
 		var idList = this.state.resourceIds;
+		console.log('eeee', e.target)
 		if (check) {
 			idList.push(id);
 			this.setState({
@@ -111,6 +112,9 @@ class Createdialog extends Component {
 	renderChildren = (child) => {
 		var _this = this;
 		var childlist, resources;
+		let {
+			checked
+		} = this.state;
 		if (child.length > 0) {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
@@ -128,7 +132,7 @@ class Createdialog extends Component {
 									items.resources.map((item, index) => {
 										return (
 											<div className="u-operation-lists"  key={index}>
-													<input type="checkbox"  value={item.id} onChange={this.getValue}/>{item.name}
+													<input type="checkbox"  value={items.id} onChange={this.getValue}/>{item.name}
 											</div>
 										)
 									})
@@ -176,7 +180,8 @@ class Createdialog extends Component {
 			submitting,
 			initialValues,
 			changeValues,
-			optionValues
+			optionValues,
+			moduleDetail
 		} = this.props;
 		let {
 			ModuleList,
@@ -210,7 +215,7 @@ class Createdialog extends Component {
 							操作项：
 						</div>
 						<div className="u-operation-content">
-							{this.renderOperation(ModuleList)}
+							{this.renderOperation(moduleDetail)}
 							{errorTip?<div className="u-error-tip">请选择操作项</div>:''}
 						</div>
 						
@@ -243,9 +248,9 @@ const validate = values => {
 
 	return errors
 }
-export default Createdialog = reduxForm({
-	form: 'createdialog',
+export default Editdialog = reduxForm({
+	form: 'editdialog',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(Createdialog);
+})(Editdialog);
