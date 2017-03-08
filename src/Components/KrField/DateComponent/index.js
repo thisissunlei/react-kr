@@ -97,7 +97,7 @@ export default class DateComponent extends React.Component {
 
 	formatDate(value) {
 
-		var dt = new Date(value);
+		var dt = new Date(Date.parse(value));
 		var year = dt.getFullYear();
 		var month = this.supplementZero(1 + dt.getMonth());
 		var date = this.supplementZero(dt.getDate());
@@ -125,8 +125,7 @@ export default class DateComponent extends React.Component {
 
 		var result = this.formatDate(value);
 
-
-		this.setInputValue(result);
+		this.setInputValue(Date.parse(result));
 
 		onChange && onChange(result);
 	}
