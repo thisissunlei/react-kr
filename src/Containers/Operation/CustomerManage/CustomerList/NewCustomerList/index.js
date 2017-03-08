@@ -42,6 +42,15 @@ import './index.less'
 		let _this=this;
 		let {operType}=this.props;
 		values.operType=this.props.operType;
+		if(!values.staionPrice){
+			values.staionPrice='';
+		}
+		if(!values.inTime){
+			values.inTime='';
+		}
+		if(!values.teamNum){
+			values.teamNum='';
+		}
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={
@@ -266,9 +275,9 @@ const validate = values =>{
 			errors.mail = '联系人邮箱格式错误';
 		}
 
-		// if(!values.intentionCommunityId){
-		// 	errors.intentionCommunityId="意向社区类型不能为空";
-		// }
+		if(!values.intentionCommunityId){
+			errors.intentionCommunityId="意向社区类型不能为空";
+		}
 
 		if(values.wechat&&values.wechat.length>50){
 			errors.wechat="最多输入50个字符";
