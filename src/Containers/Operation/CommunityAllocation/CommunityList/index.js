@@ -53,6 +53,7 @@ import {
 import './index.less'
 import State from './State';
 import NewCommunityList from './NewCommunityList'; 
+import EditCommunityList from './EditCommunityList'; 
 import SearchUpperForm from './SearchUpperForm'; 
 @observer
 class CommunityList  extends Component{
@@ -69,8 +70,44 @@ class CommunityList  extends Component{
       State.switchNewCommunityList();
    }
    //新建社区提交
-   onNewCommunitySubmit=()=>{
-      State.onCommunitySubmit();
+   onNewCommunitySubmit=(value)=>{
+   	   console.log('---00000--',value);
+   	   delete value.local;
+   	   var brights=[];
+   	    value.bright1.map((item,index)=>{
+   	   	 if(item.type&&item.brightPoints){
+           brights.push({type:item.type,brightPoints:item.brightPoints})
+   	   	  }
+   	     })
+   	    value.bright2.map((item,index)=>{
+   	   	 if(item.type&&item.brightPoints){
+           brights.push({type:item.type,brightPoints:item.brightPoints})
+   	   	  }
+   	   })
+   	    value.bright3.map((item,index)=>{
+   	   	 if(item.type&&item.brightPoints){
+           brights.push({type:item.type,brightPoints:item.brightPoints})
+   	   	  }
+   	   })
+   	    value.bright4.map((item,index)=>{
+   	   	 if(item.type&&item.brightPoints){
+           brights.push({type:item.type,brightPoints:item.brightPoints})
+   	   	  }
+   	   })
+   	    if(value.bright5){
+   	      brights.push({type:'TRANSPORTATION',brightPoints:value.bright5.brightPoints});
+   	    }
+   	    if(value.bright6){	    	
+   	      brights.push({type:'PERIMETER',brightPoints:value.bright6.brightPoints});
+   	    }
+   	    delete value.bright1;
+   	    delete value.bright2;
+   	    delete value.bright3;
+   	    delete value.bright4;
+   	    delete value.bright5;
+   	    delete value.bright6;
+   	    value.brights=brights;
+   	    State.onNewCommunitySubmit(value);
    }
    //查询
    onSearchSubmit=(params)=>{
@@ -79,6 +116,18 @@ class CommunityList  extends Component{
 			searchType:params.filter
 		}	
 		State.searchParams=obj	
+   }
+
+   //编辑
+   onOperation=(type,itemDetail)=>{
+      if(type=='watch'){
+      	 State.getEditCustomerList(itemDetail.id);
+      	 State.switchEditList();
+      }
+   }
+
+   switchEditList=()=>{
+   	   State.switchEditList();
    }
    
    //高级查询
@@ -120,7 +169,19 @@ class CommunityList  extends Component{
       	State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
-
+     
+     //导出
+	onExport=(values)=> {
+		let {searchParams} = State;
+		let ids = [];
+		if (values.length != 0) {
+			values.map((item, value) => {
+				ids.push(item.id)
+			});
+		}
+		var url = `/api/krspace-finance-web/cmt/community/export?searchParams=${searchParams}&ids=${ids}`
+		window.location.href = url;
+	}
 
 
 	render(){
@@ -170,8 +231,8 @@ class CommunityList  extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
-	            onSelect={this.onSelect}
-	            onLoaded={this.onLoaded}
+	            exportSwitch={true}
+			    onExport={this.onExport}
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='communitySearch'
 	            ajaxFieldListName="items"
@@ -221,6 +282,21 @@ class CommunityList  extends Component{
 
 		            </Drawer>
 
+		             {/*编辑*/}
+					<Drawer
+				        open={State.openEditCommunity}
+				        width={750}
+				        openSecondary={true}
+				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			        >
+						<EditCommunityList
+								onSubmit={this.onNewCommunitySubmit}
+								onCancel={this.switchEditList}
+								open={State.openEditCommunity}
+						/>
+
+		            </Drawer>
+ 
                     {/*高级查询*/}
                     <Dialog
 						title="高级查询"

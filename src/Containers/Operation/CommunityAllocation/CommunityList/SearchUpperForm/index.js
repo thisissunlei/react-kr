@@ -101,7 +101,7 @@ class SearchUpperForm extends Component {
    }
 
 
-	cityValue=(value,city)=>{
+	cityValue=(value,select,city)=>{
 	  var arr=city.split('/');
       if(arr.length==2){
       	Store.dispatch(change('searchUpperForm','cityId',value));
@@ -110,7 +110,7 @@ class SearchUpperForm extends Component {
       	})
       }
       if(arr.length==3){
-      	Store.dispatch(change('searchUpperForm','countyId',value));
+      	Store.dispatch(change('searchUpperForm','countyId',select));
       	this.setState({
       		selectCity:true
       	})

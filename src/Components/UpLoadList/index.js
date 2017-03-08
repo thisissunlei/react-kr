@@ -245,8 +245,8 @@ export default class UpLoadList extends Component {
 
 		var _this = this;
 
-
 		let file = event.target.files[0];
+		console.log('pppppp-----');
 		if (!file) {
 			return;
 		}

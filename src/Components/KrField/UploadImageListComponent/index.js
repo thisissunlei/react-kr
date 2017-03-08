@@ -89,6 +89,8 @@ export default class UploadImageListComponent extends Component {
 		})
 		let _this = this;
 		let file = event.target.files[0];
+        
+        console.log('ppp---',file);
 
 		if (!file) {
 			return;
@@ -138,7 +140,7 @@ export default class UploadImageListComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					// console.log("response",response);
+					console.log("response",response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
