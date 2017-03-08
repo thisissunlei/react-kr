@@ -583,7 +583,6 @@ class NewCreateForm extends Component {
 		} = this.state;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
-
 		return (
 
 
@@ -683,8 +682,13 @@ class NewCreateForm extends Component {
 
 
 								 <KrField style={{width:370,marginLeft:90}}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
+								 {/*
 								 <KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 								 requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}}/>
+									*/}
+
+								 <KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={optionValues.contractCode} inline={false}/>
+
 
                                  <KrField style={{width:370,marginLeft:90}}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}
 																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
@@ -801,9 +805,9 @@ const validate = values => {
 		errors.templockday = '请填写保留天数';
 	}
 
-	if (!values.contractcode) {
-		errors.contractcode = '请填写合同编号';
-	}
+	// if (!values.contractcode) {
+	// 	errors.contractcode = '请填写合同编号';
+	// }
 
 	if (!values.paymentId) {
 		errors.paymentId = '请填写付款方式';
