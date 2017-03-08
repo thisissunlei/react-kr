@@ -20,6 +20,7 @@ import {
     Grid,
     Drawer,
     Tooltip,
+    KrDate,
     Row,
     Col,
     Dialog,
@@ -43,20 +44,59 @@ export default class TotalFund extends Component {
         }
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
     }
-    onSearchSubmit = (searchParams) => {
-        let obj = {
-            mainbillname: searchParams.content,
-            pageSize: 15
+    onSearchSubmit = (value) => {
+        let {searchParams} = this.state;
+        if (value.filter == 'company') {
+            this.setState({
+                searchParams: {
+                    page: 1,
+                    pageSize: 15,
+                    categoryName: value.content
+                }
+            })
         }
-        this.setState({searchParams: obj});
+        if (value.filter == 'city') {
+            this.setState({
+                searchParams: {
+                    page: 1,
+                    pageSize: 15,
+                    position: value.content
+                }
+            })
+        }
+        if (value.filter == 'community') {
+            this.setState({
+                searchParams: {
+                    page: 1,
+                    pageSize: 15,
+                    status: value.content
+                }
+            })
+        }
     }
     openNewCreateFund = () => {
         this.setState({
             openNewCreateFund: !this.state.openNewCreateFund
         })
     }
+    getLocalTime = (timer) => {
+        return new Date(parseInt(timer) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+    }
     render() {
-
+        let {searchParams} = this.state;
+        let {itemDetail} = this.state;
+        let options = [
+            {
+                label: '名称',
+                value: 'company'
+            }, {
+                label: '类型',
+                value: 'city'
+            }, {
+                label: '状态',
+                value: 'community'
+            }
+        ];
         return (
 
             <div>
@@ -69,7 +109,7 @@ export default class TotalFund extends Component {
 
                         <Col md={8} align="right">
                             <ListGroup>
-                                <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onCancel}/></ListGroupItem>
+                                <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} searchFilter={options} onCancel={this.onCancel}/></ListGroupItem>
                             </ListGroup>
                         </Col>
                     </Row>
@@ -89,7 +129,44 @@ export default class TotalFund extends Component {
                             <TableHeaderColumn>操作</TableHeaderColumn>
                         </TableHeader>
 
-                        <TableBody></TableBody>
+                        <TableBody>
+                            <TableRow>
+                                <TableRowColumn name="categoryCode"></TableRowColumn>
+                                <TableRowColumn name="categoryName"></TableRowColumn>
+                                <TableRowColumn name="position" options={[
+                                    {
+                                        label: '全部',
+                                        value: 'BOTH'
+                                    }, {
+                                        label: '回款',
+                                        value: 'PAYMENT'
+                                    }, {
+                                        label: '收入',
+                                        value: 'INCOME'
+                                    }
+                                ]}></TableRowColumn>
+                                <TableRowColumn name="status" options={[
+                                    {
+                                        label: '启用',
+                                        value: 'ENABLE'
+                                    }, {
+                                        label: '未启用',
+                                        value: 'DISENABLE'
+                                    }
+                                ]}></TableRowColumn>
+                                <TableRowColumn name="sortNum"></TableRowColumn>
+                                <TableRowColumn name="remark"></TableRowColumn>
+                                <TableRowColumn name="createrName"></TableRowColumn>
+                                <TableRowColumn name="createTime" component={(value, oldValue) => {
+                                    return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+                                }}></TableRowColumn>
+                                <TableRowColumn>
+                                    <Button label="查看" onTouchTap={this.openEdit} type="operation" operation="edit"/>
+                                    <Button label="编辑" type="operation" operation="reset"/>
+                                    <Button label="下一级" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
+                                </TableRowColumn>
+                            </TableRow>
+                        </TableBody>
 
                         <TableFooter></TableFooter>
 
