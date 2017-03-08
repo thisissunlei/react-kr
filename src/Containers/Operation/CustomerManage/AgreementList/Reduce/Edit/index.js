@@ -169,6 +169,11 @@ export default class JoinCreate extends Component {
 				initialValues.leaseContacttel = response.leaseContacttel;
         initialValues.contractVersionType = response.contractVersion;
 				initialValues.lessorContactid = response.lessorContactid;
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
 				// initialValues.paymodel = response.payment.id;
 				// initialValues.stationnum = response.stationnum;
 				// initialValues.rentamount = response.rentamount;

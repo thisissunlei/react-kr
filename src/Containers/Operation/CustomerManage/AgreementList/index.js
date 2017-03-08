@@ -135,8 +135,12 @@ class Merchants extends Component{
     	State.openNewIndent=true;
     }
     //关闭新建订单
-    closeNewIndent = () =>{
+    closeNewIndent = (value) =>{
     	State.openNewIndent=false;
+    	if(isNaN(value)){
+			Store.dispatch(change('OneNewAgreement','staionTypeId',''));
+    	}
+
     }
 
     detailOpenAgreement=()=>{

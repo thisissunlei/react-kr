@@ -127,7 +127,7 @@ export default class ExitDetail extends Component {
 			const info = {
 				paddingBottom:10
 			}
-
+			
 			return (
 				<div className="content" style={content}>
 					 <Title value="退租协议书详情页_财务管理"/>
@@ -136,7 +136,7 @@ export default class ExitDetail extends Component {
 				  	 <div className="content-info" style={info} >
 
                             <div className='detail-first'>
-								<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} requireBlue={true} toolTrue='true'/>
+								<KrField component="labelText" grid={1/2} label="出租方11：" value={basic.lessorName} requireBlue={true} toolTrue='true'/>
 								<KrField component="labelText" grid={1/2} label="地址：" value={basic.lessorAddress} requireBlue={true} toolTrue='true'/>
 
 								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.lessorContactName} requireBlue={true} toolTrue='true'/>
@@ -161,7 +161,7 @@ export default class ExitDetail extends Component {
 
 								<KrField component="labelText" grid={1} label="合同编号：" value={basic.contractcode} requireBlue={true} toolTrue='true'/>
 
-								<KrField component="labelText"  label="备注：" value={basic.contractmark} inline={false} requireBlue={true} defaultValue="无"/>
+								<KrField component="labelText"  label="备注：" value={!basic.contractmark?"无":basic.contractmark} inline={false} requireBlue={true} defaultValue="无"/>
 							 	<KrField  name="agreement" component="labelText" label="双方其他约定内容" inline={false} requireBlue={true} defaultValue="无" value={basic.agreement}/>
 								
 
