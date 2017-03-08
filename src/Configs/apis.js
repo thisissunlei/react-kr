@@ -475,7 +475,7 @@ const APIS = {
   },
   //订单明细账－补充完成之后
 
-  'removeRunningTag': {
+  << << << < HEAD 'removeRunningTag': {
     url: '/api/krspace-finance-web/finaccount/opt/removeRunningTag',
     method: 'post'
   },
@@ -943,7 +943,6 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/role/editRole',
     method: 'post'
   },
-
 }
 
 module.exports = APIS;
