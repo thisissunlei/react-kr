@@ -18,6 +18,7 @@ import {
     SearchForms,
     Section,
     Grid,
+    Drawer,
     Tooltip,
     Row,
     Col,
@@ -28,17 +29,32 @@ import {
 import {reduxForm, formValueSelector, change} from 'redux-form';
 import './index.less';
 import SearchForm from './SearchForm';
+import NewCreateFund from './NewCreateFund';
 export default class TotalFund extends Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            searchParams: {}
+            searchParams: {
+                page: 1,
+                pageSize: 15
+            },
+            openNewCreateFund: false
         }
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
     }
-    onSearchSubmit = () => {}
-
+    onSearchSubmit = (searchParams) => {
+        let obj = {
+            mainbillname: searchParams.content,
+            pageSize: 15
+        }
+        this.setState({searchParams: obj});
+    }
+    openNewCreateFund = () => {
+        this.setState({
+            openNewCreateFund: !this.state.openNewCreateFund
+        })
+    }
     render() {
 
         return (
@@ -48,7 +64,7 @@ export default class TotalFund extends Component {
                 <Section title="款项配置" description="">
                     <Row>
                         <Col md={4} align="left">
-                            <Button label="新建款项" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}/>
+                            <Button label="新建款项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
                         </Col>
 
                         <Col md={8} align="right">
@@ -59,19 +75,17 @@ export default class TotalFund extends Component {
                     </Row>
                     <Table style={{
                         marginTop: 10
-                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport}>
+                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport}>
 
                         <TableHeader>
-                            <TableHeaderColumn>订单名称</TableHeaderColumn>
-                            <TableHeaderColumn>订单类型</TableHeaderColumn>
-                            <TableHeaderColumn>所在社区</TableHeaderColumn>
-                            <TableHeaderColumn>工位</TableHeaderColumn>
-                            <TableHeaderColumn>起始日期</TableHeaderColumn>
-                            <TableHeaderColumn>结束日期</TableHeaderColumn>
-                            <TableHeaderColumn>收入总额</TableHeaderColumn>
-                            <TableHeaderColumn>回款总额</TableHeaderColumn>
-                            <TableHeaderColumn>余额</TableHeaderColumn>
-                            <TableHeaderColumn>定金/押金</TableHeaderColumn>
+                            <TableHeaderColumn>编码</TableHeaderColumn>
+                            <TableHeaderColumn>名称</TableHeaderColumn>
+                            <TableHeaderColumn>类型</TableHeaderColumn>
+                            <TableHeaderColumn>状态</TableHeaderColumn>
+                            <TableHeaderColumn>顺序号</TableHeaderColumn>
+                            <TableHeaderColumn>备注</TableHeaderColumn>
+                            <TableHeaderColumn>创建人</TableHeaderColumn>
+                            <TableHeaderColumn>创建时间</TableHeaderColumn>
                             <TableHeaderColumn>操作</TableHeaderColumn>
                         </TableHeader>
 
@@ -80,6 +94,13 @@ export default class TotalFund extends Component {
                         <TableFooter></TableFooter>
 
                     </Table>
+                    <Drawer open={this.state.openNewCreateFund} width={750} openSecondary={true} className='m-finance-drawer' containerStyle={{
+                        top: 60,
+                        paddingBottom: 228,
+                        zIndex: 20
+                    }}>
+                        <NewCreateFund/>
+                    </Drawer>
                 </Section>
             </div>
         );
