@@ -475,7 +475,7 @@ const APIS = {
   },
   //订单明细账－补充完成之后
 
-  << << << < HEAD 'removeRunningTag': {
+  'removeRunningTag': {
     url: '/api/krspace-finance-web/finaccount/opt/removeRunningTag',
     method: 'post'
   },
