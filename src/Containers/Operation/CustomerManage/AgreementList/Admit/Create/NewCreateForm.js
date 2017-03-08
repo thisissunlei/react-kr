@@ -704,7 +704,7 @@ class NewCreateForm extends Component {
 							<div className="end-round"></div>
 					</div>
 				</div>
-							<KrField  style={{width:545,marginLeft:25,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+							<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
 							 
