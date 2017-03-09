@@ -226,14 +226,7 @@ export default class SearchForms extends Component{
 		let {searchFilter} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
-		if(searchFilter){
-			select = searchFilter[0].label;
-			this.setState({otherName:'ui-otherName'})
-		}else{
-			this.setState({otherName:''});
-		}
 		
-		// console.log('searchFilter',searchFilter);
 		if(searchFilter){
 			
 			return(
@@ -269,7 +262,7 @@ export default class SearchForms extends Component{
 			inputName='keywords';
 		}
 		return (
-			<div className={`search-form ${otherName}`} ref={div=>{this.form = div}} name="search-form" style={style}>
+			<div className='search-form' ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >
 					{this.renderFilter()}
 
