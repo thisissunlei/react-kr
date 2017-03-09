@@ -43,9 +43,15 @@ class Createdialog extends Component {
 		this.state = {
 			ModuleList: [],
 			resourceIds: [],
-			errorTip: false
+			errorTip: false,
+			childrenList: [],
+			child: [],
+			Params: {
+				parentId: 0
+			}
+
 		}
-		this.getOperation();
+		this.getModuleList();
 	}
 	onCancel = () => {
 		let {
@@ -73,11 +79,19 @@ class Createdialog extends Component {
 		}
 
 	}
-	getOperation = () => {
+	getModuleList = () => {
+		let {
+			Params
+		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getModuleData', {}, {})).then(function(response) {
+		Store.dispatch(Actions.callAPI('getModule', Params, {})).then(function(response) {
+			var ModuleList = response.ssoModuleList.map((item, index) => {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			})
 			_this.setState({
-				ModuleList: response.moduleAndResources
+				ModuleList: ModuleList
 			})
 		}).catch(function(err) {
 
@@ -108,6 +122,43 @@ class Createdialog extends Component {
 			})
 		}
 	}
+	onSelect = (item) => {
+		var _this = this;
+		this.setState({
+			Params: {
+				parentId: item.id
+			}
+		}, function() {
+			_this.getModuleList();
+		})
+
+	}
+
+
+
+	renderModule = () => {
+		let {
+			ModuleList
+		} = this.state;
+		if (ModuleList.length > 0) {
+			var list = ModuleList.map((item, index) => {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			})
+			var num = Math.random()
+			return (
+				<div>
+					<KrField name={`module${num}`} style={{width:200,marginLeft:40}}  component="select"  options={list} inline={true}  onChange={this.onSelect}/> 
+						
+					
+				</div>
+
+			)
+
+		}
+	}
+
 
 
 	render() {
@@ -147,14 +198,15 @@ class Createdialog extends Component {
 							requiredValue={true}
 							errors={{requiredValue:'编码为必填项'}}
 							inline={true}
-					/>
+		/>
 					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="enableflag" component="group" label="类型" inline={true} requireLabel={true}>
 	                	<KrField name="enableflag" label="菜单" type="radio" value="MENU" checked={true}/>
 	               		 <KrField name="enableflag" label="操作" type="radio" value="OPERATION" />
 	              	</KrField>
 					<div className="u-operation">
+						<KrField name="paymodel"  style={{width:220,marginLeft:40}}  component="select" label="模块" options={ModuleList} inline={true} requireLabel={true} onChange={this.onSelect}/>
+						{this.renderModule()}
 						
-
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>

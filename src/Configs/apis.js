@@ -943,6 +943,11 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/role/editRole',
     method: 'post'
   },
+  //权限--操作项--新建--获取模块
+  'getModule': {
+    url: '/api/krspace-sso-web/sso/resource/getModule?parentId={parentId}',
+    method: 'get'
+  },
 }
 
 module.exports = APIS;
