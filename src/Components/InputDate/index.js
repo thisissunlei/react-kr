@@ -181,6 +181,7 @@ export default class InputDate extends React.Component {
 			return;
 		}
 		value = `${year}-${month}-${date}`;
+
 		this.setState({
 			value
 		});
