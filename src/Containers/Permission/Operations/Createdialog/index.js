@@ -52,7 +52,10 @@ class Createdialog extends Component {
 			ControllerList: [],
 			ControllerChild: [],
 			ControllerId: '',
+			ControllerItem: {},
+			ControllerChildItem: {},
 			ModuleId: '',
+			ControllerRender: []
 		}
 		this.getModuleList();
 		this.getAllController();
@@ -91,12 +94,17 @@ class Createdialog extends Component {
 		}
 		//存储ControllerId
 	onSetController = (item) => {
+
 		this.setState({
-			ControllerId: item.id
+			ControllerId: item.id,
+			ControllerChildItem: item
 		})
 	}
 	onSelectController = (item) => {
 		var _this = this;
+		this.setState({
+			ControllerItem: item
+		})
 		Store.dispatch(Actions.callAPI('getMethodByControllerId', {
 			controllerId: item.id
 		}, {})).then(function(response) {
@@ -236,11 +244,51 @@ class Createdialog extends Component {
 				<KrField name="moduleChildList"  style={{width:220}}  component="select" label="" options={childModuleList} inline={true}  onChange={this.onSetModuleId}/>
 			)
 		}
-
+	}
+	controllerAdd = () => {
+		let {
+			ControllerItem,
+			ControllerChildItem,
+			ControllerRender
+		} = this.state;
+		var controllerChild = ControllerChildItem.name,
+			controller = ControllerItem.name;
+		var item = {
+			controllerChild: controllerChild,
+			controller: controller
+		}
+		var arr = ControllerRender;
+		arr.push(item)
+		this.setState({
+			ControllerRender: arr
+		})
 
 	}
+	renderController = () => {
+		let {
+			ControllerRender
+		} = this.state;
+		var list;
+		if (ControllerRender.length > 0) {
+			list = ControllerRender.map((item, index) => {
+				return (
+					<div className="u-add-list">{item.controller}  {item.controllerChild} <span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+				)
+			})
+		}
+		return list;
+	}
+	controllerDelete = (index) => {
+		let {
+			ControllerRender
+		} = this.state;
+		var Controller = ControllerRender;
+		Controller.splice(index, 1)
+		this.setState({
+			ControllerRender: Controller
+		})
 
-
+	}
 	render() {
 		let {
 			error,
@@ -266,10 +314,10 @@ class Createdialog extends Component {
 					<KrField
 							style={{width:300,marginLeft:40,marginBottom:16}} 
 							name="name" type="text" 
-							component="input" label="姓名"  
+							component="input" label="名称"  
 							requireLabel={true}
 							requiredValue={true}
-							errors={{requiredValue:'姓名为必填项'}}
+							errors={{requiredValue:'名称为必填项'}}
 							inline={true}
 					/>
 					<KrField
@@ -293,12 +341,12 @@ class Createdialog extends Component {
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
 						<div className="u-method-content">
-							<KrField name="controller"  style={{width:220,marginLeft:70}}  component="select" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
-							<KrField name="controllerChild"  style={{width:220}}  component="select" label="" options={ControllerChild} inline={true} onChange={this.onSetController} />
-							<Button label="Add" className="u-method-add" height={34} onTouchTap=''/>
+							<KrField name="controller" ref="controller" style={{width:400,marginLeft:70}}  component="select" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
+							<KrField name="controllerChild" ref="controllerChild"  style={{width:220}}  component="select" label="" options={ControllerChild} inline={true} onChange={this.onSetController} />
+							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
 						<div className="u-method-content-list">
-
+							{this.renderController()}
 						</div>
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
