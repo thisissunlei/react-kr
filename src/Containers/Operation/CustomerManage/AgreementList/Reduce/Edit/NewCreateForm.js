@@ -409,7 +409,7 @@ class NewCreateForm extends Component {
 		const {
 			onSubmit
 		} = this.props;
-		onSubmit && onSubmit(form);q
+		onSubmit && onSubmit(form);
 	}
 
 	onCancel() {

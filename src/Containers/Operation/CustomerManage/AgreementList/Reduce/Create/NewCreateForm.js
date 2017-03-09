@@ -446,7 +446,7 @@ class NewCreateForm extends Component {
 										<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
 										requiredValue={true} pattern={/^.{0,50}$/} />
 
-										<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>
+										{/*<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>*/}
 
 										<KrField style={{width:262,marginLeft:25}} name="rentamount" component="labelText" inline={false} type="text" requireLabel={true} label="减租金额" value={allRent} defaultValue="0"
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} />
@@ -496,55 +496,55 @@ const validate = values => {
 
 	const errors = {}
 
-	// if (!values.leaseId) {
-	// 	errors.leaseId = '请填写出租方';
-	// }
+	if (!values.leaseId) {
+		errors.leaseId = '请填写出租方';
+	}
 
-	// if (!values.lessorContactid) {
-	// 	errors.lessorContactid = '请填写出租方联系人';
-	// }
+	if (!values.lessorContactid) {
+		errors.lessorContactid = '请填写出租方联系人';
+	}
 
-	// if (!values.lessorContacttel) {
-	// 	errors.lessorContacttel = '请填写出租方联系电话';
-	// }
+	if (!values.lessorContacttel) {
+		errors.lessorContacttel = '请填写出租方联系电话';
+	}
 
-	// if (!values.leaseAddress) {
-	// 	errors.leaseAddress = '请填写承租方地址';
-	// }
-	// if (!values.wherefloor) {
-	// 	errors.wherefloor = '请先选择楼层';
-	// }
+	if (!values.leaseAddress) {
+		errors.leaseAddress = '请填写承租方地址';
+	}
+	if (!values.wherefloor) {
+		errors.wherefloor = '请先选择楼层';
+	}
 
-	// if (!values.leaseContacttel) {
-	// 	errors.leaseContacttel = '请填写承租方电话';
-	// }
+	if (!values.leaseContacttel) {
+		errors.leaseContacttel = '请填写承租方电话';
+	}
 
-	// if (!values.leaseAddress) {
-	// 	errors.leaseAddress = '请填写承租方地址';
-	// }
+	if (!values.leaseAddress) {
+		errors.leaseAddress = '请填写承租方地址';
+	}
 
-	// if (values.leaseAddress && !isNaN(values.leaseAddress)) {
-	// 	errors.leaseAddress = '承租方地址不能为数字';
-	// }
+	if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+		errors.leaseAddress = '承租方地址不能为数字';
+	}
 
-	// if (!values.leaseContact) {
-	// 	errors.leaseContact = '请填写承租方联系人';
-	// }
+	if (!values.leaseContact) {
+		errors.leaseContact = '请填写承租方联系人';
+	}
 
-	// if (!values.signdate) {
-	// 	errors.signdate = '请填写签署时间';
-	// }
+	if (!values.signdate) {
+		errors.signdate = '请填写签署时间';
+	}
 
-	// if (!values.contractcode) {
-	// 	errors.contractcode = '请填写合同编号';
-	// }
+	if (!values.contractcode) {
+		errors.contractcode = '请填写合同编号';
+	}
 
 
 	return errors
 }
 NewCreateForm = reduxForm({
-	form: 'reduceCreateForm',
-	// validate,
+	form: 'reduceCreateDialogForm',
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

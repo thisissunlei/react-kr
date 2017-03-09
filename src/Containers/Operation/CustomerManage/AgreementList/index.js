@@ -135,8 +135,12 @@ class Merchants extends Component{
     	State.openNewIndent=true;
     }
     //关闭新建订单
-    closeNewIndent = () =>{
+    closeNewIndent = (value) =>{
     	State.openNewIndent=false;
+    	if(isNaN(value)){
+			Store.dispatch(change('OneNewAgreement','staionTypeId',''));
+    	}
+
     }
 
     detailOpenAgreement=()=>{
@@ -673,7 +677,7 @@ class Merchants extends Component{
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 
 			        		return (
-				        		<TableRow>
+				        		<TableRow key={index}>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.cityName}</span>{this.everyTd(item.cityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.communityName}</span>{this.everyTd(item.communityName)}</TableRowColumn>

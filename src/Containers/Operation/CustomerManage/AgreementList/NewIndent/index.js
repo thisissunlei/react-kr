@@ -65,15 +65,16 @@ import './index.less';
 			oneState.ordersListData({customerId:allState.listId},response.mainBillId);
 			Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
 			
-			_this.onCancel();
+			_this.onCancel(response.mainBillId);
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});	
 	}
 
-	onCancel = () => {
+	onCancel = (value) => {
+		
 		const {onCancel} = this.props;
-		onCancel && onCancel();
+		onCancel && onCancel(value);
 	}
 
 	hasOfficeClick = (params) =>{
