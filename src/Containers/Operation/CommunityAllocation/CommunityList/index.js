@@ -77,6 +77,9 @@ class CommunityList  extends Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
+
+   	    value = Object.assign({},value);
+   	    
    	    var brightsStr=[];
    	    if(value.bright1){
    	      value.bright1.map((item,index)=>{

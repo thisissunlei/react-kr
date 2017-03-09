@@ -1,10 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-
+import {
+	toJS
+} from 'mobx';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
+	observer,
+	mobx
 } from 'mobx-react';
 import {
 	KrField,
@@ -83,24 +86,17 @@ const renderBrights = ({ fields, meta: { touched, error },type,label}) => {
 	   fields.push({type:type})
 	 }  
 	var krStyle={};  
-	var brightStyle={};
 	if(type=='BRIGHTPOINTS'){
       krStyle={
       	width:228,
       	marginLeft:18,
       	marginRight:3,
-      	marginTop:-10
       }
-      brightStyle={
-      	marginTop:22
-      }
+      
 	}else{
 	  krStyle={
       	width:517,
       	marginLeft:15
-      }
-      brightStyle={
-      	marginTop:32
       }
 	}
 
@@ -116,7 +112,7 @@ const renderBrights = ({ fields, meta: { touched, error },type,label}) => {
           component={renderField}
           label={label}
           />
-        <span onClick={() => fields.insert(index+1,{type:type})} className='addBtn' style={brightStyle}></span>       
+        <span onClick={() => fields.insert(index+1,{type:type})} className='addBtn' style={{marginTop:32}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -181,7 +177,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {	
-		console.log('p[[[[[[[',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -289,7 +284,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            optionTimeList.push({label:item,value:item});
         })
        //时间下拉结束
+       
 
+       //console.log('00000',toJS(State.searchData));
          
        let {openDown,openUp}=this.state;
 
@@ -312,8 +309,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
 
                                     <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
-                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}  options={State.searchData}/>
-
+                                    
+                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}  
+                                      options={toJS(State.searchData)}
+                                    />
+                                    
                                     <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
 									
 									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
@@ -321,7 +321,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 								   	<div className='location-m'><KrField grid={1/2} label="社区坐标" component="input" name='local' style={{width:262,marginLeft:16}}  requireLabel={true}  onChange={this.locationMap}>			 
 									</KrField>
 
-									<a className='mapLocation' href={`http://api.map.baidu.com/lbsapi/getpoint/index.html`} target='_blank'/>
+									<a className='mapLocation' href={`http:\/\/api.map.baidu.com/lbsapi/getpoint/index.html`} target='_blank'/>
                      
 									<KrField grid={1/2} label="大厦名称" name="buildName" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/></div>
 									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select" 
