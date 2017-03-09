@@ -136,7 +136,8 @@ export default class JoinCreate extends Component {
 
 
 			initialValues.leaseAddress = response.customer.customerAddress;
-
+			optionValues.contractCode = response.contractCode;
+			
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
