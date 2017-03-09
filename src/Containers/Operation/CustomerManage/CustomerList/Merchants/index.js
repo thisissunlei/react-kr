@@ -527,7 +527,6 @@ class Merchants extends Component{
 						)&&
 							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
-							}
 							>
 							</div>
 					}
