@@ -117,10 +117,11 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
+			type :1,
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
-
+			
 			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 
 			optionValues.contractCode = response.contractCode;
