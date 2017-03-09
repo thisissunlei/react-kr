@@ -67,7 +67,7 @@ class LookCustomerList extends Component{
         let dialogDiv=[];
         let showTab=[];
         let noneTab=[];
-
+        
 		if(!allState.enter){
 			num=50+(5-noneTab.length)*109.16;
 			text="入驻协议书"

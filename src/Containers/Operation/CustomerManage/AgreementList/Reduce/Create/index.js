@@ -175,7 +175,7 @@ export default class JoinCreate extends Component {
 
 		}).catch(function(err) {
 			Notify.show([{
-				message: '后台出错请联系管理员',
+				message: '后台出错请联系管理员5',
 				type: 'danger',
 			}]);
 		});
