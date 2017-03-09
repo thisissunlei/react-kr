@@ -556,7 +556,7 @@ class SignedClient extends Component{
 							State.openEditMerchants||
 							State.openLookMerchants
 						)&&
-							<div className="mask"
+							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
 							>
 							</div>
