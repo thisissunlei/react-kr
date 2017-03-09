@@ -93,10 +93,15 @@ export default class DateComponent extends React.Component {
 
 	formatDate = (value) => {
 
-		console.log('-->>>',value);
+		var dtArr = [];
+		
+		if(typeof value === 'string'){
+			value = value.trim();
+			value = value.split(' ')[0];
+			dtArr = value.split('-');
+		}
 
-		var dt = new Date();
-		dt.setTime(Date.parse(value));
+		var dt = new Date(dtArr[0],dtArr[1],dtArr[2]);
 
 		var year = dt.getFullYear();
 
