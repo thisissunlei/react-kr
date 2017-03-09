@@ -43,29 +43,6 @@ export default class DateComponent extends React.Component {
 
 	}
 
-	setDefaultDate(value) {
-
-		if (!value) {
-			return;
-		}
-
-		if (typeof value === 'string') {
-			value = new Date(Date.parse(value));
-			this.setInputValue(value);
-		}
-
-		if (typeof value === 'number') {
-			this.setInputValue(value);
-			value = new Date(value);
-		}
-
-		this.setState({
-			value
-		});
-
-		this.isInit = true;
-	}
-
 	setInputValue = (value) => {
 
 		let {
@@ -94,7 +71,7 @@ export default class DateComponent extends React.Component {
 	formatDate = (value) => {
 
 		var dtArr = [];
-		
+
 		if(typeof value === 'string'){
 			value = value.trim();
 			value = value.split(' ')[0];
