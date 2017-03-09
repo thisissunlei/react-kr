@@ -453,14 +453,14 @@ class NewCreateForm extends Component {
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
-		let allMoney = 0;
+		// let allMoney = 0;
 		this.setAllRent(stationVos);
 		
 	}
 	setAllRent=(list)=>{
 		let _this = this;
 		let stationList = list.map((item)=>{
-			if(!item.unitprice){
+			if(!item.unitprice||isNaN(item.unitprice)){
 				item.unitprice = 0;
 			}
 			return item;
