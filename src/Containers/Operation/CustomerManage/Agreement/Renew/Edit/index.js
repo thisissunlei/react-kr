@@ -109,7 +109,7 @@ export default class JoinCreate extends Component {
 
       initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 
-      optionValues.contractCode = response.contractCode;
+      // optionValues.contractCode = response.contractCode;
       
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;

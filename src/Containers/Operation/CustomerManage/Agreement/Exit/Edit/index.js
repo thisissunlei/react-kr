@@ -110,7 +110,7 @@ export default class EditCreate extends Component {
         item.label = item.dicName;
         return item;
       });
-      optionValues.contractCode = response.contractCode;
+      // optionValues.contractCode = response.contractCode;
       optionValues.floorList = response.customer.floor;
       optionValues.customerName = response.customer.customerName;
       optionValues.leaseAddress = response.customer.customerAddress;

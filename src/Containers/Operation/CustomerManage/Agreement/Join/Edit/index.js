@@ -114,7 +114,7 @@ export default class JoinCreate extends Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
-			optionValues.contractCode = response.contractCode;
+			// optionValues.contractCode = response.contractCode;
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
