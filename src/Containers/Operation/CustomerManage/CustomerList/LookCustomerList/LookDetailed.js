@@ -142,7 +142,9 @@ class LookDetail extends Component{
 		let {editsSwitch,IndentSwitch}=this.props;
 		let recordDevelop=State.recordDevelop;
 		let hasOffice=detail.hasOffice;
-		if(hasOffice=="YES"){
+		if(hasOffice==''){
+			hasOffice = ''
+		}else if(hasOffice=="YES"){
 			hasOffice="是 ";
 			isDeadline=true;
 		}else{
