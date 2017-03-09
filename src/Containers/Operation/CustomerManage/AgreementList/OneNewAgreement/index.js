@@ -70,10 +70,15 @@ import newIndentState from "../NewIndent/State";
 		// allState.reduce=true;
 		//续租合同是否可创建
 		allState.relet=response.relet;
+		
 		//allState.relet=true;
 		//退组合同是否可创建
 		allState.returnRent=response.returnRent;
         if(!allState.enter&&!allState.increase&&!allState.reduce&&!allState.relet&&!allState.returnRent){
+        	if(response.quitRentAll>0){
+        		Message.error('该订单已签订退租，无法继续签订合同');
+        		return ;
+        	}
         	Message.error('没有合同可以创建');
         	return ;
         }
