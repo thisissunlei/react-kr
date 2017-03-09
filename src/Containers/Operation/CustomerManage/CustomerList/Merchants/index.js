@@ -525,8 +525,9 @@ class Merchants extends Component{
 							State.openEditCustomerList||
 							State.openNewCustomerIndent
 						)&&
-							<div className="mask"
+							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
+							}
 							>
 							</div>
 					}
