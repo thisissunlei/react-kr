@@ -48,6 +48,7 @@ import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
+import Editor from './Editor';
 
 
 import {
@@ -117,6 +118,7 @@ module.exports = {
 	...KrForm,
 	InputDate,
 	SnackTip,
+	Editor,
 
 	//materal-ui
 	Menu,

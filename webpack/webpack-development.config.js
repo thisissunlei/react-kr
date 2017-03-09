@@ -83,29 +83,12 @@ const config = {
 			hash:true,
 			cache:false,
 			showErrors:true,
-			/*
-			chunksSortMode:function(a,b){
-				 if (a.names[0] > b.names[0]) {
-       				 return 1;
-     			 }
-     			 if (a.names[0] < b.names[0]) {
-        			return -1;
-     			 }
-     			 return 0;
-			}
-			*/
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
 		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','scripts'),to:path.join(process.cwd(),'dist','scripts')}
-		]),
-		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','images'),to:path.join(process.cwd(),'dist','images')}
-		]),
-		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','styles'),to:path.join(process.cwd(),'dist','styles')}
+			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
 		])
 	],
 	watch: true,
