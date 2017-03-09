@@ -89,13 +89,13 @@ class SelectStationForm extends Component {
 		let endDate = leaseEnddate;
 		let rentBeginDate = Date.parse(dateFormat(value, 'yyyy-mm-dd') + ' 00:00:00');
 
-		if (endDate < rentBeginDate) {
-			Notify.show([{
-				message: '选择的减租开始时间不能大于租赁期限的终止时间',
-				type: 'danger',
-			}]);
-			return false;
-		}
+		// if (endDate < rentBeginDate) {
+		// 	Notify.show([{
+		// 		message: '选择的减租开始时间不能大于租赁期限的终止时间',
+		// 		type: 'danger',
+		// 	}]);
+		// 	return false;
+		// }
 
 		if (!selected.length) {
 			Notify.show([{
