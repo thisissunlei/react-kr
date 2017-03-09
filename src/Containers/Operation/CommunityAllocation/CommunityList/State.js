@@ -17,7 +17,7 @@ import {
 let State = observable({
 		searchParams:{
 			page:1,	
-			pageSize:15	
+			pageSize:15,
 		},
 		//新建社区
 		openNewCommunity:false,
@@ -60,15 +60,7 @@ State.searchDataHere = action(function() {
 State.switchEditList = action(function() {
 	this.openEditCommunity=!this.openEditCommunity;
 })
-//获取社区编辑信息
-State.getEditCustomerList = action(function(id) {
-	 var _this=this;
-	 Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
-	   _this.getData=response;
-	}).catch(function(err) {
-		 Message.error(err.message);
-	});	
-})
+
 //校验社区名称
 State.communityName = action(function(params) {
 	 var _this=this;

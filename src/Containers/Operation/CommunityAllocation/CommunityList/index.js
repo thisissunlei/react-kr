@@ -42,6 +42,7 @@ import {
 	Button,
 	KrField,
 	Form,
+	KrDate,
 	Loading,
 	BreadCrumbs,
 	Title,
@@ -61,52 +62,69 @@ class CommunityList  extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			
+			id:''
 		}
 	}
 
    //新建社区开关
    openAddCommunity=()=>{
+   	  State.searchDataHere();
       State.switchNewCommunityList();
+   }
+   //新建社区关闭
+   cancelAddCommunity=()=>{
+   	  State.switchNewCommunityList(); 
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
-   	   console.log('---00000--',value);
-   	   delete value.local;
-   	   var brights=[];
-   	    value.bright1.map((item,index)=>{
+   	    var brightsStr=[];
+   	    if(value.bright1){
+   	      value.bright1.map((item,index)=>{
    	   	 if(item.type&&item.brightPoints){
-           brights.push({type:item.type,brightPoints:item.brightPoints})
+           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	    value.bright2.map((item,index)=>{
+   	     delete value.bright1;	
+   	    }
+   	    if(value.bright2){
+   	      value.bright2.map((item,index)=>{
    	   	 if(item.type&&item.brightPoints){
-           brights.push({type:item.type,brightPoints:item.brightPoints})
+           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
-   	   })
-   	    value.bright3.map((item,index)=>{
+   	     })
+   	     delete value.bright2;	
+   	    }
+   	    if(value.bright3){
+   	      value.bright3.map((item,index)=>{
    	   	 if(item.type&&item.brightPoints){
-           brights.push({type:item.type,brightPoints:item.brightPoints})
+           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
-   	   })
-   	    value.bright4.map((item,index)=>{
-   	   	 if(item.type&&item.brightPoints){
-           brights.push({type:item.type,brightPoints:item.brightPoints})
+   	     })
+   	      delete value.bright3;	
+   	    }
+   	    if(value.bright4){
+   	      value.bright4.map((item,index)=>{
+   	   	  if(item.type&&item.brightPoints){
+           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
-   	   })
+   	     })
+   	      delete value.bright4;	
+   	    }	    
    	    if(value.bright5){
-   	      brights.push({type:'TRANSPORTATION',brightPoints:value.bright5.brightPoints});
+   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.bright5.brightPoints});
+   	      delete value.bright5;
    	    }
    	    if(value.bright6){	    	
-   	      brights.push({type:'PERIMETER',brightPoints:value.bright6.brightPoints});
-   	    }
-   	    delete value.bright1;
-   	    delete value.bright2;
-   	    delete value.bright3;
-   	    delete value.bright4;
-   	    delete value.bright5;
-   	    delete value.bright6;
-   	    value.brights=brights;
+   	      brightsStr.push({type:'PERIMETER',brightPoints:value.bright6.brightPoints});
+   	      delete value.bright6;
+   	    } 	    
+   	    if(brightsStr.length!=0){
+   	       value.brightsStr=JSON.stringify(brightsStr); 	
+   	    }     
+   	    value.wherefloorsStr=JSON.stringify(value.wherefloorsStr);
+   	    if(value.porTypesStr){
+   	      value.porTypesStr=JSON.stringify(value.porTypesStr); 
+   	    } 
    	    State.onNewCommunitySubmit(value);
    }
    //查询
@@ -121,7 +139,10 @@ class CommunityList  extends Component{
    //编辑
    onOperation=(type,itemDetail)=>{
       if(type=='watch'){
-      	 State.getEditCustomerList(itemDetail.id);
+      	 this.setState({
+      	 	id:itemDetail.id
+      	 })
+      	 State.searchDataHere();
       	 State.switchEditList();
       }
    }
@@ -142,6 +163,7 @@ class CommunityList  extends Component{
       State.searchParams.countyId='';
       State.searchParams.searchKey='';
       State.searchParams.searchType='';
+      
       State.searchUpperCustomer();
       
 	}
@@ -173,14 +195,43 @@ class CommunityList  extends Component{
      //导出
 	onExport=(values)=> {
 		let {searchParams} = State;
-		let ids = [];
-		if (values.length != 0) {
-			values.map((item, value) => {
-				ids.push(item.id)
-			});
-		}
-		var url = `/api/krspace-finance-web/cmt/community/export?searchParams=${searchParams}&ids=${ids}`
-		window.location.href = url;
+            if(!searchParams.searchKey){
+               searchParams.searchKey='';
+            }
+            if(!searchParams.opened){
+               searchParams.opened='';
+            }
+            if(!searchParams.openDateEnd){
+               searchParams.openDateEnd='';
+            }
+            if(!searchParams.openDateBegin){
+               searchParams.openDateBegin='';
+            }
+            if(!searchParams.businessAreaId){
+               searchParams.businessAreaId='';
+            }
+            if(!searchParams.portalShow){
+               searchParams.portalShow='';
+            }
+            if(!searchParams.cityId){
+               searchParams.cityId='';
+            }
+            if(!searchParams.countyId){
+               searchParams.countyId='';
+            }
+            if(!searchParams.searchType){
+               searchParams.searchType='';
+            }
+
+
+			let ids = [];
+			if (values.length != 0) {
+				values.map((item, value) => {
+					ids.push(item.id)
+				});
+			}
+			var url = `/ipi/krspace-finance-web/cmt/community/export?searchType=${searchParams.searchType}&searchKey=${searchParams.searchKey}&cityId=${searchParams.cityId}&opened=${searchParams.opened}&openDateEnd=${searchParams.openDateEnd}&openDateBegin=${searchParams.openDateBegin}&businessAreaId=${searchParams.businessAreaId}&portalShow=${searchParams.portalShow}&countyId=${searchParams.countyId}&ids=${ids}`
+			window.location.href = url;
 	}
 
 
@@ -256,7 +307,11 @@ class CommunityList  extends Component{
 			                <TableRowColumn name="name"></TableRowColumn>
 			                <TableRowColumn name="orderNum"></TableRowColumn>
 			                <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
-			                <TableRowColumn name="openDate"></TableRowColumn>
+			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
+						                				
+														 return (<KrDate value={value} format="yyyy-mm-dd"/>
+														 	)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
@@ -276,7 +331,7 @@ class CommunityList  extends Component{
 			        >
 						<NewCommunityList
 								onSubmit={this.onNewCommunitySubmit}
-								onCancel={this.openAddCommunity}
+								onCancel={this.cancelAddCommunity}
 								open={State.openNewCommunity}
 						/>
 
@@ -293,6 +348,7 @@ class CommunityList  extends Component{
 								onSubmit={this.onNewCommunitySubmit}
 								onCancel={this.switchEditList}
 								open={State.openEditCommunity}
+								id={this.state.id}
 						/>
 
 		            </Drawer>
