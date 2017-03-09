@@ -11,13 +11,13 @@ export default class Editor extends React.Component{
   }
 
   componentDidMount(){
-    var um = UM.getEditor('myEditor');
+          var ue = UE.getEditor('container');
   }
 
   render() {
 
     return (
-       <div id="myEditor"> sdfdsds </div>
+       <div id="container"> sdfdsds </div>
        );
   }
 }
