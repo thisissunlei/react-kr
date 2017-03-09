@@ -106,13 +106,7 @@ const config = {
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','scripts'),to:path.join(process.cwd(),'dist','scripts')}
-		]),
-		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','images'),to:path.join(process.cwd(),'dist','images')}
-		]),
-		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','styles'),to:path.join(process.cwd(),'dist','styles')}
+			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
 		])
 	],
 	module: {
