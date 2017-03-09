@@ -163,7 +163,11 @@ export default class JoinCreate extends Component {
 
 				initialValues.lessorContactid = response.lessorContactid;
 				initialValues.lessorContactName = response.lessorContactName;
-
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
 				initialValues.leaseId = response.leaseId;
 				initialValues.leaseAddress = response.leaseAddress;
 				initialValues.leaseContact = response.leaseContact;

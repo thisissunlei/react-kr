@@ -756,7 +756,7 @@ class NewCreateForm extends Component {
 				
 				</div>
 
-							<div className="end-round"></div>
+						<div className="end-round"></div>
 					</div>
 				</div>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>

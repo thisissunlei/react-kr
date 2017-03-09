@@ -23,6 +23,7 @@ export default class SearchForms extends Component{
 		this.state = {
 			num : 0,
 			value:'',
+			otherName:'',
 		};
 		this.hasClass = this.hasClass.bind(this);
 		this.removeClass = this.removeClass.bind(this);
@@ -227,6 +228,9 @@ export default class SearchForms extends Component{
 		let select ='请选择';
 		if(searchFilter){
 			select = searchFilter[0].label;
+			this.setState({otherName:'ui-otherName'})
+		}else{
+			this.setState({otherName:''});
 		}
 		
 		// console.log('searchFilter',searchFilter);
@@ -259,12 +263,13 @@ export default class SearchForms extends Component{
 		var placeholder=this.props.placeholder||"请输入查找内容"
 
 		let {style,inputName} = this.props;
+		let {otherName} = this.state;
 
 		if(!inputName){
 			inputName='keywords';
 		}
 		return (
-			<div className="search-form " ref={div=>{this.form = div}} name="search-form" style={style}>
+			<div className={`search-form ${otherName}`} ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >
 					{this.renderFilter()}
 
