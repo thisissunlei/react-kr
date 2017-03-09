@@ -42,6 +42,15 @@ import './index.less'
 		let _this=this;
 		let {operType}=this.props;
 		values.operType=this.props.operType;
+		if(!values.staionPrice){
+			values.staionPrice='';
+		}
+		if(!values.inTime){
+			values.inTime='';
+		}
+		if(!values.teamNum){
+			values.teamNum='';
+		}
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={
@@ -108,7 +117,7 @@ import './index.less'
 	}
 	componentDidMount(){
 	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
-		 Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 
 	}
     closemm=()=>{
@@ -142,10 +151,10 @@ import './index.less'
 									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
 											options={dataReady.stationTypeList}
-											requireLabel={true}
+											requireLabel={false}
 									/>
 									<KrField grid={1/2} label="联系人电话" name="tel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={true}>
+									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={false}>
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 								
@@ -166,9 +175,9 @@ import './index.less'
 								/>
 								{State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该公司名称已存在</div>}
 								</div>
-                                <div className="krFlied-box"><KrField grid={1/2} label="公司规模" name="teamNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">人</span></div>
+                                <div className="krFlied-box"><KrField grid={1/2} label="公司规模" name="teamNum" style={{width:239,marginLeft:16}} component="input" requireLabel={false}></KrField><span className="unit">人</span></div>
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
+								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={false} />
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input"/>
 								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" treeAll={State.treeAll} open={open}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input"/>
@@ -244,13 +253,9 @@ const validate = values =>{
 		}
 
 
-		if (!values.staionTypeId) {
-			errors.staionTypeId = '请填写意向工位类型';
-		}
+		
 
-        if (!values.distinctId) {
-			errors.distinctId= '请填写所属地区';
-		}
+       
 
 		
 
@@ -261,14 +266,12 @@ const validate = values =>{
 			errors.tel = '联系人电话格式错误';
 		}
 
-		if (!values.staionPrice) {
-			errors.staionPrice = '请填写意向工位价格';
-		}
+		
 		// else if(!RMB.test(values.staionPrice)){
 		// 	errors.staionPrice = '工位价格不得超过1亿';
 		// }
-
-		if(!staionPriceReg.test(values.staionPrice)){
+		//意向工位价格
+		if(values.staionPrice&&!staionPriceReg.test(values.staionPrice)){
 			errors.staionPrice = '小数点前8位，小数点后2位';
 		}
 
@@ -290,15 +293,13 @@ const validate = values =>{
 		}else if(values.company.length>20){
 			errors.company = '最多输入20个字符';
 		}
-
-		if (!values.teamNum) {
-			errors.teamNum = '请填写公司规模';
-		}else if(isNaN(values.teamNum)){
+		//公司规模
+		if(values.teamNum&&isNaN(values.teamNum)){
 			errors.teamNum = '请输入数字';
-		}else if(values.teamNum.length>8){
+		}else if(values.teamNum&&values.teamNum.length>8){
 			errors.teamNum = '最多输入8个字符';
 		}
-		if(!stationN.test(values.teamNum)){
+		if(values.teamNum&&!stationN.test(values.teamNum)){
 			errors.teamNum = '请输入8位以内正整数,不能以0开头';
 		}
 

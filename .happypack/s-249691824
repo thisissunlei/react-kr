@@ -1,0 +1,70 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DialogFooter = function (_Component) {
+	_inherits(DialogFooter, _Component);
+
+	function DialogFooter() {
+		_classCallCheck(this, DialogFooter);
+
+		return _possibleConstructorReturn(this, (DialogFooter.__proto__ || Object.getPrototypeOf(DialogFooter)).apply(this, arguments));
+	}
+
+	_createClass(DialogFooter, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    children = _props.children,
+			    style = _props.style;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'dialog-footer', ref: 'dialogFooter' },
+				children
+			);
+		}
+	}]);
+
+	return DialogFooter;
+}(_react.Component);
+
+DialogFooter.displayName = 'DialogFooter';
+DialogFooter.propTypes = {
+	children: _react2.default.PropTypes.node
+};
+exports.default = DialogFooter;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(DialogFooter, 'DialogFooter', '/Users/liuyihao/Code/kr-admin/src/Components/Dialog/DialogFooter/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RpYWxvZy9EaWFsb2dGb290ZXIvaW5kZXguanMiXSwibmFtZXMiOlsiRGlhbG9nRm9vdGVyIiwicHJvcHMiLCJjaGlsZHJlbiIsInN0eWxlIiwiZGlzcGxheU5hbWUiLCJwcm9wVHlwZXMiLCJQcm9wVHlwZXMiLCJub2RlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFBQTs7OztBQUlBOzs7Ozs7Ozs7Ozs7SUFFcUJBLFk7Ozs7Ozs7Ozs7OzJCQVNYO0FBQUEsZ0JBRW1CLEtBQUtDLEtBRnhCO0FBQUEsT0FFQUMsUUFGQSxVQUVBQSxRQUZBO0FBQUEsT0FFVUMsS0FGVixVQUVVQSxLQUZWOzs7QUFJUixVQUNFO0FBQUE7QUFBQSxNQUFLLFdBQVUsZUFBZixFQUErQixLQUFJLGNBQW5DO0FBQ0dEO0FBREgsSUFERjtBQU1BOzs7Ozs7QUFuQm1CRixZLENBRWJJLFcsR0FBYyxjO0FBRkRKLFksQ0FJYkssUyxHQUFZO0FBQ2hCSCxXQUFTLGdCQUFNSSxTQUFOLENBQWdCQztBQURULEM7a0JBSkNQLFk7Ozs7Ozs7OytCQUFBQSxZIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7XG5cdENvbXBvbmVudFxufSBmcm9tICdyZWFjdCc7XG5cbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBEaWFsb2dGb290ZXIgZXh0ZW5kcyBDb21wb25lbnQge1xuXG5cdHN0YXRpYyBkaXNwbGF5TmFtZSA9ICdEaWFsb2dGb290ZXInO1xuXG5cdHN0YXRpYyBwcm9wVHlwZXMgPSB7XG4gICAgY2hpbGRyZW46UmVhY3QuUHJvcFR5cGVzLm5vZGVcblx0fVxuXG5cblx0cmVuZGVyKCkge1xuXG5cdFx0Y29uc3QgeyBjaGlsZHJlbiAsc3R5bGV9ID0gdGhpcy5wcm9wcztcblxuXHRcdHJldHVybiAoXG5cdFx0XHRcdDxkaXYgY2xhc3NOYW1lPVwiZGlhbG9nLWZvb3RlclwiIHJlZj1cImRpYWxvZ0Zvb3RlclwiID5cblx0XHRcdFx0XHRcdHtjaGlsZHJlbn1cblx0XHRcdCAgIDwvZGl2PlxuXHRcdCk7XG5cblx0fVxufVxuIl19

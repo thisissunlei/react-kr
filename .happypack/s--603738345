@@ -1,0 +1,113 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _DrawerBody = require('./DrawerBody');
+
+var _DrawerBody2 = _interopRequireDefault(_DrawerBody);
+
+var _DrawerModal = require('./DrawerModal');
+
+var _DrawerModal2 = _interopRequireDefault(_DrawerModal);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DrawerSimpleExample = function (_React$Component) {
+  _inherits(DrawerSimpleExample, _React$Component);
+
+  function DrawerSimpleExample(props) {
+    _classCallCheck(this, DrawerSimpleExample);
+
+    var _this = _possibleConstructorReturn(this, (DrawerSimpleExample.__proto__ || Object.getPrototypeOf(DrawerSimpleExample)).call(this, props));
+
+    _this.onClose = function () {
+      var onClose = _this.props.onClose;
+
+      onClose && onClose();
+    };
+
+    return _this;
+  }
+
+  _createClass(DrawerSimpleExample, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          children = _props.children,
+          open = _props.open,
+          contentStyle = _props.contentStyle,
+          width = _props.width;
+
+
+      if (!open) {
+
+        return null;
+      }
+
+      contentStyle = (0, _simpleAssign2.default)({}, contentStyle);
+
+      if (width) {
+        contentStyle = (0, _simpleAssign2.default)({}, contentStyle, { width: width });
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'ui-drawer' },
+        _react2.default.createElement(_DrawerModal2.default, { onClose: this.onClose }),
+        _react2.default.createElement(
+          _DrawerBody2.default,
+          { style: contentStyle },
+          ' ',
+          children,
+          ' '
+        )
+      );
+    }
+  }]);
+
+  return DrawerSimpleExample;
+}(_react2.default.Component);
+
+DrawerSimpleExample.defaultProps = {
+  width: 1000
+};
+DrawerSimpleExample.propTypes = {
+  open: _react2.default.PropTypes.bool,
+  width: _react2.default.PropTypes.number,
+  contentStyle: _react2.default.PropTypes.object,
+  onClose: _react2.default.PropTypes.func
+};
+exports.default = DrawerSimpleExample;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DrawerSimpleExample, 'DrawerSimpleExample', '/Users/liuyihao/Code/kr-admin/src/Components/Drawer/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RyYXdlci9pbmRleC5qcyJdLCJuYW1lcyI6WyJEcmF3ZXJTaW1wbGVFeGFtcGxlIiwicHJvcHMiLCJvbkNsb3NlIiwiY2hpbGRyZW4iLCJvcGVuIiwiY29udGVudFN0eWxlIiwid2lkdGgiLCJDb21wb25lbnQiLCJkZWZhdWx0UHJvcHMiLCJwcm9wVHlwZXMiLCJQcm9wVHlwZXMiLCJib29sIiwibnVtYmVyIiwib2JqZWN0IiwiZnVuYyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7OztBQUFBOzs7O0FBR0E7Ozs7QUFDQTs7OztBQUVBOzs7Ozs7Ozs7O0lBRXFCQSxtQjs7O0FBYW5CLCtCQUFZQyxLQUFaLEVBQW1CO0FBQUE7O0FBQUEsMElBQ1hBLEtBRFc7O0FBQUEsVUFLbkJDLE9BTG1CLEdBS1YsWUFBSTtBQUFBLFVBQ0pBLE9BREksR0FDTyxNQUFLRCxLQURaLENBQ0pDLE9BREk7O0FBRVhBLGlCQUFXQSxTQUFYO0FBQ0QsS0FSa0I7O0FBQUE7QUFFbEI7Ozs7NkJBUVE7QUFBQSxtQkFFa0MsS0FBS0QsS0FGdkM7QUFBQSxVQUVGRSxRQUZFLFVBRUZBLFFBRkU7QUFBQSxVQUVPQyxJQUZQLFVBRU9BLElBRlA7QUFBQSxVQUVZQyxZQUZaLFVBRVlBLFlBRlo7QUFBQSxVQUV5QkMsS0FGekIsVUFFeUJBLEtBRnpCOzs7QUFJUCxVQUFHLENBQUNGLElBQUosRUFBUzs7QUFFUCxlQUFPLElBQVA7QUFDRDs7QUFFREMscUJBQWUsNEJBQWMsRUFBZCxFQUFpQkEsWUFBakIsQ0FBZjs7QUFFQSxVQUFHQyxLQUFILEVBQVM7QUFDUEQsdUJBQWUsNEJBQWMsRUFBZCxFQUFpQkEsWUFBakIsRUFBOEIsRUFBQ0MsT0FBTUEsS0FBUCxFQUE5QixDQUFmO0FBQ0Q7O0FBRUQsYUFFRTtBQUFBO0FBQUEsVUFBSyxXQUFVLFdBQWY7QUFDRSwrREFBYSxTQUFTLEtBQUtKLE9BQTNCLEdBREY7QUFFRTtBQUFBO0FBQUEsWUFBWSxPQUFPRyxZQUFuQjtBQUFBO0FBQW1DRixrQkFBbkM7QUFBQTtBQUFBO0FBRkYsT0FGRjtBQVFEOzs7O0VBOUM4QyxnQkFBTUksUzs7QUFBbENQLG1CLENBR1pRLFksR0FBZTtBQUNwQkYsU0FBTTtBQURjLEM7QUFISE4sbUIsQ0FNWlMsUyxHQUFZO0FBQ2pCTCxRQUFLLGdCQUFNTSxTQUFOLENBQWdCQyxJQURKO0FBRWpCTCxTQUFNLGdCQUFNSSxTQUFOLENBQWdCRSxNQUZMO0FBR2pCUCxnQkFBYSxnQkFBTUssU0FBTixDQUFnQkcsTUFIWjtBQUlqQlgsV0FBUSxnQkFBTVEsU0FBTixDQUFnQkk7QUFKUCxDO2tCQU5BZCxtQjs7Ozs7Ozs7Z0NBQUFBLG1CIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcblxuXG5pbXBvcnQgRHJhd2VyQm9keSBmcm9tICcuL0RyYXdlckJvZHknO1xuaW1wb3J0IERyYXdlck1vZGFsICBmcm9tICcuL0RyYXdlck1vZGFsJztcblxuaW1wb3J0ICcuL2luZGV4Lmxlc3MnO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBEcmF3ZXJTaW1wbGVFeGFtcGxlIGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50IHtcblxuXG4gIHN0YXRpYyBkZWZhdWx0UHJvcHMgPSB7XG4gICAgd2lkdGg6MTAwMCxcbiAgfVxuICBzdGF0aWMgcHJvcFR5cGVzID0ge1xuICAgIG9wZW46UmVhY3QuUHJvcFR5cGVzLmJvb2wsXG4gICAgd2lkdGg6UmVhY3QuUHJvcFR5cGVzLm51bWJlcixcbiAgICBjb250ZW50U3R5bGU6UmVhY3QuUHJvcFR5cGVzLm9iamVjdCxcbiAgICBvbkNsb3NlOlJlYWN0LlByb3BUeXBlcy5mdW5jLFxuICB9XG5cbiAgY29uc3RydWN0b3IocHJvcHMpIHtcbiAgICBzdXBlcihwcm9wcyk7XG4gIH1cblxuXG4gIG9uQ2xvc2UgPSgpPT57XG4gICAgY29uc3Qge29uQ2xvc2V9ID0gdGhpcy5wcm9wcztcbiAgICBvbkNsb3NlICYmIG9uQ2xvc2UoKTtcbiAgfVxuXG4gIHJlbmRlcigpIHtcblxuICAgIGxldCB7Y2hpbGRyZW4sb3Blbixjb250ZW50U3R5bGUsd2lkdGh9ID0gdGhpcy5wcm9wcztcblxuICAgIGlmKCFvcGVuKXtcblxuICAgICAgcmV0dXJuIG51bGw7XG4gICAgfVxuXG4gICAgY29udGVudFN0eWxlID0gT2JqZWN0LmFzc2lnbih7fSxjb250ZW50U3R5bGUpO1xuXG4gICAgaWYod2lkdGgpe1xuICAgICAgY29udGVudFN0eWxlID0gT2JqZWN0LmFzc2lnbih7fSxjb250ZW50U3R5bGUse3dpZHRoOndpZHRofSk7XG4gICAgfVxuXG4gICAgcmV0dXJuIChcblxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJ1aS1kcmF3ZXJcIj5cbiAgICAgICAgPERyYXdlck1vZGFsIG9uQ2xvc2U9e3RoaXMub25DbG9zZX0vPlxuICAgICAgICA8RHJhd2VyQm9keSBzdHlsZT17Y29udGVudFN0eWxlfT4ge2NoaWxkcmVufSA8L0RyYXdlckJvZHk+XG4gICAgICA8L2Rpdj5cblxuICAgICk7XG4gIH1cbn0iXX0=

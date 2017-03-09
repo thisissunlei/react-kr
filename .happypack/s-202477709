@@ -1,0 +1,61 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SplitLine = function (_Component) {
+	_inherits(SplitLine, _Component);
+
+	function SplitLine() {
+		_classCallCheck(this, SplitLine);
+
+		return _possibleConstructorReturn(this, (SplitLine.__proto__ || Object.getPrototypeOf(SplitLine)).apply(this, arguments));
+	}
+
+	_createClass(SplitLine, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'split-line' },
+				_react2.default.createElement('span', { className: 'circle' }),
+				_react2.default.createElement('span', { className: 'line' }),
+				_react2.default.createElement('span', { className: 'circle' })
+			);
+		}
+	}]);
+
+	return SplitLine;
+}(_react.Component);
+
+exports.default = SplitLine;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SplitLine, 'SplitLine', '/Users/liuyihao/Code/kr-admin/src/Components/SplitLine/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL1NwbGl0TGluZS9pbmRleC5qcyJdLCJuYW1lcyI6WyJTcGxpdExpbmUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7OztBQUFBOzs7O0FBQ0E7Ozs7Ozs7Ozs7SUFFcUJBLFM7Ozs7Ozs7Ozs7OzJCQUVaO0FBQ1AsVUFDQztBQUFBO0FBQUEsTUFBSyxXQUFVLFlBQWY7QUFDQyw0Q0FBTSxXQUFVLFFBQWhCLEdBREQ7QUFFQyw0Q0FBTSxXQUFVLE1BQWhCLEdBRkQ7QUFHQyw0Q0FBTSxXQUFVLFFBQWhCO0FBSEQsSUFERDtBQVFBOzs7Ozs7a0JBWG1CQSxTOzs7Ozs7OzsrQkFBQUEsUyIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCx7Q29tcG9uZW50fSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgJy4vaW5kZXgubGVzcyc7XG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIFNwbGl0TGluZSBleHRlbmRzIENvbXBvbmVudHtcblxuXHRyZW5kZXIoKXtcblx0XHRyZXR1cm4gKFxuXHRcdFx0PGRpdiBjbGFzc05hbWU9XCJzcGxpdC1saW5lXCI+XG5cdFx0XHRcdDxzcGFuIGNsYXNzTmFtZT1cImNpcmNsZVwiPjwvc3Bhbj5cblx0XHRcdFx0PHNwYW4gY2xhc3NOYW1lPVwibGluZVwiPjwvc3Bhbj5cblx0XHRcdFx0PHNwYW4gY2xhc3NOYW1lPVwiY2lyY2xlXCI+PC9zcGFuPlxuXG5cdFx0XHQ8L2Rpdj5cblx0XHQpXG5cdH1cbn0iXX0=

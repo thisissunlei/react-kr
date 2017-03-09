@@ -74,7 +74,7 @@ class Personal extends Component{
 		customerItem.map(function(item,index){
           Store.dispatch(change('NewCustomerList',item,''));
 		})
-		Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		// Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
 		// if(response.hasOffice=="YES"){
 		// 	State.hasOfficeChange(true);

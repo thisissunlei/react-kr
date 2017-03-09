@@ -32,7 +32,8 @@ import {
 	Form,
 	Loading,
 	BreadCrumbs,
-	Title
+	Title,
+	Message
 } from 'kr-ui';
 import './index.less'
 import State from './State';

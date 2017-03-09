@@ -8,6 +8,10 @@ import * as actionCreators from '../../../Redux/Actions';
 import { AppBar, Menu, MenuItem,IconMenu, IconButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
 
 
+import {
+	Button
+} from 'kr-ui';
+
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
@@ -149,7 +153,7 @@ class Header extends Component {
 		if(!item.permission){
 			return null;
 		}
-		
+
 		let styles = {
 			color: '#666666',
 			width: 'auto',
@@ -176,7 +180,7 @@ class Header extends Component {
 
 
 		return (
-			<FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px",fontWeight:0}} />
+			<Button type="link" label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px",fontWeight:0}} />
 		);
 
 	}

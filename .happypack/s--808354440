@@ -1,0 +1,26 @@
+'use strict';
+
+var _Detail = require('./Detail');
+
+var _Detail2 = _interopRequireDefault(_Detail);
+
+var _CompanyMembers = require('./CompanyMembers');
+
+var _CompanyMembers2 = _interopRequireDefault(_CompanyMembers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Detail: _Detail2.default,
+	CompanyMembers: _CompanyMembers2.default
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db250YWluZXJzL09wZXJhdGlvbi9Db21tdW5pdHlNYW5hZ2UvaW5kZXguanMiXSwibmFtZXMiOlsibW9kdWxlIiwiZXhwb3J0cyIsIkRldGFpbCIsIkNvbXBhbnlNZW1iZXJzIl0sIm1hcHBpbmdzIjoiOztBQUFBOzs7O0FBQ0E7Ozs7OztBQUVBQSxPQUFPQyxPQUFQLEdBQWlCO0FBQ2hCQyx5QkFEZ0I7QUFFaEJDO0FBRmdCLENBQWpCIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZGVmYXVsdCBhcyBEZXRhaWwgfSBmcm9tICcuL0RldGFpbCc7XG5pbXBvcnQgeyBkZWZhdWx0IGFzIENvbXBhbnlNZW1iZXJzIH0gZnJvbSAnLi9Db21wYW55TWVtYmVycyc7XG5cbm1vZHVsZS5leHBvcnRzID0ge1xuXHREZXRhaWwsXG5cdENvbXBhbnlNZW1iZXJzLFxufVxuIl19
