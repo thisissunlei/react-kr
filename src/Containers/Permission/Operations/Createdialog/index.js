@@ -44,14 +44,18 @@ class Createdialog extends Component {
 			ModuleList: [],
 			resourceIds: [],
 			errorTip: false,
-			childrenList: [],
-			child: [],
+			childModule: [],
+			childModuleList: [],
 			Params: {
 				parentId: 0
-			}
-
+			},
+			ControllerList: [],
+			ControllerChild: [],
+			ControllerId: '',
+			ModuleId: '',
 		}
 		this.getModuleList();
+		this.getAllController();
 	}
 	onCancel = () => {
 		let {
@@ -60,24 +64,69 @@ class Createdialog extends Component {
 		onCancel && onCancel();
 	}
 	onSubmit = (form) => {
-		let {
-			resourceIds
-		} = this.state;
-
-		if (resourceIds.length > 0) {
-			form.resourceIds = resourceIds;
-
 			let {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(form);
+				resourceIds
+			} = this.state;
 
-		} else {
+			if (resourceIds.length > 0) {
+				form.resourceIds = resourceIds;
+
+				let {
+					onSubmit
+				} = this.props;
+				onSubmit && onSubmit(form);
+
+			} else {
+				this.setState({
+					errorTip: true
+				})
+			}
+
+		}
+		//存储模块Id
+	onSetModuleId = (item) => {
 			this.setState({
-				errorTip: true
+				ModuleId: item.id
 			})
 		}
+		//存储ControllerId
+	onSetController = (item) => {
+		this.setState({
+			ControllerId: item.id
+		})
+	}
+	onSelectController = (item) => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getMethodByControllerId', {
+			controllerId: item.id
+		}, {})).then(function(response) {
+			var ControllerChild = response.methodList.map((item, index) => {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			})
+			_this.setState({
+				ControllerChild: ControllerChild
+			})
 
+		}).catch(function(err) {
+
+		});
+	}
+	getAllController = () => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getAllController', {}, {})).then(function(response) {
+			var ControllerList = response.controllerList.map((item, index) => {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			})
+			_this.setState({
+				ControllerList: ControllerList
+			})
+		}).catch(function(err) {
+
+		});
 	}
 	getModuleList = () => {
 		let {
@@ -129,36 +178,67 @@ class Createdialog extends Component {
 				parentId: item.id
 			}
 		}, function() {
-			_this.getModuleList();
+			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
+				var ModuleList = response.ssoModuleList.map((item, index) => {
+					item.value = item.id;
+					item.label = item.name;
+					return item;
+				})
+				_this.setState({
+					childModule: ModuleList
+				})
+
+			}).catch(function(err) {
+
+			});
 		})
 
 	}
+	onSelectChild = (item) => {
+		var _this = this;
+		this.setState({
+			Params: {
+				parentId: item.id
+			}
+		}, function() {
+			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
+				var ModuleList = response.ssoModuleList.map((item, index) => {
+					item.value = item.id;
+					item.label = item.name;
+					return item;
+				})
+				_this.setState({
+					childModuleList: ModuleList
+				})
 
+			}).catch(function(err) {
 
+			});
+		})
 
+	}
 	renderModule = () => {
 		let {
-			ModuleList
+			childModule
 		} = this.state;
-		if (ModuleList.length > 0) {
-			var list = ModuleList.map((item, index) => {
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			})
-			var num = Math.random()
+		if (childModule.length > 0) {
 			return (
-				<div>
-					<KrField name={`module${num}`} style={{width:200,marginLeft:40}}  component="select"  options={list} inline={true}  onChange={this.onSelect}/> 
-						
-					
-				</div>
-
+				<KrField name="moduleChild"  style={{width:220}}  component="select" label="" options={childModule} inline={true} onChange={this.onSelectChild}/>
 			)
-
 		}
 	}
+	renderchildModule = () => {
+		let {
+			childModuleList
+		} = this.state;
+		if (childModuleList.length > 0) {
+			return (
+				<KrField name="moduleChildList"  style={{width:220}}  component="select" label="" options={childModuleList} inline={true}  onChange={this.onSetModuleId}/>
+			)
+		}
 
+
+	}
 
 
 	render() {
@@ -175,7 +255,9 @@ class Createdialog extends Component {
 		let {
 			ModuleList,
 			resourceIds,
-			errorTip
+			errorTip,
+			ControllerList,
+			ControllerChild
 		} = this.state;
 
 		return (
@@ -198,15 +280,26 @@ class Createdialog extends Component {
 							requiredValue={true}
 							errors={{requiredValue:'编码为必填项'}}
 							inline={true}
-		/>
+					/>
 					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="enableflag" component="group" label="类型" inline={true} requireLabel={true}>
 	                	<KrField name="enableflag" label="菜单" type="radio" value="MENU" checked={true}/>
 	               		 <KrField name="enableflag" label="操作" type="radio" value="OPERATION" />
 	              	</KrField>
-					<div className="u-operation">
-						<KrField name="paymodel"  style={{width:220,marginLeft:40}}  component="select" label="模块" options={ModuleList} inline={true} requireLabel={true} onChange={this.onSelect}/>
+					<div className="u-operations">
+						<KrField name="module"  style={{width:220,marginLeft:40}}  component="select" label="模块" options={ModuleList} inline={true} requireLabel={true} onChange={this.onSelect}/>
 						{this.renderModule()}
-						
+						{this.renderchildModule()}
+					</div>
+					<div className="u-method">
+						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
+						<div className="u-method-content">
+							<KrField name="controller"  style={{width:220,marginLeft:70}}  component="select" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
+							<KrField name="controllerChild"  style={{width:220}}  component="select" label="" options={ControllerChild} inline={true} onChange={this.onSetController} />
+							<Button label="Add" className="u-method-add" height={34} onTouchTap=''/>
+						</div>
+						<div className="u-method-content-list">
+
+						</div>
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>

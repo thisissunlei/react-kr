@@ -948,6 +948,16 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/resource/getModule?parentId={parentId}',
     method: 'get'
   },
+  //权限--操作项--新建--获取所有controller
+  'getAllController': {
+    url: '/api/krspace-sso-web/sso/method/getAllController',
+    method: 'get'
+  },
+  //权限--操作项--新建--根据类Id查询下面所有方法
+  'getMethodByControllerId': {
+    url: '/api/krspace-sso-web/sso/method/getMethodByControllerId?controllerId={controllerId}',
+    method: 'get'
+  },
 }
 
 module.exports = APIS;

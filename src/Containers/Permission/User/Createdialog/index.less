@@ -7,10 +7,21 @@
 	.ui-form-label{
 		padding-right:20px;
 	}
-	.u-operation{
+	.u-operations{
 		width:100%;
-		min-height:100px;
-		display:inline-block;
+		min-height:40px;
+		position:relative;
+		.ui-form-item{
+			position:absolute;
+			left:0; top:0;
+			&:nth-child(2){
+				left:230px; top:0;
+			}
+			&:nth-child(3){
+				left:390px; top:0;
+			}
+		}
+
 	}
 	.u-operation-label{
 		font-size:14px;
@@ -38,6 +49,35 @@
 		font-size:14px;
 		margin-top:14px;
 		text-align: center;
+	}
+	.u-method-title{
+		font-size:14px;
+		color:#666;
+		padding-left:28px;
+		margin-top:16px;
+		position:relative;
+		.require-label{
+			color: red;
+			position: absolute;
+			left: 16px;
+			top: 5px;
+		}
+	}
+	.u-method-content{
+		position:relative;
+		.ui-form-item{
+			position:absolute;
+			left:0; top:0;
+			&:nth-child(2){
+				left:230px; top:0;
+			}
+			
+		}
+		.u-method-add{
+			position:absolute;
+			left:425px; top:0;
+			width:80px;
+		}
 	}
 
 }

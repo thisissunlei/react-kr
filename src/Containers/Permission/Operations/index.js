@@ -238,7 +238,7 @@ class Operations extends Component {
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
+									<Button label="编辑"   type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
@@ -260,7 +260,7 @@ class Operations extends Component {
 						modal={true}
 						onClose={this.openCreateDialog}
 						open={this.state.openCreateDialog}
-						contentStyle={{width:460}}
+						contentStyle={{width:700}}
 						>
 						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 						
