@@ -496,6 +496,7 @@ class NewCreateForm extends Component {
 		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
 	}
 	onBlur=(item)=>{
+		
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
