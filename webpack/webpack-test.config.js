@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const node_modules_dir = path.join(process.cwd(),'node_modules');
 const HappyPack = require('happypack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var env = process.env.NODE_ENV || 'production';
 
@@ -50,7 +51,7 @@ const config = {
 						 manifest:require(path.resolve(buildPath,'manifest.json')),
 						 name:'lib'
 		}),
-	
+
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
@@ -85,7 +86,16 @@ const config = {
 			showErrors:true,
 			chunksSortMode:'none'
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','scripts'),to:path.join(process.cwd(),'dist','scripts')}
+		]),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','images'),to:path.join(process.cwd(),'dist','images')}
+		]),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','styles'),to:path.join(process.cwd(),'dist','styles')}
+		])
 	],
 	module: {
 		exprContextRegExp: /$^/,

@@ -9,7 +9,6 @@ import SelfAdaption from './SelfAdaption';
 import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
 import Table from './Table/index';
-import Date from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
@@ -83,7 +82,6 @@ module.exports = {
 	SplitLine,
 	Section,
 	BreadCrumbs,
-	Date,
 	Loading,
 	Pagination,
 	Notify,

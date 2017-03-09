@@ -6,6 +6,7 @@ const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const node_modules_dir = path.join(process.cwd(),'node_modules');
 
@@ -48,7 +49,7 @@ const config = {
 			 manifest:require(path.resolve(buildPath,'manifest.json')),
            	 name:'lib'
     }),
-		
+
 	new HappyPack({
 			 id: 'jsx',
 			 threadPool: HappyPack.ThreadPool({ size: 6 }),
@@ -56,7 +57,7 @@ const config = {
    			 verbose: false,
    			 cache:true
   	}),
-  		
+
 
     new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -103,7 +104,16 @@ const config = {
 		minifyCSS:true
 	}
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','scripts'),to:path.join(process.cwd(),'dist','scripts')}
+		]),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','images'),to:path.join(process.cwd(),'dist','images')}
+		]),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','styles'),to:path.join(process.cwd(),'dist','styles')}
+		])
 	],
 	module: {
 		exprContextRegExp: /$^/,
@@ -130,7 +140,7 @@ const config = {
 			},
 			{
 				test: /\.less$/,
-				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
+				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
 			},
 			{
 				test: /\.(png|jpg|gif)$/,

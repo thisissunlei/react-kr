@@ -3,7 +3,7 @@ const path = require('path');
 const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
 
@@ -69,25 +69,6 @@ const config = {
    			 loaders: [ 'babel-loader?cacheDirectory=true' ],
    			 verbose: false
   		}),
-
-	/*
-	 	new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-			},
-			output: {
-				comments: false,
-			},
-		}),
-
-		*/
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
@@ -116,7 +97,16 @@ const config = {
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
+		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','scripts'),to:path.join(process.cwd(),'dist','scripts')}
+		]),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','images'),to:path.join(process.cwd(),'dist','images')}
+		]),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','styles'),to:path.join(process.cwd(),'dist','styles')}
+		])
 	],
 	watch: true,
   keepalive: true,
