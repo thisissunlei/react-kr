@@ -763,7 +763,7 @@ class NewCreateForm extends Component {
 
 
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
-					<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}}  name="fileIdList" component="file" label="上传附件" defaultValue={[]} onChange={(files)=>{
+					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={[]} onChange={(files)=>{
 						Store.dispatch(change('increaseCreateForm','contractFileList',files));
 					}} />
 
