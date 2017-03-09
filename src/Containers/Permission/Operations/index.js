@@ -160,8 +160,16 @@ class Operations extends Component {
 			openCreateDialog: !this.state.openCreateDialog
 		})
 	}
-	onCreatSubmit = () => {
-		this.openCreateDialog();
+	onCreatSubmit = (params) => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('createResources', {}, params)).then(function(response) {
+			_this.openCreateDialog();
+			Message.success('新建成功')
+		}).catch(function(err) {
+			_this.openCreateDialog();
+			Message.error(err.message)
+		});
+
 	}
 	onSearch = (form) => {
 		var searchParams = {}

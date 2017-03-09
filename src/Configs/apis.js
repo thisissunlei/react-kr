@@ -958,6 +958,11 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/method/getMethodByControllerId?controllerId={controllerId}',
     method: 'get'
   },
+  //权限--操作项--新建--保存
+  'createResources': {
+    url: '/api/krspace-sso-web/sso/resource/createResources',
+    method: 'post'
+  },
 }
 
 module.exports = APIS;

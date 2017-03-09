@@ -51,7 +51,7 @@ class Createdialog extends Component {
 			},
 			ControllerList: [],
 			ControllerChild: [],
-			ControllerId: '',
+			ControllerId: [],
 			ControllerItem: {},
 			ControllerChildItem: {},
 			ModuleId: '',
@@ -68,22 +68,24 @@ class Createdialog extends Component {
 	}
 	onSubmit = (form) => {
 			let {
-				resourceIds
+				ModuleId,
+				ControllerId
 			} = this.state;
 
-			if (resourceIds.length > 0) {
-				form.resourceIds = resourceIds;
 
-				let {
-					onSubmit
-				} = this.props;
-				onSubmit && onSubmit(form);
-
-			} else {
-				this.setState({
-					errorTip: true
-				})
+			var params = {
+				code: form.code,
+				methodIds: ControllerId,
+				moduleId: ModuleId,
+				name: form.name,
+				type: form.type
 			}
+			let {
+				onSubmit
+			} = this.props;
+			onSubmit && onSubmit(params);
+
+
 
 		}
 		//存储模块Id
@@ -92,11 +94,12 @@ class Createdialog extends Component {
 				ModuleId: item.id
 			})
 		}
-		//存储ControllerId
+		//存储方法id
 	onSetController = (item) => {
-
+		var idlist = this.state.ControllerId;
+		idlist.push(item.id)
 		this.setState({
-			ControllerId: item.id,
+			ControllerId: idlist,
 			ControllerChildItem: item
 		})
 	}
@@ -329,9 +332,9 @@ class Createdialog extends Component {
 							errors={{requiredValue:'编码为必填项'}}
 							inline={true}
 					/>
-					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="enableflag" component="group" label="类型" inline={true} requireLabel={true}>
-	                	<KrField name="enableflag" label="菜单" type="radio" value="MENU" checked={true}/>
-	               		 <KrField name="enableflag" label="操作" type="radio" value="OPERATION" />
+					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="type" component="group" label="类型" inline={true} requireLabel={true}>
+	                	<KrField name="type" label="菜单" type="radio" value="MENU" checked={true}/>
+	               		 <KrField name="type" label="操作" type="radio" value="OPERATION" />
 	              	</KrField>
 					<div className="u-operations">
 						<KrField name="module"  style={{width:220,marginLeft:40}}  component="select" label="模块" options={ModuleList} inline={true} requireLabel={true} onChange={this.onSelect}/>
@@ -341,8 +344,8 @@ class Createdialog extends Component {
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
 						<div className="u-method-content">
-							<KrField name="controller" ref="controller" style={{width:400,marginLeft:70}}  component="select" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
-							<KrField name="controllerChild" ref="controllerChild"  style={{width:220}}  component="select" label="" options={ControllerChild} inline={true} onChange={this.onSetController} />
+							<KrField name="controller"  style={{width:400,marginLeft:70}}  component="select" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
+							<KrField name="controllerChild"   style={{width:220}}  component="select" label="" options={ControllerChild} inline={true} onChange={this.onSetController} />
 							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
 						<div className="u-method-content-list">
@@ -361,11 +364,20 @@ const validate = values => {
 
 	const errors = {}
 	if (!values.name) {
-		errors.name = '请输入姓名';
+		errors.name = '请输入名称';
 	}
 
 	if (!values.code) {
 		errors.code = '请输入编号';
+	}
+	if (!values.type) {
+		errors.type = '请选择类型';
+	}
+	if (!values.module) {
+		errors.module = '请选择模块';
+	}
+	if (!values.controllerChild) {
+		errors.controllerChild = '请选择方法';
 	}
 
 
