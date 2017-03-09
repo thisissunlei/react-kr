@@ -35,10 +35,6 @@ export default class DateComponent extends React.Component {
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
-		this.supplementZero = this.supplementZero.bind(this);
-
-		this.formatDate = this.formatDate.bind(this);
-		this.setInputValue = this.setInputValue.bind(this);
 
 		this.isInit = false;
 		this.state = {
@@ -70,7 +66,7 @@ export default class DateComponent extends React.Component {
 		this.isInit = true;
 	}
 
-	setInputValue(value) {
+	setInputValue = (value) => {
 
 		let {
 			input
@@ -88,17 +84,22 @@ export default class DateComponent extends React.Component {
 	componentDidMount() {
 	}
 
-	supplementZero(value) {
+	supplementZero = (value) =>{
 		if (value < 10) {
 			value = '0' + value;
 		}
 		return value
 	}
 
-	formatDate(value) {
+	formatDate = (value) => {
 
-		var dt = new Date(Date.parse(value));
+		console.log('-->>>',value);
+
+		var dt = new Date();
+		dt.setTime(Date.parse(value));
+
 		var year = dt.getFullYear();
+
 		var month = this.supplementZero(1 + dt.getMonth());
 		var date = this.supplementZero(dt.getDate());
 		var hours = this.supplementZero(dt.getHours());
@@ -115,7 +116,6 @@ export default class DateComponent extends React.Component {
 	}
 
 	onChange(value) {
-
 
 		if (!value) {
 			return;

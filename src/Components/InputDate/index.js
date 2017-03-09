@@ -56,12 +56,11 @@ export default class InputDate extends React.Component {
 
 
 	setDefaultValue = (value) => {
-		console.log("..........",value);
-		if(!value ){
-			return;
+
+		if(typeof value === 'string'){
+			value = value.split(' ')[0];
 		}
-		value = ''+value;
-		value = value.split(' ')[0];
+
 		if (!value) {
 			this.setState({
 				value: ''
