@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-
+import {
+	toJS
+} from 'mobx';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -37,7 +39,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 	if(!fields.length){
 	   fields.push({})
 	 }
-	 
+
     //var fields=Array.prototype.slice.call(fields);
     //console.log('pppp---',fields instanceof Array)
 
@@ -83,24 +85,16 @@ const renderBrights = ({ fields, meta: { touched, error },type,label}) => {
 	   fields.push({type:type})
 	 }  
 	var krStyle={};  
-	var brightStyle={};
 	if(type=='BRIGHTPOINTS'){
       krStyle={
       	width:228,
       	marginLeft:18,
       	marginRight:3,
-      	marginTop:-10
-      }
-      brightStyle={
-      	marginTop:22
       }
 	}else{
 	  krStyle={
       	width:517,
       	marginLeft:15
-      }
-      brightStyle={
-      	marginTop:32
       }
 	}
   return (
@@ -115,7 +109,7 @@ const renderBrights = ({ fields, meta: { touched, error },type,label}) => {
           component={renderField}
           label={label}
           />
-        <span onClick={() => fields.insert(index+1,{type:type})} className='addBtn' style={brightStyle}></span>       
+        <span onClick={() => fields.insert(index+1,{type:type})} className='addBtn' style={{marginTop:32}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -230,8 +224,38 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	      Store.dispatch(initialize('editCommunityList',response)); 
 	      Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
 	      Store.dispatch(change('editCommunityList','countyId',response.provinceName+'/'+response.countyName));
-	     
-	   }).catch(function(err) {
+	      response.brights.map((item,index)=>{
+            if(item.type=="BRIGHTPOINTS"){
+            	Store.dispatch(change('editCommunityList','bright4['+index+'].brightPoints',item.brightPoints));
+            	Store.dispatch(change('editCommunityList','bright4['+index+'].type','BRIGHTPOINTS'));
+            }
+            if(item.type=="INFRASTRUCTURE"){
+            	Store.dispatch(change('editCommunityList','bright1['+index+'].brightPoints',item.brightPoints));
+            	Store.dispatch(change('editCommunityList','bright1['+index+'].type','INFRASTRUCTURE'));
+            }
+            if(item.type=="SPECIALSERVICE"){
+            	Store.dispatch(change('editCommunityList','bright3['+index+'].brightPoints',item.brightPoints));
+            	Store.dispatch(change('editCommunityList','bright3['+index+'].type','SPECIALSERVICE'));
+            }
+            if(item.type=="BASICSERVICE"){
+            	Store.dispatch(change('editCommunityList','bright2['+index+'].brightPoints',item.brightPoints));
+            	Store.dispatch(change('editCommunityList','bright2['+index+'].type','BASICSERVICE'));
+            }
+            if(item.type=="TRANSPORTATION"){
+            	Store.dispatch(change('editCommunityList','bright5.brightPoints',item.brightPoints));
+            }
+            if(item.type=="PERIMETER"){
+            	Store.dispatch(change('editCommunityList','bright6.brightPoints',item.brightPoints));
+            }
+	      })
+
+          if(response.opened==true){
+          	 Store.dispatch(change('editCommunityList','opened','1')); 
+          }
+          if(response.opened==false){
+          	 Store.dispatch(change('editCommunityList','opened','0')); 
+          }
+          
 	   }).catch(function(err) {
 		 Message.error(err.message);
 	  });	
@@ -317,7 +341,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
 
                                     <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
-                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}  options={State.searchData}/>
+                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}  
+                                     options={toJS(State.searchData)}
+                                    />
 
                                     <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
 									
@@ -326,7 +352,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 								   	<div className='location-m'><KrField grid={1/2} label="社区坐标" component="input" name='local' style={{width:262,marginLeft:16}}  requireLabel={true}  onChange={this.locationMap}>			 
 									</KrField>
 
-									<a className='mapLocation' href={`http://api.map.baidu.com/lbsapi/getpoint/index.html`} target='_blank'/>
+									<a className='mapLocation' href={`http:\/\/api.map.baidu.com/lbsapi/getpoint/index.html`} target='_blank'/>
                      
 									<KrField grid={1/2} label="大厦名称" name="buildName" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/></div>
 									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select" 
@@ -361,7 +387,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                  
                                 
 
-                                <FieldArray name="wherefloorsStr" component={renderMembers}/>
+                                <FieldArray name="wherefloors" component={renderMembers}/>
 								
                                 <KrField grid={1/2}  component="group" label="营业时间" style={{paddingLeft:'16px'}}>
 								<div className='community-listDate'>
@@ -401,8 +427,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					             	<KrField name="portalShow" label="不显示" type="radio" value={false} onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
 
-					         <FieldArray name="porTypesStr" component={renderStation}/> 
-					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
+					         <FieldArray name="porTypes" component={renderStation}/> 
+					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     
 						     <FieldArray name="bright1" component={renderBrights} type='INFRASTRUCTURE' label='基础设施' />
 						     <FieldArray name="bright2" component={renderBrights} type='BASICSERVICE' label='基础服务' />

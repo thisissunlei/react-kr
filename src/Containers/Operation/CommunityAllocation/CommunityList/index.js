@@ -124,9 +124,11 @@ class CommunityList  extends Component{
    	    if(brightsStr.length!=0){
    	       value.brightsStr=JSON.stringify(brightsStr); 	
    	    }     
-   	    value.wherefloorsStr=JSON.stringify(value.wherefloorsStr);
-   	    if(value.porTypesStr){
-   	      value.porTypesStr=JSON.stringify(value.porTypesStr); 
+   	      value.wherefloorsStr=JSON.stringify(value.wherefloors);
+   	      delete value.wherefloors;
+   	    if(value.potTypes){
+   	      value.porTypesStr=JSON.stringify(value.potTypes); 
+   	      delete value.potTypes;
    	    } 
    	    State.onNewCommunitySubmit(value);
    }

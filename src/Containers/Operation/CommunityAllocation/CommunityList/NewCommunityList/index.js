@@ -341,7 +341,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 	
-								<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:true},{label:'未开业',value:'0'}]}/>
+								<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
 								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
@@ -352,7 +352,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                  
                                 
 
-                                <FieldArray name="wherefloorsStr" component={renderMembers}/>
+                                <FieldArray name="wherefloors" component={renderMembers}/>
 								
                                 <KrField grid={1/2}  component="group" label="营业时间" style={{paddingLeft:'16px'}}>
 								<div className='community-listDate'>
@@ -392,8 +392,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					             	<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
 
-					         <FieldArray name="porTypesStr" component={renderStation}/> 
-					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
+					         <FieldArray name="potTypes" component={renderStation}/> 
+					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     
 						     <FieldArray name="bright1" component={renderBrights} type='INFRASTRUCTURE' label='基础设施' />
 						     <FieldArray name="bright2" component={renderBrights} type='BASICSERVICE' label='基础服务' />
