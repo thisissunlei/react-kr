@@ -43,29 +43,6 @@ export default class DateComponent extends React.Component {
 
 	}
 
-	setDefaultDate(value) {
-
-		if (!value) {
-			return;
-		}
-
-		if (typeof value === 'string') {
-			value = new Date(Date.parse(value));
-			this.setInputValue(value);
-		}
-
-		if (typeof value === 'number') {
-			this.setInputValue(value);
-			value = new Date(value);
-		}
-
-		this.setState({
-			value
-		});
-
-		this.isInit = true;
-	}
-
 	setInputValue = (value) => {
 
 		let {
@@ -76,9 +53,8 @@ export default class DateComponent extends React.Component {
 			return ;
 		}
 		value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
+
 		input.onChange(value);
-
-
 	}
 
 	componentDidMount() {
@@ -94,7 +70,7 @@ export default class DateComponent extends React.Component {
 	formatDate = (value) => {
 
 		var dtArr = [];
-		
+
 		if(typeof value === 'string'){
 			value = value.trim();
 			value = value.split(' ')[0];
@@ -105,7 +81,7 @@ export default class DateComponent extends React.Component {
 
 		var year = dt.getFullYear();
 
-		var month = this.supplementZero(1 + dt.getMonth());
+		var month = this.supplementZero(dt.getMonth());
 		var date = this.supplementZero(dt.getDate());
 		var hours = this.supplementZero(dt.getHours());
 		var minutes = this.supplementZero(dt.getMinutes());
@@ -127,6 +103,7 @@ export default class DateComponent extends React.Component {
 		}
 
 		let { input, onChange} = this.props;
+
 
 		var result = this.formatDate(value);
 
@@ -165,8 +142,8 @@ export default class DateComponent extends React.Component {
 			backgroundColor: 'transparent',
 			opacity: 0
 		}
-		return (
 
+		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="date-component">
