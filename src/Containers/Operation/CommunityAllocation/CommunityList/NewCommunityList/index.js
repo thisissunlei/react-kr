@@ -41,10 +41,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 	if(!fields.length){
 	   fields.push({})
 	 }
-	//var fields=Array.prototype.slice.call(fields);
     
-	console.log('ppppp-----',fields);
-
    return (
       <ul style={{padding:0,margin:0}}>
     {fields.map((wherefloorsStr, index) =>    
@@ -286,7 +283,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        //时间下拉结束
        
 
-       //console.log('00000',toJS(State.searchData));
          
        let {openDown,openUp}=this.state;
 
