@@ -25,18 +25,31 @@ class NewCreateFund extends Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,
-        onCancel: React.PropTypes.func
+        onCancel: React.PropTypes.func,
+        detail: React.PropTypes.object
     }
 
     constructor(props) {
         super(props);
-
         this.onSubmit = this.onSubmit.bind(this);
         this.onCancel = this.onCancel.bind(this);
-        Store.dispatch(reset('NewCreateFund'));
+    }
+    componentDidMount() {
+
+        const {detail} = this.props;
+
+        let initialValues = {};
+        initialValues.id = detail.id;
+        initialValues.categoryName = detail.categoryName;
+        initialValues.categoryCode = detail.categoryCode;
+        initialValues.position = detail.position;
+        initialValues.remark = detail.remark;
+        initialValues.sortNum = detail.sortNum;
+        initialValues.status = detail.status;
+        console.log(initialValues);
+        Store.dispatch(initialize('NewCreateFund', initialValues));
         Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
     }
-
     onSubmit(values) {
         const {onSubmit} = this.props;
         onSubmit && onSubmit(values);
@@ -63,6 +76,8 @@ class NewCreateFund extends Component {
                 marginTop: 35,
                 marginLeft: 35
             }}>
+                <KrField grid={1 / 2} name="categoryCode" right={41} type="text" label="款项编码" requireLabel={true} disabled={true}/>
+                <KrField grid={1 / 2} name="sortNum" right={41} type="text" label="顺序号" requireLabel={true}/>
                 <KrField grid={1 / 2} name="categoryName" right={41} type="text" label="款项名称" requireLabel={true} maxSize={30}/>
                 <KrField grid={1 / 2} name="position" right={41} style={{
                     marginRight: -10,

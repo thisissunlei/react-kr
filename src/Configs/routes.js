@@ -228,7 +228,7 @@ export default(
 
                 <Route path="fundSetting" component={Basic}>
                     <Route path="totalFund" component={Finance.Manage.FundSetting.TotalFund}/>
-
+                    <Route path=":fundId/detailFund" component={Finance.Manage.FundSetting.DetailFund}/>
                 </Route>
 
                 {/*开票列表*/}

@@ -957,6 +957,31 @@ const APIS = {
     'createFirstCategory': {
         url: '/api/krspace-finance-web/finaccount/category/createFirstCategory',
         method: 'post'
+    },
+    //财务--款项--查看款项详情
+    'getById': {
+        url: '/api/krspace-finance-web/finaccount/category/getById?id={id}',
+        method: 'get'
+    },
+    //财务--款项--编辑一级款项
+    'editFirstCategory': {
+        url: '/api/krspace-finance-web/finaccount/category/editFirstCategory',
+        method: 'post'
+    },
+    //财务--款项--子款项分页数据
+    'findSubCategoryPage': {
+        url: '/api/krspace-finance-web/finaccount/category/findSubCategoryPage?page={page}&pageSize={pageSize}&searchParam={searchParam}&parentId={parentId}',
+        method: 'get'
+    },
+    //财务--款项--创建二级款项
+    'createSubCategory': {
+        url: '/api/krspace-finance-web/finaccount/category/createSubCategory',
+        method: 'post'
+    },
+    //财务--款项--编辑二级款项
+    'editSubCategory': {
+        url: '/api/krspace-finance-web/finaccount/category/editSubCategory',
+        method: 'post'
     }
 }
 

@@ -25,18 +25,33 @@ class NewCreateFund extends Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,
-        onCancel: React.PropTypes.func
+        onCancel: React.PropTypes.func,
+        detail: React.PropTypes.object
     }
 
     constructor(props) {
         super(props);
-
         this.onSubmit = this.onSubmit.bind(this);
         this.onCancel = this.onCancel.bind(this);
-        Store.dispatch(reset('NewCreateFund'));
-        Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
     }
+    componentDidMount() {
 
+        const {detail} = this.props;
+
+        let initialValues = {};
+        initialValues.id = detail.id;
+        initialValues.categoryCode = detail.categoryCode;
+        initialValues.categoryName = detail.categoryName;
+        initialValues.position = detail.position;
+        initialValues.remark = detail.remark;
+        initialValues.sortNum = detail.sortNum;
+        initialValues.status = detail.status;
+        console.log(initialValues);
+        Store.dispatch(initialize('NewCreateFund', initialValues));
+        Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
+        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATEINCOME'));
+        Store.dispatch(change('NewCreateFund', 'parentId', this.props.parentId));
+    }
     onSubmit(values) {
         const {onSubmit} = this.props;
         onSubmit && onSubmit(values);
@@ -63,6 +78,8 @@ class NewCreateFund extends Component {
                 marginTop: 35,
                 marginLeft: 35
             }}>
+                <KrField grid={1 / 2} name="categoryCode" right={41} type="text" label="子项编码" requireLabel={true} disabled={true}/>
+                <KrField grid={1 / 2} name="sortNum" right={41} type="text" label="顺序号" requireLabel={true}/>
                 <KrField grid={1 / 2} name="categoryName" right={41} type="text" label="款项名称" requireLabel={true} maxSize={30}/>
                 <KrField grid={1 / 2} name="position" right={41} style={{
                     marginRight: -10,
@@ -80,7 +97,10 @@ class NewCreateFund extends Component {
                     <KrField name="status" grid={1 / 2} label="启用" type="radio" value="ENABLE"/>
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
-
+                <KrField grid={1 / 2} name="twinsFlag" component="group" label="生成收入" requireLabel={true}>
+                    <KrField name="twinsFlag" grid={1 / 2} label="是" type="radio" value="CREATEINCOME"/>
+                    <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+                </KrField>
                 <KrField label="备注" style={style} name="remark" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,输入字数不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
 
                 <Grid style={{
@@ -107,7 +127,7 @@ const validate = values => {
     const errors = {}
 
     if (!values.categoryName) {
-        errors.categoryName = '请填写款项名称';
+        errors.categoryName = '请填写子项名称';
     }
     if (!values.position) {
         errors.position = '请填写显示位置';
@@ -115,6 +135,9 @@ const validate = values => {
 
     if (!values.status) {
         errors.status = '请填写是否启用';
+    }
+    if (!values.twinsFlag) {
+        errors.twinsFlag = '请填写是否生成收入';
     }
 
     return errors

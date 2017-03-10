@@ -35,6 +35,8 @@ class NewCreateFund extends Component {
         this.onCancel = this.onCancel.bind(this);
         Store.dispatch(reset('NewCreateFund'));
         Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
+        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATINCOME'));
+        Store.dispatch(change('NewCreateFund', 'parentId', this.props.parentId));
     }
 
     onSubmit(values) {
@@ -48,6 +50,7 @@ class NewCreateFund extends Component {
     }
 
     render() {
+        const {parentId} = this.props;
         let style = {
             marginTop: 3
         }
@@ -80,6 +83,10 @@ class NewCreateFund extends Component {
                     <KrField name="status" grid={1 / 2} label="启用" type="radio" value="ENABLE"/>
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
+                <KrField grid={1 / 2} name="twinsFlag" component="group" label="生成收入" requireLabel={true}>
+                    <KrField name="twinsFlag" grid={1 / 2} label="启用" type="radio" value="CREATINCOME"/>
+                    <KrField name="twinsFlag" grid={1 / 2} label="关闭" type="radio" value="NOINCOME"/>
+                </KrField>
 
                 <KrField label="备注" style={style} name="remark" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,输入字数不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
 
@@ -107,7 +114,7 @@ const validate = values => {
     const errors = {}
 
     if (!values.categoryName) {
-        errors.categoryName = '请填写款项名称';
+        errors.categoryName = '请填写子项名称';
     }
     if (!values.position) {
         errors.position = '请填写显示位置';
@@ -116,7 +123,9 @@ const validate = values => {
     if (!values.status) {
         errors.status = '请填写是否启用';
     }
-
+    if (!values.twinsFlag) {
+        errors.twinsFlag = '请填写是否生成收入';
+    }
     return errors
 }
 export default reduxForm({form: 'NewCreateFund', validate, enableReinitialize: true, keepDirtyOnReinitialize: true})(NewCreateFund);

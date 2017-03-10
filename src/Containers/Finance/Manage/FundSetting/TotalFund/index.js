@@ -18,7 +18,6 @@ import {
     SearchForms,
     Section,
     Grid,
-    Drawer,
     Tooltip,
     KrDate,
     Row,
@@ -29,8 +28,9 @@ import {
 
 import {reduxForm, formValueSelector, change} from 'redux-form';
 import './index.less';
-import SearchForm from './SearchForm';
 import NewCreateFund from './NewCreateFund';
+import ItemDetail from './ItemDetail';
+import EditDetailForm from './EditDetailForm';
 export default class TotalFund extends Component {
 
     constructor(props, context) {
@@ -40,82 +40,106 @@ export default class TotalFund extends Component {
                 page: 1,
                 pageSize: 15
             },
-            openNewCreateFund: false
+            openNewCreateFund: false,
+            itemDetail: {},
+            openView: false,
+            openEditDetail: false
         }
-        this.onSearchSubmit = this.onSearchSubmit.bind(this);
+
     }
-    onSearchSubmit = (value) => {
-        let {searchParams} = this.state;
-        if (value.filter == 'company') {
-            this.setState({
-                searchParams: {
-                    page: 1,
-                    pageSize: 15,
-                    categoryName: value.content
-                }
-            })
+    onOperation = (type, itemDetail) => {
+
+        this.setState({itemDetail});
+        if (type == 'view') {
+            this.openViewDialog();
+        } else if (type == 'edit') {
+            this.openEditDetailDialog();
+        } else if (type == 'next') {
+            let fundId = itemDetail.id
+            window.open(`./#/finance/Manage/fundSetting/${fundId}/detailFund`, fundId);
         }
-        if (value.filter == 'city') {
-            this.setState({
-                searchParams: {
-                    page: 1,
-                    pageSize: 15,
-                    position: value.content
-                }
-            })
-        }
-        if (value.filter == 'community') {
-            this.setState({
-                searchParams: {
-                    page: 1,
-                    pageSize: 15,
-                    status: value.content
-                }
-            })
-        }
+    }
+    onSearchSubmit = (searchParams) => {
+        this.setState({
+
+            searchParams: {
+                page: 1,
+                pageSize: 15,
+                searchParam: searchParams.content
+            }
+
+        })
+
+    }
+    //查看
+    openViewDialog = () => {
+        this.setState({
+            openView: !this.state.openView
+        });
+    }
+
+    //编辑
+    openEditDetailDialog = () => {
+        this.setState({
+            openEditDetail: !this.state.openEditDetail
+        });
+    }
+    onEditSubmit = (form) => {
+
+        this.openEditDetailDialog();
+
+        Store.dispatch(Actions.callAPI('editFirstCategory', {}, form)).then(function(response) {
+            Message.success("编辑成功");
+            window.setTimeout(function() {
+                window.location.reload();
+            }, 0);
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+
     }
     openNewCreateFund = () => {
         this.setState({
             openNewCreateFund: !this.state.openNewCreateFund
         })
     }
-    getLocalTime = (timer) => {
-        return new Date(parseInt(timer) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+
+    onNewCreateSubmit = (values) => {
+        Store.dispatch(Actions.callAPI('createFirstCategory', {}, values)).then(function(response) {
+            Message.success("创建成功");
+            window.setTimeout(function() {
+                window.location.reload();
+            }, 0);
+
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
     render() {
         let {searchParams} = this.state;
         let {itemDetail} = this.state;
-        let options = [
-            {
-                label: '名称',
-                value: 'company'
-            }, {
-                label: '类型',
-                value: 'city'
-            }, {
-                label: '状态',
-                value: 'community'
-            }
-        ];
         return (
 
             <div>
                 <Title value="款项配置_财务管理"/>
                 <Section title="款项配置" description="">
-                    <Row>
+                    <Row style={{
+                        position: 'relative',
+                        zIndex: 5
+                    }}>
                         <Col md={4} align="left">
                             <Button label="新建款项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
                         </Col>
 
                         <Col md={8} align="right">
                             <ListGroup>
-                                <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} searchFilter={options} onCancel={this.onCancel}/></ListGroupItem>
+                                <ListGroupItem><SearchForms placeholder="请输入款项名称" onSubmit={this.onSearchSubmit}/></ListGroupItem>
                             </ListGroup>
                         </Col>
                     </Row>
                     <Table style={{
                         marginTop: 10
-                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport}>
+                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true}>
 
                         <TableHeader>
                             <TableHeaderColumn>编码</TableHeaderColumn>
@@ -140,9 +164,6 @@ export default class TotalFund extends Component {
                                     }, {
                                         label: '回款',
                                         value: 'PAYMENT'
-                                    }, {
-                                        label: '收入',
-                                        value: 'INCOME'
                                     }
                                 ]}></TableRowColumn>
                                 <TableRowColumn name="status" options={[
@@ -161,9 +182,9 @@ export default class TotalFund extends Component {
                                     return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
                                 }}></TableRowColumn>
                                 <TableRowColumn>
-                                    <Button label="查看" onTouchTap={this.openEdit} type="operation" operation="edit"/>
-                                    <Button label="编辑" type="operation" operation="reset"/>
-                                    <Button label="下一级" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
+                                    <Button label="查看" type="operation" operation="view"/>
+                                    <Button label="编辑" type="operation" operation="edit"/>
+                                    <Button label="下一级" type="operation" operation="next"/>
                                 </TableRowColumn>
                             </TableRow>
                         </TableBody>
@@ -171,13 +192,20 @@ export default class TotalFund extends Component {
                         <TableFooter></TableFooter>
 
                     </Table>
-                    <Drawer open={this.state.openNewCreateFund} width={750} openSecondary={true} className='m-finance-drawer' containerStyle={{
-                        top: 60,
-                        paddingBottom: 228,
-                        zIndex: 20
+                    <Dialog title="新建款项" open={this.state.openNewCreateFund} onClose={this.openNewCreateFund} contentStyle ={{
+                        width: '688'
                     }}>
-                        <NewCreateFund/>
-                    </Drawer>
+                        <NewCreateFund onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateFund}/>
+
+                    </Dialog>
+                    <Dialog title="款项详情" modal={true} open={this.state.openView} onClose={this.openViewDialog}>
+                        <ItemDetail detail={this.state.itemDetail} onCancel={this.openViewDialog}/>
+                    </Dialog>
+                    <Dialog title="编辑科目" modal={true} open={this.state.openEditDetail} onClose={this.openEditDetailDialog} contentStyle ={{
+                        width: '688'
+                    }}>
+                        <EditDetailForm detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog}/>
+                    </Dialog>
                 </Section>
             </div>
         );
