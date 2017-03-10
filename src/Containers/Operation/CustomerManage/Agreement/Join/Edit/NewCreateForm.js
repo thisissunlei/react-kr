@@ -431,6 +431,9 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		if(form.totalrent == 0){
 			Notify.show([{
 				message: '服务费不能为零',
@@ -438,6 +441,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+
 		const {
 			onSubmit
 		} = this.props;

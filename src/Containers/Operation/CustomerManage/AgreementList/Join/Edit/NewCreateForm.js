@@ -201,7 +201,11 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		stationVos[index].unitprice = value;
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 
 		this.setState({
 			stationVos

@@ -406,6 +406,9 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		form.totalrent = (form.totalrent).toFixed(2);
 		if(form.totalrent == 0){
 			Notify.show([{
