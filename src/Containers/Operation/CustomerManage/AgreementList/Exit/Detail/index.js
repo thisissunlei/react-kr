@@ -83,6 +83,10 @@ export default class ExitDetail extends Component {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	  }
+	   onCancel1 = () => {
+	  	console.log(">>>>>>>>");
+		
+	  }
 
 	componentWillMount() {
 
@@ -132,7 +136,7 @@ export default class ExitDetail extends Component {
 			return (
 				<div className="content" style={content}>
 					 <Title value="退租协议书详情页_财务管理"/>
-					 <div className="customer-close" onClick={this.onCancel}></div>
+					 <div className="customer-close" onMouseUp ={this.onCancel}></div>
 				     <span className="content-title">退租协议书详情页</span>
 				  	 <div className="content-info" style={info} >
 

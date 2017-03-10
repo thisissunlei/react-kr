@@ -169,7 +169,7 @@ export default class JoinDetail extends Component {
 		return (
 			<div className="content" style={content}>
 				<Title value="增租协议书详情页_财务管理"/>
-				  	<div className="customer-close" onClick={this.onCancel}></div>
+				  	<div className="customer-close" onMouseUp={this.onCancel}></div>
 				    <span className="content-title">增租协议书详情页</span>
 				   
 				   <DotTitle title='租赁明细'>

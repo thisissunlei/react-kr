@@ -346,30 +346,29 @@ class Merchants extends Component{
 
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
-  //     	let _this=this;
-		// let bodyElem=document.getElementById("m-agreement-list");
-		// bodyElem.addEventListener("click", function(){
-		//    event = event || window.event;
-		// 	var target = event.target;
-		// 	console.log("body");
-		// 	while (target) {
+      	let _this=this;
+		let bodyElem=document.getElementById("m-agreement-list");
+		bodyElem.addEventListener("click", function(){
+		   event = event || window.event;
+			var target = event.target;
+			while (target) {
 				
-		// 		if (target && target.className && target.className.indexOf('agreement-list-annex') !== -1 ||
-		// 			target && target.className && target.className.indexOf('agreement-list-other') !== -1
-		// 			) {
-		// 			return;
-		// 		}
-		// 		target = target.parentNode;
-		// 	}
+				if (target && target.className && target.className.indexOf('agreement-list-annex') !== -1 ||
+					target && target.className && target.className.indexOf('agreement-list-other') !== -1
+					) {
+					return;
+				}
+				target = target.parentNode;
+			}
 
-		// 	_this.setState({
+			_this.setState({
 				
-		// 		openMenu:false,
-		// 		opretionOpen:false,
+				openMenu:false,
+				opretionOpen:false,
 				
 
-		// 	})
-		// },false);
+			})
+		},false);
 
 		
 
