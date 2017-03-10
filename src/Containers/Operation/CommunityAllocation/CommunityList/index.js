@@ -142,18 +142,26 @@ class CommunityList  extends Component{
 		State.searchParams=obj	
    }
 
-   //编辑
+   //查看
    onOperation=(type,itemDetail)=>{
       if(type=='watch'){
+      	 State.getEditList(itemDetail.id)
+      	 State.switchWatchList();
+      }
+       if(type=='edit'){
       	 this.setState({
       	 	id:itemDetail.id
       	 })
-      	 State.searchDataHere();
-      	 //State.switchEditList();
-      	 State.switchWatchList();
+      	  State.searchDataHere();
+          State.switchEditList();
       }
    }
 
+   //查看取消
+   switchCancelWatchList=()=>{
+     State.switchWatchList(); 
+   }
+   //编辑取消
    switchEditList=()=>{
    	   State.switchEditList();
    }
@@ -322,7 +330,7 @@ class CommunityList  extends Component{
 			                <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    {/*<Button label="编辑"  type="operation"  operation="watch" />*/}
+			                    <Button label="编辑"  type="operation"  operation="edit" />
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                </TableRowColumn>
 			               </TableRow>
@@ -350,7 +358,7 @@ class CommunityList  extends Component{
 				        open={State.openEditCommunity}
 				        width={750}
 				        openSecondary={true}
-				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+				        containerStyle={{top:60,paddingBottom:48,zIndex:21}}
 			        >
 						<EditCommunityList
 								onSubmit={this.onNewCommunitySubmit}
@@ -385,8 +393,7 @@ class CommunityList  extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						<WatchCommunityList
-								onSubmit={this.onNewCommunitySubmit}
-								onCancel={this.switchEditList}
+								onCancel={this.switchCancelWatchList}
 						/>
 
 		            </Drawer>
@@ -396,7 +403,6 @@ class CommunityList  extends Component{
 	 </div>
 	 );
 	}
-
 }
 
 export default CommunityList

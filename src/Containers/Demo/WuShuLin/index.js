@@ -23,17 +23,14 @@ class ZhangQu extends Component {
 		super(props, context);
 
 		this.state = {
-			open:true,
+			open:false,
 			checkedStations:[],
+			openUl:false,
 		}
 
 	}
 
-	close = ()=>{
-		this.setState({
-			open:!this.state.open
-		})
-	}
+	
 
 	confirm = ()=>{
 		this.close();
@@ -46,23 +43,58 @@ class ZhangQu extends Component {
 		});
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		
+	}
+
+	liOver=()=>{
+      this.setState({
+      	 open:true,
+      })
+	}
+	liOut=()=>{
+	  this.setState({
+      	 open:false
+      })	
+	}
+    
+
+
 
 	render() {
-       
 
+		let {open,widthState}=this.state;
+        
+        var hour=[];
+        var minute=['00','10','20','30','40','50'];
+        for(var i=0;i<25;i++){
+           if(i<10){
+             i='0'+i;
+           }
+          hour.push(i); 
+        }
+        
+        let styleLI={};
+        if(open){
+         styleLI={
+         	background:'red',
+        	height:'40px',
+        	width:'220px',
+        	lineHeight:'40px'
+         }	
+        }else{
+          styleLI={
+         	background:'red',
+        	height:'40px',
+        	width:'100px',
+        	lineHeight:'40px'
+          }		
+        }
+         
+       
         
 		return (
 			<div>
-					{/*<Dialog
-						title="平面图"
-						contentStyle={{width:1000}}
-						actions={<Button label="确定" onTouchTap={this.confirm}/>}
-						onClose={this.close}
-						bodyStyle={{paddingLeft:0,paddingRight:0}}
-						open={this.state.open} >
-								<PlanMap onCheckedStation={this.onCheckedStation} />
-				   </Dialog>*/}
                <form>
 			       <KrField name="uploadImage" 
 								component="uploadImage" 
@@ -73,11 +105,43 @@ class ZhangQu extends Component {
 								//requestURI = {this.state.requestURI}
 					/>
 
-			  </form>
+			   </form>
 
-             
 
-			</div>
+             <ul style={{position:'relative',padding:'0px'}} className='first-ul'>  
+             {
+             	hour.map((item,index)=>{
+                  return <li 
+                   style={styleLI}
+                   className='first-li'
+                  
+                   >
+                     <span style={{display:'inline-block',width:'100px'}}>{item}</span>
+                     <ul 
+                      style={{
+                      	display:'inline-block',
+                      	width:'100px',
+                      	background:'blue',
+                      	padding:0
+                      }}
+                      >  
+			             {
+			             	minute.map((item,index)=>{
+			                  return <li 
+			                  style={{width:'100%',height:'40px',lineHeight:'40px',marginBottom:'5px'}}
+                               
+			                   >
+			                    {item}
+			                  </li>
+			             	})
+			             }
+
+                     </ul>
+                  </li>
+             	})
+              }
+           </ul>
+		</div>
 
 		);
 	}

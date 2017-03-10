@@ -28,7 +28,9 @@ let State = observable({
 		//高级查询数据准备
 		searchData:'',
 		//编辑获取数据
-		getData:{}
+		getData:{},
+		//详情
+		detailData:{}
 
 });
 //新建社区的开关
@@ -39,7 +41,8 @@ State.switchNewCommunityList = action(function() {
 State.onNewCommunitySubmit= action(function(data) {	
 	 var _this=this;
 	 Store.dispatch(Actions.callAPI('actions-edit',{},data)).then(function(response) {
-		_this.openNewCommunity=!_this.openNewCommunity;		
+		_this.openNewCommunity=false;	
+		_this.openEditCommunity=false;	
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	
@@ -64,6 +67,16 @@ State.switchEditList = action(function() {
 //查看页面的开关
 State.switchWatchList = action(function() {
 	this.openWatchCommunity=!this.openWatchCommunity;
+})
+
+//获取详情信息
+State.getEditList = action(function(id) {
+	var _this=this;
+	 Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
+	    _this.detailData=response;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
 })
 
 //校验社区名称
