@@ -973,6 +973,11 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/method/getMethodByName?name={name}',
     method: 'get'
   },
+  //权限--操作项--编辑--保存
+  'editResources': {
+    url: '/api/krspace-sso-web/sso/resource/editResources',
+    method: 'post'
+  },
 
 }
 

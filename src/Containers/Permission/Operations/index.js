@@ -179,6 +179,16 @@ class Operations extends Component {
 		});
 
 	}
+	onEditSubmit = (params) => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('editResources', {}, params)).then(function(response) {
+			_this.openCreateDialog();
+			Message.success('修改成功');
+			//window.location.reload();
+		}).catch(function(err) {
+			Message.error(err.message)
+		});
+	}
 	onSearch = (form) => {
 		var searchParams = {}
 		if (form.filter == "name") {

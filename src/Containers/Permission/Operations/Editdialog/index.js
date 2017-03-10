@@ -54,7 +54,9 @@ class Editdialog extends Component {
 			ControllerId: [],
 			ControllerItem: {},
 			ModuleId: '',
-			ControllerRender: []
+			ControllerRender: [],
+			getDate: {}
+
 		}
 		this.getModuleList();
 		this.getAllController();
@@ -64,24 +66,38 @@ class Editdialog extends Component {
 		let {
 			detail
 		} = this.props;
+
 		Store.dispatch(initialize('editdialog', detail));
+
 	}
 	getResourcesData = () => {
 		let {
 			detail
 		} = this.props;
 		var _this = this;
+
+		var renderMethod = this.state.ControllerRender;
+		var ControllerId = this.state.ControllerId;
 		Store.dispatch(Actions.callAPI('getResourcesData', {
 			id: detail.id
 		}, {})).then(function(response) {
-			/*var ControllerList = response.controllerList.map((item, index) => {
-				item.value = item.id;
-				item.label = item.name;
-				return item;
+
+			response.methods.map((item, index) => {
+				var str = {
+					controller: `${item.controllerName} ${item.methodName}`
+				};
+
+				var id = item.methodId;
+				renderMethod.push(str);
+				ControllerId.push(id);
+
 			})
+
 			_this.setState({
-				ControllerList: ControllerList
-			})*/
+				ControllerRender: renderMethod,
+				ControllerId: ControllerId,
+
+			})
 		}).catch(function(err) {
 
 		});
@@ -97,15 +113,19 @@ class Editdialog extends Component {
 				ModuleId,
 				ControllerId
 			} = this.state;
-
-
+			let {
+				detail
+			} = this.props;
+			var moduleId = ModuleId;
+			console.log('form----', form)
 			var params = {
-				code: form.code,
 				methodIds: ControllerId,
-				moduleId: ModuleId,
+				moduleId: moduleId,
 				name: form.name,
-				type: form.type
+				type: form.type,
+				id: detail.id,
 			}
+			console.log('params----', params)
 			let {
 				onSubmit
 			} = this.props;
@@ -279,6 +299,7 @@ class Editdialog extends Component {
 			ControllerRender
 		} = this.state;
 		var list;
+		console.log('ControllerRender---111', ControllerRender)
 		if (ControllerRender.length > 0) {
 			list = ControllerRender.map((item, index) => {
 				return (
@@ -315,6 +336,7 @@ class Editdialog extends Component {
 		let {
 			ModuleList,
 			ControllerList,
+			ControllerRender
 		} = this.state;
 		//console.log('detail----', detail)
 		return (
@@ -350,7 +372,7 @@ class Editdialog extends Component {
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
 						<div className="u-method-content">
-							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
+							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label=""  options={ControllerList} inline={true}  onChange={this.onSelectController}/>
 							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
 						<div className="u-method-content-list">
@@ -372,18 +394,16 @@ const validate = values => {
 		errors.name = '请输入名称';
 	}
 
-	if (!values.code) {
-		errors.code = '请输入编号';
-	}
+
 	if (!values.type) {
 		errors.type = '请选择类型';
 	}
-	if (!values.module) {
+	/*if (!values.module) {
 		errors.module = '请选择模块';
 	}
 	if (!values.controller) {
 		errors.controller = '请选择方法';
-	}
+	}*/
 
 
 	return errors
