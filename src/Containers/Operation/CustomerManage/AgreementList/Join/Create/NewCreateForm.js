@@ -679,6 +679,7 @@ class NewCreateForm extends Component {
 							})
 						}
 						</TableBody>
+						
 						</Table>
 					</div>
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
