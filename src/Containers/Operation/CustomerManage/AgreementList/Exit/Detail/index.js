@@ -190,7 +190,6 @@ export default class ExitDetail extends Component {
 					<Grid style={{marginTop:5,marginBottom:50}}>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/></Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>
