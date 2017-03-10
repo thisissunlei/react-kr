@@ -122,10 +122,10 @@ class Editdialog extends Component {
 	}
 
 	onSelectController = (item) => {
-		console.log('item0000011111', item)
+		console.log('item555555', item)
 		var _this = this;
 		var idlist = this.state.ControllerId;
-		idlist.push(item.id)
+		idlist.push(item.methodId)
 		this.setState({
 			ControllerItem: item,
 			ControllerId: idlist,
@@ -258,17 +258,19 @@ class Editdialog extends Component {
 	controllerAdd = () => {
 		let {
 			ControllerItem,
-			ControllerRender
+			ControllerRender,
+			ControllerId
 		} = this.state;
-		var controller = ControllerItem.name;
 
+		var controller = `${ControllerItem.controllerName} ${ControllerItem.methodName}`;
 		var item = {
 			controller: controller
 		}
 		var arr = ControllerRender;
 		arr.push(item)
 		this.setState({
-			ControllerRender: arr
+			ControllerRender: arr,
+			ControllerId: ControllerId
 		})
 
 	}
@@ -277,7 +279,6 @@ class Editdialog extends Component {
 			ControllerRender
 		} = this.state;
 		var list;
-		console.log('ControllerRender---', ControllerRender)
 		if (ControllerRender.length > 0) {
 			list = ControllerRender.map((item, index) => {
 				return (
@@ -289,14 +290,17 @@ class Editdialog extends Component {
 	}
 	controllerDelete = (index) => {
 		let {
-			ControllerRender
+			ControllerRender,
+			ControllerId
 		} = this.state;
 		var Controller = ControllerRender;
 		Controller.splice(index, 1)
+		var id = ControllerId;
+		id.splice(index, 1)
 		this.setState({
-			ControllerRender: Controller
-		})
-
+			ControllerRender: Controller,
+			ControllerId: id
+		});
 	}
 	render() {
 		let {
@@ -312,7 +316,7 @@ class Editdialog extends Component {
 			ModuleList,
 			ControllerList,
 		} = this.state;
-		console.log('detail----', detail)
+		//console.log('detail----', detail)
 		return (
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
