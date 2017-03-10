@@ -347,9 +347,9 @@ class Merchants extends Component{
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
   //     	let _this=this;
-		// let bodyElem=document.getElementsByTagName("body")[0];
-		// bodyElem.onclick=function(event){
-		// 	event = event || window.event;
+		// let bodyElem=document.getElementById("m-agreement-list");
+		// bodyElem.addEventListener("click", function(){
+		//    event = event || window.event;
 		// 	var target = event.target;
 		// 	console.log("body");
 		// 	while (target) {
@@ -369,7 +369,9 @@ class Merchants extends Component{
 				
 
 		// 	})
-		// }
+		// },false);
+
+		
 
 	}
      //日期开始
@@ -608,7 +610,7 @@ class Merchants extends Component{
 	    	}
 	    }
 		return(
-      <div className="m-agreement-list">
+      <div id="m-agreement-list" className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:18,marginTop:-4,zIndex:6,position:'relative'}}>
@@ -709,6 +711,11 @@ class Merchants extends Component{
 			        		if(item.contracttype=='RENEW'){
                                type='续租协议书'
 			        		}
+			        		let border='1px solid #dfdfdf';
+			        		if((!State.editRight || !item.editFlag) && item.contracttype == 'QUITRENT' && (!State.editRight || !item.editFlag)){
+								border='0px solid #dfdfdf';
+			        		}
+
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 
 			        		return (
@@ -735,10 +742,10 @@ class Merchants extends Component{
 
 										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
-											<div style={{visibility:showOpretion}} className="m-operation" >
-												{State.editRight&&item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
-												{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-												{State.editRight&&item.editFlag&&item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
+												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
+												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+												{State.editRight && item.editFlag && item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 							
 											</div>
 										</div>
