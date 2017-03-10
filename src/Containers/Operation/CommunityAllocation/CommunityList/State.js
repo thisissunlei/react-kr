@@ -24,6 +24,7 @@ let State = observable({
 		openEditCommunity:false,
 		//高级查询
 		openSearchUpper:false,
+		openWatchCommunity:false,
 		//高级查询数据准备
 		searchData:'',
 		//编辑获取数据
@@ -59,6 +60,10 @@ State.searchDataHere = action(function() {
 //编辑页面的开关
 State.switchEditList = action(function() {
 	this.openEditCommunity=!this.openEditCommunity;
+})
+//查看页面的开关
+State.switchWatchList = action(function() {
+	this.openWatchCommunity=!this.openWatchCommunity;
 })
 
 //校验社区名称

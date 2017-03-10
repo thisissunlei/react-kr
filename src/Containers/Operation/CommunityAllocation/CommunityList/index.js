@@ -56,6 +56,7 @@ import State from './State';
 import NewCommunityList from './NewCommunityList'; 
 import EditCommunityList from './EditCommunityList'; 
 import SearchUpperForm from './SearchUpperForm'; 
+import WatchCommunityList from './WatchCommunityList'; 
 @observer
 class CommunityList  extends Component{
 
@@ -148,7 +149,8 @@ class CommunityList  extends Component{
       	 	id:itemDetail.id
       	 })
       	 State.searchDataHere();
-      	 State.switchEditList();
+      	 //State.switchEditList();
+      	 State.switchWatchList();
       }
    }
 
@@ -320,7 +322,8 @@ class CommunityList  extends Component{
 			                <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="watch" />
+			                    {/*<Button label="编辑"  type="operation"  operation="watch" />*/}
+			                    <Button label="查看"  type="operation"  operation="watch" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -374,6 +377,19 @@ class CommunityList  extends Component{
 				    </Dialog>
 
 
+                     {/*查看*/}
+					<Drawer
+				        open={State.openWatchCommunity}
+				        width={750}
+				        openSecondary={true}
+				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			        >
+						<WatchCommunityList
+								onSubmit={this.onNewCommunitySubmit}
+								onCancel={this.switchEditList}
+						/>
+
+		            </Drawer>
        
        </Section>
 
