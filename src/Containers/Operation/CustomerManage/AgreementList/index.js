@@ -90,7 +90,8 @@ class Merchants extends Component{
 			   createDateBegin:'',
 			   createDateEnd:'',
 		     },
-
+		    agreementListAnnex:false,
+		    agreementListOther:false,
            
 		}
 		 this.allOrderReady();
@@ -208,12 +209,15 @@ class Merchants extends Component{
 	uploadFile = (id) => {
 		let fileId = this.state.openId;
 		if(fileId == id){
+			
 			this.setState({
 				openMenu:!this.state.openMenu,
 				openId:id,
-				opretionOpen:false
+				opretionOpen:false,
+
 			})
 		}else{
+			
 			this.setState({
 				openMenu:true,
 				openId:id,
@@ -228,16 +232,21 @@ class Merchants extends Component{
 	showMoreOpretion = (id) => {
 		let {opretionId,opretionOpen} = this.state;
 		if(opretionId == id){
+			console.log("11111")
 			this.setState({
 				opretionId:id,
 				openMenu:false,
-				opretionOpen:!this.state.opretionOpen
+				opretionOpen:!this.state.opretionOpen,
+				
 			})
 		}else{
+			console.log("2222")
+
 			this.setState({
 				opretionId:id,
 				openMenu:false,
-				opretionOpen:true
+				opretionOpen:true,
+				
 			})
 		}
 	}
@@ -341,13 +350,22 @@ class Merchants extends Component{
 			var target = event.target;
 
 			while (target) {
-				if (target && target.className && target.className.indexOf('tree-communityTree') !== -1) {
+				
+				if (target && target.className && target.className.indexOf('agreement-list-annex') !== -1 ||
+					target && target.className && target.className.indexOf('agreement-list-other') !== -1
+					) {
 					return;
 				}
 				target = target.parentNode;
 			}
+			console.log("3333")
+
 			_this.setState({
-				showTreeList:false,
+				
+				openMenu:false,
+				opretionOpen:false,
+				
+
 			})
 		}
 
@@ -587,7 +605,6 @@ class Merchants extends Component{
 	    		display:'block',
 	    	}
 	    }
-
 		return(
       <div className="m-agreement-list">
 			<Title value="合同列表"/>
@@ -713,13 +730,15 @@ class Merchants extends Component{
 					                    <Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										</div>
-										<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
 
-										<div style={{visibility:showOpretion}} className="m-operation" >
-											{State.editRight&&item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
-											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-											{State.editRight&&item.editFlag&&item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
-						
+										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+											<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
+											<div style={{visibility:showOpretion}} className="m-operation" >
+												{State.editRight&&item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
+												{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+												{State.editRight&&item.editFlag&&item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+							
+											</div>
 										</div>
 					                    
 					                </TableRowColumn>

@@ -136,7 +136,7 @@ export default class ConfirmFormDetail extends Component {
 							 <KrField grid={1/2}    component="labelText" label="押金总额" value={detail.totaldeposit} inline={false}/>
 
 
-							 <KrField grid={1}   component="labelText" label="备注" value={detail.contractmark} defaultValue="无" inline={false}/>
+							 <KrField grid={1}   component="labelText" label="备注" value={detail.contractmark} defaultValue="" inline={false}/>
 							 <KrField grid={1}  name="agreement" component="labelText" label="双方其他约定内容" value={detail.agreement} defaultValue="无" inline={false}/>
 							 
 
