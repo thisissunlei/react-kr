@@ -172,7 +172,8 @@ class Operations extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('createResources', {}, params)).then(function(response) {
 			_this.openCreateDialog();
-			Message.success('新建成功')
+			Message.success('新建成功');
+			window.location.reload();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});

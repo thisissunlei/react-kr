@@ -50,18 +50,23 @@ export default class SearchMethodComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname) {
-		/*return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
-				response.forEach(function(item,index){
-					item.value = item.sysloginid;
-					item.label = item.lastname;
+	getOptions(name) {
+		return new Promise((resolve, reject) => {
+			Store.dispatch(Actions.callAPI('getMethodByName', {
+				name: name
+			})).then(function(response) {
+
+				response.methodList.forEach((item, index) => {
+					item.value = item.methodId;
+					item.label = `${item.controllerName} ${item.methodName}`;
 				});
-				resolve({options:response});
-			}).catch(function(err){
+				resolve({
+					options: response.methodList
+				});
+			}).catch(function(err) {
 				reject(err);
 			});
-		});*/
+		});
 	}
 
 	render() {

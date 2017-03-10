@@ -122,6 +122,7 @@ class Editdialog extends Component {
 	}
 
 	onSelectController = (item) => {
+		console.log('item0000011111', item)
 		var _this = this;
 		var idlist = this.state.ControllerId;
 		idlist.push(item.id)
@@ -276,6 +277,7 @@ class Editdialog extends Component {
 			ControllerRender
 		} = this.state;
 		var list;
+		console.log('ControllerRender---', ControllerRender)
 		if (ControllerRender.length > 0) {
 			list = ControllerRender.map((item, index) => {
 				return (
@@ -344,7 +346,7 @@ class Editdialog extends Component {
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
 						<div className="u-method-content">
-							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="search" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
+							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
 							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
 						<div className="u-method-content-list">

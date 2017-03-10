@@ -53,7 +53,8 @@ class Createdialog extends Component {
 			ControllerId: [],
 			ControllerItem: {},
 			ModuleId: '',
-			ControllerRender: []
+			ControllerRender: [],
+			methodId: []
 		}
 		this.getModuleList();
 		this.getAllController();
@@ -70,7 +71,6 @@ class Createdialog extends Component {
 				ControllerId
 			} = this.state;
 
-
 			var params = {
 				code: form.code,
 				methodIds: ControllerId,
@@ -81,7 +81,9 @@ class Createdialog extends Component {
 			let {
 				onSubmit
 			} = this.props;
-			onSubmit && onSubmit(params);
+			if (ControllerId.length > 0) {
+				onSubmit && onSubmit(params);
+			}
 
 
 
@@ -96,7 +98,7 @@ class Createdialog extends Component {
 	onSelectController = (item) => {
 		var _this = this;
 		var idlist = this.state.ControllerId;
-		idlist.push(item.id)
+		idlist.push(item.methodId)
 		this.setState({
 			ControllerItem: item,
 			ControllerId: idlist,
@@ -229,17 +231,19 @@ class Createdialog extends Component {
 	controllerAdd = () => {
 		let {
 			ControllerItem,
-			ControllerRender
+			ControllerRender,
+			ControllerId
 		} = this.state;
-		var controller = ControllerItem.name;
 
+		var controller = `${ControllerItem.controllerName} ${ControllerItem.methodName}`;
 		var item = {
 			controller: controller
 		}
 		var arr = ControllerRender;
 		arr.push(item)
 		this.setState({
-			ControllerRender: arr
+			ControllerRender: arr,
+			ControllerId: ControllerId
 		})
 
 	}
@@ -259,13 +263,18 @@ class Createdialog extends Component {
 	}
 	controllerDelete = (index) => {
 		let {
-			ControllerRender
+			ControllerRender,
+			ControllerId
 		} = this.state;
 		var Controller = ControllerRender;
 		Controller.splice(index, 1)
+		var id = ControllerId;
+		id.splice(index, 1)
 		this.setState({
-			ControllerRender: Controller
+			ControllerRender: Controller,
+			ControllerId: id
 		})
+
 
 	}
 	render() {
@@ -317,7 +326,7 @@ class Createdialog extends Component {
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
 						<div className="u-method-content">
-							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="search" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
+							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
 							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
 						<div className="u-method-content-list">

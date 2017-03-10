@@ -968,6 +968,12 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/resource/getResourcesData?id={id}',
     method: 'get'
   },
+  //权限--操作项--新建--查询方法
+  'getMethodByName': {
+    url: '/api/krspace-sso-web/sso/method/getMethodByName?name={name}',
+    method: 'get'
+  },
+
 }
 
 module.exports = APIS;
