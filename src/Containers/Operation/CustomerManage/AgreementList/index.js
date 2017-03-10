@@ -334,8 +334,24 @@ class Merchants extends Component{
 
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
+      	let _this=this;
+		let bodyElem=document.getElementsByTagName("body")[0];
+		bodyElem.onclick=function(event){
+			event = event || window.event;
+			var target = event.target;
+
+			while (target) {
+				if (target && target.className && target.className.indexOf('tree-communityTree') !== -1) {
+					return;
+				}
+				target = target.parentNode;
+			}
+			_this.setState({
+				showTreeList:false,
+			})
+		}
+
 	}
-   
      //日期开始
 	 onStartChange=(startD)=>{
     	let {searchParams}=this.state;   	
@@ -692,10 +708,13 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
-					                    <Button type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
-										<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
+
+					                    <div className="agreement-list-annex" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+					                    <Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
-										
+										</div>
+										<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
+
 										<div style={{visibility:showOpretion}} className="m-operation" >
 											{State.editRight&&item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
