@@ -164,20 +164,29 @@ class Createdialog extends Component {
 	}
 	onSelect = (item) => {
 		var _this = this;
+		var ModuleList;
 		this.setState({
 			Params: {
 				parentId: item.id
 			}
 		}, function() {
 			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
-				var ModuleList = response.ssoModuleList.map((item, index) => {
-					item.value = item.id;
-					item.label = item.name;
-					return item;
-				})
-				_this.setState({
-					childModule: ModuleList
-				})
+				if (response.ssoModuleList.length > 0) {
+					ModuleList = response.ssoModuleList.map((item, index) => {
+						item.value = item.id;
+						item.label = item.name;
+						return item;
+					})
+					_this.setState({
+						childModule: ModuleList
+					})
+				} else {
+					_this.setState({
+						ModuleId: item.id
+					})
+				}
+
+
 
 			}).catch(function(err) {
 
@@ -187,20 +196,28 @@ class Createdialog extends Component {
 	}
 	onSelectChild = (item) => {
 		var _this = this;
+		var ModuleList;
 		this.setState({
 			Params: {
 				parentId: item.id
 			}
 		}, function() {
 			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
-				var ModuleList = response.ssoModuleList.map((item, index) => {
-					item.value = item.id;
-					item.label = item.name;
-					return item;
-				})
-				_this.setState({
-					childModuleList: ModuleList
-				})
+				if (response.ssoModuleList.length > 0) {
+					ModuleList = response.ssoModuleList.map((item, index) => {
+						item.value = item.id;
+						item.label = item.name;
+						return item;
+					})
+					_this.setState({
+						childModuleList: ModuleList
+					})
+				} else {
+					_this.setState({
+						ModuleId: item.id
+					})
+				}
+
 
 			}).catch(function(err) {
 
