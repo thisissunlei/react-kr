@@ -39,6 +39,8 @@ import {
 import './index.less';
 import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
+import Editdialog from './Editdialog';
+
 
 class SearchForm extends Component {
 	constructor(props, context) {
@@ -119,6 +121,7 @@ class Operations extends Component {
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
+			openEditDialog: false,
 		}
 	}
 
@@ -132,7 +135,7 @@ class Operations extends Component {
 		if (type == 'delete') {
 			this.openDeleteDialog();
 		} else if (type == 'edit') {
-			this.openEditDetailDialog();
+			this.openEditDialog();
 		}
 	}
 	openDeleteDialog = () => {
@@ -160,13 +163,17 @@ class Operations extends Component {
 			openCreateDialog: !this.state.openCreateDialog
 		})
 	}
+	openEditDialog = () => {
+		this.setState({
+			openEditDialog: !this.state.openEditDialog
+		})
+	}
 	onCreatSubmit = (params) => {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('createResources', {}, params)).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功')
 		}).catch(function(err) {
-			_this.openCreateDialog();
 			Message.error(err.message)
 		});
 
@@ -200,7 +207,8 @@ class Operations extends Component {
 
 	render() {
 		let {
-			openDeleteDialog
+			openDeleteDialog,
+			itemDetail
 		} = this.state;
 		return (
 			<div className="g-operation">
@@ -273,7 +281,16 @@ class Operations extends Component {
 						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 						
 					 </Dialog>
-					
+					 <Dialog
+						title="编辑"
+						modal={true}
+						onClose={this.openEditDialog}
+						open={this.state.openEditDialog}
+						contentStyle={{width:900}}
+						>
+						<Editdialog  detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
+						
+					 </Dialog>
 				</Section>
 					
 			</div>

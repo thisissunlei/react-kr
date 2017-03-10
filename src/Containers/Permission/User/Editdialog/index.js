@@ -45,7 +45,6 @@ class Editdialog extends Component {
 			ModuleList: [],
 			resourceIds: [],
 			errorTip: false,
-			checked: true
 		}
 
 	}
@@ -69,7 +68,6 @@ class Editdialog extends Component {
 
 		if (resourceIds.length > 0) {
 			form.resourceIds = resourceIds;
-
 			let {
 				onSubmit
 			} = this.props;
@@ -79,22 +77,46 @@ class Editdialog extends Component {
 			this.setState({
 				errorTip: true
 			})
+
 		}
 
 	}
+	getChildren = (moduleDetail) => {
+		var _this = this;
+		let {
+			resourceIds
+		} = this.state;
+		var id = resourceIds;
+		moduleDetail.map((item, index) => {
+			if (item.cModuleVo.length > 0) {
+				_this.getChildren(item.cModuleVo)
+			} else {
+				item.resources.map((item, index) => {
+					if (item.ownFlag == 1) {
+						var index = id.indexOf(item.id);
+						if (index == -1) {
+							id.push(item.id)
+						}
+					}
+					_this.setState({
+						resourceIds: id
+					})
+				})
+			}
 
-	getValue = (e) => {
-		var check = e.target.checked;
-		var id = e.target.value;
+		})
+	}
+
+	getValue = (item) => {
+		var check = item.ownFlag
+		var id = item.id;
 		var idList = this.state.resourceIds;
-		console.log('eeee', e.target)
-		if (check) {
-			idList.push(id);
-			this.setState({
-				resourceIds: idList
-			})
-
-		} else {
+		let {
+			moduleDetail
+		} = this.props;
+		if (check == 1) {
+			item.ownFlag = 0
+			this.getChildren(moduleDetail)
 			var index = idList.indexOf(id);
 			if (index > -1) {
 				idList.splice(index, 1);
@@ -102,7 +124,21 @@ class Editdialog extends Component {
 			this.setState({
 				resourceIds: idList
 			})
+
+		} else {
+			item.ownFlag = 1
+			this.getChildren(moduleDetail)
+			var index = idList.indexOf(id);
+			if (index == -1) {
+				idList.push(id);
+			}
+			this.setState({
+				resourceIds: idList
+			})
+
+
 		}
+		console.log('idList', idList)
 		if (this.state.resourceIds.length > 0) {
 			this.setState({
 				errorTip: false
@@ -112,9 +148,6 @@ class Editdialog extends Component {
 	renderChildren = (child) => {
 		var _this = this;
 		var childlist, resources;
-		let {
-			checked
-		} = this.state;
 		if (child.length > 0) {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
@@ -132,7 +165,7 @@ class Editdialog extends Component {
 									items.resources.map((item, index) => {
 										return (
 											<div className="u-operation-lists"  key={index}>
-													<input type="checkbox"  value={items.id} onChange={this.getValue}/>{item.name}
+													<input type="checkbox" checked={item.ownFlag==1?'checked':''} value={items.id} onChange={this.getValue.bind(this,item)}/>{item.name}
 											</div>
 										)
 									})

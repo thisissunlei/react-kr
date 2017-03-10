@@ -12,7 +12,8 @@ import {
 import {
 	reduxForm,
 	formValueSelector,
-	change
+	change,
+	initialize
 } from 'redux-form';
 import {
 	KrField,
@@ -37,7 +38,7 @@ import {
 import './index.less';
 
 
-class Createdialog extends Component {
+class Editdialog extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -57,6 +58,33 @@ class Createdialog extends Component {
 		}
 		this.getModuleList();
 		this.getAllController();
+		this.getResourcesData();
+	}
+	componentDidMount() {
+		let {
+			detail
+		} = this.props;
+		Store.dispatch(initialize('editdialog', detail));
+	}
+	getResourcesData = () => {
+		let {
+			detail
+		} = this.props;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getResourcesData', {
+			id: detail.id
+		}, {})).then(function(response) {
+			/*var ControllerList = response.controllerList.map((item, index) => {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			})
+			_this.setState({
+				ControllerList: ControllerList
+			})*/
+		}).catch(function(err) {
+
+		});
 	}
 	onCancel = () => {
 		let {
@@ -274,16 +302,15 @@ class Createdialog extends Component {
 			handleSubmit,
 			pristine,
 			reset,
-			submitting,
-			initialValues,
 			changeValues,
-			optionValues
+			optionValues,
+			detail
 		} = this.props;
 		let {
 			ModuleList,
 			ControllerList,
 		} = this.state;
-
+		console.log('detail----', detail)
 		return (
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
@@ -355,9 +382,9 @@ const validate = values => {
 
 	return errors
 }
-export default Createdialog = reduxForm({
-	form: 'createdialog',
+export default Editdialog = reduxForm({
+	form: 'editdialog',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(Createdialog);
+})(Editdialog);

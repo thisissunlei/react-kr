@@ -963,6 +963,11 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/resource/createResources',
     method: 'post'
   },
+  //权限--操作项--编辑--获取编辑需要的数据
+  'getResourcesData': {
+    url: '/api/krspace-sso-web/sso/resource/getResourcesData?id={id}',
+    method: 'get'
+  },
 }
 
 module.exports = APIS;
