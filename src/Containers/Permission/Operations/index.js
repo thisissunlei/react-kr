@@ -182,9 +182,9 @@ class Operations extends Component {
 	onEditSubmit = (params) => {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('editResources', {}, params)).then(function(response) {
-			_this.openCreateDialog();
+			_this.openEditDialog();
 			Message.success('修改成功');
-			//window.location.reload();
+			window.location.reload();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
