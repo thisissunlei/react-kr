@@ -63,27 +63,37 @@ class Editdialog extends Component {
 		this.getAllController();
 		this.getResourcesData();
 	}
-	componentDidMount() {
-		let {
-			detail
-		} = this.props;
 
-		Store.dispatch(initialize('editdialog', detail));
-
-	}
 	getResourcesData = () => {
 		let {
 			detail
 		} = this.props;
 		var _this = this;
-
+		console.log('----111----')
 		var renderMethod = this.state.ControllerRender;
 		var ControllerId = this.state.ControllerId;
 		Store.dispatch(Actions.callAPI('getResourcesData', {
 			id: detail.id
 		}, {})).then(function(response) {
+			var moduleVoList = response.resources.moduleVoList.map((item, index) => {
+				item.label = item.name;
+				item.value = item.id;
+				return item;
+			})
+			var EditDate = detail;
+			EditDate.module = moduleVoList[0];
+			if (moduleVoList[1]) {
+				EditDate.moduleChild = moduleVoList[1];
+			}
 
-			response.methods.map((item, index) => {
+			if (moduleVoList[2]) {
+				EditDate.moduleChildList = moduleVoList[2];
+			}
+
+
+
+			Store.dispatch(initialize('editdialog', EditDate));
+			response.methods && response.methods.map((item, index) => {
 				var str = {
 					controller: `${item.controllerName} ${item.methodName}`
 				};
@@ -93,11 +103,10 @@ class Editdialog extends Component {
 				ControllerId.push(id);
 
 			})
-
 			_this.setState({
 				ControllerRender: renderMethod,
 				ControllerId: ControllerId,
-				moduleVoList: response.resources.moduleVoList
+				moduleVoList: moduleVoList
 
 			})
 		}).catch(function(err) {
@@ -261,19 +270,22 @@ class Editdialog extends Component {
 		let {
 			childModule
 		} = this.state;
-
-		return (
-			<KrField name="moduleChild"  style={{width:220}}  component="select" label="" options={childModule} inline={true} onChange={this.onSelectChild}/>
-		)
+		if (childModule.length > 0) {
+			return (
+				<KrField name="moduleChild"  style={{width:220}}  component="select" label="" options={childModule} inline={true} onChange={this.onSelectChild}/>
+			)
+		}
 
 	}
 	renderchildModule = () => {
 		let {
 			childModuleList
 		} = this.state;
-		return (
-			<KrField name="moduleChildList"  style={{width:220}}  component="select" label="" options={childModuleList} inline={true}  onChange={this.onSetModuleId}/>
-		)
+		if (childModuleList.length > 0) {
+			return (
+				<KrField name="moduleChildList"  style={{width:220}}  component="select" label="" options={childModuleList} inline={true}  onChange={this.onSetModuleId}/>
+			)
+		}
 
 	}
 	controllerAdd = () => {
@@ -300,7 +312,6 @@ class Editdialog extends Component {
 			ControllerRender
 		} = this.state;
 		var list;
-		console.log('ControllerRender---111', ControllerRender)
 		if (ControllerRender.length > 0) {
 			list = ControllerRender.map((item, index) => {
 				return (
@@ -338,9 +349,7 @@ class Editdialog extends Component {
 			ModuleList,
 			ControllerList,
 			ControllerRender,
-			moduleVoList
 		} = this.state;
-		//console.log('detail----', detail)
 		return (
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
@@ -367,7 +376,7 @@ class Editdialog extends Component {
 	               		 <KrField name="type" label="操作" type="radio" value="OPERATION" />
 	              	</KrField>
 					<div className="u-operations">
-						<KrField name="module"  style={{width:220,marginLeft:40}}  component="select" label="模块" options={ModuleList} inline={true}  requireLabel={true} onChange={this.onSelect}/>
+						<KrField name="module"  style={{width:220,marginLeft:40}}  component="select" label="模块"  options={ModuleList} inline={true}  requireLabel={true} onChange={this.onSelect}/>
 						{this.renderModule()}
 						{this.renderchildModule()}
 					</div>

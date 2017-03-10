@@ -178,11 +178,14 @@ class Createdialog extends Component {
 						return item;
 					})
 					_this.setState({
-						childModule: ModuleList
+						childModule: ModuleList,
+						childModuleList: []
 					})
 				} else {
 					_this.setState({
-						ModuleId: item.id
+						ModuleId: item.id,
+						childModule: response.ssoModuleList,
+						childModuleList: []
 					})
 				}
 
@@ -214,7 +217,8 @@ class Createdialog extends Component {
 					})
 				} else {
 					_this.setState({
-						ModuleId: item.id
+						ModuleId: item.id,
+						childModuleList: response.ssoModuleList
 					})
 				}
 
