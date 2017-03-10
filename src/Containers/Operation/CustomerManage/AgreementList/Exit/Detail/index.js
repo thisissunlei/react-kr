@@ -79,6 +79,7 @@ export default class ExitDetail extends Component {
 	}
 
 	  onCancel = () => {
+	  	console.log(">>>>>>>>");
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	  }
@@ -136,7 +137,7 @@ export default class ExitDetail extends Component {
 				  	 <div className="content-info" style={info} >
 
                             <div className='detail-first'>
-								<KrField component="labelText" grid={1/2} label="出租方11：" value={basic.lessorName} requireBlue={true} toolTrue='true'/>
+								<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} requireBlue={true} toolTrue='true'/>
 								<KrField component="labelText" grid={1/2} label="地址：" value={basic.lessorAddress} requireBlue={true} toolTrue='true'/>
 
 								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.lessorContactName} requireBlue={true} toolTrue='true'/>

@@ -189,6 +189,7 @@ class Merchants extends Component{
     }    
     //查看关闭
 	cancelAgreementDetail=()=>{
+		console.log("9999999999");
 		State.agreementDetail();
 	}
     
@@ -342,32 +343,32 @@ class Merchants extends Component{
     }
 
 	componentDidMount() {
-		State.ajaxListData(this.state.searchParams);
-      	let _this=this;
-		let bodyElem=document.getElementsByTagName("body")[0];
-		bodyElem.onclick=function(event){
-			event = event || window.event;
-			var target = event.target;
+		// State.ajaxListData(this.state.searchParams);
+  //     	let _this=this;
+		// let bodyElem=document.getElementsByTagName("body")[0];
+		// bodyElem.onclick=function(event){
+		// 	event = event || window.event;
+		// 	var target = event.target;
 
-			while (target) {
+		// 	while (target) {
 				
-				if (target && target.className && target.className.indexOf('agreement-list-annex') !== -1 ||
-					target && target.className && target.className.indexOf('agreement-list-other') !== -1
-					) {
-					return;
-				}
-				target = target.parentNode;
-			}
-			console.log("3333")
+		// 		if (target && target.className && target.className.indexOf('agreement-list-annex') !== -1 ||
+		// 			target && target.className && target.className.indexOf('agreement-list-other') !== -1
+		// 			) {
+		// 			return;
+		// 		}
+		// 		target = target.parentNode;
+		// 	}
+		// 	console.log("3333")
 
-			_this.setState({
+		// 	_this.setState({
 				
-				openMenu:false,
-				opretionOpen:false,
+		// 		openMenu:false,
+		// 		opretionOpen:false,
 				
 
-			})
-		}
+		// 	})
+		// }
 
 	}
      //日期开始
