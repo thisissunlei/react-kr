@@ -37,6 +37,7 @@ import {
   Tooltip
 } from 'kr-ui';
 import SearchForm from './SearchForm';
+import HightSearchForm from './HightSearchForm';
 import './index.less';
 export default class ToDoAudit extends Component {
 
@@ -47,6 +48,7 @@ export default class ToDoAudit extends Component {
       openView: false,
       openEditDetail: false,
       openDelete: false,
+      openSearch: false,
       itemDetail: {},
       Params: {
         page: 1,
@@ -63,7 +65,6 @@ export default class ToDoAudit extends Component {
 
   }
   searchParams = (form) => {
-
     this.setState({
       Params: {
         page: 1,
@@ -73,12 +74,18 @@ export default class ToDoAudit extends Component {
       }
     });
   }
+
+  openSearch = () => {
+    this.setState({
+      openSearch: !this.state.openSearch
+    })
+  }
   render() {
     return (
 
       <div className="m-todo-audit">
             <div className="u-search"> 
-                  <SearchForm onSubmit={this.searchParams}/>
+                  <SearchForm onSubmit={this.searchParams} openSearch={this.openSearch}/>
             </div >
             <Table 
                   style={{marginTop:10}}
@@ -208,12 +215,13 @@ export default class ToDoAudit extends Component {
               </TableBody>
                <TableFooter></TableFooter>
             </Table>
-
-        
-
-
-          
-
+            <Dialog
+              title="查询"
+              modal={true}
+              open={this.state.openSearch}
+            >
+              <HightSearchForm   onSubmit={this.onEditSubmit} onCancel={this.openSearch} />
+            </Dialog>
       </div>
 
     );
