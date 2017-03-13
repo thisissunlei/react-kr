@@ -1,0 +1,65 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DrawerBody = function (_React$Component) {
+  _inherits(DrawerBody, _React$Component);
+
+  function DrawerBody(props) {
+    _classCallCheck(this, DrawerBody);
+
+    return _possibleConstructorReturn(this, (DrawerBody.__proto__ || Object.getPrototypeOf(DrawerBody)).call(this, props));
+  }
+
+  _createClass(DrawerBody, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          children = _props.children,
+          style = _props.style;
+
+
+      return _react2.default.createElement(
+        "div",
+        { className: "drawer-body", style: style },
+        children
+      );
+    }
+  }]);
+
+  return DrawerBody;
+}(_react2.default.Component);
+
+DrawerBody.propTypes = {
+  open: _react2.default.PropTypes.bool
+};
+exports.default = DrawerBody;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DrawerBody, "DrawerBody", "/Users/liuyihao/Code/kr-admin/src/Components/Drawer/DrawerBody/index.js");
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RyYXdlci9EcmF3ZXJCb2R5L2luZGV4LmpzIl0sIm5hbWVzIjpbIkRyYXdlckJvZHkiLCJwcm9wcyIsImNoaWxkcmVuIiwic3R5bGUiLCJDb21wb25lbnQiLCJwcm9wVHlwZXMiLCJvcGVuIiwiUHJvcFR5cGVzIiwiYm9vbCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUE7Ozs7Ozs7Ozs7OztJQUdxQkEsVTs7O0FBTW5CLHNCQUFZQyxLQUFaLEVBQW1CO0FBQUE7O0FBQUEsbUhBQ1hBLEtBRFc7QUFFbEI7Ozs7NkJBRVE7QUFBQSxtQkFFZ0IsS0FBS0EsS0FGckI7QUFBQSxVQUVGQyxRQUZFLFVBRUZBLFFBRkU7QUFBQSxVQUVPQyxLQUZQLFVBRU9BLEtBRlA7OztBQUlQLGFBQ0U7QUFBQTtBQUFBLFVBQUssV0FBVSxhQUFmLEVBQTZCLE9BQU9BLEtBQXBDO0FBQ0tEO0FBREwsT0FERjtBQUtEOzs7O0VBbkJxQyxnQkFBTUUsUzs7QUFBekJKLFUsQ0FFWkssUyxHQUFZO0FBQ2pCQyxRQUFLLGdCQUFNQyxTQUFOLENBQWdCQztBQURKLEM7a0JBRkFSLFU7Ozs7Ozs7O2dDQUFBQSxVIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcblxuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBEcmF3ZXJCb2R5IGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50IHtcblxuICBzdGF0aWMgcHJvcFR5cGVzID0ge1xuICAgIG9wZW46UmVhY3QuUHJvcFR5cGVzLmJvb2xcbiAgfVxuXG4gIGNvbnN0cnVjdG9yKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpO1xuICB9XG5cbiAgcmVuZGVyKCkge1xuXG4gICAgbGV0IHtjaGlsZHJlbixzdHlsZX0gPSB0aGlzLnByb3BzO1xuXG4gICAgcmV0dXJuIChcbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZHJhd2VyLWJvZHlcIiBzdHlsZT17c3R5bGV9PlxuICAgICAgICAgIHtjaGlsZHJlbn1cbiAgICAgIDwvZGl2PlxuICAgICk7XG4gIH1cbn1cbiJdfQ==

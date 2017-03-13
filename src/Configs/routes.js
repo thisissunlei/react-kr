@@ -58,10 +58,14 @@ export default (
 
 		{/*demo*/}
 		<Route path="demo" component={Basic}>
+
 			<Route path="zhangqu" component={Demo.ZhangQu}/>
 			<Route path="machaoyue" component={Demo.MaChaoYue}/>
 			<Route path="dongfanai" component={Demo.DongFanAi}/>
-			<Route path="liuyihao" component={Demo.LiuYiHao}/>
+			<Route path="liuyihao" component={Basic}>
+				<Route path="new" component={Demo.LiuYiHao.New}/>
+				<Route path="detail" component={Demo.LiuYiHao.Detail}/>
+			</Route>
 			<Route path="zhangchi" component={Demo.ZhangChi}/>
 			<Route path="tanlinlin" component={Demo.TanLinLin}/>
 			<Route path="wushulin" component={Demo.WuShuLin}/>
@@ -126,6 +130,7 @@ export default (
                  {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
+					<Route path="agreementList" component={Operation.CustomerManage.AgreementList} />
 
 					<Route path="list" component={Operation.CustomerManage.List} />
 

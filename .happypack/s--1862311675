@@ -1,0 +1,81 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var Divider = function Divider(props, context) {
+  var inset = props.inset,
+      style = props.style,
+      other = _objectWithoutProperties(props, ['inset', 'style']);
+
+  var _context$muiTheme = context.muiTheme,
+      baseTheme = _context$muiTheme.baseTheme,
+      prepareStyles = _context$muiTheme.prepareStyles;
+
+
+  var styles = {
+    root: {
+      margin: 0,
+      marginTop: -1,
+      marginLeft: inset ? 72 : 0,
+      height: 1,
+      border: 'none',
+      backgroundColor: baseTheme.palette.borderColor
+    }
+  };
+
+  return _react2.default.createElement('hr', _extends({}, other, { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }));
+};
+
+Divider.muiName = 'Divider';
+
+Divider.propTypes = {
+  /**
+   * If true, the `Divider` will be indented.
+   */
+  inset: _react.PropTypes.bool,
+  /**
+   * Override the inline-styles of the root element.
+   */
+  style: _react.PropTypes.object
+};
+
+Divider.defaultProps = {
+  inset: false
+};
+
+Divider.contextTypes = {
+  muiTheme: _react.PropTypes.object.isRequired
+};
+
+var _default = Divider;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Divider, 'Divider', '/Users/liuyihao/Code/kr-admin/src/Components/Divider/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liuyihao/Code/kr-admin/src/Components/Divider/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RpdmlkZXIvaW5kZXguanMiXSwibmFtZXMiOlsiRGl2aWRlciIsInByb3BzIiwiY29udGV4dCIsImluc2V0Iiwic3R5bGUiLCJvdGhlciIsIm11aVRoZW1lIiwiYmFzZVRoZW1lIiwicHJlcGFyZVN0eWxlcyIsInN0eWxlcyIsInJvb3QiLCJtYXJnaW4iLCJtYXJnaW5Ub3AiLCJtYXJnaW5MZWZ0IiwiaGVpZ2h0IiwiYm9yZGVyIiwiYmFja2dyb3VuZENvbG9yIiwicGFsZXR0ZSIsImJvcmRlckNvbG9yIiwibXVpTmFtZSIsInByb3BUeXBlcyIsImJvb2wiLCJvYmplY3QiLCJkZWZhdWx0UHJvcHMiLCJjb250ZXh0VHlwZXMiLCJpc1JlcXVpcmVkIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQTs7Ozs7Ozs7QUFFQSxJQUFNQSxVQUFVLFNBQVZBLE9BQVUsQ0FBQ0MsS0FBRCxFQUFRQyxPQUFSLEVBQW9CO0FBQUEsTUFFaENDLEtBRmdDLEdBSzlCRixLQUw4QixDQUVoQ0UsS0FGZ0M7QUFBQSxNQUdoQ0MsS0FIZ0MsR0FLOUJILEtBTDhCLENBR2hDRyxLQUhnQztBQUFBLE1BSTdCQyxLQUo2Qiw0QkFLOUJKLEtBTDhCOztBQUFBLDBCQVU5QkMsUUFBUUksUUFWc0I7QUFBQSxNQVFoQ0MsU0FSZ0MscUJBUWhDQSxTQVJnQztBQUFBLE1BU2hDQyxhQVRnQyxxQkFTaENBLGFBVGdDOzs7QUFZbEMsTUFBTUMsU0FBUztBQUNiQyxVQUFNO0FBQ0pDLGNBQVEsQ0FESjtBQUVKQyxpQkFBVyxDQUFDLENBRlI7QUFHSkMsa0JBQVlWLFFBQVEsRUFBUixHQUFhLENBSHJCO0FBSUpXLGNBQVEsQ0FKSjtBQUtKQyxjQUFRLE1BTEo7QUFNSkMsdUJBQWlCVCxVQUFVVSxPQUFWLENBQWtCQztBQU4vQjtBQURPLEdBQWY7O0FBV0EsU0FDRSxpREFBUWIsS0FBUixJQUFlLE9BQU9HLGNBQWMsNEJBQWNDLE9BQU9DLElBQXJCLEVBQTJCTixLQUEzQixDQUFkLENBQXRCLElBREY7QUFHRCxDQTFCRDs7QUE0QkFKLFFBQVFtQixPQUFSLEdBQWtCLFNBQWxCOztBQUVBbkIsUUFBUW9CLFNBQVIsR0FBb0I7QUFDbEI7OztBQUdBakIsU0FBTyxpQkFBVWtCLElBSkM7QUFLbEI7OztBQUdBakIsU0FBTyxpQkFBVWtCO0FBUkMsQ0FBcEI7O0FBV0F0QixRQUFRdUIsWUFBUixHQUF1QjtBQUNyQnBCLFNBQU87QUFEYyxDQUF2Qjs7QUFJQUgsUUFBUXdCLFlBQVIsR0FBdUI7QUFDckJsQixZQUFVLGlCQUFVZ0IsTUFBVixDQUFpQkc7QUFETixDQUF2Qjs7ZUFJZXpCLE87Ozs7Ozs7OztnQ0FqRFRBLE8iLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL2xpdXlpaGFvL0NvZGUva3ItYWRtaW4iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHtQcm9wVHlwZXN9IGZyb20gJ3JlYWN0JztcblxuY29uc3QgRGl2aWRlciA9IChwcm9wcywgY29udGV4dCkgPT4ge1xuICBjb25zdCB7XG4gICAgaW5zZXQsXG4gICAgc3R5bGUsXG4gICAgLi4ub3RoZXJcbiAgfSA9IHByb3BzO1xuXG4gIGNvbnN0IHtcbiAgICBiYXNlVGhlbWUsXG4gICAgcHJlcGFyZVN0eWxlcyxcbiAgfSA9IGNvbnRleHQubXVpVGhlbWU7XG5cbiAgY29uc3Qgc3R5bGVzID0ge1xuICAgIHJvb3Q6IHtcbiAgICAgIG1hcmdpbjogMCxcbiAgICAgIG1hcmdpblRvcDogLTEsXG4gICAgICBtYXJnaW5MZWZ0OiBpbnNldCA/IDcyIDogMCxcbiAgICAgIGhlaWdodDogMSxcbiAgICAgIGJvcmRlcjogJ25vbmUnLFxuICAgICAgYmFja2dyb3VuZENvbG9yOiBiYXNlVGhlbWUucGFsZXR0ZS5ib3JkZXJDb2xvcixcbiAgICB9LFxuICB9O1xuXG4gIHJldHVybiAoXG4gICAgPGhyIHsuLi5vdGhlcn0gc3R5bGU9e3ByZXBhcmVTdHlsZXMoT2JqZWN0LmFzc2lnbihzdHlsZXMucm9vdCwgc3R5bGUpKX0gLz5cbiAgKTtcbn07XG5cbkRpdmlkZXIubXVpTmFtZSA9ICdEaXZpZGVyJztcblxuRGl2aWRlci5wcm9wVHlwZXMgPSB7XG4gIC8qKlxuICAgKiBJZiB0cnVlLCB0aGUgYERpdmlkZXJgIHdpbGwgYmUgaW5kZW50ZWQuXG4gICAqL1xuICBpbnNldDogUHJvcFR5cGVzLmJvb2wsXG4gIC8qKlxuICAgKiBPdmVycmlkZSB0aGUgaW5saW5lLXN0eWxlcyBvZiB0aGUgcm9vdCBlbGVtZW50LlxuICAgKi9cbiAgc3R5bGU6IFByb3BUeXBlcy5vYmplY3QsXG59O1xuXG5EaXZpZGVyLmRlZmF1bHRQcm9wcyA9IHtcbiAgaW5zZXQ6IGZhbHNlLFxufTtcblxuRGl2aWRlci5jb250ZXh0VHlwZXMgPSB7XG4gIG11aVRoZW1lOiBQcm9wVHlwZXMub2JqZWN0LmlzUmVxdWlyZWQsXG59O1xuXG5leHBvcnQgZGVmYXVsdCBEaXZpZGVyO1xuIl19

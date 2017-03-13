@@ -57,11 +57,15 @@ export default class InputDate extends React.Component {
 
 	setDefaultValue = (value) => {
 
-		if (typeof value === 'undefined' || !value) {
+		if(typeof value === 'string'){
+			value = value.split(' ')[0];
+		}
+
+		if (!value) {
 			this.setState({
 				value: ''
 			});
-			return '';
+			return ;
 		}
 
 		if (!isNaN(value)) {
@@ -177,6 +181,7 @@ export default class InputDate extends React.Component {
 			return;
 		}
 		value = `${year}-${month}-${date}`;
+
 		this.setState({
 			value
 		});
@@ -200,7 +205,6 @@ export default class InputDate extends React.Component {
 		let {
 			openCalendar
 		} = this.state;
-
 		return (
 			<div className="ui-calendar" ref="calendar">
 					<div className="calendar-content"  onClick={this.openCalendarDialog} >

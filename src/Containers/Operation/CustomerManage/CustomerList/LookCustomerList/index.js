@@ -76,13 +76,15 @@ class LookCustomerList extends Component{
 			return (<Tabs className="tabs"
 			  inkBarStyle={{background:"#499df1",top:0}}
 			>
-				<Tab label="客户订单" >
-					
-						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch} operType={operType} listId={this.props.listId}/>
-				</Tab>
+				
 				<Tab label="客户详情" >
 					
 						<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch} />
+				</Tab>
+				
+				<Tab label="客户订单" >
+					
+						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch} operType={operType} listId={this.props.listId}/>
 				</Tab>
 			</Tabs>)
 

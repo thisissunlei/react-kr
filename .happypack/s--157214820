@@ -1,0 +1,31 @@
+/Users/liuyihao/Code/kr-admin/src/Containers/Operation/CustomerManage/AgreementList/Admit/Edit/index.js: Unexpected token, expected , (3:30)
+SyntaxError: /Users/liuyihao/Code/kr-admin/src/Containers/Operation/CustomerManage/AgreementList/Admit/Edit/index.js: Unexpected token, expected , (3:30)
+[0m [90m 1 | [39m([36mfunction[39m [33mA[39m(){
+ [90m 2 | [39m	console[33m.[39mlog([32m"in"[39m[33m+[39m[36mtypeof[39m [33mA[39m)[33m;[39m
+[31m[1m>[22m[39m[90m 3 | [39m})(console[33m.[39mlog([32m"out"[39m[33m+[39m[36mtypeof[39m [33mA[39m)})
+ [90m   | [39m                              [31m[1m^[22m[39m
+ [90m 4 | [39m
+ [90m 5 | [39m[90m//等同于[39m
+ [90m 6 | [39m[33mA[39m(console[33m.[39mlog([32m"out"[39m[33m+[39m[36mtypeof[39m [33mA[39m))[0m
+    at Parser.pp$5.raise (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:4215:13)
+    at Parser.pp.unexpected (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:1599:8)
+    at Parser.pp.expect (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:1587:33)
+    at Parser.pp$3.parseCallExpressionArguments (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3375:12)
+    at Parser.pp$3.parseSubscripts (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3344:31)
+    at Parser.pp$3.parseExprSubscripts (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3315:15)
+    at Parser.pp$3.parseMaybeUnary (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3285:19)
+    at Parser.pp$3.parseExprOps (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3215:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3192:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3155:19)
+    at Parser.parseMaybeAssign (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:5603:20)
+    at Parser.pp$3.parseExpression (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:3117:19)
+    at Parser.pp$1.parseStatement (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:1746:19)
+    at Parser.parseStatement (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:5130:22)
+    at Parser.pp$1.parseBlockBody (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:2105:21)
+    at Parser.pp$1.parseTopLevel (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:1617:8)
+    at Parser.parse (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:1509:17)
+    at Object.parse$1 [as parse] (/Users/liuyihao/Code/kr-admin/node_modules/.6.13.1@babylon/lib/index.js:6371:37)
+    at File.parse (/Users/liuyihao/Code/kr-admin/node_modules/.6.7.7@babel-core/lib/transformation/file/index.js:479:24)
+    at File.parseCode (/Users/liuyihao/Code/kr-admin/node_modules/.6.7.7@babel-core/lib/transformation/file/index.js:568:20)
+    at /Users/liuyihao/Code/kr-admin/node_modules/.6.7.7@babel-core/lib/transformation/pipeline.js:48:12
+    at File.wrap (/Users/liuyihao/Code/kr-admin/node_modules/.6.7.7@babel-core/lib/transformation/file/index.js:528:16)

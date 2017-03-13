@@ -1,0 +1,110 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+var _qrcode = require('qrcode.react');
+
+var _qrcode2 = _interopRequireDefault(_qrcode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_Component) {
+	_inherits(Header, _Component);
+
+	function Header(props, context) {
+		_classCallCheck(this, Header);
+
+		return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props, context));
+	}
+
+	_createClass(Header, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    orderInfo = _props.orderInfo,
+			    baseInfo = _props.baseInfo;
+
+			var qRCode = baseInfo.qRCode || "key";
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-print-header' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'logo-info' },
+					_react2.default.createElement('div', { className: 'print-logo' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'print-code print-code-list' },
+						'\u5408\u540C\u7F16\u53F7\uFF1A',
+						baseInfo.contractNO
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'print-code' },
+						_react2.default.createElement(
+							'span',
+							{ style: { marginRight: 38 } },
+							baseInfo.cityName
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							baseInfo.communityName
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'print-title' },
+					orderInfo
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'print-QRCode' },
+					_react2.default.createElement(_qrcode2.default, { value: qRCode, size: 70 })
+				)
+			);
+		}
+	}]);
+
+	return Header;
+}(_react.Component);
+
+Header.defaultProps = {
+	baseInfo: {},
+	orderInfo: ''
+};
+Header.propTypes = {
+	baseInfo: _react2.default.PropTypes.object,
+	orderInfo: _react2.default.PropTypes.string
+};
+exports.default = Header;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Header, 'Header', '/Users/liuyihao/Code/kr-admin/src/PureComponents/Agreement/Print/Header/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9QdXJlQ29tcG9uZW50cy9BZ3JlZW1lbnQvUHJpbnQvSGVhZGVyL2luZGV4LmpzIl0sIm5hbWVzIjpbIkhlYWRlciIsInByb3BzIiwiY29udGV4dCIsIm9yZGVySW5mbyIsImJhc2VJbmZvIiwicVJDb2RlIiwiY29udHJhY3ROTyIsIm1hcmdpblJpZ2h0IiwiY2l0eU5hbWUiLCJjb21tdW5pdHlOYW1lIiwiZGVmYXVsdFByb3BzIiwicHJvcFR5cGVzIiwiUHJvcFR5cGVzIiwib2JqZWN0Iiwic3RyaW5nIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFBQTs7OztBQUdBOztBQUNBOzs7Ozs7Ozs7Ozs7SUFHcUJBLE07OztBQVVwQixpQkFBWUMsS0FBWixFQUFtQkMsT0FBbkIsRUFBNEI7QUFBQTs7QUFBQSx5R0FDckJELEtBRHFCLEVBQ2RDLE9BRGM7QUFHM0I7Ozs7MkJBR1E7QUFBQSxnQkFJSixLQUFLRCxLQUpEO0FBQUEsT0FFUEUsU0FGTyxVQUVQQSxTQUZPO0FBQUEsT0FHUEMsUUFITyxVQUdQQSxRQUhPOztBQUtSLE9BQUlDLFNBQVNELFNBQVNDLE1BQVQsSUFBbUIsS0FBaEM7QUFDQSxVQUVDO0FBQUE7QUFBQSxNQUFLLFdBQVUsaUJBQWY7QUFDQztBQUFBO0FBQUEsT0FBSyxXQUFVLFdBQWY7QUFDQyw0Q0FBSyxXQUFVLFlBQWYsR0FERDtBQUVDO0FBQUE7QUFBQSxRQUFNLFdBQVUsNEJBQWhCO0FBQUE7QUFBbURELGVBQVNFO0FBQTVELE1BRkQ7QUFHQztBQUFBO0FBQUEsUUFBTSxXQUFVLFlBQWhCO0FBQ0M7QUFBQTtBQUFBLFNBQU0sT0FBTyxFQUFDQyxhQUFZLEVBQWIsRUFBYjtBQUFnQ0gsZ0JBQVNJO0FBQXpDLE9BREQ7QUFFQztBQUFBO0FBQUE7QUFBT0osZ0JBQVNLO0FBQWhCO0FBRkQ7QUFIRCxLQUREO0FBU0M7QUFBQTtBQUFBLE9BQUssV0FBVSxhQUFmO0FBQThCTjtBQUE5QixLQVREO0FBVUM7QUFBQTtBQUFBLE9BQUssV0FBVSxjQUFmO0FBQ0MsdURBQVEsT0FBT0UsTUFBZixFQUF3QixNQUFNLEVBQTlCO0FBREQ7QUFWRCxJQUZEO0FBaUJBOzs7Ozs7QUF2Q21CTCxNLENBQ2JVLFksR0FBZTtBQUNyQk4sV0FBVSxFQURXO0FBRXJCRCxZQUFXO0FBRlUsQztBQURGSCxNLENBTWJXLFMsR0FBWTtBQUNsQlAsV0FBVSxnQkFBTVEsU0FBTixDQUFnQkMsTUFEUjtBQUVsQlYsWUFBVyxnQkFBTVMsU0FBTixDQUFnQkU7QUFGVCxDO2tCQU5DZCxNOzs7Ozs7OzsrQkFBQUEsTSIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwge1xuXHRDb21wb25lbnRcbn0gZnJvbSAncmVhY3QnO1xuaW1wb3J0ICcuL2luZGV4Lmxlc3MnO1xuaW1wb3J0IFFSQ29kZSBmcm9tICdxcmNvZGUucmVhY3QnO1xuXG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIEhlYWRlciBleHRlbmRzIENvbXBvbmVudCB7XG5cdHN0YXRpYyBkZWZhdWx0UHJvcHMgPSB7XG5cdFx0YmFzZUluZm86IHt9LFxuXHRcdG9yZGVySW5mbzogJydcblx0fVxuXG5cdHN0YXRpYyBwcm9wVHlwZXMgPSB7XG5cdFx0YmFzZUluZm86IFJlYWN0LlByb3BUeXBlcy5vYmplY3QsXG5cdFx0b3JkZXJJbmZvOiBSZWFjdC5Qcm9wVHlwZXMuc3RyaW5nLFxuXHR9XG5cdGNvbnN0cnVjdG9yKHByb3BzLCBjb250ZXh0KSB7XG5cdFx0c3VwZXIocHJvcHMsIGNvbnRleHQpO1xuXG5cdH1cblxuXG5cdHJlbmRlcigpIHtcblx0XHRsZXQge1xuXHRcdFx0b3JkZXJJbmZvLFxuXHRcdFx0YmFzZUluZm9cblx0XHR9ID0gdGhpcy5wcm9wcztcblx0XHRsZXQgcVJDb2RlID0gYmFzZUluZm8ucVJDb2RlIHx8IFwia2V5XCJcblx0XHRyZXR1cm4gKFxuXG5cdFx0XHQ8ZGl2IGNsYXNzTmFtZT1cInVpLXByaW50LWhlYWRlclwiPlxuXHRcdFx0XHQ8ZGl2IGNsYXNzTmFtZT1cImxvZ28taW5mb1wiPlxuXHRcdFx0XHRcdDxkaXYgY2xhc3NOYW1lPVwicHJpbnQtbG9nb1wiPjwvZGl2PlxuXHRcdFx0XHRcdDxkaXYgIGNsYXNzTmFtZT1cInByaW50LWNvZGUgcHJpbnQtY29kZS1saXN0XCI+5ZCI5ZCM57yW5Y+377yae2Jhc2VJbmZvLmNvbnRyYWN0Tk99PC9kaXY+XG5cdFx0XHRcdFx0PGRpdiAgY2xhc3NOYW1lPVwicHJpbnQtY29kZVwiPlxuXHRcdFx0XHRcdFx0PHNwYW4gc3R5bGU9e3ttYXJnaW5SaWdodDozOH19PntiYXNlSW5mby5jaXR5TmFtZX08L3NwYW4+XG5cdFx0XHRcdFx0XHQ8c3Bhbj57YmFzZUluZm8uY29tbXVuaXR5TmFtZX08L3NwYW4+XG5cdFx0XHRcdFx0PC9kaXY+XG5cdFx0XHRcdDwvZGl2PlxuXHRcdFx0XHQ8ZGl2IGNsYXNzTmFtZT1cInByaW50LXRpdGxlXCI+e29yZGVySW5mb308L2Rpdj5cblx0XHRcdFx0PGRpdiBjbGFzc05hbWU9XCJwcmludC1RUkNvZGVcIj5cblx0XHRcdFx0XHQ8UVJDb2RlIHZhbHVlPXtxUkNvZGV9ICBzaXplPXs3MH0gLz5cblx0XHRcdFx0PC9kaXY+XG5cdFx0XHQ8L2Rpdj5cblx0XHQpO1xuXHR9XG5cbn1cbiJdfQ==

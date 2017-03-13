@@ -1,0 +1,21 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+//加载基础数据
+
+var SET_USER_BASIC_INFO = exports.SET_USER_BASIC_INFO = 'SET_USER_BASIC_INFO';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SET_USER_BASIC_INFO, 'SET_USER_BASIC_INFO', '/Users/liuyihao/Code/kr-admin/src/Redux/Modules/User/types.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9SZWR1eC9Nb2R1bGVzL1VzZXIvdHlwZXMuanMiXSwibmFtZXMiOlsiU0VUX1VTRVJfQkFTSUNfSU5GTyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0E7O0FBRU8sSUFBTUEsb0RBQXNCLHFCQUE1Qjs7Ozs7Ozs7Z0NBQU1BLG1CIiwiZmlsZSI6InR5cGVzLmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiXG4vL+WKoOi9veWfuuehgOaVsOaNrlxuXG5leHBvcnQgY29uc3QgU0VUX1VTRVJfQkFTSUNfSU5GTyA9ICdTRVRfVVNFUl9CQVNJQ19JTkZPJztcblxuXG5cbiJdfQ==

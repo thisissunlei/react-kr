@@ -1,13 +1,13 @@
 
-import isPhoneNumber from 'is-phone-number';
+// import isPhoneNumber from 'is-phone-number';
 
 
-function IsPhoneNumber (value){
-	return isPhoneNumber(value);
-}
+// function IsPhoneNumber (value){
+// 	return isPhoneNumber(value);
+// }
 
 
-module.exports = IsPhoneNumber;
+// module.exports = IsPhoneNumber;
 
 
 

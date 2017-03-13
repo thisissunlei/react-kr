@@ -1,0 +1,27 @@
+'use strict';
+
+var _mobx = require('mobx');
+
+var _mobx2 = _interopRequireDefault(_mobx);
+
+var _Redux = require('kr/Redux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var State = (0, _mobx.observable)({
+	city: "请选择"
+});
+
+module.exports = State;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(State, 'State', '/Users/liuyihao/Code/kr-admin/src/Components/KrField/CityComponent/State.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0tyRmllbGQvQ2l0eUNvbXBvbmVudC9TdGF0ZS5qcyJdLCJuYW1lcyI6WyJTdGF0ZSIsImNpdHkiLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiOztBQUFBOzs7O0FBT0E7Ozs7QUFLQSxJQUFJQSxRQUFRLHNCQUFXO0FBQ3JCQyxPQUFLO0FBRGdCLENBQVgsQ0FBWjs7QUFJQUMsT0FBT0MsT0FBUCxHQUFpQkgsS0FBakI7Ozs7Ozs7OytCQUpJQSxLIiwiZmlsZSI6IlN0YXRlLmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IG1vYngsIHtcblx0b2JzZXJ2YWJsZSxcblx0YWN0aW9uLFxuXHRhc01hcCxcblx0Y29tcHV0ZWQsXG5cdGV4dGVuZE9ic2VydmFibGVcbn0gZnJvbSAnbW9ieCc7XG5pbXBvcnQge1xuXHRBY3Rpb25zLFxuXHRTdG9yZVxufSBmcm9tICdrci9SZWR1eCc7XG5cbmxldCBTdGF0ZSA9IG9ic2VydmFibGUoe1xuXHRcdGNpdHk6XCLor7fpgInmi6lcIlxufSk7XG5cbm1vZHVsZS5leHBvcnRzID0gU3RhdGU7XG4iXX0=

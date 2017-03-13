@@ -146,6 +146,7 @@ export default class ExitDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="签署日期：" type="date" value={basic.signdate} defaultValue="无" requireBlue={true}/>
 
 								<KrField component="labelText"  label="备注：" value={basic.contractmark} inline={false} requireBlue={true} defaultValue="无"/>
+							 <KrField  name="agreement" component="labelText" label="双方其他约定内容" inline={false} requireBlue={true} defaultValue="无" value={basic.agreement}/>
 
 					<KrField component="group" label="上传附件："  requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
