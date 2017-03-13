@@ -37,7 +37,7 @@ import {
   Tooltip
 } from 'kr-ui';
 
-import SearchForm from './SearchForm';
+import SearchsForm from './SearchForm';
 import './index.less';
 export default class DoneAudit extends Component {
 
@@ -63,13 +63,24 @@ export default class DoneAudit extends Component {
   onExport = () => {
 
   }
+  searchParams = (form) => {
+
+    this.setState({
+      Params: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'RETURNED',
+        customerName: form.content
+      }
+    });
+  }
 
   render() {
     return (
 
       <div className="m-done-audit">
             <div className="u-search"> 
-              <SearchForm onSubmit={this.searchParams}/>
+              <SearchsForm onSubmit={this.searchParams}/>
             </div>
              <Table 
                   style={{marginTop:10}}

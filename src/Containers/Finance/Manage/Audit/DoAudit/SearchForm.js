@@ -72,7 +72,7 @@ class SearchForm extends Component {
 		return (
 			<div  className="u-clearfix">
 				<span className="u-high-search"></span>
-				<SearchForms onSubmit={this.onSubmit}/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  inputName="do"/>
 
 			</div>
 		);
@@ -81,5 +81,5 @@ class SearchForm extends Component {
 
 
 export default reduxForm({
-	form: 'searchForm'
+	form: 'searchForm2'
 })(SearchForm);

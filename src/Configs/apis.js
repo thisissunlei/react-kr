@@ -992,7 +992,28 @@ const APIS = {
     'get-fince-info': {
         url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
         method: 'get'
-    }
+    },
+    //财务--审核列表--高级查询--获取社区
+    'get-mainbill-community': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-community?communityName={communityName}',
+        method: 'get'
+    },
+    //财务--审核列表--高级查询--获取收款方式
+    'get-fina-payway': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-payway',
+        method: 'get'
+    },
+    //财务--审核列表--高级查询--获取收款类型
+    'get-fina-paytype': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-paytype',
+        method: 'get'
+    },
+    //财务--审核列表--高级查询--获取主体
+    'get-fina-corporation': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-corporation?corporationName={corporationName}',
+        method: 'get'
+    },
+
 }
 
 module.exports = APIS;

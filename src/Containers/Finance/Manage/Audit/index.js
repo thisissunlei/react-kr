@@ -151,20 +151,17 @@ export default class AuditList extends Component {
           <Title value="审核列表"/>
           <Tabs className="tabs">
             <Tab label="待审核" onActive={this.merchants} style={merchantsStyle}>
-              <ToDoAudit 
+                <ToDoAudit 
                 />
             </Tab>
             <Tab label="已审核"  onActive={this.personal} style={personalStyle}>
-              
-                <DoAudit 
-                  
+               <DoAudit 
                 />
             </Tab>
+            
             <Tab label="已退回"  onActive={this.signedClient} style={signedClientStyle}>
-                <DoneAudit 
-                   
+                <DoneAudit
                 />
-  
             </Tab>
         </Tabs>
       </div>

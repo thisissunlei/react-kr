@@ -38,18 +38,23 @@ class SearchForm extends Component {
 	constructor(props) {
 		super(props);
 
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
 	}
 
-	onSubmit(form) {
+	onSubmit = (form) => {
 		const {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(form);
 	}
+	openSearch = () => {
+		const {
+			openSearch
+		} = this.props;
+		openSearch && openSearch();
 
-	onCancel() {
+	}
+
+	onCancel = () => {
 		const {
 			onCancel
 		} = this.props;
@@ -67,11 +72,11 @@ class SearchForm extends Component {
 
 		return (
 			<div >
-				<Button label="添加回款"onTouchTap={this.openCreateDialog} />
+				<Button label="添加回款" onTouchTap={this.openCreateDialog} />
 				<span className="u-span"></span>
 				<Button label="批量审核"  />
-				<span className="u-high-search"></span>
-				<SearchForms onSubmit={this.onSubmit}/>
+				<span className="u-high-search" onTouchTap={this.openSearch}></span>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称" inputName="todo"/>
 
 			</div>
 		);
@@ -80,5 +85,5 @@ class SearchForm extends Component {
 
 
 export default reduxForm({
-	form: 'searchForm'
+	form: 'searchForm1'
 })(SearchForm);
