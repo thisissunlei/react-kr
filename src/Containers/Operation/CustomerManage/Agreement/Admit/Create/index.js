@@ -52,6 +52,7 @@ export default class JoinCreate extends Component {
 	}
 
 	onCreateSubmit(formValues) {
+		console.log("formValues",formValues);
 		this.setState({
 			formValues
 		});
