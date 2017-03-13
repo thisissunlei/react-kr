@@ -286,7 +286,7 @@ class NewCreateForm extends Component {
 	}
 
 	onSubmit(form) {
-
+		// console.log("form",form,"initialValues",initialValues);
 		form = Object.assign({}, form);
 		let {
 			stationVos
@@ -320,6 +320,7 @@ class NewCreateForm extends Component {
 		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
+
 		// form.totalrent = 0;
 		// if(form.totalrent == 0){
 		// 	Notify.show([{
@@ -687,7 +688,7 @@ class NewCreateForm extends Component {
 								 requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}}/>
 									*/}
 
-								 <KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={optionValues.contractCode} inline={false}/>
+								 <KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
 
                                  <KrField style={{width:370,marginLeft:90}}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}
