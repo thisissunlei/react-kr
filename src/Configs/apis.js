@@ -982,6 +982,11 @@ const APIS = {
     'editSubCategory': {
         url: '/api/krspace-finance-web/finaccount/category/editSubCategory',
         method: 'post'
+    },
+    //财务--回款--编辑二级款项
+    'getSubCategoryFlow': {
+        url: '/api/krspace-finance-web/finaccount/data/getSubCategoryFlow?mainbillid={mainbillid}&firstCategoryId={firstCategoryId}&flowType={flowType}',
+        method: 'get'
     }
 }
 

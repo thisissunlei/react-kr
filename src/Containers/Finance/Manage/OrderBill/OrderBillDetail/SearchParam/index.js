@@ -24,6 +24,7 @@ import {
     LabelText,
     LineText,
     ListGroup,
+    Message,
     ListGroupItem
 } from 'kr-ui';
 
@@ -53,9 +54,7 @@ export default class SearchParam extends Component {
             myReceive: 10000,
             myIncome: 10000,
             testd: false,
-            testArr: [
-                1, 2, 3
-            ],
+            testArr: [],
             detailPaymentS: []
         }
 
@@ -90,7 +89,8 @@ export default class SearchParam extends Component {
         }
 
         var searchParam = {};
-
+        var _this = this;
+        //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
         searchParam.childType = childType;
         searchParam.propertyId = id;
@@ -99,18 +99,51 @@ export default class SearchParam extends Component {
         searchParam.index = index;
         searchParam.pageSize = 30;
         onSearch && onSearch(searchParam);
+        console.log("printAAA", this.state.detailPaymentS, 'indexDDD', index);
         var m = this.state.detailPaymentS;
-        m[index].sss = !m[index].sss;
-        this.setState({detailPaymentS: m})
-    }
-    renderSubList = () => {
+        m.map((item, indexs) => {
+            item.sss = false;
+            return item
+        })
 
+        if (m[index].sss == true) {
+            m[index].sss = false;
+        } else if (m[index].sss == false) {
+            m[index].sss = true;
+        }
+        this.setState({detailPaymentS: m})
+        Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+            mainbillid: params.orderId,
+            firstCategoryId: id,
+            flowType: type
+        })).then(function(response) {
+            if (response.subCategories.length > 0) {
+                _this.setState({testArr: response.subCategories});
+            } else {
+                _this.setState({testArr: []});
+            }
+
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+    renderSubList = (type, id) => {
+        console.log("ididid", id);
         return (this.state.testArr.map((item, index) => {
             return (
-                <div key={index}>{item}</div>
+                <ListGroupItem key={index} onTouchTap={this.onSearchSub.bind(this, type, id, item.id)}>
+                    <div className="hover_sub">
+                        <span className='receivedText'>{item.propname}</span>
+                        <span className='receivedMoney'>{item.propamount}</span>
+                    </div>
+                </ListGroupItem>
             )
         }))
     }
+    onSearchSub = (type, id, subId) => {
+        console.log("subID", id);
+    }
+
     onHandleOver(type, index) {
         var _this = this;
         if (type == 'PAYMENT') {
@@ -158,7 +191,6 @@ export default class SearchParam extends Component {
                                 className = 'ui-listGroupItem';
                                 classPic = 'pic_color'
                             }
-                            console.log("wwwwwwww", item.sss);
                             return (
                                 <ListGroupItem key={index}>
                                     <div className={className} onTouchTap={this.onSearch.bind(this, 'PAYMENT', item.propcode, item.id, item.propInfo, index, item.sss,)} onMouseOver={this.onHandleOver.bind(this, 'PAYMENT', index)} onMouseOut={this.onLeave.bind(this, 'PAYMENT', index)}>
@@ -171,7 +203,7 @@ export default class SearchParam extends Component {
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
                                     {item.sss
-                                        ? this.renderSubList()
+                                        ? this.renderSubList('PAYMENT', item.id)
                                         : ''}
                                 </ListGroupItem>
                             )
