@@ -363,9 +363,9 @@ class NewCreateForm extends Component {
 		let allRentName = this.dealRentName(allRent);
 
 		return (
-		<div style={{width:615,marginTop:'-10px'}}>
+		<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
 
-<form className="m-new-renew" onSubmit={handleSubmit(this.onSubmit)} >
+<form className="m-new-renew m-new-renew-dialog-form" onSubmit={handleSubmit(this.onSubmit)} >
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
@@ -414,7 +414,7 @@ class NewCreateForm extends Component {
                       {stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 					
                      </DotTitle>
-                     <div style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
                     </div>
 

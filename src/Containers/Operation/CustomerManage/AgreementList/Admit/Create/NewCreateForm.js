@@ -592,9 +592,9 @@ class NewCreateForm extends Component {
 			<div>
 
 
-	<div style={{width:615}}>
+	<div style={{width:615,marginLeft:"-20px"}}>
 
-	<form className="m-new-create" onSubmit={handleSubmit(this.onSubmit)} >
+	<form className="m-new-create m-new-dialog-create" onSubmit={handleSubmit(this.onSubmit)} >
 				<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 					<div className="small-cheek">

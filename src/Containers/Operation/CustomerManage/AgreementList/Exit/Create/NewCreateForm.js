@@ -30,7 +30,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import './index.less';
 import UnitPriceForm from './UnitPriceForm';
 
 import {
@@ -209,9 +209,9 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div style={{width:615}}>
+			<div style={{width:615,marginLeft:"-20px"}}>
 
-<form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
+<form className="exit-dialog-form" onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">

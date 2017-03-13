@@ -264,7 +264,6 @@ class NewCreateForm extends Component {
 	}
 
 	onSubmit(form) {
-		console.log("4444444");
 		form = Object.assign({}, form);
 
 		let {
@@ -367,9 +366,9 @@ class NewCreateForm extends Component {
 				} = this.state;
 				let allRentName = this.dealRentName(allRent);
 				return (
-					<div style={{width:615,marginTop:'-10px'}}>
+					<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
 
-						<form className="m-new-reduce" onSubmit={handleSubmit(this.onSubmit)}>
+						<form className="m-new-reduce m-new-reduce-dialog-form" onSubmit={handleSubmit(this.onSubmit)}>
 							<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 								<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 								<div className="small-cheek">
@@ -416,7 +415,7 @@ class NewCreateForm extends Component {
 				                       		{stationVos.length > 5 ? <div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 					                     
 							            </DotTitle>
-							            <div style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+							            <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
 					                </div>
 
@@ -449,9 +448,6 @@ class NewCreateForm extends Component {
 										<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
 										<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
 										requiredValue={true} pattern={/^.{0,50}$/} />
-
-										{/*<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>*/}
-
 										<KrField style={{width:262,marginLeft:25}} name="rentamount" component="labelText" inline={false} type="text" requireLabel={true} label="减租金额" value={allRent} defaultValue="0"
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} />
 
