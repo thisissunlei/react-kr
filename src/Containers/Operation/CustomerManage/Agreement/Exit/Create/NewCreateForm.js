@@ -115,6 +115,12 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		const {
 			onSubmit
 		} = this.props;
@@ -251,6 +257,7 @@ class NewCreateForm extends Component {
 
 
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{

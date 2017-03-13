@@ -1,0 +1,21 @@
+'use strict';
+
+var _Manage = require('./Manage');
+
+var _Manage2 = _interopRequireDefault(_Manage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Manage: _Manage2.default
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db250YWluZXJzL0ZpbmFuY2UvaW5kZXguanMiXSwibmFtZXMiOlsibW9kdWxlIiwiZXhwb3J0cyIsIk1hbmFnZSJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7Ozs7O0FBRUFBLE9BQU9DLE9BQVAsR0FBaUI7QUFDaEJDO0FBRGdCLENBQWpCIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZGVmYXVsdCBhcyBNYW5hZ2V9IGZyb20gJy4vTWFuYWdlJztcblxubW9kdWxlLmV4cG9ydHMgPSB7XG5cdE1hbmFnZSxcbn0iXX0=

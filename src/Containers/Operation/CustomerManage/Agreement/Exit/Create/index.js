@@ -120,6 +120,7 @@ export default class JoinCreate extends Component {
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
+			initialValues.agreement = '无';
 
 			//initialValues.withdrawdate = +new Date();
 			//initialValues.signdate = +new Date();

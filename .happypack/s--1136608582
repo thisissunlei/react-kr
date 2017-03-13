@@ -1,0 +1,24 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var LOAD_MEMO_REQUEST = exports.LOAD_MEMO_REQUEST = 'LOAD_MEMO_REQUEST';
+var LOAD_MEMO_SUCCESS = exports.LOAD_MEMO_SUCCESS = 'LOAD_MEMO_SUCCESS';
+var LOAD_MEMO_FAILURE = exports.LOAD_MEMO_FAILURE = 'LOAD_MEMO_FAILURE';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(LOAD_MEMO_REQUEST, 'LOAD_MEMO_REQUEST', '/Users/liuyihao/Code/kr-admin/src/Redux/Modules/Memo/types.js');
+
+  __REACT_HOT_LOADER__.register(LOAD_MEMO_SUCCESS, 'LOAD_MEMO_SUCCESS', '/Users/liuyihao/Code/kr-admin/src/Redux/Modules/Memo/types.js');
+
+  __REACT_HOT_LOADER__.register(LOAD_MEMO_FAILURE, 'LOAD_MEMO_FAILURE', '/Users/liuyihao/Code/kr-admin/src/Redux/Modules/Memo/types.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9SZWR1eC9Nb2R1bGVzL01lbW8vdHlwZXMuanMiXSwibmFtZXMiOlsiTE9BRF9NRU1PX1JFUVVFU1QiLCJMT0FEX01FTU9fU1VDQ0VTUyIsIkxPQURfTUVNT19GQUlMVVJFIl0sIm1hcHBpbmdzIjoiOzs7OztBQUFPLElBQU1BLGdEQUFvQixtQkFBMUI7QUFDQSxJQUFNQyxnREFBb0IsbUJBQTFCO0FBQ0EsSUFBTUMsZ0RBQW9CLG1CQUExQjs7Ozs7Ozs7Z0NBRk1GLGlCOztnQ0FDQUMsaUI7O2dDQUNBQyxpQiIsImZpbGUiOiJ0eXBlcy5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBMT0FEX01FTU9fUkVRVUVTVCA9ICdMT0FEX01FTU9fUkVRVUVTVCc7XG5leHBvcnQgY29uc3QgTE9BRF9NRU1PX1NVQ0NFU1MgPSAnTE9BRF9NRU1PX1NVQ0NFU1MnO1xuZXhwb3J0IGNvbnN0IExPQURfTUVNT19GQUlMVVJFID0gJ0xPQURfTUVNT19GQUlMVVJFJztcblxuXG5cbiJdfQ==

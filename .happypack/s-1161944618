@@ -1,0 +1,36 @@
+'use strict';
+
+//Notify
+module.exports = {
+	items: [{
+		content: '请注意，那里有人',
+		createAt: '',
+		author: '张屈'
+	}, {
+		content: '请注意，那里有人',
+		createAt: '',
+		author: '张屈'
+	}, {
+		content: '请注意，那里有人',
+		createAt: '',
+		author: '张屈'
+	}, {
+		content: '请注意，那里有人',
+		createAt: '',
+		author: '张屈'
+	}, {
+		content: '注意啦',
+		createAt: '',
+		author: '张屈'
+	}]
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9SZWR1eC9TdGF0ZS9Ob3RpZnkvaW5kZXguanMiXSwibmFtZXMiOlsibW9kdWxlIiwiZXhwb3J0cyIsIml0ZW1zIiwiY29udGVudCIsImNyZWF0ZUF0IiwiYXV0aG9yIl0sIm1hcHBpbmdzIjoiOztBQUNBO0FBQ0FBLE9BQU9DLE9BQVAsR0FBaUI7QUFDaEJDLFFBQU0sQ0FDTDtBQUNDQyxXQUFRLFVBRFQ7QUFFQ0MsWUFBUyxFQUZWO0FBR0NDLFVBQU87QUFIUixFQURLLEVBTUw7QUFDQ0YsV0FBUSxVQURUO0FBRUNDLFlBQVMsRUFGVjtBQUdDQyxVQUFPO0FBSFIsRUFOSyxFQVdMO0FBQ0NGLFdBQVEsVUFEVDtBQUVDQyxZQUFTLEVBRlY7QUFHQ0MsVUFBTztBQUhSLEVBWEssRUFnQkw7QUFDQ0YsV0FBUSxVQURUO0FBRUNDLFlBQVMsRUFGVjtBQUdDQyxVQUFPO0FBSFIsRUFoQkssRUFxQkw7QUFDQ0YsV0FBUSxLQURUO0FBRUNDLFlBQVMsRUFGVjtBQUdDQyxVQUFPO0FBSFIsRUFyQks7QUFEVSxDQUFqQiIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbIlxuLy9Ob3RpZnlcbm1vZHVsZS5leHBvcnRzID0ge1xuXHRpdGVtczpbXG5cdFx0e1xuXHRcdFx0Y29udGVudDon6K+35rOo5oSP77yM6YKj6YeM5pyJ5Lq6Jyxcblx0XHRcdGNyZWF0ZUF0OicnLFxuXHRcdFx0YXV0aG9yOiflvKDlsYgnLFxuXHRcdH0sXG5cdFx0e1xuXHRcdFx0Y29udGVudDon6K+35rOo5oSP77yM6YKj6YeM5pyJ5Lq6Jyxcblx0XHRcdGNyZWF0ZUF0OicnLFxuXHRcdFx0YXV0aG9yOiflvKDlsYgnLFxuXHRcdH0sXG5cdFx0e1xuXHRcdFx0Y29udGVudDon6K+35rOo5oSP77yM6YKj6YeM5pyJ5Lq6Jyxcblx0XHRcdGNyZWF0ZUF0OicnLFxuXHRcdFx0YXV0aG9yOiflvKDlsYgnLFxuXHRcdH0sXG5cdFx0e1xuXHRcdFx0Y29udGVudDon6K+35rOo5oSP77yM6YKj6YeM5pyJ5Lq6Jyxcblx0XHRcdGNyZWF0ZUF0OicnLFxuXHRcdFx0YXV0aG9yOiflvKDlsYgnLFxuXHRcdH0sXG5cdFx0e1xuXHRcdFx0Y29udGVudDon5rOo5oSP5ZWmJyxcblx0XHRcdGNyZWF0ZUF0OicnLFxuXHRcdFx0YXV0aG9yOiflvKDlsYgnLFxuXHRcdH1cblx0XVxufVxuIl19

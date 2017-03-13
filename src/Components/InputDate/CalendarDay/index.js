@@ -7,6 +7,10 @@ export default class CalendarDay extends React.Component {
 
 	static displayName = 'CalendarDay';
 
+
+	static defaultProps = {
+		disable:false
+	}
 	static propTypes = {
 		/**
 		*样式class类名
@@ -18,6 +22,7 @@ export default class CalendarDay extends React.Component {
 		style: React.PropTypes.object,
 		value:React.PropTypes.any,
 		onClick:React.PropTypes.func,
+		disable:React.PropTypes.bool
 	}
 
 	constructor(props) {
@@ -25,13 +30,18 @@ export default class CalendarDay extends React.Component {
 	}
 
 	onClick = ()=>{
-		let {value,onClick} = this.props;
+		let {value,onClick,disable} = this.props;
+
+		if(disable){
+			return ;
+		}
+
 		onClick && onClick(value);
 	}
 
 	render() {
 
-		let {value,date} = this.props;
+		let {value,date,disable} = this.props;
 
 		let classNames = 'calendar-day';
 
@@ -39,6 +49,10 @@ export default class CalendarDay extends React.Component {
 				classNames += ' day-active';
 		}else {
 		   classNames = 'calendar-day';
+		}
+
+		if(disable){
+			classNames += ' disable';
 		}
 
 		return (

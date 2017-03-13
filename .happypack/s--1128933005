@@ -1,0 +1,144 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _reduxForm = require('redux-form');
+
+var _Redux = require('kr/Redux');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _krUi = require('kr-ui');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SwitchPerson = function (_Component) {
+	_inherits(SwitchPerson, _Component);
+
+	function SwitchPerson(props, context) {
+		_classCallCheck(this, SwitchPerson);
+
+		var _this = _possibleConstructorReturn(this, (SwitchPerson.__proto__ || Object.getPrototypeOf(SwitchPerson)).call(this, props, context));
+
+		_this.onChangePerson = function (person) {
+			_Redux.Store.dispatch((0, _reduxForm.change)('switchPerson', 'receiveId', person.value));
+		};
+
+		_this.onCancel = _this.onCancel.bind(_this);
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		return _this;
+	}
+
+	_createClass(SwitchPerson, [{
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'onSubmit',
+		value: function onSubmit(params) {
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(params);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var handleSubmit = this.props.handleSubmit;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'switchP' },
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					_react2.default.createElement(
+						'div',
+						{ className: 'person-switchText' },
+						'\u60A8\u5373\u5C06\u8F6C\u79FB',
+						_react2.default.createElement(
+							'span',
+							null,
+							this.props.customerIds
+						),
+						'\u4E2A\u5BA2\u6237,\u64CD\u4F5C\u4E4B\u540E\uFF0C\u8BE5\u5BA2\u6237\u4F1A\u8F6C\u79FB\u5230\u5BF9\u5E94\u4EBA\u5458\uFF0C\u65E0\u6CD5\u6062\u590D'
+					),
+					_react2.default.createElement(_krUi.KrField, { left: 63, right: 72, name: 'receiveId', style: { marginTop: '12px' }, component: 'searchLeader', inline: false, label: '\u65B0\u8D1F\u8D23\u4EBA', onChange: this.onChangePerson, placeholder: '\u8BF7\u8F93\u5165\u65B0\u8D1F\u8D23\u4EBA' }),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 18 } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ md: 12, align: 'center' },
+								_react2.default.createElement(
+									_krUi.ButtonGroup,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-btn-center' },
+										_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', onTouchTap: this.onSubmit })
+									),
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return SwitchPerson;
+}(_react.Component);
+
+SwitchPerson.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+
+};
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'switchPerson', enableReinitialize: true, keepDirtyOnReinitialize: true })(SwitchPerson);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SwitchPerson, 'SwitchPerson', '/Users/liuyihao/Code/kr-admin/src/Containers/Operation/CustomerManage/CustomerList/SwitchPerson.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/liuyihao/Code/kr-admin/src/Containers/Operation/CustomerManage/CustomerList/SwitchPerson.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db250YWluZXJzL09wZXJhdGlvbi9DdXN0b21lck1hbmFnZS9DdXN0b21lckxpc3QvU3dpdGNoUGVyc29uLmpzIl0sIm5hbWVzIjpbImFjdGlvbkNyZWF0b3JzIiwiU3dpdGNoUGVyc29uIiwicHJvcHMiLCJjb250ZXh0Iiwib25DaGFuZ2VQZXJzb24iLCJwZXJzb24iLCJkaXNwYXRjaCIsInZhbHVlIiwib25DYW5jZWwiLCJiaW5kIiwib25TdWJtaXQiLCJwYXJhbXMiLCJoYW5kbGVTdWJtaXQiLCJjdXN0b21lcklkcyIsIm1hcmdpblRvcCIsIlByb3BUeXBlcyIsImZ1bmMiLCJmb3JtIiwiZW5hYmxlUmVpbml0aWFsaXplIiwia2VlcERpcnR5T25SZWluaXRpYWxpemUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O0FBQUE7Ozs7QUFDQTs7QUFDQTs7QUFDQTs7QUFDQTs7QUFDQTs7SUFBWUEsYzs7QUFDWjs7Ozs7Ozs7Ozs7O0lBVU1DLFk7OztBQU9MLHVCQUFZQyxLQUFaLEVBQWtCQyxPQUFsQixFQUEwQjtBQUFBOztBQUFBLDBIQUNuQkQsS0FEbUIsRUFDYkMsT0FEYTs7QUFBQSxRQWMxQkMsY0FkMEIsR0FjWCxVQUFDQyxNQUFELEVBQVU7QUFDeEIsZ0JBQU1DLFFBQU4sQ0FBZSx1QkFBTyxjQUFQLEVBQXNCLFdBQXRCLEVBQWtDRCxPQUFPRSxLQUF6QyxDQUFmO0FBQ0csR0FoQnNCOztBQUV6QixRQUFLQyxRQUFMLEdBQWMsTUFBS0EsUUFBTCxDQUFjQyxJQUFkLE9BQWQ7QUFDQSxRQUFLQyxRQUFMLEdBQWMsTUFBS0EsUUFBTCxDQUFjRCxJQUFkLE9BQWQ7QUFIeUI7QUFJekI7Ozs7NkJBQ1M7QUFBQSxPQUNGRCxRQURFLEdBQ1UsS0FBS04sS0FEZixDQUNGTSxRQURFOztBQUVUQSxlQUFZQSxVQUFaO0FBQ0E7OzsyQkFDUUcsTSxFQUFPO0FBQUEsT0FDUkQsUUFEUSxHQUNJLEtBQUtSLEtBRFQsQ0FDUlEsUUFEUTs7QUFFZkEsZUFBWUEsU0FBU0MsTUFBVCxDQUFaO0FBQ0E7OzsyQkFNTztBQUFBLE9BRUZDLFlBRkUsR0FFWSxLQUFLVixLQUZqQixDQUVGVSxZQUZFOzs7QUFJUCxVQUVFO0FBQUE7QUFBQSxNQUFLLFdBQVUsU0FBZjtBQUVhO0FBQUE7QUFBQSxPQUFNLFVBQVVBLGFBQWEsS0FBS0YsUUFBbEIsQ0FBaEI7QUFFTTtBQUFBO0FBQUEsUUFBSyxXQUFVLG1CQUFmO0FBQUE7QUFBd0M7QUFBQTtBQUFBO0FBQU8sWUFBS1IsS0FBTCxDQUFXVztBQUFsQixPQUF4QztBQUFBO0FBQUEsTUFGTjtBQUdULG9EQUFVLE1BQU0sRUFBaEIsRUFBb0IsT0FBTyxFQUEzQixFQUErQixNQUFLLFdBQXBDLEVBQWdELE9BQU8sRUFBQ0MsV0FBVSxNQUFYLEVBQXZELEVBQTJFLFdBQVUsY0FBckYsRUFBb0csUUFBUSxLQUE1RyxFQUFtSCxPQUFNLDBCQUF6SCxFQUFnSSxVQUFVLEtBQUtWLGNBQS9JLEVBQStKLGFBQVksNENBQTNLLEdBSFM7QUFJVDtBQUFBO0FBQUEsUUFBTSxPQUFPLEVBQUNVLFdBQVUsRUFBWCxFQUFiO0FBQ0Y7QUFBQTtBQUFBO0FBQ0M7QUFBQTtBQUFBLFVBQUssSUFBSSxFQUFULEVBQWEsT0FBTSxRQUFuQjtBQUNDO0FBQUE7QUFBQTtBQUNDO0FBQUE7QUFBQSxZQUFNLFdBQVUsZUFBaEI7QUFBZ0Msd0RBQVMsT0FBTSxjQUFmLEVBQW9CLE1BQUssUUFBekIsRUFBbUMsWUFBWSxLQUFLSixRQUFwRDtBQUFoQyxVQUREO0FBRUMsdURBQVMsT0FBTSxjQUFmLEVBQW9CLE1BQUssUUFBekIsRUFBa0MsUUFBUSxJQUExQyxFQUFnRCxZQUFZLEtBQUtGLFFBQWpFO0FBRkQ7QUFERDtBQUREO0FBREU7QUFKUztBQUZiLElBRkY7QUF5QkE7Ozs7OztBQXRESVAsWSxDQUVFYyxTLEdBQVk7QUFDbEJMLFdBQVMsZ0JBQU1LLFNBQU4sQ0FBZ0JDLElBRFA7QUFFbEJSLFdBQVMsZ0JBQU1PLFNBQU4sQ0FBZ0JDOztBQUZQLEM7O2VBdURMLDBCQUFVLEVBQUNDLE1BQUssY0FBTixFQUFxQkMsb0JBQW1CLElBQXhDLEVBQTZDQyx5QkFBd0IsSUFBckUsRUFBVixFQUFzRmxCLFlBQXRGLEM7Ozs7Ozs7Ozs7K0JBekRUQSxZIiwiZmlsZSI6IlN3aXRjaFBlcnNvbi5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCx7Q29tcG9uZW50fSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgeyBjb25uZWN0IH0gZnJvbSAncmVhY3QtcmVkdXgnO1xuaW1wb3J0IHtiaW5kQWN0aW9uQ3JlYXRvcnN9IGZyb20gJ3JlZHV4JztcbmltcG9ydCB7cmVkdXhGb3JtLGZvcm1WYWx1ZVNlbGVjdG9yLGluaXRpYWxpemUsY2hhbmdlfSBmcm9tICdyZWR1eC1mb3JtJztcbmltcG9ydCB7QWN0aW9ucyxTdG9yZX0gZnJvbSAna3IvUmVkdXgnO1xuaW1wb3J0ICogYXMgYWN0aW9uQ3JlYXRvcnMgZnJvbSAna3ItdWkvLi4vUmVkdXgvQWN0aW9ucyc7XG5pbXBvcnQge1xuXHRCdXR0b24sXG5cdFNlY3Rpb24sXG5cdEdyaWQsXG5cdFJvdyxcblx0Q29sLFxuXHRLckZpZWxkLFxuXHRCdXR0b25Hcm91cCxcbn0gZnJvbSAna3ItdWknO1xuXG5jbGFzcyBTd2l0Y2hQZXJzb24gZXh0ZW5kcyBDb21wb25lbnR7XG5cdFxuXHRzdGF0aWMgUHJvcFR5cGVzID0ge1xuXHRcdG9uU3VibWl0OlJlYWN0LlByb3BUeXBlcy5mdW5jLFxuXHRcdG9uQ2FuY2VsOlJlYWN0LlByb3BUeXBlcy5mdW5jLFxuXHRcdFxuXHR9XG5cdGNvbnN0cnVjdG9yKHByb3BzLGNvbnRleHQpe1xuXHRcdHN1cGVyKHByb3BzLGNvbnRleHQpO1xuXHRcdHRoaXMub25DYW5jZWw9dGhpcy5vbkNhbmNlbC5iaW5kKHRoaXMpO1xuXHRcdHRoaXMub25TdWJtaXQ9dGhpcy5vblN1Ym1pdC5iaW5kKHRoaXMpO1xuXHR9O1xuXHRvbkNhbmNlbCgpe1xuXHRcdGNvbnN0IHtvbkNhbmNlbH0gPSB0aGlzLnByb3BzO1xuXHRcdG9uQ2FuY2VsICYmIG9uQ2FuY2VsKCk7XG5cdH07XG5cdG9uU3VibWl0KHBhcmFtcyl7XG5cdFx0Y29uc3Qge29uU3VibWl0fSA9IHRoaXMucHJvcHM7XG5cdFx0b25TdWJtaXQgJiYgb25TdWJtaXQocGFyYW1zKTtcblx0fVxuXG5cdG9uQ2hhbmdlUGVyc29uPShwZXJzb24pPT57XG5cdFx0U3RvcmUuZGlzcGF0Y2goY2hhbmdlKCdzd2l0Y2hQZXJzb24nLCdyZWNlaXZlSWQnLHBlcnNvbi52YWx1ZSkpO1xuICAgIH1cblx0XG5cdHJlbmRlcigpe1xuXG5cdFx0bGV0IHtoYW5kbGVTdWJtaXR9PXRoaXMucHJvcHM7XG5cdFx0XG5cdFx0cmV0dXJuKFxuXHRcdFx0XHRcblx0XHRcdFx0PGRpdiBjbGFzc05hbWU9J3N3aXRjaFAnPlxuXHRcdFx0XHRcdFxuICAgICAgICAgICAgICAgICA8Zm9ybSBvblN1Ym1pdD17aGFuZGxlU3VibWl0KHRoaXMub25TdWJtaXQpfT5cblx0XHRcdFx0ICAgICAgIFxuICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ncGVyc29uLXN3aXRjaFRleHQnPuaCqOWNs+Wwhui9rOenuzxzcGFuPnt0aGlzLnByb3BzLmN1c3RvbWVySWRzfTwvc3Bhbj7kuKrlrqLmiLcs5pON5L2c5LmL5ZCO77yM6K+l5a6i5oi35Lya6L2s56e75Yiw5a+55bqU5Lq65ZGY77yM5peg5rOV5oGi5aSNPC9kaXY+XG5cdFx0XHRcdFx0ICAgPEtyRmllbGQgIGxlZnQ9ezYzfSByaWdodD17NzJ9IG5hbWU9XCJyZWNlaXZlSWRcIiBzdHlsZT17e21hcmdpblRvcDonMTJweCd9fSBjb21wb25lbnQ9XCJzZWFyY2hMZWFkZXJcIiBpbmxpbmU9e2ZhbHNlfSBsYWJlbD1cIuaWsOi0n+i0o+S6ulwiIG9uQ2hhbmdlPXt0aGlzLm9uQ2hhbmdlUGVyc29ufSBwbGFjZWhvbGRlcj0n6K+36L6T5YWl5paw6LSf6LSj5Lq6Jy8+XG5cdFx0XHRcdFx0ICAgPEdyaWQgc3R5bGU9e3ttYXJnaW5Ub3A6MTh9fT5cblx0XHRcdFx0XHRcdDxSb3c+XG5cdFx0XHRcdFx0XHRcdDxDb2wgbWQ9ezEyfSBhbGlnbj1cImNlbnRlclwiPlxuXHRcdFx0XHRcdFx0XHRcdDxCdXR0b25Hcm91cD5cblx0XHRcdFx0XHRcdFx0XHRcdDxkaXYgIGNsYXNzTmFtZT0ndWktYnRuLWNlbnRlcic+PEJ1dHRvbiAgbGFiZWw9XCLnoa7lrppcIiB0eXBlPVwic3VibWl0XCIgIG9uVG91Y2hUYXA9e3RoaXMub25TdWJtaXR9Lz48L2Rpdj5cblx0XHRcdFx0XHRcdFx0XHRcdDxCdXR0b24gIGxhYmVsPVwi5Y+W5raIXCIgdHlwZT1cImJ1dHRvblwiIGNhbmNsZT17dHJ1ZX0gb25Ub3VjaFRhcD17dGhpcy5vbkNhbmNlbH0gLz4gXG5cdFx0XHRcdFx0XHRcdFx0PC9CdXR0b25Hcm91cD5cblx0XHRcdFx0XHRcdFx0PC9Db2w+XG5cdFx0XHRcdFx0XHQ8L1Jvdz5cblx0XHRcdFx0XHQgICA8L0dyaWQ+XG5cbiAgICAgICAgICAgICAgICAgPC9mb3JtPlxuXHRcdFx0XHQ8L2Rpdj5cblx0XHRcdFx0XHRcblx0XHRcdFx0XHRcblx0XHRcdFx0XG5cdFx0XHQpO1xuXHR9XG5cdFxufVxuZXhwb3J0IGRlZmF1bHQgcmVkdXhGb3JtKHtmb3JtOidzd2l0Y2hQZXJzb24nLGVuYWJsZVJlaW5pdGlhbGl6ZTp0cnVlLGtlZXBEaXJ0eU9uUmVpbml0aWFsaXplOnRydWV9KShTd2l0Y2hQZXJzb24pO1xuXG5cblxuXG4iXX0=

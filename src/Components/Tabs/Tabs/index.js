@@ -107,7 +107,7 @@ export default class TabsComponent extends Component {
 	render() {
 
 		let {inkBarStyle,tabItemContainerStyle}=this.props;
-		const initInkBarStyle={background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3};
+		const initInkBarStyle={background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}
 		const initTabItemContainerStyle={background:'#FFF',color:"red"};
 
 		const {children}  = this.props;
