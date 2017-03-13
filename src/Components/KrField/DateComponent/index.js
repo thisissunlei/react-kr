@@ -104,7 +104,7 @@ export default class DateComponent extends React.Component {
 
 		this.setInputValue(result);
 
-		onChange && onChange(value);
+		onChange && onChange(result);
 	}
 
 	render() {

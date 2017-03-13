@@ -149,6 +149,13 @@ export default class InputDate extends React.Component {
 		});
 	}
 
+	supplementZero = (value) =>{
+		if (Number(value) < 10) {
+			value = '0' + value;
+		}
+		return value
+	}
+
 	onChange = (value) => {
 
 
@@ -185,9 +192,9 @@ export default class InputDate extends React.Component {
 				time.setMonth(time.getMonth()-1);
 				time.setDate(date);
 
-		year = time.getFullYear();
-		month = time.getMonth()+1;
-		date = time.getDate();
+		year = this.supplementZero(time.getFullYear());
+		month = this.supplementZero(time.getMonth()+1);
+		date = this.supplementZero(time.getDate());
 
 		value = `${year}-${month}-${date}`;
 
