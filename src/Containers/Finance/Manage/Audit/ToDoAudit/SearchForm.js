@@ -71,7 +71,7 @@ class SearchForm extends Component {
 				<span className="u-span"></span>
 				<Button label="批量审核"  />
 				<span className="u-high-search"></span>
-				<SearchForms onSubmit={this.onSubmit} inputName="todo"/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称" inputName="todo"/>
 
 			</div>
 		);

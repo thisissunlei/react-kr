@@ -68,7 +68,7 @@ class SearchForm extends Component {
 		return (
 			<div  className="u-clearfix">
 				<span className="u-high-search"></span>
-				<SearchForms onSubmit={this.onSubmit} inputName="done"/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  inputName="done"/>
 			</div>
 		);
 	}
