@@ -714,11 +714,10 @@ class Merchants extends Component{
 			        		let otherBootom=true;
 			        		if((!State.editRight || !item.editFlag) && item.contracttype == 'QUITRENT' && (!State.editRight || !item.editFlag)){
 								border='0px solid #dfdfdf';
+								otherBootom=false;
 								
 			        		}
-							if(item.contracttype == 'QUITRENT'){
-								otherBootom=false;
-							}
+							
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 
 			        		return (
