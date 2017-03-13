@@ -534,8 +534,10 @@ class NewCreateForm extends Component {
 				<KrField style={{width:262,marginLeft:25}} name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 				<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+				{/*<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+				*/}
+				<KrField style={{width:370,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
 				<KrField name="paymodel" style={{width:262,marginLeft:25}} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 				<KrField name="paytype" style={{width:262,marginLeft:25}} component="select" label="支付方式" options={optionValues.payTypeList} />
