@@ -65,8 +65,8 @@ export default class CalendarMonthDate extends React.Component {
 
 	getDaysInMonth = (year,month)=>{
 	    //  month = parseInt(month,10)+1;
-	      var temp = new Date(year,month,0);
-	      return temp.getDate();
+	    var temp = new Date(year,month,0);
+	    return temp.getDate();
 	}
 
 	createDate(date,key){

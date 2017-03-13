@@ -31,11 +31,6 @@ export default class CalendarDay extends React.Component {
 
 	onClick = ()=>{
 		let {value,onClick,disable} = this.props;
-
-		if(disable){
-			return ;
-		}
-
 		onClick && onClick(value);
 	}
 
