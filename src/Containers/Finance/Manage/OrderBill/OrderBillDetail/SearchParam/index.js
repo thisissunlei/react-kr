@@ -127,12 +127,11 @@ export default class SearchParam extends Component {
             Message.error(err.message);
         });
     }
-    renderSubList = (type, id) => {
-        console.log("ididid", id);
+    renderSubList = (type) => {
         return (this.state.testArr.map((item, index) => {
             return (
-                <ListGroupItem key={index} onTouchTap={this.onSearchSub.bind(this, type, id, item.id)}>
-                    <div className="hover_sub">
+                <ListGroupItem key={index}>
+                    <div className="hover_sub" onTouchTap={this.onSearchSub.bind(this, type, item.id)}>
                         <span className='receivedText'>{item.propname}</span>
                         <span className='receivedMoney'>{item.propamount}</span>
                     </div>
@@ -140,8 +139,18 @@ export default class SearchParam extends Component {
             )
         }))
     }
-    onSearchSub = (type, id, subId) => {
-        console.log("subID", id);
+    onSearchSub = (type, subId) => {
+        const {onSearch, params} = this.props;
+        var searchParam = {};
+        var _this = this;
+        //this.setState({testArr: [], detailPaymentS: []});
+        searchParam.accountType = type;
+
+        searchParam.propertyId = subId;
+        searchParam.orderId = params.orderId;
+        searchParam.page = 1;
+        searchParam.pageSize = 30;
+        onSearch && onSearch(searchParam);
     }
 
     onHandleOver(type, index) {
@@ -203,7 +212,7 @@ export default class SearchParam extends Component {
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
                                     {item.sss
-                                        ? this.renderSubList('PAYMENT', item.id)
+                                        ? this.renderSubList('PAYMENT')
                                         : ''}
                                 </ListGroupItem>
                             )
