@@ -71,7 +71,7 @@ class SearchForm extends Component {
 				<span className="u-span"></span>
 				<Button label="批量审核"  />
 				<span className="u-high-search"></span>
-				<SearchForms onSubmit={this.onSubmit}/>
+				<SearchForms onSubmit={this.onSubmit} inputName="todo"/>
 
 			</div>
 		);
@@ -80,5 +80,5 @@ class SearchForm extends Component {
 
 
 export default reduxForm({
-	form: 'searchForm'
+	form: 'searchForm1'
 })(SearchForm);
