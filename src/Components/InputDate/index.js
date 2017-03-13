@@ -151,6 +151,8 @@ export default class InputDate extends React.Component {
 
 	onChange = (value) => {
 
+
+
 		var year;
 		var month;
 		var date;
@@ -175,14 +177,24 @@ export default class InputDate extends React.Component {
 			return;
 		}
 
-		if (!month || month < -1 || month > 12) {
+		if (month < -1 || month > 12) {
 			return;
 		}
+
+		var time = new Date(year,month,1);
+				time.setMonth(time.getMonth()-1);
+				time.setDate(date);
+
+		year = time.getFullYear();
+		month = time.getMonth()+1;
+		date = time.getDate();
+
 		value = `${year}-${month}-${date}`;
 
 		this.setState({
 			value
 		});
+
 		let {
 			onChange
 		} = this.props;
