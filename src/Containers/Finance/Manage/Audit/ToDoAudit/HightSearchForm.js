@@ -38,7 +38,16 @@ class HightSearchForm extends Component {
 
 	constructor(props) {
 		super(props);
-
+		this.state = {
+			communityList: [],
+			payment: [],
+			payType: [],
+			mainList: []
+		}
+		this.getCommunity();
+		this.getPayment();
+		this.getPayType();
+		this.getMain();
 	}
 
 	onSubmit = (form) => {
@@ -61,6 +70,66 @@ class HightSearchForm extends Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
+	getCommunity = () => {
+		var communityList;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-mainbill-community', {}, {})).then(function(response) {
+			communityList = response.map((item, index) => {
+				item.label = item.communityname;
+				item.value = item.id;
+				return item;
+			})
+			_this.setState({
+				communityList: communityList
+			})
+
+		}).catch(function(err) {});
+	}
+	getPayment = () => {
+		var payment;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-fina-payway', {}, {})).then(function(response) {
+			payment = response.map((item, index) => {
+				item.label = item.name;
+				item.value = item.id;
+				return item;
+			})
+			_this.setState({
+				payment: payment
+			})
+
+		}).catch(function(err) {});
+	}
+	getPayType = () => {
+		var payType;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-fina-paytype', {}, {})).then(function(response) {
+			payType = response.map((item, index) => {
+				item.label = item.categoryName;
+				item.value = item.id;
+				return item;
+			})
+			_this.setState({
+				payType: payType
+			})
+
+		}).catch(function(err) {});
+	}
+	getMain = () => {
+		var mainList;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-fina-corporation', {}, {})).then(function(response) {
+			mainList = response.map((item, index) => {
+				item.label = item.corporationName;
+				item.value = item.id;
+				return item;
+			})
+			_this.setState({
+				mainList: mainList
+			})
+
+		}).catch(function(err) {});
+	}
 
 	render() {
 
@@ -70,7 +139,12 @@ class HightSearchForm extends Component {
 			pristine,
 			reset
 		} = this.props;
-
+		let {
+			communityList,
+			payment,
+			payType,
+			mainList
+		} = this.state;
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -87,7 +161,7 @@ class HightSearchForm extends Component {
 				    		type="select"
 				    		style={{marginTop:4}}
 				    		label="社区名称" 
-				  			options=""
+				  			options={communityList}
 					/>
 					<KrField  
 				    		grid={1/2}
@@ -96,7 +170,7 @@ class HightSearchForm extends Component {
 				    		type="select"
 				    		style={{marginTop:4}}
 				    		label="收款方式" 
-				  			options=""
+				  			options={payment}
 					/>
 					<KrField  
 				    		grid={1/2}
@@ -105,7 +179,7 @@ class HightSearchForm extends Component {
 				    		type="select"
 				    		style={{marginTop:4}}
 				    		label="收款类型" 
-				  			options=""
+				  			options={payType}
 					/>
 					<KrField  
 				    		grid={1/2}
@@ -114,9 +188,14 @@ class HightSearchForm extends Component {
 				    		type="select"
 				    		style={{marginTop:4}}
 				    		label="主体" 
-				  			options=""
+				  			options={mainList}
 					/>
-					<KrField grid={1/1}  component="group" label="录入时间" style={{marginTop:3}}>
+					<KrField 
+							grid={1/1}  
+							component="group" 
+							label="录入时间" 
+							style={{marginTop:3}}
+					>
 						<div className='ui-listDate'>
 							<ListGroup>
 								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="createStratTime" component="date" /></div></ListGroupItem>
@@ -125,7 +204,12 @@ class HightSearchForm extends Component {
 							</ListGroup>
 		                </div>
 					</KrField>
-					<KrField grid={1/1}  component="group" label="收款时间" style={{marginTop:3}}>
+					<KrField 
+							grid={1/1}  
+							component="group" 
+							label="收款时间" 
+							style={{marginTop:3}}
+					>
 						<div className='ui-listDate'>
 							<ListGroup>
 								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="dealStartTime" component="date" /></div></ListGroupItem>
@@ -142,12 +226,19 @@ class HightSearchForm extends Component {
 							component="input" 
 							label="客户名称" 
 					 />
-				<Grid style={{marginTop:7,marginBottom:5,marginLeft:-24}}>
+				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+								<div  className='ui-btn-center'>
+									<Button  label="确定" type="submit" />
+								</div>
+								<Button  
+										label="取消" 
+										type="button" 
+										cancle={true} 
+										onTouchTap={this.onCancel} 
+								/>
 							</ButtonGroup>
 						</Col>
 					</Row>
