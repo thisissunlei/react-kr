@@ -36,6 +36,7 @@ import {
   KrDate,
   Tooltip
 } from 'kr-ui';
+import SearchForm from './SearchForm';
 import './index.less';
 export default class ToDoAudit extends Component {
 
@@ -61,12 +62,15 @@ export default class ToDoAudit extends Component {
   onExport = () => {
 
   }
+  searchParams = () => {
+
+  }
   render() {
     return (
 
       <div className="m-todo-audit">
-       <div> 
-                  {/*<SearchForm onSubmit={this.searchParams}/>*/}
+            <div className="u-search"> 
+                  <SearchForm onSubmit={this.searchParams}/>
             </div >
             <Table 
                   style={{marginTop:10}}
