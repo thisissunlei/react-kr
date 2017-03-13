@@ -154,10 +154,11 @@ export default class AuditList extends Component {
                 <ToDoAudit 
                 />
             </Tab>
-            <Tab label="已审核" onActive={this.personal} style={personalStyle}>
-                <DoAudit 
+            <Tab label="已审核"  onActive={this.personal} style={personalStyle}>
+               <DoAudit 
                 />
             </Tab>
+            
             <Tab label="已退回"  onActive={this.signedClient} style={signedClientStyle}>
                 <DoneAudit
                 />
