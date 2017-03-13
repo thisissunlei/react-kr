@@ -983,9 +983,14 @@ const APIS = {
         url: '/api/krspace-finance-web/finaccount/category/editSubCategory',
         method: 'post'
     },
-    //财务--回款--编辑二级款项
+    //财务--回款--二级子项
     'getSubCategoryFlow': {
         url: '/api/krspace-finance-web/finaccount/data/getSubCategoryFlow?mainbillid={mainbillid}&firstCategoryId={firstCategoryId}&flowType={flowType}',
+        method: 'get'
+    },
+    //财务--审核列表--待审核--获取列表信息
+    'get-fince-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
         method: 'get'
     }
 }
