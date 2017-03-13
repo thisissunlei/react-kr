@@ -32,7 +32,9 @@ import {
   Tabs,
   Tab,
   KrField,
-  Title
+  Title,
+  KrDate,
+  Tooltip
 } from 'kr-ui';
 
 export default class DoAudit extends Component {
@@ -55,7 +57,10 @@ export default class DoAudit extends Component {
   }
 
   componentDidMount() {}
+    //导出
+  onExport = () => {
 
+  }
 
   render() {
     return (
@@ -64,7 +69,15 @@ export default class DoAudit extends Component {
        <div> 
                   {/*<SearchForm onSubmit={this.searchParams}/>*/}
             </div>
-             <Table style={{marginTop:10}} ajax={true}  ajaxUrlName='get-fince-info' ajaxParams={this.state.Params}  onOperation={this.onOperation} >
+             <Table 
+                  style={{marginTop:10}}
+                  ajax={true}
+                  ajaxUrlName='get-fince-info'
+                  ajaxParams={this.state.Params}  
+                  onOperation={this.onOperation} 
+                  onExport={this.onExport}
+                  exportSwitch={true}
+              >
               <TableHeader>
                   <TableHeaderColumn>流水号</TableHeaderColumn>
                   <TableHeaderColumn>收款方式</TableHeaderColumn>
@@ -81,22 +94,104 @@ export default class DoAudit extends Component {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                    <TableRowColumn name="tradingCode"></TableRowColumn>
+                    <TableRowColumn name="tradingCode" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
                     <TableRowColumn name="payWayName"></TableRowColumn>
-                    <TableRowColumn name="dealTime"></TableRowColumn>
-                    <TableRowColumn name="corporationName"></TableRowColumn>
-                    <TableRowColumn name="accountNum"></TableRowColumn>
-                    <TableRowColumn name="communityName"></TableRowColumn>
-                    <TableRowColumn name="payAccount"></TableRowColumn>
+                    <TableRowColumn name="dealTime"  component={(value, oldValue) => {
+                          return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                    }}></TableRowColumn>
+                    <TableRowColumn name="corporationName"component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
+                    <TableRowColumn name="accountNum" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
+                    <TableRowColumn name="communityName" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
+                    <TableRowColumn name="payAccount" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
                     <TableRowColumn name="flowAmount"></TableRowColumn>
-                    <TableRowColumn name="company"></TableRowColumn>
-                    <TableRowColumn name="payee"></TableRowColumn>
-                    <TableRowColumn name="remark"></TableRowColumn>
+                    <TableRowColumn name="company" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
+                    <TableRowColumn name="payee" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
+                    <TableRowColumn name="remark" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                           }}></TableRowColumn>
                     <TableRowColumn>
-                        <Button label="查看"  type="link"  operation="view"/>
-                        <Button label="编辑"  type="link"  operation="edit"/>
-                        <Button label="删除"  type="link"  operation="delete"/>
-                        <Button label="审核"  type="link"  operation="delete"/>
+                        <Button label="查看"  type="operation"  operation="view"/>
+                        <Button label="编辑"  type="operation"  operation="edit"/>
+                        <Button label="删除"  type="operation"  operation="delete"/>
+                        <Button label="审核"  type="operation"  operation="audit"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>
