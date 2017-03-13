@@ -62,8 +62,16 @@ export default class ToDoAudit extends Component {
   onExport = () => {
 
   }
-  searchParams = () => {
+  searchParams = (form) => {
 
+    this.setState({
+      Params: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'UNCHECKED',
+        customerName: form.content
+      }
+    });
   }
   render() {
     return (

@@ -43,10 +43,6 @@ class SearchForm extends Component {
 	}
 
 	onSubmit(form) {
-
-		form.pageSize = 20;
-		form.page = 1;
-		form.searchParam = form.content;
 		const {
 			onSubmit
 		} = this.props;
