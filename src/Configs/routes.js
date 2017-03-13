@@ -9,7 +9,10 @@ import {
     IndexRedirect
 } from 'react-router';
 
-import {Actions, Store} from 'kr/Redux';
+import {
+    Actions,
+    Store
+} from 'kr/Redux';
 
 import {
     Welcome,
@@ -32,7 +35,7 @@ import {
 
 import Master from '../master';
 
-export default(
+export default (
 
     <Route path="/" component={Master}>
 
@@ -240,6 +243,10 @@ export default(
                 <Route path="codeSetting" component={Basic}>
                     <Route path="attribute" component={Finance.Manage.CodeSetting.Attribute}/>
                     <Route path="subject" component={Finance.Manage.CodeSetting.Subject}/>
+                </Route>
+                {/*审核列表*/}
+                <Route path="audit" component={Basic}>
+                    <Route path="audit" component={Finance.Manage.Audit}/>
                 </Route>
             </Route>
         </Route>
