@@ -146,11 +146,11 @@ class Editdialog extends Component {
 				type: form.type,
 				id: detail.id,
 			}
-			console.log('111params-----', params)
+
 			let {
 				onSubmit
 			} = this.props;
-			//onSubmit && onSubmit(params);
+			onSubmit && onSubmit(params);
 
 
 
@@ -375,8 +375,6 @@ class Editdialog extends Component {
 			childModule,
 			childModuleList
 		} = this.state;
-		console.log('childModule', childModule)
-		console.log('childModule---', childModule.length)
 		return (
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
@@ -392,11 +390,11 @@ class Editdialog extends Component {
 					<KrField
 							style={{width:300,marginLeft:40,marginBottom:16}} 
 							name="code" type="text" 
-							component="input" label="编号"  
+							component="labelText" label="编号"  
 							requireLabel={true}
 							requiredValue={true}
-							errors={{requiredValue:'编码为必填项'}}
 							inline={true}
+							value={detail.code}
 					/>
 					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="type" component="group" label="类型" inline={true} requireLabel={true}>
 	                	<KrField name="type" label="菜单" type="radio" value="MENU" checked={true}/>
