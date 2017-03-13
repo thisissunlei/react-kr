@@ -71,8 +71,8 @@ class LookCustomerList extends Component{
 		if(!allState.enter){
 			num=50+(5-noneTab.length)*109.16;
 			text="入驻协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="入驻协议书" >
 					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -84,35 +84,15 @@ class LookCustomerList extends Component{
 				</Tab>
 			);
 		}
-		
 
-		if(!allState.relet){
-			num=50+(5-noneTab.length)*109.16;
-			
-			text="续租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
-				<Tab label="续租协议书" >
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-				</Tab>
-			)
-
-		}else{
-			showTab.push(
-				<Tab label="续租协议书" >
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-				</Tab>
-			);
-
-		}
 
 		if(!allState.increase){
 
 			num=50+(5-noneTab.length)*109.16;
 			
 			text="增租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="增租协议书" >
 					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -125,13 +105,12 @@ class LookCustomerList extends Component{
 			);
 		}	
 
-
 		if(!allState.reduce){
 			num=50+(5-noneTab.length)*109.16;
 			
 			text="减租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="减租协议书" >
 					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -144,14 +123,31 @@ class LookCustomerList extends Component{
 			);
 		}
 
+		if(!allState.relet){
+			num=50+(5-noneTab.length)*109.16;
+			
+			text="续租协议书"
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
+				<Tab label="续租协议书" >
+					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				</Tab>
+			)
 
+		}else{
+			showTab.push(
+				<Tab label="续租协议书" >
+					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				</Tab>
+			);
 
+		}
 		if(!allState.returnRent){
 			num=50+(5-noneTab.length)*109.16;
 			
 			text="退租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="退租协议书" >
 					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -170,8 +166,8 @@ class LookCustomerList extends Component{
 			num=50+(5-noneTab.length)*109.16;
 			
 			text="承租意向书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="承租意向书" >
 					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
