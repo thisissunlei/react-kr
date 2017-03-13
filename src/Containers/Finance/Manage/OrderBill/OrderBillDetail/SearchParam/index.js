@@ -51,14 +51,26 @@ export default class SearchParam extends Component {
                 ? 10000
                 : this.props.params.index,
             myReceive: 10000,
-            myIncome: 10000
+            myIncome: 10000,
+            testd: false,
+            testArr: [
+                1, 2, 3
+            ],
+            detailPaymentS: []
         }
 
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        var n = this.props.detailPayment;
+        n.map((item, index) => {
+            item.sss = false;
+            return item;
+        })
+        this.setState({detailPaymentS: n})
+    }
 
-    onSearch(type, childType, id, propInfo, index) {
+    onSearch(type, childType, id, propInfo, index, sss) {
         const {onSearch, params} = this.props;
 
         //console.log('5555555',window.location.href+'?type='+type+'&index='+index);
@@ -87,8 +99,18 @@ export default class SearchParam extends Component {
         searchParam.index = index;
         searchParam.pageSize = 30;
         onSearch && onSearch(searchParam);
+        var m = this.state.detailPaymentS;
+        m[index].sss = !m[index].sss;
+        this.setState({detailPaymentS: m})
     }
+    renderSubList = () => {
 
+        return (this.state.testArr.map((item, index) => {
+            return (
+                <div key={index}>{item}</div>
+            )
+        }))
+    }
     onHandleOver(type, index) {
         var _this = this;
         if (type == 'PAYMENT') {
@@ -109,7 +131,8 @@ export default class SearchParam extends Component {
         }
     }
     render() {
-        const {detailPayment, detailIncome, detailBalance} = this.props;
+        const {detailIncome, detailBalance} = this.props;
+        let {detailPaymentS} = this.state;
 
         //console.log('props',this.props.params.accountType,this.props.params.index);
 
@@ -121,9 +144,10 @@ export default class SearchParam extends Component {
 
                 <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
-                        {detailPayment.map((item, index) => {
+                        {detailPaymentS.map((item, index) => {
                             var className;
                             var classPic;
+
                             if (this.state.active == index) {
                                 className = 'active';
                                 classPic = 'activePic'
@@ -134,10 +158,10 @@ export default class SearchParam extends Component {
                                 className = 'ui-listGroupItem';
                                 classPic = 'pic_color'
                             }
-
+                            console.log("wwwwwwww", item.sss);
                             return (
                                 <ListGroupItem key={index}>
-                                    <div className={className} onTouchTap={this.onSearch.bind(this, 'PAYMENT', item.propcode, item.id, item.propInfo, index)} onMouseOver={this.onHandleOver.bind(this, 'PAYMENT', index)} onMouseOut={this.onLeave.bind(this, 'PAYMENT', index)}>
+                                    <div className={className} onTouchTap={this.onSearch.bind(this, 'PAYMENT', item.propcode, item.id, item.propInfo, index, item.sss,)} onMouseOver={this.onHandleOver.bind(this, 'PAYMENT', index)} onMouseOut={this.onLeave.bind(this, 'PAYMENT', index)}>
                                         <span className={classPic}></span>
                                         <span className={item.propname == '代收（水电、打印等）'
                                             ? 'receivedTextWater'
@@ -146,6 +170,9 @@ export default class SearchParam extends Component {
                                             ? 'receivedTextWaterMoney'
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
+                                    {item.sss
+                                        ? this.renderSubList()
+                                        : ''}
                                 </ListGroupItem>
                             )
                         })
@@ -182,6 +209,7 @@ export default class SearchParam extends Component {
                                             ? 'receivedTextWaterMoney'
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
+
                                 </ListGroupItem>
                             )
                         })
