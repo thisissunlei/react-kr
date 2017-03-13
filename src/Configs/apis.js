@@ -982,6 +982,11 @@ const APIS = {
     'editSubCategory': {
         url: '/api/krspace-finance-web/finaccount/category/editSubCategory',
         method: 'post'
+    },
+    //财务--审核列表--待审核--获取列表信息
+    'get-fince-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
+        method: 'get'
     }
 }
 

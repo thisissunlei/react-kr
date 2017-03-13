@@ -217,7 +217,7 @@ module.exports = {
                 menuCode: 'propManage'
             }, {
                 primaryText: "审核列表",
-                router: '/finance/manage/audit',
+                router: '/finance/manage/audit/auditlist',
                 menuCode: 'propManage'
             }]
         }]

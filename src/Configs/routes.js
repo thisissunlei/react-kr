@@ -246,7 +246,7 @@ export default (
                 </Route>
                 {/*审核列表*/}
                 <Route path="audit" component={Basic}>
-                    <Route path="audit" component={Finance.Manage.Audit}/>
+                    <Route path="auditlist" component={Finance.Manage.Audit}/>
                 </Route>
             </Route>
         </Route>
