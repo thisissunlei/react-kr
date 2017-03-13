@@ -276,11 +276,12 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
-		stationVos.map((item)=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
-
+		// stationVos.map((item)=>{
+		// 	allRent += _this.getSingleRent(item);
+		// })
+		// allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		
 		this.setState({
 			stationVos,
 			allRent
