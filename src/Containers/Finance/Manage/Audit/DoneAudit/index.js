@@ -37,6 +37,8 @@ import {
   Tooltip
 } from 'kr-ui';
 
+import SearchForm from './SearchForm';
+import './index.less';
 export default class DoneAudit extends Component {
 
   constructor(props, context) {
@@ -65,9 +67,9 @@ export default class DoneAudit extends Component {
   render() {
     return (
 
-      <div>
-       <div> 
-                  {/*<SearchForm onSubmit={this.searchParams}/>*/}
+      <div className="m-done-audit">
+            <div className="u-search"> 
+              <SearchForm onSubmit={this.searchParams}/>
             </div>
              <Table 
                   style={{marginTop:10}}
@@ -191,7 +193,6 @@ export default class DoneAudit extends Component {
                         <Button label="查看"  type="operation"  operation="view"/>
                         <Button label="编辑"  type="operation"  operation="edit"/>
                         <Button label="删除"  type="operation"  operation="delete"/>
-                        <Button label="审核"  type="operation"  operation="audit"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>
