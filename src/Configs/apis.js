@@ -1013,6 +1013,11 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-fina-corporation?corporationName={corporationName}',
         method: 'get'
     },
+    //财务--审核列表--获取条目数
+    'get-fina-flow-count': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-count',
+        method: 'get'
+    },
 
 }
 
