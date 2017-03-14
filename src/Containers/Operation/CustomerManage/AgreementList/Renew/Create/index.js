@@ -125,7 +125,8 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
-			communityId: 1
+			communityId: 1,
+			type : 0,
 		})).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
@@ -139,6 +140,8 @@ export default class JoinCreate extends Component {
 			initialValues.contracttype = 'RENEW';
 			initialValues.leaseAddress = response.customer.customerAddress;
 
+			initialValues.contractcode = response.contractCode;
+			
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
