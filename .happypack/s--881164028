@@ -1,0 +1,53 @@
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _redux = require('redux');
+
+var _reduxThunk = require('redux-thunk');
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _reduxLogger = require('redux-logger');
+
+var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+var _Modules = require('../Modules');
+
+var _State = require('../State');
+
+var _State2 = _interopRequireDefault(_State);
+
+var _callAPIMiddleware = require('../Middlewares/callAPIMiddleware');
+
+var _callAPIMiddleware2 = _interopRequireDefault(_callAPIMiddleware);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var loggerMiddleware = (0, _reduxLogger2.default)();
+
+function configureStore(initialState) {
+
+	var store = (0, _redux.createStore)((0, _redux.combineReducers)(_Modules.Reducers), _State2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, _callAPIMiddleware2.default), (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : function (f) {
+		return f;
+	}));
+
+	//loggerMiddleware
+
+	return store;
+}
+
+module.exports = configureStore(_State2.default);
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(loggerMiddleware, 'loggerMiddleware', '/Users/dongfanai/Desktop/project/kr-admin/src/Redux/Store/configureStore.development.js');
+
+	__REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/dongfanai/Desktop/project/kr-admin/src/Redux/Store/configureStore.development.js');
+}();
+
+;

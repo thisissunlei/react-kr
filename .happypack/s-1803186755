@@ -1,0 +1,195 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _fetch = require('kr/Redux/Utils/fetch');
+
+var _fetch2 = _interopRequireDefault(_fetch);
+
+var _krUi = require('kr-ui');
+
+var _Schedule = require('./Schedule');
+
+var _Schedule2 = _interopRequireDefault(_Schedule);
+
+var _FloorPlan = require('./FloorPlan');
+
+var _FloorPlan2 = _interopRequireDefault(_FloorPlan);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommunityManage = function (_Component) {
+	_inherits(CommunityManage, _Component);
+
+	_createClass(CommunityManage, [{
+		key: 'getChildContext',
+		value: function getChildContext() {
+			return {
+				onSetCommunity: this.onSetCommunity,
+				communityId: this.state.communityId
+			};
+		}
+	}]);
+
+	function CommunityManage(props, context) {
+		_classCallCheck(this, CommunityManage);
+
+		var _this = _possibleConstructorReturn(this, (CommunityManage.__proto__ || Object.getPrototypeOf(CommunityManage)).call(this, props, context));
+
+		_this.onSetCommunity = function (communityId) {
+			_this.setState({
+				communityId: communityId
+			});
+		};
+
+		_this.hiddenRight = function () {
+			_Redux.Store.dispatch(_Redux.Actions.switchRightBar(false));
+		};
+
+		_this.planTable = _this.planTable.bind(_this);
+		_this.Floorplan = _this.Floorplan.bind(_this);
+		_this.state = {
+			tab: 'table',
+			communityId: ''
+		};
+
+		return _this;
+	}
+
+	_createClass(CommunityManage, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(true));
+		}
+	}, {
+		key: 'Floorplan',
+		value: function Floorplan() {
+			var tab = this.state.tab;
+
+			tab = 'floorplan';
+			this.setState({
+				tab: tab
+			});
+		}
+	}, {
+		key: 'planTable',
+		value: function planTable() {
+			// Store.dispatch(Actions.switchRightBar(false));
+			var tab = this.state.tab;
+
+
+			tab = 'table';
+			this.setState({
+				tab: tab
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _inkBarStyle;
+
+			var tab = this.state.tab;
+
+
+			var activeTab = {
+				color: '#2b8dcd',
+				borderBottom: "1px solid #eee"
+			};
+			var commenTab = {
+				color: '#000',
+				borderBottom: "1px solid #eee"
+			};
+			console.log('=======>props', this.props);
+			var tableStyle = tab == 'table' ? activeTab : commenTab;
+			var planStyle = tab == 'floorplan' ? activeTab : commenTab;
+			var inkBarStyle = (_inkBarStyle = {
+				background: '-moz-linear-gradient(right, #03ec56, #499df1)'
+			}, _defineProperty(_inkBarStyle, 'background', '-webkit-linear-gradient(right, #03ec56, #499df1)'), _defineProperty(_inkBarStyle, 'background', '-ms-linear-gradient(right, #03ec56, #499df1)'), _defineProperty(_inkBarStyle, 'position', 'absolute'), _defineProperty(_inkBarStyle, 'top', 0), _inkBarStyle);
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'tab-container', style: { minHeight: 910 } },
+				this.props.changeValues && _react2.default.createElement('div', { className: 'hidden-div', onClick: this.hiddenRight }),
+				_react2.default.createElement(_krUi.Title, { value: '\u9500\u63A7\u8868_\u793E\u533A\u7ECF\u8425' }),
+				_react2.default.createElement(_krUi.BreadCrumbs, { children: ['系统运营', '社区管理', '销控表'] }),
+				_react2.default.createElement('span', { className: 'line' }),
+				_react2.default.createElement(
+					_krUi.Tabs,
+					{ className: 'tabs' },
+					_react2.default.createElement(
+						_krUi.Tab,
+						{ label: '\u9500\u63A7\u8868', onActive: this.planTable, style: tableStyle },
+						_react2.default.createElement(_Schedule2.default, { tab: tab })
+					),
+					_react2.default.createElement(
+						_krUi.Tab,
+						{ label: '\u5E73\u9762\u56FE', onActive: this.Floorplan, style: planStyle },
+						_react2.default.createElement(_FloorPlan2.default, { tab: tab })
+					)
+				)
+			);
+		}
+	}]);
+
+	return CommunityManage;
+}(_react.Component);
+
+CommunityManage.childContextTypes = {
+	onSetCommunity: _react2.default.PropTypes.func.isRequired,
+	communityId: _react2.default.PropTypes.string.isRequired
+};
+
+var _default = (0, _Redux.connect)(function (state) {
+
+	var changeValues = {};
+
+	// changeValues.lessorId = selector(state, 'tab');
+	// changeValues.openRight = state.tab;
+	changeValues = state.right_bar.switch_value || false;
+
+	console.log(state);
+	return {
+		changeValues: changeValues
+	};
+})(CommunityManage);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(CommunityManage, 'CommunityManage', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CommunityManage/Detail/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CommunityManage/Detail/index.js');
+}();
+
+;

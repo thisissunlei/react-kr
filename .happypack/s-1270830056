@@ -1,0 +1,226 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = require('redux-form');
+
+var _Redux = require('kr/Redux');
+
+var _plus = require('../images/plus.svg');
+
+var _plus2 = _interopRequireDefault(_plus);
+
+var _toright = require('../images/toright.svg');
+
+var _toright2 = _interopRequireDefault(_toright);
+
+var _Input = require('../../../Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _LeftItem = require('./LeftItem');
+
+var _LeftItem2 = _interopRequireDefault(_LeftItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Left = function (_React$Component) {
+	_inherits(Left, _React$Component);
+
+	function Left(props, context) {
+		_classCallCheck(this, Left);
+
+		var _this2 = _possibleConstructorReturn(this, (Left.__proto__ || Object.getPrototypeOf(Left)).call(this, props, context));
+
+		_this2.chooseAllCommunity = function () {
+			var _this = _this2;
+			var newArrayAllCommunitys = [];
+			for (var i = 0; i < _this2.state.communitys.length; i++) {
+				for (var j = 0; j < _this2.state.communitys[i].children.length; j++) {
+					newArrayAllCommunitys.push(_this2.state.communitys[i].children[j]);
+				}
+			}
+			var chooseAllCommunity = _this2.props.chooseAllCommunity;
+
+			chooseAllCommunity && chooseAllCommunity(newArrayAllCommunitys);
+		};
+
+		_this2.selectCommunityByCity = function (thisCity) {
+			var selectCommunityByCity = _this2.props.selectCommunityByCity;
+
+			selectCommunityByCity && selectCommunityByCity(thisCity);
+		};
+
+		_this2.addCommunity = function (detailCommunityInfo) {
+			var addCommunity = _this2.props.addCommunity;
+
+			addCommunity && addCommunity(detailCommunityInfo);
+		};
+
+		_this2.onSearchCommunity = function (value) {
+			if (value !== "") {
+				var EmptyArray;
+				var i;
+
+				(function () {
+					var allCommunity = _this2.state.communitys;
+					var epmtyCommunityBox = [];
+					EmptyArray = [];
+
+					allCommunity.map(function (item, index) {
+						epmtyCommunityBox.push(item);
+					});
+					for (i = 0; i < epmtyCommunityBox.length; i++) {
+						epmtyCommunityBox[i].children.map(function (item, index) {
+							if (item.communityName.indexOf(value) > -1) {
+								if (EmptyArray.indexOf(epmtyCommunityBox[i]) > -1) {
+									return;
+								}
+								EmptyArray.push(epmtyCommunityBox[i]);
+							}
+						});
+					}
+					_this2.setState({
+						newArrayCommunity: EmptyArray
+					});
+				})();
+			} else {
+				_this2.setState({
+					newArrayCommunity: []
+				});
+			}
+		};
+
+		_this2.state = {
+			communitys: [],
+			// [{"cityId":1,"cityName":"北京市","children":[{"children":[{"id":2,"hardwareId":"11112"}],"communityName":"北京天创科技社区","communityId":2}]},
+			// 			{"cityId":88,"cityName":"杭州市","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"武汉","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":74,"cityName":"上海市","children":[{"children":[{"id":1,"hardwareId":"111101"}],"communityName":"上海凤城巷社区","communityId":11}]}
+			// 			],
+			newArrayCommunity: [],
+			isIncommunity: ''
+		};
+		return _this2;
+	}
+	// 首次加载获取社区列表
+
+
+	_createClass(Left, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this = this;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getCommunityEquipment', "")).then(function (response) {
+				_this.setState({
+					communitys: response.items
+				});
+			}).catch(function (err) {
+				Message.error(err.message);
+			});
+		}
+		// 输入搜索社区
+
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this3 = this;
+
+			// let {communitys} = this.props;
+			var communitys = this.state.communitys;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-door-card-left-part' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-door-card-left-search-box' },
+					_react2.default.createElement('span', { className: 'icon-searching ui-door-card-search-community' }),
+					_react2.default.createElement(_Input2.default, { placeholder: "请输入查找关键字",
+						style: { paddingLeft: 35, width: 254, height: 36, marginBottom: 6 },
+						onChange: this.onSearchCommunity
+					})
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-door-card-left' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui-door-card-all-li' },
+						_react2.default.createElement(
+							'span',
+							{ className: 'ui-door-card-all-community-text' },
+							'\u5168\u90E8\u793E\u533A'
+						),
+						_react2.default.createElement('img', { src: _plus2.default, className: 'ui-door-card-select-all', onClick: this.chooseAllCommunity })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui-door-card-community-list' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-door-card-community-list-inner' },
+							communitys && communitys.map(function (item, index) {
+								return _react2.default.createElement(_LeftItem2.default, { community: item, key: index,
+									selectCommunityByCity: _this3.selectCommunityByCity,
+									addCommunity: _this3.addCommunity,
+									newArrayCommunity: _this3.state.newArrayCommunity });
+							})
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-door-card-left-toright-img' },
+					_react2.default.createElement('img', { src: _toright2.default })
+				)
+			);
+		}
+	}]);
+
+	return Left;
+}(_react2.default.Component);
+
+Left.dispalyName = 'Left';
+Left.propTypes = {
+	communitys: _react2.default.PropTypes.array
+};
+exports.default = Left;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Left, 'Left', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/KrField/DoorCardComponent/Left/index.js');
+}();
+
+;

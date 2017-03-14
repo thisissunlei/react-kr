@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/SearchForm.js: Unexpected token, expected } (88:21)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/SearchForm.js: Unexpected token, expected } (88:21)
+[0m [90m 86 | [39m							)
+ [90m 87 | [39m					})}
+[31m[1m>[22m[39m[90m 88 | [39m					{detail[33m.[39mlength[33m>[39m[35m3[39m[33m:[39m[36mthis[39m[33m.[39mrenderInfo()[33m:[39m[32m''[39m}
+ [90m    | [39m					                [31m[1m^[22m[39m
+ [90m 89 | [39m				[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 90 | [39m				[33m<[39m[33mspan[39m className[33m=[39m[32m"u-high-search"[39m onTouchTap[33m=[39m{[36mthis[39m[33m.[39mopenSearch}[33m>[39m[33m<[39m[33m/[39m[33mspan[39m[33m>[39m
+ [90m 91 | [39m				[33m<[39m[33mSearchForms[39m onSubmit[33m=[39m{[36mthis[39m[33m.[39monSubmit} placeholder[33m=[39m[32m"请输入客户名称"[39m  inputName[33m=[39m[32m"do"[39m[33m/[39m[33m>[39m[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp.unexpected (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1627:8)
+    at Parser.pp.expect (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1615:33)
+    at Parser.pp$8.jsxParseExpressionContainer (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6285:8)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6357:32)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6388:15)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6400:21)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5655:24)
+    at Parser.pp$3.parseParenAndDistinguishExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3660:26)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3545:19)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6402:22)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)

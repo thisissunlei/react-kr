@@ -1,0 +1,255 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _Redux = require('kr/Redux');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ReceiveDetailTop = function (_Component) {
+	_inherits(ReceiveDetailTop, _Component);
+
+	function ReceiveDetailTop(props, context) {
+		_classCallCheck(this, ReceiveDetailTop);
+
+		var _this2 = _possibleConstructorReturn(this, (ReceiveDetailTop.__proto__ || Object.getPrototypeOf(ReceiveDetailTop)).call(this, props, context));
+
+		_this2.iconClose = function () {
+			var iconClose = _this2.props.iconClose;
+
+			iconClose && iconClose();
+		};
+
+		_this2.contractContinue = function (contactType, detailid) {
+			var contractContinue = _this2.props.contractContinue;
+
+			contractContinue && contractContinue(contactType, detailid);
+		};
+
+		_this2.state = {};
+		return _this2;
+	}
+
+	_createClass(ReceiveDetailTop, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    contractTopReceive = _props.contractTopReceive,
+			    liveMoneyValue = _props.liveMoneyValue;
+
+			//console.log('4444wwww',contractTopReceive)
+
+			var _this = this;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-receive-money' },
+				_react2.default.createElement('div', { className: 'receiveRightClose', onClick: _this.iconClose }),
+				_react2.default.createElement(
+					'div',
+					{ className: 'finance-receive-title' },
+					_react2.default.createElement(
+						_krUi.Grid,
+						null,
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ align: 'left', md: 4 },
+								_react2.default.createElement(
+									'span',
+									{ className: 'addReceivePic' },
+									'\u6DFB\u52A0\u56DE\u6B3E'
+								)
+							),
+							_react2.default.createElement(
+								_krUi.Col,
+								{ align: 'right', md: 8 },
+								_react2.default.createElement(
+									'span',
+									{ className: 'currentReceivePic' },
+									'\u5269\u4F59:'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'sumMoneyRange' },
+									liveMoneyValue
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'receive-detail-table' },
+						_react2.default.createElement(
+							'ul',
+							{ className: 'table-head' },
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u7C7B\u578B'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u6B3E\u9879'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u5E94\u6536'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u672A\u56DE\u6B3E'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u64CD\u4F5C'
+							)
+						),
+						contractTopReceive.map(function (item, index) {
+
+							if (item.contactType == '1') {
+								return _react2.default.createElement(
+									'ul',
+									{ className: 'admin-ul', key: index },
+									_react2.default.createElement(
+										'li',
+										null,
+										item.contactName
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										'\u5B9A\u91D1'
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										item.frontmoney
+									),
+									_react2.default.createElement(
+										'li',
+										null,
+										item.nFrontmoney
+									),
+									_react2.default.createElement(
+										'li',
+										{ className: 'receiveTopContract', onClick: _this.contractContinue.bind(this, item.contactType, item.detailid) },
+										'\u5408\u540C'
+									)
+								);
+							}
+							if (item.contactType != '1') {
+								return _react2.default.createElement(
+									'div',
+									{ className: 'joinBook', key: index },
+									_react2.default.createElement(
+										'ul',
+										null,
+										_react2.default.createElement(
+											'li',
+											null,
+											item.contactName
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											'\u62BC\u91D1'
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											item.deposit
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											item.nDeposit
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'receiveTopContract', onClick: _this.contractContinue.bind(this, item.contactType, item.detailid) },
+											'\u5408\u540C'
+										)
+									),
+									_react2.default.createElement(
+										'ul',
+										null,
+										_react2.default.createElement('li', null),
+										_react2.default.createElement(
+											'li',
+											null,
+											'\u79DF\u91D1'
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											item.totalrent
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											item.nTotalrent
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'receiveTopContract topContract', onClick: _this.contractContinue.bind(this, item.contactType, item.detailid) },
+											'\u5408\u540C'
+										)
+									)
+								);
+							}
+						})
+					)
+				)
+			);
+		}
+	}]);
+
+	return ReceiveDetailTop;
+}(_react.Component);
+
+ReceiveDetailTop.PropTypes = {
+	contractTopReceive: _react2.default.PropTypes.array,
+	liveMoneyValue: _react2.default.PropTypes.number
+};
+exports.default = ReceiveDetailTop;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(ReceiveDetailTop, 'ReceiveDetailTop', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderBillDetail/ReceiveDetailTop.js');
+}();
+
+;

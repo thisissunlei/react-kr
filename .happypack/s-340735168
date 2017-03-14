@@ -1,0 +1,312 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Editdialog = function (_Component) {
+	_inherits(Editdialog, _Component);
+
+	function Editdialog(props, context) {
+		_classCallCheck(this, Editdialog);
+
+		var _this2 = _possibleConstructorReturn(this, (Editdialog.__proto__ || Object.getPrototypeOf(Editdialog)).call(this, props, context));
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.onSubmit = function (form) {
+			var resourceIds = _this2.state.resourceIds;
+
+
+			if (resourceIds.length > 0) {
+				form.resourceIds = resourceIds;
+				var onSubmit = _this2.props.onSubmit;
+
+				onSubmit && onSubmit(form);
+			} else {
+				_this2.setState({
+					errorTip: true
+				});
+			}
+		};
+
+		_this2.getChildren = function (moduleDetail) {
+			var _this = _this2;
+			var resourceIds = _this2.state.resourceIds;
+
+			var id = resourceIds;
+			moduleDetail.map(function (item, index) {
+				if (item.cModuleVo.length > 0) {
+					_this.getChildren(item.cModuleVo);
+				} else {
+					item.resources.map(function (item, index) {
+						if (item.ownFlag == 1) {
+							var index = id.indexOf(item.id);
+							if (index == -1) {
+								id.push(item.id);
+							}
+						}
+						_this.setState({
+							resourceIds: id
+						});
+					});
+				}
+			});
+		};
+
+		_this2.getValue = function (item) {
+			var check = item.ownFlag;
+			var id = item.id;
+			var idList = _this2.state.resourceIds;
+			var moduleDetail = _this2.props.moduleDetail;
+
+			if (check == 1) {
+				item.ownFlag = 0;
+				_this2.getChildren(moduleDetail);
+				var index = idList.indexOf(id);
+				if (index > -1) {
+					idList.splice(index, 1);
+				}
+				_this2.setState({
+					resourceIds: idList
+				});
+			} else {
+				item.ownFlag = 1;
+				_this2.getChildren(moduleDetail);
+				var index = idList.indexOf(id);
+				if (index == -1) {
+					idList.push(id);
+				}
+				_this2.setState({
+					resourceIds: idList
+				});
+			}
+			console.log('idList', idList);
+			if (_this2.state.resourceIds.length > 0) {
+				_this2.setState({
+					errorTip: false
+				});
+			}
+		};
+
+		_this2.renderChildren = function (child) {
+			var _this = _this2;
+			var childlist, resources;
+			if (child.length > 0) {
+				return childlist = child.map(function (items, indexs) {
+					if (items.cModuleVo.length > 0) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'u-operation-list', id: items.id, key: indexs },
+							items.name,
+							_this.renderChildren(items.cModuleVo)
+						);
+					} else {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'u-operation-list', id: items.id, key: indexs },
+							items.name,
+							items.resources.map(function (item, index) {
+								return _react2.default.createElement(
+									'div',
+									{ className: 'u-operation-lists', key: index },
+									_react2.default.createElement('input', { type: 'checkbox', checked: item.ownFlag == 1 ? 'checked' : '', value: items.id, onChange: _this2.getValue.bind(_this2, item) }),
+									item.name
+								);
+							})
+						);
+					}
+				});
+			}
+		};
+
+		_this2.renderOperation = function (list) {
+			var _this = _this2;
+			var List;
+			if (list.length > 0) {
+				List = list.map(function (item, index) {
+					if (item.cModuleVo.length > 0) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'u-operation-list', id: item.id, key: index },
+							item.name,
+							_this.renderChildren(item.cModuleVo)
+						);
+					} else {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'u-operation-list', id: item.id, key: index },
+							_react2.default.createElement('input', { type: 'checkbox', value: item.id }),
+							item.name
+						);
+					}
+				});
+			}
+			return List;
+		};
+
+		_this2.state = {
+			ModuleList: [],
+			resourceIds: [],
+			errorTip: false
+		};
+
+		return _this2;
+	}
+
+	_createClass(Editdialog, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _props = this.props,
+			    detail = _props.detail,
+			    moduleDetail = _props.moduleDetail;
+
+			_Redux.Store.dispatch((0, _reduxForm.initialize)('editdialog', detail));
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props2 = this.props,
+			    error = _props2.error,
+			    handleSubmit = _props2.handleSubmit,
+			    pristine = _props2.pristine,
+			    reset = _props2.reset,
+			    submitting = _props2.submitting,
+			    initialValues = _props2.initialValues,
+			    changeValues = _props2.changeValues,
+			    optionValues = _props2.optionValues,
+			    moduleDetail = _props2.moduleDetail;
+			var _state = this.state,
+			    ModuleList = _state.ModuleList,
+			    resourceIds = _state.resourceIds,
+			    errorTip = _state.errorTip;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'g-create' },
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit), style: { marginTop: 50 } },
+					_react2.default.createElement(_krUi.KrField, {
+						style: { width: 300, marginLeft: 40, marginBottom: 16 },
+						name: 'name', type: 'text',
+						component: 'input', label: '\u59D3\u540D\uFF1A',
+						requireLabel: true,
+						requiredValue: true,
+						errors: { requiredValue: '姓名为必填项' },
+						inline: true
+					}),
+					_react2.default.createElement(_krUi.KrField, {
+						style: { width: 300, marginLeft: 40, marginBottom: 16 },
+						name: 'code', type: 'text',
+						component: 'input', label: '\u7F16\u53F7\uFF1A',
+						requireLabel: true,
+						requiredValue: true,
+						errors: { requiredValue: '编码为必填项' },
+						inline: true
+					}),
+					_react2.default.createElement(
+						'div',
+						{ className: 'u-operation' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'u-operation-label' },
+							'\u64CD\u4F5C\u9879\uFF1A'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'u-operation-content' },
+							this.renderOperation(moduleDetail),
+							errorTip ? _react2.default.createElement(
+								'div',
+								{ className: 'u-error-tip' },
+								'\u8BF7\u9009\u62E9\u64CD\u4F5C\u9879'
+							) : ''
+						),
+						_react2.default.createElement(_krUi.KrField, {
+							type: 'hidden',
+							name: 'resourceIds',
+							values: resourceIds
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { marginLeft: 140, marginTop: 30 } },
+						_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', height: 34, width: 90 })
+					)
+				)
+			);
+		}
+	}]);
+
+	return Editdialog;
+}(_react.Component);
+
+var validate = function validate(values) {
+
+	var errors = {};
+	if (!values.name) {
+		errors.name = '请输入姓名';
+	}
+
+	if (!values.code) {
+		errors.code = '请输入编号';
+	}
+
+	return errors;
+};
+
+var _default = Editdialog = (0, _reduxForm.reduxForm)({
+	form: 'editdialog',
+	validate: validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(Editdialog);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Editdialog, 'Editdialog', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/Editdialog/index.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/Editdialog/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/Editdialog/index.js');
+}();
+
+;

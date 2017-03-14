@@ -1,0 +1,104 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _dictionary = require('../../Configs/dictionary');
+
+var _dictionary2 = _interopRequireDefault(_dictionary);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Dictionary = function (_React$Component) {
+	_inherits(Dictionary, _React$Component);
+
+	function Dictionary() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
+		_classCallCheck(this, Dictionary);
+
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dictionary.__proto__ || Object.getPrototypeOf(Dictionary)).call.apply(_ref, [this].concat(args))), _this), _this.getDictionary = function (type, value) {
+
+			var result = '';
+
+			var dics = _dictionary2.default[type];
+
+			if (Object.prototype.toString.call(dics) !== '[object Array]') {
+				return result;
+			}
+
+			for (var i = 0; i < dics.length; i++) {
+				var item = dics[i];
+				if (item.value === value) {
+					result = item.desc;
+					break;
+				};
+			}
+
+			return result;
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
+
+	_createClass(Dictionary, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    className = _props.className,
+			    type = _props.type,
+			    value = _props.value;
+
+
+			return _react2.default.createElement(
+				'span',
+				null,
+				this.getDictionary(type, value)
+			);
+		}
+	}]);
+
+	return Dictionary;
+}(_react2.default.Component);
+
+Dictionary.displayName = 'Dictionary';
+Dictionary.propTypes = {
+	/**
+  *值
+  */
+	type: _react2.default.PropTypes.string,
+	/**
+  * yyyy-mm-dd hh:MM:ss
+  */
+	value: _react2.default.PropTypes.string
+};
+exports.default = Dictionary;
+;
+
+var _temp2 = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Dictionary, 'Dictionary', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Dictionary/index.js');
+}();
+
+;

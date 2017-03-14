@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Operations/Createdialog/index.js: Unexpected token, expected , (151:147)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Operations/Createdialog/index.js: Unexpected token, expected , (151:147)
+[0m [90m 149 | [39m			[36mvar[39m num [33m=[39m [33mMath[39m[33m.[39mrandom()
+ [90m 150 | [39m			[36mreturn[39m (
+[31m[1m>[22m[39m[90m 151 | [39m				[33m<[39m[33mKrField[39m name[33m=[39m{[32m`module${num}`[39m} style[33m=[39m{{width[33m:[39m[35m200[39m[33m,[39mmarginLeft[33m:[39m[35m40[39m}}  component[33m=[39m[32m"select"[39m  options[33m=[39m{list} inline[33m=[39m{[36mtrue[39m}  onChange[33m=[39m{[36mthis[39m[33m.[39monSelect}[33m/[39m[33m>[39m {
+ [90m     | [39m				                                                                                                                                               [31m[1m^[22m[39m
+ [90m 152 | [39m					[36mthis[39m[33m.[39mrenderModule()
+ [90m 153 | [39m				}
+ [90m 154 | [39m[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp.unexpected (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1627:8)
+    at Parser.pp.expect (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1615:33)
+    at Parser.pp$3.parseParenAndDistinguishExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3646:12)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3545:19)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6402:22)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5694:20)
+    at Parser.pp$3.parseExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3143:19)
+    at Parser.pp$1.parseReturnStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1945:26)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1716:19)
+    at Parser.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseBlockBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2133:21)
+    at Parser.pp$1.parseBlock (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2114:8)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1736:19)
+    at Parser.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseIfStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1926:26)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1714:19)

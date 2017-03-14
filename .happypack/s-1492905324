@@ -1,0 +1,25 @@
+'use strict';
+
+var _Edit = require('./Edit');
+
+var _Edit2 = _interopRequireDefault(_Edit);
+
+var _Detail = require('./Detail');
+
+var _Detail2 = _interopRequireDefault(_Detail);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Edit: _Edit2.default,
+	Detail: _Detail2.default
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;

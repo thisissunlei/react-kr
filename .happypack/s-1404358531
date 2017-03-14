@@ -1,0 +1,141 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _WrapComponent = require('../WrapComponent');
+
+var _WrapComponent2 = _interopRequireDefault(_WrapComponent);
+
+var _Input = require('../../../Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InputComponent = function (_React$Component) {
+	_inherits(InputComponent, _React$Component);
+
+	function InputComponent(props, context) {
+		_classCallCheck(this, InputComponent);
+
+		var _this = _possibleConstructorReturn(this, (InputComponent.__proto__ || Object.getPrototypeOf(InputComponent)).call(this, props, context));
+
+		_this.onChange = function (value) {
+			var input = _this.props.input;
+
+			input.onChange(value);
+			var onChange = _this.props.onChange;
+
+			onChange && onChange(value);
+		};
+
+		_this.onError = function (message) {
+			var onError = _this.props.onError;
+
+			onError && onError();
+
+			var input = _this.props.input;
+
+
+			input.onError && input.onError(message);
+		};
+
+		return _this;
+	}
+
+	_createClass(InputComponent, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    input = _props.input,
+			    label = _props.label,
+			    type = _props.type,
+			    _props$meta = _props.meta,
+			    touched = _props$meta.touched,
+			    error = _props$meta.error,
+			    defaultValue = _props.defaultValue,
+			    requireLabel = _props.requireLabel,
+			    onChange = _props.onChange,
+			    disabled = _props.disabled,
+			    placeholder = _props.placeholder,
+			    style = _props.style,
+			    inline = _props.inline,
+			    simple = _props.simple,
+			    heightStyle = _props.heightStyle,
+			    other = _objectWithoutProperties(_props, ['input', 'label', 'type', 'meta', 'defaultValue', 'requireLabel', 'onChange', 'disabled', 'placeholder', 'style', 'inline', 'simple', 'heightStyle']);
+
+			if (type === 'hidden') {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_Input2.default, _extends({}, input, { type: 'hidden' }))
+				);
+			}
+
+			var className = '';
+
+			return _react2.default.createElement(
+				_WrapComponent2.default,
+				{ label: label, wrapStyle: style, requireLabel: requireLabel, inline: inline, simple: simple },
+				_react2.default.createElement(_Input2.default, _extends({}, input, { defaultValue: defaultValue, placeholder: placeholder || label, type: type, disabled: disabled, className: className, style: heightStyle, onChange: this.onChange }, other, { onError: this.onError })),
+				touched && error && _react2.default.createElement(
+					'div',
+					{ className: 'error-wrap' },
+					' ',
+					_react2.default.createElement(
+						'span',
+						null,
+						error
+					),
+					' '
+				)
+			);
+		}
+	}]);
+
+	return InputComponent;
+}(_react2.default.Component);
+
+InputComponent.displayName = 'InputComponent';
+InputComponent.propTypes = {
+	inline: _react2.default.PropTypes.bool,
+	simple: _react2.default.PropTypes.bool,
+	heightStyle: _react2.default.PropTypes.object,
+	maxLength: _react2.default.PropTypes.number
+};
+exports.default = InputComponent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(InputComponent, 'InputComponent', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/KrForm/FieldControl/InputComponent/index.js');
+}();
+
+;

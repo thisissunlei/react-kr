@@ -1,0 +1,353 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _reactDom = require('react-dom');
+
+var _reactTooltip = require('react-tooltip');
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
+var _EmployessTable = require('./EmployessTable');
+
+var _EmployessTable2 = _interopRequireDefault(_EmployessTable);
+
+var _D3Content = require('./D3Content');
+
+var _D3Content2 = _interopRequireDefault(_D3Content);
+
+var _DismantlingForm = require('./DismantlingForm');
+
+var _DismantlingForm2 = _interopRequireDefault(_DismantlingForm);
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ItemTable = function (_Component) {
+  _inherits(ItemTable, _Component);
+
+  function ItemTable(props, context) {
+    _classCallCheck(this, ItemTable);
+
+    var _this2 = _possibleConstructorReturn(this, (ItemTable.__proto__ || Object.getPrototypeOf(ItemTable)).call(this, props, context));
+
+    _this2.onStation = _this2.onStation.bind(_this2);
+    _this2.onDismantlingDialog = _this2.onDismantlingDialog.bind(_this2);
+    // this.onDismantling = this.onDismantling.bind(this);
+    _this2.renderOrder = _this2.renderOrder.bind(_this2);
+    _this2.onhref = _this2.onhref.bind(_this2);
+    _this2.state = {
+      detail: _this2.props.detail,
+      //activity: false,
+      Dismantling: false,
+      currentYear: '2016',
+      contractTypeVo: []
+
+    };
+
+    return _this2;
+  }
+
+  _createClass(ItemTable, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (!_lodash2.default.isEqual(this.props.detail, nextProps.detail)) {
+        this.setState({
+          detail: nextProps.detail
+        });
+      }
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+    //撤场
+
+  }, {
+    key: 'onDismantling',
+    value: function onDismantling(detail) {
+      var onDismantling = this.props.onDismantling;
+
+      onDismantling && onDismantling(detail);
+    }
+    //分配工位
+
+  }, {
+    key: 'onStation',
+    value: function onStation() {
+      var detail = this.state.detail;
+
+      detail.activity = !detail.activity;
+      this.setState({
+        detail: detail
+      });
+      var onStation = this.props.onStation;
+
+      onStation && onStation();
+    }
+  }, {
+    key: 'onDismantlingDialog',
+    value: function onDismantlingDialog() {
+      this.setState({
+        Dismantling: !this.state.Dismantling
+      });
+    }
+
+    //查看员工跳转地址
+
+  }, {
+    key: 'onhref',
+    value: function onhref() {
+      window.open("/new/#/community/companyMembers/" + this.state.detail.companyId + "/list/" + this.state.detail.communityId);
+    }
+  }, {
+    key: 'renderOrder',
+    value: function renderOrder() {
+      var _state = this.state,
+          show = _state.show,
+          detail = _state.detail,
+          contractTypeVo = _state.contractTypeVo;
+
+      var orderKind = [{ type: 'INTENTION', name: '意向协议书', kind: 'admit' }, { type: 'ENTER', name: '入驻协议书', kind: 'join' }, { type: 'ADDRENT', name: '增租协议书', kind: 'increase' }, { type: 'RENEW', name: '续租租协议书', kind: 'renew' }, { type: 'LESSRENT', name: '减租协议书', kind: 'reduce' }, { type: 'QUITRENT', name: '退租协议书', kind: 'exit' }];
+      return _react2.default.createElement(
+        _krUi.Tooltip,
+        { place: 'right', type: 'dark', effect: 'solid', offsetRight: 10, id: '' + detail.billId + detail.billName },
+        _react2.default.createElement(
+          'ul',
+          null,
+          contractTypeVo.contractList ? _react2.default.createElement(
+            'li',
+            { style: { borderLeft: 'none' } },
+            '\u6240\u6709\u5DE5\u4F4D\u6570\uFF1A',
+            contractTypeVo.orderStaionNum,
+            '\u4E2A'
+          ) : _react2.default.createElement(
+            'div',
+            { style: { width: '220px' } },
+            '\u6570\u636E\u52A0\u8F7D\u4E2D...\u8BF7\u8010\u5FC3\u7B49\u5019'
+          ),
+          contractTypeVo.contractList && contractTypeVo.contractList.map(function (item, index) {
+            var order = {};
+            orderKind.map(function (value) {
+              if (value.type == item.contractType) {
+                return order = value;
+              }
+            });
+            var orderDetail = '#/operation/customerManage/' + item.customId + '/order/' + detail.billId + '/agreement/' + order.kind + '/' + item.id + '/detail';
+            if (!item.valid) {
+              return _react2.default.createElement(
+                'li',
+                _defineProperty({ key: index, className: 'company-order-zero' }, 'key', index),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'name' },
+                  order.name
+                ),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'zero-circle' },
+                  (0, _dateformat2.default)(item.leaseBegindate, 'yyyy.mm.dd'),
+                  '-',
+                  (0, _dateformat2.default)(item.leaseEnddate, 'yyyy.mm.dd'),
+                  ' ',
+                  _react2.default.createElement(
+                    'a',
+                    { href: orderDetail, target: '_blank' },
+                    '\u67E5\u770B\u8BE6\u60C5'
+                  )
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  '\u5DE5\u4F4D\uFF1A',
+                  item.stationNum,
+                  '\u4E2A \xA0\xA0\u4F1A\u8BAE\u5BA4\uFF1A',
+                  item.meetingNum,
+                  '\u4E2A'
+                )
+              );
+            } else {
+              return _react2.default.createElement(
+                'li',
+                _defineProperty({ key: index, className: 'company-order' }, 'key', index),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'name' },
+                  order.name
+                ),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'zero-circle' },
+                  (0, _dateformat2.default)(item.leaseBegindate, 'yyyy.mm.dd'),
+                  '-',
+                  (0, _dateformat2.default)(item.leaseEnddate, 'yyyy.mm.dd'),
+                  ' ',
+                  _react2.default.createElement(
+                    'a',
+                    { href: orderDetail, target: '_blank' },
+                    '\u67E5\u770B\u8BE6\u60C5'
+                  )
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  '\u5DE5\u4F4D\uFF1A',
+                  item.stationNum,
+                  '\u4E2A \xA0\xA0\u4F1A\u8BAE\u5BA4\uFF1A',
+                  item.meetingNum,
+                  '\u4E2A'
+                )
+              );
+            }
+          })
+        )
+      );
+    }
+  }, {
+    key: 'getShowData',
+    value: function getShowData(billId) {
+      var _this = this;
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('getBillContract', { billId: billId })).then(function (response) {
+        _this.setState({
+          contractTypeVo: response
+        }, function () {
+          this.renderOrder();
+        });
+      }).catch(function (err) {
+        _krUi.Notify.show([{
+          message: err.message,
+          type: 'danger'
+        }]);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state2 = this.state,
+          show = _state2.show,
+          detail = _state2.detail,
+          contractTypeVo = _state2.contractTypeVo;
+      var _props = this.props,
+          communityids = _props.communityids,
+          activity = _props.activity,
+          width = _props.width,
+          currentYear = _props.currentYear;
+
+      var _this = this;
+      var id = communityids;
+      return _react2.default.createElement(
+        'tr',
+        { className: 'last-td' },
+        _react2.default.createElement(
+          'td',
+          { className: 'company-list' },
+          _react2.default.createElement(
+            'div',
+            { className: 'company-name', onMouseOver: this.getShowData.bind(this, detail.billId) },
+            detail.billName,
+            this.renderOrder()
+          )
+        ),
+        _react2.default.createElement(
+          'td',
+          { colSpan: '12' },
+          _react2.default.createElement(_D3Content2.default, { detail: detail.contractInstallmentplanVo, finaBluePointVo: detail.finaBluePointVo, finaRedPointVo: detail.finaRedPointVo, whiteBar: detail.whiteBar, id: detail.billId, currentYear: currentYear }),
+          _react2.default.createElement(_EmployessTable2.default, { activity: detail.activity, detail: detail, id: id })
+        ),
+        _react2.default.createElement(
+          'td',
+          { className: 'btnlist' },
+          _react2.default.createElement(
+            'div',
+            { className: 'btnCon' },
+            _react2.default.createElement(
+              'div',
+              { className: 'Station', onTouchTap: this.onStation },
+              _react2.default.createElement(
+                'div',
+                { className: 'tip hide  hover' },
+                '\u5206\u914D\u5DE5\u4F4D ',
+                _react2.default.createElement(
+                  'span',
+                  { className: 'bArrow' },
+                  ' '
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'Dismantling', onClick: this.onDismantling.bind(this, detail) },
+              _react2.default.createElement(
+                'div',
+                { className: 'tip hide hover ' },
+                '\u64A4\u573A\u65E5\u671F ',
+                _react2.default.createElement('span', { className: 'bArrow' })
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'Preson', onTouchTap: this.onhref },
+              _react2.default.createElement(
+                'div',
+                { className: 'tip hide  hover' },
+                '\u67E5\u770B\u5458\u5DE5 ',
+                _react2.default.createElement('span', { className: 'bArrow' })
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ItemTable;
+}(_react.Component);
+
+ItemTable.PropTypes = {
+  onDismantling: _react2.default.PropTypes.func,
+  onStation: _react2.default.PropTypes.func,
+  isLoading: _react2.default.PropTypes.bool
+};
+exports.default = ItemTable;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ItemTable, 'ItemTable', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/ItemTable.js');
+}();
+
+;

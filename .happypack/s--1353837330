@@ -1,0 +1,144 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _WrapComponent = require('../WrapComponent');
+
+var _WrapComponent2 = _interopRequireDefault(_WrapComponent);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TextareaComponent = function (_React$Component) {
+	_inherits(TextareaComponent, _React$Component);
+
+	function TextareaComponent(props) {
+		_classCallCheck(this, TextareaComponent);
+
+		var _this = _possibleConstructorReturn(this, (TextareaComponent.__proto__ || Object.getPrototypeOf(TextareaComponent)).call(this, props));
+
+		_this.onChange = _this.onChange.bind(_this);
+		_this.state = {
+			inputSize: _this.props.input.value.length || 1
+
+		};
+		return _this;
+	}
+
+	_createClass(TextareaComponent, [{
+		key: 'onChange',
+		value: function onChange(event) {
+			var value = event.target.value;
+
+			var _props = this.props,
+			    onChange = _props.onChange,
+			    input = _props.input,
+			    maxSize = _props.maxSize;
+
+
+			var inputSize = value.length > maxSize ? maxSize : value.length;
+			this.setState({
+				inputSize: inputSize
+			});
+
+			value = value.slice(0, maxSize);
+			input.onChange(value);
+			onChange && onChange(value);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props2 = this.props,
+			    input = _props2.input,
+			    label = _props2.label,
+			    type = _props2.type,
+			    _props2$meta = _props2.meta,
+			    touched = _props2$meta.touched,
+			    error = _props2$meta.error,
+			    requireLabel = _props2.requireLabel,
+			    disabled = _props2.disabled,
+			    placeholder = _props2.placeholder,
+			    col = _props2.col,
+			    row = _props2.row,
+			    style = _props2.style,
+			    inline = _props2.inline,
+			    heightStyle = _props2.heightStyle,
+			    maxSize = _props2.maxSize,
+			    lengthClass = _props2.lengthClass;
+			var inputSize = this.state.inputSize;
+
+			inputSize = this.props.input.value.length || 1;
+
+			return _react2.default.createElement(
+				_WrapComponent2.default,
+				{ label: label, wrapStyle: style, requireLabel: requireLabel, inline: inline },
+				_react2.default.createElement('textarea', _extends({}, input, { placeholder: placeholder || label, disabled: disabled, col: col, row: row, onChange: this.onChange, style: heightStyle })),
+				_react2.default.createElement(
+					'div',
+					{ style: { width: 40, height: 30, lineHeight: "30px", color: '#cccccc', float: 'right', fontSize: '14px' }, className: lengthClass },
+					_react2.default.createElement(
+						'span',
+						{ className: 'len' },
+						inputSize
+					),
+					'/',
+					_react2.default.createElement(
+						'span',
+						{ className: 'size' },
+						maxSize ? maxSize : 200
+					)
+				),
+				touched && error && _react2.default.createElement(
+					'div',
+					{ className: 'error-wrap' },
+					' ',
+					_react2.default.createElement(
+						'span',
+						null,
+						error
+					)
+				)
+			);
+		}
+	}]);
+
+	return TextareaComponent;
+}(_react2.default.Component);
+
+TextareaComponent.defaultProps = {
+	maxSize: 200
+};
+TextareaComponent.PropTypes = {
+	onChange: _react2.default.PropTypes.func,
+	maxSize: _react2.default.PropTypes.number
+};
+exports.default = TextareaComponent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(TextareaComponent, 'TextareaComponent', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/KrField/TextareaComponent/index.js');
+}();
+
+;

@@ -1,0 +1,242 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Utils = require('../Utils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var rippleUniqueId = 0;
+
+
+var RippleContainerStyles = {
+  normalStyle: {
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '100%'
+  },
+
+  rippleStyle: {
+    display: 'block',
+    position: 'absolute',
+    background: 'rgba(0, 0, 0, 0.04)',
+    borderRadius: '50%',
+    transform: 'scale(0)',
+    transition: 'transform .25s linear, opacity .25s linear .2s'
+  },
+
+  rippleAnimationStyle: {
+    transform: 'scale(2)'
+  },
+
+  rippleFadeoutStyle: {
+    opacity: '0'
+  }
+};
+
+var _default = function (_React$Component) {
+  _inherits(_default, _React$Component);
+
+  function _default(props) {
+    _classCallCheck(this, _default);
+
+    var _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this, props));
+
+    _this.state = {
+      ripples: []
+    };
+    return _this;
+  }
+
+  _createClass(_default, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (!_Utils.transitionEnd) {
+        return;
+      }
+      _reactDom2.default.findDOMNode(this).addEventListener(_Utils.transitionEnd, this.endRipple.bind(this));
+    }
+  }, {
+    key: 'onMouseDown',
+    value: function onMouseDown(e) {
+      var domNode = _reactDom2.default.findDOMNode(this);
+      var boundingRect = domNode.getBoundingClientRect();
+      var height = domNode.offsetHeight;
+      var width = domNode.offsetWidth;
+      if (width > height) {
+        height = width;
+      } else {
+        width = height;
+      }
+      var x = e.clientX - boundingRect.left - width / 2;
+      var y = e.clientY - boundingRect.top - height / 2;
+
+      var ripples = _Utils.slice.call(this.state.ripples);
+      var ripple = {
+        id: rippleUniqueId++,
+        height: height,
+        width: width,
+        x: x,
+        y: y
+      };
+      ripples.push(ripple);
+
+      this.setState({ ripples: ripples });
+
+      setTimeout(this.startRipple.bind(this), 0);
+    }
+  }, {
+    key: 'onMouseUp',
+    value: function onMouseUp(e) {
+      this.onMouseLeave();
+      var onClick = this.props.onClick;
+
+      if (onClick) {
+        e.preventDefault();
+        onClick({
+          target: _reactDom2.default.findDOMNode(this).parentNode,
+          originalEvent: e
+        });
+      }
+    }
+  }, {
+    key: 'onMouseLeave',
+    value: function onMouseLeave() {
+      // fade out
+      var ripples = _Utils.slice.call(this.state.ripples).map(function (ripple) {
+        ripple.fadeOut = true;
+        ripple.transitioning = false;
+        ripple.transitionComplete = true;
+        return ripple;
+      });
+      this.setState({ ripples: ripples });
+    }
+  }, {
+    key: 'startRipple',
+    value: function startRipple() {
+      var ripples = _Utils.slice.call(this.state.ripples);
+      ripples[ripples.length - 1].transitioning = true;
+      this.setState({ ripples: ripples });
+    }
+  }, {
+    key: 'endRipple',
+    value: function endRipple(e) {
+      var ripples = _Utils.slice.call(this.state.ripples);
+      if ((0, _Utils.isTransform)(e.propertyName)) {
+        ripples[0].transitioning = false;
+        ripples[0].transitionComplete = true;
+        this.setState({ ripples: ripples });
+      } else if (e.propertyName === 'opacity') {
+        ripples.shift();
+        this.setState({ ripples: ripples });
+      }
+    }
+  }, {
+    key: 'renderRipples',
+    value: function renderRipples(ripples, styles, animateStyle) {
+      var l = ripples.length;
+      return ripples.map(function (ripple, index) {
+        var rippleStyles = [styles];
+        if (ripple.transitioning || ripple.transitionComplete) {
+          rippleStyles.push(animateStyle);
+        }
+
+        if (index < l - 1 || ripple.transitionComplete && ripple.fadeOut) {
+          rippleStyles.push({ opacity: '0' });
+        }
+
+        rippleStyles.push({
+          height: ripple.height,
+          left: ripple.x,
+          top: ripple.y,
+          width: ripple.width
+        });
+
+        var endStyle = {};
+        rippleStyles.map(function (item, index) {
+          endStyle = (0, _simpleAssign2.default)({}, endStyle, item);
+        });
+
+        return _react2.default.createElement('div', {
+          key: ripple.id,
+          ref: 'ripple_' + ripple.id,
+          style: endStyle });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var styles = this.props.styles;
+      var ripples = this.state.ripples;
+      var normalStyle = RippleContainerStyles.normalStyle,
+          rippleStyle = RippleContainerStyles.rippleStyle,
+          rippleAnimationStyle = RippleContainerStyles.rippleAnimationStyle;
+
+
+      var endStyle = {};
+
+      endStyle = (0, _simpleAssign2.default)({}, normalStyle, styles);
+
+      return _react2.default.createElement(
+        'div',
+        {
+          onMouseDown: !_Utils.isTouchDevice ? this.onMouseDown.bind(this) : _Utils.noop,
+          onMouseLeave: !_Utils.isTouchDevice ? this.onMouseLeave.bind(this) : _Utils.noop,
+          onMouseUp: !_Utils.isTouchDevice ? this.onMouseUp.bind(this) : _Utils.noop,
+
+          onTouchCancel: _Utils.isTouchDevice ? this.onMouseLeave.bind(this) : _Utils.noop,
+          onTouchEnd: _Utils.isTouchDevice ? this.onMouseUp.bind(this) : _Utils.noop,
+          onTouchStart: _Utils.isTouchDevice ? this.onMouseDown.bind(this) : _Utils.noop,
+          style: endStyle },
+        this.renderRipples(ripples, rippleStyle, rippleAnimationStyle)
+      );
+    }
+  }]);
+
+  return _default;
+}(_react2.default.Component);
+
+_default.displayName = 'RippleContainer';
+_default.propTypes = {
+  onClick: _react.PropTypes.func,
+  styles: _react.PropTypes.object
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(rippleUniqueId, 'rippleUniqueId', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/RippleContainer/index.js');
+
+  __REACT_HOT_LOADER__.register(RippleContainerStyles, 'RippleContainerStyles', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/RippleContainer/index.js');
+}();
+
+;

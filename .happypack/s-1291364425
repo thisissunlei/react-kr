@@ -1,0 +1,38 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DateFormat = DateFormat;
+exports.DateCompareValue = DateCompareValue;
+
+var _dateformat = require("dateformat");
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function DateFormat(value, format) {
+    return (0, _dateformat2.default)(value, format);
+} //日期格式工具
+function DateCompareValue(start, end) {
+    start = Date.parse((0, _dateformat2.default)(start, "yyyy-mm-dd hh:MM:ss"));
+    end = Date.parse((0, _dateformat2.default)(end, "yyyy-mm-dd hh:MM:ss"));
+    if (start >= end) {
+        return false;
+    }
+    return true;
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(DateFormat, "DateFormat", "/Users/dongfanai/Desktop/project/kr-admin/src/Utils/DateFormat/index.js");
+
+    __REACT_HOT_LOADER__.register(DateCompareValue, "DateCompareValue", "/Users/dongfanai/Desktop/project/kr-admin/src/Utils/DateFormat/index.js");
+}();
+
+;

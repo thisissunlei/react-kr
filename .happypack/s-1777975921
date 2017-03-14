@@ -1,0 +1,314 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+var _Deletedialog = require('./Deletedialog');
+
+var _Deletedialog2 = _interopRequireDefault(_Deletedialog);
+
+var _Createdialog = require('./Createdialog');
+
+var _Createdialog2 = _interopRequireDefault(_Createdialog);
+
+var _Editdialog = require('./Editdialog');
+
+var _Editdialog2 = _interopRequireDefault(_Editdialog);
+
+var _SearchForm = require('./SearchForm');
+
+var _SearchForm2 = _interopRequireDefault(_SearchForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Operations = function (_Component) {
+	_inherits(Operations, _Component);
+
+	function Operations(props, context) {
+		_classCallCheck(this, Operations);
+
+		var _this2 = _possibleConstructorReturn(this, (Operations.__proto__ || Object.getPrototypeOf(Operations)).call(this, props, context));
+
+		_this2.onOperation = function (type, itemDetail) {
+
+			_this2.setState({
+				itemDetail: itemDetail
+			});
+			var _this = _this2;
+			if (type == 'delete') {
+				_this2.openDeleteDialog();
+			} else if (type == 'edit') {
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('getRoleData', {
+					id: itemDetail.id
+				})).then(function (response) {
+					_this.setState({
+						moduleDetail: response.moduleAndResources
+					});
+					_this.openEditDialog();
+				}).catch(function (err) {});
+			} else if (type == 'view') {
+				_this2.openView(itemDetail.id);
+			}
+		};
+
+		_this2.openView = function (id) {
+			var url = './#/permission/userlist/' + id;
+			window.open(url);
+		};
+
+		_this2.openDeleteDialog = function () {
+			_this2.setState({
+				openDeleteDialog: !_this2.state.openDeleteDialog
+			});
+		};
+
+		_this2.onDeleteSubmit = function () {
+			var itemDetail = _this2.state.itemDetail;
+
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('delRole', {
+				id: itemDetail.id
+			})).then(function (response) {
+				_this.openDeleteDialog();
+				_krUi.Message.success('删除成功');
+				window.location.reload();
+			}).catch(function (err) {
+				_this.openDeleteDialog();
+				_krUi.Message.error(err.message);
+			});
+		};
+
+		_this2.onSearch = function (form) {
+			var searchParams = {};
+			if (form.filter == "name") {
+				searchParams = {
+					name: form.content
+				};
+			} else if (form.filter == "code") {
+				searchParams = {
+					code: form.content
+				};
+			}
+			_this2.setState({
+				searchParams: searchParams
+			});
+		};
+
+		_this2.openCreateDialog = function () {
+			_this2.setState({
+				openCreateDialog: !_this2.state.openCreateDialog
+			});
+		};
+
+		_this2.onCreatSubmit = function (form) {
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('createRole', {}, form)).then(function (response) {
+				_this.openCreateDialog();
+				_krUi.Message.success('新建成功');
+				window.location.reload();
+			}).catch(function (err) {
+				_this.openCreateDialog();
+				_krUi.Message.error(err.message);
+			});
+		};
+
+		_this2.openEditDialog = function () {
+			_this2.setState({
+				openEditDialog: !_this2.state.openEditDialog
+			});
+		};
+
+		_this2.onEditSubmit = function (form) {
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('editRole', {}, form)).then(function (response) {
+				_this.openCreateDialog();
+				_krUi.Message.success('修改成功');
+				window.location.reload();
+			}).catch(function (err) {
+				_this.openCreateDialog();
+				_krUi.Message.error(err.message);
+			});
+		};
+
+		_this2.state = {
+			searchParams: {
+				page: 1,
+				pageSize: 15
+			},
+			itemDetail: '',
+			openDeleteDialog: false,
+			openCreateDialog: false,
+			openEditDialog: false,
+			moduleDetail: ''
+		};
+		return _this2;
+	}
+
+	//操作相关
+
+
+	_createClass(Operations, [{
+		key: 'render',
+		value: function render() {
+			var _state = this.state,
+			    openDeleteDialog = _state.openDeleteDialog,
+			    itemDetail = _state.itemDetail,
+			    moduleDetail = _state.moduleDetail;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'g-operation' },
+				_react2.default.createElement(
+					_krUi.Section,
+					{ title: '\u89D2\u8272\u5217\u8868' },
+					_react2.default.createElement(_SearchForm2.default, { onSubmit: this.onSearch, onCreate: this.openCreateDialog }),
+					_react2.default.createElement(
+						_krUi.Table,
+						{
+							style: { marginTop: 10 },
+							displayCheckbox: false,
+							onLoaded: this.onLoaded,
+							ajax: true,
+							ajaxUrlName: 'UserfindPage',
+							ajaxParams: this.state.searchParams,
+							onOperation: this.onOperation
+						},
+						_react2.default.createElement(
+							_krUi.TableHeader,
+							null,
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u7F16\u7801'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u540D\u79F0'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u521B\u5EFA\u4EBA'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u521B\u5EFA\u65F6\u95F4'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u64CD\u4F5C'
+							)
+						),
+						_react2.default.createElement(
+							_krUi.TableBody,
+							null,
+							_react2.default.createElement(
+								_krUi.TableRow,
+								null,
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'code' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'name' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'creater' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'createTime', type: 'date', component: function component(value) {
+										return _react2.default.createElement(_krUi.KrDate, { value: value });
+									} }),
+								_react2.default.createElement(
+									_krUi.TableRowColumn,
+									null,
+									_react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'operation', operation: 'edit' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u5220\u9664', type: 'operation', operation: 'delete' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u67E5\u770B\u4EBA\u5458', type: 'operation', operation: 'view' })
+								)
+							)
+						),
+						_react2.default.createElement(_krUi.TableFooter, null)
+					),
+					_react2.default.createElement(
+						_krUi.Dialog,
+						{
+							title: '\u63D0\u793A',
+							modal: true,
+							onClose: this.openDeleteDialog,
+							open: this.state.openDeleteDialog,
+							contentStyle: { width: 460 }
+						},
+						_react2.default.createElement(_Deletedialog2.default, { onCancel: this.openDeleteDialog, onSubmit: this.onDeleteSubmit })
+					),
+					_react2.default.createElement(
+						_krUi.Dialog,
+						{
+							title: '\u65B0\u5EFA',
+							modal: true,
+							onClose: this.openCreateDialog,
+							open: this.state.openCreateDialog,
+							contentStyle: { width: 460, height: 500 }
+						},
+						_react2.default.createElement(_Createdialog2.default, { onCancel: this.openCreateDialog, onSubmit: this.onCreatSubmit })
+					),
+					_react2.default.createElement(
+						_krUi.Dialog,
+						{
+							title: '\u7F16\u8F91',
+							modal: true,
+							onClose: this.openEditDialog,
+							open: this.state.openEditDialog,
+							contentStyle: { width: 460, height: 500 }
+						},
+						_react2.default.createElement(_Editdialog2.default, { detail: itemDetail, moduleDetail: moduleDetail, onCancel: this.openEditDialog, onSubmit: this.onEditSubmit })
+					)
+				)
+			);
+		}
+	}]);
+
+	return Operations;
+}(_react.Component);
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'operations',
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(Operations);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Operations, 'Operations', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/index.js');
+}();
+
+;

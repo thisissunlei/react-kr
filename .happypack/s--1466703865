@@ -1,0 +1,47 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var horizontal = _react.PropTypes.oneOf(['left', 'middle', 'right']);
+var vertical = _react.PropTypes.oneOf(['top', 'center', 'bottom']);
+
+var _default = {
+
+  corners: _react.PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
+
+  horizontal: horizontal,
+
+  vertical: vertical,
+
+  origin: _react.PropTypes.shape({
+    horizontal: horizontal,
+    vertical: vertical
+  }),
+
+  cornersAndCenter: _react.PropTypes.oneOf(['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right']),
+
+  stringOrNumber: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
+
+  zDepth: _react.PropTypes.oneOf([0, 1, 2, 3, 4, 5])
+
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(horizontal, 'horizontal', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/DatePicker/utils/propTypes.js');
+
+  __REACT_HOT_LOADER__.register(vertical, 'vertical', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/DatePicker/utils/propTypes.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/DatePicker/utils/propTypes.js');
+}();
+
+;

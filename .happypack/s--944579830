@@ -1,0 +1,207 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SingleUploadImgDefinitionForm = function (_Component) {
+	_inherits(SingleUploadImgDefinitionForm, _Component);
+
+	function SingleUploadImgDefinitionForm(props, context) {
+		_classCallCheck(this, SingleUploadImgDefinitionForm);
+
+		var _this2 = _possibleConstructorReturn(this, (SingleUploadImgDefinitionForm.__proto__ || Object.getPrototypeOf(SingleUploadImgDefinitionForm)).call(this, props, context));
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.onSubmit = function (values) {
+			var _this = _this2;
+			if (!values.uploadImage) {
+				var tipOpen = _this2.props.tipOpen;
+
+				tipOpen && tipOpen();
+				return;
+			};
+			_this2.setState({
+				submitValuesParams: values,
+				picUrl: values.uploadImage
+			});
+			var valuesParams = {
+				deviceId: _this2.detail.hardwareId,
+				picUrl: values.uploadImage
+			};
+			// console.log("valuesParams",valuesParams);
+			// 向指定社区推送图片
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('uploadImgToEquipmentSingle', {}, valuesParams)).then(function (response) {
+				_krUi.Message.success("推送图片成功");
+				var openSingleUploadDialog = _this.props.openSingleUploadDialog;
+
+				openSingleUploadDialog && openSingleUploadDialog();
+				_this.setState({
+					submitCommunitys: response,
+					submitNum: response.length
+				});
+			}).catch(function (err) {
+				_krUi.Message.error(err.message);
+				var openSingleUploadDialog = _this.props.openSingleUploadDialog;
+
+				openSingleUploadDialog && openSingleUploadDialog();
+			});
+			_this2.openBatchUploadNum();
+		};
+
+		_this2.openBatchUploadNum = function () {
+			_this2.setState({
+				batchUploadNum: !_this2.state.batchUploadNum
+			});
+		};
+
+		_this2.confirmSubmit = function () {
+			var _this = _this2;
+			var submitParams = _this2.state.submitValues;
+			_this2.openBatchUploadNum();
+			_this2.setState({
+				openSchedule: !_this.state.openSchedule
+			});
+		};
+
+		_this2.detail = _this2.props.detail;
+		_this2.state = {
+			picUrl: '',
+			selectedCommunitys: [],
+			batchUploadNum: false,
+			openSchedule: false,
+			submitValues: '',
+			// submitNum : 11,
+			innerBoxWidth: 0,
+			uploadedNum: 0,
+			totalNum: 0,
+			submitValuesParams: {},
+			requestURI: "postEquipmentImg",
+			itemDetail: ''
+
+		};
+		return _this2;
+	}
+	//首次加载，只执行一次
+
+
+	_createClass(SingleUploadImgDefinitionForm, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+		// 提交(获取总共上传社区个数)
+
+		// 是否打开确定上传窗口
+
+		// 确定开始上传
+
+	}, {
+		key: 'render',
+		value: function render() {
+			var handleSubmit = this.props.handleSubmit;
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					_react2.default.createElement(_krUi.KrField, { name: 'uploadImage',
+						component: 'uploadImage',
+						style: { marginTop: 10 },
+						photoSize: '212*136',
+						pictureFormat: 'JPG',
+						pictureMemory: '32K',
+						requestURI: this.state.requestURI
+					}),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 25, marginBottom: '4px' } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { width: '171px', textAlign: 'right', padding: 0, paddingRight: 15 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u5F00\u59CB\u4E0A\u4F20', type: 'submit' })
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { width: '171px', textAlign: 'left', padding: 0, paddingLeft: 15 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return SingleUploadImgDefinitionForm;
+}(_react.Component);
+// const validate = values=>{
+// 	const errors={};
+// 	if(!values.communityName){
+// 		errors.communityName = '社区名称为必填项';
+// 	}
+// 	if(!values.floor){
+// 		errors.floor = '楼层为必填项';
+// 	}
+// 	if(!values.showTitle){
+// 		errors.showTitle = '展示标题为必填项';
+// 	}
+// 	return errors;
+// }
+
+
+var _default = SingleUploadImgDefinitionForm = (0, _reduxForm.reduxForm)({
+	form: 'SingleUploadImgDefinitionForm'
+})(SingleUploadImgDefinitionForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SingleUploadImgDefinitionForm, 'SingleUploadImgDefinitionForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/BasicConfig/EquipmentDefinition/SingleUploadImgForm.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/BasicConfig/EquipmentDefinition/SingleUploadImgForm.js');
+}();
+
+;

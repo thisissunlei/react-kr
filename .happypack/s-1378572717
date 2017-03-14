@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/HightSearchForm.js: Unexpected token (104:16)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/HightSearchForm.js: Unexpected token (104:16)
+[0m [90m 102 | [39m	}
+ [90m 103 | [39m	getPayment [33m=[39m () [33m=>[39m {
+[31m[1m>[22m[39m[90m 104 | [39m		[36mvar[39m payment [33m=[39m [33m;[39m
+ [90m     | [39m		              [31m[1m^[22m[39m
+ [90m 105 | [39m
+ [90m 106 | [39m		[36mthis[39m[33m.[39msetState({
+ [90m 107 | [39m			payment[33m:[39m payment[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp.unexpected (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1627:8)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3586:12)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6402:22)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5694:20)
+    at Parser.pp$1.parseVar (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2205:24)
+    at Parser.pp$1.parseVarStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2036:8)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1729:19)
+    at Parser.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseBlockBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2133:21)
+    at Parser.pp$1.parseBlock (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2114:8)
+    at Parser.pp$3.parseFunctionBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3998:22)
+    at Parser.parseFunctionBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5205:20)
+    at Parser.pp$3.parseArrowExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3977:8)
+    at Parser.pp$3.parseParenAndDistinguishExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3687:17)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3545:19)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6402:22)

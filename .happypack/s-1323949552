@@ -1,0 +1,176 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _materialUi = require('material-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TabsComponent = function (_Component) {
+	_inherits(TabsComponent, _Component);
+
+	function TabsComponent(props) {
+		_classCallCheck(this, TabsComponent);
+
+		var _this2 = _possibleConstructorReturn(this, (TabsComponent.__proto__ || Object.getPrototypeOf(TabsComponent)).call(this, props));
+
+		_this2.renderTabs = function () {
+			var _this2$props = _this2.props,
+			    className = _this2$props.className,
+			    children = _this2$props.children,
+			    style = _this2$props.style;
+
+
+			var tabs = [];
+			var commenTab = {
+				color: '#000',
+				borderBottom: "1px solid #eee"
+			};
+
+			_react2.default.Children.forEach(children, function (child, index) {
+				if (!_react2.default.isValidElement(child)) return;
+				tabs.push(_this2.createTab(child, index));
+			});
+
+			return tabs;
+		};
+
+		_this2.createTab = function (base, i) {
+			var _this = _this2;
+			var tabName = _this2.state.tabName;
+
+			var commenTab = {
+				color: '#000',
+				borderBottom: "1px solid #eee"
+			};
+			var active = {
+				color: '#2b8dcd',
+				borderBottom: "1px solid #eee"
+			};
+			var _base$props = base.props,
+			    label = _base$props.label,
+			    children = _base$props.children,
+			    onActive = _base$props.onActive,
+			    style = _base$props.style;
+
+			if (!tabName && i === 0) {
+				tabName = label;
+			}
+			if (!style) {
+				style = label == tabName ? active : commenTab;
+			}
+
+			if (!onActive) {
+				onActive = function onActive() {
+					_this.setState({ tabName: label });
+				};
+			}
+			return _react2.default.createElement(
+				_materialUi.Tab,
+				{ label: label, style: style, key: i, onActive: onActive, className: label },
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-tabs-contents' },
+					children
+				)
+			);
+		};
+
+		_this2.renderLines = function () {
+			var children = _this2.props.children;
+
+			var lines = [];
+
+			var left = 1 / children.length * 100;
+			for (var i = 0; i <= children.length; i++) {
+				if (i != 0) {
+					lines.push(left * i);
+				}
+			}
+			lines = lines.map(function (item, index) {
+				return _react2.default.createElement('span', { className: 'tabs-lines', style: { marginLeft: item + '%' }, key: index });
+			});
+			return lines;
+		};
+
+		_this2.state = {
+			tabName: _this2.props.tabName
+		};
+
+		return _this2;
+	}
+
+	_createClass(TabsComponent, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    inkBarStyle = _props.inkBarStyle,
+			    tabItemContainerStyle = _props.tabItemContainerStyle;
+
+			var initInkBarStyle = { background: '-webkit-linear-gradient(right, #03ec56, #499df1)', position: 'absolute', top: 0, height: 3 };
+			var initTabItemContainerStyle = { background: '#FFF', color: "red" };
+			var children = this.props.children;
+
+			var activeTab = {
+				color: '#2b8dcd',
+				borderBottom: "1px solid #eee"
+			};
+			var commenTab = {
+				color: '#000',
+				borderBottom: "1px solid #eee"
+			};
+			inkBarStyle = inkBarStyle ? inkBarStyle : initInkBarStyle;
+			tabItemContainerStyle = tabItemContainerStyle ? tabItemContainerStyle : initTabItemContainerStyle;
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-tabs' },
+				this.renderLines(),
+				_react2.default.createElement(
+					_materialUi.Tabs,
+					{ className: 'tabs', tabItemContainerStyle: tabItemContainerStyle, inkBarStyle: inkBarStyle, style: { background: '#fff', position: 'relative', borderBottom: 0 } },
+					this.renderTabs()
+				)
+			);
+		}
+	}]);
+
+	return TabsComponent;
+}(_react.Component);
+
+TabsComponent.PropTypes = {
+	className: _react2.default.PropTypes.string,
+	children: _react2.default.PropTypes.node,
+	/**
+  * 若Tab有onActive参数值，tabName为必带参数
+  */
+	tabName: _react2.default.PropTypes.string
+};
+exports.default = TabsComponent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(TabsComponent, 'TabsComponent', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Tabs/Tabs/index.js');
+}();
+
+;

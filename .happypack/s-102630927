@@ -1,0 +1,314 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var list1 = [];
+var list2 = [];
+var list3 = [];
+
+var ConfirmBillDetail = function (_Component) {
+  _inherits(ConfirmBillDetail, _Component);
+
+  function ConfirmBillDetail(props) {
+    _classCallCheck(this, ConfirmBillDetail);
+
+    var _this2 = _possibleConstructorReturn(this, (ConfirmBillDetail.__proto__ || Object.getPrototypeOf(ConfirmBillDetail)).call(this, props));
+
+    _this2.onCancel = _this2.onCancel.bind(_this2);
+    _this2.getData = _this2.getData.bind(_this2);
+    _this2.state = {
+      detail: {},
+      basic: {},
+      isLoading: true
+    };
+
+    return _this2;
+  }
+
+  _createClass(ConfirmBillDetail, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      //this.getData(); 
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.getData(nextProps.params);
+    }
+  }, {
+    key: 'getData',
+    value: function getData() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props.params;
+
+
+      //发送获取基本信息的请求
+      var _this = this;
+
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('getFinaDataDetailAdd', params)).then(function (response) {
+        //?为神魔加this.props就可以获取到
+
+        var data = response;
+
+        data.income.items.map(function (item, index) {
+          var arr1 = [];
+          var obj = {};
+          obj.type = "消费";
+          obj.name = item.finaflowAmount;
+          obj.money = item.propname;
+          arr1.push(obj);
+          list1 = arr1;
+        });
+
+        data.payment.items.map(function (item, index) {
+          var arr2 = [];
+          var obj = {};
+          obj.type = "缴费";
+          obj.name = item.finaflowAmount;
+          obj.money = item.propname;
+          arr2.push(obj);
+          list2 = arr2;
+        });
+        data.otherPay.items.map(function (item, index) {
+          var arr3 = [];
+          var obj = {};
+          obj.type = "其他费用";
+          obj.name = item.finaflowAmount;
+          obj.money = item.propname;
+          arr3.push(obj);
+          list3 = arr3;
+        });
+
+        _this.setState({
+          detail: data,
+          basic: data.basic,
+          isLoading: false
+        });
+      }).catch(function (err) {
+        _this.setState({
+          isLoading: false
+        });
+
+        Notify.show([{
+          message: err.message,
+          type: 'danger'
+        }]);
+      });
+    }
+  }, {
+    key: 'onCancel',
+    value: function onCancel() {
+      var onCancel = this.props.onCancel;
+
+      onCancel && onCancel();
+    }
+  }, {
+    key: 'IncomeRender',
+    value: function IncomeRender() {}
+  }, {
+    key: 'render',
+    value: function render() {
+      var params = this.props.params;
+      var _state = this.state,
+          detail = _state.detail,
+          basic = _state.basic,
+          isLoading = _state.isLoading;
+
+      /*if(isLoading){
+        return <Loading/>
+      }*/
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _krUi.Grid,
+          { style: { marginTop: 30 } },
+          _react2.default.createElement(_krUi.KrField, { grid: 1, label: '\u5BF9\u8D26\u5355', component: 'labelText', value: basic.corporationName })
+        ),
+        _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u516C\u53F8\u540D\u79F0', component: 'labelText', value: basic.customername }),
+        _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u64CD\u4F5C\u65E5\u671F', component: 'labelText', value: detail.actualDate }),
+        _react2.default.createElement(
+          _krUi.KrField,
+          { grid: 1 / 2, label: '\u5BF9\u8D26\u671F\u95F4', component: 'group' },
+          _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, type: 'labelText', value: params.startDate }),
+          _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, type: 'labelText', value: params.endDate })
+        ),
+        _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8BA2\u5355\u7F16\u53F7', component: 'labelText', value: basic.mainbillcode }),
+        _react2.default.createElement(
+          _krUi.Table,
+          { displayCheckbox: false },
+          _react2.default.createElement(
+            _krUi.TableHeader,
+            null,
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u7C7B\u522B'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6B3E\u9879'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u91D1\u989D'
+            )
+          ),
+          _react2.default.createElement(
+            _krUi.TableBody,
+            null,
+            list1.map(function (item, index) {
+              return _react2.default.createElement(
+                _krUi.TableRow,
+                { key: index },
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.type
+                ),
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.money
+                ),
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.name
+                )
+              );
+            }),
+            list2.map(function (item, index) {
+              return _react2.default.createElement(
+                _krUi.TableRow,
+                { key: index },
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.type
+                ),
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.money
+                ),
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.name
+                )
+              );
+            }),
+            list3.map(function (item, index) {
+              return _react2.default.createElement(
+                _krUi.TableRow,
+                { key: index },
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.type
+                ),
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.money
+                ),
+                _react2.default.createElement(
+                  _krUi.TableRowColumn,
+                  null,
+                  item.name
+                )
+              );
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _krUi.Row,
+          { style: { marginTop: 30 } },
+          _react2.default.createElement(
+            _krUi.Col,
+            null,
+            _react2.default.createElement(_krUi.KrField, { label: '\u4F59\u989D', component: 'labelText', value: detail.mount })
+          )
+        ),
+        _react2.default.createElement(
+          _krUi.Grid,
+          { style: { marginTop: 30 } },
+          _react2.default.createElement(
+            _krUi.Row,
+            { style: { marginTop: 30 } },
+            _react2.default.createElement(_krUi.Col, { md: 2 }),
+            _react2.default.createElement(
+              _krUi.Col,
+              { md: 3 },
+              _react2.default.createElement(_krUi.Button, { label: '\u6253\u5370', type: 'button' }),
+              ' '
+            ),
+            _react2.default.createElement(
+              _krUi.Col,
+              { md: 3 },
+              _react2.default.createElement(_krUi.Button, { label: '\u5BFC\u51FA', type: 'button' }),
+              ' '
+            ),
+            _react2.default.createElement(
+              _krUi.Col,
+              { md: 3 },
+              _react2.default.createElement(_krUi.Button, { label: '\u5173\u95ED', type: 'button', onTouchTap: this.onCancel })
+            ),
+            _react2.default.createElement(_krUi.Col, { md: 1 })
+          )
+        )
+      );
+    }
+  }]);
+
+  return ConfirmBillDetail;
+}(_react.Component);
+
+ConfirmBillDetail.PropTypes = {
+  params: _react2.default.PropTypes.object,
+  onCancel: _react2.default.PropTypes.func
+};
+exports.default = ConfirmBillDetail;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(list1, 'list1', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderList/ConfirmBillDetail.js');
+
+  __REACT_HOT_LOADER__.register(list2, 'list2', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderList/ConfirmBillDetail.js');
+
+  __REACT_HOT_LOADER__.register(list3, 'list3', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderList/ConfirmBillDetail.js');
+
+  __REACT_HOT_LOADER__.register(ConfirmBillDetail, 'ConfirmBillDetail', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderList/ConfirmBillDetail.js');
+}();
+
+;

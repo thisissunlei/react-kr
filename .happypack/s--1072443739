@@ -1,0 +1,364 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _Redux = require('kr/Redux');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DoAudit = function (_Component) {
+  _inherits(DoAudit, _Component);
+
+  function DoAudit(props, context) {
+    _classCallCheck(this, DoAudit);
+
+    var _this = _possibleConstructorReturn(this, (DoAudit.__proto__ || Object.getPrototypeOf(DoAudit)).call(this, props, context));
+
+    _this.onExport = function () {};
+
+    _this.state = {
+      openNewCreate: false,
+      openView: false,
+      openEditDetail: false,
+      openDelete: false,
+      itemDetail: {},
+      Params: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'CHECKED'
+      }
+    };
+
+    return _this;
+  }
+
+  _createClass(DoAudit, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+    //导出
+
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('div', null),
+        _react2.default.createElement(
+          _krUi.Table,
+          {
+            style: { marginTop: 10 },
+            ajax: true,
+            ajaxUrlName: 'get-fince-info',
+            ajaxParams: this.state.Params,
+            onOperation: this.onOperation,
+            onExport: this.onExport,
+            exportSwitch: true
+          },
+          _react2.default.createElement(
+            _krUi.TableHeader,
+            null,
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6D41\u6C34\u53F7'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6536\u6B3E\u65B9\u5F0F'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6536\u6B3E\u65E5\u671F'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4E3B\u4F53'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6211\u53F8\u8D26\u53F7'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u793E\u533A'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4ED8\u6B3E\u8D26\u6237'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4ED8\u6B3E\u91D1\u989D'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u5BA2\u6237\u540D\u79F0'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6536\u6B3E\u4EBA'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u5907\u6CE8'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C'
+            )
+          ),
+          _react2.default.createElement(
+            _krUi.TableBody,
+            null,
+            _react2.default.createElement(
+              _krUi.TableRow,
+              null,
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'tradingCode', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 80, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'payWayName' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'dealTime', component: function component(value, oldValue) {
+                  return _react2.default.createElement(_krUi.KrDate, { value: value, format: 'yyyy-mm-dd' });
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'corporationName', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'accountNum', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'communityName', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'payAccount', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'flowAmount' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'company', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'payee', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'remark', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(
+                _krUi.TableRowColumn,
+                null,
+                _react2.default.createElement(_krUi.Button, { label: '\u67E5\u770B', type: 'operation', operation: 'view' }),
+                _react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'operation', operation: 'edit' }),
+                _react2.default.createElement(_krUi.Button, { label: '\u5220\u9664', type: 'operation', operation: 'delete' }),
+                _react2.default.createElement(_krUi.Button, { label: '\u5BA1\u6838', type: 'operation', operation: 'audit' })
+              )
+            )
+          ),
+          _react2.default.createElement(_krUi.TableFooter, null)
+        )
+      );
+    }
+  }]);
+
+  return DoAudit;
+}(_react.Component);
+
+exports.default = DoAudit;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(DoAudit, 'DoAudit', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/index.js');
+}();
+
+;

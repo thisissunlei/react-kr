@@ -1,0 +1,70 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isTransform = isTransform;
+exports.noop = noop;
+var transitions = {
+  'WebkitTransition': 'webkitTransitionEnd',
+  'MozTransition': 'transitionend',
+  'OTransition': 'oTransitionEnd',
+  'transition': 'transitionend'
+};
+
+var canUseDOM = exports.canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+var canUseWorkers = exports.canUseWorkers = typeof Worker !== 'undefined';
+var canUseEventListeners = exports.canUseEventListeners = canUseDOM && !!(window.addEventListener || window.attachEvent);
+
+var canUseViewport = exports.canUseViewport = canUseDOM && !!window.screen;
+var isTouchDevice = exports.isTouchDevice = canUseDOM && 'ontouchstart' in window;
+function isTransform(name) {
+  return name === 'transform' || name === '-webkit-transform' || name === '-moz-transform' || name === '-o-transform' || name === '-ms-transform';
+}
+
+function noop() {}
+var slice = exports.slice = Array.prototype.slice;
+var svgSupport = exports.svgSupport = !!window.SVGElement;
+
+var transitionEnd = null;
+if (canUseDOM) {
+  var div = document.createElement('div');
+  for (var t in transitions) {
+    if (div.style[t]) {
+      exports.transitionEnd = transitionEnd = transitions[t];
+    }
+  }
+}
+exports.transitionEnd = transitionEnd;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(transitions, 'transitions', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(canUseDOM, 'canUseDOM', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(canUseWorkers, 'canUseWorkers', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(canUseEventListeners, 'canUseEventListeners', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(canUseViewport, 'canUseViewport', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(isTransform, 'isTransform', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(noop, 'noop', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(slice, 'slice', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(svgSupport, 'svgSupport', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+
+  __REACT_HOT_LOADER__.register(transitionEnd, 'transitionEnd', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Lib/Utils/index.js');
+}();
+
+;

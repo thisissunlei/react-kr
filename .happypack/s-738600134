@@ -1,0 +1,40 @@
+'use strict';
+
+var _Home = require('./Home');
+
+var _Home2 = _interopRequireDefault(_Home);
+
+var _JoinOrder = require('./JoinOrder');
+
+var _JoinOrder2 = _interopRequireDefault(_JoinOrder);
+
+var _CustomerManage = require('./CustomerManage');
+
+var _CustomerManage2 = _interopRequireDefault(_CustomerManage);
+
+var _CommunityManage = require('./CommunityManage');
+
+var _CommunityManage2 = _interopRequireDefault(_CommunityManage);
+
+var _GroupSetting = require('./GroupSetting');
+
+var _GroupSetting2 = _interopRequireDefault(_GroupSetting);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Home: _Home2.default,
+	JoinOrder: _JoinOrder2.default,
+	CustomerManage: _CustomerManage2.default,
+	CommunityManage: _CommunityManage2.default,
+	GroupSetting: _GroupSetting2.default
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;

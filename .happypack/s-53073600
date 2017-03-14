@@ -1,0 +1,383 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactRouter = require('react-router');
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _Pagination = require('../../Pagination');
+
+var _Pagination2 = _interopRequireDefault(_Pagination);
+
+var _KrField = require('../../KrField');
+
+var _KrField2 = _interopRequireDefault(_KrField);
+
+var _ListGroup = require('../../ListGroup');
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InfoList = function (_Component) {
+    _inherits(InfoList, _Component);
+
+    function InfoList(props, context) {
+        _classCallCheck(this, InfoList);
+
+        var _this2 = _possibleConstructorReturn(this, (InfoList.__proto__ || Object.getPrototypeOf(InfoList)).call(this, props, context));
+
+        _this2.PropTypes = {
+            items: _react2.default.PropTypes.isArray,
+            current_parent: _react2.default.PropTypes.string,
+            current_child: _react2.default.PropTypes.string
+        };
+
+        _this2.onPageChange = function (pages) {
+            var _this2$state = _this2.state,
+                url = _this2$state.url,
+                currentPage = _this2$state.currentPage;
+
+            var page = ++currentPage;
+            var params = {
+                startTime: _this2.state.startTime,
+                endTime: _this2.state.endTime,
+                pageSize: 15,
+                page: pages
+            };
+            _this2.getDataList(url, params);
+
+            console.log('onPageChange', params);
+            // this.setState({
+            //     params:params
+            // })
+        };
+
+        _this2.onClose = function () {
+            var onClose = _this2.props.onClose;
+
+            onClose && onClose();
+        };
+
+        _this2.click = function () {
+            var changeCount = _this2.props.changeCount;
+
+            changeCount && changeCount();
+        };
+
+        _this2.getInfoData = function () {
+            var infoTab = _this2.state.infoTab;
+
+            console.log('getInfoData', infoTab);
+            if (!infoTab) {
+                return;
+            }
+            if (infoTab == 'community') {
+                _this2.getDataList('getInfoList', {
+                    page: 1,
+                    pageSize: 15,
+                    startTime: _this2.state.startTime,
+                    endTime: _this2.state.endTime
+                });
+                _this2.setState({
+                    url: 'getInfoList',
+                    readedUrl: 'setInfoReaded'
+                }, function () {
+                    console.log(this.state);
+                });
+                return;
+                // alert('community');
+            }
+            // if(infoTab == 'member'){
+            // 	this.setState({
+            // 		url:'2222',
+            // 		readedUrl:'2222'
+            // 	})
+            // 	// alert('member');
+            // }
+            _this2.setState({
+                url: '',
+                readedUrl: ''
+            });
+        };
+
+        _this2.getDataList = function (url, params) {
+            var _this = _this2;
+            _Redux.Store.dispatch(_Redux.Actions.callAPI(url, params)).then(function (response) {
+                console.log('ddd', response, url, _this.state);
+                _this.setState({
+                    infoList: response.items,
+                    currentPage: parseInt(response.page),
+                    totalCount: response.totalCount,
+                    pagination: response.totalPages
+                });
+            }).catch(function (err) {
+                console.log(err);
+            });
+        };
+
+        _this2.startDate = function (person) {
+            console.log('start', person);
+            var url = _this2.state.url;
+
+            var params = {
+                startTime: person,
+                endTime: _this2.state.endTime,
+                page: 1,
+                pageSize: 15
+            };
+            _this2.getDataList(url, params);
+            _this2.setState({
+                startTime: person
+            });
+        };
+
+        _this2.endDate = function (person) {
+            var url = _this2.state.url;
+
+            var params = {
+                startTime: _this2.state.startTime,
+                endTime: person,
+                page: 1,
+                pageSize: 15
+            };
+            _this2.getDataList(url, params);
+            _this2.setState({
+                endTime: person
+            });
+        };
+
+        _this2.dataNone = function () {
+            return _react2.default.createElement(
+                'div',
+                { className: 'ui-m-nothing' },
+                _react2.default.createElement('div', { className: 'icon' }),
+                _react2.default.createElement(
+                    'p',
+                    { className: 'tip' },
+                    '\u6682\u65F6\u8FD8\u6CA1\u6709\u6570\u636E\u5466~'
+                )
+            );
+        };
+
+        _this2.clearTime = function () {
+            _Redux.Store.dispatch((0, _reduxForm.change)('time', 'end', ''));
+            _Redux.Store.dispatch((0, _reduxForm.change)('time', 'start', ''));
+            _Redux.Store.dispatch(_Redux.Actions.switchRightBar(false));
+
+            var url = _this2.state.url;
+
+            var params = {
+                startTime: '',
+                endTime: '',
+                page: 1,
+                pageSize: 15
+            };
+            _this2.getDataList(url, params);
+        };
+
+        _this2.state = {
+            infoTab: _this2.props.infoTab,
+            url: '',
+            readedUrl: '',
+            infoList: [],
+            page: 1,
+            pageSize: 15,
+            totalCount: 0,
+            pagination: 0,
+            startTime: '',
+            endTime: '',
+            currentPage: 1
+        };
+        return _this2;
+    }
+
+    _createClass(InfoList, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.getInfoData();
+            console.log('pppppp', this.props.infoTab);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(next, state) {
+            console.log('componentWillReceiveProps', next.infoTab, this.props.infoTab);
+            if (next.infoTab != this.props.infoTab) {
+                this.setState({
+                    infoTab: next.infoTab
+                }, function () {
+                    console.log('next.infoTab', next.infoTab, this.state.infoTab);
+                    this.getInfoData();
+                });
+            }
+            // console.log('pppppp');
+        }
+    }, {
+        key: 'readed',
+        value: function readed(item) {
+            var _state = this.state,
+                readedUrl = _state.readedUrl,
+                url = _state.url;
+
+            var _this = this;
+            console.log('item', item, readedUrl);
+            _Redux.Store.dispatch(_Redux.Actions.callAPI(readedUrl, {
+                id: item.msgInfoId
+            })).then(function (response) {
+
+                if (item.msgStatu == 'UNREAD') {
+                    _this.click();
+                }
+                _this.getDataList(url, {
+                    page: _this.state.currentPage,
+                    pageSize: 15,
+                    startTime: _this.state.startTime,
+                    endTime: _this.state.endTime
+                });
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var _state2 = this.state,
+                currentPage = _state2.currentPage,
+                pageSize = _state2.pageSize,
+                totalCount = _state2.totalCount,
+                pagination = _state2.pagination,
+                infoList = _state2.infoList;
+            var infoTab = this.props.infoTab;
+
+            var height = document.documentElement.clientHeight - 160;
+            // if (!pagination) {
+            //     return null;
+            // }
+            return _react2.default.createElement(
+                'div',
+                { className: 'ui-info-list-myself', style: { position: 'relative', borderTop: '1px solid rgb(216, 212, 212)' } },
+                _react2.default.createElement(
+                    'div',
+                    { style: {
+                            padding: '30px',
+                            paddingBottom: '20px',
+                            marginBottom: '100px'
+                        } },
+                    _react2.default.createElement('span', { className: 'close-info icon-close', onClick: this.clearTime }),
+                    _react2.default.createElement(
+                        'div',
+                        { style: {
+                                marginBottom: 10
+                            } },
+                        _react2.default.createElement('span', { className: 'icon-info ui-m-info-logo' }),
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'ui-m-info-title' },
+                            '\u6D88\u606F\u63D0\u9192'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'form',
+                        null,
+                        _react2.default.createElement(
+                            _ListGroup.ListGroup,
+                            null,
+                            _react2.default.createElement(
+                                _ListGroup.ListGroupItem,
+                                { style: { width: 200, marginTop: '-3px', marginLeft: '-3px', textAlign: 'left' } },
+                                _react2.default.createElement(_KrField2.default, { name: 'start', component: 'date', simple: true, onChange: this.startDate })
+                            ),
+                            _react2.default.createElement(
+                                _ListGroup.ListGroupItem,
+                                { style: { marginLeft: '10px', textAlign: 'left' } },
+                                _react2.default.createElement(
+                                    'span',
+                                    { style: { display: 'inline-block', lineHeight: '45px' } },
+                                    '\u81F3'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _ListGroup.ListGroupItem,
+                                { style: { width: 200, marginTop: '-3px', textAlign: 'left' } },
+                                ' ',
+                                _react2.default.createElement(_KrField2.default, { name: 'end', component: 'date', simple: true, onChange: this.endDate }),
+                                ' '
+                            )
+                        )
+                    ),
+                    infoList.map(function (item, index) {
+                        return _react2.default.createElement(
+                            'p',
+                            { className: item.msgStatu == 'UNREAD' ? 'ui-m-info-content' : 'ui-m-info-content-readed', key: index },
+                            _react2.default.createElement(
+                                'a',
+                                { className: 'ui-m-info-contents', onClick: _this3.readed.bind(_this3, item), href: item.msgUrl, target: '_blank' },
+                                item.msgContent
+                            ),
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'ui-m-info-date' },
+                                (0, _dateformat2.default)(item.createDate, 'yyyy/mm/dd')
+                            )
+                        );
+                    }),
+                    !infoList.length && this.dataNone()
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: { paddingRight: '15px', visibility: pagination ? 'visible' : 'hidden', position: 'absolute', bottom: '-27px', left: '25px' } },
+                    _react2.default.createElement(_Pagination2.default, { totalCount: totalCount, page: currentPage, pageSize: pageSize, onPageChange: this.onPageChange, pageJump: 4 })
+                )
+            );
+        }
+    }]);
+
+    return InfoList;
+}(_react.Component);
+
+exports.default = InfoList;
+
+exports.default = InfoList = (0, _reduxForm.reduxForm)({
+    form: 'time'
+})(InfoList);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(InfoList, 'InfoList', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Global/InfoList/index.js');
+}();
+
+;

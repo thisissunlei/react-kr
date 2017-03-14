@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/SearchForm.js: Unexpected token (76:2)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/SearchForm.js: Unexpected token (76:2)
+[0m [90m 74 | [39m		} [33m=[39m [36mthis[39m[33m.[39mprops[33m;[39m
+ [90m 75 | [39m		[36mvar[39m
+[31m[1m>[22m[39m[90m 76 | [39m		[36mreturn[39m (
+ [90m    | [39m		[31m[1m^[22m[39m
+ [90m 77 | [39m			[33m<[39m[33mdiv[39m  className[33m=[39m[32m"u-clearfix"[39m[33m>[39m
+ [90m 78 | [39m				[33m<[39m[33mdiv[39m className[33m=[39m[32m"u-audit-info"[39m[33m>[39m
+ [90m 79 | [39m					{[90m/*<div className="u-info-list">[39m[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp.unexpected (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1627:8)
+    at Parser.pp$2.parseBindingAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2923:12)
+    at Parser.pp$1.parseVarHead (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2220:18)
+    at Parser.parseVarHead (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5605:13)
+    at Parser.pp$1.parseVar (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2203:10)
+    at Parser.pp$1.parseVarStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2036:8)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1729:19)
+    at Parser.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseBlockBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2133:21)
+    at Parser.pp$1.parseBlock (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2114:8)
+    at Parser.pp$3.parseFunctionBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3998:22)
+    at Parser.parseFunctionBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5205:20)
+    at Parser.pp$3.parseMethod (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3967:8)
+    at Parser.parseClassMethod (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5474:12)
+    at Parser.pp$1.parseClassBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2391:10)
+    at Parser.pp$1.parseClass (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2270:8)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1711:19)
+    at Parser.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseBlockBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2133:21)
+    at Parser.pp$1.parseTopLevel (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1645:8)
+    at Parser.parse (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1537:17)

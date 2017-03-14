@@ -1,0 +1,43 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.loadNotify = loadNotify;
+
+var _nodeFetch = require('node-fetch');
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+var _types = require('./types');
+
+var Types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function loadNotify() {
+
+	return {
+		types: [Types.LOAD_DEMO_REQUEST, Types.LOAD_DEMO_SUCCESS, Types.LOAD_DEMO_FAILURE],
+		//shouldCallAPI:(state)=>state.companys
+		callAPI: function callAPI() {
+			return (0, _nodeFetch2.default)('http://rong.36kr.com/api/company').then(function (response) {
+				return response.json();
+			});
+		},
+		payload: {}
+	};
+}
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(loadNotify, 'loadNotify', '/Users/dongfanai/Desktop/project/kr-admin/src/Redux/Modules/Notifiy/actions.js');
+}();
+
+;

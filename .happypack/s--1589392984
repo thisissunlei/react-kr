@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/SearchForm.js: Adjacent JSX elements must be wrapped in an enclosing tag (72:10)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/SearchForm.js: Adjacent JSX elements must be wrapped in an enclosing tag (72:10)
+[0m [90m 70 | [39m			[33m<[39m[33mdiv[39m className[33m=[39m[32m"u-info-more"[39m onMouseover[33m=[39m{[36mthis[39m[33m.[39monHover}[33m>[39m
+ [90m 71 | [39m				更多[33m<[39m[33mspan[39m className[33m=[39m[32m"u-info-bottom"[39m[33m>[39m[33m<[39m[33m/[39m[33mspan[39m[33m>[39m
+[31m[1m>[22m[39m[90m 72 | [39m			[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m [33m<[39m div [33m>[39m
+ [90m    | [39m			       [31m[1m^[22m[39m
+ [90m 73 | [39m			[35m1111[39m [33m<[39m [33m/[39mdiv[33m>[39m
+ [90m 74 | [39m
+ [90m 75 | [39m		)[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6377:10)
+    at Parser.pp$8.jsxParseElement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6388:15)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6400:21)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5655:24)
+    at Parser.pp$3.parseParenAndDistinguishExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3660:26)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3545:19)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6402:22)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5694:20)
+    at Parser.pp$3.parseExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3143:19)
+    at Parser.pp$1.parseReturnStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1945:26)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1716:19)

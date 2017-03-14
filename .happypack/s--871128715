@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Operations/Createdialog/index.js: Expected corresponding JSX closing tag for <button> (284:18)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Operations/Createdialog/index.js: Expected corresponding JSX closing tag for <button> (284:18)
+[0m [90m 282 | [39m							[33m<[39m[33mKrField[39m name[33m=[39m[32m"controller"[39m  style[33m=[39m{{width[33m:[39m[35m220[39m[33m,[39mmarginLeft[33m:[39m[35m40[39m}}  component[33m=[39m[32m"select"[39m label[33m=[39m[32m"模块"[39m options[33m=[39m{[33mControllerList[39m} inline[33m=[39m{[36mtrue[39m} requireLabel[33m=[39m{[36mtrue[39m} onChange[33m=[39m{[36mthis[39m[33m.[39monSelectController}[33m/[39m[33m>[39m
+ [90m 283 | [39m							[33m<[39m[33mKrField[39m name[33m=[39m[32m"controllerChild"[39m  style[33m=[39m{{width[33m:[39m[35m220[39m[33m,[39mmarginLeft[33m:[39m[35m40[39m}}  component[33m=[39m[32m"select"[39m label[33m=[39m[32m"模块"[39m options[33m=[39m{[33mControllerChild[39m} inline[33m=[39m{[36mtrue[39m} requireLabel[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m
+[31m[1m>[22m[39m[90m 284 | [39m							[33m<[39m[33mbutton[39m[33m>[39madd[33m<[39m[33m/[39m[33mbuttun[39m[33m>[39m
+ [90m     | [39m							           [31m[1m^[22m[39m
+ [90m 285 | [39m						[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 286 | [39m					[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 287 | [39m					[33m<[39m[33mdiv[39m style[33m=[39m{{marginLeft[33m:[39m[35m140[39m[33m,[39mmarginTop[33m:[39m[35m30[39m}}[33m>[39m[33m<[39m[33mButton[39m  label[33m=[39m[32m"确定"[39m type[33m=[39m[32m"submit"[39m   height[33m=[39m{[35m34[39m} width[33m=[39m{[35m90[39m}[33m/[39m[33m>[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6369:12)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6388:15)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6400:21)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5655:24)
+    at Parser.pp$3.parseParenAndDistinguishExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3660:26)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3545:19)
+    at Parser.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6402:22)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)

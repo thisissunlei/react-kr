@@ -1,0 +1,367 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StartCardActivation = function (_Component) {
+	_inherits(StartCardActivation, _Component);
+
+	//数据的初始化设定
+	function StartCardActivation(props) {
+		_classCallCheck(this, StartCardActivation);
+
+		var _this2 = _possibleConstructorReturn(this, (StartCardActivation.__proto__ || Object.getPrototypeOf(StartCardActivation)).call(this, props));
+
+		_this2.onSubmit = function (values) {
+			var _this = _this2;
+			if (navigator.onLine) {//正常工作
+			} else {
+				//执行离线状态时的任务
+				_krUi.Message.error("网络已断开");
+				return;
+			}
+
+			var isErr = false;
+			var params = {};
+			params.foreignCode = _this2.state.detail.startNum;
+			params.interCode = values.interCode;
+
+			if (!values.interCode) {
+
+				return;
+			}
+			if (_this2.state.accomplish) {
+
+				return;
+			}
+
+			var reg = /^[0-9a-fA-F]{8}$/;
+			if (values.interCode && !reg.test(values.interCode)) {
+
+				_krUi.Message.error('内码为8位16进制数');
+				return;
+			}
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('CardActivation', {}, params)).then(function (response) {
+				//  Message.success("成功");
+				var detail = {};
+				detail.interCode = "";
+				_Redux.Store.dispatch((0, _reduxForm.initialize)('StartCardActivation', detail));
+				_this.props.onFlush();
+				var title = "会员卡" + values.interCode + "激活成功";
+				_this.props.openMessageBar(title, "ok");
+
+				if (_this.state.detail.startNum <= _this.state.detail.endNum) {
+
+					_this.cardNumAdd(4);
+				}
+				setTimeout(function () {
+					_this.props.closeMessageBar();
+				}, 1000);
+			}).catch(function (err) {
+				if (err.message == "该会员卡已被录入") {
+					err.message = "卡号" + _this.state.detail.startNum + "已存在请跳过！";
+				} else if (err.message == "该卡已被激活,请重刷") {
+					err.message = "会员卡" + values.interCode + "已被激活，请换卡重刷！";
+				}
+				if (err.message == "Failed to fetch") {
+					err.message = "连接不到服务器!";
+					_krUi.Message.error(err.message);
+					return;
+				}
+
+				_this.props.openMessageBar(err.message, "error");
+				setTimeout(function () {
+					_this.props.closeMessageBar();
+				}, 3000);
+			});
+		};
+
+		_this2.numhandle = function (num, start, end) {
+			num = num.toString();
+			num = num.substring(start, end);
+			return num;
+		};
+
+		_this2.cardNumAdd = function (len) {
+			var detail = (0, _simpleAssign2.default)({}, _this2.props.detail);
+			var start = _this2.state.detail.startNum.substring(0, 6).toString();
+			var num = parseInt(_this2.state.detail.startNum.substring(6, 10));
+			num = num + 1;
+			num = num.toString();
+			if (num.length < len) {
+				for (var i = num.length; i < len; i++) {
+					num = '0' + num;
+				}
+			}
+			if (_this2.state.detail.startNum == _this2.state.detail.endNum) {
+
+				var oldNum = _this2.state.oldNum + 1;
+				if (_this2.state.startNum == _this2.state.num) {
+					oldNum = 0;
+				}
+				_this2.setState({
+					accomplish: true
+				});
+				_krUi.Message.success(oldNum + "张会员卡激活成功！");
+				_this2.onCancel();
+				detail.startNum = detail.endNum = "0000000000";
+			} else {
+				detail.startNum = start + num;
+				detail.endNum = _this2.state.detail.endNum;
+			}
+
+			_this2.setState({
+				detail: detail
+			});
+		};
+
+		_this2.skipCard = function () {
+			if (+_this2.state.detail.endNum != 0) {
+				var detail = {};
+				detail.interCode = "";
+				var num = _this2.state.num + 1;
+				_Redux.Store.dispatch((0, _reduxForm.initialize)('StartCardActivation', detail));
+				_this2.setState({
+					oldNum: +_this2.state.oldNum - 1,
+					num: num
+				});
+				_this2.cardNumAdd(4);
+			}
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.InterCodeFocus = function (values) {
+			if (true) {
+				_this2.setState({
+					clearInterCodeStyle: {
+						display: 'block'
+					}
+				});
+			}
+		};
+
+		_this2.clearInterCode = function () {
+			var detail = {};
+			detail.interCode = "";
+			_Redux.Store.dispatch((0, _reduxForm.initialize)('StartCardActivation', detail));
+			_this2.setState({
+				clearInterCodeStyle: {
+					display: 'none'
+				}
+			});
+		};
+
+		_this2.cardChange = function (value) {
+			console.log("999");
+
+			var cReg = new RegExp('[\\u4E00-\\u9FFF]+', "g");
+			var reg = /^[0-9a-fA-F]{8}$/;
+			if (value.length > 8) {
+				value = value.slice(8, value.length + 1);
+				var detail = {};
+				detail.interCode = value;
+				_Redux.Store.dispatch((0, _reduxForm.initialize)('StartCardActivation', detail));
+
+				return;
+			}
+			if (cReg.test(value)) {
+				_krUi.Message.error('卡内码内含有中文请切换英文输入法！');
+				return;
+			}
+		};
+
+		_this2.state = {
+			detail: props.detail,
+			accomplish: false,
+			startNum: props.detail.endNum - props.detail.startNum,
+			oldNum: props.detail.endNum - props.detail.startNum,
+			closeMessageBar: {
+				title: '',
+				open: false,
+				style: {},
+				className: ''
+			},
+			clearInterCodeStyle: {
+				display: 'none'
+			},
+			num: 0
+		};
+		return _this2;
+	}
+	//节点的暴露
+
+
+	//数字处理
+
+	//卡号增加
+
+	//跳过号码
+
+
+	//关闭窗口
+
+
+	_createClass(StartCardActivation, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset,
+			    throwBack = _props.throwBack;
+
+			var numbers = +this.state.detail.endNum == 0 ? 0 : +this.state.detail.endNum - +this.state.detail.startNum + 1;
+			return _react2.default.createElement(
+				'form',
+				{ className: 'HeavilyActivation', onSubmit: handleSubmit(this.onSubmit) },
+				_react2.default.createElement('div', { className: 'activeImg' }),
+				_react2.default.createElement(
+					'div',
+					{ style: { textAlign: "right", width: 340, margin: "auto", marginTop: 10, marginLeft: 52 } },
+					_react2.default.createElement(
+						'label',
+						null,
+						"会员卡数量:" + numbers + "张"
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { height: '60px', marginTop: "15px", marginLeft: "4px" } },
+						_react2.default.createElement(
+							'span',
+							{ className: 'cardNum' },
+							this.numhandle(this.state.detail.startNum, 0, 4)
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'cardNum', style: { padding: "0 10px" } },
+							this.numhandle(this.state.detail.startNum, 4, 6)
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'cardNum normal' },
+							this.numhandle(this.state.detail.startNum, 6, 10)
+						)
+					),
+					_react2.default.createElement(
+						'label',
+						{ className: 'jump', onClick: this.skipCard, style: { fontSize: "14px" } },
+						'\u8DF3\u8FC7\u8BE5\u53F7\u7801'
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'clearInterCode', style: { marginLeft: "-4px", marginRight: "4px" } },
+					_react2.default.createElement(_krUi.KrField, { left: 71, right: 71, name: 'interCode', type: 'text', onFocus: this.InterCodeFocus, onChange: this.cardChange, autoFocus: true }),
+					_react2.default.createElement('div', { className: 'startX', style: this.state.clearInterCodeStyle, onClick: this.clearInterCode })
+				),
+				_react2.default.createElement(
+					_krUi.Grid,
+					{ style: { marginTop: 18, marginBottom: 5 } },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12, align: 'center' },
+							_react2.default.createElement(
+								_krUi.ButtonGroup,
+								null,
+								this.state.accomplish && _react2.default.createElement(
+									'div',
+									{ className: 'ui-btn-center', style: { marginLeft: 27 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u5B8C\u6210', type: 'submit', backgroundColor: this.state.accomplish ? "#499df1" : "#cccccc", onTouchTap: this.onCancel })
+								),
+								!this.state.accomplish && _react2.default.createElement(_krUi.Button, { label: '\u8FD4\u56DE', type: 'button', cancle: true, onTouchTap: throwBack })
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return StartCardActivation;
+}(_react.Component);
+
+StartCardActivation.defaultProps = {
+	stage: 'importNum'
+
+};
+StartCardActivation.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func,
+	detail: _react2.default.PropTypes.object,
+	/**
+  * stage表示批量修改所处的阶段
+  * 允许填入的值为 importNum|| activeCard
+  */
+	stage: _react2.default.PropTypes.string
+};
+
+var validate = function validate(values) {
+
+	var errors = {};
+	var reg = /^[0-9a-fA-F]{8}$/;
+	console.log("1233");
+	if (!reg.test(values.interCode)) {
+		errors.interCode = '内码为8位16进制数';
+	}
+
+	return errors;
+};
+var selector = (0, _reduxForm.formValueSelector)('StartCardActivation');
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'StartCardActivation', validate: validate, enableReinitialize: true, keepDirtyOnReinitialize: true })(StartCardActivation);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(StartCardActivation, 'StartCardActivation', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Member/MemberManage/Setting/StartCardActivation.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Member/MemberManage/Setting/StartCardActivation.js');
+
+	__REACT_HOT_LOADER__.register(selector, 'selector', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Member/MemberManage/Setting/StartCardActivation.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Member/MemberManage/Setting/StartCardActivation.js');
+}();
+
+;

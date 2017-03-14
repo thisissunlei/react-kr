@@ -1,0 +1,837 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Loading = require('../../Loading');
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
+var _fetch = require('kr/Redux/Utils/fetch');
+
+var _fetch2 = _interopRequireDefault(_fetch);
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _TableBody = require('../TableBody');
+
+var _TableBody2 = _interopRequireDefault(_TableBody);
+
+var _TableRow = require('../TableRow');
+
+var _TableRow2 = _interopRequireDefault(_TableRow);
+
+var _TableRowColumn = require('../TableRowColumn');
+
+var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
+
+var _Notify = require('../../Notify');
+
+var _Notify2 = _interopRequireDefault(_Notify);
+
+var _Utils = require('kr/Utils');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Table = function (_React$Component) {
+	_inherits(Table, _React$Component);
+
+	function Table(props) {
+		_classCallCheck(this, Table);
+
+		var _this2 = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
+
+		_this2.onFold = function () {
+			var _this2$props = _this2.props,
+			    onFold = _this2$props.onFold,
+			    foldSize = _this2$props.foldSize;
+			var visibilityRows = _this2.state.visibilityRows;
+
+
+			var foldOpen = !_this2.state.foldOpen;
+			visibilityRows = visibilityRows.toString().replace(/,/gi, '');
+
+			if (foldOpen) {
+				visibilityRows = visibilityRows.substr(0, foldSize) + visibilityRows.substr(foldSize + 1, visibilityRows.length).replace(/0/gi, 1);
+			} else {
+				visibilityRows = visibilityRows.substr(0, foldSize) + visibilityRows.substr(foldSize + 1, visibilityRows.length).replace(/1/gi, 0);
+			}
+
+			visibilityRows = visibilityRows.split('');
+
+			_this2.setState({
+				foldOpen: foldOpen,
+				visibilityRows: visibilityRows
+			}, function () {
+				onFold && onFold();
+			});
+		};
+
+		_this2.renderFold = function () {
+			var fold = _this2.props.fold;
+
+
+			if (!fold) {
+				return null;
+			}
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'div',
+					{ className: 'btn-collapse' },
+					_this2.state.foldOpen && _react2.default.createElement(
+						'span',
+						{ className: 'recordDevelop', onClick: _this2.onFold },
+						'\u5C55\u5F00'
+					),
+					!_this2.state.foldOpen && _react2.default.createElement(
+						'span',
+						{ className: 'recordClose', onClick: _this2.onFold },
+						'\u6536\u8D77'
+					)
+				)
+			);
+		};
+
+		_this2.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this2);
+
+		_this2.createTableHeader = _this2.createTableHeader.bind(_this2);
+		_this2.createTableBody = _this2.createTableBody.bind(_this2);
+		_this2.createTableFooter = _this2.createTableFooter.bind(_this2);
+		_this2.setVisibilityRow = _this2.setVisibilityRow.bind(_this2);
+
+		_this2.onSort = _this2.onSort.bind(_this2);
+		_this2.onSelectAll = _this2.onSelectAll.bind(_this2);
+		_this2.onSelect = _this2.onSelect.bind(_this2);
+		_this2.onRowClick = _this2.onRowClick.bind(_this2);
+		_this2.onExport = _this2.onExport.bind(_this2);
+		_this2.onCellClick = _this2.onCellClick.bind(_this2);
+		_this2.onPageChange = _this2.onPageChange.bind(_this2);
+		_this2.onOperation = _this2.onOperation.bind(_this2);
+		_this2.onLoaded = _this2.onLoaded.bind(_this2);
+
+		_this2.onLoadData = _this2.onLoadData.bind(_this2);
+		_this2.onInitial = _this2.onInitial.bind(_this2);
+		_this2.onProcessData = _this2.onProcessData.bind(_this2);
+
+		_this2.renderTableHeader = _this2.renderTableHeader.bind(_this2);
+		_this2.renderTableBody = _this2.renderTableBody.bind(_this2);
+		_this2.renderTableFooter = _this2.renderTableFooter.bind(_this2);
+		_this2.renderLoading = _this2.renderLoading.bind(_this2);
+		_this2.renderNotListData = _this2.renderNotListData.bind(_this2);
+
+		_this2.state = {
+			response: {},
+			page: _this2.props.page,
+			pageSize: _this2.props.pageSize,
+			totalCount: _this2.props.totalCount,
+			listData: [],
+			loading: _this2.props.loading,
+			isLoaded: false,
+			allRowsSelected: false,
+			selectedRows: [],
+			visibilityRows: [],
+			fold: false,
+			foldOpen: _this2.props.foldOpen,
+			defaultValue: {
+				checkboxWidth: 50
+			}
+		};
+
+		_this2.maxRows = 1000;
+
+		var initialValues = _this2.props.initialValues;
+
+
+		if (initialValues) {
+			_this2.onInitial(initialValues);
+		}
+
+		return _this2;
+	}
+
+	_createClass(Table, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (!(0, _Utils.ShallowEqual)(this.props.ajaxParams, nextProps.ajaxParams)) {
+				this.setState({
+					isLoaded: false
+				});
+				this.onLoadData(1, nextProps.ajaxParams);
+			}
+
+			if (nextProps.page != this.props.page) {
+				this.setState({
+					page: nextProps.page
+				});
+			}
+
+			if (nextProps.loading != this.props.loading) {
+				this.setState({
+					loading: nextProps.loading
+				});
+				this.onLoadData(1, nextProps.ajaxParams);
+			}
+
+			if (!(0, _Utils.ShallowEqual)(this.props.initialValues, nextProps.initialValues)) {
+				this.onInitial(nextProps.initialValues);
+			}
+		}
+	}, {
+		key: 'shouldComponentUpdate',
+		value: function shouldComponentUpdate(nextProps, nextState) {
+
+			if (!(0, _Utils.ShallowEqual)(this.props.ajaxParams, nextProps.ajaxParams)) {
+				return true;
+			}
+			if (nextProps.page != this.props.page) {
+				return true;
+			}
+			if (nextProps.loading != this.props.loading) {
+				return true;
+			}
+			return false;
+		}
+	}, {
+		key: 'onSort',
+		value: function onSort(name) {
+			if (!name) {
+				return;
+			}
+			var listData = this.state.listData;
+
+			this.setState({
+				listData: listData
+			});
+		}
+	}, {
+		key: 'onProcessData',
+		value: function onProcessData(state) {
+			var onProcessData = this.props.onProcessData;
+
+
+			if (onProcessData) {
+				state = onProcessData(state);
+			}
+			return state;
+		}
+	}, {
+		key: 'onInitial',
+		value: function onInitial(state) {
+			var defaultSelectedRows = this.props.defaultSelectedRows;
+
+
+			state.selectedRows = defaultSelectedRows;
+
+			state = this.onProcessData(state);
+
+			this.setState(state, function () {
+				this.onLoaded();
+			});
+		}
+	}, {
+		key: 'onLoaded',
+		value: function onLoaded() {
+			var onLoaded = this.props.onLoaded;
+
+
+			onLoaded && onLoaded(this.state.response);
+		}
+	}, {
+		key: 'onOperation',
+		value: function onOperation(type, itemData) {
+			var onOperation = this.props.onOperation;
+
+			onOperation && onOperation(type, itemData);
+		}
+	}, {
+		key: 'onPageChange',
+		value: function onPageChange(page) {
+			var onPageChange = this.props.onPageChange;
+
+
+			onPageChange && onPageChange(page);
+			this.onLoadData(page);
+		}
+	}, {
+		key: 'onCellClick',
+		value: function onCellClick() {}
+	}, {
+		key: 'onExport',
+		value: function onExport() {
+			var _state = this.state,
+			    selectedRows = _state.selectedRows,
+			    visibilityRows = _state.visibilityRows,
+			    listData = _state.listData;
+			var onExport = this.props.onExport;
+
+
+			var exportRows = [];
+			var exportData = [];
+
+			listData = listData.filter(function (item, index) {
+				return !(typeof item === 'undefined');
+			});
+
+			visibilityRows.forEach(function (item, index) {
+				if (item && parseInt(selectedRows[index])) {
+					exportRows.push(index);
+				}
+			});
+
+			exportRows.forEach(function (item, index) {
+				if (listData[item]) {
+					exportData.push(listData[item]);
+				}
+			});
+
+			onExport && onExport(exportData, exportRows);
+		}
+	}, {
+		key: 'onLoadData',
+		value: function onLoadData() {
+			var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+			var ajaxParams = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.props.ajaxParams;
+
+
+			ajaxParams = (0, _simpleAssign2.default)({}, ajaxParams);
+
+			if (!this.props.ajax) {
+				return;
+			}
+
+			this.setState({
+				loading: true
+			});
+
+			var ajaxUrlName = this.props.ajaxUrlName;
+
+
+			ajaxParams.page = page;
+
+			var _this = this;
+
+			_fetch2.default.request(ajaxUrlName, ajaxParams).then(function (response) {
+				_this.onInitial({
+					response: response,
+					listData: response[_this.props.ajaxFieldListName],
+					page: response.page,
+					pageSize: response.pageSize,
+					totalCount: response.totalCount,
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false
+				});
+			}).catch(function (err) {
+
+				_this.onInitial({
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false
+				});
+
+				_Notify2.default.show([{
+					message: err.message,
+					type: 'error'
+				}]);
+			});
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+
+			this.onLoadData();
+
+			var _props = this.props,
+			    foldOpen = _props.foldOpen,
+			    fold = _props.fold,
+			    foldSize = _props.foldSize;
+
+
+			var visibilityRows = new Array(this.maxRows + 1).join(1);
+
+			if (fold) {
+				visibilityRows = new Array(foldSize + 1).join(1) + new Array(Number(this.maxRows) - Number(foldSize + 1)).join(0);
+			}
+
+			visibilityRows = visibilityRows.split('');
+
+			//默认隐藏children
+			var visibilityType = this.props.toggleVisibility || '';
+
+			switch (visibilityType) {
+				case 'odd':
+					{
+						visibilityRows.forEach(function (item, index) {
+							if (index % 2 !== 0) {
+								visibilityRows[index] = 0;
+							}
+						});
+						break;
+					}
+
+				case 'event':
+					{
+						visibilityRows.forEach(function (item, index) {
+							if (index % 2 == 0) {
+								visibilityRows[index] = 0;
+							}
+						});
+						break;
+					}
+
+				default:
+					{
+						/*
+      visibilityRows.forEach(function(item, index) {
+      	visibilityRows[index] = 1;
+      });
+      break;
+      */
+					}
+			}
+
+			this.setState({
+				visibilityRows: visibilityRows
+			});
+		}
+	}, {
+		key: 'setVisibilityRow',
+		value: function setVisibilityRow(rowNumber) {
+			var visibilityRows = this.state.visibilityRows;
+			visibilityRows[rowNumber] = new Number(!!!parseInt(visibilityRows[rowNumber]));
+			this.setState({
+				visibilityRows: visibilityRows
+			});
+		}
+	}, {
+		key: 'onRowClick',
+		value: function onRowClick(event, rowNumber) {
+			var selectedRows = this.state.selectedRows;
+
+
+			selectedRows = new Array().concat(selectedRows);
+
+			if (parseInt(selectedRows[rowNumber])) {
+				selectedRows[rowNumber] = 0;
+			} else {
+				selectedRows[rowNumber] = 1;
+			}
+
+			this.setState({
+				selectedRows: selectedRows
+			}, function () {
+				this.onSelect();
+			});
+
+			if (event && event.hasOwnProperty('target') && event.target.nodeName.toLowerCase() == 'input') {
+				return;
+			}
+			//显示子元素
+			var vitibilityType = this.props.toggleVisibility;
+			if (vitibilityType) {
+				if (vitibilityType === 'odd') {
+					if (rowNumber % 2 == 0) {
+						this.setVisibilityRow(rowNumber + 1);
+					}
+				} else {
+					if (rowNumber % 2 != 0) {
+						this.setVisibilityRow(rowNumber - 1);
+					}
+				}
+			}
+		}
+	}, {
+		key: 'onSelect',
+		value: function onSelect() {
+			var _state2 = this.state,
+			    selectedRows = _state2.selectedRows,
+			    visibilityRows = _state2.visibilityRows;
+
+
+			var allRowsSelected = true;
+			var result = [];
+			visibilityRows.forEach(function (item, index) {
+				if (item && parseInt(selectedRows[index])) {
+					result.push(index);
+				} else {
+					allRowsSelected = false;
+				}
+			});
+
+			var onSelect = this.props.onSelect;
+
+			onSelect && onSelect(result);
+
+			this.setState({
+				allRowsSelected: allRowsSelected
+			});
+		}
+	}, {
+		key: 'onSelectAll',
+		value: function onSelectAll() {
+			var allRowsSelected = this.state.allRowsSelected;
+
+			allRowsSelected = !allRowsSelected;
+			var tmp = [];
+			if (allRowsSelected) {
+				tmp = new Array(this.maxRows + 1).join(1).split('');
+			} else {
+				tmp = new Array(this.maxRows + 1).join(0).split('');
+			}
+
+			this.setState({
+				allRowsSelected: !this.state.allRowsSelected,
+				selectedRows: tmp
+			});
+
+			var _this = this;
+			window.setTimeout(function () {
+				_this.onSelect();
+			}, 0);
+		}
+	}, {
+		key: 'createTableHeader',
+		value: function createTableHeader(base) {
+
+			return _react2.default.cloneElement(base, {
+				displayCheckbox: this.props.displayCheckbox,
+				onSelectAll: this.onSelectAll,
+				defaultValue: this.state.defaultValue,
+				onSort: this.onSort,
+				allRowsSelected: this.state.allRowsSelected
+			});
+		}
+	}, {
+		key: 'createTableBody',
+		value: function createTableBody(base) {
+
+			return _react2.default.cloneElement(base, {
+				displayCheckbox: this.props.displayCheckbox,
+				allRowsSelected: this.state.allRowsSelected,
+				selectedRows: this.state.selectedRows,
+				visibilityRows: this.state.visibilityRows,
+				onRowClick: this.onRowClick,
+				onOperation: this.onOperation,
+				defaultValue: this.state.defaultValue,
+				listData: this.state.listData,
+				ajax: this.props.ajax
+			});
+		}
+	}, {
+		key: 'createTableFooter',
+		value: function createTableFooter(base) {
+			var _props2 = this.props,
+			    pagination = _props2.pagination,
+			    footer = _props2.footer;
+
+
+			if (pagination || footer) {
+				footer = true;
+			}
+
+			var props = {
+				displayCheckbox: this.props.displayCheckbox,
+				allRowsSelected: this.state.allRowsSelected,
+				defaultValue: this.state.defaultValue,
+				page: this.state.page,
+				pageSize: this.state.pageSize,
+				pagination: this.props.pagination,
+				totalCount: this.state.totalCount,
+				onPageChange: this.onPageChange,
+				exportSwitch: this.props.exportSwitch,
+				footer: footer
+			};
+
+			var handlers = {
+				onSelectAll: this.onSelectAll,
+				onExport: this.onExport
+			};
+
+			return _react2.default.cloneElement(base, _extends({}, props, handlers));
+		}
+	}, {
+		key: 'renderTableHeader',
+		value: function renderTableHeader() {
+			var _this3 = this;
+
+			var _props3 = this.props,
+			    className = _props3.className,
+			    children = _props3.children,
+			    style = _props3.style;
+
+			var tHead = void 0;
+			_react2.default.Children.forEach(children, function (child) {
+				if (!_react2.default.isValidElement(child)) return;
+				var _child$type = child.type,
+				    muiName = _child$type.muiName,
+				    name = _child$type.name,
+				    displayName = _child$type.displayName;
+
+				if (displayName === 'TableHeader') {
+					tHead = _this3.createTableHeader(child);
+				}
+			});
+			return tHead;
+		}
+	}, {
+		key: 'renderNotListData',
+		value: function renderNotListData() {
+			var _props4 = this.props,
+			    className = _props4.className,
+			    children = _props4.children,
+			    style = _props4.style;
+
+
+			return _react2.default.createElement(
+				'table',
+				{ className: "ui-table " + className, style: style },
+				this.renderTableHeader(),
+				_react2.default.createElement(
+					'tbody',
+					null,
+					_react2.default.createElement(
+						'tr',
+						{ style: { backgroundColor: '#fff' } },
+						_react2.default.createElement(
+							_TableRowColumn2.default,
+							{ colSpan: 100 },
+							_react2.default.createElement(
+								'div',
+								{ style: { textAlign: 'center', paddingTop: 100, paddingBottom: 100 } },
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-nothing' },
+									_react2.default.createElement('div', { className: 'icon' }),
+									_react2.default.createElement(
+										'p',
+										{ className: 'tip' },
+										'\u6682\u65F6\u8FD8\u6CA1\u6709\u6570\u636E\u5466~'
+									)
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}, {
+		key: 'renderTableBody',
+		value: function renderTableBody() {
+			var _this4 = this;
+
+			var _props5 = this.props,
+			    className = _props5.className,
+			    children = _props5.children,
+			    style = _props5.style;
+
+
+			var tBody = void 0;
+
+			_react2.default.Children.forEach(children, function (child) {
+				if (!_react2.default.isValidElement(child)) return;
+				var displayName = child.type.displayName;
+
+				if (displayName === 'TableBody') {
+					tBody = _this4.createTableBody(child);
+				}
+			});
+
+			return tBody;
+		}
+	}, {
+		key: 'renderTableFooter',
+		value: function renderTableFooter() {
+			var _this5 = this;
+
+			var _props6 = this.props,
+			    className = _props6.className,
+			    children = _props6.children,
+			    style = _props6.style;
+
+			var tFoot = void 0;
+
+			_react2.default.Children.forEach(children, function (child) {
+				if (!_react2.default.isValidElement(child)) return;
+				var _child$type2 = child.type,
+				    muiName = _child$type2.muiName,
+				    name = _child$type2.name,
+				    displayName = _child$type2.displayName;
+
+				if (displayName === 'TableFooter') {
+					tFoot = _this5.createTableFooter(child);
+				}
+			});
+
+			return tFoot;
+		}
+	}, {
+		key: 'renderLoading',
+		value: function renderLoading() {
+			var _props7 = this.props,
+			    className = _props7.className,
+			    children = _props7.children,
+			    style = _props7.style;
+
+
+			return _react2.default.createElement(
+				'table',
+				{ className: "ui-table " + className, style: style },
+				this.renderTableHeader(),
+				_react2.default.createElement(
+					'tbody',
+					null,
+					_react2.default.createElement(
+						'tr',
+						{ style: { backgroundColor: '#fff' } },
+						_react2.default.createElement(
+							_TableRowColumn2.default,
+							{ colSpan: 100 },
+							_react2.default.createElement(
+								'div',
+								{ style: { textAlign: 'center', paddingTop: 50, paddingBottom: 50 } },
+								_react2.default.createElement(_Loading2.default, null)
+							)
+						)
+					)
+				)
+			);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props8 = this.props,
+			    className = _props8.className,
+			    children = _props8.children,
+			    style = _props8.style,
+			    ajax = _props8.ajax,
+			    fold = _props8.fold;
+			var _state3 = this.state,
+			    listData = _state3.listData,
+			    loading = _state3.loading;
+
+			fold = fold || this.state.fold;
+			if (loading) {
+				return this.renderLoading();
+			}
+
+			if (ajax && !listData.length) {
+				return this.renderNotListData();
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-table-wrap' },
+				_react2.default.createElement(
+					'table',
+					{ className: "ui-table " + className, style: style },
+					this.renderTableHeader(),
+					this.renderTableBody(),
+					this.renderTableFooter()
+				),
+				this.renderFold()
+			);
+		}
+	}]);
+
+	return Table;
+}(_react2.default.Component);
+
+Table.displayName = 'Table';
+Table.defaultProps = {
+	page: 1,
+	pageSize: 15,
+	totalCount: 20,
+	pagination: true,
+	loading: false,
+	ajax: false,
+	ajaxFieldListName: 'items',
+	displayCheckbox: true,
+	footer: false,
+	exportSwitch: false,
+	defaultSelectedRows: [],
+	fold: false,
+	foldSize: 10,
+	foldOpen: false
+};
+Table.PropTypes = {
+	className: _react2.default.PropTypes.string,
+	children: _react2.default.PropTypes.node,
+	displayCheckbox: _react2.default.PropTypes.bool,
+	style: _react2.default.PropTypes.object,
+	toggleVisibility: _react2.default.PropTypes.string,
+	exportSwitch: _react2.default.PropTypes.bool,
+	page: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	pageSize: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	pagination: _react2.default.PropTypes.bool,
+	totalCount: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	loading: _react2.default.PropTypes.bool,
+	ajax: _react2.default.PropTypes.bool,
+	ajaxUrlName: _react2.default.PropTypes.string,
+	ajaxParams: _react2.default.PropTypes.object,
+	ajaxFieldListName: _react2.default.PropTypes.string,
+	//tfoot
+	footer: _react2.default.PropTypes.bool,
+	defaultSelectedRows: _react2.default.PropTypes.array,
+
+	//事件
+	onExport: _react2.default.PropTypes.func,
+	onSelectAll: _react2.default.PropTypes.func,
+	onCellClick: _react2.default.PropTypes.func,
+	onRowClick: _react2.default.PropTypes.func,
+	onPageChange: _react2.default.PropTypes.func,
+	onOperation: _react2.default.PropTypes.func,
+	onLoaded: _react2.default.PropTypes.func,
+	onSelect: _react2.default.PropTypes.func,
+	onProcessData: _react2.default.PropTypes.func,
+
+	fold: _react2.default.PropTypes.bool,
+	foldSize: _react2.default.PropTypes.string,
+	foldOpen: _react2.default.PropTypes.bool,
+	onFold: _react2.default.PropTypes.func
+};
+exports.default = Table;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Table, 'Table', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Table/Table/index.js');
+}();
+
+;

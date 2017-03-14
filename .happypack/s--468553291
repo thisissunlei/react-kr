@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/Createdialog/index.js: Unexpected character '，' (113:15)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/User/Createdialog/index.js: Unexpected character '，' (113:15)
+[0m [90m 111 | [39m	renderChildren [33m=[39m (child) [33m=>[39m {
+ [90m 112 | [39m		[36mvar[39m _this [33m=[39m [36mthis[39m[33m;[39m
+[31m[1m>[22m[39m[90m 113 | [39m		[36mvar[39m childlist， resources[33m;[39m
+ [90m     | [39m		             [31m[1m^[22m[39m
+ [90m 114 | [39m		[36mif[39m (child[33m.[39mlength [33m>[39m [35m0[39m) {
+ [90m 115 | [39m			[36mreturn[39m childlist [33m=[39m child[33m.[39mmap((items[33m,[39m indexs) [33m=>[39m {
+ [90m 116 | [39m				[36mif[39m (items[33m.[39mcModuleVo[33m.[39mlength [33m>[39m [35m0[39m) {[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.getTokenFromCode (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1065:10)
+    at Parser.readToken (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:694:19)
+    at Parser.<anonymous> (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6435:20)
+    at Parser.readToken (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5370:22)
+    at Parser.nextToken (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:684:19)
+    at Parser.next (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:609:10)
+    at Parser.pp$3.parseIdentifier (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4131:8)
+    at Parser.pp$2.parseBindingAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2911:19)
+    at Parser.pp$1.parseVarHead (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2220:18)
+    at Parser.parseVarHead (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5605:13)
+    at Parser.pp$1.parseVar (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2203:10)
+    at Parser.pp$1.parseVarStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2036:8)
+    at Parser.pp$1.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1729:19)
+    at Parser.parseStatement (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseBlockBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2133:21)
+    at Parser.pp$1.parseBlock (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2114:8)
+    at Parser.pp$3.parseFunctionBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3998:22)
+    at Parser.parseFunctionBody (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5205:20)
+    at Parser.pp$3.parseArrowExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3977:8)
+    at Parser.pp$3.parseParenAndDistinguishExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3687:17)
+    at Parser.pp$3.parseExprAtom (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3545:19)

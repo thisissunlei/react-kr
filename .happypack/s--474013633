@@ -1,0 +1,78 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LineText = function (_Component) {
+	_inherits(LineText, _Component);
+
+	function LineText(props) {
+		_classCallCheck(this, LineText);
+
+		return _possibleConstructorReturn(this, (LineText.__proto__ || Object.getPrototypeOf(LineText)).call(this, props));
+	}
+
+	_createClass(LineText, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    title = _props.title,
+			    primary = _props.primary,
+			    onClick = _props.onClick,
+			    style = _props.style,
+			    styleLine = _props.styleLine;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-lineText' },
+				_react2.default.createElement('span', { className: primary != 'true' ? 'lineText-line line-gray' : 'lineText-line line-blue', style: styleLine }),
+				_react2.default.createElement(
+					'span',
+					{ className: primary != 'true' ? 'lineText-text text-gray' : 'lineText-text text-blue', onClick: onClick, style: style },
+					title
+				)
+			);
+		}
+	}]);
+
+	return LineText;
+}(_react.Component);
+
+LineText.PropTypes = {
+	title: _react2.default.PropTypes.title,
+	primary: _react2.default.PropTypes.string,
+	onClick: _react2.default.PropTypes.func,
+	style: _react2.default.PropTypes.style,
+	styleLine: _react2.default.PropTypes.styleLine
+};
+exports.default = LineText;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(LineText, 'LineText', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/LineText/index.js');
+}();
+
+;
