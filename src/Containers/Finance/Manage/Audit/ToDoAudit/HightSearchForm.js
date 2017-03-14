@@ -40,17 +40,32 @@ class HightSearchForm extends Component {
 		super(props);
 		this.state = {
 			communityList: [],
-			payment: [],
+			payment: [{
+				label: '无',
+				value: 'NONE'
+			}, {
+				label: '支付宝支付',
+				value: 'ZHIFUBAO'
+			}, {
+				label: '微信支付',
+				value: 'WEIXIN'
+			}, {
+				label: '银行转账',
+				value: 'YINGHANG'
+			}, {
+				label: 'POS机支付',
+				value: 'POS'
+			}],
 			payType: [],
 			mainList: []
 		}
 		this.getCommunity();
-		this.getPayment();
 		this.getPayType();
 		this.getMain();
 	}
 
 	onSubmit = (form) => {
+		form.verifyStatus = "UNCHECKED";
 		const {
 			onSubmit
 		} = this.props;
@@ -85,21 +100,7 @@ class HightSearchForm extends Component {
 
 		}).catch(function(err) {});
 	}
-	getPayment = () => {
-		var payment;
-		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-payway', {}, {})).then(function(response) {
-			payment = response.map((item, index) => {
-				item.label = item.name;
-				item.value = item.code;
-				return item;
-			})
-			_this.setState({
-				payment: payment
-			})
 
-		}).catch(function(err) {});
-	}
 	getPayType = () => {
 		var payType;
 		var _this = this;
@@ -149,12 +150,6 @@ class HightSearchForm extends Component {
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-			    	<KrField   
-			    			name="verifyStatus" 
-			    			type="hidden" 
-			    			component="input"
-			    			value="UNCHECKED" 
-			    	/>
 				    <KrField  
 				    		grid={1/2}
 				    		right={34}
