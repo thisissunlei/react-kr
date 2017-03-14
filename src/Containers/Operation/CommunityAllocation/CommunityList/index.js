@@ -21,7 +21,6 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
 import {
 	Tabs,
 	Tab,
@@ -58,6 +57,8 @@ import NewCommunityList from './NewCommunityList';
 import EditCommunityList from './EditCommunityList'; 
 import SearchUpperForm from './SearchUpperForm'; 
 import WatchCommunityList from './WatchCommunityList'; 
+
+import cityData from "../../../../Components/KrField/CityComponent/State";
 @observer
 class CommunityList  extends Component{
 
@@ -70,6 +71,7 @@ class CommunityList  extends Component{
 
    //新建社区开关
    openAddCommunity=()=>{
+   	  cityData.city="请选择";
    	  State.searchDataHere();
       State.switchNewCommunityList();
    }
@@ -190,7 +192,7 @@ class CommunityList  extends Component{
       State.searchParams.countyId='';
       State.searchParams.searchKey='';
       State.searchParams.searchType='';
-      
+      cityData.city="请选择";
       State.searchUpperCustomer();
       
 	}
@@ -397,6 +399,7 @@ class CommunityList  extends Component{
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
 						    onSubmit={this.onSearchUpperSubmit}
+						    open={State.openSearchUpper}
 						/>
 				    </Dialog>
 
