@@ -217,7 +217,8 @@ export default class UploadImageComponent extends Component {
 							});
 							const {input}=_this.props;
 							input.onChange(xhrfile.response.data);
-                        
+                            
+                            console.log('----oooo',xhrfile.response.data);
 
                     };
                     
@@ -268,7 +269,7 @@ export default class UploadImageComponent extends Component {
 		let {operateImg,fileArray} = this.state;
 		// console.log("this.state.operateImg",this.state.operateImg)
 		return(
-			<div className="ui-uploadimg-box" style={style}>
+			<div className="ui-uploadimgList-box" style={style}>
 					  	    
 				<div className='ui-uploadimg-outbox' >
 

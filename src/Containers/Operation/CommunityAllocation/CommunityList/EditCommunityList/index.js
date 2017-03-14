@@ -234,19 +234,15 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	      response.brights.map((item,index)=>{
             if(item.type=="BRIGHTPOINTS"){
             	Store.dispatch(change('editCommunityList','bright4['+index+'].brightPoints',item.brightPoints));
-            	Store.dispatch(change('editCommunityList','bright4['+index+'].type','BRIGHTPOINTS'));
             }
             if(item.type=="INFRASTRUCTURE"){
             	Store.dispatch(change('editCommunityList','bright1['+index+'].brightPoints',item.brightPoints));
-            	Store.dispatch(change('editCommunityList','bright1['+index+'].type','INFRASTRUCTURE'));
             }
             if(item.type=="SPECIALSERVICE"){
             	Store.dispatch(change('editCommunityList','bright3['+index+'].brightPoints',item.brightPoints));
-            	Store.dispatch(change('editCommunityList','bright3['+index+'].type','SPECIALSERVICE'));
             }
             if(item.type=="BASICSERVICE"){
             	Store.dispatch(change('editCommunityList','bright2['+index+'].brightPoints',item.brightPoints));
-            	Store.dispatch(change('editCommunityList','bright2['+index+'].type','BASICSERVICE'));
             }
             if(item.type=="TRANSPORTATION"){
             	Store.dispatch(change('editCommunityList','bright5.brightPoints',item.brightPoints));
@@ -261,6 +257,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           }
           if(response.opened==false){
           	 Store.dispatch(change('editCommunityList','opened','0')); 
+          }
+
+          if(response.portalShow==true){
+             Store.dispatch(change('editCommunityList','portalShow','1')); 
+          }
+          if(response.portalShow==false){
+             Store.dispatch(change('editCommunityList','portalShow','0')); 
           }
           
 	   }).catch(function(err) {
@@ -327,7 +330,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
       
 
-         let {openDown,openUp}=this.state;
+    let {openDown,openUp}=this.state;
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -430,8 +433,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange} />	
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
-					              	<KrField name="portalShow" label="显示" type="radio" value={true} onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-					             	<KrField name="portalShow" label="不显示" type="radio" value={false} onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+					              	<KrField name="portalShow" label="显示" type="radio" value='1' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+					             	<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
 
 					         <FieldArray name="porTypes" component={renderStation}/> 

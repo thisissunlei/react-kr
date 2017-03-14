@@ -180,6 +180,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         Message.error('开始时间不能大于结束时间');
        return ;
      }
+    
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
