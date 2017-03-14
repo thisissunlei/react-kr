@@ -24,6 +24,7 @@ import {
     LabelText,
     LineText,
     ListGroup,
+    Message,
     ListGroupItem
 } from 'kr-ui';
 
@@ -53,10 +54,11 @@ export default class SearchParam extends Component {
             myReceive: 10000,
             myIncome: 10000,
             testd: false,
-            testArr: [
-                1, 2, 3
-            ],
-            detailPaymentS: []
+            testArr: [],
+            detailPaymentS: [],
+            activeSub: false,
+            testA: [],
+            detailIncomeS: []
         }
 
     }
@@ -67,12 +69,21 @@ export default class SearchParam extends Component {
             item.sss = false;
             return item;
         })
-        this.setState({detailPaymentS: n})
+        var m = this.props.detailIncome;
+        m.map((item, index) => {
+            item.sssI = false;
+            return item;
+        })
+        this.setState({detailPaymentS: n, detailIncomeS: m})
     }
 
     onSearch(type, childType, id, propInfo, index, sss) {
         const {onSearch, params} = this.props;
-
+        var w = this.state.detailIncomeS;
+        w.map((item, indexs) => {
+            item.sssI = false;
+            return item
+        })
         //console.log('5555555',window.location.href+'?type='+type+'&index='+index);
 
         if (type == 'PAYMENT' && childType == 'basic') {
@@ -90,7 +101,8 @@ export default class SearchParam extends Component {
         }
 
         var searchParam = {};
-
+        var _this = this;
+        //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
         searchParam.childType = childType;
         searchParam.propertyId = id;
@@ -100,16 +112,194 @@ export default class SearchParam extends Component {
         searchParam.pageSize = 30;
         onSearch && onSearch(searchParam);
         var m = this.state.detailPaymentS;
-        m[index].sss = !m[index].sss;
+        m.map((item, indexs) => {
+            item.sss = false;
+            return item
+        })
+
+        if (m[index].sss == true) {
+            m[index].sss = false;
+        } else if (m[index].sss == false) {
+            m[index].sss = true;
+        }
         this.setState({detailPaymentS: m})
+        Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+            mainbillid: params.orderId,
+            firstCategoryId: id,
+            flowType: type
+        })).then(function(response) {
+            if (response.subCategories.length > 0) {
+                _this.setState({
+                    testArr: response.subCategories
+                }, function() {
+                    var m = this.state.testArr;
+                    m.map((item, indexs) => {
+                        item.activeSub = false;
+                        return item
+                    })
+                    _this.setState({testA: m});
+                });
+
+            } else {
+                _this.setState({testArr: []});
+            }
+
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
-    renderSubList = () => {
+    onSearchI(type, childType, id, propInfo, index, sssI) {
+        const {onSearch, params} = this.props;
+        var w = this.state.detailPaymentS;
+        w.map((item, indexs) => {
+            item.sss = false;
+            return item
+        })
+        //console.log('5555555',window.location.href+'?type='+type+'&index='+index);
+
+        if (type == 'PAYMENT' && childType == 'basic') {
+            this.setState({primaryR: 'true', primaryI: 'false', activeI: 10000, active: 10000});
+        }
+        if (type == 'PAYMENT' && childType != 'basic') {
+            this.setState({primaryR: 'false', primaryI: 'false', active: index, activeI: 10000});
+        }
+
+        if (type == 'INCOME' && childType == 'basic') {
+            this.setState({primaryR: 'false', primaryI: 'true', activeI: 10000, active: 10000});
+        }
+        if (type == 'INCOME' && childType != 'basic') {
+            this.setState({primaryR: 'false', primaryI: 'false', activeI: index, active: 10000});
+        }
+
+        var searchParam = {};
+        var _this = this;
+        //this.setState({testArr: [], detailPaymentS: []});
+        searchParam.accountType = type;
+        searchParam.childType = childType;
+        searchParam.propertyId = id;
+        searchParam.propInfo = propInfo;
+        searchParam.orderId = params.orderId;
+        searchParam.index = index;
+        searchParam.pageSize = 30;
+        onSearch && onSearch(searchParam);
+        var m = this.state.detailIncomeS;
+        m.map((item, indexs) => {
+            item.sssI = false;
+            return item
+        })
+
+        if (m[index].sssI == true) {
+            m[index].sssI = false;
+        } else if (m[index].sssI == false) {
+            m[index].sssI = true;
+        }
+        this.setState({detailIncomeS: m})
+        Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+            mainbillid: params.orderId,
+            firstCategoryId: id,
+            flowType: type
+        })).then(function(response) {
+            if (response.subCategories.length > 0) {
+                _this.setState({
+                    testArr: response.subCategories
+                }, function() {
+                    var m = this.state.testArr;
+                    m.map((item, indexs) => {
+                        item.activeSubI = false;
+                        return item
+                    })
+                    _this.setState({testA: m});
+                });
+
+            } else {
+                _this.setState({testArr: []});
+            }
+
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+    renderSubListI = (type) => {
 
         return (this.state.testArr.map((item, index) => {
             return (
-                <div key={index}>{item}</div>
+                <ListGroupItem key={index}>
+                    <div className={`hover_sub ${item.activeSubI
+                        ? 'activeSub'
+                        : ''}`} onTouchTap={this.onSearchSubI.bind(this, type, item.id, item.activeSubI, index)}>
+                        <span className='receivedText'>{item.propname}</span>
+                        <span className='receivedMoney'>{item.propamount}</span>
+                    </div>
+                </ListGroupItem>
             )
         }))
+    }
+    renderSubList = (type) => {
+
+        return (this.state.testArr.map((item, index) => {
+            return (
+                <ListGroupItem key={index}>
+                    <div className={`hover_sub ${item.activeSub
+                        ? 'activeSub'
+                        : ''}`} onTouchTap={this.onSearchSub.bind(this, type, item.id, item.activeSub, index)}>
+                        <span className='receivedText'>{item.propname}</span>
+                        <span className='receivedMoney'>{item.propamount}</span>
+                    </div>
+                </ListGroupItem>
+            )
+        }))
+    }
+    onSearchSub = (type, subId, activeSub, index) => {
+        var m = this.state.testA;
+        console.log(m);
+        m.map((item, indexs) => {
+            item.activeSub = false;
+            return item
+        })
+
+        if (m[index].activeSub == true) {
+            m[index].activeSub = false;
+        } else if (m[index].activeSub == false) {
+            m[index].activeSub = true;
+        }
+        console.log(m[index].activeSub);
+        const {onSearch, params} = this.props;
+        var searchParam = {};
+        var _this = this;
+        //this.setState({testArr: [], detailPaymentS: []});
+        searchParam.accountType = type;
+
+        searchParam.propertyId = subId;
+        searchParam.orderId = params.orderId;
+        searchParam.page = 1;
+        searchParam.pageSize = 30;
+        onSearch && onSearch(searchParam);
+    }
+    onSearchSubI = (type, subId, activeSubI, index) => {
+        var m = this.state.testA;
+        console.log(m);
+        m.map((item, indexs) => {
+            item.activeSubI = false;
+            return item
+        })
+
+        if (m[index].activeSubI == true) {
+            m[index].activeSubI = false;
+        } else if (m[index].activeSubI == false) {
+            m[index].activeSubI = true;
+        }
+        console.log(m[index].activeSubI);
+        const {onSearch, params} = this.props;
+        var searchParam = {};
+        var _this = this;
+        //this.setState({testArr: [], detailPaymentS: []});
+        searchParam.accountType = type;
+
+        searchParam.propertyId = subId;
+        searchParam.orderId = params.orderId;
+        searchParam.page = 1;
+        searchParam.pageSize = 30;
+        onSearch && onSearch(searchParam);
     }
     onHandleOver(type, index) {
         var _this = this;
@@ -158,7 +348,6 @@ export default class SearchParam extends Component {
                                 className = 'ui-listGroupItem';
                                 classPic = 'pic_color'
                             }
-                            console.log("wwwwwwww", item.sss);
                             return (
                                 <ListGroupItem key={index}>
                                     <div className={className} onTouchTap={this.onSearch.bind(this, 'PAYMENT', item.propcode, item.id, item.propInfo, index, item.sss,)} onMouseOver={this.onHandleOver.bind(this, 'PAYMENT', index)} onMouseOut={this.onLeave.bind(this, 'PAYMENT', index)}>
@@ -171,7 +360,7 @@ export default class SearchParam extends Component {
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
                                     {item.sss
-                                        ? this.renderSubList()
+                                        ? this.renderSubList('PAYMENT')
                                         : ''}
                                 </ListGroupItem>
                             )
@@ -180,7 +369,7 @@ export default class SearchParam extends Component {
                     </ListGroup>
                 </div>
 
-                <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearch.bind(this, 'INCOME', 'basic', '', 'SETTLED')}/>
+                <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearchI.bind(this, 'INCOME', 'basic', '', 'SETTLED')}/>
 
                 <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
@@ -200,7 +389,7 @@ export default class SearchParam extends Component {
                             }
                             return (
                                 <ListGroupItem key={index}>
-                                    <div className={className} onTouchTap={this.onSearch.bind(this, 'INCOME', item.propcode, item.id, item.propInfo, index)} onMouseOver={this.onHandleOver.bind(this, 'INCOME', index)} onMouseOut={this.onLeave.bind(this, 'INCOME', index)}>
+                                    <div className={className} onTouchTap={this.onSearchI.bind(this, 'INCOME', item.propcode, item.id, item.propInfo, index, item.sssI,)} onMouseOver={this.onHandleOver.bind(this, 'INCOME', index)} onMouseOut={this.onLeave.bind(this, 'INCOME', index)}>
                                         <span className={classPic}></span>
                                         <span className={item.propname == '代收（水电、打印等）'
                                             ? 'receivedTextWater'
@@ -209,7 +398,9 @@ export default class SearchParam extends Component {
                                             ? 'receivedTextWaterMoney'
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
-
+                                    {item.sssI
+                                        ? this.renderSubListI('INCOME')
+                                        : ''}
                                 </ListGroupItem>
                             )
                         })
