@@ -45,7 +45,7 @@ export default class AuditList extends Component {
     super(props, context);
     this.state = {
       tab: 'table',
-      countList: {}
+      countList: " "
     }
     this.getCount()
   }
@@ -156,10 +156,12 @@ export default class AuditList extends Component {
     let merchantsStyle = (tab == 'merchants' || tab == 'table') ? activeTab : commenTab;
     let personalStyle = (tab == 'personal') ? activeTab : commenTab;
     let signedClientStyle = (tab == 'signedClient') ? activeTab : commenTab;
+    //console.log('countList---', countList)
+    //console.log('countList.unCheckedCount---', countList.unCheckedCount)
+    if (countList != " ") {
+      return (
 
-    return (
-
-      <div>
+        <div>
           <Title value="审核列表"/>
           <Tabs className="tabs">
             <Tab label={`待审核（${countList.unCheckedCount}）`} onActive={this.merchants} style={merchantsStyle}>
@@ -178,7 +180,12 @@ export default class AuditList extends Component {
         </Tabs>
       </div>
 
-    );
+      );
+    } else {
+      return (
+        <div></div>
+      )
+    }
 
   }
 
