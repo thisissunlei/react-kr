@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -19,14 +19,8 @@ const config = {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src'),
-			'redux':path.join(node_modules_dir,'redux'),
-			'react-redux':path.join(node_modules_dir,'react-redux'),
-			'mobx':path.join(node_modules_dir,'mobx'),
-			'mobx-react':path.join(node_modules_dir,'mobx-react'),
-			'react-router':path.join(node_modules_dir,'react-router'),
-			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash'),
+			'kr': path.join(process.cwd(), '/src')
+
 		},
 	},
 	// 出口文件配置
@@ -57,7 +51,6 @@ const config = {
    			 verbose: false,
    			 cache:true
   	}),
-
 
     new webpack.optimize.UglifyJsPlugin({
 			compress: {
