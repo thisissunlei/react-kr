@@ -79,6 +79,7 @@ export default class DoAudit extends Component {
 
   }
   searchParams = (form) => {
+    var _this = this;
     this.setState({
       Params: {
         page: 1,
@@ -86,6 +87,8 @@ export default class DoAudit extends Component {
         verifyStatus: 'CHECKED',
         customerName: form.content
       }
+    }, function() {
+      _this.getInfo();
     });
   }
   openSearch = () => {
@@ -94,11 +97,15 @@ export default class DoAudit extends Component {
     })
   }
   onSearchSubmit = (form) => {
-
+    this.openSearch();
+    var _this = this;
     this.setState({
       Params: form
+    }, function() {
+      _this.getInfo();
     });
-    this.openSearch();
+
+
   }
 
   render() {
