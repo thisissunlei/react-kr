@@ -91,7 +91,7 @@ class HightSearchForm extends Component {
 		Store.dispatch(Actions.callAPI('get-fina-payway', {}, {})).then(function(response) {
 			payment = response.map((item, index) => {
 				item.label = item.name;
-				item.value = item.id;
+				item.value = item.code;
 				return item;
 			})
 			_this.setState({
@@ -130,6 +130,7 @@ class HightSearchForm extends Component {
 
 		}).catch(function(err) {});
 	}
+
 
 	render() {
 

@@ -80,6 +80,13 @@ export default class ToDoAudit extends Component {
       openSearch: !this.state.openSearch
     })
   }
+  onSearchSubmit = (form) => {
+
+    this.setState({
+      Params: form
+    });
+    this.openSearch();
+  }
   render() {
     return (
 
@@ -220,7 +227,7 @@ export default class ToDoAudit extends Component {
               modal={true}
               open={this.state.openSearch}
             >
-              <HightSearchForm   onSubmit={this.onEditSubmit} onCancel={this.openSearch} />
+              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>
       </div>
 
