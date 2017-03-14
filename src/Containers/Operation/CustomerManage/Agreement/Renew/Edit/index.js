@@ -168,6 +168,11 @@ export default class JoinCreate extends Component {
           });
 
         }
+        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+          initialValues.agreement = '无';
+        }else{
+          initialValues.agreement = response.agreement;
+        }
         initialValues.lessorContacttel = response.lessorContacttel;
 
         //时间

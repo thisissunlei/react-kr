@@ -131,9 +131,15 @@
 		animation:show .5s forwards;
 		animation-iteration-count: 1;
 		visibility: visible;
-
+		width:150px;
 		.search-filter,.search-val,.search-content{
 			width: auto;
+		}
+		.search-val{
+			width: 100%;
+		}
+		.search-content{
+			width: 150px;
 		}
 		.filter-container{
 			width:100px;
@@ -157,4 +163,26 @@
       }
     }
 
+}
+.renderFilter{
+	width: 295px;
+	.filter-show-form{
+		width: 265px;
+		visibility: visible;
+		.search-filter,.search-val,.search-content{
+			width: auto;
+		}
+		.search-val{
+			width: 100%;
+		}
+		.search-content{
+			width: 150px;
+		}
+		.filter-container{
+			width:100px;
+		}
+		ul{
+			width: 100px;
+		}
+	}
 }

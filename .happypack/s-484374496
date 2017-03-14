@@ -1,0 +1,93 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _fetch = require('kr/Redux/Utils/fetch');
+
+var _fetch2 = _interopRequireDefault(_fetch);
+
+var _krUi = require('kr-ui');
+
+var _BasicTable = require('./BasicTable');
+
+var _BasicTable2 = _interopRequireDefault(_BasicTable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Schedule = function (_Component) {
+	_inherits(Schedule, _Component);
+
+	function Schedule(props, context) {
+		_classCallCheck(this, Schedule);
+
+		return _possibleConstructorReturn(this, (Schedule.__proto__ || Object.getPrototypeOf(Schedule)).call(this, props, context));
+	}
+
+	_createClass(Schedule, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+
+			if (nextProps.community != this.props.community) {
+				this.setState({
+					community: nextProps.community
+				});
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    communityInfoList = _props.communityInfoList,
+			    communityids = _props.communityids,
+			    tab = _props.tab;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ style: { marginBottom: 20, marginTop: 0, minHeight: 910 } },
+				_react2.default.createElement(_BasicTable2.default, { detail: communityInfoList, tab: tab })
+			);
+		}
+	}]);
+
+	return Schedule;
+}(_react.Component);
+
+Schedule.defaultProps = {
+	tab: ''
+};
+exports.default = Schedule;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Schedule, 'Schedule', '/Users/liuyihao/Code/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db250YWluZXJzL09wZXJhdGlvbi9Db21tdW5pdHlNYW5hZ2UvRGV0YWlsL1NjaGVkdWxlL2luZGV4LmpzIl0sIm5hbWVzIjpbIlNjaGVkdWxlIiwicHJvcHMiLCJjb250ZXh0IiwibmV4dFByb3BzIiwiY29tbXVuaXR5Iiwic2V0U3RhdGUiLCJjb21tdW5pdHlJbmZvTGlzdCIsImNvbW11bml0eWlkcyIsInRhYiIsIm1hcmdpbkJvdHRvbSIsIm1hcmdpblRvcCIsIm1pbkhlaWdodCIsImRlZmF1bHRQcm9wcyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUE7Ozs7QUFJQTs7QUFHQTs7QUFVQTs7OztBQUdBOztBQVNBOzs7Ozs7Ozs7Ozs7SUFFcUJBLFE7OztBQUlwQixtQkFBWUMsS0FBWixFQUFtQkMsT0FBbkIsRUFBNEI7QUFBQTs7QUFBQSw2R0FDckJELEtBRHFCLEVBQ2RDLE9BRGM7QUFJM0I7Ozs7c0NBR21CLENBRW5COzs7NENBRXlCQyxTLEVBQVc7O0FBRXBDLE9BQUlBLFVBQVVDLFNBQVYsSUFBdUIsS0FBS0gsS0FBTCxDQUFXRyxTQUF0QyxFQUFpRDtBQUNoRCxTQUFLQyxRQUFMLENBQWM7QUFDYkQsZ0JBQVdELFVBQVVDO0FBRFIsS0FBZDtBQUdBO0FBRUQ7OzsyQkFHUTtBQUFBLGdCQUtKLEtBQUtILEtBTEQ7QUFBQSxPQUVQSyxpQkFGTyxVQUVQQSxpQkFGTztBQUFBLE9BR1BDLFlBSE8sVUFHUEEsWUFITztBQUFBLE9BSVBDLEdBSk8sVUFJUEEsR0FKTzs7O0FBT1IsVUFDQztBQUFBO0FBQUEsTUFBSyxPQUFPLEVBQUNDLGNBQWEsRUFBZCxFQUFpQkMsV0FBVSxDQUEzQixFQUE2QkMsV0FBVSxHQUF2QyxFQUFaO0FBQ0EsMERBQVksUUFBUUwsaUJBQXBCLEVBQXVDLEtBQUtFLEdBQTVDO0FBREEsSUFERDtBQU9BOzs7Ozs7QUF4Q21CUixRLENBQ2JZLFksR0FBZTtBQUNyQkosTUFBSztBQURnQixDO2tCQURGUixROzs7Ozs7OzsrQkFBQUEsUSIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwge1xuXHRDb21wb25lbnQsXG5cdFByb3BUeXBlc1xufSBmcm9tICdyZWFjdCc7XG5pbXBvcnQge1xuXHRjb25uZWN0XG59IGZyb20gJ2tyL1JlZHV4JztcbmltcG9ydCB7XG5cdHJlZHV4Rm9ybSxcblx0c3VibWl0Rm9ybSxcblx0Y2hhbmdlLFxuXHRyZXNldFxufSBmcm9tICdyZWR1eC1mb3JtJztcbmltcG9ydCB7XG5cdEFjdGlvbnMsXG5cdFN0b3JlXG59IGZyb20gJ2tyL1JlZHV4JztcbmltcG9ydCBodHRwIGZyb20gJ2tyL1JlZHV4L1V0aWxzL2ZldGNoJztcblxuXG5pbXBvcnQge1xuXHREaWFsb2csXG5cdFNlY3Rpb24sXG5cdEdyaWQsXG5cdE5vdGlmeSxcblx0QnJlYWRDcnVtYnMsXG59IGZyb20gJ2tyLXVpJztcblxuXG5pbXBvcnQgQmFzaWNUYWJsZSBmcm9tICcuL0Jhc2ljVGFibGUnO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBTY2hlZHVsZSBleHRlbmRzIENvbXBvbmVudCB7XG5cdHN0YXRpYyBkZWZhdWx0UHJvcHMgPSB7XG5cdFx0dGFiOiAnJyxcblx0fVxuXHRjb25zdHJ1Y3Rvcihwcm9wcywgY29udGV4dCkge1xuXHRcdHN1cGVyKHByb3BzLCBjb250ZXh0KTtcblxuXG5cdH1cblxuXG5cdGNvbXBvbmVudERpZE1vdW50KCkge1xuXG5cdH1cblxuXHRjb21wb25lbnRXaWxsUmVjZWl2ZVByb3BzKG5leHRQcm9wcykge1xuXG5cdFx0aWYgKG5leHRQcm9wcy5jb21tdW5pdHkgIT0gdGhpcy5wcm9wcy5jb21tdW5pdHkpIHtcblx0XHRcdHRoaXMuc2V0U3RhdGUoe1xuXHRcdFx0XHRjb21tdW5pdHk6IG5leHRQcm9wcy5jb21tdW5pdHlcblx0XHRcdH0pO1xuXHRcdH1cblxuXHR9XG5cblxuXHRyZW5kZXIoKSB7XG5cdFx0bGV0IHtcblx0XHRcdGNvbW11bml0eUluZm9MaXN0LFxuXHRcdFx0Y29tbXVuaXR5aWRzLFxuXHRcdFx0dGFiXG5cdFx0fSA9IHRoaXMucHJvcHM7XG5cblx0XHRyZXR1cm4gKFxuXHRcdFx0PGRpdiBzdHlsZT17e21hcmdpbkJvdHRvbToyMCxtYXJnaW5Ub3A6MCxtaW5IZWlnaHQ6OTEwfX0+XG5cdFx0XHQ8QmFzaWNUYWJsZSBkZXRhaWw9e2NvbW11bml0eUluZm9MaXN0fSB0YWI9e3RhYn0vPlxuXG5cdFx0PC9kaXY+XG5cdFx0KTtcblxuXHR9XG5cbn0iXX0=

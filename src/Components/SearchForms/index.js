@@ -23,6 +23,7 @@ export default class SearchForms extends Component{
 		this.state = {
 			num : 0,
 			value:'',
+			otherName:'',
 		};
 		this.hasClass = this.hasClass.bind(this);
 		this.removeClass = this.removeClass.bind(this);
@@ -82,7 +83,9 @@ export default class SearchForms extends Component{
 
 	click(){
 		let {num} = this.state;
+		let {searchFilter} = this.props;
 		let _this = this;
+		let otherName="";
 		const form = ReactDOM.findDOMNode(this.form);
 		const searchButton = form.getElementsByClassName('icon-searching')[0];
 		const searchForm = form.getElementsByClassName('search-status')[0];
@@ -90,11 +93,21 @@ export default class SearchForms extends Component{
 		if(!num){
 			if(!this.hasClass(searchButton, 'click')){
 				searchButton.className = searchButton.className + ' click';
-		        searchForm.className = searchForm.className+" show-form";
+
+				if(searchFilter){
+					otherName="renderFilter";
+					searchForm.className = searchForm.className+" filter-show-form";
+				}else{
+		       		searchForm.className = searchForm.className+" show-form";
+				}
+					
+
+				
 
 			}
 			_this.setState({
 					num:1,
+					otherName:otherName
 				})
 
 
@@ -225,11 +238,7 @@ export default class SearchForms extends Component{
 		let {searchFilter} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
-		if(searchFilter){
-			select = searchFilter[0].label;
-		}
 		
-		// console.log('searchFilter',searchFilter);
 		if(searchFilter){
 			
 			return(
@@ -258,13 +267,15 @@ export default class SearchForms extends Component{
 	render(){
 		var placeholder=this.props.placeholder||"请输入查找内容"
 
-		let {style,inputName} = this.props;
-
+		let {style,inputName,searchFilter} = this.props;
+		let {otherName}=this.state;
+		
 		if(!inputName){
 			inputName='keywords';
 		}
+		
 		return (
-			<div className="search-form " ref={div=>{this.form = div}} name="search-form" style={style}>
+			<div className={`search-form ${otherName}`} ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >
 					{this.renderFilter()}
 

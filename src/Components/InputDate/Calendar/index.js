@@ -213,7 +213,6 @@ export default class Calendar extends React.Component {
 	}
 
 	onSelectedDate = (date)=>{
-			this.setState({date});
 			const {onChange} = this.props;
 			let {year,month} = this.state;
 			onChange && onChange(year+'-'+month+'-'+date);

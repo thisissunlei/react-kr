@@ -193,10 +193,10 @@ import flushData from "../LookCustomerList/State";
 									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}} 
 											options={dataReady.stationTypeList}
-											requireLabel={true}
+											requireLabel={false}
 									/>
 									<KrField grid={1/2} label="联系人电话" name="tel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={true}>
+									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={false}>
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									
@@ -217,11 +217,11 @@ import flushData from "../LookCustomerList/State";
 								{State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该公司名称已存在</div>}
 
 								</div>
-								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={cityName}/>
+								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={false} cityName={cityName}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input"/>
 								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型"  listValueName={listValue} treeAll={State.treeAll}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input"/>
@@ -281,11 +281,6 @@ const validate = values =>{
 			errors.customerName = '最多输入20个字符';
 		}
 
-
-		if (!values.staiontypeId) {
-			errors.staiontypeId = '请填写意向工位类型';
-		}
-
 		if(!values.tel) {
 			errors.tel = "请填写联系人电话"
 		}
@@ -298,9 +293,7 @@ const validate = values =>{
 			errors.customerTel = '联系人电话格式错误';
 		}
 
-		if (!values.staionPrice) {
-			errors.staionPrice = '请填写意向工位价格';
-		}else if(!RMB.test(values.staionPrice)){
+		if(values.staionPrice && !RMB.test(values.staionPrice)) {
 			errors.staionPrice = '工位价格不得超过1亿';
 		}
 
@@ -309,9 +302,9 @@ const validate = values =>{
 			errors.customerMail = '联系人邮箱格式错误';
 		}
 
-		if(!values.intentionCommunityId){
-			errors.intentionCommunityId="意向工位类型不能为空";
-		}
+		// if(!values.intentionCommunityId){
+		// 	errors.intentionCommunityId="意向工位类型不能为空";
+		// }
 
 		if(values.customerWechat&&values.customerWechat.length>50){
 			errors.customerWechat="最多输入50个字符";
@@ -324,12 +317,9 @@ const validate = values =>{
 		}else if(values.company.length>80){
 			errors.company = '最多输入80个字符';
 		}
-
-		if (!values.teamNum) {
-			errors.teamNum = '请填写公司规模';
-		}else if(isNaN(values.teamNum)){
+		if(values.teamNum && isNaN(values.teamNum)){
 			errors.teamNum = '请输入数字';
-		}else if(values.teamNum.length>8){
+		}else if(values.teamNum && values.teamNum.length>8){
 			errors.teamNum = '最多输入8个字符';
 		}
 
@@ -349,9 +339,7 @@ const validate = values =>{
 			errors.projectName = '最多输入20个字符';
 		}
 
-		if (!values.districtId) {
-			errors.districtId = '请填写所属地区';
-		}
+		
 
 		
 

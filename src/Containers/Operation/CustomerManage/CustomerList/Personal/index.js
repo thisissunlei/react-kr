@@ -74,7 +74,7 @@ class Personal extends Component{
 		customerItem.map(function(item,index){
           Store.dispatch(change('NewCustomerList',item,''));
 		})
-		Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		// Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
 		// if(response.hasOffice=="YES"){
 		// 	State.hasOfficeChange(true);
@@ -675,7 +675,7 @@ class Personal extends Component{
 							State.openNewIndent||
 							State.openEditIndent
 						)&&
-							<div className="mask"
+							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
 							>
 							</div>

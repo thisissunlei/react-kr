@@ -699,8 +699,7 @@ export default class OrderDetail extends React.Component {
 							
 						{/*
 							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-
-							*/}
+						*/}
 
 
 					</TableRowColumn>
@@ -839,3 +838,10 @@ export default class OrderDetail extends React.Component {
 		);
 	}
 }
+
+
+
+
+
+
+
