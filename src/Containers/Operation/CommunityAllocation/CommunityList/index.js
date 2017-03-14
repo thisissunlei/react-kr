@@ -266,7 +266,12 @@ class CommunityList  extends Component{
 	componentDidMount(){
 		State.searchDataHere();
 	}
-
+    
+    whiteClose=()=>{
+    	State.openNewCommunity=false;
+    	State.openEditCommunity=false;
+    	State.openWatchCommunity=false;
+    }
 
 	render(){
 
@@ -362,6 +367,7 @@ class CommunityList  extends Component{
 				        width={750}
 				        openSecondary={true}
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+				        onClose={this.whiteClose}
 			        >
 						<NewCommunityList
 								onSubmit={this.onNewCommunitySubmit}
@@ -376,6 +382,7 @@ class CommunityList  extends Component{
 				        open={State.openEditCommunity}
 				        width={750}
 				        openSecondary={true}
+				        onClose={this.whiteClose}
 				        containerStyle={{top:60,paddingBottom:48,zIndex:21}}
 			        >
 						<EditCommunityList
@@ -408,6 +415,7 @@ class CommunityList  extends Component{
 					<Drawer
 				        open={State.openWatchCommunity}
 				        width={750}
+				        onClose={this.whiteClose}
 				        openSecondary={true}
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >

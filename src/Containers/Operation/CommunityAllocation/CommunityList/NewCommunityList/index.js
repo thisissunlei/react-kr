@@ -24,7 +24,6 @@ import {
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
-import cityData from "../../../../../Components/KrField/CityComponent/State";
 const renderField = ({ input, label, type, meta: { touched, error }}) => (
   <div>
     <label>{label}</label>
