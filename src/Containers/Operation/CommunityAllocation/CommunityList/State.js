@@ -30,7 +30,9 @@ let State = observable({
 		//编辑获取数据
 		getData:{},
 		//详情
-		detailData:{}
+		detailData:{},
+
+		isFlag:''
 
 });
 //新建社区的开关
@@ -60,7 +62,8 @@ State.searchUpperCustomer = action(function() {
 State.searchDataHere = action(function() {
 	 var _this=this;
 	 Store.dispatch(Actions.callAPI('list-param-data')).then(function(response) {
-		_this.searchData=response.businessAreas
+		_this.searchData=response.businessAreas;
+		_this.isFlag=response.showEdit;
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	

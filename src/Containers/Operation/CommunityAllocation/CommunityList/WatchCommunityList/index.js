@@ -216,7 +216,7 @@ import State from '../State';
                                     <KrField grid={1/2} label="社区面积"  style={{width:262,marginLeft:15}} inline={false} component="labelText" value={toJS(State.detailData.area)?toJS(State.detailData.area):'无'}></KrField>
 
                                     
-                                    <KrField  grid={1/2}  style={{width:262,marginLeft:28}} component='labelText'  label="所属商圈" inline={false} value={toJS(State.detailData.businessAreaId)}
+                                    <KrField  grid={1/2}  style={{width:262,marginLeft:28}} component='labelText'  label="所属商圈" inline={false} value={toJS(State.detailData.businessAreaName)?toJS(State.detailData.businessAreaName):'无'}
                                     />
                                     
                                     <KrField grid={1/2} label="所属区县"   style={{width:262,marginLeft:15}} component="labelText" inline={false} value={State.detailData.provinceName&&State.detailData.cityName&&State.detailData.countyName?State.detailData.provinceName+'/'+State.detailData.cityName+'/'+State.detailData.countyName:'无'}/>

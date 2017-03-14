@@ -261,6 +261,10 @@ class CommunityList  extends Component{
 			window.location.href = url;
 	}
 
+	componentDidMount(){
+		State.searchDataHere();
+	}
+
 
 	render(){
 
@@ -342,7 +346,7 @@ class CommunityList  extends Component{
 			                <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
+			                    {State.isFlag&&<Button label="编辑"  type="operation"  operation="edit" />}
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                </TableRowColumn>
 			               </TableRow>
