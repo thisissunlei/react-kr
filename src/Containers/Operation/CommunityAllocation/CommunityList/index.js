@@ -139,9 +139,9 @@ class CommunityList  extends Component{
 
           delete value.photos;
 
-         value.openDate=dateFormat(value.openDate,"yyyy-mm-dd");
-         value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd");
-         value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd");
+         value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
+         value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");
+         value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd hh:MM:ss");
    	    State.onNewCommunitySubmit(value);
    	    
    }

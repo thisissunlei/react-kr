@@ -3,6 +3,7 @@ import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
+import dateFormat from 'dateformat';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -174,6 +175,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {	
+     values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
+     values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
+     if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
+        Message.error('开始时间不能大于结束时间');
+       return ;
+     }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -449,7 +456,7 @@ const validate = values =>{
 		let zeroNum=/^-?\\d+$/;　
 		 
          //楼层检验
-		 /*if (!values.wherefloorsStr || !values.wherefloorsStr.length) {
+		 if (!values.wherefloorsStr || !values.wherefloorsStr.length) {
 			    errors.wherefloorsStr = { _error: 'At least one member must be entered' }
 			  } else {
 			    const membersArrayErrors = []
@@ -591,7 +598,7 @@ const validate = values =>{
 			errors.contract='请输入联系方式'
 		}else if(!phone.test(values.contract)||!checkTel.test(values.contract)){
 			errors.contract='联系方式错误'
-		}*/
+		}
 
 		return errors
 	}
