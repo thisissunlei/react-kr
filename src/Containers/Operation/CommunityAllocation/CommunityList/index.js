@@ -259,7 +259,7 @@ class CommunityList  extends Component{
 					ids.push(item.id)
 				});
 			}
-			var url = `/ipi/krspace-finance-web/cmt/community/export?searchType=${searchParams.searchType}&searchKey=${searchParams.searchKey}&cityId=${searchParams.cityId}&opened=${searchParams.opened}&openDateEnd=${searchParams.openDateEnd}&openDateBegin=${searchParams.openDateBegin}&businessAreaId=${searchParams.businessAreaId}&portalShow=${searchParams.portalShow}&countyId=${searchParams.countyId}&ids=${ids}`
+			var url = `/api/krspace-finance-web/cmt/community/export?searchType=${searchParams.searchType}&searchKey=${searchParams.searchKey}&cityId=${searchParams.cityId}&opened=${searchParams.opened}&openDateEnd=${searchParams.openDateEnd}&openDateBegin=${searchParams.openDateBegin}&businessAreaId=${searchParams.businessAreaId}&portalShow=${searchParams.portalShow}&countyId=${searchParams.countyId}&ids=${ids}`
 			window.location.href = url;
 	}
 
