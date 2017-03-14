@@ -162,16 +162,16 @@ export default class AuditList extends Component {
       <div>
           <Title value="审核列表"/>
           <Tabs className="tabs">
-            <Tab label={`待审核 （${countList.unCheckedCount}）`} onActive={this.merchants} style={merchantsStyle}>
+            <Tab label={`待审核（${countList.unCheckedCount}）`} onActive={this.merchants} style={merchantsStyle}>
                 <ToDoAudit 
                 />
             </Tab>
-            <Tab label={`已审核 （${countList.checkedCount}）`}  onActive={this.personal} style={personalStyle}>
+            <Tab label={`已审核（${countList.checkedCount}）`}  onActive={this.personal} style={personalStyle}>
                <DoAudit 
                 />
             </Tab>
             
-            <Tab label={`已退回 （${countList.reCount}）`} onActive={this.signedClient} style={signedClientStyle}>
+            <Tab label={`已退回（${countList.reCount}）`} onActive={this.signedClient} style={signedClientStyle}>
                 <DoneAudit
                 />
             </Tab>

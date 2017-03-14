@@ -31,6 +31,8 @@ import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
+import SearchCorporation from './SearchCorporation';
+import SearchCommunitys from './SearchCommunitys';
 
 export default class KrField extends React.Component {
 
@@ -51,7 +53,7 @@ export default class KrField extends React.Component {
 		search: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    colorStyle:React.PropTypes.object,
+		colorStyle: React.PropTypes.object,
 	}
 
 	render() {
@@ -97,7 +99,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'groupCheckbox') {
 			return (
-					<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
+				<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
 			);
 		}
 
@@ -126,6 +128,17 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'searchCommunitys') {
+			return (
+				<Field {...this.props} component={searchCommunitys}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCorporation') {
+			return (
+				<Field {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
+			)
+		}
+
 		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
@@ -143,8 +156,8 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
-       
-       if (component === 'searchLeader') {
+
+		if (component === 'searchLeader') {
 			return (
 
 				<Field {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>

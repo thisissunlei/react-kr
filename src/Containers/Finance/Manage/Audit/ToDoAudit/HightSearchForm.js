@@ -154,7 +154,7 @@ class HightSearchForm extends Component {
 				    		grid={1/2}
 				    		right={34}
 				    		name="communityId"
-				    		type="select"
+				    		component="searchCommunity"
 				    		style={{marginTop:4}}
 				    		label="社区名称" 
 				  			options={communityList}
@@ -181,7 +181,7 @@ class HightSearchForm extends Component {
 				    		grid={1/2}
 				    		right={34}
 				    		name="corporationId"
-				    		type="select"
+				    		component="searchCorporation"
 				    		style={{marginTop:4}}
 				    		label="主体" 
 				  			options={mainList}
