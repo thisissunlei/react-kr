@@ -52,9 +52,7 @@ export default class DateComponent extends React.Component {
 		if(this.props.flag=='true'){
 			return ;
 		}
-
-		console.log('--->>>',value)
-
+	//	value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
 		input.onChange(value);
 	}
 
@@ -70,6 +68,7 @@ export default class DateComponent extends React.Component {
 
 	formatDate = (value) => {
 
+
 		var dtArr = [];
 
 		if(typeof value === 'string'){
@@ -82,7 +81,6 @@ export default class DateComponent extends React.Component {
 		var year = dtArr[0];
 		var month = this.supplementZero(Number(dtArr[1]));
 		var date = this.supplementZero(Number(dtArr[2]));
-
 
 		var result = `${year}-${month}-${date} 00:00:00`;
 
@@ -101,12 +99,12 @@ export default class DateComponent extends React.Component {
 
 		let { input, onChange} = this.props;
 
+		var result = this.formatDate(value);
 
-		value = this.formatDate(value);
 
-		this.setInputValue(value);
+		this.setInputValue(result);
 
-		onChange && onChange(value);
+		onChange && onChange(result);
 	}
 
 	render() {
