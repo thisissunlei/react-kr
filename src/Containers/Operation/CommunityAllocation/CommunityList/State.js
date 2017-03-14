@@ -32,7 +32,10 @@ let State = observable({
 		//详情
 		detailData:{},
 
-		isFlag:''
+		isFlag:'',
+
+		//编辑区县
+		cityData:''
 
 });
 //新建社区的开关

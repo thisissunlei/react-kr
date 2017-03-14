@@ -230,7 +230,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
 	      Store.dispatch(initialize('editCommunityList',response)); 
 	      Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
-	      Store.dispatch(change('editCommunityList','countyId',response.provinceName+'/'+response.countyName));
+        State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
 	      response.brights.map((item,index)=>{
             if(item.type=="BRIGHTPOINTS"){
             	Store.dispatch(change('editCommunityList','bright4['+index+'].brightPoints',item.brightPoints));
@@ -352,7 +352,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                      options={toJS(State.searchData)}
                                     />
 
-                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
+                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={State.cityData}/>
 									
 									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 									
