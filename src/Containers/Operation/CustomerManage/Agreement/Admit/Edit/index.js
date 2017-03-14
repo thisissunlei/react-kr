@@ -186,6 +186,11 @@ export default class JoinCreate extends Component {
 				optionValues.lessorContactName = response.lessorContactName;
 				initialValues.lessorContacttel = response.lessorContacttel;
 				initialValues.totaldownpayment = response.totaldownpayment;
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
 
 				//时间
 				initialValues.leaseBegindate = new Date(response.leaseBegindate);

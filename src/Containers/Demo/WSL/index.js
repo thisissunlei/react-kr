@@ -25,20 +25,12 @@ export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			open:false
-		}
+		
 	}
      
-     slideClick=()=>{
-       this.setState({
-       	  open:!this.state.open
-       }) 
-     }
-
-
+     
 	render(){
-        let {open}=this.state;
+        
 		return(
              <div>
 			       <KrField name="uploadImageList" 

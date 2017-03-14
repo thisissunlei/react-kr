@@ -14,13 +14,38 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
-	KrField
+	KrField,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+
 } from 'kr-ui';
 
 class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state={
+			open:false,
+			openArray:[
+         
+        {
+            "cityName":"测试内容6",
+            "code":"",
+            "openDate":"2017-02-20",
+            "opened":true,
+            "orderNum":38141,
+        },
+        {
+            "cityName":"测试内容7",
+            "code":"",
+            "openDate":"2017-02-20",
+            "opened":true,
+            "orderNum":38141,
+        },
 
 		this.state = {
 			open:false,
@@ -109,6 +134,7 @@ class ZhangQu extends Component {
                </div>
               
 		</div>
+
 
 		);
 	}

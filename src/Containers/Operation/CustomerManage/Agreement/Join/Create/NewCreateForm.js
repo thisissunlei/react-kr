@@ -276,11 +276,12 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
-		stationVos.map((item)=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
-
+		// stationVos.map((item)=>{
+		// 	allRent += _this.getSingleRent(item);
+		// })
+		// allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		
 		this.setState({
 			stationVos,
 			allRent
@@ -387,6 +388,12 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		if(form.totalrent == 0){
 			Notify.show([{
 				message: '服务费不能为零',
@@ -764,6 +771,7 @@ class NewCreateForm extends Component {
 					<KrField  style={{width:370,marginLeft:70}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 					<KrField  style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
+					<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>

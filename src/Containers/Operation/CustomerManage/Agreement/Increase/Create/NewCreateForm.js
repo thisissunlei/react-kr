@@ -381,6 +381,12 @@ class NewCreateForm extends Component {
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
 		form.stationVos = stationVos;
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		if(form.totalrent == 0){
 			Notify.show([{
 				message: '服务费不能为零',
@@ -754,6 +760,7 @@ class NewCreateForm extends Component {
 
 					<KrField  style={{width:830,marginLeft:70}}   name="contractmark" component="textarea"  label="备注" maxSize={200}/>
 
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 
 					</CircleStyle>
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>

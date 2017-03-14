@@ -1,0 +1,21 @@
+'use strict';
+
+var WEEK_LABEL = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+var MONTH_LABEL = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+
+module.exports = { WEEK_LABEL: WEEK_LABEL, MONTH_LABEL: MONTH_LABEL };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(WEEK_LABEL, 'WEEK_LABEL', '/Users/liuyihao/Code/kr-admin/src/Components/Calendar/util/constants.js');
+
+  __REACT_HOT_LOADER__.register(MONTH_LABEL, 'MONTH_LABEL', '/Users/liuyihao/Code/kr-admin/src/Components/Calendar/util/constants.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0NhbGVuZGFyL3V0aWwvY29uc3RhbnRzLmpzIl0sIm5hbWVzIjpbIldFRUtfTEFCRUwiLCJNT05USF9MQUJFTCIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiI7O0FBQUEsSUFBTUEsYUFBYSxDQUFDLEtBQUQsRUFBUSxLQUFSLEVBQWUsS0FBZixFQUFzQixLQUF0QixFQUE2QixLQUE3QixFQUFvQyxLQUFwQyxFQUEyQyxLQUEzQyxDQUFuQjs7QUFFQSxJQUFNQyxjQUFjLENBQUMsSUFBRCxFQUFPLElBQVAsRUFBYSxJQUFiLEVBQW1CLElBQW5CLEVBQXlCLElBQXpCLEVBQStCLElBQS9CLEVBQXFDLElBQXJDLEVBQTJDLElBQTNDLEVBQWlELElBQWpELEVBQXVELEtBQXZELEVBQThELEtBQTlELEVBQXFFLEtBQXJFLENBQXBCOztBQUVBQyxPQUFPQyxPQUFQLEdBQWlCLEVBQUNILHNCQUFELEVBQWFDLHdCQUFiLEVBQWpCOzs7Ozs7OztnQ0FKTUQsVTs7Z0NBRUFDLFciLCJmaWxlIjoiY29uc3RhbnRzLmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9saXV5aWhhby9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgV0VFS19MQUJFTCA9IFsn5pif5pyf5pelJywgJ+aYn+acn+S4gCcsICfmmJ/mnJ/kuownLCAn5pif5pyf5LiJJywgJ+aYn+acn+WbmycsICfmmJ/mnJ/kupQnLCAn5pif5pyf5YWtJ107XG5cbmNvbnN0IE1PTlRIX0xBQkVMID0gWycx5pyIJywgJzLmnIgnLCAnM+aciCcsICc05pyIJywgJzXmnIgnLCAnNuaciCcsICc35pyIJywgJzjmnIgnLCAnOeaciCcsICcxMOaciCcsICcxMeaciCcsICcxMuaciCddO1xuXG5tb2R1bGUuZXhwb3J0cyA9IHtXRUVLX0xBQkVMLCBNT05USF9MQUJFTH07XG4iXX0=

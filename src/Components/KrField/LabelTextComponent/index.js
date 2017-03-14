@@ -7,7 +7,7 @@ import Tooltip from '../../Tooltip';
 
 import './index.less';
 
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 export default class LabelTextComponent extends React.Component {
 
@@ -81,6 +81,8 @@ export default class LabelTextComponent extends React.Component {
 				</WrapComponent>
 			);
 		}
+        
+       
 
 		return (
 
