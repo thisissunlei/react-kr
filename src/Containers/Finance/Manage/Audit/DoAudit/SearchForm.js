@@ -84,8 +84,8 @@ class SearchForm extends Component {
 					detailList.map((item,index)=>{
 						return(
 							<div className="u-info-list" key={index}>
-								<span className="u-info-label">{item.categoryName}：</span>
-								<span className="u-info-amount">{item.amount}</span>
+								<span className="u-info-label">{item.categoryName}:</span>
+								<span className="u-info-amount"> {item.amount}</span>
 							</div>
 							)
 					})	
@@ -105,7 +105,6 @@ class SearchForm extends Component {
 					更多<span className="u-info-bottom"></span>
 				</div>
 				{onHover?this.renderMore():''}
-				
 			</div>
 
 
