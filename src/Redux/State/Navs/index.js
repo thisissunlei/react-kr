@@ -83,7 +83,7 @@ module.exports = {
 
 				primaryText: '社区列表',
 				menuCode: 'communityBaseList',
-				originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
+				router: '/operation/communityAllocation/communityList'
 			}, {
 				primaryText: '会议室列表',
 				menuCode: 'communityBoardroomList',

@@ -25,23 +25,14 @@ class ZhangQu extends Component {
 		this.state = {
 			open:false,
 			checkedStations:[],
-			openUl:false,
 		}
 
 	}
 
 	
 
-	confirm = ()=>{
-		this.close();
-		console.log('resule:',this.state.checkedStations);
-	}
 
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
-		});
-	}
+	
 
 	componentDidMount() {
 		
@@ -74,30 +65,14 @@ class ZhangQu extends Component {
           hour.push(i); 
         }
         
-        let styleLI={};
-        if(open){
-         styleLI={
-         	background:'red',
-        	height:'40px',
-        	width:'220px',
-        	lineHeight:'40px'
-         }	
-        }else{
-          styleLI={
-         	background:'red',
-        	height:'40px',
-        	width:'100px',
-        	lineHeight:'40px'
-          }		
-        }
-         
+       
        
         
 		return (
 			<div>
                <form>
 			       <KrField name="uploadImage" 
-								component="uploadImage" 
+								component="uploadImageList" 
 								style={{marginTop:10}} 
 								photoSize={'212*136'} 
 								pictureFormat={'JPG'} 
@@ -107,40 +82,32 @@ class ZhangQu extends Component {
 
 			   </form>
 
-
-             <ul style={{position:'relative',padding:'0px'}} className='first-ul'>  
-             {
-             	hour.map((item,index)=>{
-                  return <li 
-                   style={styleLI}
-                   className='first-li'
-                  
-                   >
-                     <span style={{display:'inline-block',width:'100px'}}>{item}</span>
-                     <ul 
-                      style={{
-                      	display:'inline-block',
-                      	width:'100px',
-                      	background:'blue',
-                      	padding:0
-                      }}
-                      >  
-			             {
-			             	minute.map((item,index)=>{
-			                  return <li 
-			                  style={{width:'100%',height:'40px',lineHeight:'40px',marginBottom:'5px'}}
-                               
-			                   >
-			                    {item}
-			                  </li>
-			             	})
-			             }
-
-                     </ul>
-                  </li>
-             	})
-              }
-           </ul>
+               <div 
+                style={{width:200,height:'auto'}}
+                 onMouseOver={this.liOver}
+               >
+                <div 
+                 style={{display:'inline-block',width:100,background:'red'}}            
+                 >
+                 {
+                  hour.map((item,index)=>{
+                     return <p>{item}</p>
+                  })	
+                 }
+                 </div>
+                 {open&&<div 
+                 	style={{display:'inline-block',width:100,background:'blue',verticalAlign: 'top'}}
+                    onMouseOut={this.liOut}
+                 	>
+                 {
+                  minute.map((item,index)=>{
+                     return <p>{item}</p>
+                  })	
+                 }
+                 </div>}
+                             
+               </div>
+              
 		</div>
 
 		);

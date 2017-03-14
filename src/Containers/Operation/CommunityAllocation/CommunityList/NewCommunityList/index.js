@@ -439,8 +439,11 @@ const validate = values =>{
 		let stationN = /^([1-9][0-9]{0,7})$/;
 		let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
         
-        //正整数
+    //正整数
 		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
+
+    //非负整数
+    let noMinus=/^(0|[1-9]\d*)$/;
 
 		//整数
 		let zeroNum=/^-?\\d+$/;　
@@ -456,10 +459,18 @@ const validate = values =>{
 			        memberErrors.floor = '请输入所在楼层'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
+            if(wherefloorsStr.floor&&!noMinus.test(wherefloorsStr.floor)){
+               memberErrors.floor = '楼层为非负整数'
+               membersArrayErrors[memberIndex] = memberErrors
+            }
 			      if (!wherefloorsStr || !wherefloorsStr.stationCount) {
 			        memberErrors.stationCount = '请输入可出租工位数'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
+            if(wherefloorsStr.stationCount&&!noMinus.test(wherefloorsStr.stationCount)){
+               memberErrors.stationCount = '可出租工位数为非负整数'
+               membersArrayErrors[memberIndex] = memberErrors
+            }
 			    })
 		    if(membersArrayErrors.length) {
 		      errors.wherefloorsStr = membersArrayErrors

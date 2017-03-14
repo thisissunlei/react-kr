@@ -2,21 +2,69 @@
 	width:100%;
 	text-align:center;
 	.ui-uploadimg-outbox{
-		width:214px;
-		height:138px;
+		min-width:120px;
+		min-height:75px;
+		width: auto;
+        height: auto;
 		border:dashed 1px #c5c5c5;
 		padding:16px;
 		display:inline-block;
+		.lostsImg{
+			display:inline-block;
+			position:relative;
+			&:hover .ui-uploadimg-fresh-delete{
+				display:block;
+			}
+			.ui-uploadimg-fresh-delete{
+				display:none;				
+				width:100%;
+				height:100%;
+				position:absolute;
+				top:0;
+				left:0;
+				background-color:rgba(0,0,0,0.4);
+				.ui-uploadimg-operateimg{
+					position: relative;
+				    display: inline-block;
+					width:30px;
+					height:30px;
+					background-color:#fff;
+					border-radius: 15px;
+					text-align:center;
+					cursor: pointer;
+					.ui-refreshImgBtn{
+						position:absolute;
+						width:30px;
+						height:30px;
+						border-radius: 15px;
+						left:0;
+						opacity: 0;
+						cursor: pointer;
+					}
+				}
+				.ui-uploadimg-operateimg-left{
+					margin-right:52px;
+					text-align:center;
+					margin-top: 30%;
+				}
+				.ui-uploadimg-operateimg-btn{
+					position:absolute;
+					width:18px;
+					left:6px;
+					top:6px;
+				}
+			}
+		}
 		.ui-uploadimg-innerbox{
 			position:relative;
-			width:100%;
-			height:100%;
+			width: 120px;
+            height: 75px;
 			border:dashed 1px #c5c5c5;
 			background-color:#f6f6f6;
 			.ui-uploadimg-inner{
-				position:absolute;
-				top:35px;
-				left:85px;
+				position:relative;
+				top: 15px;
+                left: 0px;
 				width:50px;
 				height:46px;
 				display:inline-block;

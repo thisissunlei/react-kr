@@ -478,24 +478,33 @@ const validate = values =>{
 		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
 		
 		/*if (!values.wherefloorsStr || !values.wherefloorsStr.length) {
-			    errors.wherefloorsStr = { _error: 'At least one member must be entered' }
-			  } else {
-			    const membersArrayErrors = []
-			    values.wherefloorsStr.forEach((wherefloorsStr, memberIndex) => {
-			      const memberErrors = {}
-			      if (!wherefloorsStr || !wherefloorsStr.floor) {
-			        memberErrors.floor = '请输入所在楼层'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-			      if (!wherefloorsStr || !wherefloorsStr.stationCount) {
-			        memberErrors.stationCount = '请输入可出租工位数'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-			    })
-		    if(membersArrayErrors.length) {
-		      errors.wherefloorsStr = membersArrayErrors
-		    }
+          errors.wherefloorsStr = { _error: 'At least one member must be entered' }
+        } else {
+          const membersArrayErrors = []
+          values.wherefloorsStr.forEach((wherefloorsStr, memberIndex) => {
+            const memberErrors = {}
+            if (!wherefloorsStr || !wherefloorsStr.floor) {
+              memberErrors.floor = '请输入所在楼层'
+              membersArrayErrors[memberIndex] = memberErrors
+            }
+            if(wherefloorsStr.floor&&!noMinus.test(wherefloorsStr.floor)){
+               memberErrors.floor = '楼层为非负整数'
+               membersArrayErrors[memberIndex] = memberErrors
+            }
+            if (!wherefloorsStr || !wherefloorsStr.stationCount) {
+              memberErrors.stationCount = '请输入可出租工位数'
+              membersArrayErrors[memberIndex] = memberErrors
+            }
+            if(wherefloorsStr.stationCount&&!noMinus.test(wherefloorsStr.stationCount)){
+               memberErrors.stationCount = '可出租工位数为非负整数'
+               membersArrayErrors[memberIndex] = memberErrors
+            }
+          })
+        if(membersArrayErrors.length) {
+          errors.wherefloorsStr = membersArrayErrors
+        }
          }
+
 
           //工位校验
 		   if (!values.porTypesStr || !values.porTypesStr.length) {
