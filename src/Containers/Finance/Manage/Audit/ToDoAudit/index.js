@@ -226,6 +226,7 @@ export default class ToDoAudit extends Component {
               title="查询"
               modal={true}
               open={this.state.openSearch}
+              onClose={this.openSearch}
             >
               <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>

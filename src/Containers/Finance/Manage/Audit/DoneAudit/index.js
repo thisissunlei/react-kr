@@ -38,6 +38,7 @@ import {
 } from 'kr-ui';
 
 import SearchsForm from './SearchForm';
+import HightSearchForm from './HightSearchForm';
 import './index.less';
 export default class DoneAudit extends Component {
 
@@ -48,6 +49,7 @@ export default class DoneAudit extends Component {
       openView: false,
       openEditDetail: false,
       openDelete: false,
+      openSearch: false,
       itemDetail: {},
       Params: {
         page: 1,
@@ -74,13 +76,25 @@ export default class DoneAudit extends Component {
       }
     });
   }
+  openSearch = () => {
+    this.setState({
+      openSearch: !this.state.openSearch
+    })
+  }
+  onSearchSubmit = (form) => {
+
+    this.setState({
+      Params: form
+    });
+    this.openSearch();
+  }
 
   render() {
     return (
 
       <div className="m-done-audit">
             <div className="u-search"> 
-              <SearchsForm onSubmit={this.searchParams}/>
+              <SearchsForm onSubmit={this.searchParams} openSearch={this.openSearch}/>
             </div>
              <Table 
                   style={{marginTop:10}}
@@ -209,12 +223,14 @@ export default class DoneAudit extends Component {
               </TableBody>
                <TableFooter></TableFooter>
             </Table>
-
-        
-
-
-          
-
+            <Dialog
+              title="查询"
+              modal={true}
+              open={this.state.openSearch}
+              onClose={this.openSearch}
+            >
+              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+            </Dialog>
       </div>
 
     );
