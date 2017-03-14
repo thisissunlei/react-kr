@@ -37,19 +37,19 @@ class SearchForm extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
+		this.state = {
+			onHover: false
+		}
 	}
 
-	onSubmit(form) {
+	onSubmit = (form) => {
 		const {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(form);
 	}
 
-	onCancel() {
+	onCancel = () => {
 		const {
 			onCancel
 		} = this.props;
@@ -62,6 +62,55 @@ class SearchForm extends Component {
 		openSearch && openSearch();
 
 	}
+	onHover = () => {
+		this.setState({
+			onHover: true
+		})
+	}
+	onOut = () => {
+		this.setState({
+			onHover: false
+		})
+	}
+	renderMore = () => {
+		let {
+			detail
+		} = this.props;
+		var detailList = detail.slice(3, detail.length);
+		return (
+			<div className="u-more-list">
+				<div className="u-more-s"></div>
+				{
+					detailList.map((item,index)=>{
+						return(
+							<div className="u-info-list" key={index}>
+								<span className="u-info-label">{item.categoryName}：</span>
+								<span className="u-info-amount">{item.amount}</span>
+							</div>
+							)
+					})	
+				}
+			</div>
+
+		)
+
+	}
+	renderInfo = () => {
+		let {
+			onHover
+		} = this.state;
+		return (
+			<div className="u-more">
+				<div className="u-info-more" onMouseOver={this.onHover} onMouseOut={this.onOut}>
+					更多<span className="u-info-bottom"></span>
+				</div>
+				{onHover?this.renderMore():''}
+				
+			</div>
+
+
+		)
+	}
 
 	render() {
 
@@ -69,11 +118,24 @@ class SearchForm extends Component {
 			error,
 			handleSubmit,
 			pristine,
-			reset
+			reset,
+			detail
 		} = this.props;
-
+		var detailList = detail.slice(0, 3);
 		return (
 			<div  className="u-clearfix">
+				<div className="u-audit-info">
+					{detailList && detailList.map((item,index)=>{
+						return(
+							<div className="u-info-list" key={index}>
+								<span className="u-info-icon"></span>
+								<span className="u-info-label">{item.categoryName}：</span>
+								<span className="u-info-amount">{item.amount}</span>
+							</div>
+							)
+					})}
+				</div>
+				{detail && detail.length>3?this.renderInfo():''}
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
 				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  inputName="do"/>
 

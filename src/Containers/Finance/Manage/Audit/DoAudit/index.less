@@ -1,6 +1,6 @@
 .m-do-audit{
 	.u-search{
-		margin:26px 0;
+		margin: 26px 0 ;
 	}
 	.u-high-search{
 		width:24px;
@@ -11,4 +11,107 @@
 		background:url(images/search.svg) no-repeat center center;
 		background-size: cover;
 	}
+}
+.u-audit-info{
+	min-width:500px;
+	float:left;
+	height:30px;
+	display:inline-block;
+	.u-info-list{
+		font-size:16px;
+		color:#333333;
+		margin-right:16px;
+		display:inline-block;
+		span{
+			font-size:16px;
+			vertical-align: middle;
+			font-family:'FZLTZHJW  GB1 0';
+		}
+		.u-info-label{
+			padding-left:6px;
+		}
+		.u-info-icon{
+			display:inline-block;
+			width:24px;
+			height:24px;
+			
+		}
+		&:nth-child(1){
+			.u-info-icon{
+				background:url('images/income.png') no-repeat center center;
+				background-size:cover;
+			}
+		}
+		&:nth-child(2){
+			.u-info-icon{
+				background:url('images/money.svg') no-repeat center center;
+				background-size:cover;
+			}
+		}
+		&:nth-child(3){
+			.u-info-icon{
+				background:url('images/station.svg') no-repeat center center;
+				background-size:cover;
+			}
+		}
+	}
+}
+.u-info-more{
+		width:54px;
+		float:left;
+		font-family:'FZLTZHJW  GB1 0';
+		
+		span{
+			font-size:16px;
+			color:#333333;
+			display:inline-block;
+		}
+		.u-info-bottom{
+			width:12px;
+			height:10px;
+			background:url('images/arrows.svg') no-repeat center center;
+			background-size:cover;
+			vertical-align: initial;
+		}
+
+}
+.u-more{
+	width:54px;
+	float:left;
+	position:relative;
+	.u-more-list{
+			width:208px;
+			padding:20px;
+			min-height:64px;
+			display:inline-block;
+			background:#fff;
+			position:absolute;
+			left:-100px;
+			top:35px;
+			z-index:10;
+			border-radius:4px;
+			box-shadow: 0 0 25px rgba(0,0,0,0.2);
+			.u-info-list{
+				font-size:16px;
+				color:#333333;
+				margin-right:16px;
+				display:inline-block;
+				span{
+					font-size:16px;
+					vertical-align: middle;
+					font-family:'FZLTZHJW  GB1 0';
+				}
+			}
+			.u-more-s{
+				width:0;
+				height:0;
+				position:absolute;
+				border:10px solid transparent;
+				border-bottom-color:#fff;
+				left:110px;
+				top:-20px;
+				
+			}
+		}
+
 }

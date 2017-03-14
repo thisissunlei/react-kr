@@ -1018,6 +1018,12 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-count',
         method: 'get'
     },
+    //财务--审核列表--已审核--获取款项及金额
+    'get-fina-flow-category': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-category?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+
 
 }
 

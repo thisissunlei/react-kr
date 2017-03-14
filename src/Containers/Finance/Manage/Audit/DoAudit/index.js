@@ -53,14 +53,29 @@ export default class DoAudit extends Component {
         page: 1,
         pageSize: 10,
         verifyStatus: 'CHECKED'
-      }
+      },
+      infoList: [],
     }
+    this.getInfo();
 
   }
 
   componentDidMount() {}
     //导出
   onExport = () => {
+
+  }
+  getInfo = () => {
+    var _this = this;
+    let {
+      Params
+    } = this.state;
+    Store.dispatch(Actions.callAPI('get-fina-flow-category', Params, {})).then(function(response) {
+      _this.setState({
+        infoList: response
+      })
+
+    }).catch(function(err) {});
 
   }
   searchParams = (form) => {
@@ -91,7 +106,7 @@ export default class DoAudit extends Component {
 
       <div className="m-do-audit">
             <div  className="u-search"> 
-                  <SearchForm onSubmit={this.searchParams} openSearch={this.openSearch}/>
+                  <SearchForm onSubmit={this.searchParams} openSearch={this.openSearch} detail={this.state.infoList}/>
             </div>
              <Table 
                   style={{marginTop:10}}
