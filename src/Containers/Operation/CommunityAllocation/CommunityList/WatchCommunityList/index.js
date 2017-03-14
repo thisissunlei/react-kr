@@ -150,6 +150,9 @@ import State from '../State';
 	    var brights_ports=[];
 	    var brights_round=[];
 	    var brights_service=[];
+	    var whereFloor=[];
+	    var photo=[];
+	    var propType=[];
     if(State.detailData.brights){
     	State.detailData.brights.map((item,index)=>{
        if(item.type=='BRIGHTPOINTS'){
@@ -173,6 +176,23 @@ import State from '../State';
     })
 
     }
+
+    if(State.detailData.wherefloors){
+      State.detailData.wherefloors.map((item,index)=>{
+        whereFloor.push(item);
+      })	 
+    }
+    if(State.detailData.photos){
+      State.detailData.photos.map((item,index)=>{
+        photo.push(item);
+      })	 
+    }
+    if(State.detailData.porTypes){
+      State.detailData.porTypes.map((item,index)=>{
+        propType.push(item);
+      })	 
+    }
+
     
 
          
@@ -227,14 +247,21 @@ import State from '../State';
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 	
-								<KrField grid={1/2} label="社区状态"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={inforStyle}/>
-								<KrField grid={1/2} label="开业时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={openTime}/>
-								<KrField grid={1/2} label="签约开始时间"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={startTime}/>
-								<KrField grid={1/2} label="签约结束时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={endTime}/>
-                                <KrField grid={1/2} label="工位总数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={toJS(State.detailData.stationNum)+'个'}></KrField>
-								<KrField grid={1/2} label="会议室总数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.meetNum)+'间'}></KrField>
+								<KrField grid={1/2} label="社区状态"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={inforStyle?inforStyle:'无'}/>
+								<KrField grid={1/2} label="开业时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={openTime?openTime:'无'}/>
+								<KrField grid={1/2} label="签约开始时间"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={startTime?startTime:'无'}/>
+								<KrField grid={1/2} label="签约结束时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={endTime?endTime:'无'}/>
+                                <KrField grid={1/2} label="工位总数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={toJS(State.detailData.stationNum)?toJS(State.detailData.stationNum)+'个':'无'}></KrField>
+								<KrField grid={1/2} label="会议室总数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.meetNum)?toJS(State.detailData.meetNum)+'间':'无'}></KrField>
 							   
-                               
+                               {
+                               	whereFloor.map((item,index)=>{
+                                   return (<div>
+                                     <KrField grid={1/2} label="所在楼层"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={item.floor+'层'}></KrField>
+								     <KrField grid={1/2} label="可出租工位数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.stationCount}></KrField>	  
+                                   	</div>)
+                               	})
+                               }
                                  
                                 
 
@@ -267,6 +294,16 @@ import State from '../State';
 							 <KrField grid={1/2} label="排序" component="labelText" style= {{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.orderNum)?toJS(State.detailData.orderNum):'无'}/>	
 							 <KrField grid={1/2} label="官网显示状态"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={hereWatch}>
 					         </KrField>
+                             
+                              {
+                               	propType.map((item,index)=>{
+                                   return (<div>
+                                     <KrField grid={1/2} label="工位类型"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={item.type=='MOBILE_DESK'?'移动办公桌':(item.type=='OPEN_WORKSPACE'?'开放工作区':(item.type=='INDEPENDENT_WORKSPACE'?'独立工作区':'无'))}></KrField>
+								     <KrField grid={1/2} label="工位价格"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.price=='0'?'0':item.price}></KrField>	  
+                                   	</div>)
+                               	})
+                               }
+                                 
 
 					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="labelText"   lengthClass='list-length-textarea' inline={false} value={toJS(State.detailData.description)?toJS(State.detailData.description):'无'}/></div>		
 						     
@@ -284,7 +321,7 @@ import State from '../State';
 						        
 						        {
                                   brights_special.map((item,index)=>{
-                                     return  <KrField grid={1} label="特色服务" style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>   
+                                     return  <KrField grid={1} label="特色服务" style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints} />   
                                   })	
                                 }
 						        
