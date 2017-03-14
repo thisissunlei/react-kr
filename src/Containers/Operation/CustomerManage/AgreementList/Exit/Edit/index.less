@@ -18,4 +18,33 @@
 	.ui-title-mid{
 		font-size: 16px;
 	}
+	.ui-tooltip.center{
+		left: 50%;
+	}
+	.ui-form-controller .ui-tooltip.center {
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%) translateY(-50%);
+	    top: -40px;
+	    width: 252px;
+	    margin-top: -15px;
+	}
+	.ui-label-text .ui-label-text-span{
+		display: inline-block;
+	    height: 30px;
+	    overflow: hidden;
+	    white-space:nowrap; 
+		text-overflow:ellipsis; 
+		width: 252px;
+		
+	}
+	.top-arrow:after{
+		display: none;
+	}
+	.lessor-address{
+		display: inline-block;
+		.ui-form-controller .ui-tooltip.center {
+			margin-top: 15px;
+		}
+	}
 }

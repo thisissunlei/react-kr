@@ -516,7 +516,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  name="contractVersionType" type="hidden" component="input" />
 
 				<KrField name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
-				<KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false} value={changeValues.lessorAddress}  defaultValue="无"/>
+				<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false} value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true} /></div>
 				<KrField style={{width:262,marginLeft:25}} name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/>
 				<KrField style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -537,7 +537,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
 
-				<KrField name="paymodel" style={{width:262,marginLeft:25}} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
+				<KrField name="paymodel" style={{width:262,marginLeft:25}} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} toolTrue={true}/>
 				<KrField name="paytype" style={{width:262,marginLeft:25}} component="select" label="支付方式" options={optionValues.payTypeList} />
 				<KrField name="firstpaydate" style={{width:262,marginLeft:25}} component="date" label="首付款时间" requireLabel={true} />
 

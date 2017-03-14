@@ -693,7 +693,7 @@ class NewCreateForm extends Component {
 						<KrField grid={1/2}  name="contractVersionType" type="hidden" component="input" />
 
 						<KrField style={{width:262,marginLeft:25}} name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
-						<KrField style={{width:262,marginLeft:25}}  name="lessorAddress" inline={false} type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+						<div className="lessor-address"><KrField style={{width:262,marginLeft:25}}  name="lessorAddress" inline={false} type="text" component="labelText" label="地址" value={changeValues.lessorAddress} toolTrue={true}/></div>
 						<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/>
 
 						<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}

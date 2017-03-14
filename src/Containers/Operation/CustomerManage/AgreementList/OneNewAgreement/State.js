@@ -37,9 +37,8 @@ State.orderNameInit= action(function(value) {
 State.ordersListData=action(function(customerId,id){
 	
 	    var _this = this;
-	    // _this.orderList.clear();
 		Store.dispatch(Actions.callAPI('orders-names', customerId)).then(function(response) {
-			let label="",value='';
+			let label='',value='';
 			let orderList=[];
 			for(let i=0;i<response.orderList.length;i++){
 			    let order={}; 

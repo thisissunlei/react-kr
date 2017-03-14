@@ -67,7 +67,8 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Paper,
-	CircleStyle
+	CircleStyle,
+	Tooltip
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -699,7 +700,7 @@ class NewCreateForm extends Component {
 
 					<KrField name="leaseId" style={{width:262,marginLeft:25}}  component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 
-					<KrField   style={{width:262,marginLeft:25}} name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
+					<div className="lessor-address" ><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 
 
 					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
@@ -708,7 +709,7 @@ class NewCreateForm extends Component {
 
 					<KrField   style={{width:262,marginLeft:25}}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
-					<KrField  style={{width:262,marginLeft:25}}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
+					<KrField  style={{width:262,marginLeft:25}}  name="leaseAddress" type="labelText" component="input" label="地址" requireLabel={true} tooltip={true}
 					requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
 					<KrField  style={{width:262,marginLeft:25}} name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
@@ -716,11 +717,11 @@ class NewCreateForm extends Component {
 					<KrField   style={{width:262,marginLeft:25}}  name="leaseContacttel" type="labelText" component="input" label="电话" requireLabel={true}
 					 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-					<KrField   style={{width:262,marginLeft:25}} name="communityid" component="labelText" inline={false} label="所属社区" tooltip={true} value={optionValues.communityName} />
+					<KrField   style={{width:262,marginLeft:25}} name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
 
 
 
-					<KrField    style={{width:262,marginLeft:25}}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  />
+					<KrField    style={{width:262,marginLeft:25,position:"relative"}}  name="communityAddress" component="labelText" toolTrue={true} label="地址" inline={false} value={optionValues.communityAddress}  />
 					<KrField    style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 
 					requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编码为必填项',pattern:'合同编号最大50位'}}/>
