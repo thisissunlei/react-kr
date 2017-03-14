@@ -388,6 +388,9 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		const {
 			onSubmit
 		} = this.props;

@@ -197,7 +197,11 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		stationVos[index].unitprice = value;
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 
 		this.setState({
 			stationVos
@@ -244,13 +248,6 @@ class NewCreateForm extends Component {
 			return item;
 		});
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allRent += _this.getSingleRent(item);
-		// })
-		// allRent = parseFloat(allRent).toFixed(2)*1;
-
-
-
 		this.setState({
 			stationVos,
 			allRent
@@ -274,11 +271,8 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
-		stationVos.map((item)=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
-
+		this.setAllRent(stationVos);
+		
 		this.setState({
 			stationVos,
 			allRent
@@ -679,6 +673,7 @@ class NewCreateForm extends Component {
 							})
 						}
 						</TableBody>
+						
 						</Table>
 					</div>
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}

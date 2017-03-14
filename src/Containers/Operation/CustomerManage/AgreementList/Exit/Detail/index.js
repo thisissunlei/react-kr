@@ -79,8 +79,13 @@ export default class ExitDetail extends Component {
 	}
 
 	  onCancel = () => {
+	  	console.log(">>>>>>>>");
 		const {onCancel} = this.props;
 		onCancel && onCancel();
+	  }
+	   onCancel1 = () => {
+	  	console.log(">>>>>>>>");
+		
 	  }
 
 	componentWillMount() {
@@ -131,12 +136,12 @@ export default class ExitDetail extends Component {
 			return (
 				<div className="content" style={content}>
 					 <Title value="退租协议书详情页_财务管理"/>
-					 <div className="customer-close" onClick={this.onCancel}></div>
+					 <div className="customer-close" onMouseUp ={this.onCancel}></div>
 				     <span className="content-title">退租协议书详情页</span>
 				  	 <div className="content-info" style={info} >
 
                             <div className='detail-first'>
-								<KrField component="labelText" grid={1/2} label="出租方11：" value={basic.lessorName} requireBlue={true} toolTrue='true'/>
+								<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} requireBlue={true} toolTrue='true'/>
 								<KrField component="labelText" grid={1/2} label="地址：" value={basic.lessorAddress} requireBlue={true} toolTrue='true'/>
 
 								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.lessorContactName} requireBlue={true} toolTrue='true'/>
@@ -185,7 +190,6 @@ export default class ExitDetail extends Component {
 					<Grid style={{marginTop:5,marginBottom:50}}>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/></Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>

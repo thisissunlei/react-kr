@@ -335,6 +335,9 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 		console.log('contractmark',form);

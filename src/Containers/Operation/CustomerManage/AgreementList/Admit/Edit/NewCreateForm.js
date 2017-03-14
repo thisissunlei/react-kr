@@ -149,8 +149,11 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		stationVos[index].unitprice = value;
-
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -520,7 +523,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}

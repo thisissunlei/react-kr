@@ -276,10 +276,11 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		stationVos.map((item)=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		// stationVos.map((item)=>{
+		// 	allRent += _this.getSingleRent(item);
+		// })
+		// allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 
 		this.setState({
 			stationVos,
@@ -431,6 +432,9 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		if(form.totalrent == 0){
 			Notify.show([{
 				message: '服务费不能为零',
@@ -438,6 +442,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+
 		const {
 			onSubmit
 		} = this.props;

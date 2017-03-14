@@ -77,7 +77,6 @@ export default class DateComponent extends React.Component {
 			dtArr = value.split('-');
 		}
 
-
 		var year = dtArr[0];
 		var month = this.supplementZero(Number(dtArr[1]));
 		var date = this.supplementZero(Number(dtArr[2]));
@@ -104,7 +103,7 @@ export default class DateComponent extends React.Component {
 
 		this.setInputValue(result);
 
-		onChange && onChange(result);
+		onChange && onChange(value);
 	}
 
 	render() {
