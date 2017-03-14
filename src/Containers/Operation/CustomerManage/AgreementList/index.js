@@ -813,6 +813,7 @@ class Merchants extends Component{
 							onClose={this.closeNewIndent}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+							
 					 >
 						{State.openNewIndent&&
 							<NewIndent
