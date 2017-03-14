@@ -36,8 +36,8 @@ import {
   KrDate,
   Tooltip
 } from 'kr-ui';
-
 import SearchForm from './SearchForm';
+import HightSearchForm from './HightSearchForm';
 import './index.less';
 export default class DoAudit extends Component {
 
@@ -63,13 +63,35 @@ export default class DoAudit extends Component {
   onExport = () => {
 
   }
+  searchParams = (form) => {
+    this.setState({
+      Params: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'CHECKED',
+        customerName: form.content
+      }
+    });
+  }
+  openSearch = () => {
+    this.setState({
+      openSearch: !this.state.openSearch
+    })
+  }
+  onSearchSubmit = (form) => {
+
+    this.setState({
+      Params: form
+    });
+    this.openSearch();
+  }
 
   render() {
     return (
 
       <div className="m-do-audit">
             <div  className="u-search"> 
-                  <SearchForm onSubmit={this.searchParams}/>
+                  <SearchForm onSubmit={this.searchParams} openSearch={this.openSearch}/>
             </div>
              <Table 
                   style={{marginTop:10}}
@@ -197,7 +219,14 @@ export default class DoAudit extends Component {
               </TableBody>
                <TableFooter></TableFooter>
             </Table>
-
+              <Dialog
+              title="查询"
+              modal={true}
+              open={this.state.openSearch}
+              onClose={this.openSearch}
+            >
+              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+            </Dialog>
       </div>
 
     );

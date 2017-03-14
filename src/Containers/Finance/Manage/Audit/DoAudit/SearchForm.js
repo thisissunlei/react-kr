@@ -43,10 +43,6 @@ class SearchForm extends Component {
 	}
 
 	onSubmit(form) {
-
-		form.pageSize = 20;
-		form.page = 1;
-		form.searchParam = form.content;
 		const {
 			onSubmit
 		} = this.props;
@@ -58,6 +54,13 @@ class SearchForm extends Component {
 			onCancel
 		} = this.props;
 		onCancel && onCancel();
+	}
+	openSearch = () => {
+		const {
+			openSearch
+		} = this.props;
+		openSearch && openSearch();
+
 	}
 
 	render() {
@@ -71,7 +74,7 @@ class SearchForm extends Component {
 
 		return (
 			<div  className="u-clearfix">
-				<span className="u-high-search"></span>
+				<span className="u-high-search" onTouchTap={this.openSearch}></span>
 				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  inputName="do"/>
 
 			</div>
