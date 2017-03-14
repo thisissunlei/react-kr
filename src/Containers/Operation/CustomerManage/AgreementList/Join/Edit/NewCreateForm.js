@@ -746,7 +746,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:252,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} toolTrue={true} />
 
 
-				<KrField style={{width:370,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
 
 

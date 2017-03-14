@@ -447,7 +447,7 @@ class NewCreateForm extends Component {
 
 										<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} toolTrue={true}/>
 										
-										<KrField style={{width:370,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+										<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 										<KrField style={{width:262,marginLeft:25}} name="rentamount" component="labelText" inline={false} type="text" requireLabel={true} label="减租金额" value={allRent} defaultValue="0"
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} />
 

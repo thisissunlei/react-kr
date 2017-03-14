@@ -73,13 +73,13 @@ class LookCustomerList extends Component{
 			text="入驻协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
-				<Tab label="入驻协议书" >
+				<Tab label="入驻协议书" buttonStyle={{color:"#333"}} >
 					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="入驻协议书" >
+				<Tab label="入驻协议书" buttonStyle={{color:"#333"}}>
 					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
@@ -190,6 +190,7 @@ class LookCustomerList extends Component{
 				<Tabs className="tabs"
 			 		 inkBarStyle={{background:"#499df1",top:0}}
 			 		 initialSelectedIndex={-1}
+			 		 tabTemplateStyle={{color:"#333"}}
 			 		 style={{width:100}}
 				>
 				{showTab}

@@ -718,7 +718,7 @@ class NewCreateForm extends Component {
 
 					<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" inline={false} label="地址" value={optionValues.communityAddress} toolTrue={true} />
 
-					<KrField style={{width:370,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+					<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
 	                <KrField  name="paytype"  style={{width:262,marginLeft:25}} component="select" label="支付方式"  options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
 							Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
@@ -726,8 +726,6 @@ class NewCreateForm extends Component {
 					<KrField  name="paymodel"  style={{width:262,marginLeft:25}} component="select" label="付款方式"  options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
 							Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
 					}} />
-					
-					<KrField style={{width:262,marginLeft:25}}  name="mainbillid" type="hidden" component="input" />
 
 
 					<KrField  style={{width:262,marginLeft:25}}  name="firstpaydate"  component="date"  label="首付款时间" requireLabel={true} />
