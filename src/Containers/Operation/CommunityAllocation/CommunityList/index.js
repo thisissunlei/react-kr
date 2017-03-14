@@ -5,6 +5,7 @@ import React, {
 import {
 	connect
 } from 'kr/Redux';
+import dateFormat from 'dateformat';
 import {
 	reduxForm,
 	submitForm,
@@ -78,42 +79,45 @@ class CommunityList  extends Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
-
    	    value = Object.assign({},value);
-   	    
    	    var brightsStr=[];
+
    	    if(value.bright1){
    	      value.bright1.map((item,index)=>{
-   	   	 if(item.type&&item.brightPoints){
+   	   	 if(item){
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
    	     delete value.bright1;	
    	    }
+            
    	    if(value.bright2){
-   	      value.bright2.map((item,index)=>{
-   	   	 if(item.type&&item.brightPoints){
-           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
+   	       value.bright2.map((item,index)=>{
+   	   	  if(item){
+             brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
    	     delete value.bright2;	
    	    }
+
    	    if(value.bright3){
    	      value.bright3.map((item,index)=>{
-   	   	 if(item.type&&item.brightPoints){
+   	   	 if(item){
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
    	      delete value.bright3;	
    	    }
+
    	    if(value.bright4){
    	      value.bright4.map((item,index)=>{
-   	   	  if(item.type&&item.brightPoints){
+   	   	  if(item){
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
    	      delete value.bright4;	
-   	    }	    
+   	    }
+
    	    if(value.bright5){
    	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.bright5.brightPoints});
    	      delete value.bright5;
@@ -121,17 +125,25 @@ class CommunityList  extends Component{
    	    if(value.bright6){	    	
    	      brightsStr.push({type:'PERIMETER',brightPoints:value.bright6.brightPoints});
    	      delete value.bright6;
-   	    } 	    
+   	    } 
    	    if(brightsStr.length!=0){
-   	       value.brightsStr=JSON.stringify(brightsStr); 	
+   	       value.brightsStr=JSON.stringify(brightsStr); 
    	    }     
    	      value.wherefloorsStr=JSON.stringify(value.wherefloors);
    	      delete value.wherefloors;
-   	    if(value.potTypes){
-   	      value.porTypesStr=JSON.stringify(value.potTypes); 
-   	      delete value.potTypes;
+   	    if(value.porTypes){
+   	      value.porTypesStr=JSON.stringify(value.porTypes); 
+   	      delete value.porTypes;
    	    } 
+   	      delete value.brights;
+
+          delete value.photos;
+
+         value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
+         value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");
+         value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd hh:MM:ss");
    	    State.onNewCommunitySubmit(value);
+   	    
    }
    //查询
    onSearchSubmit=(params)=>{

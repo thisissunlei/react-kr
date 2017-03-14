@@ -30,32 +30,10 @@ class ZhangQu extends Component {
 		super(props, context);
 		this.state={
 			open:false,
-			openArray:[
-         
-        {
-            "cityName":"测试内容6",
-            "code":"",
-            "openDate":"2017-02-20",
-            "opened":true,
-            "orderNum":38141,
-        },
-        {
-            "cityName":"测试内容7",
-            "code":"",
-            "openDate":"2017-02-20",
-            "opened":true,
-            "orderNum":38141,
-        },
-
-		this.state = {
-			open:false,
-			checkedStations:[],
-		}
-
-	}
+	    }
 
 	
-
+    }
 
 	
 
@@ -120,7 +98,7 @@ class ZhangQu extends Component {
                   })	
                  }
                  </div>
-                 {open&&<div 
+                 <div 
                  	style={{display:'inline-block',width:100,background:'blue',verticalAlign: 'top'}}
                     onMouseOut={this.liOut}
                  	>
@@ -129,7 +107,7 @@ class ZhangQu extends Component {
                      return <p>{item}</p>
                   })	
                  }
-                 </div>}
+                 </div>
                              
                </div>
               

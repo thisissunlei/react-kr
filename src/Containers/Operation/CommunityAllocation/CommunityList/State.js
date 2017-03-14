@@ -42,7 +42,12 @@ State.onNewCommunitySubmit= action(function(data) {
 	 var _this=this;
 	 Store.dispatch(Actions.callAPI('actions-edit',{},data)).then(function(response) {
 		_this.openNewCommunity=false;	
-		_this.openEditCommunity=false;	
+		_this.openEditCommunity=false;
+		_this.searchParams={
+			 time:+new Date(),
+			 page:1,
+			 pageSize:15
+		}	
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	
