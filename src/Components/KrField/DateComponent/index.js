@@ -35,10 +35,6 @@ export default class DateComponent extends React.Component {
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
-		this.supplementZero = this.supplementZero.bind(this);
-
-		this.formatDate = this.formatDate.bind(this);
-		this.setInputValue = this.setInputValue.bind(this);
 
 		this.isInit = false;
 		this.state = {
@@ -47,30 +43,7 @@ export default class DateComponent extends React.Component {
 
 	}
 
-	setDefaultDate(value) {
-
-		if (!value) {
-			return;
-		}
-
-		if (typeof value === 'string') {
-			value = new Date(Date.parse(value));
-			this.setInputValue(value);
-		}
-
-		if (typeof value === 'number') {
-			this.setInputValue(value);
-			value = new Date(value);
-		}
-
-		this.setState({
-			value
-		});
-
-		this.isInit = true;
-	}
-
-	setInputValue(value) {
+	setInputValue = (value) => {
 
 		let {
 			input
@@ -79,31 +52,34 @@ export default class DateComponent extends React.Component {
 		if(this.props.flag=='true'){
 			return ;
 		}
-		value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
+	//	value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
 		input.onChange(value);
-
-
 	}
 
 	componentDidMount() {
 	}
 
-	supplementZero(value) {
-		if (value < 10) {
+	supplementZero = (value) =>{
+		if (Number(value) < 10) {
 			value = '0' + value;
 		}
 		return value
 	}
 
-	formatDate(value) {
+	formatDate = (value) => {
 
-		var dt = new Date(value);
-		var year = dt.getFullYear();
-		var month = this.supplementZero(1 + dt.getMonth());
-		var date = this.supplementZero(dt.getDate());
-		var hours = this.supplementZero(dt.getHours());
-		var minutes = this.supplementZero(dt.getMinutes());
-		var seconds = this.supplementZero(dt.getSeconds());
+
+		var dtArr = [];
+
+		if(typeof value === 'string'){
+			value = value.trim();
+			value = value.split(' ')[0];
+			dtArr = value.split('-');
+		}
+
+		var year = dtArr[0];
+		var month = this.supplementZero(Number(dtArr[1]));
+		var date = this.supplementZero(Number(dtArr[2]));
 
 		var result = `${year}-${month}-${date} 00:00:00`;
 
@@ -115,7 +91,6 @@ export default class DateComponent extends React.Component {
 	}
 
 	onChange(value) {
-
 
 		if (!value) {
 			return;

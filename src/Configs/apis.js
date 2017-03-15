@@ -66,7 +66,7 @@ const APIS = {
 
     //创建合同时初始化数据
     'fina-contract-intention': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
+        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}&type={type}',
         method: 'get'
     },
     //根据人员姓名获取人员基本信息
@@ -366,8 +366,8 @@ const APIS = {
     },
     //会员中心-新增会员-根据邮箱查询会员是否存在
     // 'isMemberHasByEmail': {
-    // 	url: '/api/krspace-finance-web/member/member-mail?email={email}',
-    // 	method: 'get'
+    //   url: '/api/krspace-finance-web/member/member-mail?email={email}',
+    //   method: 'get'
     // },
     //会员中心-会员详细信息－个人资料
     'getMemberDetailData': {
@@ -401,8 +401,8 @@ const APIS = {
     },
     //会员中心-新增会员－准备数据
     // 'getMemberPosition': {
-    // 	url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
-    // 	method: 'get'
+    //   url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+    //   method: 'get'
     // },
     // 会员中心－新增会员－电话号码校验是否存在
     'isPhoneRegistered': {
@@ -841,6 +841,31 @@ const APIS = {
         url: '/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
         method: 'post'
     },
+    //合同列表-列表接口
+    'contract-list': {
+        url: '/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
+        method: 'get'
+    },
+    //合同列表-客户订单下拉接口
+    'orders-names': {
+        url: '/api/krspace-finance-web/customer/orders-names?customerId={customerId}',
+        method: 'get'
+    },
+    //合同列表-客户名称下拉接口
+    'customers-names': {
+        url: '/api/krspace-finance-web/customer/my-customers?company={company}',
+        method: 'get'
+    },
+    //合同列表-获取合同是否可创建
+    'contracts-creation': {
+        url: '/api/krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
+        method: 'get'
+    },
+    //合同列表-获取登录人是否有创建合同的权限
+    'edit-right': {
+        url: '/api/krspace-finance-web/finacontractdetail/contract-list/edit-right',
+        method: 'get'
+    },
 
     //运营平台-基础配置-设备定义-设备列表
     'equipmentList': {
@@ -907,6 +932,8 @@ const APIS = {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
         method: 'get'
     },
+
+
 
     //会员卡列表
     'memberCardList': {
@@ -1048,9 +1075,6 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/opt/save-customer?communityid={communityid}&company={company}&mainbilldesc={mainbilldesc}&mainbillname={mainbillname}&mainbilltype={mainbilltype}&name={name}&tel={tel}',
         method: 'post'
     },
-
-
-
 }
 
 module.exports = APIS;

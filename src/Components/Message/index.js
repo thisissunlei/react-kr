@@ -87,7 +87,7 @@ function commonTimeout(){
 function commonTimeoutWarn(){
 	setTimeout(function(){
 		ReactDOM.render(<div className='hide'></div>, shadowDOM);
-	},3000)
+	},2000)
 }
 
 /**

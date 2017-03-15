@@ -3,10 +3,11 @@ import KrDate from '../../KrDate';
 
 import WrapComponent from '../WrapComponent';
 import Button from '../../Button';
+import Tooltip from '../../Tooltip';
 
 import './index.less';
 
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 export default class LabelTextComponent extends React.Component {
 
@@ -42,9 +43,9 @@ export default class LabelTextComponent extends React.Component {
 			format,
 			href,
 			colorStyle,
-			tooltip
+			tooltip,
+			toolTrue
 		} = this.props;
-		// console.log(value,"LLLLLLL")
 		if (tooltip && type != 'date' && type != 'link') {
 			return (
 				<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
@@ -79,12 +80,16 @@ export default class LabelTextComponent extends React.Component {
 				</WrapComponent>
 			);
 		}
+        
+       
 
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
-					<span className="ui-label-text" style={colorStyle}>{value || defaultValue}</span>
-				</WrapComponent>
+					<span className="ui-label-text" style={colorStyle}><span className="ui-label-text-span">{value || defaultValue}</span>
+                      {toolTrue&&value!=''&&<Tooltip offsetTop={10} place='top'>{value || defaultValue}</Tooltip>}
+					</span>      
+			</WrapComponent>
 
 		);
 	}

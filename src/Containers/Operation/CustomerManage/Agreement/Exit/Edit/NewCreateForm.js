@@ -116,6 +116,15 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.withdrawdate = dateFormat(form.withdrawdate, "yyyy-mm-dd hh:MM:ss");
+		if(!form.hasOwnProperty('agreement')){
+			form.agreement = '无';
+		}
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 
 		const {
 			onSubmit
@@ -225,8 +234,13 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}} name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 				<KrField style={{width:370,marginLeft:90}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+				
+
+				<KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+				
+				{/*<KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+				*/}
 				<KrField name="totalreturn" style={{width:370,marginLeft:90}} type="text" component="input" label="退租金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
 				<KrField name="depositamount" style={{width:370,marginLeft:70}} type="text" component="input" label="退押金总额" requireLabel={true}
@@ -235,6 +249,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:90}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField style={{width:370,marginLeft:70}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
@@ -286,9 +301,9 @@ const validate = values => {
 	if (!values.leaseContacttel) {
 		errors.leaseContacttel = '请填写承租方联系电话';
 	}
-	if (!values.contractcode) {
-		errors.contractcode = '请填写合同编号';
-	}
+	// if (!values.contractcode) {
+	// 	errors.contractcode = '请填写合同编号';
+	// }
 
 	if (!String(values.totalreturn)) {
 		errors.totalreturn = '请填写退租金总额';

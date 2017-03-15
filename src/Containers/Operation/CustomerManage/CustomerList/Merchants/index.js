@@ -65,7 +65,7 @@ class Merchants extends Component{
 		// customerItem.map(function(item,index){
   //         Store.dispatch(change('NewCustomerList',item,''));
 		// })
-		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
+		// Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
 
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		 State.switchNewCustomerList();
@@ -525,7 +525,7 @@ class Merchants extends Component{
 							State.openEditCustomerList||
 							State.openNewCustomerIndent
 						)&&
-							<div className="mask"
+							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
 							>
 							</div>
