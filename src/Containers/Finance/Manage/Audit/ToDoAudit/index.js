@@ -40,6 +40,9 @@ import {
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
 import AddMoney from './AddMoney';
+import NewCreateCustomer from './NewCreateCustomer';
+import NewCreateMainbill from './NewCreateMainbill';
+
 import './index.less';
 export default class ToDoAudit extends Component {
 
@@ -57,11 +60,31 @@ export default class ToDoAudit extends Component {
         page: 1,
         pageSize: 10,
         verifyStatus: 'UNCHECKED'
-      }
+      },
+      openCreateCustomer: false,
+      openCreateMainbill: false,
+      CustomerList: {}
     }
 
   }
+  onSubmitCustomer = (form) => {
+    this.setState({
+      CustomerList: form
+    })
+    this.openCreateCustomer();
+    this.openCreateMainbill();
 
+  }
+  openCreateMainbill = () => {
+    this.setState({
+      openCreateMainbill: !this.state.openCreateMainbill
+    })
+  }
+  openCreateCustomer = () => {
+    this.setState({
+      openCreateCustomer: !this.state.openCreateCustomer
+    })
+  }
   componentDidMount() {}
     //导出
   onExport = () => {
@@ -96,7 +119,11 @@ export default class ToDoAudit extends Component {
       openAddCreate: !this.state.openAddCreate
     })
   }
+
   render() {
+    let {
+      CustomerList
+    } = this.state;
     return (
 
       <div className="m-todo-audit">
@@ -251,8 +278,30 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  onSubmit="" onCancel={this.openAddCreate} />
+              <AddMoney  onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
+            <Dialog
+              title="新建客户"
+              modal={true}
+              open={this.state.openCreateCustomer}
+              onClose={this.openCreateCustomer}
+            >
+              <NewCreateCustomer  
+                      onCancel={this.openCreateCustomer}
+                      onSubmit={this.onSubmitCustomer}
+              />
+            </Dialog>
+             <Dialog
+              title="新建订单"
+              modal={true}
+              open={this.state.openCreateMainbill}
+              onClose={this.openCreateMainbill}
+            >
+              <NewCreateMainbill  
+                      detail={CustomerList}
+                      onCancel={this.openCreateMainbill}
+              />
+            </Dialog>
             
       </div>
 

@@ -58,11 +58,23 @@ class AddMoney extends Component {
 				value: 'POS'
 			}],
 			accountList: [],
-			mainbillInfo: {}
+			mainbillInfo: {},
 		}
 
 
 
+	}
+
+	openCreateCustomer = () => {
+		let {
+			openCreateCustomer
+		} = this.props;
+		openCreateCustomer && openCreateCustomer();
+	}
+	openCustomer = (form) => {
+		if (form.id == 0) {
+			this.openCreateCustomer();
+		}
 	}
 
 	getMainbillInfo = (form) => {
@@ -146,6 +158,7 @@ class AddMoney extends Component {
 								component="searchCustomer" 
 								label="客户名称"
 								requireLabel={true}
+								onChange={this.openCustomer}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -161,7 +174,7 @@ class AddMoney extends Component {
 								inline={false} 
 								label="订单起止"
 								defaultValue="-" 
-								value={`${mainbillInfo.actualEntrydate}-${mainbillInfo.actualLeavedate}`} 
+								value={mainbillInfo.actualEntrydate} 
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -202,7 +215,6 @@ class AddMoney extends Component {
 								name="dealTime" 
 								component="date" 
 								label="收款日期" 
-								options=""
 								requireLabel={true}
 						/>
 						<KrField  
@@ -254,8 +266,29 @@ class AddMoney extends Component {
 		);
 	}
 }
+const validate = values => {
 
+	const errors = {}
+
+	if (!values.leaseId) {
+		errors.leaseId = '请输入出租方';
+	}
+
+	if (!values.lessorContactid) {
+		errors.lessorContactid = '请输入出租方联系人';
+	}
+
+	if (!values.wherefloor) {
+		errors.wherefloor = '请输入所在楼层';
+	}
+
+
+	return errors
+}
 
 export default reduxForm({
-	form: 'addMoney'
+	form: 'addMoney',
+	validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true,
 })(AddMoney);
