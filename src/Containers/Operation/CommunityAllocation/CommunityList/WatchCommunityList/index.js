@@ -258,7 +258,7 @@ import State from '../State';
                                	whereFloor.map((item,index)=>{
                                    return (<div>
                                      <KrField grid={1/2} label="所在楼层"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={item.floor+'层'}></KrField>
-								     <KrField grid={1/2} label="可出租工位数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.stationCount}></KrField>	  
+								     <KrField grid={1/2} label="可出租工位数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.stationCount+'个'}></KrField>	  
                                    	</div>)
                                	})
                                }

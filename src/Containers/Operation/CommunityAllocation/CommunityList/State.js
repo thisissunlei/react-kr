@@ -35,7 +35,9 @@ let State = observable({
 		isFlag:'',
 
 		//编辑区县
-		cityData:''
+		cityData:'',
+		isCorpName:false,
+		isCorpCode:false
 
 });
 //新建社区的开关
@@ -97,8 +99,13 @@ State.communityName = action(function(params) {
 	 data.id="";
 	 data.name=params;
 	 Store.dispatch(Actions.callAPI('check-name',data)).then(function(response) {
+	    _this.isCorpName=false;
 	}).catch(function(err) {
-		 Message.error(err.message);
+		if(err.message.indexOf("该名称已存在")!=-1){
+			 _this.isCorpName=true;
+		}else{
+			 _this.isCorpName=false;
+		}
 	});	
 });
 //校验社区编码
@@ -108,8 +115,13 @@ State.communityCode = action(function(params) {
 	 data.id="";
 	 data.code=params;
 	 Store.dispatch(Actions.callAPI('check-code',data)).then(function(response) {
+	   _this.isCorpCode=false;
 	}).catch(function(err) {
-		 Message.error(err.message);
+		 if(err.message.indexOf("该编码已存在")!=-1){
+			 _this.isCorpCode=true;
+		}else{
+			 _this.isCorpCode=false;
+		}
 	});	
 });
 
