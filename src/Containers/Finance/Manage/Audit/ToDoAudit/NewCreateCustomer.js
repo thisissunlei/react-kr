@@ -125,9 +125,6 @@ const validate = values => {
 	if (!values.company) {
 		errors.company = '请输入客户名称';
 	}
-
-
-
 	return errors
 }
 export default reduxForm({

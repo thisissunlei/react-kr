@@ -39,18 +39,34 @@ class NewCreateMainbill extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			communityList: [],
+			MainbillType: [],
 
 		}
+		this.getMainbillType();
+	}
+	getMainbillType = () => {
+		var _this = this;
+		var MainbillType;
+		Store.dispatch(Actions.callAPI('get-mainbill-type', {}, {})).then(function(response) {
+			MainbillType = response.map((item, index) => {
+				item.label = item.dicName;
+				item.value = item.id;
+				return item;
+			})
+			_this.setState({
+				MainbillType: MainbillType
+			})
+
+		}).catch(function(err) {});
 
 	}
-
 	onSubmit = (form) => {
-
 		const {
-			onSubmit
+			onSubmit,
+			detail
 		} = this.props;
-		onSubmit && onSubmit(form);
+		console.log('detail---', detail)
+			//onSubmit && onSubmit(form);
 	}
 
 
@@ -70,20 +86,48 @@ class NewCreateMainbill extends Component {
 			handleSubmit,
 			pristine,
 			reset,
-			detail
 		} = this.props;
-		console.log('detail----', detail)
+		let {
+			MainbillType
+		} = this.state;
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  
 							grid={1/2}
 				    		right={34}
-							name="customerName" 
+							name="mainbilltype" 
+							type="text" 
+							component="select" 
+							label="订单类型"
+							options={MainbillType}
+							requireLabel={true}
+					 />
+					 <KrField  
+							grid={1/2}
+				    		right={34}
+							name="communityid" 
 							type="text" 
 							component="input" 
-							label="客户名称" 
+							label="所属社区" 
+							requireLabel={true}
 					 />
+					 <KrField  
+							grid={1/2}
+				    		right={34}
+							name="mainbillname" 
+							type="text" 
+							component="input" 
+							label="订单名称" 
+							requireLabel={true}
+					 />
+					 <KrField  
+								style={{width:545}}  
+								name="mainbilldesc" 
+								component="textarea" 
+								label="备注" 
+								maxSize={100}
+						/>
 				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
@@ -108,8 +152,25 @@ class NewCreateMainbill extends Component {
 		);
 	}
 }
+const validate = values => {
 
+	const errors = {}
+
+	if (!values.mainbilltype) {
+		errors.mainbilltype = '请选择订单类型';
+	}
+	if (!values.communityid) {
+		errors.communityid = '请选择所属社区';
+	}
+	if (!values.mainbillname) {
+		errors.mainbillname = '请输入订单名称';
+	}
+	return errors
+}
 
 export default reduxForm({
-	form: 'newCreateMainbill'
+	form: 'newCreateMainbill',
+	validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true,
 })(NewCreateMainbill);

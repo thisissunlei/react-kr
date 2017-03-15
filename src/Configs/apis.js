@@ -1038,6 +1038,11 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-account-info?accountType={accountType}',
         method: 'get'
     },
+    //财务--审核列表--添加回款--获取订单类型
+    'get-mainbill-type': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-type',
+        method: 'get'
+    },
 
 
 }
