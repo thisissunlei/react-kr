@@ -66,6 +66,7 @@ export default class SelectTimeComponent extends React.Component{
        	})
     }
 
+
     //分针被点
     minuteClick = (hour,minute) => {
     	this.setState({
@@ -88,6 +89,31 @@ export default class SelectTimeComponent extends React.Component{
 
     }
 
+
+    componentDidMount() {
+      
+      let _this=this;
+		let bodyElem=document.getElementsByTagName("body")[0];
+		bodyElem.addEventListener("click",function(){
+           event = event || window.event;
+			var target = event.target;
+
+			while (target) {
+				if (target && target.className && target.className.indexOf('ui-time-select-all') !== -1) {
+					return;
+				}
+				target = target.parentNode;
+			}
+			_this.setState({
+				allOpen:false,
+			 })
+		    }
+		); 
+		
+			
+
+	}
+
 	render() {
 
 		let {allOpen,widthState,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
@@ -104,7 +130,7 @@ export default class SelectTimeComponent extends React.Component{
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
-	               	<input type="text" onClick={this.inputClick} value={timeNum} onChange={this.inputChange.bind(this,hourNum,minuteNum)} style={inputStyle}/>	
+	               	<input type="text" onClick={this.inputClick} value={timeNum||this.props.timeNum} onChange={this.inputChange.bind(this,hourNum,minuteNum)} style={inputStyle}/>	
 	              	{allOpen && 
 	              	<div className="ui-time-select-all">
 		                <div  className="ui-hour-style">

@@ -81,7 +81,6 @@ class CommunityList  extends Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{ 	
-        console.log('ooohhhhh',value);
    	    value = Object.assign({},value);
    	    var brightsStr=[];
 
@@ -329,13 +328,13 @@ class CommunityList  extends Component{
 	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
-		              <TableHeaderColumn>社区名编码</TableHeaderColumn>
+		              <TableHeaderColumn>社区编码</TableHeaderColumn>
 		              <TableHeaderColumn>所属城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn>社区排序</TableHeaderColumn>
 		              <TableHeaderColumn>官网显示状态</TableHeaderColumn>
 		              <TableHeaderColumn>开业时间</TableHeaderColumn>
-		              <TableHeaderColumn>社区面积m</TableHeaderColumn>
+		              <TableHeaderColumn>社区面积m<sup>2</sup></TableHeaderColumn>
 		              <TableHeaderColumn>开业状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>

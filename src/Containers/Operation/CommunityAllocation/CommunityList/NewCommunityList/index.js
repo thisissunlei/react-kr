@@ -45,7 +45,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
    return (
       <ul style={{padding:0,margin:0}}>
     {fields.map((wherefloorsStr, index) =>    
-      <li key={index}>
+      <li key={index} style={{width:600}}>
        <div className="krFlied-box"><KrField 
           style={{width:239,marginLeft:16,marginRight:3}}
           requireLabel={true}
@@ -91,7 +91,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index}>      
+      <li key={index} style={{width:600}}>      
         <KrField
           style={krStyle}
           grid={1/2}
@@ -124,7 +124,7 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index}>      
+      <li key={index} style={{width:600}}>      
         <KrField
           style={krStyle}
           grid={1}
@@ -159,7 +159,7 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index}>      
+      <li key={index} style={{width:600}}>      
         <KrField
           style={krStyle}
           grid={1}
@@ -194,7 +194,7 @@ const renderService = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index}>      
+      <li key={index} style={{width:600}}>      
         <KrField
           style={krStyle}
            grid={1}
@@ -224,7 +224,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
-       <li key={index}><KrField 
+       <li key={index} style={{width:600}}><KrField 
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}
@@ -320,6 +320,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
  
    	 State.communityCode(value);
    }
+
    //社区排序
     communityRankChange=(value)=>{
      let {cityId}=this.state;
@@ -334,7 +335,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     cityValue=(cityId,communityId,city)=>{
       this.setState({
         cityId:cityId 
-      })
+      })    
+      Store.dispatch(change('NewCommunityList','cityId',cityId));
       Store.dispatch(change('NewCommunityList','countyId',communityId));
     }
 
@@ -413,6 +415,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
                                     <KrField grid={1/2} type='hidden' name='latitude' component="input" style={{width:0}}/>
+                                    <KrField grid={1/2} type='hidden' name='cityId' component="input" style={{width:0}}/>
                                     <KrField grid={1/2} type='hidden' name='longitude' component="input" style={{width:0}}/>
 									                  <div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} onFocus={this.communityNameFocus}/>
                                       {State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
@@ -558,57 +561,57 @@ const validate = values =>{
 		let zeroNum=/^-?\\d+$/;　
 		 
          //楼层检验
-		 if (!values.wherefloorsStr || !values.wherefloorsStr.length) {
-			    errors.wherefloorsStr = { _error: 'At least one member must be entered' }
+		 if (!values.wherefloors || !values.wherefloors.length) {
+			    errors.wherefloors = { _error: 'At least one member must be entered' }
 			  } else {
 			    const membersArrayErrors = []
-			    values.wherefloorsStr.forEach((wherefloorsStr, memberIndex) => {
+			    values.wherefloors.forEach((wherefloors, memberIndex) => {
 			      const memberErrors = {}
-			      if (!wherefloorsStr || !wherefloorsStr.floor) {
+			      if (!wherefloors || !wherefloors.floor) {
 			        memberErrors.floor = '请输入所在楼层'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
-            if(wherefloorsStr.floor&&!noMinus.test(wherefloorsStr.floor)){
+            if(wherefloors.floor&&!noMinus.test(wherefloors.floor)){
                memberErrors.floor = '楼层为非负整数'
                membersArrayErrors[memberIndex] = memberErrors
             }
-			      if (!wherefloorsStr || !wherefloorsStr.stationCount) {
+			      if (!wherefloors || !wherefloors.stationCount) {
 			        memberErrors.stationCount = '请输入可出租工位数'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
-            if(wherefloorsStr.stationCount&&!noMinus.test(wherefloorsStr.stationCount)){
+            if(wherefloors.stationCount&&!noMinus.test(wherefloors.stationCount)){
                memberErrors.stationCount = '可出租工位数为非负整数'
                membersArrayErrors[memberIndex] = memberErrors
             }
 			    })
 		    if(membersArrayErrors.length) {
-		      errors.wherefloorsStr = membersArrayErrors
+		      errors.wherefloors = membersArrayErrors
 		    }
          }
 
           //工位校验
-		   if (!values.porTypesStr || !values.porTypesStr.length) {
-			    errors.porTypesStr = { _error: 'At least one member must be entered' }
+		   if (!values.porTypes || !values.porTypes.length) {
+			    errors.porTypes = { _error: 'At least one member must be entered' }
 			  } else {
 			    const membersArrayErrors = []
-			    values.porTypesStr.forEach((porTypesStr, memberIndex) => {
+			    values.porTypes.forEach((porTypes, memberIndex) => {
 			      const memberErrors = {}
-			      if (!porTypesStr.type&&porTypesStr.price) {
+			      if (!porTypes.type&&porTypes.price) {
 			        memberErrors.type = '请填写工位类型'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
-			      if (porTypesStr.price&&!zeroNum.test(porTypesStr.price)&&porTypes.price.length>5) {
+			      if (porTypes.price&&!zeroNum.test(porTypes.price)&&porTypes.price.length>5) {
 			        memberErrors.price = '价格不超过五位整数'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
 
-			      if (porTypesStr.type&&!porTypesStr.price) {
+			      if (porTypes.type&&!porTypes.price) {
 			        memberErrors.price = '请填写工位价格'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
 			    })
 		    if(membersArrayErrors.length) {
-		      errors.porTypesStr = membersArrayErrors
+		      errors.porTypes = membersArrayErrors
 		    }
          }
          
