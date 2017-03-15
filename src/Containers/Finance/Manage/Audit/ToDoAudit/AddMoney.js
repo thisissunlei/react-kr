@@ -176,25 +176,16 @@ class AddMoney extends Component {
 							<span>{totalCountMoney}</span>
 						</div>
 						{this.renderPayList()}
-						<Grid>
-						<Row style={{paddingBottom:50}}>
+						<Grid style={{marginTop:50}}>
+						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"  disabled={submitting} />
+								<Button  label="确定" type="submit"  />
 								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>
 						</Row>
 						</Grid>
-						{/*<div className="u-audit-btn-list">
-							<Button label="确定" type="submit"/>
-							<Button 
-									label="取消" 
-									cancle={true} 
-									type="button"  
-									onTouchTap={this.onCancel} 
-							/>
-						</div>*/}
 					</CircleStyleTwo>
 				</form>
 			</div>
