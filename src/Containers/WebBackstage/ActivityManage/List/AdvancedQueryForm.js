@@ -137,7 +137,7 @@ class NewCreateForm extends Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 				<KrField name="title" grid={1/2} type="text" component="input"  label="活动标题" style={{width:'252px',marginRight:'33',marginBottom:5}}/>
 				<KrField name="type" grid={1/2} type="text"  component="select" label="活动类型"  options={options} style={{width:'252px'}}/>
-				<KrField name="address"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
+				<KrField name="address"  component="cityId" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>

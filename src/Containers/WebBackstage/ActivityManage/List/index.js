@@ -27,70 +27,33 @@ import {
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import { Drawer} from 'material-ui';
-
+import State from './State';
+import {
+	observer
+} from 'mobx-react';
 import './index.less';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import NewCreateForm from './NewCreateForm';
-
+@observer
 export default class List extends Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
 	constructor(props, context) {
 		super(props, context);
-		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-		// this.onExport = this.onExport.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
-		this.state = {
-			openNewCreate: false,
-			openView: false,
-			openEditDetail: false,
-			openAdvancedQuery :false,
-			status:false,
-			submit:false,
-			itemDetail: {},
-			item: {},
-			list: {},
-			content:'',
-			filter:'COMP_NAME',
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				startTime:'',
-				endTime:'',
-				companyId:0,
-				cityId:'',
-				type:'COMP_NAME',
-				value:'',
-				status:false,
-			}
-		}
 	}
 	openNewCreateDialog=()=> {
-		this.setState({
-			openNewCreate: !this.state.openNewCreate,
-		});
+		State.openNewCreate = !State.openNewCreate;
 	}
 	// 编辑详情的Dialog
 	openEditDetailDialog(){
-		this.setState({
-			openEditDetail: !this.state.openEditDetail,
-		});
+		State.openEditDetail = !State.openEditDetail;
 	}
-	// 社区模糊查询
-	onChangeSearchCommunity(community) {
-		Store.dispatch(change('joinCreateForm', 'communityName', community.communityName));
-	}
-	// 公司模糊查询
-	onChangeSearchCompany(company) {
-		Store.dispatch(change('joinCreateForm', 'companyName', company.companyName));
-	}
-
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
@@ -100,138 +63,75 @@ export default class List extends Component {
 			list
 		})
 	}
-	//操作相关
-	onOperation(type, itemDetail) {
-		this.setState({
-			itemDetail
-		});
-		// console.log("itemDetail",itemDetail);
-		if (type == 'view') {
-			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
-		} else if (type == 'edit') {
-			this.openEditDetailDialog();
-		}
-	}
 	// 导出Excle表格
 	onExport=(values)=>{
+		var url = '';
+		let params = State.searchParams;
 		let ids = [];
 		if (values.length != 0) {
 			values.map((item, value) => {
 				ids.push(item.id)
 			});
+			ids = String(ids);
+			url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+
+		}else{
+			url = `/api/krspace-finance-web/member/member-list-excel?cityId={cityId}&type={type}&title={title}&startTime={startTime}&endTime={endTime}`
+			if (Object.keys(params).length) {
+				for (let item in params) {
+					if (params.hasOwnProperty(item)) {
+						url = url.replace('{' + item + '}', params[item]);
+						delete params[item];
+					}
+				}
+			}
 		}
-		console.log('===>onExport',values,this.state.searchParams);
-		// ids = String(ids);
-		// var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		console.log('===>onExport',values,State.searchParams);
+		console.log('url',url);
+		
 		// window.location.href = url;
+		
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
-		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
-			_this.openEditDetailDialog();
-			Message.success("操作成功");
-			_this.setState({
-				status:!_this.state.status,
-				searchParams:{
-					page:"1",
-					pageSize:"15",
-					value:'',
-					type:'COMP_NAME',
-					status:!_this.state.status,
-					companyId:"0",
-				}
-			})
-		}).catch(function(err){
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'danger',
-			// }]);
-		});
+		console.log('提交编辑',values);
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		// console.log("value",values);
-		let params = {
-			email:values.email
-		}
-		let cardSearchParams ={
-			foreignCode:values.cardId
-		}
-		let _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
-							_this.openNewCreateDialog();
-							Message.success("操作成功");
-							_this.setState({
-								status:!_this.state.status,
-								searchParams:{
-									page:"1",
-									pageSize:"15",
-									type:'COMP_NAME',
-									value:"",
-									status:!_this.state.status,
-									companyId:0,
-								}
-							})
-						}).catch(function(err){
-							Notify.show([{
-								message: err.message,
-								type: 'danger',
-							}]);
-						});
+		console.log('新建活动',values);
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-		let _this = this;
-		let searchParam = {
-			value :value.content,
-		}
-		_this.setState({
-			content :value.content,
-			filter :value.filter,
-			submit:true,
-			searchParams :{
-				value:value.content,
-				page :1,
-				pageSize:15,
-				companyId:0,
-			}
-		})
+		console.log('===>',value);
+		value.companyId = 0;
+		State.searchParams = value;
+		console.log(State.searchParams);
 	}
 	// 打开高级查询
 	openAdvancedQueryDialog(){
-		this.setState({
-			openAdvancedQuery: !this.state.openAdvancedQuery,
-			// searchParams:{
-			// 	pageSize:'15'
-			// }
-		});
+		State.openAdvancedQuery = !State.openAdvancedQuery;
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
-		let _this = this;
-		_this.setState({
-			openAdvancedQuery: !this.state.openAdvancedQuery,
-			searchParams :{
-				title:values.title || '',
-				type :values.type,
-				cityId :values.city || '',
-				endTime :values.endTime || '',
-				startTime :values.startTime || '',
-				page:1,
-				pageSize:15,
-				companyId:0,
-			}
-		})
+		values.companyId = 0;
+		console.log('高级查询',values);
+		State.searchParams = values;
+	}
+	downPublish=(itemData)=>{
+		console.log('downPublish');
+	}
+	publish=(itemData)=>{
+		console.log('publish');
+	}
+	resetUpPosition=(itemData)=>{
+		console.log('resetUpPosition');
+	}
+	upPosition=(itemData)=>{
+		console.log('upPosition');
 	}
 	render() {
-		let {
-			list,itemDetail,seleced
-		} = this.state;
-		// console.log("list",list);
-		if (!list.totalCount) {
-			list.totalCount = 0;
+		if (!State.list.totalCount) {
+			State.list.totalCount = 0;
 		}
 		let options = [{
 			label: '公司名称',
@@ -254,7 +154,7 @@ export default class List extends Component {
 										<Button label="新建活动"  onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
 										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
+										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} />
 									</form>
 									<Table
 										className="member-list-table"
@@ -269,7 +169,7 @@ export default class List extends Component {
 											onExport={this.onExport}
 											ajaxFieldListName='items'
 											ajaxUrlName='membersList'
-											ajaxParams={this.state.searchParams}
+											ajaxParams={State.searchParams}
 										>
 										<TableHeader>
 											<TableHeaderColumn>活动标题</TableHeaderColumn>
@@ -334,9 +234,9 @@ export default class List extends Component {
 												if(itemData.registerName){
 													return (
 															<span>
-															<Button label="查看"  type="operation" />
-															<Button label="编辑"  type="operation" />
-															<Button label="发布"  type="operation" />
+															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="发布"  type="operation" onTouchTap={this.publish.bind(this,itemData)}/>
 															</span>
 														)
 												}else{
@@ -344,19 +244,19 @@ export default class List extends Component {
 													if(itemData.isLeader){
 														return (
 															<span>
-															<Button label="查看"  type="operation" />
-															<Button label="编辑"  type="operation" />
-															<Button label="下线"  type="operation" />
-															<Button label="取消置顶"  type="operation" />
+															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
+															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
 															</span>
 														)
 													}else{
 														return (
 															<span>
-															<Button label="查看"  type="operation" />
-															<Button label="编辑"  type="operation" />
-															<Button label="下线"  type="operation" />
-															<Button label="置顶"  type="operation" />
+															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
+															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
 															</span>
 														)
 													}
@@ -367,21 +267,22 @@ export default class List extends Component {
 									<TableFooter></TableFooter>
 									</Table>
 								</Section>
-							  <Drawer open={this.state.openNewCreate} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								{/*新建活动*/}
+							  <Drawer open={State.openNewCreate} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
-								<Dialog
-									title="编辑会员"
-									modal={true}
-									open={this.state.openEditDetail}
-									onClose={this.openEditDetailDialog}
-									contentStyle={{width:687}}
-								>
-							  </Dialog>
+							  {/*查看活动*/}
+							  <Drawer open={State.openNewCreate} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+							  </Drawer>
+								{/*编辑活动*/}
+							  <Drawer open={State.openEditDetail} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />
+							  </Drawer>
 								<Dialog
 									title="高级查询"
 									modal={true}
-									open={this.state.openAdvancedQuery}
+									open={State.openAdvancedQuery}
 									onClose={this.openAdvancedQueryDialog}
 									contentStyle={{width:687}}
 								>

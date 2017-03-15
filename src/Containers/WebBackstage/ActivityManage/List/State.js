@@ -1,0 +1,37 @@
+import mobx, {
+	observable,
+	action,
+} from 'mobx';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+
+let State = observable({
+	openNewCreate: false,
+	openView: false,
+	openEditDetail: false,
+	openAdvancedQuery :false,
+	status:false,
+	submit:false,
+	itemDetail: {},
+	item: {},
+	list: {},
+	content:'',
+	filter:'COMP_NAME',
+	searchParams: {
+		page: 1,
+		pageSize: 15,
+		startTime:'',
+		endTime:'',
+		companyId:0,
+		cityId:'',
+		type:'COMP_NAME',
+		value:'',
+		title:'',
+		status:false,
+	}
+});
+
+
+module.exports = State;
