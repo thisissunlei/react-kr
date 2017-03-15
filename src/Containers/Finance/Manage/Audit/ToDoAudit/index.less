@@ -1,3 +1,11 @@
+.u-clearfix { zoom:1; }
+.u-clearfix:after {
+  clear: both;
+  content: '.';
+  height: 0;
+  display: block;
+  visibility: hidden;
+}
 .m-todo-audit{
 	.u-search{
 		margin:26px 0;
@@ -17,11 +25,30 @@
 		background-size: cover;
 	}
 }
-.u-clearfix { zoom:1; }
-.u-clearfix:after {
-  clear: both;
-  content: '.';
-  height: 0;
-  display: block;
-  visibility: hidden;
+.u-audit-add{
+	.u-audit-add-title{
+		width:100%;
+		height:42px;
+		color:#333333;
+		font-size:18px;
+		font-family:'FZLTZHJW  GB1 0';
+		span{
+			vertical-align: middle;
+		}
+	}
+	.u-audit-add-icon{
+		width:40px;
+		height:40px;
+		display:inline-block;
+		background:url(images/icon.svg) no-repeat center center;
+		background-size: cover;
+	}
+	.u-audit-close{
+		width:18px;
+		height:18px;
+		float:right;
+		display:inline-block;
+		background:url('images/close.svg') no-repeat center center;
+		background-size: cover;
+	}
 }

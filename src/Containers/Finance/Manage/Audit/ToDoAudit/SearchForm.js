@@ -53,6 +53,12 @@ class SearchForm extends Component {
 		openSearch && openSearch();
 
 	}
+	openCreate = () => {
+		const {
+			openCreate
+		} = this.props;
+		openCreate && openCreate();
+	}
 
 	onCancel = () => {
 		const {
@@ -72,7 +78,7 @@ class SearchForm extends Component {
 
 		return (
 			<div >
-				<Button label="添加回款" onTouchTap={this.openCreateDialog} />
+				<Button label="添加回款" onTouchTap={this.openCreate} />
 				<span className="u-span"></span>
 				<Button label="批量审核"  />
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>

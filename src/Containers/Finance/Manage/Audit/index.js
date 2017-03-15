@@ -156,8 +156,7 @@ export default class AuditList extends Component {
     let merchantsStyle = (tab == 'merchants' || tab == 'table') ? activeTab : commenTab;
     let personalStyle = (tab == 'personal') ? activeTab : commenTab;
     let signedClientStyle = (tab == 'signedClient') ? activeTab : commenTab;
-    //console.log('countList---', countList)
-    //console.log('countList.unCheckedCount---', countList.unCheckedCount)
+
     if (countList != " ") {
       return (
 
