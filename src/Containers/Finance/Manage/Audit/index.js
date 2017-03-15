@@ -157,7 +157,7 @@ export default class AuditList extends Component {
     let personalStyle = (tab == 'personal') ? activeTab : commenTab;
     let signedClientStyle = (tab == 'signedClient') ? activeTab : commenTab;
 
-    if (countList != " ") {
+    //if (countList != " ") {
       return (
 
         <div>
@@ -180,11 +180,11 @@ export default class AuditList extends Component {
       </div>
 
       );
-    } else {
+    /*} else {
       return (
         <div></div>
       )
-    }
+    }*/
 
   }
 
