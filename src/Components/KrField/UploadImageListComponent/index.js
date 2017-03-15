@@ -162,7 +162,6 @@ export default class UploadImageComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									 console.log('[[[----',xhrfile,file);
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									_this.onError(fileResponse.msg);
@@ -178,7 +177,7 @@ export default class UploadImageComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					xhrfile.open('POST', '/api/krspace_knowledge_wap/doc/docFile/uploadSingleFile', true);
+					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -190,7 +189,7 @@ export default class UploadImageComponent extends Component {
 		xhr.onerror = function(e) {
 			console.error(xhr.statusText);
 		};
-		xhr.open('GET', '/api-old/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
+		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
 		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
@@ -199,11 +198,12 @@ export default class UploadImageComponent extends Component {
 			operateImg : false
 		});
 	}
+	
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
 		let {fileArray,photo}=this.state;
 		let _this = this;
-		if(file ){
+		if(file){
                 var fileData = file;
                  //读取图片数据
                 var reader = new FileReader();

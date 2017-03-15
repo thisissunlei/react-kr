@@ -140,7 +140,7 @@ class CommunityList  extends Component{
    	    } 
    	      delete value.brights;
 
-          delete value.photos;
+          //delete value.photos;
 
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");

@@ -192,11 +192,17 @@ import State from '../State';
         propType.push(item);
       })	 
     }
-
     
-
+    var area='';
+    if(State.detailData.area){
+      area=State.detailData.area; 
+    }else{
+      area='无'; 
+    }
+   
          
-       let {openDown,openUp}=this.state;
+    let {openDown,openUp}=this.state;
+
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -211,9 +217,9 @@ import State from '../State';
 							<div className="small-cheek">
 									<KrField grid={1/2} label="社区名称"  component="labelText" style={{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.name)?toJS(State.detailData.name):'无'}/>
 
-                                    <KrField grid={1/2} label="社区编码"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.code)?toJS(State.detailData.code):'无'}/>
+                                    <KrField grid={1/2} label="社区编码"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.code)?toJS(State.detailData.code):'无'} />
 
-                                    <KrField grid={1/2} label="社区面积"  style={{width:262,marginLeft:15}} inline={false} component="labelText" value={toJS(State.detailData.area)?toJS(State.detailData.area):'无'}></KrField>
+                                    <KrField grid={1/2} label="社区面积"  style={{width:262,marginLeft:15}} inline={false} component="labelText" value={(<div style={{marginTop:-5}}><span>{area}</span><span>m</span><sup>2</sup></div>)}></KrField>
 
                                     
                                     <KrField  grid={1/2}  style={{width:262,marginLeft:28}} component='labelText'  label="所属商圈" inline={false} value={toJS(State.detailData.businessAreaName)?toJS(State.detailData.businessAreaName):'无'}
