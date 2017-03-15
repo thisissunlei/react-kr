@@ -74,43 +74,11 @@ class ZhangQu extends Component {
 		return (
 			<div>
                <form>
-			       <KrField name="uploadImage" 
-								component="uploadImageList" 
-								style={{marginTop:10}} 
-								photoSize={'212*136'} 
-								pictureFormat={'JPG'} 
-								pictureMemory={'32K'}
-								//requestURI = {this.state.requestURI}
-					/>
-
+			       <KrField component="selectTime" />
+			       	<h1>sdfsdf</h1>
 			   </form>
 
-               <div 
-                style={{width:200,height:'auto'}}
-                 onMouseOver={this.liOver}
-               >
-                <div 
-                 style={{display:'inline-block',width:100,background:'red'}}            
-                 >
-                 {
-                  hour.map((item,index)=>{
-                     return <p>{item}</p>
-                  })	
-                 }
-                 </div>
-                 <div 
-                 	style={{display:'inline-block',width:100,background:'blue',verticalAlign: 'top'}}
-                    onMouseOut={this.liOut}
-                 	>
-                 {
-                  minute.map((item,index)=>{
-                     return <p>{item}</p>
-                  })	
-                 }
-                 </div>
-                             
-               </div>
-              
+               
 		</div>
 
 
