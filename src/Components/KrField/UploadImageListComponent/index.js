@@ -164,7 +164,7 @@ export default class UploadImageComponent extends Component {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
-									_this.onError(fileResponse.msg);
+									//_this.onError(fileResponse.msg);
 									return;
 								}
 							} else if (xhrfile.status == 413) {
@@ -198,7 +198,7 @@ export default class UploadImageComponent extends Component {
 			operateImg : false
 		});
 	}
-	
+
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
 		let {fileArray,photo}=this.state;
