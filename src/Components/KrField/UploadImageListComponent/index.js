@@ -31,11 +31,6 @@ export default class UploadImageComponent extends Component {
 			files :{},
 			imageStatus : true,
 			fileArray:[],
-			photo:{
-			   first:false,
-               type:this.props.type,
-               photoId:''
-			}
 		}
 	}
 	componentWillUnmount() {
@@ -147,7 +142,7 @@ export default class UploadImageComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					console.log("response",xhr.response);
+					//console.log("response",xhr.response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -162,6 +157,7 @@ export default class UploadImageComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
+									console.log('llkkkkkk',fileResponse);
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									//_this.onError(fileResponse.msg);
@@ -198,12 +194,11 @@ export default class UploadImageComponent extends Component {
 			operateImg : false
 		});
 	}
-
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
-		let {fileArray,photo}=this.state;
+		let {fileArray}=this.state;
 		let _this = this;
-		if(file){
+		if(file ){
                 var fileData = file;
                  //读取图片数据
                 var reader = new FileReader();
@@ -221,8 +216,9 @@ export default class UploadImageComponent extends Component {
                    
                    const {input}=_this.props;
 			       input.onChange(xhrfile.response.data);
-                   photo.src=data;
-                   fileArray.push(photo);
+			       console.log('00-----',xhrfile.response.data);
+                   
+                   fileArray.push(data);
                    
                    _this.setState({
                    	 fileArray
