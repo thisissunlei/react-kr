@@ -80,10 +80,9 @@ class CommunityList  extends Component{
    	  State.switchNewCommunityList(); 
    }
    //新建社区提交
-   onNewCommunitySubmit=(value)=>{
-   	
+   onNewCommunitySubmit=(value)=>{ 	
+        console.log('ooohhhhh',value);
    	    value = Object.assign({},value);
-
    	    var brightsStr=[];
 
    	    if(value.bright1){
@@ -135,6 +134,7 @@ class CommunityList  extends Component{
    	    }     
    	      value.wherefloorsStr=JSON.stringify(value.wherefloors);
    	      delete value.wherefloors;
+   	      
    	    if(value.porTypes){
    	      value.porTypesStr=JSON.stringify(value.porTypes); 
    	      delete value.porTypes;

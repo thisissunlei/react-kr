@@ -30,7 +30,12 @@ export default class UploadImageComponent extends Component {
 			operateImg :false,
 			files :{},
 			imageStatus : true,
-			fileArray:[]
+			fileArray:[],
+			photo:{
+			   first:false,
+               type:this.props.type,
+               photoId:''
+			}
 		}
 	}
 	componentWillUnmount() {
@@ -142,7 +147,7 @@ export default class UploadImageComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					console.log("response",response);
+					console.log("response",xhr.response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -157,6 +162,7 @@ export default class UploadImageComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
+									 console.log('[[[----',xhrfile,file);
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									_this.onError(fileResponse.msg);
@@ -172,7 +178,7 @@ export default class UploadImageComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
+					xhrfile.open('POST', '/api/krspace_knowledge_wap/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -184,7 +190,7 @@ export default class UploadImageComponent extends Component {
 		xhr.onerror = function(e) {
 			console.error(xhr.statusText);
 		};
-		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
+		xhr.open('GET', '/api-old/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
 		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
@@ -195,36 +201,33 @@ export default class UploadImageComponent extends Component {
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
-		let {fileArray}=this.state;
+		let {fileArray,photo}=this.state;
 		let _this = this;
 		if(file ){
                 var fileData = file;
                  //读取图片数据
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                 	// console.log("e",e);
-                    var data = e.target.result;
+                 	//console.log("e",e);
+                    var data = reader.result;
                      //加载图片获取图片真实宽度和高度
-                    var image = new Image();
-                    image.onload=function(){
-                         var width = image.width;
-                         var height = image.height;
-                        	_this.refs.uploadImage.src = xhrfile.response.data;
+                        
+                        	//_this.refs.uploadImage.src = xhrfile.response.data;
                         	_this.setState({
 								imageStatus : true,
 								imgUpload : true,
 								operateImg : false
 							});
-							const {input}=_this.props;
-							input.onChange(xhrfile.response.data);
-                            
-                            console.log('----oooo',xhrfile.response.data);
+                   
+                   const {input}=_this.props;
+			       input.onChange(xhrfile.response.data);
+                   photo.src=data;
+                   fileArray.push(photo);
+                   
+                   _this.setState({
+                   	 fileArray
+                   })
 
-                    };
-                    
-                    
-                    fileArray.push(data);
-                    //image.src= data;
                  };
                  reader.readAsDataURL(fileData);
  

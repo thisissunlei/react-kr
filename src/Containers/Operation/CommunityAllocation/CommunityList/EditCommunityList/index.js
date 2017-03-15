@@ -105,6 +105,9 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础服务
 const renderBasic = ({ fields, meta: { touched, error }}) => {
+   if(!fields.length){
+     fields.push({type:'BASICSERVICE'})
+   }
   var krStyle={};    
        krStyle={
         width:517,
@@ -116,13 +119,15 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
       <li key={index}>      
         <KrField
           style={krStyle}
-          grid={1/2}
+          grid={1}
           name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
+          heightStyle={{height:"68px",width:'508px'}} 
+          component="textarea" 
+          maxSize={100} 
           label='基础服务'
+          placeholder='请输入基础服务' 
           />
-        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={{marginTop:32}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={{marginTop:45}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -135,6 +140,9 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-特色服务
 const renderSpecial = ({ fields, meta: { touched, error }}) => {
+  if(!fields.length){
+     fields.push({type:'SPECIALSERVICE'})
+   }
   var krStyle={};    
        krStyle={
         width:517,
@@ -146,13 +154,15 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
       <li key={index}>      
         <KrField
           style={krStyle}
-          grid={1/2}
+          grid={1}
           name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
+          heightStyle={{height:"68px",width:'508px'}} 
+          component="textarea" 
+          maxSize={100} 
           label='特色服务'
+          placeholder='请输入特色服务' 
           />
-         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={{marginTop:32}}></span>       
+         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={{marginTop:45}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -165,6 +175,9 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础设施
 const renderService = ({ fields, meta: { touched, error }}) => {
+   if(!fields.length){
+     fields.push({type:'INFRASTRUCTURE'})
+   }
   var krStyle={};    
        krStyle={
         width:517,
@@ -176,13 +189,15 @@ const renderService = ({ fields, meta: { touched, error }}) => {
       <li key={index}>      
         <KrField
           style={krStyle}
-          grid={1/2}
-          name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
-          label='基础设施'
+           grid={1}
+           name={`${brightsStr}.brightPoints`}
+           heightStyle={{height:"68px",width:'508px'}} 
+           component="textarea" 
+           maxSize={100} 
+           label='基础设施'
+           placeholder='请输入基础设施' 
           />
-        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={{marginTop:32}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={{marginTop:45}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -192,7 +207,6 @@ const renderService = ({ fields, meta: { touched, error }}) => {
 
  )
 }
-
 
 //工位价格
 const renderStation = ({ fields, meta: { touched, error }}) => {
@@ -293,7 +307,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     //社区排序
     communityRankChange=(value)=>{
      let {cityId}=this.state;
-   	 State.communityRank(value,cityId);
+     if(value){
+        State.communityRank(value,cityId);
+     }
+   	
    } 
 
 	//所属区县
@@ -345,7 +362,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             	Store.dispatch(change('editCommunityList','bright6.brightPoints',item.brightPoints));
             }
 	      })
-
         Store.dispatch(change('editCommunityList','bright4',bright4));
         Store.dispatch(change('editCommunityList','bright3',bright3));
         Store.dispatch(change('editCommunityList','bright2',bright2));
@@ -387,13 +403,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       })
     }
 
-     businessTimeStart=(value)=>{
-      Store.dispatch(change('editCommunityList','businessBegin',value));
-    }
-
-     businessTimeEnd=(value)=>{
-      Store.dispatch(change('editCommunityList','businessEnd',value));
-    }
+  
    
 
 	render(){
@@ -491,9 +501,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
 								
-                                 <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:10,marginLeft:16}} name='businessBegin' onChange={this.businessTimeStart}/>
+                                 <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
                                  <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
-                                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:10,marginLeft:-1,marginTop:15}} name='businessEnd' onChange={this.businessTimeEnd}/>
+                                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd'/>
 
 								                 <KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:9}} component="input" requireLabel={true}/>
 								
@@ -523,8 +533,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						     <FieldArray name="bright1" component={renderService}/>
 						     <FieldArray name="bright2" component={renderBasic} />
 						     <FieldArray name="bright3" component={renderSpecial}/>      
-						     <KrField grid={1/2} label="交通" name="bright5.brightPoints" component="input" style={{width:552,marginLeft:15}}/>
-						     <KrField grid={1/2} label="周边" name="bright6.brightPoints" component="input" style={{width:552,marginLeft:15}}/>
+						     <KrField grid={1} label="交通" name="bright5.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+                 <KrField grid={1} label="周边" name="bright6.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						     <KrField name="uploadImage" 
 								component="uploadImage" 
 								style={{marginTop:10}} 
@@ -624,78 +634,6 @@ const validate = values =>{
          
          
 
-       //基础设施类  
-            if (!values.bright1 || !values.bright1.length) {
-          errors.bright1 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright1.forEach((bright1, memberIndex) => {
-            const memberErrors = {}
-            if (bright1.brightPoints&&bright1.brightPoints.length>100) {
-              bright1.brightPoints=bright1.brightPoints.substr(0,bright1.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright1 = bright1ArrayErrors
-        }
-         }
-
-
-        if (!values.bright2 || !values.bright2.length) {
-          errors.bright2 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright2.forEach((bright2, memberIndex) => {
-            const memberErrors = {}
-            if (bright2.brightPoints&&bright2.brightPoints.length>100) {
-              bright2.brightPoints=bright2.brightPoints.substr(0,bright2.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright2 = bright1ArrayErrors
-        }
-         }
-
-
-          if (!values.bright3 || !values.bright3.length) {
-          errors.bright3 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright3.forEach((bright3, memberIndex) => {
-            const memberErrors = {}
-            if (bright3.brightPoints&&bright3.brightPoints.length>100) {
-              bright3.brightPoints=bright3.brightPoints.substr(0,bright3.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright3 = bright1ArrayErrors
-        }
-         }
-
-          if (!values.bright4 || !values.bright4.length) {
-          errors.bright4 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright4.forEach((bright4, memberIndex) => {
-            const memberErrors = {}
-            if (bright4.brightPoints&&bright4.brightPoints.length>100) {
-              bright4.brightPoints=bright4.brightPoints.substr(0,bright4.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright4 = bright1ArrayErrors
-        }
-         }
-
-         
 
         
          

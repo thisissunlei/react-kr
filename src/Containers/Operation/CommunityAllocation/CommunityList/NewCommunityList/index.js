@@ -127,13 +127,15 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
       <li key={index}>      
         <KrField
           style={krStyle}
-          grid={1/2}
+          grid={1}
           name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
+          heightStyle={{height:"68px",width:'508px'}} 
+          component="textarea" 
+          maxSize={100} 
           label='基础服务'
+          placeholder='请输入基础服务' 
           />
-        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={{marginTop:32}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={{marginTop:45}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -160,13 +162,15 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
       <li key={index}>      
         <KrField
           style={krStyle}
-          grid={1/2}
+          grid={1}
           name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
+          heightStyle={{height:"68px",width:'508px'}} 
+          component="textarea" 
+          maxSize={100} 
           label='特色服务'
+          placeholder='请输入特色服务' 
           />
-         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={{marginTop:32}}></span>       
+         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={{marginTop:45}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -193,13 +197,15 @@ const renderService = ({ fields, meta: { touched, error }}) => {
       <li key={index}>      
         <KrField
           style={krStyle}
-          grid={1/2}
-          name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
-          label='基础设施'
+           grid={1}
+           name={`${brightsStr}.brightPoints`}
+           heightStyle={{height:"68px",width:'508px'}} 
+           component="textarea" 
+           maxSize={100} 
+           label='基础设施'
+           placeholder='请输入基础设施' 
           />
-        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={{marginTop:32}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={{marginTop:45}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -262,7 +268,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			openDown:true,
       openUp:false,
       communityName:'',
-      codeName:''
+      codeName:'',
+      requestURI:"postEquipmentImg",
 		}
 	}
 	onSubmit = (values) => {	
@@ -316,7 +323,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
    //社区排序
     communityRankChange=(value)=>{
      let {cityId}=this.state;
-   	 State.communityRank(value,cityId);
+     if(value){
+        State.communityRank(value,cityId);
+     }
+   	
    }
 	
 
@@ -364,14 +374,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       })
     }
 
-    businessTimeStart=(value)=>{
-      console.log('[[;;;;',value);
-      Store.dispatch(change('NewCommunityList','businessBegin',value));
-    }
-
-     businessTimeEnd=(value)=>{
-      Store.dispatch(change('NewCommunityList','businessEnd',value));
-    }
+   
    
 
 	render(){
@@ -469,9 +472,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
 								
-                                 <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:10,marginLeft:16}} name='businessBegin' onChange={this.businessTimeStart}/>
+                                 <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
                                  <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
-								                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:10,marginLeft:-1,marginTop:15}} name='businessEnd' onChange={this.businessTimeEnd}/>
+								                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd'/>
 
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
@@ -496,22 +499,24 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					             	<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
                 {State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-					         <FieldArray name="potTypes" component={renderStation}/> 
+					         <FieldArray name="porTypes" component={renderStation}/> 
 					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     
 						     <FieldArray name="bright1" component={renderService}/>
                  <FieldArray name="bright2" component={renderBasic} />
-                 <FieldArray name="bright3" component={renderSpecial}/>  
-						     <KrField grid={1/2} label="交通" name="bright5.brightPoints" component="input" style={{width:552,marginLeft:15}}/>
-						     <KrField grid={1/2} label="周边" name="bright6.brightPoints" component="input" style={{width:552,marginLeft:15}}/>
-						     <KrField name="uploadImage" 
-								component="uploadImage" 
-								style={{marginTop:10}} 
-								photoSize={'212*136'} 
-								pictureFormat={'JPG'} 
-								pictureMemory={'32K'}
-								//requestURI = {this.state.requestURI}
+                 <FieldArray name="bright3" component={renderSpecial}/>   
+						     <KrField grid={1} label="交通" name="bright5.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+						     <KrField grid={1} label="周边" name="bright6.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+						   <div style={{marginTop:'-16px'}}>  
+                 <span className='upload-pic-first'>上传首页图片</span>
+                 <KrField name="photosStr" 
+    								component="uploadImageList" 
+    								style={{marginTop:10,textAlign:'left'}}
+                    requestURI = {this.state.requestURI}
+                    
 					         />
+               </div>
+
 						</div>
 						<div className="end-round"></div>
                      </div>}
@@ -607,83 +612,6 @@ const validate = values =>{
 		    }
          }
          
-         
-
-            //基础设施类	
-            if (!values.bright1 || !values.bright1.length) {
-			    errors.bright1 = { _error: 'At least one member must be entered' }
-			  } else {	  
-			    const bright1ArrayErrors = []
-			    values.bright1.forEach((bright1, memberIndex) => {
-			      const memberErrors = {}
-			      if (bright1.brightPoints&&bright1.brightPoints.length>100) {
-			      	bright1.brightPoints=bright1.brightPoints.substr(0,bright1.brightPoints.length-1);
-			        memberErrors.brightPoints = '不能超过100字'
-			        bright1ArrayErrors[memberIndex] = memberErrors
-			      }
-			    })
-		    if(bright1ArrayErrors.length) {
-		      errors.bright1 = bright1ArrayErrors
-		    }
-         }
-
-
-        if (!values.bright2 || !values.bright2.length) {
-          errors.bright2 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright2.forEach((bright2, memberIndex) => {
-            const memberErrors = {}
-            if (bright2.brightPoints&&bright2.brightPoints.length>100) {
-              bright2.brightPoints=bright2.brightPoints.substr(0,bright2.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright2 = bright1ArrayErrors
-        }
-         }
-
-
-          if (!values.bright3 || !values.bright3.length) {
-          errors.bright3 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright3.forEach((bright3, memberIndex) => {
-            const memberErrors = {}
-            if (bright3.brightPoints&&bright3.brightPoints.length>100) {
-              bright3.brightPoints=bright3.brightPoints.substr(0,bright3.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright3 = bright1ArrayErrors
-        }
-         }
-
-          if (!values.bright4 || !values.bright4.length) {
-          errors.bright4 = { _error: 'At least one member must be entered' }
-        } else {    
-          const bright1ArrayErrors = []
-          values.bright4.forEach((bright4, memberIndex) => {
-            const memberErrors = {}
-            if (bright4.brightPoints&&bright4.brightPoints.length>100) {
-              bright4.brightPoints=bright4.brightPoints.substr(0,bright4.brightPoints.length-1);
-              memberErrors.brightPoints = '不能超过100字'
-              bright1ArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(bright1ArrayErrors.length) {
-          errors.bright4 = bright1ArrayErrors
-        }
-         }
-
-         
-
-        
-         
 
 		if(!values.name){
 			errors.name = '请填写社区名称';
@@ -710,9 +638,7 @@ const validate = values =>{
 
 		if (!values.address) {
 			errors.address= '请输入详细地址';
-		}
-   
-   
+		} 
 
 		if(values.orderNum&&!numberNotZero.test(values.orderNum)){
 			errors.orderNum='只能输入正整数';
