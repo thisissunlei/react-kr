@@ -58,10 +58,14 @@ export default (
 
 		{/*demo*/}
 		<Route path="demo" component={Basic}>
+
 			<Route path="zhangqu" component={Demo.ZhangQu}/>
 			<Route path="machaoyue" component={Demo.MaChaoYue}/>
 			<Route path="dongfanai" component={Demo.DongFanAi}/>
-			<Route path="liuyihao" component={Demo.LiuYiHao}/>
+			<Route path="liuyihao" component={Basic}>
+				<Route path="new" component={Demo.LiuYiHao.New}/>
+				<Route path="detail" component={Demo.LiuYiHao.Detail}/>
+			</Route>
 			<Route path="zhangchi" component={Demo.ZhangChi}/>
 			<Route path="tanlinlin" component={Demo.TanLinLin}/>
 			<Route path="wushulin" component={Demo.WuShuLin}/>
@@ -71,10 +75,11 @@ export default (
 		<Route path="member" component={Basic}>
              <IndexRedirect to="memberManage/list" />
 
-		<Route path="memberManage" component={Basic}>
+			<Route path="memberManage" component={Basic}>
 				<Route path="list"  component={Member.MemberManage.List}/>
 				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
 				<Route path="setting"  component={Member.MemberManage.Setting}/>
+				<Route path="card"  component={Member.MemberManage.Card}/>
 
 			</Route>
 
@@ -116,11 +121,16 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-        {/*分组模版管理*/}
-        <Route path="groupSetting" component={Operation.GroupSetting}/>
-        {/*客户管理*/}
+                 {/*分组模版管理*/}
+                <Route path="groupSetting" component={Operation.GroupSetting}/>
+            	{/*基础配置*/}
+                <Route path="basicConfig" component={Basic}>
+                	<Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
+                </Route>
+                 {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
+					<Route path="agreementList" component={Operation.CustomerManage.AgreementList} />
 
 					<Route path="list" component={Operation.CustomerManage.List} />
 

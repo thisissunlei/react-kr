@@ -105,6 +105,7 @@ export default class TableFooter extends React.Component {
 		if (!pagination) {
 			return null;
 		}
+
 		return (
 			<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange}/>
 		);

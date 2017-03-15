@@ -312,7 +312,7 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="email"
+											<TableRowColumn name="email" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
@@ -333,7 +333,7 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="companyName"
+											<TableRowColumn name="companyName" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"

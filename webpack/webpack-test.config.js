@@ -3,6 +3,8 @@ const path = require('path');
 const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const node_modules_dir = path.join(process.cwd(),'node_modules');
+const HappyPack = require('happypack');
 
 var env = process.env.NODE_ENV || 'production';
 
@@ -11,17 +13,19 @@ const config = {
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
-		extensions: ['', '.js', '.md','.css'],
+		extensions: ['', '.js', '.md','.css','.png','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
+			'redux':path.join(node_modules_dir,'redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'mobx':path.join(node_modules_dir,'mobx'),
+			'mobx-react':path.join(node_modules_dir,'mobx-react'),
+			'react-router':path.join(node_modules_dir,'react-router'),
+			'material-ui':path.join(node_modules_dir,'material-ui'),
+			'lodash':path.join(node_modules_dir,'lodash'),
 		},
 	},
-	/*
-	externals: {
-		'react':'React',
-	},
-	*/
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].[chunkhash].js',
@@ -34,11 +38,19 @@ const config = {
 				NODE_ENV: JSON.stringify('production'),
 			}
 		}),
+		new HappyPack({
+			 id: 'jsx',
+			 threadPool: HappyPack.ThreadPool({ size: 6 }),
+   			 loaders: [ 'babel-loader?cacheDirectory=true' ],
+   			 verbose: false,
+   			 cache:true
+  		}),
 		new webpack.DllReferencePlugin({
 						 context:__dirname,
 						 manifest:require(path.resolve(buildPath,'manifest.json')),
 						 name:'lib'
 		}),
+	
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
@@ -82,7 +94,7 @@ const config = {
 			{
 				test: /\.jsx?$/,
 				loaders: [
-					'babel-loader',
+					'happypack/loader?id=jsx'
 				],
 				exclude: /(node_modules|bower_components)/
 			},

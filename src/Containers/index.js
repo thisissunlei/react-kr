@@ -29,5 +29,5 @@ module.exports = {
 	Community,
 	Retail,
 	OA,
-	Statistical
+	Statistical,
 }

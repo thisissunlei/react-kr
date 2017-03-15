@@ -25,25 +25,16 @@ export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			open:false
-		}
+		
 	}
      
-     slideClick=()=>{
-       this.setState({
-       	  open:!this.state.open
-       }) 
-     }
-
-
+     
 	render(){
-        let {open}=this.state;
+        
 		return(
 
 			<div style={{marginTop:'100px'}}>
-               <div onClick={this.slideClick}>123</div>
-               {open&&<div className='slideGo'>策划</div>}
+              123
 			</div>
 		);
 	}

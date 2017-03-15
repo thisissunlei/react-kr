@@ -12,6 +12,11 @@ const configs = {
     lib: [
       'react',
       'react-dom',
+      'redux',
+      'react-redux',
+      'mobx',
+      'mobx-react',
+      'react-router',
       'material-ui',
       'lodash',
     ]

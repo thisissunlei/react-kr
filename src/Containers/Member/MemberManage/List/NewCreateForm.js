@@ -102,7 +102,7 @@ import imgLine from './images/line.png'
 					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
 					// 此处要有提示
-					Message.warn('该手机号码已被注册！','error');
+					Message.warntimeout('该手机号码已被注册！','error');
 					_this.setState({
 						phoneSame:true,
 						email:response.email,
@@ -143,7 +143,7 @@ import imgLine from './images/line.png'
 		 }else{
 		 	Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定','error');
+				Message.warntimeout('该邮箱已被绑定','error');
 				_this.setState({
 					onsubmit:false
 				})
@@ -174,10 +174,11 @@ import imgLine from './images/line.png'
 		 if(params.code !== undefined){
 			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 					 //会员卡号已注册
-	 				if(response.phone !='-1'){
-	 					Message.warn('该会员卡号已被绑定','error');
+	 				if(response.phone !='-1' && response.id){
+	 					Message.warntimeout('该会员卡号已被绑定','error');
 	 				}else{
-	 					Message.warn('该会员卡号未录入','error');
+	 					Message.warntimeout(response.name,'error');
+
 	 				}
 	 				_this.setState({
 	 					onSubmitCode:false
@@ -209,6 +210,19 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
+		let options = [{
+				label: '公司名称',
+				value: 'COMP_NAME'
+			}, {
+				label: '手机号',
+				value: 'PHONE'
+			}, {
+				label: '微信',
+				value: 'WECHAT'
+			}, {
+				label: '姓名',
+				value: 'NAME'
+			}];
 		return (
 			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>
@@ -217,7 +231,7 @@ import imgLine from './images/line.png'
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur} style={{width:'252px'}}/>
+        <KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
@@ -250,9 +264,9 @@ const validate = values => {
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
-	if (!values.email) {
-		errors.email = '请输入邮箱';
-	}
+	// if (!values.email) {
+	// 	errors.email = '请输入邮箱';
+	// }
 	if (!values.companyId) {
 		errors.companyId = '请输入公司';
 	}

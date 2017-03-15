@@ -24,13 +24,17 @@ const config = {
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
-		root:path.join(process.cwd(), '/src'),
-		extensions: ['', '.js','.less','png','jpg','svg'],
+		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
-			'react':path.join(node_modules_dir,'react'),
-			'redux':path.join(node_modules_dir,'redux')
+			'redux':path.join(node_modules_dir,'redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'mobx':path.join(node_modules_dir,'mobx'),
+			'mobx-react':path.join(node_modules_dir,'mobx-react'),
+			'react-router':path.join(node_modules_dir,'react-router'),
+			'material-ui':path.join(node_modules_dir,'material-ui'),
+			'lodash':path.join(node_modules_dir,'lodash'),
 		},
 	},
 	devServer: {

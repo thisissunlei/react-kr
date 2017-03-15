@@ -229,7 +229,6 @@ export default class FileUploadComponent extends React.Component {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-
 					var response = xhr.response.data;
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
@@ -280,7 +279,6 @@ export default class FileUploadComponent extends React.Component {
 		xhr.responseType = 'json';
 		xhr.send(null);
 	}
-
 	render() {
 
 		let {
@@ -302,7 +300,6 @@ export default class FileUploadComponent extends React.Component {
 			progress,
 			isUploading
 		} = this.state;
-		console.log('upload',progress,isUploading);
 
 		let fileBgStyles = {};
 		// let showList = (files.length>=6)?'hidden':'visible';

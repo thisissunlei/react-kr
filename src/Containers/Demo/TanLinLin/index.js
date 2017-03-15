@@ -4,6 +4,7 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {
 	bindActionCreators
 } from 'redux';
@@ -13,9 +14,10 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
+	KrField
 } from 'kr-ui';
 
-export default class ZhangQu extends Component {
+class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -47,9 +49,12 @@ export default class ZhangQu extends Component {
 	componentDidMount() {}
 
 	render() {
+       
+
+        
 		return (
 			<div>
-					<Dialog
+					{/*<Dialog
 						title="平面图"
 						contentStyle={{width:1000}}
 						actions={<Button label="确定" onTouchTap={this.confirm}/>}
@@ -57,9 +62,25 @@ export default class ZhangQu extends Component {
 						bodyStyle={{paddingLeft:0,paddingRight:0}}
 						open={this.state.open} >
 								<PlanMap onCheckedStation={this.onCheckedStation} />
-				</Dialog>
+				   </Dialog>*/}
+              <form>
+			       <KrField name="uploadImage" 
+								component="uploadImage" 
+								style={{marginTop:10}} 
+								photoSize={'212*136'} 
+								pictureFormat={'JPG'} 
+								pictureMemory={'32K'}
+								//requestURI = {this.state.requestURI}
+					/>
+
+			  </form>
+
+             
+
 			</div>
 
 		);
 	}
 }
+
+export default reduxForm({ form: 'ZhangQu'})(ZhangQu);

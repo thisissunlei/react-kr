@@ -325,7 +325,19 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
-
+		if(form.totalrent == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 		console.log('contractmark',form);
@@ -467,8 +479,11 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}} name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 				<KrField style={{width:370,marginLeft:90}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+				
+				<KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+				{/*<KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+*/}
 
 				<KrField name="paymodel" style={{width:370,marginLeft:90}} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 				<KrField name="paytype" style={{width:370,marginLeft:70}} component="select" label="支付方式" options={optionValues.payTypeList} />
@@ -482,6 +497,7 @@ class NewCreateForm extends Component {
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
+					<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
 				<Grid style={{padding:'10px 0 50px'}}>
@@ -561,9 +577,9 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
-	if (!values.contractcode) {
-		errors.contractcode = '请填写合同编号';
-	}
+	// if (!values.contractcode) {
+	// 	errors.contractcode = '请填写合同编号';
+	// }
 
 	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';

@@ -106,11 +106,15 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
-			communityId: 1
+			communityId: 1,
+			type :1,
+
 		})).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+
+			// optionValues.contractCode = response.contractCode;
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -171,7 +175,11 @@ export default class JoinCreate extends Component {
 				initialValues.contractmark = response.contractmark || '';
 				initialValues.totalrent = response.totalrent;
 				initialValues.totaldeposit = response.totaldeposit;
-
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
 				//时间
 				initialValues.firstpaydate = response.firstpaydate;
 				initialValues.signdate = response.signdate;

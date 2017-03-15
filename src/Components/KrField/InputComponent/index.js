@@ -43,6 +43,7 @@ export default class InputComponent extends React.Component{
 
 	}
 	onBlur=(value)=>{
+		// console.log("####",value)
 		let {input} = this.props;
 		input.onBlur(value);
 		const {onBlur} = this.props;

@@ -381,6 +381,19 @@ class NewCreateForm extends Component {
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
 		form.stationVos = stationVos;
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
+		if(form.totalrent == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		//form.stationVos = JSON.stringify(stationVos);
 
@@ -711,9 +724,12 @@ class NewCreateForm extends Component {
 					
 
 					<KrField style={{width:370,marginLeft:90}} name="communityAddress" component="labelText" inline={false} label="地址" value={optionValues.communityAddress} />
-					<KrField  style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} 
-					requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+					
+					<KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
+					{/*<KrField  style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} 
+					requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+					*/}
 
 	                <KrField  name="paytype"  style={{width:370,marginLeft:90}} component="select" label="支付方式"  options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
 							Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
@@ -747,6 +763,7 @@ class NewCreateForm extends Component {
 
 					<KrField  style={{width:830,marginLeft:70}}   name="contractmark" component="textarea"  label="备注" maxSize={200}/>
 
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 
 					</CircleStyle>
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>

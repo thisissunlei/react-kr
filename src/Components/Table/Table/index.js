@@ -310,7 +310,7 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
-
+		console.log("http",ajaxUrlName);
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
 			_this.onInitial({
 				response: response,

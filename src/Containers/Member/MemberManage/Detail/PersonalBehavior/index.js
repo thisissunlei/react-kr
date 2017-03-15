@@ -137,10 +137,19 @@ export default class PersonalBehavior extends Component {
 						</TableHeader>
 						<TableBody>
 							<TableRow>
-								<TableRowColumn name="optTime" ></TableRowColumn>
+								<TableRowColumn name="optTime" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 								<TableRowColumn name="address" ></TableRowColumn>
-								<TableRowColumn name="action" ></TableRowColumn>
-								<TableRowColumn name="result" ></TableRowColumn>
+
+
+								<TableRowColumn name="action" options={[{label:'微信开门',value:"WECHAT"},{label:'会员卡开门',value:"MEMBERCARD"}]}
+							component={(value,oldValue)=>{
+								return (<span>{value}</span>)}}></TableRowColumn>
+
+
+								<TableRowColumn name="result" options={[{label:'成功',value:"true"},{label:'失败',value:"false"}]}
+							component={(value,oldValue)=>{
+								return (<span>{value}</span>)}}></TableRowColumn>
+
 							 </TableRow>
 						</TableBody>
 						<TableFooter></TableFooter>
