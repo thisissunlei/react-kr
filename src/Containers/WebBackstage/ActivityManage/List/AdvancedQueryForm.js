@@ -26,7 +26,7 @@ class AdvanceSearchDateForm extends Component{
 		return (
 
 						<ListGroup style={{width:'610'}}>
-						<ListGroupItem style={{display:'block',paddingLeft:13,marginTop:-20,marginBottom:-20,color:'#333'}}><span style={{lineHeight:'58px'}}>注册时间:</span></ListGroupItem>
+						<ListGroupItem style={{display:'block',paddingLeft:13,marginTop:-20,marginBottom:-20,color:'#333'}}><span style={{lineHeight:'58px'}}>活动时间:</span></ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 									<KrField name="leaseBegindate"  component="date" onChange={this.props.onStartChange} style={{width:'252'}} simple={true}/>
 							</ListGroupItem>
@@ -73,58 +73,20 @@ class NewCreateForm extends Component{
 
 			},
 		}
-		this.basicData();
 	}
 	 onSubmit(values){
-			let {content,filter} = this.props;
-			let {searchForm} = this.state;
-			if (!searchForm){
-				values.type = filter;
-				values.value = content;
-			}
-			if(!values.type){
-				values.type = filter;
-			}
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
+		let {content,filter} = this.props;
+		let {searchForm} = this.state;
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
-	 basicData=()=>{
-	//  新增会员准备职位数据
-			let searchParamPosition = {
-				communityId:'',
-				companyId:'',
-				memberId:''
-			}
-		 let _this =this;
-		 Store.dispatch(Actions.callAPI('getMemberBasicData',searchParamPosition)).then(function(response){
-			 response.jobList.forEach(function(item,index){
-				 item.value = item.id;
-				 item.label = item.jobName;
-			 });
-			 response.registerSourceList.forEach(function(item,index){
-				 item.value = item.id;
-				 item.label = item.sourceName;
-			 });
-			 _this.setState({
-				selectOption:response.jobList,
-				selectSourceOption :response.registerSourceList
-			})
-		 }).catch(function(err){
-			 reject(err);
-		 });
-	 }
 	 city=(values)=>{
 		 Store.dispatch(change('AdvancedQueryForm','city',values));
-	 }
-	 onFilter=(search)=>{
-		 this.setState({searchForm:true});
-		 Store.dispatch(change('AdvancedQueryForm','type',search.value));
-		 Store.dispatch(change('AdvancedQueryForm','value',search.content));
 	 }
 	 onStartChange=(startTime)=>{
 		 let {searchParams}=this.state;
@@ -146,7 +108,7 @@ class NewCreateForm extends Component{
 		 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
 		 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
 		 if(searchParams.startTime&&start>end){
-				 Message.error("结束时间要小于开始时间");
+				 Message.error("结束时间不可小于开始时间");
 				 return ;
 		 }
 		 Store.dispatch(change('AdvancedQueryForm','endTime',endTime));			 searchParams = Object.assign({}, searchParams, {endTime});
@@ -173,14 +135,9 @@ class NewCreateForm extends Component{
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
-		<ListGroup >
-			<ListGroupItem style={{marginBottom:5}}>
-				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content} onSubmit={this.onFilter}/>
-			</ListGroupItem>
-		</ListGroup>
-				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
-				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33',marginBottom:5}}/>
-				<KrField name="registerSourceId"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
+				<KrField name="title" grid={1/2} type="text" component="input"  label="活动标题" style={{width:'252px',marginRight:'33',marginBottom:5}}/>
+				<KrField name="type" grid={1/2} type="text"  component="select" label="活动类型"  options={options} style={{width:'252px'}}/>
+				<KrField name="address"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>
