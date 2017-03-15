@@ -34,7 +34,9 @@ export default class SearchCustomer extends React.Component {
 			input
 		} = this.props;
 	}
-
+	componentWillReceiveProps(nextProps) {
+		this.getOptions("");
+	}
 	onInputChange = () => {
 
 
@@ -48,6 +50,7 @@ export default class SearchCustomer extends React.Component {
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
+
 	}
 
 	getOptions(lastname) {

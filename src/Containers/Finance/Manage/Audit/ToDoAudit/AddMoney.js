@@ -59,10 +59,16 @@ class AddMoney extends Component {
 			}],
 			accountList: [],
 			mainbillInfo: {},
+			showName: false,
 		}
 
 
 
+	}
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			showName: !this.state.showName
+		})
 	}
 
 	openCreateCustomer = () => {
@@ -141,7 +147,8 @@ class AddMoney extends Component {
 			totalCountMoney,
 			payment,
 			accountList,
-			mainbillInfo
+			mainbillInfo,
+			showName
 		} = this.state;
 		return (
 			<div className="u-audit-add">
@@ -159,6 +166,7 @@ class AddMoney extends Component {
 								label="客户名称"
 								requireLabel={true}
 								onChange={this.openCustomer}
+								showName={showName}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}

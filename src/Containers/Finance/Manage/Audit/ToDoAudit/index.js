@@ -64,7 +64,8 @@ export default class ToDoAudit extends Component {
       },
       openCreateCustomer: false,
       openCreateMainbill: false,
-      CustomerList: {}
+      CustomerList: {},
+      showName: false,
     }
 
   }
@@ -73,6 +74,9 @@ export default class ToDoAudit extends Component {
     Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
+      _this.setState({
+        showName: !_this.state.showName
+      })
 
     }).catch(function(err) {
       Message.error(err.message);
@@ -291,7 +295,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney  showName={this.state.showName} onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Dialog
               title="新建客户"
