@@ -41,7 +41,6 @@ class AddMoney extends Component {
 		super(props);
 		this.state = {
 			totalCountMoney: 0,
-
 		}
 
 	}
@@ -85,17 +84,15 @@ class AddMoney extends Component {
 						<KrField
 								style={{width:260}}
 								name="customerId" 
-								component="select" 
-								label="客户名称" 
-								options=""
+								component="searchCustomer" 
+								label="客户名称"
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="mainBillId" 
-								component="select" 
-								label="所属订单" 
-								options=""
+								component="searchMainbill" 
+								label="所属订单"
 								requireLabel={true}
 						/>
 						<KrField

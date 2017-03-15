@@ -1023,6 +1023,16 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-category?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
+    //财务--审核列表--添加回款--查询客户列表
+    'get-customer-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-customer-info?customerName={customerName}',
+        method: 'get'
+    },
+    //财务--审核列表--添加回款--订单列表
+    'get-mainbill': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill?customerId={customerId}&mainBillName={mainBillName}',
+        method: 'get'
+    },
 
 
 }

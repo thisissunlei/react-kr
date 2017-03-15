@@ -33,6 +33,8 @@ import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
+import SearchCustomer from './SearchCustomer';
+import SearchMainbill from './SearchMainbill';
 
 export default class KrField extends React.Component {
 
@@ -128,6 +130,16 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'searchCustomer') {
+			return (
+				<Field {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchMainbill') {
+			return (
+				<Field {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
+			)
+		}
 		if (component === 'searchCommunitys') {
 			return (
 				<Field {...this.props} component={searchCommunitys}  style={WrapStyles} {...other}/>
