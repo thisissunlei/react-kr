@@ -37,40 +37,6 @@ export default class List extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
-		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
-		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
-		this.onLoaded = this.onLoaded.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-		// this.onExport = this.onExport.bind(this);
-		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-		this.params = this.context.router.params;
-		this.state = {
-			openNewCreate: false,
-			openView: false,
-			openEditDetail: false,
-			openAdvancedQuery :false,
-			status:false,
-			submit:false,
-			itemDetail: {},
-			item: {},
-			list: {},
-			content:'',
-			filter:'COMP_NAME',
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				startTime:'',
-				endTime:'',
-				registerSourceId:'',
-				jobId:'',
-				companyId:0,
-				cityId:'',
-				type:'COMP_NAME',
-				value:'',
-				status:false,
-			}
-		}
 	}
 
 
@@ -81,29 +47,11 @@ export default class List extends Component {
 	
 	
 	render() {
-		let {
-			list,itemDetail,seleced
-		} = this.state;
-		// console.log("list",list);
-		if (!list.totalCount) {
-			list.totalCount = 0;
-		}
-		let options = [{
-			label: '公司名称',
-			value: 'COMP_NAME'
-		}, {
-			label: '手机号',
-			value: 'PHONE'
-		}, {
-			label: '微信',
-			value: 'WECHAT'
-		}, {
-			label: '姓名',
-			value: 'NAME'
-		}];
+	
+		console.log('sdasdasdasdasd');
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
-							1111
+							1111dsadasdasa
 				</div>
 		);
 

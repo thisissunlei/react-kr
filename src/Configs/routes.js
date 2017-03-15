@@ -257,6 +257,17 @@ export default (
 			</Route>
 
 
+			<Route path="WebBackstage" component={Basic}>
+
+
+					{/*开票列表*/}
+					<Route path="activity" component={Basic}>
+						<Route path="list" component={WebBackstage.ActivityManage.List}/>
+					</Route>
+
+			</Route>
+
+
 		{/*权限管理*/}
 		<Route path="permission" component={Basic}>
 {/*
@@ -285,16 +296,7 @@ export default (
 		<Route path="*" component={Undefined}/>
 
 
-		{/*官网后台*/}
-		<Route path="webbackstage" component={Basic}>
-            {/*<IndexRedirect to="memberManage/list" />*/}
-
-			<Route path="activitymanage" component={Basic}>
-				<Route path="customerlist"  component={WebBackstage.ActivityManage.List} />
 		
-			</Route>
-
-		</Route>
 
 
 	</Route>
