@@ -974,7 +974,12 @@ const APIS = {
    'transferMemberCard':{
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
-   }
+   },
+   //活动列表及筛选
+   'activityList':{
+      url: '/mockjsdata/33/activity/activity-list?beginDate={beginDate}&cityId={cityId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
+      method: 'put'
+   },
  }
 
  module.exports = APIS;

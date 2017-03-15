@@ -133,19 +133,6 @@ export default class List extends Component {
 		if (!State.list.totalCount) {
 			State.list.totalCount = 0;
 		}
-		let options = [{
-			label: '公司名称',
-			value: 'COMP_NAME'
-		}, {
-			label: '手机号',
-			value: 'PHONE'
-		}, {
-			label: '微信',
-			value: 'WECHAT'
-		}, {
-			label: '姓名',
-			value: 'NAME'
-		}];
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 								<Title value="活动列表 "/>
@@ -185,49 +172,53 @@ export default class List extends Component {
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											<TableRowColumn name="phone"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
 											<TableRowColumn name="name"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="type"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
-											<TableRowColumn name="jobName"
+											<TableRowColumn name="cityId"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-											<TableRowColumn name="cityName"
+
+											<TableRowColumn name="beginDate" type="date"
+											component={(value,oldValue,itemData)=>{
+												return (<span>{itemData.beginDate}{itemData.endDate}</span>)}}
+												></TableRowColumn>
+											<TableRowColumn name="createName"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="companyName" style={{overflow:"hidden"}}
+											<TableRowColumn name="enrollCount" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="registerName"
+											<TableRowColumn name="publishType"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}></TableRowColumn>
-											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
+											<TableRowColumn name="sortShow" ></TableRowColumn>
 											<TableRowColumn name="registerName"
 											component={(value,oldValue,itemData)=>{
 												//未发布

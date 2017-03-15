@@ -22,14 +22,12 @@ let State = observable({
 	searchParams: {
 		page: 1,
 		pageSize: 15,
-		startTime:'',
-		endTime:'',
-		companyId:0,
+		beginDate:'',
+		endDate:'',
 		cityId:'',
-		type:'COMP_NAME',
-		value:'',
-		title:'',
-		status:false,
+		type:'',
+		name:'',
+		companyId:0
 	}
 });
 
