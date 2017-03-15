@@ -703,8 +703,12 @@ class NewCreateForm extends Component {
 								requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:370,marginLeft:70}} name="paymentId"  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-				<KrField style={{width:370,marginLeft:90}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
+				<KrField   style={{width:370,marginLeft:70,paddingLeft:20}} name="contractcode" component="labelText" inline={false} label="合同编号" value={initialValues.contractcode} />
+
+				{/*<KrField style={{width:370,marginLeft:90}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+				*/}
+
 				<KrField style={{width:370,marginLeft:70}} name="signdate"  component="date" label="签署日期"  />
 
 				
@@ -812,9 +816,9 @@ const validate = values => {
 		errors.stationnum = '租赁项目必须填写一项';
 	}
 
-	if (!values.contractcode) {
-		errors.contractcode = '请填写合同编号';
-	}
+	// if (!values.contractcode) {
+	// 	errors.contractcode = '请填写合同编号';
+	// }
 
 	if (!values.paymentId) {
 		errors.paymentId = '请填写付款方式';

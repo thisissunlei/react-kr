@@ -37,7 +37,7 @@ export default class TabsComponent extends Component {
 
 		let tabs=[];
 		const commenTab = {
-			color: '#000',
+			color: '#333',
 			borderBottom: "1px solid #eee"
 		}
 
@@ -53,7 +53,7 @@ export default class TabsComponent extends Component {
 		let _this = this;
 		let  {tabName} = this.state;
 		const commenTab = {
-			color: '#000',
+			color: '#333',
 			borderBottom: "1px solid #eee",
 		}
 		const active = {
@@ -107,8 +107,8 @@ export default class TabsComponent extends Component {
 	render() {
 
 		let {inkBarStyle,tabItemContainerStyle}=this.props;
-		const initInkBarStyle={background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}
-		const initTabItemContainerStyle={background:'#FFF',color:"red"};
+		const initInkBarStyle={background: '#499df1',position:'absolute',top:0,height:3}
+		const initTabItemContainerStyle={background:'#fff',color:"#333"};
 
 		const {children}  = this.props;
 		const activeTab = {
@@ -117,7 +117,7 @@ export default class TabsComponent extends Component {
 		}
 
 		const commenTab = {
-			color: '#000',
+			color: '#333',
 			borderBottom: "1px solid #eee"
 		}
 

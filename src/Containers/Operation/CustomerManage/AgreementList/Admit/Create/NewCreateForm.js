@@ -403,7 +403,7 @@ class NewCreateForm extends Component {
 	getStationUrl() {
 
 		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-		console.log(this.context.par.orderId,"???????????")
+		// console.log(this.context.par.orderId,"???????????")
 		let {
 			changeValues,
 			initialValues,
@@ -532,7 +532,7 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
+			// console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -545,14 +545,14 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
+		// console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
+		// console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 	render() {
@@ -592,9 +592,9 @@ class NewCreateForm extends Component {
 			<div>
 
 
-	<div style={{width:615}}>
+	<div style={{width:615,marginLeft:"-20px"}}>
 
-	<form className="m-new-create" onSubmit={handleSubmit(this.onSubmit)} >
+	<form className="m-new-create m-new-dialog-create" onSubmit={handleSubmit(this.onSubmit)} >
 				<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 					<div className="small-cheek">
@@ -665,7 +665,7 @@ class NewCreateForm extends Component {
 
 								<KrField style={{width:262,marginLeft:25}} name="leaseId" component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
-								<KrField style={{width:262,marginLeft:25}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
+								<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" toolTrue={true}/></div>
 								<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
 
 								<KrField style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
@@ -687,8 +687,12 @@ class NewCreateForm extends Component {
 
 
 								<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
-								<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+								{/*<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 								 requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}}/>
+								*/}
+								<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+
+
 
                                 <KrField style={{width:262,marginLeft:25}}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}
 																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />

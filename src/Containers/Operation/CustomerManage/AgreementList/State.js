@@ -61,7 +61,7 @@ let State = observable({
 		pageSize:'',
 
 		//权限
-		editRight:''
+		editRight:'',
 
 });
 State.hasOfficeChange=action(function(params){

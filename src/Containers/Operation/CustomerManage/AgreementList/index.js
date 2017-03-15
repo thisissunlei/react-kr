@@ -711,10 +711,13 @@ class Merchants extends Component{
                                type='续租协议书'
 			        		}
 			        		let border='1px solid #dfdfdf';
+			        		let otherBootom=true;
 			        		if((!State.editRight || !item.editFlag) && item.contracttype == 'QUITRENT' && (!State.editRight || !item.editFlag)){
 								border='0px solid #dfdfdf';
+								otherBootom=false;
+								
 			        		}
-
+							
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 
 			        		return (
@@ -740,7 +743,7 @@ class Merchants extends Component{
 										</div>
 
 										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
-											<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
+											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
 												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
@@ -810,6 +813,7 @@ class Merchants extends Component{
 							onClose={this.closeNewIndent}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+							
 					 >
 						{State.openNewIndent&&
 							<NewIndent
