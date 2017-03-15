@@ -58,10 +58,25 @@ class AddMoney extends Component {
 				value: 'POS'
 			}],
 			accountList: [],
+			mainbillInfo: {}
 		}
 
 
 
+	}
+
+	getMainbillInfo = (form) => {
+		var mainbillInfo;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-account-info', {
+			mainBillId: form.value
+		}, {})).then(function(response) {
+			console.log('response---', response)
+			_this.setState({
+				mainbillInfo: response
+			})
+
+		}).catch(function(err) {});
 	}
 	getAccount = (form) => {
 		var accountList;
@@ -113,7 +128,8 @@ class AddMoney extends Component {
 		let {
 			totalCountMoney,
 			payment,
-			accountList
+			accountList,
+			mainbillInfo
 		} = this.state;
 		return (
 			<div className="u-audit-add">
@@ -137,6 +153,7 @@ class AddMoney extends Component {
 								component="searchMainbill" 
 								label="所属订单"
 								requireLabel={true}
+								onChange={this.getMainbillInfo}
 						/>
 						<KrField
 								style={{width:260}}
@@ -144,6 +161,7 @@ class AddMoney extends Component {
 								inline={false} 
 								label="订单起止"
 								defaultValue="-" 
+								value={`${mainbillInfo.actualEntrydate}-${mainbillInfo.actualLeavedate}`} 
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -151,6 +169,7 @@ class AddMoney extends Component {
 								inline={false}
 								label="公司主体"
 								defaultValue="-"
+								value={mainbillInfo.corporationName} 
 						/>
 						<KrField
 								style={{width:260}}
