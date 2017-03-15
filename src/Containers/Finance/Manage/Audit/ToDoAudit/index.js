@@ -69,10 +69,13 @@ export default class ToDoAudit extends Component {
 
   }
   onSubmitMainbill = (form) => {
+    var _this = this;
     Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
       Message.success('新建成功');
+      _this.openCreateMainbill();
+
     }).catch(function(err) {
-      Message.error(err);
+      Message.error(err.message);
     });
   }
 
