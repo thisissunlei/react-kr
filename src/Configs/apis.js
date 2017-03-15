@@ -1043,6 +1043,12 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-type',
         method: 'get'
     },
+    //财务--审核列表--添加回款--新建客户和订单
+    'save-customer': {
+        url: '/api/krspace-finance-web/finaVerify/opt/save-customer?communityid={communityid}&company={company}&mainbilldesc={mainbilldesc}&mainbillname={mainbillname}&mainbilltype={mainbilltype}&name={name}&tel={tel}',
+        method: 'post'
+    },
+
 
 
 }

@@ -61,12 +61,19 @@ class NewCreateMainbill extends Component {
 
 	}
 	onSubmit = (form) => {
+		var formList = form;
 		const {
 			onSubmit,
 			detail
 		} = this.props;
-		console.log('detail---', detail)
-			//onSubmit && onSubmit(form);
+		formList.company = detail.company;
+		if (detail.name) {
+			formList.name = detail.name;
+		}
+		if (detail.tel) {
+			formList.tel = detail.tel;
+		}
+		onSubmit && onSubmit(formList);
 	}
 
 
@@ -108,7 +115,7 @@ class NewCreateMainbill extends Component {
 				    		right={34}
 							name="communityid" 
 							type="text" 
-							component="input" 
+							component="searchCommunity" 
 							label="所属社区" 
 							requireLabel={true}
 					 />

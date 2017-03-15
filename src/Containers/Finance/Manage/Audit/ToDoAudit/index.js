@@ -35,7 +35,8 @@ import {
   Title,
   KrDate,
   Tooltip,
-  Drawer
+  Drawer,
+  Message
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
@@ -67,7 +68,16 @@ export default class ToDoAudit extends Component {
     }
 
   }
+  onSubmitMainbill = (form) => {
+    Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
+      Message.success('新建成功');
+    }).catch(function(err) {
+      Message.error(err);
+    });
+  }
+
   onSubmitCustomer = (form) => {
+
     this.setState({
       CustomerList: form
     })
@@ -300,6 +310,7 @@ export default class ToDoAudit extends Component {
               <NewCreateMainbill  
                       detail={CustomerList}
                       onCancel={this.openCreateMainbill}
+                      onSubmit={this.onSubmitMainbill}
               />
             </Dialog>
             

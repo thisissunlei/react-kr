@@ -129,7 +129,6 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
 			);
 		}
-
 		if (component === 'searchCustomer') {
 			return (
 				<Field {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
