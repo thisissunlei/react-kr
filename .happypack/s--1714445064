@@ -1,0 +1,31 @@
+/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/AddMoney.js: Unterminated template (164:44)
+SyntaxError: /Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/AddMoney.js: Unterminated template (164:44)
+[0m [90m 162 | [39m								label[33m=[39m[32m"订单起止"[39m
+ [90m 163 | [39m								defaultValue[33m=[39m[32m"-"[39m 
+[31m[1m>[22m[39m[90m 164 | [39m								value[33m=[39m{mainbillInfo[33m.[39mactualEntrydate[32m`} [39m
+ [90m     | [39m								                                    [31m[1m^[22m[39m
+ [90m 165 | [39m[32m						/>[39m
+ [90m 166 | [39m[32m						<KrField[39m
+ [90m 167 | [39m[32m								style={{width:260,marginLeft:25}}[39m[0m
+    at Parser.pp$5.raise (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.readTmplToken (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1231:53)
+    at TokContext.types$1.template [as override] (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:317:14)
+    at Parser.nextToken (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:682:25)
+    at Parser.next (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:609:10)
+    at Parser.pp$3.parseTemplate (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3766:8)
+    at Parser.pp$3.parseSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3384:27)
+    at Parser.pp$3.parseExprSubscripts (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3341:15)
+    at Parser.pp$3.parseMaybeUnary (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5694:20)
+    at Parser.pp$3.parseExpression (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3143:19)
+    at Parser.pp$8.jsxParseExpressionContainer (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6283:28)
+    at Parser.pp$8.jsxParseAttributeValue (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6235:19)
+    at Parser.pp$8.jsxParseAttribute (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6300:42)
+    at Parser.pp$8.jsxParseOpeningElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6311:31)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6333:29)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)
+    at Parser.pp$8.jsxParseElementAt (/Users/dongfanai/Desktop/project/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6346:30)

@@ -1,0 +1,166 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewCreateCustomer = function (_Component) {
+	_inherits(NewCreateCustomer, _Component);
+
+	function NewCreateCustomer(props) {
+		_classCallCheck(this, NewCreateCustomer);
+
+		var _this = _possibleConstructorReturn(this, (NewCreateCustomer.__proto__ || Object.getPrototypeOf(NewCreateCustomer)).call(this, props));
+
+		_this.onSubmit = function (form) {
+			var onSubmit = _this.props.onSubmit;
+
+			onSubmit && onSubmit(form);
+		};
+
+		_this.onCancel = function () {
+			var onCancel = _this.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		return _this;
+	}
+
+	_createClass(NewCreateCustomer, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'company',
+						type: 'text',
+						component: 'input',
+						label: '\u5BA2\u6237\u540D\u79F0',
+						requireLabel: true
+					}),
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'name',
+						type: 'text',
+						component: 'input',
+						label: '\u8054\u7CFB\u4EBA'
+					}),
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'tel',
+						type: 'text',
+						component: 'input',
+						label: '\u8054\u7CFB\u7535\u8BDD'
+					}),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 10, marginBottom: 5, marginLeft: -24 } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ md: 12, align: 'center' },
+								_react2.default.createElement(
+									_krUi.ButtonGroup,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-btn-center' },
+										_react2.default.createElement(_krUi.Button, { label: '\u4E0B\u4E00\u6B65', type: 'submit' })
+									),
+									_react2.default.createElement(_krUi.Button, {
+										label: '\u53D6\u6D88',
+										type: 'button',
+										cancle: true,
+										onTouchTap: this.onCancel
+									})
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return NewCreateCustomer;
+}(_react.Component);
+
+NewCreateCustomer.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+
+
+var validate = function validate(values) {
+
+	var errors = {};
+
+	if (!values.company) {
+		errors.company = '请输入客户名称';
+	}
+	return errors;
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'newCreateCustomer',
+	validate: validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(NewCreateCustomer);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(NewCreateCustomer, 'NewCreateCustomer', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/NewCreateCustomer.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/NewCreateCustomer.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/NewCreateCustomer.js');
+}();
+
+;

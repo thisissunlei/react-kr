@@ -1,0 +1,337 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HightSearchForm = function (_Component) {
+	_inherits(HightSearchForm, _Component);
+
+	function HightSearchForm(props) {
+		_classCallCheck(this, HightSearchForm);
+
+		var _this2 = _possibleConstructorReturn(this, (HightSearchForm.__proto__ || Object.getPrototypeOf(HightSearchForm)).call(this, props));
+
+		_this2.onSubmit = function (form) {
+			form.verifyStatus = "CHECKED";
+			var onSubmit = _this2.props.onSubmit;
+
+			onSubmit && onSubmit(form);
+		};
+
+		_this2.openSearch = function () {
+			var openSearch = _this2.props.openSearch;
+
+			openSearch && openSearch();
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.getCommunity = function () {
+			var communityList;
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('get-mainbill-community', {}, {})).then(function (response) {
+				communityList = response.map(function (item, index) {
+					item.label = item.communityname;
+					item.value = item.id;
+					return item;
+				});
+				_this.setState({
+					communityList: communityList
+				});
+			}).catch(function (err) {});
+		};
+
+		_this2.getPayType = function () {
+			var payType;
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('get-fina-paytype', {}, {})).then(function (response) {
+				payType = response.map(function (item, index) {
+					item.label = item.categoryName;
+					item.value = item.id;
+					return item;
+				});
+				_this.setState({
+					payType: payType
+				});
+			}).catch(function (err) {});
+		};
+
+		_this2.getMain = function () {
+			var mainList;
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('get-fina-corporation', {}, {})).then(function (response) {
+				mainList = response.map(function (item, index) {
+					item.label = item.corporationName;
+					item.value = item.id;
+					return item;
+				});
+				_this.setState({
+					mainList: mainList
+				});
+			}).catch(function (err) {});
+		};
+
+		_this2.state = {
+			communityList: [],
+			payment: [{
+				label: '无',
+				value: 'NONE'
+			}, {
+				label: '支付宝支付',
+				value: 'ZHIFUBAO'
+			}, {
+				label: '微信支付',
+				value: 'WEIXIN'
+			}, {
+				label: '银行转账',
+				value: 'YINGHANG'
+			}, {
+				label: 'POS机支付',
+				value: 'POS'
+			}],
+			payType: [],
+			mainList: []
+		};
+		_this2.getCommunity();
+		_this2.getPayType();
+		_this2.getMain();
+		return _this2;
+	}
+
+	_createClass(HightSearchForm, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+			var _state = this.state,
+			    communityList = _state.communityList,
+			    payment = _state.payment,
+			    payType = _state.payType,
+			    mainList = _state.mainList;
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'communityId',
+						component: 'searchCommunity',
+						style: { marginTop: 4 },
+						label: '\u793E\u533A\u540D\u79F0',
+						options: communityList
+					}),
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'payWay',
+						type: 'select',
+						style: { marginTop: 4 },
+						label: '\u6536\u6B3E\u65B9\u5F0F',
+						options: payment
+					}),
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'flowCategoryId',
+						type: 'select',
+						style: { marginTop: 4 },
+						label: '\u6536\u6B3E\u7C7B\u578B',
+						options: payType
+					}),
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'corporationId',
+						component: 'searchCorporation',
+						style: { marginTop: 4 },
+						label: '\u4E3B\u4F53',
+						options: mainList
+					}),
+					_react2.default.createElement(
+						_krUi.KrField,
+						{
+							grid: 1 / 1,
+							component: 'group',
+							label: '\u5F55\u5165\u65F6\u95F4',
+							style: { marginTop: 3 }
+						},
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-listDate' },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-start', style: { width: 260 } },
+										_react2.default.createElement(_krUi.KrField, { style: { width: 260, marginLeft: -10, marginTop: 2 }, name: 'createStratTime', component: 'date' })
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-line-down' },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', color: '#666', fontSize: '14' } },
+										'\u81F3'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-end' },
+										_react2.default.createElement(_krUi.KrField, { name: 'createEndTime', style: { width: 260, marginTop: 2 }, component: 'date' })
+									)
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						_krUi.KrField,
+						{
+							grid: 1 / 1,
+							component: 'group',
+							label: '\u6536\u6B3E\u65F6\u95F4',
+							style: { marginTop: 3 }
+						},
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-listDate' },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-start', style: { width: 260 } },
+										_react2.default.createElement(_krUi.KrField, { style: { width: 260, marginLeft: -10, marginTop: 2 }, name: 'dealStartTime', component: 'date' })
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-line-down' },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', color: '#666', fontSize: '14' } },
+										'\u81F3'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-end' },
+										_react2.default.createElement(_krUi.KrField, { name: 'dealEndTime', style: { width: 260, marginTop: 2 }, component: 'date' })
+									)
+								)
+							)
+						)
+					),
+					_react2.default.createElement(_krUi.KrField, {
+						grid: 1 / 2,
+						right: 34,
+						name: 'customerName',
+						type: 'text',
+						component: 'input',
+						label: '\u5BA2\u6237\u540D\u79F0'
+					}),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 10, marginBottom: 5, marginLeft: -24 } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ md: 12, align: 'center' },
+								_react2.default.createElement(
+									_krUi.ButtonGroup,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-btn-center' },
+										_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit' })
+									),
+									_react2.default.createElement(_krUi.Button, {
+										label: '\u53D6\u6D88',
+										type: 'button',
+										cancle: true,
+										onTouchTap: this.onCancel
+									})
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return HightSearchForm;
+}(_react.Component);
+
+HightSearchForm.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'hightSearchForm'
+})(HightSearchForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(HightSearchForm, 'HightSearchForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/HightSearchForm.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/DoAudit/HightSearchForm.js');
+}();
+
+;

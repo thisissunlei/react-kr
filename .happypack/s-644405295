@@ -1,0 +1,344 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddMoney = function (_Component) {
+	_inherits(AddMoney, _Component);
+
+	function AddMoney(props) {
+		_classCallCheck(this, AddMoney);
+
+		var _this2 = _possibleConstructorReturn(this, (AddMoney.__proto__ || Object.getPrototypeOf(AddMoney)).call(this, props));
+
+		_this2.openCreateCustomer = function () {
+			var openCreateCustomer = _this2.props.openCreateCustomer;
+
+			openCreateCustomer && openCreateCustomer();
+		};
+
+		_this2.openCustomer = function (form) {
+			if (form.id == 0) {
+				_this2.openCreateCustomer();
+			}
+		};
+
+		_this2.getMainbillInfo = function (form) {
+			var mainbillInfo;
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('get-account-info', {
+				mainBillId: form.value
+			}, {})).then(function (response) {
+				console.log('response---', response);
+				_this.setState({
+					mainbillInfo: response
+				});
+			}).catch(function (err) {});
+		};
+
+		_this2.getAccount = function (form) {
+			var accountList;
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('get-account-info', {
+				accountType: form.value
+			}, {})).then(function (response) {
+				accountList = response.map(function (item, index) {
+					item.label = item.accountNum;
+					item.value = item.accountId;
+					return item;
+				});
+				_this.setState({
+					accountList: accountList
+				});
+			}).catch(function (err) {});
+		};
+
+		_this2.onSubmit = function () {
+			var onSubmit = _this2.props.onSubmit;
+
+			onSubmit && onSubmit();
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.renderPayList = function () {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'u-audit-content-null' },
+				_react2.default.createElement('div', { className: 'u-audit-content-null-icon' }),
+				_react2.default.createElement(
+					'div',
+					{ className: 'u-audit-content-null-title' },
+					'\u6682\u65F6\u8FD8\u6CA1\u6709\u6570\u636E\u5466\u4EB2~'
+				)
+			);
+		};
+
+		_this2.state = {
+			totalCountMoney: 0,
+			payment: [{
+				label: '无',
+				value: 'NONE'
+			}, {
+				label: '支付宝支付',
+				value: 'ZHIFUBAO'
+			}, {
+				label: '微信支付',
+				value: 'WEIXIN'
+			}, {
+				label: '银行转账',
+				value: 'YINGHANG'
+			}, {
+				label: 'POS机支付',
+				value: 'POS'
+			}],
+			accountList: [],
+			mainbillInfo: {}
+		};
+
+		return _this2;
+	}
+
+	_createClass(AddMoney, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+			var _state = this.state,
+			    totalCountMoney = _state.totalCountMoney,
+			    payment = _state.payment,
+			    accountList = _state.accountList,
+			    mainbillInfo = _state.mainbillInfo;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'u-audit-add' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'u-audit-add-title' },
+					_react2.default.createElement('span', { className: 'u-audit-add-icon' }),
+					_react2.default.createElement(
+						'span',
+						null,
+						'\u6DFB\u52A0\u56DE\u6B3E'
+					),
+					_react2.default.createElement('span', { className: 'u-audit-close', onTouchTap: this.onCancel })
+				),
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					_react2.default.createElement(
+						_krUi.CircleStyleTwo,
+						{ num: '1', info: '\u4ED8\u6B3E\u4FE1\u606F' },
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260 },
+							name: 'customerId',
+							component: 'searchCustomer',
+							label: '\u5BA2\u6237\u540D\u79F0',
+							requireLabel: true,
+							onChange: this.openCustomer
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260, marginLeft: 25 },
+							name: 'mainBillId',
+							component: 'searchMainbill',
+							label: '\u6240\u5C5E\u8BA2\u5355',
+							requireLabel: true,
+							onChange: this.getMainbillInfo
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260 },
+							component: 'labelText',
+							inline: false,
+							label: '\u8BA2\u5355\u8D77\u6B62',
+							defaultValue: '-',
+							value: mainbillInfo.actualEntrydate
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260, marginLeft: 25 },
+							component: 'labelText',
+							inline: false,
+							label: '\u516C\u53F8\u4E3B\u4F53',
+							defaultValue: '-',
+							value: mainbillInfo.corporationName
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260 },
+							name: 'payWay',
+							component: 'select',
+							label: '\u6536\u6B3E\u65B9\u5F0F',
+							options: payment,
+							onChange: this.getAccount,
+							requireLabel: true
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260, marginLeft: 25 },
+							name: 'accountId',
+							component: 'select',
+							label: '\u6211\u53F8\u8D26\u6237',
+							options: accountList,
+							requireLabel: true
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260 },
+							name: 'payAccount',
+							type: 'text',
+							component: 'input',
+							label: '\u4ED8\u6B3E\u8D26\u6237',
+							options: '',
+							requireLabel: true
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 260, marginLeft: 25 },
+							name: 'dealTime',
+							component: 'date',
+							label: '\u6536\u6B3E\u65E5\u671F',
+							requireLabel: true
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 548 },
+							name: 'remark',
+							component: 'textarea',
+							label: '\u5907\u6CE8',
+							maxSize: 100
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							name: 'contractFileList',
+							component: 'input',
+							type: 'hidden',
+							label: '\u5408\u540C\u9644\u4EF6'
+						}),
+						_react2.default.createElement(_krUi.KrField, {
+							style: { width: 548 },
+							name: 'uploadFileIds',
+							component: 'file',
+							label: '\u4E0A\u4F20\u9644\u4EF6',
+							defaultValue: [],
+							onChange: function onChange(files) {
+								_Redux.Store.dispatch(change('AddMoney', 'contractFileList', files));
+							}
+						})
+					),
+					_react2.default.createElement(
+						_krUi.CircleStyleTwo,
+						{ num: '2', info: '\u4ED8\u6B3E\u660E\u7EC6', circle: 'bottom' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'u-add-total-count' },
+							_react2.default.createElement('span', { className: 'u-add-total-icon' }),
+							_react2.default.createElement(
+								'span',
+								{ className: 'u-add-total-title' },
+								'\u4ED8\u6B3E\u603B\u91D1\u989D\uFF1A'
+							),
+							_react2.default.createElement(
+								'span',
+								null,
+								totalCountMoney
+							)
+						),
+						this.renderPayList(),
+						_react2.default.createElement(
+							_krUi.Grid,
+							{ style: { marginTop: 50 } },
+							_react2.default.createElement(
+								_krUi.Row,
+								null,
+								_react2.default.createElement(
+									_krUi.Col,
+									{ md: 12, align: 'center' },
+									_react2.default.createElement(
+										_krUi.ButtonGroup,
+										null,
+										_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit' }),
+										_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', cancle: true, type: 'button', onTouchTap: this.onCancel })
+									)
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return AddMoney;
+}(_react.Component);
+
+AddMoney.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+
+var validate = function validate(values) {
+
+	var errors = {};
+
+	if (!values.leaseId) {
+		errors.leaseId = '请输入出租方';
+	}
+
+	if (!values.lessorContactid) {
+		errors.lessorContactid = '请输入出租方联系人';
+	}
+
+	if (!values.wherefloor) {
+		errors.wherefloor = '请输入所在楼层';
+	}
+
+	return errors;
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'addMoney',
+	validate: validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(AddMoney);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(AddMoney, 'AddMoney', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/AddMoney.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/AddMoney.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/AddMoney.js');
+}();
+
+;

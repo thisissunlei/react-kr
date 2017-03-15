@@ -1,0 +1,514 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _Redux = require('kr/Redux');
+
+var _krUi = require('kr-ui');
+
+var _SearchForm = require('./SearchForm');
+
+var _SearchForm2 = _interopRequireDefault(_SearchForm);
+
+var _HightSearchForm = require('./HightSearchForm');
+
+var _HightSearchForm2 = _interopRequireDefault(_HightSearchForm);
+
+var _AddMoney = require('./AddMoney');
+
+var _AddMoney2 = _interopRequireDefault(_AddMoney);
+
+var _NewCreateCustomer = require('./NewCreateCustomer');
+
+var _NewCreateCustomer2 = _interopRequireDefault(_NewCreateCustomer);
+
+var _NewCreateMainbill = require('./NewCreateMainbill');
+
+var _NewCreateMainbill2 = _interopRequireDefault(_NewCreateMainbill);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ToDoAudit = function (_Component) {
+  _inherits(ToDoAudit, _Component);
+
+  function ToDoAudit(props, context) {
+    _classCallCheck(this, ToDoAudit);
+
+    var _this2 = _possibleConstructorReturn(this, (ToDoAudit.__proto__ || Object.getPrototypeOf(ToDoAudit)).call(this, props, context));
+
+    _this2.onSubmitMainbill = function (form) {
+      var _this = _this2;
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('save-customer', form, {})).then(function (response) {
+        _krUi.Message.success('新建成功');
+        _this.openCreateMainbill();
+      }).catch(function (err) {
+        _krUi.Message.error(err.message);
+      });
+    };
+
+    _this2.onSubmitCustomer = function (form) {
+
+      _this2.setState({
+        CustomerList: form
+      });
+      _this2.openCreateCustomer();
+      _this2.openCreateMainbill();
+    };
+
+    _this2.openCreateMainbill = function () {
+      _this2.setState({
+        openCreateMainbill: !_this2.state.openCreateMainbill
+      });
+    };
+
+    _this2.openCreateCustomer = function () {
+      _this2.setState({
+        openCreateCustomer: !_this2.state.openCreateCustomer
+      });
+    };
+
+    _this2.onExport = function () {};
+
+    _this2.searchParams = function (form) {
+      _this2.setState({
+        Params: {
+          page: 1,
+          pageSize: 10,
+          verifyStatus: 'UNCHECKED',
+          customerName: form.content
+        }
+      });
+    };
+
+    _this2.openSearch = function () {
+      _this2.setState({
+        openSearch: !_this2.state.openSearch
+      });
+    };
+
+    _this2.onSearchSubmit = function (form) {
+
+      _this2.setState({
+        Params: form
+      });
+      _this2.openSearch();
+    };
+
+    _this2.openAddCreate = function () {
+      _this2.setState({
+        openAddCreate: !_this2.state.openAddCreate
+      });
+    };
+
+    _this2.state = {
+      openNewCreate: false,
+      openView: false,
+      openEditDetail: false,
+      openDelete: false,
+      openSearch: false,
+      openAddCreate: false,
+      itemDetail: {},
+      Params: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'UNCHECKED'
+      },
+      openCreateCustomer: false,
+      openCreateMainbill: false,
+      CustomerList: {}
+    };
+
+    return _this2;
+  }
+
+  _createClass(ToDoAudit, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+    //导出
+
+    //打开添加回款
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var CustomerList = this.state.CustomerList;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'm-todo-audit' },
+        _react2.default.createElement(
+          'div',
+          { className: 'u-search' },
+          _react2.default.createElement(_SearchForm2.default, {
+            onSubmit: this.searchParams,
+            openSearch: this.openSearch,
+            openAdd: this.openAddCreate
+          })
+        ),
+        _react2.default.createElement(
+          _krUi.Table,
+          {
+            style: { marginTop: 10 },
+            ajax: true,
+            ajaxUrlName: 'get-fince-info',
+            ajaxParams: this.state.Params,
+            onOperation: this.onOperation,
+            onExport: this.onExport,
+            exportSwitch: true
+          },
+          _react2.default.createElement(
+            _krUi.TableHeader,
+            null,
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6D41\u6C34\u53F7'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6536\u6B3E\u65B9\u5F0F'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6536\u6B3E\u65E5\u671F'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4E3B\u4F53'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6211\u53F8\u8D26\u53F7'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u793E\u533A'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4ED8\u6B3E\u8D26\u6237'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4ED8\u6B3E\u91D1\u989D'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u5BA2\u6237\u540D\u79F0'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u6536\u6B3E\u4EBA'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u5907\u6CE8'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C'
+            )
+          ),
+          _react2.default.createElement(
+            _krUi.TableBody,
+            null,
+            _react2.default.createElement(
+              _krUi.TableRow,
+              null,
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'tradingCode', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 80, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'payWayName' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'dealTime', component: function component(value, oldValue) {
+                  return _react2.default.createElement(_krUi.KrDate, { value: value, format: 'yyyy-mm-dd' });
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'corporationName', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'accountNum', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'communityName', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'payAccount', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'flowAmount' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'company', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'payee', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'remark', component: function component(value, oldValue) {
+                  var TooltipStyle = "";
+                  if (value.length == "") {
+                    TooltipStyle = "none";
+                  } else {
+                    TooltipStyle = "block";
+                  }
+                  return _react2.default.createElement(
+                    'div',
+                    { style: { display: TooltipStyle, paddingTop: 5 }, className: 'financeDetail-hover' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'tableOver', style: { maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" } },
+                      value
+                    ),
+                    _react2.default.createElement(
+                      _krUi.Tooltip,
+                      { offsetTop: 5, place: 'top' },
+                      value
+                    )
+                  );
+                } }),
+              _react2.default.createElement(
+                _krUi.TableRowColumn,
+                null,
+                _react2.default.createElement(_krUi.Button, { label: '\u67E5\u770B', type: 'operation', operation: 'view' }),
+                _react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'operation', operation: 'edit' }),
+                _react2.default.createElement(_krUi.Button, { label: '\u5220\u9664', type: 'operation', operation: 'delete' }),
+                _react2.default.createElement(_krUi.Button, { label: '\u5BA1\u6838', type: 'operation', operation: 'audit' })
+              )
+            )
+          ),
+          _react2.default.createElement(_krUi.TableFooter, null)
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u67E5\u8BE2',
+            modal: true,
+            open: this.state.openSearch,
+            onClose: this.openSearch
+          },
+          _react2.default.createElement(_HightSearchForm2.default, { onSubmit: this.onSearchSubmit, onCancel: this.openSearch })
+        ),
+        _react2.default.createElement(
+          _krUi.Drawer,
+          {
+            modal: true,
+            width: 750,
+            open: this.state.openAddCreate,
+            onClose: this.openAddCreate,
+            openSecondary: true,
+            containerStyle: { paddingRight: 43, paddingTop: 40, paddingLeft: 48, paddingBottom: 48, zIndex: 20 }
+          },
+          _react2.default.createElement(_AddMoney2.default, { onSubmit: '', onCancel: this.openAddCreate, openCreateCustomer: this.openCreateCustomer })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u65B0\u5EFA\u5BA2\u6237',
+            modal: true,
+            open: this.state.openCreateCustomer,
+            onClose: this.openCreateCustomer
+          },
+          _react2.default.createElement(_NewCreateCustomer2.default, {
+            onCancel: this.openCreateCustomer,
+            onSubmit: this.onSubmitCustomer
+          })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u65B0\u5EFA\u8BA2\u5355',
+            modal: true,
+            open: this.state.openCreateMainbill,
+            onClose: this.openCreateMainbill
+          },
+          _react2.default.createElement(_NewCreateMainbill2.default, {
+            detail: CustomerList,
+            onCancel: this.openCreateMainbill,
+            onSubmit: this.onSubmitMainbill
+          })
+        )
+      );
+    }
+  }]);
+
+  return ToDoAudit;
+}(_react.Component);
+
+exports.default = ToDoAudit;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ToDoAudit, 'ToDoAudit', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Finance/Manage/Audit/ToDoAudit/index.js');
+}();
+
+;

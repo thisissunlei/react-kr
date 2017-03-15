@@ -1,9 +1,0 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-//发送请求
-var LOAD_COMMON_REQUEST = exports.LOAD_COMMON_REQUEST = 'LOAD_COMMON_REQUEST';
-var LOAD_COMMON_SUCCESS = exports.LOAD_COMMON_SUCCESS = 'LOAD_COMMON_SUCCESS';
-var LOAD_COMMON_FAILURE = exports.LOAD_COMMON_FAILURE = 'LOAD_COMMON_FAILURE';
