@@ -105,23 +105,7 @@ class LookCustomerList extends Component{
 			);
 		}	
 
-		if(!allState.reduce){
-			num=50+(5-noneTab.length)*109.16;
-			
-			text="减租协议书"
-			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
-			noneTab.push(
-				<Tab label="减租协议书" >
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-				</Tab>
-			)
-		}else{
-			showTab.push(
-				<Tab label="减租协议书" >
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-				</Tab>
-			);
-		}
+		
 
 		if(!allState.relet){
 			num=50+(5-noneTab.length)*109.16;
@@ -142,6 +126,27 @@ class LookCustomerList extends Component{
 			);
 
 		}
+
+
+		if(!allState.reduce){
+			num=50+(5-noneTab.length)*109.16;
+			
+			text="减租协议书"
+			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
+			noneTab.push(
+				<Tab label="减租协议书" >
+					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				</Tab>
+			)
+		}else{
+			showTab.push(
+				<Tab label="减租协议书" >
+					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				</Tab>
+			);
+		}
+
+
 		if(!allState.returnRent){
 			num=50+(5-noneTab.length)*109.16;
 			
