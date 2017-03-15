@@ -363,48 +363,21 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         openUp:false,
       })
     }
+
+    businessTimeStart=(value)=>{
+      console.log('[[;;;;',value);
+      Store.dispatch(change('NewCommunityList','businessBegin',value));
+    }
+
+     businessTimeEnd=(value)=>{
+      Store.dispatch(change('NewCommunityList','businessEnd',value));
+    }
    
 
 	render(){
        
      
-       //时间下拉开始
-		var skipMinut=10;
-        var arrMinuts=[];
-        var arrHour=[];
-        var arrMinuts_new=[];
-        var arrHour_new=[];
-        var optionsTime=[];
-        var optionTimeList=[];
-        for(var i=0;i<25;i++){
-          arrHour.push(i);	
-        }
-        for(var i=0;i<6;i++){
-          arrMinuts.push(i*skipMinut);
-        }
-        arrHour.map(function(item,index){
-           if(item<10){
-           	 item='0'+item;
-           }
-         arrHour_new.push(item);
-        })
-        arrMinuts.map(function(item,index){
-           if(item==0){
-           	 item='0'+item;
-           }
-          arrMinuts_new.push(item); 
-        })
-        for(var i=0;i<arrMinuts_new.length;i++){
-        	 for(var j=0;j<arrHour_new.length;j++){
-        	 	optionsTime.push(arrHour_new[j]+':'+arrMinuts_new[i]);
-        	 }
-        }        
-        optionsTime.map((item,index)=>{
-           optionTimeList.push({label:item,value:item});
-        })
-       //时间下拉结束
-    
-
+     
 
 
        let {communityName,codeName}=this.state;
@@ -496,23 +469,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
 								
-                                <KrField grid={1/2}  component="group" label="营业时间" style={{paddingLeft:'16px'}}>
-								<div className='community-listDate'>
-									<ListGroup>
-										<ListGroupItem><div className='community-date-start' ><KrField  style={{width:120,marginLeft:-10,marginTop:2}} name="businessBegin" component="select" 
-                                           options={optionTimeList}
-										/></div></ListGroupItem>
-											<div className='community-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-										<ListGroupItem><div className='community-date-end'><KrField name="businessEnd" style={{width:120,marginTop:2}} component="select" 
-                                            options={optionTimeList}
-										/></div></ListGroupItem>
-									</ListGroup>
-				                </div>
-								</KrField>
-								
+                                 <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:10,marginLeft:16}} name='businessBegin' onChange={this.businessTimeStart}/>
+                                 <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
+								                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:10,marginLeft:-1,marginTop:15}} name='businessEnd' onChange={this.businessTimeEnd}/>
 
 
-								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:9}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
 								
 						        <FieldArray name="bright4" component={renderBrights}/>
 
@@ -528,12 +490,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                       {openUp&&<div>
 						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange} />	
+							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>	
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
 					              	<KrField name="portalShow" label="显示" type="radio" value='1' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					             	<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
-
+                {State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
 					         <FieldArray name="potTypes" component={renderStation}/> 
 					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     
@@ -665,6 +627,59 @@ const validate = values =>{
 		    }
          }
 
+
+        if (!values.bright2 || !values.bright2.length) {
+          errors.bright2 = { _error: 'At least one member must be entered' }
+        } else {    
+          const bright1ArrayErrors = []
+          values.bright2.forEach((bright2, memberIndex) => {
+            const memberErrors = {}
+            if (bright2.brightPoints&&bright2.brightPoints.length>100) {
+              bright2.brightPoints=bright2.brightPoints.substr(0,bright2.brightPoints.length-1);
+              memberErrors.brightPoints = '不能超过100字'
+              bright1ArrayErrors[memberIndex] = memberErrors
+            }
+          })
+        if(bright1ArrayErrors.length) {
+          errors.bright2 = bright1ArrayErrors
+        }
+         }
+
+
+          if (!values.bright3 || !values.bright3.length) {
+          errors.bright3 = { _error: 'At least one member must be entered' }
+        } else {    
+          const bright1ArrayErrors = []
+          values.bright3.forEach((bright3, memberIndex) => {
+            const memberErrors = {}
+            if (bright3.brightPoints&&bright3.brightPoints.length>100) {
+              bright3.brightPoints=bright3.brightPoints.substr(0,bright3.brightPoints.length-1);
+              memberErrors.brightPoints = '不能超过100字'
+              bright1ArrayErrors[memberIndex] = memberErrors
+            }
+          })
+        if(bright1ArrayErrors.length) {
+          errors.bright3 = bright1ArrayErrors
+        }
+         }
+
+          if (!values.bright4 || !values.bright4.length) {
+          errors.bright4 = { _error: 'At least one member must be entered' }
+        } else {    
+          const bright1ArrayErrors = []
+          values.bright4.forEach((bright4, memberIndex) => {
+            const memberErrors = {}
+            if (bright4.brightPoints&&bright4.brightPoints.length>100) {
+              bright4.brightPoints=bright4.brightPoints.substr(0,bright4.brightPoints.length-1);
+              memberErrors.brightPoints = '不能超过100字'
+              bright1ArrayErrors[memberIndex] = memberErrors
+            }
+          })
+        if(bright1ArrayErrors.length) {
+          errors.bright4 = bright1ArrayErrors
+        }
+         }
+
          
 
         
@@ -696,6 +711,8 @@ const validate = values =>{
 		if (!values.address) {
 			errors.address= '请输入详细地址';
 		}
+   
+   
 
 		if(values.orderNum&&!numberNotZero.test(values.orderNum)){
 			errors.orderNum='只能输入正整数';

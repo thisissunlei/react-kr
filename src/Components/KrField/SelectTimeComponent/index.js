@@ -41,10 +41,11 @@ export default class SelectTimeComponent extends React.Component{
 
     //input 框数值变化
     inputChange = (hour,minute) => {
-
+      
     	
 		let {
-			input
+			input,
+			onChange
 		} = this.props;
 
 		if(!hour || !minute){
@@ -54,6 +55,8 @@ export default class SelectTimeComponent extends React.Component{
 		let value=hour + ":" + minute;
 		
 		input.onChange(value);
+		onChange && onChange(value);
+
 	}
 
 	//时针扫过
@@ -76,7 +79,7 @@ export default class SelectTimeComponent extends React.Component{
 	render() {
 
 		let {allOpen,widthState,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
-		let {label,style,requireLabel,inline,search}=this.props;
+		let {label,style,requireLabel,inline,search,inputStyle}=this.props;
         
         var hour=[];
         var minute=['00','10','20','30','40','50'];
@@ -89,7 +92,7 @@ export default class SelectTimeComponent extends React.Component{
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
-	               	<input type="text" onClick={this.inputClick} value={timeNum} onChange={this.inputChange.bind(hourNum,minuteNum)}/>	
+	               	<input type="text" onClick={this.inputClick} value={timeNum} onChange={this.inputChange.bind(hourNum,minuteNum)} style={inputStyle}/>	
 	              	{allOpen && 
 	              	<div className="ui-time-select-all">
 		                <div  className="ui-hour-style">

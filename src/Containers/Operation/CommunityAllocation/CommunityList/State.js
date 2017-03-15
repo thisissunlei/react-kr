@@ -37,7 +37,8 @@ let State = observable({
 		//编辑区县
 		cityData:'',
 		isCorpName:false,
-		isCorpCode:false
+		isCorpCode:false,
+		isCorpRank:false
 
 });
 //新建社区的开关
@@ -133,8 +134,13 @@ State.communityRank = action(function(params,id) {
 	 data.orderNum=params;
 	 data.id='';
 	 Store.dispatch(Actions.callAPI('check-rank',data)).then(function(response) {
+	     _this.isCorpRank=false;
 	}).catch(function(err) {
-		 Message.error(err.message);
+		 if(err.message.indexOf("该序号已存在")!=-1){
+			 _this.isCorpRank=true;
+		}else{
+			 _this.isCorpRank=false;
+		}
 	});	
 });
 
