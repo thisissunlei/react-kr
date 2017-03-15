@@ -12,6 +12,7 @@ let State = observable({
 	openView: false,
 	openEditDetail: false,
 	openAdvancedQuery :false,
+	openCloseNavs:false,
 	status:false,
 	submit:false,
 	itemDetail: {},

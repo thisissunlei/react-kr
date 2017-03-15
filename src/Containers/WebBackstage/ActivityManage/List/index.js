@@ -116,6 +116,7 @@ export default class List extends Component {
 		values.companyId = 0;
 		console.log('高级查询',values);
 		State.searchParams = values;
+		State.content = values.name;
 	}
 	downPublish=(itemData)=>{
 		console.log('downPublish');
@@ -129,19 +130,32 @@ export default class List extends Component {
 	upPosition=(itemData)=>{
 		console.log('upPosition');
 	}
+	closeNavs=()=>{
+		console.log('closeNavs');
+		State.openCloseNavs = false;
+		State.openNewCreate = false;
+	}
 	render() {
 		if (!State.list.totalCount) {
 			State.list.totalCount = 0;
 		}
+		let className = '';
+		if(State.openCloseNavs || State.openNewCreate){
+			className='close-navs'
+		}else{
+			className = 'none';
+		}
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
+					<div className={className} onClick={this.closeNavs}></div>
+
 								<Title value="活动列表 "/>
 								<Section title={`活动列表`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建活动"  onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
 										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} />
+										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}}/>
 									</form>
 									<Table
 										className="member-list-table"
@@ -259,15 +273,15 @@ export default class List extends Component {
 									</Table>
 								</Section>
 								{/*新建活动*/}
-							  <Drawer open={State.openNewCreate} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openNewCreate} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 								{/*编辑活动*/}
-							  <Drawer open={State.openEditDetail} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />
 							  </Drawer>
 								<Dialog
