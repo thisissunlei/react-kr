@@ -44,7 +44,12 @@ class AddMoney extends Component {
 		}
 
 	}
-
+	onSubmit = () => {
+		let {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit();
+	}
 	onCancel = () => {
 		let {
 			onCancel
@@ -56,7 +61,6 @@ class AddMoney extends Component {
 			<div className="u-audit-content-null">
 				<div className="u-audit-content-null-icon"></div>
 				<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
-
 			</div>
 		)
 	}

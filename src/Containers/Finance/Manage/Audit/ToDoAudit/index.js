@@ -51,7 +51,7 @@ export default class ToDoAudit extends Component {
       openEditDetail: false,
       openDelete: false,
       openSearch: false,
-      openCreate: false,
+      openAddCreate: false,
       itemDetail: {},
       Params: {
         page: 1,
@@ -91,9 +91,9 @@ export default class ToDoAudit extends Component {
       this.openSearch();
     }
     //打开添加回款
-  openCreate = () => {
+  openAddCreate = () => {
     this.setState({
-      openCreate: !this.state.openCreate
+      openAddCreate: !this.state.openAddCreate
     })
   }
   render() {
@@ -104,7 +104,7 @@ export default class ToDoAudit extends Component {
                   <SearchForm 
                           onSubmit={this.searchParams} 
                           openSearch={this.openSearch}
-                          openCreate={this.openCreate}
+                          openAdd={this.openAddCreate}
                   />
             </div >
             <Table 
@@ -246,12 +246,12 @@ export default class ToDoAudit extends Component {
             <Drawer
               modal={true}
               width={750}
-              open={this.state.openCreate}
-              onClose={this.openCreate}
+              open={this.state.openAddCreate}
+              onClose={this.openAddCreate}
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  onSubmit={this.onSearchSubmit} onCancel={this.openCreate} />
+              <AddMoney  onSubmit="" onCancel={this.openAddCreate} />
             </Drawer>
             
       </div>
