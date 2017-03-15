@@ -1030,7 +1030,12 @@ const APIS = {
     },
     //财务--审核列表--添加回款--订单列表
     'get-mainbill': {
-        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill?customerId={customerId}&mainBillName={mainBillName}',
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill?mainBillName={mainBillName}',
+        method: 'get'
+    },
+    //财务--审核列表--添加回款--获取我司账户
+    'get-account-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-account-info?accountType={accountType}',
         method: 'get'
     },
 

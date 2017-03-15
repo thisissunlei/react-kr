@@ -41,9 +41,46 @@ class AddMoney extends Component {
 		super(props);
 		this.state = {
 			totalCountMoney: 0,
+			payment: [{
+				label: '无',
+				value: 'NONE'
+			}, {
+				label: '支付宝支付',
+				value: 'ZHIFUBAO'
+			}, {
+				label: '微信支付',
+				value: 'WEIXIN'
+			}, {
+				label: '银行转账',
+				value: 'YINGHANG'
+			}, {
+				label: 'POS机支付',
+				value: 'POS'
+			}],
+			accountList: [],
 		}
 
+
+
 	}
+	getAccount = (form) => {
+		var accountList;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-account-info', {
+			accountType: form.value
+		}, {})).then(function(response) {
+			accountList = response.map((item, index) => {
+				item.label = item.accountNum;
+				item.value = item.accountId;
+				return item;
+			})
+			_this.setState({
+				accountList: accountList
+			})
+
+		}).catch(function(err) {});
+	}
+
 	onSubmit = () => {
 		let {
 			onSubmit
@@ -74,7 +111,9 @@ class AddMoney extends Component {
 			reset
 		} = this.props;
 		let {
-			totalCountMoney
+			totalCountMoney,
+			payment,
+			accountList
 		} = this.state;
 		return (
 			<div className="u-audit-add">
@@ -118,7 +157,8 @@ class AddMoney extends Component {
 								name="payWay" 
 								component="select" 
 								label="收款方式" 
-								options=""
+								options={payment}
+								onChange={this.getAccount}
 								requireLabel={true}
 						/>
 						<KrField
@@ -126,7 +166,7 @@ class AddMoney extends Component {
 								name="accountId" 
 								component="select" 
 								label="我司账户" 
-								options=""
+								options={accountList}
 								requireLabel={true}
 						/>
 						<KrField
@@ -165,9 +205,9 @@ class AddMoney extends Component {
 							component="file" 
 							label="上传附件" 
 							defaultValue={[]} 
-							/*onChange={(files)=>{
+							onChange={(files)=>{
 								Store.dispatch(change('AddMoney','contractFileList',files));
-							}} */
+							}} 
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
