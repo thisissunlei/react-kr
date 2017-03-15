@@ -31,7 +31,8 @@ import {
 	Community,
 	Retail,
 	Statistical,
-	customerManage
+	customerManage,
+	WebBackstage,
 } from '../Containers';
 
 import Master from '../master';
@@ -267,7 +268,7 @@ export default (
 
 	*/}
 
-	<Route path="personalCenter" component={Permission.PersonalCenter}/>
+		<Route path="personalCenter" component={Permission.PersonalCenter}/>
 			<Redirect from="permission" to="permission/personalCenter" />
 		</Route>
 
@@ -282,6 +283,19 @@ export default (
 		{/*404*/}
 		<Route path="undefined" component={Undefined}/>
 		<Route path="*" component={Undefined}/>
+
+
+		{/*官网后台*/}
+		<Route path="webbackstage" component={Basic}>
+            {/*<IndexRedirect to="memberManage/list" />*/}
+
+			<Route path="activitymanage" component={Basic}>
+				<Route path="customerlist"  component={WebBackstage.ActivityManage.List} />
+		
+			</Route>
+
+		</Route>
+
 
 	</Route>
 
