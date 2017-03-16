@@ -86,7 +86,7 @@ class NewCreateForm extends Component{
 		 onCancel && onCancel();
 	 }
 	 city=(values)=>{
-		 Store.dispatch(change('AdvancedQueryForm','city',values));
+		 Store.dispatch(change('AdvancedQueryForm','cityId',values));
 	 }
 	 onStartChange=(startTime)=>{
 		 let {searchParams}=this.state;
@@ -94,10 +94,10 @@ class NewCreateForm extends Component{
 			 let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
 
 			 if(searchParams.endTime&&start>end){
-				 Message.error("结束时间要小于开始时间");
+				 Message.error("结束时间不可小于开始时间");
 				 return ;
 			 }
-			 Store.dispatch(change('AdvancedQueryForm','startTime',startTime));
+			 Store.dispatch(change('AdvancedQueryForm','beginDate',startTime));
 		 searchParams = Object.assign({}, searchParams, {startTime});
 		 this.setState({
 			 searchParams
@@ -111,33 +111,35 @@ class NewCreateForm extends Component{
 				 Message.error("结束时间不可小于开始时间");
 				 return ;
 		 }
-		 Store.dispatch(change('AdvancedQueryForm','endTime',endTime));			 searchParams = Object.assign({}, searchParams, {endTime});
+		 Store.dispatch(change('AdvancedQueryForm','endDate',endTime));			 
+		 searchParams = Object.assign({}, searchParams, {endTime});
 		 this.setState({
 				 searchParams
 		 });
 	 }
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let communityText = '';
-		let {selectOption,selectSourceOption} =this.state;
 		let options = [{
-			label: '公司名称',
-			value: 'COMP_NAME'
+			label: 'CEO Time',
+			value: 1
 		}, {
-			label: '手机号',
-			value: 'PHONE'
+			label: '公开氪',
+			value: 2
 		}, {
-			label: '微信',
-			value: 'WECHAT'
-		}, {
-			label: '姓名',
-			value: 'NAME'
+			label: '社区福利',
+			value: 3
+		},  {
+			label: 'Open Day',
+			value: 4
+		},{
+			label: '氪空间创业节',
+			value: 5
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
-				<KrField name="title" grid={1/2} type="text" component="input"  label="活动标题" style={{width:'252px',marginRight:'33',marginBottom:5}}/>
+				<KrField name="name" grid={1/2} type="text" component="input"  label="活动标题" style={{width:'252px',marginRight:'33',marginBottom:5}}/>
 				<KrField name="type" grid={1/2} type="text"  component="select" label="活动类型"  options={options} style={{width:'252px'}}/>
-				<KrField name="address"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
+				<KrField name="cityId"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>

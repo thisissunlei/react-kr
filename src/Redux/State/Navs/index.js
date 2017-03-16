@@ -56,7 +56,7 @@ module.exports = {
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
 			}, ]
 		}, ],
-	}, {
+	},{
 		primaryText: "运营平台",
 		router: 'operation',
 		menuCode: 'operate',
@@ -426,7 +426,7 @@ module.exports = {
 				},
 
 			]
-		}, ]
+		}]
 	}, {
 		primaryText: "权限管理",
 		menuCode: 'rightadmin',
@@ -581,5 +581,21 @@ module.exports = {
 				originUrl: '/sys/onLineUser/onLineUserList?mid=42'
 			}, ]
 		}, ]
-	}, ]
+	}, {
+			primaryText: "活动管理",
+			router: 'community',
+			menuCode: 'op_manage',
+			originUrl: '#/WebBackstage/activity/list',
+			menuItems: [{
+				primaryText: "活动管理",
+				iconName: 'icon-com',
+				iconColor: '#79859a',
+				menuCode: 'community_manage',
+				menuItems: [{
+					primaryText: '活动列表',
+					menuCode: 'plan_table',
+					router: '/community/communityManage/detail',
+				},]
+			}, ],
+		}, ]
 }
