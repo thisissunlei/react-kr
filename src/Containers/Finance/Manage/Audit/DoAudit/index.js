@@ -140,7 +140,9 @@ export default class DoAudit extends Component {
   }
 
   render() {
-    console.log('this.state.Params', this.state.Params)
+    let {
+      itemDetail
+    } = this.state;
     return (
 
       <div className="m-do-audit">
@@ -287,9 +289,8 @@ export default class DoAudit extends Component {
               open={this.state.openEditCreate}
               onClose={this.openEditCreate}
               openSecondary={true}
-              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney   onSubmit="" onCancel={this.openEditCreate}  />
+              <AddMoney  detail={itemDetail} onSubmit="" onCancel={this.openEditCreate}  />
             </Drawer>
       </div>
 

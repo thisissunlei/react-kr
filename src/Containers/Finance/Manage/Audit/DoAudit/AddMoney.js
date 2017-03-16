@@ -25,12 +25,13 @@ import {
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
-	CircleStyleTwo
+	CircleStyleTwo,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 
 
-class AddMoney extends Component {
+class EditMoney extends Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -41,83 +42,62 @@ class AddMoney extends Component {
 		super(props);
 		this.state = {
 			totalCountMoney: 0,
-			payment: [{
-				label: '无',
-				value: 'NONE'
-			}, {
-				label: '支付宝支付',
-				value: 'ZHIFUBAO'
-			}, {
-				label: '微信支付',
-				value: 'WEIXIN'
-			}, {
-				label: '银行转账',
-				value: 'YINGHANG'
-			}, {
-				label: 'POS机支付',
-				value: 'POS'
-			}],
-			accountList: [],
-			mainbillInfo: {},
 			showName: false,
 			finaflowInfo: [],
-			customerId: ""
+			customerId: "",
+			infoList: [],
+			payInfoList: {},
+			topInfoList: []
 		}
 
-
+		this.getDetailInfo();
+		this.getPayInfo();
+		this.getInfo();
 
 	}
+
+	componentDidMount() {
+		//editMoney
+
+	}
+
 	componentWillReceiveProps(nextProps) {
 		this.setState({
 			showName: !this.state.showName
 		})
 	}
-
-	openCreateCustomer = () => {
-		let {
-			openCreateCustomer
-		} = this.props;
-		openCreateCustomer && openCreateCustomer();
-	}
-	openCustomer = (form) => {
-		if (form.id == 0) {
-			this.openCreateCustomer();
-		} else {
-			this.setState({
-				customerId: form.id
-			})
-			console.log('customerId---', this.state.customerId)
-		}
-
-
-	}
-
-	getMainbillInfo = (form) => {
-		var mainbillInfo;
+	getInfo = () => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-account-info', {
-			mainBillId: form.value
+		var id = this.props.detail.id
+		Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+			finaVerifyId: id
 		}, {})).then(function(response) {
-
 			_this.setState({
-				mainbillInfo: response
+				topInfoList: response
+			})
+		}).catch(function(err) {});
+	}
+	getPayInfo = () => {
+		var id = this.props.detail.mainbillId
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-finaflow-info', {
+			mainBillId: id
+		}, {})).then(function(response) {
+			_this.setState({
+				payInfoList: response
 			})
 
 		}).catch(function(err) {});
 	}
-	getAccount = (form) => {
-		var accountList;
+
+	getDetailInfo = () => {
+		var id = this.props.detail.id
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-account-info', {
-			accountType: form.value
+		Store.dispatch(Actions.callAPI('get-fina-infos', {
+			finaVerifyId: id
 		}, {})).then(function(response) {
-			accountList = response.map((item, index) => {
-				item.label = item.accountNum;
-				item.value = item.accountId;
-				return item;
-			})
 			_this.setState({
-				accountList: accountList
+				infoList: response
 			})
 
 		}).catch(function(err) {});
@@ -159,88 +139,106 @@ class AddMoney extends Component {
 			reset
 		} = this.props;
 		let {
-			totalCountMoney,
-			payment,
-			accountList,
-			mainbillInfo,
-			showName,
-			customerId
+			infoList,
+			payInfoList,
+			topInfoList
 		} = this.state;
 		return (
-			<div className="u-audit-add">
+			<div className="u-audit-add u-audit-edit">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
-			     	<span>添加回款</span>
+			     	<span>编辑回款</span>
 			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
 			     </div>
+			     <div className="u-table-list">
+				     <table className="u-table">
+				     	<tr>
+					     	<th>序号</th>
+					     	<th width={100}>审核时间</th>
+					     	<th width={100}>审核人</th>
+					     	<th width={100}>审核状态</th>
+					     	<th width={270}>备注</th>
+				     	</tr>
+				     	<tbody>
+				     	{topInfoList && topInfoList.map((item,index)=>{
+							return(
+								<tr key={index}>
+							     	<td>{index+1}</td>
+							     	<td><KrDate value={item.operateTime}/></td>
+							     	<td>{item.operateUserName}</td>
+							     	<td>{item.targetStatus=='CHECKED'?<span className="u-font-green">{item.verifyName}</span>:<span className="u-font-red">{item.verifyName}</span>}</td>
+							     	<td>{item.operateRemark}</td>
+						     	</tr>
+							)
+				     	})}
+				     	</tbody>
+					 </table>
+				 </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
-								name="customerId" 
-								component="searchCustomer" 
+								name="customerId"
+								inline={false}  
+								component="labelText" 
 								label="客户名称"
-								requireLabel={true}
-								onChange={this.openCustomer}
-								showName={showName}
+								value={infoList.company}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="mainBillId" 
-								component="searchMainbill" 
+								component="labelText" 
+								inline={false} 
 								label="所属订单"
-								requireLabel={true}
-								customerId={customerId}
-								onChange={this.getMainbillInfo}
+								value={infoList.mainBillName}
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
 								inline={false} 
 								label="订单起止"
-								defaultValue="-" 
-								value={mainbillInfo.actualEntrydate} 
+								value={infoList.mainBillDate} 
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								component="labelText" 
 								inline={false}
 								label="公司主体"
-								defaultValue="-"
-								value={mainbillInfo.corporationName} 
+								value={infoList.corporationName} 
 						/>
 						<KrField
 								style={{width:260}}
 								name="payWay" 
-								component="select" 
-								label="收款方式" 
-								options={payment}
-								onChange={this.getAccount}
-								requireLabel={true}
+								component="labelText" 
+								label="收款方式"
+								inline={false} 
+								value={infoList.payWayName} 
+								
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="accountId" 
-								component="select" 
+								component="labelText"
+								inline={false} 
+								value={infoList.accountNum} 
 								label="我司账户" 
-								options={accountList}
-								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260}}
 								name="payAccount" 
 								type="text" 
-								component="input"
-								label="付款账户" 
-								options=""
-								requireLabel={true}
+								component="labelText"
+								inline={false} 
+								label="付款账户"
+								value={infoList.payAccount} 
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="dealTime" 
-								component="date" 
+								component="labelText" 
+								inline={false} 
 								label="收款日期" 
-								requireLabel={true}
+								value={infoList.dealTime}
 						/>
 						<KrField  
 								style={{width:548}}  
@@ -248,9 +246,10 @@ class AddMoney extends Component {
 								component="textarea" 
 								label="备注" 
 								maxSize={100}
+								defaultValue={infoList.remark}
 						/>
 						<KrField  
-							 	name="contractFileList" 
+							 	name="fileList" 
 							 	component="input" 
 							 	type="hidden" 
 							 	label="合同附件"
@@ -260,9 +259,9 @@ class AddMoney extends Component {
 							name="uploadFileIds" 
 							component="file" 
 							label="上传附件" 
-							defaultValue={[]} 
+							defaultValue={infoList.fileList} 
 							onChange={(files)=>{
-								Store.dispatch(change('AddMoney','contractFileList',files));
+								Store.dispatch(change('AddMoney','fileList',files));
 							}} 
 						/>
 					</CircleStyleTwo>
@@ -270,9 +269,9 @@ class AddMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{totalCountMoney}</span>
+							<span></span>
 						</div>
-						{this.renderPayList()}
+						{/*this.renderPayList()*/}
 						<Grid style={{marginTop:50}}>
 						<Row >
 						<Col md={12} align="center">
@@ -291,29 +290,7 @@ class AddMoney extends Component {
 		);
 	}
 }
-const validate = values => {
-
-	const errors = {}
-
-	if (!values.leaseId) {
-		errors.leaseId = '请输入出租方';
-	}
-
-	if (!values.lessorContactid) {
-		errors.lessorContactid = '请输入出租方联系人';
-	}
-
-	if (!values.wherefloor) {
-		errors.wherefloor = '请输入所在楼层';
-	}
-
-
-	return errors
-}
 
 export default reduxForm({
-	form: 'addMoney',
-	validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
-})(AddMoney);
+	form: 'editMoney',
+})(EditMoney);
