@@ -1080,6 +1080,16 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-finaflow-info?mainBillId={mainBillId}',
         method: 'get'
     },
+    //财务--审核列表--已审核--编辑回款--付款信息
+    'get-fina-infos': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-info?finaVerifyId={finaVerifyId}',
+        method: 'get'
+    },
+    //财务--审核列表--已审核--编辑回款--付款明细
+    'get-fina-flow-logs': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-logs?finaVerifyId={finaVerifyId}',
+        method: 'get'
+    },
 }
 
 module.exports = APIS;
