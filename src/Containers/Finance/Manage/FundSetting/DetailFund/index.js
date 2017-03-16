@@ -181,7 +181,7 @@ export default class TotalFund extends Component {
                                 <TableRowColumn name="twinsFlag" options={[
                                     {
                                         label: '是',
-                                        value: 'CREATINCOME'
+                                        value: 'CREATEINCOME'
                                     }, {
                                         label: '否',
                                         value: 'NOINCOME'

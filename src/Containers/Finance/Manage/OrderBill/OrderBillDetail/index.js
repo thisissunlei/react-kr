@@ -230,7 +230,7 @@ export default class AttributeSetting extends Component {
             response.payWay.map(function(item, index) {
                 var list = {}
                 list.value = item.id;
-                list.label = item.accountname;
+                list.label = item.name;
                 payWayList.push(list);
             });
             response.contract.map(function(item, index) {
@@ -356,7 +356,7 @@ export default class AttributeSetting extends Component {
             response.payWay.map(function(item, index) {
                 var list = {}
                 list.value = item.id;
-                list.label = item.accountname;
+                list.label = item.name;
                 payWayList.push(list);
             });
             if (response.contractList) {
