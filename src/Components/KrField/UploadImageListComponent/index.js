@@ -32,7 +32,6 @@ export default class UploadImageComponent extends Component {
 			imageStatus : true,
 			fileArray:[],
 			photo:{
-				type:this.props.type,
 				first:false,
 				photoId:''
 			}
@@ -220,8 +219,9 @@ export default class UploadImageComponent extends Component {
 							});
                    
                    const {input}=_this.props;
-                   photo.id=xhrfile.response.data.id;
+                   photo.photoId=xhrfile.response.data.id;
                    photo.src=data;
+                   photo.type=_this.props.type;
                    fileArray.push(photo);  
 			       input.onChange(fileArray);			           
 			       console.log('00-----',xhrfile.response.data);                           

@@ -139,8 +139,11 @@ class CommunityList  extends Component{
    	      delete value.porTypes;
    	    } 
    	      delete value.brights;
-
-         value.photosStr=JSON.stringify(value.photosStr); 
+         
+         value.photosStr1.map((item,index)=>{
+           delete item.src;    
+         })
+         value.photosStr=JSON.stringify(value.photosStr1); 
 
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");

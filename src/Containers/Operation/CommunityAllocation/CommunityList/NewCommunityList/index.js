@@ -269,7 +269,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       openUp:false,
       communityName:'',
       codeName:'',
-      requestURI:"postEquipmentImg",
 		}
 	}
 	onSubmit = (values) => {	
@@ -512,11 +511,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						     <KrField grid={1} label="周边" name="bright6.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						   <div style={{marginTop:'-16px'}}>  
                  <span className='upload-pic-first'>上传首页图片</span>
-                 <KrField name="photosStr" 
+                 <KrField name="photosStr1" 
     								component="uploadImageList" 
-    								style={{marginTop:10,textAlign:'left'}}
-                    requestURI = {this.state.requestURI}
-                    
+    								style={{marginTop:10,textAlign:'left'}}  
+                    type='THEFIRST'   
 					         />
                </div>
 
