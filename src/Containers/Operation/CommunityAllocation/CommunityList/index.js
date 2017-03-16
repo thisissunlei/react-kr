@@ -208,7 +208,8 @@ class CommunityList  extends Component{
    onSearchSubmit=(params)=>{
    	  let obj = {
 			searchKey: params.content,
-			searchType:params.filter
+			searchType:params.filter,
+      pageSize:15
 		}
 		State.searchParams=obj
    }
