@@ -390,7 +390,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        var nameStyle={}
        if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
         nameStyle={
-           height:'100px'
+           height:'105px'
         }
        }else{
         nameStyle={
