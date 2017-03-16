@@ -82,8 +82,10 @@ class CommunityList  extends Component{
    //新建社区提交
    onNewCommunitySubmit=(value)=>{ 	
    	    value = Object.assign({},value);
-   	    var brightsStr=[];
 
+
+
+   	    var brightsStr=[];
    	    if(value.bright1){
    	      value.bright1.map((item,index)=>{
    	   	 if(item){
@@ -139,18 +141,51 @@ class CommunityList  extends Component{
    	      delete value.porTypes;
    	    } 
    	      delete value.brights;
-         
-         value.photosStr1.map((item,index)=>{
-           delete item.src;    
-         })
+
+
+
+
          var photosStr=[];
-         photosStr.push(value.photosStr1); 
-         photosStr.push(value.photosStr2); 
-         photosStr.push(value.photosStr3); 
-         value.photosStr=JSON.stringify(photosStr);
-         delete value.photosStr1
-         delete value.photosStr2
-         delete value.photosStr3
+         if(value.photosStr1){
+         	value.photosStr1.map((item,index)=>{
+         	 if(index==0){
+         	 	item.first=true;
+         	 }else{
+         	 	item.first=false;
+         	 }
+             delete item.src;    
+            })
+         	photosStr.push(value.photosStr1); 
+         	delete value.photosStr1
+         }
+         
+         if(value.photosStr2){
+         	value.photosStr2.map((item,index)=>{
+         	 if(index==0){
+         	 	item.first=true;
+         	 }else{
+         	 	item.first=false;
+         	 }
+             delete item.src;    
+            })
+         	photosStr.push(value.photosStr2); 
+         	delete value.photosStr2
+         }
+         
+         if(value.photosStr3){
+         	value.photosStr3.map((item,index)=>{
+         	 if(index==0){
+         	 	item.first=true;
+         	 }else{
+         	 	item.first=false;
+         	 }
+             delete item.src;    
+            })
+         	photosStr.push(value.photosStr3); 
+         	delete value.photosStr3
+         }
+         
+
  
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");

@@ -349,6 +349,26 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            timeEnd:response.businessEnd,
            cityId:response.cityId
         })
+
+        var photo1=[];
+        var photo2=[];
+        var photo3=[];
+        response.photos.map((item,index)=>{
+           if(item.type=='THEFIRST'){
+             photo1.push(item);
+           }
+           if(item.type=='LIST'){
+             photo2.push(item);
+           }
+           if(item.type=='DETAILS'){
+             photo3.push(item);
+           }
+        })
+        Store.dispatch(change('editCommunityList','photosStr1',photo1));
+        Store.dispatch(change('editCommunityList','photosStr2',photo2));
+        Store.dispatch(change('editCommunityList','photosStr3',photo3));
+
+
         response.brights.map((item,index)=>{          
             if(item.type=="BRIGHTPOINTS"){
                bright4.push(item);
@@ -542,14 +562,34 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						     <FieldArray name="bright3" component={renderSpecial}/>      
 						     <KrField grid={1} label="交通" name="bright5.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
                  <KrField grid={1} label="周边" name="bright6.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-						     <KrField name="uploadImage" 
-								component="uploadImage" 
-								style={{marginTop:10}} 
-								photoSize={'212*136'} 
-								pictureFormat={'JPG'} 
-								pictureMemory={'32K'}
-								//requestURI = {this.state.requestURI}
-					         />
+						      <div style={{marginTop:'-16px'}}>  
+                 <span className='upload-pic-first'>上传首页图片</span>
+                 <KrField name="photosStr1" 
+                    component="uploadImageList" 
+                    style={{marginTop:10,textAlign:'left'}}  
+                    type='THEFIRST'   
+                   />
+               </div>
+
+               <div style={{marginTop:'16px'}}>  
+                 <span className='upload-pic-first'>上传社区列表页图片</span>
+                 <KrField name="photosStr2" 
+                    component="uploadImageList" 
+                    style={{marginTop:10,textAlign:'left'}}  
+                    type='LIST'   
+                   />
+               </div>
+
+
+               <div style={{marginTop:'16px'}}>  
+                 <span className='upload-pic-first'>上传详情页图片</span>
+                 <KrField name="photosStr3" 
+                    component="uploadImageList" 
+                    style={{marginTop:10,textAlign:'left'}}  
+                    type='DETAILS'   
+                   />
+               </div>
+
 						</div>
 						<div className="end-round"></div>
                      </div>}
