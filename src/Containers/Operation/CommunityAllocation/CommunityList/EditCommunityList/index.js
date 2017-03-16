@@ -253,16 +253,20 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	constructor(props){
 		super(props);
 		this.state={
-			openDown:true,
+			      openDown:true,
             openUp:false,
             cityId:'',
             communityName:'',
             codeName:'',
             timeStart:'',
-            timeEnd:''
+            timeEnd:'',
+            photoF:[],
+            photoL:[],
+            photoD:[],
 		}
 	}
 	onSubmit = (values) => {
+    console.log('/////;;;;',values);
      values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
@@ -271,6 +275,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
+    console.log('/////',values);
     }
 
 	onCancel = () => {
@@ -334,7 +339,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     componentWillMount(){
         let {id}=this.props;
-        let {timeStart,timeEnd}=this.state;
+        let {timeStart,timeEnd,photoF,photoL,photoD}=this.state;
         var _this=this;
         Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
 	      Store.dispatch(initialize('editCommunityList',response)); 
@@ -344,30 +349,39 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         var bright2=[];
         var bright3=[];
         var bright4=[];
-        _this.setState({
-           timeStart:response.businessBegin,
-           timeEnd:response.businessEnd,
-           cityId:response.cityId
-        })
 
         var photo1=[];
         var photo2=[];
         var photo3=[];
-        response.photos.map((item,index)=>{
+        response.photoVOs.map((item,index)=>{
            if(item.type=='THEFIRST'){
+             item.src=item.photoUrl;
+             delete item.photoUrl;
              photo1.push(item);
            }
            if(item.type=='LIST'){
+             item.src=item.photoUrl;
+             delete item.photoUrl;
              photo2.push(item);
            }
            if(item.type=='DETAILS'){
+             item.src=item.photoUrl;
+             delete item.photoUrl;
              photo3.push(item);
            }
         })
-        Store.dispatch(change('editCommunityList','photosStr1',photo1));
-        Store.dispatch(change('editCommunityList','photosStr2',photo2));
-        Store.dispatch(change('editCommunityList','photosStr3',photo3));
 
+        _this.setState({
+           timeStart:response.businessBegin,
+           timeEnd:response.businessEnd,
+           cityId:response.cityId,
+           photoF:photo1,
+           photoL:photo2,
+           photoD:photo3
+        })
+
+             
+        
 
         response.brights.map((item,index)=>{          
             if(item.type=="BRIGHTPOINTS"){
@@ -400,6 +414,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           if(response.opened==false){
           	 Store.dispatch(change('editCommunityList','opened','0')); 
           }
+
 
           if(response.portalShow==true){
              Store.dispatch(change('editCommunityList','portalShow','1')); 
@@ -439,7 +454,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     
 
       
-       let {communityName,codeName}=this.state;
+       let {communityName,codeName,photoF,photoL,photoD,openDown,openUp,timeStart,timeEnd}=this.state;
        var nameStyle={}
        if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
         nameStyle={
@@ -454,8 +469,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
 
-
-    let {openDown,openUp,timeStart,timeEnd}=this.state;
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -568,6 +581,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}  
                     type='THEFIRST'   
+                    defaultValue={photoF}
                    />
                </div>
 
@@ -576,7 +590,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <KrField name="photosStr2" 
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}  
-                    type='LIST'   
+                    type='LIST'
+                    defaultValue={photoL}   
                    />
                </div>
 
@@ -586,7 +601,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <KrField name="photosStr3" 
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}  
-                    type='DETAILS'   
+                    type='DETAILS' 
+                    defaultValue={photoD}     
                    />
                </div>
 

@@ -11,7 +11,7 @@ import './index.less';
 import refresh from "./images/pic.svg";
 import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
-export default class UploadImageComponent extends Component {
+export default class UploadImageListComponent extends Component {
 	static defaultProps = {
 		
 	}
@@ -37,16 +37,19 @@ export default class UploadImageComponent extends Component {
 			}
 		}
 	}
-	componentWillUnmount() {
-		this.setState({
-			files: []
-		});
+	componentWillMount() {
+		 this.setState({
+             fileArray:this.props.defaultValue
+      	  })
 	}
 	componentDidMount() {
 
 	}
+
 	componentWillReceiveProps(nextProps){
+
 	}
+
 	onTokenError() {
 		Notify.show([{
 			message: '初始化上传文件失败,请重新上传',
@@ -117,6 +120,7 @@ export default class UploadImageComponent extends Component {
 				});
 			}, 300);
 		}
+
 		let imgType = file.type;
 		let imgSize = Math.round(file.size/1024*100)/100;
 		if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
@@ -163,7 +167,7 @@ export default class UploadImageComponent extends Component {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
-									//_this.onError(fileResponse.msg);
+									_this.onError(fileResponse.msg);
 									return;
 								}
 							} else if (xhrfile.status == 413) {
@@ -199,7 +203,7 @@ export default class UploadImageComponent extends Component {
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
-		let {fileArray,photo}=this.state;
+		let {fileArray}=this.state;
 		let _this = this;
 		if(file ){
                 var fileData = file;
@@ -208,9 +212,8 @@ export default class UploadImageComponent extends Component {
                 reader.onload = function (e) {
                  	//console.log("e",e);
                     var data = reader.result;
-                     //加载图片获取图片真实宽度和高度
-                        
-                        	//_this.refs.uploadImage.src = xhrfile.response.data;
+                     //加载图片获取图片真实宽度和高度            
+                      	//_this.refs.uploadImage.src = xhrfile.response.data;
                         	_this.setState({
 								imageStatus : true,
 								imgUpload : true,
@@ -218,9 +221,6 @@ export default class UploadImageComponent extends Component {
 							});
                    
                    const {input}=_this.props;
-                   //photo.photoId=xhrfile.response.data.id;
-                   //photo.src=data;
-                   //photo.type=_this.props.type;
                    fileArray.push({
                    	 photoId:xhrfile.response.data.id,
                    	 src:data,
@@ -273,7 +273,8 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,fileArray} = this.state;
-		//console.log("this.state.operateImg",fileArray);
+		
+		console.log("this.state.operateImg",fileArray);
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
 					  	    
@@ -282,15 +283,17 @@ export default class UploadImageComponent extends Component {
 				     {
 					   	fileArray.map((item,index)=>{
 		                  return (<div className='lostsImg'>
-		                          <img className="image"  src={item.src}  ref="uploadImage" />
+		                          <img className="image"  src={item.src}  ref="uploadImage" style={{display:'block'}}/>
 			                      <div className="ui-uploadimg-fresh-delete">
+			                       <div className='delete-middle'>
 			                         <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:9,cursor:'pointer'}}/>
 									</div>
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.deleteImg.bind(this,index)}>
 										<img src={deleteImg} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
 									</div>
-			                      </div>
+								  </div>
+			                     </div>
 		                    </div>)
 					   	})
 					   }

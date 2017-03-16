@@ -81,10 +81,7 @@ class CommunityList  extends Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{ 	
-   	    value = Object.assign({},value);
-
-
-
+   	    value = Object.assign({},value);     
    	    var brightsStr=[];
    	    if(value.bright1){
    	      value.bright1.map((item,index)=>{
@@ -153,9 +150,9 @@ class CommunityList  extends Component{
          	 }else{
          	 	item.first=false;
          	 }
+         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId}); 
              delete item.src;    
-            })
-         	photosStr.push(value.photosStr1); 
+            })  	
          	delete value.photosStr1
          }
          
@@ -166,9 +163,9 @@ class CommunityList  extends Component{
          	 }else{
          	 	item.first=false;
          	 }
+         	  photosStr.push({type:item.type,first:item.first,photoId:item.photoId}); 
              delete item.src;    
             })
-         	photosStr.push(value.photosStr2); 
          	delete value.photosStr2
          }
          
@@ -179,12 +176,13 @@ class CommunityList  extends Component{
          	 }else{
          	 	item.first=false;
          	 }
+         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId}); 
              delete item.src;    
             })
-         	photosStr.push(value.photosStr3); 
-         	delete value.photosStr3
+         	 delete value.photosStr3
          }
          
+         value.photosStr=JSON.stringify(photosStr);  
 
  
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
