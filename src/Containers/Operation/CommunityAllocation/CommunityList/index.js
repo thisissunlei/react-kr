@@ -140,12 +140,12 @@ class CommunityList  extends Component{
    	    } 
    	      delete value.brights;
 
-          //delete value.photos;
+         value.photosStr=JSON.stringify(value.photosStr); 
 
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");
          value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd hh:MM:ss");
-   	    State.onNewCommunitySubmit(value);
+   	     State.onNewCommunitySubmit(value);
    	    
    }
    //查询

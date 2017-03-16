@@ -31,6 +31,11 @@ export default class UploadImageComponent extends Component {
 			files :{},
 			imageStatus : true,
 			fileArray:[],
+			photo:{
+				type:this.props.type,
+				first:false,
+				photoId:''
+			}
 		}
 	}
 	componentWillUnmount() {
@@ -196,7 +201,7 @@ export default class UploadImageComponent extends Component {
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
-		let {fileArray}=this.state;
+		let {fileArray,photo}=this.state;
 		let _this = this;
 		if(file ){
                 var fileData = file;
@@ -215,11 +220,11 @@ export default class UploadImageComponent extends Component {
 							});
                    
                    const {input}=_this.props;
-			       input.onChange(xhrfile.response.data);
-			       console.log('00-----',xhrfile.response.data);
-                   
-                   fileArray.push(data);
-                   
+                   photo.id=xhrfile.response.data.id;
+                   photo.src=data;
+                   fileArray.push(photo);  
+			       input.onChange(fileArray);			           
+			       console.log('00-----',xhrfile.response.data);                           
                    _this.setState({
                    	 fileArray
                    })
@@ -243,7 +248,7 @@ export default class UploadImageComponent extends Component {
         	fileArray,
 			//imgSrc: "",
 			imgUpload: false,
-			operateImg :false
+			operateImg :false,
 		})
     }
 
@@ -266,7 +271,7 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,fileArray} = this.state;
-		// console.log("this.state.operateImg",this.state.operateImg)
+		console.log("this.state.operateImg",fileArray);
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
 					  	    
@@ -275,7 +280,7 @@ export default class UploadImageComponent extends Component {
 				     {
 					   	fileArray.map((item,index)=>{
 		                  return (<div className='lostsImg'>
-		                          <img className="image"  src={item}  ref="uploadImage" />
+		                          <img className="image"  src={item.src}  ref="uploadImage" />
 			                      <div className="ui-uploadimg-fresh-delete">
 			                         <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:9,cursor:'pointer'}}/>
