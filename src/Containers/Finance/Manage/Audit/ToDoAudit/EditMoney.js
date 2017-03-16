@@ -30,7 +30,7 @@ import {
 import './index.less';
 
 
-class AddMoney extends Component {
+class EditMoney extends Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -265,7 +265,7 @@ class AddMoney extends Component {
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
-			     	<span>添加回款</span>
+			     	<span>编辑回款</span>
 			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
@@ -273,20 +273,17 @@ class AddMoney extends Component {
 						<KrField
 								style={{width:260}}
 								name="customerId" 
-								component="searchCustomer" 
+								component="labelText" 
 								label="客户名称"
-								requireLabel={true}
-								onChange={this.openCustomer}
-								showName={showName}
+								defaultValue="-" 
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="mainBillId" 
-								component="searchMainbill" 
+								component="labelText" 
 								label="所属订单"
-								requireLabel={true}
-								customerId={customerId}
-								onChange={this.getMainbillInfo}
+								defaultValue="-" 
+								
 						/>
 						<KrField
 								style={{width:260}}
@@ -407,8 +404,8 @@ const validate = values => {
 }
 
 export default reduxForm({
-	form: 'addMoney',
+	form: 'editMoney',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(AddMoney);
+})(EditMoney);
