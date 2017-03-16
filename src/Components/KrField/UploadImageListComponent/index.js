@@ -161,7 +161,6 @@ export default class UploadImageComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									console.log('llkkkkkk',fileResponse);
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									//_this.onError(fileResponse.msg);
@@ -224,7 +223,6 @@ export default class UploadImageComponent extends Component {
                    photo.type=_this.props.type;
                    fileArray.push(photo);  
 			       input.onChange(fileArray);			           
-			       console.log('00-----',xhrfile.response.data);                           
                    _this.setState({
                    	 fileArray
                    })
@@ -271,7 +269,7 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,fileArray} = this.state;
-		console.log("this.state.operateImg",fileArray);
+		//console.log("this.state.operateImg",fileArray);
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
 					  	    

@@ -518,6 +518,25 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					         />
                </div>
 
+               <div style={{marginTop:'16px'}}>  
+                 <span className='upload-pic-first'>上传社区列表页图片</span>
+                 <KrField name="photosStr2" 
+                    component="uploadImageList" 
+                    style={{marginTop:10,textAlign:'left'}}  
+                    type='LIST'   
+                   />
+               </div>
+
+
+               <div style={{marginTop:'16px'}}>  
+                 <span className='upload-pic-first'>上传详情页图片</span>
+                 <KrField name="photosStr3" 
+                    component="uploadImageList" 
+                    style={{marginTop:10,textAlign:'left'}}  
+                    type='DETAILS'   
+                   />
+               </div>
+
 						</div>
 						<div className="end-round"></div>
                      </div>}

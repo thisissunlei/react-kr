@@ -143,8 +143,15 @@ class CommunityList  extends Component{
          value.photosStr1.map((item,index)=>{
            delete item.src;    
          })
-         value.photosStr=JSON.stringify(value.photosStr1); 
-
+         var photosStr=[];
+         photosStr.push(value.photosStr1); 
+         photosStr.push(value.photosStr2); 
+         photosStr.push(value.photosStr3); 
+         value.photosStr=JSON.stringify(photosStr);
+         delete value.photosStr1
+         delete value.photosStr2
+         delete value.photosStr3
+ 
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");
          value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd hh:MM:ss");
