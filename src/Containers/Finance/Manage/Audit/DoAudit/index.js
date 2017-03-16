@@ -34,10 +34,12 @@ import {
   KrField,
   Title,
   KrDate,
-  Tooltip
+  Tooltip,
+  Drawer
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
+import AddMoney from './AddMoney';
 import './index.less';
 export default class DoAudit extends Component {
 
@@ -49,6 +51,7 @@ export default class DoAudit extends Component {
       openEditDetail: false,
       openDelete: false,
       itemDetail: {},
+      openAddCreate: false,
       Params: {
         page: 1,
         pageSize: 10,
@@ -64,7 +67,14 @@ export default class DoAudit extends Component {
     //导出
   onExport = () => {
 
+    }
+    //打开添加回款
+  openAddCreate = () => {
+    this.setState({
+      openAddCreate: !this.state.openAddCreate
+    })
   }
+
   getInfo = () => {
     var _this = this;
     let {
@@ -249,6 +259,16 @@ export default class DoAudit extends Component {
             >
               <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>
+             <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openAddCreate}
+              onClose={this.openAddCreate}
+              openSecondary={true}
+              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+            >
+              <AddMoney  showName={this.state.showName} onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+            </Drawer>
       </div>
 
     );

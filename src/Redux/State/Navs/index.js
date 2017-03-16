@@ -71,7 +71,7 @@ module.exports = {
                 primaryText: '客户列表',
                 router: '/operation/customerManage/customerList',
                 menuCode: 'coustomerInfoList',
-            },{
+            }, {
                 primaryText: '合同列表',
                 router: '/operation/customerManage/agreementList',
                 menuCode: 'contractList',
@@ -226,7 +226,7 @@ module.exports = {
             }, {
                 primaryText: "审核列表",
                 router: '/finance/manage/audit/auditlist',
-                menuCode: 'propManage'
+                menuCode: 'verfiycode'
             }]
         }]
     }, {
