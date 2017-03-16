@@ -199,6 +199,9 @@ import State from '../State';
     }else{
       area='无'; 
     }
+
+
+    //if(State.detailData.)
    
          
     let {openDown,openUp}=this.state;
@@ -342,7 +345,35 @@ import State from '../State';
                                      return  <KrField grid={1} label="周边"  style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>   
                                   })	
                                 }
-						         
+						        
+                    <div style={{marginTop:'-12px'}}>
+                      <span className='upload-pic-first'>上传首页图片</span>
+                      <KrField 
+                        component="labelText"
+                        style={{marginTop:10,textAlign:'left'}}
+                         
+                        />
+                    </div>
+
+                    <div style={{marginTop:'16px'}}>
+                      <span className='upload-pic-first'>上传社区列表页图片</span>
+                      <KrField
+                        component="labelText"
+                        style={{marginTop:10,textAlign:'left'}}
+
+                        />
+                    </div>
+
+
+                    <div style={{marginTop:'16px'}}>
+                      <span className='upload-pic-first'>上传详情页图片</span>
+                      <KrField
+                        component="labelText"
+                        style={{marginTop:10,textAlign:'left'}}
+
+                        />
+                    </div>
+ 
 						     
 						</div>
 						<div className="end-round"></div>

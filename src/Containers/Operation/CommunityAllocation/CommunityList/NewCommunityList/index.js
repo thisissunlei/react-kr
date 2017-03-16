@@ -481,7 +481,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
 								
-						        <FieldArray name="bright4" component={renderBrights}/>
+						        <FieldArray name="bright_bright" component={renderBrights}/>
 
 						        
                                 {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
@@ -504,36 +504,33 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					         <FieldArray name="porTypes" component={renderStation}/> 
 					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     
-						     <FieldArray name="bright1" component={renderService}/>
-                 <FieldArray name="bright2" component={renderBasic} />
-                 <FieldArray name="bright3" component={renderSpecial}/>   
-						     <KrField grid={1} label="交通" name="bright5.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-						     <KrField grid={1} label="周边" name="bright6.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+						     <FieldArray name="bright_basic" component={renderService}/>
+                 <FieldArray name="bright_service" component={renderBasic} />
+                 <FieldArray name="bright_special" component={renderSpecial}/>   
+						     <KrField grid={1} label="交通" name="brightPorts.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+						     <KrField grid={1} label="周边" name="brightRound.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						   <div style={{marginTop:'-16px'}}>  
                  <span className='upload-pic-first'>上传首页图片</span>
-                 <KrField name="photosStr1" 
+                 <KrField name="photosStr_first" 
     								component="uploadImageList" 
     								style={{marginTop:10,textAlign:'left'}}  
-                    type='THEFIRST'   
 					         />
                </div>
 
                <div style={{marginTop:'16px'}}>  
                  <span className='upload-pic-first'>上传社区列表页图片</span>
-                 <KrField name="photosStr2" 
+                 <KrField name="photosStr_list" 
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}  
-                    type='LIST'   
                    />
                </div>
 
 
                <div style={{marginTop:'16px'}}>  
                  <span className='upload-pic-first'>上传详情页图片</span>
-                 <KrField name="photosStr3" 
+                 <KrField name="photosStr_detail" 
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}  
-                    type='DETAILS'   
                    />
                </div>
 

@@ -84,51 +84,54 @@ class CommunityList  extends Component{
 
    	    value = Object.assign({},value);
 
-				delete value.photoVOs;
+		delete value.photoVOs;
+        
+        console.log('llkkkkk00',value);
+
    	    var brightsStr=[];
-   	    if(value.bright1){
-   	      value.bright1.map((item,index)=>{
+   	    if(value.bright_basic){
+   	      value.bright_basic.map((item,index)=>{
    	   	 if(item){
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	     delete value.bright1;
+   	     delete value.bright_basic;
    	    }
 
-   	    if(value.bright2){
-   	       value.bright2.map((item,index)=>{
+   	    if(value.bright_service){
+   	       value.bright_service.map((item,index)=>{
    	   	  if(item){
              brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	     delete value.bright2;
+   	     delete value.bright_service;
    	    }
 
-   	    if(value.bright3){
-   	      value.bright3.map((item,index)=>{
+   	    if(value.bright_special){
+   	      value.bright_special.map((item,index)=>{
    	   	 if(item){
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	      delete value.bright3;
+   	      delete value.bright_special;
    	    }
 
-   	    if(value.bright4){
-   	      value.bright4.map((item,index)=>{
+   	    if(value.bright_bright){
+   	      value.bright_bright.map((item,index)=>{
    	   	  if(item){
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	      delete value.bright4;
+   	      delete value.bright_bright;
    	    }
 
-   	    if(value.bright5){
-   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.bright5.brightPoints});
-   	      delete value.bright5;
+   	    if(value.brightPorts){
+   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints});
+   	      delete value.brightPorts;
    	    }
-   	    if(value.bright6){
-   	      brightsStr.push({type:'PERIMETER',brightPoints:value.bright6.brightPoints});
-   	      delete value.bright6;
+   	    if(value.brightRound){
+   	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});
+   	      delete value.brightRound;
    	    }
    	    if(brightsStr.length!=0){
    	       value.brightsStr=JSON.stringify(brightsStr);
@@ -142,47 +145,44 @@ class CommunityList  extends Component{
    	    }
    	      delete value.brights;
 
-
-
-
          var photosStr=[];
-         if(value.photosStr1){
-         	value.photosStr1.map((item,index)=>{
+         if(value.photosStr_first){
+         	value.photosStr_first.map((item,index)=>{
          	 if(index==0){
          	 	item.first=true;
          	 }else{
          	 	item.first=false;
          	 }
-         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId});
+         	 photosStr.push({type:'THEFIRST',first:item.first,photoId:item.photoId});
              delete item.src;
             })
-         	delete value.photosStr1
+         	delete value.photosStr_first
          }
 
-         if(value.photosStr2){
-         	value.photosStr2.map((item,index)=>{
+         if(value.photosStr_list){
+         	value.photosStr_list.map((item,index)=>{
          	 if(index==0){
          	 	item.first=true;
          	 }else{
          	 	item.first=false;
          	 }
-         	  photosStr.push({type:item.type,first:item.first,photoId:item.photoId});
+         	  photosStr.push({type:'LIST',first:item.first,photoId:item.photoId});
              delete item.src;
             })
-         	delete value.photosStr2
+         	delete value.photosStr_list
          }
 
-         if(value.photosStr3){
-         	value.photosStr3.map((item,index)=>{
+         if(value.photosStr_detail){
+         	value.photosStr_detail.map((item,index)=>{
          	 if(index==0){
          	 	item.first=true;
          	 }else{
          	 	item.first=false;
          	 }
-         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId});
+         	 photosStr.push({type:'DETAILS',first:item.first,photoId:item.photoId});
              delete item.src;
             })
-         	 delete value.photosStr3
+         	 delete value.photosStr_detail
          }
 
          value.photosStr=JSON.stringify(photosStr);

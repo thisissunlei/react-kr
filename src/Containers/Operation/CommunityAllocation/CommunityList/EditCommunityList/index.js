@@ -266,16 +266,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {
-    console.log('/////;;;;',values);
+    console.log(';;;;====;;',values);
      values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
         Message.error('开始时间不能大于结束时间');
        return ;
      }
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
-    console.log('/////',values);
+		//const {onSubmit} = this.props;
+		//onSubmit && onSubmit(values);
+    console.log(';;;;====',values);
     }
 
 	onCancel = () => {
@@ -342,57 +342,59 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         let {timeStart,timeEnd,photoF,photoL,photoD}=this.state;
         var _this=this;
 				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
+          Store.dispatch(initialize('editCommunityList',response));
+					
+          Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
+					
+          State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
+					var bright_basic=[];
+					var bright_service=[];
+					var bright_special=[];
+					var bright_bright=[];
 
-					Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
-					State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
-					var bright1=[];
-					var bright2=[];
-					var bright3=[];
-					var bright4=[];
-
-					var photo1=[];
-					var photo2=[];
-					var photo3=[];
+					var photo_First=[];
+					var photo_List=[];
+					var photo_Detail=[];
 					response.photoVOs.map((item,index)=>{
 						if(item.type=='THEFIRST'){
 							item.src=item.photoUrl;
 							delete item.photoUrl;
-							photo1.push(item);
+							photo_First.push(item);
 						}
 						if(item.type=='LIST'){
 							item.src=item.photoUrl;
 							delete item.photoUrl;
-							photo2.push(item);
+							photo_List.push(item);
 						}
 						if(item.type=='DETAILS'){
 							item.src=item.photoUrl;
 							delete item.photoUrl;
-							photo3.push(item);
+							photo_Detail.push(item);
 						}
 					})
 
-					Store.dispatch(initialize('editCommunityList',response));
+					
 					_this.setState({
 						timeStart:response.businessBegin,
 						timeEnd:response.businessEnd,
 						cityId:response.cityId,
-						photoF:photo1,
-						photoL:photo2,
-						photoD:photo3
+						photoF:photo_First,
+						photoL:photo_List,
+						photoD:photo_Detail
 					})
 
 					response.brights.map((item,index)=>{
 						if(item.type=="BRIGHTPOINTS"){
-							bright4.push(item);
+							bright_bright.push(item);
 						}
 						if(item.type=="INFRASTRUCTURE"){
-							bright1.push(item);
+							bright_basic.push(item);
 						}
 						if(item.type=="SPECIALSERVICE"){
-							bright3.push(item);
+							bright_special.push(item);
 						}
 						if(item.type=="BASICSERVICE"){
-							bright2.push(item);
+							bright_service.push(item);
 						}
 						if(item.type=="TRANSPORTATION"){
 							Store.dispatch(change('editCommunityList','bright5.brightPoints',item.brightPoints));
@@ -401,10 +403,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							Store.dispatch(change('editCommunityList','bright6.brightPoints',item.brightPoints));
 						}
 					})
-					Store.dispatch(change('editCommunityList','bright4',bright4));
-					Store.dispatch(change('editCommunityList','bright3',bright3));
-					Store.dispatch(change('editCommunityList','bright2',bright2));
-					Store.dispatch(change('editCommunityList','bright1',bright1));
+					Store.dispatch(change('editCommunityList','bright_bright',bright_bright));
+					Store.dispatch(change('editCommunityList','bright_special',bright_special));
+					Store.dispatch(change('editCommunityList','bright_service',bright_service));
+					Store.dispatch(change('editCommunityList','bright_basic',bright_basic));
 
 					if(response.opened==true){
 						Store.dispatch(change('editCommunityList','opened','1'));
@@ -539,7 +541,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:9}} component="input" requireLabel={true}/>
 
-								<FieldArray name="bright4" component={renderBrights}/>
+								<FieldArray name="bright_bright" component={renderBrights}/>
 
 
 								{openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
@@ -562,27 +564,25 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 									<FieldArray name="porTypes" component={renderStation}/>
 									<div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
 
-										<FieldArray name="bright1" component={renderService}/>
-										<FieldArray name="bright2" component={renderBasic} />
-										<FieldArray name="bright3" component={renderSpecial}/>
-										<KrField grid={1} label="交通" name="bright5.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-										<KrField grid={1} label="周边" name="bright6.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+										<FieldArray name="bright_basic" component={renderService}/>
+										<FieldArray name="bright_service" component={renderBasic} />
+										<FieldArray name="bright_special" component={renderSpecial}/>
+										<KrField grid={1} label="交通" name="brightPorts.brightPoints"  heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+										<KrField grid={1} label="周边" name="brightRound.brightPoints" heightStyle={{height:"68px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 										<div style={{marginTop:'-16px'}}>
 											<span className='upload-pic-first'>上传首页图片</span>
-											<KrField name="photosStr1"
+											<KrField name="photosStr_first"
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
-												type='THEFIRST'
 												defaultValue={photoF}
 												/>
 										</div>
 
 										<div style={{marginTop:'16px'}}>
 											<span className='upload-pic-first'>上传社区列表页图片</span>
-											<KrField name="photosStr2"
+											<KrField name="photosStr_list"
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
-												type='LIST'
 												defaultValue={photoL}
 												/>
 										</div>
@@ -590,10 +590,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 										<div style={{marginTop:'16px'}}>
 											<span className='upload-pic-first'>上传详情页图片</span>
-											<KrField name="photosStr3"
+											<KrField name="photosStr_detail"
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
-												type='DETAILS'
 												defaultValue={photoD}
 												/>
 										</div>

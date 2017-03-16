@@ -108,9 +108,10 @@ export default class UploadImageListComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
+        
+        let {images}=this.state;
 
 		this.setState({
-			//imgSrc: "",
 			operateImg :false,
 			imgUpload :false,
 			errorHide: true
@@ -183,7 +184,17 @@ export default class UploadImageListComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									_this.functionHeightWidth(file,xhrfile);
+									const {input}=_this.props;
+									fileResponse.data.map((item,index)=>{
+                                     images.push({
+										photoId:item.id,
+										src:item.ossHref,
+									 }); 
+									})				
+									input.onChange(images);
+									_this.setState({
+										images
+									})
 								} else {
 									_this.onError(fileResponse.msg);
 									return;
@@ -198,7 +209,7 @@ export default class UploadImageListComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
+					xhrfile.open('POST', '/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -219,40 +230,7 @@ export default class UploadImageListComponent extends Component {
 			operateImg : false
 		});
 	}
-	// 校验宽高
-	functionHeightWidth=(file,xhrfile)=>{
-		let {images}=this.state;
-		let _this = this;
-		if(file ){
-			var fileData = file;
-			//读取图片数据
-			var reader = new FileReader();
-			reader.onload = function (e) {
-				var data = reader.result;
-				//加载图片获取图片真实宽度和高度
-				//_this.refs.uploadImage.src = xhrfile.response.data;
-				_this.setState({
-					imageStatus : true,
-					imgUpload : true,
-					operateImg : false
-				});
 
-				const {input}=_this.props;
-				images.push({
-					photoId:xhrfile.response.data.id,
-					src:data,
-					type:_this.props.type
-				});
-				input.onChange(images);
-				_this.setState({
-					images
-				})
-
-			};
-			reader.readAsDataURL(fileData);
-
-		}
-	}
 
 	//设为首图
 	reFreshImg=(index)=>{
@@ -265,8 +243,6 @@ export default class UploadImageListComponent extends Component {
 		}
 		this.setState({
 			images,
-			imgUpload: false,
-			operateImg :false,
 		})
 	}
 
@@ -276,15 +252,13 @@ export default class UploadImageListComponent extends Component {
 		images.splice(index,1);
 		const {input}=this.props;
 		this.setState({
-			images,
-			//imgSrc: "",
-			imgUpload: false,
-			operateImg :false
+			images
 		})
 	}
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,images} = this.state;
+
 
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
