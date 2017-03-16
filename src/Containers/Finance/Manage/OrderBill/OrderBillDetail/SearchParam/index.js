@@ -105,6 +105,7 @@ export default class SearchParam extends Component {
         //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
         searchParam.childType = childType;
+
         searchParam.propertyId = id;
         searchParam.propInfo = propInfo;
         searchParam.orderId = params.orderId;
@@ -116,37 +117,44 @@ export default class SearchParam extends Component {
             item.sss = false;
             return item
         })
-
-        if (m[index].sss == true) {
-            m[index].sss = false;
-        } else if (m[index].sss == false) {
-            m[index].sss = true;
-        }
-        this.setState({detailPaymentS: m})
-        Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
-            mainbillid: params.orderId,
-            firstCategoryId: id,
-            flowType: type
-        })).then(function(response) {
-            if (response.subCategories.length > 0) {
-                _this.setState({
-                    testArr: response.subCategories
-                }, function() {
-                    var m = this.state.testArr;
-                    m.map((item, indexs) => {
-                        item.activeSub = false;
-                        return item
-                    })
-                    _this.setState({testA: m});
-                });
-
-            } else {
-                _this.setState({testArr: []});
+        console.log(m);
+        console.log("sssssssssss", index);
+        if (index) {
+            if (m[index].sss == true) {
+                m[index].sss = false;
+            } else if (m[index].sss == false) {
+                m[index].sss = true;
             }
+        }
 
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
+        this.setState({detailPaymentS: m})
+        if (id) {
+            Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+                mainbillid: params.orderId,
+                firstCategoryId: id,
+                flowType: type
+            })).then(function(response) {
+                if (response.subCategories.length > 0) {
+                    _this.setState({
+                        testArr: response.subCategories
+                    }, function() {
+                        var m = this.state.testArr;
+                        m.map((item, indexs) => {
+                            item.activeSub = false;
+                            return item
+                        })
+                        _this.setState({testA: m});
+                    });
+
+                } else {
+                    _this.setState({testArr: []});
+                }
+
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
+        }
+
     }
     onSearchI(type, childType, id, propInfo, index, sssI) {
         const {onSearch, params} = this.props;
@@ -187,37 +195,42 @@ export default class SearchParam extends Component {
             item.sssI = false;
             return item
         })
-
-        if (m[index].sssI == true) {
-            m[index].sssI = false;
-        } else if (m[index].sssI == false) {
-            m[index].sssI = true;
-        }
-        this.setState({detailIncomeS: m})
-        Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
-            mainbillid: params.orderId,
-            firstCategoryId: id,
-            flowType: type
-        })).then(function(response) {
-            if (response.subCategories.length > 0) {
-                _this.setState({
-                    testArr: response.subCategories
-                }, function() {
-                    var m = this.state.testArr;
-                    m.map((item, indexs) => {
-                        item.activeSubI = false;
-                        return item
-                    })
-                    _this.setState({testA: m});
-                });
-
-            } else {
-                _this.setState({testArr: []});
+        if (index) {
+            if (m[index].sssI == true) {
+                m[index].sssI = false;
+            } else if (m[index].sssI == false) {
+                m[index].sssI = true;
             }
+        }
 
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
+        this.setState({detailIncomeS: m});
+        if (id) {
+            Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+                mainbillid: params.orderId,
+                firstCategoryId: id,
+                flowType: type
+            })).then(function(response) {
+                if (response.subCategories.length > 0) {
+                    _this.setState({
+                        testArr: response.subCategories
+                    }, function() {
+                        var m = this.state.testArr;
+                        m.map((item, indexs) => {
+                            item.activeSubI = false;
+                            return item
+                        })
+                        _this.setState({testA: m});
+                    });
+
+                } else {
+                    _this.setState({testArr: []});
+                }
+
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
+        }
+
     }
     renderSubListI = (type) => {
 
@@ -330,7 +343,7 @@ export default class SearchParam extends Component {
 
             <div>
 
-                <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this, 'PAYMENT', 'basic', '', 'SETTLED')}/>
+                <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this, 'PAYMENT', 'basic', '', 'SETTLED', '', '')}/>
 
                 <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
