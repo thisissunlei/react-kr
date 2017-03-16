@@ -1085,9 +1085,14 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-fina-info?finaVerifyId={finaVerifyId}',
         method: 'get'
     },
-    //财务--审核列表--已审核--编辑回款--付款明细
+    //财务--审核列表--已审核--编辑回款--table
     'get-fina-flow-logs': {
         url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-logs?finaVerifyId={finaVerifyId}',
+        method: 'get'
+    },
+    //财务--审核列表--已审核--编辑回款--付款明细
+    'get-flow-edit-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-flow-edit-info?finaVerifyId={finaVerifyId}',
         method: 'get'
     },
 }
