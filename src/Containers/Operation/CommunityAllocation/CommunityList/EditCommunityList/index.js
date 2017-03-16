@@ -399,10 +399,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							bright_service.push(item);
 						}
 						if(item.type=="TRANSPORTATION"){
-							Store.dispatch(change('editCommunityList','bright5.brightPoints',item.brightPoints));
+							Store.dispatch(change('editCommunityList','brightPorts.brightPoints',item.brightPoints));
 						}
 						if(item.type=="PERIMETER"){
-							Store.dispatch(change('editCommunityList','bright6.brightPoints',item.brightPoints));
+							Store.dispatch(change('editCommunityList','brightRound.brightPoints',item.brightPoints));
 						}
 					})
 					Store.dispatch(change('editCommunityList','bright_bright',bright_bright));
