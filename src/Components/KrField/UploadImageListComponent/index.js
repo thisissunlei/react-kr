@@ -11,12 +11,16 @@ import './index.less';
 import refresh from "./images/pic.svg";
 import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
+
 export default class UploadImageListComponent extends Component {
+
 	static defaultProps = {
-		
+			defaultValue:[]
 	}
-	static PropTypes = {
-		className: React.PropTypes.string
+
+	static propTypes = {
+		className: React.PropTypes.string,
+		defaultValue:React.PropTypes.array
 	}
 	constructor(props,context){
 		super(props,context);
@@ -30,24 +34,39 @@ export default class UploadImageListComponent extends Component {
 			operateImg :false,
 			files :{},
 			imageStatus : true,
-			fileArray:[],
+			images:[],
 			photo:{
 				first:false,
 				photoId:''
 			}
 		}
-	}
-	componentWillMount() {
-		 this.setState({
-             fileArray:this.props.defaultValue
-      	  })
-	}
-	componentDidMount() {
 
+		this.init = false;
+
+	}
+
+
+	setDefaultValue = (images)=>{
+
+		if (this.init){
+			return ;
+		}
+
+		if(images && images.length){
+			this.setState({
+				images
+			});
+			this.init = true;
+		}
+
+	}
+
+	componentDidMount() {
+		this.setDefaultValue(this.props.defaultValue);
 	}
 
 	componentWillReceiveProps(nextProps){
-
+		this.setDefaultValue(nextProps.defaultValue);
 	}
 
 	onTokenError() {
@@ -89,6 +108,7 @@ export default class UploadImageListComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
+
 		this.setState({
 			//imgSrc: "",
 			operateImg :false,
@@ -98,11 +118,9 @@ export default class UploadImageListComponent extends Component {
 		let _this = this;
 		let file = event.target.files[0];
 
-
 		if (!file) {
 			return;
-		}	
-
+		}
 
 		if (file) {
 			var progress = 0;
@@ -128,10 +146,10 @@ export default class UploadImageListComponent extends Component {
 			this.refs.inputImgNew.value ="";
 			this.refs.uploadImage.src="";
 			_this.setState({
-  				errorHide: false,
-  				errorTip:"请上传正确格式的图片"
-  			})
-  			return;
+				errorHide: false,
+				errorTip:"请上传正确格式的图片"
+			})
+			return;
 		}
 		if(imgSize>1000){
 			this.refs.inputImg.value ="";
@@ -203,113 +221,106 @@ export default class UploadImageListComponent extends Component {
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
-		let {fileArray}=this.state;
+		let {images}=this.state;
 		let _this = this;
 		if(file ){
-                var fileData = file;
-                 //读取图片数据
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                 	//console.log("e",e);
-                    var data = reader.result;
-                     //加载图片获取图片真实宽度和高度            
-                      	//_this.refs.uploadImage.src = xhrfile.response.data;
-                        	_this.setState({
-								imageStatus : true,
-								imgUpload : true,
-								operateImg : false
-							});
-                   
-                   const {input}=_this.props;
-                   fileArray.push({
-                   	 photoId:xhrfile.response.data.id,
-                   	 src:data,
-                   	 type:_this.props.type
-                   });  
-			       input.onChange(fileArray);			           
-                   _this.setState({
-                   	 fileArray
-                   })
+			var fileData = file;
+			//读取图片数据
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var data = reader.result;
+				//加载图片获取图片真实宽度和高度
+				//_this.refs.uploadImage.src = xhrfile.response.data;
+				_this.setState({
+					imageStatus : true,
+					imgUpload : true,
+					operateImg : false
+				});
 
-                 };
-                 reader.readAsDataURL(fileData);
- 
-             }
+				const {input}=_this.props;
+				images.push({
+					photoId:xhrfile.response.data.id,
+					src:data,
+					type:_this.props.type
+				});
+				input.onChange(images);
+				_this.setState({
+					images
+				})
+
+			};
+			reader.readAsDataURL(fileData);
+
+		}
 	}
 
 	//设为首图
-    reFreshImg=(index)=>{
-       let {fileArray}=this.state;
-       var indexPicSrc=fileArray[index];
-       this.refs.inputImg.value ="";
-        if(index!=0){
-          fileArray.splice(index,1);
-          fileArray.unshift(indexPicSrc);
-        }	
-         this.setState({
-        	fileArray,
-			//imgSrc: "",
+	reFreshImg=(index)=>{
+		let {images}=this.state;
+		var indexPicSrc=images[index];
+		this.refs.inputImg.value ="";
+		if(index!=0){
+			images.splice(index,1);
+			images.unshift(indexPicSrc);
+		}
+		this.setState({
+			images,
 			imgUpload: false,
 			operateImg :false,
 		})
-    }
+	}
 
 	// 删除图片
 	deleteImg=(index)=>{
-		 let {fileArray}=this.state;		
-		 fileArray.splice(index,1);
-		/*this.refs.inputImg.value ="";
-		this.refs.inputImgNew.value ="";
-		this.refs.uploadImage.src="";*/
+		let {images}=this.state;
+		images.splice(index,1);
 		const {input}=this.props;
-        this.setState({
-        	fileArray,
+		this.setState({
+			images,
 			//imgSrc: "",
 			imgUpload: false,
 			operateImg :false
 		})
-		input.onChange("");
 	}
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
-		let {operateImg,fileArray} = this.state;
-		
-		console.log("this.state.operateImg",fileArray);
+		let {operateImg,images} = this.state;
+
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
-					  	    
+
 				<div className='ui-uploadimg-outbox' >
 
-				     {
-					   	fileArray.map((item,index)=>{
-		                  return (<div className='lostsImg'>
-		                          <img className="image"  src={item.src}  ref="uploadImage" style={{display:'block'}}/>
-			                      <div className="ui-uploadimg-fresh-delete">
-			                       <div className='delete-middle'>
-			                         <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg.bind(this,index)}>
+					{
+						images.map((item,index)=>{
+							return (<div className='lostsImg'>
+							<img className="image"  src={item.src}  ref="uploadImage" style={{display:'block'}}/>
+							<div className="ui-uploadimg-fresh-delete">
+								<div className='delete-middle'>
+									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:9,cursor:'pointer'}}/>
 									</div>
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.deleteImg.bind(this,index)}>
 										<img src={deleteImg} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
 									</div>
-								  </div>
-			                     </div>
-		                    </div>)
-					   	})
-					   }
+								</div>
+							</div>
+						</div>)
+					})
+				}
 
-					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-						<div className='ui-uploadimg-inner' >			
-							<span className='ui-uploadimg-button'>+</span>
-							<input type='file' onChange={this.onChange} ref="inputImg"/>
-							<span className='ui-uploadimg-tip'>上传图片</span>
-						</div>
+				<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
+					<div className='ui-uploadimg-inner' >
+						<span className='ui-uploadimg-button'>+</span>
+						<input type='file' onChange={this.onChange} ref="inputImg"/>
+						<span className='ui-uploadimg-tip'>上传图片</span>
 					</div>
 				</div>
-				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
-					{this.state.errorTip}
-				</p>
 			</div>
-		);
-	}
+			<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
+				{this.state.errorTip}
+			</p>
+		</div>
+	);
+}
 }

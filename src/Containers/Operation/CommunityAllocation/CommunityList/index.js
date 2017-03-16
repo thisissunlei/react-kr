@@ -53,10 +53,10 @@ import {
 
 import './index.less'
 import State from './State';
-import NewCommunityList from './NewCommunityList'; 
-import EditCommunityList from './EditCommunityList'; 
-import SearchUpperForm from './SearchUpperForm'; 
-import WatchCommunityList from './WatchCommunityList'; 
+import NewCommunityList from './NewCommunityList';
+import EditCommunityList from './EditCommunityList';
+import SearchUpperForm from './SearchUpperForm';
+import WatchCommunityList from './WatchCommunityList';
 
 import cityData from "../../../../Components/KrField/CityComponent/State";
 @observer
@@ -77,11 +77,14 @@ class CommunityList  extends Component{
    }
    //新建社区关闭
    cancelAddCommunity=()=>{
-   	  State.switchNewCommunityList(); 
+   	  State.switchNewCommunityList();
    }
    //新建社区提交
-   onNewCommunitySubmit=(value)=>{ 	
-   	    value = Object.assign({},value);     
+   onNewCommunitySubmit=(value)=>{
+
+   	    value = Object.assign({},value);
+
+				delete value.photoVOs;
    	    var brightsStr=[];
    	    if(value.bright1){
    	      value.bright1.map((item,index)=>{
@@ -89,16 +92,16 @@ class CommunityList  extends Component{
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	     delete value.bright1;	
+   	     delete value.bright1;
    	    }
-            
+
    	    if(value.bright2){
    	       value.bright2.map((item,index)=>{
    	   	  if(item){
              brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	     delete value.bright2;	
+   	     delete value.bright2;
    	    }
 
    	    if(value.bright3){
@@ -107,7 +110,7 @@ class CommunityList  extends Component{
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	      delete value.bright3;	
+   	      delete value.bright3;
    	    }
 
    	    if(value.bright4){
@@ -116,27 +119,27 @@ class CommunityList  extends Component{
            brightsStr.push({type:item.type,brightPoints:item.brightPoints})
    	   	  }
    	     })
-   	      delete value.bright4;	
+   	      delete value.bright4;
    	    }
 
    	    if(value.bright5){
    	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.bright5.brightPoints});
    	      delete value.bright5;
    	    }
-   	    if(value.bright6){	    	
+   	    if(value.bright6){
    	      brightsStr.push({type:'PERIMETER',brightPoints:value.bright6.brightPoints});
    	      delete value.bright6;
-   	    } 
+   	    }
    	    if(brightsStr.length!=0){
-   	       value.brightsStr=JSON.stringify(brightsStr); 
-   	    }     
+   	       value.brightsStr=JSON.stringify(brightsStr);
+   	    }
    	      value.wherefloorsStr=JSON.stringify(value.wherefloors);
    	      delete value.wherefloors;
-   	      
+
    	    if(value.porTypes){
-   	      value.porTypesStr=JSON.stringify(value.porTypes); 
+   	      value.porTypesStr=JSON.stringify(value.porTypes);
    	      delete value.porTypes;
-   	    } 
+   	    }
    	      delete value.brights;
 
 
@@ -150,12 +153,12 @@ class CommunityList  extends Component{
          	 }else{
          	 	item.first=false;
          	 }
-         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId}); 
-             delete item.src;    
-            })  	
+         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId});
+             delete item.src;
+            })
          	delete value.photosStr1
          }
-         
+
          if(value.photosStr2){
          	value.photosStr2.map((item,index)=>{
          	 if(index==0){
@@ -163,12 +166,12 @@ class CommunityList  extends Component{
          	 }else{
          	 	item.first=false;
          	 }
-         	  photosStr.push({type:item.type,first:item.first,photoId:item.photoId}); 
-             delete item.src;    
+         	  photosStr.push({type:item.type,first:item.first,photoId:item.photoId});
+             delete item.src;
             })
          	delete value.photosStr2
          }
-         
+
          if(value.photosStr3){
          	value.photosStr3.map((item,index)=>{
          	 if(index==0){
@@ -176,28 +179,28 @@ class CommunityList  extends Component{
          	 }else{
          	 	item.first=false;
          	 }
-         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId}); 
-             delete item.src;    
+         	 photosStr.push({type:item.type,first:item.first,photoId:item.photoId});
+             delete item.src;
             })
          	 delete value.photosStr3
          }
-         
-         value.photosStr=JSON.stringify(photosStr);  
 
- 
+         value.photosStr=JSON.stringify(photosStr);
+
+
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");
          value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd hh:MM:ss");
    	     State.onNewCommunitySubmit(value);
-   	    
+
    }
    //查询
    onSearchSubmit=(params)=>{
    	  let obj = {
 			searchKey: params.content,
 			searchType:params.filter
-		}	
-		State.searchParams=obj	
+		}
+		State.searchParams=obj
    }
 
    //查看
@@ -217,13 +220,13 @@ class CommunityList  extends Component{
 
    //查看取消
    switchCancelWatchList=()=>{
-     State.switchWatchList(); 
+     State.switchWatchList();
    }
    //编辑取消
    switchEditList=()=>{
    	   State.switchEditList();
    }
-   
+
    //高级查询
 	openSearchUpperDialog=()=>{
 	  State.searchDataHere();
@@ -238,12 +241,12 @@ class CommunityList  extends Component{
       State.searchParams.searchType='';
       cityData.city="请选择";
       State.searchUpperCustomer();
-      
+
 	}
 
 
 	componentDidMount(){
-		
+
 	}
 
    //高级查询提交
@@ -260,11 +263,11 @@ class CommunityList  extends Component{
 		if(searchParams.openDateBegin!=''&&searchParams.openDateEnd==''){
 			searchParams.openDateEnd=searchParams.openDateBegin
 		}
-      	
+
       	State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
-     
+
      //导出
 	onExport=(values)=> {
 		let {searchParams} = State;
@@ -310,7 +313,7 @@ class CommunityList  extends Component{
 	componentDidMount(){
 		State.searchDataHere();
 	}
-    
+
     whiteClose=()=>{
     	State.openNewCommunity=false;
     	State.openEditCommunity=false;
@@ -349,7 +352,7 @@ class CommunityList  extends Component{
 											onTouchTap={this.openAddCommunity}
 									/>
 					  </Col>
-           
+
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
 				            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={searchFilter} onSubmit={this.onSearchSubmit}/></ListGroupItem>
@@ -390,7 +393,7 @@ class CommunityList  extends Component{
 			                <TableRowColumn name="orderNum"></TableRowColumn>
 			                <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
-						                				
+
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>
 														 	)
 													 }}></TableRowColumn>
@@ -437,7 +440,7 @@ class CommunityList  extends Component{
 						/>
 
 		            </Drawer>
- 
+
                     {/*高级查询*/}
                     <Dialog
 						title="高级查询"
@@ -447,7 +450,7 @@ class CommunityList  extends Component{
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 					>
-						<SearchUpperForm  
+						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
 						    onSubmit={this.onSearchUpperSubmit}
 						    open={State.openSearchUpper}
@@ -468,7 +471,7 @@ class CommunityList  extends Component{
 						/>
 
 		            </Drawer>
-       
+
        </Section>
 
 	 </div>
