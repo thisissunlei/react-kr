@@ -50,6 +50,7 @@ class NewCreateFund extends Component {
         Store.dispatch(initialize('NewCreateFund', initialValues));
         Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
         Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATEINCOME'));
+        //Store.dispatch(change('NewCreateFund', 'position', 'BOTH'));
         Store.dispatch(change('NewCreateFund', 'parentId', this.props.parentId));
     }
     onSubmit(values) {

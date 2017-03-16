@@ -35,7 +35,7 @@ class NewCreateFund extends Component {
         this.onCancel = this.onCancel.bind(this);
         Store.dispatch(reset('NewCreateFund'));
         Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
-        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATINCOME'));
+        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATEINCOME'));
         Store.dispatch(change('NewCreateFund', 'parentId', this.props.parentId));
     }
 
@@ -84,7 +84,7 @@ class NewCreateFund extends Component {
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
                 <KrField grid={1 / 2} name="twinsFlag" component="group" label="生成收入" requireLabel={true}>
-                    <KrField name="twinsFlag" grid={1 / 2} label="启用" type="radio" value="CREATINCOME"/>
+                    <KrField name="twinsFlag" grid={1 / 2} label="启用" type="radio" value="CREATEINCOME"/>
                     <KrField name="twinsFlag" grid={1 / 2} label="关闭" type="radio" value="NOINCOME"/>
                 </KrField>
 
