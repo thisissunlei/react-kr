@@ -34,7 +34,11 @@ export default class SearchMainbill extends React.Component {
 			input
 		} = this.props;
 	}
+	componentWillReceiveProps(nextProps) {
+		console.log('nextProps---', nextProps)
 
+		this.getOptions("", nextProps.customerId);
+	}
 	onInputChange = () => {
 
 
@@ -50,14 +54,20 @@ export default class SearchMainbill extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname) {
+	getOptions(lastname, customerId) {
+		var id = this.props.customerId;
+		console.log('id----', id)
+
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('get-mainbill', {
-				mainBillName: lastname
+				mainBillName: lastname,
+				customerId: id
 			})).then(function(response) {
-				response.forEach(function(item, index) {
+				console.log('response----', response)
+				response.map(function(item, index) {
 					item.value = item.id;
 					item.label = item.mainBillName;
+					return item;
 				});
 				resolve({
 					options: response
