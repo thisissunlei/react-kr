@@ -64,9 +64,13 @@ class EditMoney extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-			this.setState({
-				showName: !this.state.showName
-			})
+		this.setState({
+			showName: !this.state.showName
+		})
+	}
+	onSubmit = (form) => {
+			console.log('form----', form)
+
 		}
 		//table
 	getInfo = () => {
@@ -312,7 +316,7 @@ class EditMoney extends Component {
 						/>
 						<KrField  
 								style={{width:548}}  
-								name="remark" 
+								name="operateRemark" 
 								component="textarea" 
 								label="备注" 
 								maxSize={100}
@@ -331,7 +335,7 @@ class EditMoney extends Component {
 							label="上传附件" 
 							defaultValue={infoList.fileList} 
 							onChange={(files)=>{
-								Store.dispatch(change('AddMoney','fileList',files));
+								Store.dispatch(change('EditMoney','fileList',files));
 							}} 
 						/>
 					</CircleStyleTwo>
