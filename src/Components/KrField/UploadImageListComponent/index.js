@@ -303,17 +303,6 @@ export default class UploadImageListComponent extends Component {
 				{this.state.errorTip}
 			</p>
 
-			        {/*删除提示*/}
-                    <Dialog
-						title="提示"
-						modal={true}
-						onClose={this.openSearchUpperDialog}
-						open={State.openSearchUpper}
-						contentStyle ={{ width: '443',height:'237px',overflow:'visible'}}
-					>
-					 <deleteDialog     />
-						
-				    </Dialog>
 		</div>
 	);
   }
