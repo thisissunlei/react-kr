@@ -51,13 +51,19 @@ export default class DoAudit extends Component {
       openEditDetail: false,
       openDelete: false,
       itemDetail: {},
-      openAddCreate: false,
       Params: {
         page: 1,
         pageSize: 10,
         verifyStatus: 'CHECKED'
       },
       infoList: [],
+      itemDetail: [],
+      openEditCreate: false,
+      Param: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'CHECKED'
+      },
     }
     this.getInfo();
 
@@ -67,20 +73,35 @@ export default class DoAudit extends Component {
     //导出
   onExport = () => {
 
+  }
+
+  //操作相关
+  onOperation = (type, itemDetail) => {
+
+      this.setState({
+        itemDetail
+      });
+
+      if (type == 'view') {
+
+      } else if (type == 'edit') {
+        this.openEditCreate();
+      }
     }
-    //打开添加回款
-  openAddCreate = () => {
+    //打开编辑回款
+  openEditCreate = () => {
     this.setState({
-      openAddCreate: !this.state.openAddCreate
+      openEditCreate: !this.state.openEditCreate
     })
   }
 
   getInfo = () => {
     var _this = this;
     let {
-      Params
+      Param
     } = this.state;
-    Store.dispatch(Actions.callAPI('get-fina-flow-category', Params, {})).then(function(response) {
+
+    Store.dispatch(Actions.callAPI('get-fina-flow-category', Param, {})).then(function(response) {
       _this.setState({
         infoList: response
       })
@@ -119,6 +140,7 @@ export default class DoAudit extends Component {
   }
 
   render() {
+    console.log('this.state.Params', this.state.Params)
     return (
 
       <div className="m-do-audit">
@@ -262,12 +284,12 @@ export default class DoAudit extends Component {
              <Drawer
               modal={true}
               width={750}
-              open={this.state.openAddCreate}
-              onClose={this.openAddCreate}
+              open={this.state.openEditCreate}
+              onClose={this.openEditCreate}
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  showName={this.state.showName} onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney   onSubmit="" onCancel={this.openEditCreate}  />
             </Drawer>
       </div>
 
