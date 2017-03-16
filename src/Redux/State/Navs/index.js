@@ -222,7 +222,7 @@ module.exports = {
             }, {
                 primaryText: "款项配置",
                 router: '/finance/manage/fundSetting/totalFund',
-                menuCode: 'propManage'
+                menuCode: 'categorycode'
             }, {
                 primaryText: "审核列表",
                 router: '/finance/manage/audit/auditlist',
