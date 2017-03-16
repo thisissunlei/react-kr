@@ -1057,7 +1057,7 @@ const APIS = {
     },
     //财务--审核列表--添加回款--订单列表
     'get-mainbill': {
-        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill?mainBillName={mainBillName}',
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill?mainBillName={mainBillName}&customerId={customerId}',
         method: 'get'
     },
     //财务--审核列表--添加回款--获取我司账户
@@ -1074,6 +1074,11 @@ const APIS = {
     'save-customer': {
         url: '/api/krspace-finance-web/finaVerify/opt/save-customer?communityid={communityid}&company={company}&mainbilldesc={mainbilldesc}&mainbillname={mainbillname}&mainbilltype={mainbilltype}&name={name}&tel={tel}',
         method: 'post'
+    },
+    //财务--审核列表--添加回款--付款明细
+    'get-finaflow-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-finaflow-info?mainBillId={mainBillId}',
+        method: 'get'
     },
 }
 

@@ -60,6 +60,8 @@ class AddMoney extends Component {
 			accountList: [],
 			mainbillInfo: {},
 			showName: false,
+			finaflowInfo: [],
+			customerId: ""
 		}
 
 
@@ -80,7 +82,14 @@ class AddMoney extends Component {
 	openCustomer = (form) => {
 		if (form.id == 0) {
 			this.openCreateCustomer();
+		} else {
+			this.setState({
+				customerId: form.id
+			})
+			console.log('customerId---', this.state.customerId)
 		}
+
+
 	}
 
 	getMainbillInfo = (form) => {
@@ -89,7 +98,7 @@ class AddMoney extends Component {
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			mainBillId: form.value
 		}, {})).then(function(response) {
-			console.log('response---', response)
+
 			_this.setState({
 				mainbillInfo: response
 			})
@@ -127,12 +136,18 @@ class AddMoney extends Component {
 		onCancel && onCancel();
 	}
 	renderPayList = () => {
-		return (
-			<div className="u-audit-content-null">
-				<div className="u-audit-content-null-icon"></div>
-				<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
-			</div>
-		)
+		let {
+			finaflowInfo
+		} = this.state;
+		if (finaflowInfo.length == 0) {
+			return (
+				<div className="u-audit-content-null">
+					<div className="u-audit-content-null-icon"></div>
+					<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
+				</div>
+			)
+		}
+
 	}
 
 	render() {
@@ -148,7 +163,8 @@ class AddMoney extends Component {
 			payment,
 			accountList,
 			mainbillInfo,
-			showName
+			showName,
+			customerId
 		} = this.state;
 		return (
 			<div className="u-audit-add">
@@ -174,6 +190,7 @@ class AddMoney extends Component {
 								component="searchMainbill" 
 								label="所属订单"
 								requireLabel={true}
+								customerId={customerId}
 								onChange={this.getMainbillInfo}
 						/>
 						<KrField
