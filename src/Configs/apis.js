@@ -1095,6 +1095,11 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-flow-edit-info?finaVerifyId={finaVerifyId}',
         method: 'get'
     },
+    //财务--审核列表--已审核--编辑保存
+    'edit-verify-checked': {
+        url: '/api/krspace-finance-web/finaVerify/opt/edit-verify-checked',
+        method: 'post'
+    },
 }
 
 module.exports = APIS;

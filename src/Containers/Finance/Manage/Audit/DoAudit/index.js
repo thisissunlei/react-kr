@@ -35,11 +35,12 @@ import {
   Title,
   KrDate,
   Tooltip,
-  Drawer
+  Drawer,
+  Message
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
-import AddMoney from './AddMoney';
+import EditMoney from './AddMoney';
 import './index.less';
 export default class DoAudit extends Component {
 
@@ -87,6 +88,23 @@ export default class DoAudit extends Component {
       } else if (type == 'edit') {
         this.openEditCreate();
       }
+    }
+    //保存编辑回款
+  EditAuditSubmit = (form) => {
+      var _this = this;
+      Store.dispatch(Actions.callAPI('edit-verify-checked', {}, form)).then(function(response) {
+        Message.success('修改成功');
+        _this.openEditCreate()
+        _this.setState({
+          Params: {
+            page: 1,
+            pageSize: 11,
+            verifyStatus: 'CHECKED'
+          }
+        })
+
+      }).catch(function(err) {});
+
     }
     //打开编辑回款
   openEditCreate = () => {
@@ -290,7 +308,7 @@ export default class DoAudit extends Component {
               onClose={this.openEditCreate}
               openSecondary={true}
             >
-              <AddMoney  detail={itemDetail} onSubmit="" onCancel={this.openEditCreate}  />
+              <EditMoney  detail={itemDetail} onSubmit={this.EditAuditSubmit} onCancel={this.openEditCreate}  />
             </Drawer>
       </div>
 

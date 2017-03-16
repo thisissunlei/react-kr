@@ -8,8 +8,11 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	initialize,
+	change
 } from 'redux-form';
+
 import {
 	Actions,
 	Store
@@ -58,8 +61,9 @@ class EditMoney extends Component {
 
 	}
 
+
 	componentDidMount() {
-		//editMoney
+
 
 	}
 
@@ -68,11 +72,8 @@ class EditMoney extends Component {
 			showName: !this.state.showName
 		})
 	}
-	onSubmit = (form) => {
-			console.log('form----', form)
 
-		}
-		//table
+	//table
 	getInfo = () => {
 			var _this = this;
 			var id = this.props.detail.id
@@ -104,6 +105,7 @@ class EditMoney extends Component {
 		Store.dispatch(Actions.callAPI('get-fina-infos', {
 			finaVerifyId: id
 		}, {})).then(function(response) {
+			Store.dispatch(initialize('editMoney', response));
 			_this.setState({
 				infoList: response
 			})
@@ -111,11 +113,17 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
-	onSubmit = () => {
+	onSubmit = (form) => {
+		var params = {
+			finaVerifyId: this.props.detail.id,
+			remark: form.remark,
+			uploadFileIds: form.uploadFileIds
+		}
+
 		let {
 			onSubmit
 		} = this.props;
-		onSubmit && onSubmit();
+		onSubmit && onSubmit(params);
 	}
 	onCancel = () => {
 		let {
@@ -316,11 +324,12 @@ class EditMoney extends Component {
 						/>
 						<KrField  
 								style={{width:548}}  
-								name="operateRemark" 
+								name="remark" 
 								component="textarea" 
+								defaultValue={infoList.remark}
 								label="备注" 
 								maxSize={100}
-								defaultValue={infoList.remark}
+								
 						/>
 						<KrField  
 							 	name="fileList" 
@@ -335,7 +344,7 @@ class EditMoney extends Component {
 							label="上传附件" 
 							defaultValue={infoList.fileList} 
 							onChange={(files)=>{
-								Store.dispatch(change('EditMoney','fileList',files));
+								Store.dispatch(change('EditMoney','uploadFileIds',files));
 							}} 
 						/>
 					</CircleStyleTwo>
