@@ -34,10 +34,12 @@ import {
   KrField,
   Title,
   KrDate,
-  Tooltip
+  Tooltip,
+  Drawer
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
+import AddMoney from './AddMoney';
 import './index.less';
 export default class DoAudit extends Component {
 
@@ -55,6 +57,13 @@ export default class DoAudit extends Component {
         verifyStatus: 'CHECKED'
       },
       infoList: [],
+      itemDetail: [],
+      openEditCreate: false,
+      Param: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'CHECKED'
+      },
     }
     this.getInfo();
 
@@ -65,12 +74,34 @@ export default class DoAudit extends Component {
   onExport = () => {
 
   }
+
+  //操作相关
+  onOperation = (type, itemDetail) => {
+
+      this.setState({
+        itemDetail
+      });
+
+      if (type == 'view') {
+
+      } else if (type == 'edit') {
+        this.openEditCreate();
+      }
+    }
+    //打开编辑回款
+  openEditCreate = () => {
+    this.setState({
+      openEditCreate: !this.state.openEditCreate
+    })
+  }
+
   getInfo = () => {
     var _this = this;
     let {
-      Params
+      Param
     } = this.state;
-    Store.dispatch(Actions.callAPI('get-fina-flow-category', Params, {})).then(function(response) {
+
+    Store.dispatch(Actions.callAPI('get-fina-flow-category', Param, {})).then(function(response) {
       _this.setState({
         infoList: response
       })
@@ -109,6 +140,7 @@ export default class DoAudit extends Component {
   }
 
   render() {
+    console.log('this.state.Params', this.state.Params)
     return (
 
       <div className="m-do-audit">
@@ -249,6 +281,16 @@ export default class DoAudit extends Component {
             >
               <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>
+             <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openEditCreate}
+              onClose={this.openEditCreate}
+              openSecondary={true}
+              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+            >
+              <AddMoney   onSubmit="" onCancel={this.openEditCreate}  />
+            </Drawer>
       </div>
 
     );
