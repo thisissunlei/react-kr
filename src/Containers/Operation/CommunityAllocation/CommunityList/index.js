@@ -84,109 +84,119 @@ class CommunityList  extends Component{
 
    	    value = Object.assign({},value);
 
-		delete value.photoVOs;
-        
-        console.log('llkkkkk00',value);
-
+        console.log(';;;----',value);
+         
+        //亮点开始 
    	    var brightsStr=[];
-   	    if(value.bright_basic){
-   	      value.bright_basic.map((item,index)=>{
-   	   	 if(item){
-           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
-   	   	  }
-   	     })
-   	     delete value.bright_basic;
-   	    }
+        if(value.bright_basic){
+         value.bright_basic.map((item,index)=>{
+              if(!item){
+                return ;
+            }
+             let {type,brightPoints} = item;
+             let bright = Object.assign({},{type,brightPoints})
+             brightsStr.push(bright);
+         });
+         value.bright_basic=JSON.stringify(value.bright_basic);
+       }
 
    	    if(value.bright_service){
    	       value.bright_service.map((item,index)=>{
    	   	  if(item){
-             brightsStr.push({type:item.type,brightPoints:item.brightPoints})
+             let {type,brightPoints} = item;
+             let bright = Object.assign({},{type,brightPoints})
+             brightsStr.push(bright)
    	   	  }
    	     })
-   	     delete value.bright_service;
+           value.bright_service=JSON.stringify(value.bright_service);
    	    }
 
    	    if(value.bright_special){
    	      value.bright_special.map((item,index)=>{
    	   	 if(item){
-           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
+            let {type,brightPoints} = item;
+             let bright = Object.assign({},{type,brightPoints})
+             brightsStr.push(bright)
    	   	  }
    	     })
-   	      delete value.bright_special;
+          value.bright_special=JSON.stringify(value.bright_special);
    	    }
 
    	    if(value.bright_bright){
    	      value.bright_bright.map((item,index)=>{
    	   	  if(item){
-           brightsStr.push({type:item.type,brightPoints:item.brightPoints})
-   	   	  }
+             let {type,brightPoints} = item;
+             let bright = Object.assign({},{type,brightPoints})
+             brightsStr.push(bright)
+   	   	   }
    	     })
-   	      delete value.bright_bright;
+          value.bright_bright=JSON.stringify(value.bright_bright);
    	    }
 
    	    if(value.brightPorts){
    	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints});
-   	      delete value.brightPorts;
+   	      value.brightPorts=JSON.stringify(value.brightPorts);
    	    }
    	    if(value.brightRound){
    	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});
-   	      delete value.brightRound;
+   	      value.brightRound=JSON.stringify(value.brightRound);
    	    }
    	    if(brightsStr.length!=0){
    	       value.brightsStr=JSON.stringify(brightsStr);
    	    }
-   	      value.wherefloorsStr=JSON.stringify(value.wherefloors);
-   	      delete value.wherefloors;
 
+        delete value.brights
+        //亮点结束
+
+
+
+        //楼层开始
+   	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
+        delete value.wherefloors;
+        //楼层结束
+        
+
+
+        //工位开始
    	    if(value.porTypes){
-   	      value.porTypesStr=JSON.stringify(value.porTypes);
-   	      delete value.porTypes;
+   	       value.porTypesStr=JSON.stringify(value.porTypes);
+           delete value.porTypes;
    	    }
-   	      delete value.brights;
+        //工位结束
 
-         var photosStr=[];
-         if(value.photosStr_first){
+        
+        
+      
+       //图片开始
+       var photosStr=[];     
+       delete value.photoVOs;
+       if(value.photosStr_first){
          	value.photosStr_first.map((item,index)=>{
-         	 if(index==0){
-         	 	item.first=true;
-         	 }else{
-         	 	item.first=false;
-         	 }
-         	 photosStr.push({type:'THEFIRST',first:item.first,photoId:item.photoId});
-             delete item.src;
-            })
-         	delete value.photosStr_first
-         }
+            let images = Object.assign({},{type:'THEFIRST',photoId:item.photoId,first:(index?false:true)})
+         	  photosStr.push(images)
+          })
+        }
 
-         if(value.photosStr_list){
+        if(value.photosStr_list){
          	value.photosStr_list.map((item,index)=>{
-         	 if(index==0){
-         	 	item.first=true;
-         	 }else{
-         	 	item.first=false;
-         	 }
-         	  photosStr.push({type:'LIST',first:item.first,photoId:item.photoId});
-             delete item.src;
-            })
-         	delete value.photosStr_list
+         	  let images = Object.assign({},{type:'LIST',photoId:item.photoId,first:(index?false:true)})
+             photosStr.push(images)
+          })
          }
 
          if(value.photosStr_detail){
-         	value.photosStr_detail.map((item,index)=>{
-         	 if(index==0){
-         	 	item.first=true;
-         	 }else{
-         	 	item.first=false;
-         	 }
-         	 photosStr.push({type:'DETAILS',first:item.first,photoId:item.photoId});
-             delete item.src;
-            })
-         	 delete value.photosStr_detail
+          	value.photosStr_detail.map((item,index)=>{
+          	let images = Object.assign({},{type:'DETAILS',photoId:item.photoId,first:(index?false:true)})
+            photosStr.push(images)
+          })
          }
 
+         value.photosStr_first=JSON.stringify(value.photosStr_first);
+         value.photosStr_list=JSON.stringify(value.photosStr_list);
+         value.photosStr_detail=JSON.stringify(value.photosStr_detail);
          value.photosStr=JSON.stringify(photosStr);
-
+         //图片结束
+        
 
          value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
          value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");

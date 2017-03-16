@@ -73,6 +73,9 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {
+  if(!fields.length){
+     fields.push({type:'BRIGHTPOINTS'})
+   }
      var krStyle={};
       krStyle={
       	width:228,
@@ -266,16 +269,15 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {
-    console.log(';;;;====;;',values);
      values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
         Message.error('开始时间不能大于结束时间');
        return ;
      }
-		//const {onSubmit} = this.props;
-		//onSubmit && onSubmit(values);
-    console.log(';;;;====',values);
+		const {onSubmit} = this.props;
+
+		onSubmit && onSubmit(values);
     }
 
 	onCancel = () => {
@@ -561,7 +563,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 										<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 									</KrField>
 									{State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-									<FieldArray name="porTypes" component={renderStation}/>
+									{/*<FieldArray name="porTypes" component={renderStation}/>*/}
 									<div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
 
 										<FieldArray name="bright_basic" component={renderService}/>

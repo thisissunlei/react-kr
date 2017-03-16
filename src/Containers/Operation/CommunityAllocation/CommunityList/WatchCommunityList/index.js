@@ -202,6 +202,7 @@ import State from '../State';
 
 
     //if(State.detailData.)
+    console.log(';;;----',State.detailData.photoVOs);
    
          
     let {openDown,openUp}=this.state;
@@ -346,32 +347,38 @@ import State from '../State';
                                   })	
                                 }
 						        
-                    <div style={{marginTop:'-12px'}}>
-                      <span className='upload-pic-first'>上传首页图片</span>
-                      <KrField 
-                        component="labelText"
-                        style={{marginTop:10,textAlign:'left'}}
-                         
-                        />
+                    <div style={{marginTop:'-4px',marginBottom:'20px'}}>
+                      <span className='pic-first'>首页图片</span>
+                      {
+                        State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
+                           if(item.type=='THEFIRST'){
+                             return <img className="image"  src={item.photoUrl}  ref="uploadImage" style={{display:'inline-block',marginLeft:'30px'}}/>
+                           }                  
+                        })
+                      } 
                     </div>
 
-                    <div style={{marginTop:'16px'}}>
-                      <span className='upload-pic-first'>上传社区列表页图片</span>
-                      <KrField
-                        component="labelText"
-                        style={{marginTop:10,textAlign:'left'}}
-
-                        />
+                    <div style={{marginTop:'16px',marginBottom:'20px'}}>
+                      <span className='pic-first'>社区列表页图片</span>
+                       {
+                        State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
+                           if(item.type=='LIST'){
+                             return <img className="image"  src={item.photoUrl}  ref="uploadImage" style={{display:'inline-block',marginLeft:'30px'}}/>
+                           }
+                        })
+                      } 
                     </div>
 
 
-                    <div style={{marginTop:'16px'}}>
-                      <span className='upload-pic-first'>上传详情页图片</span>
-                      <KrField
-                        component="labelText"
-                        style={{marginTop:10,textAlign:'left'}}
-
-                        />
+                    <div style={{marginTop:'16px',marginBottom:'20px'}}>
+                      <span className='pic-first'>详情页图片</span>
+                       {
+                        State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
+                           if(item.type=='DETAILS'){
+                             return <img className="image"  src={item.photoUrl}  ref="uploadImage" style={{display:'inline-block',marginLeft:'30px'}}/>
+                           }
+                        })
+                      } 
                     </div>
  
 						     

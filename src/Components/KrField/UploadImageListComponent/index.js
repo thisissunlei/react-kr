@@ -9,7 +9,7 @@ import Notify from '../../Notify';
 import ReactDOM from 'react-dom';
 import './index.less';
 import refresh from "./images/pic.svg";
-import deleteImg from "./images/deleteImg.svg";
+import defaultRemoveImageIcon from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
 
 export default class UploadImageListComponent extends Component {
@@ -56,6 +56,7 @@ export default class UploadImageListComponent extends Component {
 			this.setState({
 				images
 			});
+			this.changeImages(images);
 			this.init = true;
 		}
 
@@ -107,7 +108,7 @@ export default class UploadImageListComponent extends Component {
 			imgUpload: false
 		});
 	}
-	onChange=(event)=>{
+	updateImage=(event)=>{
         
         let {images}=this.state;
 
@@ -143,9 +144,9 @@ export default class UploadImageListComponent extends Component {
 		let imgType = file.type;
 		let imgSize = Math.round(file.size/1024*100)/100;
 		if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
-			this.refs.inputImg.value ="";
-			this.refs.inputImgNew.value ="";
-			this.refs.uploadImage.src="";
+			//this.refs.inputImg.value ="";
+			//this.refs.inputImgNew.value ="";
+			// this.refs.uploadImage.src="";
 			_this.setState({
 				errorHide: false,
 				errorTip:"请上传正确格式的图片"
@@ -153,9 +154,9 @@ export default class UploadImageListComponent extends Component {
 			return;
 		}
 		if(imgSize>1000){
-			this.refs.inputImg.value ="";
-			this.refs.inputImgNew.value ="";
-			this.refs.uploadImage.src="";
+			//this.refs.inputImg.value ="";
+			//this.refs.inputImgNew.value ="";
+			//this.refs.uploadImage.src="";
 			_this.setState({
 				errorHide: false,
 				errorTip:"图片尺寸不得大于1M"
@@ -184,17 +185,13 @@ export default class UploadImageListComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									const {input}=_this.props;
 									fileResponse.data.map((item,index)=>{
                                      images.push({
 										photoId:item.id,
 										src:item.ossHref,
 									 }); 
 									})				
-									input.onChange(images);
-									_this.setState({
-										images
-									})
+									_this.changeImages(images);
 								} else {
 									_this.onError(fileResponse.msg);
 									return;
@@ -232,6 +229,7 @@ export default class UploadImageListComponent extends Component {
 	}
 
 
+
 	//设为首图
 	reFreshImg=(index)=>{
 		let {images}=this.state;
@@ -241,25 +239,35 @@ export default class UploadImageListComponent extends Component {
 			images.splice(index,1);
 			images.unshift(indexPicSrc);
 		}
-		this.setState({
-			images,
-		})
+		this.changeImages(images);
 	}
 
 	// 删除图片
-	deleteImg=(index)=>{
+	removeImage=(index)=>{
+		//console.log('delete:',index,'images');
 		let {images}=this.state;
 		images.splice(index,1);
-		const {input}=this.props;
+		//console.log('delete:',index,'images',images);
+		this.changeImages(images);
+	}
+
+    changeImages=(images)=>{
+       const {input,onChange}=this.props;
+       input.onChange(images);
 		this.setState({
 			images
-		})
-	}
+		},function(){
+			console.log('changeImages:',this.state.images);
+			onChange && onChange(images);
+		});
+
+    }
+
+    
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,images} = this.state;
-
-
+         
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
 
@@ -274,8 +282,8 @@ export default class UploadImageListComponent extends Component {
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:9,cursor:'pointer'}}/>
 									</div>
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.deleteImg.bind(this,index)}>
-										<img src={deleteImg} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
+									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.removeImage.bind(this,index)}>
+										<img src={defaultRemoveImageIcon} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
 									</div>
 								</div>
 							</div>
@@ -286,7 +294,7 @@ export default class UploadImageListComponent extends Component {
 				<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 					<div className='ui-uploadimg-inner' >
 						<span className='ui-uploadimg-button'>+</span>
-						<input type='file' onChange={this.onChange} ref="inputImg"/>
+						<input type='file' onChange={this.updateImage} ref="inputImg"/>
 						<span className='ui-uploadimg-tip'>上传图片</span>
 					</div>
 				</div>
@@ -294,7 +302,19 @@ export default class UploadImageListComponent extends Component {
 			<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 				{this.state.errorTip}
 			</p>
+
+			        {/*删除提示*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.openSearchUpperDialog}
+						open={State.openSearchUpper}
+						contentStyle ={{ width: '443',height:'237px',overflow:'visible'}}
+					>
+					 <deleteDialog     />
+						
+				    </Dialog>
 		</div>
 	);
-}
+  }
 }
