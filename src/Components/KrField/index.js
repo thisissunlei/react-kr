@@ -33,6 +33,8 @@ import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 import NewUploadImageComponent from './NewUploadImageComponent';
+import MapComponent from './MapComponent';
+
 
 export default class KrField extends React.Component {
 
@@ -236,6 +238,11 @@ export default class KrField extends React.Component {
 		if (component === 'group' || type == 'group') {
 			return (
 				<GroupComponent {...this.props} style={WrapStyles}/>
+			);
+		}
+		if (component === 'map' ) {
+			return (
+				<MapComponent {...this.props} style={WrapStyles}/>
 			);
 		}
 

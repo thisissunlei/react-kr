@@ -13,7 +13,7 @@ import {
 	Message,
 	SnackTip,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
 } from 'kr-ui';
 import './index.less';
 
@@ -57,15 +57,9 @@ import './index.less';
 							
 							
 			              	<KrField name="newuploadImage" 
-								component="newuploadImage" 
-								innerstyle={{width:524,height:159,padding:10}} 
-								photoSize={'1920*520'} 
-								pictureFormat={'JPG,PNG,GIF'} 
-								pictureMemory={'500'}
-								requestURI = {this.state.requestURI}
-								requireLabel={true}
-								label="上传轮播图"
-								inline={false}
+								component="map" 
+								placeholder="例如：北京市"
+								style={{width:252,height:36}}
 							/>
 							
 							

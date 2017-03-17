@@ -977,8 +977,18 @@ const APIS = {
    },
    //活动列表及筛选
    'activityList':{
-      url: '/mockjsdata/33/activity/activity-list?beginDate={beginDate}&cityId={cityId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
-      method: 'put'
+      url: '/mockjsdata/33/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
+      method: 'get'
+   },
+   //新建活动上传轮播图
+   'activityUploadpic':{
+      url: '/mockjsdata/33/activity/upload-pic',
+      method: 'post'
+   },
+   //新建编辑活动提交
+   'activityUploadpic':{
+      url: '/mockjsdata/33/activity/activity',
+      method: 'post'
    },
  }
 

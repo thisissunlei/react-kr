@@ -169,7 +169,7 @@ export default class List extends Component {
 											exportSwitch={true}
 											onExport={this.onExport}
 											ajaxFieldListName='items'
-											ajaxUrlName='membersList'
+											ajaxUrlName='activityList'
 											ajaxParams={State.searchParams}
 										>
 										<TableHeader>
@@ -198,14 +198,29 @@ export default class List extends Component {
 												if(value==""){
 													value="-"
 												}
+												if(value==1){
+													value = "CEO Time"
+												}
+												if(value==2){
+													value = "公开氪"
+												}
+												if(value==3){
+													value = "社区福利"
+												}
+												if(value==4){
+													value = "Open Day"
+												}
+												if(value==5){
+													value = "氪空间创业节"
+												}
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
 											<TableRowColumn name="cityId"
-											component={(value,oldValue)=>{
+											component={(value,oldValue,itemData)=>{
 												if(value==""){
 													value="-"
 												}
-												return (<span>{value}</span>)}}
+												return (<span>{itemData.cityName}{itemData.countyName}</span>)}}
 											></TableRowColumn>
 
 											<TableRowColumn name="beginDate" type="date"
@@ -279,9 +294,9 @@ export default class List extends Component {
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  {/*<Drawer open={State.openNewCreate && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
-							  </Drawer>
+							  </Drawer>*/}
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />

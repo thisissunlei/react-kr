@@ -20,15 +20,42 @@ let State = observable({
 	list: {},
 	content:'',
 	filter:'COMP_NAME',
+	// 是否置顶
+	isStick : false,
+	// 上传图片地址
+	requestURI :'/mockjsdata/33/activity/upload-pic', 
 	searchParams: {
+		beginDate:'',
+		cityId:'',
+		countyId: '',
+		endDate:'',
+		name:'',
 		page: 1,
 		pageSize: 15,
-		beginDate:'',
-		endDate:'',
-		cityId:'',
 		type:'',
-		name:'',
-		companyId:0
+	},
+	newCreatAndEditParams:{
+		maxPerson : '',
+		infoPic :'',
+		countyId :'',
+		type :'',
+		sort :'',
+		enroll :'',
+		name :'',
+		beginDate :'',
+		address :'',
+		top :'',
+		summary :'',
+		joinType:'',
+		coverPic: '',
+		publishType: '',
+		id: '',
+		Point: '',
+		xPoint: '',
+		endDate: '',
+		contact: '',
+		contactPhone: '',
+		cityId: '',
 	}
 });
 

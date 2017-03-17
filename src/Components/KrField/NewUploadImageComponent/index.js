@@ -86,6 +86,7 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
+		var {requestURI} = this.props;
 		this.setState({
 			imgSrc: "",
 			operateImg :false,
@@ -185,7 +186,9 @@ export default class UploadImageComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
+					// console.log("requestURI",requestURI);
+					// xhrfile.open('POST', '/mockjsdata/33/activity/upload-pic', true);
+					 xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -276,11 +279,12 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,...other} = this.props;
 		let {operateImg} = this.state;
 		// console.log("imgTitle",imgTitle,"pictureFormat",pictureFormat);
 
-	
+		// let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+		
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
@@ -314,6 +318,8 @@ export default class UploadImageComponent extends Component {
 					{this.state.errorTip}
 				</p>
 			</div>
+			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+
       </WrapComponent>
 		);
 	}
