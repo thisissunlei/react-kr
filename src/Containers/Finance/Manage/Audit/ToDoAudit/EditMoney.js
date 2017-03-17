@@ -81,6 +81,10 @@ class EditMoney extends Component {
 					infoList: response
 				})
 				Store.dispatch(initialize('editMoney', response));
+				var form = {
+					"value": response.payWay
+				}
+				_this.getAccount(form)
 
 
 			}).catch(function(err) {});
