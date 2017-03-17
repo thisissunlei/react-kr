@@ -35,6 +35,9 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 //楼层增加与减少
 const renderMembers = ({ fields, meta: { touched, error } }) => {
+   if(!fields.length){
+     fields.push({})
+   }
   return (
       <ul style={{padding:0,margin:0}}>
        {fields.map((wherefloorsStr, index) =>
@@ -212,6 +215,9 @@ const renderService = ({ fields, meta: { touched, error }}) => {
 
 //工位价格
 const renderStation = ({ fields, meta: { touched, error }}) => {
+  if(!fields.length){
+     fields.push({})
+   }
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
@@ -269,8 +275,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {
-     console.log(';;ppppp',values);
-     return ;
      values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
