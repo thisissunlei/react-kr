@@ -6,11 +6,15 @@ import {
 	reduxForm
 } from 'redux-form';
 import Notify from '../../Notify';
+import Dialog from '../../Dialog';
 import ReactDOM from 'react-dom';
+import Message from '../../Message';
 import './index.less';
 import refresh from "./images/pic.svg";
 import defaultRemoveImageIcon from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
+import DeleteSure from './DeleteSure';
+import FirstSure from './FirstSure';
 
 export default class UploadImageListComponent extends Component {
 
@@ -27,18 +31,16 @@ export default class UploadImageListComponent extends Component {
 		this.state={
 			imgSrc:'',
 			errorHide: true,
-			errorTip:'',
-			// 图片是否已经上传到界面
 			imgUpload: false,
 			timer :"",
 			operateImg :false,
 			files :{},
 			imageStatus : true,
 			images:[],
-			photo:{
-				first:false,
-				photoId:''
-			}
+			openDelete:false,
+			openFirst:false,
+			deleteIndex:'',
+			firstIndex:''
 		}
 
 		this.init = false;
@@ -129,10 +131,6 @@ export default class UploadImageListComponent extends Component {
 			var timer = window.setInterval(function() {
 				if (progress >= 100) {
 					window.clearInterval(timer);
-					// _this.setState({
-					// 	progress: 0,
-					// 	isUploading: false
-					// });
 				}
 				progress += 10;
 				_this.setState({
@@ -144,23 +142,11 @@ export default class UploadImageListComponent extends Component {
 		let imgType = file.type;
 		let imgSize = Math.round(file.size/1024*100)/100;
 		if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
-			//this.refs.inputImg.value ="";
-			//this.refs.inputImgNew.value ="";
-			// this.refs.uploadImage.src="";
-			_this.setState({
-				errorHide: false,
-				errorTip:"请上传正确格式的图片"
-			})
+			Message.warntimeout('请上传正确格式的图片', 'error')
 			return;
 		}
 		if(imgSize>1000){
-			//this.refs.inputImg.value ="";
-			//this.refs.inputImgNew.value ="";
-			//this.refs.uploadImage.src="";
-			_this.setState({
-				errorHide: false,
-				errorTip:"图片尺寸不得大于1M"
-			})
+			Message.warntimeout('图片尺寸不得大于1M', 'error')
 			return;
 		}
 		var form = new FormData();
@@ -192,6 +178,7 @@ export default class UploadImageListComponent extends Component {
 									 }); 
 									})				
 									_this.changeImages(images);
+									Message.warntimeout('图片上传成功', 'success');								
 								} else {
 									_this.onError(fileResponse.msg);
 									return;
@@ -231,24 +218,51 @@ export default class UploadImageListComponent extends Component {
 
 
 	//设为首图
-	reFreshImg=(index)=>{
-		let {images}=this.state;
-		var indexPicSrc=images[index];
+	reFreshImg=()=>{
+		let {images,firstIndex}=this.state;
+		var indexPicSrc=images[firstIndex];
 		this.refs.inputImg.value ="";
-		if(index!=0){
-			images.splice(index,1);
+		if(firstIndex!=0){
+			images.splice(firstIndex,1);
 			images.unshift(indexPicSrc);
 		}
 		this.changeImages(images);
+		Message.warntimeout('图片设为首图成功', 'success');	
+		this.cancelFirst();
 	}
 
 	// 删除图片
-	removeImage=(index)=>{
-		//console.log('delete:',index,'images');
-		let {images}=this.state;
-		images.splice(index,1);
-		//console.log('delete:',index,'images',images);
+	removeImage=()=>{
+		let {images,deleteIndex}=this.state;
+		images.splice(deleteIndex,1);
 		this.changeImages(images);
+		Message.warntimeout('图片删除成功', 'success');	
+		this.cancelDelete();
+	}
+
+	openDeleteFun=(index)=>{
+      this.setState({
+      	openDelete:true,
+        deleteIndex:index
+      })
+	}
+
+	openFirstFun=(index)=>{
+	  this.setState({
+      	openFirst:true,
+        firstIndex:index
+      }) 	 
+	}
+	cancelDelete=()=>{
+	 this.setState({
+      	openDelete:false,
+      })	
+	}
+
+	cancelFirst=()=>{
+	  this.setState({
+      	openFirst:false,
+      })	
 	}
 
     changeImages=(images)=>{
@@ -266,7 +280,7 @@ export default class UploadImageListComponent extends Component {
     
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
-		let {operateImg,images} = this.state;
+		let {operateImg,images,deleteIndex} = this.state;
          
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
@@ -279,10 +293,10 @@ export default class UploadImageListComponent extends Component {
 							<img className="image"  src={item.src}  ref="uploadImage" style={{display:'block'}}/>
 							<div className="ui-uploadimg-fresh-delete">
 								<div className='delete-middle'>
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg.bind(this,index)}>
+									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:9,cursor:'pointer'}}/>
 									</div>
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.removeImage.bind(this,index)}>
+									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.openDeleteFun.bind(this,index)}>
 										<img src={defaultRemoveImageIcon} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
 									</div>
 								</div>
@@ -299,9 +313,38 @@ export default class UploadImageListComponent extends Component {
 					</div>
 				</div>
 			</div>
-			<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
-				{this.state.errorTip}
-			</p>
+
+
+			
+
+                    {/*提示*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.cancelDelete}
+						open={this.state.openDelete}
+						contentStyle ={{ width: '444',height:'238px',overflow:'visible'}}
+					>
+						<DeleteSure
+						    onCancel={this.cancelDelete}
+						    onSubmit={this.removeImage}
+						/>
+				    </Dialog>
+
+
+                    {/*提示*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.cancelFirst}
+						open={this.state.openFirst}
+						contentStyle ={{ width: '444',height:'238px',overflow:'visible'}}
+					>
+						<FirstSure
+						    onCancel={this.cancelFirst}
+						    onSubmit={this.reFreshImg}
+						/>
+				    </Dialog>
 
 		</div>
 	);
