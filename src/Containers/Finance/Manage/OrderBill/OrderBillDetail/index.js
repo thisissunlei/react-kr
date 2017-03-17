@@ -825,17 +825,17 @@ export default class AttributeSetting extends Component {
         Store.dispatch(Actions.callAPI('findAccountAndPropList', {accountType: params.accountType})).then(function(response) {
             var codeList = [];
             var typeList = [];
-            response.account.map(function(item, index) {
+            response.payWay.map(function(item, index) {
                 var list = {}
                 list.value = item.id;
-                list.label = item.accountname;
+                list.label = item.name;
                 codeList.push(list);
             });
 
-            response.property.map(function(item, index) {
+            response.category.map(function(item, index) {
                 var list = {}
                 list.value = item.id;
-                list.label = item.propname;
+                list.label = item.categoryName;
                 typeList.push(list);
             })
             _this.setState({codeList, typeList});
