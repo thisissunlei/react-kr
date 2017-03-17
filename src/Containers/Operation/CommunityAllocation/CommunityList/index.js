@@ -84,7 +84,6 @@ class CommunityList  extends Component{
 
    	    value = Object.assign({},value);
 
-        console.log(';;;----',value);
          
         //亮点开始 
    	    var brightsStr=[];

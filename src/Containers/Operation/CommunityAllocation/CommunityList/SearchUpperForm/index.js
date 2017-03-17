@@ -95,7 +95,8 @@ class SearchUpperForm extends Component {
    onSearchSubmit=(params)=>{
    	  let obj = {
 			searchKey: params.content,
-			searchType:params.value
+			searchType:params.value,
+			pageSize:15
 		}	
 		State.searchParams=obj	
    }
