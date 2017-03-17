@@ -43,6 +43,8 @@ import HightSearchForm from './HightSearchForm';
 import AddMoney from './AddMoney';
 import NewCreateCustomer from './NewCreateCustomer';
 import NewCreateMainbill from './NewCreateMainbill';
+import EditMoney from './EditMoney';
+
 
 import './index.less';
 export default class ToDoAudit extends Component {
@@ -52,10 +54,10 @@ export default class ToDoAudit extends Component {
     this.state = {
       openNewCreate: false,
       openView: false,
-      openEditDetail: false,
       openDelete: false,
       openSearch: false,
       openAddCreate: false,
+      openEditCreate: false,
       itemDetail: {},
       Params: {
         page: 1,
@@ -68,6 +70,25 @@ export default class ToDoAudit extends Component {
       showName: false,
     }
 
+  }
+
+  //操作相关
+  onOperation = (type, itemDetail) => {
+
+    this.setState({
+      itemDetail
+    });
+
+    if (type == 'view') {
+
+    } else if (type == 'edit') {
+      this.openEditCreate();
+    }
+  }
+  openEditCreate = () => {
+    this.setState({
+      openEditCreate: !this.state.openEditCreate
+    })
   }
   onSubmitMainbill = (form) => {
     var _this = this;
@@ -296,6 +317,16 @@ export default class ToDoAudit extends Component {
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
               <AddMoney  showName={this.state.showName} onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+            </Drawer>
+            <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openEditCreate}
+              onClose={this.openEditCreate}
+              openSecondary={true}
+              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+            >
+              <EditMoney  onSubmit="" onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Dialog
               title="新建客户"

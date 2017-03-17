@@ -8,8 +8,11 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	initialize,
+	change
 } from 'redux-form';
+
 import {
 	Actions,
 	Store
@@ -28,6 +31,8 @@ import {
 	CircleStyleTwo,
 	KrDate
 } from 'kr-ui';
+
+import dateFormat from 'dateformat';
 import './index.less';
 
 
@@ -56,8 +61,9 @@ class EditMoney extends Component {
 
 	}
 
+
 	componentDidMount() {
-		//editMoney
+
 
 	}
 
@@ -66,36 +72,40 @@ class EditMoney extends Component {
 			showName: !this.state.showName
 		})
 	}
+
+	//table
 	getInfo = () => {
-		var _this = this;
-		var id = this.props.detail.id
-		Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
-			finaVerifyId: id
-		}, {})).then(function(response) {
-			_this.setState({
-				topInfoList: response
-			})
-		}).catch(function(err) {});
-	}
+			var _this = this;
+			var id = this.props.detail.id
+			Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+				finaVerifyId: id
+			}, {})).then(function(response) {
+				_this.setState({
+					topInfoList: response
+				})
+			}).catch(function(err) {});
+		}
+		//付款明细
 	getPayInfo = () => {
-		var id = this.props.detail.mainbillId
-		var _this = this;
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
-			mainBillId: id
-		}, {})).then(function(response) {
-			_this.setState({
-				payInfoList: response
-			})
+			var id = this.props.detail.id
+			var _this = this;
+			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+				finaVerifyId: id
+			}, {})).then(function(response) {
+				_this.setState({
+					payInfoList: response
+				})
 
-		}).catch(function(err) {});
-	}
-
+			}).catch(function(err) {});
+		}
+		//付款信息
 	getDetailInfo = () => {
 		var id = this.props.detail.id
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-fina-infos', {
 			finaVerifyId: id
 		}, {})).then(function(response) {
+			Store.dispatch(initialize('editMoney', response));
 			_this.setState({
 				infoList: response
 			})
@@ -103,11 +113,17 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
-	onSubmit = () => {
+	onSubmit = (form) => {
+		var params = {
+			finaVerifyId: this.props.detail.id,
+			remark: form.remark,
+			uploadFileIds: form.uploadFileIds
+		}
+
 		let {
 			onSubmit
 		} = this.props;
-		onSubmit && onSubmit();
+		onSubmit && onSubmit(params);
 	}
 	onCancel = () => {
 		let {
@@ -117,19 +133,83 @@ class EditMoney extends Component {
 	}
 	renderPayList = () => {
 		let {
-			finaflowInfo
+			payInfoList
 		} = this.state;
-		if (finaflowInfo.length == 0) {
-			return (
-				<div className="u-audit-content-null">
-					<div className="u-audit-content-null-icon"></div>
-					<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
-				</div>
-			)
+		var type;
+		if (payInfoList.cimbList && payInfoList.cimbList.length > 0) {
+			return payInfoList.cimbList.map((item, index) => {
+				if (item.contactType == 1) {
+					type = "承租意向书"
+				} else if (item.contactType == 2) {
+					type = "入驻协议书"
+				} else if (item.contactType == 3) {
+					type = "增租协议书"
+				} else if (item.contactType == 4) {
+					type = "续租协议书"
+				}
+				return (
+					<div key={index} className="u-order-list u-clearfix">
+						<div className="u-order-name">{`${type}-${item.contactName}`}</div>
+						{
+							item.frontmoney?(
+							<div className="u-order-font-list">
+								<div className="u-order-deatil">定金<span className="u-font-red">{`（未回款额：${item.nFrontmoney}）`}</span></div>
+								<div className="u-order-count">{item.frontmoney}</div>
+							</div>
+						):''
+						}
+						{
+							item.depositId?(
+							<div className="u-order-font-list">
+								<div className="u-order-deatil">履约保证金<span className="u-font-red">{`（未回款额：${item.nDeposit}）`}</span></div>
+								<div className="u-order-count">{item.deposit}</div>
+							</div>
+						):''
+						}
+						{
+							item.totalrentId?(
+							<div className="u-order-font-list">
+								<div className="u-order-deatil">工位服务费<span className="u-font-red">{`（未回款额：${item.nTotalrent}）`}</span></div>
+								<div className="u-order-count">{item.totalrent}</div>
+							</div>
+						):''
+						}
+
+					</div>
+
+				)
+
+			})
 		}
 
 	}
+	renderNullOrder = () => {
+		let {
+			payInfoList
+		} = this.state;
+		if (payInfoList.scvList && payInfoList.scvList.length > 0) {
 
+			return (
+				<div style={{marginTop:16}}>
+						<div className="u-order-title">无合同</div>
+						<div className="u-order-list u-clearfix">
+						{ payInfoList.scvList.map((item, index) => {
+							return (
+								<div className="u-order-font-list" key={index}>
+									<div className="u-order-deatil">{item.propname}</div>
+									<div className="u-order-count">{item.propamount}</div>
+								</div>
+							)
+						})}
+						</div>
+					</div>
+
+			)
+
+
+
+		}
+	}
 	render() {
 
 		const {
@@ -148,7 +228,7 @@ class EditMoney extends Component {
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>编辑回款</span>
-			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
+			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
 			     <div className="u-table-list">
 				     <table className="u-table">
@@ -164,7 +244,7 @@ class EditMoney extends Component {
 							return(
 								<tr key={index}>
 							     	<td>{index+1}</td>
-							     	<td><KrDate value={item.operateTime}/></td>
+							     	<td><KrDate value={item.operateTime} /></td>
 							     	<td>{item.operateUserName}</td>
 							     	<td>{item.targetStatus=='CHECKED'?<span className="u-font-green">{item.verifyName}</span>:<span className="u-font-red">{item.verifyName}</span>}</td>
 							     	<td>{item.operateRemark}</td>
@@ -197,7 +277,9 @@ class EditMoney extends Component {
 								component="labelText"
 								inline={false} 
 								label="订单起止"
-								value={infoList.mainBillDate} 
+								value={ infoList.mainBillDate}
+								
+								
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -238,15 +320,16 @@ class EditMoney extends Component {
 								component="labelText" 
 								inline={false} 
 								label="收款日期" 
-								value={infoList.dealTime}
+								value={dateFormat(infoList.dealTime,"yyyy-mm-dd")}
 						/>
 						<KrField  
 								style={{width:548}}  
 								name="remark" 
 								component="textarea" 
+								defaultValue={infoList.remark}
 								label="备注" 
 								maxSize={100}
-								defaultValue={infoList.remark}
+								
 						/>
 						<KrField  
 							 	name="fileList" 
@@ -261,7 +344,7 @@ class EditMoney extends Component {
 							label="上传附件" 
 							defaultValue={infoList.fileList} 
 							onChange={(files)=>{
-								Store.dispatch(change('AddMoney','fileList',files));
+								Store.dispatch(change('EditMoney','uploadFileIds',files));
 							}} 
 						/>
 					</CircleStyleTwo>
@@ -269,10 +352,13 @@ class EditMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span></span>
+							<span>{infoList.flowAmount}</span>
 						</div>
-						{/*this.renderPayList()*/}
-						<Grid style={{marginTop:50}}>
+						<div className="u-order-title">对应合同</div>
+						{this.renderPayList()}
+						{this.renderNullOrder()}
+					</CircleStyleTwo>
+					<Grid style={{marginTop:30,marginBottom:30}}>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -282,7 +368,6 @@ class EditMoney extends Component {
 						  </Col>
 						</Row>
 						</Grid>
-					</CircleStyleTwo>
 				</form>
 			</div>
 
