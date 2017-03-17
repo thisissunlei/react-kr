@@ -272,8 +272,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {	
-    
-     return ;
      values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
