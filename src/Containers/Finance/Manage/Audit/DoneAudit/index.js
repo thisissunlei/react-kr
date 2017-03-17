@@ -34,6 +34,7 @@ import {
   KrField,
   Title,
   KrDate,
+  Message,
   Tooltip,
   Drawer
 } from 'kr-ui';
@@ -50,6 +51,7 @@ export default class DoneAudit extends Component {
     this.state = {
       openSearch: false,
       itemDetail: {},
+      delAudit:false,
       openEditCreate: false,
       Params: {
         page: 1,
@@ -76,6 +78,8 @@ export default class DoneAudit extends Component {
       this.openView();
     } else if (type == 'edit') {
       this.openEditCreate();
+    }else if (type == 'delete') {
+      this.delAudit(itemDetail);
     }
   }
 
@@ -90,6 +94,36 @@ export default class DoneAudit extends Component {
     this.setState({
       openView: !this.state.openView
     })
+  }
+  //删除此条数据
+  delAudit = (itemDetail) => {
+    this.setState({
+      itemDetail
+    });
+    this.setState({
+      delAudit:!this.state.delAudit
+    })
+  }
+  sureToDel = (itemDetail) => {
+    var _this=this;
+    //console.log(itemDetail);
+    Store.dispatch(Actions.callAPI('del-fina-record', {}, {
+      finaVerifyId: this.state.itemDetail.id
+    })).then(function(response) {
+        Message.success("删除成功");
+        _this.setState({
+          delAudit:false,
+        },function(){
+          window.setTimeout(function() {
+              window.location.reload();
+          }, 0);
+        });
+    }).catch(function(err) {
+        Message.error(err.message);
+        _this.setState({
+          delAudit:false,
+        });
+    });
   }
   searchParams = (form) => {
 
@@ -278,6 +312,25 @@ export default class DoneAudit extends Component {
            >
              <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
            </Drawer>
+           <Dialog
+             title="提示"
+             modal={true}
+             contentStyle ={{ width: '444',height:'238px',overflow:'visible'}}
+             open={this.state.delAudit}
+             onClose={this.delAudit}
+           >
+           <div className='list-delete'>
+             <p className='sureIncome'>是否确定删除？</p>
+
+
+               <div style={{paddingLeft:'100px'}}>
+                     <div  className='ui-btn-center'><Button  label="确定"  onTouchTap={this.sureToDel}/></div>
+                     <Button  label="取消" type="button" cancle={true} onTouchTap={this.delAudit} />
+
+                        </div>
+
+           </div>
+           </Dialog>
       </div>
 
     );

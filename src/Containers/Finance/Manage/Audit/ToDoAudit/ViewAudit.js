@@ -31,10 +31,9 @@ import {
 import './index.less';
 
 
-class EditMoney extends Component {
+export default class ViewAudit extends Component {
 
 	static PropTypes = {
-		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
 
@@ -80,13 +79,6 @@ class EditMoney extends Component {
 				_this.setState({
 					infoList: response
 				})
-				Store.dispatch(initialize('editMoney', response));
-				var form = {
-					"value": response.payWay
-				}
-				_this.getAccount(form)
-
-
 			}).catch(function(err) {});
 		}
 		//付款明细
@@ -99,95 +91,52 @@ class EditMoney extends Component {
 			_this.setState({
 				infoDetailList: response
 			})
-			Store.dispatch(initialize('editMoney', response));
-
-
 		}).catch(function(err) {});
 
 	}
 
-
-	//获取付款方式对应的我司账户
-	getAccount = (form) => {
-		var accountList;
-		var _this = this;
-		Store.dispatch(Actions.callAPI('get-account-info', {
-			accountType: form.value
-		}, {})).then(function(response) {
-			accountList = response.map((item, index) => {
-				item.label = item.accountNum;
-				item.value = item.accountId;
-				return item;
-			})
-			_this.setState({
-				accountList: accountList
-			})
-
-		}).catch(function(err) {});
-	}
-
-	onSubmit = () => {
-		let {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit();
-	}
 	onCancel = () => {
-		let {
-			onCancel
-		} = this.props;
-		onCancel && onCancel();
+    let {onCancel} = this.props;
+    onCancel && onCancel();
 	}
 
-	joinInputRender = (index) => {
-		return ( < div style = {
-				{
-					width: 600,
-					marginTop: 8
-				}
-			}
-			className = 'm-tenantStation' >
-			< KrField label = "押金"
-			grid = {
-				1 / 2
-			}
-			name = 'fix1'
-			style = {
-				{
-					width: 261,
-					marginLeft: -9
-				}
-			}
-			component = "input"
-			type = "text"
-			onChange = {
-				this.calcBalance
-			}
-			onBlur = {
-				this.moneyCheck
-			}
-			/> < KrField label = "工位服务费"
-			grid = {
-				1 / 2
-			}
-			name = 'fix3'
-			style = {
-				{
-					width: 261,
-					marginLeft: 28
-				}
-			}
-			component = "input"
-			type = "text"
-			onChange = {
-				this.calcBalance
-			}
-			onBlur = {
-				this.moneyCheck
-			}
-			/> < /div >
-		)
-	}
+  joinInputRender = (index) => {
+    return ( < div style = {
+        {
+          width: 600,
+          marginTop: 8
+        }
+      }
+      className = 'm-tenantStation' >
+      < KrField label = "押金"
+      grid = {
+        1 / 2
+      }
+      name = 'fix1'
+      style = {
+        {
+          width: 261,
+          marginLeft: -9
+        }
+      }
+      component = "input"
+      type = "text"
+      /> < KrField label = "工位服务费"
+      grid = {
+        1 / 2
+      }
+      name = 'fix3'
+      style = {
+        {
+          width: 261,
+          marginLeft: 28
+        }
+      }
+      component = "input"
+      type = "text"
+      /> < /div >
+    )
+  }
 
 
 
@@ -210,32 +159,14 @@ class EditMoney extends Component {
 		if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
 			finaflowInfoList = infoDetailList.cimbList.map(function(item, index) {
 				console.log('item----', item)
-					//意向书
-					/*if (item.value == '1') {
-						item.component = _this.adminInputRender.bind(this, index);
-
-					}*/
-					//入驻协议书
 				if (item.value == '2') {
 					item.component = _this.joinInputRender.bind(this, index);
 
 				}
-
-				//增租协议书
-				/*if (item.value == '3') {
-
-					item.component = _this.increaseInputRender.bind(this, index);
-				}
-				//续租协议书
-				if (item.value == '4') {
-
-					item.component = _this.renewInputRender.bind(this, index);
-				}*/
-
 			})
 			return (
 				<div>
-					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfoList} requireLabel={true} onChange={this.argreementChecked}/>
+					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfoList} requireLabel={true}/>
 				</div>
 
 			)
@@ -265,10 +196,9 @@ class EditMoney extends Component {
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
-			     	<span>编辑回款</span>
+			     	<span>回款详情</span>
 			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
 			     </div>
-			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
@@ -276,7 +206,6 @@ class EditMoney extends Component {
 								label="客户名称"
 								inline={false}
 								value={infoList.company}
-
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -304,26 +233,24 @@ class EditMoney extends Component {
 						<KrField
 								style={{width:260}}
 								name="payWay"
-								component="select"
+								component="labelText"
 								label="收款方式"
 								options={payment}
-								onChange={this.getAccount}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="accountId"
-								component="select"
+								component="labelText"
 								label="我司账户"
 								options={accountList}
 								requireLabel={true}
-
 						/>
 						<KrField
 								style={{width:260}}
 								name="payAccount"
 								type="text"
-								component="input"
+								component="labelText"
 								label="付款账户"
 								options=""
 								requireLabel={true}
@@ -331,32 +258,29 @@ class EditMoney extends Component {
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="dealTime"
-								component="date"
+								component="labelText"
 								label="收款日期"
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:548}}
 								name="remark"
-								component="textarea"
+								component="labelText"
 								label="备注"
 								maxSize={100}
 						/>
 						<KrField
 							 	name="contractFileList"
-							 	component="input"
+							 	component="labelText"
 							 	type="hidden"
 							 	label="合同附件"
 						/>
 						<KrField
 							style={{width:548}}
 							name="uploadFileIds"
-							component="file"
+							component="labelText"
 							label="上传附件"
 							defaultValue={[]}
-							onChange={(files)=>{
-								Store.dispatch(change('AddMoney','contractFileList',files));
-							}}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
@@ -366,47 +290,10 @@ class EditMoney extends Component {
 							<span>{totalCountMoney}</span>
 						</div>
 						{this.renderPayList()}
-						<Grid style={{marginTop:50}}>
-						<Row >
-						<Col md={12} align="center">
-							<ButtonGroup>
-								<Button  label="确定" type="submit"  />
-								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
-							</ButtonGroup>
-						  </Col>
-						</Row>
-						</Grid>
 					</CircleStyleTwo>
-				</form>
 			</div>
 
 
 		);
 	}
 }
-const validate = values => {
-
-	const errors = {}
-
-	if (!values.leaseId) {
-		errors.leaseId = '请输入出租方';
-	}
-
-	if (!values.lessorContactid) {
-		errors.lessorContactid = '请输入出租方联系人';
-	}
-
-	if (!values.wherefloor) {
-		errors.wherefloor = '请输入所在楼层';
-	}
-
-
-	return errors
-}
-
-export default reduxForm({
-	form: 'editMoney',
-	validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
-})(EditMoney);

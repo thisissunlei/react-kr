@@ -1101,7 +1101,7 @@ const APIS = {
         method: 'post'
     },
     //财务--审核--删除
-    'edit-verify-checked': {
+    'del-fina-record': {
         url: '/api/krspace-finance-web/finaVerify/opt/del-fina-record',
         method: 'post'
     },

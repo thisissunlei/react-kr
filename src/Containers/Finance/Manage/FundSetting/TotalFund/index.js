@@ -142,12 +142,12 @@ export default class TotalFund extends Component {
                     }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true}>
 
                         <TableHeader>
-                            <TableHeaderColumn>编码</TableHeaderColumn>
-                            <TableHeaderColumn>名称</TableHeaderColumn>
-                            <TableHeaderColumn>类型</TableHeaderColumn>
-                            <TableHeaderColumn>状态</TableHeaderColumn>
-                            <TableHeaderColumn>顺序号</TableHeaderColumn>
+                            <TableHeaderColumn>款项名称</TableHeaderColumn>
+                            <TableHeaderColumn>显示位置</TableHeaderColumn>
+
+                            <TableHeaderColumn>排序号</TableHeaderColumn>
                             <TableHeaderColumn>备注</TableHeaderColumn>
+                            <TableHeaderColumn>状态</TableHeaderColumn>
                             <TableHeaderColumn>创建人</TableHeaderColumn>
                             <TableHeaderColumn>创建时间</TableHeaderColumn>
                             <TableHeaderColumn>操作</TableHeaderColumn>
@@ -155,7 +155,6 @@ export default class TotalFund extends Component {
 
                         <TableBody>
                             <TableRow>
-                                <TableRowColumn name="categoryCode"></TableRowColumn>
                                 <TableRowColumn name="categoryName"></TableRowColumn>
                                 <TableRowColumn name="position" options={[
                                     {
@@ -166,17 +165,17 @@ export default class TotalFund extends Component {
                                         value: 'PAYMENT'
                                     }
                                 ]}></TableRowColumn>
-                                <TableRowColumn name="status" options={[
-                                    {
-                                        label: '启用',
-                                        value: 'ENABLE'
-                                    }, {
-                                        label: '未启用',
-                                        value: 'DISENABLE'
-                                    }
-                                ]}></TableRowColumn>
                                 <TableRowColumn name="sortNum"></TableRowColumn>
                                 <TableRowColumn name="remark"></TableRowColumn>
+                                  <TableRowColumn name="status" options={[
+                                      {
+                                          label: '启用',
+                                          value: 'ENABLE'
+                                      }, {
+                                          label: '未启用',
+                                          value: 'DISENABLE'
+                                      }
+                                  ]}></TableRowColumn>
                                 <TableRowColumn name="createrName"></TableRowColumn>
                                 <TableRowColumn name="createTime" component={(value, oldValue) => {
                                     return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)

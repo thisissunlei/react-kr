@@ -43,6 +43,7 @@ import HightSearchForm from './HightSearchForm';
 import AddMoney from './AddMoney';
 import NewCreateCustomer from './NewCreateCustomer';
 import NewCreateMainbill from './NewCreateMainbill';
+import ViewAudit from './ViewAudit';
 import EditMoney from './EditMoney';
 
 
@@ -54,7 +55,7 @@ export default class ToDoAudit extends Component {
     this.state = {
       openNewCreate: false,
       openView: false,
-      openDelete: false,
+      delAudit: false,
       openSearch: false,
       openAddCreate: false,
       openEditCreate: false,
@@ -80,15 +81,53 @@ export default class ToDoAudit extends Component {
     });
 
     if (type == 'view') {
-
+      this.openView();
     } else if (type == 'edit') {
       this.openEditCreate();
+    }else if (type == 'delete') {
+      this.delAudit(itemDetail);
     }
+  }
+  //打开查看回款
+  openView = () => {
+    this.setState({
+      openView: !this.state.openView
+    })
   }
   openEditCreate = () => {
     this.setState({
       openEditCreate: !this.state.openEditCreate
     })
+  }
+  //删除此条数据
+  delAudit = (itemDetail) => {
+    this.setState({
+      itemDetail
+    });
+    this.setState({
+      delAudit:!this.state.delAudit
+    })
+  }
+  sureToDel = (itemDetail) => {
+    var _this=this;
+    //console.log(itemDetail);
+    Store.dispatch(Actions.callAPI('del-fina-record', {}, {
+      finaVerifyId: this.state.itemDetail.id
+    })).then(function(response) {
+        Message.success("删除成功");
+        _this.setState({
+          delAudit:false,
+        },function(){
+          window.setTimeout(function() {
+              window.location.reload();
+          }, 0);
+        });
+    }).catch(function(err) {
+        Message.error(err.message);
+        _this.setState({
+          delAudit:false,
+        });
+    });
   }
   onSubmitMainbill = (form) => {
     var _this = this;
@@ -113,6 +152,7 @@ export default class ToDoAudit extends Component {
     this.openCreateMainbill();
 
   }
+
   openCreateMainbill = () => {
     this.setState({
       openCreateMainbill: !this.state.openCreateMainbill
@@ -166,19 +206,19 @@ export default class ToDoAudit extends Component {
     return (
 
       <div className="m-todo-audit">
-            <div className="u-search"> 
-                  <SearchForm 
-                          onSubmit={this.searchParams} 
+            <div className="u-search">
+                  <SearchForm
+                          onSubmit={this.searchParams}
                           openSearch={this.openSearch}
                           openAdd={this.openAddCreate}
                   />
             </div >
-            <Table 
+            <Table
                   style={{marginTop:10}}
                   ajax={true}
                   ajaxUrlName='get-fince-info'
-                  ajaxParams={this.state.Params}  
-                  onOperation={this.onOperation} 
+                  ajaxParams={this.state.Params}
+                  onOperation={this.onOperation}
                   onExport={this.onExport}
                   exportSwitch={true}
               >
@@ -329,13 +369,22 @@ export default class ToDoAudit extends Component {
             >
               <EditMoney  detail={itemDetail} onSubmit="" onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
+            <Drawer
+             modal={true}
+             width={750}
+             open={this.state.openView}
+             onClose={this.openView}
+             openSecondary={true}
+           >
+             <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
+           </Drawer>
             <Dialog
               title="新建客户"
               modal={true}
               open={this.state.openCreateCustomer}
               onClose={this.openCreateCustomer}
             >
-              <NewCreateCustomer  
+              <NewCreateCustomer
                       onCancel={this.openCreateCustomer}
                       onSubmit={this.onSubmitCustomer}
               />
@@ -346,13 +395,32 @@ export default class ToDoAudit extends Component {
               open={this.state.openCreateMainbill}
               onClose={this.openCreateMainbill}
             >
-              <NewCreateMainbill  
+              <NewCreateMainbill
                       detail={CustomerList}
                       onCancel={this.openCreateMainbill}
                       onSubmit={this.onSubmitMainbill}
               />
             </Dialog>
-            
+            <Dialog
+              title="提示"
+              modal={true}
+              contentStyle ={{ width: '444',height:'238px',overflow:'visible'}}
+              open={this.state.delAudit}
+              onClose={this.delAudit}
+            >
+            <div className='list-delete'>
+              <p className='sureIncome'>是否确定删除？</p>
+
+
+                <div style={{paddingLeft:'100px'}}>
+                      <div  className='ui-btn-center'><Button  label="确定"  onTouchTap={this.sureToDel}/></div>
+                      <Button  label="取消" type="button" cancle={true} onTouchTap={this.delAudit} />
+
+                         </div>
+
+            </div>
+            </Dialog>
+
       </div>
 
     );
