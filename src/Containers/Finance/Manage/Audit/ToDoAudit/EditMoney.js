@@ -59,77 +59,51 @@ class EditMoney extends Component {
 				value: 'POS'
 			}],
 			accountList: [],
-			mainbillInfo: {},
-			showName: false,
-			finaflowInfo: {},
-			customerId: "",
-			infoList: {}
+			infoList: {},
+			infoDetailList: [],
 		}
-		this.getDetailInfo()
+		this.getDetailInfo();
+		this.getInfo();
 
 
 	}
 	componentDidMount() {
 
-	}
-
-	componentWillReceiveProps(nextProps) {
-			this.setState({
-				showName: !this.state.showName
-			})
 		}
 		//付款信息
+	getInfo = () => {
+			var id = this.props.detail.id
+			var _this = this;
+			Store.dispatch(Actions.callAPI('get-fina-infos', {
+				finaVerifyId: id
+			}, {})).then(function(response) {
+				_this.setState({
+					infoList: response
+				})
+				Store.dispatch(initialize('editMoney', response));
+
+
+			}).catch(function(err) {});
+		}
+		//付款明细
 	getDetailInfo = () => {
 		var id = this.props.detail.id
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-infos', {
+		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
 			finaVerifyId: id
 		}, {})).then(function(response) {
 			_this.setState({
-				infoList: response
+				infoDetailList: response
 			})
 			Store.dispatch(initialize('editMoney', response));
 
 
 		}).catch(function(err) {});
-	}
-
-	openCreateCustomer = () => {
-		let {
-			openCreateCustomer
-		} = this.props;
-		openCreateCustomer && openCreateCustomer();
-	}
-	openCustomer = (form) => {
-		if (form.id == 0) {
-			this.openCreateCustomer();
-		} else {
-			this.setState({
-				customerId: form.id
-			})
-		}
-
 
 	}
 
-	getMainbillInfo = (form) => {
-		console.log('form----', form)
-		var _this = this;
 
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
-			mainBillId: form.value
-		}, {})).then(function(response) {
-			response.cimbList.map((item, index) => {
-				item.value = item.detailid;
-				item.label = item.contactName;
-				return item;
-			})
-			_this.setState({
-				finaflowInfo: response
-			})
-
-		}).catch(function(err) {});
-	}
+	//获取付款方式对应的我司账户
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
@@ -215,10 +189,10 @@ class EditMoney extends Component {
 
 	renderPayList = () => {
 		let {
-			finaflowInfo
+			infoDetailList
 		} = this.state;
 
-		if (!finaflowInfo.cimbList) {
+		if (!infoDetailList.cimbList) {
 			return (
 				<div className="u-audit-content-null">
 					<div className="u-audit-content-null-icon"></div>
@@ -228,9 +202,9 @@ class EditMoney extends Component {
 		}
 		var finaflowInfoList;
 		var _this = this;
-		console.log('finaflowInfo.cimbList---', finaflowInfo.cimbList)
-		if (finaflowInfo.cimbList && finaflowInfo.cimbList.length > 0) {
-			finaflowInfoList = finaflowInfo.cimbList.map(function(item, index) {
+
+		if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
+			finaflowInfoList = infoDetailList.cimbList.map(function(item, index) {
 				console.log('item----', item)
 					//意向书
 					/*if (item.value == '1') {
