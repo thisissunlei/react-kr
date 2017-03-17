@@ -53,12 +53,18 @@ class SearchUpperForm extends Component {
 			dateBoxDevelop:false,
 			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
 			operType:props.operType,
-			selectCity:false
+			selectCity:false,
+			searchKey:'',
+			searchType:''
 		}
 	}
 	
 
 	onSubmit(values) {
+	  let {searchKey,searchType}=this.state;
+	  values.searchKey=searchKey;
+	  values.searchType=searchType;
+	  values.pageSize=15;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -93,12 +99,10 @@ class SearchUpperForm extends Component {
 
 	//查询
    onSearchSubmit=(params)=>{
-   	  let obj = {
-			searchKey: params.content,
-			searchType:params.value,
-			pageSize:15
-		}	
-		State.searchParams=obj	
+   	  this.setState({
+   	  	  searchKey:params.content,
+   	  	  searchType:params.value,
+   	  })
    }
 
 
