@@ -8,7 +8,8 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	initialize
 } from 'redux-form';
 import {
 	Actions,
@@ -61,16 +62,36 @@ class EditMoney extends Component {
 			mainbillInfo: {},
 			showName: false,
 			finaflowInfo: {},
-			customerId: ""
+			customerId: "",
+			infoList: {}
 		}
-
+		this.getDetailInfo()
 
 
 	}
+	componentDidMount() {
+
+	}
+
 	componentWillReceiveProps(nextProps) {
-		this.setState({
-			showName: !this.state.showName
-		})
+			this.setState({
+				showName: !this.state.showName
+			})
+		}
+		//付款信息
+	getDetailInfo = () => {
+		var id = this.props.detail.id
+		var _this = this;
+		Store.dispatch(Actions.callAPI('get-fina-infos', {
+			finaVerifyId: id
+		}, {})).then(function(response) {
+			_this.setState({
+				infoList: response
+			})
+			Store.dispatch(initialize('editMoney', response));
+
+
+		}).catch(function(err) {});
 	}
 
 	openCreateCustomer = () => {
@@ -251,7 +272,7 @@ class EditMoney extends Component {
 			error,
 			handleSubmit,
 			pristine,
-			reset
+			reset,
 		} = this.props;
 		let {
 			totalCountMoney,
@@ -259,7 +280,8 @@ class EditMoney extends Component {
 			accountList,
 			mainbillInfo,
 			showName,
-			customerId
+			customerId,
+			infoList
 		} = this.state;
 		return (
 			<div className="u-audit-add">
@@ -272,34 +294,34 @@ class EditMoney extends Component {
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
-								name="customerId" 
 								component="labelText" 
 								label="客户名称"
-								defaultValue="-" 
+								inline={false}
+								value={infoList.company}
+								
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId" 
 								component="labelText" 
 								label="所属订单"
-								defaultValue="-" 
+								inline={false}
+								value={infoList.mainBillName}
 								
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
 								inline={false} 
-								label="订单起止"
-								defaultValue="-" 
-								value={mainbillInfo.actualEntrydate} 
+								label="订单起止" 
+								value={infoList.mainBillDate}
+								
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								component="labelText" 
 								inline={false}
 								label="公司主体"
-								defaultValue="-"
-								value={mainbillInfo.corporationName} 
+								value={infoList.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
@@ -317,6 +339,7 @@ class EditMoney extends Component {
 								label="我司账户" 
 								options={accountList}
 								requireLabel={true}
+
 						/>
 						<KrField
 								style={{width:260}}

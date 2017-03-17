@@ -160,7 +160,8 @@ export default class ToDoAudit extends Component {
 
   render() {
     let {
-      CustomerList
+      CustomerList,
+      itemDetail
     } = this.state;
     return (
 
@@ -326,7 +327,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <EditMoney  onSubmit="" onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
+              <EditMoney  detail={itemDetail} onSubmit="" onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Dialog
               title="新建客户"
