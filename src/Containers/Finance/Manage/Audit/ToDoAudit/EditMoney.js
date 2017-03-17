@@ -8,7 +8,8 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	initialize
 } from 'redux-form';
 import {
 	Actions,
@@ -58,57 +59,55 @@ class EditMoney extends Component {
 				value: 'POS'
 			}],
 			accountList: [],
-			mainbillInfo: {},
-			showName: false,
-			finaflowInfo: {},
-			customerId: ""
+			infoList: {},
+			infoDetailList: [],
 		}
-
+		this.getDetailInfo();
+		this.getInfo();
 
 
 	}
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			showName: !this.state.showName
-		})
-	}
+	componentDidMount() {
 
-	openCreateCustomer = () => {
-		let {
-			openCreateCustomer
-		} = this.props;
-		openCreateCustomer && openCreateCustomer();
-	}
-	openCustomer = (form) => {
-		if (form.id == 0) {
-			this.openCreateCustomer();
-		} else {
-			this.setState({
-				customerId: form.id
-			})
 		}
+		//付款信息
+	getInfo = () => {
+			var id = this.props.detail.id
+			var _this = this;
+			Store.dispatch(Actions.callAPI('get-fina-infos', {
+				finaVerifyId: id
+			}, {})).then(function(response) {
+				_this.setState({
+					infoList: response
+				})
+				Store.dispatch(initialize('editMoney', response));
+				var form = {
+					"value": response.payWay
+				}
+				_this.getAccount(form)
 
 
-	}
-
-	getMainbillInfo = (form) => {
-		console.log('form----', form)
+			}).catch(function(err) {});
+		}
+		//付款明细
+	getDetailInfo = () => {
+		var id = this.props.detail.id
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
-			mainBillId: form.value
+		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+			finaVerifyId: id
 		}, {})).then(function(response) {
-			response.cimbList.map((item, index) => {
-				item.value = item.detailid;
-				item.label = item.contactName;
-				return item;
-			})
 			_this.setState({
-				finaflowInfo: response
+				infoDetailList: response
 			})
+			Store.dispatch(initialize('editMoney', response));
+
 
 		}).catch(function(err) {});
+
 	}
+
+
+	//获取付款方式对应的我司账户
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
@@ -194,10 +193,10 @@ class EditMoney extends Component {
 
 	renderPayList = () => {
 		let {
-			finaflowInfo
+			infoDetailList
 		} = this.state;
 
-		if (!finaflowInfo.cimbList) {
+		if (!infoDetailList.cimbList) {
 			return (
 				<div className="u-audit-content-null">
 					<div className="u-audit-content-null-icon"></div>
@@ -207,9 +206,9 @@ class EditMoney extends Component {
 		}
 		var finaflowInfoList;
 		var _this = this;
-		console.log('finaflowInfo.cimbList---', finaflowInfo.cimbList)
-		if (finaflowInfo.cimbList && finaflowInfo.cimbList.length > 0) {
-			finaflowInfoList = finaflowInfo.cimbList.map(function(item, index) {
+
+		if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
+			finaflowInfoList = infoDetailList.cimbList.map(function(item, index) {
 				console.log('item----', item)
 					//意向书
 					/*if (item.value == '1') {
@@ -251,7 +250,7 @@ class EditMoney extends Component {
 			error,
 			handleSubmit,
 			pristine,
-			reset
+			reset,
 		} = this.props;
 		let {
 			totalCountMoney,
@@ -259,7 +258,8 @@ class EditMoney extends Component {
 			accountList,
 			mainbillInfo,
 			showName,
-			customerId
+			customerId,
+			infoList
 		} = this.state;
 		return (
 			<div className="u-audit-add">
@@ -272,34 +272,34 @@ class EditMoney extends Component {
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
-								name="customerId" 
 								component="labelText" 
 								label="客户名称"
-								defaultValue="-" 
+								inline={false}
+								value={infoList.company}
+								
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId" 
 								component="labelText" 
 								label="所属订单"
-								defaultValue="-" 
+								inline={false}
+								value={infoList.mainBillName}
 								
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
 								inline={false} 
-								label="订单起止"
-								defaultValue="-" 
-								value={mainbillInfo.actualEntrydate} 
+								label="订单起止" 
+								value={infoList.mainBillDate}
+								
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								component="labelText" 
 								inline={false}
 								label="公司主体"
-								defaultValue="-"
-								value={mainbillInfo.corporationName} 
+								value={infoList.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
@@ -317,6 +317,7 @@ class EditMoney extends Component {
 								label="我司账户" 
 								options={accountList}
 								requireLabel={true}
+
 						/>
 						<KrField
 								style={{width:260}}

@@ -40,17 +40,13 @@ import {
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
-import EditMoney from './AddMoney';
+import EditMoney from './EditMoney';
 import './index.less';
 export default class DoAudit extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      openNewCreate: false,
-      openView: false,
-      openEditDetail: false,
-      openDelete: false,
       itemDetail: {},
       Params: {
         page: 1,

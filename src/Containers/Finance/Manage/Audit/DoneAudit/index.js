@@ -34,23 +34,22 @@ import {
   KrField,
   Title,
   KrDate,
-  Tooltip
+  Tooltip,
+  Drawer
 } from 'kr-ui';
 
 import SearchsForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
 import './index.less';
+import EditMoney from './EditMoney';
 export default class DoneAudit extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      openNewCreate: false,
-      openView: false,
-      openEditDetail: false,
-      openDelete: false,
       openSearch: false,
       itemDetail: {},
+      openEditCreate: false,
       Params: {
         page: 1,
         pageSize: 10,
@@ -64,7 +63,28 @@ export default class DoneAudit extends Component {
     //导出
   onExport = () => {
 
+    }
+    //操作相关
+  onOperation = (type, itemDetail) => {
+
+    this.setState({
+      itemDetail
+    });
+
+    if (type == 'view') {
+
+    } else if (type == 'edit') {
+      this.openEditCreate();
+    }
   }
+
+  //打开编辑回款
+  openEditCreate = () => {
+    this.setState({
+      openEditCreate: !this.state.openEditCreate
+    })
+  }
+
   searchParams = (form) => {
 
     this.setState({
@@ -90,6 +110,9 @@ export default class DoneAudit extends Component {
   }
 
   render() {
+    let {
+      itemDetail
+    } = this.state;
     return (
 
       <div className="m-done-audit">
@@ -231,6 +254,15 @@ export default class DoneAudit extends Component {
             >
               <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>
+            <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openEditCreate}
+              onClose={this.openEditCreate}
+              openSecondary={true}
+            >
+              <EditMoney  detail={itemDetail}  onSubmit={this.EditAuditSubmit} onCancel={this.openEditCreate}  />
+            </Drawer>
       </div>
 
     );
