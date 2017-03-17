@@ -290,7 +290,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
    
    //社区名称
    communityNameChange=(value)=>{
-     let {communityName}=this.state;
      if(value==''){
        this.setState({
        communityName:'无'
@@ -303,11 +302,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      State.communityName(value);
    }
    
-   communityNameFocus=()=>{
-     let {communityName}=this.state;
-      this.setState({
+   communityNameFocus=(value)=>{
+      if(!value){
+       this.setState({
        communityName:'无'
-     })
+       }) 
+      }   
    }
 
    //社区编码
@@ -416,7 +416,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <KrField grid={1/2} type='hidden' name='latitude' component="input" style={{width:0}}/>
                                     <KrField grid={1/2} type='hidden' name='cityId' component="input" style={{width:0}}/>
                                     <KrField grid={1/2} type='hidden' name='longitude' component="input" style={{width:0}}/>
-									                  <div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} onFocus={this.communityNameFocus}/>
+									                  <div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} onBlur={this.communityNameFocus}/>
                                       {State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
                                     </div>
                                     <div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
