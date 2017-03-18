@@ -94,10 +94,10 @@ State.getEditList = action(function(id) {
 })
 
 //校验社区名称
-State.communityName = action(function(params) {
+State.communityName = action(function(params,id) {
 	 var _this=this;
 	 let data={};
-	 data.id="";
+	 data.id=id;
 	 data.name=params;
 	 Store.dispatch(Actions.callAPI('check-name',data)).then(function(response) {
 	    _this.isCorpName=false;
@@ -110,10 +110,10 @@ State.communityName = action(function(params) {
 	});	
 });
 //校验社区编码
-State.communityCode = action(function(params) {
+State.communityCode = action(function(params,id) {
 	 var _this=this;
 	 let data={};
-	 data.id="";
+	 data.id=id;
 	 data.code=params;
 	 Store.dispatch(Actions.callAPI('check-code',data)).then(function(response) {
 	   _this.isCorpCode=false;
@@ -127,12 +127,12 @@ State.communityCode = action(function(params) {
 });
 
 //校验社区排序
-State.communityRank = action(function(params,id) {
+State.communityRank = action(function(params,id,communityId) {
 	 var _this=this;
 	 let data={};
 	 data.cityId=id;
 	 data.orderNum=params;
-	 data.id='';
+	 data.id=communityId;
 	 Store.dispatch(Actions.callAPI('check-rank',data)).then(function(response) {
 	     _this.isCorpRank=false;
 	}).catch(function(err) {

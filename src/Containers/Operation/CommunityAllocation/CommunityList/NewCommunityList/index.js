@@ -299,7 +299,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        communityName:value
      })
      }    
-     State.communityName(value);
+     State.communityName(value,'');
    }
    
    communityNameFocus=(value)=>{
@@ -317,14 +317,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       codeName:value 
     })
  
-   	 State.communityCode(value);
+   	 State.communityCode(value,'');
    }
 
    //社区排序
     communityRankChange=(value)=>{
      let {cityId}=this.state;
      if(value){
-        State.communityRank(value,cityId);
+        State.communityRank(value,cityId,'');
      }
    	
    }
@@ -573,6 +573,7 @@ const validate = values =>{
 
 		//整数
 		let zeroNum=/^-?\\d+$/;　
+
 		 
          //楼层检验
 		 if (!values.wherefloors || !values.wherefloors.length) {
@@ -676,6 +677,10 @@ const validate = values =>{
 		if (!values.signEndDate) {
 			errors.signEndDate= '请输入签约结束时间';
 		}
+
+    if (values.orderNum&&!zeroNum.test(values.orderNum)&&values.orderNum.length>3) {
+      errors.orderNum= '排序号不超过三位整数';
+    }
 
 		if (!values.stationNum) {
 			errors.stationNum= '请输入工位总数';

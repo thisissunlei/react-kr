@@ -272,6 +272,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             photoF:[],
             photoL:[],
             photoD:[],
+            communityId:''
 		}
 	}
 	onSubmit = (values) => {
@@ -293,7 +294,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   //社区名称
    communityNameChange=(value)=>{
-     let {communityName}=this.state;
+     let {communityId}=this.state;
      if(value==''){
        this.setState({
        communityName:'无'
@@ -303,26 +304,26 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        communityName:value
      })
      }
-     State.communityName(value);
+     State.communityName(value,communityId);
    }
 
 
 
    //社区编码
    communityCodeChange=(value)=>{
-    let {codeName}=this.state;
+    let {communityId}=this.state;
     this.setState({
       codeName:value
     })
 
-     State.communityCode(value);
+     State.communityCode(value,communityId);
    }
 
     //社区排序
     communityRankChange=(value)=>{
-     let {cityId}=this.state;
+     let {cityId,communityId}=this.state;
      if(value){
-        State.communityRank(value,cityId);
+        State.communityRank(value,cityId,communityId);
      }
 
    }
@@ -347,7 +348,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     componentWillMount(){
         let {id}=this.props;
-        let {timeStart,timeEnd,photoF,photoL,photoD}=this.state;
         var _this=this;
 				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
           Store.dispatch(initialize('editCommunityList',response));
@@ -388,7 +388,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						cityId:response.cityId,
 						photoF:photo_First,
 						photoL:photo_List,
-						photoD:photo_Detail
+						photoD:photo_Detail,
+            communityId:response.id
 					})
 
 					response.brights.map((item,index)=>{
