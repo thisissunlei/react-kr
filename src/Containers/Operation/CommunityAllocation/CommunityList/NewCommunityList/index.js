@@ -574,6 +574,8 @@ const validate = values =>{
 		//整数
 		let zeroNum=/^-?\\d+$/;　
 
+    let numBer=/^[1-9]\\d{2}$/;
+
 		 
          //楼层检验
 		 if (!values.wherefloors || !values.wherefloors.length) {
@@ -678,8 +680,8 @@ const validate = values =>{
 			errors.signEndDate= '请输入签约结束时间';
 		}
 
-    if (values.orderNum&&!zeroNum.test(values.orderNum)&&values.orderNum.length>3) {
-      errors.orderNum= '排序号不超过三位整数';
+    if (values.orderNum&&values.orderNum.length>3) {
+      errors.orderNum= '排序号不能超过三位';
     }
 
 		if (!values.stationNum) {
