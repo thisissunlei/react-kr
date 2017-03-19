@@ -574,8 +574,6 @@ const validate = values =>{
 		//整数
 		let zeroNum=/^-?\\d+$/;　
 
-    let numBer=/^[1-9]\\d{2}$/;
-
 		 
          //楼层检验
 		 if (!values.wherefloors || !values.wherefloors.length) {
@@ -660,10 +658,6 @@ const validate = values =>{
 			errors.address= '请输入详细地址';
 		} 
 
-		if(values.orderNum&&!numberNotZero.test(values.orderNum)){
-			errors.orderNum='只能输入正整数';
-		}
-
 		if (!values.opened) {
 			errors.opened= '请输入社区状态';
 		}
@@ -680,9 +674,18 @@ const validate = values =>{
 			errors.signEndDate= '请输入签约结束时间';
 		}
 
+    if(values.orderNum&&!numberNotZero.test(values.orderNum)){
+      errors.orderNum='只能输入正整数';
+    }
+
+    if (values.orderNum&&(values.orderNum.charAt(0)==0)) {
+      errors.orderNum= '排序号首位不能为0';
+    }
+    
     if (values.orderNum&&values.orderNum.length>3) {
       errors.orderNum= '排序号不能超过三位';
     }
+
 
 		if (!values.stationNum) {
 			errors.stationNum= '请输入工位总数';
