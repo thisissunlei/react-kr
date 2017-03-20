@@ -67,7 +67,8 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Paper,
-	CircleStyle
+	CircleStyle,
+	Tooltip
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -587,7 +588,7 @@ class NewCreateForm extends Component {
 			changeValues,
 			optionValues
 		} = this.props;
-
+		console.log("initialValues",initialValues);
 		let {
 			fnaCorporationList
 		} = optionValues;
@@ -611,13 +612,13 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div style={{width:615}}>
+			<div style={{width:615,marginLeft: "-20px"}}>
 
-		<form className="join-form" onSubmit={handleSubmit(this.onSubmit)} >
+		<form className="join-form join-dialog-form" onSubmit={handleSubmit(this.onSubmit)} >
 		<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 			<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 			<div className="small-cheek">
-				<KrField name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
+				<KrField name="wherefloor" style={{width:262,marginLeft:25,fontSize:"14px"}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
 				<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
 						<ListGroupItem style={{width:'141',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate" style={{width:141}} component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
@@ -626,7 +627,7 @@ class NewCreateForm extends Component {
 					</ListGroup>
 				</KrField>
 
-				<div className="detail-list" style={{marginTop:"-35px",marginLeft:"30px",width:"621px"}}>
+				<div className="detail-list" style={{marginTop:"-35px",marginLeft:"35px",width:"621px"}}>
 
 				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
 
@@ -679,7 +680,7 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                         </DotTitle>
-                     <div style={{marginTop:'0px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25,fontSize:14}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
 					</div>
 
@@ -699,7 +700,7 @@ class NewCreateForm extends Component {
 
 					<KrField name="leaseId" style={{width:262,marginLeft:25}}  component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 
-					<KrField   style={{width:262,marginLeft:25}} name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
+					<div className="lessor-address" ><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 
 
 					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
@@ -708,24 +709,22 @@ class NewCreateForm extends Component {
 
 					<KrField   style={{width:262,marginLeft:25}}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
-					<KrField  style={{width:262,marginLeft:25}}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
-					requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}}/>
+					<KrField  style={{width:262,marginLeft:25}}  name="leaseAddress" type="labelText" component="input" label="地址" requireLabel={true} tooltip={true}
+					requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
 					<KrField  style={{width:262,marginLeft:25}} name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
 					requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
-					<KrField   style={{width:262,marginLeft:25}}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}
+					<KrField   style={{width:262,marginLeft:25}}  name="leaseContacttel" type="labelText" component="input" label="电话" requireLabel={true}
 					 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
 					<KrField   style={{width:262,marginLeft:25}} name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
 
 
 
-					<KrField    style={{width:262,marginLeft:25}}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  />
-					<KrField    style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+					<KrField    style={{width:262,marginLeft:25,position:"relative"}}  name="communityAddress" component="labelText" toolTrue={true} label="地址" inline={false} value={optionValues.communityAddress}  />
+	
 
-					requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编码为必填项',pattern:'合同编号最大50位'}}/>
-
-
+					<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
 
 

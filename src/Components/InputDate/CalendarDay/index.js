@@ -21,6 +21,7 @@ export default class CalendarDay extends React.Component {
 		*/
 		style: React.PropTypes.object,
 		value:React.PropTypes.any,
+		dateValue:React.PropTypes.any,
 		onClick:React.PropTypes.func,
 		disable:React.PropTypes.bool
 	}
@@ -30,24 +31,19 @@ export default class CalendarDay extends React.Component {
 	}
 
 	onClick = ()=>{
-		let {value,onClick,disable} = this.props;
-
-		if(disable){
-			return ;
-		}
-
-		onClick && onClick(value);
+		let {year,month,date,onClick,disable} = this.props;
+		onClick && onClick(year,month,date);
 	}
 
 	render() {
 
-		let {value,date,disable} = this.props;
+		let {date,disable,active} = this.props;
 
 		let classNames = 'calendar-day';
 
-		if(date == value){
+		if(active){
 				classNames += ' day-active';
-		}else {
+		}else{
 		   classNames = 'calendar-day';
 		}
 
@@ -57,7 +53,7 @@ export default class CalendarDay extends React.Component {
 
 		return (
 				<span className={classNames} onClick={this.onClick}>
-						{value}
+						{date}
 				</span>
 		);
 
