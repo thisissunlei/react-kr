@@ -974,7 +974,18 @@ const APIS = {
    'transferMemberCard':{
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
-   }
+   },
+   //消息提醒-客户转移列表
+   'messageRemindCustomerSwitching':{
+      url: '/mockjsdata/34/krspace-finance-web/msg/customer-transfer/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+    //消息提醒-获取消息查看权限及
+   'messageLookJurisdiction':{
+      url: '/mockjsdata/34/krspace-finance-web/msg/msg-right-count',
+      method: 'get'
+   },
+
  }
 
  module.exports = APIS;

@@ -4,26 +4,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
-
 import { AppBar, Menu, MenuItem,IconMenu, IconButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
-
-
 import {
 	Button
 } from 'kr-ui';
-
-
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
 import './index.less';
 
 
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
+import {
+	AppointmentVisit
+} from 'kr/PureComponents';
 
+import MessageManagement from "./MessageManagement";
 
 class Header extends Component {
-
 
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
@@ -52,12 +49,17 @@ class Header extends Component {
 		// this.inforShowList();
 
 	}
+
+
 	componentWillMount() {
 		this.inforShowList();
   	}
+
+
   	componentWillReceiveProps(next,state){
   		this.inforShowList();
   	}
+
 
 	inforShowList(){
 		let url = window.location.hash;
@@ -84,6 +86,8 @@ class Header extends Component {
 			})
 		}
 	}
+
+
 	//获取未读消息数
 	getUnReadInfo=()=>{
 		let _this = this;
@@ -260,7 +264,7 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right',position:"absolute",right:"10px",top:7}}>
-					<div style={{display:showInfoLogo,position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+					<div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
 						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
 					</div>
@@ -303,10 +307,12 @@ class Header extends Component {
 			<div className="no-print">
 				{this.props.header_nav.switch_value && <HeaderBar/>}
 				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
-					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
+				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 				</Drawer>
-				<Drawer open={this.props.right_bar.switch_value} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
+				<Drawer open={this.props.right_bar.switch_value} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
+					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
+					
+					<MessageManagement onClose={this.onClose}/>
 				</Drawer>
 			</div>
 		);
