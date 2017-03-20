@@ -1100,10 +1100,16 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/opt/edit-verify-checked',
         method: 'post'
     },
+    //财务--审核列表--添加回款--获得公司主体及订单
+    'get-mainbill-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-info?mainBillId={mainBillId}',
+        method: 'get'
+    },
     //财务--审核--删除
     'del-fina-record': {
         url: '/api/krspace-finance-web/finaVerify/opt/del-fina-record',
         method: 'post'
+
     },
     //财务--审核--审核
     'edit-verify-status': {
