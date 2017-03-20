@@ -1100,6 +1100,11 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/opt/edit-verify-checked',
         method: 'post'
     },
+    //财务--审核列表--添加回款--获得公司主体及订单
+    'get-mainbill-info': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-info?mainBillId={mainBillId}',
+        method: 'get'
+    },
 }
 
 module.exports = APIS;

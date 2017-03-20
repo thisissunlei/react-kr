@@ -1,7 +1,16 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Actions, Store} from 'kr/Redux';
+import React, {
+    Component
+} from 'react';
+import {
+    connect
+} from 'react-redux';
+import {
+    bindActionCreators
+} from 'redux';
+import {
+    Actions,
+    Store
+} from 'kr/Redux';
 import {
     reduxForm,
     formValueSelector,
@@ -50,7 +59,9 @@ class ReceivedBtnForm extends Component {
     componentDidMount() {}
 
     onSubmit = (values) => {
-        const {onSubmit} = this.props;
+        const {
+            onSubmit
+        } = this.props;
         onSubmit && onSubmit(values);
 
     }
@@ -83,7 +94,9 @@ class ReceivedBtnForm extends Component {
     }
 
     onCancel = () => {
-        const {onCancel} = this.props;
+        const {
+            onCancel
+        } = this.props;
         onCancel && onCancel();
     }
 
@@ -93,74 +106,204 @@ class ReceivedBtnForm extends Component {
             Message.error('最多到小数点后两位');
             return;
         }
-        let {changeValues, calcBalance} = this.props;
+        let {
+            changeValues,
+            calcBalance
+        } = this.props;
         input.value = value;
         calcBalance && calcBalance(input);
 
     }
 
     joinInputRender = (index) => {
-        return (
-            <div style={{
-                width: 600,
-                marginTop: 8
-            }} className='m-tenantStation'>
-                <KrField label="押金" grid={1 / 2} name={'fix' + this.joinContractId[index] + '1'} style={{
+        return ( < div style = {
+                {
+                    width: 600,
+                    marginTop: 8
+                }
+            }
+            className = 'm-tenantStation' >
+            < KrField label = "押金"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.joinContractId[index] + '1'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: -9
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-                <KrField label="工位服务费" grid={1 / 2} name={'fix' + this.joinContractId[index] + '3'} style={{
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < KrField label = "工位服务费"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.joinContractId[index] + '3'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: 28
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-            </div>
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < /div>
         )
     }
     increaseInputRender = (index) => {
-        return (
-            <div style={{
-                width: 600,
-                marginTop: 8
-            }} className='m-tenantStation'>
-                <KrField label="押金" grid={1 / 2} name={'fix' + this.increaseContractId[index] + '1'} style={{
+        return ( < div style = {
+                {
+                    width: 600,
+                    marginTop: 8
+                }
+            }
+            className = 'm-tenantStation' >
+            < KrField label = "押金"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.increaseContractId[index] + '1'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: -9
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-                <KrField label="工位服务费" grid={1 / 2} name={'fix' + this.increaseContractId[index] + '3'} style={{
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < KrField label = "工位服务费"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.increaseContractId[index] + '3'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: 28
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-            </div>
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < /div>
         )
     }
     adminInputRender = (index) => {
-        return (
-            <div style={{
-                width: 600,
-                marginTop: 8
-            }} className='m-tenantStation'>
-                <KrField label="押金" grid={1 / 2} name={'fix' + this.adminContractId[index] + '1'} style={{
+        return ( < div style = {
+                {
+                    width: 600,
+                    marginTop: 8
+                }
+            }
+            className = 'm-tenantStation' >
+            < KrField label = "押金"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.adminContractId[index] + '1'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: -9
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-                <KrField label="工位服务费" grid={1 / 2} name={'fix' + this.adminContractId[index] + '3'} style={{
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < KrField label = "工位服务费"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.adminContractId[index] + '3'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: 28
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-            </div>
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < /div>
         )
     }
     tenantInputRender = () => {
 
-        return (
-            <div className='depositMoney-render' style={{
-                width: 546
-            }}>
-                <KrField label="定金" grid={1 / 2} name={'fix' + this.tenantContractId + '2'} style={{
+        return ( < div className = 'depositMoney-render'
+            style = {
+                {
+                    width: 546
+                }
+            } >
+            < KrField label = "定金"
+            grid = {
+                1 / 2
+            }
+            name = {
+                'fix' + this.tenantContractId + '2'
+            }
+            style = {
+                {
                     width: 261,
                     marginLeft: -9
-                }} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-            </div>
+                }
+            }
+            component = "input"
+            type = "text"
+            onChange = {
+                this.calcBalance
+            }
+            onBlur = {
+                this.moneyCheck
+            }
+            /> < /div>
         )
     }
 
@@ -171,7 +314,10 @@ class ReceivedBtnForm extends Component {
                 value: 0
             },
             nameList = [];
-        let {calcBalance, accountDetail} = this.props;
+        let {
+            calcBalance,
+            accountDetail
+        } = this.props;
 
         options.map((item, index) => {
             var len = options.length - 1;
@@ -194,30 +340,31 @@ class ReceivedBtnForm extends Component {
     }
 
     receiveInputRender = () => {
-        let {accountDetail} = this.props;
+        let {
+            accountDetail
+        } = this.props;
         var _this = this;
 
-        return (
-            <div style={{
+        return ( < div style = {
+            {
                 marginBottom: -7
-            }}>
-                {accountDetail.map(function(item, index) {
-                    if (index % 2 == 0) {
-                        return <div className='leftBottomValue'><KrField key={index} style={{
+            }
+        } > {
+            accountDetail.map(function(item, index) {
+                if (index % 2 == 0) {
+                    return <div className='leftBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
                         }} grid={1 / 2} label={item.categoryName} component="input" name={String(item.id)} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
-                    } else {
-                        return <div className='rightBottomValue'><KrField key={index} style={{
+                } else {
+                    return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
                         }} grid={1 / 2} label={item.categoryName} component="input" name={String(item.id)} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
-                    }
-                })
-}
-            </div>
-        )
+                }
+            })
+        } < /div>)
 
     }
 
@@ -355,4 +502,9 @@ const validate = values => {
     return errors
 }
 
-export default reduxForm({form: 'receivedBtnForm', validate, enableReinitialize: true, keepDirtyOnReinitialize: true})(ReceivedBtnForm);
+export default reduxForm({
+    form: 'receivedBtnForm',
+    validate,
+    enableReinitialize: true,
+    keepDirtyOnReinitialize: true
+})(ReceivedBtnForm);

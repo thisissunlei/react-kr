@@ -126,7 +126,21 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
-	onSubmit = () => {
+	onSubmit = (form) => {
+		var id = this.props.detail.id
+			//conJasonStr,flowAmount,propJasonStr
+		var params = {
+			accountId: form.accountId,
+			customerId: form.customerId,
+			dealTime: form.dealTime,
+			finaVerifyId: id,
+			mainBillId: form.mainbillId,
+			payAccount: form.payAccount,
+			payWay: form.payWay,
+			remark: form.remark,
+			uploadFileIds: form.uploadFileIds
+		}
+		console.log('form----1111', form)
 		let {
 			onSubmit
 		} = this.props;
@@ -140,52 +154,12 @@ class EditMoney extends Component {
 	}
 
 	joinInputRender = (index) => {
-		return ( < div style = {
-				{
-					width: 600,
-					marginTop: 8
-				}
-			}
-			className = 'm-tenantStation' >
-			< KrField label = "押金"
-			grid = {
-				1 / 2
-			}
-			name = 'fix1'
-			style = {
-				{
-					width: 261,
-					marginLeft: -9
-				}
-			}
-			component = "input"
-			type = "text"
-			onChange = {
-				this.calcBalance
-			}
-			onBlur = {
-				this.moneyCheck
-			}
-			/> < KrField label = "工位服务费"
-			grid = {
-				1 / 2
-			}
-			name = 'fix3'
-			style = {
-				{
-					width: 261,
-					marginLeft: 28
-				}
-			}
-			component = "input"
-			type = "text"
-			onChange = {
-				this.calcBalance
-			}
-			onBlur = {
-				this.moneyCheck
-			}
-			/> < /div >
+		return (
+			<div>
+			<div>111</div>
+			<div>222</div>
+			</div>
+
 		)
 	}
 
@@ -196,25 +170,31 @@ class EditMoney extends Component {
 			infoDetailList
 		} = this.state;
 
-		if (!infoDetailList.cimbList) {
+		/*if (!infoDetailList.cimbList) {
 			return (
 				<div className="u-audit-content-null">
 					<div className="u-audit-content-null-icon"></div>
 					<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
 				</div>
 			)
-		}
-		var finaflowInfoList;
+		}*/
+		var finaflowInfoList = [{
+			label: '111',
+			value: '111'
+		}, {
+			label: '222',
+			value: '222'
+		}];
 		var _this = this;
 
-		if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
+		/*if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
 			finaflowInfoList = infoDetailList.cimbList.map(function(item, index) {
 				console.log('item----', item)
 					//意向书
-					/*if (item.value == '1') {
+					if (item.value == '1') {
 						item.component = _this.adminInputRender.bind(this, index);
 
-					}*/
+					}
 					//入驻协议书
 				if (item.value == '2') {
 					item.component = _this.joinInputRender.bind(this, index);
@@ -222,7 +202,7 @@ class EditMoney extends Component {
 				}
 
 				//增租协议书
-				/*if (item.value == '3') {
+				if (item.value == '3') {
 
 					item.component = _this.increaseInputRender.bind(this, index);
 				}
@@ -230,16 +210,16 @@ class EditMoney extends Component {
 				if (item.value == '4') {
 
 					item.component = _this.renewInputRender.bind(this, index);
-				}*/
+				}
 
-			})
-			return (
+			})*/
+		return (
 				<div>
-					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfoList} requireLabel={true} onChange={this.argreementChecked}/>
+					11111
 				</div>
 
 			)
-		}
+			//}
 
 
 	}
@@ -388,16 +368,19 @@ const validate = values => {
 
 	const errors = {}
 
-	if (!values.leaseId) {
-		errors.leaseId = '请输入出租方';
+	if (!values.payWay) {
+		errors.payWay = '请选择收款方式';
 	}
 
-	if (!values.lessorContactid) {
-		errors.lessorContactid = '请输入出租方联系人';
+	if (!values.accountId) {
+		errors.accountId = '请选择我司账户';
 	}
 
-	if (!values.wherefloor) {
-		errors.wherefloor = '请输入所在楼层';
+	if (!values.payAccount) {
+		errors.payAccount = '请输入付款账户';
+	}
+	if (!values.dealTime) {
+		errors.dealTime = '请选择收款日期';
 	}
 
 
