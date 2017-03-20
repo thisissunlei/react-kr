@@ -350,7 +350,7 @@ class CommunityList  extends Component{
 
 			<div className='community-list'>
 				<Title value="社区列表"/>
-				<Section title="社区排序" description="" style={{marginBottom:-5,minHeight:910}}>
+				<Section title="社区列表" description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 
 			          <Col
@@ -385,12 +385,12 @@ class CommunityList  extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>社区编码</TableHeaderColumn>
-		              <TableHeaderColumn>所属城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区名称</TableHeaderColumn>
+                  <TableHeaderColumn>所属城市</TableHeaderColumn>
+                  <TableHeaderColumn><span style={{fontSize:'16px',display:'inline-block',paddingBottom:'4px'}}>社区面积m</span><sup>2</sup></TableHeaderColumn>
 		              <TableHeaderColumn>社区排序</TableHeaderColumn>
 		              <TableHeaderColumn>官网显示状态</TableHeaderColumn>
 		              <TableHeaderColumn>开业时间</TableHeaderColumn>
-		              <TableHeaderColumn>社区面积m<sup>2</sup></TableHeaderColumn>
 		              <TableHeaderColumn>开业状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
@@ -398,8 +398,9 @@ class CommunityList  extends Component{
 			        <TableBody >
 			              <TableRow>
 			                <TableRowColumn name="code"></TableRowColumn>
+                      <TableRowColumn name="name"></TableRowColumn>
 			                <TableRowColumn name="cityName"></TableRowColumn>
-			                <TableRowColumn name="name"></TableRowColumn>
+                      <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="orderNum" component={(value,oldValue)=>{
                              var numValue='';
                              if(!value){
@@ -416,7 +417,6 @@ class CommunityList  extends Component{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>
 														 	)
 													 }}></TableRowColumn>
-			                <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    {State.isFlag&&<Button label="编辑"  type="operation"  operation="edit" />}
