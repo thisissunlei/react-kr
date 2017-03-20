@@ -295,9 +295,7 @@ class CommunityList  extends React.Component{
 	}
 
     whiteClose=()=>{
-    	State.openNewCommunity=false;
-    	State.openEditCommunity=false;
-    	State.openWatchCommunity=false;
+    	State.closeAllDialog();
     }
 
 	render(){
@@ -313,8 +311,6 @@ class CommunityList  extends React.Component{
             },
 
 		]
-
-        let {cityNull}=this.state;
 
 		return(
 
@@ -372,20 +368,11 @@ class CommunityList  extends React.Component{
 			                <TableRowColumn name="cityName"></TableRowColumn>
                       <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="orderNum" component={(value,oldValue)=>{
-                             var numValue='';
-                             if(!value){
-                               numValue='-';
-                             }else{
-                               numValue=value;
-                             }
-                             return (<div>{numValue}</div>
-                              )
+                             return (<div>{value?value:'-'}</div>)
                            }}></TableRowColumn>
 			                <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
-
-														 return (<KrDate value={value} format="yyyy-mm-dd"/>
-														 	)
+														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">

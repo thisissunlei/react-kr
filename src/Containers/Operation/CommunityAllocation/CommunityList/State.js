@@ -68,6 +68,12 @@ State.onNewCommunitySubmit= action(function(data) {
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
+//关闭所有
+State.closeAllDialog = action(function() {
+	    this.openNewCommunity=false;
+        this.openEditCommunity=false;
+    	this.openWatchCommunity=false;
+});
 //社区列表数据准备
 State.searchDataHere = action(function() {
 	 var _this=this;
@@ -146,18 +152,6 @@ State.communityRank = action(function(params,id,communityId) {
 			 _this.isCorpRank=false;
 		}
 	});	
-});
-
-
-State.closeAllMerchants = action(function() {
-	this.openLookMerchants=false;
-	this.openNewMerchants=false;
-	this.openSearchUpper=false;
-	this.openEditCustomerList=false;
-	this.NewCustomerIndent=false;
-});
-State.MerchantsListId = action(function(params) {
-	this.listId=params;
 });
 
 module.exports = State;
