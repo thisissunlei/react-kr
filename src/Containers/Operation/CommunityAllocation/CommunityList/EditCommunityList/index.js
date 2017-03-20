@@ -586,7 +586,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoF}
-                        imgStyle={{width:120,margin:'auto'}} 
+                        imgFlag={true}
 												/>
 										</div>
 
@@ -596,7 +596,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoL}
-                        imgStyle={{width:120,margin:'auto'}} 
+                        imgFlag={true}
 												/>
 										</div>
 
@@ -607,7 +607,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoD}
-                        imgStyle={{width:255,margin:'auto'}}   
+                        imgFlag={false}  
 												/>
 										</div>
 

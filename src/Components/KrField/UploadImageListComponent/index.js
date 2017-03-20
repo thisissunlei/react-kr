@@ -279,8 +279,16 @@ export default class UploadImageListComponent extends Component {
 
     
 	render() {
-		let {children,imgStyle,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
+
+		let {children,imgFlag,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
+        
+        var imgStyle='';
+        if(imgFlag){
+          imgStyle='listImg'
+        }else{
+          imgStyle='detailImg' 	
+        }
          
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
@@ -290,7 +298,7 @@ export default class UploadImageListComponent extends Component {
 					{
 						images.map((item,index)=>{
 							return (<div className='lostsImg'>
-							<div style={imgStyle}><img className="image"  src={item.src}  ref="uploadImage" style={{display:'block',maxWidth:'100%',height:'auto'}}/></div>
+							<div style={{background:`url(${item.src}) no-repeat center`,backgroundSize:'contain'}} className={imgStyle}></div>
 							<div className="ui-uploadimg-fresh-delete">
 								<div className='delete-middle'>
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>

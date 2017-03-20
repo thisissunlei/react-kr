@@ -514,7 +514,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <KrField name="photosStr_first" 
     								component="uploadImageList" 
     								style={{marginTop:10,textAlign:'left'}} 
-                    imgStyle={{width:120,margin:'auto'}} 
+                    imgFlag={true}
 					         />
                </div>
 
@@ -523,7 +523,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <KrField name="photosStr_list" 
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}} 
-                    imgStyle={{width:120,margin:'auto'}}  
+                    imgFlag={true} 
                    />
                </div>
 
@@ -533,7 +533,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <KrField name="photosStr_detail" 
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}
-                    imgStyle={{width:255,margin:'auto'}}   
+                    imgFlag={false} 
                    />
                </div>
 

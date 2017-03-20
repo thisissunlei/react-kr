@@ -352,7 +352,7 @@ import State from '../State';
                       <div style={{marginLeft:15}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='THEFIRST'){
-                             return <div style={{width:120,margin:'auto',marginLeft:'15px',display:'inline-block'}}><img className="image"  src={item.photoUrl}  ref="uploadImage" style={{maxWidth:'100%',height:'auto'}}/></div>
+                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block'}}></div>
                            }                  
                         })
                       } 
@@ -364,7 +364,7 @@ import State from '../State';
                       <div style={{marginLeft:15}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='LIST'){
-                             return <div style={{width:120,margin:'auto',marginLeft:'15px',display:'inline-block'}}><img className="image"  src={item.photoUrl}  ref="uploadImage" style={{maxWidth:'100%',height:'auto'}}/></div>
+                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block'}}></div>
                            }
                         })
                       } 
@@ -377,7 +377,7 @@ import State from '../State';
                       <div style={{marginLeft:15}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='DETAILS'){
-                             return <div style={{width:255,margin:'auto',marginLeft:'15px',display:'inline-block'}}><img className="image"  src={item.photoUrl}  ref="uploadImage" style={{maxWidth:'100%',height:'auto'}}/></div>
+                             return <div style={{width:225,height:70,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block'}}></div>
                            }
                         })
                       } 
