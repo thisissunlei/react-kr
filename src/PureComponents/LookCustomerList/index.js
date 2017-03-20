@@ -51,6 +51,8 @@ class LookCustomerList extends Component{
 	
 
 	componentWillReceiveProps(nextProps){
+		console.log("{}{}{}{}")
+
 		if(!nextProps.listId){
 			return;
 		}
@@ -100,7 +102,7 @@ class LookCustomerList extends Component{
 					<div className="look-close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{height:5}}></div>
-				{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType)}
+					{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType)}
 		        
 		      </div>
 

@@ -10,6 +10,7 @@ import {ListGroup,ListGroupItem} from '../../ListGroup';
 import dateFormat from 'dateformat';
 import $ from 'jquery';
 import './index.less';
+
 export default class InfoList extends Component {
 
     PropTypes = {

@@ -15,7 +15,7 @@ import './index.less';
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
 import {
-	AppointmentVisit
+	LookCustomerList
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
@@ -41,7 +41,12 @@ class Header extends Component {
 			inforLogoShow:false,
 			url:window.location.hash,
 			infoTab:'',
-			hasUnRead:0
+			hasUnRead:0,
+			openLookCustomerList:false,
+			//客户 客户名称
+			customerName:'',
+			//客户id
+			msgExtra:0,
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -209,6 +214,18 @@ class Header extends Component {
 			hasUnRead:hasUnRead
 		})
 	}
+	//打开LookCustomerList
+	openLookCustomerList = () =>{
+
+	}
+
+	customerClick = (data) => {
+		this.setState({
+			customerName : data.customerName,
+			msgExtra : data.msgExtra,
+			openLookCustomerList:true,
+		})
+	}
 
 	render() {
 
@@ -229,7 +246,7 @@ class Header extends Component {
 			switch_value
 		} = this.props.sidebar_nav;
 
-		let {inforLogoShow,infoTab,hasUnRead} = this.state;
+		let {inforLogoShow,infoTab,hasUnRead,customerName,msgExtra,openLookCustomerList} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
 		const HeaderBar = (props) => {
 
@@ -312,7 +329,17 @@ class Header extends Component {
 				<Drawer open={this.props.right_bar.switch_value} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
 					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
 					
-					<MessageManagement onClose={this.onClose}/>
+					<MessageManagement onClose={this.onClose} customerClick={this.customerClick}/>
+				</Drawer>
+				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+					<LookCustomerList 
+						 comeFrom="Merchant"
+		                 operType="SHARE"
+		                 companyName={customerName}
+		                 listId={msgExtra}
+		                 // dataReady={dataReady}
+		                
+					/>
 				</Drawer>
 			</div>
 		);

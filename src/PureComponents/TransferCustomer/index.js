@@ -42,9 +42,17 @@ export default class AppointmentVisit extends Component {
 	allReadClick = () => {
 
 	}
+	customerClick = (data) => {
+		let customerName = data.msgContent.split("#")[1]
+		data.customerName = customerName;
+		const {customerClick} = this.props;
+		customerClick && customerClick(data);
+		
+	} 
 
 	render(){
 		let {searchParams} = this.state;
+		let _this=this;
 
 		return (
 				<div className="appointment-visit">
@@ -71,11 +79,15 @@ export default class AppointmentVisit extends Component {
 									style={{overflow:"visible",textAlign: "center",width:462,lineHeight:"42px"}} 
 									name="msgContent" 
 									component={
-										(value,oldValue) => {
+										(value,oldValue,itemData) => {
+											console.log(itemData,"????????")
+											value = value.split("#");
 											return (
 														<div className='appointment-visit-content'>
 															<span className="appointment-visit-spot"></span>
-															{value}
+															{value[0]}
+															<span className="customer" onClick={_this.customerClick.bind(this,itemData)}>{value[1]+","}</span>
+															{value[2]}
 														</div>
 													);
 										}

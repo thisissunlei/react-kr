@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+
 import {
 	observer
 } from 'mobx-react';
@@ -13,7 +14,8 @@ import {
 import {
 	
 	AppointmentVisit,
-	TransferCustomer
+	TransferCustomer,
+
 
 } from 'kr/PureComponents';
 import './index.less';
@@ -40,7 +42,8 @@ class LookCustomerList extends Component{
 				//客户转移 未读数
 				CUSTOMER_TRANSFER_NUM:0,
 				//预约参观 未读数
-				ORDER_VISIT_NUM:0
+				ORDER_VISIT_NUM:0,
+				//客户id
 		}
 
 
@@ -55,7 +58,6 @@ class LookCustomerList extends Component{
 				CUSTOMER_TRANSFER_NUM:response.unreadDetails.CUSTOMER_TRANSFER,
 				ORDER_VISIT_NUM:response.unreadDetails.ORDER_VISIT,
 			})
-			
 		}).catch(function(err) {
 			if(!params.templateIdList){
 				err.message="模板列表不能为空";
@@ -75,6 +77,10 @@ class LookCustomerList extends Component{
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
+	}
+	customerClick = (data) =>{
+		const {customerClick} = this.props;
+		customerClick && customerClick(data);
 	}
 	
 	//tab title 的权限
@@ -97,7 +103,7 @@ class LookCustomerList extends Component{
 		}else{
 			showTab.push(
 				<Tab label="客户转移" >
-						<TransferCustomer />
+						<TransferCustomer customerClick={this.customerClick} />
 				</Tab>
 			)
 		}
@@ -167,17 +173,21 @@ class LookCustomerList extends Component{
 		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM}=this.state;     
 		let tabContent=this.tabContent();
 		let moveHintClass="m-lookCustomerList-num";
-		let advanceClass="m-appointment-num"
+		let advanceClass="m-appointment-num";
+		
+
 
 		if(CUSTOMER_TRANSFER_NUM > 9 && CUSTOMER_TRANSFER_NUM < 100){
 			moveHintClass="m-lookCustomerList-num-moddle";
-		}else if(CUSTOMER_TRANSFER_NUM >99){
+		}
+		if(CUSTOMER_TRANSFER_NUM >99){
 			moveHintClass="m-lookCustomerList-num-max";
 		}
 
 		if(ORDER_VISIT_NUM > 9 && ORDER_VISIT_NUM < 100){
 			advanceClass="m-appointment-num-moddle";
-		}else if(ORDER_VISIT_NUM >99){
+		}
+		if(ORDER_VISIT_NUM >99){
 			advanceClass="m-appointment-num-max";
 		}
 		return(
@@ -204,16 +214,18 @@ class LookCustomerList extends Component{
 					
 				</Tabs>
 			    <div className="no-table-click" style={{width:tabContent[1].length*108.33}}></div>
-				{CUSTOMER_TRANSFER_NUM == 0 && 
+				{CUSTOMER_TRANSFER_NUM != 0 && 
 					<div className = {moveHintClass}>
-						{CUSTOMER_TRANSFER_NUM}<label>+</label>
+						{CUSTOMER_TRANSFER_NUM > 99 ? 99 : CUSTOMER_TRANSFER_NUM}<label>+</label>
 					</div>
 				}
-				{ORDER_VISIT_NUM==0 && 
+				{ORDER_VISIT_NUM!=0 && 
 					<div className={advanceClass}>
-						{ORDER_VISIT_NUM}<label>+</label>
+						{ORDER_VISIT_NUM > 99 ? 99 : ORDER_VISIT_NUM}<label>+</label>
 					</div>
 				}
+				
+				
 		    </div>
 				
 
