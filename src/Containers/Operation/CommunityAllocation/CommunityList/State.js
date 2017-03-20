@@ -41,6 +41,10 @@ let State = observable({
 		isCorpRank:false
 
 });
+//参数修改
+State.setSearchParams = action(function(params) {	
+	this.searchParams=params;
+});
 //新建社区的开关
 State.switchNewCommunityList = action(function() {	
 	this.openNewCommunity=!this.openNewCommunity;

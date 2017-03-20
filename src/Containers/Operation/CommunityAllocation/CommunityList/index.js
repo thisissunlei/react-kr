@@ -189,19 +189,21 @@ class CommunityList  extends React.Component{
 			searchType:params.filter,
       pageSize:15
 		}
-		State.searchParams=obj
+		State.setSearchParams(obj);
    }
 
    //查看
    onOperation=(type,itemDetail)=>{
+      var id=itemDetail.id;
       if(type=='watch'){
-      	 State.getEditList(itemDetail.id)
+      	 State.getEditList(id)
       	 State.switchWatchList();
+         return ;
       }
        if(type=='edit'){
       	 this.setState({
-      	 	id:itemDetail.id
-      	 })
+      	 	id
+      	 });
       	  State.searchDataHere();
           State.switchEditList();
       }
@@ -219,22 +221,20 @@ class CommunityList  extends React.Component{
    //高级查询
 	openSearchUpperDialog=()=>{
 	  State.searchDataHere();
-      State.searchParams.opened='';
-      State.searchParams.openDateEnd='';
-      State.searchParams.openDateBegin='';
-      State.searchParams.businessAreaId='';
-      State.searchParams.portalShow='';
-      State.searchParams.cityId='';
-      State.searchParams.countyId='';
-      State.searchParams.searchKey='';
-      State.searchParams.searchType='';
+      var params={
+       opened:'',
+      openDateEnd:'',
+      openDateBegin:'',
+      businessAreaId:'',
+      portalShow:'',
+      cityId:'',
+      countyId:'',
+      searchKey:'',
+      searchType:''
+      }
+      State.setSearchParams(params);
       cityDataState.setCity("请选择");
       State.searchUpperCustomer();
-
-	}
-
-
-	componentDidMount(){
 
 	}
 
@@ -242,52 +242,36 @@ class CommunityList  extends React.Component{
      onSearchUpperSubmit=(searchParams)=>{
      	searchParams = Object.assign({},State.searchParams, searchParams);
      	searchParams.time=+new Date();
-		if(searchParams.openDateBegin!=''&&searchParams.openDateEnd!=''&&searchParams.openDateEnd<searchParams.openDateBegin){
+		if(searchParams.openDateBegin&&searchParams.openDateEnd&&searchParams.openDateEnd<searchParams.openDateBegin){
 			 Message.error('开始时间不能大于结束时间');
 	         return ;
 		}
-		if(searchParams.openDateBegin==''&&searchParams.openDateEnd!=''){
-			searchParams.openDateBegin=searchParams.openDateEnd
+		if(!searchParams.openDateBegin && searchParams.openDateEnd){
+			searchParams.openDateBegin = searchParams.openDateEnd
 		}
-		if(searchParams.openDateBegin!=''&&searchParams.openDateEnd==''){
-			searchParams.openDateEnd=searchParams.openDateBegin
+		if(searchParams.openDateBegin && !searchParams.openDateEnd){
+			searchParams.openDateEnd = searchParams.openDateBegin
 		}
 
-      	State.searchParams=searchParams;
+      	State.setSearchParams(searchParams);
       	State.searchUpperCustomer();
      }
 
      //导出
 	onExport=(values)=> {
 		let {searchParams} = State;
-            if(!searchParams.searchKey){
-               searchParams.searchKey='';
-            }
-            if(!searchParams.opened){
-               searchParams.opened='';
-            }
-            if(!searchParams.openDateEnd){
-               searchParams.openDateEnd='';
-            }
-            if(!searchParams.openDateBegin){
-               searchParams.openDateBegin='';
-            }
-            if(!searchParams.businessAreaId){
-               searchParams.businessAreaId='';
-            }
-            if(!searchParams.portalShow){
-               searchParams.portalShow='';
-            }
-            if(!searchParams.cityId){
-               searchParams.cityId='';
-            }
-            if(!searchParams.countyId){
-               searchParams.countyId='';
-            }
-            if(!searchParams.searchType){
-               searchParams.searchType='';
-            }
-
+    let defaultParams = {
+      searchKey:'',
+      opened:'',
+      openDateEnd:'',
+      openDateBegin:'',
+      businessAreaId:'',
+      portalShow:'',
+      cityId:'',
+      countyId:'',
+      searchType:''
+    }
+    searchParams = Object.assign({},defaultParams,searchParams);
 
 			let ids = [];
 			if (values.length != 0) {
@@ -295,7 +279,14 @@ class CommunityList  extends React.Component{
 					ids.push(item.id)
 				});
 			}
-			var url = `/api/krspace-finance-web/cmt/community/export?searchType=${searchParams.searchType}&searchKey=${searchParams.searchKey}&cityId=${searchParams.cityId}&opened=${searchParams.opened}&openDateEnd=${searchParams.openDateEnd}&openDateBegin=${searchParams.openDateBegin}&businessAreaId=${searchParams.businessAreaId}&portalShow=${searchParams.portalShow}&countyId=${searchParams.countyId}&ids=${ids}`
+      var where=[];
+      for(var item in searchParams){
+        if(searchParams.hasOwnProperty(item)){
+           where.push(`${item}=${searchParams[item]}`);
+        } 
+      }
+      where.push(`id=${ids}`);
+			var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
 			window.location.href = url;
 	}
 
