@@ -1,10 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React from 'react';
 import {
 	toJS
 } from 'mobx';
 import {DateFormat} from 'kr/Utils';
-import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
+import {reduxForm,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer,
@@ -16,14 +15,13 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message,
-	ListGroup,
-	ListGroupItem
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
+
+
 const renderField = ({ input, label, type, meta: { touched, error }}) => (
   <div>
     <label>{label}</label>
@@ -33,7 +31,6 @@ const renderField = ({ input, label, type, meta: { touched, error }}) => (
     </div>
   </div>
 )
-
 
 //楼层增加与减少
 const renderMembers = ({ fields, meta: { touched, error } }) => {
@@ -218,6 +215,9 @@ const renderService = ({ fields, meta: { touched, error }}) => {
 
 //工位价格
 const renderStation = ({ fields, meta: { touched, error }}) => {
+
+
+
 	if(!fields.length){
 	   fields.push({})
 	 }    
@@ -255,7 +255,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
 @observer
- class NewCommunityList extends Component{
+ class NewCommunityList extends React.Component{
 
 	static PropTypes = {
 		
@@ -488,7 +488,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						</div>
                         
                         
-                      {openUp&&<div>
+                      <div style={{display:openUp?'block':'none'}}>
 						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>	
@@ -497,12 +497,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					             	<KrField name="portalShow" label="不显示" type="radio" value='0'  style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
                 {State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-					         <FieldArray name="porTypes" component={renderStation}/> 
+					         <FieldArray name="porTypes" component={renderStation}/>
 					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     
 						     <FieldArray name="bright_basic" component={renderService}/>
                  <FieldArray name="bright_service" component={renderBasic} />
-                 <FieldArray name="bright_special" component={renderSpecial}/>   
+                 <FieldArray name="bright_special" component={renderSpecial}/> 
 						     <KrField grid={1} label="交通" name="brightPorts.brightPoints"  heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						     <KrField grid={1} label="周边" name="brightRound.brightPoints" heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						   <div style={{marginTop:'-16px'}}>  
@@ -535,7 +535,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 						</div>
 						<div className="end-round"></div>
-                     </div>}
+                     </div>
 
 
 				    </div>
