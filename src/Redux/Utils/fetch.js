@@ -38,7 +38,6 @@ function getUrl(path, params = {},mode = false) {
         }
     }
 
-
     if(!mode){
 
         var searchParams = new URLSearchParams();
