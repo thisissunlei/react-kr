@@ -3,7 +3,7 @@ import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -276,9 +276,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {
-     values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
-     values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
-     if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
+     var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
+     var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
+     if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
         Message.error('开始时间不能大于结束时间');
        return ;
      }
@@ -350,8 +350,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         let {id}=this.props;
         var _this=this;
 				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
+          
+          response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
+          response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
+          response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
+          
           Store.dispatch(initialize('editCommunityList',response));
-
           if(!response.orderNum){
               Store.dispatch(change('editCommunityList','orderNum','-'));
           }

@@ -1,29 +1,16 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import React from 'react';
+import {DateFormat} from 'kr/Utils';
 import {
 	reduxForm,
-	submitForm,
-	change,
-	initialize,
-	reset
+	change
 } from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
 import {
-	Actions,
-	Store
+	Actions
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
 import {
-	Tabs,
-	Tab,
 	Table,
 	TableBody,
 	TableHeader,
@@ -37,14 +24,10 @@ import {
 	Row,
 	Col,
 	Drawer,
-	Notify,
 	SearchForms,
 	Button,
 	KrField,
-	Form,
 	KrDate,
-	Loading,
-	BreadCrumbs,
 	Title,
 	ListGroup,
 	ListGroupItem,
@@ -57,10 +40,10 @@ import NewCommunityList from './NewCommunityList';
 import EditCommunityList from './EditCommunityList';
 import SearchUpperForm from './SearchUpperForm';
 import WatchCommunityList from './WatchCommunityList';
-
-import cityData from "../../../../Components/KrField/CityComponent/State";
+//todo:城市组件值不清空，后期补上
+import cityDataState from "../../../../Components/KrField/CityComponent/State";
 @observer
-class CommunityList  extends Component{
+class CommunityList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -71,7 +54,7 @@ class CommunityList  extends Component{
 
    //新建社区开关
    openAddCommunity=()=>{
-   	  cityData.city="请选择";
+   	  cityDataState.setCity("请选择");
    	  State.searchDataHere();
       State.switchNewCommunityList();
    }
@@ -81,14 +64,11 @@ class CommunityList  extends Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
-
-   	    value = Object.assign({},value);
-
-         
+   	    value = Object.assign({},value);       
         //亮点开始 
    	    var brightsStr=[];
         if(value.bright_basic){
-         value.bright_basic.map((item,index)=>{
+         value.bright_basic.map((item)=>{
               if(!item){
                 return ;
             }
@@ -96,79 +76,69 @@ class CommunityList  extends Component{
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright);
          });
-         value.bright_basic=JSON.stringify(value.bright_basic);
        }
 
    	    if(value.bright_service){
-   	       value.bright_service.map((item,index)=>{
-   	   	  if(item){
-             let {type,brightPoints} = item;
+   	       value.bright_service.map((item)=>{
+   	   	  if(!item){
+             return ;
+   	   	  }
+          let {type,brightPoints} = item;
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright)
-   	   	  }
-   	     })
-           value.bright_service=JSON.stringify(value.bright_service);
+   	     })          
    	    }
 
    	    if(value.bright_special){
    	      value.bright_special.map((item,index)=>{
-   	   	 if(item){
-            let {type,brightPoints} = item;
+   	   	 if(!item){
+            return ;
+   	   	  }
+          let {type,brightPoints} = item;
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright)
-   	   	  }
-   	     })
-          value.bright_special=JSON.stringify(value.bright_special);
+   	     })          
    	    }
 
    	    if(value.bright_bright){
    	      value.bright_bright.map((item,index)=>{
-   	   	  if(item){
+   	   	  if(!item){
+             return ; 
+   	   	   }
              let {type,brightPoints} = item;
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright)
-   	   	   }
-   	     })
-          value.bright_bright=JSON.stringify(value.bright_bright);
+   	     })         
    	    }
 
    	    if(value.brightPorts){
-   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints});
-   	      value.brightPorts=JSON.stringify(value.brightPorts);
+   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints}); 	     
    	    }
    	    if(value.brightRound){
-   	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});
-   	      value.brightRound=JSON.stringify(value.brightRound);
+   	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});   	      
    	    }
-   	    if(brightsStr.length!=0){
+   	    if(brightsStr.length){
    	       value.brightsStr=JSON.stringify(brightsStr);
-   	    }
-
-        delete value.brights
+   	    }      
         //亮点结束
 
 
 
         //楼层开始
-   	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
-        delete value.wherefloors;
+   	    value.wherefloorsStr=JSON.stringify(value.wherefloors);        
         //楼层结束
         
 
 
         //工位开始
    	    if(value.porTypes){
-   	       value.porTypesStr=JSON.stringify(value.porTypes);
-           delete value.porTypes;
+   	       value.porTypesStr=JSON.stringify(value.porTypes);         
    	    }
         //工位结束
-
-        
         
       
        //图片开始
-       var photosStr=[];     
-       delete value.photoVOs;
+       var photosStr=[];           
        if(value.photosStr_first){
          	value.photosStr_first.map((item,index)=>{
             let images = Object.assign({},{type:'THEFIRST',photoId:item.photoId,first:(index?false:true)})
@@ -190,16 +160,25 @@ class CommunityList  extends Component{
           })
          }
 
-         value.photosStr_first=JSON.stringify(value.photosStr_first);
-         value.photosStr_list=JSON.stringify(value.photosStr_list);
-         value.photosStr_detail=JSON.stringify(value.photosStr_detail);
          value.photosStr=JSON.stringify(photosStr);
+
+         delete value.photosStr_first;
+         delete value.photosStr_list;
+         delete value.photosStr_detail;
+         delete value.bright_basic; 
+         delete value.bright_service;
+         delete value.bright_special;
+         delete value.bright_bright;
+         delete value.brightPorts;
+         delete value.brightRound;
+         delete value.brights;
+         delete value.wherefloors;
+         delete value.porTypes;
+         delete value.photoVOs;
+         
          //图片结束
         
-
-         value.openDate=dateFormat(value.openDate,"yyyy-mm-dd hh:MM:ss");
-         value.signStartDate=dateFormat(value.signStartDate,"yyyy-mm-dd hh:MM:ss");
-         value.signEndDate=dateFormat(value.signEndDate,"yyyy-mm-dd hh:MM:ss");
+    
    	     State.onNewCommunitySubmit(value);
 
    }
@@ -229,7 +208,7 @@ class CommunityList  extends Component{
    }
 
    //查看取消
-   switchCancelWatchList=()=>{
+   onSwitchCancelWatchList=()=>{
      State.switchWatchList();
    }
    //编辑取消
@@ -249,7 +228,7 @@ class CommunityList  extends Component{
       State.searchParams.countyId='';
       State.searchParams.searchKey='';
       State.searchParams.searchType='';
-      cityData.city="请选择";
+      cityDataState.setCity("请选择");
       State.searchUpperCustomer();
 
 	}
@@ -463,11 +442,9 @@ class CommunityList  extends Component{
                     {/*高级查询*/}
                     <Dialog
 						title="高级查询"
-						operType="SHARE"
-						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
+						contentStyle ={{ width: '666px',height:'458px'}}
 					>
 						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
@@ -486,7 +463,7 @@ class CommunityList  extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						<WatchCommunityList
-								onCancel={this.switchCancelWatchList}
+								onCancel={this.onSwitchCancelWatchList}
 						/>
 
 		            </Drawer>

@@ -3,7 +3,7 @@ import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -272,9 +272,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		}
 	}
 	onSubmit = (values) => {	
-     values.signStartDate=dateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
-     values.signEndDate=dateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
-     if(values.signStartDate!=''&&values.signEndDate!=''&&values.signEndDate<values.signStartDate){
+     var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
+     var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
+     if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
         Message.error('开始时间不能大于结束时间');
        return ;
      }
