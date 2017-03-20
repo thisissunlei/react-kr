@@ -564,7 +564,7 @@ const validate = values =>{
 		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
-		let stationN = /^([1-9][0-9]{0,7})$/;
+		let stationN = /^([1-9][0-9]{0,2})$/;
 		let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
         
     //正整数
@@ -575,6 +575,8 @@ const validate = values =>{
 
 		//整数
 		let zeroNum=/^-?\\d+$/;　
+
+    let regex=/^[1-9]\\d*$/;
 
 		 
          //楼层检验
@@ -675,17 +677,16 @@ const validate = values =>{
 		if (!values.signEndDate) {
 			errors.signEndDate= '请输入签约结束时间';
 		}
-
-    if(values.orderNum&&!numberNotZero.test(values.orderNum)){
-      errors.orderNum='只能输入正整数';
-    }
-
-   /* if (values.orderNum&&(values.orderNum.charAt(0)==0)) {
-      errors.orderNum= '排序号首位不能为0';
-    }*/
     
-    if (values.orderNum&&values.orderNum.length>3) {
-      errors.orderNum= '排序号不能超过三位';
+    //排序
+    if(values.orderNum&&isNaN(values.orderNum)){
+      errors.orderNum='请输入数字';
+    }
+    if(values.orderNum&&values.orderNum.length>3){
+      errors.orderNum = '最多输入3个字符';
+    }
+    if(values.orderNum&&!stationN.test(values.orderNum)){
+      errors.orderNum = '请输入3位以内正整数,不能以0开头';
     }
 
 

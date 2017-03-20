@@ -351,6 +351,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         var _this=this;
 				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
           Store.dispatch(initialize('editCommunityList',response));
+
+          if(!response.orderNum){
+              Store.dispatch(change('editCommunityList','orderNum','-'));
+          }
 					
           Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
 					
@@ -639,7 +643,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 			let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 			let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
-			let stationN = /^([1-9][0-9]{0,7})$/;
+			let stationN = /^([1-9][0-9]{0,2})$/;
 			let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
 
 			//正整数
@@ -740,17 +744,17 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				errors.address= '请输入详细地址';
 			}
 
-			if(values.orderNum&&!numberNotZero.test(values.orderNum)){
-				errors.orderNum='只能输入正整数';
-			}
-
-    /*if (values.orderNum&&(values.orderNum.charAt(0)==0)) {
-      errors.orderNum= '排序号首位不能为0';
-    }*/
-    
-    if (values.orderNum&&values.orderNum.length>3) {
-      errors.orderNum= '排序号不能超过三位';
+		   //排序
+    if(values.orderNum&&isNaN(values.orderNum)){
+      errors.orderNum='请输入数字';
     }
+    if(values.orderNum&&values.orderNum.length>3){
+      errors.orderNum = '最多输入3个字符';
+    }
+    if(values.orderNum&&!stationN.test(values.orderNum)){
+      errors.orderNum = '请输入3位以内正整数,不能以0开头';
+    }
+
 
 
 			if (!values.opened) {

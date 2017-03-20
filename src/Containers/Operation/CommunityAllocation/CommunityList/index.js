@@ -400,7 +400,16 @@ class CommunityList  extends Component{
 			                <TableRowColumn name="code"></TableRowColumn>
 			                <TableRowColumn name="cityName"></TableRowColumn>
 			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="orderNum"></TableRowColumn>
+			                <TableRowColumn name="orderNum" component={(value,oldValue)=>{
+                             var numValue='';
+                             if(!value){
+                               numValue='-';
+                             }else{
+                               numValue=value;
+                             }
+                             return (<div>{numValue}</div>
+                              )
+                           }}></TableRowColumn>
 			                <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
 
