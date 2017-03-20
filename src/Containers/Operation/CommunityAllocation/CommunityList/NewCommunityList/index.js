@@ -563,7 +563,7 @@ const validate = values =>{
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
 		let stationN = /^([1-9][0-9]{0,2})$/;
 		let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
-        
+    let stationNP=/^([0-9][0-9]{0,4})$/;    
     //正整数
 		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
 
@@ -612,24 +612,15 @@ const validate = values =>{
 			    const membersArrayErrors = []
 			    values.porTypes.forEach((porTypes, memberIndex) => {
 			      const memberErrors = {}
-			      if (!porTypes.type&&porTypes.price) {
-			        memberErrors.type = '请填写工位类型'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-			      if (porTypes.price&&!zeroNum.test(porTypes.price)&&porTypes.price.length>5) {
+			      if (porTypes.price&&!stationNP.test(porTypes.price)) {
 			        memberErrors.price = '价格不超过五位整数'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-
-			      if (porTypes.type&&!porTypes.price) {
-			        memberErrors.price = '请填写工位价格'
 			        membersArrayErrors[memberIndex] = memberErrors
 			      }
 			    })
 		    if(membersArrayErrors.length) {
 		      errors.porTypes = membersArrayErrors
 		    }
-         }
+      }
          
 
 		if(!values.name){
