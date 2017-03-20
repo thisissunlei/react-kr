@@ -76,6 +76,8 @@ class ZhangQu extends Component {
                <form>
 			       <KrField component="selectTime" />
 			       	<h1>sdfsdf</h1>
+
+			       <KrField component="file" />	
 			   </form>
 
                

@@ -744,9 +744,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				errors.orderNum='只能输入正整数';
 			}
 
-    if (values.orderNum&&(values.orderNum.charAt(0)==0)) {
+    /*if (values.orderNum&&(values.orderNum.charAt(0)==0)) {
       errors.orderNum= '排序号首位不能为0';
-    }
+    }*/
     
     if (values.orderNum&&values.orderNum.length>3) {
       errors.orderNum= '排序号不能超过三位';
