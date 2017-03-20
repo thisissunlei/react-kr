@@ -342,14 +342,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	
 	componentDidMount(){
       State.searchDataHere();
+      Store.dispatch(change('NewCommunityList','portalShow','0')) 
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.open) {		
-			Store.dispatch(change('NewCommunityList','portalShow','0'))		
-		}
-
-
 	}
     
     //地图坐标
@@ -497,8 +493,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>	
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
-					              	<KrField name="portalShow" label="显示" type="radio" value='1' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-					             	<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+					              <KrField name="portalShow" label="显示" type="radio" value='1' style={{marginTop:5,display:'inline-block',width:84}}/>
+					             	<KrField name="portalShow" label="不显示" type="radio" value='0'  style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
                 {State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
 					         <FieldArray name="porTypes" component={renderStation}/> 
