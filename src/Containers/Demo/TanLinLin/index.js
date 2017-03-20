@@ -21,49 +21,34 @@ import './index.less';
 	constructor(props){
 		super(props);
 		this.state={
-			
+			initailPoint : '承德'
 		}
 	}
 	componentWillMount() {
 	}
 
+	componentDidMount(){
+		
+	}
 	render(){
-		// 对应功能选项
-		let correspondingFunction =[{
-			label: '开门',
-			value: 1
-		},{
-			label: '开门／预定',
-			value: 2
-		},{
-			label: '预定',
-			value: 3
-		}];
-		let partakeMan =[{
-			label: '开门',
-			value: 1
-		},{
-			label: '开门／预定',
-			value: 2
-		},{
-			label: '预定',
-			value: 3
-		}]
+		let {mapStyle} = this.props;
+		let {initailPoint} = this.state;
 		return (
-			<div className="new-create-activity">
+			<div className="demo-tll">
 				
 				
-						<div className="activity-detail-info">
+						
 							
 							
 			              	<KrField name="newuploadImage" 
 								component="map" 
-								placeholder="例如：北京市"
+								placeholder="例如：北京市1111"
 								style={{width:252,height:36}}
+								mapStyle={{width:400,height:400}}
+								initailPoint ={initailPoint}
 							/>
 							
-							
-						</div>
+						
 					
 		  	</div>
 		);
