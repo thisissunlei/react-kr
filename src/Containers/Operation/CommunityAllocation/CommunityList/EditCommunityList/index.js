@@ -586,6 +586,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoF}
+                        imgStyle={{width:120,margin:'auto'}} 
 												/>
 										</div>
 
@@ -595,6 +596,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoL}
+                        imgStyle={{width:120,margin:'auto'}} 
 												/>
 										</div>
 
@@ -605,6 +607,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoD}
+                        imgStyle={{width:255,margin:'auto'}}   
 												/>
 										</div>
 
@@ -722,12 +725,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				errors.local='请输入社区坐标';
 			}
 
-
-
-			if(values.orderNum&&!numberNotZero.test(values.orderNum)){
-				errors.orderNum='请输入正整数';
-			}
-
 			if(!values.area){
 				errors.area='请输入社区面积';
 			}
@@ -746,6 +743,15 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			if(values.orderNum&&!numberNotZero.test(values.orderNum)){
 				errors.orderNum='只能输入正整数';
 			}
+
+    if (values.orderNum&&(values.orderNum.charAt(0)==0)) {
+      errors.orderNum= '排序号首位不能为0';
+    }
+    
+    if (values.orderNum&&values.orderNum.length>3) {
+      errors.orderNum= '排序号不能超过三位';
+    }
+
 
 			if (!values.opened) {
 				errors.opened= '请输入社区状态';

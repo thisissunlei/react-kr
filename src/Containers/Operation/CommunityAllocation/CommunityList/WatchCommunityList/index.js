@@ -349,36 +349,39 @@ import State from '../State';
 						        
                     <div style={{marginTop:'-4px',marginBottom:'20px'}}>
                       <span className='pic-first'>首页图片</span>
-                      {
+                      <div style={{marginLeft:15}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='THEFIRST'){
-                             return <img className="image"  src={item.photoUrl}  ref="uploadImage" style={{display:'inline-block',marginLeft:'30px'}}/>
+                             return <div style={{width:120,margin:'auto',marginLeft:'15px',display:'inline-block'}}><img className="image"  src={item.photoUrl}  ref="uploadImage" style={{maxWidth:'100%',height:'auto'}}/></div>
                            }                  
                         })
                       } 
+                      </div>
                     </div>
 
                     <div style={{marginTop:'16px',marginBottom:'20px'}}>
                       <span className='pic-first'>社区列表页图片</span>
-                       {
+                      <div style={{marginLeft:15}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='LIST'){
-                             return <img className="image"  src={item.photoUrl}  ref="uploadImage" style={{display:'inline-block',marginLeft:'30px'}}/>
+                             return <div style={{width:120,margin:'auto',marginLeft:'15px',display:'inline-block'}}><img className="image"  src={item.photoUrl}  ref="uploadImage" style={{maxWidth:'100%',height:'auto'}}/></div>
                            }
                         })
                       } 
+                      </div>
                     </div>
 
 
                     <div style={{marginTop:'16px',marginBottom:'20px'}}>
                       <span className='pic-first'>详情页图片</span>
-                       {
+                      <div style={{marginLeft:15}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='DETAILS'){
-                             return <img className="image"  src={item.photoUrl}  ref="uploadImage" style={{display:'inline-block',marginLeft:'30px'}}/>
+                             return <div style={{width:255,margin:'auto',marginLeft:'15px',display:'inline-block'}}><img className="image"  src={item.photoUrl}  ref="uploadImage" style={{maxWidth:'100%',height:'auto'}}/></div>
                            }
                         })
                       } 
+                      </div>
                     </div>
  
 						     

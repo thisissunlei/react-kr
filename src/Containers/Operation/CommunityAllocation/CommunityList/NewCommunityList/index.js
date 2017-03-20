@@ -513,7 +513,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <span className='upload-pic-first'>上传首页图片</span>
                  <KrField name="photosStr_first" 
     								component="uploadImageList" 
-    								style={{marginTop:10,textAlign:'left'}}  
+    								style={{marginTop:10,textAlign:'left'}} 
+                    imgStyle={{width:120,margin:'auto'}} 
 					         />
                </div>
 
@@ -521,7 +522,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <span className='upload-pic-first'>上传社区列表页图片</span>
                  <KrField name="photosStr_list" 
                     component="uploadImageList" 
-                    style={{marginTop:10,textAlign:'left'}}  
+                    style={{marginTop:10,textAlign:'left'}} 
+                    imgStyle={{width:120,margin:'auto'}}  
                    />
                </div>
 
@@ -530,7 +532,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                  <span className='upload-pic-first'>上传详情页图片</span>
                  <KrField name="photosStr_detail" 
                     component="uploadImageList" 
-                    style={{marginTop:10,textAlign:'left'}}  
+                    style={{marginTop:10,textAlign:'left'}}
+                    imgStyle={{width:255,margin:'auto'}}   
                    />
                </div>
 
