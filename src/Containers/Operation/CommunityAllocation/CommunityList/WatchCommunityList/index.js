@@ -301,7 +301,7 @@ import State from '../State';
                       {openUp&&<div>
 						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-							 <KrField grid={1/2} label="排序" component="labelText" style= {{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.orderNum)?toJS(State.detailData.orderNum):'无'}/>	
+							 <KrField grid={1/2} label="排序" component="labelText" style= {{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.orderNum)?toJS(State.detailData.orderNum):'－'}/>	
 							 <KrField grid={1/2} label="官网显示状态"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={hereWatch}>
 					         </KrField>
                              
