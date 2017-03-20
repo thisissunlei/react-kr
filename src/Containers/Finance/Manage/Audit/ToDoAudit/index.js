@@ -45,6 +45,7 @@ import NewCreateCustomer from './NewCreateCustomer';
 import NewCreateMainbill from './NewCreateMainbill';
 import ViewAudit from './ViewAudit';
 import EditMoney from './EditMoney';
+import GoAudit from './GoAudit';
 
 
 import './index.less';
@@ -59,6 +60,7 @@ export default class ToDoAudit extends Component {
       openSearch: false,
       openAddCreate: false,
       openEditCreate: false,
+      openAudit:false,
       itemDetail: {},
       Params: {
         page: 1,
@@ -86,6 +88,8 @@ export default class ToDoAudit extends Component {
       this.openEditCreate();
     }else if (type == 'delete') {
       this.delAudit(itemDetail);
+    }else if (type == 'audit') {
+      this.openAudit();
     }
   }
   //打开查看回款
@@ -97,6 +101,12 @@ export default class ToDoAudit extends Component {
   openEditCreate = () => {
     this.setState({
       openEditCreate: !this.state.openEditCreate
+    })
+  }
+  //审核
+  openAudit = () =>{
+    this.setState({
+      openAudit:!this.state.openAudit
     })
   }
   //删除此条数据
@@ -212,7 +222,7 @@ export default class ToDoAudit extends Component {
                           openSearch={this.openSearch}
                           openAdd={this.openAddCreate}
                   />
-            </div >
+            </div>
             <Table
                   style={{marginTop:10}}
                   ajax={true}
@@ -420,6 +430,16 @@ export default class ToDoAudit extends Component {
 
             </div>
             </Dialog>
+            <Dialog
+              title="审核"
+              modal={true}
+              contentStyle ={{ width: '665',overflow:'visible'}}
+              open={this.state.openAudit}
+              onClose={this.openAudit}
+            >
+              <GoAudit  detail={itemDetail} onSubmit="" onCancel={this.openAudit} />
+            </Dialog>
+
 
       </div>
 

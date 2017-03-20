@@ -1105,6 +1105,11 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/opt/del-fina-record',
         method: 'post'
     },
+    //财务--审核--审核
+    'edit-verify-status': {
+        url: '/api/krspace-finance-web/finaVerify/opt/edit-verify-status',
+        method: 'post'
+    },
 }
 
 module.exports = APIS;

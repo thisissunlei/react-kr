@@ -119,7 +119,7 @@ export default class ViewAudit extends Component {
           marginLeft: -9
         }
       }
-      component = "input"
+      component = "labelText"
       type = "text"
       /> < KrField label = "工位服务费"
       grid = {
@@ -132,7 +132,7 @@ export default class ViewAudit extends Component {
           marginLeft: 28
         }
       }
-      component = "input"
+      component = "labelText"
       type = "text"
       /> < /div >
     )
@@ -166,7 +166,7 @@ export default class ViewAudit extends Component {
 			})
 			return (
 				<div>
-					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfoList} requireLabel={true}/>
+					<KrField label="对应合同" name='contract' grid={1 / 2} component="labelText" defaultValue={finaflowInfoList} />
 				</div>
 
 			)
