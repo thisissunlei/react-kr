@@ -289,7 +289,8 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg' 	
         }
-         
+        
+
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
 
@@ -298,7 +299,7 @@ export default class UploadImageListComponent extends Component {
 					{
 						images.map((item,index)=>{
 							return (<div className='lostsImg'>
-							<div style={{background:`url(${item.src}) no-repeat center`,backgroundSize:'contain'}} className={imgStyle}></div>
+							<div style={{backgroundImage:`url(${item.src})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain'}} className={imgStyle}></div>
 							<div className="ui-uploadimg-fresh-delete">
 								<div className='delete-middle'>
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>
