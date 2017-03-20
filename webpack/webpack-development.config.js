@@ -20,7 +20,6 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		'kr-ui': path.join(process.cwd(), '/src/Components'),
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
