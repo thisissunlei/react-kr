@@ -356,9 +356,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
           
           Store.dispatch(initialize('editCommunityList',response));
-          if(!response.orderNum){
-              Store.dispatch(change('editCommunityList','orderNum','-'));
-          }
+          
 					
           Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
 					
