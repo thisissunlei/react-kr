@@ -41,6 +41,7 @@ import {
 import SearchsForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
 import './index.less';
+import ViewAudit from './ViewAudit';
 import EditMoney from './EditMoney';
 export default class DoneAudit extends Component {
 
@@ -72,7 +73,7 @@ export default class DoneAudit extends Component {
     });
 
     if (type == 'view') {
-
+      this.openView();
     } else if (type == 'edit') {
       this.openEditCreate();
     }
@@ -84,7 +85,12 @@ export default class DoneAudit extends Component {
       openEditCreate: !this.state.openEditCreate
     })
   }
-
+  //打开查看回款
+  openView = () => {
+    this.setState({
+      openView: !this.state.openView
+    })
+  }
   searchParams = (form) => {
 
     this.setState({
@@ -116,15 +122,15 @@ export default class DoneAudit extends Component {
     return (
 
       <div className="m-done-audit">
-            <div className="u-search"> 
+            <div className="u-search">
               <SearchsForm onSubmit={this.searchParams} openSearch={this.openSearch}/>
             </div>
-             <Table 
+             <Table
                   style={{marginTop:10}}
                   ajax={true}
                   ajaxUrlName='get-fince-info'
-                  ajaxParams={this.state.Params}  
-                  onOperation={this.onOperation} 
+                  ajaxParams={this.state.Params}
+                  onOperation={this.onOperation}
                   onExport={this.onExport}
                   exportSwitch={true}
               >
@@ -263,6 +269,15 @@ export default class DoneAudit extends Component {
             >
               <EditMoney  detail={itemDetail}  onSubmit={this.EditAuditSubmit} onCancel={this.openEditCreate}  />
             </Drawer>
+            <Drawer
+             modal={true}
+             width={750}
+             open={this.state.openView}
+             onClose={this.openView}
+             openSecondary={true}
+           >
+             <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
+           </Drawer>
       </div>
 
     );

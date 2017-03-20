@@ -549,7 +549,7 @@ const APIS = {
     },
     //财务管理-订单明细账-款项和代码列表
     'findAccountAndPropList': {
-        url: '/api/krspace-finance-web/finaccount/data/findAccountAndPropList?accountType={accountType}',
+        url: '/api/krspace-finance-web/finaccount/data/findPayWayAndCategoryList?flowType={accountType}',
         method: 'get'
     },
     //财务管理-订单明细账-查看流水
@@ -1104,6 +1104,12 @@ const APIS = {
     'get-mainbill-info': {
         url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-info?mainBillId={mainBillId}',
         method: 'get'
+    },
+    //财务--审核--删除
+    'edit-verify-checked': {
+        url: '/api/krspace-finance-web/finaVerify/opt/del-fina-record',
+        method: 'post'
+
     },
 }
 

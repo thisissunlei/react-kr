@@ -41,6 +41,7 @@ import {
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
 import EditMoney from './EditMoney';
+import ViewAudit from './ViewAudit';
 import './index.less';
 export default class DoAudit extends Component {
 
@@ -55,6 +56,7 @@ export default class DoAudit extends Component {
       },
       infoList: [],
       itemDetail: [],
+      openView:false,
       openEditCreate: false,
       Param: {
         page: 1,
@@ -80,7 +82,7 @@ export default class DoAudit extends Component {
       });
 
       if (type == 'view') {
-
+        this.openView();
       } else if (type == 'edit') {
         this.openEditCreate();
       }
@@ -106,6 +108,12 @@ export default class DoAudit extends Component {
   openEditCreate = () => {
     this.setState({
       openEditCreate: !this.state.openEditCreate
+    })
+  }
+  //打开查看回款
+  openView = () => {
+    this.setState({
+      openView: !this.state.openView
     })
   }
 
@@ -160,15 +168,15 @@ export default class DoAudit extends Component {
     return (
 
       <div className="m-do-audit">
-            <div  className="u-search"> 
+            <div  className="u-search">
                   <SearchForm onSubmit={this.searchParams} openSearch={this.openSearch} detail={this.state.infoList}/>
             </div>
-             <Table 
+             <Table
                   style={{marginTop:10}}
                   ajax={true}
                   ajaxUrlName='get-fince-info'
-                  ajaxParams={this.state.Params}  
-                  onOperation={this.onOperation} 
+                  ajaxParams={this.state.Params}
+                  onOperation={this.onOperation}
                   onExport={this.onExport}
                   exportSwitch={true}
               >
@@ -306,6 +314,15 @@ export default class DoAudit extends Component {
             >
               <EditMoney  detail={itemDetail} onSubmit={this.EditAuditSubmit} onCancel={this.openEditCreate}  />
             </Drawer>
+            <Drawer
+             modal={true}
+             width={750}
+             open={this.state.openView}
+             onClose={this.openView}
+             openSecondary={true}
+           >
+             <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
+           </Drawer>
       </div>
 
     );

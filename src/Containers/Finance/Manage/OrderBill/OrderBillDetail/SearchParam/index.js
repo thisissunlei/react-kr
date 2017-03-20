@@ -84,8 +84,8 @@ export default class SearchParam extends Component {
             item.sssI = false;
             return item
         })
+        console.log("wtf!", childType);
         //console.log('5555555',window.location.href+'?type='+type+'&index='+index);
-
         if (type == 'PAYMENT' && childType == 'basic') {
             this.setState({primaryR: 'true', primaryI: 'false', activeI: 10000, active: 10000});
         }
@@ -99,27 +99,25 @@ export default class SearchParam extends Component {
         if (type == 'INCOME' && childType != 'basic') {
             this.setState({primaryR: 'false', primaryI: 'false', activeI: index, active: 10000});
         }
-
         var searchParam = {};
         var _this = this;
         //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
         searchParam.childType = childType;
-
         searchParam.propertyId = id;
         searchParam.propInfo = propInfo;
         searchParam.orderId = params.orderId;
         searchParam.index = index;
         searchParam.pageSize = 30;
+        //searchParam.childType = params.childType;
+        console.log(params.childType);
         onSearch && onSearch(searchParam);
         var m = this.state.detailPaymentS;
         m.map((item, indexs) => {
             item.sss = false;
             return item
         })
-        console.log(m);
-        console.log("sssssssssss", index);
-        if (index) {
+        if (index+1>0) {
             if (m[index].sss == true) {
                 m[index].sss = false;
             } else if (m[index].sss == false) {
@@ -195,7 +193,7 @@ export default class SearchParam extends Component {
             item.sssI = false;
             return item
         })
-        if (index) {
+        if (index+1>0) {
             if (m[index].sssI == true) {
                 m[index].sssI = false;
             } else if (m[index].sssI == false) {
@@ -232,14 +230,14 @@ export default class SearchParam extends Component {
         }
 
     }
-    renderSubListI = (type) => {
+    renderSubListI = (type, childType) => {
 
         return (this.state.testArr.map((item, index) => {
             return (
                 <ListGroupItem key={index}>
                     <div className={`hover_sub ${item.activeSubI
                         ? 'activeSub'
-                        : ''}`} onTouchTap={this.onSearchSubI.bind(this, type, item.id, item.activeSubI, index)}>
+                        : ''}`} onTouchTap={this.onSearchSubI.bind(this, type, item.id, item.activeSubI, index, childType)}>
                         <span className='receivedText'>{item.propname}</span>
                         <span className='receivedMoney'>{item.propamount}</span>
                     </div>
@@ -247,14 +245,14 @@ export default class SearchParam extends Component {
             )
         }))
     }
-    renderSubList = (type) => {
+    renderSubList = (type, childType) => {
 
         return (this.state.testArr.map((item, index) => {
             return (
                 <ListGroupItem key={index}>
                     <div className={`hover_sub ${item.activeSub
                         ? 'activeSub'
-                        : ''}`} onTouchTap={this.onSearchSub.bind(this, type, item.id, item.activeSub, index)}>
+                        : ''}`} onTouchTap={this.onSearchSub.bind(this, type, item.id, item.activeSub, index, childType)}>
                         <span className='receivedText'>{item.propname}</span>
                         <span className='receivedMoney'>{item.propamount}</span>
                     </div>
@@ -262,7 +260,7 @@ export default class SearchParam extends Component {
             )
         }))
     }
-    onSearchSub = (type, subId, activeSub, index) => {
+    onSearchSub = (type, subId, activeSub, index, childType) => {
         var m = this.state.testA;
         console.log(m);
         m.map((item, indexs) => {
@@ -281,16 +279,21 @@ export default class SearchParam extends Component {
         var _this = this;
         //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
-
+        if (childType == '007' || '010' || '005' || 'fujiyajin' || 'fujidinjin') {
+            searchParam.childType = childType;
+        } else {
+            searchParam.childType = 'basic';
+        }
+        //searchParam.childType = childType;
         searchParam.propertyId = subId;
         searchParam.orderId = params.orderId;
         searchParam.page = 1;
         searchParam.pageSize = 30;
         onSearch && onSearch(searchParam);
     }
-    onSearchSubI = (type, subId, activeSubI, index) => {
+    onSearchSubI = (type, subId, activeSubI, index, childType) => {
         var m = this.state.testA;
-        console.log(m);
+        console.log(childType);
         m.map((item, indexs) => {
             item.activeSubI = false;
             return item
@@ -307,7 +310,12 @@ export default class SearchParam extends Component {
         var _this = this;
         //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
-
+        if (childType == '005') {
+            searchParam.childType = childType;
+        } else {
+            searchParam.childType = 'basic';
+        }
+        //searchParam.childType = childType;
         searchParam.propertyId = subId;
         searchParam.orderId = params.orderId;
         searchParam.page = 1;
@@ -373,7 +381,7 @@ export default class SearchParam extends Component {
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
                                     {item.sss
-                                        ? this.renderSubList('PAYMENT')
+                                        ? this.renderSubList('PAYMENT', item.propcode)
                                         : ''}
                                 </ListGroupItem>
                             )
@@ -382,7 +390,7 @@ export default class SearchParam extends Component {
                     </ListGroup>
                 </div>
 
-                <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearchI.bind(this, 'INCOME', 'basic', '', 'SETTLED')}/>
+                <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearchI.bind(this, 'INCOME', 'basic', '', 'SETTLED', '', '')}/>
 
                 <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
@@ -412,7 +420,7 @@ export default class SearchParam extends Component {
                                             : 'receivedMoney'}>{item.propamount}</span>
                                     </div>
                                     {item.sssI
-                                        ? this.renderSubListI('INCOME')
+                                        ? this.renderSubListI('INCOME', item.propcode)
                                         : ''}
                                 </ListGroupItem>
                             )
