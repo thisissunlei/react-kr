@@ -283,8 +283,20 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         Message.error('开始时间不能大于结束时间');
        return ;
      }
+     
+     var flag=false;
+     var opened=values.opened;
+     var porTypes=values.porTypes;
+     porTypes.map((item,index)=>{
+       if(porTypes.indexOf(item.type)!=index){
+          flag=true;
+       }
+     })
+     if(flag){
+       Message.error('工位类型不能重复');
+       return ;
+     }
 		const {onSubmit} = this.props;
-
 		onSubmit && onSubmit(values);
     }
 

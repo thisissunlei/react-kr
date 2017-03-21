@@ -268,7 +268,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			openDown:true,
       openUp:false,
       communityName:'',
-      codeName:'',
+      codeName:''
 		}
 	}
 	onSubmit = (values) => {	
@@ -278,7 +278,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         Message.error('开始时间不能大于结束时间');
        return ;
      }
-    
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -681,6 +680,7 @@ const validate = values =>{
 		if (!values.opened) {
 			errors.opened= '请输入社区状态';
 		}
+
 
 		if (!values.openDate) {
 			errors.openDate= '请输入开业时间';
