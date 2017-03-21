@@ -231,6 +231,21 @@ export default class ToDoAudit extends Component {
 
 
     }
+    //编辑保存
+  onEditSubmit = (form) => {
+      console.log('form----', form)
+      var _this = this;
+      if (form.mainBillId != "") {
+        Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
+          Message.success('修改成功');
+          _this.openEditCreate();
+          window.location.reload();
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+      }
+
+    }
     //打开批量审核
   openSomeAudit = () => {
     this.setState({
@@ -435,7 +450,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <EditMoney  detail={itemDetail} onSubmit="" onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
+              <EditMoney  detail={itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
              modal={true}

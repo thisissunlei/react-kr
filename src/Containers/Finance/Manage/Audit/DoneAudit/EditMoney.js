@@ -111,9 +111,11 @@ class EditMoney extends Component {
 				var obj = {
 					label: "无合同",
 					contactType: '0',
-					value: '0'
+					value: '0',
+					checked: true
 				}
 				response.cimbList.map((item, index) => {
+					item.checked = true;
 					item.label = item.contactName;
 					item.value = item.detailid;
 					return item;

@@ -25,6 +25,8 @@ export default class GroupCheckboxComponent extends React.Component {
       checkedAll: false,
     }
 
+    this.valuationInputValue()
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,6 +35,7 @@ export default class GroupCheckboxComponent extends React.Component {
         defaultValue: nextProps.defaultValue,
         options: nextProps.defaultValue
       });
+
     }
   }
 
