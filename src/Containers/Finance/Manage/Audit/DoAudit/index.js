@@ -77,7 +77,7 @@ export default class DoAudit extends Component {
         idList.push(item.id)
       });
     }
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}`
     window.location.href = url;
   }
 

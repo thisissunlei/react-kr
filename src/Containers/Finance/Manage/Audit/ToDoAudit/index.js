@@ -184,7 +184,7 @@ export default class ToDoAudit extends Component {
         idList.push(item.id)
       });
     }
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}`
     window.location.href = url;
   }
   searchParams = (form) => {
@@ -224,6 +224,7 @@ export default class ToDoAudit extends Component {
   }
   onSelect = (values,list)=>{
     let {AuditList} = this.state;
+    AuditList = [];
     var n = 0;
     if (list.length != 0) {
 			list.map((item, value) => {
@@ -232,7 +233,7 @@ export default class ToDoAudit extends Component {
 			});
 		}
     this.AuditNum = n;
-    console.log(this.AuditNum);
+    console.log(AuditList);
   }
   //批量审核
   AuditSome = ()=>{
@@ -489,7 +490,7 @@ export default class ToDoAudit extends Component {
               onClose={this.openSomeAudit}
             >
             <div className='list-delete'>
-              <p className='sureIncome'>确认要批量审核所选择的{this.AuditNum}条数据嘛？审核后数据无法进行修改！</p>
+              <p className='sureAudit'>确认要批量审核所选择的{this.AuditNum}条数据嘛？审核后数据无法进行修改！</p>
 
 
                 <div style={{paddingLeft:'100px'}}>

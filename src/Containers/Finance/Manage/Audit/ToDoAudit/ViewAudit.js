@@ -177,12 +177,6 @@ export default class ViewAudit extends Component {
 
 	render() {
 
-		const {
-			error,
-			handleSubmit,
-			pristine,
-			reset,
-		} = this.props;
 		let {
 			totalCountMoney,
 			payment,
@@ -268,12 +262,6 @@ export default class ViewAudit extends Component {
 								component="labelText"
 								label="备注"
 								maxSize={100}
-						/>
-						<KrField
-							 	name="contractFileList"
-							 	component="labelText"
-							 	type="hidden"
-							 	label="合同附件"
 						/>
 						<KrField
 							style={{width:548}}
