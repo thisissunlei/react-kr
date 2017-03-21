@@ -3,7 +3,7 @@ import {
 	toJS
 } from 'mobx';
 import {DateFormat} from 'kr/Utils';
-import {reduxForm,initialize,change,FieldArray} from 'redux-form';
+import {reduxForm,initialize,change,FieldArray,arrayPush} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer,
@@ -33,21 +33,20 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 )
 
 //楼层增加与减少
-const renderMembers = ({ fields, meta: { touched, error } }) => {
+const renderMembers = ({ fields, meta: { touched, error }}) => {
 
-	if(!fields.length){
-	   fields.push({})
-	 }
-    
    return (
       <ul style={{padding:0,margin:0}}>
-    {fields.map((wherefloorsStr, index) =>    
-      <li key={index} style={{width:600}}>
-       <div className="krFlied-box"><KrField 
+    {fields.map((item, index) => {
+
+      return (
+        <li key={index} style={{width:600}}>
+       <div className="krFlied-box">
+       <KrField 
           style={{width:239,marginLeft:16,marginRight:3}}
           requireLabel={true}
           grid={1/2}
-          name={`${wherefloorsStr}.floor`}
+          name={`${item}.floor`}
           type="text"
           component={renderField}
           label="所在楼层"/>
@@ -57,7 +56,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
           style={{width:201,marginLeft:33,marginRight:3}}
           requireLabel={true}
           grid={1/2}
-          name={`${wherefloorsStr}.stationCount`}
+          name={`${item}.stationCount`}
           type="text"
           component={renderField}
           label="可出租工位数"/>
@@ -68,6 +67,9 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
       </li>
+        );
+    }   
+      
     )}
   </ul>
 
@@ -76,9 +78,6 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {  
-  if(!fields.length){
-     fields.push({type:'BRIGHTPOINTS'})
-   }
      var krStyle={};    
       krStyle={
         width:228,
@@ -111,9 +110,6 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础服务
 const renderBasic = ({ fields, meta: { touched, error }}) => {
-   if(!fields.length){
-     fields.push({type:'BASICSERVICE'})
-   }
   var krStyle={};    
        krStyle={
         width:517,
@@ -146,9 +142,6 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-特色服务
 const renderSpecial = ({ fields, meta: { touched, error }}) => {
-  if(!fields.length){
-     fields.push({type:'SPECIALSERVICE'})
-   }
   var krStyle={};    
        krStyle={
         width:517,
@@ -180,9 +173,6 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础设施
 const renderService = ({ fields, meta: { touched, error }}) => {
-   if(!fields.length){
-     fields.push({type:'INFRASTRUCTURE'})
-   }
   var krStyle={};    
        krStyle={
         width:517,
@@ -215,12 +205,6 @@ const renderService = ({ fields, meta: { touched, error }}) => {
 
 //工位价格
 const renderStation = ({ fields, meta: { touched, error }}) => {
-
-
-
-	if(!fields.length){
-	   fields.push({})
-	 }    
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
@@ -270,7 +254,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       communityName:'',
       codeName:''
 		}
+
+  
+   
 	}
+
 	onSubmit = (values) => {	
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
@@ -476,8 +464,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
 								
-						        <FieldArray name="bright_bright" component={renderBrights}/>
-
+                                <FieldArray name="bright_bright" component={renderBrights}/>
 						        
                                 {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                                 <div className="end-round two-round"></div></div>}
@@ -496,12 +483,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 					             	<KrField name="portalShow" label="不显示" type="radio" value='0'  style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
                 {State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-					         <FieldArray name="porTypes" component={renderStation}/>
-					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
-						     
+					         
+                    <FieldArray name="porTypes" component={renderStation}/>
+
+                  <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
 						     <FieldArray name="bright_basic" component={renderService}/>
                  <FieldArray name="bright_service" component={renderBasic} />
-                 <FieldArray name="bright_special" component={renderSpecial}/> 
+                 <FieldArray name="bright_special" component={renderSpecial}/>
 						     <KrField grid={1} label="交通" name="brightPorts.brightPoints"  heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						     <KrField grid={1} label="周边" name="brightRound.brightPoints" heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						   <div style={{marginTop:'-16px'}}>  

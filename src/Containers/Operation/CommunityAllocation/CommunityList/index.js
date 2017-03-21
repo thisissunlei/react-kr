@@ -2,13 +2,15 @@ import React from 'react';
 import {DateFormat} from 'kr/Utils';
 import {
 	reduxForm,
-	change
+	change,
+  arrayPush
 } from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
 import {
-	Actions
+	Actions,
+  Store
 } from 'kr/Redux';
 import {
 	Table,
@@ -50,6 +52,13 @@ class CommunityList  extends React.Component{
 		this.state={
 			id:''
 		}
+
+    Store.dispatch(arrayPush('NewCommunityList','wherefloors',{}));
+    Store.dispatch(arrayPush('NewCommunityList','bright_bright',{type:'BRIGHTPOINTS'}));
+    Store.dispatch(arrayPush('NewCommunityList','porTypes',{}));
+    Store.dispatch(arrayPush('NewCommunityList','bright_basic',{type:'BASICSERVICE'}));
+    Store.dispatch(arrayPush('NewCommunityList','bright_service',{type:'INFRASTRUCTURE'}));
+    Store.dispatch(arrayPush('NewCommunityList','bright_special',{type:'SPECIALSERVICE'}));
 	}
 
    //新建社区开关

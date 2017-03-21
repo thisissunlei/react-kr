@@ -32,9 +32,6 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 //楼层增加与减少
 const renderMembers = ({ fields, meta: { touched, error } }) => {
-   if(!fields.length){
-     fields.push({})
-   }
   return (
       <ul style={{padding:0,margin:0}}>
        {fields.map((wherefloorsStr, index) =>
@@ -73,9 +70,6 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {
-  if(!fields.length){
-     fields.push({type:'BRIGHTPOINTS'})
-   }
      var krStyle={};
       krStyle={
       	width:228,
@@ -108,9 +102,6 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础服务
 const renderBasic = ({ fields, meta: { touched, error }}) => {
-   if(!fields.length){
-     fields.push({type:'BASICSERVICE'})
-   }
   var krStyle={};
        krStyle={
         width:517,
@@ -143,9 +134,6 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-特色服务
 const renderSpecial = ({ fields, meta: { touched, error }}) => {
-  if(!fields.length){
-     fields.push({type:'SPECIALSERVICE'})
-   }
   var krStyle={};
        krStyle={
         width:517,
@@ -178,9 +166,6 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础设施
 const renderService = ({ fields, meta: { touched, error }}) => {
-   if(!fields.length){
-     fields.push({type:'INFRASTRUCTURE'})
-   }
   var krStyle={};
        krStyle={
         width:517,
@@ -213,9 +198,6 @@ const renderService = ({ fields, meta: { touched, error }}) => {
 
 //工位价格
 const renderStation = ({ fields, meta: { touched, error }}) => {
-  if(!fields.length){
-     fields.push({})
-   }
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
@@ -279,9 +261,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
         Message.error('开始时间不能大于结束时间');
        return ;
-     }
-     
-     var flag=false;
+     }   
+    /* var flag=false;
      var porTypes=values.porTypes;
      porTypes.map((item,index)=>{
        if(porTypes.indexOf(item.type)!=index){
@@ -291,7 +272,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      if(flag){
        Message.error('工位类型不能重复');
        return ;
-     }
+     }*/
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
