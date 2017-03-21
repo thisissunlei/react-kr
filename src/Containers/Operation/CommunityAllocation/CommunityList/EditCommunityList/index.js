@@ -656,7 +656,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			let noMinus=/^(0|[1-9]\d*)$/;
 
 			//整数
-			let zeroNum=/^-?\\d+$/;　
+       let zeroNum=/^-?\d+$/;　 
 
 
 			//楼层检验
@@ -670,8 +670,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						memberErrors.floor = '请输入所在楼层'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
-					if(wherefloors.floor&&!noMinus.test(wherefloors.floor)){
-						memberErrors.floor = '楼层为非负整数'
+					if(wherefloors.floor&&!zeroNum.test(wherefloors.floor)){
+						memberErrors.floor = '楼层为整数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
 					if (!wherefloors || !wherefloors.stationCount) {
@@ -706,7 +706,31 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         }
       }
 
-
+     
+    if(values.floorHeight&&isNaN(values.floorHeight)){
+       errors.floorHeight='请输入数字';
+    }
+    if(values.entryNum&&!numberNotZero.test(values.entryNum)){
+       errors.entryNum='请输入正整数';
+    }
+    if(values.elevatorNum&&!numberNotZero.test(values.elevatorNum)){
+       errors.elevatorNum='请输入正整数';
+    }
+    if(values.cargoNum&&!numberNotZero.test(values.cargoNum)){
+       errors.cargoNum='请输入正整数';
+    }
+    if(values.efficientRate&&isNaN(values.efficientRate)){
+       errors.efficientRate='请输入数字';
+    }
+    if(values.greenRate&&isNaN(values.greenRate)){
+       errors.greenRate='请输入数字';
+    }
+    if(values.stationNum&&!numberNotZero.test(values.stationNum)){
+       errors.stationNum='请输入正整数';
+    }
+    if(values.meetNum&&!numberNotZero.test(values.meetNum)){
+       errors.meetNum='请输入正整数';
+    }
 
 
 
