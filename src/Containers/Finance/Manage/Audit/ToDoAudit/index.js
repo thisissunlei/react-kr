@@ -71,6 +71,8 @@ export default class ToDoAudit extends Component {
       openCreateMainbill: false,
       CustomerList: {},
       showName: false,
+      openSomeAudit:false,
+      AuditList:[]
     }
 
   }
@@ -175,8 +177,15 @@ export default class ToDoAudit extends Component {
   }
   componentDidMount() {}
     //导出
-  onExport = () => {
-
+  onExport = (values) => {
+    let idList = [];
+    if (values.length != 0) {
+      values.map((item, index) => {
+        idList.push(item.id)
+      });
+    }
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`
+    window.location.href = url;
   }
   searchParams = (form) => {
     this.setState({
@@ -223,7 +232,37 @@ export default class ToDoAudit extends Component {
 
 
   }
-
+  //打开批量审核
+  openSomeAudit = ()=>{
+    this.setState({
+      openSomeAudit: !this.state.openSomeAudit
+    })
+  }
+  onSelect = (values,list)=>{
+    let {AuditList} = this.state;
+    var n = 0;
+    if (list.length != 0) {
+			list.map((item, value) => {
+				AuditList.push(item.id)
+        n++;
+			});
+		}
+    this.AuditNum = n;
+    console.log(this.AuditNum);
+  }
+  //批量审核
+  AuditSome = ()=>{
+    Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
+      finaVerifyIds:this.state.AuditList,
+    })).then(function(response) {
+      Message.success("审核成功");
+      window.setTimeout(function() {
+          window.location.reload();
+      }, 0);
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
+  }
   render() {
     let {
       CustomerList,
@@ -237,6 +276,7 @@ export default class ToDoAudit extends Component {
                           onSubmit={this.searchParams}
                           openSearch={this.openSearch}
                           openAdd={this.openAddCreate}
+                          openSomeAudit={this.openSomeAudit}
                   />
             </div>
             <Table
@@ -246,6 +286,7 @@ export default class ToDoAudit extends Component {
                   ajaxParams={this.state.Params}
                   onOperation={this.onOperation}
                   onExport={this.onExport}
+                  onSelect={this.onSelect}
                   exportSwitch={true}
               >
               <TableHeader>
@@ -456,7 +497,25 @@ export default class ToDoAudit extends Component {
               <GoAudit  detail={itemDetail} onSubmit="" onCancel={this.openAudit} />
             </Dialog>
 
+            <Dialog
+              title="批量审核"
+              modal={true}
+              contentStyle ={{ width: '444',overflow:'visible'}}
+              open={this.state.openSomeAudit}
+              onClose={this.openSomeAudit}
+            >
+            <div className='list-delete'>
+              <p className='sureIncome'>确认要批量审核所选择的{this.AuditNum}条数据嘛？审核后数据无法进行修改！</p>
 
+
+                <div style={{paddingLeft:'100px'}}>
+                      <div  className='ui-btn-center'><Button  label="确定" onClick={this.AuditSome}/></div>
+                      <Button  label="取消" type="button" cancle={true} onTouchTap={this.openSomeAudit} />
+
+                         </div>
+
+            </div>
+            </Dialog>
       </div>
 
     );

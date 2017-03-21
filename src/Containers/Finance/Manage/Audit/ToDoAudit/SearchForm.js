@@ -59,7 +59,12 @@ class SearchForm extends Component {
 		} = this.props;
 		openAdd && openAdd();
 	}
-
+	openSomeAudit=()=>{
+		const {
+			openSomeAudit
+		} = this.props;
+		openSomeAudit && openSomeAudit();
+	}
 	onCancel = () => {
 		const {
 			onCancel
@@ -80,7 +85,7 @@ class SearchForm extends Component {
 			<div >
 				<Button label="添加回款" onTouchTap={this.openAdd} />
 				<span className="u-span"></span>
-				<Button label="批量审核"  />
+				<Button label="批量审核" onTouchTap={this.openSomeAudit} />
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
 				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称" inputName="todo"/>
 

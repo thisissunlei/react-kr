@@ -511,7 +511,7 @@ export default class Table extends React.Component {
 					return result.indexOf(index) !== -1;
 		});
 
-		onSelect && onSelect(result,selectedlistData);
+		onSelect && onSelect(result,selectedListData);
 
 		this.setState({
 			allRowsSelected
