@@ -100,11 +100,17 @@ class EditMoney extends Component {
 		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
 			finaVerifyId: id
 		}, {})).then(function(response) {
+			var obj = {
+				label: "无合同",
+				contactType: '0',
+				value: '0'
+			}
 			response.cimbList.map((item, index) => {
 				item.label = item.contactName;
 				item.value = item.detailid;
 				return item;
 			})
+			response.cimbList.push(obj)
 			_this.setState({
 				finaflowInfo: response
 			})
@@ -258,7 +264,7 @@ class EditMoney extends Component {
 		})
 
 		var id = this.props.detail.id
-			//flowAmount
+
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
@@ -558,12 +564,12 @@ class EditMoney extends Component {
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" defaultValue={item.propamount} onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					} else {
 						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" defaultValue={item.propamount} onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					}
 				})
 			} < /div>)
@@ -690,7 +696,7 @@ class EditMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{flowAmount}</span>
+							<span>{flowAmount>0?flowAmount:infoList.flowAmount}</span>
 						</div>
 						{this.renderPayList()}
 						<Grid style={{marginTop:50}}>

@@ -267,8 +267,6 @@ class AddMoney extends Component {
 				childrenList.pop();
 			}
 		})
-		console.log('childrenList---', childrenList)
-		console.log('childrenList---', JSON.stringify(childrenList))
 
 		let {
 			onSubmit
