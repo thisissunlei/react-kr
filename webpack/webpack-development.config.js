@@ -68,25 +68,6 @@ const config = {
    			 loaders: [ 'babel-loader?cacheDirectory=true' ],
    			 verbose: false
   		}),
-
-	/*
-	 	new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-			},
-			output: {
-				comments: false,
-			},
-		}),
-
-		*/
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
@@ -100,18 +81,7 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:false,
-			showErrors:true,
-			/*
-			chunksSortMode:function(a,b){
-				 if (a.names[0] > b.names[0]) {
-       				 return 1;
-     			 }
-     			 if (a.names[0] < b.names[0]) {
-        			return -1;
-     			 }
-     			 return 0;
-			}
-			*/
+			showErrors:true
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
@@ -122,6 +92,7 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
+		/*
 		preLoaders: [
      {
        test: /\.js$/,
@@ -130,6 +101,7 @@ const config = {
 			 include: [ path.join(process.cwd(), './src')]
      },
    ],
+	 */
 		loaders: [
 			{
 				test: /\.js?$/,
