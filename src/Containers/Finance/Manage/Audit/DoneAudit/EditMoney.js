@@ -118,7 +118,16 @@ class EditMoney extends Component {
 					item.checked = true;
 					item.label = item.contactName;
 					item.value = item.detailid;
+					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
+					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
 					return item;
+				})
+
+				response.scvList.map((item, index) => {
+					Store.dispatch(change('EditMoney', `no-${item.id}`, item.propamount));
+					_this.receivedBtnFormChangeValues[`no-${item.id}`] = item.propamount * 100;
 				})
 				response.cimbList.push(obj)
 				_this.setState({
@@ -134,9 +143,10 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
-				Store.dispatch(initialize('editMoney', response));
+				Store.dispatch(initialize('EditMoney', response));
 				_this.setState({
-					infoList: response
+					infoList: response,
+					flowAmount: response.flowAmount
 				})
 				var form = {
 					"value": response.payWay
@@ -179,14 +189,14 @@ class EditMoney extends Component {
 			name.push(`fix-${item.detailid}-${item.depositId}`);
 			name.push(`fix-${item.detailid}-${item.totalrentId}`);
 			if (item.checked == false) {
-				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
-				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
+				Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
+				Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				_this.getCount(input, name);
 			}
 			if (options[len].checked == false) {
 				finaflowInfo.scvList.map((item, index) => {
 					nameList.push(`no-${item.id}`)
-					Store.dispatch(change('addMoney', `no-${item.id}`, ''));
+					Store.dispatch(change('EditMoney', `no-${item.id}`, ''));
 				})
 				_this.getCount(input, '', nameList);
 			}
@@ -210,7 +220,6 @@ class EditMoney extends Component {
 	}
 
 	getCount = (input, name, nameList) => {
-		console.log('input1111', input)
 		input.value = Math.round((input.value * 100))
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
@@ -231,7 +240,7 @@ class EditMoney extends Component {
 
 		}
 		for (var item in receivedBtnFormChangeValues) {
-			console.log('receivedBtnFormChangeValues[item]', receivedBtnFormChangeValues[item])
+
 			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
 				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
 			}
@@ -262,11 +271,13 @@ class EditMoney extends Component {
 
 			if (noReg.test(key)) {
 				var arr = key.split('-');
-				var obj = {
-					"id": arr[1],
-					"value": form[key]
+				if (form[key] != 0) {
+					var obj = {
+						"id": arr[1],
+						"value": form[key]
+					}
+					noList.push(obj)
 				}
-				noList.push(obj)
 			}
 		}
 		parentIdList.map((item, index) => {
@@ -287,9 +298,15 @@ class EditMoney extends Component {
 			})
 			childrenList.push(obj)
 		})
+		childrenList.map((item, index) => {
+			if (item.id == 0) {
+				childrenList.pop();
+			}
+		})
 
 		var id = this.props.detail.id
-			//flowAmount
+
+		var id = this.props.detail.id;
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
@@ -300,14 +317,14 @@ class EditMoney extends Component {
 			payWay: form.payWay,
 			remark: form.remark,
 			uploadFileIds: form.uploadFileIds,
-			conJasonStr: childrenList,
-			propJasonStr: noList,
+			conJasonStr: JSON.stringify(childrenList),
+			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount
 		}
 		let {
 			onSubmit
 		} = this.props;
-		//onSubmit && onSubmit(params);
+		onSubmit && onSubmit(params);
 	}
 	onCancel = () => {
 		let {
@@ -741,7 +758,7 @@ class EditMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{flowAmount>0?flowAmount:infoList.flowAmount}</span>
+							<span>{flowAmount}</span>
 						</div>
 						{this.renderPayList()}
 					</CircleStyleTwo>
@@ -762,7 +779,30 @@ class EditMoney extends Component {
 			);
 		}
 	}
+	const validate = values => {
+
+		const errors = {}
+		if (!values.payWay) {
+			errors.payWay = '请选择收款方式';
+		}
+		if (!values.accountId) {
+			errors.accountId = '请选择我司账户';
+		}
+		if (!values.payAccount) {
+			errors.payAccount = '请输入付款账户';
+		}
+		if (!values.dealTime) {
+			errors.dealTime = '请选择收款日期';
+		}
+
+
+		return errors
+	}
+
 
 	export default reduxForm({
-		form: 'editMoney',
+		form: 'EditMoney',
+		validate,
+		enableReinitialize: true,
+		keepDirtyOnReinitialize: true,
 	})(EditMoney);
