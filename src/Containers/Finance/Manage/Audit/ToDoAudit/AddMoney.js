@@ -91,6 +91,7 @@ class AddMoney extends Component {
 
 
 	}
+
 	argreementChecked = (options) => {
 		var name = [],
 			input = {
@@ -169,8 +170,18 @@ class AddMoney extends Component {
 
 
 	}
+
+	openCreateMainbill = () => {
+		let {
+			openCreateMainbill
+		} = this.props;
+		openCreateMainbill && openCreateMainbill();
+	}
 	getMainbillInfo = (form) => {
 		var _this = this;
+		if (form.id == 0) {
+			this.openCreateMainbill();
+		}
 		Store.dispatch(Actions.callAPI('get-mainbill-info', {
 			mainBillId: form.value
 		}, {})).then(function(response) {

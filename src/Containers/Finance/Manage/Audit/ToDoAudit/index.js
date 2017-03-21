@@ -71,8 +71,8 @@ export default class ToDoAudit extends Component {
       openCreateMainbill: false,
       CustomerList: {},
       showName: false,
-      openSomeAudit:false,
-      AuditList:[]
+      openSomeAudit: false,
+      AuditList: []
     }
 
   }
@@ -218,46 +218,47 @@ export default class ToDoAudit extends Component {
     }
     //添加回款保存
   AddOnSubmit = (form) => {
-    var _this = this;
-    console.log('form----', form)
-    if (form.mainBillId != "") {
-      Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
-        Message.success('新建成功');
-        _this.openAddCreate();
-        window.location.reload();
-      }).catch(function(err) {
-        Message.error(err.message);
-      });
+      var _this = this;
+      if (form.mainBillId != "") {
+        Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
+          Message.success('新建成功');
+          _this.openAddCreate();
+          window.location.reload();
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+      }
+
+
     }
-
-
-  }
-  //打开批量审核
-  openSomeAudit = ()=>{
+    //打开批量审核
+  openSomeAudit = () => {
     this.setState({
       openSomeAudit: !this.state.openSomeAudit
     })
   }
-  onSelect = (values,list)=>{
-    let {AuditList} = this.state;
-    var n = 0;
-    if (list.length != 0) {
-			list.map((item, value) => {
-				AuditList.push(item.id)
-        n++;
-			});
-		}
-    this.AuditNum = n;
-    console.log(this.AuditNum);
-  }
-  //批量审核
-  AuditSome = ()=>{
+  onSelect = (values, list) => {
+      let {
+        AuditList
+      } = this.state;
+      var n = 0;
+      if (list.length != 0) {
+        list.map((item, value) => {
+          AuditList.push(item.id)
+          n++;
+        });
+      }
+      this.AuditNum = n;
+      console.log(this.AuditNum);
+    }
+    //批量审核
+  AuditSome = () => {
     Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
-      finaVerifyIds:this.state.AuditList,
+      finaVerifyIds: this.state.AuditList,
     })).then(function(response) {
       Message.success("审核成功");
       window.setTimeout(function() {
-          window.location.reload();
+        window.location.reload();
       }, 0);
     }).catch(function(err) {
       Message.error(err.message);
@@ -424,7 +425,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney  openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
               modal={true}
