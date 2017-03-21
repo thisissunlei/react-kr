@@ -122,7 +122,6 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
-		/*
 		preLoaders: [
      {
        test: /\.js$/,
@@ -131,7 +130,6 @@ const config = {
 			 include: [ path.join(process.cwd(), './src')]
      },
    ],
-	 */
 		loaders: [
 			{
 				test: /\.js?$/,
@@ -181,8 +179,8 @@ const config = {
 	},
 	eslint: {
 		configFile:path.join(process.cwd(),'.eslintrc'),
-		failOnWarning: true,
-    failOnError: true,
+		failOnWarning: false,
+    failOnError: false,
     cache: true,
 		hot: true,
 		historyApiFallback: true
