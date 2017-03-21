@@ -23,7 +23,7 @@ import {
 	TableRowColumn,
 
 } from 'kr-ui';
-
+import './index.less';
 class ZhangQu extends Component {
 
 	constructor(props, context) {
@@ -58,6 +58,7 @@ class ZhangQu extends Component {
 	render() {
 
 		let {open,widthState}=this.state;
+
         
         var hour=[];
         var minute=['00','10','20','30','40','50'];
@@ -68,7 +69,7 @@ class ZhangQu extends Component {
           hour.push(i); 
         }
         
-       
+       var progress='20';
        
         
 		return (
@@ -79,10 +80,13 @@ class ZhangQu extends Component {
 
 			       <KrField component="file" />	
 
-			       <input type='file' />
+			       
 			   </form>
 
-               
+              <li className="loading-progress" style={{position:'relative'}}>
+                 <span className="progress" style={{width:`${progress}%`,height:'30px',position:'absolute',top:0}}></span>
+                 <span style={{display:'block',position:'absolute',top:33}}>{progress}%</span>
+              </li>
 		</div>
 
 
