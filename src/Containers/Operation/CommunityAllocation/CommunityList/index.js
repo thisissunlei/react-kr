@@ -189,6 +189,10 @@ class CommunityList  extends React.Component{
 			searchType:params.filter,
       pageSize:15
 		}
+    if(!obj.searchType){
+       Message.error('请选择搜索类型');
+       return ;
+    }
 		State.setSearchParams(obj);
    }
 
