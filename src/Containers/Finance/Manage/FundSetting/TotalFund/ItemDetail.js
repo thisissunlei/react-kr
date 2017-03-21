@@ -66,7 +66,7 @@ export default class ItemDetail extends Component {
                 <KrField grid={1 / 2} component="labelText" label="显示位置" value={detail.position} inline={false}/>
                 <KrField grid={1 / 2} component="labelText" label="状态" value={detail.status} inline={false}/>
                 <KrField grid={1 / 2} component="labelText" label="创建人" value={detail.createrName} inline={false}/>
-                <KrField grid={1 / 2} component="labelText" label="创建时间" value={< KrDate style = {{marginTop:5}}value = {
+                <KrField grid={1 / 2} component="labelText" label="创建时间" value={< KrDate style = {{marginTop:5}} value = {
                     detail.createTime
                 }
                 format = "yyyy-mm-dd HH:MM:ss" />} inline={false}/>

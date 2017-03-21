@@ -23,6 +23,7 @@ import {
 	Col,
 	Button,
 	ListGroup,
+	KrDate,
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
@@ -78,6 +79,16 @@ export default class ViewAudit extends Component {
 			}, {})).then(function(response) {
 				_this.setState({
 					infoList: response
+				},function(){
+					var fileList=[];
+					if(this.state.infoList.fileList.length>0){
+						this.state.infoList.fileList.map((item, value) => {
+							fileList.push(item.fileName)
+						});
+					}else{
+						fileList=['暂无上传任何附件'];
+					}
+						this.fileList=fileList;
 				})
 			}).catch(function(err) {});
 		}
@@ -138,8 +149,6 @@ export default class ViewAudit extends Component {
     )
   }
 
-
-
 	renderPayList = () => {
 		let {
 			infoDetailList
@@ -174,15 +183,15 @@ export default class ViewAudit extends Component {
 
 
 	}
-
+	renderFileName=()=>{
+		this.fileList.map((item, value) => {
+			return (
+				<div key={index}>{item}</div>
+			)
+		});
+	}
 	render() {
-
-		const {
-			error,
-			handleSubmit,
-			pristine,
-			reset,
-		} = this.props;
+		console.log(this.fileList);
 		let {
 			totalCountMoney,
 			payment,
@@ -233,54 +242,54 @@ export default class ViewAudit extends Component {
 						<KrField
 								style={{width:260}}
 								name="payWay"
+								inline={false}
 								component="labelText"
 								label="收款方式"
-								options={payment}
-								requireLabel={true}
+								value={infoList.payWay}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="accountId"
+								name="accountNum"
 								component="labelText"
+								inline={false}
 								label="我司账户"
-								options={accountList}
-								requireLabel={true}
+								value={infoList.accountNum}
 						/>
 						<KrField
 								style={{width:260}}
 								name="payAccount"
+								inline={false}
 								type="text"
 								component="labelText"
 								label="付款账户"
-								options=""
-								requireLabel={true}
+								value={infoList.payAccount}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="dealTime"
+								inline={false}
 								component="labelText"
 								label="收款日期"
-								requireLabel={true}
+								value={< KrDate style = {{marginTop:5}} value = {
+                    infoList.dealTime
+                }
+                format = "yyyy-mm-dd HH:MM:ss" />}
 						/>
 						<KrField
 								style={{width:548}}
 								name="remark"
 								component="labelText"
 								label="备注"
-								maxSize={100}
-						/>
-						<KrField
-							 	name="contractFileList"
-							 	component="labelText"
-							 	type="hidden"
-							 	label="合同附件"
+								value={infoList.remark}
+								inline={false}
 						/>
 						<KrField
 							style={{width:548}}
 							name="uploadFileIds"
 							component="labelText"
 							label="上传附件"
-							defaultValue={[]}
+							inline={false}
+							value={this.renderFileName}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
