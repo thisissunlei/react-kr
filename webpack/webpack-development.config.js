@@ -122,6 +122,7 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
+		/*
 		preLoaders: [
      {
        test: /\.js$/,
@@ -130,6 +131,7 @@ const config = {
 			 include: [ path.join(process.cwd(), './src')]
      },
    ],
+	 */
 		loaders: [
 			{
 				test: /\.js?$/,
