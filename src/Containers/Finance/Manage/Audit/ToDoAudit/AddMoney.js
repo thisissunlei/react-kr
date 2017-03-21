@@ -545,55 +545,55 @@ class AddMoney extends Component {
 
 	//无合同
 	receiveInputRender = () => {
-			let {
-				finaflowInfo
-			} = this.state;
-			var _this = this;
+		let {
+			finaflowInfo
+		} = this.state;
+		var _this = this;
 
-			return ( < div style = {
-					{
-						marginBottom: -7,
-						width: 650
-					}
-				} > {
-					finaflowInfo.scvList.map(function(item, index) {
-						if (index % 2 == 0) {
-							return <div className='leftBottomValue'><KrField key={index} style={{
+		return ( < div style = {
+				{
+					marginBottom: -7,
+					width: 650
+				}
+			} > {
+				finaflowInfo.scvList.map(function(item, index) {
+					if (index % 2 == 0) {
+						return <div className='leftBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
                         }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
-						} else {
-							return <div className='rightBottomValue'><KrField key={index} style={{
+					} else {
+						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
                         }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
-						}
-					})
-				} < /div>)
+					}
+				})
+			} < /div>)
 
-			}
+		}
 
 
 
-			render() {
+		render() {
 
-				const {
-					error,
-					handleSubmit,
-					pristine,
-					reset
-				} = this.props;
-				let {
-					payment,
-					accountList,
-					mainbillInfo,
-					showName,
-					customerId,
-					flowAmount,
-				} = this.state;
-				return (
-					<div className="u-audit-add">
+			const {
+				error,
+				handleSubmit,
+				pristine,
+				reset
+			} = this.props;
+			let {
+				payment,
+				accountList,
+				mainbillInfo,
+				showName,
+				customerId,
+				flowAmount,
+			} = this.state;
+			return (
+				<div className="u-audit-add">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>添加回款</span>
@@ -714,33 +714,42 @@ class AddMoney extends Component {
 			</div>
 
 
-				);
-			}
+			);
 		}
-		/*const validate = values => {
+	}
+	const validate = values => {
 
-			const errors = {}
+		const errors = {}
 
-			if (!values.leaseId) {
-				errors.leaseId = '请输入出租方';
-			}
-
-			if (!values.lessorContactid) {
-				errors.lessorContactid = '请输入出租方联系人';
-			}
-
-			if (!values.wherefloor) {
-				errors.wherefloor = '请输入所在楼层';
-			}
-
-
-			return errors
+		if (!values.customerId) {
+			errors.customerId = '请选择客户名称';
 		}
-		*/
-		/*validate,
-			enableReinitialize: true,
-			keepDirtyOnReinitialize: true,*/
+
+		if (!values.mainBillId) {
+			errors.mainBillId = '请选择所属订单';
+		}
+
+		if (!values.payWay) {
+			errors.payWay = '请选择收款方式';
+		}
+		if (!values.accountId) {
+			errors.accountId = '请选择我司账户';
+		}
+		if (!values.payAccount) {
+			errors.payAccount = '请输入付款账户';
+		}
+		if (!values.dealTime) {
+			errors.dealTime = '请选择收款日期';
+		}
+
+
+		return errors
+	}
+
+
 	export default reduxForm({
 		form: 'addMoney',
-
+		validate,
+		enableReinitialize: true,
+		keepDirtyOnReinitialize: true,
 	})(AddMoney);

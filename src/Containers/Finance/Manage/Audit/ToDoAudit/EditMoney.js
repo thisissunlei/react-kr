@@ -9,7 +9,8 @@ import {
 import {
 	reduxForm,
 	formValueSelector,
-	initialize
+	initialize,
+	change
 } from 'redux-form';
 import {
 	Actions,
@@ -41,7 +42,7 @@ class EditMoney extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			totalCountMoney: 0,
+			flowAmount: 0,
 			payment: [{
 				label: '无',
 				value: 'NONE'
@@ -60,17 +61,19 @@ class EditMoney extends Component {
 			}],
 			accountList: [],
 			infoList: {},
-			infoDetailList: [],
+			finaflowInfo: {}
 		}
 		this.getDetailInfo();
 		this.getInfo();
-
+		this.receivedBtnFormChangeValues = {};
 
 	}
 	componentDidMount() {
 
-		}
-		//付款信息
+	}
+
+
+	//付款信息
 	getInfo = () => {
 			var id = this.props.detail.id
 			var _this = this;
@@ -97,7 +100,7 @@ class EditMoney extends Component {
 			finaVerifyId: id
 		}, {})).then(function(response) {
 			_this.setState({
-				infoDetailList: response
+				finaflowInfo: response
 			})
 			Store.dispatch(initialize('editMoney', response));
 
@@ -126,9 +129,132 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
+	argreementChecked = (options) => {
+		var name = [],
+			input = {
+				value: 0
+			},
+			nameList = [];
+		let {
+			finaflowInfo
+		} = this.state;
+		var _this = this;
+		options.map((item, index) => {
+			var len = options.length - 1;
+			name.push(`fix-${item.detailid}-${item.depositId}`);
+			name.push(`fix-${item.detailid}-${item.totalrentId}`);
+			if (item.checked == false) {
+				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
+				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
+				_this.getCount(input, name);
+			}
+			if (options[len].checked == false) {
+				finaflowInfo.scvList.map((item, index) => {
+					nameList.push(`no-${item.id}`)
+					Store.dispatch(change('addMoney', `no-${item.id}`, ''));
+				})
+				_this.getCount(input, '', nameList);
+			}
+
+		})
+
+	}
+
+	calcBalance = (value, input) => {
+		var lastValue = value.split('.')[1]
+		if (lastValue && lastValue.length > 2) {
+			Message.error('最多到小数点后两位');
+			return;
+		}
+		let {
+			changeValues,
+		} = this.props;
+		input.value = value;
+		console.log('input -----', input)
+		this.getCount(input)
+	}
+
+	getCount = (input, name, nameList) => {
+		console.log('input1111', input)
+		input.value = Math.round((input.value * 100))
+		this.receivedBtnFormChangeValues[input.name] = input.value;
+		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
+		let liveMoneyValue = 0;
+		if (input.value === 0) {
+			var n1 = name[0];
+			var n2 = name[1];
+			var name1 = `${n1}-1`,
+				name2 = `${n2}-2`;
+			receivedBtnFormChangeValues[name1] = 0;
+			receivedBtnFormChangeValues[name2] = 0;
+
+			if (nameList && nameList.length > 0) {
+				nameList.map((item, index) => {
+					receivedBtnFormChangeValues[item] = 0;
+				})
+			}
+
+		}
+		for (var item in receivedBtnFormChangeValues) {
+			console.log('receivedBtnFormChangeValues[item]', receivedBtnFormChangeValues[item])
+			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
+				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
+			}
+		}
+
+
+		liveMoneyValue = liveMoneyValue / 100;
+		this.setState({
+			flowAmount: liveMoneyValue
+		});
+
+
+	}
 	onSubmit = (form) => {
+		var parentIdList = form.contract.split(',');
+		var childrenList = [];
+		var reg = /^fix/;
+		var noReg = /^no/;
+		var fixList = [];
+		var valueList = [];
+		var noList = []
+		var key;
+		for (key in form) {
+			if (reg.test(key)) {
+				fixList.push(key);
+				valueList.push(form[key])
+			}
+
+			if (noReg.test(key)) {
+				var arr = key.split('-');
+				var obj = {
+					"id": arr[1],
+					"value": form[key]
+				}
+				noList.push(obj)
+			}
+		}
+		parentIdList.map((item, index) => {
+			var obj = {
+				"id": item,
+				"value": []
+			}
+			fixList.map((items, index) => {
+				var arr = items.split('-');
+				if (arr[1] == item) {
+					var obj2 = {
+						"id": arr[2],
+						"value": valueList[index]
+					}
+					obj.value.push(obj2)
+				}
+
+			})
+			childrenList.push(obj)
+		})
+
 		var id = this.props.detail.id
-			//conJasonStr,flowAmount,propJasonStr
+			//flowAmount
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
@@ -138,13 +264,15 @@ class EditMoney extends Component {
 			payAccount: form.payAccount,
 			payWay: form.payWay,
 			remark: form.remark,
-			uploadFileIds: form.uploadFileIds
+			uploadFileIds: form.uploadFileIds,
+			conJasonStr: childrenList,
+			propJasonStr: noList,
+			flowAmount: this.state.flowAmount
 		}
-		console.log('form----1111', form)
 		let {
 			onSubmit
 		} = this.props;
-		onSubmit && onSubmit();
+		//onSubmit && onSubmit(params);
 	}
 	onCancel = () => {
 		let {
@@ -153,13 +281,197 @@ class EditMoney extends Component {
 		onCancel && onCancel();
 	}
 
-	joinInputRender = (index) => {
-		return (
-			<div>
-			<div>111</div>
-			<div>222</div>
-			</div>
+	joinInputRender = (item) => {
+		return ( < div style = {
+				{
+					width: 600,
+					marginTop: 8
+				}
+			}
+			className = 'm-tenantStation' >
+			< KrField label = "履约保证金"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.depositId}-1`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: -9
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/> < KrField label = "工位服务费"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.totalrentId}-2`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: 28
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/> < /div >
+		)
+	}
+	increaseInputRender = (item) => {
+		return ( < div style = {
+				{
+					width: 600,
+					marginTop: 8
+				}
+			}
+			className = 'm-tenantStation' >
+			< KrField label = "履约保证金"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.depositId}-1`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: -9
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/> < KrField label = "工位服务费"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.totalrentId}-2`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: 28
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/> < /div >
+		)
+	}
+	renewInputRender = (item) => {
+		return ( < div style = {
+				{
+					width: 600,
+					marginTop: 8
+				}
+			}
+			className = 'm-tenantStation' >
+			< KrField label = "履约保证金"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.depositId}-1`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: -9
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/> < KrField label = "工位服务费"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.totalrentId}-2`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: 28
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/> < /div >
+		)
+	}
+	adminInputRender = (item) => {
+		return ( < div style = {
+				{
+					width: 600,
+					marginTop: 8
+				}
+			}
+			className = 'm-tenantStation' >
+			< KrField label = "定金"
+			grid = {
+				1 / 2
+			}
+			name = {
+				`fix-${item.detailid}-${item.frontId}-1`
+			}
+			style = {
+				{
+					width: 261,
+					marginLeft: -9
+				}
+			}
+			component = "input"
+			type = "text"
+			onChange = {
+				this.calcBalance
+			}
+			onBlur = {
+				this.moneyCheck
+			}
+			/>
 
+			< /div>
 		)
 	}
 
@@ -167,82 +479,112 @@ class EditMoney extends Component {
 
 	renderPayList = () => {
 		let {
-			infoDetailList
+			finaflowInfo
 		} = this.state;
-
-		/*if (!infoDetailList.cimbList) {
+		console.log('finaflowInfo-----', finaflowInfo)
+		if (finaflowInfo && !finaflowInfo.cimbList) {
 			return (
 				<div className="u-audit-content-null">
 					<div className="u-audit-content-null-icon"></div>
 					<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
 				</div>
 			)
-		}*/
-		var finaflowInfoList = [{
-			label: '111',
-			value: '111'
-		}, {
-			label: '222',
-			value: '222'
-		}];
+		}
+
 		var _this = this;
+		if (finaflowInfo.cimbList && finaflowInfo.cimbList.length > 0) {
 
-		/*if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
-			finaflowInfoList = infoDetailList.cimbList.map(function(item, index) {
-				console.log('item----', item)
-					//意向书
-					if (item.value == '1') {
-						item.component = _this.adminInputRender.bind(this, index);
+			finaflowInfo.cimbList.map(function(item, index) {
 
-					}
-					//入驻协议书
-				if (item.value == '2') {
-					item.component = _this.joinInputRender.bind(this, index);
+				//意向书
+				if (item.contactType == '1') {
+					item.component = _this.adminInputRender.bind(this, item);
+
+				}
+				//入驻协议书
+				if (item.contactType == '2') {
+					item.component = _this.joinInputRender.bind(this, item);
 
 				}
 
 				//增租协议书
-				if (item.value == '3') {
+				if (item.contactType == '3') {
 
-					item.component = _this.increaseInputRender.bind(this, index);
+					item.component = _this.increaseInputRender.bind(this, item);
 				}
 				//续租协议书
-				if (item.value == '4') {
+				if (item.contactType == '4') {
 
-					item.component = _this.renewInputRender.bind(this, index);
+					item.component = _this.renewInputRender.bind(this, item);
 				}
+				//
+				if (item.contactType == '0') {
 
-			})*/
-		return (
+					item.component = _this.receiveInputRender;
+				}
+			})
+			return (
 				<div>
-					11111
+					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
 				</div>
 
 			)
-			//}
+		}
 
 
 	}
 
-	render() {
-
-		const {
-			error,
-			handleSubmit,
-			pristine,
-			reset,
-		} = this.props;
+	//无合同
+	receiveInputRender = () => {
 		let {
-			totalCountMoney,
-			payment,
-			accountList,
-			mainbillInfo,
-			showName,
-			customerId,
-			infoList
+			finaflowInfo
 		} = this.state;
-		return (
-			<div className="u-audit-add">
+		var _this = this;
+
+		return ( < div style = {
+				{
+					marginBottom: -7,
+					width: 650
+				}
+			} > {
+				finaflowInfo.scvList.map(function(item, index) {
+					if (index % 2 == 0) {
+						return <div className='leftBottomValue'><KrField key={index} style={{
+                            marginBottom: 5,
+                            width: 261,
+                            marginLeft: -9
+                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+					} else {
+						return <div className='rightBottomValue'><KrField key={index} style={{
+                            marginBottom: 5,
+                            width: 261
+                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+					}
+				})
+			} < /div>)
+
+		}
+
+
+		render() {
+
+			const {
+				error,
+				handleSubmit,
+				pristine,
+				reset,
+			} = this.props;
+			let {
+				flowAmount,
+				payment,
+				accountList,
+				mainbillInfo,
+				showName,
+				customerId,
+				infoList
+			} = this.state;
+			return (
+				<div className="u-audit-add">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>编辑回款</span>
@@ -343,7 +685,7 @@ class EditMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{totalCountMoney}</span>
+							<span>{flowAmount}</span>
 						</div>
 						{this.renderPayList()}
 						<Grid style={{marginTop:50}}>
@@ -361,35 +703,32 @@ class EditMoney extends Component {
 			</div>
 
 
-		);
+			);
+		}
 	}
-}
-const validate = values => {
+	const validate = values => {
 
-	const errors = {}
+		const errors = {}
+		if (!values.payWay) {
+			errors.payWay = '请选择收款方式';
+		}
+		if (!values.accountId) {
+			errors.accountId = '请选择我司账户';
+		}
+		if (!values.payAccount) {
+			errors.payAccount = '请输入付款账户';
+		}
+		if (!values.dealTime) {
+			errors.dealTime = '请选择收款日期';
+		}
 
-	if (!values.payWay) {
-		errors.payWay = '请选择收款方式';
+
+		return errors
 	}
 
-	if (!values.accountId) {
-		errors.accountId = '请选择我司账户';
-	}
-
-	if (!values.payAccount) {
-		errors.payAccount = '请输入付款账户';
-	}
-	if (!values.dealTime) {
-		errors.dealTime = '请选择收款日期';
-	}
-
-
-	return errors
-}
-
-export default reduxForm({
-	form: 'editMoney',
-	validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
-})(EditMoney);
+	export default reduxForm({
+		form: 'editMoney',
+		validate,
+		enableReinitialize: true,
+		keepDirtyOnReinitialize: true,
+	})(EditMoney);
