@@ -594,91 +594,91 @@ class EditMoney extends Component {
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
-								component="labelText" 
+								component="labelText"
 								label="客户名称"
 								inline={false}
 								value={infoList.company}
-								
+
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								component="labelText" 
+								component="labelText"
 								label="所属订单"
 								inline={false}
 								value={infoList.mainBillName}
-								
+
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								inline={false} 
-								label="订单起止" 
+								inline={false}
+								label="订单起止"
 								value={infoList.mainBillDate}
-								
+
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								component="labelText" 
+								component="labelText"
 								inline={false}
 								label="公司主体"
 								value={infoList.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay" 
-								component="select" 
-								label="收款方式" 
+								name="payWay"
+								component="select"
+								label="收款方式"
 								options={payment}
 								onChange={this.getAccount}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="accountId" 
-								component="select" 
-								label="我司账户" 
+								name="accountId"
+								component="select"
+								label="我司账户"
 								options={accountList}
 								requireLabel={true}
 
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount" 
-								type="text" 
+								name="payAccount"
+								type="text"
 								component="input"
-								label="付款账户" 
+								label="付款账户"
 								options=""
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="dealTime" 
-								component="date" 
-								label="收款日期" 
+								name="dealTime"
+								component="date"
+								label="收款日期"
 								requireLabel={true}
 						/>
-						<KrField  
-								style={{width:548}}  
-								name="remark" 
-								component="textarea" 
-								label="备注" 
+						<KrField
+								style={{width:548}}
+								name="remark"
+								component="textarea"
+								label="备注"
 								maxSize={100}
 						/>
-						<KrField  
-							 	name="contractFileList" 
-							 	component="input" 
-							 	type="hidden" 
+						<KrField
+							 	name="contractFileList"
+							 	component="input"
+							 	type="hidden"
 							 	label="合同附件"
 						/>
-						<KrField  
-							style={{width:548}}  
-							name="uploadFileIds" 
-							component="file" 
-							label="上传附件" 
-							defaultValue={[]} 
+						<KrField
+							style={{width:548}}
+							name="uploadFileIds"
+							component="file"
+							label="上传附件"
+							defaultValue={[]}
 							onChange={(files)=>{
 								Store.dispatch(change('AddMoney','contractFileList',files));
-							}} 
+							}}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
@@ -725,6 +725,8 @@ class EditMoney extends Component {
 
 		return errors
 	}
+
+
 
 	export default reduxForm({
 		form: 'editMoney',

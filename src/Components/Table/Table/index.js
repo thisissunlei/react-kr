@@ -86,7 +86,6 @@ export default class Table extends React.Component {
 
 		this.onSort = this.onSort.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
-		this.onSelect = this.onSelect.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
 		this.onExport = this.onExport.bind(this);
 		this.onCellClick = this.onCellClick.bind(this);
@@ -486,11 +485,12 @@ export default class Table extends React.Component {
 		}
 	}
 
-	onSelect() {
+	onSelect = () =>{
 
 		let {
 			selectedRows,
-			visibilityRows
+			visibilityRows,
+			listData
 		} = this.state;
 
 		var allRowsSelected = true;
@@ -506,11 +506,17 @@ export default class Table extends React.Component {
 		const {
 			onSelect
 		} = this.props;
-		onSelect && onSelect(result);
+
+		var selectedListData = listData.filter(function(item,index){
+					return result.indexOf(index) !== -1;
+		});
+
+		onSelect && onSelect(result,selectedlistData);
 
 		this.setState({
 			allRowsSelected
 		});
+
 	}
 
 	onSelectAll() {
