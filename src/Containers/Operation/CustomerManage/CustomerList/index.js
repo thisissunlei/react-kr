@@ -32,7 +32,8 @@ import {
 	Form,
 	Loading,
 	BreadCrumbs,
-	Title
+	Title,
+	Message
 } from 'kr-ui';
 import './index.less'
 import State from './State';
@@ -178,9 +179,7 @@ class CustomerList extends Component {
 		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
 		
 		const inkBarStyle = {
-			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
-			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
-			background: '-ms-linear-gradient(right, #03ec56, #499df1)',
+			background: '＃499df1',
 			position: 'absolute',
 			top: 0,
 		}

@@ -79,6 +79,7 @@ export default class EditCreate extends Component {
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
+      type :1,
     })).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
@@ -109,7 +110,7 @@ export default class EditCreate extends Component {
         item.label = item.dicName;
         return item;
       });
-
+      // optionValues.contractCode = response.contractCode;
       optionValues.floorList = response.customer.floor;
       optionValues.customerName = response.customer.customerName;
       optionValues.leaseAddress = response.customer.customerAddress;
@@ -141,6 +142,11 @@ export default class EditCreate extends Component {
         if (response.payment) {
           initialValues.paymodel = response.payment.id;
 
+        }
+        if(!response.hasOwnProperty('agreement')  || !!!response.agreement){
+          initialValues.agreement = '无';
+        }else{
+          initialValues.agreement = response.agreement;
         }
         initialValues.stationnum = response.stationnum;
         initialValues.wherefloor = response.wherefloor;

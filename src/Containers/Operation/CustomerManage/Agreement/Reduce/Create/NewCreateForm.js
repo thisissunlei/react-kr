@@ -294,6 +294,12 @@ class NewCreateForm extends Component {
 		form.rentamount = (this.state.allRent).toFixed(2);
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(!form.contractmark){
+			form.contractmark="";
+		}
 		if(form.rentamount == 0){
 			Notify.show([{
 				message: '服务费不能为零',
@@ -408,7 +414,7 @@ class NewCreateForm extends Component {
 						</div>
 
                      </DotTitle>
-                     <div style={{marginTop:'-20px',marginBottom:60}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div style={{marginTop:'0px',marginBottom:60}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
                      </div>
 					</CircleStyle>
@@ -438,15 +444,18 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 				<KrField style={{width:370,marginLeft:90}}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
+				
+				<KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+				{/*<KrField style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
-
+*/}
 				<KrField style={{width:370,marginLeft:90}} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>
 
 				<KrField style={{width:370,marginLeft:70}} name="rentamount" component="labelText" inline={false} type="text" requireLabel={true} label="减租金额" value={allRent} defaultValue="0"
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'减租金额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
 				<KrField  style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
+					<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}}   name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件"  defaultValue={[]} onChange={(files)=>{
@@ -458,7 +467,7 @@ class NewCreateForm extends Component {
 						<Row >
 						<ListGroup>
 							<ListGroupItem style={{width:'465px',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting} width={100} height={40} fontSize={16} /></ListGroupItem>
-							<ListGroupItem style={{width:'465px',textAlign:'left',paddingLeft:15,paddingRight:0}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'465px',textAlign:'left',paddingLeft:15,paddingRight:0}}><Button  label="取消" cancle={true} type="button" onTouchTap={this.onCancel} width={100} height={40} fontSize={16}/></ListGroupItem>
 						</ListGroup>
 						</Row>
 						</Grid>

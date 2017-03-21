@@ -66,13 +66,13 @@ const APIS = {
 
    //创建合同时初始化数据
    'fina-contract-intention': {
-      url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
+      url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}&type={type}',
       method: 'get'
    },
    //根据人员姓名获取人员基本信息
    'getHrmResourceExtListByLastname': {
       url: '/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
-      rap: '/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+      rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
       method: 'get'
    },
 
@@ -841,7 +841,31 @@ const APIS = {
    url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
    method:'post'
  },
-
+ //合同列表-列表接口
+   'contract-list':{
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
+   method:'get'
+   },
+ //合同列表-客户订单下拉接口
+   'orders-names':{
+   url:'/api/krspace-finance-web/customer/orders-names?customerId={customerId}',
+   method:'get'
+   },
+ //合同列表-客户名称下拉接口
+   'customers-names':{
+      url:'/api/krspace-finance-web/customer/my-customers?company={company}',
+      method:'get'
+   },
+ //合同列表-获取合同是否可创建
+   'contracts-creation':{
+      url:'/api/krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
+      method:'get'
+   },
+   //合同列表-获取登录人是否有创建合同的权限
+   'edit-right':{
+      url:'/api/krspace-finance-web/finacontractdetail/contract-list/edit-right',
+      method:'get'
+   },
 
 //运营平台-基础配置-设备定义-设备列表
  'equipmentList': {
@@ -951,7 +975,6 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
    }
-
  }
 
  module.exports = APIS;
