@@ -25,6 +25,7 @@ export default class GroupCheckboxComponent extends React.Component {
       checkedAll: false,
     }
 
+
     this.valuationInputValue()
 
   }

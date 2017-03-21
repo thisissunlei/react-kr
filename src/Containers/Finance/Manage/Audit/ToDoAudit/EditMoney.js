@@ -82,8 +82,10 @@ class EditMoney extends Component {
 			}, {})).then(function(response) {
 				Store.dispatch(initialize('editMoneys', response));
 				_this.setState({
-					infoList: response
+					infoList: response,
+					flowAmount: response.flowAmount
 				})
+
 
 				var form = {
 					"value": response.payWay
@@ -169,14 +171,17 @@ class EditMoney extends Component {
 			name.push(`fix-${item.detailid}-${item.depositId}`);
 			name.push(`fix-${item.detailid}-${item.totalrentId}`);
 			if (item.checked == false) {
-				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
-				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
+				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, ''));
+				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
+				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = '';
+				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = '';
 				_this.getCount(input, name);
 			}
 			if (options[len].checked == false) {
 				finaflowInfo.scvList.map((item, index) => {
 					nameList.push(`no-${item.id}`)
-					Store.dispatch(change('addMoney', `no-${item.id}`, ''));
+					Store.dispatch(change('editMoneys', `no-${item.id}`, ''));
+					_this.receivedBtnFormChangeValues[`no-${item.id}`] = '';
 				})
 				_this.getCount(input, '', nameList);
 			}
@@ -718,7 +723,7 @@ class EditMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{flowAmount>0?flowAmount:infoList.flowAmount}</span>
+							<span>{flowAmount}</span>
 						</div>
 						{this.renderPayList()}
 						<Grid style={{marginTop:50}}>
