@@ -1116,6 +1116,11 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/opt/edit-verify-status',
         method: 'post'
     },
+    //财务--审核--添加回款--保存
+    'save-flow-verify': {
+        url: '/api/krspace-finance-web/finaVerify/opt/save-flow-verify',
+        method: 'post'
+    },
 }
 
 module.exports = APIS;

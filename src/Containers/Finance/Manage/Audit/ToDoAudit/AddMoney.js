@@ -156,7 +156,6 @@ class AddMoney extends Component {
 
 		}
 		for (var item in receivedBtnFormChangeValues) {
-			console.log('receivedBtnFormChangeValues[item]', receivedBtnFormChangeValues[item])
 			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
 				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
 			}
@@ -261,15 +260,14 @@ class AddMoney extends Component {
 			})
 			childrenList.push(obj)
 		})
-
-		var id = this.props.detail.id
-			//flowAmount
+		let {
+			onSubmit
+		} = this.props;
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
 			dealTime: form.dealTime,
-			finaVerifyId: id,
-			mainBillId: form.mainbillId,
+			mainBillId: form.mainBillId,
 			payAccount: form.payAccount,
 			payWay: form.payWay,
 			remark: form.remark,
@@ -278,10 +276,7 @@ class AddMoney extends Component {
 			propJasonStr: noList,
 			flowAmount: this.state.flowAmount
 		}
-		let {
-			onSubmit
-		} = this.props;
-		//onSubmit && onSubmit(params);
+		onSubmit && onSubmit(params);
 	}
 	onCancel = () => {
 		let {
