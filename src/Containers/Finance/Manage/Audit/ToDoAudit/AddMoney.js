@@ -247,7 +247,9 @@ class AddMoney extends Component {
 				"id": item,
 				"value": []
 			}
+
 			fixList.map((items, index) => {
+
 				var arr = items.split('-');
 				if (arr[1] == item) {
 					var obj2 = {
@@ -260,6 +262,14 @@ class AddMoney extends Component {
 			})
 			childrenList.push(obj)
 		})
+		childrenList.map((item, index) => {
+			if (item.id == 0) {
+				childrenList.pop();
+			}
+		})
+		console.log('childrenList---', childrenList)
+		console.log('childrenList---', JSON.stringify(childrenList))
+
 		let {
 			onSubmit
 		} = this.props;
@@ -272,8 +282,8 @@ class AddMoney extends Component {
 			payWay: form.payWay,
 			remark: form.remark,
 			uploadFileIds: form.uploadFileIds,
-			conJasonStr: childrenList,
-			propJasonStr: noList,
+			conJasonStr: JSON.stringify(childrenList),
+			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount
 		}
 		onSubmit && onSubmit(params);

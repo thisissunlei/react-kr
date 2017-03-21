@@ -80,10 +80,11 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
+				Store.dispatch(initialize('editMoneys', response));
 				_this.setState({
 					infoList: response
 				})
-				Store.dispatch(initialize('editMoney', response));
+
 				var form = {
 					"value": response.payWay
 				}
@@ -99,6 +100,11 @@ class EditMoney extends Component {
 		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
 			finaVerifyId: id
 		}, {})).then(function(response) {
+			response.cimbList.map((item, index) => {
+				item.label = item.contactName;
+				item.value = item.detailid;
+				return item;
+			})
 			_this.setState({
 				finaflowInfo: response
 			})
@@ -170,12 +176,10 @@ class EditMoney extends Component {
 			changeValues,
 		} = this.props;
 		input.value = value;
-		console.log('input -----', input)
 		this.getCount(input)
 	}
 
 	getCount = (input, name, nameList) => {
-		console.log('input1111', input)
 		input.value = Math.round((input.value * 100))
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
@@ -196,7 +200,7 @@ class EditMoney extends Component {
 
 		}
 		for (var item in receivedBtnFormChangeValues) {
-			console.log('receivedBtnFormChangeValues[item]', receivedBtnFormChangeValues[item])
+
 			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
 				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
 			}
@@ -481,7 +485,7 @@ class EditMoney extends Component {
 		let {
 			finaflowInfo
 		} = this.state;
-		console.log('finaflowInfo-----', finaflowInfo)
+
 		if (finaflowInfo && !finaflowInfo.cimbList) {
 			return (
 				<div className="u-audit-content-null">
@@ -523,6 +527,7 @@ class EditMoney extends Component {
 					item.component = _this.receiveInputRender;
 				}
 			})
+
 			return (
 				<div>
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
@@ -729,7 +734,7 @@ class EditMoney extends Component {
 
 
 	export default reduxForm({
-		form: 'editMoney',
+		form: 'editMoneys',
 		validate,
 		enableReinitialize: true,
 		keepDirtyOnReinitialize: true,
