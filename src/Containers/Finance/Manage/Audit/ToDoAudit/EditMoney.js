@@ -80,10 +80,11 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
+				Store.dispatch(initialize('editMoneys', response));
 				_this.setState({
 					infoList: response
 				})
-				Store.dispatch(initialize('editMoney', response));
+
 				var form = {
 					"value": response.payWay
 				}
@@ -99,6 +100,21 @@ class EditMoney extends Component {
 		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
 			finaVerifyId: id
 		}, {})).then(function(response) {
+			var obj = {
+				label: "无合同",
+				contactType: '0',
+				value: '0',
+				checked: true
+			}
+			response.cimbList.map((item, index) => {
+				item.checked = true;
+				item.label = item.contactName;
+				item.value = item.detailid;
+				return item;
+			})
+
+
+			response.cimbList.push(obj)
 			_this.setState({
 				finaflowInfo: response
 			})
@@ -170,12 +186,10 @@ class EditMoney extends Component {
 			changeValues,
 		} = this.props;
 		input.value = value;
-		console.log('input -----', input)
 		this.getCount(input)
 	}
 
 	getCount = (input, name, nameList) => {
-		console.log('input1111', input)
 		input.value = Math.round((input.value * 100))
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
@@ -196,7 +210,7 @@ class EditMoney extends Component {
 
 		}
 		for (var item in receivedBtnFormChangeValues) {
-			console.log('receivedBtnFormChangeValues[item]', receivedBtnFormChangeValues[item])
+
 			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
 				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
 			}
@@ -254,7 +268,7 @@ class EditMoney extends Component {
 		})
 
 		var id = this.props.detail.id
-			//flowAmount
+
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
@@ -481,7 +495,7 @@ class EditMoney extends Component {
 		let {
 			finaflowInfo
 		} = this.state;
-		console.log('finaflowInfo-----', finaflowInfo)
+
 		if (finaflowInfo && !finaflowInfo.cimbList) {
 			return (
 				<div className="u-audit-content-null">
@@ -523,6 +537,7 @@ class EditMoney extends Component {
 					item.component = _this.receiveInputRender;
 				}
 			})
+
 			return (
 				<div>
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
@@ -548,17 +563,18 @@ class EditMoney extends Component {
 				}
 			} > {
 				finaflowInfo.scvList.map(function(item, index) {
+
 					if (index % 2 == 0) {
 						return <div className='leftBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" defaultValue={item.propamount} onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					} else {
 						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" defaultValue={item.propamount} onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					}
 				})
 			} < /div>)
@@ -685,7 +701,7 @@ class EditMoney extends Component {
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{flowAmount}</span>
+							<span>{flowAmount>0?flowAmount:infoList.flowAmount}</span>
 						</div>
 						{this.renderPayList()}
 						<Grid style={{marginTop:50}}>
@@ -729,7 +745,7 @@ class EditMoney extends Component {
 
 
 	export default reduxForm({
-		form: 'editMoney',
+		form: 'editMoneys',
 		validate,
 		enableReinitialize: true,
 		keepDirtyOnReinitialize: true,

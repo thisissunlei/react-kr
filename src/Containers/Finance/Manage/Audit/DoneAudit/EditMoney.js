@@ -108,6 +108,17 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
+				var obj = {
+					label: "无合同",
+					contactType: '0',
+					value: '0'
+				}
+				response.cimbList.map((item, index) => {
+					item.label = item.contactName;
+					item.value = item.detailid;
+					return item;
+				})
+				response.cimbList.push(obj)
 				_this.setState({
 					finaflowInfo: response
 				})
@@ -116,14 +127,36 @@ class EditMoney extends Component {
 		}
 		//付款信息
 	getDetailInfo = () => {
-		var id = this.props.detail.id
+			var id = this.props.detail.id
+			var _this = this;
+			Store.dispatch(Actions.callAPI('get-fina-infos', {
+				finaVerifyId: id
+			}, {})).then(function(response) {
+				Store.dispatch(initialize('editMoney', response));
+				_this.setState({
+					infoList: response
+				})
+				var form = {
+					"value": response.payWay
+				}
+				_this.getAccount(form)
+
+			}).catch(function(err) {});
+		}
+		//获取付款方式对应的我司账户
+	getAccount = (form) => {
+		var accountList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-infos', {
-			finaVerifyId: id
+		Store.dispatch(Actions.callAPI('get-account-info', {
+			accountType: form.value
 		}, {})).then(function(response) {
-			Store.dispatch(initialize('editMoney', response));
+			accountList = response.map((item, index) => {
+				item.label = item.accountNum;
+				item.value = item.accountId;
+				return item;
+			})
 			_this.setState({
-				infoList: response
+				accountList: accountList
 			})
 
 		}).catch(function(err) {});
@@ -550,12 +583,12 @@ class EditMoney extends Component {
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					} else {
 						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					}
 				})
 			} < /div>)
@@ -708,7 +741,6 @@ class EditMoney extends Component {
 							<span className="u-add-total-title">付款总金额：</span>
 							<span>{flowAmount>0?flowAmount:infoList.flowAmount}</span>
 						</div>
-						<div className="u-order-title">对应合同</div>
 						{this.renderPayList()}
 					</CircleStyleTwo>
 					<Grid style={{marginTop:30,marginBottom:30}}>

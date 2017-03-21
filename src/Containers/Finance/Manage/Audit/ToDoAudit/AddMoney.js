@@ -91,6 +91,7 @@ class AddMoney extends Component {
 
 
 	}
+
 	argreementChecked = (options) => {
 		var name = [],
 			input = {
@@ -156,7 +157,6 @@ class AddMoney extends Component {
 
 		}
 		for (var item in receivedBtnFormChangeValues) {
-			console.log('receivedBtnFormChangeValues[item]', receivedBtnFormChangeValues[item])
 			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
 				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
 			}
@@ -170,8 +170,18 @@ class AddMoney extends Component {
 
 
 	}
+
+	openCreateMainbill = () => {
+		let {
+			openCreateMainbill
+		} = this.props;
+		openCreateMainbill && openCreateMainbill();
+	}
 	getMainbillInfo = (form) => {
 		var _this = this;
+		if (form.id == 0) {
+			this.openCreateMainbill();
+		}
 		Store.dispatch(Actions.callAPI('get-mainbill-info', {
 			mainBillId: form.value
 		}, {})).then(function(response) {
@@ -248,7 +258,9 @@ class AddMoney extends Component {
 				"id": item,
 				"value": []
 			}
+
 			fixList.map((items, index) => {
+
 				var arr = items.split('-');
 				if (arr[1] == item) {
 					var obj2 = {
@@ -261,27 +273,29 @@ class AddMoney extends Component {
 			})
 			childrenList.push(obj)
 		})
+		childrenList.map((item, index) => {
+			if (item.id == 0) {
+				childrenList.pop();
+			}
+		})
 
-		var id = this.props.detail.id
-			//flowAmount
+		let {
+			onSubmit
+		} = this.props;
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
 			dealTime: form.dealTime,
-			finaVerifyId: id,
-			mainBillId: form.mainbillId,
+			mainBillId: form.mainBillId,
 			payAccount: form.payAccount,
 			payWay: form.payWay,
 			remark: form.remark,
 			uploadFileIds: form.uploadFileIds,
-			conJasonStr: childrenList,
-			propJasonStr: noList,
+			conJasonStr: JSON.stringify(childrenList),
+			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount
 		}
-		let {
-			onSubmit
-		} = this.props;
-		//onSubmit && onSubmit(params);
+		onSubmit && onSubmit(params);
 	}
 	onCancel = () => {
 		let {
