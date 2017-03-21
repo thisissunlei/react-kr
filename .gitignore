@@ -33,7 +33,9 @@ static/components
 
 # Test
 
-dist
+/dist/*
+!dist/vendors
+
 .happypack
 .happypack/*
 

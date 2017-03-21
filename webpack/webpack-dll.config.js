@@ -23,7 +23,7 @@ const configs = {
   },
   output: {
     path: path.resolve(buildPath),
-    filename: 'scripts/lib.js',
+    filename: 'vendors/lib.js',
     library: 'lib',
   },
   plugins: [
@@ -46,7 +46,7 @@ const configs = {
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 
     new webpack.DllPlugin({
-      path: path.resolve(buildPath,'manifest.json'),
+      path: path.join(buildPath,'vendors','manifest.json'),
       name: 'lib',
       context:__dirname
     })
