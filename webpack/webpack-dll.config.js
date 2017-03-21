@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
