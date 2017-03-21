@@ -60,7 +60,7 @@ export default class ToDoAudit extends Component {
       openSearch: false,
       openAddCreate: false,
       openEditCreate: false,
-      openAudit:false,
+      openAudit: false,
       itemDetail: {},
       Params: {
         page: 1,
@@ -71,6 +71,8 @@ export default class ToDoAudit extends Component {
       openCreateMainbill: false,
       CustomerList: {},
       showName: false,
+      openSomeAudit:false,
+      AuditList:[]
     }
 
   }
@@ -78,65 +80,65 @@ export default class ToDoAudit extends Component {
   //操作相关
   onOperation = (type, itemDetail) => {
 
-    this.setState({
-      itemDetail
-    });
+      this.setState({
+        itemDetail
+      });
 
-    if (type == 'view') {
-      this.openView();
-    } else if (type == 'edit') {
-      this.openEditCreate();
-    }else if (type == 'delete') {
-      this.delAudit(itemDetail);
-    }else if (type == 'audit') {
-      this.openAudit();
+      if (type == 'view') {
+        this.openView();
+      } else if (type == 'edit') {
+        this.openEditCreate();
+      } else if (type == 'delete') {
+        this.delAudit(itemDetail);
+      } else if (type == 'audit') {
+        this.openAudit();
+      }
     }
-  }
-  //打开查看回款
+    //打开查看回款
   openView = () => {
     this.setState({
       openView: !this.state.openView
     })
   }
   openEditCreate = () => {
-    this.setState({
-      openEditCreate: !this.state.openEditCreate
-    })
-  }
-  //审核
-  openAudit = () =>{
-    this.setState({
-      openAudit:!this.state.openAudit
-    })
-  }
-  //删除此条数据
+      this.setState({
+        openEditCreate: !this.state.openEditCreate
+      })
+    }
+    //审核
+  openAudit = () => {
+      this.setState({
+        openAudit: !this.state.openAudit
+      })
+    }
+    //删除此条数据
   delAudit = (itemDetail) => {
     this.setState({
       itemDetail
     });
     this.setState({
-      delAudit:!this.state.delAudit
+      delAudit: !this.state.delAudit
     })
   }
   sureToDel = (itemDetail) => {
-    var _this=this;
+    var _this = this;
     //console.log(itemDetail);
     Store.dispatch(Actions.callAPI('del-fina-record', {}, {
       finaVerifyId: this.state.itemDetail.id
     })).then(function(response) {
-        Message.success("删除成功");
-        _this.setState({
-          delAudit:false,
-        },function(){
-          window.setTimeout(function() {
-              window.location.reload();
-          }, 0);
-        });
+      Message.success("删除成功");
+      _this.setState({
+        delAudit: false,
+      }, function() {
+        window.setTimeout(function() {
+          window.location.reload();
+        }, 0);
+      });
     }).catch(function(err) {
-        Message.error(err.message);
-        _this.setState({
-          delAudit:false,
-        });
+      Message.error(err.message);
+      _this.setState({
+        delAudit: false,
+      });
     });
   }
   onSubmitMainbill = (form) => {
@@ -175,8 +177,15 @@ export default class ToDoAudit extends Component {
   }
   componentDidMount() {}
     //导出
-  onExport = () => {
-
+  onExport = (values) => {
+    let idList = [];
+    if (values.length != 0) {
+      values.map((item, index) => {
+        idList.push(item.id)
+      });
+    }
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`
+    window.location.href = url;
   }
   searchParams = (form) => {
     this.setState({
@@ -203,11 +212,57 @@ export default class ToDoAudit extends Component {
     }
     //打开添加回款
   openAddCreate = () => {
+      this.setState({
+        openAddCreate: !this.state.openAddCreate
+      })
+    }
+    //添加回款保存
+  AddOnSubmit = (form) => {
+    var _this = this;
+    console.log('form----', form)
+    if (form.mainBillId != "") {
+      Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
+        Message.success('新建成功');
+        _this.openAddCreate();
+        window.location.reload();
+      }).catch(function(err) {
+        Message.error(err.message);
+      });
+    }
+
+
+  }
+  //打开批量审核
+  openSomeAudit = ()=>{
     this.setState({
-      openAddCreate: !this.state.openAddCreate
+      openSomeAudit: !this.state.openSomeAudit
     })
   }
-
+  onSelect = (values,list)=>{
+    let {AuditList} = this.state;
+    var n = 0;
+    if (list.length != 0) {
+			list.map((item, value) => {
+				AuditList.push(item.id)
+        n++;
+			});
+		}
+    this.AuditNum = n;
+    console.log(this.AuditNum);
+  }
+  //批量审核
+  AuditSome = ()=>{
+    Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
+      finaVerifyIds:this.state.AuditList,
+    })).then(function(response) {
+      Message.success("审核成功");
+      window.setTimeout(function() {
+          window.location.reload();
+      }, 0);
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
+  }
   render() {
     let {
       CustomerList,
@@ -221,6 +276,7 @@ export default class ToDoAudit extends Component {
                           onSubmit={this.searchParams}
                           openSearch={this.openSearch}
                           openAdd={this.openAddCreate}
+                          openSomeAudit={this.openSomeAudit}
                   />
             </div>
             <Table
@@ -230,6 +286,7 @@ export default class ToDoAudit extends Component {
                   ajaxParams={this.state.Params}
                   onOperation={this.onOperation}
                   onExport={this.onExport}
+                  onSelect={this.onSelect}
                   exportSwitch={true}
               >
               <TableHeader>
@@ -367,7 +424,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  showName={this.state.showName} onSubmit="" onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney  showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
               modal={true}
@@ -440,7 +497,25 @@ export default class ToDoAudit extends Component {
               <GoAudit  detail={itemDetail} onSubmit="" onCancel={this.openAudit} />
             </Dialog>
 
+            <Dialog
+              title="批量审核"
+              modal={true}
+              contentStyle ={{ width: '444',overflow:'visible'}}
+              open={this.state.openSomeAudit}
+              onClose={this.openSomeAudit}
+            >
+            <div className='list-delete'>
+              <p className='sureIncome'>确认要批量审核所选择的{this.AuditNum}条数据嘛？审核后数据无法进行修改！</p>
 
+
+                <div style={{paddingLeft:'100px'}}>
+                      <div  className='ui-btn-center'><Button  label="确定" onClick={this.AuditSome}/></div>
+                      <Button  label="取消" type="button" cancle={true} onTouchTap={this.openSomeAudit} />
+
+                         </div>
+
+            </div>
+            </Dialog>
       </div>
 
     );

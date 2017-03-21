@@ -27,6 +27,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchForms,
+  Message,
 	ButtonGroup,
 	CircleStyleTwo,
 	KrDate
@@ -52,16 +53,17 @@ class GoAudit extends Component {
 	}
 
   onSubmit = (form) => {
-    console.log(123);
     form.type = this.type;
-    console.log("123123",form.type);
-  //   Store.dispatch(Actions.callAPI('edit-verify-status', {}, {
-  //   finaVerifyId:this.props.detail.id,
-  //   operateRemark:form.operateRemark,
-  //   type:form.type
-  // })).then(function(response) {
-  //
-  // }).catch(function(err) {});
+    Store.dispatch(Actions.callAPI('edit-verify-status', {}, {
+    finaVerifyId:this.props.detail.id,
+    operateRemark:form.operateRemark,
+    type:form.type
+    })).then(function(response) {
+      Message.success("操作成功");
+      window.setTimeout(function() {
+          window.location.reload();
+      }, 0);
+    }).catch(function(err) {});
   }
 
 	onCancel = () => {
@@ -72,12 +74,9 @@ class GoAudit extends Component {
 	}
   retreat = ()=>{
     this.type = 0;
-    this.refs.auditForm.submit();
-    console.log(this.type);
   }
   audit = ()=>{
     this.type = 1;
-    this.refs.auditForm.submit();
   }
 	render() {
     const {
@@ -86,7 +85,7 @@ class GoAudit extends Component {
 
 		return (
       <div className='list-audit'>
-          <form onSubmit={handleSubmit(this.onSubmit)} ref="auditForm">
+          <form onSubmit={handleSubmit(this.onSubmit)}>
                 <KrField
                     style={{width:545}}
                     name="operateRemark"
@@ -94,15 +93,9 @@ class GoAudit extends Component {
                     label="备注"
                     maxSize={100}
                 />
-                <KrField
-                  style={{width:548}}
-                  name="uploadFileIds"
-                  component="file"
-                  label="上传附件"
-                />
               <div style={{textAlign:'center'}}>
-                <div  className='ui-btn-center'><Button  label="同意" onClick={this.audit}/></div>
-                <div  className='ui-btn-center'><Button  label="退回" backgroundColor='#ff6868' onClick={this.retreat}/></div>
+                <div  className='ui-btn-center'><Button  label="同意" type="submit" onClick={this.audit}/></div>
+                <div  className='ui-btn-center'><Button  label="退回" type="submit" backgroundColor='#ff6868' onClick={this.retreat}/></div>
                 <div  className='ui-btn-center'><Button  label="取消" type="button" cancle={true}  /></div>
             </div>
           </form>

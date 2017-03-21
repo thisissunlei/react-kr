@@ -70,8 +70,15 @@ export default class DoAudit extends Component {
 
   componentDidMount() {}
     //导出
-  onExport = () => {
-
+  onExport = (values) => {
+    let idList = [];
+    if (values.length != 0) {
+      values.map((item, index) => {
+        idList.push(item.id)
+      });
+    }
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`
+    window.location.href = url;
   }
 
   //操作相关
