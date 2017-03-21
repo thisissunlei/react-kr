@@ -78,6 +78,8 @@ class ZhangQu extends Component {
 			       	<h1>sdfsdf</h1>
 
 			       <KrField component="file" />	
+
+			       <input type='file' />
 			   </form>
 
                

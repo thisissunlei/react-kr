@@ -76,7 +76,6 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {  
-  var labelSelect='';
   if(!fields.length){
      fields.push({type:'BRIGHTPOINTS'})
    }
