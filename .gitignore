@@ -6,7 +6,6 @@ lib-cov
 *.out
 *.pid
 *.gz
-build
 
 pids
 logs
@@ -21,22 +20,15 @@ npm-debug.log.*
 
 static/components
 
-# misc / editors
-*~
-*#
-
-.DS_STORE
+*.DS_STORE
 *.DS_STORE
 
-.DS_Store
+*.DS_Store
 *.DS_Store
 
-# Test
-
 /dist/*
-!dist/vendors
+!/dist/vendors
 
-.happypack
-.happypack/*
+/.happypack
 
 material-demo
