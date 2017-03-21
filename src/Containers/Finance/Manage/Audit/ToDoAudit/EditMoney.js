@@ -103,13 +103,17 @@ class EditMoney extends Component {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
-				value: '0'
+				value: '0',
+				checked: true
 			}
 			response.cimbList.map((item, index) => {
+				item.checked = true;
 				item.label = item.contactName;
 				item.value = item.detailid;
 				return item;
 			})
+
+
 			response.cimbList.push(obj)
 			_this.setState({
 				finaflowInfo: response
@@ -559,6 +563,7 @@ class EditMoney extends Component {
 				}
 			} > {
 				finaflowInfo.scvList.map(function(item, index) {
+
 					if (index % 2 == 0) {
 						return <div className='leftBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
