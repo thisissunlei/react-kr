@@ -314,8 +314,8 @@ export default class UploadImageListComponent extends Component {
 					})
 				}
 
-				<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-					<div className='ui-uploadimg-inner' >
+				<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg} style={this.props.innerBoxStyle}>
+					<div className='ui-uploadimg-inner' style={this.props.innerStyle}>
 						<span className='ui-uploadimg-button'>+</span>
 						<input type='file' onChange={this.updateImage} ref="inputImg"/>
 						<span className='ui-uploadimg-tip'>上传图片</span>

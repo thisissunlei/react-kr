@@ -22,11 +22,11 @@ import './index.less';
 import State from '../State';
 
 
-const renderField = ({ input, label, type, meta: { touched, error }}) => (
+const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type={type} placeholder={label}/>
+      <input {...input} type={type} placeholder={label||placeholder}/>
       {touched && error && <span>{error}</span>}
     </div>
   </div>
@@ -95,9 +95,10 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
           name={`${brightsStr}.brightPoints`}
           type="text"
           component={renderField}
-          label='社区亮点'
+          label={index?'':'社区亮点'}
+          placeholder='社区亮点'
           />
-        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={{marginTop:32}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -129,10 +130,10 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
           heightStyle={{height:"78px",width:'508px'}} 
           component="textarea" 
           maxSize={100} 
-          label='基础服务'
+          label={index?'':'基础服务'}
           placeholder='请输入基础服务' 
           />
-        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={{marginTop:45}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -164,10 +165,10 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
           heightStyle={{height:"78px",width:'508px'}} 
           component="textarea" 
           maxSize={100} 
-          label='特色服务'
+          label={index?'':'特色服务'}
           placeholder='请输入特色服务' 
           />
-         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={{marginTop:45}}></span>       
+         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -198,10 +199,10 @@ const renderService = ({ fields, meta: { touched, error }}) => {
            heightStyle={{height:"78px",width:'508px'}} 
            component="textarea" 
            maxSize={100} 
-           label='基础设施'
+           label={index?'':'基础设施'}
            placeholder='请输入基础设施' 
           />
-        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={{marginTop:45}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>       
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -529,6 +530,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                     component="uploadImageList" 
                     style={{marginTop:10,textAlign:'left'}}
                     imgFlag={false} 
+                    innerBoxStyle={{width:254,height:70}}
+                    innerStyle={{left:110,top:12}}
                    />
                </div>
 
