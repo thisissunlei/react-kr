@@ -1,10 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React from 'react';
 import {
 	toJS
 } from 'mobx';
 import {DateFormat} from 'kr/Utils';
-import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
+import {reduxForm,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer
@@ -15,14 +14,12 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message,
-	ListGroup,
-	ListGroupItem
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
+
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
@@ -254,7 +251,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
 @observer
- class EditCommunityList extends Component{
+ class EditCommunityList extends React.Component{
 
 	static PropTypes = {
 
@@ -285,7 +282,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      }
      
      var flag=false;
-     var opened=values.opened;
      var porTypes=values.porTypes;
      porTypes.map((item,index)=>{
        if(porTypes.indexOf(item.type)!=index){
@@ -308,7 +304,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   //社区名称
    communityNameChange=(value)=>{
      let {communityId}=this.state;
-     if(value==''){
+     if(!value){
        this.setState({
        communityName:'无'
      })
@@ -580,7 +576,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							</div>
 
 
-							{openUp&&<div>
+							<div style={{display:openUp?'block':'none'}}>
 								<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 								<div className="small-cheek" style={{paddingBottom:0}}>
 									<KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
@@ -628,13 +624,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												defaultValue={photoD}
                         imgFlag={false}  
                         innerBoxStyle={{width:254,height:70}}
-                         innerStyle={{left:110,top:12}}
+                        innerStyle={{left:110,top:12}}
 												/>
 										</div>
 
 									</div>
 									<div className="end-round"></div>
-								</div>}
+								</div>
 
 
 							</div>
@@ -658,20 +654,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			const errors = {};
 			let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 			let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
-			let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-			let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
 			let stationN = /^([1-9][0-9]{0,2})$/;
-			let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
       let stationNP=/^([0-9][0-9]{0,4})$/;    
-
 			//正整数
 			let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
-
 			//非负整数
 			let noMinus=/^(0|[1-9]\d*)$/;
-
 			//整数
-       let zeroNum=/^-?\d+$/;　 
+      let zeroNum=/^-?\d+$/;　 
 
 
 			//楼层检验
