@@ -47,10 +47,10 @@ const config = {
   		}),
 		new webpack.DllReferencePlugin({
 						 context:__dirname,
-						 manifest:require(path.resolve(buildPath,'manifest.json')),
+						 manifest:require(path.join(buildPath,'vendors','manifest.json')),
 						 name:'lib'
 		}),
-	
+
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
