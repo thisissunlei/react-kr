@@ -71,7 +71,7 @@ export default class DoneAudit extends Component {
           idList.push(item.id)
         });
       }
-      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}`
+      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
       window.location.href = url;
     }
     //操作相关
