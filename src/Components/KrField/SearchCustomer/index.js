@@ -37,10 +37,11 @@ export default class SearchCustomer extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+
 		/*if (nextProps.showName == this.props.showName) {
 			this.selectCustomer.loadOptions();
-		}
-		*/
+		}*/
+
 	}
 
 	onInputChange = () => {

@@ -46,7 +46,6 @@ export default class SearchMainbill extends React.Component {
 			customerId: nextProps.customerId
 		}, function() {
 			_this.select.loadOptions()
-
 		})
 	}
 	onInputChange = () => {

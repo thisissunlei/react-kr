@@ -8,7 +8,8 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	change
 } from 'redux-form';
 import {
 	Actions,
@@ -86,10 +87,31 @@ class NewCreateMainbill extends Component {
 	}
 	mainBillType = (item) => {
 		let {
-			billOInfo
+			billOInfo,
+			detail,
+			customerId
 		} = this.props;
-		console.log('item----', item)
-		console.log('billOInfo----', billOInfo)
+		var form;
+		if (billOInfo == 0) {
+			console.log('customerId', customerId)
+			if (customerId > 0) {
+				Store.dispatch(Actions.callAPI('get-mainbill-id', {
+					customerId: customerId,
+					mainBillTypeName: item.label,
+				}, {})).then(function(response) {
+					Store.dispatch(change('newCreateMainbill', "mainbillname", response));
+				}).catch(function(err) {});
+			}
+		} else {
+
+			Store.dispatch(Actions.callAPI('getMainbillName', {
+				company: detail.company,
+				mainBillTypeName: item.label,
+			}, {})).then(function(response) {
+				Store.dispatch(change('newCreateMainbill', "mainbillname", response));
+			}).catch(function(err) {});
+
+		}
 
 	}
 

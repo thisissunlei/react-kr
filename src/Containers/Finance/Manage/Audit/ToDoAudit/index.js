@@ -174,6 +174,7 @@ export default class ToDoAudit extends Component {
     }
     //新建订单
   onMainBillSubmit = (form) => {
+    form.company = '';
     form.customerId = this.state.customerId;
     var _this = this;
     Store.dispatch(Actions.callAPI('save-main-bill', {}, form)).then(function(response) {
@@ -186,11 +187,11 @@ export default class ToDoAudit extends Component {
         label: response.company,
         value: response.customerId
       }
+
       var mainBill = {
         label: response.mainBillName,
         value: response.mainBillId
       }
-      Store.dispatch(change('addMoney', "customerId", customerList));
       Store.dispatch(change('addMoney', "mainBillId", mainBill));
     }).catch(function(err) {
       Message.error(err.message);
@@ -344,7 +345,8 @@ export default class ToDoAudit extends Component {
     let {
       CustomerList,
       itemDetail,
-      billOInfo
+      billOInfo,
+      customerId
     } = this.state;
     return (
 
@@ -547,6 +549,8 @@ export default class ToDoAudit extends Component {
                       onCancel={this.openCreateMainbill}
                       onSubmit={this.onSubmitMainbill}
                       onMainBillSubmit={this.onMainBillSubmit}
+                      customerId={customerId}
+                     
               />
             </Dialog>
             <Dialog
