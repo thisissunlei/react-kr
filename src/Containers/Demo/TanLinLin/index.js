@@ -1,20 +1,20 @@
-
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component
+} from 'react';
 import {
-	KrField,
-	Grid,
-	Row,
-	Col,
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
+
+import {
+	Section,
+	PlanMap,
+	Dialog,
 	Button,
-
 	Editor
-
 } from 'kr-ui';
-import './index.less';
-
 
 export default class TAnLinLin extends Component {
 
@@ -24,56 +24,35 @@ export default class TAnLinLin extends Component {
 		this.state = {
 			open:true,
 			checkedStations:[],
-
 		}
-	}
-	componentWillMount() {
+
 	}
 
-	render(){
-		// 对应功能选项
-		let correspondingFunction =[{
-			label: '开门',
-			value: 1
-		},{
-			label: '开门／预定',
-			value: 2
-		},{
-			label: '预定',
-			value: 3
-		}];
-		let partakeMan =[{
-			label: '开门',
-			value: 1
-		},{
-			label: '开门／预定',
-			value: 2
-		},{
-			label: '预定',
-			value: 3
-		}]
+	close = ()=>{
+		this.setState({
+			open:!this.state.open
+		})
+	}
+
+	confirm = ()=>{
+		this.close();
+		console.log('resule:',this.state.checkedStations);
+	}
+
+	onCheckedStation =(clickStation,checkedStations)=>{
+		this.setState({
+			checkedStations
+		});
+	}
+
+	componentDidMount() {}
+
+	render() {
 		return (
-
 			<div>
 				<Editor toolbars={[['fullscreen', 'source', 'undo', 'redo', 'bold']]}/>
 			</div>
 
-
 		);
 	}
 }
-const validate = values => {
-	const errors = {}
-	
-	// if (!values.email) {
-	// 	errors.email = '请输入邮箱';
-	// }
-
-
-	return errors
-}
-const selector = formValueSelector('NewCreateForm');
-export default NewCreateForm = reduxForm({
-	form: 'NewCreateForm',
-	validate,
-})(NewCreateForm);
