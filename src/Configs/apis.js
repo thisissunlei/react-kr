@@ -978,31 +978,31 @@ const APIS = {
 
    // 门禁授权列表
    'impowerList':{
-      url: 'api/krspace-op-web/permission/door-customer-list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-op-web/permission/door-customer-list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
 
    // 新增／编辑门禁授权
    'newCreateOrEditImpower':{
-      url: 'api/krspace-op-web/permission/door-customer',
+      url: '/api/krspace-op-web/permission/door-customer',
       method: 'post'
    },
 
    // 删除客户门禁授权
    'doorCustomerDelete':{
-      url: 'api/krspace-op-web/permission/door-customer-delete?id={id}',
+      url: '/api/krspace-op-web/permission/door-customer-delete?id={id}',
       method: 'get'
    },
 
    // 授权该客户在指定社区下的设备列表
    'doorCustomerDevice':{
-      url: 'api/krspace-op-web/permission/door-customer-device?id={id}&communityId={communityId}',
+      url: '/api/krspace-op-web/permission/door-customer-device?id={id}&communityId={communityId}',
       method: 'get'
    },
 
    // 授权为客户授权
    'doorCustomerGrant':{
-      url: 'api/krspace-op-web/permission/door-customer-grant',
+      url: '/api/krspace-op-web/permission/door-customer-grant',
       method: 'post'
    },
 
