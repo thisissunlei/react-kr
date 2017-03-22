@@ -3,7 +3,7 @@ import {
 	toJS
 } from 'mobx';
 import {DateFormat} from 'kr/Utils';
-import {reduxForm,initialize,change,FieldArray} from 'redux-form';
+import {reduxForm,initialize,change,FieldArray,arrayPush} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer
@@ -254,7 +254,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             photoD:[],
             communityId:''
 		}
+    
 	}
+ 
 	onSubmit = (values) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
@@ -447,10 +449,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							Store.dispatch(change('editCommunityList','brightRound.brightPoints',item.brightPoints));
 						}
 					})
-					Store.dispatch(change('editCommunityList','bright_bright',bright_bright));
-					Store.dispatch(change('editCommunityList','bright_special',bright_special));
-					Store.dispatch(change('editCommunityList','bright_service',bright_service));
-					Store.dispatch(change('editCommunityList','bright_basic',bright_basic));
+
+          Store.dispatch(change('editCommunityList','porTypes',response.porTypes.length?response.porTypes:[{}]));
+					Store.dispatch(change('editCommunityList','bright_bright',bright_bright.length?bright_bright:[{type:'BRIGHTPOINTS'}]));
+					Store.dispatch(change('editCommunityList','bright_special',bright_special.length?bright_special:[{type:'SPECIALSERVICE'}]));
+					Store.dispatch(change('editCommunityList','bright_service',bright_service.length?bright_service:[{type:'INFRASTRUCTURE'}]));
+					Store.dispatch(change('editCommunityList','bright_basic',bright_basic.length?bright_basic:[{type:'BASICSERVICE'}]));
 
 					if(response.opened==true){
 						Store.dispatch(change('editCommunityList','opened','1'));

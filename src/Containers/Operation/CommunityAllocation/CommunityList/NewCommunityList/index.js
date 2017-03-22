@@ -254,15 +254,17 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       communityName:'',
       codeName:''
 		}
-
-		Store.dispatch(arrayPush('NewCommunityList','wherefloors',[{}]));
-		Store.dispatch(arrayPush('NewCommunityList','bright_bright',[{type:'BRIGHTPOINTS'}]));
-		Store.dispatch(arrayPush('NewCommunityList','porTypes',[{}]));
-		Store.dispatch(arrayPush('NewCommunityList','bright_basic',[{type:'BASICSERVICE'}]));
-		Store.dispatch(arrayPush('NewCommunityList','bright_service',[{type:'INFRASTRUCTURE'}]));
-		Store.dispatch(arrayPush('NewCommunityList','bright_special',[{type:'SPECIALSERVICE'}]));  
-
 	}
+  componentDidMount(){
+      State.searchDataHere();
+      Store.dispatch(change('NewCommunityList','portalShow','0'))
+      Store.dispatch(change('NewCommunityList','wherefloors',[{}]));
+      Store.dispatch(change('NewCommunityList','bright_bright',[{type:'BRIGHTPOINTS'}]));
+      Store.dispatch(change('NewCommunityList','porTypes',[{}]));
+      Store.dispatch(change('NewCommunityList','bright_basic',[{type:'BASICSERVICE'}]));
+      Store.dispatch(change('NewCommunityList','bright_service',[{type:'INFRASTRUCTURE'}]));
+      Store.dispatch(change('NewCommunityList','bright_special',[{type:'SPECIALSERVICE'}]));
+  }
 
 	onSubmit = (values) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
@@ -382,11 +384,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
 
-	componentDidMount(){
-      State.searchDataHere();
-      Store.dispatch(change('NewCommunityList','portalShow','0'))
-	}
-
+	
 	componentWillReceiveProps(nextProps) {
 	}
 
