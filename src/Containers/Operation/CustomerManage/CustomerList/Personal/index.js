@@ -55,6 +55,13 @@ import cityData from "../../../../../Components/KrField/CityComponent/State";
 @observer
 class Personal extends Component{
 
+	static childContextTypes = {
+	  deleteIndent: React.PropTypes.func
+	};
+	getChildContext() {
+	    return {deleteIndent:this.deleteIndent};
+	}
+
 	constructor(props,context){
 		super(props, context);
 		this.state={		
@@ -67,7 +74,9 @@ class Personal extends Component{
 		}
 	}
 
-
+	deleteIndent = (id) =>{
+		State.deleteId=id;
+	}
 	//新建页面的开关
 	switchNewMerchants=()=>{
 		var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];

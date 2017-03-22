@@ -45,14 +45,16 @@ function getUrl(path, params = {},mode = false) {
     if(url.indexOf('mockjsdata') !==-1){
     	server='';
     }
-
+    if(url.indexOf('http') !== -1){
+     server='';
+    }
     try {
         server += APIS[path].url;
     } catch(err) {
         console.error(`${path} not defined in apis.js`);
         return false;
     }
-    
+
 
 
 
@@ -100,6 +102,7 @@ function getMethod(path) {
 function check401(res) {
     if (res.code ===-4011) {
 		window.location.href = '/';
+
     }
     return res;
 }

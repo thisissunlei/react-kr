@@ -12,7 +12,7 @@ import {
 	Message,
 } from 'kr-ui';
 import {
-	
+
 	AppointmentVisit,
 	TransferCustomer,
 
@@ -26,7 +26,7 @@ class LookCustomerList extends Component{
 		super(props, context);
 		let _this=this;
 		this.state={
-			
+
 				//催款提醒 权限
 				ARREARS_ALERT:false,
 				//客户到期权限
@@ -46,6 +46,12 @@ class LookCustomerList extends Component{
 				//客户id
 		}
 
+		this.tabNum();
+
+	}
+	//tab数字刷新
+	tabNum = () => {
+		let _this=this;
 
 		Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
 			_this.setState({
@@ -64,9 +70,7 @@ class LookCustomerList extends Component{
 			}
 			Message.error(err.message)
 		});
-
 	}
-
 
 
 	onSubmit = (values) => {
@@ -82,7 +86,7 @@ class LookCustomerList extends Component{
 		const {customerClick} = this.props;
 		customerClick && customerClick(data);
 	}
-	
+
 	//tab title 的权限
 	tabContent = () => {
 		let {
@@ -90,20 +94,24 @@ class LookCustomerList extends Component{
 			CUSTOMER_DUE,
 			CUSTOMER_TRANSFER,
 			ORDER_VISIT,
-		}=this.state; 
+		}=this.state;
 		let showTab=[];
 		let hideTab=[];
 
 		if(!CUSTOMER_TRANSFER){
 			hideTab.push(
 				<Tab label="r" >
-						
+
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="客户转移" >
-						<TransferCustomer customerClick={this.customerClick} />
+						<TransferCustomer
+							customerClick = {this.customerClick}
+							tabNum = {this.tabNum}
+							renovateRedDrop = {this.renovateRedDrop}
+						/>
 				</Tab>
 			)
 		}
@@ -112,13 +120,16 @@ class LookCustomerList extends Component{
 		if(!ORDER_VISIT){
 			hideTab.push(
 				<Tab label="r" >
-						
+
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="预约参观" >
-						<AppointmentVisit />
+						<AppointmentVisit
+								tabNum = {this.tabNum}
+								renovateRedDrop = {this.renovateRedDrop}
+						/>
 				</Tab>
 			)
 		}
@@ -128,53 +139,57 @@ class LookCustomerList extends Component{
 		if(!ARREARS_ALERT){
 			hideTab.push(
 				<Tab label="r" >
-						
+
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="催款提醒" >
-						<TransferCustomer />
+						
 				</Tab>
 			)
 		}
 
 
-		if(!CUSTOMER_TRANSFER){
+		if(!CUSTOMER_DUE){
 			hideTab.push(
 				<Tab label="r" >
-						
+
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="客户到期" >
-						<TransferCustomer />
+						
 				</Tab>
 			)
 		}
 		hideTab.push(
 				<Tab label="r" >
-						
+
 				</Tab>
 		)
 		hideTab.push(
 				<Tab label="r" >
-						
+
 				</Tab>
 		)
 
 		return [showTab,hideTab];
 	}
+	renovateRedDrop = () =>{
+		let {renovateRedDrop} = this.props;
+		renovateRedDrop && renovateRedDrop();
+	}
 
 
 	render(){
 		let noWidth=4*108.33;
-		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM}=this.state;     
+		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM}=this.state;
 		let tabContent=this.tabContent();
 		let moveHintClass="m-lookCustomerList-num";
 		let advanceClass="m-appointment-num";
-		
+
 
 
 		if(CUSTOMER_TRANSFER_NUM > 9 && CUSTOMER_TRANSFER_NUM < 100){
@@ -206,28 +221,28 @@ class LookCustomerList extends Component{
 			 		inkBarStyle={{background:"#499df1",top:0}}
 			 		initialSelectedIndex={-1}
 			 		tabTemplateStyle={{color:"#333"}}
-			 		 
+
 				>
-					
+
 					{tabContent}
-						
-					
+
+
 				</Tabs>
 			    <div className="no-table-click" style={{width:tabContent[1].length*108.33}}></div>
-				{CUSTOMER_TRANSFER_NUM != 0 && 
+				{!!CUSTOMER_TRANSFER_NUM &&
 					<div className = {moveHintClass}>
 						{CUSTOMER_TRANSFER_NUM > 99 ? 99 : CUSTOMER_TRANSFER_NUM}<label>+</label>
 					</div>
 				}
-				{ORDER_VISIT_NUM!=0 && 
+				{!!ORDER_VISIT_NUM &&
 					<div className={advanceClass}>
 						{ORDER_VISIT_NUM > 99 ? 99 : ORDER_VISIT_NUM}<label>+</label>
 					</div>
 				}
-				
-				
+
+
 		    </div>
-				
+
 
 		);
 	}

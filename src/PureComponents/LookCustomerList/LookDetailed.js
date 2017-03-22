@@ -54,7 +54,7 @@ class LookDetail extends Component{
 		onCancel && onCancel();
 	}
 	isDevelopClick = () =>{
-	
+
 		State.recordDevelopChange();
 	}
 
@@ -74,7 +74,7 @@ class LookDetail extends Component{
 		}
 		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
-	
+
 	visitRecordList = () =>{
 		if(!State.detail.records){
 			return;
@@ -87,8 +87,8 @@ class LookDetail extends Component{
 		if(State.recordDevelop&&records.length>State.visitLen){
 			len=State.visitLen;
 		}
-		
-		
+
+
 
 		for(let i=0;i<len;i++){
 
@@ -109,10 +109,10 @@ class LookDetail extends Component{
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitDetail}</span>{this.everyTd(everyTr.visitDetail)}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{text}</span></div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.reasonName}</span>{this.everyTd(everyTr.reasonName)}</div>);
-			
-			tr.push(<div className="tr-content">{tds}</div>);	
+
+			tr.push(<div className="tr-content">{tds}</div>);
 		}
-		
+
 			return (
 				<div className="tableDiv">
 						<div className="tr-title">
@@ -126,11 +126,11 @@ class LookDetail extends Component{
 							<span>原因</span>
 						</div>
 						{tr}
-						
+
 					</div>)
 	}
 
-	
+
 	render(){
 
 		let evenStyle={width:'280px',marginLeft:-10}
@@ -139,7 +139,7 @@ class LookDetail extends Component{
 		let uniStyle={};
 		let detail=State.detail;
 		let isDeadline=false;
-		let {editsSwitch,IndentSwitch}=this.props;
+		let {editsSwitch,IndentSwitch,comeFrom}=this.props;
 		let recordDevelop=State.recordDevelop;
 		let hasOffice=detail.hasOffice;
 		let hasOffice1='';
@@ -153,7 +153,7 @@ class LookDetail extends Component{
 			isDeadline=false;
 		}
 
-        
+
 
 		if(detail.stationNum=='0'){
 			detail.stationNum='0'
@@ -168,7 +168,7 @@ class LookDetail extends Component{
 			detail.amount='0'
 		}
 
-			
+
 		if(isDeadline){
           unifyStyle=oddStyle;
           uniStyle=evenStyle;
@@ -176,15 +176,15 @@ class LookDetail extends Component{
           unifyStyle=evenStyle;
           uniStyle=oddStyle;
 		}
-			
-		
-		
-		
+
+
+
+
 
 		let tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
 		return(
 	      <div className="m-LookDetailed" style={{marginTop:8}}>
-		    
+
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={oddStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={evenStyle} component="labelText" value={(!detail.stationNum)?'':detail.stationNum+"个"} inline={true}/></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={oddStyle} component="labelText" value={detail.name} inline={true} /></li>
@@ -214,23 +214,23 @@ class LookDetail extends Component{
 				<li className="everyText" style={{width:660,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px",color:'#666'}}>{detail.remark}</p>
 				</li>
-				{detail.showEdit && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
+				{detail.showEdit && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord">
-						
-						
+
+
 			           {this.visitRecordList()}
 			           <div className="isDevelop" onClick={this.isDevelopClick}>
 			           		{State.isDevelop&&<span className="recordDevelop" >展开</span>}
 			           		{!State.isDevelop&&<span className="recordClose" >收起</span>}
 			           </div>
 
-						
+
 				</div>
-					
-				<div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
-				
-			
+
+				{comeFrom != "message" && <div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>}
+
+
 	      </div>
 
 		);

@@ -14,10 +14,9 @@ import {
 	Dialog,
 	Button,
 } from 'kr-ui';
-import Child from "./Child.js";
 
 export default class New extends Component {
-	static childContextTypes = {
+	static contextTypes = {
 	  color: React.PropTypes.string,
 	  fun: React.PropTypes.func
 	};
@@ -31,12 +30,6 @@ export default class New extends Component {
 		}
 
 	}
-	getChildContext() {
-	    return {color: "purple",fun:this.nn};
-	}
-	nn = () =>{
-		console.log("4444444")
-	}
 
 	
 
@@ -45,8 +38,9 @@ export default class New extends Component {
 	render() {
 		return (
 			<div>
-					<h1>A</h1>
-					<Child />
+					<h1>C</h1>
+					<h1>{this.context.color}</h1>
+					{this.context.fun()}
 			</div>
 
 		);
