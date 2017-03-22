@@ -36,7 +36,8 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
       <ul style={{padding:0,margin:0}}>
        {fields.map((wherefloorsStr, index) =>
       <li key={index} style={{width:600}}>
-        <div className="krFlied-box"><KrField
+        <div className="krFlied-box">
+        <KrField
           style={{width:239,marginLeft:16,marginRight:3}}
           requireLabel={true}
           grid={1/2}
@@ -252,7 +253,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             photoF:[],
             photoL:[],
             photoD:[],
-            communityId:''
+            communityId:'',
 		}
     
 	}
@@ -494,6 +495,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				})
 			}
 
+
 			render(){
 
 
@@ -611,7 +613,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 									</KrField>
 									{State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
 									
-                  <FieldArray name="porTypes" component={renderStation}/>
+                  <FieldArray name="porTypes" component={renderStation} />
 								
                 	<div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
 
@@ -703,7 +705,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						memberErrors.floor = '请输入所在楼层'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
-					if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor)){
+					if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor.toString().trim())){
 						memberErrors.floor = '楼层为整数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
@@ -711,7 +713,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						memberErrors.stationCount = '请输入可出租工位数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
-					if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount)){
+					if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount.toString().trim())){
 						memberErrors.stationCount = '可出租工位数为非负整数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
@@ -729,7 +731,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           const membersArrayErrors = []
           values.porTypes.forEach((porTypes, memberIndex) => {
             const memberErrors = {}
-            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price)) {
+            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price.toString().trim())) {
               memberErrors.price = '价格不超过五位整数'
               membersArrayErrors[memberIndex] = memberErrors
             }
@@ -743,13 +745,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     if(values.floorHeight&&isNaN(values.floorHeight)){
        errors.floorHeight='请输入数字';
     }
-    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum)){
+    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum.toString().trim())){
        errors.entryNum='请输入正整数';
     }
-    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum)){
+    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum.toString().trim())){
        errors.elevatorNum='请输入正整数';
     }
-    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum)){
+    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum.toString().trim())){
        errors.cargoNum='请输入正整数';
     }
     if(values.efficientRate&&isNaN(values.efficientRate)){
@@ -758,14 +760,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     if(values.greenRate&&isNaN(values.greenRate)){
        errors.greenRate='请输入数字';
     }
-    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum)){
+    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum.toString().trim())){
        errors.stationNum='请输入正整数';
     }
-    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum)){
+    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum.toString().trim())){
        errors.meetNum='请输入正整数';
     }
 
-    if(values.local&&!reg.test(values.local)){
+    if(values.local&&values.local.toString().trim()&&!reg.test(values.local.toString().trim())){
       errors.local='请填写正确的坐标格式'; 
     }
 
@@ -784,7 +786,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			if(!values.area){
 				errors.area='请输入社区面积';
 			}
-			if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area)){
+			if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
 				errors.area='请输入正整数';
 			}
 
@@ -803,7 +805,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     if(values.orderNum&&values.orderNum.length>3){
       errors.orderNum = '最多输入3个字符';
     }
-    if(values.orderNum&&!stationN.test(values.orderNum)){
+    if(values.orderNum&&values.orderNum.toString().trim()&&!stationN.test(values.orderNum.toString().trim())){
       errors.orderNum = '请输入3位以内正整数,不能以0开头';
     }
 
@@ -835,7 +837,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 			if(!values.contract){
 				errors.contract='请输入联系方式'
-			}else if(!phone.test(values.contract)||!checkTel.test(values.contract)){
+			}else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
 				errors.contract='联系方式错误'
 			}
 			return errors

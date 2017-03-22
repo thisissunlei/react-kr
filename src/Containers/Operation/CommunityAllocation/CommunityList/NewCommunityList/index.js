@@ -613,7 +613,7 @@ const validate = values =>{
     var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/; 
 
 
-       //楼层检验
+      //楼层检验
       if (!values.wherefloors || !values.wherefloors.length) {
         errors.wherefloors = { _error: 'At least one member must be entered' }
       } else {
@@ -624,7 +624,7 @@ const validate = values =>{
             memberErrors.floor = '请输入所在楼层'
             membersArrayErrors[memberIndex] = memberErrors
           }
-          if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor)){
+          if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor.toString().trim())){
             memberErrors.floor = '楼层为整数'
             membersArrayErrors[memberIndex] = memberErrors
           }
@@ -632,7 +632,7 @@ const validate = values =>{
             memberErrors.stationCount = '请输入可出租工位数'
             membersArrayErrors[memberIndex] = memberErrors
           }
-          if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount)){
+          if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount.toString().trim())){
             memberErrors.stationCount = '可出租工位数为非负整数'
             membersArrayErrors[memberIndex] = memberErrors
           }
@@ -650,7 +650,7 @@ const validate = values =>{
           const membersArrayErrors = []
           values.porTypes.forEach((porTypes, memberIndex) => {
             const memberErrors = {}
-            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price)) {
+            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price.toString().trim())) {
               memberErrors.price = '价格不超过五位整数'
               membersArrayErrors[memberIndex] = memberErrors
             }
@@ -664,13 +664,13 @@ const validate = values =>{
     if(values.floorHeight&&isNaN(values.floorHeight)){
        errors.floorHeight='请输入数字';
     }
-    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum)){
+    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum.toString().trim())){
        errors.entryNum='请输入正整数';
     }
-    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum)){
+    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum.toString().trim())){
        errors.elevatorNum='请输入正整数';
     }
-    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum)){
+    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum.toString().trim())){
        errors.cargoNum='请输入正整数';
     }
     if(values.efficientRate&&isNaN(values.efficientRate)){
@@ -679,19 +679,16 @@ const validate = values =>{
     if(values.greenRate&&isNaN(values.greenRate)){
        errors.greenRate='请输入数字';
     }
-    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum)){
+    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum.toString().trim())){
        errors.stationNum='请输入正整数';
     }
-    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum)){
+    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum.toString().trim())){
        errors.meetNum='请输入正整数';
     }
 
-    if(values.local&&!reg.test(values.local)){
+    if(values.local&&values.local.toString().trim()&&!reg.test(values.local.toString().trim())){
       errors.local='请填写正确的坐标格式'; 
     }
-
-
-
 
       if(!values.name){
         errors.name = '请填写社区名称';
@@ -708,7 +705,7 @@ const validate = values =>{
       if(!values.area){
         errors.area='请输入社区面积';
       }
-      if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area)){
+      if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
         errors.area='请输入正整数';
       }
 
@@ -727,7 +724,7 @@ const validate = values =>{
     if(values.orderNum&&values.orderNum.length>3){
       errors.orderNum = '最多输入3个字符';
     }
-    if(values.orderNum&&!stationN.test(values.orderNum)){
+    if(values.orderNum&&values.orderNum.toString().trim()&&!stationN.test(values.orderNum.toString().trim())){
       errors.orderNum = '请输入3位以内正整数,不能以0开头';
     }
 
@@ -757,11 +754,11 @@ const validate = values =>{
         errors.meetNum= '请输入会议室总数';
       }
 
-		if(!values.contract){
-			errors.contract='请输入联系方式'
-		}else if(!phone.test(values.contract)||!checkTel.test(values.contract)){
-			errors.contract='联系方式错误'
-		}
+      if(!values.contract){
+        errors.contract='请输入联系方式'
+      }else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
+        errors.contract='联系方式错误'
+      }
 
 		return errors
 	}
