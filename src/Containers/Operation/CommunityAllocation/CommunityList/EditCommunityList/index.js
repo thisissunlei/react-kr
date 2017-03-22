@@ -281,7 +281,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
          flagSpace++;
        }
      })
-     if(flagDesk==2||flagOpen==2||flagSpace==2){
+     if(flagDesk>=2||flagOpen>=2||flagSpace>=2){
        Message.error('工位类型不能重复');
        return ;
      }
