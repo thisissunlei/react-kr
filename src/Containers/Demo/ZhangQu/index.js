@@ -15,33 +15,18 @@ import {
 	Button,
 } from 'kr-ui';
 
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommonModel")
+@observer
 export default class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
 
-		this.state = {
-			open:true,
-			checkedStations:[],
-		}
-
-	}
-
-	close = ()=>{
-		this.setState({
-			open:!this.state.open
-		})
-	}
-
-	confirm = ()=>{
-		this.close();
-		console.log('resule:',this.state.checkedStations);
-	}
-
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
-		});
 	}
 
 	componentDidMount() {}
@@ -49,7 +34,9 @@ export default class ZhangQu extends Component {
 	render() {
 		return (
 			<div>
-					
+
+				{this.props.CommonModel.name}
+
 			</div>
 
 		);
