@@ -266,6 +266,56 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         Message.error('开始时间不能大于结束时间');
        return ;
      }
+
+     var flagDesk=0;
+     var flagOpen=0;
+     var flagSpace=0;
+     var twoNum=0;
+     var oneNum=0;
+     var porTypes=values.porTypes;
+     var opend=values.opened;
+     porTypes.map((item,index)=>{
+       if(item.type=='MOBILE_DESK'){
+         flagDesk++;
+       }
+       if(item.type=='OPEN_WORKSPACE'){
+         flagOpen++;
+       }
+       if(item.type=='INDEPENDENT_WORKSPACE'){
+         flagSpace++;
+       }
+     })
+     if(flagDesk==2||flagOpen==2||flagSpace==2){
+       Message.error('工位类型不能重复');
+       return ;
+     }
+
+
+     if(opend=='1'){
+      if(porTypes.length<2){
+        Message.error('至少选择两种工位类型');
+        return ; 
+      }
+      if(porTypes.length>=2){
+        porTypes.map((item)=>{
+          if(item.type&&item.price){
+            twoNum++;
+          }
+          if((item.type&&!item.price)||(!item.type&&item.price)){
+            oneNum++;  
+          }
+        })
+        if(twoNum<2){
+          Message.error('至少填写两项完整的工位类型和价格');
+          return ; 
+        }
+        if(oneNum>0){
+          Message.error('不能单写一项类型或价格');
+          return ; 
+        }
+       }
+     }
+
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
