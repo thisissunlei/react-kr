@@ -84,7 +84,14 @@ class NewCreateMainbill extends Component {
 
 
 	}
+	mainBillType = (item) => {
+		let {
+			billOInfo
+		} = this.props;
+		console.log('item----', item)
+		console.log('billOInfo----', billOInfo)
 
+	}
 
 	onCancel = () => {
 		const {
@@ -118,6 +125,8 @@ class NewCreateMainbill extends Component {
 							label="订单类型"
 							options={MainbillType}
 							requireLabel={true}
+							onChange={this.mainBillType}
+
 					 />
 					 <KrField  
 							grid={1/2}

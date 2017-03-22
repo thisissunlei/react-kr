@@ -30,6 +30,7 @@ export default class SearchMainbill extends React.Component {
 		this.state = {
 			customerId: ''
 		}
+		this.options = "";
 	}
 
 	componentDidMount() {
@@ -38,14 +39,13 @@ export default class SearchMainbill extends React.Component {
 		} = this.props;
 	}
 	componentWillReceiveProps(nextProps) {
-
+		this.options = "";
 		var _this = this;
+
 		this.setState({
 			customerId: nextProps.customerId
 		}, function() {
-			console.log('1111')
 			_this.select.loadOptions()
-
 
 		})
 	}
@@ -65,7 +65,7 @@ export default class SearchMainbill extends React.Component {
 	}
 
 	getOptions = (lastname) => {
-		console.log('2222')
+
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('get-mainbill', {
 				mainBillName: lastname || "",
