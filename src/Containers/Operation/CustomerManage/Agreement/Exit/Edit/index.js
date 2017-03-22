@@ -79,6 +79,7 @@ export default class EditCreate extends Component {
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
+      type :1,
     })).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
@@ -109,7 +110,7 @@ export default class EditCreate extends Component {
         item.label = item.dicName;
         return item;
       });
-
+      // optionValues.contractCode = response.contractCode;
       optionValues.floorList = response.customer.floor;
       optionValues.customerName = response.customer.customerName;
       optionValues.leaseAddress = response.customer.customerAddress;

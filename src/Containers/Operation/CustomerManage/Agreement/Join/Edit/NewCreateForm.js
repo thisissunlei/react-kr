@@ -138,7 +138,7 @@ class NewCreateForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('nextProps', nextProps);
+		// console.log('nextProps', nextProps);
 
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
@@ -300,7 +300,7 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
+		// console.log('stationVos',stationVos);
 		stationVos.map((item)=>{
 			if(item.unitprice){
 				allMoney += this.getSingleRent(item);
@@ -325,7 +325,7 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
+			// console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -338,14 +338,14 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
+		// console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
+		// console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -468,7 +468,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		console.log('=-->>.', stationVos);
+		// console.log('=-->>.', stationVos);
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
@@ -519,7 +519,7 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 		var stationVos = [];
-		console.log(billList,data);
+		// console.log(billList,data);
 		// delStationVos = delStationVos.concat(data.deleteData);
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
@@ -541,7 +541,7 @@ class NewCreateForm extends Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
+			// console.log('billList 租赁明细工位列表为空');
 		}
 
 		this.setState({
@@ -601,7 +601,7 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
-		console.log('stationVos',this.setAllRent(stationVos));
+		// console.log('stationVos',this.setAllRent(stationVos));
 		
 	}
 	dealRentName=(allRent)=>{
@@ -656,7 +656,7 @@ class NewCreateForm extends Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		let  allRentName = this.dealRentName(allRent);
 
-
+		// console.log("initialValues",initialValues);
 		return (
 
 
@@ -753,9 +753,11 @@ class NewCreateForm extends Component {
 
 
 				<KrField style={{width:370,marginLeft:90}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+				<KrField   style={{width:370,marginLeft:70}} name="contractcode" component="labelText" inline={false} label="合同编号" value={initialValues.contractcode} />
+				
+				{/*<KrField style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
-
+				*/}
 
 
 				<KrField style={{width:370,marginLeft:90}} name="paymodel"   component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />

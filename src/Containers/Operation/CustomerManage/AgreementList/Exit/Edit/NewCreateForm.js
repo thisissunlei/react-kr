@@ -30,6 +30,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import './index.less';
 
 import UnitPriceForm from './UnitPriceForm';
 
@@ -204,7 +205,7 @@ class NewCreateForm extends Component {
 
 			<div style={{width:615}}>
 
-<form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:-15}}>
+<form className="exit-edit-form" onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:-15}}>
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
@@ -214,7 +215,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1}  name="contractVersionType" type="hidden" component="input" label="会议室"/>
 
 				<KrField name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
-				<KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false}  value={changeValues.lessorAddress}  defaultValue="无"/>
+				<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false}  value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 				<KrField style={{width:262,marginLeft:25}} name="lessorContactid" component="search" label="联系人" onChange={this.onChangeSearchPersonel}  placeholder={optionValues.lessorContactName} requireLabel={true}/>
 				<KrField style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -231,9 +232,11 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
-				<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:262,marginLeft:25}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+				<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} toolTrue={true} />
+
+
+				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+
 				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
@@ -247,18 +250,18 @@ class NewCreateForm extends Component {
 				<div className="end-round"></div>
 				</div>
 			</div>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
+			<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
-						<Grid style={{paddingBottom:50,textAlign:"center"}}>
-							<Row >
-								<ListGroup>
-									<ListGroupItem style={{textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting} width={81} height={30} fontSize={16}/></ListGroupItem>
-									<ListGroupItem style={{textAlign:'left',paddingLeft:15}}> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} width={81} height={30} fontSize={16}/> </ListGroupItem>
-								</ListGroup>
-							</Row>
-						</Grid>
+			<Grid style={{paddingBottom:50,textAlign:"center"}}>
+				<Row >
+					<ListGroup>
+						<ListGroupItem style={{textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting} width={81} height={30} fontSize={16}/></ListGroupItem>
+						<ListGroupItem style={{textAlign:'left',paddingLeft:15}}> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} width={81} height={30} fontSize={16}/> </ListGroupItem>
+					</ListGroup>
+				</Row>
+			</Grid>
 
-						</form>
+			</form>
 
 			</div>);
 	}

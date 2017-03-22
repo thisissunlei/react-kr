@@ -86,6 +86,7 @@ import './index.less';
 		}
 	}
 	componentWillReceiveProps(nextProps){
+
 		
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
@@ -94,6 +95,8 @@ import './index.less';
 				return;
 			}
 			State.orderReady(nextProps.orderReady)
+			
+
 	}
 	communityChange=(value)=>{ 
 		if(!value){

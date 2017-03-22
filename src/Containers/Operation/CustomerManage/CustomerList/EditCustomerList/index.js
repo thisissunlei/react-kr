@@ -293,9 +293,9 @@ const validate = values =>{
 			errors.customerTel = '联系人电话格式错误';
 		}
 
-		if(values.staionPrice && !RMB.test(values.staionPrice)) {
-			errors.staionPrice = '工位价格不得超过1亿';
-		}
+		// if(values.staionPrice && !RMB.test(values.staionPrice)) {
+		// 	errors.staionPrice = '工位价格不得超过1亿';
+		// }
 
 
 		if(!email.test(values.customerMail)){

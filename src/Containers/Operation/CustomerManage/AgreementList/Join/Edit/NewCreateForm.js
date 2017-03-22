@@ -498,8 +498,6 @@ class NewCreateForm extends Component {
 	}
 
 	onIframeClose(billList,data) {
-		console.log(billList,"=============",data)
-
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -512,7 +510,7 @@ class NewCreateForm extends Component {
 
 		var stationVos = [];
 		console.log(billList,data);
-		// delStationVos = delStationVos.concat(data.deleteData);
+		
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
 			obj.stationId = item.id;
@@ -652,10 +650,10 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div style={{width:615,marginLeft:25}}>
+			<div style={{width:615}}>
 
-<form className="m-edit-join" onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:-15}}>
-	<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
+<form className="m-edit-join join-edit-dialog-form" onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:-15}}>
+	<div className="cheek" style={{paddingLeft:0,marginLeft:47}}>
 		<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 			<div className="small-cheek">
 			<KrField  name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true}  requireLabel={true} />
@@ -712,7 +710,7 @@ class NewCreateForm extends Component {
 						</div>
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 						 </DotTitle>
-                     <div style={{marginTop:'0px',marginBottom:25,}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25,}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
 						 </div>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同基本信息</label></div>
@@ -727,7 +725,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/>
 
 				<KrField style={{width:252,marginLeft:25}} name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}   requireLabel={true} />
-				<KrField style={{width:252,marginLeft:25}}  name="lessorAddress" type="text" component="labelText" label="地址" inline={false} value={changeValues.lessorAddress}  defaultValue="无"/>
+				<div className="lessor-address"><KrField style={{width:252,marginLeft:25}}  name="lessorAddress" type="text" component="labelText" label="地址" inline={false} value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 				<KrField style={{width:252,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName}  requireLabel={true}  />
 
 				<KrField style={{width:252,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话"  requireLabel={true}
@@ -745,11 +743,10 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:252,marginLeft:25}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName}  requireLabel={true} />
 
+				<KrField style={{width:252,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} toolTrue={true} />
 
 
-				<KrField style={{width:252,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:252,marginLeft:25}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
 
 

@@ -56,6 +56,7 @@ import newIndentState from "../NewIndent/State";
 	onSubmit = () => {
 			
 	    var _this = this;
+	    
 		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
 		//承租意向
 		allState.admit=response.intention;
@@ -95,7 +96,6 @@ import newIndentState from "../NewIndent/State";
 	 	if(!person || person.length == 0) {
 	 		return;
 	 	}
-	
 		this.fetchCustomer({customerId:person.id});
 		allState.companyName=person.company;
 		allState.listId=person.id;

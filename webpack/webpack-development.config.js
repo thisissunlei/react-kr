@@ -20,7 +20,6 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		'kr-ui': path.join(process.cwd(), '/src/Components'),
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
@@ -60,7 +59,7 @@ const config = {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DllReferencePlugin({
              context:__dirname,
-          	 manifest:require(path.resolve(buildPath,'manifest.json')),
+          	 manifest:require(path.join(buildPath,'vendors','manifest.json')),
            	 name:'lib'
         }),
         new HappyPack({

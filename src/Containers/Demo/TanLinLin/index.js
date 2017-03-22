@@ -1,4 +1,3 @@
-
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
@@ -17,11 +16,14 @@ import {
 } from 'kr-ui';
 import './index.less';
 
- class NewCreateForm extends Component{
-	constructor(props){
-		super(props);
-		this.state={
-			initailPoint : '承德'
+class ZhangQu extends Component {
+
+	constructor(props, context) {
+		super(props, context);
+
+		this.state = {
+			open:true,
+			checkedStations:[],
 		}
 	}
 	componentWillMount() {
@@ -30,42 +32,41 @@ import './index.less';
 	componentDidMount(){
 		
 	}
-	render(){
-		let {mapStyle} = this.props;
-		let {initailPoint} = this.state;
+	componentDidMount() {}
+
+	render() {
+       
+
+        
 		return (
-			<div className="demo-tll">
-				
-				
-						
-							
-							
-			              	<KrField name="newuploadImage" 
-								component="map" 
-								placeholder="例如：北京市1111"
-								style={{width:252,height:36}}
-								mapStyle={{width:400,height:400}}
-								initailPoint ={initailPoint}
-							/>
-							
-						
-					
-		  	</div>
+			<div>
+					{/*<Dialog
+						title="平面图"
+						contentStyle={{width:1000}}
+						actions={<Button label="确定" onTouchTap={this.confirm}/>}
+						onClose={this.close}
+						bodyStyle={{paddingLeft:0,paddingRight:0}}
+						open={this.state.open} >
+								<PlanMap onCheckedStation={this.onCheckedStation} />
+				   </Dialog>*/}
+              <form>
+			       <KrField name="uploadImage" 
+								component="uploadImage" 
+								style={{marginTop:10}} 
+								photoSize={'212*136'} 
+								pictureFormat={'JPG'} 
+								pictureMemory={'32K'}
+								//requestURI = {this.state.requestURI}
+					/>
+
+			  </form>
+
+             
+
+			</div>
+
 		);
 	}
 }
-const validate = values => {
-	const errors = {}
-	
-	// if (!values.email) {
-	// 	errors.email = '请输入邮箱';
-	// }
 
-
-	return errors
-}
-const selector = formValueSelector('NewCreateForm');
-export default NewCreateForm = reduxForm({
-	form: 'NewCreateForm',
-	validate,
-})(NewCreateForm);
+export default reduxForm({ form: 'ZhangQu'})(ZhangQu);

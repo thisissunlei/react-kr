@@ -618,7 +618,7 @@ class NewCreateForm extends Component {
 
 			<div>
 <div style={{width:615}}>
-<form className="m-edit-reduce" onSubmit={handleSubmit(this.onSubmit)}>
+<form className="m-edit-reduce m-edit-dialog-reduce" onSubmit={handleSubmit(this.onSubmit)}>
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
@@ -693,7 +693,7 @@ class NewCreateForm extends Component {
 						<KrField grid={1/2}  name="contractVersionType" type="hidden" component="input" />
 
 						<KrField style={{width:262,marginLeft:25}} name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
-						<KrField style={{width:262,marginLeft:25}}  name="lessorAddress" inline={false} type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+						<div className="lessor-address"><KrField style={{width:262,marginLeft:25}}  name="lessorAddress" inline={false} type="text" component="labelText" label="地址" value={changeValues.lessorAddress} toolTrue={true}/></div>
 						<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/>
 
 						<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
@@ -716,8 +716,11 @@ class NewCreateForm extends Component {
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 						<KrField style={{width:262,marginLeft:25}} name="paymentId"  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-						<KrField style={{width:262,marginLeft:25}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
+						{/*<KrField style={{width:262,marginLeft:25}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}
 						requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+						*/}
+						<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+
 						<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" label="签署日期"  />
 
 						
