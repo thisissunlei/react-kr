@@ -104,11 +104,9 @@ export default class SelectTimeComponent extends React.Component{
 				}
 				target = target.parentNode;
 			}
-
-			let timeSelect=document.getElementsByClassName('ui-time-select-all')[0];
-			if(timeSelect){
-			  timeSelect.style.display='none';
-			 }
+              _this.setState({
+              	allOpen:false
+              })
 		    }
 		); 
 		
