@@ -681,7 +681,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			//非负整数
 			let noMinus=/^(0|[1-9]\d*)$/;
 			//整数
-      let zeroNum=/^-?\d+$/;　 
+      let zeroNum=/^-?\d+$/;　
+      //坐标
+       var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;  
 
 
 			//楼层检验
@@ -755,6 +757,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
     if(values.meetNum&&!numberNotZero.test(values.meetNum)){
        errors.meetNum='请输入正整数';
+    }
+
+    if(values.local&&!reg.test(values.local)){
+      errors.local='请填写正确的坐标格式'; 
     }
 
 

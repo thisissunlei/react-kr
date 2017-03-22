@@ -606,8 +606,8 @@ const validate = values =>{
     let noMinus=/^(0|[1-9]\d*)$/;
 		//整数
 		let zeroNum=/^-?\d+$/;　 
-
-    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;  
+    //坐标
+    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/; 
 
 
 		 
@@ -703,7 +703,7 @@ const validate = values =>{
     }
     
     if(values.local&&!reg.test(values.local)){
-      errors.local='123'; 
+      errors.local='请填写正确的坐标格式'; 
     }
 
 		if (!values.countyId) {
