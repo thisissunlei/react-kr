@@ -42,7 +42,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
       return (
         <li key={index} style={{width:600}}>
        <div className="krFlied-box">
-       <KrField 
+       <KrField
           style={{width:239,marginLeft:16,marginRight:3}}
           requireLabel={true}
           grid={1/2}
@@ -62,14 +62,14 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
           label="可出租工位数"/>
            <span className="unit">个</span>
         </div>
-        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>       
+        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
       </li>
         );
-    }   
-      
+    }
+
     )}
   </ul>
 
@@ -77,8 +77,8 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
 }
 
 //社区亮点-亮点
-const renderBrights = ({ fields, meta: { touched, error }}) => {  
-     var krStyle={};    
+const renderBrights = ({ fields, meta: { touched, error }}) => {
+     var krStyle={};
       krStyle={
         width:228,
         marginLeft:18,
@@ -87,7 +87,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>  
+      <li key={index} style={{width:600}}>
         <KrField
           style={krStyle}
           grid={1/2}
@@ -97,7 +97,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
           label={index?'':'社区亮点'}
           placeholder='社区亮点'
           />
-        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -110,7 +110,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础服务
 const renderBasic = ({ fields, meta: { touched, error }}) => {
-  var krStyle={};    
+  var krStyle={};
        krStyle={
         width:517,
         marginLeft:15
@@ -118,18 +118,18 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>      
+      <li key={index} style={{width:600}}>
         <KrField
           style={krStyle}
           grid={1}
           name={`${brightsStr}.brightPoints`}
-          heightStyle={{height:"78px",width:'508px'}} 
-          component="textarea" 
-          maxSize={100} 
+          heightStyle={{height:"78px",width:'508px'}}
+          component="textarea"
+          maxSize={100}
           label={index?'':'基础服务'}
-          placeholder='请输入基础服务' 
+          placeholder='请输入基础服务'
           />
-        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -142,7 +142,7 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-特色服务
 const renderSpecial = ({ fields, meta: { touched, error }}) => {
-  var krStyle={};    
+  var krStyle={};
        krStyle={
         width:517,
         marginLeft:15
@@ -150,18 +150,18 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>      
+      <li key={index} style={{width:600}}>
         <KrField
           style={krStyle}
           grid={1}
           name={`${brightsStr}.brightPoints`}
-          heightStyle={{height:"78px",width:'508px'}} 
-          component="textarea" 
-          maxSize={100} 
+          heightStyle={{height:"78px",width:'508px'}}
+          component="textarea"
+          maxSize={100}
           label={index?'':'特色服务'}
-          placeholder='请输入特色服务' 
+          placeholder='请输入特色服务'
           />
-         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>       
+         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -173,7 +173,7 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
 
 //社区亮点-基础设施
 const renderService = ({ fields, meta: { touched, error }}) => {
-  var krStyle={};    
+  var krStyle={};
        krStyle={
         width:517,
         marginLeft:15
@@ -181,18 +181,18 @@ const renderService = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>      
+      <li key={index} style={{width:600}}>
         <KrField
           style={krStyle}
            grid={1}
            name={`${brightsStr}.brightPoints`}
-           heightStyle={{height:"78px",width:'508px'}} 
-           component="textarea" 
-           maxSize={100} 
+           heightStyle={{height:"78px",width:'508px'}}
+           component="textarea"
+           maxSize={100}
            label={index?'':'基础设施'}
-           placeholder='请输入基础设施' 
+           placeholder='请输入基础设施'
           />
-        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>       
+        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -208,7 +208,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
-       <li key={index} style={{width:600}}><KrField 
+       <li key={index} style={{width:600}}><KrField
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}
@@ -224,7 +224,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           label="工位价格"/>
           <span className="unit">元/工位/月</span>
         </div>
-        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>       
+        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -242,7 +242,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
  class NewCommunityList extends React.Component{
 
 	static PropTypes = {
-		
+
 	}
 
 	constructor(props){
@@ -255,11 +255,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       codeName:''
 		}
 
-  
-   
+		Store.dispatch(arrayPush('NewCommunityList','wherefloors',[{}]));
+		Store.dispatch(arrayPush('NewCommunityList','bright_bright',[{type:'BRIGHTPOINTS'}]));
+		Store.dispatch(arrayPush('NewCommunityList','porTypes',[{}]));
+		Store.dispatch(arrayPush('NewCommunityList','bright_basic',[{type:'BASICSERVICE'}]));
+		Store.dispatch(arrayPush('NewCommunityList','bright_service',[{type:'INFRASTRUCTURE'}]));
+		Store.dispatch(arrayPush('NewCommunityList','bright_special',[{type:'SPECIALSERVICE'}]));  
+
 	}
 
-	onSubmit = (values) => {	
+	onSubmit = (values) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
@@ -294,7 +299,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      if(opend=='1'){
       if(porTypes.length<2){
         Message.error('至少选择两种工位类型');
-        return ; 
+        return ;
       }
       if(porTypes.length>=2){
         porTypes.map((item)=>{
@@ -302,16 +307,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             twoNum++;
           }
           if((item.type&&!item.price)||(!item.type&&item.price)){
-            oneNum++;  
+            oneNum++;
           }
         })
         if(twoNum<2){
           Message.error('至少填写两项完整的工位类型和价格');
-          return ; 
+          return ;
         }
         if(oneNum>0){
           Message.error('不能单写一项类型或价格');
-          return ; 
+          return ;
         }
        }
      }
@@ -324,7 +329,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-   
+
    //社区名称
    communityNameChange=(value)=>{
      if(value==''){
@@ -335,25 +340,25 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        this.setState({
        communityName:value
      })
-     }    
+     }
      State.communityName(value,'');
    }
-   
+
    communityNameFocus=(value)=>{
       if(!value){
        this.setState({
        communityName:'无'
-       }) 
-      }   
+       })
+      }
    }
 
    //社区编码
    communityCodeChange=(value)=>{
     let {codeName}=this.state;
     this.setState({
-      codeName:value 
+      codeName:value
     })
- 
+
    	 State.communityCode(value,'');
    }
 
@@ -363,28 +368,28 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      if(value){
         State.communityRank(value,cityId,'');
      }
-   	
+
    }
-	
+
 
     //所属区县
     cityValue=(cityId,communityId,city)=>{
       this.setState({
-        cityId:cityId 
-      })    
+        cityId:cityId
+      })
       Store.dispatch(change('NewCommunityList','cityId',cityId));
       Store.dispatch(change('NewCommunityList','countyId',communityId));
     }
 
-	
+
 	componentDidMount(){
       State.searchDataHere();
-      Store.dispatch(change('NewCommunityList','portalShow','0')) 
+      Store.dispatch(change('NewCommunityList','portalShow','0'))
 	}
 
 	componentWillReceiveProps(nextProps) {
 	}
-    
+
     //地图坐标
     locationMap=(value)=>{
       var xLocation=value.split(',')[0];
@@ -392,7 +397,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('NewCommunityList','latitude',xLocation));
       Store.dispatch(change('NewCommunityList','longitude',yLocation));
     }
-    
+
     //展开
     flagOpen=()=>{
       this.setState({
@@ -408,13 +413,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       })
     }
 
-   
-   
+
+
 
 	render(){
-       
-     
-     
+
+
+
 
 
        let {communityName,codeName}=this.state;
@@ -426,12 +431,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        }else{
         nameStyle={
            height:'auto'
-        } 
+        }
        }
 
 
 
-         
+
     let {openDown,openUp}=this.state;
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
@@ -453,30 +458,30 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                       {State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
                                     </div>
                                     <div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
-                                    
-                                     {State.isCorpCode && <div style={{fontSize:14,color:"red",paddingLeft:40,paddingBottom:7}}>该社区编码已存在</div>} 
+
+                                     {State.isCorpCode && <div style={{fontSize:14,color:"red",paddingLeft:40,paddingBottom:7}}>该社区编码已存在</div>}
                                     </div>
                                     </div>
                                     <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
-                                    
-                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}  
+
+                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}
                                       options={toJS(State.searchData)}
                                     />
-                                  
+
                                     <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
-									
+
 									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
-									
-								   	<div className='location-m'><KrField grid={1/2} label="社区坐标" component="input" name='local' style={{width:262,marginLeft:16}}  requireLabel={true}  onChange={this.locationMap}>			 
+
+								   	<div className='location-m'><KrField grid={1/2} label="社区坐标" component="input" name='local' style={{width:262,marginLeft:16}}  requireLabel={true}  onChange={this.locationMap}>
 									</KrField>
 
 									<a className='mapLocation' href={`http:\/\/api.map.baidu.com/lbsapi/getpoint/index.html`} target='_blank'/>
-                     
+
 									<KrField grid={1/2} label="大厦名称" name="buildName" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/></div>
-									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select" 
+									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select"
 									  options={[{label:'毛坯',value:'ROUGHCAST'},{label:'简装',value:'PAPERBACK'},{label:'精装',value:'HARDCOVER'},{label:'豪装',value:'LUXURIOUS'}]}
 									/>
-									<KrField  grid={1/2}  name="orientation" style={{width:262,marginLeft:28}} component='select'  label="社区朝向" inline={false} 
+									<KrField  grid={1/2}  name="orientation" style={{width:262,marginLeft:28}} component='select'  label="社区朝向" inline={false}
                                       options={[{label:'东',value:'EAST'},{label:'南',value:'SOUTH'},{label:'西',value:'WEST'},{label:'北',value:'NORTH'},{label:'东南',value:'SOUTHEAST'},{label:'东北',value:'NORTHEAST'},{label:'西南',value:'SOUTHWEST'},{label:'西北',value:'NORTHWEST'}]}
 									/>
 
@@ -487,86 +492,86 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 									<div className="krFlied-box"><KrField grid={1/2} label="货梯数量" name="cargoNum" style={{width:239,marginLeft:33,marginRight:3}} component="input" ></KrField><span className="unit">部</span></div>
 
 									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="efficientRate" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>	
+									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
                                     <div className="middle-round"></div>
 						</div>
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
-	
+
 								<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
 								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
                                 <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
-								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>	
-							   
-                               
-                                 
-                                
+								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>
+
+
+
+
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
-								
+
                                  <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
                                  <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
 								                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd'/>
 
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
-								
+
                                 <FieldArray name="bright_bright" component={renderBrights}/>
-						        
+
                                 {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                                 <div className="end-round two-round"></div></div>}
 
-						        {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}	
-						        
+						        {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+
 						</div>
-                        
-                        
+
+
                       <div style={{display:openUp?'block':'none'}}>
 						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>	
+							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
 					              <KrField name="portalShow" label="显示" type="radio" value='1' style={{marginTop:5,display:'inline-block',width:84}}/>
 					             	<KrField name="portalShow" label="不显示" type="radio" value='0'  style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>
                 {State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-					         
+
                     <FieldArray name="porTypes" component={renderStation}/>
 
-                  <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>		
+                  <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
 						     <FieldArray name="bright_basic" component={renderService}/>
                  <FieldArray name="bright_service" component={renderBasic} />
                  <FieldArray name="bright_special" component={renderSpecial}/>
 						     <KrField grid={1} label="交通" name="brightPorts.brightPoints"  heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
 						     <KrField grid={1} label="周边" name="brightRound.brightPoints" heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-						   <div style={{marginTop:'-16px'}}>  
+						   <div style={{marginTop:'-16px'}}>
                  <span className='upload-pic-first'>上传首页图片</span>
-                 <KrField name="photosStr_first" 
-    								component="uploadImageList" 
-    								style={{marginTop:10,textAlign:'left'}} 
+                 <KrField name="photosStr_first"
+    								component="uploadImageList"
+    								style={{marginTop:10,textAlign:'left'}}
                     imgFlag={true}
 					         />
                </div>
 
-               <div style={{marginTop:'16px'}}>  
+               <div style={{marginTop:'16px'}}>
                  <span className='upload-pic-first'>上传社区列表页图片</span>
-                 <KrField name="photosStr_list" 
-                    component="uploadImageList" 
-                    style={{marginTop:10,textAlign:'left'}} 
-                    imgFlag={true} 
+                 <KrField name="photosStr_list"
+                    component="uploadImageList"
+                    style={{marginTop:10,textAlign:'left'}}
+                    imgFlag={true}
                    />
                </div>
 
 
-               <div style={{marginTop:'16px'}}>  
+               <div style={{marginTop:'16px'}}>
                  <span className='upload-pic-first'>上传详情页图片</span>
-                 <KrField name="photosStr_detail" 
-                    component="uploadImageList" 
+                 <KrField name="photosStr_detail"
+                    component="uploadImageList"
                     style={{marginTop:10,textAlign:'left'}}
-                    imgFlag={false} 
+                    imgFlag={false}
                     innerBoxStyle={{width:254,height:70}}
                     innerStyle={{left:110,top:12}}
                    />
@@ -599,18 +604,18 @@ const validate = values =>{
 		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		let stationN = /^([1-9][0-9]{0,2})$/;
-    let stationNP=/^([0-9][0-9]{0,4})$/;    
+    let stationNP=/^([0-9][0-9]{0,4})$/;
     //正整数
 		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
     //非负整数
     let noMinus=/^(0|[1-9]\d*)$/;
 		//整数
-		let zeroNum=/^-?\d+$/;　 
+		let zeroNum=/^-?\d+$/;　
 
-    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;  
+    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
 
 
-		 
+
          //楼层检验
 		 if (!values.wherefloors || !values.wherefloors.length) {
 			    errors.wherefloors = { _error: 'At least one member must be entered' }
@@ -656,7 +661,7 @@ const validate = values =>{
 		      errors.porTypes = membersArrayErrors
 		    }
       }
-         
+
 
 		if(!values.name){
 			errors.name = '请填写社区名称';
@@ -669,7 +674,7 @@ const validate = values =>{
 		if(!values.local){
 			errors.local='请输入社区坐标';
 		}
-        
+
 		if(!values.area){
 			errors.area='请输入社区面积';
 		}
@@ -701,9 +706,9 @@ const validate = values =>{
     if(values.meetNum&&!numberNotZero.test(values.meetNum)){
        errors.meetNum='请输入正整数';
     }
-    
+
     if(values.local&&!reg.test(values.local)){
-      errors.local='123'; 
+      errors.local='123';
     }
 
 		if (!values.countyId) {
@@ -712,7 +717,7 @@ const validate = values =>{
 
 		if (!values.address) {
 			errors.address= '请输入详细地址';
-		} 
+		}
 
 		if (!values.opened) {
 			errors.opened= '请输入社区状态';
@@ -730,7 +735,7 @@ const validate = values =>{
 		if (!values.signEndDate) {
 			errors.signEndDate= '请输入签约结束时间';
 		}
-    
+
     //排序
     if(values.orderNum&&isNaN(values.orderNum)){
       errors.orderNum='请输入数字';

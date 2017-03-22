@@ -53,12 +53,11 @@ class CommunityList  extends React.Component{
 			id:''
 		}
 
-    Store.dispatch(arrayPush('NewCommunityList','wherefloors',[{}]));
-    Store.dispatch(arrayPush('NewCommunityList','bright_bright',[{type:'BRIGHTPOINTS'}]));
-    Store.dispatch(arrayPush('NewCommunityList','porTypes',[{}]));
-    Store.dispatch(arrayPush('NewCommunityList','bright_basic',[{type:'BASICSERVICE'}]));
-    Store.dispatch(arrayPush('NewCommunityList','bright_service',[{type:'INFRASTRUCTURE'}]));
-    Store.dispatch(arrayPush('NewCommunityList','bright_special',[{type:'SPECIALSERVICE'}]));
+	}
+
+	componentDidMount(){
+		State.searchDataHere();
+  
 	}
 
    //新建社区开关
@@ -73,8 +72,8 @@ class CommunityList  extends React.Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
-   	    value = Object.assign({},value);       
-        //亮点开始 
+   	    value = Object.assign({},value);
+        //亮点开始
    	    var brightsStr=[];
         if(value.bright_basic){
          value.bright_basic.map((item)=>{
@@ -95,7 +94,7 @@ class CommunityList  extends React.Component{
           let {type,brightPoints} = item;
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright)
-   	     })          
+   	     })
    	    }
 
    	    if(value.bright_special){
@@ -106,48 +105,48 @@ class CommunityList  extends React.Component{
           let {type,brightPoints} = item;
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright)
-   	     })          
+   	     })
    	    }
 
    	    if(value.bright_bright){
    	      value.bright_bright.map((item,index)=>{
    	   	  if(!item){
-             return ; 
+             return ;
    	   	   }
              let {type,brightPoints} = item;
              let bright = Object.assign({},{type,brightPoints})
              brightsStr.push(bright)
-   	     })         
+   	     })
    	    }
 
    	    if(value.brightPorts){
-   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints}); 	     
+   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints});
    	    }
    	    if(value.brightRound){
-   	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});   	      
+   	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});
    	    }
    	    if(brightsStr.length){
    	       value.brightsStr=JSON.stringify(brightsStr);
-   	    }      
+   	    }
         //亮点结束
 
 
 
         //楼层开始
-   	    value.wherefloorsStr=JSON.stringify(value.wherefloors);        
+   	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
         //楼层结束
-        
+
 
 
         //工位开始
    	    if(value.porTypes){
-   	       value.porTypesStr=JSON.stringify(value.porTypes);         
+   	       value.porTypesStr=JSON.stringify(value.porTypes);
    	    }
         //工位结束
-        
-      
+
+
        //图片开始
-       var photosStr=[];           
+       var photosStr=[];
        if(value.photosStr_first){
          	value.photosStr_first.map((item,index)=>{
             let images = Object.assign({},{type:'THEFIRST',photoId:item.photoId,first:(index?false:true)})
@@ -174,7 +173,7 @@ class CommunityList  extends React.Component{
          delete value.photosStr_first;
          delete value.photosStr_list;
          delete value.photosStr_detail;
-         delete value.bright_basic; 
+         delete value.bright_basic;
          delete value.bright_service;
          delete value.bright_special;
          delete value.bright_bright;
@@ -184,10 +183,10 @@ class CommunityList  extends React.Component{
          delete value.wherefloors;
          delete value.porTypes;
          delete value.photoVOs;
-         
+
          //图片结束
-        
-    
+
+
    	     State.onNewCommunitySubmit(value);
 
    }
@@ -296,16 +295,14 @@ class CommunityList  extends React.Component{
       for(var item in searchParams){
         if(searchParams.hasOwnProperty(item)){
            where.push(`${item}=${searchParams[item]}`);
-        } 
+        }
       }
       where.push(`id=${ids}`);
 			var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
 			window.location.href = url;
 	}
 
-	componentDidMount(){
-		State.searchDataHere();
-	}
+
 
     whiteClose=()=>{
     	State.closeAllDialog();
