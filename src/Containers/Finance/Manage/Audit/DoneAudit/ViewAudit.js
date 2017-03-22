@@ -83,8 +83,18 @@ export default class ViewAudit extends Component {
         Store.dispatch(Actions.callAPI('get-fina-infos', {
             finaVerifyId: id
         }, {})).then(function(response) {
-            Store.dispatch(initialize('editMoney', response));
-            _this.setState({infoList: response})
+            _this.setState({infoList: response},function(){
+              var fileList=[];
+    					if(this.state.infoList.fileList.length>0){
+    						this.state.infoList.fileList.map((item, value) => {
+    							fileList.push(item.fileName)
+    							fileList.push(' ')
+    						});
+    					}else{
+    						fileList=['暂无上传任何附件'];
+    					}
+    						this.fileList=fileList;
+            })
 
         }).catch(function(err) {});
     }
@@ -235,7 +245,7 @@ export default class ViewAudit extends Component {
                     }} component="labelText" inline={false} label="公司主体" value={infoList.corporationName}/>
                     <KrField style={{
                         width: 260
-                    }} name="payWay" component="labelText" label="收款方式" inline={false} value={infoList.payWayName}/>
+                    }} name="payWay" component="labelText" label="收款方式" inline={false} value={infoList.payWay}/>
                     <KrField style={{
                         width: 260,
                         marginLeft: 25
@@ -249,11 +259,11 @@ export default class ViewAudit extends Component {
                     }} name="dealTime" component="labelText" inline={false} label="收款日期" value={dateFormat(infoList.dealTime, "yyyy-mm-dd")}/>
                     <KrField style={{
                         width: 548
-                    }} name="remark" component="labelText" defaultValue={infoList.remark} label="备注" maxSize={100}/>
+                    }} name="remark" component="labelText" inline={false} defaultValue={infoList.remark} label="备注" maxSize={100}/>
                     <KrField name="fileList" component="labelText" type="hidden" label="合同附件"/>
                     <KrField style={{
                         width: 548
-                    }} name="uploadFileIds" component="labelText" label="上传附件" defaultValue={infoList.fileList}/>
+                    }} name="uploadFileIds" component="labelText" inline={false} label="上传附件" value={this.fileList}/>
                 </CircleStyleTwo>
                 <CircleStyleTwo num="2" info="付款明细" circle="bottom">
                     <div className="u-add-total-count">

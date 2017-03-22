@@ -72,7 +72,8 @@ export default class ToDoAudit extends Component {
       CustomerList: {},
       showName: false,
       openSomeAudit: false,
-      AuditList: []
+      AuditList: [],
+      noneSomeAudit:false,
     }
 
   }
@@ -233,9 +234,15 @@ export default class ToDoAudit extends Component {
     }
     //打开批量审核
   openSomeAudit = () => {
-    this.setState({
-      openSomeAudit: !this.state.openSomeAudit
-    })
+    console.log("123",this.AuditNum);
+    if(!this.AuditNum){
+      this.noneSomeAudit();
+    }else{
+      console.log("hhhhhhnmd");
+      this.setState({
+        openSomeAudit: !this.state.openSomeAudit
+      })
+    }
   }
   onSelect = (values,list)=>{
     let {AuditList} = this.state;
@@ -252,16 +259,22 @@ export default class ToDoAudit extends Component {
   }
   //批量审核
   AuditSome = () => {
-    Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
-      finaVerifyIds: this.state.AuditList,
-    })).then(function(response) {
-      Message.success("审核成功");
-      window.setTimeout(function() {
-        window.location.reload();
-      }, 0);
-    }).catch(function(err) {
-      Message.error(err.message);
-    });
+      Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
+        finaVerifyIds: this.state.AuditList,
+      })).then(function(response) {
+        Message.success("审核成功");
+        window.setTimeout(function() {
+          window.location.reload();
+        }, 0);
+      }).catch(function(err) {
+        Message.error(err.message);
+      });
+  }
+  noneSomeAudit = ()=>{
+    this.setState({
+      noneSomeAudit:!this.state.noneSomeAudit
+    })
+
   }
   render() {
     let {
@@ -442,6 +455,7 @@ export default class ToDoAudit extends Component {
              open={this.state.openView}
              onClose={this.openView}
              openSecondary={true}
+             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
              <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
            </Drawer>
@@ -514,6 +528,23 @@ export default class ToDoAudit extends Component {
 
                          </div>
 
+            </div>
+            </Dialog>
+            <Dialog
+              title="提示"
+              modal={true}
+              contentStyle ={{ width: '444',overflow:'visible'}}
+              open={this.state.noneSomeAudit}
+              onClose={this.noneSomeAudit}
+            >
+            <div className='list-delete'>
+              <p className='sureAudit' style={{textAlign:'center'}}>请先选择审核数据！</p>
+
+
+              <div style={{textAlign:'center'}}>
+                      <div  className='ui-btn-center'><Button  label="确定" onClick={this.noneSomeAudit}/></div>
+                      <Button  label="取消" type="button" cancle={true} onTouchTap={this.noneSomeAudit} />
+                      </div>
             </div>
             </Dialog>
       </div>
