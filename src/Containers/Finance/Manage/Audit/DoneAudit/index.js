@@ -51,7 +51,7 @@ export default class DoneAudit extends Component {
     this.state = {
       openSearch: false,
       itemDetail: {},
-      delAudit:false,
+      delAudit: false,
       openEditCreate: false,
       Params: {
         page: 1,
@@ -65,15 +65,15 @@ export default class DoneAudit extends Component {
   componentDidMount() {}
     //导出
   onExport = (values) => {
-    let idList = [];
-    if (values.length != 0) {
-      values.map((item, index) => {
-        idList.push(item.id)
-      });
+      let idList = [];
+      if (values.length != 0) {
+        values.map((item, index) => {
+          idList.push(item.id)
+        });
+      }
+      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}`
+      window.location.href = url;
     }
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}`
-    window.location.href = url;
-  }
     //操作相关
   onOperation = (type, itemDetail) => {
 
@@ -85,51 +85,51 @@ export default class DoneAudit extends Component {
       this.openView();
     } else if (type == 'edit') {
       this.openEditCreate();
-    }else if (type == 'delete') {
+    } else if (type == 'delete') {
       this.delAudit(itemDetail);
     }
   }
 
   //打开编辑回款
   openEditCreate = () => {
-    this.setState({
-      openEditCreate: !this.state.openEditCreate
-    })
-  }
-  //打开查看回款
+      this.setState({
+        openEditCreate: !this.state.openEditCreate
+      })
+    }
+    //打开查看回款
   openView = () => {
-    this.setState({
-      openView: !this.state.openView
-    })
-  }
-  //删除此条数据
+      this.setState({
+        openView: !this.state.openView
+      })
+    }
+    //删除此条数据
   delAudit = (itemDetail) => {
     this.setState({
       itemDetail
     });
     this.setState({
-      delAudit:!this.state.delAudit
+      delAudit: !this.state.delAudit
     })
   }
   sureToDel = (itemDetail) => {
-    var _this=this;
+    var _this = this;
     //console.log(itemDetail);
     Store.dispatch(Actions.callAPI('del-fina-record', {}, {
       finaVerifyId: this.state.itemDetail.id
     })).then(function(response) {
-        Message.success("删除成功");
-        _this.setState({
-          delAudit:false,
-        },function(){
-          window.setTimeout(function() {
-              window.location.reload();
-          }, 0);
-        });
+      Message.success("删除成功");
+      _this.setState({
+        delAudit: false,
+      }, function() {
+        window.setTimeout(function() {
+          window.location.reload();
+        }, 0);
+      });
     }).catch(function(err) {
-        Message.error(err.message);
-        _this.setState({
-          delAudit:false,
-        });
+      Message.error(err.message);
+      _this.setState({
+        delAudit: false,
+      });
     });
   }
   searchParams = (form) => {
@@ -154,6 +154,18 @@ export default class DoneAudit extends Component {
       Params: form
     });
     this.openSearch();
+  }
+  EditAuditSubmit = (form) => {
+    var _this = this;
+    if (form.mainBillId != "") {
+      Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
+        Message.success('修改成功');
+        _this.openEditCreate();
+        window.location.reload();
+      }).catch(function(err) {
+        Message.error(err.message);
+      });
+    }
   }
 
   render() {

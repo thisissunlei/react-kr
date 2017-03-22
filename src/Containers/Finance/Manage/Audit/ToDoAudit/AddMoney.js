@@ -606,6 +606,7 @@ class AddMoney extends Component {
 				customerId,
 				flowAmount,
 			} = this.state;
+			console.log('customerId----', customerId)
 			return (
 				<div className="u-audit-add">
 			     <div className="u-audit-add-title">

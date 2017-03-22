@@ -12,7 +12,11 @@ import {
   Actions,
   Store
 } from 'kr/Redux';
-
+import {
+  reduxForm,
+  formValueSelector,
+  change
+} from 'redux-form';
 
 import {
   Form,
@@ -147,10 +151,20 @@ export default class ToDoAudit extends Component {
     Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
+
       _this.setState({
         showName: !_this.state.showName
       })
-
+      var customerList = {
+        label: response.company,
+        value: response.customerId
+      }
+      var mainBill = {
+        label: response.mainBillName,
+        value: response.mainBillId
+      }
+      Store.dispatch(change('addMoney', "customerId", customerList));
+      Store.dispatch(change('addMoney', "mainBillId", mainBill));
     }).catch(function(err) {
       Message.error(err.message);
     });
@@ -232,6 +246,21 @@ export default class ToDoAudit extends Component {
 
 
     }
+    //编辑保存
+  onEditSubmit = (form) => {
+      console.log('form----', form)
+      var _this = this;
+      if (form.mainBillId != "") {
+        Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
+          Message.success('修改成功');
+          _this.openEditCreate();
+          window.location.reload();
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+      }
+
+    }
     //打开批量审核
   openSomeAudit = () => {
     console.log("123",this.AuditNum);
@@ -244,20 +273,22 @@ export default class ToDoAudit extends Component {
       })
     }
   }
-  onSelect = (values,list)=>{
-    let {AuditList} = this.state;
-    AuditList = [];
-    var n = 0;
-    if (list.length != 0) {
-			list.map((item, value) => {
-				AuditList.push(item.id)
-        n++;
-			});
-		}
-    this.AuditNum = n;
-    console.log(AuditList);
-  }
-  //批量审核
+  onSelect = (values, list) => {
+      let {
+        AuditList
+      } = this.state;
+      AuditList = [];
+      var n = 0;
+      if (list.length != 0) {
+        list.map((item, value) => {
+          AuditList.push(item.id)
+          n++;
+        });
+      }
+      this.AuditNum = n;
+      console.log(AuditList);
+    }
+    //批量审核
   AuditSome = () => {
       Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
         finaVerifyIds: this.state.AuditList,
@@ -447,7 +478,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <EditMoney  detail={itemDetail} onSubmit="" onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
+              <EditMoney  detail={itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
              modal={true}
