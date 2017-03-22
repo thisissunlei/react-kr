@@ -426,7 +426,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						photoF:photo_First,
 						photoL:photo_List,
 						photoD:photo_Detail,
-            communityId:response.id
+            communityId:response.id,
+            communityName:response.name
 					})
 
 					response.brights.map((item,index)=>{
