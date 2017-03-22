@@ -104,9 +104,11 @@ export default class SelectTimeComponent extends React.Component{
 				}
 				target = target.parentNode;
 			}
-			_this.setState({
-				allOpen:false,
-			 })
+
+			let timeSelect=document.getElementsByClassName('ui-time-select-all')[0];
+			if(timeSelect){
+			  timeSelect.style.display='none';
+			 }
 		    }
 		); 
 		
@@ -131,8 +133,8 @@ export default class SelectTimeComponent extends React.Component{
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
 	               	<input type="text" onClick={this.inputClick} value={timeNum||this.props.timeNum} onChange={this.inputChange.bind(this,hourNum,minuteNum)} style={inputStyle}/>	
-	              	{allOpen && 
-	              	<div className="ui-time-select-all">
+	              	
+	              	<div className="ui-time-select-all" style={{display:allOpen?'block':'none'}}>
 		                <div  className="ui-hour-style">
 			                 {
 			                  hour.map((item,index)=>{
@@ -149,16 +151,16 @@ export default class SelectTimeComponent extends React.Component{
 			                  })	
 			                 }
 		                </div>
-		                {minuteOpen && 
-		                <div className="ui-minute-style">
+		               
+		                <div className="ui-minute-style" style={{display:minuteOpen?'inline-block':'none'}}>
 			                 {
 			                  minute.map((item,index)=>{
 			                     return <p key={index} onClick={this.minuteClick.bind(this,hourNum,item)} >{item}</p>
 			                  })	
 			                 }
-		                </div>}
+		                </div>
 	                             
-	               </div>}
+	               </div>
 	              
 				</div>
 			</WrapComponent>
