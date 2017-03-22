@@ -610,10 +610,9 @@ const validate = values =>{
     //非负整数
     let noMinus=/^(0|[1-9]\d*)$/;
 		//整数
-		let zeroNum=/^-?\d+$/;　
-
-    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
-
+		let zeroNum=/^-?\d+$/;　 
+    //坐标
+    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/; 
 
 
          //楼层检验
@@ -708,7 +707,7 @@ const validate = values =>{
     }
 
     if(values.local&&!reg.test(values.local)){
-      errors.local='123';
+      errors.local='请填写正确的坐标格式'; 
     }
 
 		if (!values.countyId) {
