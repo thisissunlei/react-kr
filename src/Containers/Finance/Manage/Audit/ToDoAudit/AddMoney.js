@@ -73,6 +73,40 @@ class AddMoney extends Component {
 		this.setState({
 			showName: !this.state.showName
 		})
+		var _this = this;
+		if (nextProps.mainBill) {
+
+			Store.dispatch(Actions.callAPI('get-mainbill-info', {
+				mainBillId: nextProps.mainBillId
+			}, {})).then(function(response) {
+
+				_this.setState({
+					mainbillInfo: response
+				})
+
+			}).catch(function(err) {});
+			Store.dispatch(Actions.callAPI('get-finaflow-info', {
+				mainBillId: nextProps.mainBillId
+			}, {})).then(function(response) {
+				var obj = {
+					label: "无合同",
+					contactType: '0',
+					value: '0'
+				}
+				response.cimbList.map((item, index) => {
+					item.value = item.detailid;
+					item.label = item.contactName;
+					return item;
+				})
+				response.cimbList.push(obj)
+				_this.setState({
+					finaflowInfo: response
+				})
+
+			}).catch(function(err) {});
+
+		}
+
 	}
 
 	openCreateCustomer = () => {

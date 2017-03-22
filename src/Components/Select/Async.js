@@ -98,7 +98,7 @@ export default class Async extends Component {
 
 
 
-		if (
+		/*if (
 			cache &&
 			cache.hasOwnProperty(inputValue)
 		) {
@@ -110,7 +110,7 @@ export default class Async extends Component {
 				return;
 			}
 
-		}
+		}*/
 
 
 		const callback = (error, data) => {

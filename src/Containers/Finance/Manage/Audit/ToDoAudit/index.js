@@ -80,6 +80,8 @@ export default class ToDoAudit extends Component {
       billOInfo: '',
       customerId: '',
       noneSomeAudit: false,
+      mainBill: false,
+      mainBillId: ''
     }
 
   }
@@ -166,6 +168,10 @@ export default class ToDoAudit extends Component {
           label: response.mainBillName,
           value: response.mainBillId
         }
+        _this.setState({
+          mainBill: !_this.state.mainBill,
+          mainBillId: response.mainBillId
+        })
         Store.dispatch(change('addMoney', "customerId", customerList));
         Store.dispatch(change('addMoney', "mainBillId", mainBill));
       }).catch(function(err) {
@@ -192,7 +198,12 @@ export default class ToDoAudit extends Component {
         label: response.mainBillName,
         value: response.mainBillId
       }
+      _this.setState({
+        mainBill: !_this.state.mainBill,
+        mainBillId: response.mainBillId
+      })
       Store.dispatch(change('addMoney', "mainBillId", mainBill));
+
     }).catch(function(err) {
       Message.error(err.message);
     });
@@ -346,7 +357,9 @@ export default class ToDoAudit extends Component {
       CustomerList,
       itemDetail,
       billOInfo,
-      customerId
+      customerId,
+      mainBill,
+      mainBillId
     } = this.state;
     return (
 
@@ -504,7 +517,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
               modal={true}

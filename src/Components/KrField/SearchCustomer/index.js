@@ -37,10 +37,9 @@ export default class SearchCustomer extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-
-		/*if (nextProps.showName == this.props.showName) {
+		if (nextProps.showName != this.props.showName) {
 			this.selectCustomer.loadOptions();
-		}*/
+		}
 
 	}
 
@@ -66,7 +65,7 @@ export default class SearchCustomer extends React.Component {
 		var _this = this;
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('get-customer-info', {
-				customerName: lastname
+				customerName: lastname || ''
 			})).then(function(response) {
 				response.forEach(function(item, index) {
 					item.value = item.id;
