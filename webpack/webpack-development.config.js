@@ -3,7 +3,7 @@ const path = require('path');
 const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
 
@@ -27,7 +27,8 @@ const config = {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src'),
+			'kr': path.join(process.cwd(), '/src')
+			/*
 			'redux':path.join(node_modules_dir,'redux'),
 			'react-redux':path.join(node_modules_dir,'react-redux'),
 			'mobx':path.join(node_modules_dir,'mobx'),
@@ -35,6 +36,7 @@ const config = {
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
 			'lodash':path.join(node_modules_dir,'lodash'),
+			*/
 		},
 	},
 	devServer: {
@@ -69,25 +71,6 @@ const config = {
    			 loaders: [ 'babel-loader?cacheDirectory=true' ],
    			 verbose: false
   		}),
-
-	/*
-	 	new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-			},
-			output: {
-				comments: false,
-			},
-		}),
-
-		*/
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
@@ -102,21 +85,13 @@ const config = {
 			hash:true,
 			cache:false,
 			showErrors:true,
-			/*
-			chunksSortMode:function(a,b){
-				 if (a.names[0] > b.names[0]) {
-       				 return 1;
-     			 }
-     			 if (a.names[0] < b.names[0]) {
-        			return -1;
-     			 }
-     			 return 0;
-			}
-			*/
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
+		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
+		])
 	],
 	watch: true,
   keepalive: true,

@@ -9,19 +9,22 @@ import {
 	Row,
 	Col,
 	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
-	ListGroup,
-	ListGroupItem,
+
+	Editor
+
 } from 'kr-ui';
 import './index.less';
 
- class NewCreateForm extends Component{
-	constructor(props){
-		super(props);
-		this.state={
-			
+
+export default class TAnLinLin extends Component {
+
+	constructor(props, context) {
+		super(props, context);
+
+		this.state = {
+			open:true,
+			checkedStations:[],
+
 		}
 	}
 	componentWillMount() {
@@ -50,22 +53,12 @@ import './index.less';
 			value: 3
 		}]
 		return (
-			<div className="new-create-activity">
-				
-				
-						<div className="activity-detail-info">
-							
-							
-			              	<KrField name="newuploadImage" 
-								component="map" 
-								placeholder="例如：北京市"
-								style={{width:252,height:36}}
-							/>
-							
-							
-						</div>
-					
-		  	</div>
+
+			<div>
+				<Editor toolbars={[['fullscreen', 'source', 'undo', 'redo', 'bold']]}/>
+			</div>
+
+
 		);
 	}
 }
