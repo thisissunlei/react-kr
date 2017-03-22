@@ -186,7 +186,7 @@ export default class ImpowerEditMemberForm extends Component {
 						<span className="person-name">{detail.customerName}</span>
 					</div>
 
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0}}/>
 					
 					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
 
