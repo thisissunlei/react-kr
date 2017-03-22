@@ -141,6 +141,8 @@ export default class List extends Component {
 				openNewCreate : !_this.state.openNewCreate,
 				searchParams:{
 					date: new Date(),
+					communityId : _this.state.searchParams.communityId,
+					customerName : _this.state.searchParams.customerName
 				}
 			})
 		}).catch(function(err){

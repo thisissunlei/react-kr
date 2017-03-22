@@ -56,7 +56,7 @@ export default class ImpowerEditMemberForm extends Component {
 			open:'false',
 			onsubmit:true,
 			phoneSame:'true',
-			onsubmitCode:true,
+			
 			code:'',
 			email:'',
 		}
