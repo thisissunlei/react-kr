@@ -70,9 +70,11 @@ export default class DoneAudit extends Component {
         values.map((item, index) => {
           idList.push(item.id)
         });
+        var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
+        window.location.href = url;
       }
-      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
-      window.location.href = url;
+    }else {
+      
     }
     //操作相关
   onOperation = (type, itemDetail) => {

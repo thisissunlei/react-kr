@@ -76,9 +76,11 @@ export default class DoAudit extends Component {
       values.map((item, index) => {
         idList.push(item.id)
       });
+      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
+      window.location.href = url;
+    }else {
+
     }
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
-    window.location.href = url;
   }
 
   //操作相关
