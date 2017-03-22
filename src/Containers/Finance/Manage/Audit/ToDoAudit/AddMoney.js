@@ -63,6 +63,7 @@ class AddMoney extends Component {
 			showName: false,
 			finaflowInfo: {},
 			customerId: "",
+			billInfo: " "
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -72,6 +73,41 @@ class AddMoney extends Component {
 		this.setState({
 			showName: !this.state.showName
 		})
+		var _this = this;
+		console.log('nextProps.mainBill', nextProps.mainBill)
+		if (nextProps.mainBill) {
+
+			Store.dispatch(Actions.callAPI('get-mainbill-info', {
+				mainBillId: nextProps.mainBillId
+			}, {})).then(function(response) {
+
+				_this.setState({
+					mainbillInfo: response
+				})
+
+			}).catch(function(err) {});
+			Store.dispatch(Actions.callAPI('get-finaflow-info', {
+				mainBillId: nextProps.mainBillId
+			}, {})).then(function(response) {
+				var obj = {
+					label: "无合同",
+					contactType: '0',
+					value: '0'
+				}
+				response.cimbList.map((item, index) => {
+					item.value = item.detailid;
+					item.label = item.contactName;
+					return item;
+				})
+				response.cimbList.push(obj)
+				_this.setState({
+					finaflowInfo: response
+				})
+
+			}).catch(function(err) {});
+
+		}
+
 	}
 
 	openCreateCustomer = () => {
@@ -171,16 +207,19 @@ class AddMoney extends Component {
 
 	}
 
-	openCreateMainbill = () => {
+	openCreateMainbill = (id) => {
 		let {
 			openCreateMainbill
 		} = this.props;
-		openCreateMainbill && openCreateMainbill();
+		let {
+			customerId
+		} = this.state;
+		openCreateMainbill && openCreateMainbill(id, customerId);
 	}
 	getMainbillInfo = (form) => {
 		var _this = this;
 		if (form.id == 0) {
-			this.openCreateMainbill();
+			this.openCreateMainbill(form.id);
 		}
 		Store.dispatch(Actions.callAPI('get-mainbill-info', {
 			mainBillId: form.value
@@ -289,8 +328,8 @@ class AddMoney extends Component {
 			mainBillId: form.mainBillId,
 			payAccount: form.payAccount,
 			payWay: form.payWay,
-			remark: form.remark,
-			uploadFileIds: form.uploadFileIds,
+			remark: form.remark || "",
+			uploadFileIds: form.uploadFileIds || [],
 			conJasonStr: JSON.stringify(childrenList),
 			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount
@@ -606,7 +645,6 @@ class AddMoney extends Component {
 				customerId,
 				flowAmount,
 			} = this.state;
-			console.log('customerId----', customerId)
 			return (
 				<div className="u-audit-add">
 			     <div className="u-audit-add-title">

@@ -77,7 +77,11 @@ export default class ToDoAudit extends Component {
       showName: false,
       openSomeAudit: false,
       AuditList: [],
-      noneSomeAudit:false,
+      billOInfo: '',
+      customerId: '',
+      noneSomeAudit: false,
+      mainBill: false,
+      mainBillId: ''
     }
 
   }
@@ -126,32 +130,62 @@ export default class ToDoAudit extends Component {
     })
   }
   sureToDel = (itemDetail) => {
-    var _this = this;
-    //console.log(itemDetail);
-    Store.dispatch(Actions.callAPI('del-fina-record', {}, {
-      finaVerifyId: this.state.itemDetail.id
-    })).then(function(response) {
-      Message.success("删除成功");
-      _this.setState({
-        delAudit: false,
-      }, function() {
-        window.setTimeout(function() {
-          window.location.reload();
-        }, 0);
+      var _this = this;
+      //console.log(itemDetail);
+      Store.dispatch(Actions.callAPI('del-fina-record', {}, {
+        finaVerifyId: this.state.itemDetail.id
+      })).then(function(response) {
+        Message.success("删除成功");
+        _this.setState({
+          delAudit: false,
+        }, function() {
+          window.setTimeout(function() {
+            window.location.reload();
+          }, 0);
+        });
+      }).catch(function(err) {
+        Message.error(err.message);
+        _this.setState({
+          delAudit: false,
+        });
       });
-    }).catch(function(err) {
-      Message.error(err.message);
-      _this.setState({
-        delAudit: false,
-      });
-    });
-  }
+    }
+    //新建客户订单
   onSubmitMainbill = (form) => {
+      var _this = this;
+      Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
+        Message.success('新建成功');
+        _this.openCreateMainbill();
+
+        _this.setState({
+          showName: !_this.state.showName
+        })
+        var customerList = {
+          label: response.company,
+          value: response.customerId
+        }
+        var mainBills = {
+          label: response.mainBillName,
+          value: response.mainBillId
+        }
+        _this.setState({
+          mainBill: true,
+          mainBillId: response.mainBillId
+        })
+        Store.dispatch(change('addMoney', "customerId", customerList));
+        Store.dispatch(change('addMoney', "mainBillId", mainBills));
+      }).catch(function(err) {
+        Message.error(err.message);
+      });
+    }
+    //新建订单
+  onMainBillSubmit = (form) => {
+    form.company = '';
+    form.customerId = this.state.customerId;
     var _this = this;
-    Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
+    Store.dispatch(Actions.callAPI('save-main-bill', {}, form)).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
-
       _this.setState({
         showName: !_this.state.showName
       })
@@ -159,12 +193,18 @@ export default class ToDoAudit extends Component {
         label: response.company,
         value: response.customerId
       }
-      var mainBill = {
+
+      var mainBills = {
         label: response.mainBillName,
         value: response.mainBillId
       }
-      Store.dispatch(change('addMoney', "customerId", customerList));
-      Store.dispatch(change('addMoney', "mainBillId", mainBill));
+      _this.setState({
+        mainBill: true,
+        mainBillId: response.mainBillId,
+      })
+
+      Store.dispatch(change('addMoney', "mainBillId", mainBills));
+
     }).catch(function(err) {
       Message.error(err.message);
     });
@@ -180,9 +220,11 @@ export default class ToDoAudit extends Component {
 
   }
 
-  openCreateMainbill = () => {
+  openCreateMainbill = (id, customerId) => {
     this.setState({
-      openCreateMainbill: !this.state.openCreateMainbill
+      openCreateMainbill: !this.state.openCreateMainbill,
+      billOInfo: id,
+      customerId: customerId
     })
   }
   openCreateCustomer = () => {
@@ -193,9 +235,7 @@ export default class ToDoAudit extends Component {
   componentDidMount() {}
     //导出
   onExport = (values) => {
-    console.log(values);
-    let idList=[];
-    //if (values.length != 0) {
+    let idList = [];
       values.map((item, index) => {
         idList.push(item.id)
       });
@@ -203,9 +243,6 @@ export default class ToDoAudit extends Component {
       console.log("2",values);
       console.log("list",idList);
       window.location.href = url;
-    //}else{
-
-    //}
 
   }
   searchParams = (form) => {
@@ -269,10 +306,10 @@ export default class ToDoAudit extends Component {
     }
     //打开批量审核
   openSomeAudit = () => {
-    console.log("123",this.AuditNum);
-    if(!this.AuditNum){
+    console.log("123", this.AuditNum);
+    if (!this.AuditNum) {
       this.noneSomeAudit();
-    }else{
+    } else {
       console.log("hhhhhhnmd");
       this.setState({
         openSomeAudit: !this.state.openSomeAudit
@@ -296,28 +333,33 @@ export default class ToDoAudit extends Component {
     }
     //批量审核
   AuditSome = () => {
-      Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
-        finaVerifyIds: this.state.AuditList,
-      })).then(function(response) {
-        Message.success("审核成功");
-        window.setTimeout(function() {
-          window.location.reload();
-        }, 0);
-      }).catch(function(err) {
-        Message.error(err.message);
-      });
+    Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
+      finaVerifyIds: this.state.AuditList,
+    })).then(function(response) {
+      Message.success("审核成功");
+      window.setTimeout(function() {
+        window.location.reload();
+      }, 0);
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
   }
-  noneSomeAudit = ()=>{
+  noneSomeAudit = () => {
     this.setState({
-      noneSomeAudit:!this.state.noneSomeAudit
+      noneSomeAudit: !this.state.noneSomeAudit
     })
 
   }
   render() {
     let {
       CustomerList,
-      itemDetail
+      itemDetail,
+      billOInfo,
+      customerId,
+      mainBill,
+      mainBillId
     } = this.state;
+    console.log('mainBill----', mainBill)
     return (
 
       <div className="m-todo-audit">
@@ -474,7 +516,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney  openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
               modal={true}
@@ -515,8 +557,12 @@ export default class ToDoAudit extends Component {
             >
               <NewCreateMainbill
                       detail={CustomerList}
+                      billOInfo={billOInfo}
                       onCancel={this.openCreateMainbill}
                       onSubmit={this.onSubmitMainbill}
+                      onMainBillSubmit={this.onMainBillSubmit}
+                      customerId={customerId}
+
               />
             </Dialog>
             <Dialog

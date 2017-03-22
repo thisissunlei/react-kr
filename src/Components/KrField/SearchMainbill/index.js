@@ -25,8 +25,12 @@ export default class SearchMainbill extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.onChange = this.onChange.bind(this);
-		this.getOptions = this.getOptions.bind(this);
+
+
+		this.state = {
+			customerId: ''
+		}
+		this.options = "";
 	}
 
 	componentDidMount() {
@@ -35,21 +39,21 @@ export default class SearchMainbill extends React.Component {
 		} = this.props;
 	}
 	componentWillReceiveProps(nextProps) {
-		var id = this.props.customerId;
+		this.options = "";
 		var _this = this;
-		setTimeout(function() {
-			//console.log('1111----', id)
-			_this.getOptions("", _this.props.customerId);
-		}, 1000)
 
-
+		this.setState({
+			customerId: nextProps.customerId
+		}, function() {
+			_this.select.loadOptions()
+		})
 	}
 	onInputChange = () => {
 
 
 	}
 
-	onChange(item) {
+	onChange = (item) => {
 		let {
 			input,
 			onChange
@@ -59,25 +63,31 @@ export default class SearchMainbill extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname, customerId) {
+	getOptions = (lastname) => {
+
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('get-mainbill', {
-				mainBillName: lastname,
-				customerId: customerId
+				mainBillName: lastname || "",
+				customerId: this.state.customerId
 			})).then(function(response) {
 				response.map(function(item, index) {
-					//console.log('item---', item)
 					item.value = item.id;
 					item.label = item.mainBillName;
 					return item;
 				});
+
 				resolve({
 					options: response
 				});
+
 			}).catch(function(err) {
 				reject(err);
 			});
+
 		});
+
+
+
 	}
 
 	render() {
@@ -98,12 +108,13 @@ export default class SearchMainbill extends React.Component {
 			customerId,
 			...other
 		} = this.props;
-		console.log('this.props.customerId----', customerId)
+
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
+					ref={(select)=>this.select=select}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"

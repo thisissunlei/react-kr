@@ -1137,6 +1137,21 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/opt/edit-flow-verify',
         method: 'post'
     },
+    //财务--审核--添加回款--新建订单
+    'save-main-bill': {
+        url: '/api/krspace-finance-web/finaVerify/opt/save-main-bill',
+        method: 'post'
+    },
+    //财务--审核--添加回款--新建客户和订单--生成订单名称
+    'getMainbillName': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-name?company={company}&mainBillTypeName={mainBillTypeName}',
+        method: 'get'
+    },
+    //财务--审核--添加回款--新建订单--生成订单名称
+    'get-mainbill-id': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-id?customerId={customerId}&mainBillTypeName={mainBillTypeName}',
+        method: 'get'
+    },
 
 }
 

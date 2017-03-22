@@ -56,7 +56,7 @@ export default class DoAudit extends Component {
       },
       infoList: [],
       itemDetail: [],
-      openView:false,
+      openView: false,
       openEditCreate: false,
       Param: {
         page: 1,
@@ -102,24 +102,18 @@ export default class DoAudit extends Component {
       Store.dispatch(Actions.callAPI('edit-verify-checked', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate()
-        _this.setState({
-          Params: {
-            page: 1,
-            pageSize: 11,
-            verifyStatus: 'CHECKED'
-          }
-        })
+        window.location.reload();
 
       }).catch(function(err) {});
 
     }
     //打开编辑回款
   openEditCreate = () => {
-    this.setState({
-      openEditCreate: !this.state.openEditCreate
-    })
-  }
-  //打开查看回款
+      this.setState({
+        openEditCreate: !this.state.openEditCreate
+      })
+    }
+    //打开查看回款
   openView = () => {
     this.setState({
       openView: !this.state.openView

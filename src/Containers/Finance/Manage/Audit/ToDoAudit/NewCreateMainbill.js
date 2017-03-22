@@ -8,7 +8,8 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	change
 } from 'redux-form';
 import {
 	Actions,
@@ -64,7 +65,9 @@ class NewCreateMainbill extends Component {
 		var formList = form;
 		const {
 			onSubmit,
-			detail
+			detail,
+			billOInfo,
+			onMainBillSubmit
 		} = this.props;
 		formList.company = detail.company;
 		if (detail.name) {
@@ -73,9 +76,44 @@ class NewCreateMainbill extends Component {
 		if (detail.tel) {
 			formList.tel = detail.tel;
 		}
-		onSubmit && onSubmit(formList);
-	}
+		if (billOInfo == 0) {
+			onMainBillSubmit && onMainBillSubmit(formList)
+		} else {
+			onSubmit && onSubmit(formList);
+		}
 
+
+
+	}
+	mainBillType = (item) => {
+		let {
+			billOInfo,
+			detail,
+			customerId
+		} = this.props;
+		var form;
+		if (billOInfo == 0) {
+			console.log('customerId', customerId)
+			if (customerId > 0) {
+				Store.dispatch(Actions.callAPI('get-mainbill-id', {
+					customerId: customerId,
+					mainBillTypeName: item.label,
+				}, {})).then(function(response) {
+					Store.dispatch(change('newCreateMainbill', "mainbillname", response));
+				}).catch(function(err) {});
+			}
+		} else {
+
+			Store.dispatch(Actions.callAPI('getMainbillName', {
+				company: detail.company,
+				mainBillTypeName: item.label,
+			}, {})).then(function(response) {
+				Store.dispatch(change('newCreateMainbill', "mainbillname", response));
+			}).catch(function(err) {});
+
+		}
+
+	}
 
 	onCancel = () => {
 		const {
@@ -109,6 +147,8 @@ class NewCreateMainbill extends Component {
 							label="订单类型"
 							options={MainbillType}
 							requireLabel={true}
+							onChange={this.mainBillType}
+
 					 />
 					 <KrField  
 							grid={1/2}
