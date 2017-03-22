@@ -691,6 +691,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;  
 
 
+
 			//楼层检验
 			if (!values.wherefloors || !values.wherefloors.length) {
 				errors.wherefloors = { _error: 'At least one member must be entered' }
@@ -702,7 +703,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						memberErrors.floor = '请输入所在楼层'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
-					if(wherefloors.floor&&!zeroNum.test(wherefloors.floor)){
+					if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor)){
 						memberErrors.floor = '楼层为整数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
@@ -710,7 +711,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						memberErrors.stationCount = '请输入可出租工位数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
-					if(wherefloors.stationCount&&!noMinus.test(wherefloors.stationCount)){
+					if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount)){
 						memberErrors.stationCount = '可出租工位数为非负整数'
 						membersArrayErrors[memberIndex] = memberErrors
 					}
@@ -728,7 +729,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           const membersArrayErrors = []
           values.porTypes.forEach((porTypes, memberIndex) => {
             const memberErrors = {}
-            if (porTypes.price&&!stationNP.test(porTypes.price)) {
+            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price)) {
               memberErrors.price = '价格不超过五位整数'
               membersArrayErrors[memberIndex] = memberErrors
             }
@@ -742,13 +743,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     if(values.floorHeight&&isNaN(values.floorHeight)){
        errors.floorHeight='请输入数字';
     }
-    if(values.entryNum&&!numberNotZero.test(values.entryNum)){
+    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum)){
        errors.entryNum='请输入正整数';
     }
-    if(values.elevatorNum&&!numberNotZero.test(values.elevatorNum)){
+    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum)){
        errors.elevatorNum='请输入正整数';
     }
-    if(values.cargoNum&&!numberNotZero.test(values.cargoNum)){
+    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum)){
        errors.cargoNum='请输入正整数';
     }
     if(values.efficientRate&&isNaN(values.efficientRate)){
@@ -757,19 +758,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     if(values.greenRate&&isNaN(values.greenRate)){
        errors.greenRate='请输入数字';
     }
-    if(values.stationNum&&!numberNotZero.test(values.stationNum)){
+    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum)){
        errors.stationNum='请输入正整数';
     }
-    if(values.meetNum&&!numberNotZero.test(values.meetNum)){
+    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum)){
        errors.meetNum='请输入正整数';
     }
 
     if(values.local&&!reg.test(values.local)){
       errors.local='请填写正确的坐标格式'; 
     }
-
-
-
 
 			if(!values.name){
 				errors.name = '请填写社区名称';
@@ -786,7 +784,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			if(!values.area){
 				errors.area='请输入社区面积';
 			}
-			if(values.area&&!numberNotZero.test(values.area)){
+			if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area)){
 				errors.area='请输入正整数';
 			}
 
@@ -833,10 +831,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 			if (!values.meetNum) {
 				errors.meetNum= '请输入会议室总数';
-			}
-
-			if (!values.contract) {
-				errors.contract= '请输入联系方式';
 			}
 
 			if(!values.contract){

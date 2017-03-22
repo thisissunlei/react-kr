@@ -613,82 +613,64 @@ const validate = values =>{
     var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/; 
 
 
-         //楼层检验
-		 if (!values.wherefloors || !values.wherefloors.length) {
-			    errors.wherefloors = { _error: 'At least one member must be entered' }
-			  } else {
-			    const membersArrayErrors = []
-			    values.wherefloors.forEach((wherefloors, memberIndex) => {
-			      const memberErrors = {}
-			      if (!wherefloors || !wherefloors.floor) {
-			        memberErrors.floor = '请输入所在楼层'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-            if(wherefloors.floor&&!zeroNum.test(wherefloors.floor)){
-               memberErrors.floor = '楼层为整数'
-               membersArrayErrors[memberIndex] = memberErrors
-            }
-			      if (!wherefloors || !wherefloors.stationCount) {
-			        memberErrors.stationCount = '请输入可出租工位数'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-            if(wherefloors.stationCount&&!noMinus.test(wherefloors.stationCount)){
-               memberErrors.stationCount = '可出租工位数为非负整数'
-               membersArrayErrors[memberIndex] = memberErrors
-            }
-			    })
-		    if(membersArrayErrors.length) {
-		      errors.wherefloors = membersArrayErrors
-		    }
-         }
-
-          //工位校验
-		   if (!values.porTypes || !values.porTypes.length) {
-			    errors.porTypes = { _error: 'At least one member must be entered' }
-			  } else {
-			    const membersArrayErrors = []
-			    values.porTypes.forEach((porTypes, memberIndex) => {
-			      const memberErrors = {}
-			      if (porTypes.price&&!stationNP.test(porTypes.price)) {
-			        memberErrors.price = '价格不超过五位整数'
-			        membersArrayErrors[memberIndex] = memberErrors
-			      }
-			    })
-		    if(membersArrayErrors.length) {
-		      errors.porTypes = membersArrayErrors
-		    }
+       //楼层检验
+      if (!values.wherefloors || !values.wherefloors.length) {
+        errors.wherefloors = { _error: 'At least one member must be entered' }
+      } else {
+        const membersArrayErrors = []
+        values.wherefloors.forEach((wherefloors, memberIndex) => {
+          const memberErrors = {}
+          if (!wherefloors || !wherefloors.floor) {
+            memberErrors.floor = '请输入所在楼层'
+            membersArrayErrors[memberIndex] = memberErrors
+          }
+          if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor)){
+            memberErrors.floor = '楼层为整数'
+            membersArrayErrors[memberIndex] = memberErrors
+          }
+          if (!wherefloors || !wherefloors.stationCount) {
+            memberErrors.stationCount = '请输入可出租工位数'
+            membersArrayErrors[memberIndex] = memberErrors
+          }
+          if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount)){
+            memberErrors.stationCount = '可出租工位数为非负整数'
+            membersArrayErrors[memberIndex] = memberErrors
+          }
+        })
+        if(membersArrayErrors.length) {
+          errors.wherefloors = membersArrayErrors
+        }
       }
 
+    
+          //工位校验
+       if (!values.porTypes || !values.porTypes.length) {
+          errors.porTypes = { _error: 'At least one member must be entered' }
+        } else {
+          const membersArrayErrors = []
+          values.porTypes.forEach((porTypes, memberIndex) => {
+            const memberErrors = {}
+            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price)) {
+              memberErrors.price = '价格不超过五位整数'
+              membersArrayErrors[memberIndex] = memberErrors
+            }
+          })
+        if(membersArrayErrors.length) {
+          errors.porTypes = membersArrayErrors
+        }
+      }
 
-		if(!values.name){
-			errors.name = '请填写社区名称';
-		}
-
-		if(!values.code){
-			errors.code='请填写社区编码';
-		}
-
-		if(!values.local){
-			errors.local='请输入社区坐标';
-		}
-
-		if(!values.area){
-			errors.area='请输入社区面积';
-		}
-		if(values.area&&!numberNotZero.test(values.area)){
-			 errors.area='请输入正整数';
-		}
-
+     
     if(values.floorHeight&&isNaN(values.floorHeight)){
        errors.floorHeight='请输入数字';
     }
-    if(values.entryNum&&!numberNotZero.test(values.entryNum)){
+    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum)){
        errors.entryNum='请输入正整数';
     }
-    if(values.elevatorNum&&!numberNotZero.test(values.elevatorNum)){
+    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum)){
        errors.elevatorNum='请输入正整数';
     }
-    if(values.cargoNum&&!numberNotZero.test(values.cargoNum)){
+    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum)){
        errors.cargoNum='请输入正整数';
     }
     if(values.efficientRate&&isNaN(values.efficientRate)){
@@ -697,10 +679,10 @@ const validate = values =>{
     if(values.greenRate&&isNaN(values.greenRate)){
        errors.greenRate='请输入数字';
     }
-    if(values.stationNum&&!numberNotZero.test(values.stationNum)){
+    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum)){
        errors.stationNum='请输入正整数';
     }
-    if(values.meetNum&&!numberNotZero.test(values.meetNum)){
+    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum)){
        errors.meetNum='请输入正整数';
     }
 
@@ -708,32 +690,37 @@ const validate = values =>{
       errors.local='请填写正确的坐标格式'; 
     }
 
-		if (!values.countyId) {
-			errors.countyId= '请填写所属区县';
-		}
-
-		if (!values.address) {
-			errors.address= '请输入详细地址';
-		}
-
-		if (!values.opened) {
-			errors.opened= '请输入社区状态';
-		}
 
 
-		if (!values.openDate) {
-			errors.openDate= '请输入开业时间';
-		}
 
-		if (!values.signStartDate) {
-			errors.signStartDate= '请输入签约开始时间';
-		}
+      if(!values.name){
+        errors.name = '请填写社区名称';
+      }
 
-		if (!values.signEndDate) {
-			errors.signEndDate= '请输入签约结束时间';
-		}
+      if(!values.code){
+        errors.code='请填写社区编码';
+      }
 
-    //排序
+      if(!values.local){
+        errors.local='请输入社区坐标';
+      }
+
+      if(!values.area){
+        errors.area='请输入社区面积';
+      }
+      if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area)){
+        errors.area='请输入正整数';
+      }
+
+      if (!values.countyId) {
+        errors.countyId= '请填写所属区县';
+      }
+
+      if (!values.address) {
+        errors.address= '请输入详细地址';
+      }
+
+       //排序
     if(values.orderNum&&isNaN(values.orderNum)){
       errors.orderNum='请输入数字';
     }
@@ -745,17 +732,30 @@ const validate = values =>{
     }
 
 
-		if (!values.stationNum) {
-			errors.stationNum= '请输入工位总数';
-		}
 
-		if (!values.meetNum) {
-			errors.meetNum= '请输入会议室总数';
-		}
+      if (!values.opened) {
+        errors.opened= '请输入社区状态';
+      }
 
-		if (!values.contract) {
-			errors.contract= '请输入联系方式';
-		}
+      if (!values.openDate) {
+        errors.openDate= '请输入开业时间';
+      }
+
+      if (!values.signStartDate) {
+        errors.signStartDate= '请输入签约开始时间';
+      }
+
+      if (!values.signEndDate) {
+        errors.signEndDate= '请输入签约结束时间';
+      }
+
+      if (!values.stationNum) {
+        errors.stationNum= '请输入工位总数';
+      }
+
+      if (!values.meetNum) {
+        errors.meetNum= '请输入会议室总数';
+      }
 
 		if(!values.contract){
 			errors.contract='请输入联系方式'
