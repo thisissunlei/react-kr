@@ -24,31 +24,142 @@ export default class MapComponent extends Component {
 	constructor(props,context){
 		super(props,context);
 		this.state={
-			
-		}
+			pointLng : 116.404,
+			pointLat : 39.915,
+			// 是否显示
+			showMap : false
+		};
+		// this.map = new BMap.Map("mapcomponent"); 
 	}
 	componentWillUnmount() {
 		
 	}
 	componentDidMount() {
 		// 百度地图API功能
-		var map = new BMap.Map("mapComponent");    // 创建Map实例
-		map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-		map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-		map.enableScrollWheelZoom(true);
+		let _this = this;
+		_this.map = new BMap.Map("mapcomponent"); 
+
+		let {initailPoint} =this.props;
+		if(initailPoint){
+			_this.setMarker(initailPoint);	
+		}else{
+			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
+		
+			_this.map.centerAndZoom(point, 11);
+			var marker = new BMap.Marker(point);        // 创建标注    
+			_this.map.addOverlay(marker);
+			// map可缩放
+			_this.map.enableScrollWheelZoom();
+			// marker可拖拽
+			marker.enableDragging();    
+			marker.addEventListener("dragend", function(e){    
+			 	_this.setState({
+			 		pointLng : e.point.lng,
+					pointLat : e.point.lat
+			 	});
+
+			});
+		}
+		
 	}
-	componentWillReceiveProps(nextProps){
+	// 输入文字
+	inputLocation=()=>{
+		let _this = this;
+		var inputValue = this.refs.mapInput.value;
+		if(!inputValue){
+			_this.setMarker('北京');
+			
+		}else{
+			_this.setMarker(inputValue);
+		}
+			 		
 	}
-	
-	
+	// 搜索定位
+	setMarker=(searchValue)=>{
+		let _this =this;
+		var options = {      
+		      onSearchComplete: function(results){  
+					_this.map.clearOverlays();  
+
+		          	if (local.getStatus() == BMAP_STATUS_SUCCESS){ 
+
+		             	_this.setState({
+		             		pointLng : results.getPoi(0).point.lng,
+							pointLat : results.getPoi(0).point.lat
+		             	},function(){
+
+		             		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);    
+							var marker = new BMap.Marker(point);        // 创建标注
+							   //移动到搜索的地址 
+							_this.map.panTo(new BMap.Point(_this.state.pointLng, _this.state.pointLat), 15); 
+							// 增加覆盖物
+							_this.map.addOverlay(marker);
+							// 标注，，，可拖拽
+							marker.enableDragging();
+							marker.addEventListener("dragend", function(e){    
+							 	_this.setState({
+							 		pointLng : e.point.lng,
+									pointLat : e.point.lat
+							 	})
+							}) ;
+							// map可拖拽
+							_this.map.enableDragging();
+							// map可缩放
+							_this.map.enableScrollWheelZoom();
+							
+		             	})     
+		          	}    
+		      }      
+		 };      
+		var local = new BMap.LocalSearch(_this.map, options);      
+		local.search(searchValue);
+	}
+	// 是否显示地图
+	showMap=()=>{
+		this.setState({
+			showMap : !this.state.showMap
+		},function(){
+			// 百度地图API功能
+			let _this = this;
+			
+			_this.map = new BMap.Map("mapcomponent"); 
+			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
+		
+			_this.map.centerAndZoom(point, 11);
+			var marker = new BMap.Marker(point);        // 创建标注    
+			_this.map.addOverlay(marker);
+			// map可缩放
+			_this.map.enableScrollWheelZoom();
+			// marker可拖拽
+			marker.enableDragging();    
+			marker.addEventListener("dragend", function(e){    
+			 	_this.setState({
+			 		pointLng : e.point.lng,
+					pointLat : e.point.lat
+			 	});
+
+			});
+		})
+	}
 	render() {
-		let {placeholder,style,...other} = this.props;
-		// let {operateImg} = this.state;
+		let {placeholder,style,mapStyle,...other} = this.props;
+		let {showMap} =this.state;
+		let mapInnerStyle = {};
+		var newObj = {};
+		if(this.state.showMap){
+			newObj.display = "block";
+
+		}else{
+			newObj.display = "none";
+		}
+		Object.assign(mapInnerStyle,mapStyle,newObj);
 		
 		return(
-      		<div style={style} className="ui-map-component">
-				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%"}}/>
-				<div id="mapComponent" ></div>
+      		<div className="ui-map-component" style={style}>
+				<img src={require('./images/location.svg')} className="ui-map-img" onClick={this.showMap}/>
+
+				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%"}} onChange={this.inputLocation} ref="mapInput"/>
+				<div id="mapcomponent" style={mapInnerStyle}></div>
 			</div>
       	
 		);
