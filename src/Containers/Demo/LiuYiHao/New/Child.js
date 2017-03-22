@@ -14,13 +14,9 @@ import {
 	Dialog,
 	Button,
 } from 'kr-ui';
-import Child from "./Child.js";
+import Grandson from "./Grandson.js";
 
 export default class New extends Component {
-	static childContextTypes = {
-	  color: React.PropTypes.string,
-	  fun: React.PropTypes.func
-	};
 
 	constructor(props, context) {
 		super(props, context);
@@ -31,12 +27,6 @@ export default class New extends Component {
 		}
 
 	}
-	getChildContext() {
-	    return {color: "purple",fun:this.nn};
-	}
-	nn = () =>{
-		console.log("4444444")
-	}
 
 	
 
@@ -45,8 +35,8 @@ export default class New extends Component {
 	render() {
 		return (
 			<div>
-					<h1>A</h1>
-					<Child />
+					<h1>B</h1>
+					<Grandson />
 			</div>
 
 		);

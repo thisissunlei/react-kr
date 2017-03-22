@@ -40,66 +40,56 @@ import {
 } from 'kr-ui';
 import "./index.less";
 class SearchForm extends Component {
-	
+
 
 	constructor(props) {
 		super(props);
 	}
-	
-	
-   //搜索下拉
-	onSearchSubmit=(value)=>{
-      const {
-			onSearchSubmit
-		} = this.props;
-		onSearchSubmit && onSearchSubmit(value);
-	}
-    
-    //日期开始
-	 onStartChange=(value)=>{
-      const {
+  //日期开始
+	onStartChange=(value)=>{
+    const {
 			onStartChange
 		} = this.props;
 		onStartChange && onStartChange(value);
-    }
-    //日期结束
-     onEndChange=(value)=>{
+  }
+  //日期结束
+  onEndChange=(value)=>{
       const {
-			onEndChange
-		} = this.props;
-		onEndChange && onEndChange(value);
-     }
+				onEndChange
+			} = this.props;
+			onEndChange && onEndChange(value);
+   }
 
+	 //社区选择
+	 communityChange = (value) =>{
+		 const {
+			 communityChange
+		 } = this.props;
+		 communityChange && communityChange(value);
+	 }
 
 	render() {
 
 		let {todayDate}=this.props;
-
-		let options=[
-		 {label:'公司名称',value:'company'},
-		 {label:'城市',value:'city'},
-		 {label:'社区',value:'community'},
-		 {label:'销售员',value:'people'},
-		 {label:'录入人',value:'write'},
-		]
-
 		return (
-			
+
 			<form name="searchForm" className="appointment-visit-form" style={{height:50 }}>
-				
+
 				<div className="searchForm-col" style={{marginTop:"0px",}}>
-					<KrField grid={1} label="" name="createDateBegin" style={{width:"254px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
+					<KrField grid={1} label="" name="createDateBegin" style={{width:"220px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
 				</div>
 				<div className="searchForm-col" style={{width:0,position:"relative",left:-17,top:19}}>
 					<span>至</span>
 				</div>
 
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:30}}>
-					<KrField grid={1} label="" name="createDateEnd" style={{width:"254px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
+					<KrField grid={1} label="" name="createDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
-				
-			
+				<KrField style={{width:187,marginLeft:-10,position:"relative"}} name="leaseId" component="searchCommunity" inline={false} requireLabel={false} onChange={this.communityChange}/>
+
+
+
 			</form>
 
 

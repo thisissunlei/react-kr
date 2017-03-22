@@ -6,7 +6,8 @@ import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 import { AppBar, Menu, MenuItem,IconMenu, IconButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
 import {
-	Button
+	Button,
+	Message
 } from 'kr-ui';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import './index.less';
@@ -45,13 +46,19 @@ class Header extends Component {
 			openLookCustomerList:false,
 			//客户 客户名称
 			customerName:'',
+			openMassage:false,
 			//客户id
 			msgExtra:0,
+			//是否显示红点
+			showRedDrop:false,
+			//消息铃铛显示
+			showMassge:false,
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
 		]
 		// this.inforShowList();
+		this.renovateRedDrop();
 
 	}
 
@@ -59,7 +66,39 @@ class Header extends Component {
 	componentWillMount() {
 		this.inforShowList();
   	}
+ //消息提醒关闭
+ messageCancel= () =>{
 
+	 this.setState({
+		 openLookCustomerList:false,
+	 })
+ }
+ //判断红点是否显示
+ renovateRedDrop = () =>{
+	 let _this = this;
+	 let showRedDrop = false;
+	 let showMassge = false;
+	 let Details=[]
+	 Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
+
+		for (var key in response.rightDetails){
+		    if(response.rightDetails[key]){
+				showMassge=true;
+				break;
+			}
+		}
+		if(response.unreadTotal != 0){
+			showRedDrop=true;
+		}
+		 
+		 _this.setState({
+			 showRedDrop,
+			 showMassge
+		 })
+	 }).catch(function(err) {
+		 Message.error(err.message)
+	 });
+ }
 
   	componentWillReceiveProps(next,state){
   		this.inforShowList();
@@ -201,11 +240,14 @@ class Header extends Component {
 			flag,
 			right_bar
 		} = this.props;
-		actions.switchRightBar(!!!right_bar.switch_value);
+		this.setState({
+			openMassage:!this.state.openMassage,
+		})
+		// actions.switchRightBar(!!!right_bar.switch_value);
 	}
 	onClose=()=>{
 		this.setState({
-			right_bar:!this.state.right_bar.switch_value
+			openMassage:!this.state.openMassage
 		})
 	}
 	changeCount=()=>{
@@ -214,17 +256,23 @@ class Header extends Component {
 			hasUnRead:hasUnRead
 		})
 	}
-	//打开LookCustomerList
-	openLookCustomerList = () =>{
 
-	}
-
+	//客户名称被点击
 	customerClick = (data) => {
+
+		let msgExtra = JSON.parse(data.msgExtra)
 		this.setState({
 			customerName : data.customerName,
-			msgExtra : data.msgExtra,
+			msgExtra : msgExtra.customerId,
 			openLookCustomerList:true,
 		})
+	}
+	//客户详情关闭按钮
+	lookCustomerListClose = () =>{
+		this.setState({
+			openLookCustomerList:false
+		})
+
 	}
 
 	render() {
@@ -246,7 +294,18 @@ class Header extends Component {
 			switch_value
 		} = this.props.sidebar_nav;
 
-		let {inforLogoShow,infoTab,hasUnRead,customerName,msgExtra,openLookCustomerList} = this.state;
+		let {
+					inforLogoShow,
+					infoTab,
+					hasUnRead,
+					customerName,
+					msgExtra,
+					openLookCustomerList,
+					openMassage,
+					showRedDrop,
+					showMassge
+
+				} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
 		const HeaderBar = (props) => {
 
@@ -281,10 +340,10 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right',position:"absolute",right:"10px",top:7}}>
-					<div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
-						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
-					</div>
+						{ showRedDrop && <span className="ui-un-read-count" ></span>}
+					</div>}
 					< IconMenu
 					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
@@ -326,19 +385,25 @@ class Header extends Component {
 				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 				</Drawer>
-				<Drawer open={this.props.right_bar.switch_value} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
+				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
 					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
-					
-					<MessageManagement onClose={this.onClose} customerClick={this.customerClick}/>
+
+					<MessageManagement 
+						onCancel = {this.onClose} 
+						customerClick = {this.customerClick}
+						renovateRedDrop = {this.renovateRedDrop}
+					/>
 				</Drawer>
 				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-					<LookCustomerList 
+					<LookCustomerList
 						 comeFrom="Merchant"
 		                 operType="SHARE"
+										 comeFrom="message"
 		                 companyName={customerName}
 		                 listId={msgExtra}
+										 onCancel={this.lookCustomerListClose}
 		                 // dataReady={dataReady}
-		                
+
 					/>
 				</Drawer>
 			</div>

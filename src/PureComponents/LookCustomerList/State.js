@@ -35,14 +35,15 @@ State.recordDevelopChange = action(function(comeFrom) {
 
 State.switchEditCustomerList = action(function(comeFrom) {
 	this.openEditCustomerList=!this.openEditCustomerList;
-	
+
 });
 State.switchEditCustomerList = action(function(comeFrom) {
 	this.openEditCustomerList=!this.openEditCustomerList;
-	
+
 });
 //获取订单数据列表
 State.orderList=action(function(params) {
+	return;
 	if(!params){
 	 return ;
 	}
@@ -59,6 +60,10 @@ State.initListId=action(function(params){
 })
 //获取详情页数据
 State.lookListId=action(function(params,operType) {
+
+	console.log(">>>>>>>>>>>>>>>",params)
+
+	// return;
 	this.operType=operType;
 	if(!params){
 	 return ;
@@ -75,7 +80,7 @@ State.lookListId=action(function(params,operType) {
     }
     data.id=params;
     data.operType=operType;
-	
+
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;

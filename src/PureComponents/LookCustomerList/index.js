@@ -47,12 +47,10 @@ class LookCustomerList extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
-	
+
+
 
 	componentWillReceiveProps(nextProps){
-		console.log("{}{}{}{}")
-
 		if(!nextProps.listId){
 			return;
 		}
@@ -65,25 +63,25 @@ class LookCustomerList extends Component{
 	}
 
 	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType) => {
-		
 
-		
-		if(comeFrom=="Merchant"){
 
-			return  (<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch}/>)
+
+		if(comeFrom == "Merchant" || comeFrom == "message"){
+
+			return  (<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch} comeFrom={comeFrom}/>)
 		}else {
 
 			return (<Tabs className="tabs"
 			  inkBarStyle={{background:"#499df1",top:0}}
 			>
-				
+
 				<Tab label="客户详情" >
-					
+
 						<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch} />
 				</Tab>
-				
+
 				<Tab label="客户订单" >
-					
+
 						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch} operType={operType} listId={this.props.listId}/>
 				</Tab>
 			</Tabs>)
@@ -92,9 +90,9 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName,operType}=this.props;
-				                       
-		
+		let {comeFrom,data,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName,operType}=this.props;
+
+
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
@@ -103,7 +101,7 @@ class LookCustomerList extends Component{
 				</div>
 				<div style={{height:5}}></div>
 					{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType)}
-		        
+
 		      </div>
 
 		);
