@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -20,7 +20,6 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		'kr-ui': path.join(process.cwd(), '/src/Components'),
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
@@ -60,7 +59,7 @@ const config = {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DllReferencePlugin({
              context:__dirname,
-          	 manifest:require(path.resolve(buildPath,'manifest.json')),
+          	 manifest:require(path.join(buildPath,'vendors','manifest.json')),
            	 name:'lib'
         }),
         new HappyPack({
@@ -69,25 +68,6 @@ const config = {
    			 loaders: [ 'babel-loader?cacheDirectory=true' ],
    			 verbose: false
   		}),
-
-	/*
-	 	new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-			},
-			output: {
-				comments: false,
-			},
-		}),
-
-		*/
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
@@ -101,18 +81,7 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:false,
-			showErrors:true,
-			/*
-			chunksSortMode:function(a,b){
-				 if (a.names[0] > b.names[0]) {
-       				 return 1;
-     			 }
-     			 if (a.names[0] < b.names[0]) {
-        			return -1;
-     			 }
-     			 return 0;
-			}
-			*/
+			showErrors:true
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
@@ -123,15 +92,23 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
+		/*
+		preLoaders: [
+     {
+       test: /\.js$/,
+       loader: 'eslint-loader',
+			 exclude: /(node_modules|bower_components|static|test|build|configs)/,
+			 include: [ path.join(process.cwd(), './src')]
+     },
+   ],
+	 */
 		loaders: [
 			{
-				test: /\.jsx?$/,
+				test: /\.js?$/,
 				loaders: [
 					'happypack/loader?id=jsx'
 				],
-				include: [
-               		 path.join(process.cwd(), './src'),
-              	],
+				include: [ path.join(process.cwd(), './src')],
 				exclude: /(node_modules|bower_components|static|test|build|configs)/
 			},
 			{
@@ -173,10 +150,12 @@ const config = {
 		],
 	},
 	eslint: {
-		configFile: '../.eslintrc',
-		failOnWarning: true,
-    	failOnError: true,
-    	cache: true
+		configFile:path.join(process.cwd(),'.eslintrc'),
+		failOnWarning: false,
+    failOnError: false,
+    cache: true,
+		hot: true,
+		historyApiFallback: true
 	},
 };
 

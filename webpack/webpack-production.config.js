@@ -45,10 +45,10 @@ const config = {
 		}),
 		new webpack.DllReferencePlugin({
              context:__dirname,
-			 manifest:require(path.resolve(buildPath,'manifest.json')),
+			 manifest:require(path.resolve(buildPath,'vendors','manifest.json')),
            	 name:'lib'
     }),
-		
+
 	new HappyPack({
 			 id: 'jsx',
 			 threadPool: HappyPack.ThreadPool({ size: 6 }),
@@ -56,7 +56,7 @@ const config = {
    			 verbose: false,
    			 cache:true
   	}),
-  		
+
 
     new webpack.optimize.UglifyJsPlugin({
 			compress: {

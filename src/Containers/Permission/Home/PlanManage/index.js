@@ -31,7 +31,6 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker,
 	Dialog,
 	FlatButton,
 	TextField,
@@ -149,11 +148,11 @@ class PlanManage extends Component{
 					<Subheader>日程</Subheader>
 					<Divider />
 					{this.props.plan.now_trip.map((item,index)=>{
-						return <ListItem primaryText={item.title} key={index} 
+						return <ListItem primaryText={item.title} key={index}
 						leftIcon={
 							<Avatar icon={<ActionAssignment />} backgroundColor={yellow600}  color="#fff" size={25}/>
 						}
-						rightIcon={<HardwarekeyboardArrowDown />} 
+						rightIcon={<HardwarekeyboardArrowDown />}
 						/>
 					})}
 				</List>
@@ -197,9 +196,9 @@ class PlanManage extends Component{
 
 			<Calendar value={this.props.now_date} onChange={this.calendarChange} active={true} items={this.props.items} />
 
-			
+
 			{this.renderPlan()}
-			
+
 
 			</Section>
 
@@ -289,4 +288,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(PlanManage);
-
