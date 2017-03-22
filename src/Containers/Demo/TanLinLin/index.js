@@ -13,9 +13,10 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
+	Editor
 } from 'kr-ui';
 
-export default class ZhangQu extends Component {
+export default class TAnLinLin extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -49,15 +50,7 @@ export default class ZhangQu extends Component {
 	render() {
 		return (
 			<div>
-					<Dialog
-						title="平面图"
-						contentStyle={{width:1000}}
-						actions={<Button label="确定" onTouchTap={this.confirm}/>}
-						onClose={this.close}
-						bodyStyle={{paddingLeft:0,paddingRight:0}}
-						open={this.state.open} >
-								<PlanMap onCheckedStation={this.onCheckedStation} />
-				</Dialog>
+				<Editor toolbars={[['fullscreen', 'source', 'undo', 'redo', 'bold']]}/>
 			</div>
 
 		);

@@ -11,7 +11,11 @@ export default class Editor extends React.Component{
   }
 
   componentDidMount(){
-          var ue = UE.getEditor('container');
+        var ue = UE.getEditor('container', {
+        toolbars:this.props,
+        autoHeightEnabled: true,
+        autoFloatEnabled: true
+    });
   }
 
   render() {
