@@ -15,7 +15,7 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle,
+	
 	BraceWidth,
 	SelfAdaption,
 	LineText,
@@ -34,8 +34,8 @@ import { reduxForm } from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
 import ImpowerEditMemberForm from './ImpowerEditMemberForm';
-import AdvancedQueryForm from './AdvancedQueryForm';
 import ImpowerList from './ImpowerList';
+import SearchDetailForm from './SearchDetailForm';
 
 import './index.less';
 export default class List extends Component {
@@ -51,23 +51,17 @@ export default class List extends Component {
 			openEditDetail: false,
 			openAdvancedQuery :false,
 			openDeleteDialog :false,
-			openImpoverList : true,
+			openImpoverList : false,
 			itemDetail: {},
 			item: {},
 			list: {},
 			content:'',
 			filter:'COMP_NAME',
 			searchParams: {
-				page: 1,
-				pageSize: 15,
-				startTime:'',
-				endTime:'',
-				registerSourceId:'',
-				jobId:'',
-				companyId:0,
-				cityId:'',
-				type:'COMP_NAME',
-				value:'',
+				page:"1",
+				pageSize:"20",
+				customerName: '',
+				communityId:''
 			}
 		}
 	}
@@ -122,114 +116,103 @@ export default class List extends Component {
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
+
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
-			_this.openEditDetailDialog();
+		Store.dispatch(Actions.callAPI('newCreateOrEditImpower',{},values)).then(function(response){
 			Message.success("操作成功");
 			_this.setState({
-				
+				openEditDetail : !_this.state.openEditDetail,
 				searchParams:{
-					page:"1",
-					pageSize:"15",
-					value:'',
-					type:'COMP_NAME',
-					
-					companyId:"0",
+					date: new Date(),
 				}
 			})
 		}).catch(function(err){
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'danger',
-			// }]);
+			
+			Message.error(err.message);
 		});
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		// console.log("value",values);
-		let params = {
-			email:values.email
-		}
-		let cardSearchParams ={
-			foreignCode:values.cardId
-		}
+		
 		let _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
-							_this.openNewCreateDialog();
-							Message.success("操作成功");
-							_this.setState({
-								
-								searchParams:{
-									page:"1",
-									pageSize:"15",
-									type:'COMP_NAME',
-									value:"",
-									
-									companyId:0,
-								}
-							})
-						}).catch(function(err){
-							Notify.show([{
-								message: err.message,
-								type: 'danger',
-							}]);
-						});
+		Store.dispatch(Actions.callAPI('newCreateOrEditImpower',{},values)).then(function(response){
+			Message.success("操作成功");
+			_this.setState({
+				openNewCreate : !_this.state.openNewCreate,
+				searchParams:{
+					date: new Date(),
+				}
+			})
+		}).catch(function(err){
+			
+			Message.error(err.message);
+		});
+	}
+		
+	// 打开确认删除
+	confirmDelete=()=>{
+		let _this = this;
+		let {itemDetail} = this.state;
+		Store.dispatch(Actions.callAPI('doorCustomerDelete',{id:itemDetail.id})).then(function(response){
+			Message.success("操作成功");
+			_this.setState({
+				openDeleteDialog : !_this.state.openDeleteDialog,
+				searchParams:{
+					date: new Date(),
+				}
+			})
+		}).catch(function(err){
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	// 选择社区
+	onChangeCommunity=(item)=>{
+		let _this = this;_
+		if(!item){
+			_this.setState({
+				searchParams:{
+					communityId : '',
+					customerName : _this.state.searchParams.customerName,
+				}
+			})
+		}else{
+			_this.setState({
+			searchParams:{
+				communityId : item.id,
+				customerName : _this.state.searchParams.customerName,
+			}
+		})
+		}
+		
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-		console.log("value",value);
 		let _this = this;
-		let searchParam = {
-			value :value.content,
-			type :value.filter
-		}
 		_this.setState({
-			content :value.content,
-			filter :value.filter,
-			
-			searchParams :{
-				type:value.filter,
-				value:value.content,
-				page :1,
-				pageSize:15,
-				companyId:0,
+			searchParams:{
+				customerName : value.content,
+				communityId : _this.state.searchParams.communityId
 			}
 		})
 	}
-	
-	// 选择社区
-	onChangeSearchCommunity=()=>{
-		console.log("kkakakak");
-	}
-	// 高级查询
-	onAdvanceSearchSubmit=(values)=>{
-		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
-		let _this = this;
-		_this.setState({
-			openAdvancedQuery: !this.state.openAdvancedQuery,
-			searchParams :{
-				registerSourceId:values.registerSourceId || '',
-				value :values.value,
-				type :values.type,
-				cityId :values.city || '',
-				endTime :values.endTime || '',
-				startTime :values.startTime || '',
-				jobId :values.jobId || '',
-				page:1,
-				pageSize:15,
-				companyId:0,
-			}
-		})
-	}
-	// 打开确认删除
-	confirmDelete=()=>{
-		this.setState({
-			openDeleteDialog: !this.state.openDeleteDialog
-		});
-		let {itemDetail} = this.state;
-		console.log("itemDetail调用删除接口",itemDetail);
 
+
+//刷新页面
+	fresh=()=>{
+		_this.setState({
+			searchParams:{
+				date : new Date(),
+				page:"1",
+				pageSize:"20",
+				customerName: '',
+				communityId:''
+			}
+		})
 	}
+
 	render() {
 		let {
 			list,itemDetail,seleced
@@ -238,14 +221,11 @@ export default class List extends Component {
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 								<Title value="门禁授权"/>
 								<Section title={`入驻团队门禁授权`} description="" >
-									{/*<form name="searchForm"  className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新增授权"  onTouchTap={this.openNewCreateDialog} />
-										<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity}   style={{width:'252px',marginRight:'30'}}/>
 										
-										
-										<SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit}/>
+										<SearchDetailForm onChange={this.onChangeCommunity}/>
+										<SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit} style={{float:"right"}}/>
 
-									</form>*/}
 									<Table
 										className="member-list-table"
 											style={{marginTop:10,position:'inherit'}}
@@ -257,8 +237,9 @@ export default class List extends Component {
 											onOperation={this.onOperation}
 											exportSwitch={false}
 											ajaxFieldListName='items'
-											ajaxUrlName='membersList'
+											ajaxUrlName='impowerList'
 											ajaxParams={this.state.searchParams}
+											displayCheckbox={false}
 										>
 										<TableHeader>
 											<TableHeaderColumn>客户名称</TableHeaderColumn>
@@ -270,31 +251,27 @@ export default class List extends Component {
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											<TableRowColumn name="phone"
+											<TableRowColumn name="customerName"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="name"
+											<TableRowColumn name="communityName"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
-											<TableRowColumn name="wechatNick"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
+
 											
 											
 											
-											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
+											<TableRowColumn name="beginDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+											
+											<TableRowColumn name="endDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="编辑"  type="operation" operation="edit"/>
 													<Button label="授权"  type="operation" operation="impower"/>
@@ -334,7 +311,7 @@ export default class List extends Component {
 										onClose={this.openImpoverList}
 										contentStyle={{width:687}}
 									>
-									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail}/>
+									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh}/>
 								</Dialog>
 
 

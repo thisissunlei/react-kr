@@ -39,7 +39,7 @@ import {
 	KrForm
 } from 'kr-ui';
 import './index.less';
-import {ShallowEqual} from 'kr/Utils';
+import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 export default class ImpowerEditMemberForm extends Component {
 
@@ -63,88 +63,134 @@ export default class ImpowerEditMemberForm extends Component {
 	}
 	//首次加载，只执行一次
 	componentWillMount() {
-		this.getBasicData(this.detail);
+
+		Store.dispatch(initialize('impowerEditMemberForm', this.detail));
+
 	}
 	componentWillReceiveProps(nextProps){
+		
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
 			})
 		}
 	}
+	componentDidMount(){
+		var start = DateFormat(this.detail.beginDate,"yyyy-mm-dd hh:MM:ss");
+		var end = DateFormat(this.detail.endDate,"yyyy-mm-dd hh:MM:ss");
+		
+		console.log("start",start,"end",end);
+		this.setState({
+			date:start,
+			dateend : end
+		})
+	}
 
 	onSubmit=(values)=>{
-		this.communityChange(values.email);
-		if(values.foreignCode){
-			this.membersByForeignCode(values.foreignCode);
-		}
-	 	let {onsubmit,onsubmitCode} = this.state;
-	 	if(onsubmit && onsubmitCode){
-	 		const {onSubmit} = this.props;
-		 	onSubmit && onSubmit(values);
-		}
+		let _this = this;
+		var start = new Date(values.beginDate);
+		start = start.getTime();
+		var end = new Date(values.endDate);
+		end = end.getTime();
+		console.log("start",start,"end",end);
+		if(start >end){
+			Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+		}else{
+			let submitParams={
+				id : values.id,
+				communityId : values.communityId,
+				customerId : values.customerId,
+				beginDate : _this.state.date,
+				endDate : _this.state.dateend,
+			}
+			const {onSubmit} = this.props;
+			onSubmit && onSubmit(submitParams);
+			}
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	getBasicData=(memberId)=>{
-		let url = this.props.params;
-		let params = {
-			communityId:'',
-			companyId:'',
-			memberId:memberId.id || ''
+	onStartChange=(personel)=>{
+		console.log("kaishi",personel)
+		let firstDate = new Date(personel);
+		let {date} = this.state;
+		if (this.state.dateend) {
+			let endDate = new Date(this.state.dateend);
+			let start = firstDate.getTime();
+			let end = endDate.getTime();
+			if (start <= end) {
+				this.setState({
+					date: personel
+				})
+			} else {
+				this.setState({
+					date: personel
+				})
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+			}
+		} else {
+			this.setState({
+				date: personel
+			})
 		}
-		let _this = this;
-		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
-			response.jobList.forEach((item)=>{
-				item.value = item.id;
-				item.label = item.jobName;
+
+
+		
+
+	}
+	onEndChange=(personel)=>{
+		let {dateend}= this.state;
+
+		let secondDate = new Date(personel);
+		let end = this.state.dateend;
+		if (this.state.date) {
+			let firstDate = new Date(this.state.date);
+			let start = firstDate.getTime();
+			let end = secondDate.getTime();
+			if (start <= end) {
+				this.setState({
+					dateend: personel
+				})
+			} else {
+				this.setState({
+					dateend: personel
+				})
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+			}
+		} else {
+			this.setState({
+				dateend: personel
 			})
-			console.log("response.memberInfoVO",response.memberInfoVO);
-			Store.dispatch(initialize('memeberEditMemberForm', response.memberInfoVO));
-
-			_this.setState({
-				jobList:response.jobList,
-				itemData:response.memberInfoVO,
-				phone:response.memberInfoVO.phone,
-				code:response.memberInfoVO.foreignCode,
-			})
-
-
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+		}
 	}
 	
-	
-
-
-
-
 
 	render() {
 		let {detail,handleSubmit} = this.props;
 		let {itemData,jobList} = this.state;
-		let images = `./images/all.png`;
-		console.log("detail",detail);
 		return (
 			<div className="edit-form" style={{paddingBottom:"3"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className="person-info">
 						<span>客户姓名：&nbsp;</span>
-						<span className="person-name">{detail.name}</span>
+						<span className="person-name">{detail.customerName}</span>
 					</div>
 
 					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true}/>
 					
-					<KrField name="registerTime" grid={1} label="授权开始时间" component="date" right={30} requiredValue={true}  requireLabel={true}/>
+					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
 
-					<KrField name="registerTime" grid={1} label="授权结束时间" component="date" right={30} requiredValue={true}  requireLabel={true}/>
-
+					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange}/>
 
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
@@ -162,11 +208,18 @@ export default class ImpowerEditMemberForm extends Component {
 const validate = values => {
 
 	const errors = {}
+	
+	if (!values.customerId) {
+		errors.customerId = '请输入客户名称';
+	}
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
-	if (!values.registerTime) {
-		errors.communityId = '授权开始时间';
+	if (!values.beginDate) {
+		errors.beginDate = '请输入开始时间';
+	}
+	if (!values.endDate) {
+		errors.endDate = '请输入结束时间';
 	}
 	
 	return errors

@@ -40,6 +40,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
+import dateFormat from 'dateformat';
 
 export default class NewCreateForm extends Component {
 
@@ -49,16 +50,8 @@ export default class NewCreateForm extends Component {
 		this.detail = this.props.detail;
 
 		this.state={
-			status:true,
-			jobList:[],
-			itemData:{},
-			initializeValues:{},
-			open:'false',
-			onsubmit:true,
-			phoneSame:'true',
-			onsubmitCode:true,
-			code:'',
-			email:'',
+			firstDate:'',
+			dateend: ''
 		}
 	}
 	//首次加载，只执行一次
@@ -70,22 +63,79 @@ export default class NewCreateForm extends Component {
 	}
 
 	onSubmit=(values)=>{
-		console.log("values",values);
-		this.communityChange(values.email);
-		if(values.foreignCode){
-			this.membersByForeignCode(values.foreignCode);
+		var start = new Date(values.beginDate);
+		start = start.getTime();
+		var end = new Date(values.endDate);
+		end = end.getTime();
+		if(start>end){
+			Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+		}else{
+			const {onSubmit} = this.props;
+			onSubmit && onSubmit(values);
 		}
-	 	let {onsubmit,onsubmitCode} = this.state;
-	 	if(onsubmit && onsubmitCode){
-	 		const {onSubmit} = this.props;
-		 	onSubmit && onSubmit(values);
-		}
+		
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
+	onStartChange=(personel)=>{
+
+		let firstDate = new Date(personel);
+		let {date} = this.state;
+		if (this.state.dateend) {
+			let endDate = new Date(this.state.dateend);
+			let start = firstDate.getTime();
+			let end = endDate.getTime();
+			if (start <= end) {
+				this.setState({
+					date: personel
+				})
+			} else {
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+			}
+		} else {
+			this.setState({
+				date: personel
+			})
+		}
+
+
+		
+
+	}
+	onEndChange=(personel)=>{
+		let {dateend}= this.state;
+
+		let secondDate = new Date(personel);
+		let end = this.state.dateend;
+		if (this.state.date) {
+			let firstDate = new Date(this.state.date);
+			let start = firstDate.getTime();
+			let end = secondDate.getTime();
+			if (start <= end) {
+				this.setState({
+					dateend: personel
+				})
+			} else {
+
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+			}
+		} else {
+			this.setState({
+				dateend: personel
+			})
+		}
+	}
 	
 	render() {
 		let {detail,handleSubmit} = this.props;
@@ -94,14 +144,14 @@ export default class NewCreateForm extends Component {
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					
 
-					<KrField name="companyId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true}/>
+					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true}/>
 					
 					
 					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" requiredValue={true} requireLabel={true}/>
 					
-					<KrField name="registerTime" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true}/>
+					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
 
-					<KrField name="registerTime" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true}/>
+					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange}/>
 
 
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
@@ -121,14 +171,19 @@ const validate = values => {
 
 	const errors = {}
 	
-	if (!values.companyId) {
-		errors.companyId = '请输入客户名称';
+	if (!values.customerId) {
+		errors.customerId = '请输入客户名称';
 	}
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
-	 
-	
+	if (!values.beginDate) {
+		errors.beginDate = '请输入开始时间';
+	}
+	if (!values.endDate) {
+		errors.endDate = '请输入结束时间';
+	}
+
 	return errors
 }
 NewCreateForm = reduxForm({
