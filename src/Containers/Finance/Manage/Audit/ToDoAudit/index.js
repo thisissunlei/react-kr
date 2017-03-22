@@ -164,16 +164,16 @@ export default class ToDoAudit extends Component {
           label: response.company,
           value: response.customerId
         }
-        var mainBill = {
+        var mainBills = {
           label: response.mainBillName,
           value: response.mainBillId
         }
         _this.setState({
-          mainBill: !_this.state.mainBill,
+          mainBill: true,
           mainBillId: response.mainBillId
         })
         Store.dispatch(change('addMoney', "customerId", customerList));
-        Store.dispatch(change('addMoney', "mainBillId", mainBill));
+        Store.dispatch(change('addMoney', "mainBillId", mainBills));
       }).catch(function(err) {
         Message.error(err.message);
       });
@@ -194,15 +194,16 @@ export default class ToDoAudit extends Component {
         value: response.customerId
       }
 
-      var mainBill = {
+      var mainBills = {
         label: response.mainBillName,
         value: response.mainBillId
       }
       _this.setState({
-        mainBill: !_this.state.mainBill,
-        mainBillId: response.mainBillId
+        mainBill: true,
+        mainBillId: response.mainBillId,
       })
-      Store.dispatch(change('addMoney', "mainBillId", mainBill));
+
+      Store.dispatch(change('addMoney', "mainBillId", mainBills));
 
     }).catch(function(err) {
       Message.error(err.message);
@@ -361,6 +362,7 @@ export default class ToDoAudit extends Component {
       mainBill,
       mainBillId
     } = this.state;
+    console.log('mainBill----', mainBill)
     return (
 
       <div className="m-todo-audit">

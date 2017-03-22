@@ -74,6 +74,7 @@ class AddMoney extends Component {
 			showName: !this.state.showName
 		})
 		var _this = this;
+		console.log('nextProps.mainBill', nextProps.mainBill)
 		if (nextProps.mainBill) {
 
 			Store.dispatch(Actions.callAPI('get-mainbill-info', {
