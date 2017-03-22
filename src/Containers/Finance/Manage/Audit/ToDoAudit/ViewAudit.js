@@ -60,12 +60,12 @@ export default class ViewAudit extends Component {
 			}],
 			accountList: [],
 			infoList: {},
+			payInfoList: {},
+			topInfoList: [],
 			infoDetailList: [],
 		}
-		this.getDetailInfo();
 		this.getInfo();
-
-
+		this.getPayInfo();
 	}
 	componentDidMount() {
 
@@ -84,6 +84,7 @@ export default class ViewAudit extends Component {
 					if(this.state.infoList.fileList.length>0){
 						this.state.infoList.fileList.map((item, value) => {
 							fileList.push(item.fileName)
+							fileList.push(' ')
 						});
 					}else{
 						fileList=['暂无上传任何附件'];
@@ -92,97 +93,102 @@ export default class ViewAudit extends Component {
 				})
 			}).catch(function(err) {});
 		}
-		//付款明细
-	getDetailInfo = () => {
-		var id = this.props.detail.id
-		var _this = this;
-		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
-			finaVerifyId: id
-		}, {})).then(function(response) {
-			_this.setState({
-				infoDetailList: response
-			})
-		}).catch(function(err) {});
 
+	//付款明细
+	getPayInfo = () => {
+			var id = this.props.detail.id
+			var _this = this;
+			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+					finaVerifyId: id
+			}, {})).then(function(response) {
+					_this.setState({payInfoList: response})
+
+			}).catch(function(err) {});
 	}
-
 	onCancel = () => {
     let {onCancel} = this.props;
     onCancel && onCancel();
 	}
-
-  joinInputRender = (index) => {
-    return ( < div style = {
-        {
-          width: 600,
-          marginTop: 8
-        }
-      }
-      className = 'm-tenantStation' >
-      < KrField label = "押金"
-      grid = {
-        1 / 2
-      }
-      name = 'fix1'
-      style = {
-        {
-          width: 261,
-          marginLeft: -9
-        }
-      }
-      component = "labelText"
-      type = "text"
-      /> < KrField label = "工位服务费"
-      grid = {
-        1 / 2
-      }
-      name = 'fix3'
-      style = {
-        {
-          width: 261,
-          marginLeft: 28
-        }
-      }
-      component = "labelText"
-      type = "text"
-      /> < /div >
-    )
-  }
-
 	renderPayList = () => {
-		let {
-			infoDetailList
-		} = this.state;
+			let {payInfoList} = this.state;
+			var type;
+			if (payInfoList.cimbList && payInfoList.cimbList.length > 0) {
+					return payInfoList.cimbList.map((item, index) => {
+							if (item.contactType == 1) {
+									type = "承租意向书"
+							} else if (item.contactType == 2) {
+									type = "入驻协议书"
+							} else if (item.contactType == 3) {
+									type = "增租协议书"
+							} else if (item.contactType == 4) {
+									type = "续租协议书"
+							}
+							return (
+									<div key={index} className="u-order-list u-clearfix">
+											<div className="u-order-name">{`${type}-${item.contactName}`}</div>
+											{item.frontmoney
+													? (
+															<div className="u-order-font-list">
+																	<div className="u-order-deatil">定金<span className="u-font-red">{`（未回款额：${item.nFrontmoney}）`}</span>
+																	</div>
+																	<div className="u-order-count">{item.frontmoney}</div>
+															</div>
+													)
+													: ''
+	}
+											{item.depositId
+													? (
+															<div className="u-order-font-list">
+																	<div className="u-order-deatil">履约保证金<span className="u-font-red">{`（未回款额：${item.nDeposit}）`}</span>
+																	</div>
+																	<div className="u-order-count">{item.deposit}</div>
+															</div>
+													)
+													: ''
+	}
+											{item.totalrentId
+													? (
+															<div className="u-order-font-list">
+																	<div className="u-order-deatil">工位服务费<span className="u-font-red">{`（未回款额：${item.nTotalrent}）`}</span>
+																	</div>
+																	<div className="u-order-count">{item.totalrent}</div>
+															</div>
+													)
+													: ''
+	}
 
-		if (!infoDetailList.cimbList) {
-			return (
-				<div className="u-audit-content-null">
-					<div className="u-audit-content-null-icon"></div>
-					<div className="u-audit-content-null-title">暂时还没有数据呦亲~</div>
-				</div>
-			)
-		}
-		var finaflowInfoList;
-		var _this = this;
+									</div>
 
-		if (infoDetailList.cimbList && infoDetailList.cimbList.length > 0) {
-			finaflowInfoList = infoDetailList.cimbList.map(function(item, index) {
-				console.log('item----', item)
-				if (item.value == '2') {
-					item.component = _this.joinInputRender.bind(this, index);
+							)
 
-				}
-			})
-			return (
-				<div>
-					<KrField label="对应合同" name='contract' grid={1 / 2} component="labelText" defaultValue={finaflowInfoList} />
-				</div>
-
-			)
-		}
-
+					})
+			}
 
 	}
+	renderNullOrder = () => {
+		let {
+			payInfoList
+		} = this.state;
+		if (payInfoList.scvList && payInfoList.scvList.length > 0) {
+
+			return (
+				<div style={{marginTop:16}}>
+						<div className="u-order-title">无合同</div>
+						<div className="u-order-list u-clearfix">
+						{ payInfoList.scvList.map((item, index) => {
+							return (
+								<div className="u-order-font-list" key={index}>
+									<div className="u-order-deatil">{item.propname}</div>
+									<div className="u-order-count">{item.propamount}</div>
+								</div>
+							)
+						})}
+						</div>
+					</div>
+			)
+		}
+	}
+
 	renderFileName=()=>{
 		this.fileList.map((item, value) => {
 			return (
@@ -202,11 +208,13 @@ export default class ViewAudit extends Component {
 			infoList
 		} = this.state;
 		return (
-			<div className="u-audit-add">
+			<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>回款详情</span>
-			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
+			     	<span className="u-audit-close" style={{
+								marginRight: 40
+						}} onTouchTap={this.onCancel}></span>
 			     </div>
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
@@ -222,7 +230,6 @@ export default class ViewAudit extends Component {
 								label="所属订单"
 								inline={false}
 								value={infoList.mainBillName}
-
 						/>
 						<KrField
 								style={{width:260}}
@@ -289,16 +296,18 @@ export default class ViewAudit extends Component {
 							component="labelText"
 							label="上传附件"
 							inline={false}
-							value={this.renderFileName}
+							value={this.fileList}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
-							<span>{totalCountMoney}</span>
+							<span>{infoList.flowAmount}</span>
 						</div>
+						<div className="u-order-title">对应合同</div>
 						{this.renderPayList()}
+						{this.renderNullOrder()}
 					</CircleStyleTwo>
 			</div>
 

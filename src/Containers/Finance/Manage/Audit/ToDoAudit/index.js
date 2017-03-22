@@ -78,7 +78,8 @@ export default class ToDoAudit extends Component {
       openSomeAudit: false,
       AuditList: [],
       billOInfo: '',
-      customerId: ''
+      customerId: '',
+      noneSomeAudit: false,
     }
 
   }
@@ -221,14 +222,18 @@ export default class ToDoAudit extends Component {
   componentDidMount() {}
     //导出
   onExport = (values) => {
+    console.log(values);
     let idList = [];
     if (values.length != 0) {
       values.map((item, index) => {
         idList.push(item.id)
       });
+      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
+      window.location.href = url;
+    } else {
+
     }
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}`
-    window.location.href = url;
+
   }
   searchParams = (form) => {
     this.setState({
@@ -291,9 +296,15 @@ export default class ToDoAudit extends Component {
     }
     //打开批量审核
   openSomeAudit = () => {
-    this.setState({
-      openSomeAudit: !this.state.openSomeAudit
-    })
+    console.log("123", this.AuditNum);
+    if (!this.AuditNum) {
+      this.noneSomeAudit();
+    } else {
+      console.log("hhhhhhnmd");
+      this.setState({
+        openSomeAudit: !this.state.openSomeAudit
+      })
+    }
   }
   onSelect = (values, list) => {
       let {
@@ -322,6 +333,12 @@ export default class ToDoAudit extends Component {
     }).catch(function(err) {
       Message.error(err.message);
     });
+  }
+  noneSomeAudit = () => {
+    this.setState({
+      noneSomeAudit: !this.state.noneSomeAudit
+    })
+
   }
   render() {
     let {
@@ -503,6 +520,7 @@ export default class ToDoAudit extends Component {
              open={this.state.openView}
              onClose={this.openView}
              openSecondary={true}
+             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
              <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
            </Drawer>
@@ -577,6 +595,23 @@ export default class ToDoAudit extends Component {
 
                          </div>
 
+            </div>
+            </Dialog>
+            <Dialog
+              title="提示"
+              modal={true}
+              contentStyle ={{ width: '444',overflow:'visible'}}
+              open={this.state.noneSomeAudit}
+              onClose={this.noneSomeAudit}
+            >
+            <div className='list-delete'>
+              <p className='sureAudit' style={{textAlign:'center'}}>请先选择审核数据！</p>
+
+
+              <div style={{textAlign:'center'}}>
+                      <div  className='ui-btn-center'><Button  label="确定" onClick={this.noneSomeAudit}/></div>
+                      <Button  label="取消" type="button" cancle={true} onTouchTap={this.noneSomeAudit} />
+                      </div>
             </div>
             </Dialog>
       </div>
