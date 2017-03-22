@@ -64,7 +64,9 @@ class NewCreateMainbill extends Component {
 		var formList = form;
 		const {
 			onSubmit,
-			detail
+			detail,
+			billOInfo,
+			onMainBillSubmit
 		} = this.props;
 		formList.company = detail.company;
 		if (detail.name) {
@@ -73,7 +75,14 @@ class NewCreateMainbill extends Component {
 		if (detail.tel) {
 			formList.tel = detail.tel;
 		}
-		onSubmit && onSubmit(formList);
+		if (billOInfo == 0) {
+			onMainBillSubmit && onMainBillSubmit(formList)
+		} else {
+			onSubmit && onSubmit(formList);
+		}
+
+
+
 	}
 
 

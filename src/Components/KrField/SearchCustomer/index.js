@@ -37,9 +37,10 @@ export default class SearchCustomer extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({
-			isLoading: true
-		})
+		/*if (nextProps.showName == this.props.showName) {
+			this.selectCustomer.loadOptions();
+		}
+		*/
 	}
 
 	onInputChange = () => {
@@ -110,6 +111,7 @@ export default class SearchCustomer extends React.Component {
 					name={input.name}
 					isLoading={this.state.isLoading}
 					value={input.value}
+					ref={(selectCustomer)=>this.selectCustomer=selectCustomer}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"

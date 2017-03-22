@@ -340,7 +340,9 @@ class EditMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "履约保证金"
+			< KrField label = {
+				`履约保证金（未回款额：${item.nDeposit}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -361,7 +363,7 @@ class EditMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = "工位服务费"
+			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
@@ -393,7 +395,9 @@ class EditMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "履约保证金"
+			< KrField label = {
+				`履约保证金（未回款额：${item.nDeposit}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -414,7 +418,7 @@ class EditMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = "工位服务费"
+			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
@@ -446,7 +450,9 @@ class EditMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "履约保证金"
+			< KrField label = {
+				`履约保证金（未回款额：${item.nDeposit}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -467,7 +473,7 @@ class EditMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = "工位服务费"
+			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
@@ -499,7 +505,9 @@ class EditMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "定金"
+			< KrField label = {
+				`定金（未回款额：${item.nFrontmoney}）`
+			}
 			grid = {
 				1 / 2
 			}
