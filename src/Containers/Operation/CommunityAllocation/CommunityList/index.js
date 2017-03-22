@@ -53,12 +53,12 @@ class CommunityList  extends React.Component{
 			id:''
 		}
 
-    Store.dispatch(arrayPush('NewCommunityList','wherefloors',{}));
-    Store.dispatch(arrayPush('NewCommunityList','bright_bright',{type:'BRIGHTPOINTS'}));
-    Store.dispatch(arrayPush('NewCommunityList','porTypes',{}));
-    Store.dispatch(arrayPush('NewCommunityList','bright_basic',{type:'BASICSERVICE'}));
-    Store.dispatch(arrayPush('NewCommunityList','bright_service',{type:'INFRASTRUCTURE'}));
-    Store.dispatch(arrayPush('NewCommunityList','bright_special',{type:'SPECIALSERVICE'}));
+    Store.dispatch(arrayPush('NewCommunityList','wherefloors',[{}]));
+    Store.dispatch(arrayPush('NewCommunityList','bright_bright',[{type:'BRIGHTPOINTS'}]));
+    Store.dispatch(arrayPush('NewCommunityList','porTypes',[{}]));
+    Store.dispatch(arrayPush('NewCommunityList','bright_basic',[{type:'BASICSERVICE'}]));
+    Store.dispatch(arrayPush('NewCommunityList','bright_service',[{type:'INFRASTRUCTURE'}]));
+    Store.dispatch(arrayPush('NewCommunityList','bright_special',[{type:'SPECIALSERVICE'}]));
 	}
 
    //新建社区开关

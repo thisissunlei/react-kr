@@ -607,6 +607,8 @@ const validate = values =>{
 		//整数
 		let zeroNum=/^-?\d+$/;　 
 
+    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;  
+
 
 		 
          //楼层检验
@@ -699,8 +701,10 @@ const validate = values =>{
     if(values.meetNum&&!numberNotZero.test(values.meetNum)){
        errors.meetNum='请输入正整数';
     }
-
-
+    
+    if(values.local&&!reg.test(values.local)){
+      errors.local='123'; 
+    }
 
 		if (!values.countyId) {
 			errors.countyId= '请填写所属区县';
