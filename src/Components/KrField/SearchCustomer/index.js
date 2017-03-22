@@ -25,8 +25,9 @@ export default class SearchCustomer extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.onChange = this.onChange.bind(this);
-		this.getOptions = this.getOptions.bind(this);
+		this.state = {
+			isLoading: true
+		}
 	}
 
 	componentDidMount() {
@@ -34,15 +35,20 @@ export default class SearchCustomer extends React.Component {
 			input
 		} = this.props;
 	}
+
 	componentWillReceiveProps(nextProps) {
-		this.getOptions("");
+		this.setState({
+			isLoading: true
+		})
 	}
+
 	onInputChange = () => {
 
 
 	}
 
-	onChange(item) {
+	onChange = (item) => {
+
 		let {
 			input,
 			onChange
@@ -53,7 +59,9 @@ export default class SearchCustomer extends React.Component {
 
 	}
 
-	getOptions(lastname) {
+	getOptions = (lastname) => {
+
+		var _this = this;
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('get-customer-info', {
 				customerName: lastname
@@ -61,12 +69,19 @@ export default class SearchCustomer extends React.Component {
 				response.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.company;
+					return item
 				});
 				resolve({
 					options: response
 				});
+				_this.setState({
+					isLoading: false
+				})
 			}).catch(function(err) {
 				reject(err);
+				_this.setState({
+					isLoading: false
+				})
 			});
 		});
 	}
@@ -93,6 +108,7 @@ export default class SearchCustomer extends React.Component {
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
+					isLoading={this.state.isLoading}
 					value={input.value}
 					loadOptions={this.getOptions}
 					clearable={true}

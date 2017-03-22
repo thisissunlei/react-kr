@@ -170,7 +170,7 @@ class EditMoney extends Component {
 			var len = options.length - 1;
 			name.push(`fix-${item.detailid}-${item.depositId}`);
 			name.push(`fix-${item.detailid}-${item.totalrentId}`);
-			if (item.checked == false) {
+			if (options[len].checked != false && item.checked == false) {
 				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, ''));
 				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = '';
@@ -183,6 +183,7 @@ class EditMoney extends Component {
 					Store.dispatch(change('editMoneys', `no-${item.id}`, ''));
 					_this.receivedBtnFormChangeValues[`no-${item.id}`] = '';
 				})
+
 				_this.getCount(input, '', nameList);
 			}
 
@@ -204,7 +205,7 @@ class EditMoney extends Component {
 	}
 
 	getCount = (input, name, nameList) => {
-		input.value = Math.round((input.value * 100))
+		input.value = Math.round((input.value * 100));
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let liveMoneyValue = 0;

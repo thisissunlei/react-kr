@@ -12,7 +12,11 @@ import {
   Actions,
   Store
 } from 'kr/Redux';
-
+import {
+  reduxForm,
+  formValueSelector,
+  change
+} from 'redux-form';
 
 import {
   Form,
@@ -146,10 +150,20 @@ export default class ToDoAudit extends Component {
     Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
+
       _this.setState({
         showName: !_this.state.showName
       })
-
+      var customerList = {
+        label: response.company,
+        value: response.customerId
+      }
+      var mainBill = {
+        label: response.mainBillName,
+        value: response.mainBillId
+      }
+      Store.dispatch(change('addMoney', "customerId", customerList));
+      Store.dispatch(change('addMoney', "mainBillId", mainBill));
     }).catch(function(err) {
       Message.error(err.message);
     });
@@ -252,20 +266,22 @@ export default class ToDoAudit extends Component {
       openSomeAudit: !this.state.openSomeAudit
     })
   }
-  onSelect = (values,list)=>{
-    let {AuditList} = this.state;
-    AuditList = [];
-    var n = 0;
-    if (list.length != 0) {
-			list.map((item, value) => {
-				AuditList.push(item.id)
-        n++;
-			});
-		}
-    this.AuditNum = n;
-    console.log(AuditList);
-  }
-  //批量审核
+  onSelect = (values, list) => {
+      let {
+        AuditList
+      } = this.state;
+      AuditList = [];
+      var n = 0;
+      if (list.length != 0) {
+        list.map((item, value) => {
+          AuditList.push(item.id)
+          n++;
+        });
+      }
+      this.AuditNum = n;
+      console.log(AuditList);
+    }
+    //批量审核
   AuditSome = () => {
     Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
       finaVerifyIds: this.state.AuditList,

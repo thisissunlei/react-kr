@@ -35,7 +35,14 @@ export default class SearchMainbill extends React.Component {
 		} = this.props;
 	}
 	componentWillReceiveProps(nextProps) {
-		this.getOptions("", nextProps.customerId);
+		var id = this.props.customerId;
+		var _this = this;
+		setTimeout(function() {
+			//console.log('1111----', id)
+			_this.getOptions("", _this.props.customerId);
+		}, 1000)
+
+
 	}
 	onInputChange = () => {
 
@@ -53,12 +60,13 @@ export default class SearchMainbill extends React.Component {
 	}
 
 	getOptions(lastname, customerId) {
-		var id = this.props.customerId;
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('get-mainbill', {
 				mainBillName: lastname,
+				customerId: customerId
 			})).then(function(response) {
 				response.map(function(item, index) {
+					//console.log('item---', item)
 					item.value = item.id;
 					item.label = item.mainBillName;
 					return item;
@@ -87,9 +95,10 @@ export default class SearchMainbill extends React.Component {
 			disabled,
 			style,
 			requireLabel,
+			customerId,
 			...other
 		} = this.props;
-
+		console.log('this.props.customerId----', customerId)
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync

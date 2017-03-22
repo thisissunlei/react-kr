@@ -188,7 +188,7 @@ class EditMoney extends Component {
 			var len = options.length - 1;
 			name.push(`fix-${item.detailid}-${item.depositId}`);
 			name.push(`fix-${item.detailid}-${item.totalrentId}`);
-			if (item.checked == false) {
+			if (options[len].checked != false && item.checked == false) {
 				Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
 				Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				_this.getCount(input, name);
@@ -215,7 +215,6 @@ class EditMoney extends Component {
 			changeValues,
 		} = this.props;
 		input.value = value;
-		console.log('input -----', input)
 		this.getCount(input)
 	}
 

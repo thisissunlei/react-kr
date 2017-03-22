@@ -24,8 +24,6 @@ export default class GroupCheckboxComponent extends React.Component {
       options: props.defaultValue,
       checkedAll: false,
     }
-
-
     this.valuationInputValue()
 
   }
@@ -35,6 +33,8 @@ export default class GroupCheckboxComponent extends React.Component {
       this.setState({
         defaultValue: nextProps.defaultValue,
         options: nextProps.defaultValue
+      }, function() {
+        this.valuationInputValue()
       });
 
     }
