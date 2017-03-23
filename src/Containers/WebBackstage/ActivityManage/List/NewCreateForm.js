@@ -21,10 +21,11 @@ import State from './State';
  class NewCreateForm extends Component{
 	constructor(props){
 		super(props);
-		// this.state={
-		// 	// 上传轮播图是否显示
-		// 	rotateShow : true
-		// }
+		this.state={
+			// 上传轮播图是否显示
+			// rotateShow : true
+			initailPoint : "北京"
+		}
 	}
 	componentWillMount() {
 		
@@ -34,11 +35,7 @@ import State from './State';
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	componentDidMount(){
-		// 百度地图API功能
-		var map = new BMap.Map("allmap");    // 创建Map实例
-		map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-		map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-		map.enableScrollWheelZoom(true);
+		
 	}
 	
 	// 存为草稿
@@ -70,7 +67,7 @@ import State from './State';
 	}
 	render(){
 		const { handleSubmit} = this.props;
-		
+		const {initailPoint} = this.state;
 		
 		// 对应功能选项
 		let correspondingFunction =[{
@@ -109,7 +106,7 @@ import State from './State';
 			label: '地址',
 			value: 5
 		}]
-		console.log("State.isStick",State.isStick);
+		// console.log("State.isStick",State.isStick);
 		return (
 
 			<div className="new-create-activity">
@@ -143,8 +140,14 @@ import State from './State';
 							/>
 							<KrField grid={1/2} name="countyId" type="text" label="举办地址" style={{width:'252px'}}/>
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
-							<div style={{display:"inline-block",verticalAlign: "bottom"}}>
-								<KrField grid={1/2} name="address" type="input" style={{width: 252,paddingLeft: 3,verticalAlign: "bottom",boxSizing: "border-box"}}/>
+							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
+								<KrField name="newuploadImage" 
+									component="map" 
+									placeholder="例如：北京市海淀区中关村大街"
+									style={{width:242,height:36}}
+									mapStyle={{width:400,height:400}}
+									initailPoint ={initailPoint}
+								/>
 							</div>
 
 							<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
@@ -191,7 +194,7 @@ import State from './State';
 								label="富文本编辑框"
 								style={{width:'252px'}}
 							/>
-							<div id="allmap"></div>
+							
 							
 						</div>
 
