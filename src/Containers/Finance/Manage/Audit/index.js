@@ -140,7 +140,6 @@ export default class AuditList extends Component {
       initSearch,
       countList
     } = this.state;
-    console.log('initSearch----', initSearch)
     const activeTab = {
       color: '#2b8dcd',
       borderBottom: "1px solid #eee",
