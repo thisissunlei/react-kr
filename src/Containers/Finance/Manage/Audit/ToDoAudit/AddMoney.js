@@ -121,6 +121,7 @@ class AddMoney extends Component {
 			flowAmount: 0,
 			finaflowInfo: {}
 		})
+		this.receivedBtnFormChangeValues = {};
 		if (form.id == 0) {
 			this.openCreateCustomer();
 		} else {
