@@ -103,10 +103,9 @@ export default class AuditList extends Component {
       initSearch
     } = this.state;
     tab = 'merchants';
-    initSearch = 'm';
     this.setState({
       tab,
-      initSearch
+      initSearch: 'm'
     });
   }
 
@@ -116,10 +115,9 @@ export default class AuditList extends Component {
       initSearch
     } = this.state;
     tab = 'personal';
-    initSearch = 'p';
     this.setState({
       tab,
-      initSearch
+      initSearch: 'p'
     });
   }
   signedClient = () => {
@@ -128,10 +126,10 @@ export default class AuditList extends Component {
       initSearch
     } = this.state;
     tab = 'signedClient';
-    initSearch = 's';
+
     this.setState({
       tab,
-      initSearch
+      initSearch: 's'
     });
   }
 
@@ -142,6 +140,7 @@ export default class AuditList extends Component {
       initSearch,
       countList
     } = this.state;
+    console.log('initSearch----', initSearch)
     const activeTab = {
       color: '#2b8dcd',
       borderBottom: "1px solid #eee",
@@ -167,17 +166,20 @@ export default class AuditList extends Component {
             <Tab label={`待审核（${countList.unCheckedCount}）`} onActive={this.merchants} style={merchantsStyle}>
                 <ToDoAudit 
                       count={this.getCount}
+                      tab={initSearch}
                 />
             </Tab>
             <Tab label={`已审核（${countList.checkedCount}）`}  onActive={this.personal} style={personalStyle}>
                <DoAudit 
                       count={this.getCount}
+                       tab={initSearch}
                 />
             </Tab>
             
             <Tab label={`已退回（${countList.reCount}）`} onActive={this.signedClient} style={signedClientStyle}>
                 <DoneAudit
                       count={this.getCount}
+                       tab={initSearch}
                 />
             </Tab>
         </Tabs>

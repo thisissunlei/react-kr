@@ -56,32 +56,46 @@ import './index.less';
 export default class ToDoAudit extends Component {
 
   constructor(props, context) {
-      super(props, context);
-      this.state = {
-        openNewCreate: false,
-        openView: false,
-        delAudit: false,
-        openSearch: false,
-        openAddCreate: false,
-        openEditCreate: false,
-        openAudit: false,
-        itemDetail: {},
-        Params: {
-          page: 1,
-          pageSize: 10,
-          verifyStatus: 'UNCHECKED'
-        },
-        openCreateCustomer: false,
-        openCreateMainbill: false,
-        CustomerList: {},
-        showName: false,
-        openSomeAudit: false,
-        AuditList: [],
-        billOInfo: '',
-        customerId: '',
-        noneSomeAudit: false,
-        mainBill: false,
-        mainBillId: ''
+    super(props, context);
+    this.state = {
+      openNewCreate: false,
+      openView: false,
+      delAudit: false,
+      openSearch: false,
+      openAddCreate: false,
+      openEditCreate: false,
+      openAudit: false,
+      itemDetail: {},
+      Params: {
+        page: 1,
+        pageSize: 10,
+        verifyStatus: 'UNCHECKED'
+      },
+      openCreateCustomer: false,
+      openCreateMainbill: false,
+      CustomerList: {},
+      showName: false,
+      openSomeAudit: false,
+      AuditList: [],
+      billOInfo: '',
+      customerId: '',
+      noneSomeAudit: false,
+      mainBill: false,
+      mainBillId: ''
+    }
+
+  }
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.tab != this.props.tab) {
+        this.setState({
+          Params: {
+            verifyStatus: 'UNCHECKED'
+          }
+        }, function() {
+          this.getParentCount({
+            verifyStatus: 'UNCHECKED'
+          })
+        })
       }
 
     }
@@ -287,7 +301,11 @@ export default class ToDoAudit extends Component {
         Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
           Message.success('新建成功');
           _this.openAddCreate();
-          window.location.reload();
+          _this.setState({
+            Params: {
+              verifyStatus: 'UNCHECKED'
+            }
+          })
         }).catch(function(err) {
           Message.error(err.message);
         });

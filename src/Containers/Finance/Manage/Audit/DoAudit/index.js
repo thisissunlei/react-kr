@@ -67,7 +67,20 @@ export default class DoAudit extends Component {
     this.getInfo();
 
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tab != this.props.tab) {
+      this.setState({
+        Params: {
+          verifyStatus: 'CHECKED'
+        }
+      }, function() {
+        this.getParentCount({
+          verifyStatus: 'CHECKED'
+        })
+      })
+    }
 
+  }
   componentDidMount() {}
     //调用获取条目
   getParentCount = (form) => {

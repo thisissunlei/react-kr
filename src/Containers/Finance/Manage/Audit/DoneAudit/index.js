@@ -62,7 +62,20 @@ export default class DoneAudit extends Component {
 
   }
 
-  componentDidMount() {}
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.tab != this.props.tab) {
+        this.setState({
+          Params: {
+            verifyStatus: 'RETURNED'
+          }
+        }, function() {
+          this.getParentCount({
+            verifyStatus: 'RETURNED'
+          })
+        })
+      }
+
+    }
     //调用获取条目
   getParentCount = (form) => {
       let {
