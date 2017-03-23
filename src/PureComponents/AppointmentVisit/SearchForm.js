@@ -76,14 +76,14 @@ class SearchForm extends Component {
 			<form name="searchForm" className="appointment-visit-form" style={{height:50 }}>
 
 				<div className="searchForm-col" style={{marginTop:"0px",}}>
-					<KrField grid={1} label="" name="createDateBegin" style={{width:"220px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
+					<KrField grid={1} label="" name="visitCreateDateBegin" style={{width:"220px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
 				</div>
 				<div className="searchForm-col" style={{width:0,position:"relative",left:-17,top:19}}>
 					<span>至</span>
 				</div>
 
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:30}}>
-					<KrField grid={1} label="" name="createDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
+					<KrField grid={1} label="" name="visitCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
 				<KrField style={{width:187,marginLeft:-10,position:"relative"}} name="leaseId" component="searchCommunity" inline={false} requireLabel={false} onChange={this.communityChange}/>
