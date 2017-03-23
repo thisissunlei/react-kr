@@ -297,7 +297,7 @@ class CommunityList  extends React.Component{
            where.push(`${item}=${searchParams[item]}`);
         }
       }
-      where.push(`ids=${ids}`);
+      where.push(`ids=${JSON.stringify(ids)}`);
 			var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
 			window.location.href = url;
 	}
