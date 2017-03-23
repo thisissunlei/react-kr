@@ -57,7 +57,7 @@ class CommunityList  extends React.Component{
 
 	componentDidMount(){
 		State.searchDataHere();
-  
+
 	}
 
    //新建社区开关
@@ -297,7 +297,7 @@ class CommunityList  extends React.Component{
            where.push(`${item}=${searchParams[item]}`);
         }
       }
-      where.push(`id=${ids}`);
+      where.push(`ids=${ids}`);
 			var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
 			window.location.href = url;
 	}
