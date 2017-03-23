@@ -98,7 +98,7 @@ class GoAudit extends Component {
               <div style={{textAlign:'center'}}>
                 <div  className='ui-btn-center'><Button  label="同意" type="submit" onClick={this.audit}/></div>
                 <div  className='ui-btn-center'><Button  label="退回" type="submit" backgroundColor='#ff6868' onClick={this.retreat}/></div>
-                <div  className='ui-btn-center'><Button  label="取消" type="button" cancle={true}  /></div>
+                <div  className='ui-btn-center'><Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel}/></div>
             </div>
           </form>
       </div>
