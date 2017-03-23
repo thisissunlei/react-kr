@@ -209,7 +209,7 @@ class EditMoney extends Component {
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let liveMoneyValue = 0;
-		if (input.value === 0) {
+		if (input.value === 0 && !input.name) {
 			var n1 = name[0];
 			var n2 = name[1];
 			var name1 = `${n1}-1`,
