@@ -26,7 +26,8 @@ import {
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
-	CircleStyleTwo
+	CircleStyleTwo,
+	Message
 } from 'kr-ui';
 import './index.less';
 
@@ -165,7 +166,11 @@ class AddMoney extends Component {
 	}
 
 	calcBalance = (value, input) => {
-		var lastValue = value.split('.')[1]
+		var lastValue = value.split('.')[1];
+		if (/[^0-9]+/.test(value)) {
+			Message.error('金额只能为数字');
+			return;
+		}
 		if (lastValue && lastValue.length > 2) {
 			Message.error('最多到小数点后两位');
 			return;
@@ -634,12 +639,12 @@ class AddMoney extends Component {
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2}  label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					} else {
 						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2}  label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					}
 				})
 			} < /div>)
@@ -791,7 +796,8 @@ class AddMoney extends Component {
 	}
 	const validate = values => {
 
-		const errors = {}
+		const errors = {};
+
 
 		if (!values.customerId) {
 			errors.customerId = '请选择客户名称';
@@ -813,7 +819,6 @@ class AddMoney extends Component {
 		if (!values.dealTime) {
 			errors.dealTime = '请选择收款日期';
 		}
-
 
 		return errors
 	}
