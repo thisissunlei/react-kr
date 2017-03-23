@@ -235,13 +235,13 @@ export default class ToDoAudit extends Component {
     //导出
   onExport = (values) => {
     let idList = [];
-      values.map((item, index) => {
-        idList.push(item.id)
-      });
-      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=UNCHECKED`;
-      console.log("2",values);
-      console.log("list",idList);
-      window.location.href = url;
+    values.map((item, index) => {
+      idList.push(item.id)
+    });
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=UNCHECKED`;
+    console.log("2", values);
+    console.log("list", idList);
+    window.location.href = url;
 
   }
   searchParams = (form) => {
@@ -253,7 +253,10 @@ export default class ToDoAudit extends Component {
         customerName: form.content
       }
     }, function() {
-      this.getParentCount()
+      this.getParentCount({
+        verifyStatus: 'UNCHECKED',
+        customerName: form.content
+      })
     });
   }
 
