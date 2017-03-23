@@ -92,8 +92,8 @@ class Header extends Component {
 		}
 		 
 		 _this.setState({
-			 showRedDrop,
-			 showMassge
+			 showRedDrop:showRedDrop,
+			 showMassge:showMassge
 		 })
 	 }).catch(function(err) {
 		 Message.error(err.message)

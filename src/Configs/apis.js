@@ -977,22 +977,22 @@ const APIS = {
    },
    //消息提醒-客户转移列表
    'messageRemindCustomerSwitching':{
-      url: 'http://shang.krspace.cn:8082/krspace-finance-web/msg/customer-transfer/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-finance-web/msg/customer-transfer/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
    //消息提醒-预约参观列表
    'messageAppointmentVisit':{
-      url: 'http://shang.krspace.cn:8082/krspace-finance-web/msg/order-visit/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&msgCommunity={msgCommunity}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-finance-web/msg/order-visit/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&msgCommunity={msgCommunity}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
     //消息提醒-获取消息查看权限及
    'messageLookJurisdiction':{
-      url: 'http://shang.krspace.cn:8082/krspace-finance-web/msg/msg-right-count',
+      url: '/api/krspace-finance-web/msg/msg-right-count',
       method: 'get'
    },
    //消息提醒-消息设为全部已读
   'messageAllReade':{
-     url: 'http://shang.krspace.cn:8082/krspace-finance-web/msg/msg-all-read?msgType={msgType}',
+     url: '/api/krspace-finance-web/msg/msg-all-read?msgType={msgType}',
      method: 'put'
   },
  }
