@@ -85,11 +85,13 @@ export default class DoneAudit extends Component {
     }
     //导出
   onExport = (values) => {
+    var searchParams = this.state.Params;
+    console.log(searchParams);
       let idList = [];
         values.map((item, index) => {
           idList.push(item.id)
         });
-        var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=RETURNED`;
+        var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=RETURNED`;
         window.location.href = url;
     }
     //操作相关

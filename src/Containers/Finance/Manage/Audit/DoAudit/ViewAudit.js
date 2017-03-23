@@ -245,7 +245,7 @@ export default class ViewAudit extends Component {
                     }} component="labelText" inline={false} label="公司主体" value={infoList.corporationName}/>
                     <KrField style={{
                         width: 260
-                    }} name="payWay" component="labelText" label="收款方式" inline={false} value={infoList.payWay}/>
+                    }} name="payName" component="labelText" label="收款方式" inline={false} value={infoList.payName}/>
                     <KrField style={{
                         width: 260,
                         marginLeft: 25

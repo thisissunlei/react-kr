@@ -248,11 +248,12 @@ export default class ToDoAudit extends Component {
 
   //导出
   onExport = (values) => {
+    var searchParams = this.state.Params;
     let idList = [];
     values.map((item, index) => {
       idList.push(item.id)
     });
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=UNCHECKED`;
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=UNCHECKED`;
     console.log("2", values);
     console.log("list", idList);
     window.location.href = url;

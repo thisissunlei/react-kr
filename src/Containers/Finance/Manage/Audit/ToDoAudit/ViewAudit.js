@@ -248,11 +248,11 @@ export default class ViewAudit extends Component {
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay"
+								name="payName"
 								inline={false}
 								component="labelText"
 								label="收款方式"
-								value={infoList.payWay}
+								value={infoList.payName}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}

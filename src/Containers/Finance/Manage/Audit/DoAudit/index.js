@@ -83,21 +83,25 @@ export default class DoAudit extends Component {
   }
   componentDidMount() {}
     //调用获取条目
-  getParentCount = (form) => {
+  getParentCount = (formd) => {
     let {
       count
     } = this.props;
-    count && count(form);
+    count && count(formd);
   }
 
   //导出
   onExport = (values) => {
+    var searchParams = this.state.Params;
+    console.log(searchParams,"123");
     let idList = [];
-      values.map((item, index) => {
-        idList.push(item.id)
-      });
-      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=CHECKED`;
+    values.map((item, index) => {
+      idList.push(item.id)
+    });
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=CHECKED`;
       window.location.href = url;
+      console.log(idList);
+      console.log(url);
   }
 
   //操作相关
@@ -182,6 +186,7 @@ export default class DoAudit extends Component {
     this.setState({
       Params: form
     }, function() {
+
       this.getParentCount(form)
       this.getInfo();
     });
@@ -193,6 +198,7 @@ export default class DoAudit extends Component {
     let {
       itemDetail
     } = this.state;
+    console.log("asdfsda",this.state.Params);
     return (
 
       <div className="m-do-audit">
