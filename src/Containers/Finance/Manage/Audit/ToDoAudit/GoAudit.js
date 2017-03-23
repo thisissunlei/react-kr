@@ -54,7 +54,6 @@ class GoAudit extends Component {
 
   onSubmit = (form) => {
     form.type = this.type;
-
     Store.dispatch(Actions.callAPI('edit-verify-status', {}, {
     finaVerifyId:this.props.detail.id,
     operateRemark:form.operateRemark || " ",
@@ -63,9 +62,9 @@ class GoAudit extends Component {
       Message.success("操作成功");
       window.setTimeout(function() {
           window.location.reload();
-      }, 0);
+      }, 800);
     }).catch(function(err) {
-			Message.error(err.message)
+			Message.error(err.message);
 		});
   }
 
