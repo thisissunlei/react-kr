@@ -234,17 +234,14 @@ export default class ToDoAudit extends Component {
   componentDidMount() {}
     //导出
   onExport = (values) => {
-    console.log(values);
     let idList = [];
-    if (values.length != 0) {
       values.map((item, index) => {
         idList.push(item.id)
       });
-      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}`;
+      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=UNCHECKED`;
+      console.log("2",values);
+      console.log("list",idList);
       window.location.href = url;
-    } else {
-
-    }
 
   }
   searchParams = (form) => {
@@ -567,7 +564,7 @@ export default class ToDoAudit extends Component {
                       onSubmit={this.onSubmitMainbill}
                       onMainBillSubmit={this.onMainBillSubmit}
                       customerId={customerId}
-                     
+
               />
             </Dialog>
             <Dialog
