@@ -27,9 +27,9 @@ export default class MapComponent extends Component {
 			pointLng : 116.404,
 			pointLat : 39.915,
 			// 是否显示
-			showMap : false
+			showMap : false,
+			searchText : ''
 		};
-		// this.map = new BMap.Map("mapcomponent"); 
 	}
 	componentWillUnmount() {
 		
@@ -56,6 +56,8 @@ export default class MapComponent extends Component {
 			 	_this.setState({
 			 		pointLng : e.point.lng,
 					pointLat : e.point.lat
+			 	},function(){
+			 		_this.onChange();
 			 	});
 
 			});
@@ -67,16 +69,30 @@ export default class MapComponent extends Component {
 		let _this = this;
 		var inputValue = this.refs.mapInput.value;
 		if(!inputValue){
-			_this.setMarker('北京');
+			let {initailPoint} =_this.props;
+
+			_this.setMarker(initailPoint);
 			
 		}else{
 			_this.setMarker(inputValue);
 		}
 			 		
 	}
+	onChange=()=>{
+		// console.log("this.state",this.state);
+		const {input}=this.props;
+		input.onChange(this.state);
+	}
 	// 搜索定位
 	setMarker=(searchValue)=>{
+
 		let _this =this;
+
+		_this.setState({
+			searchText : searchValue
+		},function(){
+			_this.onChange();
+		})
 		var options = {      
 		      onSearchComplete: function(results){  
 					_this.map.clearOverlays();  
@@ -100,6 +116,8 @@ export default class MapComponent extends Component {
 							 	_this.setState({
 							 		pointLng : e.point.lng,
 									pointLat : e.point.lat
+							 	},function(){
+							 		_this.onChange();
 							 	})
 							}) ;
 							// map可拖拽
@@ -110,7 +128,7 @@ export default class MapComponent extends Component {
 		             	})     
 		          	}    
 		      }      
-		 };      
+		};      
 		var local = new BMap.LocalSearch(_this.map, options);      
 		local.search(searchValue);
 	}
@@ -136,6 +154,8 @@ export default class MapComponent extends Component {
 			 	_this.setState({
 			 		pointLng : e.point.lng,
 					pointLat : e.point.lat
+			 	},function(){
+			 		_this.onChange();
 			 	});
 
 			});
@@ -158,7 +178,7 @@ export default class MapComponent extends Component {
       		<div className="ui-map-component" style={style}>
 				<img src={require('./images/location.svg')} className="ui-map-img" onClick={this.showMap}/>
 
-				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%"}} onChange={this.inputLocation} ref="mapInput"/>
+				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%",paddingLeft:10}} onChange={this.inputLocation} ref="mapInput"/>
 				<div id="mapcomponent" style={mapInnerStyle}></div>
 			</div>
       	

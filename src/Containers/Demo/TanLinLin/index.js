@@ -30,14 +30,18 @@ import './index.less';
 	componentDidMount(){
 		
 	}
+	onSubmit=(values)=>{
+		console.log("提交values",values);
+	}
 	render(){
-		let {mapStyle} = this.props;
 		let {initailPoint} = this.state;
+		const { error, handleSubmit, pristine, reset,mapStyle} = this.props;
+
 		return (
 			<div className="demo-tll">
 				
 				
-						
+					<form onSubmit={handleSubmit(this.onSubmit)}>
 							
 							
 			              	<KrField name="newuploadImage" 
@@ -47,7 +51,17 @@ import './index.less';
 								mapStyle={{width:400,height:400}}
 								initailPoint ={initailPoint}
 							/>
-							
+
+							<Grid style={{marginTop:19,marginBottom:'4px'}}>
+								<Row>
+									<ListGroup>
+											<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+											<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+										</ListGroup>					
+								</Row>
+							</Grid>
+
+					</form>		
 						
 					
 		  	</div>

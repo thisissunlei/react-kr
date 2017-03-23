@@ -242,7 +242,7 @@ export default class KrField extends React.Component {
 		}
 		if (component === 'map' ) {
 			return (
-				<MapComponent {...this.props} style={WrapStyles}/>
+				<Field  {...this.props} component={MapComponent} style={WrapStyles}/>
 			);
 		}
 
