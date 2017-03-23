@@ -260,7 +260,6 @@ export default class ViewAudit extends Component {
                     <KrField style={{
                         width: 548
                     }} name="remark" component="labelText" inline={false} defaultValue={infoList.remark} label="备注" maxSize={100}/>
-                    <KrField name="fileList" component="labelText" type="hidden" label="合同附件"/>
                     <KrField style={{
                         width: 548
                     }} name="uploadFileIds" component="labelText" inline={false} label="上传附件" value={this.fileList}/>
