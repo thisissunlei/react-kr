@@ -384,7 +384,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
 
-	
+
 	componentWillReceiveProps(nextProps) {
 	}
 
@@ -608,9 +608,9 @@ const validate = values =>{
     //非负整数
     let noMinus=/^(0|[1-9]\d*)$/;
 		//整数
-		let zeroNum=/^-?\d+$/;　 
+		let zeroNum=/^-?\d+$/;　
     //坐标
-    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/; 
+    var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
 
 
       //楼层检验
@@ -642,7 +642,7 @@ const validate = values =>{
         }
       }
 
-    
+
           //工位校验
        if (!values.porTypes || !values.porTypes.length) {
           errors.porTypes = { _error: 'At least one member must be entered' }
@@ -660,7 +660,7 @@ const validate = values =>{
         }
       }
 
-     
+
     if(values.floorHeight&&isNaN(values.floorHeight)){
        errors.floorHeight='请输入数字';
     }
@@ -687,7 +687,7 @@ const validate = values =>{
     }
 
     if(values.local&&values.local.toString().trim()&&!reg.test(values.local.toString().trim())){
-      errors.local='请填写正确的坐标格式'; 
+      errors.local='请填写正确的坐标格式';
     }
 
       if(!values.name){
@@ -730,6 +730,7 @@ const validate = values =>{
 
 
 
+			values.opened = String(values.opened);
       if (!values.opened) {
         errors.opened= '请输入社区状态';
       }

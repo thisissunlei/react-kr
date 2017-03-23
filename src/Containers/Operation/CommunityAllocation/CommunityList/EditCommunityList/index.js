@@ -120,7 +120,7 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
           component="textarea"
           maxSize={100}
           label={index?'':'基础服务'}
-          placeholder='请输入基础服务' 
+          placeholder='请输入基础服务'
           />
         <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
         <span
@@ -255,9 +255,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             photoD:[],
             communityId:'',
 		}
-    
+
 	}
- 
+
 	onSubmit = (values) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
@@ -265,7 +265,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         Message.error('开始时间不能大于结束时间');
        return ;
      }
-        
+
      var flagDesk=0;
      var flagOpen=0;
      var flagSpace=0;
@@ -293,7 +293,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      if(opend=='1'){
       if(porTypes.length<2){
         Message.error('至少选择两种工位类型');
-        return ; 
+        return ;
       }
       if(porTypes.length>=2){
         porTypes.map((item)=>{
@@ -301,16 +301,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             twoNum++;
           }
           if((item.type&&!item.price)||(!item.type&&item.price)){
-            oneNum++;  
+            oneNum++;
           }
         })
         if(twoNum<2){
           Message.error('至少填写两项完整的工位类型和价格');
-          return ; 
+          return ;
         }
         if(oneNum>0){
           Message.error('不能单写一项类型或价格');
-          return ; 
+          return ;
         }
        }
      }
@@ -382,16 +382,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         let {id}=this.props;
         var _this=this;
 				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
-          
+
           response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
           response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
           response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
-          
+
           Store.dispatch(initialize('editCommunityList',response));
-          
-					
+
+
           Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
-					
+
           State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
 					var bright_basic=[];
 					var bright_service=[];
@@ -419,7 +419,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						}
 					})
 
-					
+
 					_this.setState({
 						timeStart:response.businessBegin,
 						timeEnd:response.businessEnd,
@@ -612,9 +612,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 										<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 									</KrField>
 									{State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-									
+
                   <FieldArray name="porTypes" component={renderStation} />
-								
+
                 	<div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
 
 										<FieldArray name="bright_basic" component={renderService}/>
@@ -649,7 +649,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 												component="uploadImageList"
 												style={{marginTop:10,textAlign:'left'}}
 												defaultValue={photoD}
-                        imgFlag={false}  
+                        imgFlag={false}
                         innerBoxStyle={{width:254,height:70}}
                         innerStyle={{left:110,top:12}}
 												/>
@@ -682,7 +682,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 			let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 			let stationN = /^([1-9][0-9]{0,2})$/;
-      let stationNP=/^([0-9][0-9]{0,4})$/;    
+      let stationNP=/^([0-9][0-9]{0,4})$/;
 			//正整数
 			let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
 			//非负整数
@@ -690,7 +690,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			//整数
       let zeroNum=/^-?\d+$/;　
       //坐标
-       var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;  
+       var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
 
 
 
@@ -723,7 +723,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				}
 			}
 
-		
+
           //工位校验
        if (!values.porTypes || !values.porTypes.length) {
           errors.porTypes = { _error: 'At least one member must be entered' }
@@ -741,7 +741,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         }
       }
 
-     
+
     if(values.floorHeight&&isNaN(values.floorHeight)){
        errors.floorHeight='请输入数字';
     }
@@ -768,7 +768,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
     if(values.local&&values.local.toString().trim()&&!reg.test(values.local.toString().trim())){
-      errors.local='请填写正确的坐标格式'; 
+      errors.local='请填写正确的坐标格式';
     }
 
 			if(!values.name){
@@ -809,8 +809,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       errors.orderNum = '请输入3位以内正整数,不能以0开头';
     }
 
-
-
+			values.opened = String(values.opened);
 			if (!values.opened) {
 				errors.opened= '请输入社区状态';
 			}
