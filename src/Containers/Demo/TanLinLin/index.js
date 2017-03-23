@@ -30,13 +30,6 @@ import './index.less';
 	componentDidMount(){
 		
 	}
-
-
-
-
-
-
-	
 	onSubmit=(values)=>{
 		console.log("提交values",values);
 	}
