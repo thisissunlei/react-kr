@@ -30,18 +30,36 @@ let State = observable({
       email:'ayaya@qq.com'
     },
     anyTouched:true,
-    submitFailed:true
+    submitFailed:true,
+    validate:function(){
 
+    }
   }
 });
 
 State.createForm = action(function(formName,configs) {
-  var basic = {};
-  basic[formName] = Object.assign({},configs);
-  extendObservable(this,basic);
+  var form = {};
+  form[formName] = Object.assign({},configs);
+  extendObservable(this,form);
+});
+
+
+State.getForm = action(function(formName) {
+
+  var state = mobx.toJS(this);
+  var form = {};
+
+  if(!state.hasOwnProperty(formName)){
+      form[formName] = {};
+      extendObservable(this,form);
+  }else{
+    form = state[formName];
+  }
+  return form;
 });
 
 State.change = action(function(formName,fieldName,fieldValue) {
+
 });
 
 State.blur = action(function(formName,fieldName,fieldValue) {
@@ -108,21 +126,13 @@ State.destroy = action(function(formName) {
 
 });
 
-State.getForm = action(function(formName) {
-
-  var state = mobx.toJS(this);
-  var form = {};
-
-  if(!state.hasOwnProperty(formName)){
-      form[formName] = {};
-      extendObservable(this,form);
-  }
-  return form;
-
-});
 
 State.registerField = action(function(formName,fieldName,type) {
-  var state = this.getForm(formName);
+  var form = this.getForm(formName);
+  var field = Object.assign({},{name:fieldName},{type});
+  
+  form.registeredFields = Object.assign({},form.registeredFields,field);
+
   extendObservable(this,basic);
 });
 
@@ -131,7 +141,8 @@ State.unregisterField = action(function(formName,fieldName) {
 });
 
 State.reset = action(function(formName) {
-
+  var form = {};
+  extendObservable(this,form);
 });
 
 State.submit = action(function(formName) {
