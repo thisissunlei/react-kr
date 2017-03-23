@@ -26,7 +26,8 @@ import {
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
-	CircleStyleTwo
+	CircleStyleTwo,
+	Message
 } from 'kr-ui';
 import './index.less';
 
@@ -117,6 +118,11 @@ class AddMoney extends Component {
 		openCreateCustomer && openCreateCustomer();
 	}
 	openCustomer = (form) => {
+		this.setState({
+			flowAmount: 0,
+			finaflowInfo: {}
+		})
+		this.receivedBtnFormChangeValues = {};
 		if (form.id == 0) {
 			this.openCreateCustomer();
 		} else {
@@ -160,7 +166,11 @@ class AddMoney extends Component {
 	}
 
 	calcBalance = (value, input) => {
-		var lastValue = value.split('.')[1]
+		var lastValue = value.split('.')[1];
+		if (/[^0-9]+/.test(value)) {
+			Message.error('金额只能为数字');
+			return;
+		}
 		if (lastValue && lastValue.length > 2) {
 			Message.error('最多到小数点后两位');
 			return;
@@ -177,7 +187,7 @@ class AddMoney extends Component {
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let liveMoneyValue = 0;
-		if (input.value === 0) {
+		if (input.value == 0 && !input.name) {
 			var n1 = name[0];
 			var n2 = name[1];
 			var name1 = `${n1}-1`,
@@ -230,6 +240,7 @@ class AddMoney extends Component {
 			})
 
 		}).catch(function(err) {});
+
 		Store.dispatch(Actions.callAPI('get-finaflow-info', {
 			mainBillId: form.value
 		}, {})).then(function(response) {
@@ -241,9 +252,14 @@ class AddMoney extends Component {
 			response.cimbList.map((item, index) => {
 				item.value = item.detailid;
 				item.label = item.contactName;
+				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
+				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				return item;
 			})
 			response.cimbList.push(obj)
+			response.scvList.map((item, index) => {
+				Store.dispatch(change('addMoney', `no-${item.id}`, ''));
+			})
 			_this.setState({
 				finaflowInfo: response
 			})
@@ -351,7 +367,9 @@ class AddMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "履约保证金"
+			< KrField label = {
+				`履约保证金（未回款额：${item.nDeposit}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -372,7 +390,7 @@ class AddMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = "工位服务费"
+			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
@@ -404,7 +422,9 @@ class AddMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "履约保证金"
+			< KrField label = {
+				`履约保证金（未回款额：${item.nDeposit}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -425,7 +445,7 @@ class AddMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = "工位服务费"
+			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
@@ -457,7 +477,9 @@ class AddMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "履约保证金"
+			< KrField label = {
+				`履约保证金（未回款额：${item.nDeposit}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -478,7 +500,7 @@ class AddMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = "工位服务费"
+			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
@@ -510,7 +532,9 @@ class AddMoney extends Component {
 				}
 			}
 			className = 'm-tenantStation' >
-			< KrField label = "定金"
+			< KrField label = {
+				`定金（未回款额：${item.nFrontmoney}）`
+			}
 			grid = {
 				1 / 2
 			}
@@ -586,7 +610,7 @@ class AddMoney extends Component {
 				}
 			})
 			return (
-				<div key={index}>
+				<div >
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
 				</div>
 
@@ -615,12 +639,12 @@ class AddMoney extends Component {
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2}  label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					} else {
 						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
-                        }} grid={1 / 2} label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2}  label={item.categoryName} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 					}
 				})
 			} < /div>)
@@ -656,8 +680,8 @@ class AddMoney extends Component {
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
-								name="customerId" 
-								component="searchCustomer" 
+								name="customerId"
+								component="searchCustomer"
 								label="客户名称"
 								requireLabel={true}
 								onChange={this.openCustomer}
@@ -665,8 +689,8 @@ class AddMoney extends Component {
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId" 
-								component="searchMainbill" 
+								name="mainBillId"
+								component="searchMainbill"
 								label="所属订单"
 								requireLabel={true}
 								customerId={customerId}
@@ -675,74 +699,74 @@ class AddMoney extends Component {
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								inline={false} 
+								inline={false}
 								label="订单起止"
-								defaultValue="-" 
-								value={mainbillInfo.mainBillDate} 
+								defaultValue="-"
+								value={mainbillInfo.mainBillDate}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								component="labelText" 
+								component="labelText"
 								inline={false}
 								label="公司主体"
 								defaultValue="-"
-								value={mainbillInfo.corporationName} 
+								value={mainbillInfo.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay" 
-								component="select" 
-								label="收款方式" 
+								name="payWay"
+								component="select"
+								label="收款方式"
 								options={payment}
 								onChange={this.getAccount}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="accountId" 
-								component="select" 
-								label="我司账户" 
+								name="accountId"
+								component="select"
+								label="我司账户"
 								options={accountList}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount" 
-								type="text" 
+								name="payAccount"
+								type="text"
 								component="input"
-								label="付款账户" 
+								label="付款账户"
 								options=""
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="dealTime" 
-								component="date" 
-								label="收款日期" 
+								name="dealTime"
+								component="date"
+								label="收款日期"
 								requireLabel={true}
 						/>
-						<KrField  
-								style={{width:548}}  
-								name="remark" 
-								component="textarea" 
-								label="备注" 
+						<KrField
+								style={{width:548}}
+								name="remark"
+								component="textarea"
+								label="备注"
 								maxSize={100}
 						/>
-						<KrField  
-							 	name="contractFileList" 
-							 	component="input" 
-							 	type="hidden" 
+						<KrField
+							 	name="contractFileList"
+							 	component="input"
+							 	type="hidden"
 							 	label="合同附件"
 						/>
-						<KrField  
-							style={{width:548}}  
-							name="uploadFileIds" 
-							component="file" 
-							label="上传附件" 
-							defaultValue={[]} 
+						<KrField
+							style={{width:548}}
+							name="uploadFileIds"
+							component="file"
+							label="上传附件"
+							defaultValue={[]}
 							onChange={(files)=>{
 								Store.dispatch(change('AddMoney','contractFileList',files));
-							}} 
+							}}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
@@ -772,7 +796,8 @@ class AddMoney extends Component {
 	}
 	const validate = values => {
 
-		const errors = {}
+		const errors = {};
+
 
 		if (!values.customerId) {
 			errors.customerId = '请选择客户名称';
@@ -794,7 +819,6 @@ class AddMoney extends Component {
 		if (!values.dealTime) {
 			errors.dealTime = '请选择收款日期';
 		}
-
 
 		return errors
 	}

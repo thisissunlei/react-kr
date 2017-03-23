@@ -64,7 +64,7 @@ export default class DoAudit extends Component {
         verifyStatus: 'CHECKED'
       },
     }
-    this.getInfo();
+    this.getInfo(this.state.Param);
 
   }
   componentWillReceiveProps(nextProps) {
@@ -77,6 +77,9 @@ export default class DoAudit extends Component {
         this.getParentCount({
           verifyStatus: 'CHECKED'
         })
+        this.getInfo({
+          verifyStatus: 'CHECKED'
+        });
       })
     }
 
@@ -144,13 +147,9 @@ export default class DoAudit extends Component {
     })
   }
 
-  getInfo = () => {
+  getInfo = (form) => {
     var _this = this;
-    let {
-      Param
-    } = this.state;
-
-    Store.dispatch(Actions.callAPI('get-fina-flow-category', Param, {})).then(function(response) {
+    Store.dispatch(Actions.callAPI('get-fina-flow-category', form, {})).then(function(response) {
       _this.setState({
         infoList: response
       })

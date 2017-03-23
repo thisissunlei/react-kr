@@ -223,7 +223,7 @@ class EditMoney extends Component {
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let liveMoneyValue = 0;
-		if (input.value === 0) {
+		if (input.value === 0 && !input.name) {
 			var n1 = name[0];
 			var n2 = name[1];
 			var name1 = `${n1}-1`,
@@ -662,7 +662,7 @@ class EditMoney extends Component {
 				     	{topInfoList && topInfoList.map((item,index)=>{
 							return(
 								<tr key={index}>
-							     	<td>{index+1}</td>
+							     	<td>{topInfoList.length-index}</td>
 							     	<td><KrDate value={item.operateTime} /></td>
 							     	<td>{item.operateUserName}</td>
 							     	<td>{item.targetStatus=='CHECKED'?<span className="u-font-green">{item.verifyName}</span>:<span className="u-font-red">{item.verifyName}</span>}</td>
