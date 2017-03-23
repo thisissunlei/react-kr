@@ -1042,7 +1042,7 @@ const APIS = {
     },
     //财务--审核列表--获取条目数
     'get-fina-flow-count': {
-        url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-count',
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-flow-count?communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}',
         method: 'get'
     },
     //财务--审核列表--已审核--获取款项及金额

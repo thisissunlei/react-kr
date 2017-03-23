@@ -56,34 +56,41 @@ import './index.less';
 export default class ToDoAudit extends Component {
 
   constructor(props, context) {
-    super(props, context);
-    this.state = {
-      openNewCreate: false,
-      openView: false,
-      delAudit: false,
-      openSearch: false,
-      openAddCreate: false,
-      openEditCreate: false,
-      openAudit: false,
-      itemDetail: {},
-      Params: {
-        page: 1,
-        pageSize: 10,
-        verifyStatus: 'UNCHECKED'
-      },
-      openCreateCustomer: false,
-      openCreateMainbill: false,
-      CustomerList: {},
-      showName: false,
-      openSomeAudit: false,
-      AuditList: [],
-      billOInfo: '',
-      customerId: '',
-      noneSomeAudit: false,
-      mainBill: false,
-      mainBillId: ''
-    }
+      super(props, context);
+      this.state = {
+        openNewCreate: false,
+        openView: false,
+        delAudit: false,
+        openSearch: false,
+        openAddCreate: false,
+        openEditCreate: false,
+        openAudit: false,
+        itemDetail: {},
+        Params: {
+          page: 1,
+          pageSize: 10,
+          verifyStatus: 'UNCHECKED'
+        },
+        openCreateCustomer: false,
+        openCreateMainbill: false,
+        CustomerList: {},
+        showName: false,
+        openSomeAudit: false,
+        AuditList: [],
+        billOInfo: '',
+        customerId: '',
+        noneSomeAudit: false,
+        mainBill: false,
+        mainBillId: ''
+      }
 
+    }
+    //调用获取条目
+  getParentCount = (form) => {
+    let {
+      count
+    } = this.props;
+    count && count(form);
   }
 
   //操作相关
@@ -160,20 +167,12 @@ export default class ToDoAudit extends Component {
         _this.setState({
           showName: !_this.state.showName
         })
-        var customerList = {
-          label: response.company,
-          value: response.customerId
-        }
-        var mainBills = {
-          label: response.mainBillName,
-          value: response.mainBillId
-        }
         _this.setState({
           mainBill: true,
           mainBillId: response.mainBillId
         })
-        Store.dispatch(change('addMoney', "customerId", customerList));
-        Store.dispatch(change('addMoney', "mainBillId", mainBills));
+        Store.dispatch(change('addMoney', "customerId", response.customerId));
+        Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
       }).catch(function(err) {
         Message.error(err.message);
       });
@@ -256,6 +255,8 @@ export default class ToDoAudit extends Component {
         verifyStatus: 'UNCHECKED',
         customerName: form.content
       }
+    }, function() {
+      this.getParentCount()
     });
   }
 
@@ -268,6 +269,8 @@ export default class ToDoAudit extends Component {
 
       this.setState({
         Params: form
+      }, function() {
+        this.getParentCount(form)
       });
       this.openSearch();
     }
@@ -362,7 +365,6 @@ export default class ToDoAudit extends Component {
       mainBill,
       mainBillId
     } = this.state;
-    console.log('mainBill----', mainBill)
     return (
 
       <div className="m-todo-audit">

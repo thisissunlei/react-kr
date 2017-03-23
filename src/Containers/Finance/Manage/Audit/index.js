@@ -51,9 +51,10 @@ export default class AuditList extends Component {
   }
 
   componentDidMount() {}
-  getCount = () => {
+  getCount = (form) => {
+    var params = form || ''
     var _this = this;
-    Store.dispatch(Actions.callAPI('get-fina-flow-count', {}, {})).then(function(response) {
+    Store.dispatch(Actions.callAPI('get-fina-flow-count', params, {})).then(function(response) {
       _this.setState({
         countList: response
       })
@@ -165,6 +166,7 @@ export default class AuditList extends Component {
           <Tabs className="tabs">
             <Tab label={`待审核（${countList.unCheckedCount}）`} onActive={this.merchants} style={merchantsStyle}>
                 <ToDoAudit 
+                  count={this.getCount}
                 />
             </Tab>
             <Tab label={`已审核（${countList.checkedCount}）`}  onActive={this.personal} style={personalStyle}>
