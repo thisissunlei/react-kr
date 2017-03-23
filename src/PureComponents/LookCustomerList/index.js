@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Table,
 	TableBody,
@@ -30,6 +27,11 @@ import './index.less'
 import State from './State';
 import LookDetailed from "./LookDetailed";
 import CustomerIndent from "./CustomerIndent";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class LookCustomerList extends Component{
 
@@ -37,6 +39,25 @@ class LookCustomerList extends Component{
 		super(props, context);
 
 		State.initComeFrom(props.comeFrom,props.operType)
+		console.log("8889999999999999")
+		
+		if(!props.listId){
+			return;
+		}
+		if(State.listId===props.listId){
+			return;
+		}
+		this.props.CommunityDetailModel.lookListId(props.listId,props.operType);
+		State.orderList(props.listId);
+		State.initListId(props.listId);
+	}
+
+
+	loadData = ()=>{
+		const {listId} = this.props;
+		State.lookListId(props.listId,props.operType);
+		State.orderList(props.listId);
+		State.initListId(props.listId);
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -90,8 +111,8 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-		let {comeFrom,data,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName,operType}=this.props;
 
+		let {comeFrom,data,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName,operType,listId}=this.props;
 
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>

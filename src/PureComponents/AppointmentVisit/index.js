@@ -62,7 +62,7 @@ export default class AppointmentVisit extends Component {
 				pageSize: 15,
 				createDateEnd:'',
 				createDateStart:value,
-				msgCommunity:this.state.searchParams.msgCommunity,
+				msgCommunity:this.state.searchParams.msgCommunity || "",
 				other:!this.state.searchParams.other
 			}
 		})
@@ -75,7 +75,7 @@ export default class AppointmentVisit extends Component {
 				pageSize: 15,
 				createDateEnd:value,
 				createDateStart:this.state.searchParams.createDateStart,
-				msgCommunity:this.state.searchParams.msgCommunity,
+				msgCommunity:this.state.searchParams.msgCommunity || "",
 				other:!this.state.searchParams.other
 			}
 		});

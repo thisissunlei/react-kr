@@ -4,9 +4,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Table,
 	TableBody,
@@ -32,11 +29,13 @@ import {
 } from 'kr-ui';
 import DateFormat from "kr/Utils";
 import editsourceCustomer from "../EditCustomerList/State";
-
+import {
+	LookCustomerList
+} from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
-import LookCustomerList from '../LookCustomerList';
+// import LookCustomerList from '../LookCustomerList';
 import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
@@ -51,16 +50,13 @@ import newIndentState from "../NewIndent/State";
 import './index.less';
 import treeData from "../../../../../Components/KrField/TreeComponent/State";
 import cityData from "../../../../../Components/KrField/CityComponent/State";
-
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class Personal extends Component{
-
-	static childContextTypes = {
-	  deleteIndent: React.PropTypes.func
-	};
-	getChildContext() {
-	    return {deleteIndent:this.deleteIndent};
-	}
 
 	constructor(props,context){
 		super(props, context);
@@ -73,23 +69,14 @@ class Personal extends Component{
 			arrItem:[],
 		}
 	}
-
-	deleteIndent = (id) =>{
-		State.deleteId=id;
-	}
 	//新建页面的开关
 	switchNewMerchants=()=>{
 		var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
 		customerItem.map(function(item,index){
           Store.dispatch(change('NewCustomerList',item,''));
 		})
-		// Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
-		// if(response.hasOffice=="YES"){
-		// 	State.hasOfficeChange(true);
-		// }else{
-		// 	State.hasOfficeChange(false);
-		// }
+		
 		treeData.listValue="请选择项目类型"
 		cityData.city="请选择";
 	}
@@ -209,8 +196,9 @@ class Personal extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
-        LookCustomerState.orderList(itemDetail.id);
-        LookCustomerState.lookListId(itemDetail.id,'PERSON');
+      	State.listId = itemDetail.id;
+        // LookCustomerState.orderList(itemDetail.id);
+        // LookCustomerState.lookListId(itemDetail.id,'PERSON');
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
       	State.companyName=itemDetail.company;
@@ -342,10 +330,15 @@ class Personal extends Component{
      }
 
 
+     ccccc = () =>{
+     	console.log("KKkkkkkkkk");
+     }
+
 
     
 	render(){
 		let {dataReady,searchParams,orderReady}=this.props;
+		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -356,6 +349,7 @@ class Personal extends Component{
         	display:'none'
         }
       }
+
 		return(
 
       <div className="m-personal" style={{paddingTop:25}}>
@@ -664,7 +658,7 @@ class Personal extends Component{
 					>
 						<OrderDelete 
 						   onCancel={this.openDeleteDialog}
-						   orderId={State.deleteId}
+						   orderId={deleteId}
 				           operType="PERSON"
 						   listId={State.listId}
 

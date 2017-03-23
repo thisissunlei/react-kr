@@ -43,10 +43,10 @@ State.switchEditCustomerList = action(function(comeFrom) {
 });
 //获取订单数据列表
 State.orderList=action(function(params) {
-	return;
 	if(!params){
 	 return ;
 	}
+	console.log()
 
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
@@ -60,8 +60,6 @@ State.initListId=action(function(params){
 })
 //获取详情页数据
 State.lookListId=action(function(params,operType) {
-
-	console.log(">>>>>>>>>>>>>>>",params)
 
 	// return;
 	this.operType=operType;

@@ -3,9 +3,7 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-import {
-	observer
-} from 'mobx-react';
+
 import {
 	KrField,
 	Grid,
@@ -23,7 +21,12 @@ import merchants from "../Merchants/State";
 import personal from '../Personal/State';
 import signedClient from "../SignedClient/State";
 import flushData from "../LookCustomerList/State";
+import {
+	observer,
+	inject
+} from 'mobx-react';
 
+@inject("CommunityDetailModel")
 @observer
  class EditCustomerList extends Component{
 
@@ -69,6 +72,7 @@ import flushData from "../LookCustomerList/State";
 
 
 	onSubmit = (values) => {
+		console.log("rrrrrrrrrr");
 		let {operType}=this.props;
 		let _this=this;
 		if(!values.company){
@@ -103,7 +107,8 @@ import flushData from "../LookCustomerList/State";
 					time:+new Date()
 		        }
          	}
-         	flushData.lookListId(_this.props.listId,operType);
+         	_this.props.CommunityDetailModel.lookListId(_this.props.listId,operType);
+         	// flushData.lookListId(_this.props.listId,operType);
 		    merchants.openDialog=false;
 		    personal.openPersonDialog=false;
 		    signedClient.openPersonDialog=false;

@@ -25,6 +25,12 @@ import {
 	Message
 } from "kr-ui";
 import SearchForm from "./SearchForm";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
+@observer
 
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
@@ -107,6 +113,8 @@ export default class AppointmentVisit extends Component {
 
 	//客户名称被点击
 	customerClick = (data) => {
+		let msgExtra = JSON.parse(data.msgExtra)
+		this.props.CommunityDetailModel.lookListId(msgExtra.customerId,"SHARE");
 		let customerName = data.msgContent.split("#")[1]
 		data.customerName = customerName;
 		const {customerClick} = this.props;
@@ -117,7 +125,6 @@ export default class AppointmentVisit extends Component {
 
 	//刷新tab信息条数数据
 	tabNum = ()=>{
-		console.log(">>>>>>>>>>")
 		let {tabNum} = this.props;
 		tabNum && tabNum();
 	}
