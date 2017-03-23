@@ -836,9 +836,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 			if(!values.contract){
 				errors.contract='请输入联系方式'
-			}else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
+			}
+			/*
+			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
 				errors.contract='联系方式错误'
 			}
+			*/
 			return errors
 		}
 		export default reduxForm({ form: 'editCommunityList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(EditCommunityList);
