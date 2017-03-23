@@ -662,7 +662,7 @@ class EditMoney extends Component {
 				     	{topInfoList && topInfoList.map((item,index)=>{
 							return(
 								<tr key={index}>
-							     	<td>{index+1}</td>
+							     	<td>{topInfoList.length-index}</td>
 							     	<td><KrDate value={item.operateTime} /></td>
 							     	<td>{item.operateUserName}</td>
 							     	<td>{item.targetStatus=='CHECKED'?<span className="u-font-green">{item.verifyName}</span>:<span className="u-font-red">{item.verifyName}</span>}</td>
