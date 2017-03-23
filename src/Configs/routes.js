@@ -82,6 +82,8 @@ export default (
 				<Route path="setting"  component={Member.MemberManage.Setting}/>
 				<Route path="card"  component={Member.MemberManage.Card}/>
 
+				<Route path="doormanage"  component={Member.MemberManage.DoorManage}/>
+
 			</Route>
 
 		</Route>
