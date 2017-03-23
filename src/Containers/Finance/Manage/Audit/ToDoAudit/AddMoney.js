@@ -117,6 +117,10 @@ class AddMoney extends Component {
 		openCreateCustomer && openCreateCustomer();
 	}
 	openCustomer = (form) => {
+		this.setState({
+			flowAmount: 0,
+			finaflowInfo: {}
+		})
 		if (form.id == 0) {
 			this.openCreateCustomer();
 		} else {
@@ -230,6 +234,7 @@ class AddMoney extends Component {
 			})
 
 		}).catch(function(err) {});
+
 		Store.dispatch(Actions.callAPI('get-finaflow-info', {
 			mainBillId: form.value
 		}, {})).then(function(response) {
@@ -241,9 +246,14 @@ class AddMoney extends Component {
 			response.cimbList.map((item, index) => {
 				item.value = item.detailid;
 				item.label = item.contactName;
+				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
+				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				return item;
 			})
 			response.cimbList.push(obj)
+			response.scvList.map((item, index) => {
+				Store.dispatch(change('addMoney', `no-${item.id}`, ''));
+			})
 			_this.setState({
 				finaflowInfo: response
 			})
