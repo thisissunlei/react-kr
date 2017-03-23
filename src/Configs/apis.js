@@ -1032,7 +1032,7 @@ const APIS = {
     },
     //财务--审核列表--高级查询--获取收款类型
     'get-fina-paytype': {
-        url: '/api/krspace-finance-web/finaVerify/data/get-fina-paytype',
+        url: '/api/krspace-finance-web/finaVerify/data/get-fina-paytype?catagoryName={catagoryName}',
         method: 'get'
     },
     //财务--审核列表--高级查询--获取主体

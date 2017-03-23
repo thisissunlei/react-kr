@@ -36,6 +36,7 @@ import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
+import SearchPayment from './SearchPayment';
 
 export default class KrField extends React.Component {
 
@@ -129,6 +130,12 @@ export default class KrField extends React.Component {
 			return (
 				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
 			);
+		}
+
+		if (component === 'searchPayment') {
+			return (
+				<Field {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
+			)
 		}
 		if (component === 'searchCustomer') {
 			return (

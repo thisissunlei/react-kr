@@ -163,15 +163,12 @@ export default class DoneAudit extends Component {
     })
   }
   onSearchSubmit = (form) => {
-    console.log('form----', form)
     this.setState({
       Params: form
     }, function() {
       this.openSearch();
       this.getParentCount(form)
     });
-
-
   }
   EditAuditSubmit = (form) => {
     var _this = this;

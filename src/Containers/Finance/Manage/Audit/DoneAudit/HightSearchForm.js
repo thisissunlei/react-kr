@@ -56,11 +56,9 @@ class HightSearchForm extends Component {
 				label: 'POS机支付',
 				value: 'POS'
 			}],
-			payType: [],
 			mainList: []
 		}
 		this.getCommunity();
-		this.getPayType();
 		this.getMain();
 	}
 
@@ -100,21 +98,7 @@ class HightSearchForm extends Component {
 
 		}).catch(function(err) {});
 	}
-	getPayType = () => {
-		var payType;
-		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-paytype', {}, {})).then(function(response) {
-			payType = response.map((item, index) => {
-				item.label = item.categoryName;
-				item.value = item.id;
-				return item;
-			})
-			_this.setState({
-				payType: payType
-			})
 
-		}).catch(function(err) {});
-	}
 	getMain = () => {
 		var mainList;
 		var _this = this;
@@ -154,7 +138,6 @@ class HightSearchForm extends Component {
 		let {
 			communityList,
 			payment,
-			payType,
 			mainList
 		} = this.state;
 		return (
@@ -182,10 +165,10 @@ class HightSearchForm extends Component {
 				    		grid={1/2}
 				    		right={34}
 				    		name="flowCategoryId"
-				    		type="select"
+				    		component="searchPayment"
 				    		style={{marginTop:4}}
 				    		label="收款类型" 
-				  			options={payType}
+				  			
 					/>
 					<KrField  
 				    		grid={1/2}
