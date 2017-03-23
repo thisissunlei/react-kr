@@ -69,7 +69,15 @@ export default class DoAudit extends Component {
   }
 
   componentDidMount() {}
-    //导出
+    //调用获取条目
+  getParentCount = (form) => {
+    let {
+      count
+    } = this.props;
+    count && count(form);
+  }
+
+  //导出
   onExport = (values) => {
     let idList = [];
     if (values.length != 0) {
@@ -78,7 +86,7 @@ export default class DoAudit extends Component {
       });
       var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=CHECKED`;
       window.location.href = url;
-    }else {
+    } else {
 
     }
   }
@@ -144,7 +152,11 @@ export default class DoAudit extends Component {
         customerName: form.content
       }
     }, function() {
-      _this.getInfo();
+      this.getParentCount({
+        verifyStatus: 'CHECKED',
+        customerName: form.content
+      })
+      this.getInfo();
     });
   }
   openSearch = () => {
@@ -154,11 +166,12 @@ export default class DoAudit extends Component {
   }
   onSearchSubmit = (form) => {
     this.openSearch();
-    var _this = this;
+
     this.setState({
       Params: form
     }, function() {
-      _this.getInfo();
+      this.getParentCount(form)
+      this.getInfo();
     });
 
 

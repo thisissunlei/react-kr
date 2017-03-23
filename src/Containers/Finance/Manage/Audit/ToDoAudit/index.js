@@ -231,8 +231,8 @@ export default class ToDoAudit extends Component {
       openCreateCustomer: !this.state.openCreateCustomer
     })
   }
-  componentDidMount() {}
-    //导出
+
+  //导出
   onExport = (values) => {
     let idList = [];
     values.map((item, index) => {
