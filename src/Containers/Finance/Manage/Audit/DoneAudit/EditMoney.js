@@ -206,7 +206,11 @@ class EditMoney extends Component {
 	}
 
 	calcBalance = (value, input) => {
-		var lastValue = value.split('.')[1]
+		var lastValue = value.split('.')[1];
+		if (/[^0-9]+/.test(value)) {
+			Message.error('金额只能为数字');
+			return;
+		}
 		if (lastValue && lastValue.length > 2) {
 			Message.error('最多到小数点后两位');
 			return;
