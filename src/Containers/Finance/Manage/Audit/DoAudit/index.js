@@ -67,9 +67,30 @@ export default class DoAudit extends Component {
     this.getInfo();
 
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tab != this.props.tab) {
+      this.setState({
+        Params: {
+          verifyStatus: 'CHECKED'
+        }
+      }, function() {
+        this.getParentCount({
+          verifyStatus: 'CHECKED'
+        })
+      })
+    }
 
+  }
   componentDidMount() {}
-    //导出
+    //调用获取条目
+  getParentCount = (form) => {
+    let {
+      count
+    } = this.props;
+    count && count(form);
+  }
+
+  //导出
   onExport = (values) => {
     let idList = [];
       values.map((item, index) => {
@@ -98,8 +119,11 @@ export default class DoAudit extends Component {
       Store.dispatch(Actions.callAPI('edit-verify-checked', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate()
-        window.location.reload();
-
+        _this.setState({
+          Params: {
+            verifyStatus: 'CHECKED'
+          }
+        })
       }).catch(function(err) {});
 
     }
@@ -140,7 +164,11 @@ export default class DoAudit extends Component {
         customerName: form.content
       }
     }, function() {
-      _this.getInfo();
+      this.getParentCount({
+        verifyStatus: 'CHECKED',
+        customerName: form.content
+      })
+      this.getInfo();
     });
   }
   openSearch = () => {
@@ -150,11 +178,12 @@ export default class DoAudit extends Component {
   }
   onSearchSubmit = (form) => {
     this.openSearch();
-    var _this = this;
+
     this.setState({
       Params: form
     }, function() {
-      _this.getInfo();
+      this.getParentCount(form)
+      this.getInfo();
     });
 
 

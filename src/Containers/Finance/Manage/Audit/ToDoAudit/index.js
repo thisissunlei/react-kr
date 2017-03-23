@@ -85,6 +85,27 @@ export default class ToDoAudit extends Component {
     }
 
   }
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.tab != this.props.tab) {
+        this.setState({
+          Params: {
+            verifyStatus: 'UNCHECKED'
+          }
+        }, function() {
+          this.getParentCount({
+            verifyStatus: 'UNCHECKED'
+          })
+        })
+      }
+
+    }
+    //调用获取条目
+  getParentCount = (form) => {
+    let {
+      count
+    } = this.props;
+    count && count(form);
+  }
 
   //操作相关
   onOperation = (type, itemDetail) => {
@@ -160,20 +181,12 @@ export default class ToDoAudit extends Component {
         _this.setState({
           showName: !_this.state.showName
         })
-        var customerList = {
-          label: response.company,
-          value: response.customerId
-        }
-        var mainBills = {
-          label: response.mainBillName,
-          value: response.mainBillId
-        }
         _this.setState({
           mainBill: true,
           mainBillId: response.mainBillId
         })
-        Store.dispatch(change('addMoney', "customerId", customerList));
-        Store.dispatch(change('addMoney', "mainBillId", mainBills));
+        Store.dispatch(change('addMoney', "customerId", response.customerId));
+        Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
       }).catch(function(err) {
         Message.error(err.message);
       });
@@ -232,17 +245,17 @@ export default class ToDoAudit extends Component {
       openCreateCustomer: !this.state.openCreateCustomer
     })
   }
-  componentDidMount() {}
-    //导出
+
+  //导出
   onExport = (values) => {
     let idList = [];
-      values.map((item, index) => {
-        idList.push(item.id)
-      });
-      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=UNCHECKED`;
-      console.log("2",values);
-      console.log("list",idList);
-      window.location.href = url;
+    values.map((item, index) => {
+      idList.push(item.id)
+    });
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?idList=${idList}&verifyStatus=UNCHECKED`;
+    console.log("2", values);
+    console.log("list", idList);
+    window.location.href = url;
 
   }
   searchParams = (form) => {
@@ -253,6 +266,11 @@ export default class ToDoAudit extends Component {
         verifyStatus: 'UNCHECKED',
         customerName: form.content
       }
+    }, function() {
+      this.getParentCount({
+        verifyStatus: 'UNCHECKED',
+        customerName: form.content
+      })
     });
   }
 
@@ -265,6 +283,8 @@ export default class ToDoAudit extends Component {
 
       this.setState({
         Params: form
+      }, function() {
+        this.getParentCount(form)
       });
       this.openSearch();
     }
@@ -281,7 +301,11 @@ export default class ToDoAudit extends Component {
         Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
           Message.success('新建成功');
           _this.openAddCreate();
-          window.location.reload();
+          _this.setState({
+            Params: {
+              verifyStatus: 'UNCHECKED'
+            }
+          })
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -291,13 +315,16 @@ export default class ToDoAudit extends Component {
     }
     //编辑保存
   onEditSubmit = (form) => {
-      console.log('form----', form)
       var _this = this;
       if (form.mainBillId != "") {
         Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
-          window.location.reload();
+          _this.setState({
+            Params: {
+              verifyStatus: 'UNCHECKED'
+            }
+          })
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -359,7 +386,6 @@ export default class ToDoAudit extends Component {
       mainBill,
       mainBillId
     } = this.state;
-    console.log('mainBill----', mainBill)
     return (
 
       <div className="m-todo-audit">

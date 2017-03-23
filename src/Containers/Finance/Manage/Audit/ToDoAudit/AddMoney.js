@@ -330,7 +330,7 @@ class AddMoney extends Component {
 			payWay: form.payWay,
 			remark: form.remark || "",
 			uploadFileIds: form.uploadFileIds || [],
-			conJasonStr: JSON.stringify(childrenList),
+			conJasonStr: JSON.stringify(childrenList) || '',
 			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount
 		}

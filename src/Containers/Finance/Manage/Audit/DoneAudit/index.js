@@ -62,7 +62,27 @@ export default class DoneAudit extends Component {
 
   }
 
-  componentDidMount() {}
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.tab != this.props.tab) {
+        this.setState({
+          Params: {
+            verifyStatus: 'RETURNED'
+          }
+        }, function() {
+          this.getParentCount({
+            verifyStatus: 'RETURNED'
+          })
+        })
+      }
+
+    }
+    //调用获取条目
+  getParentCount = (form) => {
+      let {
+        count
+      } = this.props;
+      count && count(form);
+    }
     //导出
   onExport = (values) => {
       let idList = [];
@@ -139,6 +159,11 @@ export default class DoneAudit extends Component {
         verifyStatus: 'RETURNED',
         customerName: form.content
       }
+    }, function() {
+      this.getParentCount({
+        verifyStatus: 'RETURNED',
+        customerName: form.content
+      })
     });
   }
   openSearch = () => {
@@ -147,11 +172,12 @@ export default class DoneAudit extends Component {
     })
   }
   onSearchSubmit = (form) => {
-
     this.setState({
       Params: form
+    }, function() {
+      this.openSearch();
+      this.getParentCount(form)
     });
-    this.openSearch();
   }
   EditAuditSubmit = (form) => {
     var _this = this;
@@ -159,7 +185,11 @@ export default class DoneAudit extends Component {
       Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate();
-        window.location.reload();
+        _this.setState({
+          Params: {
+            verifyStatus: 'RETURNED'
+          }
+        })
       }).catch(function(err) {
         Message.error(err.message);
       });
@@ -170,6 +200,7 @@ export default class DoneAudit extends Component {
     let {
       itemDetail
     } = this.state;
+    console.log('')
     return (
 
       <div className="m-done-audit">
