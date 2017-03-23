@@ -110,8 +110,11 @@ export default class DoAudit extends Component {
       Store.dispatch(Actions.callAPI('edit-verify-checked', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate()
-        window.location.reload();
-
+        _this.setState({
+          Params: {
+            verifyStatus: 'CHECKED'
+          }
+        })
       }).catch(function(err) {});
 
     }

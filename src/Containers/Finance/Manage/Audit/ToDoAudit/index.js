@@ -297,13 +297,16 @@ export default class ToDoAudit extends Component {
     }
     //编辑保存
   onEditSubmit = (form) => {
-      console.log('form----', form)
       var _this = this;
       if (form.mainBillId != "") {
         Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
-          window.location.reload();
+          _this.setState({
+            Params: {
+              verifyStatus: 'UNCHECKED'
+            }
+          })
         }).catch(function(err) {
           Message.error(err.message);
         });

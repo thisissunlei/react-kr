@@ -176,7 +176,11 @@ export default class DoneAudit extends Component {
       Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate();
-        window.location.reload();
+        _this.setState({
+          Params: {
+            verifyStatus: 'RETURNED'
+          }
+        })
       }).catch(function(err) {
         Message.error(err.message);
       });
