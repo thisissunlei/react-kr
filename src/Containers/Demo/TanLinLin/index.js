@@ -1,22 +1,22 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component
+} from 'react';
 import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
-	ListGroup,
-	ListGroupItem,
-} from 'kr-ui';
-import './index.less';
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
-class ZhangQu extends Component {
+import {
+	Section,
+	PlanMap,
+	Dialog,
+	Button,
+	Editor
+} from 'kr-ui';
+
+export default class TAnLinLin extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -25,12 +25,18 @@ class ZhangQu extends Component {
 			open:true,
 			checkedStations:[],
 		}
-	}
-	componentWillMount() {
+
 	}
 
-	componentDidMount(){
-		
+	close = ()=>{
+		this.setState({
+			open:!this.state.open
+		})
+	}
+
+	confirm = ()=>{
+		this.close();
+		console.log('resule:',this.state.checkedStations);
 	}
 	componentDidMount() {}
 
@@ -69,4 +75,4 @@ class ZhangQu extends Component {
 	}
 }
 
-export default reduxForm({ form: 'ZhangQu'})(ZhangQu);
+
