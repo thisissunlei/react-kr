@@ -307,6 +307,7 @@ export default class ToDoAudit extends Component {
           _this.openAddCreate();
           _this.setState({
             Params: {
+              page: 1,
               verifyStatus: 'UNCHECKED'
             }
           })
@@ -349,7 +350,7 @@ export default class ToDoAudit extends Component {
     }
   }
   onSelect = (values, list) => {
-    console.log("jinrusele");
+      console.log("jinrusele");
       let {
         AuditList
       } = this.state;
