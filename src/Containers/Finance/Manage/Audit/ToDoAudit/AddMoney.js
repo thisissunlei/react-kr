@@ -680,8 +680,8 @@ class AddMoney extends Component {
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
-								name="customerId" 
-								component="searchCustomer" 
+								name="customerId"
+								component="searchCustomer"
 								label="客户名称"
 								requireLabel={true}
 								onChange={this.openCustomer}
@@ -689,8 +689,8 @@ class AddMoney extends Component {
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId" 
-								component="searchMainbill" 
+								name="mainBillId"
+								component="searchMainbill"
 								label="所属订单"
 								requireLabel={true}
 								customerId={customerId}
@@ -699,74 +699,74 @@ class AddMoney extends Component {
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								inline={false} 
+								inline={false}
 								label="订单起止"
-								defaultValue="-" 
-								value={mainbillInfo.mainBillDate} 
+								defaultValue="-"
+								value={mainbillInfo.mainBillDate}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								component="labelText" 
+								component="labelText"
 								inline={false}
 								label="公司主体"
 								defaultValue="-"
-								value={mainbillInfo.corporationName} 
+								value={mainbillInfo.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay" 
-								component="select" 
-								label="收款方式" 
+								name="payWay"
+								component="select"
+								label="收款方式"
 								options={payment}
 								onChange={this.getAccount}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="accountId" 
-								component="select" 
-								label="我司账户" 
+								name="accountId"
+								component="select"
+								label="我司账户"
 								options={accountList}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount" 
-								type="text" 
+								name="payAccount"
+								type="text"
 								component="input"
-								label="付款账户" 
+								label="付款账户"
 								options=""
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="dealTime" 
-								component="date" 
-								label="收款日期" 
+								name="dealTime"
+								component="date"
+								label="收款日期"
 								requireLabel={true}
 						/>
-						<KrField  
-								style={{width:548}}  
-								name="remark" 
-								component="textarea" 
-								label="备注" 
+						<KrField
+								style={{width:548}}
+								name="remark"
+								component="textarea"
+								label="备注"
 								maxSize={100}
 						/>
-						<KrField  
-							 	name="contractFileList" 
-							 	component="input" 
-							 	type="hidden" 
+						<KrField
+							 	name="contractFileList"
+							 	component="input"
+							 	type="hidden"
 							 	label="合同附件"
 						/>
-						<KrField  
-							style={{width:548}}  
-							name="uploadFileIds" 
-							component="file" 
-							label="上传附件" 
-							defaultValue={[]} 
+						<KrField
+							style={{width:548}}
+							name="uploadFileIds"
+							component="file"
+							label="上传附件"
+							defaultValue={[]}
 							onChange={(files)=>{
 								Store.dispatch(change('AddMoney','contractFileList',files));
-							}} 
+							}}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">

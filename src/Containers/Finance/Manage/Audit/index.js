@@ -51,8 +51,11 @@ export default class AuditList extends Component {
   }
 
   componentDidMount() {}
-  getCount = (form) => {
-    var params = form || ''
+  getCount = (formd) => {
+
+
+    var params = Object.assign({},formd);
+    console.log("paramdddd1111",formd);
     var _this = this;
     Store.dispatch(Actions.callAPI('get-fina-flow-count', params, {})).then(function(response) {
       _this.setState({
@@ -60,6 +63,7 @@ export default class AuditList extends Component {
       })
 
     }).catch(function(err) {});
+    console.log("paramdddd222222",formd);
   }
 
   //操作相关
@@ -163,18 +167,18 @@ export default class AuditList extends Component {
           <Title value="审核列表"/>
           <Tabs className="tabs">
             <Tab label={`待审核（${countList.unCheckedCount}）`} onActive={this.merchants} style={merchantsStyle}>
-                <ToDoAudit 
+                <ToDoAudit
                       count={this.getCount}
                       tab={initSearch}
                 />
             </Tab>
             <Tab label={`已审核（${countList.checkedCount}）`}  onActive={this.personal} style={personalStyle}>
-               <DoAudit 
+               <DoAudit
                       count={this.getCount}
                        tab={initSearch}
                 />
             </Tab>
-            
+
             <Tab label={`已退回（${countList.reCount}）`} onActive={this.signedClient} style={signedClientStyle}>
                 <DoneAudit
                       count={this.getCount}

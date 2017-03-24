@@ -54,7 +54,6 @@ class GoAudit extends Component {
 
   onSubmit = (form) => {
     form.type = this.type;
-
     Store.dispatch(Actions.callAPI('edit-verify-status', {}, {
     finaVerifyId:this.props.detail.id,
     operateRemark:form.operateRemark || " ",
@@ -63,9 +62,9 @@ class GoAudit extends Component {
       Message.success("操作成功");
       window.setTimeout(function() {
           window.location.reload();
-      }, 0);
+      }, 800);
     }).catch(function(err) {
-			Message.error(err.message)
+			Message.error(err.message);
 		});
   }
 
@@ -99,7 +98,7 @@ class GoAudit extends Component {
               <div style={{textAlign:'center'}}>
                 <div  className='ui-btn-center'><Button  label="同意" type="submit" onClick={this.audit}/></div>
                 <div  className='ui-btn-center'><Button  label="退回" type="submit" backgroundColor='#ff6868' onClick={this.retreat}/></div>
-                <div  className='ui-btn-center'><Button  label="取消" type="button" cancle={true}  /></div>
+                <div  className='ui-btn-center'><Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel}/></div>
             </div>
           </form>
       </div>
