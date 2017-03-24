@@ -33,6 +33,7 @@ export default class ItemDetail extends Component {
 
         let detail = this.props.detail;
 
+    
         var status = detail.status;
         var position= detail.position;
         var twinsFlag= detail.twinsFlag;

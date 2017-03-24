@@ -63,7 +63,22 @@ class NewCreateFund extends Component {
         const {onCancel} = this.props;
         onCancel && onCancel();
     }
+    renderCre=()=>{
+      const {detail} = this.props;
+      if (detail.position=='PAYMENT') {
+        return (
+          <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+        )
+      }else {
+        return (
+          <div>
+            <KrField name="twinsFlag" grid={1 / 2} label="是" type="radio" value="CREATEINCOME"/>
+            <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+          </div>
 
+        )
+      }
+    }
     render() {
         let style = {
             marginTop: 3
@@ -100,8 +115,7 @@ class NewCreateFund extends Component {
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
                 <KrField grid={1 / 2} name="twinsFlag" component="group" label="生成收入" requireLabel={true}>
-                    <KrField name="twinsFlag" grid={1 / 2} label="是" type="radio" value="CREATEINCOME"/>
-                    <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+                    {this.renderCre()}
                 </KrField>
                 <KrField label="备注" style={style} name="remark" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,输入字数不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
 
