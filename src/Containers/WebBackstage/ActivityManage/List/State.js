@@ -1,11 +1,13 @@
 import mobx, {
 	observable,
 	action,
+	extendObservable
 } from 'mobx';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
+
 import {Message} from 'kr-ui';
 let State = observable({
 	openNewCreate: false,
@@ -43,8 +45,9 @@ let State = observable({
 		endDate:'',
 		name:'',
 		page: 1,
-		pageSize: 15,
+		pageSize: 5,
 		type:'',
+		time:''
 	},
 	
 });
@@ -55,16 +58,35 @@ State.itemDownPublish = action(function(id) {
 		id: id,
 		type:0
 	})).then(function(response) {
-		let searchParams = _this.searchParams;
-		console.log('--->',_this.searchParams);
 		Message.success('下线成功');
-		// extendObservable(_this, {
-		// 	searchParams:searchParams
-		// })
-
-
 	}).catch(function(err) {
 		Message.error('下线失败');
+	});
+
+});
+State.itemUpPublish = action(function(id) {
+	var _this = this;
+	var searchParams = Object.assign({},mobx.toJS(_this.searchParams));
+
+			searchParams.time = +new Date();
+
+			mobx.extendObservable(_this,searchParams);
+
+			console.log('---->>>',searchParams)
+
+			return ;
+	Store.dispatch(Actions.callAPI('activityPublish', {
+		id: id,
+		type:1
+	})).then(function(response) {
+	
+
+
+
+		Message.success('发布成功');
+
+	}).catch(function(err) {
+		Message.error('发布失败');
 	});
 
 
