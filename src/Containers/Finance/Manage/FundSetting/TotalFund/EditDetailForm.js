@@ -50,9 +50,9 @@ class NewCreateFund extends Component {
         console.log(initialValues);
         Store.dispatch(initialize('NewCreateFund', initialValues));
         // if (detail.status=="ENABLE") {
-        //   Store.dispatch(change('NewCreateFund', 'status', '启用'));
+        //   Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
         // }else if(detail.status=="DISENABLE") {
-        //   Store.dispatch(change('NewCreateFund', 'status', '关闭'));
+        //   Store.dispatch(change('NewCreateFund', 'status', 'DISENABLE'));
         // }
 
     }
