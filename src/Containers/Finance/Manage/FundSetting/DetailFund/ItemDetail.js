@@ -33,29 +33,23 @@ export default class ItemDetail extends Component {
 
         let detail = this.props.detail;
 
-        /*let detail={
-            accountcode:"feihuikuan" ,
-            accountname:"niaho",
-            accounttype:1,
-            ordernum:66,
-            accountdesc:"ttttt",
-            enableflag:1
-         }
-        */
+        var status = detail.status;
+        var position= detail.position;
+        var twinsFlag= detail.twinsFlag;
         if (detail.status == "ENABLE") {
-            detail.status = "启用"
+            status = "启用"
         } else if (detail.status == "DISENABLE") {
-            detail.status = "关闭"
+            status = "关闭"
         }
         if (detail.position == "BOTH") {
-            detail.position = "全部"
+            position = "全部"
         } else if (detail.position == "PAYMENT") {
-            detail.position = "回款"
+            position = "回款"
         }
         if (detail.twinsFlag == "CREATEINCOME") {
-            detail.twinsFlag = "是"
+            twinsFlag = "是"
         } else if (detail.twinsFlag == "NOINCOME") {
-            detail.twinsFlag = "否"
+            twinsFlag = "否"
         }
 
         return (
@@ -67,9 +61,9 @@ export default class ItemDetail extends Component {
                 <KrField grid={1 / 2} component="labelText" label="编码" value={detail.categoryCode} inline={false}/>
                 <KrField grid={1 / 2} component="labelText" label="排序号" value={detail.sortNum} inline={false}/>
                 <KrField grid={1 / 2} component="labelText" label="款项名称" value={detail.categoryName} inline={false}/>
-                <KrField grid={1 / 2} component="labelText" label="显示位置" value={detail.position} inline={false}/>
-                <KrField grid={1 / 2} component="labelText" label="状态" value={detail.status} inline={false}/>
-                <KrField grid={1 / 2} component="labelText" label="生成收入" value={detail.twinsFlag} inline={false}/>
+                <KrField grid={1 / 2} component="labelText" label="显示位置" value={position} inline={false}/>
+                <KrField grid={1 / 2} component="labelText" label="状态" value={status} inline={false}/>
+                <KrField grid={1 / 2} component="labelText" label="生成收入" value={twinsFlag} inline={false}/>
                 <KrField grid={1 / 2} component="labelText" label="创建人" value={detail.createrName} inline={false}/>
                 <KrField grid={1 / 2} component="labelText" label="创建时间" value={< KrDate style = {{marginTop:5}}value = {
                     detail.createTime
