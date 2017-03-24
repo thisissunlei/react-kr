@@ -349,6 +349,7 @@ export default class ToDoAudit extends Component {
     }
   }
   onSelect = (values, list) => {
+    console.log("jinrusele");
       let {
         AuditList
       } = this.state;
@@ -362,16 +363,18 @@ export default class ToDoAudit extends Component {
       }
       this.AuditNum = n;
       console.log(AuditList);
+      this.AuditList = AuditList;
     }
     //批量审核
   AuditSome = () => {
+    console.log(this.AuditList);
     Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
-      finaVerifyIds: this.state.AuditList,
+      finaVerifyIds: this.AuditList,
     })).then(function(response) {
       Message.success("审核成功");
       window.setTimeout(function() {
         window.location.reload();
-      }, 0);
+      }, 800);
     }).catch(function(err) {
       Message.error(err.message);
     });
