@@ -133,6 +133,7 @@ export default class DoAudit extends Component {
           }
         })
         _this.openEditCreate();
+        _this.getInfo(this.state.Param);
 
       }).catch(function(err) {});
 
@@ -175,7 +176,7 @@ export default class DoAudit extends Component {
         verifyStatus: 'CHECKED',
         customerName: form.content
       })
-      this.getInfo(this.state.Param);
+      this.getInfo(this.state.Params);
     });
   }
   openSearch = () => {
@@ -191,7 +192,7 @@ export default class DoAudit extends Component {
     }, function() {
 
       this.getParentCount(form)
-      this.getInfo(this.state.Param);
+      this.getInfo(form);
     });
 
 
