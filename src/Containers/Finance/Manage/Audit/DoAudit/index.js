@@ -96,15 +96,15 @@ export default class DoAudit extends Component {
   //导出
   onExport = (values) => {
     var searchParams = this.state.Params;
-    console.log(searchParams,"123");
+    console.log(searchParams, "123");
     let idList = [];
     values.map((item, index) => {
       idList.push(item.id)
     });
     var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=CHECKED`;
-      window.location.href = url;
-      console.log(idList);
-      console.log(url);
+    window.location.href = url;
+    console.log(idList);
+    console.log(url);
   }
 
   //操作相关
@@ -148,8 +148,9 @@ export default class DoAudit extends Component {
   }
 
   getInfo = (form) => {
+    var params = Object.assign({}, form);
     var _this = this;
-    Store.dispatch(Actions.callAPI('get-fina-flow-category', form, {})).then(function(response) {
+    Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
       _this.setState({
         infoList: response
       })
@@ -171,7 +172,7 @@ export default class DoAudit extends Component {
         verifyStatus: 'CHECKED',
         customerName: form.content
       })
-      this.getInfo();
+      this.getInfo(this.state.Param);
     });
   }
   openSearch = () => {
@@ -187,7 +188,7 @@ export default class DoAudit extends Component {
     }, function() {
 
       this.getParentCount(form)
-      this.getInfo();
+      this.getInfo(this.state.Param);
     });
 
 
@@ -197,7 +198,7 @@ export default class DoAudit extends Component {
     let {
       itemDetail
     } = this.state;
-    console.log("asdfsda",this.state.Params);
+    console.log("asdfsda", this.state.Params);
     return (
 
       <div className="m-do-audit">
