@@ -175,7 +175,7 @@ export default class AppointmentVisit extends Component {
 							<TableRow style={{background:"#fff",border:"0px"}}>
 
 								<TableRowColumn
-									style={{overflow:"visible",textAlign: "center",width:462,lineHeight:"42px"}}
+									style={{overflow:"visible",textAlign: "center",width:430,lineHeight:"20px",paddingRight:5}}
 									name="msgContent"
 									component={
 										(value,oldValue,itemData) => {
