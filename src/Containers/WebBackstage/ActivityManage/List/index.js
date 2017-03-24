@@ -43,7 +43,6 @@ export default class List extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
@@ -52,9 +51,10 @@ export default class List extends Component {
 		State.openNewCreate = !State.openNewCreate;
 	}
 	// 编辑详情的Dialog
-	openEditDetailDialog(){
+	openEditDialog(){
 		State.openEditDetail = !State.openEditDetail;
 	}
+	
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
@@ -139,6 +139,7 @@ export default class List extends Component {
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
 	}
+
 	render() {
 		if (!State.list.totalCount) {
 			State.list.totalCount = 0;
@@ -263,7 +264,7 @@ export default class List extends Component {
 													return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
 															<Button label="发布"  type="operation" onTouchTap={this.publish.bind(this,itemData)}/>
 															</span>
 														)
@@ -273,7 +274,7 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
 															</span>
@@ -282,7 +283,7 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
 															</span>
