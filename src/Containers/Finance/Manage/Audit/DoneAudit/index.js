@@ -85,14 +85,14 @@ export default class DoneAudit extends Component {
     }
     //导出
   onExport = (values) => {
-    var searchParams = this.state.Params;
-    console.log(searchParams);
+      var searchParams = this.state.Params;
+      console.log(searchParams);
       let idList = [];
-        values.map((item, index) => {
-          idList.push(item.id)
-        });
-        var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=RETURNED`;
-        window.location.href = url;
+      values.map((item, index) => {
+        idList.push(item.id)
+      });
+      var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=RETURNED`;
+      window.location.href = url;
     }
     //操作相关
   onOperation = (type, itemDetail) => {
@@ -187,11 +187,7 @@ export default class DoneAudit extends Component {
       Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate();
-        _this.setState({
-          Params: {
-            verifyStatus: 'RETURNED'
-          }
-        })
+        window.location.reload();
       }).catch(function(err) {
         Message.error(err.message);
       });
