@@ -206,7 +206,20 @@ class EditMoney extends Component {
 
 	}
 
-	calcBalance = (value, input) => {
+	calcBalance = (item, value, input) => {
+		var name = input.name.split('-')[3];
+		if (name == 1 && item.nDeposit && value > item.nDeposit) {
+			Message.error('金额不能大于未回款额');
+			return
+		}
+		if (name == 2 && item && item.nTotalrent && value > item.nTotalrent) {
+			Message.error('金额不能大于未回款额');
+			return
+		}
+		if (name == 1 && item && item.nFrontmoney && value > item.nFrontmoney) {
+			Message.error('金额不能大于未回款额');
+			return
+		}
 		var lastValue = value.split('.')[1];
 		if (/[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
@@ -363,7 +376,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -384,7 +397,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -418,7 +431,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -439,7 +452,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -473,7 +486,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -494,7 +507,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -528,7 +541,7 @@ class EditMoney extends Component {
 			component = "input"
 			type = "text"
 			onChange = {
-				this.calcBalance
+				this.calcBalance.bind(this, item)
 			}
 			onBlur = {
 				this.moneyCheck
@@ -614,12 +627,12 @@ class EditMoney extends Component {
                             marginBottom: 5,
                             width: 261,
                             marginLeft: -9
-                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance.bind(this, item)} onBlur={_this.moneyCheck}/></div>
 					} else {
 						return <div className='rightBottomValue'><KrField key={index} style={{
                             marginBottom: 5,
                             width: 261
-                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+                        }} grid={1 / 2} label={item.propname} component="input" name={`no-${item.id}`} type="text" onChange={_this.calcBalance.bind(this, item)} onBlur={_this.moneyCheck}/></div>
 					}
 				})
 			} < /div>)
