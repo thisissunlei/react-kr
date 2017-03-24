@@ -197,8 +197,8 @@ class Personal extends Component{
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
       	State.listId = itemDetail.id;
-        // LookCustomerState.orderList(itemDetail.id);
-        // LookCustomerState.lookListId(itemDetail.id,'PERSON');
+        this.props.CommunityDetailModel.orderList(itemDetail.id);
+        this.props.CommunityDetailModel.lookListId(itemDetail.id,'PERSON');
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
       	State.companyName=itemDetail.company;

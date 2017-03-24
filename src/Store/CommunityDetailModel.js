@@ -39,7 +39,6 @@ State.orderList=action(function(params) {
 })
 //客户详情
 State.lookListId=action(function(params,operType) {
-    console.log("=====================",params,operType)
 	
 	this.operType=operType;
 	if(!params){
@@ -60,7 +59,6 @@ State.lookListId=action(function(params,operType) {
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
-         console.log('===>',response)
 		}).catch(function(err) {
 			Message.error(err.message);
 	});
