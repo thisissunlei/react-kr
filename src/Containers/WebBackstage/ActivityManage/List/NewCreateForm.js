@@ -318,7 +318,14 @@ import State from './State';
 								label="上传列表详情图"
 								inline={false}
 							/>
-							<Editor label="活动介绍" initialFrameHeight={200} toolbars={[[
+							<Editor label="活动介绍"
+								autoHeightEnabled = {true}
+								autoFloatEnabled = {true}
+								elementPathEnabled = {false}
+								maximumWords = {2000}
+								initialFrameHeight={200}
+								enableAutoSave = {false}
+								toolbars={[[
 				                'source', //源代码 
 				                 '|',
 				                'undo', //撤销
