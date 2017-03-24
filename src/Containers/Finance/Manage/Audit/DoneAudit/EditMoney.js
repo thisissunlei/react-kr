@@ -305,11 +305,13 @@ class EditMoney extends Component {
 			fixList.map((items, index) => {
 				var arr = items.split('-');
 				if (arr[1] == item) {
-					var obj2 = {
-						"id": arr[2],
-						"value": valueList[index]
+					if (valueList[index] != 0) {
+						var obj2 = {
+							"id": arr[2],
+							"value": valueList[index]
+						}
+						obj.value.push(obj2)
 					}
-					obj.value.push(obj2)
 				}
 
 			})
