@@ -110,7 +110,7 @@ class EditMoney extends Component {
 				checked: true
 			}
 
-			response.cimbList.map((item, index) => {
+			response.cimbList && response.cimbList.map((item, index) => {
 				item.checked = true;
 				item.label = item.contactName;
 				item.value = item.detailid;
@@ -121,7 +121,7 @@ class EditMoney extends Component {
 				return item;
 			})
 
-			response.scvList.map((item, index) => {
+			response.scvList && response.scvList.map((item, index) => {
 				Store.dispatch(change('editMoneys', `no-${item.id}`, item.propamount));
 				_this.receivedBtnFormChangeValues[`no-${item.id}`] = item.propamount * 100;
 			})
