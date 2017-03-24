@@ -207,20 +207,20 @@ class EditMoney extends Component {
 	}
 
 	calcBalance = (item, value, input) => {
-		var name = input.name.split('-')[3];
-		if (name == 1 && item.nDeposit && value > item.nDeposit) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == 2 && item && item.nTotalrent && value > item.nTotalrent) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == 1 && item && item.nFrontmoney && value > item.nFrontmoney) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
 		var lastValue = value.split('.')[1];
+		var name = input.name.split('-')[3];
+		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
+			Message.error('金额不能大于未回款额');
+			return
+		}
+		if (name == 2 && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
+			Message.error('金额不能大于未回款额');
+			return
+		}
+		if (name == 1 && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
+			Message.error('金额不能大于未回款额');
+			return
+		}
 		if (/[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
 			return;
