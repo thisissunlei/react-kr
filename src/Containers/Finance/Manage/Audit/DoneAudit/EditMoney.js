@@ -29,7 +29,8 @@ import {
 	SearchForms,
 	ButtonGroup,
 	CircleStyleTwo,
-	KrDate
+	KrDate,
+	Message
 } from 'kr-ui';
 
 import dateFormat from 'dateformat';
@@ -584,7 +585,7 @@ class EditMoney extends Component {
 				}
 			})
 			return (
-				<div key={index}>
+				<div >
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
 				</div>
 
