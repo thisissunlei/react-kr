@@ -103,8 +103,7 @@ export default class DoAudit extends Component {
     });
     var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=CHECKED`;
     window.location.href = url;
-    console.log(idList);
-    console.log(url);
+
   }
 
   //操作相关
@@ -123,14 +122,18 @@ export default class DoAudit extends Component {
     //保存编辑回款
   EditAuditSubmit = (form) => {
       var _this = this;
-      Store.dispatch(Actions.callAPI('edit-verify-checked', {}, form)).then(function(response) {
+      var params = Object.assign({}, form);
+      Store.dispatch(Actions.callAPI('edit-verify-checked', {}, params)).then(function(response) {
         Message.success('修改成功');
-        _this.openEditCreate()
         _this.setState({
           Params: {
+            page: 1,
+            pageSize: 10,
             verifyStatus: 'CHECKED'
           }
         })
+        _this.openEditCreate();
+
       }).catch(function(err) {});
 
     }
