@@ -118,6 +118,7 @@ import './index.less'
 	componentDidMount(){
 	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		 State.sourceCustomer = false;
 
 	}
     closemm=()=>{
