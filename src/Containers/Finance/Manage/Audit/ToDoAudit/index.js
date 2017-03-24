@@ -181,9 +181,11 @@ export default class ToDoAudit extends Component {
         _this.setState({
           showName: !_this.state.showName
         })
+
         _this.setState({
           mainBill: true,
-          mainBillId: response.mainBillId
+          mainBillId: response.mainBillId,
+          customerId: response.customerId
         })
         Store.dispatch(change('addMoney', "customerId", response.customerId));
         Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
@@ -543,7 +545,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney customerId={customerId} mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
               modal={true}
