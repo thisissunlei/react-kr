@@ -143,7 +143,7 @@ export default class DoneAudit extends Component {
       }, function() {
         window.setTimeout(function() {
           window.location.reload();
-        }, 0);
+        }, 800);
       });
     }).catch(function(err) {
       Message.error(err.message);
