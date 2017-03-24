@@ -117,7 +117,7 @@ export default class SearchParam extends Component {
             item.sss = false;
             return item
         })
-        if (childType != 'basic') {
+        if (childType != 'basic' ) {
           if (index+1>0) {
               if (m[index].sss == true) {
                   m[index].sss = false;
@@ -317,11 +317,7 @@ export default class SearchParam extends Component {
         var _this = this;
         //this.setState({testArr: [], detailPaymentS: []});
         searchParam.accountType = type;
-        if (childType == '005') {
-            searchParam.childType = childType;
-        } else {
-            searchParam.childType = 'basic';
-        }
+        searchParam.childType = childType;
         //searchParam.childType = childType;
         searchParam.propertyId = subId;
         searchParam.orderId = params.orderId;
