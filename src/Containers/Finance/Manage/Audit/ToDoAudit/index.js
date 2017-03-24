@@ -305,13 +305,7 @@ export default class ToDoAudit extends Component {
         Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
           Message.success('新建成功');
           _this.openAddCreate();
-          _this.setState({
-            Params: {
-              page: 1,
-              verifyStatus: 'UNCHECKED'
-            }
-          })
-          _this.getParentCount(_this.state.Params)
+          window.location.reload();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -326,11 +320,7 @@ export default class ToDoAudit extends Component {
         Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
-          _this.setState({
-            Params: {
-              verifyStatus: 'UNCHECKED'
-            }
-          })
+          window.location.reload();
         }).catch(function(err) {
           Message.error(err.message);
         });
