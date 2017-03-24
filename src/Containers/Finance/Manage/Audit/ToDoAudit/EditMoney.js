@@ -207,7 +207,7 @@ class EditMoney extends Component {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (/[^0-9]+/.test(value)) {
+		if (/[^0-9]+.[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
 			return;
 		}
