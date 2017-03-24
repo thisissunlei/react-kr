@@ -233,6 +233,7 @@ export default class ToDoAudit extends Component {
     this.openCreateCustomer();
     this.openCreateMainbill();
 
+
   }
 
   openCreateMainbill = (id, customerId) => {
@@ -309,6 +310,7 @@ export default class ToDoAudit extends Component {
               verifyStatus: 'UNCHECKED'
             }
           })
+          _this.getParentCount(_this.state.Params)
         }).catch(function(err) {
           Message.error(err.message);
         });
