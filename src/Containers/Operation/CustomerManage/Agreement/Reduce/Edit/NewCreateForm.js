@@ -502,9 +502,12 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 				<KrField style={{width:370,marginLeft:90}}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+				
 
+				<KrField style={{width:370,marginLeft:70}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+				{/*<KrField style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+*/}
 				<KrField style={{width:370,marginLeft:90}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
 				<KrField style={{width:370,marginLeft:70}} name="rentamount" component="labelText" inline={false} type="text" requireLabel={true} label="减租金额" value={allRent} defaultValue={initialValues.rentamount}
@@ -587,9 +590,9 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
-	if (!values.contractcode) {
-		errors.contractcode = '请填写合同编号';
-	}
+	// if (!values.contractcode) {
+	// 	errors.contractcode = '请填写合同编号';
+	// }
 
 
 	return errors

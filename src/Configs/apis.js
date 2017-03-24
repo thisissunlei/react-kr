@@ -66,13 +66,13 @@ const APIS = {
 
    //创建合同时初始化数据
    'fina-contract-intention': {
-      url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
+      url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}&type={type}',
       method: 'get'
    },
    //根据人员姓名获取人员基本信息
    'getHrmResourceExtListByLastname': {
       url: '/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
-      rap: '/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+      rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
       method: 'get'
    },
 
@@ -977,7 +977,17 @@ const APIS = {
    },
    //活动列表及筛选
    'activityList':{
-      url: '/mockjsdata/33/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
+      url: '/apis/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
+      method: 'get'
+   },
+   //查看活动
+   'activityDetail':{
+      url: '/apis/krspace-finance-web/activity/activity?id={id}',
+      method: 'get'
+   },
+   //活动上下线
+   'activityPublish':{
+      url: '/apis/krspace-finance-web/activity/activity-publish?id={id}&type={type}',
       method: 'get'
    },
    //新建活动上传轮播图

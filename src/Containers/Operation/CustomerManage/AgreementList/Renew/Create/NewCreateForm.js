@@ -363,14 +363,14 @@ class NewCreateForm extends Component {
 		let allRentName = this.dealRentName(allRent);
 
 		return (
-		<div style={{width:615,marginTop:'-10px'}}>
+		<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
 
-<form className="m-new-renew" onSubmit={handleSubmit(this.onSubmit)} >
+<form className="m-new-renew m-new-renew-dialog-form" onSubmit={handleSubmit(this.onSubmit)} >
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
 				<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
-				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+				<DotTitle title='租赁明细' style={{marginTop:20,marginBottom:25}}>
 				      <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">
@@ -414,7 +414,7 @@ class NewCreateForm extends Component {
                       {stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 					
                      </DotTitle>
-                     <div style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
                     </div>
 
@@ -427,7 +427,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 
 				<KrField style={{width:262,marginLeft:25}}  name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true} />
-				<KrField style={{width:262,marginLeft:25}}   name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
+				<div className="lessor-address"><KrField style={{width:262,marginLeft:25}}   name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 				<KrField style={{width:262,marginLeft:25}}   name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
 				<KrField style={{width:262,marginLeft:25}}   name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -444,9 +444,10 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:262,marginLeft:25}}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
-				<KrField style={{width:262,marginLeft:25}}   name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} requireLabel={true} />
-				<KrField style={{width:262,marginLeft:25}}   name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
+				<KrField style={{width:262,marginLeft:25}}   name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} requireLabel={true} toolTrue={true}/>
+				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
+
+
 
 				<KrField style={{width:262,marginLeft:25}}  name="paymodel"   component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField style={{width:262,marginLeft:25}}  name="paytype"   component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />

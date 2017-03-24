@@ -1,35 +1,35 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), 'dist');
+const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HappyPack = require('happypack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 const node_modules_dir = path.join(process.cwd(),'node_modules');
+const HappyPack = require('happypack');
 
+var env = process.env.NODE_ENV || 'production';
 
 const config = {
 	entry:{
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
-		extensions: ['', '.js','.less','.png','.jpg','.svg'],
+		extensions: ['', '.js', '.md','.css','.png','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src')
-
+			'kr': path.join(process.cwd(), '/src'),
+			'redux':path.join(node_modules_dir,'redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'mobx':path.join(node_modules_dir,'mobx'),
+			'mobx-react':path.join(node_modules_dir,'mobx-react'),
+			'react-router':path.join(node_modules_dir,'react-router'),
+			'material-ui':path.join(node_modules_dir,'material-ui'),
+			'lodash':path.join(node_modules_dir,'lodash'),
 		},
 	},
-	// 出口文件配置
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].[chunkhash].js',
-	},
-	externals: {
-		React:true
+		publicPath:"./"
 	},
 	plugins: [
 
@@ -38,49 +38,44 @@ const config = {
 				NODE_ENV: JSON.stringify('production'),
 			}
 		}),
-		new webpack.DllReferencePlugin({
-             context:__dirname,
-			 manifest:require(path.resolve(buildPath,'vendors','manifest.json')),
-           	 name:'lib'
-    }),
-
-	new HappyPack({
+		new HappyPack({
 			 id: 'jsx',
 			 threadPool: HappyPack.ThreadPool({ size: 6 }),
    			 loaders: [ 'babel-loader?cacheDirectory=true' ],
    			 verbose: false,
    			 cache:true
-  	}),
+  		}),
+		new webpack.DllReferencePlugin({
+						 context:__dirname,
+						 manifest:require(path.join(buildPath,'vendors','manifest.json')),
+						 name:'lib'
+		}),
 
-    new webpack.optimize.UglifyJsPlugin({
+		new webpack.optimize.UglifyJsPlugin({
 			compress: {
-				warnings: false,
-       			 drop_console: true,
-        		drop_debugger: true,
+				warnings: true,
 			},
 			output: {
 				comments: false,
 			},
 		}),
-
-	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
+					minSizeReduce: 1.5,
+					moveToParents: true
+		 }),
 		new webpack.optimize.MinChunkSizePlugin({
-   			 compress: {
-     			 warnings: false,
-    			drop_debugger: true,
-    			drop_console: true
-    		},
-    		minChunkSize: 10000
-  		}),
-  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+				 compress: {
+					 warnings: false,
+					drop_debugger: true,
+					drop_console: true
+				},
+				minChunkSize: 10000
+			}),
+			new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
-			publicPath: '/',
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/index.template.html',
@@ -88,19 +83,9 @@ const config = {
 			hash:true,
 			cache:true,
 			showErrors:true,
-			chunksSortMode:'none',
-			minify: {
-		removeComments: true,
-		collapseWhitespace: true,
-		removeAttributeQuotes: true,
-		minifyJS:true,
-		minifyCSS:true
-	}
+			chunksSortMode:'none'
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
-		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
-		])
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
 	],
 	module: {
 		exprContextRegExp: /$^/,
@@ -127,7 +112,7 @@ const config = {
 			},
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
+				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
@@ -135,7 +120,7 @@ const config = {
 			},
 			{
 				test: /\.eot/,
-				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.woff/,
@@ -143,15 +128,20 @@ const config = {
 			},
 			{
 				test: /\.ttf/,
-				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/name=font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.svg/,
-				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/name=font/[name].[hash].[ext]'
 			}
 		],
 	},
-
+	eslint: {
+		configFile: '../.eslintrc',
+		failOnWarning: true,
+    	failOnError: true,
+    	cache: true
+	},
 };
 
 module.exports = config;

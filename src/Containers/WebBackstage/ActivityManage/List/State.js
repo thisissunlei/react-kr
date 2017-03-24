@@ -6,10 +6,11 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {Message} from 'kr-ui';
 let State = observable({
 	openNewCreate: false,
 	openView: false,
+	openDetail:false,
 	openEditDetail: false,
 	openAdvancedQuery :false,
 	openCloseNavs:false,
@@ -47,6 +48,29 @@ let State = observable({
 	},
 	
 });
+
+State.itemDownPublish = action(function(id) {
+	var _this = this;
+	Store.dispatch(Actions.callAPI('activityPublish', {
+		id: id,
+		type:0
+	})).then(function(response) {
+		let searchParams = _this.searchParams;
+		console.log('--->',_this.searchParams);
+		Message.success('下线成功');
+		// extendObservable(_this, {
+		// 	searchParams:searchParams
+		// })
+
+
+	}).catch(function(err) {
+		Message.error('下线失败');
+	});
+
+
+
+});
+
 
 
 module.exports = State;

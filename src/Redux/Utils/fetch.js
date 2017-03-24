@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
 import APIS from '../../Configs/apis';
+import Envs from '../../Configs/envs';
 
 import ES6Promise from 'es6-promise';
 ES6Promise.polyfill();
@@ -11,39 +12,16 @@ var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {
 
-    let server = '';
 
-
-	if(env ==='test'){
-		server = 'http://optest.krspace.cn';
-	}if(env ==='development'){
-		server = 'http://optest.krspace.cn';
-	}else if(env ==='test01'){
-		server = 'http://optest01.krspace.cn';
-	} else if(env ==='test02'){
-		server = 'http://optest02.krspace.cn';
-	}else {
-		server = '';
-  	}
-
-
-
-	/*
-    if (path.match(/^http/) != 'null') {
-        return path;
-    }
-    */
-    //本地联调接口
-    // let url = APIS[path].url;
-    // if(url.indexOf('apixr')){
-    // 	server = ''
-    // }
-
+    let server = Envs[env] || '';
 
     var url = APIS[path].url;
 
     if(url.indexOf('mockjsdata') !==-1){
-    	server='';
+    	 server='';
+    }
+    if(url.indexOf('apis') !==-1){
+    	 server='';
     }
 
     try {
@@ -52,8 +30,6 @@ function getUrl(path, params = {},mode = false) {
         console.error(`${path} not defined in apis.js`);
         return false;
     }
-    
-
 
 
     if(Object.keys(params).length){
@@ -64,7 +40,6 @@ function getUrl(path, params = {},mode = false) {
             }
         }
     }
-
 
     if(!mode){
 

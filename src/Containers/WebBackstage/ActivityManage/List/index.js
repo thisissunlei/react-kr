@@ -28,12 +28,14 @@ import {
 import {Actions,Store} from 'kr/Redux';
 import { Drawer} from 'material-ui';
 import State from './State';
+import dateFormat from 'dateformat';
 import {
 	observer
 } from 'mobx-react';
 import './index.less';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import NewCreateForm from './NewCreateForm';
+import ItemDetail from './ItemDetail';
 @observer
 export default class List extends Component {
 	static contextTypes = {
@@ -119,7 +121,7 @@ export default class List extends Component {
 		State.content = values.name;
 	}
 	downPublish=(itemData)=>{
-		console.log('downPublish');
+		State.itemDownPublish(itemData.id);
 	}
 	publish=(itemData)=>{
 		console.log('publish');
@@ -133,14 +135,18 @@ export default class List extends Component {
 	closeNavs=()=>{
 		console.log('closeNavs');
 		State.openCloseNavs = false;
+		State.openDetail = false;
 		State.openNewCreate = false;
+	}
+	openItemDetail=(itemData)=>{
+		State.openDetail = true;
 	}
 	render() {
 		if (!State.list.totalCount) {
 			State.list.totalCount = 0;
 		}
 		let className = '';
-		if(State.openCloseNavs || State.openNewCreate){
+		if(State.openCloseNavs || State.openNewCreate || State.openDetail){
 			className='close-navs'
 		}else{
 			className = 'none';
@@ -225,7 +231,7 @@ export default class List extends Component {
 
 											<TableRowColumn name="beginDate" type="date"
 											component={(value,oldValue,itemData)=>{
-												return (<span>{itemData.beginDate}{itemData.endDate}</span>)}}
+												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}-{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
 												></TableRowColumn>
 											<TableRowColumn name="createName"
 											component={(value,oldValue)=>{
@@ -241,30 +247,34 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="publishType"
+											<TableRowColumn name="publishType" 
 											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
+												if(value == 'true'){
+													return (<span>已发布</span>)
+												}else{
+													return (<span style={{color:'red'}}>未发布</span>)
 												}
-												return (<span>{value}</span>)}}></TableRowColumn>
+												console.log('===>',value,oldValue)
+												
+											}}></TableRowColumn>
 											<TableRowColumn name="sortShow" ></TableRowColumn>
 											<TableRowColumn name="registerName"
 											component={(value,oldValue,itemData)=>{
 												//未发布
-												if(itemData.registerName){
+												if(!itemData.publishType){
 													return (
 															<span>
-															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
 															<Button label="发布"  type="operation" onTouchTap={this.publish.bind(this,itemData)}/>
 															</span>
 														)
 												}else{
 													//已发布 && 已置顶
-													if(itemData.isLeader){
+													if(itemData.top){
 														return (
 															<span>
-															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
@@ -273,7 +283,7 @@ export default class List extends Component {
 													}else{
 														return (
 															<span>
-															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
@@ -294,9 +304,9 @@ export default class List extends Component {
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  {/*<Drawer open={State.openNewCreate && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
-							  </Drawer>*/}
+							  <Drawer open={State.openDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />

@@ -44,7 +44,6 @@ import State from './State';
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	componentDidMount(){
-		
 	}
 	
 	// 存为草稿
