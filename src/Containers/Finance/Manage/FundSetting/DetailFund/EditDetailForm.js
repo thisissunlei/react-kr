@@ -37,7 +37,7 @@ class NewCreateFund extends Component {
     componentDidMount() {
 
         const {detail} = this.props;
-
+        console.log("ddd",detail);
         let initialValues = {};
         initialValues.id = detail.id;
         initialValues.categoryCode = detail.categoryCode;
@@ -46,10 +46,11 @@ class NewCreateFund extends Component {
         initialValues.remark = detail.remark;
         initialValues.sortNum = detail.sortNum;
         initialValues.status = detail.status;
+        initialValues.twinsFlag = detail.twinsFlag;
         console.log(initialValues);
         Store.dispatch(initialize('NewCreateFund', initialValues));
-        Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
-        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATEINCOME'));
+        // Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
+        // Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATEINCOME'));
         //Store.dispatch(change('NewCreateFund', 'position', 'BOTH'));
         Store.dispatch(change('NewCreateFund', 'parentId', this.props.parentId));
     }
