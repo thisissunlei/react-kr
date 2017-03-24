@@ -381,7 +381,7 @@ class ReceivedBtnForm extends Component {
             contractReceive,
             accountDetail
         } = this.props;
-
+        console.log(optionList);
         let heightStyle = {
             width: '546',
             height: '72'

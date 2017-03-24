@@ -537,35 +537,35 @@ export default class AttributeSetting extends Component {
             if (accountType == 2) {
                 var conJasonStre = {};
                 if (params['fix' + key + '1'] && !params['fix' + key + '3']) {
-                    conJasonStre['1'] = params['fix' + key + '1'];
+                    conJasonStre[item.depositId] = params['fix' + key + '1'];
                     joinStr[key] = conJasonStre
                     delete params['fix' + key + '1'];
                 } else if (params['fix' + key + '3'] && !params['fix' + key + '1']) {
-                    conJasonStre['3'] = params['fix' + key + '3'];
+                    conJasonStre[item.totalrentId] = params['fix' + key + '3'];
                     joinStr[key] = conJasonStre
                     delete params['fix' + key + '3'];
                 } else if (params['fix' + key + '3'] && params['fix' + key + '1']) {
-                    conJasonStre['3'] = params['fix' + key + '3'];
-                    conJasonStre['1'] = params['fix' + key + '1'];
+                    conJasonStre[item.totalrentId] = params['fix' + key + '3'];
+                    conJasonStre[item.depositId] = params['fix' + key + '1'];
                     joinStr[key] = conJasonStre
                     delete params['fix' + key + '3'];
                     delete params['fix' + key + '1'];
                 }
-
+//1 押金 item.depositId   2  定金  item.frontId  3工位服务费  item.totalrentId
             }
             if (accountType == 3) {
                 var conJasonStre = {};
                 if (params['fix' + key + '1'] && !params['fix' + key + '3']) {
-                    conJasonStre['1'] = params['fix' + key + '1'];
+                    conJasonStre[item.depositId] = params['fix' + key + '1'];
                     increaseStr[key] = conJasonStre
                     delete params['fix' + key + '1'];
                 } else if (params['fix' + key + '3'] && !params['fix' + key + '1']) {
-                    conJasonStre['3'] = params['fix' + key + '3'];
+                    conJasonStre[item.totalrentId] = params['fix' + key + '3'];
                     increaseStr[key] = conJasonStre
                     delete params['fix' + key + '3'];
                 } else if (params['fix' + key + '3'] && params['fix' + key + '1']) {
-                    conJasonStre['3'] = params['fix' + key + '3'];
-                    conJasonStre['1'] = params['fix' + key + '1'];
+                    conJasonStre[item.totalrentId] = params['fix' + key + '3'];
+                    conJasonStre[item.depositId] = params['fix' + key + '1'];
                     increaseStr[key] = conJasonStre
                     delete params['fix' + key + '3'];
                     delete params['fix' + key + '1'];
@@ -575,16 +575,16 @@ export default class AttributeSetting extends Component {
             if (accountType == 4) {
                 var conJasonStre = {};
                 if (params['fix' + key + '1'] && !params['fix' + key + '3']) {
-                    conJasonStre['1'] = params['fix' + key + '1'];
+                    conJasonStre[item.depositId] = params['fix' + key + '1'];
                     adminStr[key] = conJasonStre
                     delete params['fix' + key + '1'];
                 } else if (params['fix' + key + '3'] && !params['fix' + key + '1']) {
-                    conJasonStre['3'] = params['fix' + key + '3'];
+                    conJasonStre[item.totalrentId] = params['fix' + key + '3'];
                     adminStr[key] = conJasonStre
                     delete params['fix' + key + '3'];
                 } else if (params['fix' + key + '3'] && params['fix' + key + '1']) {
-                    conJasonStre['3'] = params['fix' + key + '3'];
-                    conJasonStre['1'] = params['fix' + key + '1'];
+                    conJasonStre[item.totalrentId] = params['fix' + key + '3'];
+                    conJasonStre[item.depositId] = params['fix' + key + '1'];
                     adminStr[key] = conJasonStre
                     delete params['fix' + key + '3'];
                     delete params['fix' + key + '1'];
@@ -594,7 +594,7 @@ export default class AttributeSetting extends Component {
             if (accountType == 1) {
                 var conJasonStre = {};
                 if (params['fix' + key + '2']) {
-                    conJasonStre['2'] = params['fix' + key + '2'];
+                    conJasonStre[item.frontId] = params['fix' + key + '2'];
                     intentStr[key] = conJasonStre
                     delete params['fix' + key + '2'];
                 }
