@@ -14,14 +14,17 @@ export default class Editor extends React.Component{
         var ue = UE.getEditor('container', {
         toolbars:this.props,
         autoHeightEnabled: true,
-        autoFloatEnabled: true
+        autoFloatEnabled: true,
+        elementPathEnabled:false,
+        maximumWords:2000,
+        enableAutoSave : false
     });
   }
 
   render() {
-
+    let {label} = this.props;
     return (
-       <div id="container"> sdfdsds </div>
+       <div id="container"> <span style={{display:'inline-block',width:'100%',height:20,marginBottom:10}}>{label}</span> </div>
        );
   }
 }

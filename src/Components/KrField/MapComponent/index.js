@@ -178,7 +178,7 @@ export default class MapComponent extends Component {
       		<div className="ui-map-component" style={style}>
 				<img src={require('./images/location.svg')} className="ui-map-img" onClick={this.showMap}/>
 
-				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%",paddingLeft:10}} onChange={this.inputLocation} ref="mapInput"/>
+				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box"}} onChange={this.inputLocation} ref="mapInput"/>
 				<div id="mapcomponent" style={mapInnerStyle}></div>
 			</div>
       	

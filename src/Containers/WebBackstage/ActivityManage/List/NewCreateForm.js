@@ -14,17 +14,25 @@ import {
 	SnackTip,
 	ListGroup,
 	ListGroupItem,
-	CheckboxGroup,
+	Notify,
+	DateComponent,
+	Checkbox,
+	Editor
 } from 'kr-ui';
+import {
+	observer
+} from 'mobx-react';
 import './index.less';
 import State from './State';
+@observer
  class NewCreateForm extends Component{
 	constructor(props){
 		super(props);
-		// this.state={
-		// 	// 上传轮播图是否显示
-		// 	rotateShow : true
-		// }
+		this.state={
+			// 上传轮播图是否显示
+			// rotateShow : true
+			
+		}
 	}
 	componentWillMount() {
 		
@@ -34,11 +42,6 @@ import State from './State';
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	componentDidMount(){
-		// 百度地图API功能
-		// var map = new BMap.Map("allmap");    // 创建Map实例
-		// map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-		// map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-		// map.enableScrollWheelZoom(true);
 	}
 	
 	// 存为草稿
@@ -52,46 +55,129 @@ import State from './State';
 	}
 	// 提交
 	onSubmit=(values)=>{
-		console.log("values你点击了发布",values);
+		console.log("values你点击了发布");
+		var EArr = [];
+		if(State.choseName){
+			EArr.push("NAME")
+		}
+		if(State.chosePhone){
+			EArr.push("PHONE")
+		}
+		if(State.choseCompany){
+			EArr.push("COMPANY")
+		}
+		if(State.chosePosition){
+			EArr.push("POSITION")
+		}
+		if(State.choseAdd){
+			EArr.push("ADDRESS")
+		}
+
+		if(State.noPublic){
+			values.publishType = 0;
+		}else{
+			values.publishType = 1;
+		}
+		
+
+		values.yPoint = values.mapField.pointLng;
+		values.xPoint = values.mapField.pointLat;
+		values.address = values.mapField.searchText;
+		values.enroll = EArr;
 		Store.dispatch(Actions.callAPI('activityUploadpic',{},values)).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
-			Steate.searchParams.timer = new Date();
+			State.timer = new Date();
 		}).catch(function(err){
-			reject(err);
+			
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
+	}
+	//存为草稿
+	toSave=(values)=>{
+		State.noPublic = true;
 	}
 	// 置顶
 	chooseStick=()=>{
 		State.isStick = true;
+
 	}
 	 // 不置顶
 	noStick=()=>{
+		
 		State.isStick = false;
+
 	}
+
+	// 复选框
+	chooseName=(e)=>{
+		if(e.target.checked){
+			State.choseName = true;
+		}else{
+			State.choseName = false;
+		}
+	}
+	choosePhone=(e)=>{
+		if(e.target.checked){
+			State.chosePhone = true;
+		}else{
+			State.chosePhone = false;
+		}
+	}
+	chooseCompany=(e)=>{
+		if(e.target.checked){
+
+			State.choseCompany = true;
+		}else{
+			State.choseCompany = false;
+			
+
+		}
+	}
+	choosePosition=(e)=>{
+		if(e.target.checked){
+			State.chosePosition = true;
+
+		}else{
+			State.chosePosition = false;
+		}
+	}
+	chooseAdd=(e)=>{
+		if(e.target.checked){
+			State.choseAdd = true;
+		}else{
+			State.choseAdd = false;
+		}
+	}
+
 	render(){
 		const { handleSubmit} = this.props;
 		
-		
 		// 对应功能选项
 		let correspondingFunction =[{
-			label: '开门',
-			value: 1
+			label: 'CEO Time',
+			value: 'CEO_TIME'
 		},{
-			label: '开门／预定',
-			value: 2
+			label: '公开氪',
+			value: 'OPEN_KR'
 		},{
-			label: '预定',
-			value: 3
+			label: '社区福利',
+			value: 'COMMUNITY_WELFARE'
+		},{
+			label: 'Open Day',
+			value: 'OPEN_DAY'
 		}];
 		let partakeMan =[{
-			label: '开门',
-			value: 1
+			label: '仅限会员',
+			value: 'ONLY_MEMBER'
 		},{
-			label: '开门／预定',
-			value: 2
+			label: '仅限受邀者',
+			value: 'ONLY_INVITA'
 		},{
-			label: '预定',
-			value: 3
+			label: '无限制',
+			value: 'ANYBODY'
 		}];
 		let checkboxOptions=[{
 			label: '姓名',
@@ -109,7 +195,11 @@ import State from './State';
 			label: '地址',
 			value: 5
 		}]
-		console.log("State.isStick",State.isStick);
+
+
+		// console.log("return===>>State",State);
+
+
 		return (
 
 			<div className="new-create-activity">
@@ -132,6 +222,8 @@ import State from './State';
 						<div className="activity-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
 
+
+
 							<KrField grid={1/2} name="name" type="text" label="活动名称" requireLabel={true} style={{width:'252px'}} />
 							<KrField name="type" 
 								component="select" 
@@ -141,10 +233,51 @@ import State from './State';
 								 
 								style={{width:'252px',marginLeft:24}}
 							/>
-							<KrField grid={1/2} name="countyId" type="text" label="举办地址" style={{width:'252px'}}/>
+
+							
+							<Grid style={{marginTop:19}}>
+								<Row>
+									<ListGroup>
+										<ListGroupItem style={{width:246,padding:0,paddingRight:15}}>
+											<KrField 
+												name="startDate"  
+												component="date" 
+												onChange={this.onStartChange} 
+												style={{width:160}} 
+												simple={true} 
+												requireLabel={true} 
+												label='活动时间'
+											/>
+											
+										</ListGroupItem>
+										
+										<ListGroupItem style={{width:246,textAlign:'left',padding:"14px 0  0 15px"}}>
+											<KrField 
+												name="stopDate"  
+												component="date" 
+												// onChange={this.onStartChange} 
+												style={{width:160}} 
+												simple={true} 
+												requireLabel={false} 
+												
+											/>
+										</ListGroupItem>
+									</ListGroup>					
+								</Row>
+							</Grid>
+
+
+
+							<KrField grid={1/2} name="cityIdAndCountyId" type="text" label="举办地址" style={{width:'252px'}}/>
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
-							<div style={{display:"inline-block",verticalAlign: "bottom"}}>
-								<KrField grid={1/2} name="address" type="input" style={{width: 252,paddingLeft: 3,verticalAlign: "bottom",boxSizing: "border-box"}}/>
+							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
+								<KrField name="mapField" 
+									component="map" 
+									placeholder="例如：北京市海淀区中关村大街"
+									style={{width:242,height:36}}
+									mapStyle={{width:400,height:400}}
+									initailPoint ={State.initailPoint}
+								/>
 							</div>
 
 							<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
@@ -185,13 +318,8 @@ import State from './State';
 								label="上传列表详情图"
 								inline={false}
 							/>
-							<KrField name="summary" 
-								component="select" 
-								options={partakeMan}
-								label="富文本编辑框"
-								style={{width:'252px'}}
-							/>
-							<div id="allmap"></div>
+							<Editor label="活动介绍"/>
+							
 							
 						</div>
 
@@ -204,8 +332,45 @@ import State from './State';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
+					
+							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+								<Row>
+									<ListGroup>
+										<ListGroupItem style={{marginRight:48}}>
+											
+											<input type="checkbox"  onChange={this.chooseName}/> 
+											<span style={{fontSize:14,color:"#333333"}} >姓名</span>
+					
+										</ListGroupItem>
+										<ListGroupItem style={{marginRight:48}}>
+											
+											<input type="checkbox"  onChange={this.choosePhone}/> 
+											<span style={{fontSize:14,color:"#333333"}} >电话</span>
+										</ListGroupItem>
 
-							<CheckboxGroup options={checkboxOptions} name="enroll"/>
+										<ListGroupItem style={{marginRight:48}}>
+											<input type="checkbox"  onChange={this.chooseCompany}/> 
+											<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
+	
+										</ListGroupItem>
+										<ListGroupItem style={{marginRight:48}}>
+											<input type="checkbox"  onChange={this.choosePosition}/> 
+											<span style={{fontSize:14,color:"#333333"}} >职务</span>
+
+										</ListGroupItem>
+										<ListGroupItem style={{}}>
+											<input type="checkbox"  onChange={this.chooseAdd}/> 
+											<span style={{fontSize:14,color:"#333333"}} >地址</span>
+
+
+										</ListGroupItem>
+										
+									</ListGroup>					
+								</Row>
+							</Grid>
+
+
+							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
 									<ListGroup>
@@ -213,7 +378,7 @@ import State from './State';
 											<Button  label="发布" type='submit'/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
@@ -243,11 +408,11 @@ const validate = values => {
 		errors.type = '请选择活动类型';
 	}
 	// 置顶时必需上传轮播图
-	if(State.isStick){
-		if(!values.coverPic){
-			errors.coverPic = '上传轮播图';
-		}
-	}
+	// if(State.isStick){
+	// 	if(!values.coverPic){
+	// 		errors.coverPic = '上传轮播图';
+	// 	}
+	// }
 	// if(!values.infoPic){
 	// 	errors.infoPic = '请上传详情图';
 	// }
