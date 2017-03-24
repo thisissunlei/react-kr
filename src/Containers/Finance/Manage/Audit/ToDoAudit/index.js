@@ -218,7 +218,7 @@ export default class ToDoAudit extends Component {
         mainBillId: response.mainBillId,
       })
 
-      Store.dispatch(change('addMoney', "mainBillId", mainBills));
+      Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
 
     }).catch(function(err) {
       Message.error(err.message);
