@@ -977,7 +977,7 @@ const APIS = {
    },
    //活动列表及筛选
    'activityList':{
-      url: '/mockjsdata/33/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
+      url: '/apis/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
       method: 'get'
    },
    //新建活动上传轮播图

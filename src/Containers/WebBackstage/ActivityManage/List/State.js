@@ -10,6 +10,7 @@ import {
 let State = observable({
 	openNewCreate: false,
 	openView: false,
+	openDetail:false,
 	openEditDetail: false,
 	openAdvancedQuery :false,
 	openCloseNavs:false,

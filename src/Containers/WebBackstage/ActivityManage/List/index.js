@@ -34,6 +34,7 @@ import {
 import './index.less';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import NewCreateForm from './NewCreateForm';
+import ItemDetail from './ItemDetail';
 @observer
 export default class List extends Component {
 	static contextTypes = {
@@ -133,14 +134,18 @@ export default class List extends Component {
 	closeNavs=()=>{
 		console.log('closeNavs');
 		State.openCloseNavs = false;
+		State.openDetail = false;
 		State.openNewCreate = false;
+	}
+	openItemDetail=(itemData)=>{
+		State.openDetail = true;
 	}
 	render() {
 		if (!State.list.totalCount) {
 			State.list.totalCount = 0;
 		}
 		let className = '';
-		if(State.openCloseNavs || State.openNewCreate){
+		if(State.openCloseNavs || State.openNewCreate || State.openDetail){
 			className='close-navs'
 		}else{
 			className = 'none';
@@ -254,7 +259,7 @@ export default class List extends Component {
 												if(itemData.registerName){
 													return (
 															<span>
-															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
 															<Button label="发布"  type="operation" onTouchTap={this.publish.bind(this,itemData)}/>
 															</span>
@@ -264,7 +269,7 @@ export default class List extends Component {
 													if(itemData.isLeader){
 														return (
 															<span>
-															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
@@ -273,7 +278,7 @@ export default class List extends Component {
 													}else{
 														return (
 															<span>
-															<Button label="查看"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
+															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.openNewCreateDialog.bind(this,itemData)}/>
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
@@ -294,9 +299,9 @@ export default class List extends Component {
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  {/*<Drawer open={State.openNewCreate && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
-							  </Drawer>*/}
+							  <Drawer open={State.openDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />

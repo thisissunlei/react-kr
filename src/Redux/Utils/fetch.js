@@ -20,6 +20,9 @@ function getUrl(path, params = {},mode = false) {
     if(url.indexOf('mockjsdata') !==-1){
     	 server='';
     }
+    if(url.indexOf('apis') !==-1){
+    	 server='';
+    }
 
     try {
         server += APIS[path].url;
