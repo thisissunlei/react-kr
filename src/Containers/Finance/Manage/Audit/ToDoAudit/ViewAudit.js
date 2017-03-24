@@ -64,11 +64,11 @@ export default class ViewAudit extends Component {
 			topInfoList: [],
 			infoDetailList: [],
 		}
-		this.getInfo();
-		this.getPayInfo();
+
 	}
 	componentDidMount() {
-
+		this.getInfo();
+		this.getPayInfo();
 		}
 		//付款信息
 	getInfo = () => {

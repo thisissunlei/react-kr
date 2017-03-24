@@ -33,6 +33,9 @@ class NewCreateFund extends Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.onCancel = this.onCancel.bind(this);
+        this.state={
+          stateP:''
+        }
     }
     componentDidMount() {
 
@@ -63,9 +66,18 @@ class NewCreateFund extends Component {
         const {onCancel} = this.props;
         onCancel && onCancel();
     }
+    changeP=(item)=>{
+      console.log(item);
+      this.setState({
+        stateP:item.value,
+      })
+    }
     renderCre=()=>{
       const {detail} = this.props;
-      if (detail.position=='PAYMENT') {
+      var a = this.state.stateP || detail.position;
+      console.log(a);
+      console.log(detail);
+      if (a=='PAYMENT') {
         return (
           <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
         )
@@ -109,7 +121,7 @@ class NewCreateFund extends Component {
                         value: 'PAYMENT',
                         label: '回款'
                     }
-                ]} requireLabel={true}></KrField>
+                ]} onChange={this.changeP} requireLabel={true}></KrField>
                 <KrField grid={1 / 2} name="status" component="group" label="是否启用" requireLabel={true}>
                     <KrField name="status" grid={1 / 2} label="启用" type="radio" value="ENABLE"/>
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
