@@ -1090,7 +1090,7 @@ export default class AttributeSetting extends Component {
 
         let parentBtn = params.accountType;
         let childBtn = params.childType;
-        if (parentBtn == 'INCOME' && childBtn == 'gongweishouru' || parentBtn == 'INCOME' && childBtn == 'basic') {
+        if (parentBtn == 'INCOME' && childBtn == '005' || parentBtn == 'INCOME' && childBtn == 'basic') {
             return this.renderIncomed();
         } else {
             return this.renderReceived();

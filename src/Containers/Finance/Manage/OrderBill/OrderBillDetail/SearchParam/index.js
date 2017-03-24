@@ -117,14 +117,15 @@ export default class SearchParam extends Component {
             item.sss = false;
             return item
         })
-        if (index+1>0) {
-            if (m[index].sss == true) {
-                m[index].sss = false;
-            } else if (m[index].sss == false) {
-                m[index].sss = true;
-            }
+        if (childType != 'basic') {
+          if (index+1>0) {
+              if (m[index].sss == true) {
+                  m[index].sss = false;
+              } else if (m[index].sss == false) {
+                  m[index].sss = true;
+              }
+          }
         }
-
         this.setState({detailPaymentS: m})
         if (id) {
             Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
@@ -193,13 +194,19 @@ export default class SearchParam extends Component {
             item.sssI = false;
             return item
         })
-        if (index+1>0) {
-            if (m[index].sssI == true) {
-                m[index].sssI = false;
-            } else if (m[index].sssI == false) {
-                m[index].sssI = true;
-            }
+        console.log("mmmm",m);
+        console.log("index",index);
+        console.log("chil",childType);
+        if(childType != 'basic'){
+          if (index+1>0) {
+              if (m[index].sssI == true) {
+                  m[index].sssI = false;
+              } else if (m[index].sssI == false) {
+                  m[index].sssI = true;
+              }
+          }
         }
+
 
         this.setState({detailIncomeS: m});
         if (id) {
