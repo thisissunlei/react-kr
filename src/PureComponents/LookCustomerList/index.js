@@ -39,8 +39,7 @@ class LookCustomerList extends Component{
 		super(props, context);
 
 		State.initComeFrom(props.comeFrom,props.operType)
-		console.log("8889999999999999")
-		
+
 		if(!props.listId){
 			return;
 		}
@@ -52,13 +51,6 @@ class LookCustomerList extends Component{
 		State.initListId(props.listId);
 	}
 
-
-	loadData = ()=>{
-		const {listId} = this.props;
-		State.lookListId(props.listId,props.operType);
-		State.orderList(props.listId);
-		State.initListId(props.listId);
-	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);

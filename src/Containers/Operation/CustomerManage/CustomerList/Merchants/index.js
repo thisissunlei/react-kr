@@ -211,6 +211,19 @@ class Merchants extends Component{
 			}
 		}
 	}
+	//
+
+	openNewIndent = () =>{
+
+	}
+
+	openEditIndent = () =>{
+
+	}
+	openDeleteDialog = () => {
+		
+	}
+
 
 	//高级查询
 	openSearchUpperDialog=()=>{
@@ -437,6 +450,11 @@ class Merchants extends Component{
 				                 dataReady={dataReady}
 				                 editsSwitch={this.openEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
+
+				                 newIndentSwitch={this.openNewIndent}
+				                 editIndentSwitch={this.openEditIndent}
+				                 DeleteSwitch={this.openDeleteDialog}
+				                 
 
 							/>
 					</Drawer>

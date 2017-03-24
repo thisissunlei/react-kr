@@ -37,7 +37,7 @@ import {
 
 @inject("CommunityDetailModel")
 @observer
-class LookDetail extends Component{
+class LookDetailed extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -136,7 +136,7 @@ class LookDetail extends Component{
 
 	render(){
 		
-
+		
 		let evenStyle={width:'280px',marginLeft:-10}
 		let oddStyle={width:'290px',marginLeft:-10}
 		let unifyStyle={};
@@ -156,22 +156,6 @@ class LookDetail extends Component{
 			hasOffice1="否";
 			isDeadline=false;
 		}
-
-
-
-		if(detail.stationNum=='0'){
-			detail.stationNum='0'
-		}
-		if(detail.staionPrice=='0'){
-			detail.staionPrice='0'
-		}
-		if(detail.teamNum=='0'){
-			detail.teamNum='0'
-		}
-		if(detail.amount=='0'){
-			detail.amount='0'
-		}
-
 
 		if(isDeadline){
           unifyStyle=oddStyle;
@@ -241,4 +225,4 @@ class LookDetail extends Component{
 	}
 
 }
-export default LookDetail
+export default LookDetailed;

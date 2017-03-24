@@ -60,9 +60,10 @@ State.lookListId=action(function(params,operType) {
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
+         console.log('===>',response)
 		}).catch(function(err) {
 			Message.error(err.message);
-		});
+	});
 })
 // 获取删除的订单的id
 State.deleteIndent = action(function(id){

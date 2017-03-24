@@ -36,7 +36,7 @@ import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 // import LookCustomerList from '../LookCustomerList';
-import LookCustomerState from '../LookCustomerList/State';
+// import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewIndent from "../NewIndent";
@@ -328,14 +328,6 @@ class Personal extends Component{
      openDeleteDialog=()=>{
      	State.openDeleteOrder();
      }
-
-
-     ccccc = () =>{
-     	console.log("KKkkkkkkkk");
-     }
-
-
-    
 	render(){
 		let {dataReady,searchParams,orderReady}=this.props;
 		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
