@@ -151,7 +151,22 @@ module.exports = {
 				menuCode: 'groupManage',
 				router: '/operation/groupSetting'
 			}]
-		}, ]
+		},{
+			primaryText: "凭证列表",
+			iconName: 'icon-user',
+			iconColor: '#79859a',
+			router: 'communityManage',
+			menuCode: 'coustomerInfoList',
+			menuItems: [{
+				primaryText: '客户列表',
+				router: '/operation/customerManage/customerList',
+				menuCode: 'coustomerInfoList',
+			},{
+				primaryText: '合同列表',
+				router: '/operation/customerManage/agreementList',
+				menuCode: 'contractList',
+			},]
+		} ]
 	}, {
 		primaryText: "会员中心",
 		router: 'member',
