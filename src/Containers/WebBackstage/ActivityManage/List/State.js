@@ -24,6 +24,17 @@ let State = observable({
 	isStick : false,
 	// 上传图片地址
 	requestURI :'/mockjsdata/33/activity/upload-pic', 
+	// 默认地址
+
+	initailPoint : "北京",
+
+	choseName: false,
+	chosePhone: false,
+	choseCompany: false,
+	chosePosition: false,
+	choseAdd: false,
+	noPublic : false,
+	
 	searchParams: {
 		beginDate:'',
 		cityId:'',
@@ -34,29 +45,7 @@ let State = observable({
 		pageSize: 15,
 		type:'',
 	},
-	newCreatAndEditParams:{
-		maxPerson : '',
-		infoPic :'',
-		countyId :'',
-		type :'',
-		sort :'',
-		enroll :'',
-		name :'',
-		beginDate :'',
-		address :'',
-		top :'',
-		summary :'',
-		joinType:'',
-		coverPic: '',
-		publishType: '',
-		id: '',
-		Point: '',
-		xPoint: '',
-		endDate: '',
-		contact: '',
-		contactPhone: '',
-		cityId: '',
-	}
+	
 });
 
 

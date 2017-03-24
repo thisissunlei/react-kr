@@ -985,7 +985,7 @@ const APIS = {
       url: '/mockjsdata/33/activity/upload-pic',
       method: 'post'
    },
-   //新建编辑活动提交
+   //新建---编辑活动提交
    'activityUploadpic':{
       url: '/mockjsdata/33/activity/activity',
       method: 'post'
