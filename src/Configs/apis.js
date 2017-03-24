@@ -980,6 +980,16 @@ const APIS = {
       url: '/apis/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
       method: 'get'
    },
+   //查看活动
+   'activityDetail':{
+      url: '/apis/krspace-finance-web/activity/activity?id={id}',
+      method: 'get'
+   },
+   //活动上下线
+   'activityPublish':{
+      url: '/apis/krspace-finance-web/activity/activity-publish?id={id}&type={type}',
+      method: 'get'
+   },
    //新建活动上传轮播图
    'activityUploadpic':{
       url: '/mockjsdata/33/activity/upload-pic',
