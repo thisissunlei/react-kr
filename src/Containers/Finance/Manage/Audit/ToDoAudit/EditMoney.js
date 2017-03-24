@@ -266,6 +266,7 @@ class EditMoney extends Component {
 		var valueList = [];
 		var noList = []
 		var key;
+
 		for (key in form) {
 			if (reg.test(key)) {
 				fixList.push(key);
@@ -286,21 +287,24 @@ class EditMoney extends Component {
 			}
 		}
 
+
 		parentIdList.map((item, index) => {
 			var obj = {
 				"id": item,
 				"value": []
 			}
+
 			fixList.map((items, index) => {
 				var arr = items.split('-');
 				if (arr[1] == item) {
-					var obj2 = {
-						"id": arr[2],
-						"value": valueList[index]
+					if (valueList[index] != 0) {
+						var obj2 = {
+							"id": arr[2],
+							"value": valueList[index]
+						}
+						obj.value.push(obj2)
 					}
-					obj.value.push(obj2)
 				}
-
 			})
 			childrenList.push(obj)
 		})
@@ -309,6 +313,7 @@ class EditMoney extends Component {
 				childrenList.pop();
 			}
 		})
+
 		var id = this.props.detail.id;
 		var params = {
 			accountId: form.accountId,
