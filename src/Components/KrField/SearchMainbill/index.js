@@ -30,7 +30,6 @@ export default class SearchMainbill extends React.Component {
 		this.state = {
 			customerId: ''
 		}
-		this.options = "";
 	}
 
 	componentDidMount() {
@@ -39,9 +38,7 @@ export default class SearchMainbill extends React.Component {
 		} = this.props;
 	}
 	componentWillReceiveProps(nextProps) {
-		this.options = "";
 		var _this = this;
-
 		this.setState({
 			customerId: nextProps.customerId
 		}, function() {

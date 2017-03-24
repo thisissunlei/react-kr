@@ -63,7 +63,7 @@ class AddMoney extends Component {
 			mainbillInfo: {},
 			showName: false,
 			finaflowInfo: {},
-			customerId: "",
+			customerId: " ",
 			billInfo: " ",
 		}
 		this.receivedBtnFormChangeValues = {};
@@ -72,9 +72,13 @@ class AddMoney extends Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			showName: !this.state.showName,
-			customerId: nextProps.customerId
+			showName: !this.state.showName
 		})
+		if (nextProps.customerId) {
+			this.setState({
+				customerId: nextProps.customerId
+			})
+		}
 		var _this = this;
 		if (nextProps.mainBill) {
 
