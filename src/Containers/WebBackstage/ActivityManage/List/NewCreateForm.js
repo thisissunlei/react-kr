@@ -25,6 +25,8 @@ import {
 import './index.less';
 import State from './State';
 @observer
+
+
  class NewCreateForm extends Component{
 	constructor(props){
 		super(props);
