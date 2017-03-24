@@ -11,13 +11,15 @@ export default class Editor extends React.Component{
   }
 
   componentDidMount(){
+    let _this= this;
         var ue = UE.getEditor('container', {
-        toolbars:this.props,
-        autoHeightEnabled: true,
-        autoFloatEnabled: true,
-        elementPathEnabled:false,
-        maximumWords:2000,
-        enableAutoSave : false
+            toolbars:   _this.props.toolbars,
+          autoHeightEnabled: true,
+          autoFloatEnabled: true,
+          elementPathEnabled:false,
+          maximumWords:2000,
+          enableAutoSave : false,
+          initialFrameHeight: _this.props.initialFrameHeight
     });
   }
 
