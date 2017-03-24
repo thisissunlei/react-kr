@@ -324,6 +324,7 @@ export default class SearchParam extends Component {
         searchParam.page = 1;
         searchParam.pageSize = 30;
         onSearch && onSearch(searchParam);
+        console.log(subId);
     }
     onHandleOver(type, index) {
         var _this = this;

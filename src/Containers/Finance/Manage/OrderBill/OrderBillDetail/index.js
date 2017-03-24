@@ -1087,10 +1087,12 @@ export default class AttributeSetting extends Component {
 
     typeSelectRender = () => {
         let {params} = this.state;
-
+        console.log("sssssa",params);
         let parentBtn = params.accountType;
         let childBtn = params.childType;
-        if (parentBtn == 'INCOME' && childBtn == '005' || parentBtn == 'INCOME' && childBtn == 'basic') {
+        let proId = params.propertyId;
+        console.log("asdf",proId);
+        if (parentBtn == 'INCOME' && childBtn == '005' && proId == '5' || parentBtn == 'INCOME' && childBtn == 'basic' || parentBtn == 'INCOME' && childBtn == '005' && proId == '6') {
             return this.renderIncomed();
         } else {
             return this.renderReceived();
