@@ -81,17 +81,16 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
-				Store.dispatch(initialize('editMoneys', response));
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount
 				})
-
-
 				var form = {
 					"value": response.payWay
 				}
 				_this.getAccount(form)
+				Store.dispatch(initialize('editMoneys', response));
+
 
 
 			}).catch(function(err) {});
