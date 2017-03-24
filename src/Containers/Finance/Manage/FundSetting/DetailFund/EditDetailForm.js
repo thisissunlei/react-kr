@@ -78,8 +78,10 @@ class NewCreateFund extends Component {
       console.log(a);
       console.log(detail);
       if (a=='PAYMENT') {
+        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'NOINCOME'))
         return (
           <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+
         )
       }else {
         return (
