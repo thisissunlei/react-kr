@@ -46,9 +46,15 @@ class NewCreateFund extends Component {
         initialValues.remark = detail.remark;
         initialValues.sortNum = detail.sortNum;
         initialValues.status = detail.status;
+
         console.log(initialValues);
         Store.dispatch(initialize('NewCreateFund', initialValues));
-        Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
+        // if (detail.status=="ENABLE") {
+        //   Store.dispatch(change('NewCreateFund', 'status', '启用'));
+        // }else if(detail.status=="DISENABLE") {
+        //   Store.dispatch(change('NewCreateFund', 'status', '关闭'));
+        // }
+
     }
     onSubmit(values) {
         const {onSubmit} = this.props;
