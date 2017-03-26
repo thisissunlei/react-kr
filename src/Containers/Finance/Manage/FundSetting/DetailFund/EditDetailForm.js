@@ -33,6 +33,9 @@ class NewCreateFund extends Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.onCancel = this.onCancel.bind(this);
+        this.state={
+          stateP:''
+        }
     }
     componentDidMount() {
 
@@ -63,7 +66,33 @@ class NewCreateFund extends Component {
         const {onCancel} = this.props;
         onCancel && onCancel();
     }
+    changeP=(item)=>{
+      console.log(item);
+      this.setState({
+        stateP:item.value,
+      })
+    }
+    renderCre=()=>{
+      const {detail} = this.props;
+      var a = this.state.stateP || detail.position;
+      console.log(a);
+      console.log(detail);
+      if (a=='PAYMENT') {
+        Store.dispatch(change('NewCreateFund', 'twinsFlag', 'NOINCOME'))
+        return (
+          <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
 
+        )
+      }else {
+        return (
+          <div>
+            <KrField name="twinsFlag" grid={1 / 2} label="是" type="radio" value="CREATEINCOME"/>
+            <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+          </div>
+
+        )
+      }
+    }
     render() {
         let style = {
             marginTop: 3
@@ -94,14 +123,13 @@ class NewCreateFund extends Component {
                         value: 'PAYMENT',
                         label: '回款'
                     }
-                ]} requireLabel={true}></KrField>
+                ]} onChange={this.changeP} requireLabel={true}></KrField>
                 <KrField grid={1 / 2} name="status" component="group" label="是否启用" requireLabel={true}>
                     <KrField name="status" grid={1 / 2} label="启用" type="radio" value="ENABLE"/>
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
                 <KrField grid={1 / 2} name="twinsFlag" component="group" label="生成收入" requireLabel={true}>
-                    <KrField name="twinsFlag" grid={1 / 2} label="是" type="radio" value="CREATEINCOME"/>
-                    <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
+                    {this.renderCre()}
                 </KrField>
                 <KrField label="备注" style={style} name="remark" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,输入字数不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
 

@@ -141,7 +141,7 @@ export default class TotalFund extends Component {
                     </Row>
                     <Table style={{
                         marginTop: 10
-                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findSubCategoryPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true}>
+                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findSubCategoryPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 
                         <TableHeader>
                             <TableHeaderColumn>款项名称</TableHeaderColumn>
