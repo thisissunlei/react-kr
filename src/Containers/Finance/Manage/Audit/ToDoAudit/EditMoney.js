@@ -70,7 +70,10 @@ class EditMoney extends Component {
 
 	}
 	componentDidMount() {
-
+		var _this = this;
+		setTimeout(function() {
+			_this.getDetailInfo();
+		}, 0)
 	}
 
 

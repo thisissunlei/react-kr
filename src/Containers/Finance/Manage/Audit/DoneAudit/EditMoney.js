@@ -78,10 +78,11 @@ class EditMoney extends Component {
 		this.receivedBtnFormChangeValues = {};
 	}
 
-
 	componentDidMount() {
-
-
+		var _this = this;
+		setTimeout(function() {
+			_this.getDetailInfo();
+		}, 0)
 	}
 
 	componentWillReceiveProps(nextProps) {
