@@ -131,7 +131,9 @@ export default (
 				<Route path="customerManage" component={Basic}>
 					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
 					<Route path="agreementList" component={Operation.CustomerManage.AgreementList} />
-
+                    {/*客户公海*/}
+                    <Route path="customerHighSea" component={Operation.CustomerManage.CustomerHighSea}/>
+                    
 					<Route path="list" component={Operation.CustomerManage.List} />
 
 					<Route path=":customerId/" component={Basic} >

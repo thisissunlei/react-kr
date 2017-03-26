@@ -974,7 +974,16 @@ const APIS = {
    'transferMemberCard':{
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
-   }
+   },
+   //客户公海列表－查询
+   'highSeaSearch':{
+      url: '/mockjsdata/35/krspace-finance-web/csr/market/list/type/search?cityId={cityId}&page={page}&pageSize={pageSize}&sourceId={sourceId}',
+      method: 'get'
+   },
+   
  }
 
  module.exports = APIS;
+
+
+
