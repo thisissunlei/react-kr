@@ -65,7 +65,7 @@ export default class ItemDetail extends Component {
                     detail.createTime
                 }
                 format = "yyyy-mm-dd HH:MM:ss" />} inline={false}/>
-              <KrField grid={1 / 2} component="labelText" label="备注" value={detail.remark} inline={false}/>
+              <KrField grid={1} style={{width:520}} component="labelText" label="备注" value={detail.remark} inline={false}/>
 
             </div>
 
