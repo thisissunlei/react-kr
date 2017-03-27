@@ -46,7 +46,6 @@ export default class List extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
-		this.onLoaded = this.onLoaded.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
 	}
@@ -61,12 +60,6 @@ export default class List extends Component {
 
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
-	}
-	onLoaded(response) {
-		let list = response;
-		this.setState({
-			list
-		})
 	}
 	// 导出Excle表格
 	onExport=(values)=>{
@@ -108,7 +101,6 @@ export default class List extends Component {
 	// 查询
 	onSearchSubmit=(value)=>{
 		console.log('===>',value);
-		value.companyId = 0;
 		State.searchParams = value;
 		console.log(State.searchParams);
 	}
@@ -118,16 +110,22 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		values.companyId = 0;
 		console.log('高级查询',values);
-		State.searchParams = values;
+		// State.searchParams = values;
+		State.searchParams = Object.assign({},State.searchParams,values);
 		State.content = values.name;
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);
+		// let value = State.searchParams;
+		// value.time = new Date().getTime();
+		// State.searchParams = value;
 	}
 	publish=(itemData)=>{
-		console.log('publish');
+		State.itemUpPublish(itemData.id);
+		// let value = State.searchParams;
+		// value.time = new Date().getTime();
+		// State.searchParams = value;
 	}
 	resetUpPosition=(itemData)=>{
 		console.log('resetUpPosition');
@@ -155,6 +153,7 @@ export default class List extends Component {
 		}else{
 			className = 'none';
 		}
+		console.log('09-9-09=====>',State.searchParams);
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
 					<div className={className} onClick={this.closeNavs}></div>
@@ -170,7 +169,6 @@ export default class List extends Component {
 									<Table
 										className="member-list-table"
 											style={{marginTop:10,position:'inherit'}}
-											onLoaded={this.onLoaded}
 											ajax={true}
 											onProcessData={(state)=>{
 												return state;
