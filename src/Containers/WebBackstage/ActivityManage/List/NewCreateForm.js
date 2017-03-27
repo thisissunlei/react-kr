@@ -57,6 +57,10 @@ import State from './State';
 	// 提交
 	onSubmit=(values)=>{
 		console.log("values你点击了发布");
+		console.log("values.startDate",values.startDate,"values.stopDate",values.startTime,"values.startTime","values.endTime",values.endTime);
+		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+
 		var EArr = [];
 		if(State.choseName){
 			EArr.push("NAME")
@@ -85,6 +89,7 @@ import State from './State';
 		values.xPoint = values.mapField.pointLat;
 		values.address = values.mapField.searchText;
 		values.enroll = EArr;
+		console.log("values",values);
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
 			State.timer = new Date();
@@ -153,6 +158,15 @@ import State from './State';
 			State.choseAdd = false;
 		}
 	}
+	// 城市组件选到三级
+	changeCity=(thirdId,secondId,city)=>{
+		// console.log("thirdId,secondId,city",thirdId,secondId,city);
+		State.initailPoint = city.substr(city.indexOf('/')+1);
+		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
+		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
+
+	}
+	
 
 	render(){
 		const { handleSubmit} = this.props;
@@ -240,29 +254,45 @@ import State from './State';
 							<Grid style={{marginTop:19}}>
 								<Row>
 									<ListGroup>
-										<ListGroupItem style={{width:246,padding:0,paddingRight:15}}>
+										<ListGroupItem style={{width:262,padding:0}}>
 											<KrField 
 												name="startDate"  
 												component="date" 
 												onChange={this.onStartChange} 
-												style={{width:160}} 
+												style={{width:170}} 
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
 											/>
+											<KrField
+												name="startTime"  
+												component="selectTime" 
+												// onChange={this.onStartChange} 
+												style={{width:80,marginTop:14}} 
+												
+												// requireLabel={true} 
+												label=''/>
 											
 										</ListGroupItem>
 										
-										<ListGroupItem style={{width:246,textAlign:'left',padding:"14px 0  0 15px"}}>
+										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
 											<KrField 
 												name="stopDate"  
 												component="date" 
 												// onChange={this.onStartChange} 
-												style={{width:160}} 
+												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
 												
 											/>
+											<KrField
+												name="endTime"  
+												component="selectTime" 
+												// onChange={this.onStartChange} 
+												style={{width:80}} 
+												
+												// requireLabel={true} 
+												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
 								</Row>
@@ -270,7 +300,7 @@ import State from './State';
 
 
 
-							<KrField grid={1/2} name="cityIdAndCountyId" type="text" label="举办地址" style={{width:'252px'}}/>
+							<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 								<KrField name="mapField" 
@@ -399,7 +429,7 @@ import State from './State';
 }
 const validate = values => {
 	const errors = {}
-	
+	console.log("values校验",values);
 	if(values.top){
 		
 	}
@@ -409,6 +439,7 @@ const validate = values => {
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
+	
 	// 置顶时必需上传轮播图
 	// if(State.isStick){
 	// 	if(!values.coverPic){
