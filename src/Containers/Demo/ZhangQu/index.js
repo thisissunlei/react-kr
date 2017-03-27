@@ -1,44 +1,70 @@
 import React, {
 	Component
 } from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
+
 
 import {
 	Section,
-	PlanMap,
 	Dialog,
-	Button,
 } from 'kr-ui';
 
-import {
-	observer,
-	inject
-} from 'mobx-react';
+import {reduxForm,Field} from 'kr/Utils/reduxForm';
 
-@inject("CommonModel")
-@observer
-export default class ZhangQu extends Component {
 
-	constructor(props, context) {
-		super(props, context);
+class DemoComponent extends React.Component {
+		constructor(props){
+			super(props);
+		}
+		onChange = (event)=>{
+
+			const {input} = this.props;
+			var value = event.target.value;
+
+			input.onChange && input.onChange(value);
+		}
+
+		render(){
+			const {input} = this.props;
+			return (
+				<div>
+					<input name={input.name} value={input.value}  onChange={this.onChange}/>
+				</div>
+			)
+		}
 
 	}
 
-	componentDidMount() {}
+	class ZhangQu extends Component {
 
-	render() {
-		return (
-			<div>
+		constructor(props, context) {
+			super(props, context);
 
-				{this.props.CommonModel.name}
+		}
 
-			</div>
+		onSubmit = (values)=>{
+				console.log(values);
+		}
 
-		);
+		render() {
+
+				const {handleSubmit} = this.props;
+			return (
+				<div>
+
+					<form onSubmit={handleSubmit(this.onSubmit)} >
+
+						<Field name="zhng" component={DemoComponent} />
+						<Field name="zhg" component={DemoComponent} />
+						<Field name="zh" component={DemoComponent} />
+
+						<button type="submit" >submit</button>
+
+					</form>
+
+				</div>
+
+			);
+		}
 	}
-}
+
+	export default reduxForm ({form:'demoFormddd'})(ZhangQu);

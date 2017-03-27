@@ -50,103 +50,196 @@ State.getForm = action(function(formName) {
   var form = {};
 
   if(!state.hasOwnProperty(formName)){
-      form[formName] = {};
-      extendObservable(this,form);
+      form[formName] = {
+				values:{},
+				fields:{},
+				registeredFields:{},
+				syncErrors:{}
+			};
+      mobx.extendObservable(this,form);
   }else{
-    form = state[formName];
+    form = state;
   }
-  return form;
+  return form[formName];
+});
+
+
+State.getValues = action(function(formName) {
+	  var form = this.getForm(formName);
+		return form.values;
 });
 
 State.change = action(function(formName,fieldName,fieldValue) {
+	  var form = this.getForm(formName);
+		var values = form.values;
+		values[fieldName] = fieldValue;
+		form.values = values;
 
-});
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
 
-State.blur = action(function(formName,fieldName,fieldValue) {
+	});
 
-});
+	State.blur = action(function(formName,fieldName,fieldValue) {
 
-State.autofill = action(function(formName,fieldName) {
+	});
 
-});
+	State.autofill = action(function(formName,fieldName) {
 
-State.focus = action(function(formName,fieldName) {
+	});
 
-});
+	State.focus = action(function(formName,fieldName) {
 
-State.arrayInsert = action(function(formName,fieldName,index,value) {
+	});
 
-});
+	State.arrayInsert = action(function(formName,fieldName,index,value) {
 
-State.arrayMove = action(function(formName,fieldName,fromIndex,toIndex) {
+	});
 
-});
+	State.arrayMove = action(function(formName,fieldName,fromIndex,toIndex) {
 
-State.arrayShift = action(function(formName,fieldName) {
+	});
 
-});
+	State.arrayShift = action(function(formName,fieldName) {
 
-State.arrayUnShift = action(function(formName,fieldName,value) {
+	});
 
-});
+	State.arrayUnShift = action(function(formName,fieldName,value) {
 
-State.arraySplice = action(function(formName,fieldName,index,removeNum,value) {
+	});
 
-});
+	State.arraySplice = action(function(formName,fieldName,index,removeNum,value) {
 
-State.arraySwap = action(function(formName,fieldName,indexA,indexB) {
+	});
 
-});
+	State.arraySwap = action(function(formName,fieldName,indexA,indexB) {
 
-State.arrayPush = action(function(formName,fieldName,value) {
+	});
 
-});
+	State.arrayPush = action(function(formName,fieldName,value) {
 
-State.arrayPop = action(function(formName,fieldName) {
+	});
 
-});
+	State.arrayPop = action(function(formName,fieldName) {
 
-State.arrayRemove = action(function(formName,fieldName,index) {
+	});
 
-});
+	State.arrayRemove = action(function(formName,fieldName,index) {
 
-State.arrayRemoveAll = action(function(formName,fieldName) {
+	});
 
-});
+	State.arrayRemoveAll = action(function(formName,fieldName) {
 
-State.touch = action(function(formName,fieldName) {
+	});
 
-});
+	State.touch = action(function(formName,fieldName) {
 
-State.untouch = action(function(formName,fieldName) {
+	});
 
-});
+	State.untouch = action(function(formName,fieldName) {
 
-State.destroy = action(function(formName) {
+	});
 
-});
+	State.destroy = action(function(formName) {
+
+	});
+
+	State.blur = action(function(formName,fieldName,fieldValue) {
+
+	});
+
+	State.autofill = action(function(formName,fieldName) {
+
+	});
+
+	State.focus = action(function(formName,fieldName) {
+
+	});
+
+	State.arrayInsert = action(function(formName,fieldName,index,value) {
+
+	});
+
+	State.arrayMove = action(function(formName,fieldName,fromIndex,toIndex) {
+
+	});
+
+	State.arrayShift = action(function(formName,fieldName) {
+
+	});
+
+	State.arrayUnShift = action(function(formName,fieldName,value) {
+
+	});
+
+	State.arraySplice = action(function(formName,fieldName,index,removeNum,value) {
+
+	});
+
+	State.arraySwap = action(function(formName,fieldName,indexA,indexB) {
+
+	});
+
+	State.arrayPush = action(function(formName,fieldName,value) {
+
+	});
+
+	State.arrayPop = action(function(formName,fieldName) {
+
+	});
+
+	State.arrayRemove = action(function(formName,fieldName,index) {
+
+	});
+
+	State.arrayRemoveAll = action(function(formName,fieldName) {
+
+	});
+
+	State.touch = action(function(formName,fieldName) {
+
+	});
+
+	State.untouch = action(function(formName,fieldName) {
+
+	});
+
+	State.destroy = action(function(formName) {
+
+	});
 
 
-State.registerField = action(function(formName,fieldName,type) {
-  var form = this.getForm(formName);
-  var field = Object.assign({},{name:fieldName},{type});
-  
-  form.registeredFields = Object.assign({},form.registeredFields,field);
+	State.registerField = action(function(formName,fieldName,type) {
+		var form = this.getForm(formName);
 
-  extendObservable(this,basic);
-});
 
-State.unregisterField = action(function(formName,fieldName) {
+		var registeredFields = Object.assign({},form.registeredFields);
+		registeredFields[fieldName] = Object.assign({},{name:fieldName},{type});
 
-});
+		var values = Object.assign({},form.values);
+		values[fieldName] = '';
 
-State.reset = action(function(formName) {
-  var form = {};
-  extendObservable(this,form);
-});
+		form.registeredFields =  registeredFields;
+		form.values =  values;
 
-State.submit = action(function(formName) {
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
 
-});
+	});
 
-module.exports = State;
+	State.unregisterField = action(function(formName,fieldName) {
+
+	});
+
+	State.reset = action(function(formName) {
+		var form = {};
+		extendObservable(this,form);
+	});
+
+	State.submit = action(function(formName) {
+
+	});
+
+	module.exports = State;
