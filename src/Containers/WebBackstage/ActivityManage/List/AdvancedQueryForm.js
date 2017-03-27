@@ -77,6 +77,7 @@ class NewCreateForm extends Component{
 	 onSubmit(values){
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
+		console.log('=====>',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	 }
@@ -121,19 +122,16 @@ class NewCreateForm extends Component{
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let options = [{
 			label: 'CEO Time',
-			value: 1
+			value: 'CEO_TIME'
 		}, {
 			label: '公开氪',
-			value: 2
+			value: 'OPEN_KR'
 		}, {
 			label: '社区福利',
-			value: 3
+			value: 'COMMUNITY_WELFARE'
 		},  {
 			label: 'Open Day',
-			value: 4
-		},{
-			label: '氪空间创业节',
-			value: 5
+			value: 'OPEN_DAY'
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>

@@ -1015,6 +1015,7 @@ const APIS = {
       url: '/apis/krspace-finance-web/activity/enroll-list?id={id}',
       method: 'get'
    },
+
  }
 
 
