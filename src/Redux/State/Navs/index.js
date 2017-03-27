@@ -152,20 +152,16 @@ module.exports = {
 				router: '/operation/groupSetting'
 			}]
 		},{
-			primaryText: "凭证列表",
-			iconName: 'icon-user',
+			primaryText: "凭证管理",
+			iconName: 'icon-wendang',
 			iconColor: '#79859a',
-			router: 'communityManage',
+			router: 'voucherManage',
 			menuCode: 'coustomerInfoList',
 			menuItems: [{
-				primaryText: '客户列表',
-				router: '/operation/customerManage/customerList',
+				primaryText: '凭证列表',
+				router: '/operation/voucherManage/voucherList',
 				menuCode: 'coustomerInfoList',
-			},{
-				primaryText: '合同列表',
-				router: '/operation/customerManage/agreementList',
-				menuCode: 'contractList',
-			},]
+			}]
 		} ]
 	}, {
 		primaryText: "会员中心",
