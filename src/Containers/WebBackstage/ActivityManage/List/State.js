@@ -32,11 +32,10 @@ let State = observable({
 	// 上传图片地址
 	requestURI :'/mockjsdata/33/activity/upload-pic', 
 	// 默认地址
-
 	initailPoint : "北京",
 	HeightAuto:false,
 	contentHeightAuto:false,
-
+	initailPoint : "",
 	choseName: false,
 	chosePhone: false,
 	choseCompany: false,
@@ -44,7 +43,6 @@ let State = observable({
 	choseAdd: false,
 	noPublic : false,
 	itemDetail:{},
-	
 	searchParams: {
 		beginDate:'',
 		cityId:'',

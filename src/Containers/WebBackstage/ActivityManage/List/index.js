@@ -54,11 +54,16 @@ export default class List extends Component {
 	}
 	// 打开编辑详情的Dialog
 	openEditDialog(itemData){
-		console.log("itemData",itemData);
+		// console.log("itemData",itemData);
 		State.itemData =itemData;
 		State.openEditDetail = !State.openEditDetail;
 		
 	}
+	closeEditDialog(){
+		State.openEditDetail = !State.openEditDetail;
+		
+	}
+
 
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
@@ -86,8 +91,8 @@ export default class List extends Component {
 				}
 			}
 		}
-		console.log('===>onExport',values,State.searchParams);
-		console.log('url',url);
+		// console.log('===>onExport',values,State.searchParams);
+		// console.log('url',url);
 		
 		// window.location.href = url;
 		
@@ -305,7 +310,7 @@ export default class List extends Component {
 							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} detail={State.itemData}/>
+								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.closeEditDialog} detail={State.itemData}/>
 							  </Drawer>
 								<Dialog
 									title="高级查询"

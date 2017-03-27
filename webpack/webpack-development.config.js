@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -97,15 +97,23 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
+		/*
+		preLoaders: [
+     {
+       test: /\.js$/,
+       loader: 'eslint-loader',
+			 exclude: /(node_modules|bower_components|static|test|build|configs)/,
+			 include: [ path.join(process.cwd(), './src')]
+     },
+   ],
+	 */
 		loaders: [
 			{
-				test: /\.jsx?$/,
+				test: /\.js?$/,
 				loaders: [
 					'happypack/loader?id=jsx'
 				],
-				include: [
-               		 path.join(process.cwd(), './src'),
-              	],
+				include: [ path.join(process.cwd(), './src')],
 				exclude: /(node_modules|bower_components|static|test|build|configs)/
 			},
 			{
@@ -147,10 +155,12 @@ const config = {
 		],
 	},
 	eslint: {
-		configFile: '../.eslintrc',
-		failOnWarning: true,
-    	failOnError: true,
-    	cache: true
+		configFile:path.join(process.cwd(),'.eslintrc'),
+		failOnWarning: false,
+    failOnError: false,
+    cache: true,
+		hot: true,
+		historyApiFallback: true
 	},
 };
 

@@ -70,7 +70,7 @@ export default class MapComponent extends Component {
 		var inputValue = this.refs.mapInput.value;
 		if(!inputValue){
 			let {initailPoint} =_this.props;
-
+			console.log("initailPoint",initailPoint);
 			_this.setMarker(initailPoint);
 			
 		}else{

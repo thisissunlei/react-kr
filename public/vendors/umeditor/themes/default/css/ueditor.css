@@ -1,6 +1,12 @@
 /*基础UI构建
 */
 /* common layer */
+.edui-for-toUploadImg .edui-icon{
+    background-position:-200px -40px;
+}
+
+
+
 .edui-default .edui-box {
     border: none;
     padding: 0;

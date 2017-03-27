@@ -22,7 +22,6 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker,
 	Avatar,
 } from 'material-ui';
 
@@ -46,7 +45,7 @@ class CompanyInstitutionManage extends Component{
 	render(){
 
 		return(
-					<Section title="公司制度" description="" 
+					<Section title="公司制度" description=""
 
 						leftIcon= {
 							<Avatar icon={<ImageAssistantPhoto />} backgroundColor={deepPurple500}size={25}/>
@@ -89,18 +88,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(CompanyInstitutionManage);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
