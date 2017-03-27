@@ -107,7 +107,6 @@ export default class List extends Component {
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-		console.log('===>',value);
 		State.searchParams = value;
 		console.log(State.searchParams);
 	}
@@ -124,30 +123,25 @@ export default class List extends Component {
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);
-		// let value = State.searchParams;
-		// value.time = new Date().getTime();
-		// State.searchParams = value;
 	}
 	publish=(itemData)=>{
 		State.itemUpPublish(itemData.id);
-		// let value = State.searchParams;
-		// value.time = new Date().getTime();
-		// State.searchParams = value;
 	}
 	resetUpPosition=(itemData)=>{
-		console.log('resetUpPosition');
+		State.resetUpItemPosition(itemData.id);
 	}
 	upPosition=(itemData)=>{
-		console.log('upPosition');
+		State.upItemPosition(itemData.id);
 	}
 	closeNavs=()=>{
-		console.log('closeNavs');
 		State.openCloseNavs = false;
 		State.openDetail = false;
 		State.openNewCreate = false;
+		State.openDetail = false;
 	}
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
+		State.itemDetail = itemData;
 	}
 
 	render() {
@@ -160,7 +154,7 @@ export default class List extends Component {
 		}else{
 			className = 'none';
 		}
-		console.log('09-9-09=====>',State.searchParams);
+		console.log('09-9-09=====>',State.searchParams,State.searchParams.cityId);
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
 					<div className={className} onClick={this.closeNavs}></div>
@@ -313,8 +307,8 @@ export default class List extends Component {
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+							  <Drawer open={State.openDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} detail={State.itemDetail}/>
 							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
