@@ -992,12 +992,12 @@ const APIS = {
    },
    //新建活动上传轮播图
    'activityUploadpic':{
-      url: '/mockjsdata/33/activity/upload-pic',
+      url: '/apis/krspace-finance-web/activity/upload-pic',
       method: 'post'
    },
-   //新建---编辑活动提交
-   'activityUploadpic':{
-      url: '/mockjsdata/33/activity/activity',
+   //新建---编辑活动提交/编辑活动获得初始信息
+   'newCreateActivity':{
+      url: '/apis/krspace-finance-web/activity/activity',
       method: 'post'
    },
    //活动置顶

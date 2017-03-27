@@ -35,6 +35,8 @@ import State from './State';
 			// rotateShow : true
 			
 		}
+		// Store.dispatch(reset('NewCreateForm'));
+		
 	}
 	componentWillMount() {
 		

@@ -34,6 +34,7 @@ import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 import NewUploadImageComponent from './NewUploadImageComponent';
 import MapComponent from './MapComponent';
+import EditorComponent from './EditorComponent';
 
 
 export default class KrField extends React.Component {
@@ -99,6 +100,12 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'editor') {
+			return (
+							<Field {...this.props} component={EditorComponent}  style={WrapStyles}/>
+			);
+		}
+
 		if (component === 'groupCheckbox') {
 			return (
 					<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
@@ -153,7 +160,7 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
-       
+
        if (component === 'searchLeader') {
 			return (
 
