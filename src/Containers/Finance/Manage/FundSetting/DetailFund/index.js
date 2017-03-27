@@ -122,12 +122,14 @@ export default class TotalFund extends Component {
         let {itemDetail} = this.state;
         return (
 
-            <div>
+            <div className="m-fundd">
                 <Title value="款项配置_财务管理"/>
                 <Section title="款项配置" description="">
                     <Row style={{
                         position: 'relative',
-                        zIndex: 5
+                        zIndex: 5,
+                        height: 42,
+                        paddingTop:2
                     }}>
                         <Col md={4} align="left">
                             <Button label="新建子项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
