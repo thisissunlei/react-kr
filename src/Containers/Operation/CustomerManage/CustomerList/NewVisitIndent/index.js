@@ -17,7 +17,7 @@ import StateIn from './State';
 import merchants from "../Merchants/State";
 import personal from "../Personal/State";
 import signedClient from "../SignedClient/State";
-import flushData from "../LookCustomerList/State";
+// import flushData from "../LookCustomerList/State";
 
 
 import './index.less'

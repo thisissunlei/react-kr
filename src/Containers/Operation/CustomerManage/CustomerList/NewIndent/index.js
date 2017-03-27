@@ -15,7 +15,7 @@ import {
 
 } from 'kr-ui';
 import State from './State';
-import flushData from "../LookCustomerList/State";
+// import flushData from "../LookCustomerList/State";
 
 import './index.less'
 import {

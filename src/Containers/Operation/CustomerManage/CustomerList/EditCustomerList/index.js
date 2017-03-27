@@ -20,7 +20,6 @@ import './index.less'
 import merchants from "../Merchants/State";
 import personal from '../Personal/State';
 import signedClient from "../SignedClient/State";
-import flushData from "../LookCustomerList/State";
 import {
 	observer,
 	inject
