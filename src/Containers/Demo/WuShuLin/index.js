@@ -4,6 +4,7 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {
 	bindActionCreators
 } from 'redux';
@@ -13,159 +14,84 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
+	KrField,
 	Table,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
-} from 'kr-ui';
 
-export default class ZhangQu extends Component {
+} from 'kr-ui';
+import './index.less';
+class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
 		this.state={
 			open:false,
-			openArray:[
-         
-        {
-            "cityName":"测试内容6",
-            "code":"",
-            "openDate":"2017-02-20",
-            "opened":true,
-            "orderNum":38141,
-        },
-        {
-            "cityName":"测试内容7",
-            "code":"",
-            "openDate":"2017-02-20",
-            "opened":true,
-            "orderNum":38141,
-        },
+	    }
 
-        ],
-        oldArry:[
-        {
-            "cityName":"测试内容6",
-            "code":"",
-            "openDate":"2017-02-20",
-            "opened":true,
-            "orderNum":38141,
-        },
-        {
-            "cityName":"测试内容7",
-            "code":"",
-            "openDate":"2017-02-20",
-            "opened":true,
-            "orderNum":38141,
-        },
-
-         ]
-		}
-
-	}
-
-	componentWillMount(){
-	  let {openArray}=this.state;		
-        if(openArray&&openArray.length>5){
-            this.setState({
-            	openArray:openArray.slice(0,5),
-            	open:true
-            })    	
-        }else{
-        	this.setState({
-        		open:false
-        	})
-        }     	
-	}
-
-    componentWillReceiveProps(){
-    	let {openArray}=this.state;
-       if(openArray&&openArray.length>5){
-            this.setState({
-            	openArray:openArray.slice(0,5),
-            	open:true
-            })    	
-        }else{
-        	this.setState({
-        		open:false
-        	})
-        }     	        
+	
     }
 
-	addClick=()=>{
-      let {oldArry,openArray}=this.state;
-	   this.setState({
-	  	 openArray:oldArry
-	    })
+	
+
+	componentDidMount() {
+		
 	}
 
-	minusClick=()=>{
-      let {oldArry,openArray}=this.state;
-	   this.setState({
-	  	 openArray:oldArry.slice(0,5)
-	    })
+	liOver=()=>{
+      this.setState({
+      	 open:true,
+      })
 	}
-   
+	liOut=()=>{
+	  this.setState({
+      	 open:false
+      })	
+	}
+    
 
-    addRender=()=>{
-    	    var _this=this;
-            let add='';
-             add=(<div onClick={_this.addClick}>X</div>)
-            return add
-        }
-
-    minusRender=()=>{
-    	 var _this=this;
-            let minus='';
-             minus=(<div onClick={_this.minusClick}>-</div>)
-            return minus
-    }
 
 
 	render() {
 
-		let {openArray,open}=this.state;
-		 
- 
+		let {open,widthState}=this.state;
+
+        
+        var hour=[];
+        var minute=['00','10','20','30','40','50'];
+        for(var i=0;i<25;i++){
+           if(i<10){
+             i='0'+i;
+           }
+          hour.push(i); 
+        }
+        
+       var progress='20';
+       
+        
 		return (
-			<div style={{marginTop:'100px'}}>
-			 {open&&this.addRender()}
-			 {open&&this.minusRender()}
-			  <Table displayCheckbox={false} >
-							<TableHeader>
-									<TableHeaderColumn>类别</TableHeaderColumn>
-									<TableHeaderColumn>编号／名称</TableHeaderColumn>
-									<TableHeaderColumn>单价（元／月）</TableHeaderColumn>
-									<TableHeaderColumn>起始日期</TableHeaderColumn>
-									<TableHeaderColumn>结束日期</TableHeaderColumn>
-							</TableHeader>
-							<TableBody>
+			<div>
+               <form>
+			       <KrField component="selectTime" />
+			       	<h1>sdfsdf</h1>
 
-							{
+			       <KrField component="file" />	
 
-								openArray&& openArray.map((item,index)=>{
+			       
+			   </form>
 
+              <li className="loading-progress" style={{position:'relative'}}>
+                 <span className="progress" style={{width:`${progress}%`,height:'30px',position:'absolute',top:0}}></span>
+                 <span style={{display:'block',position:'absolute',top:33}}>{progress}%</span>
+              </li>
+		</div>
 
-								return (
-									<TableRow key={index}>
-										<TableRowColumn>{item.cityName}</TableRowColumn>
-										<TableRowColumn>{item.code}</TableRowColumn>
-										<TableRowColumn>{item.openDate}</TableRowColumn>
-										<TableRowColumn>{item.opened}</TableRowColumn>
-										<TableRowColumn>{item.orderNum}</TableRowColumn>
-									</TableRow>
-								);
-								})
-							}
-
-							</TableBody>
-						</Table>
-			  
-
-			</div>
 
 		);
 	}
 }
+
+export default reduxForm({ form: 'ZhangQu'})(ZhangQu);

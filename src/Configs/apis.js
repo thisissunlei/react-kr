@@ -932,6 +932,17 @@ const APIS = {
    url:'/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
    method:'get'
  },
+ //社区配置－社区列表
+  'communitySearch':{
+   url:'/api/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&openDateBegin={openDateBegin}&openDateEnd={openDateEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}&portalShow={portalShow}',
+   method:'get'
+ },
+  //社区配置－社区列表数据准备
+  'list-param-data':{
+   url:'/api/krspace-finance-web/cmt/community/list-param-data',
+   method:'get'
+ },
+
 
 
 
@@ -975,7 +986,34 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
    },
-   //活动列表及筛选
+
+
+    //社区管理－校验社区名称
+   'check-name':{
+      url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
+      method: 'get'
+   },
+    //社区管理－校验社区名称
+   'check-code':{
+      url: '/api/krspace-finance-web/cmt/community/check/code?id={id}&code={code}',
+      method: 'get'
+   },
+    //社区管理－社区新增或编辑
+   'actions-edit':{
+      url: '/api/krspace-finance-web/cmt/community/actions/edit',
+      method: 'post'
+   },
+    //社区管理－获取社区编辑信息
+   'communityGetEdit':{
+      url: '/api/krspace-finance-web/cmt/community/info/type/edit?id={id}',
+      method: 'get'
+   },
+     //社区管理－校验社区排序
+   'check-rank':{
+      url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
+      method: 'get'
+   },
+      //活动列表及筛选
    'activityList':{
       url: '/apis/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
       method: 'get'
@@ -1015,6 +1053,10 @@ const APIS = {
       url: '/apis/krspace-finance-web/activity/enroll-list?id={id}',
       method: 'get'
    },
+
+    
+
+
  }
 
 

@@ -4,7 +4,6 @@ import React, {
 
 
 import {
-	DatePicker,
 	Form,
 	KrField,
 	Table,
@@ -39,12 +38,9 @@ export default class Home extends Component {
 
 			    <div >
 
-				</div>	
+				</div>
 		);
 
 	}
 
 }
-
-
-

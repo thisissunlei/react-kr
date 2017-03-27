@@ -51,7 +51,6 @@ class LookCustomerList extends Component{
 	
 
 	componentWillReceiveProps(nextProps){
-		console.log("{}{}{}{}")
 
 		if(!nextProps.listId){
 			return;

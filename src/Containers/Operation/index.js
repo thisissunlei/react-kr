@@ -9,6 +9,9 @@ import {
 	default as CustomerManage
 } from './CustomerManage';
 import {
+	default as CommunityAllocation
+} from './CommunityAllocation';
+import {
 	default as CommunityManage
 } from './CommunityManage';
 import { 
@@ -22,6 +25,7 @@ module.exports = {
 	JoinOrder,
 	CustomerManage,
 	CommunityManage,
+	CommunityAllocation,
 	GroupSetting,
 	BasicConfig,
 }
