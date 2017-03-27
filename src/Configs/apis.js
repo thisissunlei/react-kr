@@ -1000,6 +1000,22 @@ const APIS = {
       url: '/mockjsdata/33/activity/activity',
       method: 'post'
    },
+   //活动置顶
+   'activityUpPosition':{
+      url: '/apis/krspace-finance-web/activity/activity-top?id={id}&top={top}',
+      method: 'put'
+   },
+   //获取活动报名信息
+   'activityGetInfo':{
+      url: '/apis/krspace-finance-web/activity/activity-field?id={id}',
+      method: 'get'
+   },
+   //活动报名项目列表
+   'activityGetList':{
+      url: '/apis/krspace-finance-web/activity/enroll-list?id={id}',
+      method: 'get'
+   },
  }
+
 
  module.exports = APIS;
