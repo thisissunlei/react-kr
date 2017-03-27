@@ -33,8 +33,6 @@ import State from './State';
 import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
-// import LookCustomerList from '../LookCustomerList';
-// import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewVisitIndent from '../NewVisitIndent';
