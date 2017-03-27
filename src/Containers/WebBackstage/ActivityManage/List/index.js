@@ -59,6 +59,11 @@ export default class List extends Component {
 		State.openEditDetail = !State.openEditDetail;
 		
 	}
+	closeEditDialog(){
+		State.openEditDetail = !State.openEditDetail;
+		
+	}
+
 
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
@@ -313,7 +318,7 @@ export default class List extends Component {
 							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} detail={State.itemData}/>
+								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.closeEditDialog} detail={State.itemData}/>
 							  </Drawer>
 								<Dialog
 									title="高级查询"

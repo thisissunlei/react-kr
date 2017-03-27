@@ -34,6 +34,7 @@ import {ShallowEqual} from 'kr/Utils';
 	constructor(props){
 		super(props);
 		this.state={
+			initializeValues:{}
 			// 上传轮播图是否显示
 			// rotateShow : true
 			
@@ -48,16 +49,30 @@ import {ShallowEqual} from 'kr/Utils';
 		// Store.dispatch(initialize('NewCreateForm',response));
 	}
 	componentWillReceiveProps(nextProps){
-		console.log("State.itemData",State.itemData);
-		
-		console.log("nextProps",nextProps);
-		Store.dispatch(Actions.callAPI('activityDetail',{id:State.itemData.id})).then(function(response){
-	
-			Store.dispatch(initialize('EditActivityForm', response));
+		console.log("nextProps.detail.id",nextProps.detail.id);
+		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
+			console.log("------->nextProps.detail.id",nextProps.detail.id)
+			this.setState({
+				initializeValues:nextProps.detail
+			},function(){
+				console.log('======>');
+			})
+		}
 
-		}).catch(function(err){
-		 	
-		});
+
+		// console.log("State.itemData.id",State.itemData.id);
+		
+		// console.log("nextProps.detail.id",nextProps.detail.id);
+		// if(nextProps.detail.id !== State.itemData.id){
+		// 	Store.dispatch(Actions.callAPI('activityDetail',{id:State.itemData.id})).then(function(response){
+	
+		// 		Store.dispatch(initialize('EditActivityForm', response));
+
+		// 	}).catch(function(err){
+			 	
+		// 	});
+		// }
+		
 
 	}
 	componentDidMount(){

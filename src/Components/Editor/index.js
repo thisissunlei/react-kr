@@ -117,6 +117,7 @@ export default class Editor extends React.Component{
           'searchreplace', //查询替换
           'drafts', // 从草稿箱加载
           'help', //帮助
+          'toUploadImg',
         ]
       ],
       autoHeightEnabled:true,
@@ -149,6 +150,16 @@ export default class Editor extends React.Component{
         var content = ue.getContent();
         _this.onChange(content);
     });
+
+
+    UE.commands['toUploadImg'] = {
+      execCommand : function(){
+          console.log("点击了图片==========>");
+      },
+      queryCommandState:function(){
+            console.log("点击图片之后==========>");         
+      }
+    };
   }
 
   render() {
