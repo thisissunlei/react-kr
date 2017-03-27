@@ -169,7 +169,7 @@ export default class CityComponent extends React.Component {
 			showCity:false
 		});
 		let {onSubmit} = this.props;
-		onSubmit && onSubmit(secondId,thirdId,city);
+		onSubmit && onSubmit(thirdId,secondId,city);
 
 	}
 
@@ -184,7 +184,7 @@ export default class CityComponent extends React.Component {
 			showCity:false
 		});
 		let {onSubmit} = this.props;
-		onSubmit && onSubmit(secondId,'',city);	
+		onSubmit && onSubmit('',secondId,city);	
       }	
     }
 
