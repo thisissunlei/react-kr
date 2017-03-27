@@ -260,6 +260,10 @@ class EditMoney extends Component {
 
 	}
 	onSubmit = (form) => {
+		if (!form.contract) {
+			Message.error('请选择对应合同');
+			return;
+		}
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
 		var reg = /^fix/;

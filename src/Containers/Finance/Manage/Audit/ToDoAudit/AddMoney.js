@@ -302,6 +302,10 @@ class AddMoney extends Component {
 	}
 
 	onSubmit = (form) => {
+		if (!form.contract) {
+			Message.error('请选择对应合同');
+			return;
+		}
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
 		var reg = /^fix/;
@@ -582,7 +586,8 @@ class AddMoney extends Component {
 
 	renderPayList = () => {
 		let {
-			finaflowInfo
+			finaflowInfo,
+
 		} = this.state;
 
 		if (!finaflowInfo.cimbList) {
@@ -626,9 +631,11 @@ class AddMoney extends Component {
 					item.component = _this.receiveInputRender;
 				}
 			})
+
 			return (
 				<div >
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
+					
 				</div>
 
 			)
@@ -836,6 +843,7 @@ class AddMoney extends Component {
 		if (!values.dealTime) {
 			errors.dealTime = '请选择收款日期';
 		}
+
 
 		return errors
 	}
