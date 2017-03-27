@@ -47,7 +47,12 @@ export default class ViewAudit extends Component {
 
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+      var _this = this;
+      setTimeout(function() {
+        _this.getDetailInfo();
+      }, 0)
+    }
 
     componentWillReceiveProps(nextProps) {
         this.setState({

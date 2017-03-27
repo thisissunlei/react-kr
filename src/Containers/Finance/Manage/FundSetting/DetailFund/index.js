@@ -177,8 +177,18 @@ export default class TotalFund extends Component {
                                     }
                                 ]}></TableRowColumn>
                                 <TableRowColumn name="sortNum"></TableRowColumn>
-                                <TableRowColumn name="remark"></TableRowColumn>
-                                <TableRowColumn name="status" options={[
+                                  <TableRowColumn name="remark" component={(value,oldValue)=>{
+                                          var TooltipStyle=""
+                                          if(value.length==""){
+                                            TooltipStyle="none"
+
+                                          }else{
+                                            TooltipStyle="block";
+                                          }
+                                           return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                                            <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                                         }}></TableRowColumn>
+                                   <TableRowColumn name="status" options={[
                                     {
                                         label: '启用',
                                         value: 'ENABLE'
