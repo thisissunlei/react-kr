@@ -394,7 +394,6 @@ import State from './State';
 											<input type="checkbox"  onChange={this.chooseAdd}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
-
 										</ListGroupItem>
 										
 									</ListGroup>					
