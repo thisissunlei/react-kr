@@ -340,6 +340,7 @@ export default class DoAudit extends Component {
               modal={true}
               open={this.state.openSearch}
               onClose={this.openSearch}
+              contentStyle={{width:666}}
             >
               <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>
