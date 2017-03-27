@@ -143,52 +143,52 @@ class HightSearchForm extends Component {
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-			    	<KrField  
+			    	<KrField
 				    		grid={1/2}
-				    		left={50}
-							right={10}
+								left={50}
+								right={10}
 				    		name="communityId"
 				    		component="searchCommunity"
 				    		style={{marginTop:4}}
-				    		label="社区名称" 
+				    		label="社区名称"
 				  			options={communityList}
 					/>
-					<KrField  
+					<KrField
 				    		grid={1/2}
-				    		right={50}
+								right={50}
 				    		left={10}
 				    		name="payWay"
 				    		type="select"
 				    		style={{marginTop:4}}
-				    		label="收款方式" 
+				    		label="收款方式"
 				  			options={payment}
 					/>
-					<KrField  
+					<KrField
 				    		grid={1/2}
-				    		left={50}
-				    		right={10}
+								left={50}
+								right={10}
 				    		name="flowCategoryId"
 				    		component="searchPayment"
 				    		style={{marginTop:4}}
-				    		label="收款类型" 
-				  			
+				    		label="收款类型"
+
 					/>
-					<KrField  
+					<KrField
 				    		grid={1/2}
-				    		right={50}
+								right={50}
 				    		left={10}
 				    		name="corporationId"
 				    		component="searchCorporation"
 				    		style={{marginTop:4}}
-				    		label="主体" 
+				    		label="主体"
 				  			options={mainList}
 					/>
-					<KrField 
+					<KrField
 							grid={1/1}
-							left={50}  
-							component="group" 
-							label="录入时间" 
-							style={{marginTop:3}}
+							left={50}
+							component="group"
+							label="录入时间"
+							style={{marginTop:4}}
 					>
 						<div className='ui-listDate'>
 							<ListGroup>
@@ -198,10 +198,11 @@ class HightSearchForm extends Component {
 							</ListGroup>
 		                </div>
 					</KrField>
-					<KrField 
-							grid={1/1}  
-							component="group" 
-							label="收款时间" 
+					<KrField
+							grid={1/1}
+							component="group"
+							label="收款时间"
+							left={50}
 							style={{marginTop:3}}
 					>
 						<div className='ui-listDate'>
@@ -212,14 +213,14 @@ class HightSearchForm extends Component {
 							</ListGroup>
 		                </div>
 					</KrField>
-					<KrField  
+					<KrField
 							grid={1/2}
 							left={50}
 							right={10}
-							name="customerName" 
-							type="text" 
-							component="input" 
-							label="客户名称" 
+							name="customerName"
+							type="text"
+							component="input"
+							label="客户名称"
 					 />
 				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
 					<Row>
@@ -228,17 +229,17 @@ class HightSearchForm extends Component {
 								<div  className='ui-btn-center'>
 									<Button  label="确定" type="submit" />
 								</div>
-								<Button  
-										label="取消" 
-										type="button" 
-										cancle={true} 
-										onTouchTap={this.onCancel} 
+								<Button
+										label="取消"
+										type="button"
+										cancle={true}
+										onTouchTap={this.onCancel}
 								/>
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
-				</form>  
+				</form>
 			</div>
 
 
