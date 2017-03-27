@@ -36,6 +36,8 @@ import './index.less';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import NewCreateForm from './NewCreateForm';
 import ItemDetail from './ItemDetail';
+import EditActivityForm from './EditActivityForm';
+
 @observer
 export default class List extends Component {
 	static contextTypes = {
@@ -52,10 +54,11 @@ export default class List extends Component {
 		State.openNewCreate = !State.openNewCreate;
 	}
 	// 编辑详情的Dialog
-	openEditDialog(){
+	openEditDialog(itemDate){
+		console.log("itemDate",itemDate);
 		State.openEditDetail = !State.openEditDetail;
 	}
-	
+
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
@@ -309,8 +312,8 @@ export default class List extends Component {
 								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 								{/*编辑活动*/}
-							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />
+							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<EditActivityForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />
 							  </Drawer>
 								<Dialog
 									title="高级查询"
