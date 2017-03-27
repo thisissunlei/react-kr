@@ -20,6 +20,7 @@ let State = observable({
 	detail:{},
 
 	deleteIndentId:"",
+	presentShow:false,
 
 });
 
@@ -34,12 +35,12 @@ State.orderList=action(function(params) {
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
         _this.orderDetail=response;
 	}).catch(function(err) {
-			
+
 	});
 })
 //客户详情
 State.lookListId=action(function(params,operType) {
-	
+
 	this.operType=operType;
 	if(!params){
 	 return ;
@@ -59,6 +60,12 @@ State.lookListId=action(function(params,operType) {
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
+				 if(response.sourceName.indexOf('推荐') != -1){
+
+ 				 	 _this.presentShow = true;
+ 				}else{
+ 				 _this.presentShow = false;
+ 				}
 		}).catch(function(err) {
 			Message.error(err.message);
 	});

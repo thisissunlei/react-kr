@@ -135,8 +135,8 @@ class LookDetailed extends Component{
 
 
 	render(){
-		
-		
+
+
 		let evenStyle={width:'280px',marginLeft:-10}
 		let oddStyle={width:'290px',marginLeft:-10}
 		let unifyStyle={};
@@ -144,6 +144,7 @@ class LookDetailed extends Component{
 		let detail=this.props.CommunityDetailModel.detail;
 		let isDeadline=false;
 		let {editsSwitch,IndentSwitch,comeFrom}=this.props;
+		let presentShow = this.props.CommunityDetailModel.presentShow;
 		let recordDevelop=State.recordDevelop;
 		let hasOffice=detail.hasOffice;
 		let hasOffice1='';
@@ -174,6 +175,9 @@ class LookDetailed extends Component{
 	      <div className="m-LookDetailed" style={{marginTop:8}}>
 
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={oddStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
+				{presentShow && <li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="介绍人姓名:" style={evenStyle} component="labelText" value={detail.recommendName} inline={true} /></li>}
+				{presentShow && <li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="介绍人电话:" style={oddStyle} component="labelText" value={detail.recommendTel} inline={true} /></li>}
+
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={evenStyle} component="labelText" value={(!detail.stationNum)?'':detail.stationNum+"个"} inline={true}/></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={oddStyle} component="labelText" value={detail.name} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={evenStyle} component="labelText" value={detail.staionTypeName} inline={true} /></li>

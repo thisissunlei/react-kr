@@ -4,9 +4,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Table,
 	TableBody,
@@ -36,8 +33,8 @@ import State from './State';
 import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
-import LookCustomerList from '../LookCustomerList';
-import LookCustomerState from '../LookCustomerList/State';
+// import LookCustomerList from '../LookCustomerList';
+// import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewVisitIndent from '../NewVisitIndent';
@@ -45,6 +42,14 @@ import CatchMerchants from './CatchMerchants';
 import treeData from "../../../../../Components/KrField/TreeComponent/State";
 import cityData from "../../../../../Components/KrField/CityComponent/State";
 import './index.less';
+import {
+	LookCustomerList
+} from 'kr/PureComponents';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class Merchants extends Component{
 
@@ -61,13 +66,6 @@ class Merchants extends Component{
 	}
 	//新建页面的开关
 	opNewMerchants=()=>{
-		// var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
-		// customerItem.map(function(item,index){
-  //         Store.dispatch(change('NewCustomerList',item,''));
-		// })
-		// Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
-
-		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		 State.switchNewCustomerList();
 		 treeData.listValue="请选择项目类型";
 		 cityData.city="请选择";
@@ -96,7 +94,7 @@ class Merchants extends Component{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
 			State.editprojectName=response.projectCategoryName;
-			 if(response.sourceName.indexOf("介绍")!=-1){
+			 if(response.sourceName.indexOf("推荐")!=-1){
 
 			 	editsourceCustomer.sourceCustomer=true;
 			}else{
@@ -184,7 +182,7 @@ class Merchants extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
-      	LookCustomerState.lookListId(State.listId,"SHARE");
+      	this.props.CommunityDetailModel.lookListId(State.listId,"SHARE");
       	State.companyName=itemDetail.company;
       }
     }

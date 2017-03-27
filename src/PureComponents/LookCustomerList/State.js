@@ -23,6 +23,7 @@ let State = observable({
 	recordDevelop:true,
 	operType:"",
 	visitLen:5,
+	presentShow:false
 });
 State.initComeFrom = action(function(comeFroms,operTypes) {
 	this.comeFrom=comeFroms||this.comeFrom;
@@ -44,16 +45,14 @@ State.switchEditCustomerList = action(function(comeFrom) {
 //获取订单数据列表
 State.orderList=action(function(params) {
 	if(!params){
-	 return ;
-	}
-	console.log()
-
-    var _this=this;
-	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
-         _this.orderDetail=response;
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		 return ;
+	 }
+	 var _this=this;
+	 Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
+	     _this.orderDetail=response;
+	 }).catch(function(err) {
+			 Message.error(err.message);
+	 });
 })
 State.initListId=action(function(params){
 	this.listId=params;
@@ -81,7 +80,14 @@ State.lookListId=action(function(params,operType) {
 
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
-         _this.detail=response;
+        _this.detail=response;
+				console.log("rrrrrrr")
+				if(response.sourceName.indexOf('推荐') != -1){
+
+				 	 _this.presentShow = true;
+				}else{
+				 _this.presentShow = false;
+				}
 		}).catch(function(err) {
 			Message.error(err.message);
 		});

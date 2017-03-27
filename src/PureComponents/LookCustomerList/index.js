@@ -103,7 +103,7 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-
+		
 		let {comeFrom,data,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName,operType,listId}=this.props;
 
 		return(
