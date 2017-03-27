@@ -334,20 +334,11 @@ class EditMoney extends Component {
 								
 						/>
 						<KrField  
-							 	name="fileList" 
-							 	component="input" 
-							 	type="hidden" 
-							 	label="合同附件"
-						/>
-						<KrField  
 							style={{width:548}}  
 							name="uploadFileIds" 
 							component="file" 
 							label="上传附件" 
-							defaultValue={infoList.fileList} 
-							onChange={(files)=>{
-								Store.dispatch(change('EditMoney','uploadFileIds',files));
-							}} 
+							defaultValue={infoList.uploadFileIds}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">

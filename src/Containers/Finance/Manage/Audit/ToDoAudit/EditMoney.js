@@ -70,7 +70,10 @@ class EditMoney extends Component {
 
 	}
 	componentDidMount() {
-
+		var _this = this;
+		setTimeout(function() {
+			_this.getDetailInfo();
+		}, 0)
 	}
 
 
@@ -733,21 +736,13 @@ class EditMoney extends Component {
 								label="备注"
 								maxSize={100}
 						/>
-						<KrField
-							 	name="contractFileList"
-							 	component="input"
-							 	type="hidden"
-							 	label="合同附件"
-						/>
+						
 						<KrField
 							style={{width:548}}
 							name="uploadFileIds"
 							component="file"
 							label="上传附件"
-							defaultValue={[]}
-							onChange={(files)=>{
-								Store.dispatch(change('AddMoney','contractFileList',files));
-							}}
+							defaultValue={infoList.uploadFileIds}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">

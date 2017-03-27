@@ -84,7 +84,7 @@ export default class ViewAudit extends Component {
 					if(this.state.infoList.uploadFileIds.length>0){
 						this.state.infoList.uploadFileIds.map((item, value) => {
 							fileList.push(item.fileName)
-							fileList.push(' ')
+							fileList.push(<br />)
 						});
 					}else{
 						fileList=['暂无上传任何附件'];
