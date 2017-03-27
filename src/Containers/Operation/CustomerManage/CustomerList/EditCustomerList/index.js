@@ -296,18 +296,9 @@ const validate = values =>{
 			errors.customerTel = '联系人电话格式错误';
 		}
 
-		// if(values.staionPrice && !RMB.test(values.staionPrice)) {
-		// 	errors.staionPrice = '工位价格不得超过1亿';
-		// }
-
-
 		if(!email.test(values.customerMail)){
 			errors.customerMail = '联系人邮箱格式错误';
 		}
-
-		// if(!values.intentionCommunityId){
-		// 	errors.intentionCommunityId="意向工位类型不能为空";
-		// }
 
 		if(values.customerWechat&&values.customerWechat.length>50){
 			errors.customerWechat="最多输入50个字符";

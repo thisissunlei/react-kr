@@ -76,27 +76,28 @@ export default class AppointmentVisit extends Component {
 	        return ;
 	    }else{
 	    	this.setState({
-				searchParams: {
-					page: 1,
-					pageSize: 15,
-					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
-					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-					other:!this.state.searchParams.other
-				}
-			})
+						searchParams: {
+							page: 1,
+							pageSize: 15,
+							createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+							createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+							other:!this.state.searchParams.other
+						}
+				})
 	    }
 
 	}
 
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
-        let start=newStartDate;
-        let end=value || newEndDate;
+		let {searchParams,newStartDate,newEndDate} = this.state;
+        let start = newStartDate;
+        let end = value || newEndDate;
         this.setState({
         		newStartDate : start,
         		newEndDate : end
         	});
+					console.log(start,end,start > end,">>>>>>>>>")
         if( !!start && !!end && start > end){
 
 	        Message.error('开始时间不能大于结束时间');
