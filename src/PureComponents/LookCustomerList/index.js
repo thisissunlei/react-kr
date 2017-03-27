@@ -70,8 +70,8 @@ class LookCustomerList extends Component{
 		if(State.listId===nextProps.listId){
 			return;
 		}
-		State.lookListId(nextProps.listId,this.props.operType);
-		State.orderList(nextProps.listId);
+		this.props.CommunityDetailModel.lookListId(nextProps.listId,this.props.operType);
+		this.props.CommunityDetailModel.orderList(nextProps.listId);
 		State.initListId(nextProps.listId);
 	}
 

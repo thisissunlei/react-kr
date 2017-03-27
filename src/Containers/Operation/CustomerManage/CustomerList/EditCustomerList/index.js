@@ -29,7 +29,7 @@ import {
 @observer
  class EditCustomerList extends Component{
 
-		
+
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -40,7 +40,7 @@ import {
 		super(props);
 		let {listId}=props;
 		State.treeAllData();
-		
+
 	}
 	supplementZero(value) {
 		if (value < 10) {
@@ -149,7 +149,7 @@ import {
 			if(this.props.operType=="SIGN"){
 				signedClient.hasOfficeChange(true);
 			}
-			
+
 		}else if(params.value=="NO"){
 			if(this.props.operType=="SHARE"){
 				merchants.hasOfficeChange(false);
@@ -166,7 +166,7 @@ import {
 	corpNameChange = (value) =>{
 		State.corpNameCheck(value);
 	}
-	
+
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue} = this.props;
@@ -183,7 +183,7 @@ import {
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
+									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
 											options={dataReady.customerSourceList}
 											requireLabel={true}
 											onChange={this.sourceCustomer}
@@ -192,10 +192,10 @@ import {
 									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
 				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>
-										
+
 									</KrField><span className="unit">个</span></div>
 									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}} 
+									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
 											options={dataReady.stationTypeList}
 											requireLabel={false}
 									/>
@@ -203,7 +203,7 @@ import {
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={false}>
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-									
+
 									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称' requireLabel={true}/>
 									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"/>
@@ -214,7 +214,7 @@ import {
 						<div className="small-cheek" style={{paddingBottom:0}}>
 								<div>
 								<KrField grid={1/2} label="公司名称" name="company" component="input" style={{width:262,marginLeft:15}} requireLabel={true} onChange={this.corpNameChange}/>
-								<KrField grid={1/2} label="融资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
+								<KrField grid={1/2} label="融资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}}
 										options={dataReady.roundList}
 										requireLabel={false}
 								/>
@@ -237,12 +237,12 @@ import {
 					            </KrField>
 
 								{hasOffice && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date"/>}
-								
+
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
 								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 						</div>
-						
+
 						<div className="end-round"></div>
 				        </div>
 						<Grid style={{marginTop:30}}>
@@ -262,8 +262,7 @@ import {
 const validate = values =>{
 
 		const errors = {};
-		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
-		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+		let phone1 = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$|((\+86)?(1[35847]\d{9}))$/
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 		if(!values.sourceId){
@@ -293,7 +292,7 @@ const validate = values =>{
 		}
 		if (!values.customerTel ) {
 			errors.customerTel = '请填写联系人电话';
-		}else if(!phone.test(values.customerTel)||!checkTel.test(values.customerTel)){
+		}else if(!phone1.test(values.customerTel)){
 			errors.customerTel = '联系人电话格式错误';
 		}
 
@@ -314,7 +313,7 @@ const validate = values =>{
 			errors.customerWechat="最多输入50个字符";
 		}
 
-		
+
 
 		if (!values.company) {
 			errors.company = '请填写公司名称';
@@ -343,9 +342,9 @@ const validate = values =>{
 			errors.projectName = '最多输入20个字符';
 		}
 
-		
 
-		
+
+
 
 		if(values.detailAddress&&values.detailAddress.length>60){
 			errors.detailAddress = '最多输入60个字符';
@@ -355,7 +354,7 @@ const validate = values =>{
 			errors.website = '最多输入50个字符';
 
 		}
-		
+
 		return errors
 	}
 export default reduxForm({ form: 'EditCustomerList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(EditCustomerList);
