@@ -68,13 +68,10 @@ class NewCreateFund extends Component {
 
     render() {
         let style = {
-            marginTop: 3
+            marginTop: 3,
+            width: 564,
         }
-        let heightStyle = {
-            width: '546',
-            height: '72',
-            marginTop: '-2'
-        }
+
         const {error, handleSubmit, pristine, reset} = this.props;
 
         return (
@@ -87,8 +84,7 @@ class NewCreateFund extends Component {
                 <KrField grid={1 / 2} name="categoryName" right={41} type="text" label="款项名称" requireLabel={true} maxSize={30}/>
                 <KrField grid={1 / 2} name="position" right={41} style={{
                     marginRight: -10,
-                    marginTop: 4
-                }} type="select" label="显示位置" options={[
+                }} component="select" label="显示位置" options={[
                     {
                         value: 'BOTH',
                         label: '全部'
@@ -102,7 +98,7 @@ class NewCreateFund extends Component {
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
 
-                <KrField label="备注" style={style} name="remark" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,输入字数不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
+                <KrField label="备注" style={style} name="remark" component="textarea"  placeholder='请输入备注,输入字数不能超过100字' maxSize={100} />
 
                 <Grid style={{
                     marginTop: -2,
