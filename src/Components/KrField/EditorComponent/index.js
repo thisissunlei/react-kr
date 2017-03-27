@@ -11,21 +11,14 @@ export default class EditorComponent extends React.Component {
 	}
 	static PropTypes = {
 		onChange: React.PropTypes.func,
-		maxSize: React.PropTypes.number
 	}
 
 	constructor(props) {
 		super(props)
 
-
-		this.onChange = this.onChange.bind(this);
-		this.state = {
-			inputSize: this.props.input.value.length||1,
-
-		}
 	}
 
-	onChange(value){
+	onChange = (value) =>{
 		const {onChange,input} = this.props;
 		input.onChange(value);
 		onChange && onChange(value);
@@ -44,19 +37,10 @@ export default class EditorComponent extends React.Component {
 			requireLabel,
 			disabled,
 			placeholder,
-			col,
-			row,
 			style,
 			inline,
-			heightStyle,
-			maxSize,
-			lengthClass
 		} = this.props;
 
-		let {
-			inputSize
-		} = this.state;
-		inputSize=this.props.input.value.length||0;
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>

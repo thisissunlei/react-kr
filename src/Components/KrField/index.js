@@ -102,7 +102,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'editor') {
 			return (
-				<EditorComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+							<Field {...this.props} component={EditorComponent}  style={WrapStyles}/>
 			);
 		}
 
