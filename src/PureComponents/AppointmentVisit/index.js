@@ -56,7 +56,7 @@ export default class AppointmentVisit extends Component {
 			_this.tabNum();
 			renovateRedDrop();
 		}).catch(function(err) {
-			Message.error(err.message)
+
 		});
 	}
 	//起始日期
@@ -93,7 +93,7 @@ export default class AppointmentVisit extends Component {
         		newEndDate : end
         	});
         if( !!start && !!end && start > end){
-        	
+
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
@@ -138,7 +138,7 @@ export default class AppointmentVisit extends Component {
 			_this.renovateList();
 			renovateRedDrop();
 			_this.tabNum();
-			
+
 		}).catch(function(err) {
 				console.log(err);
 		});
@@ -152,6 +152,7 @@ export default class AppointmentVisit extends Component {
 				pageSize: 15,
 				createDateEnd:"",
 				createDateStart:"",
+				msgCommunity:this.state.searchParams.msgCommunity,
 				other:!this.state.searchParams.other
 			}
 		},function(){

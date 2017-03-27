@@ -87,7 +87,7 @@ class SearchForm extends Component {
 
 				</div>
 				<KrField style={{width:187,marginLeft:-10,position:"relative"}} name="leaseId" component="searchCommunity" inline={false} requireLabel={false} onChange={this.communityChange}/>
-
+				
 
 
 			</form>

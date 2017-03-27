@@ -90,13 +90,13 @@ class Header extends Component {
 		if(response.unreadTotal != 0){
 			showRedDrop=true;
 		}
-		 
+
 		 _this.setState({
 			 showRedDrop:showRedDrop,
 			 showMassge:showMassge
 		 })
 	 }).catch(function(err) {
-		 Message.error(err.message)
+
 	 });
  }
 
@@ -274,7 +274,12 @@ class Header extends Component {
 		})
 
 	}
-
+	messageDrawerClick = () =>{
+		this.setState({
+			openLookCustomerList : false,
+			openMassage : false
+		})
+	}
 	render() {
 
 		var styles = {
@@ -388,8 +393,8 @@ class Header extends Component {
 				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
 					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
 
-					<MessageManagement 
-						onCancel = {this.onClose} 
+					<MessageManagement
+						onCancel = {this.onClose}
 						customerClick = {this.customerClick}
 						renovateRedDrop = {this.renovateRedDrop}
 					/>
@@ -406,6 +411,8 @@ class Header extends Component {
 
 					/>
 				</Drawer>
+
+				{(openLookCustomerList || openMassage) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
 			</div>
 		);
 	}

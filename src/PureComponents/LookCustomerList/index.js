@@ -47,7 +47,7 @@ class LookCustomerList extends Component{
 			return;
 		}
 		this.props.CommunityDetailModel.lookListId(props.listId,props.operType);
-		State.orderList(props.listId);
+		this.props.CommunityDetailModel.orderList(props.listId);
 		State.initListId(props.listId);
 	}
 
@@ -103,7 +103,7 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-		
+
 		let {comeFrom,data,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName,operType,listId}=this.props;
 
 		return(
