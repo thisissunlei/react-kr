@@ -159,7 +159,7 @@ module.exports = {
 			menuCode: 'communityStationList',
 			menuItems: [{
 				primaryText: '凭证列表',
-				router: '/operation/voucherManage/voucherList/index',
+				router: '/operation/voucherManage/voucherList',
 				menuCode: 'coustomerInfoList',
 			}]
 		} ]
