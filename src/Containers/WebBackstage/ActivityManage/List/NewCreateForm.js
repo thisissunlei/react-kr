@@ -115,6 +115,8 @@ import State from './State';
 	noStick=()=>{
 		
 		State.isStick = false;
+		Store.dispatch(change('NewCreateForm', 'coverPic', ""));
+
 
 	}
 
@@ -139,8 +141,6 @@ import State from './State';
 			State.choseCompany = true;
 		}else{
 			State.choseCompany = false;
-			
-
 		}
 	}
 	choosePosition=(e)=>{
@@ -346,7 +346,7 @@ import State from './State';
 								pictureFormat={'JPG,PNG,GIF'} 
 								pictureMemory={'200'}
 								requestURI = {State.requestURI}
-								
+								requireLabel={true}
 								label="上传列表详情图"
 								inline={false}
 							/>
@@ -440,15 +440,29 @@ const validate = values => {
 		errors.type = '请选择活动类型';
 	}
 	
+	if(!values.startDate || !values.startTime || !values.stopDate || !values.endTime ){
+		errors.startDate = "请填写完整的活动时间";
+	}
+	if(!values.countyId){
+		errors.cityIdAndCountyId = "请选择举办地址";
+
+	}
+	
 	// 置顶时必需上传轮播图
-	// if(State.isStick){
-	// 	if(!values.coverPic){
-	// 		errors.coverPic = '上传轮播图';
-	// 	}
-	// }
-	// if(!values.infoPic){
-	// 	errors.infoPic = '请上传详情图';
-	// }
+	if(State.isStick){
+		if(!values.coverPic){
+			errors.coverPic = '上传轮播图';
+		}
+	}
+	
+	if(!values.infoPic){
+		errors.infoPic = '请上传详情图';
+	}
+	if(values.mapField && !values.mapField.searchText){
+		errors.cityIdAndCountyId = "请填写完整的举办地址";
+	}
+
+	
 
 	return errors
 }
