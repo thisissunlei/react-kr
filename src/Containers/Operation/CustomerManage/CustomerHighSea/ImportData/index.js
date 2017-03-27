@@ -41,19 +41,17 @@ class ImportData extends React.Component{
 				<div className='m-importData'>
 					<form onSubmit={handleSubmit(this.onSubmit)}>
 					  
-					  <span className='source-customer'>客户来源</span>
+					  <span className='source-customer'>客户来源:</span>
                       <KrField  grid={1} name="intentionCommunityId" style={{marginTop:4,width:262}} component='searchIntend'  onChange={this.onChangeIntend} placeholder='请选择'/>
 
-                      <div>
+                      <div style={{marginTop:9}}>
+                        <span className='m-upload-file'>上传文件:</span>
 						<span className='import-logo' onClick={this.importFile}><span className='import-pic'></span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 						<input type="hidden" name="companyId" />
-
-						 <span className='import-font'><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
-						 <span className='file-name'>123</span>
-						<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
+						<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载模板</span>
 					 </div>
 
-					   <Grid style={{marginTop:20}}>
+					   <Grid style={{marginTop:12}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
