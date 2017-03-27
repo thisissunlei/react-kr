@@ -256,7 +256,7 @@ class EditMoney extends Component {
 				     	</tbody>
 					 </table>
 				 </div>
-			     <form onSubmit={handleSubmit(this.onSubmit)} >
+			     <form onSubmit={handleSubmit(this.onSubmit)} ref="form" >
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
@@ -355,7 +355,7 @@ class EditMoney extends Component {
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"  />
+								<Button  label="确定" type="button" onClick={this.refs.form.onSubmit} />
 								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>
