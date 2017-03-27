@@ -30,16 +30,20 @@ import './index.less';
 import State from './State';
 import ImportData from './ImportData';
 import SearchData from './SearchData';
+import LoadingProgress from './LoadingProgress';
 @observer
 class CustomerHighSea extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-
+		this.state={
+			progress:0
+		}
 	}
 
 	openImportData=()=>{
-      State.openImportFun();	
+      State.openImportFun();
+      State.openProgressLoading();	
 	}
 
 	cancelImportData=()=>{
@@ -52,12 +56,23 @@ class CustomerHighSea extends React.Component{
 	}
 
 	importDataPost=(files)=>{
-		
+	  State.openProgressLoading();
+	  let {progress}=this.state;
+	  var _this=this;
+	  for(var i=0;i<99;i++){
+		  setTimeout(function(i){
+           _this.setState({
+           	 progress:i 
+           })  
+		  },i*1)       
+	  }
 
 	}
 
-	render(){
 
+
+	render(){
+           let {progress}=this.state;
            return(
             <div className="m-highSea">
 			 <Title value="客户公海列表"/>
@@ -79,7 +94,7 @@ class CustomerHighSea extends React.Component{
 			          </Col>
 	         </Row>
 
-
+            
             <Table
 			    style={{marginTop:8}}
                 ajax={true}
@@ -130,6 +145,16 @@ class CustomerHighSea extends React.Component{
 						  onLoadDemo={this.onLoadDemo}
 						  />
            </Dialog>
+
+
+          {/*进度条*/}
+                    <Dialog
+						open={State.openLoading}
+						contentStyle ={{ width: '446px',height:'236px'}}
+						dialogHeaderStyle={{background:'#fff'}}
+					>
+						<LoadingProgress progress={progress}/>
+                    </Dialog>
 
         </div>
 

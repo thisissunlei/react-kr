@@ -76,15 +76,15 @@ class ImportData extends React.Component{
 					if(xhr.response.code=='-1'){
 						Message.error(xhr.response.message);
 					}else{
-						Message.success("上传文件成功");
             			_this.onCancel(); 
             			_this.onSubmit();
+            			Message.success("导入成功");
 					}
 
 				
 				} else {
             	    _this.onCancel(); 
-					Message.error('上传文件失败');
+					Message.error('导入失败');
 				}
 			}
 		};
