@@ -44,7 +44,7 @@ class AddMoney extends Component {
 		this.state = {
 			flowAmount: 0,
 			payment: [{
-				label: '无',
+				label: '请选择',
 				value: 'NONE'
 			}, {
 				label: '支付宝支付',

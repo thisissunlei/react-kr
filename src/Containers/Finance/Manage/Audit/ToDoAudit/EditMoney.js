@@ -45,7 +45,7 @@ class EditMoney extends Component {
 		this.state = {
 			flowAmount: 0,
 			payment: [{
-				label: '无',
+				label: '请选择',
 				value: 'NONE'
 			}, {
 				label: '支付宝支付',
@@ -87,7 +87,8 @@ class EditMoney extends Component {
 			}, {})).then(function(response) {
 				_this.setState({
 					infoList: response,
-					flowAmount: response.flowAmount
+					flowAmount: response.flowAmount,
+					corporationId: response.corporationId
 				})
 				var form = {
 					"value": response.payWay
