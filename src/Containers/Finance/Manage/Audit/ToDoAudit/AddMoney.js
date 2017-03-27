@@ -65,6 +65,7 @@ class AddMoney extends Component {
 			finaflowInfo: {},
 			customerId: " ",
 			billInfo: " ",
+			corporationId: ""
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -174,7 +175,6 @@ class AddMoney extends Component {
 	calcBalance = (item, value, input) => {
 		var lastValue = value.split('.')[1];
 		value = this.trim(value)
-		console.log('value----', value)
 		var name = input.name.split('-')[3];
 		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
@@ -257,7 +257,8 @@ class AddMoney extends Component {
 		}, {})).then(function(response) {
 
 			_this.setState({
-				mainbillInfo: response
+				mainbillInfo: response,
+				corporationId: response.corporationIda
 			})
 
 		}).catch(function(err) {});

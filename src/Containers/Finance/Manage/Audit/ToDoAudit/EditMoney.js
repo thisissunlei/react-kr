@@ -63,6 +63,7 @@ class EditMoney extends Component {
 			accountList: [],
 			infoList: {},
 			finaflowInfo: {},
+			corporationId: ''
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -145,6 +146,7 @@ class EditMoney extends Component {
 		var accountList;
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-account-info', {
+			corporationId: this.state.corporationId,
 			accountType: form.value
 		}, {})).then(function(response) {
 			accountList = response.map((item, index) => {
