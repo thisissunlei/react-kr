@@ -296,7 +296,7 @@ class EditMoney extends Component {
 								component="labelText" 
 								label="收款方式"
 								inline={false} 
-								value={infoList.payWayName} 
+								value={infoList.payName} 
 								
 						/>
 						<KrField

@@ -62,7 +62,7 @@ class EditMoney extends Component {
 			}],
 			accountList: [],
 			infoList: {},
-			finaflowInfo: {}
+			finaflowInfo: {},
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -260,9 +260,9 @@ class EditMoney extends Component {
 
 	}
 	onSubmit = (form) => {
-		if (!form.contract) {
+		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
-			return;
+			return
 		}
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
@@ -272,6 +272,7 @@ class EditMoney extends Component {
 		var valueList = [];
 		var noList = []
 		var key;
+
 
 		for (key in form) {
 			if (reg.test(key)) {
@@ -288,8 +289,6 @@ class EditMoney extends Component {
 					}
 					noList.push(obj)
 				}
-
-
 			}
 		}
 
