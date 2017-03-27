@@ -43,6 +43,8 @@ export default class AppointmentVisit extends Component {
 				createDateStart:'',
 				other:false
 			},
+			newStartDate:'',
+			newEndDate:'',
 			newPage :1,
 		}
 	}
@@ -62,28 +64,55 @@ export default class AppointmentVisit extends Component {
 
 	//起始日期
 	onStartChange = (value) =>{
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:value,
-				other:!this.state.searchParams.other
-			}
-		})
+		let {searchParams,newStartDate,newEndDate}=this.state;
+        let start=value ||newStartDate;
+        let end=newEndDate;
+        this.setState({
+        		newStartDate : start,
+        		newEndDate : end
+        	});
+        if(!!start && !!end && start>end){
+	        Message.error('开始时间不能大于结束时间');
+	        return ;
+	    }else{
+	    	this.setState({
+				searchParams: {
+					page: 1,
+					pageSize: 15,
+					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!this.state.searchParams.other
+				}
+			})
+	    }
+		
 	}
 
 	//结束日期
 	onEndChange = (value) =>{
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:value,
-				createDateStart:this.state.searchParams.createDateStart,
-				other:!this.state.searchParams.other
-			}
-		});
+		let {searchParams,newStartDate,newEndDate}=this.state;
+        let start=newStartDate;
+        let end=value || newEndDate;
+        this.setState({
+        		newStartDate : start,
+        		newEndDate : end
+        	});
+        if( !!start && !!end && start > end){
+        	
+	        Message.error('开始时间不能大于结束时间');
+	        return ;
+	    }else{
+	    	this.setState({
+				searchParams: {
+					page: 1,
+					pageSize: 15,
+					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!this.state.searchParams.other
+				}
+			});
+	    }
+		
 	}
 	//信息被点击
 	columnClick = (value) => {
