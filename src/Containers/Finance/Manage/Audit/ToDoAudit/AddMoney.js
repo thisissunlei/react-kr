@@ -258,7 +258,7 @@ class AddMoney extends Component {
 
 			_this.setState({
 				mainbillInfo: response,
-				corporationId: response.corporationIda
+				corporationId: response.corporationId
 			})
 
 		}).catch(function(err) {});
@@ -291,8 +291,11 @@ class AddMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		var id = this.state.corporationId
+		console.log('id----', id)
 		Store.dispatch(Actions.callAPI('get-account-info', {
-			accountType: form.value
+			accountType: form.value,
+			corporationId: id
 		}, {})).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
