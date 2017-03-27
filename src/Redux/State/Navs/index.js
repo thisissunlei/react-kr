@@ -156,10 +156,10 @@ module.exports = {
 			iconName: 'icon-wendang',
 			iconColor: '#79859a',
 			router: 'voucherManage',
-			menuCode: 'coustomerInfoList',
+			menuCode: 'communityStationList',
 			menuItems: [{
 				primaryText: '凭证列表',
-				router: '/operation/voucherManage/voucherList',
+				router: '/operation/voucherManage/voucherList/index',
 				menuCode: 'coustomerInfoList',
 			}]
 		} ]
