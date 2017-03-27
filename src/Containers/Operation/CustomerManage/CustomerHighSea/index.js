@@ -25,12 +25,11 @@ import {
 	Col,
 	Dialog,
 	Title,
-	ListGroup,
-	ListGroupItem
 } from 'kr-ui';
 import './index.less';
 import State from './State';
 import ImportData from './ImportData';
+import SearchData from './SearchData';
 @observer
 class CustomerHighSea extends React.Component{
 
@@ -47,16 +46,26 @@ class CustomerHighSea extends React.Component{
 	  State.openImportFun();	
 	}
 
+	onLoadDemo=()=>{
+		let url = `/mockjsdata/35/krspace-finance-web/cmt/market/import/actions/downloadTemplete`;
+		window.location.href = url; 
+	}
+
+	importDataPost=(files)=>{
+		
+
+	}
+
 	render(){
 
            return(
             <div className="m-highSea">
 			 <Title value="客户公海列表"/>
 			 <Section title="客户公海列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	         <Row style={{marginBottom:21}}>
+	         <Row>
 			          <Col
 					     align="left"
-					     style={{float:'left'}}
+					     style={{float:'left',marginTop:3}}
 					   >
 							<Button
 									label="导入"
@@ -65,11 +74,8 @@ class CustomerHighSea extends React.Component{
 							/>
 					  </Col>
 
-			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
-				          <ListGroup>
-				            <ListGroupItem></ListGroupItem>
-				            <ListGroupItem></ListGroupItem>
-				          </ListGroup>
+			          <Col style={{marginTop:-15,float:'right'}}>
+				            <SearchData />
 			          </Col>
 	         </Row>
 
@@ -116,11 +122,12 @@ class CustomerHighSea extends React.Component{
 						modal={true}
 						onClose={this.cancelImportData}
 						open={State.openImport}
-						contentStyle ={{ width: '446',height:'322'}}
+						contentStyle ={{ width: '446'}}
 					>
 						<ImportData 
-						  onSubmit={this.importSubmit} 
+						  onSubmit={this.importDataPost} 
 						  onCancel={this.cancelImportData}
+						  onLoadDemo={this.onLoadDemo}
 						  />
            </Dialog>
 

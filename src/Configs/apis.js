@@ -980,6 +980,11 @@ const APIS = {
       url: '/mockjsdata/35/krspace-finance-web/csr/market/list/type/search?cityId={cityId}&page={page}&pageSize={pageSize}&sourceId={sourceId}',
       method: 'get'
    },
+    //客户公海列表－客户公海列表数据准备
+   'highSeaDataReday':{
+      url: '/mockjsdata/35/krspace-finance-web/csr/market/list-param-data',
+      method: 'get'
+   },
    
  }
 

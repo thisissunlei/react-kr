@@ -21,7 +21,11 @@ let State = observable({
 		},
 		openImport:false
 });
-
+State.searchParamsData=action(function(params){
+	params = Object.assign({}, this.searchParams, params);
+	params.time = +new Date();
+	this.searchParams=params;
+})
 State.openImportFun=action(function(){
 	this.openImport=!this.openImport;
 })
