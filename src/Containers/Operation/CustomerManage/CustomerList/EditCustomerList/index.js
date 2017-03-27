@@ -262,7 +262,8 @@ import {
 const validate = values =>{
 
 		const errors = {};
-		let phone1 = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$|((\+86)?(1[35847]\d{9}))$/
+		let phone1=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
+		
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 		if(!values.sourceId){
@@ -286,15 +287,14 @@ const validate = values =>{
 
 		if(!values.tel) {
 			errors.tel = "请填写联系人电话"
+		}else if(!phone1.test(values.tel)){
+			errors.tel = '联系人电话格式错误';
 		}
 		if(!values.name) {
 			errors.name = "请填写联系人姓名"
 		}
-		if (!values.customerTel ) {
-			errors.customerTel = '请填写联系人电话';
-		}else if(!phone1.test(values.customerTel)){
-			errors.customerTel = '联系人电话格式错误';
-		}
+
+		
 
 		if(!email.test(values.customerMail)){
 			errors.customerMail = '联系人邮箱格式错误';

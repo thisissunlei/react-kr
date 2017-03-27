@@ -97,7 +97,6 @@ export default class AppointmentVisit extends Component {
         		newStartDate : start,
         		newEndDate : end
         	});
-					console.log(start,end,start > end,">>>>>>>>>")
         if( !!start && !!end && start > end){
 
 	        Message.error('开始时间不能大于结束时间');
