@@ -150,7 +150,7 @@ module.exports = {
 				primaryText: '分组管理',
 				menuCode: 'groupManage',
 				router: '/operation/groupSetting'
-			}]
+			},]
 		},{
 			primaryText: "凭证管理",
 			iconName: 'icon-wendang',
