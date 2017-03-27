@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Table,
 	TableBody,
@@ -31,9 +28,14 @@ import './index.less'
 import State from './State';
 // import personal from "../Personal/State";
 // import signedClient from "../SignedClient/State";
-
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class CustomerIndent extends Component{
+
 
 	constructor(props,context){
 		super(props, context);
@@ -61,7 +63,7 @@ class CustomerIndent extends Component{
 	
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
-		let detail=State.orderDetail;
+		let detail=this.props.CommunityDetailModel.orderDetail;
 		let {editIndentSwitch,DeleteSwitch,operType}=this.props;
 		if(!detail.items){
 			return;
@@ -96,14 +98,14 @@ class CustomerIndent extends Component{
 						</Button>
 						<span className="interval"></span>
 						{item.deleteBtn && <Button  label="删除" type="button" cancle={true} onTouchTap={()=>{
-																			// if(operType=="PERSON"){
+																			if(operType=="PERSON"){
 																			//    personal.deleteId=item.id;
-
-																			// }
-																			// if(operType=="SIGN"){
+																				_this.props.CommunityDetailModel.deleteIndent(item.id);
+																			}
+																			if(operType=="SIGN"){
 																			//    signedClient.deleteId=item.id;
-																				
-																			// }
+																				_tthis.props.CommunityDetailModel.deleteIndent(item.id);
+																			}
 
 																			
 																			DeleteSwitch();
@@ -130,7 +132,7 @@ class CustomerIndent extends Component{
 
 	render(){
 		let {newIndentSwitch}=this.props;
-		let detail=State.orderDetail;
+		let detail=this.props.CommunityDetailModel.orderDetail;
 		
 		return(
 	    	<div className="m-CustomerIndent">

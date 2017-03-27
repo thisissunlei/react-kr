@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	DateFormat
 } from 'kr/Utils';
 import {
@@ -33,8 +30,14 @@ import {
 } from 'kr-ui';
 import './index.less'
 import State from './State';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityDetailModel")
 @observer
-class LookDetail extends Component{
+class LookDetailed extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -76,13 +79,13 @@ class LookDetail extends Component{
 	}
 
 	visitRecordList = () =>{
-		if(!State.detail.records){
+		if(!this.props.CommunityDetailModel.detail.records){
 			return;
 		}
 
 		let tr=[];
 
-		let records=State.detail.records;
+		let records=this.props.CommunityDetailModel.detail.records;
 		let len=records.length;
 		if(State.recordDevelop&&records.length>State.visitLen){
 			len=State.visitLen;
@@ -132,12 +135,13 @@ class LookDetail extends Component{
 
 
 	render(){
-
+		
+		
 		let evenStyle={width:'280px',marginLeft:-10}
 		let oddStyle={width:'290px',marginLeft:-10}
 		let unifyStyle={};
 		let uniStyle={};
-		let detail=State.detail;
+		let detail=this.props.CommunityDetailModel.detail;
 		let isDeadline=false;
 		let {editsSwitch,IndentSwitch,comeFrom}=this.props;
 		let recordDevelop=State.recordDevelop;
@@ -152,22 +156,6 @@ class LookDetail extends Component{
 			hasOffice1="否";
 			isDeadline=false;
 		}
-
-
-
-		if(detail.stationNum=='0'){
-			detail.stationNum='0'
-		}
-		if(detail.staionPrice=='0'){
-			detail.staionPrice='0'
-		}
-		if(detail.teamNum=='0'){
-			detail.teamNum='0'
-		}
-		if(detail.amount=='0'){
-			detail.amount='0'
-		}
-
 
 		if(isDeadline){
           unifyStyle=oddStyle;
@@ -237,4 +225,4 @@ class LookDetail extends Component{
 	}
 
 }
-export default LookDetail
+export default LookDetailed;

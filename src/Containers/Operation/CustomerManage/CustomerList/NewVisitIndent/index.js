@@ -4,9 +4,6 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Grid,
 	Row,
@@ -24,6 +21,12 @@ import flushData from "../LookCustomerList/State";
 
 
 import './index.less'
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityDetailModel")
 @observer
  class NewVisitIndent extends Component{
 
@@ -44,7 +47,8 @@ import './index.less'
 		  let {listId,operType}=this.props;
 		 var _this=this;
 	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {	       	
-				flushData.lookListId(listId,operType);
+				_this.props.CommunityDetailModel.lookListId(listId,operType);
+				// flushData.lookListId(listId,operType);
 				if(operType=="SHARE"){
 				merchants.searchParams={
 			         	page:1,

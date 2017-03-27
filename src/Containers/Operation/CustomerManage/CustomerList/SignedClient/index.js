@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-
-import {
-	observer
-} from 'mobx-react';
 import {
 	KrField,
 	Table,
@@ -30,11 +26,13 @@ import {
 	Drawer,
 	Message
 } from 'kr-ui';
-
+import {
+	LookCustomerList
+} from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
-import LookCustomerList from '../LookCustomerList';
+// import LookCustomerList from '../LookCustomerList';
 import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
@@ -48,9 +46,14 @@ import editIndentState from "../EditIndent/State";
 import newIndentState from "../NewIndent/State";
 
 import './index.less'
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class SignedClient extends Component{
-
+	
 	constructor(props,context){
 		super(props, context);
 		this.state={
@@ -62,8 +65,6 @@ class SignedClient extends Component{
 			arrItem:[]
 		}
 	}
-
-
 	//查看页面开关
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
@@ -308,6 +309,7 @@ class SignedClient extends Component{
        
      
        let {searchSignParams,dataReady,orderReady}=this.props; 
+       let deleteId = this.props.CommunityDetailModel.deleteIndentId
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -529,7 +531,7 @@ class SignedClient extends Component{
 					>
 						<OrderDelete 
 						   onCancel={this.openDeleteDialog}
-						   orderId={State.deleteId}
+						   orderId={deleteId}
 				           operType="SIGN"
 				           listId={State.listId}
 						 />

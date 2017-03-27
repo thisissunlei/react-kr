@@ -25,6 +25,12 @@ import {
 	Message
 } from "kr-ui";
 import SearchForm from "./SearchForm";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
+@observer
 
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
@@ -37,15 +43,20 @@ export default class AppointmentVisit extends Component {
 				createDateStart:'',
 				other:false
 			},
+			newStartDate:'',
+			newEndDate:'',
+			newPage :1,
 		}
 	}
 
 	//全部标为以读点击事件
 	allReadClick = () => {
+		let {renovateRedDrop} = this.props;
 		let _this = this;
 		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"CUSTOMER_TRANSFER"})).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
+			renovateRedDrop();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -53,36 +64,67 @@ export default class AppointmentVisit extends Component {
 
 	//起始日期
 	onStartChange = (value) =>{
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:value,
-				other:!this.state.searchParams.other
-			}
-		})
+		let {searchParams,newStartDate,newEndDate}=this.state;
+        let start=value ||newStartDate;
+        let end=newEndDate;
+        this.setState({
+        		newStartDate : start,
+        		newEndDate : end
+        	});
+        if(!!start && !!end && start>end){
+	        Message.error('开始时间不能大于结束时间');
+	        return ;
+	    }else{
+	    	this.setState({
+				searchParams: {
+					page: 1,
+					pageSize: 15,
+					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!this.state.searchParams.other
+				}
+			})
+	    }
+		
 	}
 
 	//结束日期
 	onEndChange = (value) =>{
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:value,
-				createDateStart:this.state.searchParams.createDateStart,
-				other:!this.state.searchParams.other
-			}
-		});
+		let {searchParams,newStartDate,newEndDate}=this.state;
+        let start=newStartDate;
+        let end=value || newEndDate;
+        this.setState({
+        		newStartDate : start,
+        		newEndDate : end
+        	});
+        if( !!start && !!end && start > end){
+        	
+	        Message.error('开始时间不能大于结束时间');
+	        return ;
+	    }else{
+	    	this.setState({
+				searchParams: {
+					page: 1,
+					pageSize: 15,
+					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!this.state.searchParams.other
+				}
+			});
+	    }
+		
 	}
 	//信息被点击
 	columnClick = (value) => {
+		if(value.msgStatu == "READ"){
+			return;
+		}
 		let {renovateRedDrop} = this.props;
 		let _this=this;
 		Store.dispatch(Actions.callAPI("setInfoReaded", {
-				id: value
+				id: value.id
 		})).then(function(response) {
+			console.log(response.page)
 			_this.renovateList();
 			renovateRedDrop();
 			_this.tabNum();
@@ -93,20 +135,26 @@ export default class AppointmentVisit extends Component {
 
 	//刷新列表
 	renovateList = () =>{
+		let _this=this;
+		console.log(this.state.newPage ,"eeeeeee")
 		this.setState({
 			searchParams: {
-				page: 1,
+				page: _this.state.newPage ,
 				pageSize: 15,
-				createDateEnd:"",
-				createDateStart:"",
-				other:!this.state.searchParams.other
+				createDateEnd:_this.state.searchParams.createDateEnd || "",
+				createDateStart:_this.state.searchParams.createDateStart || "",
+				other:!_this.state.searchParams.other
 			}
+		},function(){
+			console.log(this.state.searchParams.page,"?????????");
 		});
 	}
 
 
 	//客户名称被点击
 	customerClick = (data) => {
+		let msgExtra = JSON.parse(data.msgExtra)
+		this.props.CommunityDetailModel.lookListId(msgExtra.customerId,"SHARE");
 		let customerName = data.msgContent.split("#")[1]
 		data.customerName = customerName;
 		const {customerClick} = this.props;
@@ -114,10 +162,14 @@ export default class AppointmentVisit extends Component {
 
 
 	}
+	showPage = (data) => {
+		this.setState({
+			newPage:data.page
+		})
+	}
 
 	//刷新tab信息条数数据
 	tabNum = ()=>{
-		console.log(">>>>>>>>>>")
 		let {tabNum} = this.props;
 		tabNum && tabNum();
 	}
@@ -144,13 +196,15 @@ export default class AppointmentVisit extends Component {
 						ajaxParams={searchParams}
 						ajaxFieldListName="items"
 						ajaxUrlName='messageRemindCustomerSwitching'
+						onLoaded = {this.showPage}
+
 					>
 						<TableBody style={{background:"#fff",border:"0px"}}>
 
 							<TableRow style={{background:"#fff",border:"0px"}}>
 
 								<TableRowColumn
-									style={{overflow:"visible",textAlign: "center",width:462,lineHeight:"42px"}}
+									style={{overflow:"visible",textAlign: "center",width:430,lineHeight:"20px",paddingRight:5}}
 									name="msgContent"
 									component={
 										(value,oldValue,itemData) => {
@@ -162,7 +216,7 @@ export default class AppointmentVisit extends Component {
 												costomerColor="#499DF1";
 											}
 											return (
-														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData.id)}>
+														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
 															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot"></span>}
 															{value[0]}
 															<span className="customer" onClick={_this.customerClick.bind(this,itemData)} style={{color:costomerColor}}>{value[1]}</span>
@@ -183,7 +237,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-												<div className="appointment-visit-time" style={{color:color}} onClick={this.columnClick.bind(this,itemData.id)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+												<div className="appointment-visit-time" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 											);
 										}
 									}
@@ -202,7 +256,7 @@ export default class AppointmentVisit extends Component {
 												color="#499DF1";
 											}
 											return (
-												<div className="appointment-visit-read" style={{color:color}} onClick={this.columnClick.bind(this,itemData.id)}>{condition}</div>
+												<div className="appointment-visit-read" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
 											);
 										}
 									}

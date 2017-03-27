@@ -115,7 +115,6 @@ export default class CalendarMonthDate extends React.Component {
 		month = Number(month);
 		date = Number(date);
 
-		console.log('year:',year,'month:',month,'date:',date);
 
 		var lastDate = this.getDaysInMonth(year,month);
 

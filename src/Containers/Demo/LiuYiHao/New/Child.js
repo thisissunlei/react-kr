@@ -28,7 +28,10 @@ export default class New extends Component {
 
 	}
 
-	
+	ff = () => {
+		
+		console.log("ffffff");
+	}
 
 	componentDidMount() {}
 

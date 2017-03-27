@@ -221,7 +221,6 @@ render() {
 		width: 120,
 	};
 
-	console.log('items',this.props.items)
 
 	return (
 

@@ -4,9 +4,6 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Grid,
 	Row,
@@ -21,6 +18,10 @@ import merchants from "../Merchants/State";
 import personal from "../Personal/State";
 import signedClient from "../SignedClient/State";
 import './index.less'
+import {
+	observer,
+	inject
+} from 'mobx-react';
 @observer
  class NewCustomerList extends Component{
 
