@@ -24,7 +24,10 @@ import {
 } from 'mobx-react';
 import './index.less';
 import State from './State';
+import {ShallowEqual} from 'kr/Utils';
 @observer
+
+
 
 
  class EditActivityForm extends Component{
@@ -35,15 +38,40 @@ import State from './State';
 			// rotateShow : true
 			
 		}
+		Store.dispatch(reset('EditActivityForm'));
 	}
 	componentWillMount() {
 		
-		let response = {
-			top:'0',
-		}
-		Store.dispatch(initialize('EditActivityForm',response));
+		// let response = {
+		// 	top:'0',
+		// }
+		// Store.dispatch(initialize('NewCreateForm',response));
+	}
+	componentWillReceiveProps(nextProps){
+		console.log("State.itemData",State.itemData);
+		
+		console.log("nextProps",nextProps);
+		Store.dispatch(Actions.callAPI('activityDetail',{id:State.itemData.id})).then(function(response){
+	
+			Store.dispatch(initialize('EditActivityForm', response));
+
+		}).catch(function(err){
+		 	
+		});
+
 	}
 	componentDidMount(){
+		
+		// Store.dispatch(Actions.callAPI('newCreateActivity',params)).then(function(response){
+			 
+		// console.log("State.itemData",State.itemData);
+
+		// }).catch(function(err){
+		//  	//邮箱未注册
+		// 	 // _this.setState({
+		// 		//  onsubmit:true
+		// 	 // })
+		// });
 	}
 	
 	// 存为草稿
@@ -55,6 +83,9 @@ import State from './State';
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
+
+
+
 	// 提交
 	onSubmit=(values)=>{
 		console.log("values你点击了发布");
@@ -86,7 +117,7 @@ import State from './State';
 		values.xPoint = values.mapField.pointLat;
 		values.address = values.mapField.searchText;
 		values.enroll = EArr;
-		Store.dispatch(Actions.callAPI('activityUploadpic',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
 			State.timer = new Date();
 		}).catch(function(err){
@@ -155,6 +186,7 @@ import State from './State';
 	}
 
 	render(){
+		console.log("State",State);
 		const { handleSubmit} = this.props;
 		
 		// 对应功能选项
@@ -197,7 +229,9 @@ import State from './State';
 			label: '地址',
 			value: 5
 		}]
+		// console.log("State.itemData",State.itemData);
 
+		// console.log("return===>>State",State);
 
 
 		return (
@@ -290,8 +324,8 @@ import State from './State';
 							/>
 							<KrField grid={1/2} name="maxPerson" type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
 							<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
-								<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
-								<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
+								<KrField name="top" grid={1/2} label="置顶" type="radio" value={1} style={{marginRight:'50'}} onClick={this.chooseStick}/>
+								<KrField name="top" grid={1/2} label="不置顶" type="radio" value={0} onClick={this.noStick}/>
 			              	</KrField>
 			              	{/*置顶不显示排序*/}
 							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}}/>
