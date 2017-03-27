@@ -54,7 +54,7 @@ export default class List extends Component {
 	}
 	// 打开编辑详情的Dialog
 	openEditDialog(itemData){
-		console.log("itemData",itemData);
+		// console.log("itemData",itemData);
 		State.itemData =itemData;
 		State.openEditDetail = !State.openEditDetail;
 		
@@ -91,8 +91,8 @@ export default class List extends Component {
 				}
 			}
 		}
-		console.log('===>onExport',values,State.searchParams);
-		console.log('url',url);
+		// console.log('===>onExport',values,State.searchParams);
+		// console.log('url',url);
 		
 		// window.location.href = url;
 		

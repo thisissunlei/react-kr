@@ -995,7 +995,7 @@ const APIS = {
       url: '/apis/krspace-finance-web/activity/upload-pic',
       method: 'post'
    },
-   //新建---编辑活动提交/编辑活动获得初始信息
+   //新建---编辑活动提交
    'newCreateActivity':{
       url: '/apis/krspace-finance-web/activity/activity',
       method: 'post'
