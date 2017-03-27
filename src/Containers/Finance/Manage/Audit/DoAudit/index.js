@@ -336,7 +336,7 @@ export default class DoAudit extends Component {
                <TableFooter></TableFooter>
             </Table>
               <Dialog
-              title="查询"
+              title="高级查询"
               modal={true}
               open={this.state.openSearch}
               onClose={this.openSearch}

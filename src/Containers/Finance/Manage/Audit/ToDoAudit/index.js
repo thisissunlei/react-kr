@@ -526,10 +526,11 @@ export default class ToDoAudit extends Component {
                <TableFooter></TableFooter>
             </Table>
             <Dialog
-              title="查询"
+              title="高级查询"
               modal={true}
               open={this.state.openSearch}
               onClose={this.openSearch}
+              contentStyle={{width:666}}
             >
               <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
             </Dialog>
