@@ -181,7 +181,7 @@ class EditMoney extends Component {
 	}
 
 	argreementChecked = (options, value) => {
-		Store.dispatch(change('editMoney', 'contract', value));
+		Store.dispatch(change('EditMoney', 'contract', value));
 		var name = [],
 			input = {
 				value: 0
@@ -285,6 +285,7 @@ class EditMoney extends Component {
 			Message.error('请选择对应合同');
 			return
 		}
+		console.log('form.contract', form.contract)
 		var _this = this;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
@@ -305,7 +306,7 @@ class EditMoney extends Component {
 				if (form[key] != 0) {
 					var obj = {
 						"id": arr[1],
-						"value": _this.trim(form[key])
+						"value": form[key]
 					}
 					noList.push(obj)
 				}
@@ -322,7 +323,7 @@ class EditMoney extends Component {
 					if (valueList[index] != 0) {
 						var obj2 = {
 							"id": arr[2],
-							"value": _this.trim(valueList[index])
+							"value": valueList[index]
 						}
 						obj.value.push(obj2)
 					}
