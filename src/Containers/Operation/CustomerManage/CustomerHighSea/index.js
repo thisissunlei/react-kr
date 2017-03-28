@@ -31,23 +31,29 @@ import State from './State';
 import ImportData from './ImportData';
 import SearchData from './SearchData';
 import LoadingProgress from './LoadingProgress';
+import SureTipBtn from './SureTipBtn';
 @observer
 class CustomerHighSea extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			progress:0
+			progress:0,
+			style:true
 		}
 	}
 
 	openImportData=()=>{
+	  State.importContent();
       State.openImportFun();
-      State.openProgressLoading();	
+      //State.openSureTip();
 	}
 
 	cancelImportData=()=>{
 	  State.openImportFun();	
+	}
+	cancelSureTip=()=>{
+	  State.openSureTip();	
 	}
 
 	onLoadDemo=()=>{
@@ -57,22 +63,25 @@ class CustomerHighSea extends React.Component{
 
 	importDataPost=(files)=>{
 	  State.openProgressLoading();
-	  let {progress}=this.state;
-	  var _this=this;
-	  for(var i=0;i<99;i++){
-		  setTimeout(function(i){
-           _this.setState({
-           	 progress:i 
-           })  
-		  },i*1)       
-	  }
-
-	}
+	   var _this=this;
+		var timer = window.setInterval(function() {
+			if (State.percentage==20) {
+				window.clearInterval(timer);
+				_this.setState({
+					style:false
+				})
+			}
+			State.importContent(12);
+			_this.setState({
+			  progress:State.percentage	
+			})
+		},1000);		 
+	 }
 
 
 
 	render(){
-           let {progress}=this.state;
+		   let {progress,style}=this.state;
            return(
             <div className="m-highSea">
 			 <Title value="客户公海列表"/>
@@ -112,7 +121,6 @@ class CustomerHighSea extends React.Component{
 		              <TableHeaderColumn>地址</TableHeaderColumn>
 		              <TableHeaderColumn>客户来源</TableHeaderColumn>
 		              <TableHeaderColumn>导入时间</TableHeaderColumn>
-
 		          	</TableHeader>
 
 			        <TableBody >
@@ -144,16 +152,30 @@ class CustomerHighSea extends React.Component{
 						  onCancel={this.cancelImportData}
 						  onLoadDemo={this.onLoadDemo}
 						  />
-           </Dialog>
+            </Dialog>
 
 
-          {/*进度条*/}
+                    {/*进度条*/}
                     <Dialog
 						open={State.openLoading}
 						contentStyle ={{ width: '446px',height:'236px'}}
 						dialogHeaderStyle={{background:'#fff'}}
 					>
-						<LoadingProgress progress={progress}/>
+						<LoadingProgress progress={progress} style={style}/>
+                    </Dialog>
+
+                     {/*确定提示弹框*/}
+                    <Dialog
+                        title="提示"
+						modal={true}
+						onClose={this.cancelSureTip}
+						open={State.openTip}
+						contentStyle ={{ width: '446px',height:'236px'}}
+					>
+						<SureTipBtn
+                          onSubmit={this.importDataPost} 
+						  onCancel={this.cancelSureTip} 
+						/>
                     </Dialog>
 
         </div>

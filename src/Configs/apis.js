@@ -986,7 +986,7 @@ const APIS = {
       method: 'get'
    },
    //客户公海列表－获取导入结果接口
-   'highSeaDataReday':{
+   'highSeaDataGet':{
       url: '/mockjsdata/35/krspace-finance-web/csr/market/import/actions/get-result?batchId={batchId}',
       method: 'get'
    },

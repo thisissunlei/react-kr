@@ -21,7 +21,8 @@ let State = observable({
 		},
 		openImport:false,
 		openLoading:false,
-		percentage:''
+		openTip:false,
+		percentage:0
 });
 State.searchParamsData=action(function(params){
 	params = Object.assign({}, this.searchParams, params);
@@ -32,6 +33,10 @@ State.searchParamsData=action(function(params){
 State.openImportFun=action(function(){
 	this.openImport=!this.openImport;
 })
+//提示
+State.openSureTip=action(function(){
+	this.openTip=!this.openTip;
+})
 //进度条显示隐藏
 State.openProgressLoading=action(function(){
 	this.openLoading=!this.openLoading;
@@ -39,8 +44,8 @@ State.openProgressLoading=action(function(){
 //导入结果调用
 State.importContent=action(function(ids){
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('highSeaDataReday',{batchId:ids})).then(function(response) {
-		  _this.percentage=response;  
+		Store.dispatch(Actions.callAPI('highSeaDataGet',{batchId:ids})).then(function(response) {
+		  _this.percentage=response.percent;  
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
