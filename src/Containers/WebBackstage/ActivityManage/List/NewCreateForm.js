@@ -54,10 +54,12 @@ import State from './State';
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
+	
 	// 提交
 	onSubmit=(values)=>{
-		console.log("values你点击了发布");
-		console.log("values.startDate",values.startDate,"values.stopDate",values.startTime,"values.startTime","values.endTime",values.endTime);
+		console.log("＝＝＝＝＝>提交");
+		values.publishType = this.publishType ;
+
 		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
 		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
 
@@ -78,33 +80,32 @@ import State from './State';
 			EArr.push("ADDRESS")
 		}
 
-		if(State.noPublic){
-			values.publishType = 0;
-		}else{
-			values.publishType = 1;
-		}
-		
-
 		values.yPoint = values.mapField.pointLng;
 		values.xPoint = values.mapField.pointLat;
 		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
-		console.log("values",values);
-		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-			State.openNewCreate = !State.openNewCreate;
-			State.timer = new Date();
-		}).catch(function(err){
+
+		// Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+		// 	State.openNewCreate = !State.openNewCreate;
+		// 	State.timer = new Date();
+		// }).catch(function(err){
 			
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+		// 	Notify.show([{
+		// 		message: err.message,
+		// 		type: 'danger',
+		// 	}]);
+		// });
 	}
 	//存为草稿
-	toSave=(values)=>{
-		State.noPublic = true;
-		// this.onSubmit(values);
+	toSave=()=>{
+		this.publishType = 0;
+		this.refs.newCreateForm.submit();
+		
+	}
+	// 发布
+	onPublish=()=>{
+		this.publishType = 1;
+		this.refs.newCreateForm.submit();
 	}
 	// 置顶
 	chooseStick=()=>{
@@ -113,11 +114,7 @@ import State from './State';
 	}
 	 // 不置顶
 	noStick=()=>{
-		
 		State.isStick = false;
-		// Store.dispatch(change('NewCreateForm', 'coverPic', ""));
-
-
 	}
 
 	// 复选框
@@ -214,13 +211,12 @@ import State from './State';
 		}]
 
 
-		// console.log("return===>>State",State);
 
 
 		return (
 
 			<div className="new-create-activity">
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} ref="newCreateForm">
 
 				<div className="title-box">
 					<img src={require('./images/activity.svg')} className="title-img"/>
@@ -241,14 +237,20 @@ import State from './State';
 
 
 
-							<KrField grid={1/2} name="name" type="text" label="活动名称" requireLabel={true} style={{width:'252px'}} />
+							<KrField grid={1/2} 
+								name="name" 
+								type="text" 
+								label="活动名称" 
+								requireLabel={true} 
+								style={{width:252,zIndex:11}} 
+							/>
 							<KrField name="type" 
 								component="select" 
 								options={correspondingFunction}
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24}}
+								style={{width:'252px',marginLeft:24,zIndex:1}}
 							/>
 
 							
@@ -407,10 +409,10 @@ import State from './State';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit'/>
+											<Button  label="发布" type='button' onTouchTap={this.onPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='button' onTouchTap={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
@@ -430,9 +432,7 @@ import State from './State';
 const validate = values => {
 	const errors = {}
 	console.log("values校验",values);
-	if(values.top){
-		
-	}
+	
 	if(!values.name){
 		errors.name = '请输入活动名称';
 	}

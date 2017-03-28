@@ -46,6 +46,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		
 	}
 	componentWillReceiveProps(nextProps){
+		let _this = this;
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
@@ -64,18 +65,24 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss");
 						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss");
 						var detailStartTime = startTimes.substr(11);
+						var detailEndTime = endTimes.substr(11);
 						
 						detailStartTime = detailStartTime.substr(0,5);
+						detailEndTime = detailEndTime.substr(0,5);
 						
-						console.log("detailStartTime",detailStartTime);
+						console.log("detailStartTime",detailStartTime,"detailEndTime",detailEndTime);
 						// console.log("endTimes",endTimes);
 
+						_this.setState({
+							timeStart : detailStartTime,
+							timeEnd : detailEndTime
+						},function(){
+							Store.dispatch(initialize('EditActivityForm', response));
+							Store.dispatch(change('EditActivityForm','startDate',startDates));
+							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 
-						Store.dispatch(initialize('EditActivityForm', response));
-						Store.dispatch(change('EditActivityForm','startDate',startDates));
-						Store.dispatch(change('EditActivityForm','stopDate',endDates));
-						Store.dispatch(change('EditActivityForm','startTime',detailStartTime));
-
+						})
+						
 						
 					}).catch(function(err){
 						
@@ -207,6 +214,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	render(){
 		// console.log("State",State);
 		const { handleSubmit} = this.props;
+		let {timeStart,timeEnd} = this.state;
 		
 		// 对应功能选项
 		let correspondingFunction =[{
@@ -307,7 +315,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												component="selectTime" 
 												// onChange={this.onStartChange} 
 												style={{width:80,marginTop:14,zIndex:10}} 
-												
+												timeNum = {timeStart}
 												// requireLabel={true} 
 												label=''/>
 											
@@ -326,10 +334,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
+												timeNum = {timeEnd}
 												style={{width:80,zIndex:10}} 
-												
-												// requireLabel={true} 
 												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
@@ -337,7 +343,15 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							</Grid>
 
 
-							<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
+							<KrField grid={1/2} 
+								name="cityIdAndCountyId" 
+								requireLabel={true} 
+								component="city" 
+								label="举办地址" 
+								style={{width:'252px'}}  
+								onSubmit={this.changeCity} 
+								
+							/>
 
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
@@ -384,7 +398,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								pictureFormat={'JPG,PNG,GIF'} 
 								pictureMemory={'200'}
 								requestURI = {State.requestURI}
-								
 								label="上传列表详情图"
 								inline={false}
 							/>
@@ -468,7 +481,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 }
 const validate = values => {
 	const errors = {}
-	
+	console.log("values校验",values);
 	if(values.top){
 		
 	}
@@ -478,15 +491,28 @@ const validate = values => {
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
+	
+	if(!values.startDate || !values.startTime || !values.stopDate || !values.endTime ){
+		errors.startDate = "请填写完整的活动时间";
+	}
+	if(!values.countyId){
+		errors.cityIdAndCountyId = "请选择举办地址";
+
+	}
+	
 	// 置顶时必需上传轮播图
-	// if(State.isStick){
-	// 	if(!values.coverPic){
-	// 		errors.coverPic = '上传轮播图';
-	// 	}
-	// }
-	// if(!values.infoPic){
-	// 	errors.infoPic = '请上传详情图';
-	// }
+	if(State.isStick){
+		if(!values.coverPic){
+			errors.coverPic = '上传轮播图';
+		}
+	}
+	
+	if(!values.infoPic){
+		errors.infoPic = '请上传详情图';
+	}
+	if(values.mapField && !values.mapField.detailSearch){
+		errors.cityIdAndCountyId = "请填写完整的举办地址";
+	}
 
 	return errors
 }
