@@ -183,7 +183,7 @@ export default class ImpowerEditMemberForm extends Component {
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className="person-info">
 						<span>客户姓名：&nbsp;</span>
-						<span className="person-name">{detail.customerName}</span>
+						<span style={{fontsize:14}}>{detail.customerName}</span>
 					</div>
 
 					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0}}/>
