@@ -35,6 +35,7 @@ let State = observable({
 
 	HeightAuto:false,
 	contentHeightAuto:false,
+	contentHeightAutoShow:false,
 	initailPoint : "",
 	choseName: false,
 	chosePhone: false,

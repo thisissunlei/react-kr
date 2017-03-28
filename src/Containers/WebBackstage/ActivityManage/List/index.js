@@ -78,10 +78,10 @@ export default class List extends Component {
 				ids.push(item.id)
 			});
 			ids = String(ids);
-			url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+			url = `/api/krspace-finance-web/activity/activity-export?ids=${ids}`
 
 		}else{
-			url = `/api/krspace-finance-web/member/member-list-excel?cityId={cityId}&type={type}&title={title}&startTime={startTime}&endTime={endTime}`
+			url = `/api/krspace-finance-web/activity/activity-export?cityId={cityId}&type={type}&countyId={countyId}&beginDate={beginDate}&endDate={endDate}&name={name}`
 			if (Object.keys(params).length) {
 				for (let item in params) {
 					if (params.hasOwnProperty(item)) {
@@ -91,6 +91,7 @@ export default class List extends Component {
 				}
 			}
 		}
+		console.log('onexport------>',url);
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
@@ -114,6 +115,7 @@ export default class List extends Component {
 	onAdvanceSearchSubmit=(values)=>{
 		State.searchParams = Object.assign({},State.searchParams,values);
 		State.openAdvancedQuery = !State.openAdvancedQuery;
+		
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);

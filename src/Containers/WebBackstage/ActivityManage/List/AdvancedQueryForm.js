@@ -75,7 +75,7 @@ class NewCreateForm extends Component{
 		}
 	}
 	componentDidMount() {
-		Store.dispatch(change('AdvancedQueryForm','name',this.props.title.name));
+		// Store.dispatch(change('AdvancedQueryForm','name',this.props.title.name));
 	}
 	 onSubmit(values){
 		let {content,filter} = this.props;

@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-import $clamp from 'clamp';
+import $ from 'jquery';
 import ReactHtmlParser from 'react-html-parser';
 import {
 	KrField,
@@ -47,8 +47,17 @@ import dateFormat from 'dateFormat';
 		}
 	}
 	componentWillMount() {
+		console.log('dddd');
 	}
 	componentDidMount(){
+	}
+	componentDidUpdate(){
+		console.log('----->',$('#clampjs').height(),$('#clampjs').innerHeight());
+		if($('#clampjs').height()>100){
+			State.contentHeightAutoShow = true;
+		}else{
+			State.contentHeightAutoShow = false;
+		}
 	}
 	componentWillReceiveProps(nextProps){
 		console.log('componentWillReceiveProps');
@@ -107,8 +116,6 @@ import dateFormat from 'dateFormat';
 	}
 
 	render(){
-		// var module = document.getElementById("clampjs");
-		// $clamp(module, {clamp: 3});
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
 		let partakeMan =[{
@@ -167,6 +174,7 @@ import dateFormat from 'dateFormat';
 		});
 		let same = this.isSameDay(initValue.beginDate,initValue.endDate);
 		let time = this.setTime(same,initValue);
+		console.log('State.contentHeightAuto',State.contentHeightAuto);
 		return (
 
 			<div className="new-create-activity">
@@ -209,7 +217,7 @@ import dateFormat from 'dateFormat';
 									{/*ReactHtmlParser(initValue.summary)*/}
 									{ReactHtmlParser(State.detailContent)}
 								</div>
-							{State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'}></span></p></div>}
+							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
 
 							</div>
 
@@ -268,7 +276,7 @@ import dateFormat from 'dateFormat';
 							</Grid>
 						</div>
 					</div>
-					<div className="enroll-info" style={{minHeight:150}}>
+					<div className="enroll-info" style={{minHeight:150,paddingBottom:50}}>
 						<div className="enroll-title">
 							<span>3</span>
 							<span></span>
@@ -278,7 +286,7 @@ import dateFormat from 'dateFormat';
 							<Table displayCheckbox={false}>
 								<TableHeader>
 									{
-										State.actField.actEnroll && State.actField.actEnroll.map((item,index)=>{
+										State.actField.items.length && State.actField.actEnroll && State.actField.actEnroll.map((item,index)=>{
 											return (
 												<TableHeaderColumn key={index}>{item}</TableHeaderColumn>
 											)
@@ -287,7 +295,7 @@ import dateFormat from 'dateFormat';
 								</TableHeader>
 								<TableBody>
 								{
-									State.actField.actEnroll && State.actField.items.map((item,index)=>{
+									State.actField.items.length && State.actField.actEnroll && State.actField.items.map((item,index)=>{
 									return (
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
@@ -304,7 +312,7 @@ import dateFormat from 'dateFormat';
 						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
 						
 
-						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p><span>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
+						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
 
 					</div>
 					
