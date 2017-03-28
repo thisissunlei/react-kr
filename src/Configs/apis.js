@@ -1138,9 +1138,14 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/export-excel?idList={idList}&communityId={communityId}&corporationId={corporationId}&createEndTime={createEndTime}&createStratTime={createStratTime}&customerName={customerName}&dealEndTime={dealEndTime}&dealStartTime={dealStartTime}&flowCategoryId={flowCategoryId}&payWay={payWay}&verifyStatus={verifyStatus}',
         method: 'get'
     },
-    //财务--审核--编辑回款--保存
-    'edit-flow-verify': {
-        url: '/api/krspace-finance-web/finaVerify/opt/edit-flow-verify',
+    //财务--待审核--编辑回款--保存
+    'edit-flow-unchecked-verify': {
+        url: '/api/krspace-finance-web/finaVerify/opt/edit-flow-unchecked-verify',
+        method: 'post'
+    },
+    //财务--已退回--编辑回款--保存
+    'edit-flow-returned-verify': {
+        url: '/api/krspace-finance-web/finaVerify/opt/edit-flow-returned-verify',
         method: 'post'
     },
     //财务--审核--添加回款--新建订单

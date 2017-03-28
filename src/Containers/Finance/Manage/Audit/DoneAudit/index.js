@@ -203,7 +203,7 @@ export default class DoneAudit extends Component {
   EditAuditSubmit = (form) => {
     var _this = this;
     if (form.mainBillId != "") {
-      Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
+      Store.dispatch(Actions.callAPI('edit-flow-returned-verify', {}, form)).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate();
         window.location.reload();
