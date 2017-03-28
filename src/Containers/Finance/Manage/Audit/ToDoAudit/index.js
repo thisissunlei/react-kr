@@ -81,8 +81,37 @@ export default class ToDoAudit extends Component {
       customerId: '',
       noneSomeAudit: false,
       mainBill: false,
-      mainBillId: ''
+      mainBillId: '',
+      verify_pass:false,
+			verify_wait_del:false,
+      verify_wait_edit:false,
     }
+
+  }
+  componentDidMount() {
+    var _this = this;
+
+    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
+      var someBtn = response.navcodes.finance;
+      for(var i = 0;i<someBtn.length;i++){
+        if(someBtn[i]=="verify_wait_del"){
+          _this.setState({
+            verify_wait_del:true,
+          })
+        }
+        if(someBtn[i]=="verify_pass"){
+          _this.setState({
+            verify_pass:true,
+          })
+        }
+        if(someBtn[i]=="verify_wait_edit"){
+          _this.setState({
+            verify_wait_edit:true,
+          })
+        }
+      }
+    }).catch(function(err) {
+    });
 
   }
   componentWillReceiveProps(nextProps) {
@@ -517,9 +546,9 @@ export default class ToDoAudit extends Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        <Button label="编辑"  type="operation"  operation="edit"/>
-                        <Button label="删除"  type="operation"  operation="delete"/>
-                        <Button label="审核"  type="operation"  operation="audit"/>
+                        {this.state.verify_wait_edit && <Button label="编辑"  type="operation"  operation="edit"/>}
+                        {this.state.verify_wait_del && <Button label="删除"  type="operation"  operation="delete"/>}
+                        {this.state.verify_pass && <Button label="审核"  type="operation"  operation="audit"/>}
                     </TableRowColumn>
                   </TableRow>
               </TableBody>

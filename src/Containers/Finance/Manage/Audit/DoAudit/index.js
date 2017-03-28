@@ -63,6 +63,7 @@ export default class DoAudit extends Component {
         pageSize: 10,
         verifyStatus: 'CHECKED'
       },
+      verify_over_edit:false,
     }
     this.getInfo(this.state.Param);
 
@@ -84,7 +85,20 @@ export default class DoAudit extends Component {
     }
 
   }
-  componentDidMount() {}
+  componentDidMount() {
+    var _this = this;
+    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
+      var someBtn = response.navcodes.finance;
+      for(var i = 0;i<someBtn.length;i++){
+        if(someBtn[i]=="verify_over_edit"){
+          _this.setState({
+            verify_over_edit:true,
+          })
+        }
+      }
+    }).catch(function(err) {
+    });
+  }
     //调用获取条目
   getParentCount = (formd) => {
     let {
@@ -329,7 +343,7 @@ export default class DoAudit extends Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        <Button label="编辑"  type="operation"  operation="edit"/>
+                        {this.state.verify_over_edit && <Button label="编辑"  type="operation"  operation="edit"/>}
                     </TableRowColumn>
                   </TableRow>
               </TableBody>
