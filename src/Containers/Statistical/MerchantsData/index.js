@@ -122,7 +122,7 @@ class MerchantsData  extends Component{
 						</Grid>
 
 						<div className='ui-table-wrap'>
-
+							
 						</div>
 
 					</div> 
