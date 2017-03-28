@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import $clamp from 'clamp';
 import ReactHtmlParser from 'react-html-parser';
 import {
 	KrField,
@@ -50,13 +51,15 @@ import dateFormat from 'dateFormat';
 	componentDidMount(){
 	}
 	componentWillReceiveProps(nextProps){
+		console.log('componentWillReceiveProps');
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
-			},function(){
-				State.activityGetList(nextProps.detail.id);
-				State.activityItemcontent();
 			})
+			State.activityGetList(nextProps.detail.id);
+			State.activityDetail(nextProps.detail.id);
+			State.HeightAuto = false;
+			State.contentHeightAuto = false;
 		}
 		
 
@@ -104,6 +107,8 @@ import dateFormat from 'dateFormat';
 	}
 
 	render(){
+		// var module = document.getElementById("clampjs");
+		// $clamp(module, {clamp: 3});
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
 		let partakeMan =[{
@@ -200,11 +205,11 @@ import dateFormat from 'dateFormat';
 							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow}  defaultValue='不置顶'/>
 							<div className="photo-box activity-content">
 								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'150px'}}>
-									{/*initValue.summary*/}
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'150px'}} id="clampjs">
+									{/*ReactHtmlParser(initValue.summary)*/}
 									{ReactHtmlParser(State.detailContent)}
 								</div>
-							{<div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p><span>{State.contentHeightAuto?'收起':'展开'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'}></span></p></div>}
+							{State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'}></span></p></div>}
 
 							</div>
 
@@ -299,7 +304,7 @@ import dateFormat from 'dateFormat';
 						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
 						
 
-						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p><span>{State.HeightAuto?'收起':'展开'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
+						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p><span>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
 
 					</div>
 					

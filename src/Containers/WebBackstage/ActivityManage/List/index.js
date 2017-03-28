@@ -91,11 +91,6 @@ export default class List extends Component {
 				}
 			}
 		}
-		// console.log('===>onExport',values,State.searchParams);
-		// console.log('url',url);
-		
-		// window.location.href = url;
-		
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
@@ -117,10 +112,8 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		console.log('高级查询',values);
-		// State.searchParams = values;
 		State.searchParams = Object.assign({},State.searchParams,values);
-		// State.content = values.name;
+		State.openAdvancedQuery = !State.openAdvancedQuery;
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);
@@ -146,6 +139,8 @@ export default class List extends Component {
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
 		State.itemDetail = itemData;
+		// State.activityGetList(itemData.id);
+		// State.activityDetail(itemData.id);
 	}
 
 	render() {
@@ -158,7 +153,6 @@ export default class List extends Component {
 		}else{
 			className = 'none';
 		}
-		console.log('09-9-09=====>',State.searchParams,State.searchParams.cityId);
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
 					<div className={className} onClick={this.closeNavs}></div>
