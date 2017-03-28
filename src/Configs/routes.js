@@ -184,7 +184,7 @@ export default (
                                                                         <Route path=":id/edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
                                                                         <Route path=":id/detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
                                                                         <Route path=":id/print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
-                                                                        
+
                                                                     </Route>
 
                                                                     {/*退租协议书*/}
@@ -230,7 +230,7 @@ export default (
             {/*财务管理*/}
                <Route path="finance" component={Basic}>
 
-            <IndexRedirect to="manage/orderbill/orderList"/>
+            <IndexRedirect to="manage/audit/auditlist"/>
 
             <Route path="manage" component={Basic}>
                 <Route path="orderbill" component={Basic}>
