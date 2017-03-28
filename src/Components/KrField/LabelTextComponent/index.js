@@ -86,11 +86,10 @@ export default class LabelTextComponent extends React.Component {
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
-					<span className="ui-label-text" style={colorStyle}><span className="ui-label-text-span">{value || defaultValue}</span>
-                      {toolTrue&&value!=''&&<Tooltip offsetTop={10} place='top'>{value || defaultValue}</Tooltip>}
-					</span>      
-			</WrapComponent>
-
+					<span className="ui-label-text" style={colorStyle}>{value || defaultValue}
+                       {toolTrue&&value!=''&&<Tooltip offsetTop={10} place='top'>{value || defaultValue}</Tooltip>}
+					</span>
+				</WrapComponent>
 		);
 	}
 }

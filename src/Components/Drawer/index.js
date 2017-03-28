@@ -33,16 +33,17 @@ export default class DrawerSimpleExample extends React.Component {
 
     let {children,open,contentStyle,width} = this.props;
 
-    if(!open){
-
-      return null;
-    }
-
+   
     contentStyle = Object.assign({},contentStyle);
 
     if(width){
       contentStyle = Object.assign({},contentStyle,{width:width});
     }
+
+     if(!open){
+      return null;
+    }
+
 
     return (
 

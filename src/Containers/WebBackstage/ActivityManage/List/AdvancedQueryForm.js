@@ -74,6 +74,9 @@ class NewCreateForm extends Component{
 			},
 		}
 	}
+	componentDidMount() {
+		Store.dispatch(change('AdvancedQueryForm','name',this.props.title.name));
+	}
 	 onSubmit(values){
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
@@ -85,8 +88,10 @@ class NewCreateForm extends Component{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
-	 city=(values)=>{
-		 Store.dispatch(change('AdvancedQueryForm','cityId',values));
+	 city=(secondId,thirdId,name)=>{
+	 	console.log(secondId,thirdId,name);
+		 Store.dispatch(change('AdvancedQueryForm','cityId',secondId));
+		 Store.dispatch(change('AdvancedQueryForm','countyId',thirdId));
 	 }
 	 onStartChange=(startTime)=>{
 		 let {searchParams}=this.state;
@@ -121,25 +126,22 @@ class NewCreateForm extends Component{
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let options = [{
 			label: 'CEO Time',
-			value: 1
+			value: 'CEO_TIME'
 		}, {
 			label: '公开氪',
-			value: 2
+			value: 'OPEN_KR'
 		}, {
 			label: '社区福利',
-			value: 3
+			value: 'COMMUNITY_WELFARE'
 		},  {
 			label: 'Open Day',
-			value: 4
-		},{
-			label: '氪空间创业节',
-			value: 5
+			value: 'OPEN_DAY'
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 				<KrField name="name" grid={1/2} type="text" component="input"  label="活动标题" style={{width:'252px',marginRight:'33',marginBottom:5}}/>
 				<KrField name="type" grid={1/2} type="text"  component="select" label="活动类型"  options={options} style={{width:'252px'}}/>
-				<KrField name="cityId"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
+				<KrField name="cityId"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city} openCity/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>
@@ -155,7 +157,4 @@ class NewCreateForm extends Component{
 }
 export default NewCreateForm = reduxForm({
 	form: 'AdvancedQueryForm',
-	// validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
 })(NewCreateForm);

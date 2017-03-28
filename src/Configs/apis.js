@@ -932,6 +932,17 @@ const APIS = {
    url:'/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
    method:'get'
  },
+ //社区配置－社区列表
+  'communitySearch':{
+   url:'/api/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&openDateBegin={openDateBegin}&openDateEnd={openDateEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}&portalShow={portalShow}',
+   method:'get'
+ },
+  //社区配置－社区列表数据准备
+  'list-param-data':{
+   url:'/api/krspace-finance-web/cmt/community/list-param-data',
+   method:'get'
+ },
+
 
 
 
@@ -975,7 +986,34 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
    },
-   //活动列表及筛选
+
+
+    //社区管理－校验社区名称
+   'check-name':{
+      url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
+      method: 'get'
+   },
+    //社区管理－校验社区名称
+   'check-code':{
+      url: '/api/krspace-finance-web/cmt/community/check/code?id={id}&code={code}',
+      method: 'get'
+   },
+    //社区管理－社区新增或编辑
+   'actions-edit':{
+      url: '/api/krspace-finance-web/cmt/community/actions/edit',
+      method: 'post'
+   },
+    //社区管理－获取社区编辑信息
+   'communityGetEdit':{
+      url: '/api/krspace-finance-web/cmt/community/info/type/edit?id={id}',
+      method: 'get'
+   },
+     //社区管理－校验社区排序
+   'check-rank':{
+      url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
+      method: 'get'
+   },
+      //活动列表及筛选
    'activityList':{
       url: '/apis/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
       method: 'get'
@@ -992,14 +1030,30 @@ const APIS = {
    },
    //新建活动上传轮播图
    'activityUploadpic':{
-      url: '/mockjsdata/33/activity/upload-pic',
+      url: '/apis/krspace-finance-web/activity/upload-pic',
       method: 'post'
    },
    //新建---编辑活动提交
-   'activityUploadpic':{
-      url: '/mockjsdata/33/activity/activity',
+   'newCreateActivity':{
+      url: '/apis/krspace-finance-web/activity/activity',
       method: 'post'
    },
+   //活动置顶
+   'activityUpPosition':{
+      url: '/apis/krspace-finance-web/activity/activity-top?id={id}&top={top}',
+      method: 'put'
+   },
+   //获取活动报名信息
+   'activityGetInfo':{
+      url: '/apis/krspace-finance-web/activity/activity-field?id={id}',
+      method: 'get'
+   },
+   //活动报名项目列表
+   'activityGetList':{
+      url: '/apis/krspace-finance-web/activity/enroll-list?id={id}',
+      method: 'get'
+   },
  }
+
 
  module.exports = APIS;

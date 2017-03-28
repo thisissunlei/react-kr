@@ -17,8 +17,7 @@ import {
 	IconButton,
 	RaisedButton,
 	Divider,
-	FontIcon,
-	DatePicker
+	FontIcon
 } from 'material-ui';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
@@ -78,7 +77,7 @@ class Notify extends Component{
 								  </Table>
 					</Section>
 
-				
+
 
 		);
 
@@ -103,18 +102,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Notify);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

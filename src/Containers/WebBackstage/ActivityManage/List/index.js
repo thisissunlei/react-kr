@@ -52,11 +52,18 @@ export default class List extends Component {
 	openNewCreateDialog=()=> {
 		State.openNewCreate = !State.openNewCreate;
 	}
-	// 编辑详情的Dialog
-	openEditDialog(itemDate){
-		console.log("itemDate",itemDate);
+	// 打开编辑详情的Dialog
+	openEditDialog(itemData){
+		// console.log("itemData",itemData);
+		State.itemData =itemData;
 		State.openEditDetail = !State.openEditDetail;
+		
 	}
+	closeEditDialog(){
+		State.openEditDetail = !State.openEditDetail;
+		
+	}
+
 
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
@@ -84,8 +91,8 @@ export default class List extends Component {
 				}
 			}
 		}
-		console.log('===>onExport',values,State.searchParams);
-		console.log('url',url);
+		// console.log('===>onExport',values,State.searchParams);
+		// console.log('url',url);
 		
 		// window.location.href = url;
 		
@@ -100,9 +107,9 @@ export default class List extends Component {
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-		console.log('===>',value);
-		State.searchParams = value;
-		console.log(State.searchParams);
+		let values ={};
+		values.name = value.content;
+		State.searchParams = Object.assign({},State.searchParams,values);
 	}
 	// 打开高级查询
 	openAdvancedQueryDialog(){
@@ -113,34 +120,32 @@ export default class List extends Component {
 		console.log('高级查询',values);
 		// State.searchParams = values;
 		State.searchParams = Object.assign({},State.searchParams,values);
-		State.content = values.name;
+		// State.content = values.name;
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);
-		// let value = State.searchParams;
-		// value.time = new Date().getTime();
-		// State.searchParams = value;
 	}
 	publish=(itemData)=>{
 		State.itemUpPublish(itemData.id);
-		// let value = State.searchParams;
-		// value.time = new Date().getTime();
-		// State.searchParams = value;
 	}
 	resetUpPosition=(itemData)=>{
-		console.log('resetUpPosition');
+		State.resetUpItemPosition(itemData.id);
 	}
 	upPosition=(itemData)=>{
-		console.log('upPosition');
+		State.upItemPosition(itemData.id);
+	}
+	closeItemDetail=()=>{
+		State.openDetail = false;
 	}
 	closeNavs=()=>{
-		console.log('closeNavs');
 		State.openCloseNavs = false;
 		State.openDetail = false;
 		State.openNewCreate = false;
+		State.openDetail = false;
 	}
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
+		State.itemDetail = itemData;
 	}
 
 	render() {
@@ -153,7 +158,7 @@ export default class List extends Component {
 		}else{
 			className = 'none';
 		}
-		console.log('09-9-09=====>',State.searchParams);
+		console.log('09-9-09=====>',State.searchParams,State.searchParams.cityId);
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
 					<div className={className} onClick={this.closeNavs}></div>
@@ -203,23 +208,17 @@ export default class List extends Component {
 											></TableRowColumn>
 											<TableRowColumn name="type"
 											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												if(value==1){
+												if(value=='CEO_TIME'){
 													value = "CEO Time"
 												}
-												if(value==2){
+												if(value=='OPEN_KR'){
 													value = "公开氪"
 												}
-												if(value==3){
+												if(value=='COMMUNITY_WELFARE'){
 													value = "社区福利"
 												}
-												if(value==4){
+												if(value=='OPEN_DAY'){
 													value = "Open Day"
-												}
-												if(value==5){
-													value = "氪空间创业节"
 												}
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
@@ -306,12 +305,12 @@ export default class List extends Component {
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openDetail && !State.openCloseNavs} width={400} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+							  <Drawer open={State.openDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.closeItemDetail} detail={State.itemDetail}/>
 							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-								<EditActivityForm onSubmit={this.onNewCreateSubmit} onCancel={this.openEditDetailDialog} />
+								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.closeEditDialog} detail={State.itemData}/>
 							  </Drawer>
 								<Dialog
 									title="高级查询"
@@ -320,7 +319,7 @@ export default class List extends Component {
 									onClose={this.openAdvancedQueryDialog}
 									contentStyle={{width:687}}
 								>
-									<AdvancedQueryForm onCancel={this.openAdvancedQueryDialog} onSubmit={this.onAdvanceSearchSubmit}/>
+									<AdvancedQueryForm onCancel={this.openAdvancedQueryDialog} onSubmit={this.onAdvanceSearchSubmit} title={State.searchParams}/>
 							  </Dialog>
 				</div>
 		);

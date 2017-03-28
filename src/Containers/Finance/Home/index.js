@@ -11,8 +11,6 @@ import {
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
-	DatePicker,
-	Form,
 	KrField,
 	Table,
 	TableBody,
@@ -73,9 +71,9 @@ export default class Undefined extends Component {
 		return (
 
 			    <div className='ui-labelText'>
-					
-       
-				</div>	
+
+
+				</div>
 		);
 
 	}

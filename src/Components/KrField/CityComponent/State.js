@@ -11,7 +11,10 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-		city:"请选择"
+		city:""
+});
+State.setCity = action(function(city) {
+	this.city=city;
 });
 
 module.exports = State;

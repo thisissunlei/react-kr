@@ -53,7 +53,6 @@ export default class ItemSingle extends React.Component {
 			treeAll.map(function(item,index){
 				if(every==item.codeName){
 					State.uiList2=item.children;
-					
 				}
 			})
 

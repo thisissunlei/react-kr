@@ -35,6 +35,8 @@ import State from './State';
 			// rotateShow : true
 			
 		}
+		// Store.dispatch(reset('NewCreateForm'));
+		
 	}
 	componentWillMount() {
 		
@@ -46,18 +48,21 @@ import State from './State';
 	componentDidMount(){
 	}
 	
-	// 存为草稿
-	toSave=()=>{
-		console.log("你点击存为草稿");
-	}
+	
 	// 取消新建
 	onCancel=()=>{
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
+	
 	// 提交
 	onSubmit=(values)=>{
-		console.log("values你点击了发布");
+		console.log("＝＝＝＝＝>提交");
+		values.publishType = this.publishType ;
+
+		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+
 		var EArr = [];
 		if(State.choseName){
 			EArr.push("NAME")
@@ -75,31 +80,32 @@ import State from './State';
 			EArr.push("ADDRESS")
 		}
 
-		if(State.noPublic){
-			values.publishType = 0;
-		}else{
-			values.publishType = 1;
-		}
-		
-
 		values.yPoint = values.mapField.pointLng;
 		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.searchText;
+		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
-		Store.dispatch(Actions.callAPI('activityUploadpic',{},values)).then(function(response){
-			State.openNewCreate = !State.openNewCreate;
-			State.timer = new Date();
-		}).catch(function(err){
+
+		// Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+		// 	State.openNewCreate = !State.openNewCreate;
+		// 	State.timer = new Date();
+		// }).catch(function(err){
 			
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+		// 	Notify.show([{
+		// 		message: err.message,
+		// 		type: 'danger',
+		// 	}]);
+		// });
 	}
 	//存为草稿
-	toSave=(values)=>{
-		State.noPublic = true;
+	toSave=()=>{
+		this.publishType = 0;
+		this.refs.newCreateForm.submit();
+		
+	}
+	// 发布
+	onPublish=()=>{
+		this.publishType = 1;
+		this.refs.newCreateForm.submit();
 	}
 	// 置顶
 	chooseStick=()=>{
@@ -108,9 +114,7 @@ import State from './State';
 	}
 	 // 不置顶
 	noStick=()=>{
-		
 		State.isStick = false;
-
 	}
 
 	// 复选框
@@ -134,8 +138,6 @@ import State from './State';
 			State.choseCompany = true;
 		}else{
 			State.choseCompany = false;
-			
-
 		}
 	}
 	choosePosition=(e)=>{
@@ -153,6 +155,16 @@ import State from './State';
 			State.choseAdd = false;
 		}
 	}
+	// 城市组件选到三级
+	changeCity=(thirdId,secondId,city)=>{
+		// console.log("thirdId,secondId,city",thirdId,secondId,city);
+		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
+		// console.log("State.initailPoint",State.initailPoint);
+		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
+		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
+
+	}
+	
 
 	render(){
 		const { handleSubmit} = this.props;
@@ -199,13 +211,12 @@ import State from './State';
 		}]
 
 
-		// console.log("return===>>State",State);
 
 
 		return (
 
 			<div className="new-create-activity">
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} ref="newCreateForm">
 
 				<div className="title-box">
 					<img src={require('./images/activity.svg')} className="title-img"/>
@@ -226,43 +237,65 @@ import State from './State';
 
 
 
-							<KrField grid={1/2} name="name" type="text" label="活动名称" requireLabel={true} style={{width:'252px'}} />
+							<KrField grid={1/2} 
+								name="name" 
+								type="text" 
+								label="活动名称" 
+								requireLabel={true} 
+								style={{width:252,zIndex:11}} 
+							/>
 							<KrField name="type" 
 								component="select" 
 								options={correspondingFunction}
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24}}
+								style={{width:'252px',marginLeft:24,zIndex:1}}
 							/>
 
 							
 							<Grid style={{marginTop:19}}>
 								<Row>
 									<ListGroup>
-										<ListGroupItem style={{width:246,padding:0,paddingRight:15}}>
+										<ListGroupItem style={{width:262,padding:0}}>
 											<KrField 
 												name="startDate"  
 												component="date" 
 												onChange={this.onStartChange} 
-												style={{width:160}} 
+												style={{width:170}} 
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
 											/>
+											<KrField
+												name="startTime"  
+												component="selectTime" 
+												// onChange={this.onStartChange} 
+												style={{width:80,marginTop:14,zIndex:10}} 
+												
+												// requireLabel={true} 
+												label=''/>
 											
 										</ListGroupItem>
 										
-										<ListGroupItem style={{width:246,textAlign:'left',padding:"14px 0  0 15px"}}>
+										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
 											<KrField 
 												name="stopDate"  
 												component="date" 
 												// onChange={this.onStartChange} 
-												style={{width:160}} 
+												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
 												
 											/>
+											<KrField
+												name="endTime"  
+												component="selectTime" 
+												
+												style={{width:80,zIndex:10}} 
+												
+												
+												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
 								</Row>
@@ -270,7 +303,7 @@ import State from './State';
 
 
 
-							<KrField grid={1/2} name="cityIdAndCountyId" type="text" label="举办地址" style={{width:'252px'}}/>
+							<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 								<KrField name="mapField" 
@@ -316,133 +349,11 @@ import State from './State';
 								pictureFormat={'JPG,PNG,GIF'} 
 								pictureMemory={'200'}
 								requestURI = {State.requestURI}
-								
+								requireLabel={true}
 								label="上传列表详情图"
 								inline={false}
 							/>
-							<Editor label="活动介绍"
-								autoHeightEnabled = {true}
-								autoFloatEnabled = {true}
-								elementPathEnabled = {false}
-								maximumWords = {2000}
-								initialFrameHeight={200}
-								enableAutoSave = {false}
-								toolbars={[[
-				                'source', //源代码 
-				                 '|',
-				                'undo', //撤销
-				                'redo', //重做
-				                '|',
-				                'bold', //加粗
-				                 'italic', //斜体
-				                'underline', //下划线
-				                'fontborder', //字符边框
-				                'strikethrough', //删除线
-				                'subscript', //下标
-				                'superscript', //上标
-				                'removeformat', //清除格式
-				                'formatmatch', //格式刷
-				                'autotypeset', //自动排版
-				                'blockquote', //引用
-				                'pasteplain', //纯文本粘贴模式
-				                '|',
-
-
-				                'forecolor', //字体颜色
-				                'backcolor', //背景色
-				                'insertorderedlist', //有序列表
-				                'insertunorderedlist', //无序列表
-				               
-				                'selectall', //全选
-				                'cleardoc', //清空文档
-				                '|',
-				                'rowspacingtop', //段前距
-				                'rowspacingbottom', //段后距
-				                'lineheight', //行间距
-				                '|',
-				                'customstyle', //自定义标题
-				                'paragraph', //段落格式
-				                'fontfamily', //字体
-				                'fontsize', //字号
-				                '|',
-				                'directionalityltr', //从左向右输入
-				                'directionalityrtl', //从右向左输入
-				                'indent', //首行缩进
-				                '|',
-
-
-
-				                'justifyleft', //居左对齐
-				                'justifyright', //居右对齐
-				                'justifycenter', //居中对齐
-				                'justifyjustify', //两端对齐
-				                '|',
-
-				                'touppercase', //字母大写
-				                'tolowercase', //字母小写
-				                '|',
-
-
-				                'link', //超链接
-				                'unlink', //取消链接
-				                'anchor', //锚点
-				                '|',
-
-
-				                'imagenone', //默认
-				                'imageleft', //左浮动
-				                'imageright', //右浮动
-				                'imagecenter', //居中
-				                '|',
-
-
-				                'simpleupload', //单图上传
-				                'insertimage', //多图上传
-				                'emotion', //表情
-				                'map', //Baidu地图
-				                'pagebreak', //分页
-				                'template', //模板
-				                'background', //背景
-				                '|',
-
-
-
-
-				                'horizontal', //分隔线
-				                'date', //日期
-				                'time', //时间
-				                'spechars', //特殊字符
-				                '|',
-
-
-				                'inserttable', //插入表格
-				                'deletetable', //删除表格
-				                'insertparagraphbeforetable', //"表格前插入行"
-				                'insertrow', //前插入行
-				                'insertcol', //前插入列
-				                'mergeright', //右合并单元格
-				                'mergedown', //下合并单元格
-				                'deleterow', //删除行
-				                'deletecol', //删除列
-				                'splittorows', //拆分成行
-				                'splittocols', //拆分成列
-				                'splittocells', //完全拆分单元格
-				                'deletecaption', //删除表格标题
-				                'inserttitle', //插入标题
-				                'mergecells', //合并多个单元格
-				                'edittable', //表格属性
-				                'edittd', //单元格属性
-				                'charts', // 图表
-				                '|',
-				               
-				          
-				                'edittip ', //编辑提示 
-				                'preview', //预览
-				                'searchreplace', //查询替换
-				                'drafts', // 从草稿箱加载
-				                'help', //帮助
-				            ]
-        				]}/>
+							<KrField component="editor" name="summary" label="活动简介"/>
 							
 							
 						</div>
@@ -486,7 +397,6 @@ import State from './State';
 											<input type="checkbox"  onChange={this.chooseAdd}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
-
 										</ListGroupItem>
 										
 									</ListGroup>					
@@ -499,10 +409,10 @@ import State from './State';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit'/>
+											<Button  label="发布" type='button' onTouchTap={this.onPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='button' onTouchTap={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
@@ -521,25 +431,38 @@ import State from './State';
 }
 const validate = values => {
 	const errors = {}
+	console.log("values校验",values);
 	
-	if(values.top){
-		
-	}
 	if(!values.name){
 		errors.name = '请输入活动名称';
 	}
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
+	
+	if(!values.startDate || !values.startTime || !values.stopDate || !values.endTime ){
+		errors.startDate = "请填写完整的活动时间";
+	}
+	if(!values.countyId){
+		errors.cityIdAndCountyId = "请选择举办地址";
+
+	}
+	
 	// 置顶时必需上传轮播图
-	// if(State.isStick){
-	// 	if(!values.coverPic){
-	// 		errors.coverPic = '上传轮播图';
-	// 	}
-	// }
-	// if(!values.infoPic){
-	// 	errors.infoPic = '请上传详情图';
-	// }
+	if(State.isStick){
+		if(!values.coverPic){
+			errors.coverPic = '上传轮播图';
+		}
+	}
+	
+	if(!values.infoPic){
+		errors.infoPic = '请上传详情图';
+	}
+	if(values.mapField && !values.mapField.detailSearch){
+		errors.cityIdAndCountyId = "请填写完整的举办地址";
+	}
+
+	
 
 	return errors
 }
