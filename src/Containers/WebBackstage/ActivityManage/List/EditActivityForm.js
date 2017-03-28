@@ -61,16 +61,20 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						}
 						var startDates = (new Date((DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
 						var endDates   = (new Date((DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
-						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss").substr(11);
-						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss").substr(11);
+						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss");
+						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss");
+						var detailStartTime = startTimes.substr(11);
 						
-						console.log("startTimes",startTimes);
-						console.log("endTimes",endTimes);
+						detailStartTime = detailStartTime.substr(0,5);
+						
+						console.log("detailStartTime",detailStartTime);
+						// console.log("endTimes",endTimes);
 
 
 						Store.dispatch(initialize('EditActivityForm', response));
 						Store.dispatch(change('EditActivityForm','startDate',startDates));
 						Store.dispatch(change('EditActivityForm','stopDate',endDates));
+						Store.dispatch(change('EditActivityForm','startTime',detailStartTime));
 
 						
 					}).catch(function(err){
@@ -302,7 +306,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												name="startTime"  
 												component="selectTime" 
 												// onChange={this.onStartChange} 
-												style={{width:80,marginTop:14}} 
+												style={{width:80,marginTop:14,zIndex:10}} 
 												
 												// requireLabel={true} 
 												label=''/>
@@ -323,7 +327,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												name="endTime"  
 												component="selectTime" 
 												// onChange={this.onStartChange} 
-												style={{width:80}} 
+												style={{width:80,zIndex:10}} 
 												
 												// requireLabel={true} 
 												label=''/>

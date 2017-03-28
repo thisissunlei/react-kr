@@ -269,7 +269,7 @@ import State from './State';
 												name="startTime"  
 												component="selectTime" 
 												// onChange={this.onStartChange} 
-												style={{width:80,marginTop:14}} 
+												style={{width:80,marginTop:14,zIndex:10}} 
 												
 												// requireLabel={true} 
 												label=''/>
@@ -289,10 +289,10 @@ import State from './State';
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
-												style={{width:80}} 
 												
-												// requireLabel={true} 
+												style={{width:80,zIndex:10}} 
+												
+												
 												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
