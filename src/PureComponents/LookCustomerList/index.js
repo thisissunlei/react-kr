@@ -89,12 +89,10 @@ class LookCustomerList extends Component{
 			>
 
 				<Tab label="客户详情" >
-
 						<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch} />
 				</Tab>
 
 				<Tab label="客户订单" >
-
 						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch} operType={operType} listId={this.props.listId}/>
 				</Tab>
 			</Tabs>)
@@ -114,7 +112,6 @@ class LookCustomerList extends Component{
 				</div>
 				<div style={{height:5}}></div>
 					{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType)}
-
 		      </div>
 
 		);

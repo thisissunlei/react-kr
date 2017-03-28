@@ -44,6 +44,10 @@ class SearchForm extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state={
+			communityIdList : [],
+		}
+		this.getcommunity();
 	}
   //日期开始
 	onStartChange=(value)=>{
@@ -68,9 +72,39 @@ class SearchForm extends Component {
 		 communityChange && communityChange(value);
 	 }
 
+	 //
+	 getcommunity = () => {
+		let _this = this;
+		let {communityIdList} = this.state;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			communityIdList = response.communityInfoList.map(function(item, index) {
+
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			communityIdList.unshift({
+				label: '请选择',
+				value: '0'
+			});
+
+			_this.setState({
+				communityIdList,
+			});
+
+
+		}).catch(function(err) {
+
+
+
+		});
+	}
+
 	render() {
 
 		let {todayDate}=this.props;
+		let {communityIdList} = this.state;
 		return (
 
 			<form name="searchForm" className="appointment-visit-form" style={{height:50 }}>
@@ -86,8 +120,7 @@ class SearchForm extends Component {
 					<KrField grid={1} label="" name="visitCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
-				<KrField style={{width:187,marginLeft:-10,position:"relative"}} name="leaseId" component="searchCommunity" inline={false} requireLabel={false} onChange={this.communityChange}/>
-				
+				<KrField style={{width:224,marginLeft:-44,position:"relative",marginTop:6}} name="community" component="select" search={true}  options={communityIdList} onChange={this.communityChange} />
 
 
 			</form>

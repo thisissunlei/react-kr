@@ -405,8 +405,8 @@ class Header extends Component {
 				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<LookCustomerList
 						 comeFrom="Merchant"
-		                 operType="SHARE"
-										 comeFrom="message"
+		                 operType="PERSON"
+						 comeFrom="message"
 		                 companyName={customerName}
 		                 listId={msgExtra}
 										 onCancel={this.lookCustomerListClose}
