@@ -33,7 +33,7 @@ let State = observable({
 	requestURI :'/mockjsdata/33/activity/upload-pic', 
 	// 默认地址
 
-	initailPoint : "",
+	initailPoint : "北京",
 
 	choseName: false,
 	chosePhone: false,

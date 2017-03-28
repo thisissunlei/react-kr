@@ -24,7 +24,7 @@ import {
 } from 'mobx-react';
 import './index.less';
 import State from './State';
-import {ShallowEqual} from 'kr/Utils';
+import {ShallowEqual,DateFormat} from 'kr/Utils';
 @observer
 
 
@@ -46,15 +46,32 @@ import {ShallowEqual} from 'kr/Utils';
 		
 	}
 	componentWillReceiveProps(nextProps){
-		// console.log("nextProps.detail.id",nextProps.detail.id);
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
-			// console.log("------->nextProps.detail.id",nextProps.detail.id)
 			this.setState({
 				initializeValues:nextProps.detail
 			},function(){
 				if(nextProps.detail.id){
 					Store.dispatch(Actions.callAPI('activityDetail',{id:nextProps.detail.id})).then(function(response){
+						console.log("response",response);
+						// 置顶与否
+						if(response.top == 1){
+							State.isStick = true;
+						}else{
+							State.isStick = false;
+						}
+						var startDates = (new Date((DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
+						var endDates   = (new Date((DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
+						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss").substr(11);
+						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss").substr(11);
+						
+						console.log("startTimes",startTimes);
+						console.log("endTimes",endTimes);
+
+
 						Store.dispatch(initialize('EditActivityForm', response));
+						Store.dispatch(change('EditActivityForm','startDate',startDates));
+						Store.dispatch(change('EditActivityForm','stopDate',endDates));
+
 						
 					}).catch(function(err){
 						
@@ -267,40 +284,57 @@ import {ShallowEqual} from 'kr/Utils';
 							/>
 
 							
+							
 							<Grid style={{marginTop:19}}>
 								<Row>
 									<ListGroup>
-										<ListGroupItem style={{width:246,padding:0,paddingRight:15}}>
+										<ListGroupItem style={{width:262,padding:0}}>
 											<KrField 
 												name="startDate"  
 												component="date" 
 												onChange={this.onStartChange} 
-												style={{width:160}} 
+												style={{width:170}} 
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
 											/>
+											<KrField
+												name="startTime"  
+												component="selectTime" 
+												// onChange={this.onStartChange} 
+												style={{width:80,marginTop:14}} 
+												
+												// requireLabel={true} 
+												label=''/>
 											
 										</ListGroupItem>
 										
-										<ListGroupItem style={{width:246,textAlign:'left',padding:"14px 0  0 15px"}}>
+										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
 											<KrField 
 												name="stopDate"  
 												component="date" 
 												// onChange={this.onStartChange} 
-												style={{width:160}} 
+												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
 												
 											/>
+											<KrField
+												name="endTime"  
+												component="selectTime" 
+												// onChange={this.onStartChange} 
+												style={{width:80}} 
+												
+												// requireLabel={true} 
+												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
 								</Row>
 							</Grid>
 
 
+							<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
 
-							<KrField grid={1/2} name="cityIdAndCountyId" type="text" label="举办地址" style={{width:'252px'}}/>
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 								<KrField name="mapField" 
