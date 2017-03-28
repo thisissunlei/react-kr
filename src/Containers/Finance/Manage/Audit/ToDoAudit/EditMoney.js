@@ -196,10 +196,14 @@ class EditMoney extends Component {
 		})
 
 	}
+	trim = (str) => {
+		return str.replace(/\s+/g, "");
+	}
 
 	calcBalance = (item, value, input) => {
 		var lastValue = value.split('.')[1];
 		var name = input.name.split('-')[3];
+		var val = this.trim(value)
 		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
 			return
@@ -223,7 +227,7 @@ class EditMoney extends Component {
 		let {
 			changeValues,
 		} = this.props;
-		input.value = value;
+		input.value = val;
 		this.getCount(input)
 	}
 
@@ -267,6 +271,7 @@ class EditMoney extends Component {
 			Message.error('请选择对应合同');
 			return
 		}
+		console.log('form.contract---')
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
 		var reg = /^fix/;
@@ -275,44 +280,40 @@ class EditMoney extends Component {
 		var valueList = [];
 		var noList = []
 		var key;
-
-
+		var _this = this;
+		console.log('444parentIdList', parentIdList)
 		for (key in form) {
 			if (reg.test(key)) {
 				fixList.push(key);
 				valueList.push(form[key])
 			}
-
+			console.log('key---', key)
 			if (noReg.test(key)) {
 				var arr = key.split('-');
-				if (form[key] != 0) {
-					var obj = {
-						"id": arr[1],
-						"value": form[key]
-					}
-					noList.push(obj)
+				var obj = {
+					"id": arr[1],
+					"value": form[key]
 				}
+				noList.push(obj)
 			}
 		}
-
 
 		parentIdList.map((item, index) => {
 			var obj = {
 				"id": item,
 				"value": []
 			}
-
 			fixList.map((items, index) => {
+
 				var arr = items.split('-');
 				if (arr[1] == item) {
-					if (valueList[index] != 0) {
-						var obj2 = {
-							"id": arr[2],
-							"value": valueList[index]
-						}
-						obj.value.push(obj2)
+					var obj2 = {
+						"id": arr[2],
+						"value": valueList[index]
 					}
+					obj.value.push(obj2)
 				}
+
 			})
 			childrenList.push(obj)
 		})
@@ -337,10 +338,12 @@ class EditMoney extends Component {
 			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount
 		}
+
 		let {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(params);
+
 	}
 	onCancel = () => {
 		let {
