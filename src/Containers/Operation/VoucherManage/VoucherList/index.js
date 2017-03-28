@@ -35,9 +35,9 @@ import {
   Title
 } from 'kr-ui';
 
-// import ToDoAudit from './ToDoAudit';
-// import DoAudit from './DoAudit';
-// import DoneAudit from './DoneAudit';
+// import WaitVoucher from './WaitVoucher';
+// import OverVoucher from './OverVoucher';
+// import DelVoucher from './DelVoucher';
 
 export default class AuditList extends Component {
 
@@ -110,37 +110,37 @@ export default class AuditList extends Component {
     let personalStyle = (tab == 'personal') ? activeTab : commenTab;
     let signedClientStyle = (tab == 'signedClient') ? activeTab : commenTab;
 
-  //   if (countList != " ") {
-  //     return (
-	//
-  //       <div>
-  //         <Title value="审核列表"/>
-  //         <Tabs className="tabs">
-  //           <Tab label="待处理凭证" onActive={this.merchants} style={merchantsStyle}>
-  //               <ToDoAudit
-  //                     tab={initSearch}
-  //               />
-  //           </Tab>
-  //           <Tab label="已处理凭证" onActive={this.personal} style={personalStyle}>
-  //              <DoAudit
-  //                      tab={initSearch}
-  //               />
-  //           </Tab>
-	//
-  //           <Tab label="已删除凭证" onActive={this.signedClient} style={signedClientStyle}>
-  //               <DoneAudit
-  //                      tab={initSearch}
-  //               />
-  //           </Tab>
-  //       </Tabs>
-  //     </div>
-	//
-  //     );
-  //   } else {
-  //     return (
-  //       <div></div>
-  //     )
-  //   }
+    if (countList != " ") {
+      return (
+
+        <div>
+          <Title value="凭证列表"/>
+          <Tabs className="tabs">
+            <Tab label="待处理凭证" onActive={this.merchants} style={merchantsStyle}>
+                <ToDoAudit
+                      tab={initSearch}
+                />
+            </Tab>
+            <Tab label="已处理凭证" onActive={this.personal} style={personalStyle}>
+               <DoAudit
+                       tab={initSearch}
+                />
+            </Tab>
+
+            <Tab label="已删除凭证" onActive={this.signedClient} style={signedClientStyle}>
+                <DoneAudit
+                       tab={initSearch}
+                />
+            </Tab>
+        </Tabs>
+      </div>
+
+      );
+    } else {
+      return (
+        <div></div>
+      )
+    }
 
 	return(
 		<div></div>
