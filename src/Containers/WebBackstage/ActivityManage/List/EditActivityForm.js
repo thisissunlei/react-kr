@@ -72,7 +72,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						
 						
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
-
+          				State.mapdefaultValue = response.address;
 
           				var enrollArr = response.enrollFiels;
           				if(enrollArr.indexOf("NAME")>-1){
@@ -107,6 +107,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(initialize('EditActivityForm', response));
 							Store.dispatch(change('EditActivityForm','startDate',startDates));
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							
+							Store.dispatch(change('EditActivityForm','startDate',startDates));
+							Store.dispatch(change('EditActivityForm','detailStartTime',detailStartTime));
+							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 
 						})
 						
@@ -285,7 +290,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 	
-		console.log("State.cityData",State.cityData);
 
 		return (
 
@@ -339,10 +343,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
+												 
 												style={{width:80,marginTop:14,zIndex:10}} 
 												timeNum = {timeStart}
-												// requireLabel={true} 
+												
 												label=''/>
 											
 										</ListGroupItem>
@@ -351,7 +355,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 											<KrField 
 												name="stopDate"  
 												component="date" 
-												// onChange={this.onStartChange} 
+												
 												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
@@ -362,7 +366,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												component="selectTime" 
 												timeNum = {timeEnd}
 												style={{width:80,zIndex:10}} 
-												label=''/>
+												label=''
+											/>
 										</ListGroupItem>
 									</ListGroup>					
 								</Row>
@@ -387,6 +392,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									style={{width:242,height:36}}
 									mapStyle={{width:400,height:400}}
 									initailPoint ={State.initailPoint}
+									defaultValue = {State.mapdefaultValue}
 								/>
 							</div>
 

@@ -55,10 +55,25 @@ export default class CityComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		State.city = "";
+		// console.log('====>',this.props.cityName)
+		let {cityName} = this.props;
+		if(cityName){
+			State.city=cityName;
+		}else{
+			State.city = "";
+		}
+
 	}
 
 	componentWillReceiveProps(nextProps) {
+		// console.log('dddddd',nextProps.cityName);
+		let cityName = nextProps.cityName;
+		if(cityName){
+			State.city=cityName;
+		}else{
+			State.city = "";
+		}
+		
 	}
 
 	firstCityList=()=>{
@@ -238,17 +253,7 @@ export default class CityComponent extends React.Component {
 		}
 		let hoverColor = {};
 		let color="#666";
-		// if(city=="请选择"){
-		// 	color="#ccc"
-		// 	if(!cityName){
-		// 	}else if(cityName.length!=0){
-		// 		city=cityName;
-		// 	}
-		// }
-        
-  //       if(city!="请选择"){
-  //         color="#666";	
-  //       }
+		
 
 		return (
 

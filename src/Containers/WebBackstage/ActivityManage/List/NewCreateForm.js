@@ -362,7 +362,7 @@ import State from './State';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-							<KrField component="editor" name="summary" label="活动简介"/>
+							<KrField component="editor" name="summary" label="活动介绍"/>
 							
 							<Grid style={{marginTop:19,marginBottom:80}}>
 								<Row>
