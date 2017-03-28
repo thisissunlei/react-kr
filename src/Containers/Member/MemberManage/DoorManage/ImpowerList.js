@@ -252,7 +252,7 @@ export default class FinishUploadImgForm extends Component{
 												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>类型</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>职能硬件ID</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
 											</TableHeader>
 											<TableBody style={{position:'inherit'}} 
 							            	>
@@ -290,7 +290,7 @@ export default class FinishUploadImgForm extends Component{
 																	</TableRowColumn>
 																	<TableRowColumn style={{overflow:"hidden"}}>
 																		{
-																			!item.roomName?<span>-</span>:<span>{item.hardwareId}</span>
+																			!item.hardwareId?<span>-</span>:<span>{item.hardwareId}</span>
 																		}
 																	</TableRowColumn>
 																	
@@ -373,10 +373,10 @@ export default class FinishUploadImgForm extends Component{
 						<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
-											<ListGroupItem style={{width:255,textAlign:'right',padding:0,paddingRight:15}}>
-												<Button  label="确定" type="submit" onClick={this.impowerToCustomer}/>
+											<ListGroupItem style={{width:171,textAlign:'right',padding:0,paddingRight:15}}>
+												<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
 											</ListGroupItem>
-											<ListGroupItem style={{width:'171px',textAlign:'left',padding:0,paddingLeft:15}}>
+											<ListGroupItem style={{width:171,textAlign:'left',padding:0,paddingLeft:15}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeImpoerList} />
 											</ListGroupItem>
 										</ListGroup>					
