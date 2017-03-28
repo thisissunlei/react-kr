@@ -81,7 +81,8 @@ export default class ToDoAudit extends Component {
       customerId: '',
       noneSomeAudit: false,
       mainBill: false,
-      mainBillId: ''
+      mainBillId: '',
+      corporationId: ''
     }
 
   }
@@ -153,7 +154,7 @@ export default class ToDoAudit extends Component {
   sureToDel = (itemDetail) => {
       var _this = this;
       //console.log(itemDetail);
-    Store.dispatch(Actions.callAPI('del-fina-unchecked-record', {}, {
+      Store.dispatch(Actions.callAPI('del-fina-unchecked-record', {}, {
         finaVerifyId: this.state.itemDetail.id
       })).then(function(response) {
         Message.success("删除成功");
@@ -185,7 +186,8 @@ export default class ToDoAudit extends Component {
         _this.setState({
           mainBill: true,
           mainBillId: response.mainBillId,
-          customerId: response.customerId
+          customerId: response.customerId,
+          corporationId: response.corporationId
         })
         Store.dispatch(change('addMoney', "customerId", response.customerId));
         Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
@@ -216,6 +218,7 @@ export default class ToDoAudit extends Component {
       _this.setState({
         mainBill: true,
         mainBillId: response.mainBillId,
+        corporationId: response.corporationId
       })
 
       Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
@@ -317,7 +320,7 @@ export default class ToDoAudit extends Component {
   onEditSubmit = (form) => {
       var _this = this;
       if (form.mainBillId != "") {
-        Store.dispatch(Actions.callAPI('edit-flow-verify', {}, form)).then(function(response) {
+        Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
           window.location.reload();
@@ -383,8 +386,10 @@ export default class ToDoAudit extends Component {
       billOInfo,
       customerId,
       mainBill,
-      mainBillId
+      mainBillId,
+      corporationId
     } = this.state;
+    console.log('corporationId1111', corporationId)
     return (
 
       <div className="m-todo-audit">
@@ -542,7 +547,7 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney customerId={customerId} mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney corporationId={corporationId} customerId={customerId} mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
             </Drawer>
             <Drawer
               modal={true}

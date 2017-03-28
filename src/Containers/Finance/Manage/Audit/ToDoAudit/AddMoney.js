@@ -291,7 +291,9 @@ class AddMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
-		var id = this.state.corporationId;
+		var id = this.state.corporationId || this.props.corporationId;
+		console.log('this.props.corporationId', this.props.corporationId)
+		console.log('this.state.corporationId ', this.state.corporationId)
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			accountType: form.value,
