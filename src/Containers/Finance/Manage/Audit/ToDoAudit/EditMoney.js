@@ -28,7 +28,8 @@ import {
 	SearchForms,
 	ButtonGroup,
 	CircleStyleTwo,
-	Message
+	Message,
+	LoadingTwo
 } from 'kr-ui';
 import './index.less';
 
@@ -63,7 +64,8 @@ class EditMoney extends Component {
 			accountList: [],
 			infoList: {},
 			finaflowInfo: {},
-			corporationId: ''
+			corporationId: '',
+			Loading: false
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -269,6 +271,9 @@ class EditMoney extends Component {
 
 	}
 	onSubmit = (form) => {
+		this.setState({
+			Loading: !this.state.Loading
+		})
 		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
 			return
@@ -341,7 +346,9 @@ class EditMoney extends Component {
 			onSubmit
 		} = _this.props;
 		onSubmit && onSubmit(params);
-
+		this.setState({
+			Loading: !this.state.Loading
+		})
 
 
 	}
@@ -662,7 +669,8 @@ class EditMoney extends Component {
 				mainbillInfo,
 				showName,
 				customerId,
-				infoList
+				infoList,
+				Loading
 			} = this.state;
 			return (
 				<div className="u-audit-add">
@@ -773,6 +781,7 @@ class EditMoney extends Component {
 						</Grid>
 					</CircleStyleTwo>
 				</form>
+				{Loading?<LoadingTwo />:''}
 			</div>
 
 

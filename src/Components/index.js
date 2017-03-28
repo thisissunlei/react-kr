@@ -50,7 +50,7 @@ import InputDate from './InputDate';
 import SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
 import CircleStyleTwo from './CircleStyleTwo';
-
+import LoadingTwo from './LoadingTwo';
 
 import {
 	Grid,
@@ -140,5 +140,6 @@ module.exports = {
 	SearchForm,
 	Tooltips,
 	Tooltip,
-	CircleStyleTwo
+	CircleStyleTwo,
+	LoadingTwo
 }

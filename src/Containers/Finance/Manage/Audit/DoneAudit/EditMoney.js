@@ -31,7 +31,8 @@ import {
 	CircleStyleTwo,
 	KrDate,
 	Message,
-	Tooltip
+	Tooltip,
+	LoadingTwo
 } from 'kr-ui';
 
 import dateFormat from 'dateformat';
@@ -71,7 +72,8 @@ class EditMoney extends Component {
 			}],
 			accountList: [],
 			infoList: {},
-			corporationId: ''
+			corporationId: '',
+			Loading: false
 		}
 
 		this.getDetailInfo();
@@ -283,6 +285,10 @@ class EditMoney extends Component {
 
 	}
 	onSubmit = (form) => {
+		this.setState({
+			Loading: !this.state.Loading
+		})
+
 		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
 			return
@@ -361,6 +367,10 @@ class EditMoney extends Component {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(params);
+		this.setState({
+			Loading: !this.state.Loading
+		})
+
 	}
 	onCancel = () => {
 		let {
@@ -675,7 +685,8 @@ class EditMoney extends Component {
 				showName,
 				customerId,
 				infoList,
-				flowAmount
+				flowAmount,
+				Loading
 			} = this.state;
 			return (
 				<div className="u-audit-add u-audit-edit">
@@ -811,6 +822,7 @@ class EditMoney extends Component {
 						</Row>
 						</Grid>
 				</form>
+				{Loading?<LoadingTwo />:''}
 			</div>
 
 
