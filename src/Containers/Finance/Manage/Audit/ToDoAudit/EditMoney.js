@@ -196,10 +196,14 @@ class EditMoney extends Component {
 		})
 
 	}
+	trim = (str) => {
+		return str.replace(/\s+/g, "");
+	}
 
 	calcBalance = (item, value, input) => {
 		var lastValue = value.split('.')[1];
 		var name = input.name.split('-')[3];
+		var val = this.trim(value)
 		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
 			return
@@ -223,7 +227,7 @@ class EditMoney extends Component {
 		let {
 			changeValues,
 		} = this.props;
-		input.value = value;
+		input.value = val;
 		this.getCount(input)
 	}
 
@@ -275,7 +279,7 @@ class EditMoney extends Component {
 		var valueList = [];
 		var noList = []
 		var key;
-
+		var _this = this;
 
 		for (key in form) {
 			if (reg.test(key)) {
@@ -288,7 +292,7 @@ class EditMoney extends Component {
 				if (form[key] != 0) {
 					var obj = {
 						"id": arr[1],
-						"value": form[key]
+						"value": _this.trim(form[key])
 					}
 					noList.push(obj)
 				}
@@ -308,7 +312,7 @@ class EditMoney extends Component {
 					if (valueList[index] != 0) {
 						var obj2 = {
 							"id": arr[2],
-							"value": valueList[index]
+							"value": _this.trim(valueList[index])
 						}
 						obj.value.push(obj2)
 					}

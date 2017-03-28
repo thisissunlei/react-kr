@@ -116,7 +116,7 @@ class AddMoney extends Component {
 
 	}
 	trim = (str) => {
-		return str.replace(/(^\s+)|(\s+$)/g, "");
+		return str.replace(/\s+/g, "");
 	}
 	openCreateCustomer = () => {
 		let {
@@ -174,8 +174,7 @@ class AddMoney extends Component {
 
 	calcBalance = (item, value, input) => {
 		var lastValue = value.split('.')[1];
-		value = this.trim(value)
-		console.log('this.trim(value)', this.trim(value))
+		var val = this.trim(value)
 		var name = input.name.split('-')[3];
 		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
@@ -200,7 +199,7 @@ class AddMoney extends Component {
 		let {
 			changeValues,
 		} = this.props;
-		input.value = value;
+		input.value = val;
 		this.getCount(input)
 	}
 
@@ -323,6 +322,7 @@ class AddMoney extends Component {
 		var valueList = [];
 		var noList = []
 		var key;
+		var _this = this;
 		for (key in form) {
 			if (reg.test(key)) {
 				fixList.push(key);
@@ -333,7 +333,7 @@ class AddMoney extends Component {
 				var arr = key.split('-');
 				var obj = {
 					"id": arr[1],
-					"value": form[key]
+					"value": _this.trim(form[key])
 				}
 				noList.push(obj)
 			}
@@ -350,7 +350,7 @@ class AddMoney extends Component {
 				if (arr[1] == item) {
 					var obj2 = {
 						"id": arr[2],
-						"value": valueList[index]
+						"value": _this.trim(valueList[index])
 					}
 					obj.value.push(obj2)
 				}
