@@ -193,6 +193,7 @@ class HightSearchForm extends Component {
 							component="group"
 							label="收款时间"
 							style={{marginTop:3}}
+							left={50}
 					>
 						<div className='ui-listDate'>
 							<ListGroup>

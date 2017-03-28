@@ -30,7 +30,8 @@ import {
 	ButtonGroup,
 	CircleStyleTwo,
 	KrDate,
-	Message
+	Message,
+	Tooltip
 } from 'kr-ui';
 
 import dateFormat from 'dateformat';
@@ -53,7 +54,7 @@ class EditMoney extends Component {
 			payInfoList: {},
 			topInfoList: [],
 			payment: [{
-				label: '无',
+				label: '请选择',
 				value: 'NONE'
 			}, {
 				label: '支付宝支付',
@@ -70,6 +71,7 @@ class EditMoney extends Component {
 			}],
 			accountList: [],
 			infoList: {},
+			corporationId: ''
 		}
 
 		this.getDetailInfo();
@@ -148,7 +150,8 @@ class EditMoney extends Component {
 				Store.dispatch(initialize('EditMoney', response));
 				_this.setState({
 					infoList: response,
-					flowAmount: response.flowAmount
+					flowAmount: response.flowAmount,
+					corporationId: response.corporationId
 				})
 				var form = {
 					"value": response.payWay
@@ -162,7 +165,8 @@ class EditMoney extends Component {
 		var accountList;
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-account-info', {
-			accountType: form.value
+			accountType: form.value,
+			corporationId: this.state.corporationId
 		}, {})).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;

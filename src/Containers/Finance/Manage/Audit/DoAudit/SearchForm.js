@@ -64,14 +64,10 @@ class SearchForm extends Component {
 	}
 	onHover = () => {
 		this.setState({
-			onHover: true
+			onHover: !this.state.onHover
 		})
 	}
-	onOut = () => {
-		this.setState({
-			onHover: false
-		})
-	}
+
 	renderMore = () => {
 		let {
 			detail
@@ -80,6 +76,7 @@ class SearchForm extends Component {
 		return (
 			<div className="u-more-list">
 				<div className="u-more-s"></div>
+				<div className="u-infolist">
 				{
 					detailList.map((item,index)=>{
 						return(
@@ -90,6 +87,7 @@ class SearchForm extends Component {
 							)
 					})	
 				}
+				</div>
 			</div>
 
 		)
@@ -101,7 +99,7 @@ class SearchForm extends Component {
 		} = this.state;
 		return (
 			<div className="u-more">
-				<div className="u-info-more" onMouseOver={this.onHover} onMouseOut={this.onOut}>
+				<div className="u-info-more" onClick={this.onHover} >
 					更多<span className="u-info-bottom"></span>
 				</div>
 				{onHover?this.renderMore():''}

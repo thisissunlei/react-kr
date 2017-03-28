@@ -11,6 +11,9 @@
 		background:url(images/search.svg) no-repeat center center;
 		background-size: cover;
 	}
+	.u-audit-edit .u-table tr td{
+		word-break: break-all;
+	}
 	.ui-table td{
 		&:nth-child(12){
 			.ui-tooltip{
@@ -23,6 +26,16 @@
 			
 		}
 	}
+	.ui-detailContents,.ui-textInfos{
+		margin-left:68px !important;
+		border-left:1px dashed #499df1;
+	}
+}
+.u-audit-add-title{
+	span{
+		font-size:18px;
+	}
+	
 }
 .u-audit-info{
 	min-width:500px;
@@ -91,39 +104,56 @@
 	float:left;
 	position:relative;
 	.u-more-list{
-			min-width:208px;
-			padding:20px;
-			min-height:64px;
+			width:538px;
+			max-width:538px;
+			min-height:40px;
+			max-height:244px;
+			padding:20px 0;
 			display:inline-block;
 			background:#fff;
 			position:absolute;
-			left:-100px;
+			left:-269px;
 			top:35px;
 			z-index:10;
 			border-radius:4px;
 			box-shadow: 0 0 25px rgba(0,0,0,0.2);
-			.u-info-list{
-				font-size:16px;
-				color:#333333;
-				min-width:100%;
-				display:inline-block;
-				margin-bottom:10px;
-				span{
-					font-size:16px;
-					vertical-align: middle;
-					font-family:'FZLTZHJW  GB1 0';
-				}
-			}
 			.u-more-s{
 				width:0;
 				height:0;
 				position:absolute;
 				border:8px solid transparent;
 				border-bottom-color:#fff;
-				left:116px;
+				left:269px;
 				top:-16px;
 
 			}
+			.u-infolist{
+				overflow:auto;
+				width:538px;
+				max-width:538px;
+				min-height:40px;
+				max-height:244px;
+				display:inline-block;
+				overflow:auto;
+			}
+			.u-info-list{
+				width:248px;
+				font-size:16px;
+				color:#333333;
+				margin-bottom:16px;
+				float:left;
+				padding-left:20px;
+				&:nth-child(2n-1){
+					border-right:1px dashed #c0c0c0;
+				}
+				
+				span{
+					font-size:16px;
+					vertical-align: middle;
+					font-family:'FZLTZHJW  GB1 0';
+				}
+			}
+			
 		}
 
 }

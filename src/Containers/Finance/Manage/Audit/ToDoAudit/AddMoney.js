@@ -44,7 +44,7 @@ class AddMoney extends Component {
 		this.state = {
 			flowAmount: 0,
 			payment: [{
-				label: '无',
+				label: '请选择',
 				value: 'NONE'
 			}, {
 				label: '支付宝支付',
@@ -65,6 +65,7 @@ class AddMoney extends Component {
 			finaflowInfo: {},
 			customerId: " ",
 			billInfo: " ",
+			corporationId: ""
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -174,7 +175,7 @@ class AddMoney extends Component {
 	calcBalance = (item, value, input) => {
 		var lastValue = value.split('.')[1];
 		value = this.trim(value)
-		console.log('value----', value)
+		console.log('this.trim(value)', this.trim(value))
 		var name = input.name.split('-')[3];
 		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
@@ -257,7 +258,8 @@ class AddMoney extends Component {
 		}, {})).then(function(response) {
 
 			_this.setState({
-				mainbillInfo: response
+				mainbillInfo: response,
+				corporationId: response.corporationId
 			})
 
 		}).catch(function(err) {});
@@ -290,8 +292,11 @@ class AddMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		var id = this.state.corporationId
+		console.log('id----', id)
 		Store.dispatch(Actions.callAPI('get-account-info', {
-			accountType: form.value
+			accountType: form.value,
+			corporationId: id
 		}, {})).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;

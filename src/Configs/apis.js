@@ -1062,7 +1062,7 @@ const APIS = {
     },
     //财务--审核列表--添加回款--获取我司账户
     'get-account-info': {
-        url: '/api/krspace-finance-web/finaVerify/data/get-account-info?accountType={accountType}',
+        url: '/api/krspace-finance-web/finaVerify/data/get-account-info?accountType={accountType}&corporationId={corporationId}',
         method: 'get'
     },
     //财务--审核列表--添加回款--获取订单类型

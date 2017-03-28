@@ -45,7 +45,7 @@ class EditMoney extends Component {
 		this.state = {
 			flowAmount: 0,
 			payment: [{
-				label: '无',
+				label: '请选择',
 				value: 'NONE'
 			}, {
 				label: '支付宝支付',
@@ -63,6 +63,7 @@ class EditMoney extends Component {
 			accountList: [],
 			infoList: {},
 			finaflowInfo: {},
+			corporationId: ''
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -86,7 +87,8 @@ class EditMoney extends Component {
 			}, {})).then(function(response) {
 				_this.setState({
 					infoList: response,
-					flowAmount: response.flowAmount
+					flowAmount: response.flowAmount,
+					corporationId: response.corporationId
 				})
 				var form = {
 					"value": response.payWay
@@ -145,6 +147,7 @@ class EditMoney extends Component {
 		var accountList;
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-account-info', {
+			corporationId: this.state.corporationId,
 			accountType: form.value
 		}, {})).then(function(response) {
 			accountList = response.map((item, index) => {
