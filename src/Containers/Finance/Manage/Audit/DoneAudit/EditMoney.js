@@ -180,7 +180,8 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
-	argreementChecked = (options) => {
+	argreementChecked = (options, value) => {
+		Store.dispatch(change('editMoney', 'contract', value));
 		var name = [],
 			input = {
 				value: 0

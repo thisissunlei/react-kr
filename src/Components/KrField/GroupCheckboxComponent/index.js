@@ -20,11 +20,21 @@ export default class GroupCheckboxComponent extends React.Component {
     super(props)
 
     this.state = {
-      defaultValue: props.defaultValue,
-      options: props.defaultValue,
+      defaultValue: [],
+      options: [],
       checkedAll: false,
     }
-    this.valuationInputValue()
+
+  }
+
+  componentDidMount() {
+
+    this.setState({
+      defaultValue: this.props.defaultValue,
+      options: this.props.defaultValue,
+    }, function() {
+      this.valuationInputValue();
+    });
 
   }
 
@@ -129,7 +139,7 @@ export default class GroupCheckboxComponent extends React.Component {
     });
 
     input.onChange && input.onChange(values.join(','));
-    onChange && onChange(options);
+    onChange && onChange(options, values.join(','));
   }
 
   render() {
@@ -154,6 +164,7 @@ export default class GroupCheckboxComponent extends React.Component {
 
       <WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 					<div className="ui-group-checkbox">
+              <input type="hidden" name={input.name} value={input.value} />
               {/*{this.renderSelectAllSwitch()}*/}
               {this.renderOptions()}
 					</div>
