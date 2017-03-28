@@ -99,7 +99,7 @@ class SearchForm extends Component {
 		} = this.state;
 		return (
 			<div className="u-more">
-				<div className="u-info-more" onClick={this.onHover} >
+			<div className="u-info-more" id="more" onClick={this.onHover} >
 					更多<span className="u-info-bottom"></span>
 				</div>
 				{onHover?this.renderMore():''}
@@ -108,7 +108,14 @@ class SearchForm extends Component {
 
 		)
 	}
+	ShowMore = (e) => {
+		if (e.target.innerHTML != "更多") {
+			this.setState({
+				onHover: false
+			})
+		}
 
+	}
 	render() {
 
 		const {
@@ -119,6 +126,8 @@ class SearchForm extends Component {
 			detail
 		} = this.props;
 		var detailList = detail.slice(0, 3);
+		window.addEventListener("click", this.ShowMore, false);
+
 		return (
 			<div  className="u-clearfix">
 				<div className="u-audit-info">

@@ -46,9 +46,6 @@ class EditMoney extends Component {
 		this.state = {
 			flowAmount: 0,
 			payment: [{
-				label: '请选择',
-				value: 'NONE'
-			}, {
 				label: '支付宝支付',
 				value: 'ZHIFUBAO'
 			}, {
@@ -272,10 +269,13 @@ class EditMoney extends Component {
 	}
 	onSubmit = (form) => {
 		this.setState({
-			Loading: !this.state.Loading
+			Loading: true
 		})
 		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
+			this.setState({
+				Loading: false
+			})
 			return
 		}
 		var _this = this;
@@ -292,16 +292,18 @@ class EditMoney extends Component {
 				fixList.push(key);
 				valueList.push(form[key])
 			}
+
 			if (noReg.test(key)) {
 				var arr = key.split('-');
-				var obj = {
-					"id": arr[1],
-					"value": form[key]
+				if (form[key] != 0) {
+					var obj = {
+						"id": arr[1],
+						"value": form[key]
+					}
+					noList.push(obj)
 				}
-				noList.push(obj)
 			}
 		}
-
 		parentIdList.map((item, index) => {
 			var obj = {
 				"id": item,
@@ -310,11 +312,13 @@ class EditMoney extends Component {
 			fixList.map((items, index) => {
 				var arr = items.split('-');
 				if (arr[1] == item) {
-					var obj2 = {
-						"id": arr[2],
-						"value": valueList[index]
+					if (valueList[index] != 0) {
+						var obj2 = {
+							"id": arr[2],
+							"value": valueList[index]
+						}
+						obj.value.push(obj2)
 					}
-					obj.value.push(obj2)
 				}
 
 			})
@@ -345,10 +349,13 @@ class EditMoney extends Component {
 		let {
 			onSubmit
 		} = _this.props;
-		onSubmit && onSubmit(params);
+
 		this.setState({
-			Loading: !this.state.Loading
+			Loading: false
 		})
+
+		onSubmit && onSubmit(params);
+
 
 
 	}

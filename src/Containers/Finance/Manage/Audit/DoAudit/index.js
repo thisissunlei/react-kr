@@ -63,7 +63,7 @@ export default class DoAudit extends Component {
         pageSize: 10,
         verifyStatus: 'CHECKED'
       },
-      verify_over_edit:false,
+      verify_over_edit: false,
     }
     this.getInfo(this.state.Param);
 
@@ -86,19 +86,18 @@ export default class DoAudit extends Component {
 
   }
   componentDidMount() {
-    var _this = this;
-    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
-      var someBtn = response.navcodes.finance;
-      for(var i = 0;i<someBtn.length;i++){
-        if(someBtn[i]=="verify_over_edit"){
-          _this.setState({
-            verify_over_edit:true,
-          })
+      var _this = this;
+      Store.dispatch(Actions.callAPI('getSelfMenuInfo', {}, {})).then(function(response) {
+        var someBtn = response.navcodes.finance;
+        for (var i = 0; i < someBtn.length; i++) {
+          if (someBtn[i] == "verify_over_edit") {
+            _this.setState({
+              verify_over_edit: true,
+            })
+          }
         }
-      }
-    }).catch(function(err) {
-    });
-  }
+      }).catch(function(err) {});
+    }
     //调用获取条目
   getParentCount = (formd) => {
     let {
@@ -110,7 +109,6 @@ export default class DoAudit extends Component {
   //导出
   onExport = (values) => {
     var searchParams = this.state.Params;
-    console.log(searchParams, "123");
     let idList = [];
     values.map((item, index) => {
       idList.push(item.id)
@@ -216,7 +214,6 @@ export default class DoAudit extends Component {
     let {
       itemDetail
     } = this.state;
-    console.log("asdfsda", this.state.Params);
     return (
 
       <div className="m-do-audit">

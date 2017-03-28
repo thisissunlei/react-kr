@@ -41,9 +41,6 @@ class HightSearchForm extends Component {
 		this.state = {
 			communityList: [],
 			payment: [{
-				label: '请选择',
-				value: 'NONE'
-			}, {
 				label: '支付宝支付',
 				value: 'ZHIFUBAO'
 			}, {

@@ -82,9 +82,9 @@ export default class ToDoAudit extends Component {
       noneSomeAudit: false,
       mainBill: false,
       mainBillId: '',
-      verify_pass:false,
-			verify_wait_del:false,
-      verify_wait_edit:false,
+      verify_pass: false,
+      verify_wait_del: false,
+      verify_wait_edit: false,
       corporationId: ''
     }
 
@@ -92,27 +92,26 @@ export default class ToDoAudit extends Component {
   componentDidMount() {
     var _this = this;
 
-    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
+    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {}, {})).then(function(response) {
       var someBtn = response.navcodes.finance;
-      for(var i = 0;i<someBtn.length;i++){
-        if(someBtn[i]=="verify_wait_del"){
+      for (var i = 0; i < someBtn.length; i++) {
+        if (someBtn[i] == "verify_wait_del") {
           _this.setState({
-            verify_wait_del:true,
+            verify_wait_del: true,
           })
         }
-        if(someBtn[i]=="verify_pass"){
+        if (someBtn[i] == "verify_pass") {
           _this.setState({
-            verify_pass:true,
+            verify_pass: true,
           })
         }
-        if(someBtn[i]=="verify_wait_edit"){
+        if (someBtn[i] == "verify_wait_edit") {
           _this.setState({
-            verify_wait_edit:true,
+            verify_wait_edit: true,
           })
         }
       }
-    }).catch(function(err) {
-    });
+    }).catch(function(err) {});
 
   }
   componentWillReceiveProps(nextProps) {
@@ -418,7 +417,6 @@ export default class ToDoAudit extends Component {
       mainBillId,
       corporationId
     } = this.state;
-    console.log('corporationId1111', corporationId)
     return (
 
       <div className="m-todo-audit">
