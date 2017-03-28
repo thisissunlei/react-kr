@@ -147,7 +147,6 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
-				Store.dispatch(initialize('EditMoney', response));
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount,
@@ -157,6 +156,7 @@ class EditMoney extends Component {
 					"value": response.payWay
 				}
 				_this.getAccount(form)
+				Store.dispatch(initialize('EditMoney', response));
 
 			}).catch(function(err) {});
 		}
@@ -164,10 +164,12 @@ class EditMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		Store.dispatch(change('EditMoney', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			accountType: form.value,
 			corporationId: this.state.corporationId
 		}, {})).then(function(response) {
+
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;

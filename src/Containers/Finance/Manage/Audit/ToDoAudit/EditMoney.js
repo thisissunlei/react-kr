@@ -146,6 +146,7 @@ class EditMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		Store.dispatch(change('editMoneys', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			corporationId: this.state.corporationId,
 			accountType: form.value
