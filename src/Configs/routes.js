@@ -127,6 +127,13 @@ export default (
                 <Route path="basicConfig" component={Basic}>
                 	<Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
                 </Route>
+								{/*凭证管理*/}
+								<Route path="voucherManage" component={Basic} >
+										{/*凭证列表*/}
+
+											<Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
+
+								</Route>
                  {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
@@ -184,7 +191,7 @@ export default (
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
 																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
-																		
+
 																	</Route>
 
 																	{/*退租协议书*/}
@@ -212,8 +219,6 @@ export default (
 								<Route path="list" component={Operation.CustomerManage.Agreement.Setting.List}/>
 							</Route>
 					</Route>
-
-
 
 				</Route>
 
