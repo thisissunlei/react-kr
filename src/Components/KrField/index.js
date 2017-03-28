@@ -149,7 +149,7 @@ export default class KrField extends React.Component {
 		}
 		if (component === 'searchCommunitys') {
 			return (
-				<Field {...this.props} component={searchCommunitys}  style={WrapStyles} {...other}/>
+				<Field {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
 			)
 		}
 		if (component === 'searchCorporation') {

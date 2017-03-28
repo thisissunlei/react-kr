@@ -155,7 +155,7 @@ class NewCreateMainbill extends Component {
 				    		right={34}
 							name="communityid" 
 							type="text" 
-							component="searchCommunity" 
+							component="searchCommunitys" 
 							label="所属社区" 
 							requireLabel={true}
 					 />

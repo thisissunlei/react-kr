@@ -145,7 +145,7 @@ class HightSearchForm extends Component {
 								left={50}
 								right={10}
 				    		name="communityId"
-				    		component="searchCommunity"
+				    		component="searchCommunitys"
 				    		style={{marginTop:4}}
 				    		label="社区名称"
 				  			options={communityList}
