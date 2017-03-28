@@ -37,9 +37,34 @@ class SearchForm extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state={
+			billList:false,
+			propManage:false,
+		}
+	}
+	componentDidMount() {
+		var _this = this;
+
+		Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
+			var someBtn = response.navcodes.finance;
+			for(var i = 0;i<someBtn.length;i++){
+				if(someBtn[i]=="billList"){
+					_this.setState({
+						billList:true,
+					})
+					console.log("billdsafdsafsdfsdafsadf");
+				}
+				if(someBtn[i]=="propManage"){
+					_this.setState({
+						propManage:true,
+					})
+				}
+			}
+			console.log("wtf ",_this.state.billList);
+		}).catch(function(err) {
+		});
 
 	}
-
 	onSubmit = (form) => {
 		const {
 			onSubmit
@@ -73,7 +98,6 @@ class SearchForm extends Component {
 	}
 
 	render() {
-
 		const {
 			error,
 			handleSubmit,
@@ -82,10 +106,10 @@ class SearchForm extends Component {
 		} = this.props;
 
 		return (
-			<div >
-				<Button label="添加回款" onTouchTap={this.openAdd} />
+			<div>
+				{this.state.billList && <Button label="添加回款" onTouchTap={this.openAdd} />}
 				<span className="u-span"></span>
-				<Button label="批量审核" onTouchTap={this.openSomeAudit} />
+				{this.state.propManage && <Button label="批量审核" onTouchTap={this.openSomeAudit} />}
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
 				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称" inputName="todo"/>
 
