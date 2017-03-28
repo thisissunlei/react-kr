@@ -28,7 +28,8 @@ import {
 	SearchForms,
 	ButtonGroup,
 	CircleStyleTwo,
-	Message
+	Message,
+	LoadingTwo
 } from 'kr-ui';
 import './index.less';
 
@@ -63,7 +64,8 @@ class EditMoney extends Component {
 			accountList: [],
 			infoList: {},
 			finaflowInfo: {},
-			corporationId: ''
+			corporationId: '',
+			Loading: false
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -146,6 +148,7 @@ class EditMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		Store.dispatch(change('editMoneys', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			corporationId: this.state.corporationId,
 			accountType: form.value
@@ -162,7 +165,8 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
-	argreementChecked = (options) => {
+	argreementChecked = (options, value) => {
+		Store.dispatch(change('editMoneys', 'contract', value));
 		var name = [],
 			input = {
 				value: 0
@@ -267,11 +271,14 @@ class EditMoney extends Component {
 
 	}
 	onSubmit = (form) => {
+		this.setState({
+			Loading: !this.state.Loading
+		})
 		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
 			return
 		}
-		console.log('form.contract---')
+		var _this = this;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
 		var reg = /^fix/;
@@ -280,14 +287,11 @@ class EditMoney extends Component {
 		var valueList = [];
 		var noList = []
 		var key;
-		var _this = this;
-		console.log('444parentIdList', parentIdList)
 		for (key in form) {
 			if (reg.test(key)) {
 				fixList.push(key);
 				valueList.push(form[key])
 			}
-			console.log('key---', key)
 			if (noReg.test(key)) {
 				var arr = key.split('-');
 				var obj = {
@@ -304,7 +308,6 @@ class EditMoney extends Component {
 				"value": []
 			}
 			fixList.map((items, index) => {
-
 				var arr = items.split('-');
 				if (arr[1] == item) {
 					var obj2 = {
@@ -323,7 +326,7 @@ class EditMoney extends Component {
 			}
 		})
 
-		var id = this.props.detail.id;
+		var id = _this.props.detail.id;
 		var params = {
 			accountId: form.accountId,
 			customerId: form.customerId,
@@ -336,13 +339,17 @@ class EditMoney extends Component {
 			uploadFileIds: form.uploadFileIds,
 			conJasonStr: JSON.stringify(childrenList),
 			propJasonStr: JSON.stringify(noList),
-			flowAmount: this.state.flowAmount
+			flowAmount: _this.state.flowAmount
 		}
 
 		let {
 			onSubmit
-		} = this.props;
+		} = _this.props;
 		onSubmit && onSubmit(params);
+		this.setState({
+			Loading: !this.state.Loading
+		})
+
 
 	}
 	onCancel = () => {
@@ -599,7 +606,7 @@ class EditMoney extends Component {
 				//
 				if (item.contactType == '0') {
 
-					item.component = _this.receiveInputRender;
+					item.component = _this.receiveInputRender.bind(this);
 				}
 			})
 
@@ -662,7 +669,8 @@ class EditMoney extends Component {
 				mainbillInfo,
 				showName,
 				customerId,
-				infoList
+				infoList,
+				Loading
 			} = this.state;
 			return (
 				<div className="u-audit-add">
@@ -773,6 +781,7 @@ class EditMoney extends Component {
 						</Grid>
 					</CircleStyleTwo>
 				</form>
+				{Loading?<LoadingTwo />:''}
 			</div>
 
 

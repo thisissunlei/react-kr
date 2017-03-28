@@ -31,7 +31,8 @@ import {
 	CircleStyleTwo,
 	KrDate,
 	Message,
-	Tooltip
+	Tooltip,
+	LoadingTwo
 } from 'kr-ui';
 
 import dateFormat from 'dateformat';
@@ -71,7 +72,8 @@ class EditMoney extends Component {
 			}],
 			accountList: [],
 			infoList: {},
-			corporationId: ''
+			corporationId: '',
+			Loading: false
 		}
 
 		this.getDetailInfo();
@@ -147,7 +149,6 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
-				Store.dispatch(initialize('EditMoney', response));
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount,
@@ -157,6 +158,7 @@ class EditMoney extends Component {
 					"value": response.payWay
 				}
 				_this.getAccount(form)
+				Store.dispatch(initialize('EditMoney', response));
 
 			}).catch(function(err) {});
 		}
@@ -164,10 +166,12 @@ class EditMoney extends Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		Store.dispatch(change('EditMoney', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			accountType: form.value,
 			corporationId: this.state.corporationId
 		}, {})).then(function(response) {
+
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -180,7 +184,8 @@ class EditMoney extends Component {
 		}).catch(function(err) {});
 	}
 
-	argreementChecked = (options) => {
+	argreementChecked = (options, value) => {
+		Store.dispatch(change('EditMoney', 'contract', value));
 		var name = [],
 			input = {
 				value: 0
@@ -280,10 +285,15 @@ class EditMoney extends Component {
 
 	}
 	onSubmit = (form) => {
+		this.setState({
+			Loading: !this.state.Loading
+		})
+
 		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
 			return
 		}
+		console.log('form.contract', form.contract)
 		var _this = this;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
@@ -304,7 +314,7 @@ class EditMoney extends Component {
 				if (form[key] != 0) {
 					var obj = {
 						"id": arr[1],
-						"value": _this.trim(form[key])
+						"value": form[key]
 					}
 					noList.push(obj)
 				}
@@ -321,7 +331,7 @@ class EditMoney extends Component {
 					if (valueList[index] != 0) {
 						var obj2 = {
 							"id": arr[2],
-							"value": _this.trim(valueList[index])
+							"value": valueList[index]
 						}
 						obj.value.push(obj2)
 					}
@@ -357,6 +367,10 @@ class EditMoney extends Component {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(params);
+		this.setState({
+			Loading: !this.state.Loading
+		})
+
 	}
 	onCancel = () => {
 		let {
@@ -671,7 +685,8 @@ class EditMoney extends Component {
 				showName,
 				customerId,
 				infoList,
-				flowAmount
+				flowAmount,
+				Loading
 			} = this.state;
 			return (
 				<div className="u-audit-add u-audit-edit">
@@ -807,6 +822,7 @@ class EditMoney extends Component {
 						</Row>
 						</Grid>
 				</form>
+				{Loading?<LoadingTwo />:''}
 			</div>
 
 
