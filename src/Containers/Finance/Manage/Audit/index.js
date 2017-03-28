@@ -52,10 +52,7 @@ export default class AuditList extends Component {
 
   componentDidMount() {}
   getCount = (formd) => {
-
-
-    var params = Object.assign({},formd);
-    console.log("paramdddd1111",formd);
+    var params = Object.assign({}, formd);
     var _this = this;
     Store.dispatch(Actions.callAPI('get-fina-flow-count', params, {})).then(function(response) {
       _this.setState({
@@ -63,7 +60,7 @@ export default class AuditList extends Component {
       })
 
     }).catch(function(err) {});
-    console.log("paramdddd222222",formd);
+
   }
 
   //操作相关
