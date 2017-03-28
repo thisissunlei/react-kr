@@ -140,7 +140,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values你点击了发布");
+		values.publishType = this.publishType ;
+
+		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+
 		var EArr = [];
 		if(State.choseName){
 			EArr.push("NAME")
@@ -158,19 +162,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			EArr.push("ADDRESS")
 		}
 
-		if(State.noPublic){
-			values.publishType = 0;
-		}else{
-			values.publishType = 1;
-		}
-		
-
 		values.yPoint = values.mapField.pointLng;
 		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.searchText;
+		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
+
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-			State.openNewCreate = !State.openNewCreate;
+			State.openEditDetail = !State.openEditDetail;
 			State.timer = new Date();
 		}).catch(function(err){
 			
@@ -181,9 +179,12 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		});
 	}
 	//存为草稿
-	toSave=(values)=>{
-		// console.log("你点击存为草稿");
-		State.noPublic = true;
+	toSave=()=>{
+		this.publishType = 0;
+	}
+	// 发布
+	toPublish=()=>{
+		this.publishType = 1;
 	}
 	// 置顶
 	chooseStick=()=>{
@@ -284,7 +285,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 	
-		console.log("State.choseName",State.choseName);
+		console.log("State.cityData",State.cityData);
 
 		return (
 
@@ -484,10 +485,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit'/>
+											<Button  label="发布" type='submit' onClick={this.toPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
