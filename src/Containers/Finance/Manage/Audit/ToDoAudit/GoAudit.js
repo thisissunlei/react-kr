@@ -89,7 +89,7 @@ class GoAudit extends Component {
       <div className='list-audit'>
           <form onSubmit={handleSubmit(this.onSubmit)}>
                 <KrField
-                    style={{width:545}}
+                    style={{width:600}}
                     name="operateRemark"
                     component="textarea"
                     label="备注"

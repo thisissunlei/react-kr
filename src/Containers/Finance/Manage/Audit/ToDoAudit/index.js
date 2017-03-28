@@ -613,7 +613,7 @@ export default class ToDoAudit extends Component {
             <Dialog
               title="审核"
               modal={true}
-              contentStyle ={{ width: '665',overflow:'visible'}}
+              contentStyle ={{ width: '662',overflow:'visible'}}
               open={this.state.openAudit}
               onClose={this.openAudit}
             >
