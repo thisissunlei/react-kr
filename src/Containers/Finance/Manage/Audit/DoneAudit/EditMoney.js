@@ -55,9 +55,6 @@ class EditMoney extends Component {
 			payInfoList: {},
 			topInfoList: [],
 			payment: [{
-				label: '请选择',
-				value: 'NONE'
-			}, {
 				label: '支付宝支付',
 				value: 'ZHIFUBAO'
 			}, {
