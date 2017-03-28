@@ -1105,9 +1105,15 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-info?mainBillId={mainBillId}',
         method: 'get'
     },
-    //财务--审核--删除
-    'del-fina-record': {
-        url: '/api/krspace-finance-web/finaVerify/opt/del-fina-record',
+    //财务--待审核--删除
+    'del-fina-unchecked-record': {
+        url: '/api/krspace-finance-web/finaVerify/opt/del-fina-unchecked-record',
+        method: 'post'
+
+    },
+    //财务--已退回--删除
+    'del-fina-returned-record': {
+        url: '/api/krspace-finance-web/finaVerify/opt/del-fina-returned-record',
         method: 'post'
 
     },
