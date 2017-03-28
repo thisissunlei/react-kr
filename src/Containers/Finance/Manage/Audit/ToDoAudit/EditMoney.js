@@ -269,10 +269,13 @@ class EditMoney extends Component {
 	}
 	onSubmit = (form) => {
 		this.setState({
-			Loading: !this.state.Loading
+			Loading: true
 		})
 		if (this.state.flowAmount == 0) {
 			Message.error('请选择对应合同');
+			this.setState({
+				Loading: false
+			})
 			return
 		}
 		var _this = this;
@@ -342,10 +345,13 @@ class EditMoney extends Component {
 		let {
 			onSubmit
 		} = _this.props;
-		onSubmit && onSubmit(params);
+
 		this.setState({
-			Loading: !this.state.Loading
+			Loading: false
 		})
+
+		onSubmit && onSubmit(params);
+
 
 
 	}
