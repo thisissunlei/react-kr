@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import ReactHtmlParser from 'react-html-parser';
 import {
 	KrField,
 	Grid,
@@ -49,89 +50,17 @@ import dateFormat from 'dateFormat';
 	componentDidMount(){
 	}
 	componentWillReceiveProps(nextProps){
-		console.log('------>',nextProps.detail.id);
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
 			},function(){
-				console.log('ddddd',nextProps.detail.id);
-				// State.activityGetInfo(nextProps.detail.id);
 				State.activityGetList(nextProps.detail.id);
+				State.activityItemcontent();
 			})
 		}
 		
 
 	}
-	// 存为草稿
-	toSave=()=>{
-		console.log("你点击存为草稿");
-	}
-	// 取消新建
-	onCancel=()=>{
-		let {onCancel}=this.props;
-		onCancel && onCancel();
-	}
-	// 提交
-	onSubmit=(values)=>{
-		
-	}
-	//存为草稿
-	toSave=(values)=>{
-		State.noPublic = true;
-	}
-	// 置顶
-	chooseStick=()=>{
-		State.isStick = true;
-
-	}
-	 // 不置顶
-	noStick=()=>{
-		
-		State.isStick = false;
-
-	}
-
-	// 复选框
-	chooseName=(e)=>{
-		if(e.target.checked){
-			State.choseName = true;
-		}else{
-			State.choseName = false;
-		}
-	}
-	choosePhone=(e)=>{
-		if(e.target.checked){
-			State.chosePhone = true;
-		}else{
-			State.chosePhone = false;
-		}
-	}
-	chooseCompany=(e)=>{
-		if(e.target.checked){
-
-			State.choseCompany = true;
-		}else{
-			State.choseCompany = false;
-			
-
-		}
-	}
-	choosePosition=(e)=>{
-		if(e.target.checked){
-			State.chosePosition = true;
-
-		}else{
-			State.chosePosition = false;
-		}
-	}
-	chooseAdd=(e)=>{
-		if(e.target.checked){
-			State.choseAdd = true;
-		}else{
-			State.choseAdd = false;
-		}
-	}
-
 	isSameDay=(begin,end)=>{
 		let dayOne = new Date(begin).toLocaleDateString().split("/");
 		let dayTwo = new Date(end).toLocaleDateString().split("/");
@@ -163,25 +92,20 @@ import dateFormat from 'dateFormat';
 		}
 		return time;
 	}
+	showMore=()=>{
+		State.HeightAuto = !State.HeightAuto;
+	}
+	showMoreContent=()=>{
+		State.contentHeightAuto = !State.contentHeightAuto;
+	}
+	onCancel=()=>{
+		let {onCancel} = this.props;
+		onCancel && onCancel();
+	}
 
 	render(){
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
-		
-		// 对应功能选项
-		let correspondingFunction =[{
-			label: 'CEO Time',
-			value: 'CEO_TIME'
-		},{
-			label: '公开氪',
-			value: 'OPEN_KR'
-		},{
-			label: '社区福利',
-			value: 'COMMUNITY_WELFARE'
-		},{
-			label: 'Open Day',
-			value: 'OPEN_DAY'
-		}];
 		let partakeMan =[{
 			label: '仅限会员',
 			value: 'ONLY_MEMBER'
@@ -192,28 +116,33 @@ import dateFormat from 'dateFormat';
 			label: '无限制',
 			value: 'ANYBODY'
 		}];
-		let checkboxOptions=[{
-			label: '姓名',
-			value: 1
-		},{
-			label: '电话',
-			value: 2
-		},{
-			label: '公司名称',
-			value: 3
-		},{
-			label: '职务',
-			value: 4
-		},{
-			label: '地址',
-			value: 5
-		}]
+		let options = [{
+			label: 'CEO Time',
+			value: 'CEO_TIME'
+		}, {
+			label: '公开氪',
+			value: 'OPEN_KR'
+		}, {
+			label: '社区福利',
+			value: 'COMMUNITY_WELFARE'
+		},  {
+			label: 'Open Day',
+			value: 'OPEN_DAY'
+		}];
+		
 		let joinType;
+		let activityType;
 		partakeMan.map((item)=>{
 			if(item.value == initValue.joinType){
 				joinType = item.label;
 			}
 			return joinType;
+		})
+		options.map((item)=>{
+			if(initValue.type == item.value){
+				activityType = item.label
+			}
+			return activityType
 		})
 		let list = {};
 		State.actField.actEnroll.map((item)=>{
@@ -231,13 +160,12 @@ import dateFormat from 'dateFormat';
 
 			
 		});
-		console.log('---->---->',list,State.actField.actEnroll.length);
 		let same = this.isSameDay(initValue.beginDate,initValue.endDate);
 		let time = this.setTime(same,initValue);
 		return (
 
 			<div className="new-create-activity">
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form>
 
 				<div className="title-box">
 					<img src={require('./images/activity.svg')} className="title-img"/>
@@ -259,42 +187,41 @@ import dateFormat from 'dateFormat';
 
 
 							<KrField grid={1/2} name="name" type="labelText" inline={false} label="活动名称" requireLabel={true} style={{width:'252px'}} value={initValue.name} />
-							<KrField grid={1/2} name="type" type="labelText" inline={false} label="活动类型" requireLabel={true} style={{width:'252px'}} value={initValue.type} />
+							<KrField grid={1/2} name="type" type="labelText" inline={false} label="活动类型" requireLabel={true} style={{width:'252px'}} value={activityType} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="活动类型" requireLabel={true} value={time} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="举办地址" requireLabel={true} value={`${initValue.cityName}${initValue.countyName}-${initValue.address}`} />
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="地址坐标" requireLabel={true} value={`X:${initValue.xPoint} Y:${initValue.yPoint}`} />
-							<KrField grid={1/2} name="date" type="labelText" inline={false} label="排序" requireLabel={true} value={initValue.sort} />
+							<KrField grid={1/2} name="date" type="labelText" inline={false} label="排序" requireLabel={true} value={initValue.sort}  defaultValue='无'/>
 
-							<KrField grid={1/2} name="contact" type="labelText" inline={false} label="活动联系人" style={{width:'252px'}} value={initValue.contact}/>
-							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:24}} value={initValue.contactPhone}/>
+							<KrField grid={1/2} name="contact" type="labelText" inline={false} label="活动联系人" style={{width:'252px'}} value={initValue.contact} defaultValue='无'/>
+							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:24}} value={initValue.contactPhone} defaultValue='无'/>
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
-							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}/>
-							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow} />
-							{/*置顶显示轮播图*/}
+							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
+							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow}  defaultValue='不置顶'/>
+							<div className="photo-box activity-content">
+								<span className="photo-title">活动介绍</span>
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'150px'}}>
+									{/*initValue.summary*/}
+									{ReactHtmlParser(State.detailContent)}
+								</div>
+							{<div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p><span>{State.contentHeightAuto?'收起':'展开'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'}></span></p></div>}
+
+							</div>
 
 							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
 								<span className="photo-title">上传轮播图</span>
 								<div className="photo-img-box">
-									
+									<img src={initValue.coverPic} style={{width:'100%',height:'100%'}}/>
 								</div>
 							</div>
 
 							<div className="photo-box">
 								<span className="photo-title">上传列表详情图</span>
 								<div className="photo-img-box" style={{width:390,height:230}}>
-									
+									<img src={initValue.infoPic} style={{width:'100%',height:'100%'}}/>
+											
 								</div>
 							</div>
-
-
-							<div className="photo-box">
-								<span className="photo-title">活动介绍</span>
-								<div>
-									{initValue.summary}
-								</div>
-							</div>
-
-							
 							
 						</div>
 
@@ -311,23 +238,23 @@ import dateFormat from 'dateFormat';
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
 									<ListGroup>
-										{	list.name && <ListGroupItem style={{marginRight:48}} key={index}>
+										{	list.name && <ListGroupItem style={{marginRight:48}}>
 												<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 											</ListGroupItem>
 										}
-										{	list.phone && <ListGroupItem style={{marginRight:48}} key={index}>
+										{	list.phone && <ListGroupItem style={{marginRight:48}}>
 												<span style={{fontSize:14,color:"#333333"}} >电话</span>
 											</ListGroupItem>
 										}
-										{	list.company && <ListGroupItem style={{marginRight:48}} key={index}>
+										{	list.company && <ListGroupItem style={{marginRight:48}}>
 												<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 											</ListGroupItem>
 										}
-										{	list.job && <ListGroupItem style={{marginRight:48}} key={index}>
-												<span style={{fontSize:14,color:"#333333"}} >职务1</span>
+										{	list.job && <ListGroupItem style={{marginRight:48}}>
+												<span style={{fontSize:14,color:"#333333"}} >职务</span>
 											</ListGroupItem>
 										}
-										{	list.address && <ListGroupItem style={{marginRight:48}} key={index}>
+										{	list.address && <ListGroupItem style={{marginRight:48}}>
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
 											</ListGroupItem>
 										}
@@ -336,13 +263,13 @@ import dateFormat from 'dateFormat';
 							</Grid>
 						</div>
 					</div>
-					<div className="enroll-info">
+					<div className="enroll-info" style={{minHeight:150}}>
 						<div className="enroll-title">
 							<span>3</span>
 							<span></span>
 							<span>报名情况</span>
 						</div>
-						<div style={{marginBottom:50}}>
+						<div className={State.HeightAuto?'auto':'stationList'}>
 							<Table displayCheckbox={false}>
 								<TableHeader>
 									{
@@ -354,10 +281,8 @@ import dateFormat from 'dateFormat';
 									}
 								</TableHeader>
 								<TableBody>
-
 								{
 									State.actField.actEnroll && State.actField.items.map((item,index)=>{
-									console.log('===>',item);
 									return (
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
@@ -366,13 +291,18 @@ import dateFormat from 'dateFormat';
 											{list.job && <TableRowColumn>{item.job}</TableRowColumn>}
 											{list.address && <TableRowColumn>{item.cityName}</TableRowColumn>}
 									   	</TableRow>
-										)
+									);
 								})}
-
 								</TableBody>
 							</Table>
 						</div>
+						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
+						
+
+						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p><span>{State.HeightAuto?'收起':'展开'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
+
 					</div>
+					
 				</div>
 
 				</form>
