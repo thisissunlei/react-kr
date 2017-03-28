@@ -30,7 +30,8 @@ import {
 	ButtonGroup,
 	CircleStyleTwo,
 	KrDate,
-	Message
+	Message,
+	Tooltip
 } from 'kr-ui';
 
 import dateFormat from 'dateformat';
