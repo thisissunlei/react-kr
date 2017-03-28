@@ -55,13 +55,10 @@ export default class CityComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		// this.setDefaultDate(this.props.input.value);
+		State.city = "";
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// if (!this.isInit && nextProps.input.value) {
-		// 	this.setDefaultDate(nextProps.input.value);
-		// }
 	}
 
 	firstCityList=()=>{
@@ -241,22 +238,23 @@ export default class CityComponent extends React.Component {
 		}
 		let hoverColor = {};
 		let color="#666";
-		if(city=="请选择"){
-			color="#ccc"
-			if(!cityName){
-			}else if(cityName.length!=0){
-				city=cityName;
-			}
-		}
+		// if(city=="请选择"){
+		// 	color="#ccc"
+		// 	if(!cityName){
+		// 	}else if(cityName.length!=0){
+		// 		city=cityName;
+		// 	}
+		// }
         
-        if(city!="请选择"){
-          color="#666";	
-        }
+  //       if(city!="请选择"){
+  //         color="#666";	
+  //       }
 
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="city-component" ref={div=>{this.cityContainer = div}} onClick={this.showCity}>
+						{!State.city && <span style={{fontSize:'14px',position:'absolute',transform:'translateY(-50%)',top:'50%',color:'#ccc'}}>城市</span>}
 						<input readOnly="true" value={city} style={{color:color}} ref={input=>{this.input = input}} className='cityInput'/>
 						<span className="arrow"></span>
 						<div className="city-cantainer" style={cityDiv}>

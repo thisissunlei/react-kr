@@ -319,7 +319,7 @@ export default class List extends Component {
 									onClose={this.openAdvancedQueryDialog}
 									contentStyle={{width:687}}
 								>
-									<AdvancedQueryForm onCancel={this.openAdvancedQueryDialog} onSubmit={this.onAdvanceSearchSubmit}/>
+									<AdvancedQueryForm onCancel={this.openAdvancedQueryDialog} onSubmit={this.onAdvanceSearchSubmit} title={State.searchParams}/>
 							  </Dialog>
 				</div>
 		);
