@@ -277,7 +277,16 @@ const validate = values =>{
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
 		}
+		
+		if(!values.recommendName){
+			errors.recommendName='请填写介绍人姓名'
+		}
 
+		if(!values.recommendTel){
+			errors.recommendTel='请填写介绍人电话'
+		}else if(!phone1.test(values.recommendTel)){
+			errors.recommendTel='介绍人电话错误'
+		}
 
 		if (!values.customerName) {
 			errors.customerName = '请填写联系人姓名';
