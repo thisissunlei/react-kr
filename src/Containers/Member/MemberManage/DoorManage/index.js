@@ -124,6 +124,9 @@ export default class List extends Component {
 				openEditDetail : !_this.state.openEditDetail,
 				searchParams:{
 					date: new Date(),
+					communityId :'',
+					customerName: ''
+
 				}
 			})
 		}).catch(function(err){
@@ -161,6 +164,9 @@ export default class List extends Component {
 				openDeleteDialog : !_this.state.openDeleteDialog,
 				searchParams:{
 					date: new Date(),
+					communityId : '',
+					customerName :''
+
 				}
 			})
 		}).catch(function(err){
