@@ -109,7 +109,7 @@ export default class TotalFund extends Component {
             Message.success("创建成功");
             window.setTimeout(function() {
                 window.location.reload();
-            }, 0);
+            }, 800);
 
         }).catch(function(err) {
             Message.error(err.message);
