@@ -56,6 +56,7 @@ let State = observable({
 		time:''
 	},
 	itemData : '',
+	cityData :''
 	
 });
 

@@ -46,6 +46,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		
 	}
 	componentWillReceiveProps(nextProps){
+		let _this = this;
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
@@ -61,17 +62,54 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						}
 						var startDates = (new Date((DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
 						var endDates   = (new Date((DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
-						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss").substr(11);
-						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss").substr(11);
+						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss");
+						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss");
+						var detailStartTime = startTimes.substr(11);
+						var detailEndTime = endTimes.substr(11);
 						
-						console.log("startTimes",startTimes);
-						console.log("endTimes",endTimes);
+						detailStartTime = detailStartTime.substr(0,5);
+						detailEndTime = detailEndTime.substr(0,5);
+						
+						
+          				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
 
 
-						Store.dispatch(initialize('EditActivityForm', response));
-						Store.dispatch(change('EditActivityForm','startDate',startDates));
-						Store.dispatch(change('EditActivityForm','stopDate',endDates));
+          				var enrollArr = response.enrollFiels;
+          				if(enrollArr.indexOf("NAME")>-1){
+          					State.choseName = true;
+          				}else{
+          					State.choseName = false;
+          				}
+          				if(enrollArr.indexOf("PHONE")>-1){
+          					State.chosePhone = true;
+          				}else{
+          					State.chosePhone = false;
+          				}
+          				if(enrollArr.indexOf("COMPANY")>-1){
+          					State.choseCompany = true;
+          				}else{
+          					State.choseCompany = false;
+          				}
+          				if(enrollArr.indexOf("POSITION")>-1){
+          					State.chosePosition = true;
+          				}else{
+          					State.chosePosition = false;
+          				}
+          				if(enrollArr.indexOf("ADDRESS")>-1){
+          					State.choseAdd = true;
+          				}else{
+          					State.choseAdd = false;
+          				}
+						_this.setState({
+							timeStart : detailStartTime,
+							timeEnd : detailEndTime
+						},function(){
+							Store.dispatch(initialize('EditActivityForm', response));
+							Store.dispatch(change('EditActivityForm','startDate',startDates));
+							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 
+						})
+						
 						
 					}).catch(function(err){
 						
@@ -201,8 +239,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 
 	render(){
-		// console.log("State",State);
+		
 		const { handleSubmit} = this.props;
+		let {timeStart,timeEnd} = this.state;
 		
 		// 对应功能选项
 		let correspondingFunction =[{
@@ -244,10 +283,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			label: '地址',
 			value: 5
 		}]
-		// console.log("State.itemData",State.itemData);
-
-		// console.log("return===>>State",State);
-
+	
+		console.log("State.choseName",State.choseName);
 
 		return (
 
@@ -302,8 +339,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												name="startTime"  
 												component="selectTime" 
 												// onChange={this.onStartChange} 
-												style={{width:80,marginTop:14}} 
-												
+												style={{width:80,marginTop:14,zIndex:10}} 
+												timeNum = {timeStart}
 												// requireLabel={true} 
 												label=''/>
 											
@@ -322,10 +359,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
-												style={{width:80}} 
-												
-												// requireLabel={true} 
+												timeNum = {timeEnd}
+												style={{width:80,zIndex:10}} 
 												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
@@ -333,7 +368,15 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							</Grid>
 
 
-							<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
+							<KrField grid={1/2} 
+								name="cityIdAndCountyId" 
+								requireLabel={true} 
+								component="city" 
+								label="举办地址" 
+								style={{width:'252px'}}  
+								onSubmit={this.changeCity} 
+								cityName={State.cityData}
+							/>
 
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
@@ -380,12 +423,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								pictureFormat={'JPG,PNG,GIF'} 
 								pictureMemory={'200'}
 								requestURI = {State.requestURI}
-								
 								label="上传列表详情图"
 								inline={false}
 							/>
 							
-							<KrField component="editor" name="summary" label="活动介绍"/>
 							
 							
 						</div>
@@ -399,34 +440,35 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
+							<KrField component="editor" name="summary" label="活动介绍"/>
+							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.chooseName}/> 
+											<input type="checkbox"  onChange={this.chooseName} checked={State.choseName}/> 
 											<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 					
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.choosePhone}/> 
+											<input type="checkbox"  onChange={this.choosePhone} checked={State.chosePhone}/> 
 											<span style={{fontSize:14,color:"#333333"}} >电话</span>
 										</ListGroupItem>
 
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.chooseCompany}/> 
+											<input type="checkbox"  onChange={this.chooseCompany} checked={State.choseCompany}/> 
 											<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 	
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.choosePosition}/> 
+											<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition}/> 
 											<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 										</ListGroupItem>
 										<ListGroupItem style={{}}>
-											<input type="checkbox"  onChange={this.chooseAdd}/> 
+											<input type="checkbox"  onChange={this.chooseAdd} checked={State.choseAdd}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 
@@ -464,7 +506,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 }
 const validate = values => {
 	const errors = {}
-	
+	console.log("values校验",values);
 	if(values.top){
 		
 	}
@@ -474,15 +516,28 @@ const validate = values => {
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
+	
+	if(!values.startDate || !values.startTime || !values.stopDate || !values.endTime ){
+		errors.startDate = "请填写完整的活动时间";
+	}
+	if(!values.countyId){
+		errors.cityIdAndCountyId = "请选择举办地址";
+
+	}
+	
 	// 置顶时必需上传轮播图
-	// if(State.isStick){
-	// 	if(!values.coverPic){
-	// 		errors.coverPic = '上传轮播图';
-	// 	}
-	// }
-	// if(!values.infoPic){
-	// 	errors.infoPic = '请上传详情图';
-	// }
+	if(State.isStick){
+		if(!values.coverPic){
+			errors.coverPic = '上传轮播图';
+		}
+	}
+	
+	if(!values.infoPic){
+		errors.infoPic = '请上传详情图';
+	}
+	if(values.mapField && !values.mapField.detailSearch){
+		errors.cityIdAndCountyId = "请填写完整的举办地址";
+	}
 
 	return errors
 }

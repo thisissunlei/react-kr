@@ -56,8 +56,9 @@ import State from './State';
 	}
 	// 提交
 	onSubmit=(values)=>{
-		console.log("values你点击了发布");
-		console.log("values.startDate",values.startDate,"values.stopDate",values.startTime,"values.startTime","values.endTime",values.endTime);
+
+		// values.publishType = this.publishType ;
+
 		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
 		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
 
@@ -78,18 +79,11 @@ import State from './State';
 			EArr.push("ADDRESS")
 		}
 
-		if(State.noPublic){
-			values.publishType = 0;
-		}else{
-			values.publishType = 1;
-		}
-		
-
 		values.yPoint = values.mapField.pointLng;
 		values.xPoint = values.mapField.pointLat;
 		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
-		console.log("values",values);
+
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
 			State.timer = new Date();
@@ -103,10 +97,15 @@ import State from './State';
 		});
 	}
 	//存为草稿
-	toSave=(values)=>{
-		State.noPublic = true;
-		// this.onSubmit(values);
-	}
+	// toSave=()=>{
+	// 	this.publishType = 0;
+	// 	this.refs.newCreateForm.submit();
+		
+	// }
+	// 发布
+	// onPublish=()=>{
+	// 	this.publishType = 1;
+	// }
 	// 置顶
 	chooseStick=()=>{
 		State.isStick = true;
@@ -114,11 +113,7 @@ import State from './State';
 	}
 	 // 不置顶
 	noStick=()=>{
-		
 		State.isStick = false;
-		// Store.dispatch(change('NewCreateForm', 'coverPic', ""));
-
-
 	}
 
 	// 复选框
@@ -215,13 +210,12 @@ import State from './State';
 		}]
 
 
-		// console.log("return===>>State",State);
 
 
 		return (
 
 			<div className="new-create-activity">
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} ref="newCreateForm">
 
 				<div className="title-box">
 					<img src={require('./images/activity.svg')} className="title-img"/>
@@ -242,14 +236,20 @@ import State from './State';
 
 
 
-							<KrField grid={1/2} name="name" type="text" label="活动名称" requireLabel={true} style={{width:'252px'}} />
+							<KrField grid={1/2} 
+								name="name" 
+								type="text" 
+								label="活动名称" 
+								requireLabel={true} 
+								style={{width:252,zIndex:11}} 
+								/>
 							<KrField name="type" 
 								component="select" 
 								options={correspondingFunction}
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24}}
+								style={{width:'252px',marginLeft:24,zIndex:1}}
 							/>
 
 							
@@ -270,7 +270,7 @@ import State from './State';
 												name="startTime"  
 												component="selectTime" 
 												// onChange={this.onStartChange} 
-												style={{width:80,marginTop:14}} 
+												style={{width:80,marginTop:14,zIndex:10}} 
 												
 												// requireLabel={true} 
 												label=''/>
@@ -290,10 +290,10 @@ import State from './State';
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
-												style={{width:80}} 
 												
-												// requireLabel={true} 
+												style={{width:80,zIndex:10}} 
+												
+												
 												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
@@ -352,7 +352,6 @@ import State from './State';
 								label="上传列表详情图"
 								inline={false}
 							/>
-							<KrField component="editor" name="summary" label="活动简介"/>
 							
 							
 						</div>
@@ -366,8 +365,9 @@ import State from './State';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
-							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+							<KrField component="editor" name="summary" label="活动简介"/>
+							
+							<Grid style={{marginTop:19,marginBottom:80}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
@@ -408,10 +408,10 @@ import State from './State';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit'/>
+											<Button  label="发布" type='submit' />
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='button' onTouchTap={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
@@ -430,7 +430,7 @@ import State from './State';
 }
 const validate = values => {
 	const errors = {}
-	console.log("values校验",values);
+	// console.log("values校验",values);
 	if(values.top){
 		
 	}

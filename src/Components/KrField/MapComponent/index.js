@@ -36,7 +36,7 @@ export default class MapComponent extends Component {
 		
 	}
 	componentWillReceiveProps(nextProps){
-		// console.log("nextProps",nextProps.initailPoint);
+		console.log("nextProps",nextProps.initailPoint);
 		this.setMarker(nextProps.initailPoint); 
 	}
 	componentDidMount() {
