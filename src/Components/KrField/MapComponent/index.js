@@ -15,8 +15,9 @@ import WrapComponent from '../WrapComponent';
 
 
 export default class MapComponent extends Component {
-	static defaultProps = {
-		
+	
+	static PropTypes = {
+		defaultValue: React.PropTypes.string,
 	}
 	static PropTypes = {
 		className: React.PropTypes.string
@@ -29,15 +30,23 @@ export default class MapComponent extends Component {
 			// 是否显示
 			showMap : false,
 			searchText : '',
-			detailSearch : ''
+			detailSearch : '',
+			defaultValue:''
 		};
 	}
 	componentWillUnmount() {
 		
 	}
 	componentWillReceiveProps(nextProps){
-		console.log("nextProps",nextProps.initailPoint);
-		this.setMarker(nextProps.initailPoint); 
+		console.log("nextProps--->mapcomponent",nextProps.defaultValue,this.state.defaultValue);
+		if(nextProps.defaultValue !== this.state.defaultValue){
+			this.setState({
+				defaultValue : nextProps.defaultValue
+			},function(){
+				this.setMarker(nextProps.initailPoint);
+			})
+		}
+		 
 	}
 	componentDidMount() {
 		// 百度地图API功能
@@ -169,7 +178,7 @@ export default class MapComponent extends Component {
 		})
 	}
 	render() {
-		let {placeholder,style,mapStyle,...other} = this.props;
+		let {placeholder,style,mapStyle,defaultValue,...other} = this.props;
 		let {showMap} =this.state;
 		let mapInnerStyle = {};
 		var newObj = {};
@@ -185,7 +194,13 @@ export default class MapComponent extends Component {
       		<div className="ui-map-component" style={style}>
 				<img src={require('./images/location.svg')} className="ui-map-img" onClick={this.showMap}/>
 
-				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box"}} onChange={this.inputLocation} ref="mapInput"/>
+				<input type="text" 
+					placeholder={placeholder} 
+					style={{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box"}} 
+					onChange={this.inputLocation} 
+					ref="mapInput"
+					value={defaultValue}
+				/>
 				<div id="mapcomponent" style={mapInnerStyle}></div>
 			</div>
       	

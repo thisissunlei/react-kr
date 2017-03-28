@@ -57,7 +57,7 @@ import State from './State';
 	// 提交
 	onSubmit=(values)=>{
 
-		// values.publishType = this.publishType ;
+		values.publishType = this.publishType ;
 
 		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
 		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
@@ -97,15 +97,13 @@ import State from './State';
 		});
 	}
 	//存为草稿
-	// toSave=()=>{
-	// 	this.publishType = 0;
-	// 	this.refs.newCreateForm.submit();
-		
-	// }
+	toSave=()=>{
+		this.publishType = 0;
+	}
 	// 发布
-	// onPublish=()=>{
-	// 	this.publishType = 1;
-	// }
+	toPublish=()=>{
+		this.publishType = 1;
+	}
 	// 置顶
 	chooseStick=()=>{
 		State.isStick = true;
@@ -365,7 +363,7 @@ import State from './State';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-							<KrField component="editor" name="summary" label="活动简介"/>
+							<KrField component="editor" name="summary" label="活动介绍"/>
 							
 							<Grid style={{marginTop:19,marginBottom:80}}>
 								<Row>
@@ -408,10 +406,10 @@ import State from './State';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit' />
+											<Button  label="发布" type='submit' onClick={this.toPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='button' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />

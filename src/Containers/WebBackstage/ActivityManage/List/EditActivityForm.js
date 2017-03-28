@@ -72,7 +72,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						
 						
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
-
+          				State.mapdefaultValue = response.address;
 
           				var enrollArr = response.enrollFiels;
           				if(enrollArr.indexOf("NAME")>-1){
@@ -107,6 +107,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(initialize('EditActivityForm', response));
 							Store.dispatch(change('EditActivityForm','startDate',startDates));
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							
+							Store.dispatch(change('EditActivityForm','startDate',startDates));
+							Store.dispatch(change('EditActivityForm','detailStartTime',detailStartTime));
+							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 
 						})
 						
@@ -140,7 +145,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values你点击了发布");
+		values.publishType = this.publishType ;
+
+		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+
 		var EArr = [];
 		if(State.choseName){
 			EArr.push("NAME")
@@ -158,19 +167,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			EArr.push("ADDRESS")
 		}
 
-		if(State.noPublic){
-			values.publishType = 0;
-		}else{
-			values.publishType = 1;
-		}
-		
-
 		values.yPoint = values.mapField.pointLng;
 		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.searchText;
+		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
+
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-			State.openNewCreate = !State.openNewCreate;
+			State.openEditDetail = !State.openEditDetail;
 			State.timer = new Date();
 		}).catch(function(err){
 			
@@ -181,9 +184,12 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		});
 	}
 	//存为草稿
-	toSave=(values)=>{
-		// console.log("你点击存为草稿");
-		State.noPublic = true;
+	toSave=()=>{
+		this.publishType = 0;
+	}
+	// 发布
+	toPublish=()=>{
+		this.publishType = 1;
 	}
 	// 置顶
 	chooseStick=()=>{
@@ -284,7 +290,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 	
-		console.log("State.choseName",State.choseName);
 
 		return (
 
@@ -338,10 +343,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
+												 
 												style={{width:80,marginTop:14,zIndex:10}} 
 												timeNum = {timeStart}
-												// requireLabel={true} 
+												
 												label=''/>
 											
 										</ListGroupItem>
@@ -350,7 +355,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 											<KrField 
 												name="stopDate"  
 												component="date" 
-												// onChange={this.onStartChange} 
+												
 												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
@@ -361,7 +366,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												component="selectTime" 
 												timeNum = {timeEnd}
 												style={{width:80,zIndex:10}} 
-												label=''/>
+												label=''
+											/>
 										</ListGroupItem>
 									</ListGroup>					
 								</Row>
@@ -386,6 +392,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									style={{width:242,height:36}}
 									mapStyle={{width:400,height:400}}
 									initailPoint ={State.initailPoint}
+									defaultValue = {State.mapdefaultValue}
 								/>
 							</div>
 
@@ -484,10 +491,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit'/>
+											<Button  label="发布" type='submit' onClick={this.toPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />

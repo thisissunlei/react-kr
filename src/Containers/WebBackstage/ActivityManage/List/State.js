@@ -57,7 +57,8 @@ let State = observable({
 		time:''
 	},
 	itemData : '',
-	cityData :''
+	cityData :'',
+	mapdefaultValue:''
 	
 });
 
