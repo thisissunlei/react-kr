@@ -88,6 +88,8 @@ export default (
 		{/*统计看板*/}
 		<Route path="statistical" component={Basic}>
 			<Route path="index" component={Statistical.Home}/>
+			<Route path="merchantsData" component={Statistical.MerchantsData}/>
+
 				<IndexRedirect to="index" />
 		</Route>
 
@@ -123,7 +125,7 @@ export default (
 				<Route path="index" component={Operation.Home}/>
         {/*分组模版管理*/}
         <Route path="groupSetting" component={Operation.GroupSetting}/>
-        
+
         {/*社区配置*/}
         <Route path="communityAllocation" component={Basic}>
 				<Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
@@ -190,7 +192,7 @@ export default (
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
 																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
-																		
+
 																	</Route>
 
 																	{/*退租协议书*/}
