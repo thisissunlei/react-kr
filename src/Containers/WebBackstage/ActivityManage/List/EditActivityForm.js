@@ -70,9 +70,36 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						detailStartTime = detailStartTime.substr(0,5);
 						detailEndTime = detailEndTime.substr(0,5);
 						
-						console.log("detailStartTime",detailStartTime,"detailEndTime",detailEndTime);
-						// console.log("endTimes",endTimes);
+						
+          				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
 
+
+          				var enrollArr = response.enrollFiels;
+          				if(enrollArr.indexOf("NAME")>-1){
+          					State.choseName = true;
+          				}else{
+          					State.choseName = false;
+          				}
+          				if(enrollArr.indexOf("PHONE")>-1){
+          					State.chosePhone = true;
+          				}else{
+          					State.chosePhone = false;
+          				}
+          				if(enrollArr.indexOf("COMPANY")>-1){
+          					State.choseCompany = true;
+          				}else{
+          					State.choseCompany = false;
+          				}
+          				if(enrollArr.indexOf("POSITION")>-1){
+          					State.chosePosition = true;
+          				}else{
+          					State.chosePosition = false;
+          				}
+          				if(enrollArr.indexOf("ADDRESS")>-1){
+          					State.choseAdd = true;
+          				}else{
+          					State.choseAdd = false;
+          				}
 						_this.setState({
 							timeStart : detailStartTime,
 							timeEnd : detailEndTime
@@ -212,7 +239,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 
 	render(){
-		// console.log("State",State);
+		
 		const { handleSubmit} = this.props;
 		let {timeStart,timeEnd} = this.state;
 		
@@ -256,10 +283,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			label: '地址',
 			value: 5
 		}]
-		// console.log("State.itemData",State.itemData);
-
-		// console.log("return===>>State",State);
-
+	
+		console.log("State.choseName",State.choseName);
 
 		return (
 
@@ -350,7 +375,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="举办地址" 
 								style={{width:'252px'}}  
 								onSubmit={this.changeCity} 
-								
+								cityName={State.cityData}
 							/>
 
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
@@ -402,7 +427,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								inline={false}
 							/>
 							
-							<KrField component="editor" name="summary" label="活动介绍"/>
 							
 							
 						</div>
@@ -416,34 +440,35 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
+							<KrField component="editor" name="summary" label="活动介绍"/>
+							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.chooseName}/> 
+											<input type="checkbox"  onChange={this.chooseName} checked={State.choseName}/> 
 											<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 					
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.choosePhone}/> 
+											<input type="checkbox"  onChange={this.choosePhone} checked={State.chosePhone}/> 
 											<span style={{fontSize:14,color:"#333333"}} >电话</span>
 										</ListGroupItem>
 
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.chooseCompany}/> 
+											<input type="checkbox"  onChange={this.chooseCompany} checked={State.choseCompany}/> 
 											<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 	
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.choosePosition}/> 
+											<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition}/> 
 											<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 										</ListGroupItem>
 										<ListGroupItem style={{}}>
-											<input type="checkbox"  onChange={this.chooseAdd}/> 
+											<input type="checkbox"  onChange={this.chooseAdd} checked={State.choseAdd}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 

@@ -54,11 +54,10 @@ import State from './State';
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
-	
 	// 提交
 	onSubmit=(values)=>{
-		console.log("＝＝＝＝＝>提交");
-		values.publishType = this.publishType ;
+
+		// values.publishType = this.publishType ;
 
 		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
 		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
@@ -85,28 +84,27 @@ import State from './State';
 		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
 
-		// Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-		// 	State.openNewCreate = !State.openNewCreate;
-		// 	State.timer = new Date();
-		// }).catch(function(err){
+		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+			State.openNewCreate = !State.openNewCreate;
+			State.timer = new Date();
+		}).catch(function(err){
 			
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	//存为草稿
-	toSave=()=>{
-		this.publishType = 0;
-		this.refs.newCreateForm.submit();
+	// toSave=()=>{
+	// 	this.publishType = 0;
+	// 	this.refs.newCreateForm.submit();
 		
-	}
+	// }
 	// 发布
-	onPublish=()=>{
-		this.publishType = 1;
-		this.refs.newCreateForm.submit();
-	}
+	// onPublish=()=>{
+	// 	this.publishType = 1;
+	// }
 	// 置顶
 	chooseStick=()=>{
 		State.isStick = true;
@@ -243,7 +241,7 @@ import State from './State';
 								label="活动名称" 
 								requireLabel={true} 
 								style={{width:252,zIndex:11}} 
-							/>
+								/>
 							<KrField name="type" 
 								component="select" 
 								options={correspondingFunction}
@@ -353,7 +351,6 @@ import State from './State';
 								label="上传列表详情图"
 								inline={false}
 							/>
-							<KrField component="editor" name="summary" label="活动简介"/>
 							
 							
 						</div>
@@ -367,8 +364,9 @@ import State from './State';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
-							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+							<KrField component="editor" name="summary" label="活动简介"/>
+							
+							<Grid style={{marginTop:19,marginBottom:80}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
@@ -409,7 +407,7 @@ import State from './State';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='button' onTouchTap={this.onPublish}/>
+											<Button  label="发布" type='submit' />
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
 											<Button  label="存为草稿" type='button' onTouchTap={this.toSave}/>
@@ -431,8 +429,10 @@ import State from './State';
 }
 const validate = values => {
 	const errors = {}
-	console.log("values校验",values);
-	
+	// console.log("values校验",values);
+	if(values.top){
+		
+	}
 	if(!values.name){
 		errors.name = '请输入活动名称';
 	}
