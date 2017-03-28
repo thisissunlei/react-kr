@@ -74,10 +74,12 @@ class NewCreateForm extends Component{
 			},
 		}
 	}
+	componentDidMount() {
+		Store.dispatch(change('AdvancedQueryForm','name',this.props.title.name));
+	}
 	 onSubmit(values){
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
-		console.log('=====>',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	 }
@@ -155,7 +157,4 @@ class NewCreateForm extends Component{
 }
 export default NewCreateForm = reduxForm({
 	form: 'AdvancedQueryForm',
-	// validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
 })(NewCreateForm);
