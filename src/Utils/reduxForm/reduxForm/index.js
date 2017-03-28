@@ -18,17 +18,21 @@ module.exports =  function (initializeConfigs){
       static childContextTypes = {
         onChange: React.PropTypes.func.isRequired,
         getFieldValue: React.PropTypes.func.isRequired,
+        getField: React.PropTypes.func.isRequired,
+        getFieldError: React.PropTypes.func.isRequired,
         registerField: React.PropTypes.func.isRequired,
       }
 
       getChildContext() {
 
-        const {onChange,getFieldValue,registerField }  = this.props;
+        const {onChange,getFieldValue,registerField,getFieldError,getField}  = this.props;
 
         return {
           onChange,
           getFieldValue,
-          registerField
+          registerField,
+          getFieldError,
+          getField,
         }
 
       }
@@ -99,7 +103,9 @@ module.exports =  function (initializeConfigs){
           //校验
           var values = _this.getValues();
 
-          onSubmit && onSubmit(values);
+          _this.stopSubmit();
+
+          //onSubmit && onSubmit(values);
 
         }
 
@@ -109,21 +115,53 @@ module.exports =  function (initializeConfigs){
 
       }
 
+      touch = (fieldName)=>{
+        const {FormModel} = this.props;
+        FormModel.touch(this.formName);
+      }
+
+      stopSubmit = ()=>{
+        const {FormModel} = this.props;
+        var values = this.getValues();
+        var errors = initializeConfigs.validate(values);
+        FormModel.stopSubmit(this.formName,errors);
+      }
+
+
+      getErrors = ()=>{
+        const {FormModel} = this.props;
+        return FormModel.getErrors(this.formName);
+      }
+
+      getFieldError = (fieldName)=>{
+        var errors = this.getErrors();
+        return errors[fieldName];
+      }
+
+      getField = (fieldName)=>{
+        const {FormModel} = this.props;
+        return FormModel.getField(this.formName,fieldName);
+      }
+
       render(){
 
         const {FormModel} = this.props;
 
         const props = {
           values:this.getValues(),
+          errors:this.getErrors(),
           form:FormModel[this.formName],
         }
 
         const handles = {
           onChange:this.onChange,
           getFieldValue:this.getFieldValue,
+          getFieldError:this.getFieldError,
+          getField:this.getField,
           registerField:this.registerField,
           handleSubmit:this.handleSubmit,
           reset:this.reset,
+          stopSubmit:this.stopSubmit,
         }
         return <Form {...props} {...handles}/>
       }

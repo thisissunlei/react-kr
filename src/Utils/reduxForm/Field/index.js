@@ -11,6 +11,7 @@ export default class Field extends React.Component{
 
   static contextTypes =  {
       getFieldValue: React.PropTypes.func.isRequired,
+      getFieldError: React.PropTypes.func.isRequired,
       registerField: React.PropTypes.func.isRequired,
       onChange: React.PropTypes.func.isRequired,
   }
@@ -34,7 +35,7 @@ export default class Field extends React.Component{
   renderComponent = (component)=>{
 
     const {name} = this.props;
-    const {getFieldValue} = this.context;
+    const {getFieldValue,getFieldError} = this.context;
 
     const input = {
       name,
@@ -50,6 +51,7 @@ export default class Field extends React.Component{
     const meta = {
       dirty:false,
       autofilled:false,
+      error:getFieldError(name),
       warning:'',
       pristine:false,
       invalid:false,
@@ -59,17 +61,9 @@ export default class Field extends React.Component{
       touched:field.touched
     };
 
-    const props = Object.assign({},{
-      ref:name,
-      input,
-      meta,
-    },{...this.props});
+    const props = Object.assign({},{ ref:name, input, meta, },{...this.props});
 
-    const handles = {
-
-    };
-
-  return React.createElement(component,{ ...props, ...handles });
+  return React.createElement(component,{ ...props});
 
   }
 

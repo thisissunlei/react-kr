@@ -24,10 +24,11 @@ class DemoComponent extends React.Component {
 		}
 
 		render(){
-			const {input} = this.props;
+			const {input,meta} = this.props;
 			return (
 				<div>
 					<input name={input.name} value={input.value}  onChange={this.onChange}/>
+					{meta.touched && meta.error}
 				</div>
 			)
 		}
@@ -53,8 +54,8 @@ class DemoComponent extends React.Component {
 
 					<form onSubmit={handleSubmit(this.onSubmit)} >
 
-						<Field name="zhng" component={DemoComponent} />
-						<Field name="zhg" component={DemoComponent} />
+						<Field name="username" component={DemoComponent} />
+						<Field name="email" component={DemoComponent} />
 						<Field name="zh" component={DemoComponent} />
 
 						<button type="submit" >submit</button>
@@ -67,4 +68,17 @@ class DemoComponent extends React.Component {
 		}
 	}
 
-	export default reduxForm ({form:'demoFormddd'})(ZhangQu);
+	const validate = values => {
+		const errors = {}
+		if (!values.username) {
+			errors.username = 'Required'
+		}
+
+		if (!values.email) {
+			errors.email = 'Required'
+		}
+		return errors
+	}
+
+
+	export default reduxForm ({form:'demoFormddd',validate})(ZhangQu);

@@ -43,7 +43,6 @@ State.createForm = action(function(formName,configs) {
   extendObservable(this,form);
 });
 
-
 State.getForm = action(function(formName) {
 
   var state = mobx.toJS(this);
@@ -64,9 +63,47 @@ State.getForm = action(function(formName) {
 });
 
 
+State.getField = action(function(formName,fieldName) {
+	  var form = this.getForm(formName);
+		var fields = form.fields;
+		return fields[fieldName];
+});
+
 State.getValues = action(function(formName) {
 	  var form = this.getForm(formName);
 		return form.values;
+});
+
+State.getErrors = action(function(formName) {
+	  var form = this.getForm(formName);
+		return form.syncErrors;
+});
+
+State.setErrors = action(function(formName,errors) {
+	  var form = this.getForm(formName);
+		form.syncErrors = Object.assign({},form.syncErrors,errors);
+
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
+});
+
+
+State.touchAll = action(function(formName) {
+	  var form = this.getForm(formName);
+		var fields = form.fields;
+
+		for(var item in fields){
+			if(fields.hasOwnProperty(item)){
+					this.touch(formName,item);
+			}
+		}
+
+});
+
+State.stopSubmit = action(function(formName,errors) {
+		this.setErrors(formName,errors);
+		this.touchAll(formName);
 });
 
 State.change = action(function(formName,fieldName,fieldValue) {
@@ -134,6 +171,19 @@ State.change = action(function(formName,fieldName,fieldValue) {
 	});
 
 	State.touch = action(function(formName,fieldName) {
+
+		var form = this.getForm(formName);
+		var fields = form.fields;
+
+		var field = fields[fieldName];
+		field.touched = true;
+
+		fields[fieldName] = field;
+		form.fields = fields;
+
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
 
 	});
 
