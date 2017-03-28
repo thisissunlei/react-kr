@@ -87,7 +87,7 @@ import State from './State';
 
 		values.yPoint = values.mapField.pointLng;
 		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.searchText;
+		values.address = values.mapField.detailSearch;
 		values.enroll = EArr;
 		console.log("values",values);
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
@@ -115,7 +115,7 @@ import State from './State';
 	noStick=()=>{
 		
 		State.isStick = false;
-		Store.dispatch(change('NewCreateForm', 'coverPic', ""));
+		// Store.dispatch(change('NewCreateForm', 'coverPic', ""));
 
 
 	}
@@ -161,7 +161,8 @@ import State from './State';
 	// 城市组件选到三级
 	changeCity=(thirdId,secondId,city)=>{
 		// console.log("thirdId,secondId,city",thirdId,secondId,city);
-		State.initailPoint = city.substr(city.indexOf('/')+1);
+		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
+		// console.log("State.initailPoint",State.initailPoint);
 		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
 
@@ -394,7 +395,6 @@ import State from './State';
 											<input type="checkbox"  onChange={this.chooseAdd}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
-
 										</ListGroupItem>
 										
 									</ListGroup>					
@@ -458,7 +458,7 @@ const validate = values => {
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
 	}
-	if(values.mapField && !values.mapField.searchText){
+	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
 

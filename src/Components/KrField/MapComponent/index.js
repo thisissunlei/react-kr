@@ -28,11 +28,16 @@ export default class MapComponent extends Component {
 			pointLat : 39.915,
 			// 是否显示
 			showMap : false,
-			searchText : ''
+			searchText : '',
+			detailSearch : ''
 		};
 	}
 	componentWillUnmount() {
 		
+	}
+	componentWillReceiveProps(nextProps){
+		// console.log("nextProps",nextProps.initailPoint);
+		this.setMarker(nextProps.initailPoint); 
 	}
 	componentDidMount() {
 		// 百度地图API功能
@@ -68,9 +73,11 @@ export default class MapComponent extends Component {
 	inputLocation=()=>{
 		let _this = this;
 		var inputValue = this.refs.mapInput.value;
+		this.setState({
+			detailSearch : inputValue
+		})
 		if(!inputValue){
 			let {initailPoint} =_this.props;
-			console.log("initailPoint",initailPoint);
 			_this.setMarker(initailPoint);
 			
 		}else{
