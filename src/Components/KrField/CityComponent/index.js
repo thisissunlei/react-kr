@@ -70,8 +70,6 @@ export default class CityComponent extends React.Component {
 		let cityName = nextProps.cityName;
 		if(cityName){
 			State.city=cityName;
-		}else{
-			State.city = "";
 		}
 		
 	}
@@ -172,6 +170,7 @@ export default class CityComponent extends React.Component {
 	}
 
 	onSubmit=(event)=>{
+		// console.log("event",event);
 		let {thirdId,secondId} = this.state;
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;

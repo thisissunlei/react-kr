@@ -70,9 +70,19 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						detailStartTime = detailStartTime.substr(0,5);
 						detailEndTime = detailEndTime.substr(0,5);
 						
-						
-          				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
+						var EmptyArr = [];
+						EmptyArr.push(response.yPoint);
+						EmptyArr.push(response.xPoint);
+						console.log("EmptyArr",EmptyArr);
+						State.defaultPoint =  EmptyArr;
+						console.log("State.defaultPoint",State.defaultPoint);
+						State.mapDefaultValue = response.address;
+						State.initailPoint = response.countyName;
+          				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
           				State.mapdefaultValue = response.address;
+
+          				State.coverPicDefaultValue = response.coverPic;
+          				State.infoPicDefaultValue = response.infoPic;
 
           				var enrollArr = response.enrollFiels;
           				if(enrollArr.indexOf("NAME")>-1){
@@ -243,6 +253,15 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			State.choseAdd = false;
 		}
 	}
+	// 城市组件选到三级
+	changeCity=(thirdId,secondId,city)=>{
+		// console.log("thirdId,secondId,city",thirdId,secondId,city);
+		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
+		// console.log("State.initailPoint",State.initailPoint);
+		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
+		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
+
+	}
 
 	render(){
 		
@@ -322,7 +341,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24}}
+								style={{width:'252px',marginLeft:24,zIndex:11}}
 							/>
 
 							
@@ -387,12 +406,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 								<KrField name="mapField" 
-									component="map" 
+									component="mapnew" 
 									placeholder="例如：北京市海淀区中关村大街"
 									style={{width:242,height:36}}
 									mapStyle={{width:400,height:400}}
 									initailPoint ={State.initailPoint}
-									defaultValue = {State.mapdefaultValue}
+									defaultValue = {State.mapDefaultValue}
+									defaultPoint = {State.defaultPoint}
 								/>
 							</div>
 
@@ -422,6 +442,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="上传轮播图"
 								inline={false}
 								style={{display:State.isStick?"block":"none"}}
+								defaultValue={State.coverPicDefaultValue}
 							/>
 							<KrField name="infoPic" 
 								component="newuploadImage" 
@@ -432,6 +453,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								requestURI = {State.requestURI}
 								label="上传列表详情图"
 								inline={false}
+								defaultValue={State.infoPicDefaultValue}
+
 							/>
 							
 							

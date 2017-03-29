@@ -14,7 +14,7 @@ import WrapComponent from '../WrapComponent';
 
 
 
-export default class MapComponent extends Component {
+export default class MapComponentNew extends Component {
 	static defaultProps = {
 		
 	}
@@ -36,18 +36,28 @@ export default class MapComponent extends Component {
 		
 	}
 	componentWillReceiveProps(nextProps){
-		// console.log("nextProps",nextProps.initailPoint);
-		this.setMarker(nextProps.initailPoint); 
+		// console.log("nextProps",nextProps);
+		// this.setMarker(nextProps.initailPoint);
+		// console.log("nextProps.defaultPoint[0]",nextProps.defaultPoint[0])
+		this.refs.mapInput.defaultValue = nextProps.defaultValue;
+		// if(nextProps.defaultPoint){
+		// 	this.map.centerAndZoom(new BMap.Point(nextProps.defaultPoint[0],nextProps.defaultPoint[1]),11);
+		// }
+		this.setState({
+			pointLng : nextProps.defaultPoint[0],
+			pointLat : nextProps.defaultPoint[1],
+		})
+
 	}
 	componentDidMount() {
 		// 百度地图API功能
 		let _this = this;
-		_this.map = new BMap.Map("mapcomponent"); 
+		_this.map = new BMap.Map("mapcomponentnew"); 
 
-		let {initailPoint} =this.props;
-		if(initailPoint){
-			_this.setMarker(initailPoint);	
-		}else{
+		// let {initailPoint} =this.props;
+		// if(initailPoint){
+		// 	_this.setMarker(initailPoint);	
+		// }else{
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
 		
 			_this.map.centerAndZoom(point, 11);
@@ -66,7 +76,7 @@ export default class MapComponent extends Component {
 			 	});
 
 			});
-		}
+		// }
 		
 	}
 	// 输入文字
@@ -141,13 +151,15 @@ export default class MapComponent extends Component {
 	}
 	// 是否显示地图
 	showMap=()=>{
+		let _this = this;
 		this.setState({
 			showMap : !this.state.showMap
 		},function(){
 			// 百度地图API功能
-			let _this = this;
-			
-			_this.map = new BMap.Map("mapcomponent"); 
+
+			_this.map.clearOverlays();        
+			console.log("_this.state.pointLng",_this.state.pointLng,"_this.state.pointLat",_this.state.pointLat);
+			// _this.map = new BMap.Map("mapcomponent"); 
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
 		
 			_this.map.centerAndZoom(point, 11);
@@ -169,7 +181,7 @@ export default class MapComponent extends Component {
 		})
 	}
 	render() {
-		let {placeholder,style,mapStyle,...other} = this.props;
+		let {placeholder,style,mapStyle,defaultValue,...other} = this.props;
 		let {showMap} =this.state;
 		let mapInnerStyle = {};
 		var newObj = {};
@@ -185,8 +197,14 @@ export default class MapComponent extends Component {
       		<div className="ui-map-component" style={style}>
 				<img src={require('./images/location.svg')} className="ui-map-img" onClick={this.showMap}/>
 
-				<input type="text" placeholder={placeholder} style={{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box"}} onChange={this.inputLocation} ref="mapInput"/>
-				<div id="mapcomponent" style={mapInnerStyle}></div>
+				<input 
+					type="text" 
+					placeholder={placeholder} 
+					style={{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box"}} 
+					onChange={this.inputLocation} 
+					ref="mapInput"
+				/>
+				<div id="mapcomponentnew" style={mapInnerStyle}></div>
 			</div>
       	
 		);

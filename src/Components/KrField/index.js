@@ -35,6 +35,8 @@ import UploadImageComponent from './UploadImageComponent';
 
 import NewUploadImageComponent from './NewUploadImageComponent';
 import MapComponent from './MapComponent';
+import MapComponentNew from './MapComponentNew';
+
 import EditorComponent from './EditorComponent';
 
 import UploadImageListComponent from './UploadImageListComponent';
@@ -269,6 +271,11 @@ export default class KrField extends React.Component {
 		if (component === 'map' ) {
 			return (
 				<Field  {...this.props} component={MapComponent} style={WrapStyles}/>
+			);
+		}
+		if (component === 'mapnew' ) {
+			return (
+				<Field  {...this.props} component={MapComponentNew} style={WrapStyles}/>
 			);
 		}
 

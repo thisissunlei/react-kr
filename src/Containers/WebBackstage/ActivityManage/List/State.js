@@ -58,7 +58,8 @@ let State = observable({
 	},
 	itemData : '',
 	cityData :'',
-	mapdefaultValue:''
+	mapDefaultValue:'',
+	coverPicDefaultValue:'',
 	
 });
 

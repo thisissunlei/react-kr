@@ -43,6 +43,17 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
+		// console.log("nextProps图片",nextProps);
+		if(nextProps.defaultValue){
+			this.setState({
+				imgSrc:nextProps.defaultValue,
+				imgUpload : true
+			},function(){
+				// console.log("this.state.imgSrc",this.state.imgSrc);
+			})
+		}
+		
+
 	}
 	onTokenError() {
 		// this.setState({
@@ -125,7 +136,7 @@ export default class UploadImageComponent extends Component {
 		var typeArr = pictureFormat.split(",");
 		let imgSize = Math.round(file.size/1024*100)/100;
 		for(var i=0;i<typeArr.length;i++){
-			console.log("imgType",imgType,"typeArr[i]",typeArr[i]);
+			// console.log("imgType",imgType,"typeArr[i]",typeArr[i]);
 			if(imgType == typeArr[i]){
 				this.refs.inputImg.value ="";
 				this.refs.inputImgNew.value ="";
@@ -279,12 +290,10 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,...other} = this.props;
 		let {operateImg} = this.state;
-		// console.log("imgTitle",imgTitle,"pictureFormat",pictureFormat);
 
-		// let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
-		
+		// console.log("defaultValue",defaultValue);
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
