@@ -87,6 +87,7 @@ import State from './State';
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
 			State.timer = new Date();
+			Message.success('发布成功');
 		}).catch(function(err){
 			
 			Notify.show([{
