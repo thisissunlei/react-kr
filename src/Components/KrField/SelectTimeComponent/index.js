@@ -85,7 +85,8 @@ export default class SelectTimeComponent extends React.Component{
 		}
 
 		let value=hour + ":" + minute;
-		input.onChange(value); 
+		input.onChange(value);
+		onChange && onChange(value); 
 
     }
 

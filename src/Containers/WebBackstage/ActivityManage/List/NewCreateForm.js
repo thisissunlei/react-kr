@@ -33,7 +33,10 @@ import State from './State';
 		this.state={
 			// 上传轮播图是否显示
 			// rotateShow : true
-			
+			beginDate:'',
+			endDate:'',
+			beginTime:'',
+			endTime:''
 		}
 		// Store.dispatch(reset('NewCreateForm'));
 		
@@ -186,6 +189,65 @@ import State from './State';
 		}
 		
 	}
+	// 开始时间改变
+	beginDateChange=(value)=>{
+		
+		var beginDate = new Date(value);
+		beginDate = beginDate.getTime();
+		this.setState({
+			beginDate:beginDate
+		})
+		if(this.state.endDate){
+			if(this.state.endDate >this.state.beginDate){
+				Notify.show([{
+					message: "结束日期不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(this.state.endDate ==this.state.beginDate){
+				if(this.state.beginTime && this.state.endTime){
+
+				}
+			}
+		}
+	}
+
+	// 结束日期改变
+	endDateChange=(value)=>{
+		var endDate = new Date(value);
+		endDate = endDate.getTime();
+		this.setState({
+			endDate:endDate
+		})
+		if(this.state.beginDate){
+			if(this.state.endDate >this.state.beginDate){
+				Notify.show([{
+					message: "结束日期不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(this.state.endDate ==this.state.beginDate){
+				if(this.state.beginTime && this.state.endTime){
+					
+				}
+			}
+		}
+	}
+
+	// 开始时间改变
+	beginTimeChange=(value)=>{
+		this.setState({
+			beginTime:value
+		})
+	}
+
+	// 结束时间改变
+	endTimeChange=(value)=>{
+		this.setState({
+			endTime:value
+		})
+	}
+
+
+
 	
 
 	render(){
@@ -289,26 +351,29 @@ import State from './State';
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
+												onChange = {this.beginDateChange}
 											/>
 											<KrField
 												name="startTime"  
 												component="selectTime" 
 												 
 												style={{width:80,marginTop:14,zIndex:10}} 
+												onChange = {this.beginTimeChange} 
 												
 												 
 												label=''/>
 											
 										</ListGroupItem>
-										
-										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
+										<ListGroupItem style={{marginTop:32,padding:0}}>至</ListGroupItem>
+										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 0"}}>
 											<KrField 
 												name="stopDate"  
 												component="date" 
 												// onChange={this.onStartChange} 
 												style={{width:170}} 
 												simple={true} 
-												requireLabel={false} 
+												requireLabel={false}
+												onChange = {this.endDateChange} 
 												
 											/>
 											<KrField
