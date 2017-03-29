@@ -780,7 +780,7 @@ class EditMoney extends Component {
 							<span>{flowAmount}</span>
 						</div>
 						{this.renderPayList()}
-						<Grid style={{marginTop:50}}>
+						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
