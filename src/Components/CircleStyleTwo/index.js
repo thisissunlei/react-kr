@@ -59,7 +59,7 @@ export default class CircleStyleTwo extends Component {
 		if (circle == 'center') {
 			return (
 				<div className="ui-detailContents" style={style}>
-					<div className="ones"><p>{num}</p><div className="txts">—— {info}</div></div>
+					<div className="ones"><p>{num}</p><div className="txts"><span className="u-border"></span><span  className="u-info-txt"> {info}</span></div></div>
 					<div className="circles"><div className="circ"></div></div>
 					{children}
 			</div>
@@ -68,7 +68,7 @@ export default class CircleStyleTwo extends Component {
 		if (circle == 'bottom') {
 			return (
 				<div className="ui-textInfos" style={style}>
-					<div className="ones"><p>{num}</p><div className="txts">—— {info}</div></div>
+					<div className="ones"><p>{num}</p><div className="txts"><span className="u-border"></span><span  className="u-info-txt"> {info}</span></div></div>
 					<div className="circles"><div className="circ"></div></div>
 					{children}
 			</div>

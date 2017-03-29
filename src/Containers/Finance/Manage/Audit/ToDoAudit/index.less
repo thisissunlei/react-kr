@@ -1,4 +1,8 @@
 .u-clearfix { zoom:1; }
+.btn-center {
+    margin-right: 16px;
+    display: inline-block;
+}
 .u-clearfix:after {
   clear: both;
   content: '.';
@@ -11,6 +15,9 @@
 	color:red;
 }
 .m-todo-audit{
+  .ui-textInfos{
+   padding-left:68px !important;
+  }
 .ui-table th{
 	&:last-child{
 		width:150px;
@@ -28,7 +35,7 @@
 		    word-wrap:break-word;
 		    word-break: normal;
 		}
-		
+
 	}
 }
   .list-delete{
@@ -68,6 +75,7 @@
 	}
 }
 .u-audit-add{
+
 	position:relative;
 	padding:45px 45px 80px 48px;
 	.u-audit-add-title{
@@ -80,12 +88,48 @@
 			vertical-align: middle;
 		}
 	}
+  .u-table-list{
+    padding:18px 50px 30px 48px;
+    border-bottom:1px solid #d7d7d7;
+    overflow-x:hidden;
+  }
+  .ui-textInfos,.ui-detailContents{
+    width:690px;
+  }
+  .u-add-total-count{
+    width:600px;
+  }
+  .u-order-title{
+    font-size:14px;
+    margin:16px 0;
+  }
+  .u-order-list{
+    font-size:14px;
+    color:#666666;
+    .u-order-name{
+      margin-bottom:16px;
+    }
+    .u-order-font-list{
+      width:260px;
+      float:left;
+      margin-bottom:16px;
+      .u-order-deatil{
+        font-family:'FZLTZHJW  GB1 0';
+        margin-bottom:16px;
+        .u-font-red{
+          color:#ff6868;
+        }
+      }
+
+
+    }
+  }
 	.spinner2{
 		position:absolute;
 		left:50%;
 		top:75%;
 		margin-left:-27.5px;
-		
+
 	}
 	.u-audit-add-icon{
 		width:40px;
@@ -123,7 +167,7 @@
 		}
 	}
 	.u-audit-content-null{
-		width:100%;
+		width:80%;
 		height:165px;
 		.u-audit-content-null-icon{
 			height:146px;
@@ -146,6 +190,10 @@
 	   float:left;
 	   .ui-form-item{
 	      margin-top:8px;
+        .btn-center{
+            margin-right: 16px;
+            display: inline-block;
+        }
 	   }
 	}
 	.rightBottomValue{
