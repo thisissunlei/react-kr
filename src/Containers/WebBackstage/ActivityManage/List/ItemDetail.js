@@ -211,16 +211,7 @@ import dateFormat from 'dateFormat';
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
 							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
 							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow}  defaultValue='不置顶'/>
-							<div className="photo-box activity-content">
-								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'150px'}} id="clampjs">
-									{/*ReactHtmlParser(initValue.summary)*/}
-									{ReactHtmlParser(State.detailContent)}
-								</div>
-							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
-
-							</div>
-
+							
 							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
 								<span className="photo-title">上传轮播图</span>
 								<div className="photo-img-box">
@@ -234,6 +225,16 @@ import dateFormat from 'dateFormat';
 									<img src={initValue.infoPic} style={{width:'100%',height:'100%'}}/>
 											
 								</div>
+							</div>
+
+							<div className="photo-box activity-content">
+								<span className="photo-title">活动介绍</span>
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'110px'}} id="clampjs">
+									{/*ReactHtmlParser(initValue.summary)*/}
+									{ReactHtmlParser(State.detailContent)}
+								</div>
+							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
+
 							</div>
 							
 						</div>
