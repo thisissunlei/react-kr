@@ -119,14 +119,14 @@ import dateFormat from 'dateFormat';
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
 		let partakeMan =[{
-			label: '仅限会员',
-			value: 'ONLY_MEMBER'
+			label: '会员专属',
+			value: 'MEMBER_ONLY'
 		},{
-			label: '仅限受邀者',
-			value: 'ONLY_INVITA'
+			label: '会员优先',
+			value: 'MEMBER_FIRST'
 		},{
-			label: '无限制',
-			value: 'ANYBODY'
+			label: '仅限氪空间项目',
+			value: 'KR_PROJECT_ONLY'
 		}];
 		let options = [{
 			label: 'CEO Time',
