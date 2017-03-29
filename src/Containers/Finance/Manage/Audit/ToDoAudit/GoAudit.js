@@ -89,16 +89,16 @@ class GoAudit extends Component {
       <div className='list-audit'>
           <form onSubmit={handleSubmit(this.onSubmit)}>
                 <KrField
-                    style={{width:600}}
+                    style={{width:600,marginTop:18}}
                     name="operateRemark"
                     component="textarea"
                     label="备注"
                     maxSize={100}
                 />
               <div style={{textAlign:'center'}}>
-                <div  className='ui-btn-center'><Button  label="同意" type="submit" onClick={this.audit}/></div>
-                <div  className='ui-btn-center'><Button  label="退回" type="submit" backgroundColor='#ff6868' onClick={this.retreat}/></div>
-                <div  className='ui-btn-center'><Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel}/></div>
+                <div style={{display:'inline-block',marginRight:16}} className='btn-center'><Button  label="同意" type="submit" onClick={this.audit}/></div>
+                <div style={{display:'inline-block',marginRight:16}} className='btn-center'><Button  label="退回" type="submit" backgroundColor='#ff6868' onClick={this.retreat}/></div>
+                <div style={{display:'inline-block',marginRight:16}} className='btn-center'><Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel}/></div>
             </div>
           </form>
       </div>
