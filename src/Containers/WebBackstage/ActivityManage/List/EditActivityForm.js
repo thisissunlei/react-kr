@@ -71,8 +71,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						detailEndTime = detailEndTime.substr(0,5);
 						
 						var EmptyArr = [];
-						EmptyArr.push(response.yPoint);
 						EmptyArr.push(response.xPoint);
+						EmptyArr.push(response.yPoint);
 						console.log("EmptyArr",EmptyArr);
 						State.defaultPoint =  EmptyArr;
 						console.log("State.defaultPoint",State.defaultPoint);
