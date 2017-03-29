@@ -38,12 +38,7 @@ import {
   Drawer,
   Message
 } from 'kr-ui';
-import SearchForm from './SearchForm';
-import HightSearchForm from './HightSearchForm';
-import EditMoney from './EditMoney';
-import ViewAudit from './ViewAudit';
-import './index.less';
-export default class DoAudit extends Component {
+export default class DelVoucher extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -74,9 +69,6 @@ export default class DoAudit extends Component {
           verifyStatus: 'CHECKED'
         }
       }, function() {
-        this.getParentCount({
-          verifyStatus: 'CHECKED'
-        })
         this.getInfo({
           verifyStatus: 'CHECKED'
         });
@@ -85,13 +77,6 @@ export default class DoAudit extends Component {
 
   }
   componentDidMount() {}
-    //调用获取条目
-  getParentCount = (formd) => {
-    let {
-      count
-    } = this.props;
-    count && count(formd);
-  }
 
   //导出
   onExport = (values) => {
@@ -184,184 +169,15 @@ export default class DoAudit extends Component {
       openSearch: !this.state.openSearch
     })
   }
-  onSearchSubmit = (form) => {
-    this.openSearch();
-
-    this.setState({
-      Params: form
-    }, function() {
-
-      this.getParentCount(form)
-      this.getInfo(form);
-    });
-
-
-  }
 
   render() {
     let {
       itemDetail
     } = this.state;
-    console.log("asdfsda", this.state.Params);
     return (
 
       <div className="m-do-audit">
-            <div  className="u-search">
-                  <SearchForm onSubmit={this.searchParams} openSearch={this.openSearch} detail={this.state.infoList}/>
-            </div>
-             <Table
-                  style={{marginTop:10}}
-                  ajax={true}
-                  ajaxUrlName='get-fince-info'
-                  ajaxParams={this.state.Params}
-                  onOperation={this.onOperation}
-                  onExport={this.onExport}
-                  exportSwitch={true}
-              >
-              <TableHeader>
-                  <TableHeaderColumn>流水号</TableHeaderColumn>
-                  <TableHeaderColumn>收款方式</TableHeaderColumn>
-                  <TableHeaderColumn>收款日期</TableHeaderColumn>
-                  <TableHeaderColumn>主体</TableHeaderColumn>
-                  <TableHeaderColumn>我司账号</TableHeaderColumn>
-                  <TableHeaderColumn>社区</TableHeaderColumn>
-                  <TableHeaderColumn>付款账户</TableHeaderColumn>
-                  <TableHeaderColumn>付款金额</TableHeaderColumn>
-                  <TableHeaderColumn>客户名称</TableHeaderColumn>
-                  <TableHeaderColumn>收款人</TableHeaderColumn>
-                  <TableHeaderColumn>备注</TableHeaderColumn>
-                  <TableHeaderColumn>操作</TableHeaderColumn>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                    <TableRowColumn name="tradingCode" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
 
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="payWayName"></TableRowColumn>
-                    <TableRowColumn name="dealTime"  component={(value, oldValue) => {
-                          return (<KrDate value={value} format="yyyy-mm-dd"/>)
-                    }}></TableRowColumn>
-                    <TableRowColumn name="corporationName"component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="accountNum" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="communityName" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="payAccount" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="flowAmount"></TableRowColumn>
-                    <TableRowColumn name="company" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="payee" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn name="remark" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                           }}></TableRowColumn>
-                    <TableRowColumn>
-                        <Button label="查看"  type="operation"  operation="view"/>
-                        <Button label="编辑"  type="operation"  operation="edit"/>
-                    </TableRowColumn>
-                  </TableRow>
-              </TableBody>
-               <TableFooter></TableFooter>
-            </Table>
-              <Dialog
-              title="高级查询"
-              modal={true}
-              open={this.state.openSearch}
-              onClose={this.openSearch}
-              contentStyle={{width:666}}
-            >
-              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
-            </Dialog>
-             <Drawer
-              modal={true}
-              width={750}
-              open={this.state.openEditCreate}
-              onClose={this.openEditCreate}
-              openSecondary={true}
-            >
-              <EditMoney  detail={itemDetail} onSubmit={this.EditAuditSubmit} onCancel={this.openEditCreate}  />
-            </Drawer>
-            <Drawer
-             modal={true}
-             width={750}
-             open={this.state.openView}
-             onClose={this.openView}
-             openSecondary={true}
-           >
-             <ViewAudit  detail={itemDetail} onCancel={this.openView}  />
-           </Drawer>
       </div>
 
     );

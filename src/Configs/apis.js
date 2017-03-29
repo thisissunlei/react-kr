@@ -974,7 +974,12 @@ const APIS = {
    'transferMemberCard':{
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
-   }
+   },
+   //凭证管理--凭证列表--待处理凭证
+   'get-fince-info':{
+      url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&page={page}&pageSize={pageSize}&customerName={customerName}',
+      method: 'get'
+   },
  }
 
  module.exports = APIS;

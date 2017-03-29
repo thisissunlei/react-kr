@@ -35,9 +35,9 @@ import {
   Title
 } from 'kr-ui';
 
-// import WaitVoucher from './WaitVoucher';
-// import OverVoucher from './OverVoucher';
-// import DelVoucher from './DelVoucher';
+ import WaitVoucher from './WaitVoucher';
+ import OverVoucher from './OverVoucher';
+ import DelVoucher from './DelVoucher';
 
 export default class AuditList extends Component {
 
@@ -45,7 +45,6 @@ export default class AuditList extends Component {
     super(props, context);
     this.state = {
       tab: 'table',
-      countList: " "
     }
   }
 
@@ -92,7 +91,6 @@ export default class AuditList extends Component {
     let {
       tab,
       initSearch,
-      countList
     } = this.state;
     const activeTab = {
       color: '#2b8dcd',
@@ -105,30 +103,27 @@ export default class AuditList extends Component {
       fontSize: '16px'
     }
 
-
     let merchantsStyle = (tab == 'merchants' || tab == 'table') ? activeTab : commenTab;
     let personalStyle = (tab == 'personal') ? activeTab : commenTab;
     let signedClientStyle = (tab == 'signedClient') ? activeTab : commenTab;
 
-    if (countList != " ") {
       return (
-
         <div>
           <Title value="凭证列表"/>
           <Tabs className="tabs">
             <Tab label="待处理凭证" onActive={this.merchants} style={merchantsStyle}>
-                <ToDoAudit
+                <WaitVoucher
                       tab={initSearch}
                 />
             </Tab>
             <Tab label="已处理凭证" onActive={this.personal} style={personalStyle}>
-               <DoAudit
+               <OverVoucher
                        tab={initSearch}
                 />
             </Tab>
 
             <Tab label="已删除凭证" onActive={this.signedClient} style={signedClientStyle}>
-                <DoneAudit
+                <DelVoucher
                        tab={initSearch}
                 />
             </Tab>
@@ -136,15 +131,6 @@ export default class AuditList extends Component {
       </div>
 
       );
-    } else {
-      return (
-        <div></div>
-      )
-    }
-
-	return(
-		<div></div>
-	)
   }
 
 }
