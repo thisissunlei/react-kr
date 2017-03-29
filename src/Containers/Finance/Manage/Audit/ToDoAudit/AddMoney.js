@@ -643,7 +643,7 @@ class AddMoney extends Component {
 			return (
 				<div >
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
-					
+
 				</div>
 
 			)
@@ -808,7 +808,7 @@ class AddMoney extends Component {
 							<span>{flowAmount}</span>
 						</div>
 						{this.renderPayList()}
-						<Grid style={{marginTop:50}}>
+						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
