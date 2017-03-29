@@ -89,8 +89,8 @@ import State from './State';
 				EArr.push("ADDRESS")
 			}
 
-			values.yPoint = values.mapField.pointLng;
-			values.xPoint = values.mapField.pointLat;
+			values.xPoint = values.mapField.pointLng;
+			values.yPoint = values.mapField.pointLat;
 			values.address = values.mapField.detailSearch;
 			values.enroll = EArr;
 
