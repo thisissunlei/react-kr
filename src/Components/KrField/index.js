@@ -32,6 +32,8 @@ import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
+import UploadImageListComponent from './UploadImageListComponent';
+import SelectTimeComponent from './SelectTimeComponent';
 import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
 import SearchCustomer from './SearchCustomer';
@@ -132,6 +134,14 @@ export default class KrField extends React.Component {
 			);
 		}
 
+
+		if (component === 'uploadImageList') {
+			return (
+				<Field {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+
 		if (component === 'searchPayment') {
 			return (
 				<Field {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
@@ -158,11 +168,19 @@ export default class KrField extends React.Component {
 			)
 		}
 
+
 		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
+
+		if (component === 'selectTime') {
+			return (
+				<Field {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 		if (component === 'SearchList') {
 			return (
 				<Field {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>

@@ -153,21 +153,6 @@ class LookDetail extends Component{
 			isDeadline=false;
 		}
 
-        
-
-		if(detail.stationNum=='0'){
-			detail.stationNum='0'
-		}
-		if(detail.staionPrice=='0'){
-			detail.staionPrice='0'
-		}
-		if(detail.teamNum=='0'){
-			detail.teamNum='0'
-		}
-		if(detail.amount=='0'){
-			detail.amount='0'
-		}
-
 			
 		if(isDeadline){
           unifyStyle=oddStyle;
@@ -176,7 +161,6 @@ class LookDetail extends Component{
           unifyStyle=evenStyle;
           uniStyle=oddStyle;
 		}
-			
 		
 		
 		
@@ -186,6 +170,8 @@ class LookDetail extends Component{
 	      <div className="m-LookDetailed" style={{marginTop:8}}>
 		    
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={oddStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
+				{State.presentShow && <li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="介绍人姓名:" style={evenStyle} component="labelText" value={detail.recommendName} inline={true} /></li>}
+				{State.presentShow && <li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="介绍人电话:" style={oddStyle} component="labelText" value={detail.recommendTel} inline={true} /></li>}
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={evenStyle} component="labelText" value={(!detail.stationNum)?'':detail.stationNum+"个"} inline={true}/></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={oddStyle} component="labelText" value={detail.name} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={evenStyle} component="labelText" value={detail.staionTypeName} inline={true} /></li>

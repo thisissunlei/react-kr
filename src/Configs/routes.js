@@ -116,17 +116,21 @@ export default (
         <Route path="retail" component={Basic}>
             <Route path="index" component={Retail.Home}/>
         </Route>
-
-
+        
         {/*运营管理*/}
         <Route path="operation" component={Basic}>
                 <Route path="index" component={Operation.Home}/>
-                 {/*分组模版管理*/}
-                <Route path="groupSetting" component={Operation.GroupSetting}/>
-                {/*基础配置*/}
-                <Route path="basicConfig" component={Basic}>
-                    <Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
-                </Route>
+        {/*分组模版管理*/}
+        <Route path="groupSetting" component={Operation.GroupSetting}/>
+        
+        {/*社区配置*/}
+        <Route path="communityAllocation" component={Basic}>
+                <Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
+        </Route>
+        {/*基础配置*/}
+        <Route path="basicConfig" component={Basic}>
+            <Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
+        </Route>
                  {/*客户管理*/}
                 <Route path="customerManage" component={Basic}>
                     <Route path="customerList" component={Operation.CustomerManage.CustomerList} />

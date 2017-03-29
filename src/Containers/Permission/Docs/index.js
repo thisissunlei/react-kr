@@ -17,8 +17,7 @@ import {
 	IconButton,
 	RaisedButton,
 	Divider,
-	FontIcon,
-	DatePicker
+	FontIcon
 } from 'material-ui';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
@@ -49,7 +48,7 @@ class Help extends Component{
 					</Section>
 
 			</div>
-				
+
 
 		);
 
@@ -74,12 +73,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Help);
-
-
-
-
-
-
-
-
-

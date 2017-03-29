@@ -29,8 +29,7 @@ import {
 	Divider,
 	FontIcon,
 	GridList,
-	GridTile,
-	DatePicker
+	GridTile
 } from 'material-ui';
 
 class Home extends Component{
@@ -75,9 +74,9 @@ class Home extends Component{
 			</div>
 
 
-			
-			
-	</div> 
+
+
+	</div>
 
 		);
 	}
@@ -98,9 +97,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home);
-
-
-
-
-
-

@@ -46,15 +46,9 @@ import Circle from './circle';
 import './active.less';
 
 import {
-	Menu,
-	MenuItem,
-	Divider,
 	FontIcon,
-	DatePicker,
-	Paper,
-	IconButton
+	Paper
 } from 'material-ui';
-import IconMenu from 'material-ui/IconMenu';
 
 import {
 	Table,
@@ -341,7 +335,7 @@ export default class OrderDetail extends React.Component {
 			})
 		}
 	}
-		
+
 	change = (form) => {
 		const {
 			orderBaseInfo
@@ -430,7 +424,7 @@ export default class OrderDetail extends React.Component {
 			console.log('dddddddd');
 			document.addEventListener('click', this.docClick)
 		}
-		
+
 	}
 	docClick = (event) => {
 		event = event || window.event;
@@ -503,7 +497,7 @@ export default class OrderDetail extends React.Component {
 
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
-			
+
 			<div className="content">
 
 			<Table className="orders" pageSize={contractList.length} displayCheckbox={false} >
@@ -522,7 +516,7 @@ export default class OrderDetail extends React.Component {
 			<TableBody>
 
 			{contractList.map((item,index)=>{
-				
+
 				let {opretionOpen,opretionId} = this.state;
 				let showMoreOnExit = false;
 				let showPrint = (item.contracttype == 'QUITRENT')?'hidden':'visible';
@@ -545,7 +539,7 @@ export default class OrderDetail extends React.Component {
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 					{(item.contracttype != 'QUITRENT' || showMoreOnExit)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:''}
-					
+
 					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 					<div style={{visibility:showOpretion}} className="m-operation" >
 						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
@@ -562,8 +556,8 @@ export default class OrderDetail extends React.Component {
 			</TableBody>
 			</Table>
           	</div>
-          	
-          	
+
+
 			</Section>
 
 
@@ -589,5 +583,5 @@ export default class OrderDetail extends React.Component {
 
 		);
 	}
-	
+
 }

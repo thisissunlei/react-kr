@@ -24,7 +24,6 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker,
 	Avatar,
 } from 'material-ui';
 
@@ -94,15 +93,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SNSActivityManage);
-
-
-
-
-
-
-
-
-
-
-
-

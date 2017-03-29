@@ -12,7 +12,6 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
 import dateFormat from 'dateformat';
-import DatePicker from 'material-ui/DatePicker';
 import {
 	Dialog,
 	Section,
@@ -358,7 +357,7 @@ export default class FloorPlan extends Component {
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
-				
+
 					<ListGroup>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>社区</span></ListGroupItem>
 						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>

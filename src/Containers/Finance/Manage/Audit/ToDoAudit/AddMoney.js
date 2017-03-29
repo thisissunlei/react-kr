@@ -641,7 +641,7 @@ class AddMoney extends Component {
 			})
 
 			return (
-				<div >
+				<div  className="u-audit-orderlist">
 					<KrField label="对应合同" name='contract' grid={1 / 2} component="groupCheckbox" defaultValue={finaflowInfo.cimbList} requireLabel={true} onChange={this.argreementChecked}/>
 
 				</div>

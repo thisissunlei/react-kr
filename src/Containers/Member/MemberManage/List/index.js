@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 import {
 	Title,
-	DatePicker,
-	Form,
 	KrField,
 	Table,
 	TableBody,

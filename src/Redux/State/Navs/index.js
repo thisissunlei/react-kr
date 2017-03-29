@@ -84,7 +84,6 @@ module.exports = {
             router: 'communityManage',
             menuCode: 'communityBaseAdmin',
             menuItems: [{
-
                     primaryText: '社区列表',
                     menuCode: 'communityBaseList',
                     originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
@@ -96,7 +95,6 @@ module.exports = {
                     primaryText: '设备列表',
                     menuCode: 'communityDeviceList',
                     originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
-
                 }, {
                     primaryText: '工位列表',
                     menuCode: 'communityStationList',

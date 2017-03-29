@@ -867,6 +867,7 @@ const APIS = {
         method: 'get'
     },
 
+
     //运营平台-基础配置-设备定义-设备列表
     'equipmentList': {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-list?communityId={communityId}&deviceCode={deviceCode}&floor={floor}&functionId={functionId}&hardwareId={hardwareId}&page={page}&pageSize={pageSize}&propertyId={propertyId}&typeId={typeId}',
@@ -932,6 +933,16 @@ const APIS = {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
         method: 'get'
     },
+    //社区配置－社区列表
+    'communitySearch': {
+        url: '/api/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&openDateBegin={openDateBegin}&openDateEnd={openDateEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}&portalShow={portalShow}',
+        method: 'get'
+    },
+    //社区配置－社区列表数据准备
+    'list-param-data': {
+        url: '/api/krspace-finance-web/cmt/community/list-param-data',
+        method: 'get'
+    },
 
 
 
@@ -974,6 +985,32 @@ const APIS = {
     'transferMemberCard': {
         url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
         method: 'put'
+    },
+
+    //社区管理－校验社区名称
+    'check-name': {
+        url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
+        method: 'get'
+    },
+    //社区管理－校验社区名称
+    'check-code': {
+        url: '/api/krspace-finance-web/cmt/community/check/code?id={id}&code={code}',
+        method: 'get'
+    },
+    //社区管理－社区新增或编辑
+    'actions-edit': {
+        url: '/api/krspace-finance-web/cmt/community/actions/edit',
+        method: 'post'
+    },
+    //社区管理－获取社区编辑信息
+    'communityGetEdit': {
+        url: '/api/krspace-finance-web/cmt/community/info/type/edit?id={id}',
+        method: 'get'
+    },
+    //社区管理－校验社区排序
+    'check-rank': {
+        url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
+        method: 'get'
     },
     //财务--款项--获取一级款项分页
     'findPage': {
@@ -1109,7 +1146,6 @@ const APIS = {
     'del-fina-unchecked-record': {
         url: '/api/krspace-finance-web/finaVerify/opt/del-fina-unchecked-record',
         method: 'post'
-
     },
     //财务--已退回--删除
     'del-fina-returned-record': {
