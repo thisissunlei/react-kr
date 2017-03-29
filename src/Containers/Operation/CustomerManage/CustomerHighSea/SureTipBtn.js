@@ -19,26 +19,28 @@ export default class SureTipBtn  extends React.Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	};
-	onSubmit=()=>{
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit();
-	}
-	
-
+    reloadSubmit=()=>{
+    	const {reloadSubmit} = this.props;
+		reloadSubmit && reloadSubmit(); 
+    }
 
 	render(){
+
+		let {sureStatus}=this.props;
 
 		return(
 
 			   <div>
-					  <p className='sure-tip'>是否确定补挂延期收入？</p>
+					  <p className='sure-tip'>{sureStatus.sureMessage}</p>
 					
 
 					   <Grid style={{position:'absolute',bottom:'30px',left:'50%',transform:'translateX(-97px)'}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
-									<div  className='ui-btn-center'><Button  label="确定" type="submit"  onTouchTap={this.onSubmit}/></div>
+									<div  className='ui-btn-center'>
+									  {sureStatus.sureCode==-3?<Button  label="重新导入" type="button"  onTouchTap={this.reloadSubmit}/>:<Button  label="确定" type="button"  onTouchTap={this.reloadSubmit}/>}
+									</div>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /> 
 								</ButtonGroup>
 							</Col>

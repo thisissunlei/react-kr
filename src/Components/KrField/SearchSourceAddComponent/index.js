@@ -1,14 +1,14 @@
 import React from 'react';
 
 
-import ReactSelectAsync from '../../Select/Async';
+import ReactSelectAsync from '../../Select/AsyncCreatable';
 
 import {Actions,Store} from 'kr/Redux';
 
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchCustomerSourceComponent extends React.Component {
+export default class  SearchSourceAddComponent extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请输入...'
@@ -31,24 +31,33 @@ export default class  SearchCustomerSourceComponent extends React.Component {
 	}
 
 	onInputChange=()=>{
-	}
 
-	componentWillReceiveProps(nextProps){
-       if(nextProps.refreshState){
-       	 this.selectCustomer.loadOptions();
-       }
 	}
 
 	onChange(item){
+	
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
+		console.log('---',item,value);
 		input.onChange(value);
 		onChange && onChange(item);
+		if(item.className){
+		  this.createOption(value);	
+		}	
+	}
+
+	createOption = (searchKey)=>{
+		    let {input} = this.props;
+			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:searchKey})).then(function(response){
+			 console.log('dfdsfdsfds');
+			 input.onChange('3434324324');
+			}).catch(function(err){			
+	    });
 	}
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('highSeaDataReday',{searchKey:searchKey })).then(function(response){
+			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:searchKey})).then(function(response){
 				resolve({options:response.sources});
 			}).catch(function(err){
 				reject(err);
@@ -63,7 +72,7 @@ export default class  SearchCustomerSourceComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
-					ref={(selectCustomer)=>this.selectCustomer=selectCustomer}
+					ref={(select)=>this.select = select}
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}

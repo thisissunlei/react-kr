@@ -44,11 +44,13 @@ class SearchData extends React.Component {
 
 	render() {
 
+		let {refreshState}=this.props;
+
 		return (
 		  <div>
 			<form>
 				 <span className='source-customer'>客户来源:</span>
-                 <KrField  grid={1} name="sourceId" style={{marginTop:4,width:262}} component='searchSource'  onChange={this.onChangeSource} placeholder='请选择'/>
+                 <KrField  grid={1} name="sourceId" style={{marginTop:4,width:262}} component='searchSource'  onChange={this.onChangeSource} placeholder='请选择' refreshState={refreshState}/>
 
                 <div style={{marginLeft:20,display:'inline-block'}}>   
                   <span className='source-customer'>所属城市:</span>

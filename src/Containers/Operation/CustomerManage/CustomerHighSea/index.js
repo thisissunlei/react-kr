@@ -39,20 +39,53 @@ class CustomerHighSea extends React.Component{
 		super(props, context);
 		this.state={
 			progress:0,
-			style:true
+			style:true,
+			sureStatus:{
+			 sureCode:'',
+			 sureMessage:''	
+			},
+			refreshState:false	
 		}
 	}
 
 	openImportData=()=>{
-	  State.importContent();
-      State.openImportFun();
-      //State.openSureTip();
+	  if(State.selectCode==-1){
+	  	this.reloadTipSubmit(); 
+	  }else{
+	  	State.openImportFun();  
+	  }	         
 	}
 
+    reloadTipSubmit=()=>{
+           State.importContent();
+      	   if(State.statusCode==-2){
+  	         State.openSureTip();
+             this.setState({
+              	 sureStatus:{
+              	 	sureCode:-2,
+              	 	sureMessage:State.statusMessage
+              	 }
+             }) 
+		  }
+		  if(State.statusCode==-3){
+              State.openSureTip();
+               _this.setState({
+              	 sureStatus:{
+              	 	sureCode:-3,
+              	 	sureMessage:State.statusMessage
+              	 }
+              })
+	      }	
+    }
+
+	reloadSubmit=()=>{
+	  State.openImportFun();
+	}
 	cancelImportData=()=>{
 	  State.openImportFun();	
 	}
-	cancelSureTip=()=>{
+	cancelSureTip=()=>{	
+	  State.selectCode='';  
 	  State.openSureTip();	
 	}
 
@@ -61,17 +94,63 @@ class CustomerHighSea extends React.Component{
 		window.location.href = url; 
 	}
 
-	importDataPost=(files)=>{
-	  State.openProgressLoading();
-	   var _this=this;
+	importDataPost=(num)=>{
+		this.cancelImportData();
+	    State.openProgressLoading();
+	    var _this=this;
 		var timer = window.setInterval(function() {
-			if (State.percentage==20) {
-				window.clearInterval(timer);
+			if (State.percentage==100) {
 				_this.setState({
 					style:false
 				})
-			}
-			State.importContent(12);
+			 }
+			  State.importContent(num);
+			  if(State.statusCode==-2){
+			  	  window.clearInterval(timer);
+			  	  State.openProgressLoading();
+                  State.openSureTip();
+                  _this.setState({
+                  	 sureStatus:{
+                  	 	sureCode:-2,
+                  	 	sureMessage:State.statusMessage
+                  	 },
+                  	 refreshState:true                	 
+                  })
+                  State.selectCode=-2;
+                  State.searchParamsData();
+              }
+              if(State.statusCode==-3){
+              	  window.clearInterval(timer);
+			  	  State.openProgressLoading();
+                  State.openSureTip();
+                   _this.setState({
+                  	 sureStatus:{
+                  	 	sureCode:-3,
+                  	 	sureMessage:State.statusMessage
+                  	 },
+                  	 refreshState:false  
+                  })
+                  State.selectCode=-3;
+              }
+              if(State.statusCode==1){
+              	 window.clearInterval(timer);
+			  	 State.openProgressLoading();
+              	 State.openLoading=false;
+              	 Message.success('导入成功'); 
+              	 State.searchParamsData();
+              	 _this.setState({
+              	 	refreshState:true  
+              	 })        
+              }
+              if(State.statusCode==-1){
+              	 window.clearInterval(timer);
+              	 State.openProgressLoading();
+              	 Message.error(State.statusMessage); 
+              	 State.selectCode=-1;
+              	  _this.setState({
+              	 	refreshState:false  
+              	 })           	  
+              }
 			_this.setState({
 			  progress:State.percentage	
 			})
@@ -81,7 +160,7 @@ class CustomerHighSea extends React.Component{
 
 
 	render(){
-		   let {progress,style}=this.state;
+		   let {progress,style,sureStatus,refreshState}=this.state;
            return(
             <div className="m-highSea">
 			 <Title value="客户公海列表"/>
@@ -99,7 +178,7 @@ class CustomerHighSea extends React.Component{
 					  </Col>
 
 			          <Col style={{marginTop:-15,float:'right'}}>
-				            <SearchData />
+				            <SearchData refreshState={refreshState}/>
 			          </Col>
 	         </Row>
 
@@ -148,7 +227,7 @@ class CustomerHighSea extends React.Component{
 						contentStyle ={{ width: '446'}}
 					>
 						<ImportData 
-						  onSubmit={this.importDataPost} 
+						  importDataPost={this.importDataPost} 
 						  onCancel={this.cancelImportData}
 						  onLoadDemo={this.onLoadDemo}
 						  />
@@ -173,8 +252,9 @@ class CustomerHighSea extends React.Component{
 						contentStyle ={{ width: '446px',height:'236px'}}
 					>
 						<SureTipBtn
-                          onSubmit={this.importDataPost} 
 						  onCancel={this.cancelSureTip} 
+						  sureStatus={sureStatus}
+						  reloadSubmit={this.reloadSubmit}
 						/>
                     </Dialog>
 

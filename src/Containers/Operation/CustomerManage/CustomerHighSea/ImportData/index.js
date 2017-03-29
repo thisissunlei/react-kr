@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm} from 'redux-form';
+import {reduxForm,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	Button,
@@ -13,7 +13,7 @@ import {
 import {
 	observer
 } from 'mobx-react';
-
+import State from '../State';
 import './index.less';
 @observer
 class ImportData extends React.Component{
@@ -32,14 +32,24 @@ class ImportData extends React.Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	};
-	onSubmit=()=>{
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit();
+	importDataPost=(num)=>{
+		const {importDataPost} = this.props;
+		importDataPost && importDataPost(num);
 	}
-
 	onLoadDemo=()=>{
 		const {onLoadDemo} = this.props;
 		onLoadDemo && onLoadDemo();
+	}
+
+	onChangeAdd=(params)=>{
+	   if(params.label==params.value){
+	   	 Store.dispatch(change('ImportData','sourceName',params.label)); 
+	   	 Store.dispatch(change('ImportData','sourceId',''));  
+	   }else{
+	   	 Store.dispatch(change('ImportData','sourceId',params.value));
+	   	 Store.dispatch(change('ImportData','sourceName',params.label));
+	   }
+       console.log(';;;;;',params);
 	}
 	
 	onChange=(event)=> {
@@ -57,34 +67,38 @@ class ImportData extends React.Component{
 		})
 	}
 
-	test=()=>{
+	onSubmit=(params)=>{
 		let _this = this;
     	var form = new FormData();
 		form.append('markerData', this.state.file);
-		form.append('companyId', this.companyId);
-		form.append('communityId', this.communityId);
+		form.append('sourceId', params.sourceId);
+		form.append('sourceName', params.sourceName);
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
 		}
-
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					console.log('ss',xhr.response);
-					if(xhr.response.code=='-1'){
-						Message.error(xhr.response.message);
-					}else{
-            			_this.onCancel(); 
-            			_this.onSubmit();
-            			Message.success("导入成功");
-					}
-
-				
-				} else {
+						   if (xhr.response && xhr.response.code > 0) {
+						   	  //xhr.response.data.batchId
+                              State.importContent(12);
+                              if(State.statusCode==-4){
+                              	  State.openImportFun();	
+                                  _this.importDataPost(12);
+                              }              
+                              if(State.statusCode==-1){
+                              	  State.openImportFun();	
+                              	  Message.error(State.statusMessage);
+                              	  State.selectCode=-1;
+                              }                    
+							} else {
+							   Message.error(xhr.response.message);
+							}
+			    }else {
             	    _this.onCancel(); 
-					Message.error('导入失败');
+					Message.error('上传失败');
 				}
 			}
 		};
@@ -110,8 +124,8 @@ class ImportData extends React.Component{
 					<form onSubmit={handleSubmit(this.onSubmit)}>
 					  
 					  <span className='source-customer'>客户来源:</span>
-                      <KrField  grid={1} name="intentionCommunityId" style={{marginTop:4,width:262}} component='searchIntend'  onChange={this.onChangeIntend} placeholder='请选择'/>
-
+                      <KrField  grid={1} name="sourceId" style={{marginTop:4,width:262}} component='searchSourceAdd'  onChange={this.onChangeAdd} placeholder='请选择'/>
+                      <KrField type='hidden' name='sourceName' />
                       <div style={{marginTop:19}}>
                         <span className='m-upload-file'>上传文件:</span>
 						<span className='import-logo'><span className='import-pic'></span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
@@ -123,7 +137,7 @@ class ImportData extends React.Component{
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
-									<div  className='ui-btn-center'><Button  label="确定导入" type="button" width={90} height={34} onClick={this.test}/></div>
+									<div  className='ui-btn-center'><Button  label="确定导入" type="submit" width={90} height={34} onClick={this.onSubmit}/></div>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> 
 								</ButtonGroup>
 							</Col>

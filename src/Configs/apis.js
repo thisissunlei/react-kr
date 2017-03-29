@@ -990,6 +990,11 @@ const APIS = {
       url: '/mockjsdata/35/krspace-finance-web/csr/market/import/actions/get-result?batchId={batchId}',
       method: 'get'
    },
+   //客户公海列表－客户公海导入数据准备
+   'highSourceName':{
+      url: '/mockjsdata/35/krspace-finance-web/csr/market/upload-param-data?sourceName={sourceName}',
+      method: 'get'
+   },
    
  }
 

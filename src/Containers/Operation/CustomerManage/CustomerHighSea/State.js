@@ -22,7 +22,10 @@ let State = observable({
 		openImport:false,
 		openLoading:false,
 		openTip:false,
-		percentage:0
+		percentage:0,
+		statusCode:'',
+		statusMessage:'',
+		selectCode:''
 });
 State.searchParamsData=action(function(params){
 	params = Object.assign({}, this.searchParams, params);
@@ -45,9 +48,11 @@ State.openProgressLoading=action(function(){
 State.importContent=action(function(ids){
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('highSeaDataGet',{batchId:ids})).then(function(response) {
-		  _this.percentage=response.percent;  
+		  _this.percentage=response.percent;
+		  _this.statusCode=1;
 		}).catch(function(err) {
-			Message.error(err.message);
+          _this.statusCode=err.code; 
+          _this.statusMessage=err.message; 
 		});
 })
 
