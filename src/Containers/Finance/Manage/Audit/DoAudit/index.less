@@ -1,0 +1,238 @@
+.m-do-audit{
+	.u-search{
+		margin: 26px 0 ;
+	}
+	.u-high-search{
+		width:24px;
+		height:24px;
+		display:inline-block;
+		float:right;
+		margin:2px 0 0 28px;
+		background:url(images/search.svg) no-repeat center center;
+		background-size: cover;
+	}
+	.u-audit-edit .u-table tr td{
+		word-break: break-all;
+	}
+	.ui-table td{
+		&:nth-child(12){
+			.ui-tooltip{
+				display:inline-block;
+				width:360px;
+				white-space:normal;
+			    word-wrap:break-word;
+			    word-break: normal;
+			}
+			
+		}
+	}
+	.ui-detailContents,.ui-textInfos{
+		margin-left:68px !important;
+		border-left:1px dashed #499df1;
+	}
+}
+.u-audit-add-title{
+	span{
+		font-size:18px;
+	}
+	
+}
+.u-audit-info{
+	min-width:500px;
+	float:left;
+	height:30px;
+	display:inline-block;
+	.u-info-list{
+		font-size:16px;
+		color:#333333;
+		margin-right:16px;
+		display:inline-block;
+		span{
+			font-size:16px;
+			font-family:'FZLTZHJW  GB1 0';
+		}
+		.u-info-label{
+			padding-left:6px;
+		}
+		.u-info-icon{
+			display:inline-block;
+			width:24px;
+			height:24px;
+			vertical-align: bottom;
+		}
+		&:nth-child(1){
+			.u-info-icon{
+				background:url('images/income.png') no-repeat center center;
+				background-size:cover;
+			}
+		}
+		&:nth-child(2){
+			.u-info-icon{
+				background:url('images/money.svg') no-repeat center center;
+				background-size:cover;
+			}
+		}
+		&:nth-child(3){
+			.u-info-icon{
+				background:url('images/station.svg') no-repeat center center;
+				background-size:cover;
+			}
+		}
+	}
+}
+.u-info-more{
+		width:54px;
+		float:left;
+		font-family:'FZLTZHJW  GB1 0';
+		cursor: pointer;
+		span{
+			font-size:16px;
+			color:#333333;
+			display:inline-block;
+		}
+		.u-info-bottom{
+			width:12px;
+			height:10px;
+			background:url('images/arrows.svg') no-repeat center center;
+			background-size:cover;
+			vertical-align: initial;
+			margin-left:8px;
+		}
+
+}
+.u-more{
+	width:54px;
+	float:left;
+	position:relative;
+	.u-more-list{
+			width:560px;
+			max-width:560px;
+			min-height:40px;
+			max-height:244px;
+			padding:20px 0;
+			display:inline-block;
+			background:#fff;
+			position:absolute;
+			left:-269px;
+			top:35px;
+			z-index:10;
+			border-radius:4px;
+			box-shadow: 0 0 25px rgba(0,0,0,0.2);
+			.u-more-s{
+				width:0;
+				height:0;
+				position:absolute;
+				border:8px solid transparent;
+				border-bottom-color:#fff;
+				left:269px;
+				top:-16px;
+
+			}
+			.u-infolist{
+				overflow:auto;
+				width:560px;
+				max-width:560px;
+				min-height:40px;
+				max-height:244px;
+				display:inline-block;
+				overflow:auto;
+			}
+			.u-info-list{
+				width:248px;
+				font-size:16px;
+				color:#333333;
+				margin-bottom:16px;
+				float:left;
+				padding-left:20px;
+				&:nth-child(2n-1){
+					border-right:1px dashed #c0c0c0;
+				}
+				
+				span{
+					font-size:16px;
+					vertical-align: middle;
+					font-family:'FZLTZHJW  GB1 0';
+				}
+			}
+			
+		}
+
+}
+.u-audit-edit{
+	padding:0 !important;
+	.u-audit-add-title{
+		width:700px;
+		padding:40px 0 0 48px;
+
+	}
+	.u-table{
+		width:630px;
+		 border-collapse: collapse;
+		 font-size:14px;
+		th{
+			height:34px;
+			background:#f2f2f2;
+			font-size:14px;
+			color:#333333;
+			font-weight:100;
+			border:1px solid #eeeeee;
+		}
+		tr{
+			td{
+				height:40px;
+				text-align:center;
+				color:#666666;
+				border-left:1px solid #eeeeee;
+				border-bottom:1px solid #eeeeee;
+				&:last-child{
+					border-right:1px solid #eeeeee;
+				}
+				.u-font-green{
+					color:#77cd50;
+				}
+				.u-font-red{
+					color:#ff6868;
+				}
+			}
+		}
+
+	}
+	.u-table-list{
+		padding:18px 50px 30px 48px;
+		border-bottom:1px solid #d7d7d7;
+		overflow-x:hidden;
+	}
+	.ui-textInfos,.ui-detailContents{
+		width:690px;
+		margin-left:48px;
+	}
+	.u-add-total-count{
+		width:600px;
+	}
+	.u-order-title{
+		font-size:14px;
+		margin:16px 0;
+	}
+	.u-order-list{
+		font-size:14px;
+		color:#666666;
+		.u-order-name{
+			margin-bottom:16px;
+		}
+		.u-order-font-list{
+			width:260px;
+			float:left;
+			margin-bottom:16px;
+			.u-order-deatil{
+				font-family:'FZLTZHJW  GB1 0';
+				margin-bottom:16px;
+				.u-font-red{
+					color:#ff6868;
+				}
+			}
+
+
+		}
+	}
+
+}
