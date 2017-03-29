@@ -55,13 +55,13 @@ export default class SearchCommunitys extends React.Component {
 			Store.dispatch(Actions.callAPI('get-mainbill-community', {
 				communityName: lastname
 			})).then(function(response) {
-				var list = response.forEach(function(item, index) {
+				response.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.communityname;
 					return item;
 				});
 				resolve({
-					options: list
+					options: response
 				});
 			}).catch(function(err) {
 				reject(err);
