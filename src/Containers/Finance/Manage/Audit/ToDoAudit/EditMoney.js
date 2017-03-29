@@ -271,8 +271,12 @@ class EditMoney extends Component {
 		this.setState({
 			Loading: true
 		})
-		if (this.state.flowAmount == 0) {
+		if (!form.contract) {
 			Message.error('请选择对应合同');
+			return;
+		}
+		if (this.state.flowAmount == 0) {
+			Message.error('回款金额不能为0');
 			this.setState({
 				Loading: false
 			})
