@@ -58,7 +58,7 @@ export default class AppointmentVisit extends Component {
 			_this.tabNum();
 			renovateRedDrop();
 		}).catch(function(err) {
-			Message.error(err.message)
+
 		});
 	}
 
@@ -76,29 +76,29 @@ export default class AppointmentVisit extends Component {
 	        return ;
 	    }else{
 	    	this.setState({
-				searchParams: {
-					page: 1,
-					pageSize: 15,
-					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
-					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-					other:!this.state.searchParams.other
-				}
-			})
+						searchParams: {
+							page: 1,
+							pageSize: 15,
+							createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+							createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+							other:!this.state.searchParams.other
+						}
+				})
 	    }
-		
+
 	}
 
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
-        let start=newStartDate;
-        let end=value || newEndDate;
+		let {searchParams,newStartDate,newEndDate} = this.state;
+        let start = newStartDate;
+        let end = value || newEndDate;
         this.setState({
         		newStartDate : start,
         		newEndDate : end
         	});
         if( !!start && !!end && start > end){
-        	
+
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
@@ -112,7 +112,7 @@ export default class AppointmentVisit extends Component {
 				}
 			});
 	    }
-		
+
 	}
 	//信息被点击
 	columnClick = (value) => {
@@ -136,7 +136,6 @@ export default class AppointmentVisit extends Component {
 	//刷新列表
 	renovateList = () =>{
 		let _this=this;
-		console.log(this.state.newPage ,"eeeeeee")
 		this.setState({
 			searchParams: {
 				page: _this.state.newPage ,
@@ -145,8 +144,6 @@ export default class AppointmentVisit extends Component {
 				createDateStart:_this.state.searchParams.createDateStart || "",
 				other:!_this.state.searchParams.other
 			}
-		},function(){
-			console.log(this.state.searchParams.page,"?????????");
 		});
 	}
 

@@ -26,8 +26,6 @@ import {
 import './index.less'
 
 import State from './State';
-// import personal from "../Personal/State";
-// import signedClient from "../SignedClient/State";
 import {
 	observer,
 	inject
@@ -58,9 +56,9 @@ class CustomerIndent extends Component{
 	editIndentClick = (id) =>{
 		this.props.editIndentSwitch(id);
 	}
-	
-	
-	
+
+
+
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=this.props.CommunityDetailModel.orderDetail;
@@ -94,7 +92,7 @@ class CustomerIndent extends Component{
 						{isEdit&&<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
 						<span className="interval"></span></span>}
 						<Button  label="查看" type="button" cancle={true}>
-						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/> 
+						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
 						</Button>
 						<span className="interval"></span>
 						{item.deleteBtn && <Button  label="删除" type="button" cancle={true} onTouchTap={()=>{
@@ -104,10 +102,10 @@ class CustomerIndent extends Component{
 																			}
 																			if(operType=="SIGN"){
 																			//    signedClient.deleteId=item.id;
-																				_tthis.props.CommunityDetailModel.deleteIndent(item.id);
+																				_this.props.CommunityDetailModel.deleteIndent(item.id);
 																			}
 
-																			
+
 																			DeleteSwitch();
 																		}} />}
 					</div>
@@ -133,15 +131,15 @@ class CustomerIndent extends Component{
 	render(){
 		let {newIndentSwitch}=this.props;
 		let detail=this.props.CommunityDetailModel.orderDetail;
-		
+
 		return(
 	    	<div className="m-CustomerIndent">
 				{detail.hasOrderRight&&<div style={{marginTop:20,marginBottom:20}}><Button  label="新建订单" type="button" onTouchTap={newIndentSwitch}/></div>}
 				{this.orderInnerList()}
 	    	</div>
-		    
-		 		
-			
+
+
+
 
 		);
 	}

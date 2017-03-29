@@ -95,7 +95,7 @@ import {
 	  }
 
 	  var param=value.label;
-      if(param.indexOf('介绍')!=-1){
+      if(param.indexOf('推荐')!=-1){
          State.sourceCustomer=true;
       }else{
       	 State.sourceCustomer=false;
@@ -119,6 +119,7 @@ import {
 	componentDidMount(){
 	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		 State.sourceCustomer = false;
 
 	}
     closemm=()=>{
@@ -144,10 +145,10 @@ import {
 											onChange={this.sourceCustomer}
 									/>
 
-                                    {State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
+                    {State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
 				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
 
-			             			<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
+			            <div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 
 									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
@@ -158,7 +159,7 @@ import {
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={false}>
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-								
+
 									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称' requireLabel={true}/>
 									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"/>
@@ -215,9 +216,8 @@ import {
 const validate = values =>{
 
 		const errors = {};
-		let phone1=/^(0\d{2,3}-\d{7,8}(-\d{3,5}){0,1})|((\+86)?(1[35847]\d{9}))$/;
-		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
-		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+		let phone1=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
+
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
 		let stationN = /^([1-9][0-9]{0,7})$/;
@@ -234,9 +234,7 @@ const validate = values =>{
 		}else if(!phone1.test(values.recommendTel)){
 			errors.recommendTel='介绍人电话错误'
 		}
-		// if(!phone.test(values.recommendTel)||!checkTel.test(values.recommendTel)){
 
-		
 		if(!stationN.test(values.stationNum)){
 			errors.stationNum = '请输入8位以内正整数,不能以0开头';
 		}
@@ -254,23 +252,19 @@ const validate = values =>{
 		}
 
 
-		
 
-       
 
-		
+
+
+
 
 
 		if (!values.tel) {
 			errors.tel = '请填写联系人电话';
-		}else if(!phone.test(values.tel)||!checkTel.test(values.tel)){
+		}else if(!phone1.test(values.tel)){
 			errors.tel = '联系人电话格式错误';
 		}
 
-		
-		// else if(!RMB.test(values.staionPrice)){
-		// 	errors.staionPrice = '工位价格不得超过1亿';
-		// }
 		//意向工位价格
 		if(values.staionPrice&&!staionPriceReg.test(values.staionPrice)){
 			errors.staionPrice = '小数点前8位，小数点后2位';
@@ -288,7 +282,7 @@ const validate = values =>{
 			errors.wechat="最多输入50个字符";
 		}
 
-		
+
 		if (!values.company) {
 			errors.company = '请填写公司名称';
 		}else if(values.company.length>20){
@@ -310,9 +304,9 @@ const validate = values =>{
 		}else if(values.amount&&isNaN(values.amount)){
 			errors.amount = '请输入数字';
 		}
-        
 
-		
+
+
 		if(values.projectName&&values.projectName.length>20){
 			errors.projectName = '最多输入20个字符';
 		}
@@ -326,7 +320,7 @@ const validate = values =>{
 			errors.website = '最多输入50个字符';
 		}
 
-		
+
 		return errors
 	}
 export default reduxForm({ form: 'NewCustomerList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCustomerList);
