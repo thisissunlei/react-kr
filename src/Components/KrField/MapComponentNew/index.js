@@ -36,17 +36,15 @@ export default class MapComponentNew extends Component {
 		
 	}
 	componentWillReceiveProps(nextProps){
-		// console.log("nextProps",nextProps);
-		// this.setMarker(nextProps.initailPoint);
-		// console.log("nextProps.defaultPoint[0]",nextProps.defaultPoint[0])
 		this.refs.mapInput.defaultValue = nextProps.defaultValue;
-		// if(nextProps.defaultPoint){
-		// 	this.map.centerAndZoom(new BMap.Point(nextProps.defaultPoint[0],nextProps.defaultPoint[1]),11);
-		// }
-		this.setState({
-			pointLng : nextProps.defaultPoint[0],
-			pointLat : nextProps.defaultPoint[1],
-		})
+	
+		if(nextProps.defaultPoint){
+			this.setState({
+				pointLng : nextProps.defaultPoint[0],
+				pointLat : nextProps.defaultPoint[1],
+			})
+		}
+		
 
 	}
 	componentDidMount() {

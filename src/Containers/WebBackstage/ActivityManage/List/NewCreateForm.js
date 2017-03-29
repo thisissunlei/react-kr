@@ -33,7 +33,10 @@ import State from './State';
 		this.state={
 			// 上传轮播图是否显示
 			// rotateShow : true
-			
+			beginDate:'',
+			endDate:'',
+			beginTime:'',
+			endTime:''
 		}
 		// Store.dispatch(reset('NewCreateForm'));
 		
@@ -56,45 +59,54 @@ import State from './State';
 	}
 	// 提交
 	onSubmit=(values)=>{
+		if(State.serialNumRepeat){
+			return;
+		}else{
+			values.publishType = this.publishType ;
 
-		values.publishType = this.publishType ;
+			values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+			values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
 
-		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
-		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+			if(values.top == 1){
+				values.sort = '';
+			}
 
-		var EArr = [];
-		if(State.choseName){
-			EArr.push("NAME")
-		}
-		if(State.chosePhone){
-			EArr.push("PHONE")
-		}
-		if(State.choseCompany){
-			EArr.push("COMPANY")
-		}
-		if(State.chosePosition){
-			EArr.push("POSITION")
-		}
-		if(State.choseAdd){
-			EArr.push("ADDRESS")
-		}
 
-		values.yPoint = values.mapField.pointLng;
-		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.detailSearch;
-		values.enroll = EArr;
+			var EArr = [];
+			if(State.choseName){
+				EArr.push("NAME")
+			}
+			if(State.chosePhone){
+				EArr.push("PHONE")
+			}
+			if(State.choseCompany){
+				EArr.push("COMPANY")
+			}
+			if(State.chosePosition){
+				EArr.push("POSITION")
+			}
+			if(State.choseAdd){
+				EArr.push("ADDRESS")
+			}
 
-		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-			State.openNewCreate = !State.openNewCreate;
-			State.timer = new Date();
-			Message.success('发布成功');
-		}).catch(function(err){
-			
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+			values.yPoint = values.mapField.pointLng;
+			values.xPoint = values.mapField.pointLat;
+			values.address = values.mapField.detailSearch;
+			values.enroll = EArr;
+
+			Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+				State.openNewCreate = !State.openNewCreate;
+				State.timer = new Date();
+				Message.success('发布成功');
+			}).catch(function(err){
+				
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		}
+		
 	}
 	//存为草稿
 	toSave=()=>{
@@ -161,9 +173,85 @@ import State from './State';
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
 
 	}
+	// 检验排序号是否重复
+	NumRepeat=(value)=>{
+		console.log("value",value);
+		if(!value){
+			State.serialNumRepeat = false;
+		}else{
+			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
+				State.serialNumRepeat = false;
+				
+			}).catch(function(err){
+				State.serialNumRepeat = true;
+				
+			});
+		}
+		
+	}
+	// 开始时间改变
+	beginDateChange=(value)=>{
+		
+		var beginDate = new Date(value);
+		beginDate = beginDate.getTime();
+		this.setState({
+			beginDate:beginDate
+		})
+		if(this.state.endDate){
+			if(this.state.endDate >this.state.beginDate){
+				Notify.show([{
+					message: "结束日期不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(this.state.endDate ==this.state.beginDate){
+				if(this.state.beginTime && this.state.endTime){
+
+				}
+			}
+		}
+	}
+
+	// 结束日期改变
+	endDateChange=(value)=>{
+		var endDate = new Date(value);
+		endDate = endDate.getTime();
+		this.setState({
+			endDate:endDate
+		})
+		if(this.state.beginDate){
+			if(this.state.endDate >this.state.beginDate){
+				Notify.show([{
+					message: "结束日期不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(this.state.endDate ==this.state.beginDate){
+				if(this.state.beginTime && this.state.endTime){
+					
+				}
+			}
+		}
+	}
+
+	// 开始时间改变
+	beginTimeChange=(value)=>{
+		this.setState({
+			beginTime:value
+		})
+	}
+
+	// 结束时间改变
+	endTimeChange=(value)=>{
+		this.setState({
+			endTime:value
+		})
+	}
+
+
+
 	
 
 	render(){
+		console.log("State.serialNumRepeat",State.serialNumRepeat);
 		const { handleSubmit} = this.props;
 		
 		// 对应功能选项
@@ -181,14 +269,14 @@ import State from './State';
 			value: 'OPEN_DAY'
 		}];
 		let partakeMan =[{
-			label: '仅限会员',
-			value: 'ONLY_MEMBER'
+			label: '会员专属',
+			value: 'MEMBER_ONLY'
 		},{
-			label: '仅限受邀者',
-			value: 'ONLY_INVITA'
+			label: '会员优先',
+			value: 'MEMBER_FIRST'
 		},{
-			label: '无限制',
-			value: 'ANYBODY'
+			label: '仅限氪空间项目',
+			value: 'KR_PROJECT_ONLY'
 		}];
 		let checkboxOptions=[{
 			label: '姓名',
@@ -263,26 +351,29 @@ import State from './State';
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
+												onChange = {this.beginDateChange}
 											/>
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
+												 
 												style={{width:80,marginTop:14,zIndex:10}} 
+												onChange = {this.beginTimeChange} 
 												
-												// requireLabel={true} 
+												 
 												label=''/>
 											
 										</ListGroupItem>
-										
-										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
+										<ListGroupItem style={{marginTop:32,padding:0}}>至</ListGroupItem>
+										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 0"}}>
 											<KrField 
 												name="stopDate"  
 												component="date" 
 												// onChange={this.onStartChange} 
 												style={{width:170}} 
 												simple={true} 
-												requireLabel={false} 
+												requireLabel={false}
+												onChange = {this.endDateChange} 
 												
 											/>
 											<KrField
@@ -326,7 +417,10 @@ import State from './State';
 								<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
 			              	</KrField>
 			              	{/*置顶不显示排序*/}
-							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}}/>
+							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
+							{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
+							
+
 							{/*置顶显示轮播图*/}
 			              	<KrField name="coverPic" 
 								component="newuploadImage" 
@@ -428,6 +522,12 @@ import State from './State';
 }
 const validate = values => {
 	const errors = {}
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+
+
+	if (values.contactPhone && !phone.test(values.contactPhone) ) {
+      errors.phone = '请输入正确电话号';
+  	}
 	// console.log("values校验",values);
 	if(values.top){
 		
@@ -460,6 +560,7 @@ const validate = values => {
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
+
 
 	
 
