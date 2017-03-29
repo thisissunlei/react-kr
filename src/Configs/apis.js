@@ -1058,6 +1058,11 @@ const APIS = {
       url: '/apis/krspace-finance-web/activity/activity?id={id}',
       method: 'get'
    },
+   //活动序号是否重复
+   'getActivitySerialNumRepeat':{
+      url: '/apis/krspace-finance-web/activity/sort-filter?sort={sort}',
+      method: 'get'
+   },
  }
 
 

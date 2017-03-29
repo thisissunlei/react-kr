@@ -155,43 +155,51 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 	// 提交
 	onSubmit=(values)=>{
-		values.publishType = this.publishType ;
+		if(State.serialNumRepeat){
+			return;
+		}else{
+			values.publishType = this.publishType ;
 
-		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
-		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+			values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+			values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
 
-		var EArr = [];
-		if(State.choseName){
-			EArr.push("NAME")
-		}
-		if(State.chosePhone){
-			EArr.push("PHONE")
-		}
-		if(State.choseCompany){
-			EArr.push("COMPANY")
-		}
-		if(State.chosePosition){
-			EArr.push("POSITION")
-		}
-		if(State.choseAdd){
-			EArr.push("ADDRESS")
-		}
+			if(values.top == 1){
+				values.sort = '';
+			}
 
-		values.yPoint = values.mapField.pointLng;
-		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.detailSearch;
-		values.enroll = EArr;
+			var EArr = [];
+			if(State.choseName){
+				EArr.push("NAME")
+			}
+			if(State.chosePhone){
+				EArr.push("PHONE")
+			}
+			if(State.choseCompany){
+				EArr.push("COMPANY")
+			}
+			if(State.chosePosition){
+				EArr.push("POSITION")
+			}
+			if(State.choseAdd){
+				EArr.push("ADDRESS")
+			}
 
-		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-			State.openEditDetail = !State.openEditDetail;
-			State.timer = new Date();
-		}).catch(function(err){
+			values.yPoint = values.mapField.pointLng;
+			values.xPoint = values.mapField.pointLat;
+			values.address = values.mapField.detailSearch;
+			values.enroll = EArr;
+
+			Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+				State.openEditDetail = !State.openEditDetail;
+				State.timer = new Date();
+			}).catch(function(err){
 			
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		}
 	}
 	//存为草稿
 	toSave=()=>{
@@ -262,6 +270,22 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
 
 	}
+	// 检验排序号是否重复
+	NumRepeat=(value)=>{
+		console.log("value",value);
+		if(!value){
+			State.serialNumRepeat = false;
+		}else{
+			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
+				State.serialNumRepeat = false;
+				
+			}).catch(function(err){
+				State.serialNumRepeat = true;
+				
+			});
+		}
+		
+	}
 
 	render(){
 		
@@ -283,14 +307,14 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 'OPEN_DAY'
 		}];
 		let partakeMan =[{
-			label: '仅限会员',
-			value: 'ONLY_MEMBER'
+			label: '会员专属',
+			value: 'MEMBER_ONLY'
 		},{
-			label: '仅限受邀者',
-			value: 'ONLY_INVITA'
+			label: '会员优先',
+			value: 'MEMBER_FIRST'
 		},{
-			label: '无限制',
-			value: 'ANYBODY'
+			label: '仅限氪空间项目',
+			value: 'KR_PROJECT_ONLY'
 		}];
 		let checkboxOptions=[{
 			label: '姓名',
@@ -430,7 +454,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								<KrField name="top" grid={1/2} label="不置顶" type="radio" value={0} onClick={this.noStick}/>
 			              	</KrField>
 			              	{/*置顶不显示排序*/}
-							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}}/>
+							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
+							{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
+							
 							{/*置顶显示轮播图*/}
 			              	<KrField name="coverPic" 
 								component="newuploadImage" 

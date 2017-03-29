@@ -60,6 +60,7 @@ let State = observable({
 	cityData :'',
 	mapDefaultValue:'',
 	coverPicDefaultValue:'',
+	serialNumRepeat: false
 	
 });
 
