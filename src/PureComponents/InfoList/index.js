@@ -1,4 +1,8 @@
-import React, {Component,PropTypes} from "react";
+import React, { Component, PropTypes } from 'react';
+import {
+	Field,
+	reduxForm
+} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	Table,
@@ -23,15 +27,9 @@ import {
 	CircleStyle,
 	Tooltip,
 	Message
-} from "kr-ui";
-import SearchForm from "./SearchForm";
-import {
-	observer,
-	inject
-} from 'mobx-react';
-@inject("CommunityDetailModel")
-@observer
 
+} from 'kr-ui';
+import SearchForm from "./SearchForm";
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -39,8 +37,9 @@ export default class AppointmentVisit extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:'',
+				endTime:'',
+				startTime:'',
+				communityId:'',
 				other:false
 			},
 			newStartDate:'',
@@ -48,20 +47,19 @@ export default class AppointmentVisit extends Component {
 			newPage :1,
 		}
 	}
-
-	//全部标为以读点击事件
-	allReadClick = () => {
+	//全部标为已读
+	allReadClick = () =>{
 		let {renovateRedDrop} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"CUSTOMER_TRANSFER"})).then(function(response) {
+		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"CUSTOMER_DUE"})).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
 			renovateRedDrop();
+
 		}).catch(function(err) {
 
 		});
 	}
-
 	//起始日期
 	onStartChange = (value) =>{
 		let {searchParams,newStartDate,newEndDate}=this.state;
@@ -76,23 +74,22 @@ export default class AppointmentVisit extends Component {
 	        return ;
 	    }else{
 	    	this.setState({
-						searchParams: {
-							page: 1,
-							pageSize: 15,
-							createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
-							createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-							other:!this.state.searchParams.other
-						}
-				})
+				searchParams: {
+					page: 1,
+					pageSize: 15,
+					endTime : newEndDate === searchParams.endTime ? end : newEndDate,
+					startTime : newStartDate === searchParams.startTime ? start : newStartDate,
+					communityId : searchParams.communityId || "",
+					other:!this.state.searchParams.other
+				}
+			})
 	    }
-
 	}
-
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate} = this.state;
-        let start = newStartDate;
-        let end = value || newEndDate;
+		let {searchParams,newStartDate,newEndDate}=this.state;
+        let start=newStartDate;
+        let end=value || newEndDate;
         this.setState({
         		newStartDate : start,
         		newEndDate : end
@@ -106,13 +103,30 @@ export default class AppointmentVisit extends Component {
 				searchParams: {
 					page: 1,
 					pageSize: 15,
-					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
-					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					endTime:newEndDate === searchParams.endTime ? end : newEndDate,
+					startTime:newStartDate === searchParams.startTime ? start : newStartDate,
+					communityId : searchParams.communityId || "",
 					other:!this.state.searchParams.other
 				}
 			});
 	    }
-
+	}
+	//选择社区
+	communityChange = (value) =>{
+		let data = !value ? {} : value;
+		if(!data.id){
+			data.id=""
+		}
+		this.setState({
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				endTime:this.state.searchParams.endTime ||'',
+				startTime:this.state.searchParams.startTime || '',
+				communityId:data.id,
+				other:!this.state.searchParams.other
+			}
+		})
 	}
 	//信息被点击
 	columnClick = (value) => {
@@ -122,12 +136,12 @@ export default class AppointmentVisit extends Component {
 		let {renovateRedDrop} = this.props;
 		let _this=this;
 		Store.dispatch(Actions.callAPI("setInfoReaded", {
-				id: value.id
+				id: value.msgInfoId
 		})).then(function(response) {
-			console.log(response.page)
 			_this.renovateList();
 			renovateRedDrop();
 			_this.tabNum();
+
 		}).catch(function(err) {
 				console.log(err);
 		});
@@ -135,30 +149,21 @@ export default class AppointmentVisit extends Component {
 
 	//刷新列表
 	renovateList = () =>{
-		let _this=this;
+		let _this = this;
 		this.setState({
 			searchParams: {
 				page: _this.state.newPage ,
 				pageSize: 15,
-				createDateEnd:_this.state.searchParams.createDateEnd || "",
-				createDateStart:_this.state.searchParams.createDateStart || "",
-				other:!_this.state.searchParams.other
+				endTime:_this.state.searchParams.endTime || "",
+				startTime:_this.state.searchParams.startTime || "",
+				communityId:this.state.searchParams.communityId,
+				other:!this.state.searchParams.other
 			}
+		},function(){
+
 		});
 	}
 
-
-	//客户名称被点击
-	customerClick = (data) => {
-		let msgExtra = JSON.parse(data.msgExtra)
-		this.props.CommunityDetailModel.lookListId(msgExtra.customerId,"SHARE");
-		let customerName = data.msgContent.split("#")[1]
-		data.customerName = customerName;
-		const {customerClick} = this.props;
-		customerClick && customerClick(data);
-
-
-	}
 	showPage = (data) => {
 		this.setState({
 			newPage:data.page
@@ -170,20 +175,25 @@ export default class AppointmentVisit extends Component {
 		let {tabNum} = this.props;
 		tabNum && tabNum();
 	}
+	customerClick = (data) =>{
+		this.tabNum();
+		this.renovateList();
+		window.open(data.msgUrl)
+	}
 	render(){
+		let _this = this;
 		let {searchParams} = this.state;
-		let _this=this;
 
 		return (
-				<div className="appointment-visit">
+			<div className="appointment-visit">
 					<SearchForm
+						communityChange = {this.communityChange}
 						onStartChange = {this.onStartChange}
 						onEndChange = {this.onEndChange}
 					/>
 					<div className="all-read" onClick={this.allReadClick}>全部标为已读</div>
 					<Table  style={{marginTop:10}}
 						ajax={true}
-
 						onProcessData={
 							(state)=>{
 								return state;
@@ -192,16 +202,15 @@ export default class AppointmentVisit extends Component {
 						displayCheckbox={false}
 						ajaxParams={searchParams}
 						ajaxFieldListName="items"
-						ajaxUrlName='messageRemindCustomerSwitching'
 						onLoaded = {this.showPage}
-
+						ajaxUrlName='getInfoList'
 					>
 						<TableBody style={{background:"#fff",border:"0px"}}>
 
 							<TableRow style={{background:"#fff",border:"0px"}}>
 
 								<TableRowColumn
-									style={{overflow:"visible",textAlign: "center",width:430,lineHeight:"20px",paddingRight:5}}
+									style={{overflow:"visible",textAlign: "center",width:462,lineHeight:"42px"}}
 									name="msgContent"
 									component={
 										(value,oldValue,itemData) => {
@@ -244,7 +253,6 @@ export default class AppointmentVisit extends Component {
 								<TableRowColumn style={{overflow:"visible",textAlign: "center"}}
 									name="createDate"
 									component={
-
 										(value,oldValue,itemData) => {
 											let condition="已读"
 											let color="#999999";
@@ -264,8 +272,8 @@ export default class AppointmentVisit extends Component {
 						</TableBody>
 
 							<TableFooter ></TableFooter>
-					</Table>
-				</div>
+				</Table>
+			</div>
 			);
 	}
 

@@ -813,7 +813,7 @@ const APIS = {
  },
  //获取消息列表
  'getInfoList': {
-   url:'/api/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}',
+   url:'/api/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}&communityId={communityId}',
    method:'get'
  },
  //消息设为已读

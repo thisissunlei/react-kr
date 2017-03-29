@@ -79,7 +79,6 @@ class Header extends Component {
 	 let showRedDrop = false;
 	 let showMassge = false;
 	 let Details=[];
-	 let sum = 0;
 	 Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
 
 		for (var key in response.rightDetails){
@@ -88,9 +87,8 @@ class Header extends Component {
 				break;
 			}
 		}
-		let unreadDetails = response.unreadDetails;
-		sum = (!unreadDetails.ORDER_VISIT ? 0 : unreadDetails.ORDER_VISIT) + (!unreadDetails.CUSTOMER_TRANSFER ? 0 : unreadDetails.CUSTOMER_TRANSFER);
-		if(sum != 0){
+
+		if(response.unreadTotal != 0){
 			showRedDrop=true;
 		}
 

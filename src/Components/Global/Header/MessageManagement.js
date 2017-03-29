@@ -15,6 +15,7 @@ import {
 
 	AppointmentVisit,
 	TransferCustomer,
+	InfoList
 
 
 } from 'kr/PureComponents';
@@ -145,13 +146,13 @@ class LookCustomerList extends Component{
 		}else{
 			showTab.push(
 				<Tab label="催款提醒" >
-						
+
 				</Tab>
 			)
 		}
 
 
-		if(!CUSTOMER_DUE){
+		if(false){
 			hideTab.push(
 				<Tab label="r" >
 
@@ -160,7 +161,9 @@ class LookCustomerList extends Component{
 		}else{
 			showTab.push(
 				<Tab label="客户到期" >
-						
+					<InfoList tabNum = {this.tabNum}
+						renovateRedDrop = {this.renovateRedDrop}
+					/>
 				</Tab>
 			)
 		}
@@ -185,10 +188,11 @@ class LookCustomerList extends Component{
 
 	render(){
 		let noWidth=4*108.33;
-		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM}=this.state;
+		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM,CUSTOMER_DUE_NUM}=this.state;
 		let tabContent=this.tabContent();
 		let moveHintClass="m-lookCustomerList-num";
 		let advanceClass="m-appointment-num";
+		let expireClass = "m-expire-num";
 
 
 
@@ -204,6 +208,12 @@ class LookCustomerList extends Component{
 		}
 		if(ORDER_VISIT_NUM >99){
 			advanceClass="m-appointment-num-max";
+		}
+		if(CUSTOMER_DUE_NUM > 9 && CUSTOMER_DUE_NUM < 100){
+			expireClass = "m-expire-num-moddle";
+		}
+		if(CUSTOMER_DUE_NUM > 99){
+			expireClass = "m-expire-num-max";
 		}
 		return(
 		    <div className="m-lookCustomerList" style={{paddingLeft:8}}>
@@ -237,6 +247,11 @@ class LookCustomerList extends Component{
 				{!!ORDER_VISIT_NUM &&
 					<div className={advanceClass}>
 						{ORDER_VISIT_NUM > 99 ? 99 : ORDER_VISIT_NUM}<label>+</label>
+					</div>
+				}
+				{!!CUSTOMER_DUE_NUM &&
+					<div className={expireClass}>
+						{CUSTOMER_DUE_NUM > 99 ? 99 : CUSTOMER_DUE_NUM}<label>+</label>
 					</div>
 				}
 

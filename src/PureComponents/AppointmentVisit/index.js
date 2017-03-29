@@ -78,6 +78,7 @@ export default class AppointmentVisit extends Component {
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					msgCommunity : searchParams.msgCommunity || "",
 					other:!this.state.searchParams.other
 				}
 			})
@@ -103,6 +104,7 @@ export default class AppointmentVisit extends Component {
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					msgCommunity : searchParams.msgCommunity || "",
 					other:!this.state.searchParams.other
 				}
 			});
@@ -118,8 +120,8 @@ export default class AppointmentVisit extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:'',
+				createDateEnd:this.state.searchParams.createDateEnd || '',
+				createDateStart:this.state.searchParams.createDateStart || '',
 				msgCommunity:data.id,
 				other:!this.state.searchParams.other
 			}
@@ -146,17 +148,16 @@ export default class AppointmentVisit extends Component {
 
 	//刷新列表
 	renovateList = (page) =>{
+		let _this = this;
 		this.setState({
 			searchParams: {
-				page: this.state.newPage ,
+				page: _this.state.newPage ,
 				pageSize: 15,
-				createDateEnd:"",
-				createDateStart:"",
-				msgCommunity:this.state.searchParams.msgCommunity,
+				createDateEnd:_this.state.searchParams.createDateEnd || "",
+				createDateStart:_this.state.searchParams.createDateStart || "",
+				msgCommunity:_this.state.searchParams.msgCommunity || "",
 				other:!this.state.searchParams.other
 			}
-		},function(){
-
 		});
 	}
 
