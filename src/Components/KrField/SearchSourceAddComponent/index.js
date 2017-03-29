@@ -24,6 +24,9 @@ export default class  SearchSourceAddComponent extends React.Component {
 
 		this.onChange = this.onChange.bind(this);
 		this.getOptions = this.getOptions.bind(this);
+		this.state={
+			value:{}
+		}
 	}
 
 	componentDidMount(){
@@ -34,26 +37,29 @@ export default class  SearchSourceAddComponent extends React.Component {
 
 	}
 
+	onNewOptionClick=(params)=>{
+            let {input,onChange} = this.props;
+			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:params.value})).then(function(response){
+			  input.onChange(params.value);
+			  onChange && onChange(params);
+			}).catch(function(err){	
+	    });
+	}
+
 	onChange(item){
-	
+		this.setState({
+			value:item
+		})
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
-		console.log('---',item,value);
 		input.onChange(value);
 		onChange && onChange(item);
 		if(item.className){
-		  this.createOption(value);	
-		}	
+		  this.onNewOptionClick(item); 
+		}
 	}
 
-	createOption = (searchKey)=>{
-		    let {input} = this.props;
-			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:searchKey})).then(function(response){
-			 console.log('dfdsfdsfds');
-			 input.onChange('3434324324');
-			}).catch(function(err){			
-	    });
-	}
+	
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
@@ -72,14 +78,11 @@ export default class  SearchSourceAddComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
-					ref={(select)=>this.select = select}
 					name={input.name}
-					value={input.value}
+					value={this.state.value}
 					loadOptions={this.getOptions}
-					clearable={true}
 					clearAllText="清除"
 					onChange={this.onChange}
-					onInputChange={this.onInputChange}
 					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}

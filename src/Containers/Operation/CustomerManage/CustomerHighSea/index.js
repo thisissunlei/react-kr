@@ -90,7 +90,7 @@ class CustomerHighSea extends React.Component{
 	}
 
 	onLoadDemo=()=>{
-		let url = `/mockjsdata/35/krspace-finance-web/cmt/market/import/actions/downloadTemplete`;
+		let url = `/ipi/krspace-finance-web/cmt/market/import/actions/downloadTemplete`;
 		window.location.href = url; 
 	}
 
@@ -218,7 +218,7 @@ class CustomerHighSea extends React.Component{
             </Table>
           </Section>
 
-          {/*导入*/}
+                  {/*导入*/}
                     <Dialog
 						title="批量导入"
 						modal={true}
@@ -231,7 +231,7 @@ class CustomerHighSea extends React.Component{
 						  onCancel={this.cancelImportData}
 						  onLoadDemo={this.onLoadDemo}
 						  />
-            </Dialog>
+                </Dialog>
 
 
                     {/*进度条*/}

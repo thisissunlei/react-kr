@@ -49,7 +49,6 @@ class ImportData extends React.Component{
 	   	 Store.dispatch(change('ImportData','sourceId',params.value));
 	   	 Store.dispatch(change('ImportData','sourceName',params.label));
 	   }
-       console.log(';;;;;',params);
 	}
 	
 	onChange=(event)=> {
@@ -106,7 +105,7 @@ class ImportData extends React.Component{
 		xhr.onerror = function(e) {
 			console.error(xhr.statusText);
 		};
-		xhr.open('POST', 'http://op.krspace.cn/mockjsdata/35/krspace-finance-web/csr/market/import/actions/upload', true);
+		xhr.open('POST', 'http://mo.krspace.cn/ipi/krspace-finance-web/csr/market/import/actions/upload', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
 
