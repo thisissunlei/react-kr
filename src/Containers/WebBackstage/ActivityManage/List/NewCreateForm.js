@@ -459,17 +459,32 @@ import State from './State';
 							{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
 							
 
+							<div style={{display:State.isStick?"block":"none",fontSize:14,marginBottom:10}}>
+								<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
+								<span>上传轮播图</span>
+							</div>
+
 							{/*置顶显示轮播图*/}
-			              	<KrField name="coverPic" 
+			              	<KrField name="pcCoverPic" 
 								component="newuploadImage" 
 								innerstyle={{width:524,height:159,padding:10}} 
 								photoSize={'1920*520'} 
 								pictureFormat={'JPG,PNG,GIF'} 
 								pictureMemory={'500'}
-								requireLabel={true}
-								label="上传轮播图"
+								
+								label="电脑端轮播图"
 								inline={false}
-								style={{display:State.isStick?"block":"none"}}
+								style={{display:State.isStick?"block":"none",marginBottom:9}}
+							/>
+							<KrField name="appCoverPic" 
+								component="newuploadImage" 
+								innerstyle={{width:217,height:157,padding:10}} 
+								photoSize={'750*520'} 
+								pictureFormat={'JPG,PNG,GIF'} 
+								pictureMemory={'300'}
+								label="手机端轮播图"
+								inline={false}
+								style={{display:State.isStick?"block":"none",marginBottom:9}}
 							/>
 							<KrField name="infoPic" 
 								component="newuploadImage" 
@@ -568,7 +583,13 @@ const validate = values => {
   	}
 	// console.log("values校验",values);
 	if(values.top){
-		
+		if(!values.appCoverPic){
+			errors.appCoverPic = "请上传手机端轮播图"
+		}
+		if(!values.pcCoverPic){
+			errors.pcCoverPic = "请上传电脑端轮播图"
+
+		}
 	}
 	if(!values.name){
 		errors.name = '请输入活动名称';
