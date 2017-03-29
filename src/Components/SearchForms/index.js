@@ -239,12 +239,13 @@ export default class SearchForms extends Component{
 		let {value} = this.state;
 		let select ='请选择';
 		
+
 		if(searchFilter){
 			
 			return(
 				<div className="search-filter" ref={div=>{this.selectList = div}}>
 					<span className="filter-container" onMouseOver={this.selectShow} onMouseOut={this.selectHidden}>
-						<span className="search-name" >{select}</span>
+						<span className="search-name" >{searchFilter[0].label}</span>
 						<em className="icon-return"></em>
 					</span>
 
