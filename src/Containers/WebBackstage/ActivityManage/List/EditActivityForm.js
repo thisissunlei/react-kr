@@ -122,6 +122,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(change('EditActivityForm','detailStartTime',detailStartTime));
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
+							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
+
 
 						})
 						
@@ -450,8 +452,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							/>
 							<KrField grid={1/2} name="maxPerson" type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
 							<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
-								<KrField name="top" grid={1/2} label="置顶" type="radio" value={1} style={{marginRight:'50'}} onClick={this.chooseStick}/>
-								<KrField name="top" grid={1/2} label="不置顶" type="radio" value={0} onClick={this.noStick}/>
+								<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
+								<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
 			              	</KrField>
 			              	{/*置顶不显示排序*/}
 							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
