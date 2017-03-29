@@ -59,7 +59,13 @@ import State from './State';
 	}
 	// 提交
 	onSubmit=(values)=>{
-		if(State.serialNumRepeat){
+		if(!State.timeIsTrue){
+			Notify.show([{
+				message: "结束时间不能大于开始日期",
+				type: 'danger',
+			}]);
+			return;
+		}else if(State.serialNumRepeat){
 			return;
 		}else{
 			values.publishType = this.publishType ;
@@ -124,6 +130,7 @@ import State from './State';
 	 // 不置顶
 	noStick=()=>{
 		State.isStick = false;
+		State.serialNumRepeat = false;
 	}
 
 	// 复选框
@@ -175,7 +182,7 @@ import State from './State';
 	}
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
-		console.log("value",value);
+		// console.log("value",value);
 		if(!value){
 			State.serialNumRepeat = false;
 		}else{
@@ -189,61 +196,98 @@ import State from './State';
 		}
 		
 	}
-	// 开始时间改变
+	// 开始日期改变
 	beginDateChange=(value)=>{
-		
+		let _this = this;
 		var beginDate = new Date(value);
 		beginDate = beginDate.getTime();
-		this.setState({
+		_this.setState({
 			beginDate:beginDate
+		},function(){
+			_this.compareTime();
 		})
-		if(this.state.endDate){
-			if(this.state.endDate >this.state.beginDate){
-				Notify.show([{
-					message: "结束日期不能大于开始日期",
-					type: 'danger',
-				}]);
-			}else if(this.state.endDate ==this.state.beginDate){
-				if(this.state.beginTime && this.state.endTime){
-
-				}
-			}
-		}
+		
 	}
 
 	// 结束日期改变
 	endDateChange=(value)=>{
+		let _this =this;
 		var endDate = new Date(value);
 		endDate = endDate.getTime();
-		this.setState({
+		_this.setState({
 			endDate:endDate
+		},function(){
+			_this.compareTime();
 		})
-		if(this.state.beginDate){
-			if(this.state.endDate >this.state.beginDate){
-				Notify.show([{
-					message: "结束日期不能大于开始日期",
-					type: 'danger',
-				}]);
-			}else if(this.state.endDate ==this.state.beginDate){
-				if(this.state.beginTime && this.state.endTime){
-					
-				}
-			}
-		}
+		
 	}
 
 	// 开始时间改变
 	beginTimeChange=(value)=>{
+		let _this =this;
 		this.setState({
 			beginTime:value
+		},function(){
+			_this.compareTime();
 		})
+		
+
 	}
 
 	// 结束时间改变
 	endTimeChange=(value)=>{
+		let _this =this;
 		this.setState({
 			endTime:value
+		},function(){
+			_this.compareTime();
 		})
+	}
+
+	// 时间校验
+	compareTime=()=>{
+		let _this =this;
+		if(_this.state.beginDate && _this.state.endDate){
+			if(_this.state.endDate <_this.state.beginDate){
+				State.timeIsTrue  = false;
+				Notify.show([{
+					message: "结束时间不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(_this.state.endDate ==_this.state.beginDate){
+				if(_this.state.beginTime && _this.state.endTime){
+					var beginTime = _this.state.beginTime;
+					var endTime = _this.state.endTime;
+					var beginHour = beginTime.substr(0,2);
+					var beginMin = beginTime.substr(3);
+					var endHour = endTime.substr(0,2);
+					var endMin = endTime.substr(3);
+					if(endHour<beginHour){
+						State.timeIsTrue  = false;
+
+						Notify.show([{
+							message: "结束时间不能大于开始日期",
+							type: 'danger',
+						}]);
+					}else if(endHour == beginHour){
+						if(beginMin > endMin){
+							State.timeIsTrue  = false;
+
+							Notify.show([{
+								message: "结束时间不能大于开始日期",
+								type: 'danger',
+							}]);
+						}
+					}else{
+						State.timeIsTrue  = true;
+					}
+				}
+			}else{
+				State.timeIsTrue  = true;
+			}
+		}else{
+			State.timeIsTrue  = true;
+		}
 	}
 
 
@@ -251,7 +295,7 @@ import State from './State';
 	
 
 	render(){
-		console.log("State.serialNumRepeat",State.serialNumRepeat);
+		// console.log("State.serialNumRepeat",State.serialNumRepeat);
 		const { handleSubmit} = this.props;
 		
 		// 对应功能选项
@@ -356,11 +400,8 @@ import State from './State';
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												 
 												style={{width:80,marginTop:14,zIndex:10}} 
 												onChange = {this.beginTimeChange} 
-												
-												 
 												label=''/>
 											
 										</ListGroupItem>
@@ -369,7 +410,6 @@ import State from './State';
 											<KrField 
 												name="stopDate"  
 												component="date" 
-												// onChange={this.onStartChange} 
 												style={{width:170}} 
 												simple={true} 
 												requireLabel={false}
@@ -379,10 +419,8 @@ import State from './State';
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												
 												style={{width:80,zIndex:10}} 
-												
-												
+												onChange = {this.endTimeChange}
 												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
