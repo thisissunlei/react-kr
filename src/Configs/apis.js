@@ -1013,10 +1013,7 @@ const APIS = {
       method: 'get'
    },
     //招商数据统计-已开业
-    'check-rank':{
-       url: '/api/krspace-finance-web/stat/merchant/actions/open?endDate={endDate}&groupId={groupId}&startDate={startDate}',
-       method: 'get'
-    },
+  
 
  }
 
