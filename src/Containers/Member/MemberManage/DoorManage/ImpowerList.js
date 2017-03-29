@@ -41,7 +41,8 @@ export default class FinishUploadImgForm extends Component{
 	      rightfontColor : false,
 	      leftfontColor : true,
 	      optionsFloor:[],
-	      selectedIds:[]
+	      selectedIds:[],
+	      totleNum : 0
 	    };
 	}
 	componentDidMount(){
@@ -52,22 +53,24 @@ export default class FinishUploadImgForm extends Component{
 		}
 		Store.dispatch(Actions.callAPI('doorCustomerDevice',listParams))
 	      .then(function(response){
-
+	      	var totleNum =0;
 	      	var componentSelected =[];
 	      	for(var i=0;i<response.length;i++){
 
 	      		for(var j =0;j<response[i].deviceList.length;j++){
-	      			
+	      			totleNum++;
 	      			if(response[i].deviceList[j].checked){
 
 	      				componentSelected.push(response[i].deviceList[j].id);
 	      			}
 	      		}
 	      	}
+	      	console.log("totleNum",totleNum);
 
 	      	_this.setState({
 	      		optionsFloor : response,
-	      		selectedIds : componentSelected
+	      		selectedIds : componentSelected,
+	      		totleNum: totleNum,
 	      	})
 	      }).catch(function(err){
 	        Notify.show([{
@@ -350,8 +353,8 @@ export default class FinishUploadImgForm extends Component{
 
 	render(){
 		
-		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor}=this.state;
-		
+		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor,totleNum}=this.state;
+		console.log("this.state.totleNum",this.state.totleNum);
 		return (
 			<div className="upload-img-outer-box">
 				<div className="upload-img-box">
@@ -376,7 +379,10 @@ export default class FinishUploadImgForm extends Component{
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{width:171,textAlign:'right',padding:0,paddingRight:15}}>
-												<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
+												{
+													this.state.totleNum==0?<div className="button-myself">授权</div>:<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
+
+												}
 											</ListGroupItem>
 											<ListGroupItem style={{width:171,textAlign:'left',padding:0,paddingLeft:15}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeImpoerList} />
