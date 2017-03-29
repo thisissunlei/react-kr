@@ -24,6 +24,7 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
+import allState from "../../State";
 
 
 export default class EditCreate extends Component {
@@ -52,7 +53,10 @@ export default class EditCreate extends Component {
         message: '编辑成功',
         type: 'success',
       }]);
-      location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
+      allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+      allState.openEditAgreement=false;
+      
+      //location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
     }).catch(function(err) {
       Notify.show([{
@@ -63,7 +67,8 @@ export default class EditCreate extends Component {
   }
 
   onCancel() {
-    window.history.back();
+    //window.history.back();
+    allState.openEditAgreement=false;
   }
 
   componentDidMount() {
@@ -79,6 +84,7 @@ export default class EditCreate extends Component {
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
+      type : 1,
     })).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
@@ -88,7 +94,8 @@ export default class EditCreate extends Component {
       initialValues.leaseBegindate = new Date;
       initialValues.leaseEnddate = new Date;
 
-
+       initialValues.contractcode = response.contractCode;
+       
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
@@ -141,6 +148,11 @@ export default class EditCreate extends Component {
         if (response.payment) {
           initialValues.paymodel = response.payment.id;
 
+        }
+        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+          initialValues.agreement = '无';
+        }else{
+          initialValues.agreement = response.agreement;
         }
         initialValues.stationnum = response.stationnum;
         initialValues.wherefloor = response.wherefloor;
@@ -197,12 +209,12 @@ export default class EditCreate extends Component {
     console.log('stationVos', stationVos)
     return (
 
-      <div>
+      <div style={{marginLeft:22}}>
       <Title value="编辑退租协议书_财务管理"/>
       <BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
-      <Section title="退租协议书" description="">
+     <div style={{marginTop:10}}>
           <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
-      </Section>
+      </div>
     </div>
     );
   }

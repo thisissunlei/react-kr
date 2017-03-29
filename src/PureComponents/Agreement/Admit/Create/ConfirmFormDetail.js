@@ -78,7 +78,7 @@ export default class ConfirmFormDetail  extends Component{
 
 		       <div>
 
-								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
+								<KrField  grid={1/2} style={{width:"252px"}} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
 								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress} inline={false}/>
 
@@ -113,7 +113,9 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0"  inline={false}/>
 
 
-							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无" inline={false}/>
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="" inline={false}/>
+							 <KrField grid={1}  name="agreement" component="labelText" label="双方其他约定内容" value={detail.agreement} defaultValue="无" inline={false}/>
+							 
 
 							 <KrField component="group" label="上传附件" inline={false}>
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{

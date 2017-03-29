@@ -27,6 +27,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
+import allState from "../../State";
 
 export default class JoinCreate extends Component {
 
@@ -77,7 +78,11 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			allState.openTowAgreement=false;
+			allState.openOneAgreement=false;
+
+			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
@@ -91,7 +96,9 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		window.history.back();
+		allState.openTowAgreement=false;
+		allState.openOneAgreement=false;
+		// window.history.back();
 	}
 
 	openConfirmCreateDialog() {
@@ -112,17 +119,21 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
-			communityId: 1
+			communityId: 1,
+			type : 0,
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
+			initialValues.agreement = '无';
 
 			//initialValues.withdrawdate = +new Date();
 			//initialValues.signdate = +new Date();
 
+			 initialValues.contractcode = response.contractCode;
+			 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.leaseAddress = response.customer.customerAddress;
@@ -155,7 +166,7 @@ export default class JoinCreate extends Component {
 
 		}).catch(function(err) {
 			Notify.show([{
-				message: '后台出错请联系管理员',
+				message: '后台出错请联系管理员2',
 				type: 'danger',
 			}]);
 		});
@@ -173,11 +184,11 @@ export default class JoinCreate extends Component {
 
 			<div>
 
-			 <Title value="创建退租协议书_财务管理"/>
+			<Title value="创建退租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
-		<Section title="退租协议书" description="">
+			<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
-			</Section>
+			</div>
 
 			<Dialog
 				title="退租意向书"

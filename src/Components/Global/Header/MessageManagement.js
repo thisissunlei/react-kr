@@ -15,7 +15,8 @@ import {
 
 	AppointmentVisit,
 	TransferCustomer,
-	InfoList
+	InfoList,
+	UrgeMoney
 
 
 } from 'kr/PureComponents';
@@ -137,22 +138,24 @@ class LookCustomerList extends Component{
 
 
 
-		if(!ARREARS_ALERT){
+		if(false){
 			hideTab.push(
 				<Tab label="r" >
-
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="催款提醒" >
-
+					<UrgeMoney
+						tabNum = {this.tabNum}
+						renovateRedDrop = {this.renovateRedDrop}
+					/>
 				</Tab>
 			)
 		}
 
 
-		if(false){
+		if(!CUSTOMER_DUE){
 			hideTab.push(
 				<Tab label="r" >
 
@@ -161,7 +164,8 @@ class LookCustomerList extends Component{
 		}else{
 			showTab.push(
 				<Tab label="客户到期" >
-					<InfoList tabNum = {this.tabNum}
+					<InfoList 
+						tabNum = {this.tabNum}
 						renovateRedDrop = {this.renovateRedDrop}
 					/>
 				</Tab>

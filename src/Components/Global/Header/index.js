@@ -16,7 +16,9 @@ import './index.less';
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
 import {
-	LookCustomerList
+	LookCustomerList,
+	Agreement
+
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
@@ -43,7 +45,10 @@ class Header extends Component {
 			url:window.location.hash,
 			infoTab:'',
 			hasUnRead:0,
+			//客户详情打开
 			openLookCustomerList:false,
+			//合同详情打开
+			openAgreement:false,
 			//客户 客户名称
 			customerName:'',
 			openMassage:false,
@@ -346,10 +351,16 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right',position:"absolute",right:"10px",top:7}}>
-					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+					{/*showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
-					</div>}
+					</div>*/}
+
+					 <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+						<span className="icon-info information-logo"  ></span>
+						{ showRedDrop && <span className="ui-un-read-count" ></span>}
+					</div>
+
 					< IconMenu
 					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
@@ -400,6 +411,7 @@ class Header extends Component {
 						renovateRedDrop = {this.renovateRedDrop}
 					/>
 				</Drawer>
+				//客户详情
 				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<LookCustomerList
 						 comeFrom="Merchant"
@@ -407,12 +419,17 @@ class Header extends Component {
 						 comeFrom="message"
 		                 companyName={customerName}
 		                 listId={msgExtra}
-										 onCancel={this.lookCustomerListClose}
-		                 // dataReady={dataReady}
+						onCancel={this.lookCustomerListClose}
+		                 
 
 					/>
 				</Drawer>
-
+				//合同详情
+				<Drawer open={true} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+					<Agreement.Admit.Detail 
+						params={{id:1,customerId:1,orderId:1}}
+					/>
+				</Drawer>
 				{(openLookCustomerList || openMassage) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
 			</div>
 		);
