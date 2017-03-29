@@ -115,7 +115,7 @@ export default class List extends Component {
 	onAdvanceSearchSubmit=(values)=>{
 		State.searchParams = Object.assign({},State.searchParams,values);
 		State.openAdvancedQuery = !State.openAdvancedQuery;
-		
+
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);
@@ -185,7 +185,7 @@ export default class List extends Component {
 											<TableHeaderColumn>活动标题</TableHeaderColumn>
 											<TableHeaderColumn>活动类型</TableHeaderColumn>
 											<TableHeaderColumn>城市地区</TableHeaderColumn>
-											<TableHeaderColumn>活动时间</TableHeaderColumn>
+											<TableHeaderColumn style={{width:250}}>活动时间</TableHeaderColumn>
 											<TableHeaderColumn>创建人</TableHeaderColumn>
 											<TableHeaderColumn>已报名数</TableHeaderColumn>
 											<TableHeaderColumn>状态</TableHeaderColumn>
@@ -226,7 +226,7 @@ export default class List extends Component {
 												return (<span>{itemData.cityName}{itemData.countyName}</span>)}}
 											></TableRowColumn>
 
-											<TableRowColumn name="beginDate" type="date"
+											<TableRowColumn name="beginDate" style={{width:250}} type="date"
 											component={(value,oldValue,itemData)=>{
 												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}-{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
 												></TableRowColumn>
@@ -272,7 +272,7 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
+															{/*<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>*/}
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
 															</span>
@@ -281,7 +281,7 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
+															{/*<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>*/}
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
 															</span>
