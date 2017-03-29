@@ -26,6 +26,7 @@ import {
 	TableFooter,
 	TableRow,
 	TableRowColumn,
+	Tooltip,
 } from 'kr-ui';
 export default class FinishUploadImgForm extends Component{
 	constructor(props) {
@@ -269,10 +270,10 @@ export default class FinishUploadImgForm extends Component{
 													
 																	</TableRowColumn>
 
-																	<TableRowColumn style={{overflow:"hidden"}} >
+																	<TableRowColumn>
 																		
 																		{
-																			!item.doorCode?<span>-</span>:<span>{item.doorCode}</span>
+																			!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:100,overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
 																		}
 																		
 																	</TableRowColumn>
@@ -288,9 +289,10 @@ export default class FinishUploadImgForm extends Component{
 																			!item.roomName?<span>-</span>:<span>{item.roomName}</span>
 																		}
 																	</TableRowColumn>
-																	<TableRowColumn style={{overflow:"hidden"}}>
+																	<TableRowColumn >
 																		{
-																			!item.hardwareId?<span>-</span>:<span>{item.hardwareId}</span>
+																			!item.hardwareId?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:168,overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.hardwareId}</span><Tooltip offsetTop={5} place='top'>{item.hardwareId}</Tooltip></div>
+																			
 																		}
 																	</TableRowColumn>
 																	
