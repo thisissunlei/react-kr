@@ -230,7 +230,7 @@ export default class List extends Component {
 
 											<TableRowColumn name="beginDate" style={{width:250}} type="date"
 											component={(value,oldValue,itemData)=>{
-												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}-{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
+												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}至{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
 												></TableRowColumn>
 											<TableRowColumn name="createName"
 											component={(value,oldValue)=>{
@@ -239,7 +239,7 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="enrollCount" style={{overflow:"hidden"}}
+											<TableRowColumn name="enrollNum" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"

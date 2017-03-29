@@ -130,7 +130,7 @@ import State from './State';
 	 // 不置顶
 	noStick=()=>{
 		State.isStick = false;
-		State.serialNumRepeat = false;
+		// State.serialNumRepeat = false;
 	}
 
 	// 复选框
