@@ -86,7 +86,7 @@ export default class ViewAudit extends Component {
 					var fileList=[];
 					if(this.state.infoList.uploadFileIds.length>0){
 						this.state.infoList.uploadFileIds.map((item, value) => {
-							fileList.push(item.fileName)
+							fileList.push(<a href={item.fileUrl}>{item.fileName}</a>)
 							fileList.push(<br />)
 						});
 					}else{
