@@ -977,7 +977,7 @@ const APIS = {
    },
    //凭证管理--凭证列表--待处理凭证
    'get-fince-info':{
-      url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&page={page}&pageSize={pageSize}&customerName={customerName}',
+      url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
  }

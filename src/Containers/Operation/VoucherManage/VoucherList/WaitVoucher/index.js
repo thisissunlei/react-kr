@@ -50,7 +50,7 @@ export default class WaitVoucher extends Component {
       Params: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'CHECKED'
+        verifyStatus: 'UNCHECKED'
       },
       infoList: [],
       itemDetail: [],
@@ -59,7 +59,7 @@ export default class WaitVoucher extends Component {
       Param: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'CHECKED'
+        verifyStatus: 'UNCHECKED'
       },
     }
     this.getInfo(this.state.Param);
@@ -69,11 +69,11 @@ export default class WaitVoucher extends Component {
     if (nextProps.tab != this.props.tab) {
       this.setState({
         Params: {
-          verifyStatus: 'CHECKED'
+          verifyStatus: 'UNCHECKED'
         }
       }, function() {
         this.getInfo({
-          verifyStatus: 'CHECKED'
+          verifyStatus: 'UNCHECKED'
         });
       })
     }
@@ -89,7 +89,7 @@ export default class WaitVoucher extends Component {
     values.map((item, index) => {
       idList.push(item.id)
     });
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=CHECKED`;
+    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=UNCHECKED`;
     window.location.href = url;
 
   }
@@ -108,24 +108,24 @@ export default class WaitVoucher extends Component {
       }
     }
     //保存编辑回款
-  EditAuditSubmit = (form) => {
-      var _this = this;
-      var params = Object.assign({}, form);
-      Store.dispatch(Actions.callAPI('edit-verify-checked', {}, params)).then(function(response) {
-        Message.success('修改成功');
-        _this.setState({
-          Params: {
-            page: 1,
-            pageSize: 10,
-            verifyStatus: 'CHECKED'
-          }
-        })
-        _this.openEditCreate();
-        _this.getInfo(this.state.Param);
-
-      }).catch(function(err) {});
-
-    }
+  // EditAuditSubmit = (form) => {
+  //     var _this = this;
+  //     var params = Object.assign({}, form);
+  //     Store.dispatch(Actions.callAPI('edit-verify-checked', {}, params)).then(function(response) {
+  //       Message.success('修改成功');
+  //       _this.setState({
+  //         Params: {
+  //           page: 1,
+  //           pageSize: 10,
+  //           verifyStatus: 'CHECKED'
+  //         }
+  //       })
+  //       _this.openEditCreate();
+  //       _this.getInfo(this.state.Param);
+  //
+  //     }).catch(function(err) {});
+  //
+  //   }
     //打开编辑回款
   openEditCreate = () => {
       this.setState({
@@ -156,12 +156,12 @@ export default class WaitVoucher extends Component {
       Params: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'CHECKED',
+        verifyStatus: 'UNCHECKED',
         customerName: form.content
       }
     }, function() {
       this.getParentCount({
-        verifyStatus: 'CHECKED',
+        verifyStatus: 'UNCHECKED',
         customerName: form.content
       })
       this.getInfo(this.state.Params);
@@ -193,32 +193,17 @@ export default class WaitVoucher extends Component {
                           exportSwitch={true}
                       >
                       <TableHeader>
-                          <TableHeaderColumn>流水号</TableHeaderColumn>
+                          <TableHeaderColumn>签约方名称</TableHeaderColumn>
                           <TableHeaderColumn>收款方式</TableHeaderColumn>
-                          <TableHeaderColumn>收款日期</TableHeaderColumn>
-                          <TableHeaderColumn>主体</TableHeaderColumn>
-                          <TableHeaderColumn>我司账号</TableHeaderColumn>
-                          <TableHeaderColumn>社区</TableHeaderColumn>
-                          <TableHeaderColumn>付款账户</TableHeaderColumn>
-                          <TableHeaderColumn>付款金额</TableHeaderColumn>
-                          <TableHeaderColumn>客户名称</TableHeaderColumn>
-                          <TableHeaderColumn>收款人</TableHeaderColumn>
-                          <TableHeaderColumn>备注</TableHeaderColumn>
+                          <TableHeaderColumn>付款方名臣</TableHeaderColumn>
+                          <TableHeaderColumn>入驻社区</TableHeaderColumn>
+                          <TableHeaderColumn>创建人</TableHeaderColumn>
+                          <TableHeaderColumn>创建时间</TableHeaderColumn>
+                          <TableHeaderColumn>备注说明</TableHeaderColumn>
                           <TableHeaderColumn>操作</TableHeaderColumn>
                       </TableHeader>
                       <TableBody>
                         <TableRow>
-                            <TableRowColumn name="tradingCode" component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
-
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
                             <TableRowColumn name="payWayName"></TableRowColumn>
                             <TableRowColumn name="dealTime"  component={(value, oldValue) => {
                                   return (<KrDate value={value} format="yyyy-mm-dd"/>)
@@ -234,17 +219,7 @@ export default class WaitVoucher extends Component {
                                      return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                                       <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                                    }}></TableRowColumn>
-                            <TableRowColumn name="accountNum" component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
 
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
                             <TableRowColumn name="communityName" component={(value,oldValue)=>{
                                     var TooltipStyle=""
                                     if(value.length==""){
@@ -256,17 +231,7 @@ export default class WaitVoucher extends Component {
                                      return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                                       <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                                    }}></TableRowColumn>
-                            <TableRowColumn name="payAccount" component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
-
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
+                          
                             <TableRowColumn name="flowAmount"></TableRowColumn>
                             <TableRowColumn name="company" component={(value,oldValue)=>{
                                     var TooltipStyle=""
@@ -279,17 +244,7 @@ export default class WaitVoucher extends Component {
                                      return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                                       <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                                    }}></TableRowColumn>
-                            <TableRowColumn name="payee" component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
 
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
                             <TableRowColumn name="remark" component={(value,oldValue)=>{
                                     var TooltipStyle=""
                                     if(value.length==""){
