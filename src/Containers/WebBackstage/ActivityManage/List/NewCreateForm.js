@@ -130,6 +130,7 @@ import State from './State';
 	 // 不置顶
 	noStick=()=>{
 		State.isStick = false;
+		State.serialNumRepeat = false;
 	}
 
 	// 复选框
@@ -195,7 +196,7 @@ import State from './State';
 		}
 		
 	}
-	// 开始时间改变
+	// 开始日期改变
 	beginDateChange=(value)=>{
 		let _this = this;
 		var beginDate = new Date(value);
@@ -399,11 +400,8 @@ import State from './State';
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												 
 												style={{width:80,marginTop:14,zIndex:10}} 
 												onChange = {this.beginTimeChange} 
-												
-												 
 												label=''/>
 											
 										</ListGroupItem>
@@ -412,7 +410,6 @@ import State from './State';
 											<KrField 
 												name="stopDate"  
 												component="date" 
-												// onChange={this.onStartChange} 
 												style={{width:170}} 
 												simple={true} 
 												requireLabel={false}
@@ -422,9 +419,7 @@ import State from './State';
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												
 												style={{width:80,zIndex:10}} 
-												
 												onChange = {this.endTimeChange}
 												label=''/>
 										</ListGroupItem>

@@ -289,6 +289,100 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		
 	}
 
+	// 开始日期改变
+	beginDateChange=(value)=>{
+		let _this = this;
+		var beginDate = new Date(value);
+		beginDate = beginDate.getTime();
+		_this.setState({
+			beginDate:beginDate
+		},function(){
+			_this.compareTime();
+		})
+		
+	}
+
+	// 结束日期改变
+	endDateChange=(value)=>{
+		let _this =this;
+		var endDate = new Date(value);
+		endDate = endDate.getTime();
+		_this.setState({
+			endDate:endDate
+		},function(){
+			_this.compareTime();
+		})
+		
+	}
+
+	// 开始时间改变
+	beginTimeChange=(value)=>{
+		let _this =this;
+		this.setState({
+			beginTime:value
+		},function(){
+			_this.compareTime();
+		})
+		
+
+	}
+
+	// 结束时间改变
+	endTimeChange=(value)=>{
+		let _this =this;
+		this.setState({
+			endTime:value
+		},function(){
+			_this.compareTime();
+		})
+	}
+
+	// 时间校验
+	compareTime=()=>{
+		let _this =this;
+		if(_this.state.beginDate && _this.state.endDate){
+			if(_this.state.endDate <_this.state.beginDate){
+				State.timeIsTrue  = false;
+				Notify.show([{
+					message: "结束时间不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(_this.state.endDate ==_this.state.beginDate){
+				if(_this.state.beginTime && _this.state.endTime){
+					var beginTime = _this.state.beginTime;
+					var endTime = _this.state.endTime;
+					var beginHour = beginTime.substr(0,2);
+					var beginMin = beginTime.substr(3);
+					var endHour = endTime.substr(0,2);
+					var endMin = endTime.substr(3);
+					if(endHour<beginHour){
+						State.timeIsTrue  = false;
+
+						Notify.show([{
+							message: "结束时间不能大于开始日期",
+							type: 'danger',
+						}]);
+					}else if(endHour == beginHour){
+						if(beginMin > endMin){
+							State.timeIsTrue  = false;
+
+							Notify.show([{
+								message: "结束时间不能大于开始日期",
+								type: 'danger',
+							}]);
+						}
+					}else{
+						State.timeIsTrue  = true;
+					}
+				}
+			}else{
+				State.timeIsTrue  = true;
+			}
+		}else{
+			State.timeIsTrue  = true;
+		}
+	}
+
 	render(){
 		
 		const { handleSubmit} = this.props;
@@ -384,27 +478,27 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
+												onChange = {this.beginDateChange}
 											/>
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												 
 												style={{width:80,marginTop:14,zIndex:10}} 
 												timeNum = {timeStart}
-												
-												label=''/>
+												onChange = {this.beginTimeChange} 
+												label=''
+											/>
 											
 										</ListGroupItem>
 										
 										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
 											<KrField 
 												name="stopDate"  
-												component="date" 
-												
+												component="date" 		
 												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
-												
+												onChange = {this.endDateChange} 
 											/>
 											<KrField
 												name="endTime"  
@@ -412,6 +506,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												timeNum = {timeEnd}
 												style={{width:80,zIndex:10}} 
 												label=''
+												onChange = {this.endTimeChange}
 											/>
 										</ListGroupItem>
 									</ListGroup>					
