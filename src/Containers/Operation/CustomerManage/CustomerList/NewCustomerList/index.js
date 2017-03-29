@@ -94,7 +94,7 @@ import './index.less'
 	  }
 
 	  var param=value.label;
-      if(param.indexOf('介绍')!=-1){
+      if(param.indexOf('推荐')!=-1){
          State.sourceCustomer=true;
       }else{
       	 State.sourceCustomer=false;
@@ -118,6 +118,7 @@ import './index.less'
 	componentDidMount(){
 	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		 State.sourceCustomer = false;
 
 	}
     closemm=()=>{

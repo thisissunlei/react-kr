@@ -207,8 +207,6 @@ export default class TreeComponent extends React.Component {
 						</div>}
 					</div>}
 
-				{/*<ProjectType data={treeAll} num={true} treeClose={this.imitateInputClick} />*/}
-
 				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			 </div>
 			</WrapComponent>
