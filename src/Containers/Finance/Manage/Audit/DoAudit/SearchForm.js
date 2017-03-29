@@ -80,7 +80,7 @@ class SearchForm extends Component {
 				{
 					detailList.map((item,index)=>{
 						return(
-							<div className="u-info-list" key={index}>
+							<div className="u-infos-list" key={index}>
 								<span className="u-info-label">{item.categoryName}:</span>
 								<span className="u-info-amount"> {item.amount}</span>
 							</div>
