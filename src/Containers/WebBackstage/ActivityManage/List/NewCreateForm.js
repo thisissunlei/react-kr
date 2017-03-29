@@ -246,7 +246,7 @@ import State from './State';
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24,zIndex:1}}
+								style={{width:'252px',marginLeft:24,zIndex:11}}
 							/>
 
 							
