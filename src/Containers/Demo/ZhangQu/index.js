@@ -1,9 +1,12 @@
 import React, {
 	Component
 } from 'react';
+
 import {
-	connect,
-} from 'react-redux';
+	Actions,
+	Store,
+} from 'kr/Redux';
+
 import {
 	reduxForm,
 	formValueSelector,
@@ -42,7 +45,7 @@ class ZhangQu extends Component {
 		return (
 			 <div>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-				 	<KrField component="editor" label="承租方：" name="htmlnnn" />
+				 	<KrField component="editor" label="承租方：" name="htmlnnn" defaultValue="<p><h1>一个两个</h1></p>"/>
 					<Button label="click" type="submit" />
 				 </form>
 		 </div>

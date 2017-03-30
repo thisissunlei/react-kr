@@ -7,7 +7,7 @@ import './index.less';
 export default class EditorComponent extends React.Component {
 
 	static defaultProps = {
-		maxSize:200
+		defaultValue: 'ddd',
 	}
 	static propTypes = {
 		onChange: React.PropTypes.func,
