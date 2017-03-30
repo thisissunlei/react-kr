@@ -35,6 +35,7 @@ import {
   Title
 } from 'kr-ui';
 
+ import './index.less';
  import WaitVoucher from './WaitVoucher';
  import OverVoucher from './OverVoucher';
  import DelVoucher from './DelVoucher';
@@ -108,7 +109,7 @@ export default class AuditList extends Component {
     let signedClientStyle = (tab == 'signedClient') ? activeTab : commenTab;
 
       return (
-        <div>
+        <div className="m-voucher">
           <Title value="凭证列表"/>
           <Tabs className="tabs">
             <Tab label="待处理凭证" onActive={this.merchants} style={merchantsStyle}>

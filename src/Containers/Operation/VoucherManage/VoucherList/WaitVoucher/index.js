@@ -40,6 +40,7 @@ import {
 } from 'kr-ui';
 
 import './index.less';
+import  ItemDetail from './ItemDetail';
 import SearchsForm from './SearchForm';
 
 export default class WaitVoucher extends Component {
@@ -55,7 +56,7 @@ export default class WaitVoucher extends Component {
       },
       infoList: [],
       itemDetail: [],
-      openView: false,
+      openItem: false,
       openEditCreate: false,
       Param: {
         page: 1,
@@ -63,7 +64,7 @@ export default class WaitVoucher extends Component {
         verifyStatus: 'UNCHECKED'
       },
     }
-    this.getInfo(this.state.Param);
+    //this.getInfo(this.state.Param);
 
   }
   componentWillReceiveProps(nextProps) {
@@ -72,13 +73,8 @@ export default class WaitVoucher extends Component {
         Params: {
           verifyStatus: 'UNCHECKED'
         }
-      }, function() {
-        this.getInfo({
-          verifyStatus: 'UNCHECKED'
-        });
       })
     }
-
   }
   componentDidMount() {}
 
@@ -103,7 +99,7 @@ export default class WaitVoucher extends Component {
       });
 
       if (type == 'view') {
-        this.openView();
+        this.openItem();
       } else if (type == 'edit') {
         this.openEditCreate();
       }
@@ -127,50 +123,34 @@ export default class WaitVoucher extends Component {
   //     }).catch(function(err) {});
   //
   //   }
-    //打开编辑回款
-  openEditCreate = () => {
-      this.setState({
-        openEditCreate: !this.state.openEditCreate
-      })
-    }
+
     //打开查看回款
-  openView = () => {
+  openItem = () => {
     this.setState({
-      openView: !this.state.openView
+      openItem: !this.state.openItem
     })
   }
 
-  getInfo = (form) => {
-    var params = Object.assign({}, form);
-    var _this = this;
-    Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
-      _this.setState({
-        infoList: response
-      })
-
-    }).catch(function(err) {});
-
-  }
+  // getInfo = (form) => {
+  //   var params = Object.assign({}, form);
+  //   var _this = this;
+  //   Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
+  //     _this.setState({
+  //       infoList: response
+  //     })
+  //
+  //   }).catch(function(err) {});
+  //
+  // }
   searchParams = (form) => {
     var _this = this;
     this.setState({
       Params: {
         page: 1,
-        pageSize: 10,
+        pageSize: 15,
         verifyStatus: 'UNCHECKED',
-        customerName: form.content
+        payWay: form.content
       }
-    }, function() {
-      this.getParentCount({
-        verifyStatus: 'UNCHECKED',
-        customerName: form.content
-      })
-      this.getInfo(this.state.Params);
-    });
-  }
-  openSearch = () => {
-    this.setState({
-      openSearch: !this.state.openSearch
     })
   }
 
@@ -205,7 +185,7 @@ export default class WaitVoucher extends Component {
                       </TableHeader>
                       <TableBody>
                         <TableRow>
-                            <TableRowColumn name="payWayName"></TableRowColumn>
+                            <TableRowColumn name="payWay"></TableRowColumn>
                             <TableRowColumn name="payWayName"></TableRowColumn>
                             <TableRowColumn name="payWayName"></TableRowColumn>
 
@@ -239,13 +219,22 @@ export default class WaitVoucher extends Component {
                                    }}></TableRowColumn>
                             <TableRowColumn>
                                 <Button label="查看"  type="operation"  operation="view"/>
-                                <Button label="编辑"  type="operation"  operation="edit"/>
                                 <Button label="删除"  type="operation"  operation="delete"/>
                             </TableRowColumn>
                           </TableRow>
                       </TableBody>
                        <TableFooter></TableFooter>
                     </Table>
+                    <Drawer
+                     modal={true}
+                     width={750}
+                     open={this.state.openItem}
+                     onClose={this.openItem}
+                     openSecondary={true}
+                   >
+                     <ItemDetail  detail={itemDetail} onCancel={this.openItem}  />
+                   </Drawer>
+
       </div>
 
     );
