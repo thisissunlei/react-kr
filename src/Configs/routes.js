@@ -268,7 +268,7 @@ export default (
 			<Route path="WebBackstage" component={Basic}>
 
 
-					{/*开票列表*/}
+					{/*活动*/}
 					<Route path="activity" component={Basic}>
 						<Route path="list" component={WebBackstage.ActivityManage.List}/>
 					</Route>

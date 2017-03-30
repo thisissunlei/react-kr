@@ -591,6 +591,7 @@ module.exports = {
 				iconName: 'icon-com',
 				iconColor: '#79859a',
 				menuCode: 'activityManage',
+				router :'activity',
 				menuItems: [{
 					primaryText: '活动列表',
 					menuCode: 'activityList',
