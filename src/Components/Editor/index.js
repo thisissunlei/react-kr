@@ -130,13 +130,37 @@ export default class Editor extends React.Component{
   }
 
   static propTypes = {
-    configs:React.PropTypes.object
+    configs:React.PropTypes.object,
+    value:React.PropTypes.string,
   }
 
   constructor(props) {
     super(props);
 
     this.containerId = 'container_'+Date.now();
+
+    this.ue = '';
+
+    this.init = false;
+
+  }
+
+
+  componentWillReceiveProps(nextProps){
+
+    if(nextProps.defaultValue){
+        this.setDefaultValue(nextProps.defaultValue);
+    }
+
+  }
+
+  setDefaultValue = (value)=>{
+
+    if(this.init){
+        return ;
+    }
+    this.ue.setContent(value);
+    this.init = true;
   }
 
   onChange =(value)=>{
@@ -153,6 +177,7 @@ export default class Editor extends React.Component{
         _this.onChange(content);
     });
 
+    this.ue = ue;
 
     UE.commands['toUploadImg'] = {
       execCommand : function(){

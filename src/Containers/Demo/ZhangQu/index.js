@@ -2,33 +2,53 @@ import React, {
 	Component
 } from 'react';
 import {
-	connect
+	connect,
 } from 'react-redux';
 import {
-	bindActionCreators
-} from 'redux';
+	reduxForm,
+	formValueSelector,
+	initialize,
+	arrayPush,
+	arrayInsert,
+	FieldArray,
+	Fields,
+	change
+} from 'redux-form';
+
 
 import {
 	Section,
 	PlanMap,
 	Dialog,
 	Button,
-	Editor
+	Editor,
+	KrField
 } from 'kr-ui';
 
-export default class ZhangQu extends Component {
+class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
 	}
 
+	onSubmit = (values) =>{
+		console.log('values',values);
+	}
 
 	render() {
 
+		const {handleSubmit} = this.props;
+
 		return (
 			 <div>
-				 	<Editor />
+				 <form onSubmit={handleSubmit(this.onSubmit)}>
+				 	<KrField component="editor" label="承租方：" name="htmlnnn" />
+					<Button label="click" type="submit" />
+				 </form>
 		 </div>
 		);
 	}
 }
+export default ZhangQu = reduxForm({
+	form: 'admitCreateForm',
+})(ZhangQu);
