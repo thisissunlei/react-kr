@@ -130,13 +130,38 @@ export default class Editor extends React.Component{
   }
 
   static propTypes = {
-    configs:React.PropTypes.object
+    configs:React.PropTypes.object,
+    value:React.PropTypes.string,
   }
 
   constructor(props) {
     super(props);
 
     this.containerId = 'container_'+Date.now();
+
+    this.ue = '';
+
+    this.init = false;
+
+  }
+
+
+  componentWillReceiveProps(nextProps){
+
+    if(nextProps.defaultValue){
+        this.setDefaultValue(nextProps.defaultValue);
+    }
+
+  }
+
+  setDefaultValue = (value)=>{
+
+    if(this.init){
+        return ;
+    }
+    var _this = this;
+    _this.ue.setContent(value);
+    this.init = true;
   }
 
   onChange =(value)=>{
@@ -145,7 +170,7 @@ export default class Editor extends React.Component{
   }
 
   componentDidMount(){
-    var {configs} = this.props;
+    var {configs,defaultValue} = this.props;
     var _this = this;
     var ue = UE.getEditor(this.containerId,configs);
     ue.addListener('contentChange',function(value){
@@ -153,7 +178,13 @@ export default class Editor extends React.Component{
         _this.onChange(content);
     });
 
+    ue.ready(function(){
+     _this.setDefaultValue(defaultValue);
+    });
 
+    this.ue = ue;
+
+/*
     UE.commands['toUploadImg'] = {
       execCommand : function(){
           console.log("点击了图片==========>");
@@ -162,6 +193,8 @@ export default class Editor extends React.Component{
             console.log("点击图片之后==========>");
       }
     };
+    */
+
   }
 
   render() {

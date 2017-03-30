@@ -7,10 +7,11 @@ import './index.less';
 export default class EditorComponent extends React.Component {
 
 	static defaultProps = {
-		maxSize:200
+		defaultValue: 'ddd',
 	}
-	static PropTypes = {
+	static propTypes = {
 		onChange: React.PropTypes.func,
+		defaultValue: React.PropTypes.string,
 	}
 
 	constructor(props) {
@@ -44,7 +45,7 @@ export default class EditorComponent extends React.Component {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-        <Editor onChange={this.onChange} />
+        <Editor onChange={this.onChange} defaultValue={this.props.defaultValue} />
 				{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 			</WrapComponent>
 		);

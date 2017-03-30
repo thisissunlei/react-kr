@@ -600,12 +600,13 @@ import State from './State';
 const validate = values => {
 	const errors = {}
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
-
+	let numContr =/^[1-9]\d{0,4}$/;
 
 	if (values.contactPhone && !phone.test(values.contactPhone) ) {
       errors.phone = '请输入正确电话号';
   	}
 	// console.log("values校验",values);
+
 	if(values.top==1){
 		if(!values.appCoverPic){
 			errors.appCoverPic = "请上传手机端轮播图"
@@ -616,7 +617,50 @@ const validate = values => {
 	}
 	if(!values.name){
 		errors.name = '请输入活动名称';
+	}else if(values.name){
+		var nameNum = values.name.replace(/(^\s*)|(\s*$)/g, "");
+		if(nameNum.length >30){
+			errors.name = '活动名称最多输入30个字符';
+		}
 	}
+	if(values.mapField){
+		
+		var mapFieldNum = values.mapField.detailSearch.replace(/(^\s*)|(\s*$)/g, "");
+		if(mapFieldNum.length >30){
+			errors.cityIdAndCountyId = '详细地址最多为30个字符';
+		}
+	}
+
+	if(values.contact){
+		var contactNum = values.contact.replace(/(^\s*)|(\s*$)/g, "");
+		if(contactNum.length >10){
+			errors.contact = '活动联系人最多为10个字符';
+		}
+	}
+
+	if(values.sort){
+
+		var sortNum = values.sort.replace(/(^\s*)|(\s*$)/g, "");
+	
+		if(!numContr.test(sortNum)){
+			errors.sort = '排序号必须为五位以内正整数';
+
+		}
+	}
+	if(values.maxPerson){
+
+		var personNum = values.maxPerson.replace(/(^\s*)|(\s*$)/g, "");
+
+		if(!numContr.test(personNum)){
+			errors.maxPerson = '人数限制必须为五位以内正整数';
+
+		}
+	}
+	
+
+
+	
+
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
@@ -625,8 +669,8 @@ const validate = values => {
 	}
 	if(!values.countyId){
 		errors.cityIdAndCountyId = "请选择举办地址";
-
 	}
+	
 	
 	
 	if(!values.infoPic){
