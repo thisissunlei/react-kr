@@ -52,9 +52,10 @@ import dateFormat from 'dateFormat';
 	componentDidMount(){
 	}
 	componentDidUpdate(){
-		console.log('----->',$('#clampjs').height(),$('#clampjs').innerHeight());
-		if($('#clampjs').height()>100){
+		console.log('======?',$('#clampjs').height())
+		if($('#clampjs').height()>110){
 			State.contentHeightAutoShow = true;
+			$('#clampjs').css('max-height','111px');
 		}else{
 			State.contentHeightAutoShow = false;
 		}
@@ -229,8 +230,7 @@ import dateFormat from 'dateFormat';
 
 							<div className="photo-box activity-content">
 								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'110px'}} id="clampjs">
-									{/*ReactHtmlParser(initValue.summary)*/}
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs">
 									{ReactHtmlParser(State.detailContent)}
 								</div>
 							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
