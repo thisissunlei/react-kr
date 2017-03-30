@@ -75,7 +75,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						EmptyArr.push(response.yPoint);
 
 						State.defaultPoint =  EmptyArr;
-						
+
 						State.mapDefaultValue = response.address;
 						State.initailPoint = response.countyName;
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
@@ -754,7 +754,7 @@ const validate = values => {
 
 	if(values.sort){
 
-		var sortNum = values.sort.replace(/(^\s*)|(\s*$)/g, "");
+		var sortNum = (values.sort+'').replace(/(^\s*)|(\s*$)/g, "");
 	
 		if(!numContr.test(sortNum)){
 			errors.sort = '排序号必须为五位以内正整数';
