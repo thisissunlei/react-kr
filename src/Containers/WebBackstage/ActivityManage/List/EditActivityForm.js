@@ -123,6 +123,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
+							Store.dispatch(change('EditActivityForm','mapField.detailSearch',response.address));
 
 
 
