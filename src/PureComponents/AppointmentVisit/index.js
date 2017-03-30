@@ -211,7 +211,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-														<div className='appointment-visit-content' onClick={this.columnClick.bind(this,itemData)}>
+														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
 															{itemData.msgStatu == "UNREAD" &&<span className="appointment-visit-spot"></span>}
 															{value}
 														</div>
