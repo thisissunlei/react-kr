@@ -1013,27 +1013,24 @@ const APIS = {
    },
    //客户公海列表－查询
    'highSeaSearch':{
-      url: '/mockjsdata/35/krspace-finance-web/csr/market/list/type/search?cityId={cityId}&page={page}&pageSize={pageSize}&sourceId={sourceId}',
+      url: 'http://mo.krspace.cn/api/krspace-finance-web/csr/market/list/type/search?cityId={cityId}&page={page}&pageSize={pageSize}&sourceId={sourceId}',
       method: 'get'
    },
     //客户公海列表－客户公海列表数据准备
    'highSeaDataReday':{
-      url: '/mockjsdata/35/krspace-finance-web/csr/market/list-param-data',
+      url: 'http://mo.krspace.cn/api/krspace-finance-web/csr/market/list-param-data',
       method: 'get'
    },
    //客户公海列表－获取导入结果接口
    'highSeaDataGet':{
-      url: '/mockjsdata/35/krspace-finance-web/csr/market/import/actions/get-result?batchId={batchId}',
+      url: 'http://mo.krspace.cn/api/krspace-finance-web/csr/market/import/actions/get-result?batchId={batchId}',
       method: 'get'
    },
    //客户公海列表－客户公海导入数据准备
    'highSourceName':{
-      url: '/mockjsdata/35/krspace-finance-web/csr/market/upload-param-data?sourceName={sourceName}',
+      url: 'http://mo.krspace.cn/api/krspace-finance-web/csr/market/upload-param-data?sourceName={sourceName}',
       method: 'get'
    },
  }
 
  module.exports = APIS;
-
-
-

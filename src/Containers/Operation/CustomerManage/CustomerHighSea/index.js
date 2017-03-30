@@ -25,6 +25,8 @@ import {
 	Col,
 	Dialog,
 	Title,
+	Tooltip,
+	Message
 } from 'kr-ui';
 import './index.less';
 import State from './State';
@@ -42,18 +44,21 @@ class CustomerHighSea extends React.Component{
 			style:true,
 			sureStatus:{
 			 sureCode:'',
-			 sureMessage:''	
+			 sureMessage:''
 			},
-			refreshState:false	
+			refreshState:false
 		}
 	}
 
 	openImportData=()=>{
 	  if(State.selectCode==-1){
-	  	this.reloadTipSubmit(); 
+	  	this.reloadTipSubmit();
 	  }else{
-	  	State.openImportFun();  
-	  }	         
+			this.setState({
+				refreshState:false
+			})
+	  	State.openImportFun();
+	  }
 	}
 
     reloadTipSubmit=()=>{
@@ -65,7 +70,7 @@ class CustomerHighSea extends React.Component{
               	 	sureCode:-2,
               	 	sureMessage:State.statusMessage
               	 }
-             }) 
+             })
 		  }
 		  if(State.statusCode==-3){
               State.openSureTip();
@@ -75,86 +80,104 @@ class CustomerHighSea extends React.Component{
               	 	sureMessage:State.statusMessage
               	 }
               })
-	      }	
+	      }
     }
 
 	reloadSubmit=()=>{
+		this.setState({
+			refreshState:false
+		})
 	  State.openImportFun();
+		State.openSureTip();
 	}
 	cancelImportData=()=>{
-	  State.openImportFun();	
+	  State.openImportFun();
 	}
-	cancelSureTip=()=>{	
-	  State.selectCode='';  
-	  State.openSureTip();	
+	cancelSureTip=()=>{
+	  State.selectCode='';
+	  State.openSureTip();
 	}
 
 	onLoadDemo=()=>{
-		let url = `/ipi/krspace-finance-web/cmt/market/import/actions/downloadTemplete`;
-		window.location.href = url; 
+		let url = `http:\/\/mo.krspace.cn/api/krspace-finance-web/csr/market/import/actions/download-templete`;
+		window.location.href = url;
 	}
 
 	importDataPost=(num)=>{
+		if(State.statusCode==-1){
+				this.cancelImportData();
+				Message.error(err.message);
+				State.selectCode=-1;
+				return ;
+		}
+		this.setState({
+			progress:0
+		})
+	  State.openProgressLoading();
 		this.cancelImportData();
-	    State.openProgressLoading();
-	    var _this=this;
+	  var _this=this;
 		var timer = window.setInterval(function() {
 			if (State.percentage==100) {
 				_this.setState({
 					style:false
-				})
-			 }
-			  State.importContent(num);
+					})
+				}
 			  if(State.statusCode==-2){
 			  	  window.clearInterval(timer);
-			  	  State.openProgressLoading();
-                  State.openSureTip();
-                  _this.setState({
-                  	 sureStatus:{
-                  	 	sureCode:-2,
-                  	 	sureMessage:State.statusMessage
-                  	 },
-                  	 refreshState:true                	 
-                  })
-                  State.selectCode=-2;
-                  State.searchParamsData();
+						  setTimeout(function(){
+							 State.openProgressLoading();
+	                  State.openSureTip();
+	                  _this.setState({
+	                  	 sureStatus:{
+	                  	 	sureCode:-2,
+	                  	 	sureMessage:State.statusMessage
+	                  	 },
+	                  	 refreshState:true
+	                  })
+	                  State.selectCode=-2;
+	                  State.searchParamsData();
+						    },600);
               }
               if(State.statusCode==-3){
               	  window.clearInterval(timer);
-			  	  State.openProgressLoading();
+								  setTimeout(function(){
+			  	        State.openProgressLoading();
                   State.openSureTip();
                    _this.setState({
                   	 sureStatus:{
                   	 	sureCode:-3,
                   	 	sureMessage:State.statusMessage
                   	 },
-                  	 refreshState:false  
+                  	 refreshState:false
                   })
                   State.selectCode=-3;
+								},600);
               }
               if(State.statusCode==1){
               	 window.clearInterval(timer);
-			  	 State.openProgressLoading();
-              	 State.openLoading=false;
-              	 Message.success('导入成功'); 
+								 setTimeout(function(){
+			  	       State.openProgressLoading();
+              	 Message.success('导入成功');
               	 State.searchParamsData();
               	 _this.setState({
-              	 	refreshState:true  
-              	 })        
+              	 	refreshState:true
+              	 })
+							 },600);
               }
               if(State.statusCode==-1){
               	 window.clearInterval(timer);
               	 State.openProgressLoading();
-              	 Message.error(State.statusMessage); 
+              	 Message.error(State.statusMessage);
               	 State.selectCode=-1;
               	  _this.setState({
-              	 	refreshState:false  
-              	 })           	  
+              	 	  refreshState:false
+              	 })
               }
-			_this.setState({
-			  progress:State.percentage	
-			})
-		},1000);		 
+							_this.setState({
+								progress:State.percentage
+							})
+							State.importContent(num);
+		},1000);
 	 }
 
 
@@ -182,10 +205,10 @@ class CustomerHighSea extends React.Component{
 			          </Col>
 	         </Row>
 
-            
+
             <Table
 			    style={{marginTop:8}}
-                ajax={true}
+              ajax={true}
 	            displayCheckbox={true}
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='highSeaSearch'
@@ -204,13 +227,53 @@ class CustomerHighSea extends React.Component{
 
 			        <TableBody >
 			              <TableRow>
-			                <TableRowColumn name="company"></TableRowColumn>
+			                <TableRowColumn name="company" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }} ></TableRowColumn>
 			                <TableRowColumn name="contact" ></TableRowColumn>
 			                <TableRowColumn name="tel"></TableRowColumn>
-			                <TableRowColumn name="email"></TableRowColumn>
+			                <TableRowColumn name="email" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="cityName"></TableRowColumn>
-			                <TableRowColumn name="address"></TableRowColumn>
-			                <TableRowColumn name="sourceName"></TableRowColumn>
+			                <TableRowColumn name="address" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }} ></TableRowColumn>
+			                <TableRowColumn name="sourceName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }} ></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date'></TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -226,12 +289,12 @@ class CustomerHighSea extends React.Component{
 						open={State.openImport}
 						contentStyle ={{ width: '446'}}
 					>
-						<ImportData 
-						  importDataPost={this.importDataPost} 
+						<ImportData
+						  importDataPost={this.importDataPost}
 						  onCancel={this.cancelImportData}
 						  onLoadDemo={this.onLoadDemo}
 						  />
-                </Dialog>
+                   </Dialog>
 
 
                     {/*进度条*/}
@@ -252,7 +315,7 @@ class CustomerHighSea extends React.Component{
 						contentStyle ={{ width: '446px',height:'236px'}}
 					>
 						<SureTipBtn
-						  onCancel={this.cancelSureTip} 
+						  onCancel={this.cancelSureTip}
 						  sureStatus={sureStatus}
 						  reloadSubmit={this.reloadSubmit}
 						/>
@@ -260,7 +323,7 @@ class CustomerHighSea extends React.Component{
 
         </div>
 
-          
+
 		);
 	}
 

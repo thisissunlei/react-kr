@@ -21,6 +21,10 @@ function getUrl(path, params = {},mode = false) {
     	 server='';
     }
 
+    if(url.indexOf('http') !==-1){
+    	 server='';
+    }
+
     try {
         server += APIS[path].url;
     } catch(err) {

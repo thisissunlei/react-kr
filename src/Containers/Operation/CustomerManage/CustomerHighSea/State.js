@@ -17,7 +17,7 @@ import {
 let State = observable({
 	   searchParams:{
 			page:1,
-			pageSize:15		
+			pageSize:15
 		},
 		openImport:false,
 		openLoading:false,
@@ -46,13 +46,17 @@ State.openProgressLoading=action(function(){
 })
 //导入结果调用
 State.importContent=action(function(ids){
+	   if(!ids){
+			 ids='';
+		 }
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('highSeaDataGet',{batchId:ids})).then(function(response) {
 		  _this.percentage=response.percent;
 		  _this.statusCode=1;
 		}).catch(function(err) {
-          _this.statusCode=err.code; 
-          _this.statusMessage=err.message; 
+          _this.statusCode=err.code;
+					_this.percentage=err.data.percent;
+          _this.statusMessage=err.message;
 		});
 })
 

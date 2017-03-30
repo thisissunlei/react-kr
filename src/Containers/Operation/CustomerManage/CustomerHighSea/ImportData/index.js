@@ -17,15 +17,15 @@ import State from '../State';
 import './index.less';
 @observer
 class ImportData extends React.Component{
-	
+
 	static PropTypes = {
-			
+
 	}
 	constructor(props,context){
 		super(props,context);
 		this.state={
 			file:{},
-			fileName:''
+			fileName:'',
 		}
 	};
 	onCancel=()=>{
@@ -43,14 +43,14 @@ class ImportData extends React.Component{
 
 	onChangeAdd=(params)=>{
 	   if(params.label==params.value){
-	   	 Store.dispatch(change('ImportData','sourceName',params.label)); 
-	   	 Store.dispatch(change('ImportData','sourceId',''));  
+	   	 Store.dispatch(change('ImportData','sourceName',params.label));
+	   	 Store.dispatch(change('ImportData','sourceId',''));
 	   }else{
 	   	 Store.dispatch(change('ImportData','sourceId',params.value));
 	   	 Store.dispatch(change('ImportData','sourceName',params.label));
 	   }
 	}
-	
+
 	onChange=(event)=> {
 		var _this = this;
 		let fileName = event.target.files[0].name;
@@ -68,36 +68,32 @@ class ImportData extends React.Component{
 
 	onSubmit=(params)=>{
 		let _this = this;
-    	var form = new FormData();
-		form.append('markerData', this.state.file);
+    var form = new FormData();
+		form.append('marketData', this.state.file);
+		if(params.sourceId){
 		form.append('sourceId', params.sourceId);
+		}
 		form.append('sourceName', params.sourceName);
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
+		}
+		if(!params.sourceName){
+			 return ;
 		}
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 						   if (xhr.response && xhr.response.code > 0) {
-						   	  //xhr.response.data.batchId
-                              State.importContent(12);
-                              if(State.statusCode==-4){
-                              	  State.openImportFun();	
-                                  _this.importDataPost(12);
-                              }              
-                              if(State.statusCode==-1){
-                              	  State.openImportFun();	
-                              	  Message.error(State.statusMessage);
-                              	  State.selectCode=-1;
-                              }                    
+                      State.importContent(xhr.response.data.batchId);
+											_this.importDataPost(xhr.response.data.batchId);
 							} else {
 							   Message.error(xhr.response.message);
 							}
 			    }else {
-            	    _this.onCancel(); 
-					Message.error('上传失败');
+            	_this.onCancel();
+					    Message.error('上传失败');
 				}
 			}
 		};
@@ -105,23 +101,23 @@ class ImportData extends React.Component{
 		xhr.onerror = function(e) {
 			console.error(xhr.statusText);
 		};
-		xhr.open('POST', 'http://mo.krspace.cn/ipi/krspace-finance-web/csr/market/import/actions/upload', true);
+		xhr.open('POST', '/moshengwei/api/krspace-finance-web/csr/market/import/actions/upload', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
 
   }
 
-	
+
 	render(){
 
 		let {handleSubmit}=this.props;
 		let {fileName} = this.state;
 
 		return(
-				
+
 				<div className='m-importData'>
 					<form onSubmit={handleSubmit(this.onSubmit)}>
-					  
+
 					  <span className='source-customer'>客户来源:</span>
                       <KrField  grid={1} name="sourceId" style={{marginTop:4,width:262}} component='searchSourceAdd'  onChange={this.onChangeAdd} placeholder='请选择'/>
                       <KrField type='hidden' name='sourceName' />
@@ -137,15 +133,15 @@ class ImportData extends React.Component{
 							<Col md={12} align="center">
 								<ButtonGroup>
 									<div  className='ui-btn-center'><Button  label="确定导入" type="submit" width={90} height={34} onClick={this.onSubmit}/></div>
-									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> 
+									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/>
 								</ButtonGroup>
 							</Col>
 						</Row>
 					</Grid>
 				  </form>
-				</div>								
+				</div>
 		);
-	}	
+	}
 }
 
 export default reduxForm({form:'ImportData',enableReinitialize:true,keepDirtyOnReinitialize:true})(ImportData);
