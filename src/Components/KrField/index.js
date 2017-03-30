@@ -34,7 +34,7 @@ import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 
 import NewUploadImageComponent from './NewUploadImageComponent';
-import MapComponent from './MapComponent';
+
 import MapComponentNew from './MapComponentNew';
 
 import EditorComponent from './EditorComponent';
@@ -268,11 +268,7 @@ export default class KrField extends React.Component {
 				<GroupComponent {...this.props} style={WrapStyles}/>
 			);
 		}
-		if (component === 'map' ) {
-			return (
-				<Field  {...this.props} component={MapComponent} style={WrapStyles}/>
-			);
-		}
+		
 		if (component === 'mapnew' ) {
 			return (
 				<Field  {...this.props} component={MapComponentNew} style={WrapStyles}/>
