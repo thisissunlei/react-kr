@@ -17,7 +17,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import dateFormat from 'dateformat';
 import {
 	KrField,
 	Grid,
@@ -34,8 +34,6 @@ import {
 	Tooltip,
 	LoadingTwo
 } from 'kr-ui';
-
-import dateFormat from 'dateformat';
 import './index.less';
 
 
@@ -146,6 +144,7 @@ class EditMoney extends Component {
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
 			}, {})).then(function(response) {
+				response.dealTime = dateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount,
