@@ -39,6 +39,7 @@ import {
   Message
 } from 'kr-ui';
 
+import './index.less';
 import SearchsForm from './SearchForm';
 
 export default class WaitVoucher extends Component {
@@ -179,7 +180,7 @@ export default class WaitVoucher extends Component {
     } = this.state;
     return (
 
-      <div className="m-do-audit">
+      <div className="m-w-voucher">
         <div className="u-search">
               <SearchsForm onSubmit={this.searchParams} openSearch={this.openSearch}/>
             </div>
@@ -195,7 +196,7 @@ export default class WaitVoucher extends Component {
                       <TableHeader>
                           <TableHeaderColumn>签约方名称</TableHeaderColumn>
                           <TableHeaderColumn>收款方式</TableHeaderColumn>
-                          <TableHeaderColumn>付款方名臣</TableHeaderColumn>
+                          <TableHeaderColumn>付款方名称</TableHeaderColumn>
                           <TableHeaderColumn>入驻社区</TableHeaderColumn>
                           <TableHeaderColumn>创建人</TableHeaderColumn>
                           <TableHeaderColumn>创建时间</TableHeaderColumn>
@@ -205,20 +206,8 @@ export default class WaitVoucher extends Component {
                       <TableBody>
                         <TableRow>
                             <TableRowColumn name="payWayName"></TableRowColumn>
-                            <TableRowColumn name="dealTime"  component={(value, oldValue) => {
-                                  return (<KrDate value={value} format="yyyy-mm-dd"/>)
-                            }}></TableRowColumn>
-                            <TableRowColumn name="corporationName"component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
-
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
+                            <TableRowColumn name="payWayName"></TableRowColumn>
+                            <TableRowColumn name="payWayName"></TableRowColumn>
 
                             <TableRowColumn name="communityName" component={(value,oldValue)=>{
                                     var TooltipStyle=""
@@ -231,19 +220,11 @@ export default class WaitVoucher extends Component {
                                      return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                                       <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                                    }}></TableRowColumn>
-                          
-                            <TableRowColumn name="flowAmount"></TableRowColumn>
-                            <TableRowColumn name="company" component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
 
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
+                            <TableRowColumn name="flowAmount"></TableRowColumn>
+                              <TableRowColumn name="dealTime"  component={(value, oldValue) => {
+                                    return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                              }}></TableRowColumn>
 
                             <TableRowColumn name="remark" component={(value,oldValue)=>{
                                     var TooltipStyle=""

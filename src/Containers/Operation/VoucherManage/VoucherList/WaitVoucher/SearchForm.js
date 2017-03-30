@@ -73,9 +73,9 @@ class SearchForm extends Component {
 		} = this.props;
 
 		return (
-			<div  className="u-clearfix">
+			<div>
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
-				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  inputName="done"/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入签约方名称"  inputName="wait"/>
 			</div>
 		);
 	}
