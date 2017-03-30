@@ -236,7 +236,7 @@ class AddMoney extends React.Component {
 	}
 	getMainbillInfo = (form) => {
 		var _this = this;
-		if (form.id == 0) {
+		if (!form.id) {
 			this.openCreateMainbill(form.id);
 		}
 		Store.dispatch(Actions.callAPI('get-mainbill-info', {
@@ -258,7 +258,7 @@ class AddMoney extends React.Component {
 				contactType: '0',
 				value: '0'
 			}
-			response.cimbList.map((item, index) => {
+			response.cimbList.map((item) => {
 				item.value = item.detailid;
 				item.label = item.contactName;
 				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
@@ -266,7 +266,7 @@ class AddMoney extends React.Component {
 				return item;
 			})
 			response.cimbList.push(obj)
-			response.scvList.map((item, index) => {
+			response.scvList.map((item) => {
 				Store.dispatch(change('addMoney', `no-${item.id}`, ''));
 			})
 			_this.setState({
@@ -276,16 +276,15 @@ class AddMoney extends React.Component {
 		}).catch(function(err) {});
 	}
 	getAccount = (form) => {
+		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
-		var id = this.state.corporationId || this.props.corporationId;
-		console.log('this.props.corporationId', this.props.corporationId)
-		console.log('this.state.corporationId ', this.state.corporationId)
+		var corporationId = this.state.corporationId || this.props.corporationId;
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			accountType: form.value,
-			corporationId: id
-		}, {})).then(function(response) {
+			corporationId
+		})).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -295,7 +294,7 @@ class AddMoney extends React.Component {
 				accountList: accountList
 			})
 
-		}).catch(function(err) {});
+		});
 	}
 
 	onSubmit = (form) => {
@@ -327,7 +326,7 @@ class AddMoney extends React.Component {
 				noList.push(obj)
 			}
 		}
-		parentIdList.map((item, index) => {
+		parentIdList.map((item) => {
 			var obj = {
 				"id": item,
 				"value": []
@@ -347,7 +346,7 @@ class AddMoney extends React.Component {
 			})
 			childrenList.push(obj)
 		})
-		childrenList.map((item, index) => {
+		childrenList.map((item) => {
 			if (item.id == 0) {
 				childrenList.pop();
 			}
@@ -464,7 +463,8 @@ class AddMoney extends React.Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
+			/> 
+			< KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}
