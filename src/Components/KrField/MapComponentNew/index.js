@@ -37,7 +37,7 @@ export default class MapComponentNew extends Component {
 	}
 	componentWillReceiveProps(nextProps){
 		this.refs.mapInput.defaultValue = nextProps.defaultValue;
-	
+		console.log("nextProps.defaultPoint",nextProps.defaultPoint);
 		if(nextProps.defaultPoint){
 			this.setState({
 				pointLng : nextProps.defaultPoint[0],
@@ -102,7 +102,7 @@ export default class MapComponentNew extends Component {
 	setMarker=(searchValue)=>{
 
 		let _this =this;
-
+		_this.map.clearOverlays();
 		_this.setState({
 			searchText : searchValue
 		},function(){
