@@ -117,8 +117,10 @@ class EditMoney extends React.Component {
 				item.value = item.detailid;
 				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
 				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
+				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.frontId}-1`, item.nFrontmoney));
 				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
 				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
+				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.nFrontmoney * 100;
 				return item;
 			})
 

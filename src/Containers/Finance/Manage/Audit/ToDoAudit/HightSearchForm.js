@@ -1,10 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 import {
 	reduxForm,
 } from 'redux-form';
@@ -26,10 +20,9 @@ import {
 } from 'kr-ui';
 import './index.less';
 
+class HightSearchForm extends React.Component {
 
-class HightSearchForm extends Component {
-
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
@@ -58,6 +51,7 @@ class HightSearchForm extends Component {
 	}
 
 	onSubmit = (form) => {
+		form = Object.assign({},form);
 		form.verifyStatus = "UNCHECKED";
 		const {
 			onSubmit
@@ -69,7 +63,6 @@ class HightSearchForm extends Component {
 			openSearch
 		} = this.props;
 		openSearch && openSearch();
-
 	}
 
 	onCancel = () => {
@@ -81,8 +74,8 @@ class HightSearchForm extends Component {
 	getCommunity = () => {
 		var communityList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-mainbill-community', {}, {})).then(function(response) {
-			communityList = response.map((item, index) => {
+		Store.dispatch(Actions.callAPI('get-mainbill-community')).then(function(response) {
+			communityList = response.map((item) => {
 				item.label = item.communityname;
 				item.value = item.id;
 				return item;
@@ -91,15 +84,15 @@ class HightSearchForm extends Component {
 				communityList: communityList
 			})
 
-		}).catch(function(err) {});
+		});
 	}
 
 
 	getMain = () => {
 		var mainList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-corporation', {}, {})).then(function(response) {
-			mainList = response.map((item, index) => {
+		Store.dispatch(Actions.callAPI('get-fina-corporation')).then(function(response) {
+			mainList = response.map((item) => {
 				item.label = item.corporationName;
 				item.value = item.id;
 				return item;
@@ -108,7 +101,7 @@ class HightSearchForm extends Component {
 				mainList: mainList
 			})
 
-		}).catch(function(err) {});
+		});
 	}
 
 

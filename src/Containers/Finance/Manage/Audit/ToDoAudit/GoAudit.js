@@ -1,16 +1,7 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	change
 } from 'redux-form';
 
 import {
@@ -27,7 +18,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchForms,
-  Message,
+  	Message,
 	ButtonGroup,
 	CircleStyleTwo,
 	KrDate
@@ -36,7 +27,7 @@ import {
 import './index.less';
 
 
-class GoAudit extends Component {
+class GoAudit extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
@@ -53,6 +44,7 @@ class GoAudit extends Component {
 	}
 
   onSubmit = (form) => {
+  	form = Object.assign({},form);
     form.type = this.type;
     Store.dispatch(Actions.callAPI('edit-verify-status', {}, {
     finaVerifyId:this.props.detail.id,
