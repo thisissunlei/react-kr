@@ -34,8 +34,6 @@ import {
 	Tooltip,
 	LoadingTwo
 } from 'kr-ui';
-
-
 import './index.less';
 
 
