@@ -210,7 +210,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
 			if(!values.mapField.detailSearch){
-				values.address = State.mapDefaultValu
+				values.address = State.mapDefaultValue
 			}else{
 				values.address = values.mapField.detailSearch;
 			}
