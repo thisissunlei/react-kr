@@ -669,18 +669,12 @@ class EditMoney extends Component {
 		render() {
 
 			const {
-				error,
 				handleSubmit,
-				pristine,
-				reset,
 			} = this.props;
 			let {
 				flowAmount,
 				payment,
 				accountList,
-				mainbillInfo,
-				showName,
-				customerId,
 				infoList,
 				Loading
 			} = this.state;
