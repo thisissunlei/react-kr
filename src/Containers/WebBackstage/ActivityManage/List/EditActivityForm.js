@@ -70,9 +70,46 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						detailStartTime = detailStartTime.substr(0,5);
 						detailEndTime = detailEndTime.substr(0,5);
 						
-						console.log("detailStartTime",detailStartTime,"detailEndTime",detailEndTime);
-						// console.log("endTimes",endTimes);
+						var EmptyArr = [];
+						EmptyArr.push(response.xPoint);
+						EmptyArr.push(response.yPoint);
+						console.log("EmptyArr",EmptyArr);
+						State.defaultPoint =  EmptyArr;
+						console.log("State.defaultPoint",State.defaultPoint);
+						State.mapDefaultValue = response.address;
+						State.initailPoint = response.countyName;
+          				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
+          				State.mapdefaultValue = response.address;
 
+          				State.coverPicDefaultValue = response.coverPic;
+          				State.infoPicDefaultValue = response.infoPic;
+
+          				var enrollArr = response.enrollFiels;
+          				if(enrollArr.indexOf("NAME")>-1){
+          					State.choseName = true;
+          				}else{
+          					State.choseName = false;
+          				}
+          				if(enrollArr.indexOf("PHONE")>-1){
+          					State.chosePhone = true;
+          				}else{
+          					State.chosePhone = false;
+          				}
+          				if(enrollArr.indexOf("COMPANY")>-1){
+          					State.choseCompany = true;
+          				}else{
+          					State.choseCompany = false;
+          				}
+          				if(enrollArr.indexOf("POSITION")>-1){
+          					State.chosePosition = true;
+          				}else{
+          					State.chosePosition = false;
+          				}
+          				if(enrollArr.indexOf("ADDRESS")>-1){
+          					State.choseAdd = true;
+          				}else{
+          					State.choseAdd = false;
+          				}
 						_this.setState({
 							timeStart : detailStartTime,
 							timeEnd : detailEndTime
@@ -80,6 +117,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(initialize('EditActivityForm', response));
 							Store.dispatch(change('EditActivityForm','startDate',startDates));
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							
+							Store.dispatch(change('EditActivityForm','startDate',startDates));
+							Store.dispatch(change('EditActivityForm','detailStartTime',detailStartTime));
+							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
+							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
+
 
 						})
 						
@@ -113,50 +157,59 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values你点击了发布");
-		var EArr = [];
-		if(State.choseName){
-			EArr.push("NAME")
-		}
-		if(State.chosePhone){
-			EArr.push("PHONE")
-		}
-		if(State.choseCompany){
-			EArr.push("COMPANY")
-		}
-		if(State.chosePosition){
-			EArr.push("POSITION")
-		}
-		if(State.choseAdd){
-			EArr.push("ADDRESS")
-		}
-
-		if(State.noPublic){
-			values.publishType = 0;
+		if(State.serialNumRepeat){
+			return;
 		}else{
-			values.publishType = 1;
-		}
-		
+			values.publishType = this.publishType ;
 
-		values.yPoint = values.mapField.pointLng;
-		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.searchText;
-		values.enroll = EArr;
-		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-			State.openNewCreate = !State.openNewCreate;
-			State.timer = new Date();
-		}).catch(function(err){
+			values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+			values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+
+			if(values.top == 1){
+				values.sort = '';
+			}
+
+			var EArr = [];
+			if(State.choseName){
+				EArr.push("NAME")
+			}
+			if(State.chosePhone){
+				EArr.push("PHONE")
+			}
+			if(State.choseCompany){
+				EArr.push("COMPANY")
+			}
+			if(State.chosePosition){
+				EArr.push("POSITION")
+			}
+			if(State.choseAdd){
+				EArr.push("ADDRESS")
+			}
+
+			values.xPoint = values.mapField.pointLng;
+			values.yPoint = values.mapField.pointLat;
+			values.address = values.mapField.detailSearch;
+			values.enroll = EArr;
+
+			Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+				State.openEditDetail = !State.openEditDetail;
+				State.timer = new Date();
+			}).catch(function(err){
 			
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		}
 	}
 	//存为草稿
-	toSave=(values)=>{
-		// console.log("你点击存为草稿");
-		State.noPublic = true;
+	toSave=()=>{
+		this.publishType = 0;
+	}
+	// 发布
+	toPublish=()=>{
+		this.publishType = 1;
 	}
 	// 置顶
 	chooseStick=()=>{
@@ -210,9 +263,128 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			State.choseAdd = false;
 		}
 	}
+	// 城市组件选到三级
+	changeCity=(thirdId,secondId,city)=>{
+		// console.log("thirdId,secondId,city",thirdId,secondId,city);
+		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
+		// console.log("State.initailPoint",State.initailPoint);
+		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
+		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
+
+	}
+	// 检验排序号是否重复
+	NumRepeat=(value)=>{
+		console.log("value",value);
+		if(!value){
+			State.serialNumRepeat = false;
+		}else{
+			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
+				State.serialNumRepeat = false;
+				
+			}).catch(function(err){
+				State.serialNumRepeat = true;
+				
+			});
+		}
+		
+	}
+
+	// 开始日期改变
+	beginDateChange=(value)=>{
+		let _this = this;
+		var beginDate = new Date(value);
+		beginDate = beginDate.getTime();
+		_this.setState({
+			beginDate:beginDate
+		},function(){
+			_this.compareTime();
+		})
+		
+	}
+
+	// 结束日期改变
+	endDateChange=(value)=>{
+		let _this =this;
+		var endDate = new Date(value);
+		endDate = endDate.getTime();
+		_this.setState({
+			endDate:endDate
+		},function(){
+			_this.compareTime();
+		})
+		
+	}
+
+	// 开始时间改变
+	beginTimeChange=(value)=>{
+		let _this =this;
+		this.setState({
+			beginTime:value
+		},function(){
+			_this.compareTime();
+		})
+		
+
+	}
+
+	// 结束时间改变
+	endTimeChange=(value)=>{
+		let _this =this;
+		this.setState({
+			endTime:value
+		},function(){
+			_this.compareTime();
+		})
+	}
+
+	// 时间校验
+	compareTime=()=>{
+		let _this =this;
+		if(_this.state.beginDate && _this.state.endDate){
+			if(_this.state.endDate <_this.state.beginDate){
+				State.timeIsTrue  = false;
+				Notify.show([{
+					message: "结束时间不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(_this.state.endDate ==_this.state.beginDate){
+				if(_this.state.beginTime && _this.state.endTime){
+					var beginTime = _this.state.beginTime;
+					var endTime = _this.state.endTime;
+					var beginHour = beginTime.substr(0,2);
+					var beginMin = beginTime.substr(3);
+					var endHour = endTime.substr(0,2);
+					var endMin = endTime.substr(3);
+					if(endHour<beginHour){
+						State.timeIsTrue  = false;
+
+						Notify.show([{
+							message: "结束时间不能大于开始日期",
+							type: 'danger',
+						}]);
+					}else if(endHour == beginHour){
+						if(beginMin > endMin){
+							State.timeIsTrue  = false;
+
+							Notify.show([{
+								message: "结束时间不能大于开始日期",
+								type: 'danger',
+							}]);
+						}
+					}else{
+						State.timeIsTrue  = true;
+					}
+				}
+			}else{
+				State.timeIsTrue  = true;
+			}
+		}else{
+			State.timeIsTrue  = true;
+		}
+	}
 
 	render(){
-		// console.log("State",State);
+		
 		const { handleSubmit} = this.props;
 		let {timeStart,timeEnd} = this.state;
 		
@@ -231,14 +403,14 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 'OPEN_DAY'
 		}];
 		let partakeMan =[{
-			label: '仅限会员',
-			value: 'ONLY_MEMBER'
+			label: '会员专属',
+			value: 'MEMBER_ONLY'
 		},{
-			label: '仅限受邀者',
-			value: 'ONLY_INVITA'
+			label: '会员优先',
+			value: 'MEMBER_FIRST'
 		},{
-			label: '无限制',
-			value: 'ANYBODY'
+			label: '仅限氪空间项目',
+			value: 'KR_PROJECT_ONLY'
 		}];
 		let checkboxOptions=[{
 			label: '姓名',
@@ -256,10 +428,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			label: '地址',
 			value: 5
 		}]
-		// console.log("State.itemData",State.itemData);
-
-		// console.log("return===>>State",State);
-
+	
 
 		return (
 
@@ -292,7 +461,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24}}
+								style={{width:'252px',marginLeft:24,zIndex:11}}
 							/>
 
 							
@@ -309,34 +478,36 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
+												onChange = {this.beginDateChange}
 											/>
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
 												style={{width:80,marginTop:14,zIndex:10}} 
 												timeNum = {timeStart}
-												// requireLabel={true} 
-												label=''/>
+												onChange = {this.beginTimeChange} 
+												label=''
+											/>
 											
 										</ListGroupItem>
 										
 										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
 											<KrField 
 												name="stopDate"  
-												component="date" 
-												// onChange={this.onStartChange} 
+												component="date" 		
 												style={{width:170}} 
 												simple={true} 
 												requireLabel={false} 
-												
+												onChange = {this.endDateChange} 
 											/>
 											<KrField
 												name="endTime"  
 												component="selectTime" 
 												timeNum = {timeEnd}
 												style={{width:80,zIndex:10}} 
-												label=''/>
+												label=''
+												onChange = {this.endTimeChange}
+											/>
 										</ListGroupItem>
 									</ListGroup>					
 								</Row>
@@ -350,17 +521,19 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="举办地址" 
 								style={{width:'252px'}}  
 								onSubmit={this.changeCity} 
-								
+								cityName={State.cityData}
 							/>
 
 							<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 							<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 								<KrField name="mapField" 
-									component="map" 
+									component="mapnew" 
 									placeholder="例如：北京市海淀区中关村大街"
 									style={{width:242,height:36}}
 									mapStyle={{width:400,height:400}}
 									initailPoint ={State.initailPoint}
+									defaultValue = {State.mapDefaultValue}
+									defaultPoint = {State.defaultPoint}
 								/>
 							</div>
 
@@ -374,11 +547,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							/>
 							<KrField grid={1/2} name="maxPerson" type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
 							<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
-								<KrField name="top" grid={1/2} label="置顶" type="radio" value={1} style={{marginRight:'50'}} onClick={this.chooseStick}/>
-								<KrField name="top" grid={1/2} label="不置顶" type="radio" value={0} onClick={this.noStick}/>
+								<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
+								<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
 			              	</KrField>
 			              	{/*置顶不显示排序*/}
-							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}}/>
+							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
+							{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
+							
 							{/*置顶显示轮播图*/}
 			              	<KrField name="coverPic" 
 								component="newuploadImage" 
@@ -390,6 +565,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="上传轮播图"
 								inline={false}
 								style={{display:State.isStick?"block":"none"}}
+								defaultValue={State.coverPicDefaultValue}
 							/>
 							<KrField name="infoPic" 
 								component="newuploadImage" 
@@ -400,9 +576,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								requestURI = {State.requestURI}
 								label="上传列表详情图"
 								inline={false}
+								defaultValue={State.infoPicDefaultValue}
+
 							/>
 							
-							<KrField component="editor" name="summary" label="活动介绍"/>
 							
 							
 						</div>
@@ -416,34 +593,35 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
+							<KrField component="editor" name="summary" label="活动介绍"/>
+							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.chooseName}/> 
+											<input type="checkbox"  onChange={this.chooseName} checked={State.choseName}/> 
 											<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 					
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.choosePhone}/> 
+											<input type="checkbox"  onChange={this.choosePhone} checked={State.chosePhone}/> 
 											<span style={{fontSize:14,color:"#333333"}} >电话</span>
 										</ListGroupItem>
 
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.chooseCompany}/> 
+											<input type="checkbox"  onChange={this.chooseCompany} checked={State.choseCompany}/> 
 											<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 	
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.choosePosition}/> 
+											<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition}/> 
 											<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 										</ListGroupItem>
 										<ListGroupItem style={{}}>
-											<input type="checkbox"  onChange={this.chooseAdd}/> 
+											<input type="checkbox"  onChange={this.chooseAdd} checked={State.choseAdd}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 
@@ -459,10 +637,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='submit'/>
+											<Button  label="发布" type='submit' onClick={this.toPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='submit' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />

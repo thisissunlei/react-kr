@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import $ from 'jquery';
 import ReactHtmlParser from 'react-html-parser';
 import {
 	KrField,
@@ -46,17 +47,28 @@ import dateFormat from 'dateFormat';
 		}
 	}
 	componentWillMount() {
+		console.log('dddd');
 	}
 	componentDidMount(){
 	}
+	componentDidUpdate(){
+		console.log('----->',$('#clampjs').height(),$('#clampjs').innerHeight());
+		if($('#clampjs').height()>100){
+			State.contentHeightAutoShow = true;
+		}else{
+			State.contentHeightAutoShow = false;
+		}
+	}
 	componentWillReceiveProps(nextProps){
+		console.log('componentWillReceiveProps');
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
-			},function(){
-				State.activityGetList(nextProps.detail.id);
-				State.activityItemcontent();
 			})
+			State.activityGetList(nextProps.detail.id);
+			State.activityDetail(nextProps.detail.id);
+			State.HeightAuto = false;
+			State.contentHeightAuto = false;
 		}
 		
 
@@ -107,14 +119,14 @@ import dateFormat from 'dateFormat';
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
 		let partakeMan =[{
-			label: '仅限会员',
-			value: 'ONLY_MEMBER'
+			label: '会员专属',
+			value: 'MEMBER_ONLY'
 		},{
-			label: '仅限受邀者',
-			value: 'ONLY_INVITA'
+			label: '会员优先',
+			value: 'MEMBER_FIRST'
 		},{
-			label: '无限制',
-			value: 'ANYBODY'
+			label: '仅限氪空间项目',
+			value: 'KR_PROJECT_ONLY'
 		}];
 		let options = [{
 			label: 'CEO Time',
@@ -162,6 +174,7 @@ import dateFormat from 'dateFormat';
 		});
 		let same = this.isSameDay(initValue.beginDate,initValue.endDate);
 		let time = this.setTime(same,initValue);
+		console.log('State.contentHeightAuto',State.contentHeightAuto);
 		return (
 
 			<div className="new-create-activity">
@@ -198,16 +211,7 @@ import dateFormat from 'dateFormat';
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
 							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
 							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow}  defaultValue='不置顶'/>
-							<div className="photo-box activity-content">
-								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'150px'}}>
-									{/*initValue.summary*/}
-									{ReactHtmlParser(State.detailContent)}
-								</div>
-							{<div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p><span>{State.contentHeightAuto?'收起':'展开'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'}></span></p></div>}
-
-							</div>
-
+							
 							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
 								<span className="photo-title">上传轮播图</span>
 								<div className="photo-img-box">
@@ -221,6 +225,16 @@ import dateFormat from 'dateFormat';
 									<img src={initValue.infoPic} style={{width:'100%',height:'100%'}}/>
 											
 								</div>
+							</div>
+
+							<div className="photo-box activity-content">
+								<span className="photo-title">活动介绍</span>
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} style={{maxHeight:'110px'}} id="clampjs">
+									{/*ReactHtmlParser(initValue.summary)*/}
+									{ReactHtmlParser(State.detailContent)}
+								</div>
+							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
+
 							</div>
 							
 						</div>
@@ -263,7 +277,7 @@ import dateFormat from 'dateFormat';
 							</Grid>
 						</div>
 					</div>
-					<div className="enroll-info" style={{minHeight:150}}>
+					<div className="enroll-info" style={{minHeight:150,paddingBottom:50}}>
 						<div className="enroll-title">
 							<span>3</span>
 							<span></span>
@@ -273,7 +287,7 @@ import dateFormat from 'dateFormat';
 							<Table displayCheckbox={false}>
 								<TableHeader>
 									{
-										State.actField.actEnroll && State.actField.actEnroll.map((item,index)=>{
+										State.actField.items.length && State.actField.actEnroll && State.actField.actEnroll.map((item,index)=>{
 											return (
 												<TableHeaderColumn key={index}>{item}</TableHeaderColumn>
 											)
@@ -282,7 +296,7 @@ import dateFormat from 'dateFormat';
 								</TableHeader>
 								<TableBody>
 								{
-									State.actField.actEnroll && State.actField.items.map((item,index)=>{
+									State.actField.items.length && State.actField.actEnroll && State.actField.items.map((item,index)=>{
 									return (
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
@@ -299,7 +313,7 @@ import dateFormat from 'dateFormat';
 						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
 						
 
-						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p><span>{State.HeightAuto?'收起':'展开'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
+						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
 
 					</div>
 					

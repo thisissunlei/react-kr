@@ -56,6 +56,7 @@ export default class List extends Component {
 	openEditDialog(itemData){
 		// console.log("itemData",itemData);
 		State.itemData =itemData;
+		// State.openCloseNavs = true;
 		State.openEditDetail = !State.openEditDetail;
 		
 	}
@@ -78,10 +79,10 @@ export default class List extends Component {
 				ids.push(item.id)
 			});
 			ids = String(ids);
-			url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+			url = `/api/krspace-finance-web/activity/activity-export?ids=${ids}`
 
 		}else{
-			url = `/api/krspace-finance-web/member/member-list-excel?cityId={cityId}&type={type}&title={title}&startTime={startTime}&endTime={endTime}`
+			url = `/api/krspace-finance-web/activity/activity-export?cityId={cityId}&type={type}&countyId={countyId}&beginDate={beginDate}&endDate={endDate}&name={name}`
 			if (Object.keys(params).length) {
 				for (let item in params) {
 					if (params.hasOwnProperty(item)) {
@@ -91,11 +92,7 @@ export default class List extends Component {
 				}
 			}
 		}
-		// console.log('===>onExport',values,State.searchParams);
-		// console.log('url',url);
-		
-		// window.location.href = url;
-		
+		console.log('onexport------>',url);
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
@@ -117,10 +114,9 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		console.log('高级查询',values);
-		// State.searchParams = values;
 		State.searchParams = Object.assign({},State.searchParams,values);
-		// State.content = values.name;
+		State.openAdvancedQuery = !State.openAdvancedQuery;
+
 	}
 	downPublish=(itemData)=>{
 		State.itemDownPublish(itemData.id);
@@ -142,10 +138,13 @@ export default class List extends Component {
 		State.openDetail = false;
 		State.openNewCreate = false;
 		State.openDetail = false;
+		State.openEditDetail = false;
 	}
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
 		State.itemDetail = itemData;
+		// State.activityGetList(itemData.id);
+		// State.activityDetail(itemData.id);
 	}
 
 	render() {
@@ -153,12 +152,11 @@ export default class List extends Component {
 			State.list.totalCount = 0;
 		}
 		let className = '';
-		if(State.openCloseNavs || State.openNewCreate || State.openDetail){
+		if(State.openCloseNavs || State.openNewCreate || State.openDetail || State.openEditDetail){
 			className='close-navs'
 		}else{
 			className = 'none';
 		}
-		console.log('09-9-09=====>',State.searchParams,State.searchParams.cityId);
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
 					<div className={className} onClick={this.closeNavs}></div>
@@ -189,7 +187,7 @@ export default class List extends Component {
 											<TableHeaderColumn>活动标题</TableHeaderColumn>
 											<TableHeaderColumn>活动类型</TableHeaderColumn>
 											<TableHeaderColumn>城市地区</TableHeaderColumn>
-											<TableHeaderColumn>活动时间</TableHeaderColumn>
+											<TableHeaderColumn style={{width:250}}>活动时间</TableHeaderColumn>
 											<TableHeaderColumn>创建人</TableHeaderColumn>
 											<TableHeaderColumn>已报名数</TableHeaderColumn>
 											<TableHeaderColumn>状态</TableHeaderColumn>
@@ -230,9 +228,9 @@ export default class List extends Component {
 												return (<span>{itemData.cityName}{itemData.countyName}</span>)}}
 											></TableRowColumn>
 
-											<TableRowColumn name="beginDate" type="date"
+											<TableRowColumn name="beginDate" style={{width:250}} type="date"
 											component={(value,oldValue,itemData)=>{
-												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}-{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
+												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}至{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
 												></TableRowColumn>
 											<TableRowColumn name="createName"
 											component={(value,oldValue)=>{
@@ -241,7 +239,7 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="enrollCount" style={{overflow:"hidden"}}
+											<TableRowColumn name="enrollNum" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
@@ -276,7 +274,7 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
+															{/*<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>*/}
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
 															</span>
@@ -285,7 +283,7 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
+															{/*<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>*/}
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
 															</span>
@@ -300,16 +298,16 @@ export default class List extends Component {
 								</Section>
 
 								{/*新建活动*/}
-							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 
 								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  <Drawer open={State.openDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.closeItemDetail} detail={State.itemDetail}/>
 							  </Drawer>
 								{/*编辑活动*/}
-							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.closeEditDialog} detail={State.itemData}/>
 							  </Drawer>
 								<Dialog

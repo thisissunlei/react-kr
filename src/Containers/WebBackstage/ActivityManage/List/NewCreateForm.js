@@ -33,7 +33,10 @@ import State from './State';
 		this.state={
 			// 上传轮播图是否显示
 			// rotateShow : true
-			
+			beginDate:'',
+			endDate:'',
+			beginTime:'',
+			endTime:''
 		}
 		// Store.dispatch(reset('NewCreateForm'));
 		
@@ -54,58 +57,70 @@ import State from './State';
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
-	
 	// 提交
 	onSubmit=(values)=>{
-		console.log("＝＝＝＝＝>提交");
-		values.publishType = this.publishType ;
+		if(!State.timeIsTrue){
+			Notify.show([{
+				message: "结束时间不能大于开始日期",
+				type: 'danger',
+			}]);
+			return;
+		}else if(State.serialNumRepeat){
+			return;
+		}else{
+			values.publishType = this.publishType ;
 
-		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
-		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+			values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
+			values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
 
-		var EArr = [];
-		if(State.choseName){
-			EArr.push("NAME")
-		}
-		if(State.chosePhone){
-			EArr.push("PHONE")
-		}
-		if(State.choseCompany){
-			EArr.push("COMPANY")
-		}
-		if(State.chosePosition){
-			EArr.push("POSITION")
-		}
-		if(State.choseAdd){
-			EArr.push("ADDRESS")
-		}
+			if(values.top == 1){
+				values.sort = '';
+			}
 
-		values.yPoint = values.mapField.pointLng;
-		values.xPoint = values.mapField.pointLat;
-		values.address = values.mapField.detailSearch;
-		values.enroll = EArr;
 
-		// Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-		// 	State.openNewCreate = !State.openNewCreate;
-		// 	State.timer = new Date();
-		// }).catch(function(err){
-			
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
+			var EArr = [];
+			if(State.choseName){
+				EArr.push("NAME")
+			}
+			if(State.chosePhone){
+				EArr.push("PHONE")
+			}
+			if(State.choseCompany){
+				EArr.push("COMPANY")
+			}
+			if(State.chosePosition){
+				EArr.push("POSITION")
+			}
+			if(State.choseAdd){
+				EArr.push("ADDRESS")
+			}
+
+			values.xPoint = values.mapField.pointLng;
+			values.yPoint = values.mapField.pointLat;
+			values.address = values.mapField.detailSearch;
+			values.enroll = EArr;
+
+			Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+				State.openNewCreate = !State.openNewCreate;
+				State.timer = new Date();
+				Message.success('发布成功');
+			}).catch(function(err){
+				
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		}
+		
 	}
 	//存为草稿
 	toSave=()=>{
 		this.publishType = 0;
-		this.refs.newCreateForm.submit();
-		
 	}
 	// 发布
-	onPublish=()=>{
+	toPublish=()=>{
 		this.publishType = 1;
-		this.refs.newCreateForm.submit();
 	}
 	// 置顶
 	chooseStick=()=>{
@@ -115,6 +130,7 @@ import State from './State';
 	 // 不置顶
 	noStick=()=>{
 		State.isStick = false;
+		// State.serialNumRepeat = false;
 	}
 
 	// 复选框
@@ -164,9 +180,122 @@ import State from './State';
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
 
 	}
+	// 检验排序号是否重复
+	NumRepeat=(value)=>{
+		// console.log("value",value);
+		if(!value){
+			State.serialNumRepeat = false;
+		}else{
+			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
+				State.serialNumRepeat = false;
+				
+			}).catch(function(err){
+				State.serialNumRepeat = true;
+				
+			});
+		}
+		
+	}
+	// 开始日期改变
+	beginDateChange=(value)=>{
+		let _this = this;
+		var beginDate = new Date(value);
+		beginDate = beginDate.getTime();
+		_this.setState({
+			beginDate:beginDate
+		},function(){
+			_this.compareTime();
+		})
+		
+	}
+
+	// 结束日期改变
+	endDateChange=(value)=>{
+		let _this =this;
+		var endDate = new Date(value);
+		endDate = endDate.getTime();
+		_this.setState({
+			endDate:endDate
+		},function(){
+			_this.compareTime();
+		})
+		
+	}
+
+	// 开始时间改变
+	beginTimeChange=(value)=>{
+		let _this =this;
+		this.setState({
+			beginTime:value
+		},function(){
+			_this.compareTime();
+		})
+		
+
+	}
+
+	// 结束时间改变
+	endTimeChange=(value)=>{
+		let _this =this;
+		this.setState({
+			endTime:value
+		},function(){
+			_this.compareTime();
+		})
+	}
+
+	// 时间校验
+	compareTime=()=>{
+		let _this =this;
+		if(_this.state.beginDate && _this.state.endDate){
+			if(_this.state.endDate <_this.state.beginDate){
+				State.timeIsTrue  = false;
+				Notify.show([{
+					message: "结束时间不能大于开始日期",
+					type: 'danger',
+				}]);
+			}else if(_this.state.endDate ==_this.state.beginDate){
+				if(_this.state.beginTime && _this.state.endTime){
+					var beginTime = _this.state.beginTime;
+					var endTime = _this.state.endTime;
+					var beginHour = beginTime.substr(0,2);
+					var beginMin = beginTime.substr(3);
+					var endHour = endTime.substr(0,2);
+					var endMin = endTime.substr(3);
+					if(endHour<beginHour){
+						State.timeIsTrue  = false;
+
+						Notify.show([{
+							message: "结束时间不能大于开始日期",
+							type: 'danger',
+						}]);
+					}else if(endHour == beginHour){
+						if(beginMin > endMin){
+							State.timeIsTrue  = false;
+
+							Notify.show([{
+								message: "结束时间不能大于开始日期",
+								type: 'danger',
+							}]);
+						}
+					}else{
+						State.timeIsTrue  = true;
+					}
+				}
+			}else{
+				State.timeIsTrue  = true;
+			}
+		}else{
+			State.timeIsTrue  = true;
+		}
+	}
+
+
+
 	
 
 	render(){
+		// console.log("State.serialNumRepeat",State.serialNumRepeat);
 		const { handleSubmit} = this.props;
 		
 		// 对应功能选项
@@ -184,14 +313,14 @@ import State from './State';
 			value: 'OPEN_DAY'
 		}];
 		let partakeMan =[{
-			label: '仅限会员',
-			value: 'ONLY_MEMBER'
+			label: '会员专属',
+			value: 'MEMBER_ONLY'
 		},{
-			label: '仅限受邀者',
-			value: 'ONLY_INVITA'
+			label: '会员优先',
+			value: 'MEMBER_FIRST'
 		},{
-			label: '无限制',
-			value: 'ANYBODY'
+			label: '仅限氪空间项目',
+			value: 'KR_PROJECT_ONLY'
 		}];
 		let checkboxOptions=[{
 			label: '姓名',
@@ -243,14 +372,14 @@ import State from './State';
 								label="活动名称" 
 								requireLabel={true} 
 								style={{width:252,zIndex:11}} 
-							/>
+								/>
 							<KrField name="type" 
 								component="select" 
 								options={correspondingFunction}
 								label="活动类型"
 								requireLabel={true} 
 								 
-								style={{width:'252px',marginLeft:24,zIndex:1}}
+								style={{width:'252px',marginLeft:24,zIndex:11}}
 							/>
 
 							
@@ -266,35 +395,32 @@ import State from './State';
 												simple={true} 
 												requireLabel={true} 
 												label='活动时间'
+												onChange = {this.beginDateChange}
 											/>
 											<KrField
 												name="startTime"  
 												component="selectTime" 
-												// onChange={this.onStartChange} 
 												style={{width:80,marginTop:14,zIndex:10}} 
-												
-												// requireLabel={true} 
+												onChange = {this.beginTimeChange} 
 												label=''/>
 											
 										</ListGroupItem>
-										
-										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
+										<ListGroupItem style={{marginTop:32,padding:0}}>至</ListGroupItem>
+										<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 0"}}>
 											<KrField 
 												name="stopDate"  
 												component="date" 
-												// onChange={this.onStartChange} 
 												style={{width:170}} 
 												simple={true} 
-												requireLabel={false} 
+												requireLabel={false}
+												onChange = {this.endDateChange} 
 												
 											/>
 											<KrField
 												name="endTime"  
 												component="selectTime" 
-												
 												style={{width:80,zIndex:10}} 
-												
-												
+												onChange = {this.endTimeChange}
 												label=''/>
 										</ListGroupItem>
 									</ListGroup>					
@@ -329,7 +455,10 @@ import State from './State';
 								<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
 			              	</KrField>
 			              	{/*置顶不显示排序*/}
-							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}}/>
+							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
+							{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
+							
+
 							{/*置顶显示轮播图*/}
 			              	<KrField name="coverPic" 
 								component="newuploadImage" 
@@ -353,7 +482,6 @@ import State from './State';
 								label="上传列表详情图"
 								inline={false}
 							/>
-							<KrField component="editor" name="summary" label="活动简介"/>
 							
 							
 						</div>
@@ -367,8 +495,9 @@ import State from './State';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
-							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+							<KrField component="editor" name="summary" label="活动介绍"/>
+							
+							<Grid style={{marginTop:19,marginBottom:80}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
@@ -409,10 +538,10 @@ import State from './State';
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
-											<Button  label="发布" type='button' onTouchTap={this.onPublish}/>
+											<Button  label="发布" type='submit' onClick={this.toPublish}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
-											<Button  label="存为草稿" type='button' onTouchTap={this.toSave}/>
+											<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
 										</ListGroupItem>
 										<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
@@ -431,8 +560,16 @@ import State from './State';
 }
 const validate = values => {
 	const errors = {}
-	console.log("values校验",values);
-	
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+
+
+	if (values.contactPhone && !phone.test(values.contactPhone) ) {
+      errors.phone = '请输入正确电话号';
+  	}
+	// console.log("values校验",values);
+	if(values.top){
+		
+	}
 	if(!values.name){
 		errors.name = '请输入活动名称';
 	}
@@ -461,6 +598,7 @@ const validate = values => {
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
+
 
 	
 
