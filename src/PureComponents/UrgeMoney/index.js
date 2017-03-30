@@ -231,7 +231,7 @@ export default class AppointmentVisit extends Component {
 											// detail = JSON.parse(detail);
 											let htmlAgreement = detail.map(function(item,index){
 															
-												return (<span className="customer" onClick={_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{item.type+","}</span>)
+												return (<span key = {index} className="customer" onClick = {_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{item.type+","}</span>)
 											})
 											return (
 														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>

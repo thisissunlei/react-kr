@@ -112,7 +112,7 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="客户转移" >
+				<Tab label="客户转移" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}} >
 						<TransferCustomer
 							customerClick = {this.customerClick}
 							tabNum = {this.tabNum}
@@ -125,13 +125,13 @@ class LookCustomerList extends Component{
 
 		if(!ORDER_VISIT){
 			hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="预约参观" >
+				<Tab label="预约参观" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 						<AppointmentVisit
 								tabNum = {this.tabNum}
 								renovateRedDrop = {this.renovateRedDrop}
@@ -144,12 +144,12 @@ class LookCustomerList extends Component{
 
 		if(false){
 			hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="催款提醒" >
+				<Tab label="催款提醒" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 					<UrgeMoney
 						tabNum = {this.tabNum}
 						renovateRedDrop = {this.renovateRedDrop}
@@ -163,13 +163,13 @@ class LookCustomerList extends Component{
 
 		if(!CUSTOMER_DUE){
 			hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="客户到期" >
+				<Tab label="客户到期" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 					<InfoList 
 						tabNum = {this.tabNum}
 						renovateRedDrop = {this.renovateRedDrop}
@@ -178,12 +178,12 @@ class LookCustomerList extends Component{
 			)
 		}
 		hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 		)
 		hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 		)
