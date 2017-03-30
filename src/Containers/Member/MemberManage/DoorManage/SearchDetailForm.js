@@ -61,11 +61,11 @@ export default class SearchDetailForm extends Component {
 	}
 
 	onSubmit=(values)=>{
-		console.log("values",values);
+		// console.log("values",values);
 	}
 	
 	changeCommunity=(item)=>{
-		console.log("选择了社区",item);
+		// console.log("选择了社区",item);
 		
 		let {onChange} = this.props;
 		onChange && onChange(item);

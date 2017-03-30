@@ -79,7 +79,7 @@ export default class ImpowerEditMemberForm extends Component {
 		var start = DateFormat(this.detail.beginDate,"yyyy-mm-dd hh:MM:ss");
 		var end = DateFormat(this.detail.endDate,"yyyy-mm-dd hh:MM:ss");
 		
-		console.log("start",start,"end",end);
+		// console.log("start",start,"end",end);
 		this.setState({
 			date:start,
 			dateend : end
@@ -92,7 +92,7 @@ export default class ImpowerEditMemberForm extends Component {
 		start = start.getTime();
 		var end = new Date(values.endDate);
 		end = end.getTime();
-		console.log("start",start,"end",end);
+		// console.log("start",start,"end",end);
 		if(start >end){
 			Notify.show([{
 					message: '结束时间不能小于开始时间',
@@ -115,7 +115,7 @@ export default class ImpowerEditMemberForm extends Component {
 		onCancel && onCancel();
 	}
 	onStartChange=(personel)=>{
-		console.log("kaishi",personel)
+		// console.log("kaishi",personel)
 		let firstDate = new Date(personel);
 		let {date} = this.state;
 		if (this.state.dateend) {
