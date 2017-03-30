@@ -123,7 +123,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
-							Store.dispatch(change('EditActivityForm','mapField.detailSearch',response.address));
 
 
 
@@ -210,9 +209,14 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
-			values.address = values.mapField.detailSearch;
-
+			if(!values.mapField.detailSearch){
+				values.address = State.mapDefaultValu
+			}else{
+				values.address = values.mapField.detailSearch;
+			}
 		}
+		
+
 		var searchParams = Object.assign({},State.searchParams);
 		searchParams.time = +new Date();
 		
@@ -237,6 +241,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	//存为草稿
 	toSave=()=>{
+
 		this.publishType = 0;
 	}
 	// 发布
@@ -791,7 +796,7 @@ const validate = values => {
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
 	}
-	if(values.mapField && !values.mapField.detailSearch){
+	if(values.mapField && !values.mapField.detailSearch && !State.mapDefaultValue){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
 
