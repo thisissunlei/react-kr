@@ -21,11 +21,13 @@ module.exports =  function (initializeConfigs){
         getField: React.PropTypes.func.isRequired,
         getFieldError: React.PropTypes.func.isRequired,
         registerField: React.PropTypes.func.isRequired,
+        blur: React.PropTypes.func.isRequired,
+        reset: React.PropTypes.func.isRequired,
       }
 
       getChildContext() {
 
-        const {onChange,getFieldValue,registerField,getFieldError,getField}  = this.props;
+        const {onChange,getFieldValue,registerField,getFieldError,getField,blur,reset}  = this.props;
 
         return {
           onChange,
@@ -33,6 +35,8 @@ module.exports =  function (initializeConfigs){
           registerField,
           getFieldError,
           getField,
+          blur,
+          reset
         }
 
       }
@@ -73,11 +77,39 @@ module.exports =  function (initializeConfigs){
       onChange =(fieldName,fieldValue)=>{
         const {FormModel} = this.props;
         FormModel.change(this.formName,fieldName,fieldValue);
+        this.touch(fieldName);
+        this.validate();
+      }
+
+      validate = ()=>{
+        var values = this.getValues();
+        var errors = initializeConfigs.validate(values);
+        this.setErrors(errors);
+      }
+
+      setErrors = (errors)=>{
+        const {FormModel} = this.props;
+        FormModel.setErrors(this.formName,errors);
+      }
+
+      getErrors = ()=>{
+        const {FormModel} = this.props;
+        return FormModel.getErrors(this.formName);
+      }
+
+      getFieldError = (fieldName)=>{
+        var errors = this.getErrors();
+        return errors[fieldName];
       }
 
       getValues = ()=>{
         const {FormModel} = this.props;
         return FormModel.getValues(this.formName);
+      }
+
+      getField = (fieldName)=>{
+        const {FormModel} = this.props;
+        return FormModel.getField(this.formName,fieldName);
       }
 
       getFieldValue = (fieldName) =>{
@@ -91,6 +123,12 @@ module.exports =  function (initializeConfigs){
         FormModel.registerField(this.formName,fieldName,type);
       }
 
+      stopSubmit = ()=>{
+        const {FormModel} = this.props;
+        var values = this.getValues();
+        var errors = initializeConfigs.validate(values);
+        FormModel.stopSubmit(this.formName,errors);
+      }
 
       handleSubmit = (onSubmit)=>{
 
@@ -117,31 +155,15 @@ module.exports =  function (initializeConfigs){
 
       touch = (fieldName)=>{
         const {FormModel} = this.props;
-        FormModel.touch(this.formName);
+        FormModel.touch(this.formName,fieldName);
       }
 
-      stopSubmit = ()=>{
-        const {FormModel} = this.props;
-        var values = this.getValues();
-        var errors = initializeConfigs.validate(values);
-        FormModel.stopSubmit(this.formName,errors);
+      blur = (fieldName)=>{
+        console.log('---->>',fieldName);
+        this.touch(fieldName);
+        this.validate();
       }
 
-
-      getErrors = ()=>{
-        const {FormModel} = this.props;
-        return FormModel.getErrors(this.formName);
-      }
-
-      getFieldError = (fieldName)=>{
-        var errors = this.getErrors();
-        return errors[fieldName];
-      }
-
-      getField = (fieldName)=>{
-        const {FormModel} = this.props;
-        return FormModel.getField(this.formName,fieldName);
-      }
 
       render(){
 
@@ -161,6 +183,7 @@ module.exports =  function (initializeConfigs){
           registerField:this.registerField,
           handleSubmit:this.handleSubmit,
           reset:this.reset,
+          blur:this.blur,
           stopSubmit:this.stopSubmit,
         }
         return <Form {...props} {...handles}/>

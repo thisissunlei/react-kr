@@ -10,10 +10,13 @@ export default class Field extends React.Component{
   }
 
   static contextTypes =  {
+      getField: React.PropTypes.func.isRequired,
       getFieldValue: React.PropTypes.func.isRequired,
       getFieldError: React.PropTypes.func.isRequired,
       registerField: React.PropTypes.func.isRequired,
       onChange: React.PropTypes.func.isRequired,
+      blur: React.PropTypes.func.isRequired,
+      reset: React.PropTypes.func.isRequired,
   }
 
 	constructor(props,context){
@@ -32,21 +35,29 @@ export default class Field extends React.Component{
     onChange && onChange(name,value);
   }
 
+  onBlur = ()=>{
+    const {blur} = this.context;
+    const {name} = this.props;
+    blur && blur(name);
+  }
+
   renderComponent = (component)=>{
 
     const {name} = this.props;
-    const {getFieldValue,getFieldError} = this.context;
+    const {getField,getFieldValue,getFieldError} = this.context;
 
     const input = {
       name,
       value:getFieldValue(name),
       onChange:this.onChange,
+      onBlur:this.onBlur,
     };
 
-    let field = {
-      touched:false,
-      active:false,
-    };
+    let field = Object.assign({ visited:false, touched:false,
+    pristine:false,
+    invalid:false,
+    valid:false,
+    },getField(name));
 
     const meta = {
       dirty:false,
@@ -56,15 +67,12 @@ export default class Field extends React.Component{
       pristine:false,
       invalid:false,
       valid:false,
-      visited:false,
-      active:field.active,
+      visited:field.visited,
       touched:field.touched
     };
 
     const props = Object.assign({},{ ref:name, input, meta, },{...this.props});
-
-  return React.createElement(component,{ ...props});
-
+      return React.createElement(component,{ ...props});
   }
 
 	render(){

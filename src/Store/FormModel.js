@@ -81,13 +81,36 @@ State.getErrors = action(function(formName) {
 
 State.setErrors = action(function(formName,errors) {
 	  var form = this.getForm(formName);
-		form.syncErrors = Object.assign({},form.syncErrors,errors);
+		form.syncErrors = Object.assign({},errors);
 
 		var formObject = {};
 		formObject[formName] = form;
 		mobx.extendObservable(this,formObject);
 });
 
+State.touch = action(function(formName,fieldName) {
+
+	var form = this.getForm(formName);
+	var fields = form.fields;
+
+	var field = fields[fieldName];
+	field.touched = true;
+
+	fields[fieldName] = field;
+	form.fields = fields;
+
+
+
+console.log('touch',fieldName);
+	var formObject = {};
+	formObject[formName] = form;
+	mobx.extendObservable(this,formObject);
+
+});
+
+State.untouch = action(function(formName,fieldName) {
+
+});
 
 State.touchAll = action(function(formName) {
 	  var form = this.getForm(formName);
@@ -95,9 +118,12 @@ State.touchAll = action(function(formName) {
 
 		for(var item in fields){
 			if(fields.hasOwnProperty(item)){
+
 					this.touch(formName,item);
 			}
 		}
+
+		console.log('touchAll:',this.getForm(formName));
 
 });
 
@@ -170,26 +196,7 @@ State.change = action(function(formName,fieldName,fieldValue) {
 
 	});
 
-	State.touch = action(function(formName,fieldName) {
 
-		var form = this.getForm(formName);
-		var fields = form.fields;
-
-		var field = fields[fieldName];
-		field.touched = true;
-
-		fields[fieldName] = field;
-		form.fields = fields;
-
-		var formObject = {};
-		formObject[formName] = form;
-		mobx.extendObservable(this,formObject);
-
-	});
-
-	State.untouch = action(function(formName,fieldName) {
-
-	});
 
 	State.destroy = action(function(formName) {
 
@@ -247,10 +254,6 @@ State.change = action(function(formName,fieldName,fieldValue) {
 
 	});
 
-	State.touch = action(function(formName,fieldName) {
-
-	});
-
 	State.untouch = action(function(formName,fieldName) {
 
 	});
@@ -261,6 +264,7 @@ State.change = action(function(formName,fieldName,fieldValue) {
 
 
 	State.registerField = action(function(formName,fieldName,type) {
+
 		var form = this.getForm(formName);
 
 
@@ -270,8 +274,12 @@ State.change = action(function(formName,fieldName,fieldValue) {
 		var values = Object.assign({},form.values);
 		values[fieldName] = '';
 
+		var fields = Object.assign({},form.fields);
+		fields[fieldName] = Object.assign({},{touched:false,visited:false});
+
 		form.registeredFields =  registeredFields;
 		form.values =  values;
+		form.fields =  fields;
 
 		var formObject = {};
 		formObject[formName] = form;

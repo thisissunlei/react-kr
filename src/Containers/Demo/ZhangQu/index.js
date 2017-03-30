@@ -27,7 +27,7 @@ class DemoComponent extends React.Component {
 			const {input,meta} = this.props;
 			return (
 				<div>
-					<input name={input.name} value={input.value}  onChange={this.onChange}/>
+					<input name={input.name} value={input.value}  onChange={this.onChange} onBlur={input.onBlur}/>
 					{meta.touched && meta.error}
 				</div>
 			)
