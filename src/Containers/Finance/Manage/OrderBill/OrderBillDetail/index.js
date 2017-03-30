@@ -257,14 +257,14 @@ export default class AttributeSetting extends Component {
     openQuitBtn() {
         let items = this.state.selectedList
         var _this = this;
-        console.log('items------',items);
+       
         items.map(function(item, index) {
             if (typeof(item.finaflowAmount) == 'number') {
                 fiMoney = item.finaflowAmount;
                 fiItem = item;
             }
         })
-        console.log('listValues-----',this.state.listValues)
+       
         if (this.state.listValues.length == 0) {
             Message.error('请选择一条回款数据进行退款');
         } else if (this.state.listValues.length > 1) {
@@ -508,20 +508,26 @@ export default class AttributeSetting extends Component {
             openSearch: !this.state.openSearch
         });
     }
-    onSelect(values) {
+    onSelect(values,items) {
         //此处反着？
         let {list, selectedList} = this.state;
-        selectedList = list.map(function(item, index) {
-            if (values.indexOf(index)) {
-                return false;
-            }
-            return item;
-        });
-        this.setState({selectedList, listValues: values});
+        if(items.length==list.length){
+            selectedList=list;
+        }else{
+            selectedList = list.map(function(item, index) {
+                if (values.indexOf(index)) {
+                    return false;
+                }
+                return item;
+            });
+        }
+        this.setState({selectedList, listValues: items});
     }
     onLoaded(response) {
         let list = response.items;
-        this.setState({list})
+        this.setState({
+           list:list     
+        })
     }
     //回款提交
     onAddReceivedSubmit(params) {
@@ -629,9 +635,7 @@ export default class AttributeSetting extends Component {
         params.propJasonStr = JSON.stringify(params.propJasonStr);
         params.conJasonStr = JSON.stringify(params.conJasonStr);
 
-        console.log('params.contract', params.contract);
-        console.log('params.propJasonStr', params.propJasonStr);
-        console.log('liveMoneyValue', liveMoneyValue);
+      
 
         if (!params.contract) {
             Message.error('请选择对应合同');
@@ -1089,11 +1093,9 @@ export default class AttributeSetting extends Component {
 
     typeSelectRender = () => {
         let {params} = this.state;
-        console.log("sssssa",params);
         let parentBtn = params.accountType;
         let childBtn = params.childType;
         let proId = params.propertyId;
-        console.log("asdf",proId);
         if (parentBtn == 'INCOME' && childBtn == '005' && proId == '5' || parentBtn == 'INCOME' && childBtn == 'basic' || parentBtn == 'INCOME' && childBtn == '005' && proId == '6') {
             return this.renderIncomed();
         } else {
