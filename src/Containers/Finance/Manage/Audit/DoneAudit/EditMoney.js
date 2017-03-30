@@ -34,8 +34,6 @@ import {
 	Tooltip,
 	LoadingTwo
 } from 'kr-ui';
-
-import dateFormat from 'dateformat';
 import './index.less';
 
 
