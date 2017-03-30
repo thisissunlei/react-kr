@@ -135,6 +135,8 @@ export default class Editor extends React.Component{
 
   constructor(props) {
     super(props);
+
+    this.containerId = 'container_'+Date.now();
   }
 
   onChange =(value)=>{
@@ -145,7 +147,7 @@ export default class Editor extends React.Component{
   componentDidMount(){
     var {configs} = this.props;
     var _this = this;
-    var ue = UE.getEditor('container',configs);
+    var ue = UE.getEditor(this.containerId,configs);
     ue.addListener('contentChange',function(value){
         var content = ue.getContent();
         _this.onChange(content);
@@ -157,7 +159,7 @@ export default class Editor extends React.Component{
           console.log("点击了图片==========>");
       },
       queryCommandState:function(){
-            console.log("点击图片之后==========>");         
+            console.log("点击图片之后==========>");
       }
     };
   }
@@ -165,7 +167,7 @@ export default class Editor extends React.Component{
   render() {
     let {label} = this.props;
     return (
-      <div id="container"> </div>
+      <div id={this.containerId}> </div>
     );
   }
 }
