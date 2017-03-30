@@ -291,10 +291,7 @@ export default class ToDoAudit extends React.Component {
       }
     }
     var url = '/api/krspace-finance-web/finaVerify/data/export-excel?'+condition.join('&');
-    console.log("2", values);
-    console.log("list", idList);
     window.location.href = url;
-
   }
   searchParams = (form) => {
     this.setState({
@@ -322,9 +319,10 @@ export default class ToDoAudit extends React.Component {
       this.setState({
         Params: form
       }, function() {
-        this.getParentCount(form)
+        this.getParentCount(form);
+        this.openSearch();
       });
-      this.openSearch();
+      
     }
     //打开添加回款
   openAddCreate = () => {
@@ -335,64 +333,55 @@ export default class ToDoAudit extends React.Component {
     //添加回款保存
   AddOnSubmit = (form) => {
       var _this = this;
-      if (form.mainBillId != "") {
-        Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
+      if (!form.mainBillId) {
+        return;
+      }
+      Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
           Message.success('新建成功');
           _this.openAddCreate();
           window.location.reload();
         }).catch(function(err) {
           Message.error(err.message);
         });
-      }
 
 
     }
     //编辑保存
   onEditSubmit = (form) => {
       var _this = this;
-      if (form.mainBillId != "") {
-        Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
+      if (!form.mainBillId) {
+        return;
+      }
+      Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
           window.location.reload();
         }).catch(function(err) {
           Message.error(err.message);
         });
-      }
 
     }
     //打开批量审核
   openSomeAudit = () => {
-    console.log("123", this.AuditNum);
     if (!this.AuditNum) {
       this.noneSomeAudit();
-    } else {
-      console.log("hhhhhhnmd");
+      return;
+    } 
       this.setState({
         openSomeAudit: !this.state.openSomeAudit
       })
-    }
+   
   }
   onSelect = (values, list) => {
-      console.log("jinrusele");
-      let {
-        AuditList
-      } = this.state;
-      AuditList = [];
-      var n = 0;
-      if (list.length != 0) {
-        list.map((item, value) => {
-          AuditList.push(item.id)
-          n++;
-        });
-      }
-      this.AuditNum = n;
-      console.log(AuditList);
+      var AuditList = [];
+      list.map((item, value) => {
+        AuditList.push(item.id)
+      });
+      this.AuditNum = list.length;
       this.AuditList = AuditList;
     }
     //批量审核
   AuditSome = () => {
-    console.log(this.AuditList);
     Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
       finaVerifyIds: this.AuditList,
     })).then(function(response) {
@@ -405,10 +394,11 @@ export default class ToDoAudit extends React.Component {
     });
   }
   noneSomeAudit = () => {
+    let {noneSomeAudit} = this.state;
+    noneSomeAudit=!noneSomeAudit
     this.setState({
-      noneSomeAudit: !this.state.noneSomeAudit
+      noneSomeAudit
     })
-
   }
   render() {
     let {
@@ -457,97 +447,121 @@ export default class ToDoAudit extends React.Component {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                    <TableRowColumn name="tradingCode" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="tradingCode" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
                     <TableRowColumn name="payWayName"></TableRowColumn>
-                    <TableRowColumn name="dealTime"  component={(value, oldValue) => {
+                    <TableRowColumn name="dealTime"  component={(value) => {
                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
                     }}></TableRowColumn>
-                    <TableRowColumn name="corporationName"component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="corporationName"component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="accountNum" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="accountNum" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="communityName" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="communityName" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="payAccount" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="payAccount" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
                     <TableRowColumn name="flowAmount"></TableRowColumn>
-                    <TableRowColumn name="company" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="company" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="payee" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="payee" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="remark" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="remark" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
                     <TableRowColumn>
@@ -567,7 +581,10 @@ export default class ToDoAudit extends React.Component {
               onClose={this.openSearch}
               contentStyle={{width:666}}
             >
-              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+              <HightSearchForm   
+                    onSubmit={this.onSearchSubmit} 
+                    onCancel={this.openSearch} 
+              />
             </Dialog>
             <Drawer
               modal={true}
@@ -577,7 +594,17 @@ export default class ToDoAudit extends React.Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney corporationId={corporationId} customerId={customerId} mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney 
+                    corporationId={corporationId} 
+                    customerId={customerId} 
+                    mainBill={mainBill} 
+                    mainBillId={mainBillId} 
+                    openCreateMainbill={this.openCreateMainbill} 
+                    showName={this.state.showName} 
+                    onSubmit={this.AddOnSubmit} 
+                    onCancel={this.openAddCreate} 
+                    openCreateCustomer={this.openCreateCustomer} 
+              />
             </Drawer>
             <Drawer
               modal={true}
@@ -587,7 +614,12 @@ export default class ToDoAudit extends React.Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <EditMoney  detail={itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
+              <EditMoney  
+                    detail={itemDetail} 
+                    onSubmit={this.onEditSubmit} 
+                    onCancel={this.openEditCreate} 
+                    openCreateCustomer={this.openCreateCustomer} 
+              />
             </Drawer>
             <Drawer
              modal={true}

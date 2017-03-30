@@ -5,10 +5,8 @@ import React, {
 import {
 	connect
 } from 'kr/Redux';
-
 import {
 	reduxForm,
-	formValueSelector
 } from 'redux-form';
 import {
 	Actions,
