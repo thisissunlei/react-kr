@@ -764,11 +764,11 @@ class EditMoney extends Component {
 						/>
 						
 						<KrField
-							style={{width:548}}
-							name="uploadFileIds"
-							component="file"
-							label="上传附件"
-							defaultValue={infoList.uploadFileIds}
+								style={{width:548}}
+								name="uploadFileIds"
+								component="file"
+								label="上传附件"
+								defaultValue={infoList.uploadFileIds}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">

@@ -1,25 +1,14 @@
-import React, {
-  Component
-} from 'react';
-import {
-  connect
-} from 'react-redux';
-import {
-  bindActionCreators
-} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 import {
   Actions,
   Store
 } from 'kr/Redux';
 import {
   reduxForm,
-  formValueSelector,
   change
 } from 'redux-form';
 
 import {
-  Form,
   Table,
   TableBody,
   TableHeader,
@@ -28,15 +17,8 @@ import {
   TableRowColumn,
   TableFooter,
   Button,
-  Section,
-  Grid,
-  Row,
-  Col,
   Dialog,
-  Tabs,
-  Tab,
   KrField,
-  Title,
   KrDate,
   Tooltip,
   Drawer,
@@ -53,7 +35,7 @@ import GoAudit from './GoAudit';
 
 
 import './index.less';
-export default class ToDoAudit extends Component {
+export default class ToDoAudit extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -142,16 +124,25 @@ export default class ToDoAudit extends Component {
       this.setState({
         itemDetail
       });
-
-      if (type == 'view') {
-        this.openView();
-      } else if (type == 'edit') {
-        this.openEditCreate();
-      } else if (type == 'delete') {
-        this.delAudit(itemDetail);
-      } else if (type == 'audit') {
-        this.openAudit();
+      switch (type){
+        case  'view':{
+         this.openView();
+          break;
+        }
+        case  'edit':{
+         this.openEditCreate();
+          break;
+        }
+        case  'delete':{
+         this.delAudit(itemDetail);
+          break;
+        }
+        case  'audit':{
+         this.openAudit();
+          break;
+        }
       }
+      
     }
     //打开查看回款
   openView = () => {

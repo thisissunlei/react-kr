@@ -84,11 +84,6 @@ class EditMoney extends Component {
 		}, 0)
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			showName: !this.state.showName
-		})
-	}
 
 	//table
 	getInfo = () => {
@@ -687,9 +682,6 @@ class EditMoney extends Component {
 				topInfoList,
 				payment,
 				accountList,
-				mainbillInfo,
-				showName,
-				customerId,
 				infoList,
 				flowAmount,
 				Loading
