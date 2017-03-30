@@ -27,7 +27,15 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
-import allState from "../../State";
+// import allState from "../../State";
+
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityAgreementList")
+@observer
 
 export default class JoinCreate extends Component {
 
@@ -78,9 +86,9 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
-			allState.openTowAgreement=false;
-			allState.openOneAgreement=false;
+			this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			this.props.CommunityAgreementList.openTowAgreement=false;
+			this.props.CommunityAgreementList.openOneAgreement=false;
 
 			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
@@ -96,8 +104,8 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		allState.openTowAgreement=false;
-		allState.openOneAgreement=false;
+		this.props.CommunityAgreementList.openTowAgreement=false;
+		this.props.CommunityAgreementList.openOneAgreement=false;
 		// window.history.back();
 	}
 

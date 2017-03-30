@@ -14,7 +14,13 @@ let State = observable({
 	contractList:[],
 	totalPaper:'',
 	page:'',
-	pageSize:''
+	pageSize:'',
+	//第二次打开的新建
+	openTowAgreement:false,
+	//第一次打开的新建
+	openOneAgreement:false,
+	//编辑合同
+	openEditAgreement:false,
 
 });
 

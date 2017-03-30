@@ -58,6 +58,13 @@ class Header extends Component {
 			showRedDrop:false,
 			//消息铃铛显示
 			showMassge:false,
+			params:{
+				
+				id:260,
+				customerId:273,
+				orderId:166
+				
+			}
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -273,6 +280,17 @@ class Header extends Component {
 			openLookCustomerList:true,
 		})
 	}
+	//合同被点击
+	agreementClick = (data) =>{
+		this.setState({
+			params:{
+				id:data.id,
+				customerId:data.customerId,
+				orderId:data.orderId
+			},
+			openAgreementDetail:true,
+		})
+	}
 	//客户详情关闭按钮
 	lookCustomerListClose = () =>{
 		this.setState({
@@ -327,7 +345,8 @@ class Header extends Component {
 					openMassage,
 					showRedDrop,
 					showMassge,
-					openAgreementDetail
+					openAgreementDetail,
+					params
 
 				} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
@@ -422,6 +441,7 @@ class Header extends Component {
 						onCancel = {this.onClose}
 						customerClick = {this.customerClick}
 						renovateRedDrop = {this.renovateRedDrop}
+						agreementClick = {this.agreementClick}
 					/>
 				</Drawer>
 				//客户详情
@@ -440,7 +460,7 @@ class Header extends Component {
 				//合同详情
 				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<Agreement.Admit.Detail 
-						params={{id:260,customerId:273,orderId:166}}
+						params={params}
 						onCancel = {this.agreementDetailClose}
 					/>
 				</Drawer>

@@ -89,6 +89,10 @@ class LookCustomerList extends Component{
 		customerClick && customerClick(data);
 	}
 
+	agreementClick = (data) =>{
+		const {agreementClick} = this.props;
+		agreementClick && agreementClick(data);
+	}
 	//tab title 的权限
 	tabContent = () => {
 		let {
@@ -149,6 +153,8 @@ class LookCustomerList extends Component{
 					<UrgeMoney
 						tabNum = {this.tabNum}
 						renovateRedDrop = {this.renovateRedDrop}
+						agreementClick = {this.agreementClick}
+
 					/>
 				</Tab>
 			)

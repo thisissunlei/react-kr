@@ -151,7 +151,6 @@ export default class AppointmentVisit extends Component {
 	//客户名称被点击
 	customerClick = (data) => {
 		let msgExtra = JSON.parse(data.msgExtra)
-		// this.props.CommunityDetailModel.lookListId(msgExtra.customerId,"PERSON");
 		let customerName = data.msgContent.split("#")[1]
 		data.customerName = customerName;
 		const {customerClick} = this.props;

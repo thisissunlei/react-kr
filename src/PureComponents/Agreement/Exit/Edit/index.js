@@ -24,8 +24,15 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
-import allState from "../../State";
+// import allState from "../../State";
 
+import {
+  observer,
+  inject
+} from 'mobx-react';
+
+@inject("CommunityAgreementList")
+@observer
 
 export default class EditCreate extends Component {
 
@@ -53,8 +60,8 @@ export default class EditCreate extends Component {
         message: '编辑成功',
         type: 'success',
       }]);
-      allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
-      allState.openEditAgreement=false;
+      this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+      this.props.CommunityAgreementList.openEditAgreement=false;
       
       //location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
@@ -68,7 +75,7 @@ export default class EditCreate extends Component {
 
   onCancel() {
     //window.history.back();
-    allState.openEditAgreement=false;
+    this.props.CommunityAgreementList.openEditAgreement=false;
   }
 
   componentDidMount() {

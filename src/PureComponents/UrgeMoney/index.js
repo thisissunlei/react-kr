@@ -175,14 +175,20 @@ export default class AppointmentVisit extends Component {
 		let {tabNum} = this.props;
 		tabNum && tabNum();
 	}
-	customerClick = (data) =>{
-		this.tabNum();
-		this.renovateList();
-		window.open(data.msgUrl)
+	agreementClick = (data) =>{
+		// let data = JSON.parse(data)
+		
+		const {agreementClick} = this.props;
+		agreementClick && agreementClick(data);
 	}
 	render(){
 		let _this = this;
 		let {searchParams} = this.state;
+		let detailDemo = [
+					  {id:260,customerId:273,orderId:166,type:"11"},
+					  {id:260,customerId:273,orderId:166,type:"22"},
+					  {id:260,customerId:273,orderId:166,type:"33"}
+					 ]
 
 		return (
 			<div className="appointment-visit">
@@ -215,17 +221,23 @@ export default class AppointmentVisit extends Component {
 									component={
 										(value,oldValue,itemData) => {
 											value = value.split("#");
+											let detail = detailDemo;
 											let color="#999999";
 											let costomerColor="#20568C";
 											if(itemData.msgStatu == "UNREAD"){
 												color="#333333";
 												costomerColor="#499DF1";
 											}
+											// detail = JSON.parse(detail);
+											let htmlAgreement = detail.map(function(item,index){
+															
+												return (<span className="customer" onClick={_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{item.type+","}</span>)
+											})
 											return (
 														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
 															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot"></span>}
 															{value[0]}
-															<span className="customer" onClick={_this.customerClick.bind(this,itemData)} style={{color:costomerColor}}>{value[1]}</span>
+															{htmlAgreement}
 															{value[2]}
 														</div>
 													);
