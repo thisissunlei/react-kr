@@ -73,9 +73,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						var EmptyArr = [];
 						EmptyArr.push(response.xPoint);
 						EmptyArr.push(response.yPoint);
-						// console.log("EmptyArr",EmptyArr);
+
 						State.defaultPoint =  EmptyArr;
-						// console.log("State.defaultPoint",State.defaultPoint);
+						
 						State.mapDefaultValue = response.address;
 						State.initailPoint = response.countyName;
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
