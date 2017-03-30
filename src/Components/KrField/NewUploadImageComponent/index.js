@@ -303,12 +303,12 @@ export default class UploadImageComponent extends Component {
 						<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 							<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{opacity:this.state.imgUpload?1:0}}/>
 							
-							<div className='ui-uploadimg-inner' >
+							<div className='ui-uploadimg-inner-new' >
 								<span className='ui-uploadimg-button'>+</span>
 								<input type='file' onChange={this.onChange} ref="inputImg"/>
 								<span className='ui-uploadimg-tip'>上传图片</span>
 							</div>
-							<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none"}}>
+							<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none",textAlign:'center'}}>
 								<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg}>
 									<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
 									<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>

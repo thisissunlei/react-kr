@@ -60,10 +60,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						}else{
 							State.isStick = false;
 						}
-						var startDates = (new Date((DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
-						var endDates   = (new Date((DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss")).substr(0,10))).getTime();
-						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd hh:MM:ss");
-						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd hh:MM:ss");
+						var startDates = (new Date((DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10))).getTime();
+						var endDates   = (new Date((DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10))).getTime();
+						var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss");
+						var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss");
 						var detailStartTime = startTimes.substr(11);
 						var detailEndTime = endTimes.substr(11);
 						
@@ -115,11 +115,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							timeEnd : detailEndTime
 						},function(){
 							Store.dispatch(initialize('EditActivityForm', response));
-							Store.dispatch(change('EditActivityForm','startDate',startDates));
-							Store.dispatch(change('EditActivityForm','stopDate',endDates));
+							
 							
 							Store.dispatch(change('EditActivityForm','startDate',startDates));
-							Store.dispatch(change('EditActivityForm','detailStartTime',detailStartTime));
+							Store.dispatch(change('EditActivityForm','startTime',detailStartTime));
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
@@ -157,51 +156,88 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 	// 提交
 	onSubmit=(values)=>{
-		if(State.serialNumRepeat){
+		// console.log("values",values);
+		// 时间是否正确
+		if(!State.timeIsTrue){
+			Notify.show([{
+				message: "结束时间不能大于开始日期",
+				type: 'danger',
+			}]);
 			return;
-		}else{
-			values.publishType = this.publishType ;
+		}
+		// 置顶时如果序列号重复不能提交
+		if(values.top==0){
+			if(State.serialNumRepeat){
+				Notify.show([{
+					message: "排序号已经存在",
+					type: 'danger',
+				}]);
+				return;
+			}
+		}
+		
+		values.publishType = this.publishType ;
+		console.log("values",values);
+		
 
-			values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
-			values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
+		values.beginDate = DateFormat(values.startDate,"yyyy-mm-dd HH:MM:ss");
+		values.endDate = DateFormat(values.stopDate,"yyyy-mm-dd HH:MM:ss");
 
-			if(values.top == 1){
-				values.sort = '';
-			}
+		if(values.top == 1){
+			values.sort = '';
+		}
 
-			var EArr = [];
-			if(State.choseName){
-				EArr.push("NAME")
-			}
-			if(State.chosePhone){
-				EArr.push("PHONE")
-			}
-			if(State.choseCompany){
-				EArr.push("COMPANY")
-			}
-			if(State.chosePosition){
-				EArr.push("POSITION")
-			}
-			if(State.choseAdd){
-				EArr.push("ADDRESS")
-			}
 
+		var EArr = [];
+		if(State.choseName){
+			EArr.push("NAME")
+		}
+		if(State.chosePhone){
+			EArr.push("PHONE")
+		}
+		if(State.choseCompany){
+			EArr.push("COMPANY")
+		}
+		if(State.chosePosition){
+			EArr.push("POSITION")
+		}
+		if(State.choseAdd){
+			EArr.push("ADDRESS")
+		}
+		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
 			values.address = values.mapField.detailSearch;
-			values.enroll = EArr;
 
-			Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
-				State.openEditDetail = !State.openEditDetail;
-				State.timer = new Date();
-			}).catch(function(err){
-			
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
-			});
 		}
+		
+		values.enroll = EArr;
+
+		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+			State.openEditDetail = !State.openEditDetail;
+			State.timer = new Date();
+			Message.success('发布成功');
+		}).catch(function(err){
+			
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+		
+
+		State.searchParams = {beginDate:'',
+								cityId:'',
+								countyId: '',
+								endDate:'',
+								name:'',
+								page: 1,
+								pageSize: 15,
+								type:'',
+								time:''
+							}
+
+		
 	}
 	//存为草稿
 	toSave=()=>{
@@ -554,19 +590,33 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
 							{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
 							
-							{/*置顶显示轮播图*/}
-			              	<KrField name="coverPic" 
-								component="newuploadImage" 
-								innerstyle={{width:524,height:159,padding:10}} 
-								photoSize={'1920*520'} 
-								pictureFormat={'JPG,PNG,GIF'} 
-								pictureMemory={'500'}
-								requireLabel={true}
-								label="上传轮播图"
-								inline={false}
-								style={{display:State.isStick?"block":"none"}}
-								defaultValue={State.coverPicDefaultValue}
-							/>
+							<div style={{display:State.isStick?"block":"none",fontSize:14,marginBottom:10}}>
+									<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
+									<span>上传轮播图</span>
+								</div>
+
+								{/*置顶显示轮播图*/}
+				              	<KrField name="pcCoverPic" 
+									component="newuploadImage" 
+									innerstyle={{width:524,height:159,padding:10}} 
+									photoSize={'1920*520'} 
+									pictureFormat={'JPG,PNG,GIF'} 
+									pictureMemory={'500'}
+									
+									label="电脑端轮播图"
+									inline={false}
+									style={{display:State.isStick?"block":"none",marginBottom:9}}
+								/>
+								<KrField name="appCoverPic" 
+									component="newuploadImage" 
+									innerstyle={{width:217,height:157,padding:10}} 
+									photoSize={'750*520'} 
+									pictureFormat={'JPG,PNG,GIF'} 
+									pictureMemory={'300'}
+									label="手机端轮播图"
+									inline={false}
+									style={{display:State.isStick?"block":"none",marginBottom:9}}
+								/>
 							<KrField name="infoPic" 
 								component="newuploadImage" 
 								innerstyle={{width:392,height:230,padding:10}} 
@@ -593,7 +643,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
+							
 							<KrField component="editor" name="summary" label="活动介绍"/>
+
 							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
@@ -657,11 +709,25 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		);
 	}
 }
+
 const validate = values => {
 	const errors = {}
-	console.log("values校验",values);
-	if(values.top){
-		
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+
+
+	if (values.contactPhone && !phone.test(values.contactPhone) ) {
+      errors.phone = '请输入正确电话号';
+  	}
+	// console.log("values校验",values);
+	if(values.top==1){
+		if(!values.appCoverPic){
+			errors.appCoverPic = "请上传手机端轮播图";
+			
+		}
+		if(!values.pcCoverPic){
+			errors.pcCoverPic = "请上传电脑端轮播图";
+
+		}
 	}
 	if(!values.name){
 		errors.name = '请输入活动名称';
@@ -669,6 +735,7 @@ const validate = values => {
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
+	console.log(values.startDate,values.startTime,values.stopDate,values.endTime)
 	
 	if(!values.startDate || !values.startTime || !values.stopDate || !values.endTime ){
 		errors.startDate = "请填写完整的活动时间";
@@ -678,12 +745,6 @@ const validate = values => {
 
 	}
 	
-	// 置顶时必需上传轮播图
-	if(State.isStick){
-		if(!values.coverPic){
-			errors.coverPic = '上传轮播图';
-		}
-	}
 	
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
@@ -691,6 +752,9 @@ const validate = values => {
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
+
+
+	
 
 	return errors
 }

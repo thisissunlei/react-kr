@@ -37,7 +37,7 @@ export default class MapComponentNew extends Component {
 	}
 	componentWillReceiveProps(nextProps){
 		this.refs.mapInput.defaultValue = nextProps.defaultValue;
-		console.log("nextProps.defaultPoint",nextProps.defaultPoint);
+		console.log("nextProps.defaultPoint",nextProps);
 		if(nextProps.defaultPoint){
 			this.setState({
 				pointLng : nextProps.defaultPoint[0],
@@ -56,13 +56,14 @@ export default class MapComponentNew extends Component {
 		// if(initailPoint){
 		// 	_this.setMarker(initailPoint);	
 		// }else{
+			// 对地图进行初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
-		
 			_this.map.centerAndZoom(point, 11);
+
 			var marker = new BMap.Marker(point);        // 创建标注    
 			_this.map.addOverlay(marker);
 			// map可缩放
-			_this.map.enableScrollWheelZoom();
+			_this.map.enableScrollWheelZoom(true);
 			// marker可拖拽
 			marker.enableDragging();    
 			marker.addEventListener("dragend", function(e){    
@@ -138,7 +139,7 @@ export default class MapComponentNew extends Component {
 							// map可拖拽
 							_this.map.enableDragging();
 							// map可缩放
-							_this.map.enableScrollWheelZoom();
+							_this.map.enableScrollWheelZoom(true);
 							
 		             	})     
 		          	}    
@@ -154,17 +155,18 @@ export default class MapComponentNew extends Component {
 			showMap : !this.state.showMap
 		},function(){
 			// 百度地图API功能
+			_this.map = new BMap.Map("mapcomponentnew"); 
 
-			_this.map.clearOverlays();        
+			      
 			console.log("_this.state.pointLng",_this.state.pointLng,"_this.state.pointLat",_this.state.pointLat);
-			// _this.map = new BMap.Map("mapcomponent"); 
-			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
-		
+			// 初始化
+			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			_this.map.centerAndZoom(point, 11);
+			// 添加标注
 			var marker = new BMap.Marker(point);        // 创建标注    
 			_this.map.addOverlay(marker);
 			// map可缩放
-			_this.map.enableScrollWheelZoom();
+			_this.map.enableScrollWheelZoom(true);
 			// marker可拖拽
 			marker.enableDragging();    
 			marker.addEventListener("dragend", function(e){    
