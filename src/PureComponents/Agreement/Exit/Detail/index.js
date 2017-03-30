@@ -79,14 +79,10 @@ export default class ExitDetail extends Component {
 	}
 
 	  onCancel = () => {
-	  	console.log(">>>>>>>>");
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	  }
-	   onCancel1 = () => {
-	  	console.log(">>>>>>>>");
-		
-	  }
+	   
 
 	componentWillMount() {
 
@@ -105,7 +101,11 @@ export default class ExitDetail extends Component {
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
-
+		let {eidtBotton} = this.props;
+		let showEdit = true;
+		if(eidtBotton == "none"){
+			showEdit = false;
+		}
 		const orderBaseInfo = {};
 		const contractList = [];
 		const params = this.props.params;
@@ -186,13 +186,13 @@ export default class ExitDetail extends Component {
 			<div>
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
 				
-					<BasicRender/>
-					<Grid style={{marginTop:5,marginBottom:50}}>
-				  <Row>
+				<BasicRender/>
+			<Grid style={{marginTop:5,marginBottom:50}}>
+				 {showEdit &&  <Row>
 					  <Col md={5} align="center"></Col>
 					  <Col md={5} align="center"></Col>
-				  </Row>
-			  </Grid>
+				  </Row>}
+			</Grid>
 				
 
 		  </div>

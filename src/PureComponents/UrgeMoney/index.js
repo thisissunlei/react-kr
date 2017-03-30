@@ -51,7 +51,7 @@ export default class AppointmentVisit extends Component {
 	allReadClick = () =>{
 		let {renovateRedDrop} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"CUSTOMER_DUE"})).then(function(response) {
+		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"ARREARS_ALERT"})).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
 			renovateRedDrop();
@@ -176,7 +176,6 @@ export default class AppointmentVisit extends Component {
 		tabNum && tabNum();
 	}
 	agreementClick = (data) =>{
-		// let data = JSON.parse(data)
 		
 		const {agreementClick} = this.props;
 		agreementClick && agreementClick(data);
@@ -209,7 +208,7 @@ export default class AppointmentVisit extends Component {
 						ajaxParams={searchParams}
 						ajaxFieldListName="items"
 						onLoaded = {this.showPage}
-						ajaxUrlName='getInfoList'
+						ajaxUrlName='getAlertList'
 					>
 						<TableBody style={{background:"#fff",border:"0px"}}>
 
@@ -221,17 +220,21 @@ export default class AppointmentVisit extends Component {
 									component={
 										(value,oldValue,itemData) => {
 											value = value.split("#");
-											let detail = detailDemo;
+
+											let detail = value[1];
 											let color="#999999";
 											let costomerColor="#20568C";
+                                            let agreementType = {INTENTION:"承租意向书",ENTER:"入驻协议书",ADDRENT:"增租协议书",LESSRENT:"减租协议书",QUITRENT:"退租协议书",RENEW:"续租协议书"}
+
 											if(itemData.msgStatu == "UNREAD"){
 												color="#333333";
 												costomerColor="#499DF1";
 											}
-											// detail = JSON.parse(detail);
+											console.log(detail,"gggggggg")
+											detail = eval(detail);
 											let htmlAgreement = detail.map(function(item,index){
 															
-												return (<span key = {index} className="customer" onClick = {_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{item.type+","}</span>)
+												return (<span key = {index} className="customer" onClick = {_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{agreementType[item.contractType]+","}</span>)
 											})
 											return (
 														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>

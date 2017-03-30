@@ -165,12 +165,18 @@ export default class AdmitDetail extends Component {
 		let {
 			isLoading
 		} = this.state;
+		let {
+			eidtBotton
+		} = this.props;
 
 		if (isLoading) {
 			return <Loading />
 		}
 
-
+		let showEdit = true;
+		if(eidtBotton && eidtBotton == "none"){
+			showEdit = false;
+		}
 		const orderBaseInfo = {};
 		const contractList = [];
 
@@ -306,12 +312,12 @@ export default class AdmitDetail extends Component {
 				<BasicRender/>
 
 
-				 <Grid style={{marginTop:5,marginBottom:50}}>
-				  <Row>
+				<Grid style={{marginTop:5,marginBottom:50}}>
+				  { showEdit && <Row>
 					  <Col md={5} align="center"></Col>
 					  <Col md={2} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/></Col>
 					  <Col md={5} align="center"></Col>
-				  </Row>
+				  </Row>}
 			     </Grid>
 
 

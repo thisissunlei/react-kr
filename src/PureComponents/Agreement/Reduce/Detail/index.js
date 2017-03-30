@@ -178,7 +178,11 @@ export default class ReduceDetail extends Component {
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
-
+		let {eidtBotton} = this.props;
+		let showEdit = true;
+		if(eidtBotton == "none"){
+			showEdit = false;
+		}
 		const orderBaseInfo = {};
 		const contractList = [];
 
@@ -303,11 +307,11 @@ export default class ReduceDetail extends Component {
 
 				<BasicRender/>
 				<Grid style={{marginTop:5,marginBottom:50}}>
-				  <Row>
+				 {showEdit &&  <Row>
 					  <Col md={5} align="center"></Col>
 					  <Col md={2} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/></Col>
 					  <Col md={5} align="center"></Col>
-				  </Row>
+				  </Row>}
 			  </Grid>
           </div>
 

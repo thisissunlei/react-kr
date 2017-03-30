@@ -64,7 +64,12 @@ class Header extends Component {
 				customerId:273,
 				orderId:166
 				
-			}
+			},
+			//合同类型
+			contractType:'',
+			customerId:0,
+			contractId:0,
+			mainbillId:0
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -282,13 +287,14 @@ class Header extends Component {
 	}
 	//合同被点击
 	agreementClick = (data) =>{
+		let {contractType,customerId,mainbillId,contractId} = data;
 		this.setState({
-			params:{
-				id:data.id,
-				customerId:data.customerId,
-				orderId:data.orderId
-			},
-			openAgreementDetail:true,
+			
+			openAgreementDetail : true,
+			contractType : contractType,
+			customerId : customerId,
+			contractId : contractId,
+			mainbillId : mainbillId
 		})
 	}
 	//客户详情关闭按钮
@@ -310,6 +316,67 @@ class Header extends Component {
 			openAgreementDetail:false
 		})
 	}
+	//合同详情样式模板
+	contractRender=()=>{
+				let {contractType,customerId,contractId,mainbillId} = this.state;
+		        let contractSelect='';
+			      if(contractType == 'INTENTION'){
+                            contractSelect=<Agreement.Admit.Detail 
+						    params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                            onCancel={this.agreementDetailClose}
+                            eidtBotton = "none"
+						  />
+			           	 }
+                         
+                         if(contractType == 'ENTER'){
+                            contractSelect=<Agreement.Join.Detail 
+						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>
+			           	 }
+
+			           	  if(contractType == 'ADDRENT'){
+                            contractSelect=<Agreement.Increase.Detail 
+						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>
+			           	 }
+
+
+			           	 if(contractType == 'LESSRENT'){
+                            contractSelect=<Agreement.Reduce.Detail 
+						params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>
+			           	 }
+
+
+			           	 if(contractType == 'QUITRENT'){
+                            contractSelect=<Agreement.Exit.Detail 
+						   params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                           onCancel={this.agreementDetailClose}
+                           eidtBotton = "none"
+						/>
+			           	 }
+
+                          if(contractType == 'RENEW'){
+                            contractSelect=<Agreement.Renew.Detail 
+						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>		
+			           	 }
+
+			     return contractSelect
+	}
+
+
+
+
+
 	messageDrawerClick = () =>{
 		this.setState({
 			openLookCustomerList : false,
@@ -445,7 +512,7 @@ class Header extends Component {
 					/>
 				</Drawer>
 				//客户详情
-				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<LookCustomerList
 						 comeFrom="Merchant"
 		                 operType="PERSON"
@@ -458,11 +525,8 @@ class Header extends Component {
 					/>
 				</Drawer>
 				//合同详情
-				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-					<Agreement.Admit.Detail 
-						params={params}
-						onCancel = {this.agreementDetailClose}
-					/>
+				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+					{this.contractRender()}
 				</Drawer>
 				{(openLookCustomerList || openMassage) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
 			</div>

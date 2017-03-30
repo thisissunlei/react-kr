@@ -816,6 +816,12 @@ const APIS = {
    url:'/api/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}&communityId={communityId}',
    method:'get'
  },
+
+//消息提醒-催款
+ 'getAlertList': {
+   url:'/api/krspace-finance-web/msg/msg-alert?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}&communityId={communityId}',
+   method:'get'
+ },
  //消息设为已读
  'setInfoReaded': {
    url:'/api/krspace-finance-web/msg/msg-read?id={id}',
@@ -1006,6 +1012,7 @@ const APIS = {
      url: '/api/krspace-finance-web/msg/msg-all-read?msgType={msgType}',
      method: 'put'
   },
+  //消息提醒-预约参观列表
 
     //社区管理－校验社区名称
    'check-name':{

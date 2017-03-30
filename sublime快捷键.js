@@ -71,3 +71,39 @@
 // Ctrl+K+B 开启/关闭侧边栏。
 // F11 全屏模式
 // Shift+F11 免打扰模式
+
+
+
+
+
+
+
+// {!!CUSTOMER_TRANSFER_NUM &&
+// 					<div className = {moveHintClass}>
+// 						{CUSTOMER_TRANSFER_NUM > 99 ? 99 : CUSTOMER_TRANSFER_NUM}<label>+</label>
+// 					</div>
+// 				}
+// 				{!!ORDER_VISIT_NUM &&
+// 					<div className={advanceClass}>
+// 						{ORDER_VISIT_NUM > 99 ? 99 : ORDER_VISIT_NUM}<label>+</label>
+// 					</div>
+// 				}
+// 				{!!CUSTOMER_DUE_NUM &&
+// 					<div className={expireClass}>
+// 						{CUSTOMER_DUE_NUM > 99 ? 99 : CUSTOMER_DUE_NUM}<label>+</label>
+// 					</div>
+// 				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

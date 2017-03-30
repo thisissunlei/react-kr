@@ -278,6 +278,11 @@ export default class JoinDetail extends Component {
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
+		let {eidtBotton} = this.props;
+		let showEdit = true;
+		if(eidtBotton == "none"){
+			showEdit = false;
+		}
 		const params = this.props.params;
 		const orderBaseInfo = {};
 		const contractList = [];
@@ -310,12 +315,12 @@ export default class JoinDetail extends Component {
 
 
 			{this.BasicRender(basic,newBasicStationVos,openAdd,openMinus)}
-			 <Grid style={{marginTop:5,marginBottom:50}}>
-				  <Row>
+			<Grid style={{marginTop:5,marginBottom:50}}>
+				  { showEdit && <Row>
 					  <Col md={5} align="center"></Col>
 					  <Col md={2} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/></Col>
 					  <Col md={5} align="center"></Col>
-				  </Row>
+				  </Row>}
 			 </Grid>
 
       </div>
