@@ -257,12 +257,14 @@ export default class AttributeSetting extends Component {
     openQuitBtn() {
         let items = this.state.selectedList
         var _this = this;
+        console.log('items------',items);
         items.map(function(item, index) {
             if (typeof(item.finaflowAmount) == 'number') {
                 fiMoney = item.finaflowAmount;
                 fiItem = item;
             }
         })
+        console.log('listValues-----',this.state.listValues)
         if (this.state.listValues.length == 0) {
             Message.error('请选择一条回款数据进行退款');
         } else if (this.state.listValues.length > 1) {
