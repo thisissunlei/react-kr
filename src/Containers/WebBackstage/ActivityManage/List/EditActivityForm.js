@@ -80,7 +80,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						State.initailPoint = response.countyName;
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
           				State.mapdefaultValue = response.address;
-
+          				State.activityIntroduce = response.summary;
           				State.pcCoverPicDefaultValue = response.pcCoverPic;
           				State.appCoverPicDefaultValue = response.appCoverPic;
           				State.infoPicDefaultValue = response.infoPic;
@@ -111,7 +111,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
           				}else{
           					State.choseAdd = false;
           				}
-          				var summary = response.summary;
 						_this.setState({
 							timeStart : detailStartTime,
 							timeEnd : detailEndTime
@@ -124,7 +123,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
-							Store.dispatch(change('EditActivityForm','summary',summary));
 
 
 
@@ -647,7 +645,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
 							
-							<KrField component="editor" name="summary" label="活动介绍"/>
+							<KrField component="editor" name="summary" label="活动介绍" defalutValue={State.activityIntroduce}/>
 
 							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>

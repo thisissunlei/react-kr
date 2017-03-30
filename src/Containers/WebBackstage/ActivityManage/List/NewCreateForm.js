@@ -534,7 +534,7 @@ import State from './State';
 							<div className="enroll-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
 								
-								<KrField component="editor" name="summary" label="活动介绍"/>
+								<KrField component="editor" name="summary" label="活动介绍" defaultValue={''}/>
 								
 								<Grid style={{marginTop:19,marginBottom:80}}>
 									<Row>
@@ -640,7 +640,7 @@ const validate = values => {
 
 	if(values.sort){
 
-		var sortNum = values.sort.replace(/(^\s*)|(\s*$)/g, "");
+		var sortNum = (values.sort+'').replace(/(^\s*)|(\s*$)/g, "");
 	
 		if(!numContr.test(sortNum)){
 			errors.sort = '排序号必须为五位以内正整数';
@@ -649,7 +649,7 @@ const validate = values => {
 	}
 	if(values.maxPerson){
 
-		var personNum = values.maxPerson.replace(/(^\s*)|(\s*$)/g, "");
+		var personNum = (values.maxPerson+'').replace(/(^\s*)|(\s*$)/g, "");
 
 		if(!numContr.test(personNum)){
 			errors.maxPerson = '人数限制必须为五位以内正整数';

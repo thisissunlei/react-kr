@@ -61,7 +61,8 @@ let State = observable({
 	mapDefaultValue:'',
 	coverPicDefaultValue:'',
 	serialNumRepeat: false,
-	timeIsTrue : true
+	timeIsTrue : true,
+	activityIntroduce : ''
 	
 });
 
