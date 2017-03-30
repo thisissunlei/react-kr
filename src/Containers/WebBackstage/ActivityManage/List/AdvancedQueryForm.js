@@ -61,9 +61,6 @@ class NewCreateForm extends Component{
 
 	constructor(props){
 		super(props);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
 		this.state={
 			communityText:'',
 			companyText:'',
@@ -75,21 +72,19 @@ class NewCreateForm extends Component{
 		}
 	}
 	componentDidMount() {
-		// Store.dispatch(change('AdvancedQueryForm','name',this.props.title.name));
 	}
-	 onSubmit(values){
+	 onSubmit=(values)=>{
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	 }
 
-	 onCancel(){
+	 onCancel=()=>{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
-	 city=(secondId,thirdId,name)=>{
-	 	console.log(secondId,thirdId,name);
+	 city=(thirdId,secondId,name)=>{
 		 Store.dispatch(change('AdvancedQueryForm','cityId',secondId));
 		 Store.dispatch(change('AdvancedQueryForm','countyId',thirdId));
 	 }
@@ -123,7 +118,7 @@ class NewCreateForm extends Component{
 		 });
 	 }
 	render(){
-		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
+		const {handleSubmit} = this.props;
 		let options = [{
 			label: 'CEO Time',
 			value: 'CEO_TIME'
