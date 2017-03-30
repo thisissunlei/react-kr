@@ -38,7 +38,7 @@ import State from './State';
 			beginTime:'',
 			endTime:''
 		}
-		// Store.dispatch(reset('NewCreateForm'));
+		
 		
 	}
 	componentWillMount() {
@@ -106,15 +106,22 @@ import State from './State';
 			EArr.push("ADDRESS")
 		}
 
-		values.xPoint = values.mapField.pointLng;
-		values.yPoint = values.mapField.pointLat;
-		values.address = values.mapField.detailSearch;
+		if(values.mapField){
+			values.xPoint = values.mapField.pointLng;
+			values.yPoint = values.mapField.pointLat;
+			values.address = values.mapField.detailSearch;
+
+		}
+		var searchParams = Object.assign({},State.searchParams);
+		searchParams.time = +new Date();
+		
 		values.enroll = EArr;
 
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
-			State.timer = new Date();
-			Message.success('发布成功');
+			Message.success('操作成功');
+			State.searchParams = searchParams;
+			// Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
 			
 			Notify.show([{
@@ -449,7 +456,7 @@ import State from './State';
 								<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 								<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 									<KrField name="mapField" 
-										component="map" 
+										component="mapnew" 
 										placeholder="例如：北京市海淀区中关村大街"
 										style={{width:242,height:36}}
 										mapStyle={{width:400,height:400}}
@@ -527,8 +534,8 @@ import State from './State';
 							<div className="enroll-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
 								
-								{/*<KrField component="editor" name="summary" label="活动介绍"/>
-								*/}
+								<KrField component="editor" name="summary" label="活动介绍"/>
+								
 								<Grid style={{marginTop:19,marginBottom:80}}>
 									<Row>
 										<ListGroup>

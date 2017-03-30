@@ -73,15 +73,16 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						var EmptyArr = [];
 						EmptyArr.push(response.xPoint);
 						EmptyArr.push(response.yPoint);
-						console.log("EmptyArr",EmptyArr);
+						// console.log("EmptyArr",EmptyArr);
 						State.defaultPoint =  EmptyArr;
-						console.log("State.defaultPoint",State.defaultPoint);
+						// console.log("State.defaultPoint",State.defaultPoint);
 						State.mapDefaultValue = response.address;
 						State.initailPoint = response.countyName;
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
           				State.mapdefaultValue = response.address;
 
-          				State.coverPicDefaultValue = response.coverPic;
+          				State.pcCoverPicDefaultValue = response.pcCoverPic;
+          				State.appCoverPicDefaultValue = response.appCoverPic;
           				State.infoPicDefaultValue = response.infoPic;
 
           				var enrollArr = response.enrollFiels;
@@ -110,6 +111,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
           				}else{
           					State.choseAdd = false;
           				}
+          				var summary = response.summary;
 						_this.setState({
 							timeStart : detailStartTime,
 							timeEnd : detailEndTime
@@ -122,6 +124,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
 							Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 							Store.dispatch(change('EditActivityForm','top',`${response.top}`));
+							Store.dispatch(change('EditActivityForm','summary',summary));
+
 
 
 						})
@@ -210,13 +214,15 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			values.address = values.mapField.detailSearch;
 
 		}
+		var searchParams = Object.assign({},State.searchParams);
+		searchParams.time = +new Date();
 		
 		values.enroll = EArr;
 
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openEditDetail = !State.openEditDetail;
-			State.timer = new Date();
-			Message.success('发布成功');
+			Message.success('编辑成功');
+			State.searchParams = searchParams;
 		}).catch(function(err){
 			
 			Notify.show([{
@@ -226,16 +232,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		});
 		
 
-		State.searchParams = {beginDate:'',
-								cityId:'',
-								countyId: '',
-								endDate:'',
-								name:'',
-								page: 1,
-								pageSize: 15,
-								type:'',
-								time:''
-							}
+		
 
 		
 	}
@@ -301,9 +298,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 城市组件选到三级
 	changeCity=(thirdId,secondId,city)=>{
-		// console.log("thirdId,secondId,city",thirdId,secondId,city);
 		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
-		// console.log("State.initailPoint",State.initailPoint);
 		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
 
@@ -330,6 +325,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		let _this = this;
 		var beginDate = new Date(value);
 		beginDate = beginDate.getTime();
+							
+		// Store.dispatch(change('EditActivityForm','startDate',startDates));
+
 		_this.setState({
 			beginDate:beginDate
 		},function(){
@@ -606,6 +604,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
+									defaultValue={State.pcCoverPicDefaultValue}
+
+
 								/>
 								<KrField name="appCoverPic" 
 									component="newuploadImage" 
@@ -616,6 +617,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									label="手机端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
+									defaultValue={State.appCoverPicDefaultValue}
+
 								/>
 							<KrField name="infoPic" 
 								component="newuploadImage" 
