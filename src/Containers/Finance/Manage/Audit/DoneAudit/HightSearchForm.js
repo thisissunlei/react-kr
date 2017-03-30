@@ -8,7 +8,6 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
 } from 'redux-form';
 import {
 	Actions,

@@ -1,14 +1,6 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-
+import React from 'react';
 import {
 	reduxForm,
-	formValueSelector
 } from 'redux-form';
 import {
 	Actions,
@@ -28,7 +20,7 @@ import {
 import './index.less';
 
 
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -44,8 +36,7 @@ class SearchForm extends Component {
 	}
 	componentDidMount() {
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
+		Store.dispatch(Actions.callAPI('getSelfMenuInfo')).then(function(response) {
 			var someBtn = response.navcodes.finance;
 			for(var i = 0;i<someBtn.length;i++){
 				if(someBtn[i]=="verify_add_money"){
@@ -59,11 +50,11 @@ class SearchForm extends Component {
 					})
 				}
 			}
-		}).catch(function(err) {
 		});
 
 	}
 	onSubmit = (form) => {
+		form = Object.assign({},form);
 		const {
 			onSubmit
 		} = this.props;

@@ -1,20 +1,12 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 
 import {
 	reduxForm,
-	formValueSelector
 } from 'redux-form';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
 import {
 	KrField,
 	Grid,
@@ -26,12 +18,12 @@ import {
 	SearchForms,
 	ButtonGroup
 } from 'kr-ui';
+
 import './index.less';
 
+class NewCreateCustomer extends React.Component {
 
-class NewCreateCustomer extends Component {
-
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
@@ -125,7 +117,7 @@ const validate = values => {
 	if (!values.company) {
 		errors.company = '请输入客户名称';
 	}
-	return errors
+	return errors;
 }
 export default reduxForm({
 	form: 'newCreateCustomer',

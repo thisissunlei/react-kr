@@ -1,14 +1,6 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-
+import React from 'react';
 import {
 	reduxForm,
-	formValueSelector,
 	change
 } from 'redux-form';
 import {
@@ -29,12 +21,13 @@ import {
 	CircleStyleTwo,
 	Message
 } from 'kr-ui';
+
 import './index.less';
 
 
-class AddMoney extends Component {
+class AddMoney extends React.Component {
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
@@ -122,43 +115,42 @@ class AddMoney extends Component {
 		openCreateCustomer && openCreateCustomer();
 	}
 	openCustomer = (form) => {
+		form = Object.assign({},form);
 		this.setState({
 			flowAmount: 0,
 			finaflowInfo: {}
 		})
 		this.receivedBtnFormChangeValues = {};
-		if (form.id == 0) {
+		if (!form.id) {
 			this.openCreateCustomer();
-		} else {
-			this.setState({
-				customerId: form.id
-			})
+			return;
 		}
-
-
+		this.setState({
+			customerId: form.id
+		})
 	}
 
 	argreementChecked = (options) => {
-		var name = [],
-			input = {
+		var name = [];
+		var	input = {
 				value: 0
-			},
-			nameList = [];
+			};
+		var	nameList = [];
 		let {
 			finaflowInfo
 		} = this.state;
 		var _this = this;
-		options.map((item, index) => {
-			var len = options.length - 1;
+		var len = options.length - 1;
+		options.map((item) => {
 			name.push(`fix-${item.detailid}-${item.depositId}`);
 			name.push(`fix-${item.detailid}-${item.totalrentId}`);
-			if (item.checked == false) {
+			if (!item.checked) {
 				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
 				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				_this.getCount(input, name);
 			}
-			if (options[len].checked == false) {
-				finaflowInfo.scvList.map((item, index) => {
+			if (!options[len].checked) {
+				finaflowInfo.scvList.map((item) => {
 					nameList.push(`no-${item.id}`)
 					Store.dispatch(change('addMoney', `no-${item.id}`, ''));
 				})
@@ -173,15 +165,17 @@ class AddMoney extends Component {
 		var lastValue = value.split('.')[1];
 		var val = this.trim(value)
 		var name = input.name.split('-')[3];
-		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
+		var deposit = 1;//押金
+		var totalrent = 2;//定金
+		if (name == deposit && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (name == 2 && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
+		if (name == totalrent && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (name == 1 && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
+		if (name == deposit && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
 			Message.error('金额不能大于未回款额');
 			return
 		}
@@ -193,9 +187,6 @@ class AddMoney extends Component {
 			Message.error('最多到小数点后两位');
 			return;
 		}
-		let {
-			changeValues,
-		} = this.props;
 		input.value = val;
 		this.getCount(input)
 	}
@@ -206,13 +197,12 @@ class AddMoney extends Component {
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let liveMoneyValue = 0;
 		if (input.value == 0 && !input.name) {
-			var n1 = name[0];
-			var n2 = name[1];
-			var name1 = `${n1}-1`,
-				name2 = `${n2}-2`;
+			var deposit = name[0];
+			var totalrent = name[1];
+			var name1 = `${deposit}-1`;
+			var	name2 = `${totalrent}-2`;
 			receivedBtnFormChangeValues[name1] = 0;
 			receivedBtnFormChangeValues[name2] = 0;
-
 			if (nameList && nameList.length > 0) {
 				nameList.map((item, index) => {
 					receivedBtnFormChangeValues[item] = 0;
@@ -246,7 +236,7 @@ class AddMoney extends Component {
 	}
 	getMainbillInfo = (form) => {
 		var _this = this;
-		if (form.id == 0) {
+		if (!form.id) {
 			this.openCreateMainbill(form.id);
 		}
 		Store.dispatch(Actions.callAPI('get-mainbill-info', {
@@ -268,7 +258,7 @@ class AddMoney extends Component {
 				contactType: '0',
 				value: '0'
 			}
-			response.cimbList.map((item, index) => {
+			response.cimbList.map((item) => {
 				item.value = item.detailid;
 				item.label = item.contactName;
 				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
@@ -276,7 +266,7 @@ class AddMoney extends Component {
 				return item;
 			})
 			response.cimbList.push(obj)
-			response.scvList.map((item, index) => {
+			response.scvList.map((item) => {
 				Store.dispatch(change('addMoney', `no-${item.id}`, ''));
 			})
 			_this.setState({
@@ -286,16 +276,15 @@ class AddMoney extends Component {
 		}).catch(function(err) {});
 	}
 	getAccount = (form) => {
+		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
-		var id = this.state.corporationId || this.props.corporationId;
-		console.log('this.props.corporationId', this.props.corporationId)
-		console.log('this.state.corporationId ', this.state.corporationId)
+		var corporationId = this.state.corporationId || this.props.corporationId;
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
 			accountType: form.value,
-			corporationId: id
-		}, {})).then(function(response) {
+			corporationId
+		})).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -305,7 +294,7 @@ class AddMoney extends Component {
 				accountList: accountList
 			})
 
-		}).catch(function(err) {});
+		});
 	}
 
 	onSubmit = (form) => {
@@ -337,7 +326,7 @@ class AddMoney extends Component {
 				noList.push(obj)
 			}
 		}
-		parentIdList.map((item, index) => {
+		parentIdList.map((item) => {
 			var obj = {
 				"id": item,
 				"value": []
@@ -357,7 +346,7 @@ class AddMoney extends Component {
 			})
 			childrenList.push(obj)
 		})
-		childrenList.map((item, index) => {
+		childrenList.map((item) => {
 			if (item.id == 0) {
 				childrenList.pop();
 			}
@@ -474,7 +463,8 @@ class AddMoney extends Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> < KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
+			/> 
+			< KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
 			}

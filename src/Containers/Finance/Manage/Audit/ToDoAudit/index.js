@@ -1,25 +1,14 @@
-import React, {
-  Component
-} from 'react';
-import {
-  connect
-} from 'react-redux';
-import {
-  bindActionCreators
-} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 import {
   Actions,
   Store
 } from 'kr/Redux';
 import {
   reduxForm,
-  formValueSelector,
   change
 } from 'redux-form';
 
 import {
-  Form,
   Table,
   TableBody,
   TableHeader,
@@ -28,15 +17,8 @@ import {
   TableRowColumn,
   TableFooter,
   Button,
-  Section,
-  Grid,
-  Row,
-  Col,
   Dialog,
-  Tabs,
-  Tab,
   KrField,
-  Title,
   KrDate,
   Tooltip,
   Drawer,
@@ -53,7 +35,7 @@ import GoAudit from './GoAudit';
 
 
 import './index.less';
-export default class ToDoAudit extends Component {
+export default class ToDoAudit extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -142,16 +124,25 @@ export default class ToDoAudit extends Component {
       this.setState({
         itemDetail
       });
-
-      if (type == 'view') {
-        this.openView();
-      } else if (type == 'edit') {
-        this.openEditCreate();
-      } else if (type == 'delete') {
-        this.delAudit(itemDetail);
-      } else if (type == 'audit') {
-        this.openAudit();
+      switch (type){
+        case  'view':{
+         this.openView();
+          break;
+        }
+        case  'edit':{
+         this.openEditCreate();
+          break;
+        }
+        case  'delete':{
+         this.delAudit(itemDetail);
+          break;
+        }
+        case  'audit':{
+         this.openAudit();
+          break;
+        }
       }
+      
     }
     //打开查看回款
   openView = () => {
@@ -206,17 +197,14 @@ export default class ToDoAudit extends Component {
       Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
         Message.success('新建成功');
         _this.openCreateMainbill();
-
+        
         _this.setState({
-          showName: !_this.state.showName
-        })
-
-        _this.setState({
+           showName: !_this.state.showName,
           mainBill: true,
           mainBillId: response.mainBillId,
           customerId: response.customerId,
           corporationId: response.corporationId
-        })
+        });
         Store.dispatch(change('addMoney', "customerId", response.customerId));
         Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
       }).catch(function(err) {
@@ -225,26 +213,19 @@ export default class ToDoAudit extends Component {
     }
     //新建订单
   onMainBillSubmit = (form) => {
-    form.company = '';
-    form.customerId = this.state.customerId;
     var _this = this;
+    var {customerId}=this.state;
+
+    form=Object.assign({},form);
+    form.company = '';
+    form.customerId = customerId;
+    
     Store.dispatch(Actions.callAPI('save-main-bill', {}, form)).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
       _this.setState({
-        showName: !_this.state.showName
-      })
-      var customerList = {
-        label: response.company,
-        value: response.customerId
-      }
-
-      var mainBills = {
-        label: response.mainBillName,
-        value: response.mainBillId
-      }
-      _this.setState({
         mainBill: true,
+        showName: !_this.state.showName,
         mainBillId: response.mainBillId,
         corporationId: response.corporationId
       })
@@ -257,7 +238,7 @@ export default class ToDoAudit extends Component {
   }
 
   onSubmitCustomer = (form) => {
-
+    form=Object.assign({},form);
     this.setState({
       CustomerList: form
     })
@@ -267,31 +248,50 @@ export default class ToDoAudit extends Component {
 
   }
 
-  openCreateMainbill = (id, customerId) => {
+  openCreateMainbill = (billOInfo, customerId) => {
+    var {openCreateMainbill}=this.state;
+    openCreateMainbill=!openCreateMainbill;
     this.setState({
-      openCreateMainbill: !this.state.openCreateMainbill,
-      billOInfo: id,
-      customerId: customerId
-    })
+      openCreateMainbill,
+      billOInfo,
+      customerId
+    });
   }
   openCreateCustomer = () => {
+    let  {openCreateCustomer}=this.state;
+    openCreateCustomer=!openCreateCustomer;
     this.setState({
-      openCreateCustomer: !this.state.openCreateCustomer
-    })
+      openCreateCustomer
+    });
   }
 
   //导出
   onExport = (values) => {
     var searchParams = this.state.Params;
+
+    var params = {
+      payWay:'',
+      idList:[],
+      corporationId:'',
+      communityId:'',
+      createEndTime:'',
+      createStratTime:'',
+      flowCategoryId:'',
+      verifyStatus:'UNCHECKED'
+    };
     let idList = [];
     values.map((item, index) => {
       idList.push(item.id)
     });
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=UNCHECKED`;
-    console.log("2", values);
-    console.log("list", idList);
+    params = Object.assign({},params,searchParams,{idList});
+    var condition = [];
+    for(var field in params){
+      if (params.hasOwnProperty(field)) {
+        condition.push(`${field}=${params[field]}`)
+      }
+    }
+    var url = '/api/krspace-finance-web/finaVerify/data/export-excel?'+condition.join('&');
     window.location.href = url;
-
   }
   searchParams = (form) => {
     this.setState({
@@ -319,9 +319,10 @@ export default class ToDoAudit extends Component {
       this.setState({
         Params: form
       }, function() {
-        this.getParentCount(form)
+        this.getParentCount(form);
+        this.openSearch();
       });
-      this.openSearch();
+      
     }
     //打开添加回款
   openAddCreate = () => {
@@ -332,64 +333,55 @@ export default class ToDoAudit extends Component {
     //添加回款保存
   AddOnSubmit = (form) => {
       var _this = this;
-      if (form.mainBillId != "") {
-        Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
+      if (!form.mainBillId) {
+        return;
+      }
+      Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
           Message.success('新建成功');
           _this.openAddCreate();
           window.location.reload();
         }).catch(function(err) {
           Message.error(err.message);
         });
-      }
 
 
     }
     //编辑保存
   onEditSubmit = (form) => {
       var _this = this;
-      if (form.mainBillId != "") {
-        Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
+      if (!form.mainBillId) {
+        return;
+      }
+      Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
           window.location.reload();
         }).catch(function(err) {
           Message.error(err.message);
         });
-      }
 
     }
     //打开批量审核
   openSomeAudit = () => {
-    console.log("123", this.AuditNum);
     if (!this.AuditNum) {
       this.noneSomeAudit();
-    } else {
-      console.log("hhhhhhnmd");
+      return;
+    } 
       this.setState({
         openSomeAudit: !this.state.openSomeAudit
       })
-    }
+   
   }
   onSelect = (values, list) => {
-      console.log("jinrusele");
-      let {
-        AuditList
-      } = this.state;
-      AuditList = [];
-      var n = 0;
-      if (list.length != 0) {
-        list.map((item, value) => {
-          AuditList.push(item.id)
-          n++;
-        });
-      }
-      this.AuditNum = n;
-      console.log(AuditList);
+      var AuditList = [];
+      list.map((item, value) => {
+        AuditList.push(item.id)
+      });
+      this.AuditNum = list.length;
       this.AuditList = AuditList;
     }
     //批量审核
   AuditSome = () => {
-    console.log(this.AuditList);
     Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
       finaVerifyIds: this.AuditList,
     })).then(function(response) {
@@ -402,10 +394,11 @@ export default class ToDoAudit extends Component {
     });
   }
   noneSomeAudit = () => {
+    let {noneSomeAudit} = this.state;
+    noneSomeAudit=!noneSomeAudit
     this.setState({
-      noneSomeAudit: !this.state.noneSomeAudit
+      noneSomeAudit
     })
-
   }
   render() {
     let {
@@ -454,97 +447,121 @@ export default class ToDoAudit extends Component {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                    <TableRowColumn name="tradingCode" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="tradingCode" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:80,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
                     <TableRowColumn name="payWayName"></TableRowColumn>
-                    <TableRowColumn name="dealTime"  component={(value, oldValue) => {
+                    <TableRowColumn name="dealTime"  component={(value) => {
                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
                     }}></TableRowColumn>
-                    <TableRowColumn name="corporationName"component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="corporationName"component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="accountNum" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="accountNum" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="communityName" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="communityName" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="payAccount" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="payAccount" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
                     <TableRowColumn name="flowAmount"></TableRowColumn>
-                    <TableRowColumn name="company" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="company" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="payee" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="payee" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
-                    <TableRowColumn name="remark" component={(value,oldValue)=>{
-                            var TooltipStyle=""
+                    <TableRowColumn name="remark" component={(value)=>{
+                            var styles = {
+                              display:'block',
+                              paddingTop:5
+                            };
                             if(value.length==""){
-                              TooltipStyle="none"
+                              styles.display="none"
 
                             }else{
-                              TooltipStyle="block";
+                              styles.display="block";
                             }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                            }}></TableRowColumn>
                     <TableRowColumn>
@@ -564,7 +581,10 @@ export default class ToDoAudit extends Component {
               onClose={this.openSearch}
               contentStyle={{width:666}}
             >
-              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+              <HightSearchForm   
+                    onSubmit={this.onSearchSubmit} 
+                    onCancel={this.openSearch} 
+              />
             </Dialog>
             <Drawer
               modal={true}
@@ -574,7 +594,17 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney corporationId={corporationId} customerId={customerId} mainBill={mainBill} mainBillId={mainBillId} openCreateMainbill={this.openCreateMainbill} showName={this.state.showName} onSubmit={this.AddOnSubmit} onCancel={this.openAddCreate} openCreateCustomer={this.openCreateCustomer} />
+              <AddMoney 
+                    corporationId={corporationId} 
+                    customerId={customerId} 
+                    mainBill={mainBill} 
+                    mainBillId={mainBillId} 
+                    openCreateMainbill={this.openCreateMainbill} 
+                    showName={this.state.showName} 
+                    onSubmit={this.AddOnSubmit} 
+                    onCancel={this.openAddCreate} 
+                    openCreateCustomer={this.openCreateCustomer} 
+              />
             </Drawer>
             <Drawer
               modal={true}
@@ -584,7 +614,12 @@ export default class ToDoAudit extends Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <EditMoney  detail={itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditCreate} openCreateCustomer={this.openCreateCustomer} />
+              <EditMoney  
+                    detail={itemDetail} 
+                    onSubmit={this.onEditSubmit} 
+                    onCancel={this.openEditCreate} 
+                    openCreateCustomer={this.openCreateCustomer} 
+              />
             </Drawer>
             <Drawer
              modal={true}

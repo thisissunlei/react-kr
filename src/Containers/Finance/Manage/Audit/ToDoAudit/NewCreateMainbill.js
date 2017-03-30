@@ -1,14 +1,7 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 
 import {
 	reduxForm,
-	formValueSelector,
 	change
 } from 'redux-form';
 import {
@@ -30,9 +23,9 @@ import {
 import './index.less';
 
 
-class NewCreateMainbill extends Component {
+class NewCreateMainbill extends React.Component {
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
@@ -48,8 +41,8 @@ class NewCreateMainbill extends Component {
 	getMainbillType = () => {
 		var _this = this;
 		var MainbillType;
-		Store.dispatch(Actions.callAPI('get-mainbill-type', {}, {})).then(function(response) {
-			MainbillType = response.map((item, index) => {
+		Store.dispatch(Actions.callAPI('get-mainbill-type')).then(function(response) {
+			MainbillType = response.map((item) => {
 				item.label = item.dicName;
 				item.value = item.id;
 				return item;
@@ -58,10 +51,11 @@ class NewCreateMainbill extends Component {
 				MainbillType: MainbillType
 			})
 
-		}).catch(function(err) {});
+		});
 
 	}
 	onSubmit = (form) => {
+		form = Object.assign({},form);
 		var formList = form;
 		const {
 			onSubmit,
@@ -93,23 +87,22 @@ class NewCreateMainbill extends Component {
 		} = this.props;
 		var form;
 		if (billOInfo == 0) {
-			console.log('customerId', customerId)
 			if (customerId > 0) {
 				Store.dispatch(Actions.callAPI('get-mainbill-id', {
 					customerId: customerId,
 					mainBillTypeName: item.label,
-				}, {})).then(function(response) {
+				})).then(function(response) {
 					Store.dispatch(change('newCreateMainbill', "mainbillname", response));
-				}).catch(function(err) {});
+				});
 			}
 		} else {
 
 			Store.dispatch(Actions.callAPI('getMainbillName', {
 				company: detail.company,
 				mainBillTypeName: item.label,
-			}, {})).then(function(response) {
+			})).then(function(response) {
 				Store.dispatch(change('newCreateMainbill', "mainbillname", response));
-			}).catch(function(err) {});
+			});
 
 		}
 

@@ -1,37 +1,11 @@
-import React, {
-  Component
-} from 'react';
-import {
-  connect
-} from 'react-redux';
-import {
-  bindActionCreators
-} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 import {
   Actions,
   Store
 } from 'kr/Redux';
-
-
 import {
-  Form,
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-  TableFooter,
-  Button,
-  Section,
-  Grid,
-  Row,
-  Col,
-  Dialog,
   Tabs,
   Tab,
-  KrField,
   Title
 } from 'kr-ui';
 
@@ -39,7 +13,7 @@ import ToDoAudit from './ToDoAudit';
 import DoAudit from './DoAudit';
 import DoneAudit from './DoneAudit';
 
-export default class AuditList extends Component {
+export default class AuditList extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -50,9 +24,8 @@ export default class AuditList extends Component {
     this.getCount()
   }
 
-  componentDidMount() {}
-  getCount = (formd) => {
-    var params = Object.assign({}, formd);
+  getCount = (form) => {
+    var params = Object.assign({}, form);
     var _this = this;
     Store.dispatch(Actions.callAPI('get-fina-flow-count', params, {})).then(function(response) {
       _this.setState({
@@ -69,14 +42,21 @@ export default class AuditList extends Component {
       this.setState({
         itemDetail
       });
-
-      if (type == 'view') {
-        this.openViewDialog();
-      } else if (type == 'edit') {
-        this.openEditDetailDialog();
-      } else if (type == 'delete') {
-        this.openDeleteDialog();
+      switch (type){
+        case  'view':{
+          this.openViewDialog();
+          break;
+        }
+        case  'edit':{
+         this.openEditDetailDialog();
+          break;
+        }
+        case  'delete':{
+          this.openDeleteDialog();
+          break;
+        }
       }
+     
     }
     //编辑
   openEditDetailDialog() {
@@ -103,6 +83,7 @@ export default class AuditList extends Component {
       tab,
       initSearch
     } = this.state;
+
     tab = 'merchants';
     this.setState({
       tab,
@@ -144,12 +125,12 @@ export default class AuditList extends Component {
     const activeTab = {
       color: '#2b8dcd',
       borderBottom: "1px solid #eee",
-      fontSize: '16px'
+      fontSize: 16
     }
     const commenTab = {
       color: '#666',
       borderBottom: "1px solid #eee",
-      fontSize: '16px'
+      fontSize: 16
     }
 
 

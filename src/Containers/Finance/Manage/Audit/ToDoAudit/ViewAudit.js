@@ -1,16 +1,5 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 
-import {
-	reduxForm,
-	formValueSelector,
-	initialize
-} from 'redux-form';
 import {
 	Actions,
 	Store
@@ -32,7 +21,7 @@ import {
 import './index.less';
 
 
-export default class ViewAudit extends Component {
+export default class ViewAudit extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
@@ -79,7 +68,7 @@ export default class ViewAudit extends Component {
 			var _this = this;
 			Store.dispatch(Actions.callAPI('get-fina-infos', {
 				finaVerifyId: id
-			}, {})).then(function(response) {
+			})).then(function(response) {
 				_this.setState({
 					infoList: response
 				},function(){
@@ -94,19 +83,19 @@ export default class ViewAudit extends Component {
 					}
 						this.fileList=fileList;
 				})
-			}).catch(function(err) {});
+			});
 		}
 
 	//付款明细
 	getPayInfo = () => {
-			var id = this.props.detail.id
+			var finaVerifyId = this.props.detail.id;
 			var _this = this;
 			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
-					finaVerifyId: id
-			}, {})).then(function(response) {
+					finaVerifyId
+			})).then(function(response) {
 					_this.setState({payInfoList: response})
 
-			}).catch(function(err) {});
+			});
 	}
 	onCancel = () => {
     let {onCancel} = this.props;
@@ -200,7 +189,7 @@ export default class ViewAudit extends Component {
 		});
 	}
 	render() {
-		console.log(this.fileList);
+		
 		let {
 			totalCountMoney,
 			payment,

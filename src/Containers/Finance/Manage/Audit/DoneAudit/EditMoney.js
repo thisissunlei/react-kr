@@ -84,11 +84,6 @@ class EditMoney extends Component {
 		}, 0)
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			showName: !this.state.showName
-		})
-	}
 
 	//table
 	getInfo = () => {
@@ -119,10 +114,13 @@ class EditMoney extends Component {
 					item.checked = true;
 					item.label = item.contactName;
 					item.value = item.detailid;
+					
+					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.frontId}-1`, item.nFrontmoney));
 					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
 					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
 					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
 					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.nFrontmoney * 100;
 					return item;
 				})
 
@@ -687,9 +685,6 @@ class EditMoney extends Component {
 				topInfoList,
 				payment,
 				accountList,
-				mainbillInfo,
-				showName,
-				customerId,
 				infoList,
 				flowAmount,
 				Loading
