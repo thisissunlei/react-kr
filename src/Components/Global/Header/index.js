@@ -48,7 +48,7 @@ class Header extends Component {
 			//客户详情打开
 			openLookCustomerList:false,
 			//合同详情打开
-			openAgreement:false,
+			openAgreementDetail:false,
 			//客户 客户名称
 			customerName:'',
 			openMassage:false,
@@ -280,6 +280,18 @@ class Header extends Component {
 		})
 
 	}
+	//合同详情打开
+	agreementDetailOpen = () =>{
+		this.setState({
+			openAgreementDetail:true
+		})
+	}
+	//合同详情关闭
+	agreementDetailClose = () =>{
+		this.setState({
+			openAgreementDetail:false
+		})
+	}
 	messageDrawerClick = () =>{
 		this.setState({
 			openLookCustomerList : false,
@@ -314,7 +326,8 @@ class Header extends Component {
 					openLookCustomerList,
 					openMassage,
 					showRedDrop,
-					showMassge
+					showMassge,
+					openAgreementDetail
 
 				} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
@@ -425,9 +438,10 @@ class Header extends Component {
 					/>
 				</Drawer>
 				//合同详情
-				<Drawer open={true} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<Agreement.Admit.Detail 
-						params={{id:1,customerId:1,orderId:1}}
+						params={{id:260,customerId:273,orderId:166}}
+						onCancel = {this.agreementDetailClose}
 					/>
 				</Drawer>
 				{(openLookCustomerList || openMassage) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}

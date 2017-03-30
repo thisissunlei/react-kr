@@ -212,7 +212,7 @@ export default class ReduceDetail extends Component {
 			}
 
 			return (
-				<div className="content" style={content}>
+				<div className="content agreement-detail" style={content}>
 				  	<div className="customer-close" onMouseUp={this.onCancel}></div>
 				    <span className="content-title">减租协议书详情页</span>
           

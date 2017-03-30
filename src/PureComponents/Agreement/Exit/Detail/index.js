@@ -134,7 +134,7 @@ export default class ExitDetail extends Component {
 			}
 			
 			return (
-				<div className="content" style={content}>
+				<div className="content agreement-detail" style={content}>
 					 <Title value="退租协议书详情页_财务管理"/>
 					 <div className="customer-close" onMouseUp ={this.onCancel}></div>
 				     <span className="content-title">退租协议书详情页</span>
