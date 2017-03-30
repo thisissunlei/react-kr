@@ -208,6 +208,7 @@ export default class ViewAudit extends Component {
                 </div>
                 <div className="u-table-list">
                     <table className="u-table">
+                      <thead>
                         <tr>
                             <th>序号</th>
                             <th width={100}>审核时间</th>
@@ -215,6 +216,7 @@ export default class ViewAudit extends Component {
                             <th width={100}>审核状态</th>
                             <th width={270}>备注</th>
                         </tr>
+                      </thead>
                         <tbody>
                             {topInfoList && topInfoList.map((item, index) => {
                                 return (
