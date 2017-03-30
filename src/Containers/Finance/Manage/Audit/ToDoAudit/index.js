@@ -197,17 +197,14 @@ export default class ToDoAudit extends React.Component {
       Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
         Message.success('新建成功');
         _this.openCreateMainbill();
-
+        
         _this.setState({
-          showName: !_this.state.showName
-        })
-
-        _this.setState({
+           showName: !_this.state.showName,
           mainBill: true,
           mainBillId: response.mainBillId,
           customerId: response.customerId,
           corporationId: response.corporationId
-        })
+        });
         Store.dispatch(change('addMoney', "customerId", response.customerId));
         Store.dispatch(change('addMoney', "mainBillId", response.mainBillId));
       }).catch(function(err) {
@@ -216,26 +213,19 @@ export default class ToDoAudit extends React.Component {
     }
     //新建订单
   onMainBillSubmit = (form) => {
-    form.company = '';
-    form.customerId = this.state.customerId;
     var _this = this;
+    var {customerId}=this.state;
+
+    form=Object.assign({},form);
+    form.company = '';
+    form.customerId = customerId;
+    
     Store.dispatch(Actions.callAPI('save-main-bill', {}, form)).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
       _this.setState({
-        showName: !_this.state.showName
-      })
-      var customerList = {
-        label: response.company,
-        value: response.customerId
-      }
-
-      var mainBills = {
-        label: response.mainBillName,
-        value: response.mainBillId
-      }
-      _this.setState({
         mainBill: true,
+        showName: !_this.state.showName,
         mainBillId: response.mainBillId,
         corporationId: response.corporationId
       })
@@ -248,7 +238,7 @@ export default class ToDoAudit extends React.Component {
   }
 
   onSubmitCustomer = (form) => {
-
+    form=Object.assign({},form);
     this.setState({
       CustomerList: form
     })
@@ -258,27 +248,49 @@ export default class ToDoAudit extends React.Component {
 
   }
 
-  openCreateMainbill = (id, customerId) => {
+  openCreateMainbill = (billOInfo, customerId) => {
+    var {openCreateMainbill}=this.state;
+    openCreateMainbill=!openCreateMainbill;
     this.setState({
-      openCreateMainbill: !this.state.openCreateMainbill,
-      billOInfo: id,
-      customerId: customerId
-    })
+      openCreateMainbill,
+      billOInfo,
+      customerId
+    });
   }
   openCreateCustomer = () => {
+    let  {openCreateCustomer}=this.state;
+    openCreateCustomer=!openCreateCustomer;
     this.setState({
-      openCreateCustomer: !this.state.openCreateCustomer
-    })
+      openCreateCustomer
+    });
   }
 
   //导出
   onExport = (values) => {
     var searchParams = this.state.Params;
+
+    var params = {
+      payWay:'',
+      idList:[],
+      corporationId:'',
+      communityId:'',
+      createEndTime:'',
+      createStratTime:'',
+      flowCategoryId:'',
+      verifyStatus:'UNCHECKED'
+    };
     let idList = [];
     values.map((item, index) => {
       idList.push(item.id)
     });
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=UNCHECKED`;
+    params = Object.assign({},params,searchParams,{idList});
+    var condition = [];
+    for(var field in params){
+      if (params.hasOwnProperty(field)) {
+        condition.push(`${field}=${params[field]}`)
+      }
+    }
+    var url = '/api/krspace-finance-web/finaVerify/data/export-excel?'+condition.join('&');
     console.log("2", values);
     console.log("list", idList);
     window.location.href = url;
