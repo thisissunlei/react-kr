@@ -25,7 +25,7 @@ let State = observable({
 		percentage:0,
 		statusCode:'',
 		statusMessage:'',
-		selectCode:''
+		//selectCode:''
 });
 State.searchParamsData=action(function(params){
 	params = Object.assign({}, this.searchParams, params);
@@ -45,7 +45,7 @@ State.openProgressLoading=action(function(){
 	this.openLoading=!this.openLoading;
 })
 //导入结果调用
-State.importContent=action(function(ids){
+State.importContent=action(function(ids,status){
 	   if(!ids){
 			 ids='';
 		 }
@@ -57,6 +57,11 @@ State.importContent=action(function(ids){
           _this.statusCode=err.code;
 					_this.percentage=err.data.percent;
           _this.statusMessage=err.message;
+					 if(status){
+						 if(_this.statusCode==-2||_this.statusCode==-3){
+	 						 _this.openSureTip();
+	 					}
+			 }
 		});
 })
 

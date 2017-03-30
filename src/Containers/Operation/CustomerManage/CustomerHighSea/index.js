@@ -42,16 +42,14 @@ class CustomerHighSea extends React.Component{
 		this.state={
 			progress:0,
 			style:true,
-			sureStatus:{
-			 sureCode:'',
-			 sureMessage:''
-			},
 			refreshState:false
 		}
 	}
 
 	openImportData=()=>{
-	  if(State.selectCode==-1){
+		//console.log('/====',State.selectCode);
+		var storage=sessionStorage.getItem("selectCode");
+	  if(storage==-1||storage==100){
 	  	this.reloadTipSubmit();
 	  }else{
 			this.setState({
@@ -61,27 +59,9 @@ class CustomerHighSea extends React.Component{
 	  }
 	}
 
-    reloadTipSubmit=()=>{
-           State.importContent();
-      	   if(State.statusCode==-2){
-  	         State.openSureTip();
-             this.setState({
-              	 sureStatus:{
-              	 	sureCode:-2,
-              	 	sureMessage:State.statusMessage
-              	 }
-             })
-		  }
-		  if(State.statusCode==-3){
-              State.openSureTip();
-               _this.setState({
-              	 sureStatus:{
-              	 	sureCode:-3,
-              	 	sureMessage:State.statusMessage
-              	 }
-              })
-	      }
-    }
+  reloadTipSubmit=()=>{
+        State.importContent('',true);
+  }
 
 	reloadSubmit=()=>{
 		this.setState({
@@ -94,7 +74,8 @@ class CustomerHighSea extends React.Component{
 	  State.openImportFun();
 	}
 	cancelSureTip=()=>{
-	  State.selectCode='';
+	  //State.selectCode=-100;
+		sessionStorage.setItem("selectCode",-100);
 	  State.openSureTip();
 	}
 
@@ -107,7 +88,8 @@ class CustomerHighSea extends React.Component{
 		if(State.statusCode==-1){
 				this.cancelImportData();
 				Message.error(err.message);
-				State.selectCode=-1;
+				//State.selectCode=-1;
+				sessionStorage.setItem("selectCode",-1);
 				return ;
 		}
 		this.setState({
@@ -115,6 +97,8 @@ class CustomerHighSea extends React.Component{
 		})
 	  State.openProgressLoading();
 		this.cancelImportData();
+		//State.selectCode=100;
+		sessionStorage.setItem("selectCode",100);
 	  var _this=this;
 		var timer = window.setInterval(function() {
 			if (State.percentage==100) {
@@ -125,16 +109,13 @@ class CustomerHighSea extends React.Component{
 			  if(State.statusCode==-2){
 			  	  window.clearInterval(timer);
 						  setTimeout(function(){
-							 State.openProgressLoading();
+							    State.openProgressLoading();
 	                  State.openSureTip();
 	                  _this.setState({
-	                  	 sureStatus:{
-	                  	 	sureCode:-2,
-	                  	 	sureMessage:State.statusMessage
-	                  	 },
 	                  	 refreshState:true
 	                  })
-	                  State.selectCode=-2;
+	                  //State.selectCode=-100;
+										sessionStorage.setItem("selectCode",-100);
 	                  State.searchParamsData();
 						    },600);
               }
@@ -144,13 +125,10 @@ class CustomerHighSea extends React.Component{
 			  	        State.openProgressLoading();
                   State.openSureTip();
                    _this.setState({
-                  	 sureStatus:{
-                  	 	sureCode:-3,
-                  	 	sureMessage:State.statusMessage
-                  	 },
                   	 refreshState:false
                   })
-                  State.selectCode=-3;
+                  //State.selectCode=-100;
+									sessionStorage.setItem("selectCode",-100);
 								},600);
               }
               if(State.statusCode==1){
@@ -162,13 +140,16 @@ class CustomerHighSea extends React.Component{
               	 _this.setState({
               	 	refreshState:true
               	 })
+								 //State.selectCode=-100;
+								 sessionStorage.setItem("selectCode",-100);
 							 },600);
               }
               if(State.statusCode==-1){
               	 window.clearInterval(timer);
               	 State.openProgressLoading();
               	 Message.error(State.statusMessage);
-              	 State.selectCode=-1;
+              	 //State.selectCode=-1;
+								 sessionStorage.setItem("selectCode",-1);
               	  _this.setState({
               	 	  refreshState:false
               	 })
@@ -316,7 +297,6 @@ class CustomerHighSea extends React.Component{
 					>
 						<SureTipBtn
 						  onCancel={this.cancelSureTip}
-						  sureStatus={sureStatus}
 						  reloadSubmit={this.reloadSubmit}
 						/>
                     </Dialog>
