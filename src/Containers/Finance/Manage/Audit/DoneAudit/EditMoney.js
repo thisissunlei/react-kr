@@ -287,6 +287,9 @@ class EditMoney extends Component {
 
 		if (!form.contract) {
 			Message.error('请选择对应合同');
+			this.setState({
+				Loading: false
+			})
 			return;
 		}
 		if (this.state.flowAmount == 0) {
