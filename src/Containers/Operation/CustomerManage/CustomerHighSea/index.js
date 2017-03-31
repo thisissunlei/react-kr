@@ -44,7 +44,7 @@ class CustomerHighSea extends React.Component{
 	}
 
 	openImportData=()=>{
-		var storage=sessionStorage.getItem("selectCode");
+		var storage=localStorage.getItem("selectCode");
 	  if(storage==-1||storage==100){
 	  	this.reloadTipSubmit();
 	  }else{
@@ -63,11 +63,11 @@ class CustomerHighSea extends React.Component{
 		State.openSureTip();
 	}
 	cancelImportData=()=>{
-		sessionStorage.setItem("selectCode",-100);
+		localStorage.setItem("selectCode",-100);
 	  State.openImportFun();
 	}
 	cancelSureTip=()=>{
-		sessionStorage.setItem("selectCode",-100);
+		localStorage.setItem("selectCode",-100);
 	  State.openSureTip();
 	}
 
@@ -80,7 +80,7 @@ class CustomerHighSea extends React.Component{
 		if(State.statusCode==-1){
 				this.cancelImportData();
 				Message.error(err.message);
-				sessionStorage.setItem("selectCode",-1);
+				localStorage.setItem("selectCode",-1);
 				return ;
 		}
 		this.setState({
@@ -88,7 +88,7 @@ class CustomerHighSea extends React.Component{
 		})
 	  State.openProgressLoading();
 		this.cancelImportData();
-		sessionStorage.setItem("selectCode",100);
+		localStorage.setItem("selectCode",100);
 	  var _this=this;
 		State.statusCode='';
 		var timer = window.setInterval(function() {
@@ -106,7 +106,7 @@ class CustomerHighSea extends React.Component{
 							    State.openProgressLoading();
 	                  State.openSureTip();
 										State.refreshState=-2;
-										sessionStorage.setItem("selectCode",-100);
+										localStorage.setItem("selectCode",-100);
 	                  State.searchParamsData();
 						    },400);
 								return ;
@@ -117,7 +117,7 @@ class CustomerHighSea extends React.Component{
 			  	        State.openProgressLoading();
                   State.openSureTip();
 									State.refreshState=-3;
-									sessionStorage.setItem("selectCode",-100);
+									localStorage.setItem("selectCode",-100);
 								},400);
 								return ;
               }
@@ -127,7 +127,7 @@ class CustomerHighSea extends React.Component{
 			  	       State.openProgressLoading();
               	 Message.success('导入成功');
 								 State.refreshState=1;
-								 sessionStorage.setItem("selectCode",-100);
+								 localStorage.setItem("selectCode",-100);
 								 State.searchParamsData();
 							 },400);
 							 return ;
@@ -136,7 +136,7 @@ class CustomerHighSea extends React.Component{
               	 window.clearInterval(timer);
               	 State.openProgressLoading();
               	 Message.error(State.statusMessage);
-								 sessionStorage.setItem("selectCode",-1);
+								 localStorage.setItem("selectCode",-1);
 								 State.refreshState=-1;
 								 return ;
               }
