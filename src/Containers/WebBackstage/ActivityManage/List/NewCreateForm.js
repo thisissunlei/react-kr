@@ -500,6 +500,7 @@ import State from './State';
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
+									
 								/>
 								<KrField name="appCoverPic"
 									component="newuploadImage"
