@@ -25,7 +25,8 @@ import {
 	Tab,
 	Tooltip,
 	ButtonGroup,
-	KrDate
+	KrDate,
+	Loading
 
 } from 'kr-ui';
 import './index.less'
@@ -51,7 +52,6 @@ class LookDetailed extends Component{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
-
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -135,7 +135,10 @@ class LookDetailed extends Component{
 
 
 	render(){
-
+		let {loading} = this.props.CommunityDetailModel;
+		if(loading){
+			return (<Loading/>);
+		}
 
 		let evenStyle={width:'280px',marginLeft:-10}
 		let oddStyle={width:'290px',marginLeft:-10}

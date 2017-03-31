@@ -20,7 +20,8 @@ import {
 	Drawer,
 	Tabs,
 	Tab,
-	ButtonGroup
+	ButtonGroup,
+	Loading
 
 } from 'kr-ui';
 import './index.less'
@@ -129,6 +130,10 @@ class CustomerIndent extends Component{
 
 
 	render(){
+		let {orderLeading} = this.props.CommunityDetailModel;
+		if(orderLeading){
+			return (<Loading/>);
+		}
 		let {newIndentSwitch}=this.props;
 		let detail=this.props.CommunityDetailModel.orderDetail;
 

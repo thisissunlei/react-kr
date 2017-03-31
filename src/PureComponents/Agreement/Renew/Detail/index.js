@@ -47,6 +47,7 @@ export default class JoinDetail extends Component {
 
 
 		this.state = {
+			loading:true,
 			basic: {
 				payment: {},
 				stationVos: []
@@ -162,7 +163,9 @@ export default class JoinDetail extends Component {
 	}
 	render() {
 
-
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
 		const orderBaseInfo = {};
 		const contractList = [];
 		let {eidtBotton} = this.props;
@@ -170,6 +173,7 @@ export default class JoinDetail extends Component {
 		if(eidtBotton == "none"){
 			showEdit = false;
 		}
+		
 		const params = this.props.params;
 
 		function onCancel() {

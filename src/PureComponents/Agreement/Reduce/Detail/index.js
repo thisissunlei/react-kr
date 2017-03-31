@@ -101,6 +101,7 @@ export default class ReduceDetail extends Component {
 		})).then(function(response) {
 			_this.setState({
 				basic: response,
+				loading: false,
 				oldBasicStationVos:response.stationVos
 			},function(){
 				 let {newBasicStationVos,oldBasicStationVos,openAdd}=_this.state;
@@ -118,11 +119,6 @@ export default class ReduceDetail extends Component {
 			        }     	  	   
 			});
 		});
-		setTimeout(function() {
-			_this.setState({
-				loading: false
-			});
-		}, 0);
 	}
 
 

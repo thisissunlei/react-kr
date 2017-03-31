@@ -66,16 +66,12 @@ export default class ExitDetail extends Component {
 			id: this.props.params.id
 		})).then(function(response) {
 			_this.setState({
-				basic: response
+				basic: response,
+				loading:false
 			});
 
 		});
 
-		setTimeout(function() {
-			_this.setState({
-				loading: false
-			});
-		}, 0);
 	}
 
 	  onCancel = () => {
