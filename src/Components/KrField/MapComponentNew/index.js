@@ -31,7 +31,8 @@ export default class MapComponentNew extends Component {
 			searchText : '',
 			detailSearch : '',
 			initialValue:{},
-			changePosition:false
+			changePosition:false,
+			dragendMarker : false
 		};
 		this.mapId = 'map_'+Date.now();
 	}
@@ -40,9 +41,9 @@ export default class MapComponentNew extends Component {
 	}
 	componentWillReceiveProps(nextProps){
 		// 页面刷新
-		// console.log("页面刷新");
+		// console.log("页面刷新===>",nextProps);
 		// 根据城市定位地图
-		if(!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint){
+		if(!this.state.dragendMarker &&!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint){
 				this.setMarker(nextProps.initailPoint);
 		}
 
@@ -105,6 +106,7 @@ export default class MapComponentNew extends Component {
 		}else{
 			_this.setMarker(inputValue);
 		}
+
 			 		
 	}
 	onChange=()=>{
@@ -140,14 +142,13 @@ export default class MapComponentNew extends Component {
 								// 增加覆盖物       
 							_this.map.addOverlay(marker);
 							    
-						
-							
 							// 标注，，，可拖拽
 							marker.enableDragging();
 							marker.addEventListener("dragend", function(e){ 
 							 	_this.setState({
 							 		pointLng : e.point.lng,
-									pointLat : e.point.lat
+									pointLat : e.point.lat,
+									dragendMarker : true
 							 	},function(){
 									_this.map.panTo(new BMap.Point(_this.state.pointLng, _this.state.pointLat), 15); 
 
