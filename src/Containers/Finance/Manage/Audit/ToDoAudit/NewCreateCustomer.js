@@ -59,7 +59,7 @@ class NewCreateCustomer extends React.Component {
 
 		return (
 			<div>
-			    <form onSubmit={handleSubmit(this.onSubmit)}>
+			    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 					<KrField  
 							grid={1/2}
 				    		left={50}
