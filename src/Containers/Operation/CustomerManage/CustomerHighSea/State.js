@@ -60,7 +60,10 @@ State.importContent=action(function(ids,status){
 					 if(status){
 						 if(_this.statusCode==-2||_this.statusCode==-3){
 	 						 _this.openSureTip();
-	 					}
+	 					 }
+						 if(_this.statusCode==-1){
+	 						 _this.openImportFun();
+	 					 }
 			 }
 		});
 })

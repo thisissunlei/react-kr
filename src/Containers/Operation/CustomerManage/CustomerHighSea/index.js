@@ -46,7 +46,6 @@ class CustomerHighSea extends React.Component{
 
 	openImportData=()=>{
 		var storage=sessionStorage.getItem("selectCode");
-		console.log('pppppp777',storage);
 	  if(storage==-1||storage==100){
 	  	this.reloadTipSubmit();
 	  }else{
