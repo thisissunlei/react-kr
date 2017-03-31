@@ -13,7 +13,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import {DateFormat} from 'kr/utils';
+import {DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -758,7 +758,7 @@ class EditMoney extends React.Component {
 								label="备注"
 								maxSize={100}
 						/>
-						
+
 						<KrField
 								style={{width:548}}
 								name="uploadFileIds"
