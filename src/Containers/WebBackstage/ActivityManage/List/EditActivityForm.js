@@ -223,7 +223,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		searchParams.time = +new Date();
 		
 		values.enroll = EArr;
-
+		console.log("values",values);
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
@@ -304,9 +304,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 城市组件选到三级
 	changeCity=(thirdId,secondId,city)=>{
+		// console.log("secondId",secondId,"thirdId",thirdId);
 		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
-		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
-		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
+		Store.dispatch(change('EditActivityForm', 'cityId', secondId));
+		Store.dispatch(change('EditActivityForm', 'countyId', thirdId));
 
 	}
 	// 检验排序号是否重复
