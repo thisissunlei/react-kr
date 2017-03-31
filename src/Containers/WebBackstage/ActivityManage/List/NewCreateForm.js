@@ -121,7 +121,7 @@ import State from './State';
 			State.openNewCreate = !State.openNewCreate;
 			Message.success('操作成功');
 			State.searchParams = searchParams;
-			// Store.dispatch(reset('NewCreateForm'));
+			Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
 
 			Notify.show([{

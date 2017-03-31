@@ -30,7 +30,7 @@ let State = observable({
 	// 是否置顶
 	isStick : false,
 	// 上传图片地址
-	requestURI :'/mockjsdata/33/activity/upload-pic', 
+	requestURI :'/api/krspace-finance-web/activity/upload-pic', 
 	// 默认地址
 
 	HeightAuto:false,
