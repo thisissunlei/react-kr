@@ -190,6 +190,10 @@ module.exports = {
 						primaryText: "会员配置",
 						router: '/member/memberManage/setting',
 						menuCode: 'memberSetting',
+					}, {
+						primaryText: "门禁授权管理",
+						router: '/member/memberManage/doormanage',
+						menuCode: 'doorPermission',
 					},
 
 				]

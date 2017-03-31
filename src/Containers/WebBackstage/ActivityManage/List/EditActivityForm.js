@@ -3,6 +3,8 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -52,7 +54,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 				initializeValues:nextProps.detail
 			},function(){
 				if(nextProps.detail.id){
-					Store.dispatch(Actions.callAPI('activityDetail',{id:nextProps.detail.id})).then(function(response){
+					Http.request('activityDetail',{id:nextProps.detail.id}).then(function(response){
 						// console.log("response",response);
 						// 置顶与否
 						if(response.top == 1){
@@ -237,7 +239,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		searchParams.time = +new Date();
 		
 		values.enroll = EArr;
-		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+		Http.request('newCreateActivity',{},values).then(function(response){
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
 			State.searchParams = searchParams;
@@ -331,7 +333,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
 			return;
 		}else{
-			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
+			Http.request('getActivitySerialNumRepeat',{sort:value}).then(function(response){
 				State.serialNumRepeat = false;
 				
 			}).catch(function(err){

@@ -3,6 +3,8 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 
 import {
 	KrField,
@@ -122,7 +124,7 @@ import State from './State';
 
 		values.enroll = EArr;
 
-		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+		Http.request('newCreateActivity',{},values).then(function(response){
 
 			State.openNewCreate = !State.openNewCreate;
 			Message.success('操作成功');
@@ -210,7 +212,7 @@ import State from './State';
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
 			return;
 		}else{
-			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
+			Http.request('getActivitySerialNumRepeat',{sort:value}).then(function(response){
 				State.serialNumRepeat = false;
 
 			}).catch(function(err){

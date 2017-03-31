@@ -106,10 +106,7 @@ export default class MapComponentNew extends Component {
 			}else{
 				_this.setMarker(inputValue);
 			}
-		})
-		
-
-			 		
+		})			 		
 	}
 	onChange=()=>{
 		const {input}=this.props;
