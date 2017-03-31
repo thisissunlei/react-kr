@@ -648,6 +648,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 									defaultValue={State.pcCoverPicDefaultValue}
 									onDeleteImg ={this.deletePcCoverPicDefaultValue}
+									requestURI = {State.requestURI}
 
 
 								/>
@@ -662,6 +663,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 									defaultValue={State.appCoverPicDefaultValue}
 									onDeleteImg ={this.deleteAppCoverPicDefaultValue}
+									requestURI = {State.requestURI}
+									
 
 								/>
 							<KrField name="infoPic" 
