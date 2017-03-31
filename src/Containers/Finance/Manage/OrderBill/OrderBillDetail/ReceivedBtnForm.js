@@ -56,7 +56,9 @@ class ReceivedBtnForm extends Component {
         this.index = 0;
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        Store.dispatch(change('receivedBtnForm', 'preCode', '1'));
+    }
 
     onSubmit = (values) => {
         const {
@@ -71,7 +73,7 @@ class ReceivedBtnForm extends Component {
         if (nextProps.open) {
             //Store.dispatch(change('receivedBtnForm', 'accountId', ''));
             //Store.dispatch(change('receivedBtnForm', 'totalPayment', ''));
-            Store.dispatch(change('receivedBtnForm', 'preCode', '1'));
+            //Store.dispatch(change('receivedBtnForm', 'preCode', '1'));
             //Store.dispatch(change('receivedBtnForm', 'operatedate', ''));
             Store.dispatch(change('receivedBtnForm', 'mainbillId', this.context.params.orderId));
         }
