@@ -21,13 +21,15 @@ module.exports =  function (initializeConfigs){
         getField: React.PropTypes.func.isRequired,
         getFieldError: React.PropTypes.func.isRequired,
         registerField: React.PropTypes.func.isRequired,
-        blur: React.PropTypes.func.isRequired,
+        onBlur: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func.isRequired,
         reset: React.PropTypes.func.isRequired,
+        _reduxForm: React.PropTypes.object.isRequired,
       }
 
       getChildContext() {
 
-        const {onChange,getFieldValue,registerField,getFieldError,getField,blur,reset}  = this.props;
+        const {onChange,getFieldValue,registerField,getFieldError,getField,onBlur,reset,register,onFocus}  = this.props;
 
         return {
           onChange,
@@ -35,8 +37,12 @@ module.exports =  function (initializeConfigs){
           registerField,
           getFieldError,
           getField,
-          blur,
-          reset
+          onBlur,
+          onFocus,
+          reset,
+          _reduxForm:{
+
+          }
         }
 
       }
@@ -79,6 +85,14 @@ module.exports =  function (initializeConfigs){
         FormModel.change(this.formName,fieldName,fieldValue);
         this.touch(fieldName);
         this.validate();
+      }
+
+      getFormState = ()=>{
+
+      }
+
+      register = ()=>{
+
       }
 
       validate = ()=>{
@@ -149,6 +163,10 @@ module.exports =  function (initializeConfigs){
 
       }
 
+      onFocus = ()=>{
+
+      }
+
       reset = ()=>{
 
       }
@@ -158,8 +176,7 @@ module.exports =  function (initializeConfigs){
         FormModel.touch(this.formName,fieldName);
       }
 
-      blur = (fieldName)=>{
-        console.log('---->>',fieldName);
+      onBlur = (fieldName)=>{
         this.touch(fieldName);
         this.validate();
       }
@@ -183,8 +200,11 @@ module.exports =  function (initializeConfigs){
           registerField:this.registerField,
           handleSubmit:this.handleSubmit,
           reset:this.reset,
-          blur:this.blur,
+          onBlur:this.onBlur,
+          onFocus:this.onFocus,
           stopSubmit:this.stopSubmit,
+          register:this.register,
+          getFormState:this.getFormState
         }
         return <Form {...props} {...handles}/>
       }

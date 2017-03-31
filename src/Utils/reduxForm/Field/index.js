@@ -15,7 +15,8 @@ export default class Field extends React.Component{
       getFieldError: React.PropTypes.func.isRequired,
       registerField: React.PropTypes.func.isRequired,
       onChange: React.PropTypes.func.isRequired,
-      blur: React.PropTypes.func.isRequired,
+      onBlur: React.PropTypes.func.isRequired,
+      onFocus: React.PropTypes.func.isRequired,
       reset: React.PropTypes.func.isRequired,
   }
 
@@ -35,10 +36,16 @@ export default class Field extends React.Component{
     onChange && onChange(name,value);
   }
 
-  onBlur = ()=>{
-    const {blur} = this.context;
+  onFocus = ()=>{
+    const {onFocus} = this.context;
     const {name} = this.props;
-    blur && blur(name);
+    onFocus && onFocus(name);
+  }
+
+  onBlur = ()=>{
+    const {onBlur} = this.context;
+    const {name} = this.props;
+    onBlur && onBlur(name);
   }
 
   renderComponent = (component)=>{
@@ -49,6 +56,7 @@ export default class Field extends React.Component{
     const input = {
       name,
       value:getFieldValue(name),
+      onFocus:this.onFocus,
       onChange:this.onChange,
       onBlur:this.onBlur,
     };

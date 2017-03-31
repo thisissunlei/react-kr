@@ -123,8 +123,6 @@ State.touchAll = action(function(formName) {
 			}
 		}
 
-		console.log('touchAll:',this.getForm(formName));
-
 });
 
 State.stopSubmit = action(function(formName,errors) {

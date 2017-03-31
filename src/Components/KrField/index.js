@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	Field,
 	reduxForm
-} from 'redux-form';
+} from 'kr/utils/reduxForm';
 
 import Notify from '../Notify';
 
@@ -144,7 +144,7 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
-       
+
        if (component === 'searchLeader') {
 			return (
 
