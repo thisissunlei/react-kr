@@ -26,6 +26,7 @@ class ImportData extends React.Component{
 		this.state={
 			file:{},
 			fileName:'',
+			customerName:''
 		}
 	};
 	onCancel=()=>{
@@ -42,6 +43,9 @@ class ImportData extends React.Component{
 	}
 
 	onChangeAdd=(params)=>{
+		 this.setState({
+			 customerName:params.label
+		 })
 	   if(params.label==params.value){
 	   	 Store.dispatch(change('ImportData','sourceName',params.label));
 	   	 Store.dispatch(change('ImportData','sourceId',''));
@@ -67,6 +71,7 @@ class ImportData extends React.Component{
 	}
 
 	onSubmit=(params)=>{
+		let {customerName}=this.state;
 		let _this = this;
     var form = new FormData();
 		form.append('marketData', this.state.file);
@@ -74,9 +79,13 @@ class ImportData extends React.Component{
 		form.append('sourceId', params.sourceId);
 		}
 		form.append('sourceName', params.sourceName);
+		if(!customerName){
+			Message.error('请输入客户来源');
+		  return false;
+		}
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
-			return false;
+			 return false;
 		}
 		if(!params.sourceName){
 			 return ;
