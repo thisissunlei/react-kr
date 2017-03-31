@@ -316,7 +316,6 @@ export default class Table extends React.Component {
 
 		var _this = this;
 
-
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
 			_this.onInitial({
@@ -487,6 +486,7 @@ export default class Table extends React.Component {
 
 	onSelect = () =>{
 
+		
 		let {
 			selectedRows,
 			visibilityRows,
