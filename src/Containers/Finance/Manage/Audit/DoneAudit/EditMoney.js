@@ -123,8 +123,8 @@ class EditMoney extends Component {
 						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
 					}
 					if(item.frontId){
-						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.frontId}-1`, item.nFrontmoney));
-						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.nFrontmoney * 100;
+						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.frontId}-1`, item.frontmoney));
+						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.frontmoney * 100;
 					}
 					
 					return item;

@@ -122,8 +122,8 @@ class EditMoney extends React.Component {
 				
 				if(item.frontId){
 					console.log('item.nFrontmoney',item.nFrontmoney)
-					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.frontId}-1`, item.nFrontmoney));
-					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.nFrontmoney * 100;
+					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.frontId}-1`, item.frontmoney));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.frontmoney * 100;
 				}
 				if(item.totalrentId){
 					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
