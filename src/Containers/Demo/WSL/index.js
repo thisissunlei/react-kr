@@ -32,10 +32,16 @@ export default class Initialize  extends Component{
 	render(){
         
 		return(
-
-			<div style={{marginTop:'100px'}}>
-              123
-			</div>
+             <div>
+			       <KrField name="uploadImageList" 
+								component="uploadImageList" 
+								style={{marginTop:10}} 
+								photoSize={'212*136'} 
+								pictureFormat={'JPG'} 
+								pictureMemory={'32K'}
+								//requestURI = {this.state.requestURI}
+					/>
+			  </div>
 		);
 	}
 

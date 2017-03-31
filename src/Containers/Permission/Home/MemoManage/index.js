@@ -25,7 +25,6 @@ import {
 	Avatar,
 	Divider,
 	FontIcon,
-	DatePicker
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
@@ -59,8 +58,8 @@ class MemoManage extends Component{
 		return(
 						<div>
 
-						<Section title="我的备忘" 
-							description="" 
+						<Section title="我的备忘"
+							description=""
 							leftIcon= {
 								<Avatar icon={<ActionAssignment />} backgroundColor={yellow600} size={25}/>
 							}
@@ -102,13 +101,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MemoManage);
-
-
-
-
-
-
-
-
-
-

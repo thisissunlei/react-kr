@@ -23,6 +23,7 @@ let State = observable({
 	recordDevelop:true,
 	operType:"",
 	visitLen:5,
+	presentShow:false,
 });
 State.initComeFrom = action(function(comeFroms,operTypes) {
 	this.comeFrom=comeFroms||this.comeFrom;
@@ -79,6 +80,11 @@ State.lookListId=action(function(params,operType) {
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
+         if(response.sourceName.indexOf('推荐') != -1){
+         	_this.presentShow = true;
+         }else{
+         	_this.presentShow = false;
+         }
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
