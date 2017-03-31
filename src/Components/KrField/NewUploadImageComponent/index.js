@@ -47,17 +47,17 @@ export default class UploadImageComponent extends Component {
 			this.setState({
 				imgSrc:nextProps.defaultValue,
 				imgUpload : true
-			}
+			})
 		}else if(nextProps.input.value){
 			this.setState({
 				imgSrc:nextProps.input.value,
 				imgUpload : true
-			}
+			})
 		}else{
 			this.setState({
 				imgSrc:'',
 				imgUpload : false
-			}
+			})
 		}
 		
 

@@ -500,7 +500,7 @@ import State from './State';
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
-									
+
 								/>
 								<KrField name="appCoverPic"
 									component="newuploadImage"
@@ -542,28 +542,28 @@ import State from './State';
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
 
-												<input type="checkbox"  onChange={this.chooseName}/>
+												<input type="checkbox"  onChange={this.chooseName} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
 
-												<input type="checkbox"  onChange={this.choosePhone}/>
+												<input type="checkbox"  onChange={this.choosePhone} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >电话</span>
 											</ListGroupItem>
 
 											<ListGroupItem style={{marginRight:48}}>
-												<input type="checkbox"  onChange={this.chooseCompany}/>
+												<input type="checkbox"  onChange={this.chooseCompany} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
-												<input type="checkbox"  onChange={this.choosePosition}/>
+												<input type="checkbox"  onChange={this.choosePosition} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 											</ListGroupItem>
 											<ListGroupItem style={{}}>
-												<input type="checkbox"  onChange={this.chooseAdd}/>
+												<input type="checkbox"  onChange={this.chooseAdd} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 											</ListGroupItem>

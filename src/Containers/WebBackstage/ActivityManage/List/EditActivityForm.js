@@ -677,28 +677,28 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.chooseName} checked={State.choseName}/> 
+											<input type="checkbox"  onChange={this.chooseName} checked={State.choseName} style={{marginRight:10}}/> 
 											<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 					
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
 											
-											<input type="checkbox"  onChange={this.choosePhone} checked={State.chosePhone}/> 
+											<input type="checkbox"  onChange={this.choosePhone} checked={State.chosePhone} style={{marginRight:10}}/> 
 											<span style={{fontSize:14,color:"#333333"}} >电话</span>
 										</ListGroupItem>
 
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.chooseCompany} checked={State.choseCompany}/> 
+											<input type="checkbox"  onChange={this.chooseCompany} checked={State.choseCompany} style={{marginRight:10}}/> 
 											<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 	
 										</ListGroupItem>
 										<ListGroupItem style={{marginRight:48}}>
-											<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition}/> 
+											<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition} style={{marginRight:10}}/> 
 											<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 										</ListGroupItem>
 										<ListGroupItem style={{}}>
-											<input type="checkbox"  onChange={this.chooseAdd} checked={State.choseAdd}/> 
+											<input type="checkbox"  onChange={this.chooseAdd} checked={State.choseAdd} style={{marginRight:10}}/> 
 											<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 
