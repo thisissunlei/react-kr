@@ -62,7 +62,8 @@ class NewCreateCustomer extends React.Component {
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  
 							grid={1/2}
-				    		right={34}
+				    		left={50}
+				    		right={10}
 							name="company" 
 							type="text" 
 							component="input" 
@@ -71,7 +72,8 @@ class NewCreateCustomer extends React.Component {
 					 />
 					 <KrField  
 							grid={1/2}
-				    		right={34}
+				    		right={50}
+				    		left={10}
 							name="name" 
 							type="text" 
 							component="input" 
@@ -79,7 +81,8 @@ class NewCreateCustomer extends React.Component {
 					 />
 					 <KrField  
 							grid={1/2}
-				    		right={34}
+				    		left={50}
+				    		right={10}
 							name="tel" 
 							type="text" 
 							component="input" 
