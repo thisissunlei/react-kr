@@ -35,6 +35,12 @@ export default class  SearchBelongCityComponent extends React.Component {
 
 	}
 
+	componentWillReceiveProps(nextProps){
+       if(nextProps.refreshState==-2||nextProps.refreshState==1){
+       	  this.selectCustomer.loadOptions();
+       }
+	}
+
 	onChange(item){
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
@@ -59,6 +65,7 @@ export default class  SearchBelongCityComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
+					ref={(selectCustomer)=>this.selectCustomer=selectCustomer}
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}

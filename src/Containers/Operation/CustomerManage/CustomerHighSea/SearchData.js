@@ -50,7 +50,7 @@ class SearchData extends React.Component {
 
                 <div style={{marginLeft:20,display:'inline-block'}}>
                   <span className='source-customer'>所属城市:</span>
-                  <KrField  grid={1} name="cityId" style={{marginTop:4,width:262}} component='searchCity'  onChange={this.onChangeCity} placeholder='请选择'/>
+                  <KrField  grid={1} name="cityId" style={{marginTop:4,width:262}} component='searchCity'  onChange={this.onChangeCity} placeholder='请选择' refreshState={refreshState}/>
 			    </div>
 			</form>
           </div>
