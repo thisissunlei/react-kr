@@ -78,6 +78,7 @@ module.exports =  function (initializeConfigs){
       constructor(props){
         super(props);
         this.formName = initializeConfigs.form;
+        this.setValidateCallback(initializeConfigs.validate);
       }
 
       onChange =(fieldName,fieldValue)=>{
@@ -95,10 +96,14 @@ module.exports =  function (initializeConfigs){
 
       }
 
+      setValidateCallback = (validate)=>{
+        const {FormModel} = this.props;
+        FormModel.setValidateCallback(this.formName,validate);
+      }
+
       validate = ()=>{
-        var values = this.getValues();
-        var errors = initializeConfigs.validate(values);
-        this.setErrors(errors);
+        const {FormModel} = this.props;
+        FormModel.validate(this.formName);
       }
 
       setErrors = (errors)=>{
@@ -129,7 +134,7 @@ module.exports =  function (initializeConfigs){
       getFieldValue = (fieldName) =>{
         const {FormModel} = this.props;
         var values = FormModel.getValues(this.formName);
-        return values[fieldName];
+        return values[fieldName] || '';
       }
 
       registerField = (fieldName,type="field")=>{
@@ -139,28 +144,32 @@ module.exports =  function (initializeConfigs){
 
       stopSubmit = ()=>{
         const {FormModel} = this.props;
-        var values = this.getValues();
-        var errors = initializeConfigs.validate(values);
-        FormModel.stopSubmit(this.formName,errors);
+        this.validate();
       }
 
       handleSubmit = (onSubmit)=>{
-
-
         var _this = this;
-
+        this.setSubmitCallback(onSubmit);
         return function(event){
           event.preventDefault();
-
-          //校验
-          var values = _this.getValues();
-
-          _this.stopSubmit();
-
-          //onSubmit && onSubmit(values);
-
+          _this.submit();
         }
+      }
 
+      setSubmitCallback = (onSubmit) =>{
+        const {FormModel} = this.props;
+        FormModel.setSubmitCallback(this.formName,onSubmit);
+      }
+
+      startSubmit = ()=>{
+        const {FormModel} = this.props;
+        FormModel.startSubmit(this.formName);
+      }
+
+      submit = ()=>{
+
+        const {FormModel} = this.props;
+        FormModel.submit(this.formName);
       }
 
       onFocus = ()=>{

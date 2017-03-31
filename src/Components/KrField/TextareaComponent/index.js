@@ -20,7 +20,6 @@ export default class TextareaComponent extends React.Component {
 		this.onChange = this.onChange.bind(this);
 		this.state = {
 			inputSize: this.props.input.value.length||1,
-
 		}
 	}
 

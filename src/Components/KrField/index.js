@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	Field,
 	reduxForm
-} from 'kr/utils/reduxForm';
+} from 'kr/Utils/ReduxForm';
 
 import Notify from '../Notify';
 

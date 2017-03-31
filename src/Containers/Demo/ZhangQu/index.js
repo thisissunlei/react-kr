@@ -9,8 +9,7 @@ import {
 	KrField,
 } from 'kr-ui';
 
-import {reduxForm,Field} from 'kr/Utils/reduxForm';
-
+import {reduxForm,Field} from 'kr/Utils/ReduxForm';
 
 class DemoComponent extends React.Component {
 		constructor(props){
@@ -55,9 +54,9 @@ class DemoComponent extends React.Component {
 
 					<form onSubmit={handleSubmit(this.onSubmit)} >
 
-						<KrField name="username" component="text" />
-						<Field name="email" component={DemoComponent} />
-						<Field name="zh" component={DemoComponent} />
+						<KrField name="username" component="date" />
+						<KrField name="email" component="input" />
+						<KrField name="haahah" component="textarea" />
 
 						<button type="submit" >submit</button>
 
