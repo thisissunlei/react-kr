@@ -675,7 +675,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
 
 							
-							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+							<Grid style={{margin:"19px 0 30px 7px"}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
