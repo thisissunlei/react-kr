@@ -89,6 +89,7 @@ export default class List extends Component {
 				}
 			}
 		}
+		window.location.href = url;
 		console.log('onexport------>',url);
 	}
 	// 查询
