@@ -206,6 +206,8 @@ import State from './State';
 		// console.log("value",value);
 		if(!value){
 			State.serialNumRepeat = false;
+		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
+			return;
 		}else{
 			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
 				State.serialNumRepeat = false;
@@ -406,7 +408,7 @@ import State from './State';
 								/>
 
 							
-								<Grid style={{marginTop:19}}>
+								<Grid >
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{width:262,padding:0}}>
@@ -534,7 +536,7 @@ import State from './State';
 							<div className="enroll-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
 								
-								<KrField component="editor" name="summary" label="活动介绍" defaultValue={''}/>
+								<KrField component="editor" name="summary" label="活动介绍" defaultValue=''/>
 								
 								<Grid style={{marginTop:19,marginBottom:80}}>
 									<Row>
@@ -601,9 +603,9 @@ const validate = values => {
 	const errors = {}
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let numContr =/^[1-9]\d{0,4}$/;
-
+	// console.log("values.contactPhone",values.contactPhone);
 	if (values.contactPhone && !phone.test(values.contactPhone) ) {
-      errors.phone = '请输入正确电话号';
+      errors.contactPhone = '请输入正确电话号';
   	}
 	// console.log("values校验",values);
 
@@ -676,8 +678,10 @@ const validate = values => {
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
 	}
+
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
+
 	}
 
 

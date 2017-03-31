@@ -53,7 +53,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			},function(){
 				if(nextProps.detail.id){
 					Store.dispatch(Actions.callAPI('activityDetail',{id:nextProps.detail.id})).then(function(response){
-						// console.log("response",response);
+						console.log("response",response);
 						// 置顶与否
 						if(response.top == 1){
 							State.isStick = true;
@@ -112,12 +112,14 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
           					State.choseAdd = false;
           				}
 						_this.setState({
+							beginDate: startDates,
+							endDate :endDates,
 							timeStart : detailStartTime,
 							timeEnd : detailEndTime
 						},function(){
 							Store.dispatch(initialize('EditActivityForm', response));
 							
-							
+							// console.log("startDates",startDates,"detailStartTime",detailStartTime,"endDates",endDates,"detailEndTime",detailEndTime)
 							Store.dispatch(change('EditActivityForm','startDate',startDates));
 							Store.dispatch(change('EditActivityForm','startTime',detailStartTime));
 							Store.dispatch(change('EditActivityForm','stopDate',endDates));
@@ -312,6 +314,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		// console.log("value",value);
 		if(!value){
 			State.serialNumRepeat = false;
+		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
+			return;
 		}else{
 			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
 				State.serialNumRepeat = false;
@@ -467,7 +471,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 	
-
+		console.log("State.activityIntroduce",State.activityIntroduce);
 		return (
 
 			<div className="new-create-activity">
@@ -504,7 +508,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 							
 							
-							<Grid style={{marginTop:19}}>
+							<Grid >
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{width:262,padding:0}}>
@@ -651,7 +655,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
 							
-							<KrField component="editor" name="summary" label="活动介绍" defalutValue={State.activityIntroduce}/>
+							<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
 
 							
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
@@ -723,9 +727,8 @@ const validate = values => {
 	let numContr =/^[1-9]\d{0,4}$/;
 
 	if (values.contactPhone && !phone.test(values.contactPhone) ) {
-      errors.phone = '请输入正确电话号';
+      errors.contactPhone = '请输入正确电话号';
   	}
-	// console.log("values校验",values);
 
 	if(values.top==1){
 		if(!values.appCoverPic){

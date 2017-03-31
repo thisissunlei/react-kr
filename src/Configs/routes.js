@@ -268,7 +268,7 @@ export default (
 			<Route path="WebBackstage" component={Basic}>
 
 
-					{/*活动*/}
+					{/*活动列表*/}
 					<Route path="activity" component={Basic}>
 						<Route path="list" component={WebBackstage.ActivityManage.List}/>
 					</Route>
