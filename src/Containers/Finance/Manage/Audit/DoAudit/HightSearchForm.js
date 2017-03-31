@@ -129,7 +129,7 @@ class HightSearchForm extends Component {
 		} = this.state;
 		return (
 			<div>
-			    <form onSubmit={handleSubmit(this.onSubmit)}>
+			    <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:30}}>
 				    <KrField
 				    		grid={1/2}
 							left={50}
@@ -180,7 +180,7 @@ class HightSearchForm extends Component {
 						<div className='ui-listDate'>
 							<ListGroup>
 								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="createStratTime" component="date" /></div></ListGroupItem>
-									<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 								<ListGroupItem><div className='ui-date-end'><KrField name="createEndTime" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		                </div>
@@ -195,7 +195,7 @@ class HightSearchForm extends Component {
 						<div className='ui-listDate'>
 							<ListGroup>
 								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="dealStartTime" component="date" /></div></ListGroupItem>
-									<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 								<ListGroupItem><div className='ui-date-end'><KrField name="dealEndTime" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		                </div>
