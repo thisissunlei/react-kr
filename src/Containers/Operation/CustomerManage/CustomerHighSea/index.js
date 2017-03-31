@@ -71,6 +71,7 @@ class CustomerHighSea extends React.Component{
 		State.openSureTip();
 	}
 	cancelImportData=()=>{
+		sessionStorage.setItem("selectCode",-100);
 	  State.openImportFun();
 	}
 	cancelSureTip=()=>{
