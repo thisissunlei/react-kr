@@ -1015,52 +1015,52 @@ const APIS = {
    },
       //活动列表及筛选
    'activityList':{
-      url: '/apis/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
+      url: '/api/krspace-finance-web/activity/activity-list?beginDate={beginDate}&cityId={cityId}&countyId={countyId}&endDate={endDate}&name={name}&page={page}&pageSize={pageSize}&type={type}',
       method: 'get'
    },
    //查看活动
    'activityDetail':{
-      url: '/apis/krspace-finance-web/activity/activity?id={id}',
+      url: '/api/krspace-finance-web/activity/activity?id={id}',
       method: 'get'
    },
    //活动上下线
    'activityPublish':{
-      url: '/apis/krspace-finance-web/activity/activity-publish?id={id}&type={type}',
+      url: '/api/krspace-finance-web/activity/activity-publish?id={id}&type={type}',
       method: 'get'
    },
    //新建活动上传轮播图
    'activityUploadpic':{
-      url: '/apis/krspace-finance-web/activity/upload-pic',
+      url: '/api/krspace-finance-web/activity/upload-pic',
       method: 'post'
    },
    //新建---编辑活动提交
    'newCreateActivity':{
-      url: '/apis/krspace-finance-web/activity/activity',
+      url: '/api/krspace-finance-web/activity/activity',
       method: 'post'
    },
    //活动置顶
    'activityUpPosition':{
-      url: '/apis/krspace-finance-web/activity/activity-top?id={id}&top={top}',
+      url: '/api/krspace-finance-web/activity/activity-top?id={id}&top={top}',
       method: 'put'
    },
    //获取活动报名信息
    'activityGetInfo':{
-      url: '/apis/krspace-finance-web/activity/activity-field?id={id}',
+      url: '/api/krspace-finance-web/activity/activity-field?id={id}',
       method: 'get'
    },
    //活动报名项目列表
    'activityGetList':{
-      url: '/apis/krspace-finance-web/activity/enroll-list?id={id}',
+      url: '/api/krspace-finance-web/activity/enroll-list?id={id}',
       method: 'get'
    },
    //活动详细信息
    'getActivityDetail':{
-      url: '/apis/krspace-finance-web/activity/activity?id={id}',
+      url: '/api/krspace-finance-web/activity/activity?id={id}',
       method: 'get'
    },
    //活动序号是否重复
    'getActivitySerialNumRepeat':{
-      url: '/apis/krspace-finance-web/activity/sort-filter?sort={sort}',
+      url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}',
       method: 'get'
    },
  }

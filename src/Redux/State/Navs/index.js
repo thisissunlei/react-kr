@@ -582,19 +582,20 @@ module.exports = {
 			}, ]
 		}, ]
 	}, {
-			primaryText: "活动管理",
-			router: 'community',
-			menuCode: 'op_manage',
+			primaryText: "官网后台",
+			router: 'WebBackstage',
+			menuCode: 'krspace_main_manage',
 			originUrl: '#/WebBackstage/activity/list',
 			menuItems: [{
 				primaryText: "活动管理",
 				iconName: 'icon-com',
 				iconColor: '#79859a',
-				menuCode: 'community_manage',
+				menuCode: 'activityManage',
+				router :'activity',
 				menuItems: [{
 					primaryText: '活动列表',
-					menuCode: 'plan_table',
-					router: '/community/communityManage/detail',
+					menuCode: 'activityList',
+					router: '/WebBackstage/activity/list',
 				},]
 			}, ],
 		}, ]

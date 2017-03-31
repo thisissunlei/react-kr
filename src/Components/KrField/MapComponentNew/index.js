@@ -39,6 +39,8 @@ export default class MapComponentNew extends Component {
 		
 	}
 	componentWillReceiveProps(nextProps){
+		// 页面刷新
+		console.log("页面刷新");
 		// 根据城市定位地图
 		if(!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint){
 				this.setMarker(nextProps.initailPoint);
@@ -60,10 +62,11 @@ export default class MapComponentNew extends Component {
 		}
 	}
 	componentDidMount() {
+		console.log("componentDidMount");
+
 		// 百度地图API功能
 		let _this = this;
 		_this.map = new BMap.Map(this.mapId); 
-
 			// 对地图进行初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
 			_this.map.centerAndZoom(point, 11);
@@ -88,6 +91,8 @@ export default class MapComponentNew extends Component {
 	}
 	// 输入文字
 	inputLocation=()=>{
+		console.log("输入文字");
+
 		let _this = this;
 		var inputValue = this.refs.mapInput.value;
 		this.setState({
@@ -108,7 +113,7 @@ export default class MapComponentNew extends Component {
 	}
 	// 搜索定位
 	setMarker=(searchValue)=>{
-
+		console.log("搜索定位");
 		let _this =this;
 		_this.map.clearOverlays();
 		_this.setState({
@@ -126,12 +131,15 @@ export default class MapComponentNew extends Component {
 		             		pointLng : results.getPoi(0).point.lng,
 							pointLat : results.getPoi(0).point.lat
 		             	},function(){
+		             		console.log("_this.state.pointLng",_this.state.pointLng,"_this.state.pointLat",_this.state.pointLat);
 		             		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);    
 							var marker = new BMap.Marker(point); // 创建标注
+							
+							_this.map.panTo(point, 15);
+
 								// 增加覆盖物       
 							_this.map.addOverlay(marker);
-							   //移动到搜索的地址 
-							_this.map.panTo(new BMap.Point(_this.state.pointLng, _this.state.pointLat), 15); 
+							    
 						
 							
 							// 标注，，，可拖拽
@@ -161,6 +169,8 @@ export default class MapComponentNew extends Component {
 	}
 	// 是否显示地图
 	showMap=()=>{
+		console.log("显示地图");
+
 		let _this = this;
 		this.setState({
 			showMap : !this.state.showMap
@@ -168,7 +178,8 @@ export default class MapComponentNew extends Component {
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId); 
 
-			      
+			console.log("_this.state.pointLng",_this.state.pointLng,"_this.state.pointLat",_this.state.pointLat);
+			     
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			_this.map.centerAndZoom(point, 11);
@@ -180,7 +191,9 @@ export default class MapComponentNew extends Component {
 			_this.map.enableScrollWheelZoom(true);
 			// marker可拖拽
 			marker.enableDragging();    
-			marker.addEventListener("dragend", function(e){    
+			marker.addEventListener("dragend", function(e){ 
+				console.log("e.point.lng",e.point.lng,"e.point.lat",e.point.lat)   
+
 			 	_this.setState({
 			 		pointLng : e.point.lng,
 					pointLat : e.point.lat,
@@ -190,6 +203,7 @@ export default class MapComponentNew extends Component {
 			 	});
 
 			});
+
 		})
 	}
 	render() {
