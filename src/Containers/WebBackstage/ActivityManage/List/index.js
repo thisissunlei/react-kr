@@ -54,18 +54,12 @@ export default class List extends Component {
 	}
 	// 打开编辑详情的Dialog
 	openEditDialog(itemData){
-		// console.log("itemData",itemData);
 		State.itemData =itemData;
-		// State.openCloseNavs = true;
 		State.openEditDetail = !State.openEditDetail;
-		
 	}
 	closeEditDialog(){
 		State.openEditDetail = !State.openEditDetail;
-		
 	}
-
-
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
@@ -93,14 +87,6 @@ export default class List extends Component {
 			}
 		}
 		console.log('onexport------>',url);
-	}
-    //提交编辑
-	onEditSubmit=(values)=>{
-		console.log('提交编辑',values);
-	}
-	// 提交新建
-	onNewCreateSubmit=(values)=>{
-		console.log('新建活动',values);
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
@@ -143,14 +129,9 @@ export default class List extends Component {
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
 		State.itemDetail = itemData;
-		// State.activityGetList(itemData.id);
-		// State.activityDetail(itemData.id);
 	}
 
 	render() {
-		if (!State.list.totalCount) {
-			State.list.totalCount = 0;
-		}
 		let className = '';
 		if(State.openCloseNavs || State.openNewCreate || State.openDetail || State.openEditDetail){
 			className='close-navs'
@@ -191,7 +172,6 @@ export default class List extends Component {
 											<TableHeaderColumn>创建人</TableHeaderColumn>
 											<TableHeaderColumn>已报名数</TableHeaderColumn>
 											<TableHeaderColumn>状态</TableHeaderColumn>
-											// 由于页面效果不好暂时不添加会员等级这一项
 											<TableHeaderColumn>排序</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
@@ -246,15 +226,14 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="publishType" 
+											<TableRowColumn name="publishType"
 											component={(value,oldValue)=>{
 												if(value == 'true'){
 													return (<span>已发布</span>)
 												}else{
 													return (<span style={{color:'red'}}>未发布</span>)
 												}
-												console.log('===>',value,oldValue)
-												
+
 											}}></TableRowColumn>
 											<TableRowColumn name="sortShow" ></TableRowColumn>
 											<TableRowColumn name="registerName"
@@ -274,7 +253,6 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															{/*<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>*/}
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
 															</span>
@@ -283,7 +261,6 @@ export default class List extends Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															{/*<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>*/}
 															<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
 															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
 															</span>
@@ -300,7 +277,7 @@ export default class List extends Component {
 								{/*新建活动*/}
 							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 
-								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+								<NewCreateForm onCancel={this.openNewCreateDialog} />
 							  </Drawer>
 							  {/*查看活动*/}
 							  <Drawer open={State.openDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
@@ -308,7 +285,7 @@ export default class List extends Component {
 							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
-								<EditActivityForm onSubmit={this.onEditSubmit} onCancel={this.closeEditDialog} detail={State.itemData}/>
+								<EditActivityForm  onCancel={this.closeEditDialog} detail={State.itemData}/>
 							  </Drawer>
 								<Dialog
 									title="高级查询"
