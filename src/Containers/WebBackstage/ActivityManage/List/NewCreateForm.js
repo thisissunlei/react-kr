@@ -498,7 +498,8 @@ import State from './State';
 									photoSize={'1920*520'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'500'}
-
+									requestURI = {State.requestURI}
+									
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
@@ -511,6 +512,8 @@ import State from './State';
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'300'}
 									label="手机端轮播图"
+									requestURI = {State.requestURI}
+									
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 								/>
