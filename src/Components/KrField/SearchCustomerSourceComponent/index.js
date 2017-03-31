@@ -34,8 +34,9 @@ export default class  SearchCustomerSourceComponent extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-       if(nextProps.refreshState){
-       	 this.selectCustomer.loadOptions();
+       if(nextProps.refreshState==-2||nextProps.refreshState==1){
+				  console.log(';;----loadOptions');
+       	  this.selectCustomer.loadOptions();
        }
 	}
 

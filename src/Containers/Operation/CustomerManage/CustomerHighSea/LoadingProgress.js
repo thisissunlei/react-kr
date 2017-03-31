@@ -1,5 +1,4 @@
 import React from 'react';
-import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import State from './State';
 export default class LoadingProgress extends React.Component{
@@ -7,7 +6,7 @@ export default class LoadingProgress extends React.Component{
 	constructor(props,context){
 		super(props, context);
 	}
-    
+
 
 
 	render(){

@@ -25,7 +25,7 @@ let State = observable({
 		percentage:0,
 		statusCode:'',
 		statusMessage:'',
-		//selectCode:''
+		refreshState:0
 });
 State.searchParamsData=action(function(params){
 	params = Object.assign({}, this.searchParams, params);

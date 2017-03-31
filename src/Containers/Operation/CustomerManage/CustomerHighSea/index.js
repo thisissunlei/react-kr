@@ -4,7 +4,6 @@ import {
 	reduxForm,
 	submitForm,
 	change,
-	reset
 } from 'redux-form';
 import {
 	observer
@@ -42,31 +41,25 @@ class CustomerHighSea extends React.Component{
 		this.state={
 			progress:0,
 			style:true,
-			refreshState:false
 		}
 	}
 
 	openImportData=()=>{
-		//console.log('/====',State.selectCode);
 		var storage=sessionStorage.getItem("selectCode");
 	  if(storage==-1||storage==100){
 	  	this.reloadTipSubmit();
 	  }else{
-			this.setState({
-				refreshState:false
-			})
+			State.refreshState=0;
 	  	State.openImportFun();
 	  }
 	}
 
   reloadTipSubmit=()=>{
-        State.importContent('',true);
+      State.importContent('',true);
   }
 
 	reloadSubmit=()=>{
-		this.setState({
-			refreshState:false
-		})
+		State.refreshState=0;
 	  State.openImportFun();
 		State.openSureTip();
 	}
@@ -75,13 +68,12 @@ class CustomerHighSea extends React.Component{
 	  State.openImportFun();
 	}
 	cancelSureTip=()=>{
-	  //State.selectCode=-100;
 		sessionStorage.setItem("selectCode",-100);
 	  State.openSureTip();
 	}
 
 	onLoadDemo=()=>{
-		let url = `http:\/\/mo.krspace.cn/api/krspace-finance-web/csr/market/import/actions/download-templete`;
+		let url = `/api/krspace-finance-web/csr/market/import/actions/download-templete`;
 		window.location.href = url;
 	}
 
@@ -89,7 +81,6 @@ class CustomerHighSea extends React.Component{
 		if(State.statusCode==-1){
 				this.cancelImportData();
 				Message.error(err.message);
-				//State.selectCode=-1;
 				sessionStorage.setItem("selectCode",-1);
 				return ;
 		}
@@ -98,66 +89,58 @@ class CustomerHighSea extends React.Component{
 		})
 	  State.openProgressLoading();
 		this.cancelImportData();
-		//State.selectCode=100;
 		sessionStorage.setItem("selectCode",100);
 	  var _this=this;
+		State.statusCode='';
 		var timer = window.setInterval(function() {
-			if (State.percentage==100) {
+			 if (State.percentage==100) {
 				_this.setState({
 					style:false
 					})
 				}
+				_this.setState({
+					progress:State.percentage,
+				})
 			  if(State.statusCode==-2){
 			  	  window.clearInterval(timer);
 						  setTimeout(function(){
 							    State.openProgressLoading();
 	                  State.openSureTip();
-	                  _this.setState({
-	                  	 refreshState:true
-	                  })
-	                  //State.selectCode=-100;
+										State.refreshState=-2;
 										sessionStorage.setItem("selectCode",-100);
 	                  State.searchParamsData();
-						    },600);
+						    },400);
+								return ;
               }
               if(State.statusCode==-3){
               	  window.clearInterval(timer);
 								  setTimeout(function(){
 			  	        State.openProgressLoading();
                   State.openSureTip();
-                   _this.setState({
-                  	 refreshState:false
-                  })
-                  //State.selectCode=-100;
+									State.refreshState=-3;
 									sessionStorage.setItem("selectCode",-100);
-								},600);
+								},400);
+								return ;
               }
               if(State.statusCode==1){
               	 window.clearInterval(timer);
 								 setTimeout(function(){
 			  	       State.openProgressLoading();
               	 Message.success('导入成功');
-              	 State.searchParamsData();
-              	 _this.setState({
-              	 	refreshState:true
-              	 })
-								 //State.selectCode=-100;
+								 State.refreshState=1;
 								 sessionStorage.setItem("selectCode",-100);
-							 },600);
+								 State.searchParamsData();
+							 },400);
+							 return ;
               }
               if(State.statusCode==-1){
               	 window.clearInterval(timer);
               	 State.openProgressLoading();
               	 Message.error(State.statusMessage);
-              	 //State.selectCode=-1;
 								 sessionStorage.setItem("selectCode",-1);
-              	  _this.setState({
-              	 	  refreshState:false
-              	 })
+								 State.refreshState=-1;
+								 return ;
               }
-							_this.setState({
-								progress:State.percentage
-							})
 							State.importContent(num);
 		},1000);
 	 }
@@ -165,7 +148,7 @@ class CustomerHighSea extends React.Component{
 
 
 	render(){
-		   let {progress,style,sureStatus,refreshState}=this.state;
+		   let {progress,style,sureStatus}=this.state;
            return(
             <div className="m-highSea">
 			 <Title value="客户公海列表"/>
@@ -183,7 +166,7 @@ class CustomerHighSea extends React.Component{
 					  </Col>
 
 			          <Col style={{marginTop:-15,float:'right'}}>
-				            <SearchData refreshState={refreshState}/>
+				            <SearchData refreshState={State.refreshState}/>
 			          </Col>
 	         </Row>
 

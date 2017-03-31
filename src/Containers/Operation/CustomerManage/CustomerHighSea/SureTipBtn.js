@@ -1,14 +1,16 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
+import {
+	observer
+} from 'mobx-react';
 import {
 	Button,
 	Grid,
 	Row,
 	Col,
-    ButtonGroup
+  ButtonGroup
 } from 'kr-ui';
 import State from './State';
+@observer
 export default class SureTipBtn  extends React.Component{
 
 	constructor(props,context){

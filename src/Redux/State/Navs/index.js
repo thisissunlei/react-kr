@@ -75,6 +75,10 @@ module.exports = {
 				primaryText: '合同列表',
 				router: '/operation/customerManage/agreementList',
 				menuCode: 'contractList',
+			},{
+				primaryText: '客户公海',
+				router: '/operation/customerManage/customerHighSea',
+				menuCode: 'marketList',
 			},]
 		}, {
 			primaryText: "社区配置",

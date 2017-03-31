@@ -38,11 +38,11 @@ export default class  SearchSourceAddComponent extends React.Component {
 	}
 
 	onNewOptionClick=(params)=>{
-            let {input,onChange} = this.props;
+      let {input,onChange} = this.props;
 			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:params.value})).then(function(response){
 			  input.onChange(params.value);
 			  onChange && onChange(params);
-			}).catch(function(err){	
+			}).catch(function(err){
 	    });
 	}
 
@@ -55,11 +55,11 @@ export default class  SearchSourceAddComponent extends React.Component {
 		input.onChange(value);
 		onChange && onChange(item);
 		if(item.className){
-		  this.onNewOptionClick(item); 
+		  this.onNewOptionClick(item);
 		}
 	}
 
-	
+
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
