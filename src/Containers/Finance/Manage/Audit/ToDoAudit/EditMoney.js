@@ -115,15 +115,22 @@ class EditMoney extends React.Component {
 				item.checked = true;
 				item.label = item.contactName;
 				item.value = item.detailid;
-				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
-				Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
+				if(item.depositId){
+					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
+				}
+				
 				if(item.frontId){
+					console.log('item.nFrontmoney',item.nFrontmoney)
 					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.frontId}-1`, item.nFrontmoney));
 					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.nFrontmoney * 100;
 				}
+				if(item.totalrentId){
+					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
+				}
 				
-				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
-				_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
+				
 				return item;
 			})
 
@@ -235,6 +242,7 @@ class EditMoney extends React.Component {
 	}
 
 	getCount = (input, name, nameList) => {
+		console.log('item.receivedBtnFormChangeValues',this.receivedBtnFormChangeValues)
 		input.value = Math.round((input.value * 100));
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;

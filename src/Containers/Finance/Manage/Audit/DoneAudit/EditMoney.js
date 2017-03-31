@@ -114,16 +114,19 @@ class EditMoney extends Component {
 					item.checked = true;
 					item.label = item.contactName;
 					item.value = item.detailid;
-					
-					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
-					Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
+					if(item.depositId){
+						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
+						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
+					}
+					if(item.totalrentId){	
+						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
+						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
+					}
 					if(item.frontId){
 						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.frontId}-1`, item.nFrontmoney));
 						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.nFrontmoney * 100;
 					}
 					
-					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
-					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
 					return item;
 				})
 
