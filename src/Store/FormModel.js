@@ -76,16 +76,15 @@ State.stopSubmit = action(function(formName,errors) {
 
 		this.setForm(formName,form);
 		this.setErrors(formName,errors);
-		this.touchAll(formName);
+
 });
 
 State.submit = action(function(formName) {
 		this.validate(formName);
-
 		//this.stopSubmit(formName,errors);
 		var values = this.getValues(formName);
 		this.submitCallback(values);
-
+		this.touchAll(formName);
 });
 
 State.setValidateCallback = action(function(formName,validate) {
