@@ -38,11 +38,11 @@ import State from './State';
 			beginTime:'',
 			endTime:''
 		}
-		
-		
+
+
 	}
 	componentWillMount() {
-		
+
 		let response = {
 			top:'0',
 		}
@@ -50,8 +50,8 @@ import State from './State';
 	}
 	componentDidMount(){
 	}
-	
-	
+
+
 	// 取消新建
 	onCancel=()=>{
 		let {onCancel}=this.props;
@@ -78,7 +78,7 @@ import State from './State';
 				return;
 			}
 		}
-		
+
 		values.publishType = this.publishType ;
 
 		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
@@ -114,7 +114,7 @@ import State from './State';
 		}
 		var searchParams = Object.assign({},State.searchParams);
 		searchParams.time = +new Date();
-		
+
 		values.enroll = EArr;
 
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
@@ -123,17 +123,17 @@ import State from './State';
 			State.searchParams = searchParams;
 			// Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
-			
+
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-		
+
 
 		// State.searchParams = Object.assign({},{});
 
-		
+
 	}
 	//存为草稿
 	toSave=()=>{
@@ -211,13 +211,13 @@ import State from './State';
 		}else{
 			Store.dispatch(Actions.callAPI('getActivitySerialNumRepeat',{sort:value})).then(function(response){
 				State.serialNumRepeat = false;
-				
+
 			}).catch(function(err){
 				State.serialNumRepeat = true;
-				
+
 			});
 		}
-		
+
 	}
 	// 开始日期改变
 	beginDateChange=(value)=>{
@@ -229,7 +229,7 @@ import State from './State';
 		},function(){
 			_this.compareTime();
 		})
-		
+
 	}
 
 	// 结束日期改变
@@ -242,7 +242,7 @@ import State from './State';
 		},function(){
 			_this.compareTime();
 		})
-		
+
 	}
 
 	// 开始时间改变
@@ -253,7 +253,7 @@ import State from './State';
 		},function(){
 			_this.compareTime();
 		})
-		
+
 
 	}
 
@@ -317,12 +317,12 @@ import State from './State';
 
 
 
-	
+
 
 	render(){
 		// console.log("State.serialNumRepeat",State.serialNumRepeat);
 		const { handleSubmit} = this.props;
-		
+
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: 'CEO Time',
@@ -391,64 +391,63 @@ import State from './State';
 
 
 
-								<KrField grid={1/2} 
-									name="name" 
-									type="text" 
-									label="活动名称" 
-									requireLabel={true} 
-									style={{width:252,zIndex:11}} 
+								<KrField grid={1/2}
+									name="name"
+									type="text"
+									label="活动名称"
+									requireLabel={true}
+									style={{width:252,zIndex:11}}
 									/>
-								<KrField name="type" 
-									component="select" 
+								<KrField name="type"
+									component="select"
 									options={correspondingFunction}
 									label="活动类型"
-									requireLabel={true} 
-									 
+									requireLabel={true}
+
 									style={{width:'252px',marginLeft:24,zIndex:11}}
 								/>
 
-							
 								<Grid >
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{width:262,padding:0}}>
-												<KrField 
-													name="startDate"  
-													component="date" 
-													onChange={this.onStartChange} 
-													style={{width:170}} 
-													simple={true} 
-													requireLabel={true} 
+												<KrField
+													name="startDate"
+													component="date"
+													onChange={this.onStartChange}
+													style={{width:170}}
+													simple={true}
+													requireLabel={true}
 													label='活动时间'
 													onChange = {this.beginDateChange}
 												/>
 												<KrField
-													name="startTime"  
-													component="selectTime" 
-													style={{width:80,marginTop:14,zIndex:10}} 
-													onChange = {this.beginTimeChange} 
+													name="startTime"
+													component="selectTime"
+													style={{width:80,marginTop:14,zIndex:10}}
+													onChange = {this.beginTimeChange}
 													label=''/>
-												
+
 											</ListGroupItem>
 											<ListGroupItem style={{marginTop:32,padding:0}}>至</ListGroupItem>
 											<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 0"}}>
-												<KrField 
-													name="stopDate"  
-													component="date" 
-													style={{width:170}} 
-													simple={true} 
+												<KrField
+													name="stopDate"
+													component="date"
+													style={{width:170}}
+													simple={true}
 													requireLabel={false}
-													onChange = {this.endDateChange} 
-													
+													onChange = {this.endDateChange}
+
 												/>
 												<KrField
-													name="endTime"  
-													component="selectTime" 
-													style={{width:80,zIndex:10}} 
+													name="endTime"
+													component="selectTime"
+													style={{width:80,zIndex:10}}
 													onChange = {this.endTimeChange}
 													label=''/>
 											</ListGroupItem>
-										</ListGroup>					
+										</ListGroup>
 									</Row>
 								</Grid>
 
@@ -457,8 +456,8 @@ import State from './State';
 								<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
 								<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 								<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
-									<KrField name="mapField" 
-										component="mapnew" 
+									<KrField name="mapField"
+										component="mapnew"
 										placeholder="例如：北京市海淀区中关村大街"
 										style={{width:242,height:36}}
 										mapStyle={{width:400,height:400}}
@@ -468,8 +467,8 @@ import State from './State';
 
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:'252px',marginLeft:24}}/>
-								<KrField name="joinType" 
-									component="select" 
+								<KrField name="joinType"
+									component="select"
 									options={partakeMan}
 									label="参与人"
 									style={{width:'252px'}}
@@ -482,7 +481,7 @@ import State from './State';
 				              	{/*置顶不显示排序*/}
 								<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
 								{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
-								
+
 
 								<div style={{display:State.isStick?"block":"none",fontSize:14,marginBottom:10}}>
 									<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
@@ -490,40 +489,40 @@ import State from './State';
 								</div>
 
 								{/*置顶显示轮播图*/}
-				              	<KrField name="pcCoverPic" 
-									component="newuploadImage" 
-									innerstyle={{width:524,height:159,padding:10}} 
-									photoSize={'1920*520'} 
-									pictureFormat={'JPG,PNG,GIF'} 
+				              	<KrField name="pcCoverPic"
+									component="newuploadImage"
+									innerstyle={{width:524,height:159,padding:10}}
+									photoSize={'1920*520'}
+									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'500'}
-									
+
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 								/>
-								<KrField name="appCoverPic" 
-									component="newuploadImage" 
-									innerstyle={{width:217,height:157,padding:10}} 
-									photoSize={'750*520'} 
-									pictureFormat={'JPG,PNG,GIF'} 
+								<KrField name="appCoverPic"
+									component="newuploadImage"
+									innerstyle={{width:217,height:157,padding:10}}
+									photoSize={'750*520'}
+									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'300'}
 									label="手机端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 								/>
-								<KrField name="infoPic" 
-									component="newuploadImage" 
-									innerstyle={{width:392,height:230,padding:10}} 
-									photoSize={'650*365'} 
-									pictureFormat={'JPG,PNG,GIF'} 
+								<KrField name="infoPic"
+									component="newuploadImage"
+									innerstyle={{width:392,height:230,padding:10}}
+									photoSize={'650*365'}
+									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
 									requestURI = {State.requestURI}
 									requireLabel={true}
 									label="上传列表详情图"
 									inline={false}
 								/>
-								
-							
+
+
 							</div>
 
 						</div>
@@ -535,46 +534,44 @@ import State from './State';
 							</div>
 							<div className="enroll-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
-								
 								<KrField component="editor" name="summary" label="活动介绍" defaultValue=''/>
-								
 								<Grid style={{marginTop:19,marginBottom:80}}>
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
-												
-												<input type="checkbox"  onChange={this.chooseName}/> 
+
+												<input type="checkbox"  onChange={this.chooseName}/>
 												<span style={{fontSize:14,color:"#333333"}} >姓名</span>
-					
+
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
-												
-												<input type="checkbox"  onChange={this.choosePhone}/> 
+
+												<input type="checkbox"  onChange={this.choosePhone}/>
 												<span style={{fontSize:14,color:"#333333"}} >电话</span>
 											</ListGroupItem>
 
 											<ListGroupItem style={{marginRight:48}}>
-												<input type="checkbox"  onChange={this.chooseCompany}/> 
+												<input type="checkbox"  onChange={this.chooseCompany}/>
 												<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
-		
+
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
-												<input type="checkbox"  onChange={this.choosePosition}/> 
+												<input type="checkbox"  onChange={this.choosePosition}/>
 												<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 											</ListGroupItem>
 											<ListGroupItem style={{}}>
-												<input type="checkbox"  onChange={this.chooseAdd}/> 
+												<input type="checkbox"  onChange={this.chooseAdd}/>
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 											</ListGroupItem>
-											
-										</ListGroup>					
+
+										</ListGroup>
 									</Row>
 								</Grid>
 
 
-								
+
 								<Grid style={{marginTop:19,marginBottom:'80px'}}>
 									<Row>
 										<ListGroup>
@@ -587,7 +584,7 @@ import State from './State';
 											<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 											</ListGroupItem>
-										</ListGroup>					
+										</ListGroup>
 									</Row>
 								</Grid>
 							</div>
@@ -626,7 +623,7 @@ const validate = values => {
 		}
 	}
 	if(values.mapField){
-		
+
 		var mapFieldNum = values.mapField.detailSearch.replace(/(^\s*)|(\s*$)/g, "");
 		if(mapFieldNum.length >30){
 			errors.cityIdAndCountyId = '详细地址最多为30个字符';
@@ -643,7 +640,7 @@ const validate = values => {
 	if(values.sort){
 
 		var sortNum = (values.sort+'').replace(/(^\s*)|(\s*$)/g, "");
-	
+
 		if(!numContr.test(sortNum)){
 			errors.sort = '排序号必须为五位以内正整数';
 
@@ -658,10 +655,10 @@ const validate = values => {
 
 		}
 	}
-	
 
 
-	
+
+
 
 	if(!values.type){
 		errors.type = '请选择活动类型';
@@ -672,9 +669,9 @@ const validate = values => {
 	if(!values.countyId){
 		errors.cityIdAndCountyId = "请选择举办地址";
 	}
-	
-	
-	
+
+
+
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
 	}
@@ -685,7 +682,7 @@ const validate = values => {
 	}
 
 
-	
+
 
 	return errors
 }

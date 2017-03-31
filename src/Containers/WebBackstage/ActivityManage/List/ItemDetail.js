@@ -34,7 +34,7 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 import State from './State';
-import dateFormat from 'dateFormat';
+import dateFormat from 'dateformat';
 @observer
 
 
@@ -71,7 +71,7 @@ import dateFormat from 'dateFormat';
 			State.HeightAuto = false;
 			State.contentHeightAuto = false;
 		}
-		
+
 
 	}
 	isSameDay=(begin,end)=>{
@@ -142,7 +142,7 @@ import dateFormat from 'dateFormat';
 			label: 'Open Day',
 			value: 'OPEN_DAY'
 		}];
-		
+
 		let joinType;
 		let activityType;
 		partakeMan.map((item)=>{
@@ -171,7 +171,7 @@ import dateFormat from 'dateFormat';
 				list.address = true
 			}
 
-			
+
 		});
 		let same = this.isSameDay(initValue.beginDate,initValue.endDate);
 		let time = this.setTime(same,initValue);
@@ -212,11 +212,22 @@ import dateFormat from 'dateFormat';
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
 							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
 							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow}  defaultValue='不置顶'/>
-							
+
+							<div style={{display:initValue.top?"block":"none",fontSize:14,marginBottom:10}}>
+								<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
+								<span>上传轮播图</span>
+							</div>
+
 							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
-								<span className="photo-title">上传轮播图</span>
+								<span className="photo-title">电脑端轮播图</span>
 								<div className="photo-img-box">
-									<img src={initValue.coverPic} style={{width:'100%',height:'100%'}}/>
+									<img src={initValue.pcCoverPic} style={{width:'100%',height:'100%'}}/>
+								</div>
+							</div>
+							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
+								<span className="photo-title">移动端轮播图</span>
+								<div className="photo-img-box" style={{width:217,height:157}}>
+									<img src={initValue.appCoverPic} style={{width:'100%',height:'100%'}}/>
 								</div>
 							</div>
 
@@ -224,7 +235,7 @@ import dateFormat from 'dateFormat';
 								<span className="photo-title">上传列表详情图</span>
 								<div className="photo-img-box" style={{width:390,height:230}}>
 									<img src={initValue.infoPic} style={{width:'100%',height:'100%'}}/>
-											
+
 								</div>
 							</div>
 
@@ -236,7 +247,7 @@ import dateFormat from 'dateFormat';
 							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
 
 							</div>
-							
+
 						</div>
 
 					</div>
@@ -248,7 +259,7 @@ import dateFormat from 'dateFormat';
 						</div>
 						<div className="enroll-detail-info">
 							<img src={require('./images/selectOne.svg')} className="select-one"/>
-					
+
 							<Grid style={{marginTop:19,marginBottom:'80px'}}>
 								<Row>
 									<ListGroup>
@@ -272,7 +283,7 @@ import dateFormat from 'dateFormat';
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
 											</ListGroupItem>
 										}
-									</ListGroup>					
+									</ListGroup>
 								</Row>
 							</Grid>
 						</div>
@@ -311,12 +322,12 @@ import dateFormat from 'dateFormat';
 							</Table>
 						</div>
 						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
-						
+
 
 						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
 
 					</div>
-					
+
 				</div>
 
 				</form>
