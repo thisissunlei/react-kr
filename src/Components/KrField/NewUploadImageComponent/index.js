@@ -17,8 +17,11 @@ export default class UploadImageComponent extends Component {
 	static defaultProps = {
 		
 	}
+
+	
 	static PropTypes = {
-		className: React.PropTypes.string
+		className: React.PropTypes.string,
+		onDeleteImg: React.PropTypes.func,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -104,6 +107,10 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
+		let {onDeleteImg} = this.props;
+		onDeleteImg && onDeleteImg();
+
+		
 		var {requestURI} = this.props;
 		this.setState({
 			imgSrc: "",
@@ -293,11 +300,14 @@ export default class UploadImageComponent extends Component {
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
 		this.refs.uploadImage.src="";
+
+		let {onDeleteImg} = this.props;
+		onDeleteImg && onDeleteImg();
 		const {input}=this.props;
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,...other} = this.props;
 		let {operateImg} = this.state;
 		// console.log("imgSrc",this.state.imgSrc);
 		// console.log("defaultValue",defaultValue);
@@ -318,7 +328,7 @@ export default class UploadImageComponent extends Component {
 							<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none",textAlign:'center'}}>
 								<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg}>
 									<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
-									<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
+									<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn" />
 								</div>
 								<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.deleteImg}>
 									<img src={deleteImg} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>

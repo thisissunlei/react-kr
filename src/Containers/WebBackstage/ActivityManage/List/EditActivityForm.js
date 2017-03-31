@@ -393,6 +393,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		})
 	}
 
+	
+
 	// 时间校验
 	compareTime=()=>{
 		let _this =this;
@@ -437,6 +439,22 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		}else{
 			State.timeIsTrue  = true;
 		}
+	}
+
+
+	// 删除详情图
+	deleteInfoPicDefaultValue=()=>{
+		State.infoPicDefaultValue ='';
+	}
+
+	// 删除App轮播图
+	deleteAppCoverPicDefaultValue=()=>{
+		State.appCoverPicDefaultValue ='';
+	}
+
+	// 删除pc轮播图
+	deletePcCoverPicDefaultValue=()=>{
+		State.pcCoverPicDefaultValue = '';
 	}
 
 	render(){
@@ -586,7 +604,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									component="mapnew" 
 									placeholder="例如：北京市海淀区中关村大街"
 									style={{width:242,height:36}}
-									mapStyle={{width:400,height:400}}
+									mapStyle={{width:500,height:300}}
 									initailPoint ={State.initailPoint}
 									defaultValue = {State.mapDefaultValue}
 									defaultPoint = {State.defaultPoint}
@@ -627,6 +645,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 									defaultValue={State.pcCoverPicDefaultValue}
+									onDeleteImg ={this.deletePcCoverPicDefaultValue}
 
 
 								/>
@@ -640,6 +659,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 									defaultValue={State.appCoverPicDefaultValue}
+									onDeleteImg ={this.deleteAppCoverPicDefaultValue}
 
 								/>
 							<KrField name="infoPic" 
@@ -652,6 +672,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								label="上传列表详情图"
 								inline={false}
 								defaultValue={State.infoPicDefaultValue}
+								onDeleteImg ={this.deleteInfoPicDefaultValue}
 
 							/>
 							

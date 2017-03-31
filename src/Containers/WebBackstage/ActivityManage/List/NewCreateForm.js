@@ -461,7 +461,7 @@ import State from './State';
 										component="mapnew"
 										placeholder="例如：北京市海淀区中关村大街"
 										style={{width:242,height:36}}
-										mapStyle={{width:400,height:400}}
+										mapStyle={{width:500,height:300}}
 										initailPoint ={State.initailPoint}
 									/>
 								</div>
