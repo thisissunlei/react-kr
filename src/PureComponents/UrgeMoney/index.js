@@ -190,7 +190,7 @@ export default class AppointmentVisit extends Component {
 					 ]
 
 		return (
-			<div className="appointment-visit">
+			<div className="appointment-visit" style = {{paddingBottom:48}}>
 					<SearchForm
 						communityChange = {this.communityChange}
 						onStartChange = {this.onStartChange}
@@ -225,7 +225,8 @@ export default class AppointmentVisit extends Component {
 											let color="#999999";
 											let costomerColor="#20568C";
                                             let agreementType = {INTENTION:"承租意向书",ENTER:"入驻协议书",ADDRENT:"增租协议书",LESSRENT:"减租协议书",QUITRENT:"退租协议书",RENEW:"续租协议书"}
-
+                                            let comtent = value[2].split("(")[0];
+                                            let time = value[2].split("(")[1];
 											if(itemData.msgStatu == "UNREAD"){
 												color="#333333";
 												costomerColor="#499DF1";
@@ -241,7 +242,8 @@ export default class AppointmentVisit extends Component {
 															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot"></span>}
 															{value[0]}
 															{htmlAgreement}
-															{value[2]}
+															{comtent}
+															<div>{"("+time}</div>
 														</div>
 													);
 										}
@@ -284,9 +286,11 @@ export default class AppointmentVisit extends Component {
 								</TableRowColumn>
 
 							 </TableRow>
-						</TableBody>
 
-							<TableFooter ></TableFooter>
+						</TableBody>
+						<TableFooter ></TableFooter>
+
+							
 				</Table>
 			</div>
 			);

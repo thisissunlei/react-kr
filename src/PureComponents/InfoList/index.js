@@ -185,7 +185,7 @@ export default class AppointmentVisit extends Component {
 		let {searchParams} = this.state;
 
 		return (
-			<div className="appointment-visit">
+			<div className="appointment-visit" style = {{paddingBottom:48}}>
 					<SearchForm
 						communityChange = {this.communityChange}
 						onStartChange = {this.onStartChange}

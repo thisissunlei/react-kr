@@ -174,7 +174,7 @@ export default class AppointmentVisit extends Component {
 		let _this=this;
 
 		return (
-				<div className="appointment-visit">
+				<div className="appointment-visit" style = {{paddingBottom:48}}>
 					<SearchForm
 						onStartChange = {this.onStartChange}
 						onEndChange = {this.onEndChange}

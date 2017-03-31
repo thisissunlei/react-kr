@@ -23,7 +23,7 @@ import {
 } from 'kr/PureComponents';
 import './index.less';
 @observer
-class LookCustomerList extends Component{
+class MessageManagement extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -231,32 +231,9 @@ class LookCustomerList extends Component{
 
 	render(){
 		let noWidth=4*108.33;
-		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER,ORDER_VISIT,CUSTOMER_DUE,ARREARS_ALERT,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM,CUSTOMER_DUE_NUM}=this.state;
+		let {rightDetails,unreadDetails}=this.state;
 		let tabContent=this.tabContent();
-		let moveHintClass="m-lookCustomerList-num";
-		let advanceClass="m-appointment-num";
-		let expireClass = "m-expire-num";
-	
-
-		if(CUSTOMER_TRANSFER_NUM > 9 && CUSTOMER_TRANSFER_NUM < 100){
-			moveHintClass="m-lookCustomerList-num-moddle";
-		}
-		if(CUSTOMER_TRANSFER_NUM >99){
-			moveHintClass="m-lookCustomerList-num-max";
-		}
-
-		if(ORDER_VISIT_NUM > 9 && ORDER_VISIT_NUM < 100){
-			advanceClass="m-appointment-num-moddle";
-		}
-		if(ORDER_VISIT_NUM >99){
-			advanceClass="m-appointment-num-max";
-		}
-		if(CUSTOMER_DUE_NUM > 9 && CUSTOMER_DUE_NUM < 100){
-			expireClass = "m-expire-num-moddle";
-		}
-		if(CUSTOMER_DUE_NUM > 99){
-			expireClass = "m-expire-num-max";
-		}
+		
 		return(
 		    <div className="m-lookCustomerList" style={{paddingLeft:8}}>
 		      	<div className="title"  style={{top: 41,position: "absolute",right: 47}}>
@@ -292,4 +269,4 @@ class LookCustomerList extends Component{
 	}
 
 }
-export default LookCustomerList;
+export default MessageManagement;

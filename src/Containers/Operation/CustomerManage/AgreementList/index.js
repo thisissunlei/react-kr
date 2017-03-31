@@ -512,6 +512,7 @@ class Merchants extends Component{
 
 
 	contractRender=()=>{
+					
 		         let contractSelect='';
 			      if(State.argumentType=='INTENTION'){
                             contractSelect=<Agreement.Admit.Detail 
