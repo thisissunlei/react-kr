@@ -135,8 +135,9 @@ export default class MapComponentNew extends Component {
 		             		// console.log("_this.state.pointLng",_this.state.pointLng,"_this.state.pointLat",_this.state.pointLat);
 		             		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);    
 							var marker = new BMap.Marker(point); // 创建标注
+							_this.map.centerAndZoom(point, 15);
 							
-							_this.map.panTo(point, 15);
+							_this.map.panTo(point);
 
 								// 增加覆盖物       
 							_this.map.addOverlay(marker);
