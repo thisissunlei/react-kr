@@ -8,6 +8,7 @@ import mobx, {
 import {
 	Message
 } from "kr-ui";
+import Http from "kr/Utils";
 import {Actions,Store} from 'kr/Redux';
 //全局store
 let State = observable({
@@ -29,7 +30,7 @@ State.ajaxListData=action(function(ajaxData){
 	    //错误到了这一层要深究
 		ajaxData = Object.assign({},ajaxData);
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('contract-list', ajaxData)).then(function(response) {
+		Http.request('contract-list', ajaxData).then(function(response) {
 			_this.contractList=response.items;
 			_this.totalPaper=response.totalCount;
 			_this.page=response.page;

@@ -7,6 +7,9 @@ import {
 	observer
 } from 'mobx-react';
 import {
+	Http
+} from "kr/Utils";
+import {
 	Tabs,
 	Tab,
 	Message,
@@ -58,7 +61,7 @@ class MessageManagement extends Component{
 	tabNum = () => {
 		let _this=this;
 
-		Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
+		Http.request('messageLookJurisdiction').then(function(response) {
 			_this.setState({
 				ARREARS_ALERT:response.rightDetails.ARREARS_ALERT,
 				CUSTOMER_DUE:response.rightDetails.CUSTOMER_DUE,

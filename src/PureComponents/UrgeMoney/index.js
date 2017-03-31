@@ -52,7 +52,7 @@ export default class AppointmentVisit extends Component {
 	allReadClick = () =>{
 		let {renovateRedDrop} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"ARREARS_ALERT"})).then(function(response) {
+		Http.request('messageAllReade',{msgType:"ARREARS_ALERT"}).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
 			renovateRedDrop();
@@ -136,9 +136,9 @@ export default class AppointmentVisit extends Component {
 		}
 		let {renovateRedDrop} = this.props;
 		let _this=this;
-		Store.dispatch(Actions.callAPI("setInfoReaded", {
+		Http.request("setInfoReaded", {
 				id: value.msgInfoId
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.renovateList();
 			renovateRedDrop();
 			_this.tabNum();

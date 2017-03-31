@@ -11,7 +11,9 @@ import {
 } from 'kr-ui';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import './index.less';
-
+import {
+	Http
+} from "kr/Utils";
 
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
@@ -96,7 +98,7 @@ class Header extends Component {
 	 let showRedDrop = false;
 	 let showMassge = false;
 	 let Details=[];
-	 Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
+	 Http.request('messageLookJurisdiction').then(function(response) {
 
 		for (var key in response.rightDetails){
 		    if(response.rightDetails[key]){
@@ -153,9 +155,9 @@ class Header extends Component {
 	//获取未读消息数
 	getUnReadInfo=()=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getUnReadInfo', {
+		Http.request('getUnReadInfo', {
             startTime: '',endTime:''
-        })).then(function(response) {
+        }).then(function(response) {
             if(response.msgCount){
             	_this.setState({
             		hasUnRead:response.msgCount
@@ -451,15 +453,10 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right',position:"absolute",right:"10px",top:7}}>
-					{/*showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
-					</div>*/}
-
-					 <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
-						<span className="icon-info information-logo"  ></span>
-						{ showRedDrop && <span className="ui-un-read-count" ></span>}
-					</div>
+					</div>}
 
 					< IconMenu
 					iconStyle={{fill:'#394457'}}

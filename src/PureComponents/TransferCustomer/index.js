@@ -24,6 +24,7 @@ import {
 	Tooltip,
 	Message
 } from "kr-ui";
+import { Http} from "kr/Utils";
 import SearchForm from "./SearchForm";
 import {
 	observer,
@@ -53,7 +54,7 @@ export default class AppointmentVisit extends Component {
 	allReadClick = () => {
 		let {renovateRedDrop} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"CUSTOMER_TRANSFER"})).then(function(response) {
+		Http.request('messageAllReade',{msgType:"CUSTOMER_TRANSFER"}).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
 			renovateRedDrop();
@@ -121,9 +122,9 @@ export default class AppointmentVisit extends Component {
 		}
 		let {renovateRedDrop} = this.props;
 		let _this=this;
-		Store.dispatch(Actions.callAPI("setInfoReaded", {
+		Http.request("setInfoReaded", {
 				id: value.id
-		})).then(function(response) {
+		}).then(function(response) {
 			console.log(response.page)
 			_this.renovateList();
 			renovateRedDrop();

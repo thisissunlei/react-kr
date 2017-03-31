@@ -29,6 +29,7 @@ import {
 	Message
 
 } from 'kr-ui';
+import { Http } from "kr/Utils";
 import SearchForm from "./SearchForm";
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
@@ -51,7 +52,7 @@ export default class AppointmentVisit extends Component {
 	allReadClick = () =>{
 		let {renovateRedDrop} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"ORDER_VISIT"})).then(function(response) {
+		Http.request('messageAllReade',{msgType:"ORDER_VISIT"}).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
 			renovateRedDrop();
@@ -134,9 +135,9 @@ export default class AppointmentVisit extends Component {
 		}
 		let {renovateRedDrop} = this.props;
 		let _this=this;
-		Store.dispatch(Actions.callAPI("setInfoReaded", {
+		Http.request("setInfoReaded", {
 				id: value.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.renovateList();
 			renovateRedDrop();
 			_this.tabNum();
