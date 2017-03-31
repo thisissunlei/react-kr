@@ -161,7 +161,7 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		var form = new FormData();
-		form.append('file', file);
+		form.append('upfile', file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
