@@ -130,7 +130,7 @@ class NewCreateMainbill extends React.Component {
 		} = this.state;
 		return (
 			<div>
-			    <form onSubmit={handleSubmit(this.onSubmit)}>
+			    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 					<KrField  
 							grid={1/2}
 				    		left={50}
