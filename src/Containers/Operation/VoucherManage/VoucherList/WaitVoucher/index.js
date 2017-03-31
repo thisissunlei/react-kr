@@ -76,7 +76,7 @@ export default class WaitVoucher extends Component {
     }
   }
   componentDidMount() {
-    
+
   }
 
   //操作相关
@@ -191,7 +191,6 @@ export default class WaitVoucher extends Component {
                           ajaxUrlName='get-fince-info'
                           ajaxParams={this.state.Params}
                           onOperation={this.onOperation}
-                          exportSwitch={true}
                       >
                       <TableHeader>
                           <TableHeaderColumn>签约方名称</TableHeaderColumn>
