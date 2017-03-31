@@ -133,7 +133,8 @@ class NewCreateMainbill extends React.Component {
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  
 							grid={1/2}
-				    		right={34}
+				    		left={50}
+				    		right={10}
 							name="mainbilltype" 
 							type="text" 
 							component="select" 
@@ -145,7 +146,8 @@ class NewCreateMainbill extends React.Component {
 					 />
 					 <KrField  
 							grid={1/2}
-				    		right={34}
+				    		right={50}
+				    		left={10}
 							name="communityid" 
 							type="text" 
 							component="searchCommunitys" 
@@ -154,7 +156,8 @@ class NewCreateMainbill extends React.Component {
 					 />
 					 <KrField  
 							grid={1/2}
-				    		right={34}
+				    		left={50}
+				    		right={10}
 							name="mainbillname" 
 							type="text" 
 							component="input" 
@@ -162,6 +165,7 @@ class NewCreateMainbill extends React.Component {
 							requireLabel={true}
 					 />
 					 <KrField  
+					 			left={50}
 								style={{width:545}}  
 								name="mainbilldesc" 
 								component="textarea" 
