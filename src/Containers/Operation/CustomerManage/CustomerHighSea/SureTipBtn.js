@@ -40,9 +40,9 @@ export default class SureTipBtn  extends React.Component{
 							<Col md={12} align="center">
 								<ButtonGroup>
 									<div  className='ui-btn-center'>
-									  {State.statusCode==-3?<Button  label="重新导入" type="button"  onTouchTap={this.reloadSubmit}/>:<Button  label="确定" type="button"  onTouchTap={this.reloadSubmit}/>}
+									  {State.statusCode==-3?<Button  label="重新导入" type="button"  onTouchTap={this.reloadSubmit}/>:<div className='m-upload-sure'><Button  label="确定" type="button"  onTouchTap={this.onCancel}/></div>}
 									</div>
-									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+									  {State.statusCode==-3&&<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />}
 								</ButtonGroup>
 							</Col>
 						</Row>
