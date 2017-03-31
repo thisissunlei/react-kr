@@ -214,6 +214,14 @@ class EditMoney extends React.Component {
 		var val = this.trim(value);
 		var deposit = 1;//押金
 		var totalrent = 2;//定金
+		if (/[^0-9]+.[^0-9]+/.test(value)) {
+			Message.error('金额只能为数字');
+			return;
+		}
+		if (lastValue && lastValue.length > 2) {
+			Message.error('最多到小数点后两位');
+			return;
+		}
 		if (name == deposit && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
 			return
@@ -226,14 +234,7 @@ class EditMoney extends React.Component {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (/[^0-9]+.[^0-9]+/.test(value)) {
-			Message.error('金额只能为数字');
-			return;
-		}
-		if (lastValue && lastValue.length > 2) {
-			Message.error('最多到小数点后两位');
-			return;
-		}
+		
 		let {
 			changeValues,
 		} = this.props;

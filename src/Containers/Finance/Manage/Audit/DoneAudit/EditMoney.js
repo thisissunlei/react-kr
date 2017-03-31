@@ -221,6 +221,14 @@ class EditMoney extends Component {
 	calcBalance = (item, value, input) => {
 		var lastValue = value.split('.')[1];
 		var name = input.name.split('-')[3];
+		if (/[^0-9]+.[^0-9]+/.test(value)) {
+			Message.error('金额只能为数字');
+			return;
+		}
+		if (lastValue && lastValue.length > 2) {
+			Message.error('最多到小数点后两位');
+			return;
+		}
 		var val = this.trim(value)
 		if (name == 1 && item.nDeposit >= 0 && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
@@ -234,14 +242,7 @@ class EditMoney extends Component {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (/[^0-9]+.[^0-9]+/.test(value)) {
-			Message.error('金额只能为数字');
-			return;
-		}
-		if (lastValue && lastValue.length > 2) {
-			Message.error('最多到小数点后两位');
-			return;
-		}
+		
 		let {
 			changeValues,
 		} = this.props;
