@@ -81,7 +81,7 @@ class CustomerHighSea extends React.Component{
 	}
 
 	onLoadDemo=()=>{
-		let url = `http:\/\/mo.krspace.cn/api/krspace-finance-web/csr/market/import/actions/download-templete`;
+		let url = `/api/krspace-finance-web/csr/market/import/actions/download-templete`;
 		window.location.href = url;
 	}
 
