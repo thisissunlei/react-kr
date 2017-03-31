@@ -111,8 +111,9 @@ class ImportData extends React.Component{
 		xhr.onerror = function(e) {
 			console.error(xhr.statusText);
 		};
-		xhr.open('POST', '/api/krspace-finance-web/csr/market/import/actions/upload', true);
+		xhr.open('POST', 'http://optest02.krspace.cn/api/krspace-finance-web/csr/market/import/actions/upload', true);
 		xhr.responseType = 'json';
+		xhr.withCredentials = true;
 		xhr.send(form);
 
   }
