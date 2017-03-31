@@ -98,14 +98,16 @@ export default class MapComponentNew extends Component {
 		var inputValue = this.refs.mapInput.value;
 		this.setState({
 			detailSearch : inputValue
+		},function(){
+			if(!inputValue){
+				let {initailPoint} =_this.props;
+				_this.setMarker(initailPoint);
+				
+			}else{
+				_this.setMarker(inputValue);
+			}
 		})
-		if(!inputValue){
-			let {initailPoint} =_this.props;
-			_this.setMarker(initailPoint);
-			
-		}else{
-			_this.setMarker(inputValue);
-		}
+		
 
 			 		
 	}
