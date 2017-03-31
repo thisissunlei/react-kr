@@ -81,7 +81,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
           				State.mapdefaultValue = response.address;
           				State.activityIntroduce = response.summary;
-          				console.log("response.pcCoverPic==============>",response.pcCoverPic);
+          				// console.log("response.pcCoverPic==============>",response.pcCoverPic);
           				if(response.pcCoverPic){
           				// console.log('pcCoverPicDefaultValue',response.pcCoverPic,response.appCoverPic);
 
@@ -488,7 +488,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 	
-		console.log("State.pcCoverPicDefaultValue===========>render",State.pcCoverPicDefaultValue);
+		// console.log("State.pcCoverPicDefaultValue===========>render",State.pcCoverPicDefaultValue);
 		return (
 
 			<div className="new-create-activity">
