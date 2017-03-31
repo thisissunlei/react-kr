@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
 	openNewCreate: false,
@@ -30,7 +30,7 @@ let State = observable({
 	// 是否置顶
 	isStick : false,
 	// 上传图片地址
-	requestURI :'/api/krspace-finance-web/activity/upload-pic', 
+	requestURI :'/api/krspace-finance-web/activity/upload-pic',
 	// 默认地址
 
 	HeightAuto:false,
@@ -63,17 +63,17 @@ let State = observable({
 	serialNumRepeat: false,
 	timeIsTrue : true,
 	activityIntroduce : ''
-	
+
 });
 
 State.itemDownPublish = action(function(id) {
 	var _this = this;
 	var searchParams = Object.assign({},mobx.toJS(_this.searchParams));
 	searchParams.time = +new Date();
-	Store.dispatch(Actions.callAPI('activityPublish', {
+	Http.request('activityPublish', {
 		id: id,
 		type:0
-	})).then(function(response) {
+	}).then(function(response) {
 		Message.success('下线成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
@@ -85,11 +85,11 @@ State.itemUpPublish = action(function(id) {
 	var _this = this;
 	var searchParams = Object.assign({},mobx.toJS(_this.searchParams));
 	searchParams.time = +new Date();
-	
-	Store.dispatch(Actions.callAPI('activityPublish', {
+
+	Http.request('activityPublish', {
 		id: id,
 		type:1
-	})).then(function(response) {
+	}).then(function(response) {
 		Message.success('发布成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
@@ -104,11 +104,11 @@ State.upItemPosition = action(function(id) {
 	var _this = this;
 	var searchParams = Object.assign({},mobx.toJS(_this.searchParams));
 	searchParams.time = +new Date();
-	
-	Store.dispatch(Actions.callAPI('activityUpPosition', {
+
+	Http.request('activityUpPosition', {
 		id: id,
 		top:1
-	})).then(function(response) {
+	}).then(function(response) {
 		Message.success('置顶成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
@@ -123,10 +123,10 @@ State.resetUpItemPosition = action(function(id) {
 	var _this = this;
 	var searchParams = Object.assign({},mobx.toJS(_this.searchParams));
 	searchParams.time = +new Date();
-	Store.dispatch(Actions.callAPI('activityUpPosition', {
+	Http.request('activityUpPosition', {
 		id: id,
 		top:0
-	})).then(function(response) {
+	}).then(function(response) {
 		Message.success('取消置顶成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
@@ -137,9 +137,9 @@ State.resetUpItemPosition = action(function(id) {
 
 State.activityGetList = action(function(id) {
 	var _this = this;
-	Store.dispatch(Actions.callAPI('activityGetList', {
+	Http.request('activityGetList', {
 		id: id,
-	})).then(function(response) {
+	}).then(function(response) {
 		_this.actField = response;
 	}).catch(function(err) {
 		console.log('err',err);
@@ -147,13 +147,14 @@ State.activityGetList = action(function(id) {
 });
 State.activityDetail = action(function(id) {
 	var _this = this;
-	Store.dispatch(Actions.callAPI('getActivityDetail', {
+	Http.request('getActivityDetail', {
 		id: id,
-	})).then(function(response) {
+	}).then(function(response) {
 		_this.detailContent = response.summary;
 	}).catch(function(err) {
 		console.log('err',err);
 	});
+
 });
 
 module.exports = State;
