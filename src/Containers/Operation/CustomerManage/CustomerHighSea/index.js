@@ -1,5 +1,4 @@
 import React from 'react';
-import {Actions,Store} from 'kr/Redux';
 import {
 	reduxForm,
 	submitForm,

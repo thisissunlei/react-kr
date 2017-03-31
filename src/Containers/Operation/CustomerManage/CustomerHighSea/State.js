@@ -6,10 +6,6 @@ import mobx, {
 	extendObservable
 } from 'mobx';
 import {Http} from 'kr/Utils';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message

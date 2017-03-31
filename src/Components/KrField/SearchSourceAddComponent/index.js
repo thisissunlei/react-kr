@@ -47,6 +47,7 @@ export default class  SearchSourceAddComponent extends React.Component {
 	}
 
 	onChange(item){
+		console.log('=====',item);
 		this.setState({
 			value:item
 		})
@@ -58,7 +59,6 @@ export default class  SearchSourceAddComponent extends React.Component {
 		  this.onNewOptionClick(item);
 		}
 	}
-
 
 
 	getOptions(searchKey){

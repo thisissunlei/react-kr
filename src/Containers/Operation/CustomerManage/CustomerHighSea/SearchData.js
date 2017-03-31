@@ -4,10 +4,6 @@ import {
 	change
 } from 'redux-form';
 import {
-	Actions,
-	Store,
-} from 'kr/Redux';
-import {
 	observer
 } from 'mobx-react';
 import {
@@ -16,12 +12,12 @@ import {
 import State from './State';
 @observer
 class SearchData extends React.Component {
-	
+
 
 	constructor(props) {
 		super(props);
 	}
-	
+
 	onChangeSource=(params)=>{
 	  let data = !params ? {} : params;
 	  if(!data.value){
@@ -52,7 +48,7 @@ class SearchData extends React.Component {
 				 <span className='source-customer'>客户来源:</span>
                  <KrField  grid={1} name="sourceId" style={{marginTop:4,width:262}} component='searchSource'  onChange={this.onChangeSource} placeholder='请选择' refreshState={refreshState}/>
 
-                <div style={{marginLeft:20,display:'inline-block'}}>   
+                <div style={{marginLeft:20,display:'inline-block'}}>
                   <span className='source-customer'>所属城市:</span>
                   <KrField  grid={1} name="cityId" style={{marginTop:4,width:262}} component='searchCity'  onChange={this.onChangeCity} placeholder='请选择'/>
 			    </div>
