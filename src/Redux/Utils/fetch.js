@@ -21,6 +21,7 @@ function getUrl(path, params = {},mode = false) {
     	 server='';
     }
 
+
     if(url.indexOf('http') !==-1){
     	 server='';
     }

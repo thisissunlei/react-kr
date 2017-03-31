@@ -5,6 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
+import {Http} from 'kr/Utils';
 import {
 	Actions,
 	Store
@@ -50,7 +51,7 @@ State.importContent=action(function(ids,status){
 			 ids='';
 		 }
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('highSeaDataGet',{batchId:ids})).then(function(response) {
+		Http.request('highSeaDataGet',{batchId:ids}).then(function(response) {
 		  _this.percentage=response.percent;
 		  _this.statusCode=1;
 		}).catch(function(err) {
