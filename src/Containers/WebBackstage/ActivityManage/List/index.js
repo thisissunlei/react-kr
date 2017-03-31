@@ -37,6 +37,8 @@ import AdvancedQueryForm from './AdvancedQueryForm';
 import NewCreateForm from './NewCreateForm';
 import ItemDetail from './ItemDetail';
 import EditActivityForm from './EditActivityForm';
+import cityDataState from "../../../../Components/KrField/CityComponent/State";
+
 
 @observer
 export default class List extends Component {
@@ -50,6 +52,7 @@ export default class List extends Component {
 		this.params = this.context.router.params;
 	}
 	openNewCreateDialog=()=> {
+		cityDataState.setCity("请选择");
 		State.openNewCreate = !State.openNewCreate;
 	}
 	// 打开编辑详情的Dialog

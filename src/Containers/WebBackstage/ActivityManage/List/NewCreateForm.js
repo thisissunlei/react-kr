@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+
 import {
 	KrField,
 	Grid,
@@ -49,6 +50,10 @@ import State from './State';
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	componentDidMount(){
+	}
+
+	componentWillReceiveProps(){
+	
 	}
 
 
@@ -118,6 +123,7 @@ import State from './State';
 		values.enroll = EArr;
 
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
+
 			State.openNewCreate = !State.openNewCreate;
 			Message.success('操作成功');
 			State.searchParams = searchParams;
@@ -191,9 +197,7 @@ import State from './State';
 	}
 	// 城市组件选到三级
 	changeCity=(thirdId,secondId,city)=>{
-		// console.log("thirdId,secondId,city",thirdId,secondId,city);
 		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
-		// console.log("State.initailPoint",State.initailPoint);
 		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
 

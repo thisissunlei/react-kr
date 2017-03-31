@@ -176,7 +176,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values",values);
 		// 时间是否正确
 		if(!State.timeIsTrue){
 			Notify.show([{
@@ -197,7 +196,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		}
 		
 		values.publishType = this.publishType ;
-		// console.log("values",values);
 		
 
 		values.beginDate = DateFormat(values.startDate,"yyyy-mm-dd HH:MM:ss");
@@ -239,7 +237,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		searchParams.time = +new Date();
 		
 		values.enroll = EArr;
-		// console.log("values",values);
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
