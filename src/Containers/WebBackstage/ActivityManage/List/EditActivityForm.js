@@ -53,7 +53,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			},function(){
 				if(nextProps.detail.id){
 					Store.dispatch(Actions.callAPI('activityDetail',{id:nextProps.detail.id})).then(function(response){
-						console.log("response",response);
+						// console.log("response",response);
 						// 置顶与否
 						if(response.top == 1){
 							State.isStick = true;
@@ -81,8 +81,24 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
           				State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
           				State.mapdefaultValue = response.address;
           				State.activityIntroduce = response.summary;
-          				State.pcCoverPicDefaultValue = response.pcCoverPic;
-          				State.appCoverPicDefaultValue = response.appCoverPic;
+          				// console.log("response.pcCoverPic==============>",response.pcCoverPic);
+          				if(response.pcCoverPic){
+          				// console.log('pcCoverPicDefaultValue',response.pcCoverPic,response.appCoverPic);
+
+          					State.pcCoverPicDefaultValue = response.pcCoverPic;
+          				}else{
+          					// console.log('===>');
+          					State.pcCoverPicDefaultValue = '';
+
+          				}
+          				if(response.appCoverPic){
+          				// console.log('pcCoverPicDefaultValue',response.pcCoverPic,response.appCoverPic);
+          					State.appCoverPicDefaultValue = response.appCoverPic;
+          				}else{
+          					// console.log('===>');
+          					State.appCoverPicDefaultValue = '';
+
+          				}
           				State.infoPicDefaultValue = response.infoPic;
 
           				var enrollArr = response.enrollFiels;
@@ -223,7 +239,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		searchParams.time = +new Date();
 		
 		values.enroll = EArr;
-		console.log("values",values);
+		// console.log("values",values);
 		Store.dispatch(Actions.callAPI('newCreateActivity',{},values)).then(function(response){
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
@@ -472,7 +488,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 	
-		console.log("State.activityIntroduce",State.activityIntroduce);
+		// console.log("State.pcCoverPicDefaultValue===========>render",State.pcCoverPicDefaultValue);
 		return (
 
 			<div className="new-create-activity">
@@ -659,7 +675,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
 
 							
-							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+							<Grid style={{margin:"19px 0 30px 7px"}}>
 								<Row>
 									<ListGroup>
 										<ListGroupItem style={{marginRight:48}}>
