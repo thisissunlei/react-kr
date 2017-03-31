@@ -131,9 +131,6 @@ import State from './State';
 		});
 
 
-		// State.searchParams = Object.assign({},{});
-
-
 	}
 	//存为草稿
 	toSave=()=>{

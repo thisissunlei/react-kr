@@ -43,11 +43,17 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
-		// console.log("nextProps图片",nextProps);
 		if(nextProps.defaultValue){
 			this.setState({
 				imgSrc:nextProps.defaultValue,
 				imgUpload : true
+			},function(){
+				// console.log("this.state.imgSrc",this.state.imgSrc);
+			})
+		}else{
+			this.setState({
+				imgSrc:'',
+				imgUpload : false
 			},function(){
 				// console.log("this.state.imgSrc",this.state.imgSrc);
 			})
@@ -197,7 +203,7 @@ export default class UploadImageComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					console.log("requestURI",requestURI);
+					// console.log("requestURI",requestURI);
 					// xhrfile.open('POST', '/mockjsdata/33/activity/upload-pic', true);
 					 xhrfile.open('POST', requestURI, true);
 					xhrfile.responseType = 'json';
@@ -292,7 +298,7 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,...other} = this.props;
 		let {operateImg} = this.state;
-
+		// console.log("imgSrc",this.state.imgSrc);
 		// console.log("defaultValue",defaultValue);
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
