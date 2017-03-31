@@ -34,7 +34,7 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 import State from './State';
-import dateFormat from 'dateFormat';
+import dateFormat from 'dateformat';
 @observer
 
 
