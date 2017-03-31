@@ -40,12 +40,25 @@ export default class ItemDetail extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+      infoList:[]
 		}
 	}
 	componentDidMount() {
-	}
+    console.log(this.props.detail,"sdafs");
+    var _this = this;
+    var id = this.props.detail.id
+    Store.dispatch(Actions.callAPI('get-fince-info', {
+            finaVerifyId: id
+        }, {})).then(function(response) {
+            _this.setState({infoList: response})
+            console.log(response);
+        }).catch(function(err) {});
 
+	}
+  onCancel = () => {
+        let {onCancel} = this.props;
+        onCancel && onCancel();
+    }
 	renderFileName=()=>{
 		this.fileList.map((item, value) => {
 			return (
@@ -54,7 +67,8 @@ export default class ItemDetail extends Component {
 		});
 	}
 	render() {
-		console.log(this.fileList);
+    let {infoList} = this.state;
+		console.log(this.state.infoList);
 		return (
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
@@ -64,6 +78,16 @@ export default class ItemDetail extends Component {
 								marginRight: 40
 						}} onTouchTap={this.onCancel}></span>
 			     </div>
+
+					 <div style={{marginLeft:50,marginTop:25}}>
+						 <KrField grid = {1 / 2}  name="customerId" inline={false} component="labelText" label="签约方名称" value={infoList.company}/>
+						 <KrField grid = {1 / 2}  component="labelText" inline={false} label="订单起止" value={infoList.mainBillDate}/>
+						 <KrField grid = {1 / 2} component="labelText" inline={false} label="公司主体" value={infoList.corporationName}/>
+						 <KrField grid = {1 / 2}  name="payName" component="labelText" label="收款方式" inline={false} value={infoList.payWay}/>
+						 <KrField grid = {1 / 2} name="accountId" component="labelText" inline={false} value={infoList.accountNum} label="我司账户"/>
+						 <KrField grid = {1}  name="remark" component="labelText" inline={false} defaultValue={infoList.remark} label="备注" maxSize={100}/>
+					 </div>
+
 
 			</div>
 

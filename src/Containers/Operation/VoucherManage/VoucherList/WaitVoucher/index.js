@@ -54,10 +54,9 @@ export default class WaitVoucher extends Component {
         pageSize: 10,
         verifyStatus: 'UNCHECKED'
       },
-      infoList: [],
-      itemDetail: [],
       openItem: false,
-      openEditCreate: false,
+      delVoucher: false,
+      infoList:[],
       Param: {
         page: 1,
         pageSize: 10,
@@ -76,19 +75,8 @@ export default class WaitVoucher extends Component {
       })
     }
   }
-  componentDidMount() {}
-
-  //导出
-  onExport = (values) => {
-    var searchParams = this.state.Params;
-    console.log(searchParams, "123");
-    let idList = [];
-    values.map((item, index) => {
-      idList.push(item.id)
-    });
-    var url = `/api/krspace-finance-web/finaVerify/data/export-excel?payWay=${searchParams.payWay || ' '}&idList=${idList}&corporationId=${searchParams.corporationId || ' '}&communityId=${searchParams.communityId || ' '}&createEndTime=${searchParams.createEndTime || ' '}&createStratTime=${searchParams.createStratTime || ' '}&customerName=${searchParams.customerName || ' '}&dealEndTime=${searchParams.dealEndTime || ' '}&dealStartTime=${searchParams.dealStartTime || ' '}&flowCategoryId=${searchParams.flowCategoryId || ' '}&verifyStatus=UNCHECKED`;
-    window.location.href = url;
-
+  componentDidMount() {
+    
   }
 
   //操作相关
@@ -102,8 +90,41 @@ export default class WaitVoucher extends Component {
         this.openItem();
       } else if (type == 'edit') {
         this.openEditCreate();
+      } else if (type == 'delete') {
+        this.delVoucher(itemDetail);
       }
     }
+  //删除
+  //删除此条数据
+  delVoucher = (itemDetail) => {
+    this.setState({
+      itemDetail
+    });
+    this.setState({
+      delVoucher: !this.state.delVoucher
+    })
+  }
+  sureToDel = (itemDetail) => {
+    var _this = this;
+    //console.log(itemDetail);
+    // Store.dispatch(Actions.callAPI('del-fina-record', {}, {
+    //   finaVerifyId: this.state.itemDetail.id
+    // })).then(function(response) {
+    //   Message.success("删除成功");
+    //   _this.setState({
+    //     delVoucher: false,
+    //   }, function() {
+    //     window.setTimeout(function() {
+    //       window.location.reload();
+    //     }, 800);
+    //   });
+    // }).catch(function(err) {
+    //   Message.error(err.message);
+    //   _this.setState({
+    //     delVoucher: false,
+    //   });
+    // });
+  }
     //保存编辑回款
   // EditAuditSubmit = (form) => {
   //     var _this = this;
@@ -170,7 +191,6 @@ export default class WaitVoucher extends Component {
                           ajaxUrlName='get-fince-info'
                           ajaxParams={this.state.Params}
                           onOperation={this.onOperation}
-                          onExport={this.onExport}
                           exportSwitch={true}
                       >
                       <TableHeader>
@@ -234,6 +254,21 @@ export default class WaitVoucher extends Component {
                    >
                      <ItemDetail  detail={itemDetail} onCancel={this.openItem}  />
                    </Drawer>
+                   <Dialog
+                     title="提示"
+                     modal={true}
+                     contentStyle ={{ width: '444',height:'238px',overflow:'visible'}}
+                     open={this.state.delVoucher}
+                     onClose={this.delVoucher}
+                   >
+                   <div className='list-delete'>
+                     <p className='sureIncome'>是否确定删除？</p>
+                     <div style={{paddingLeft:'100px'}}>
+                       <div  className='ui-btn-center'><Button  label="确定"  onTouchTap={this.sureToDel}/></div>
+                       <Button  label="取消" type="button" cancle={true} onTouchTap={this.delVoucher} />
+                      </div>
+                   </div>
+                   </Dialog>
 
       </div>
 
