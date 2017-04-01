@@ -67,7 +67,7 @@ export default class MapComponentNew extends Component {
 
 		// 百度地图API功能
 		let _this = this;
-		_this.map = new BMap.Map(this.mapId); 
+		_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 对地图进行初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
 			_this.map.centerAndZoom(point, 11);
@@ -177,7 +177,7 @@ export default class MapComponentNew extends Component {
 			showMap : !this.state.showMap
 		},function(){
 			// 百度地图API功能
-			_this.map = new BMap.Map(this.mapId); 
+			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 
 			// console.log("_this.state.pointLng",_this.state.pointLng,"_this.state.pointLat",_this.state.pointLat);
 			     
