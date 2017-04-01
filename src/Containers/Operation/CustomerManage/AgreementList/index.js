@@ -53,6 +53,12 @@ import JoinDetail from './Join/Detail';
 import NewIndent from "./NewIndent";
 import DelAgreementNotify from './DelAgreementNotify';
 import './index.less';
+import {
+
+	Agreement
+
+
+} from 'kr/PureComponents';
 @observer
 class Merchants extends Component{
 
@@ -506,23 +512,24 @@ class Merchants extends Component{
 
 
 	contractRender=()=>{
+					
 		         let contractSelect='';
 			      if(State.argumentType=='INTENTION'){
-                            contractSelect=<AdmitDetail 
+                            contractSelect=<Agreement.Admit.Detail 
 						    params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                             onCancel={this.cancelAgreementDetail}
 						  />
 			           	 }
                          
                          if(State.argumentType=='ENTER'){
-                            contractSelect=<JoinDetail 
+                            contractSelect=<Agreement.Join.Detail 
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 			           	 }
 
 			           	  if(State.argumentType=='ADDRENT'){
-                            contractSelect=<IncreaseDetail 
+                            contractSelect=<Agreement.Increase.Detail 
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
@@ -530,7 +537,7 @@ class Merchants extends Component{
 
 
 			           	 if(State.argumentType=='LESSRENT'){
-                            contractSelect=<ReduceDetail 
+                            contractSelect=<Agreement.Reduce.Detail 
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
@@ -538,14 +545,14 @@ class Merchants extends Component{
 
 
 			           	 if(State.argumentType=='QUITRENT'){
-                            contractSelect=<ExitDetail 
+                            contractSelect=<Agreement.Exit.Detail 
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 			           	 }
 
                           if(State.argumentType=='RENEW'){
-                            contractSelect=<RenewDetail 
+                            contractSelect=<Agreement.Renew.Detail 
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>		

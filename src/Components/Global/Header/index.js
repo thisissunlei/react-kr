@@ -11,12 +11,16 @@ import {
 } from 'kr-ui';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import './index.less';
-
+import {
+	Http
+} from "kr/Utils";
 
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
 import {
-	LookCustomerList
+	LookCustomerList,
+	Agreement
+
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
@@ -43,7 +47,10 @@ class Header extends Component {
 			url:window.location.hash,
 			infoTab:'',
 			hasUnRead:0,
+			//客户详情打开
 			openLookCustomerList:false,
+			//合同详情打开
+			openAgreementDetail:false,
 			//客户 客户名称
 			customerName:'',
 			openMassage:false,
@@ -53,6 +60,18 @@ class Header extends Component {
 			showRedDrop:false,
 			//消息铃铛显示
 			showMassge:false,
+			params:{
+				
+				id:260,
+				customerId:273,
+				orderId:166
+				
+			},
+			//合同类型
+			contractType:'',
+			customerId:0,
+			contractId:0,
+			mainbillId:0
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -79,7 +98,7 @@ class Header extends Component {
 	 let showRedDrop = false;
 	 let showMassge = false;
 	 let Details=[];
-	 Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
+	 Http.request('messageLookJurisdiction').then(function(response) {
 
 		for (var key in response.rightDetails){
 		    if(response.rightDetails[key]){
@@ -136,9 +155,9 @@ class Header extends Component {
 	//获取未读消息数
 	getUnReadInfo=()=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getUnReadInfo', {
+		Http.request('getUnReadInfo', {
             startTime: '',endTime:''
-        })).then(function(response) {
+        }).then(function(response) {
             if(response.msgCount){
             	_this.setState({
             		hasUnRead:response.msgCount
@@ -268,6 +287,18 @@ class Header extends Component {
 			openLookCustomerList:true,
 		})
 	}
+	//合同被点击
+	agreementClick = (data) =>{
+		let {contractType,customerId,mainbillId,contractId} = data;
+		this.setState({
+			
+			openAgreementDetail : true,
+			contractType : contractType,
+			customerId : customerId,
+			contractId : contractId,
+			mainbillId : mainbillId
+		})
+	}
 	//客户详情关闭按钮
 	lookCustomerListClose = () =>{
 		this.setState({
@@ -275,10 +306,84 @@ class Header extends Component {
 		})
 
 	}
+	//合同详情打开
+	agreementDetailOpen = () =>{
+		this.setState({
+			openAgreementDetail:true
+		})
+	}
+	//合同详情关闭
+	agreementDetailClose = () =>{
+		this.setState({
+			openAgreementDetail:false
+		})
+	}
+	//合同详情样式模板
+	contractRender=()=>{
+				let {contractType,customerId,contractId,mainbillId} = this.state;
+		        let contractSelect='';
+			      if(contractType == 'INTENTION'){
+                            contractSelect=<Agreement.Admit.Detail 
+						    params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                            onCancel={this.agreementDetailClose}
+                            eidtBotton = "none"
+						  />
+			           	 }
+                         
+                         if(contractType == 'ENTER'){
+                            contractSelect=<Agreement.Join.Detail 
+						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>
+			           	 }
+
+			           	  if(contractType == 'ADDRENT'){
+                            contractSelect=<Agreement.Increase.Detail 
+						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>
+			           	 }
+
+
+			           	 if(contractType == 'LESSRENT'){
+                            contractSelect=<Agreement.Reduce.Detail 
+						params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>
+			           	 }
+
+
+			           	 if(contractType == 'QUITRENT'){
+                            contractSelect=<Agreement.Exit.Detail 
+						   params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                           onCancel={this.agreementDetailClose}
+                           eidtBotton = "none"
+						/>
+			           	 }
+
+                          if(contractType == 'RENEW'){
+                            contractSelect=<Agreement.Renew.Detail 
+						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                         onCancel={this.agreementDetailClose}
+                         eidtBotton = "none"
+						/>		
+			           	 }
+
+			     return contractSelect
+	}
+
+
+
+
+
 	messageDrawerClick = () =>{
 		this.setState({
 			openLookCustomerList : false,
-			openMassage : false
+			openMassage : false,
+			openAgreementDetail : false
 		})
 	}
 	render() {
@@ -309,7 +414,9 @@ class Header extends Component {
 					openLookCustomerList,
 					openMassage,
 					showRedDrop,
-					showMassge
+					showMassge,
+					openAgreementDetail,
+					params
 
 				} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
@@ -350,6 +457,7 @@ class Header extends Component {
 						<span className="icon-info information-logo"  ></span>
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
 					</div>}
+
 					< IconMenu
 					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
@@ -391,29 +499,34 @@ class Header extends Component {
 				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 				</Drawer>
-				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
+				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
 					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
 
 					<MessageManagement
 						onCancel = {this.onClose}
 						customerClick = {this.customerClick}
 						renovateRedDrop = {this.renovateRedDrop}
+						agreementClick = {this.agreementClick}
 					/>
 				</Drawer>
-				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				//客户详情
+				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<LookCustomerList
 						 comeFrom="Merchant"
 		                 operType="PERSON"
 						 comeFrom="message"
 		                 companyName={customerName}
 		                 listId={msgExtra}
-										 onCancel={this.lookCustomerListClose}
-		                 // dataReady={dataReady}
+						onCancel={this.lookCustomerListClose}
+		                 
 
 					/>
 				</Drawer>
-
-				{(openLookCustomerList || openMassage) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
+				//合同详情
+				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+					{this.contractRender()}
+				</Drawer>
+				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
 			</div>
 		);
 	}

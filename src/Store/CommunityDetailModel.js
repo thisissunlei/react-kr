@@ -13,7 +13,8 @@ import {Actions,Store} from 'kr/Redux';
 let State = observable({
 	name: 'dd',
 	orderDetail:{},
-
+	loading:true,
+	orderLeading:true,
 
 	operType:"",
 	searchParams:{},
@@ -32,8 +33,10 @@ State.orderList=action(function(params) {
 	 return ;
 	}
     var _this=this;
+    this.orderLeading = true;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
-        _this.orderDetail=response;
+        _this.orderDetail = response;
+        _this.orderLeading = false;
 	}).catch(function(err) {
 
 	});
@@ -57,9 +60,10 @@ State.lookListId=action(function(params,operType) {
     }
     data.id=params;
     data.operType=operType;
-
+    _this.loading=true;
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
+         _this.loading=false;
 				 if(response.sourceName.indexOf('推荐') != -1){
 
  				 	 _this.presentShow = true;

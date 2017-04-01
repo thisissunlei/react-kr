@@ -7,21 +7,26 @@ import {
 	observer
 } from 'mobx-react';
 import {
+	Http
+} from "kr/Utils";
+import {
 	Tabs,
 	Tab,
 	Message,
 } from 'kr-ui';
+
 import {
 
 	AppointmentVisit,
 	TransferCustomer,
-	InfoList
+	InfoList,
+	UrgeMoney,
 
 
 } from 'kr/PureComponents';
 import './index.less';
 @observer
-class LookCustomerList extends Component{
+class MessageManagement extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -44,7 +49,9 @@ class LookCustomerList extends Component{
 				CUSTOMER_TRANSFER_NUM:0,
 				//预约参观 未读数
 				ORDER_VISIT_NUM:0,
+				
 				//客户id
+				redNum:[],
 		}
 
 		this.tabNum();
@@ -54,7 +61,7 @@ class LookCustomerList extends Component{
 	tabNum = () => {
 		let _this=this;
 
-		Store.dispatch(Actions.callAPI('messageLookJurisdiction')).then(function(response) {
+		Http.request('messageLookJurisdiction').then(function(response) {
 			_this.setState({
 				ARREARS_ALERT:response.rightDetails.ARREARS_ALERT,
 				CUSTOMER_DUE:response.rightDetails.CUSTOMER_DUE,
@@ -64,6 +71,11 @@ class LookCustomerList extends Component{
 				CUSTOMER_DUE_NUM:response.unreadDetails.CUSTOMER_DUE,
 				CUSTOMER_TRANSFER_NUM:response.unreadDetails.CUSTOMER_TRANSFER,
 				ORDER_VISIT_NUM:response.unreadDetails.ORDER_VISIT,
+
+				redNum:[{permission:response.rightDetails.CUSTOMER_TRANSFER,num:response.unreadDetails.CUSTOMER_TRANSFER},
+					{permission:response.rightDetails.ORDER_VISIT,num:response.unreadDetails.ORDER_VISIT},
+					{permission:response.rightDetails.ARREARS_ALERT,num:response.unreadDetails.ARREARS_ALERT},
+					{permission:response.rightDetails.CUSTOMER_DUE,num:response.unreadDetails.CUSTOMER_DUE}]
 			})
 		}).catch(function(err) {
 			if(!params.templateIdList){
@@ -88,6 +100,10 @@ class LookCustomerList extends Component{
 		customerClick && customerClick(data);
 	}
 
+	agreementClick = (data) =>{
+		const {agreementClick} = this.props;
+		agreementClick && agreementClick(data);
+	}
 	//tab title 的权限
 	tabContent = () => {
 		let {
@@ -95,6 +111,7 @@ class LookCustomerList extends Component{
 			CUSTOMER_DUE,
 			CUSTOMER_TRANSFER,
 			ORDER_VISIT,
+
 		}=this.state;
 		let showTab=[];
 		let hideTab=[];
@@ -107,12 +124,16 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="客户转移" >
+				<Tab label="客户转移" 
+					style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}} 
+					
+				>
 						<TransferCustomer
 							customerClick = {this.customerClick}
 							tabNum = {this.tabNum}
 							renovateRedDrop = {this.renovateRedDrop}
 						/>
+
 				</Tab>
 			)
 		}
@@ -120,13 +141,13 @@ class LookCustomerList extends Component{
 
 		if(!ORDER_VISIT){
 			hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="预约参观" >
+				<Tab label="预约参观" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 						<AppointmentVisit
 								tabNum = {this.tabNum}
 								renovateRedDrop = {this.renovateRedDrop}
@@ -139,41 +160,46 @@ class LookCustomerList extends Component{
 
 		if(!ARREARS_ALERT){
 			hideTab.push(
-				<Tab label="r" >
-
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="催款提醒" >
+				<Tab label="催款提醒" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
+					<UrgeMoney
+						tabNum = {this.tabNum}
+						renovateRedDrop = {this.renovateRedDrop}
+						agreementClick = {this.agreementClick}
 
+					/>
 				</Tab>
 			)
 		}
 
 
-		if(false){
+		if(!CUSTOMER_DUE){
 			hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="客户到期" >
-					<InfoList tabNum = {this.tabNum}
+				<Tab label="客户到期" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
+					<InfoList 
+						tabNum = {this.tabNum}
 						renovateRedDrop = {this.renovateRedDrop}
 					/>
 				</Tab>
 			)
 		}
 		hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 		)
 		hideTab.push(
-				<Tab label="r" >
+				<Tab label="r" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
 
 				</Tab>
 		)
@@ -184,37 +210,33 @@ class LookCustomerList extends Component{
 		let {renovateRedDrop} = this.props;
 		renovateRedDrop && renovateRedDrop();
 	}
+	createRedNum = () => {
+		
+		let {redNum} = this.state;
 
+		console.log(redNum,"?????")
+		let arr = redNum.map(function(item,index){
+			let moveHintClass="m-lookCustomerList-num";
+			if(item.num > 9 && item.num < 100){
+				moveHintClass="m-lookCustomerList-num-moddle";
+			}
+			if(item.num >99){
+				moveHintClass="m-lookCustomerList-num-max";
+			}
+			if(item.num && item.permission && item.num !=0){
+				return (<div className = {moveHintClass} style={{left:32+(index+1)*108}}>
+							{item.num > 99 ? 99 : item.num}<label>+</label>
+						</div>)
+			}
+		})
+		return arr;
+	}
 
 	render(){
 		let noWidth=4*108.33;
-		let {rightDetails,unreadDetails,CUSTOMER_TRANSFER_NUM,ORDER_VISIT_NUM,CUSTOMER_DUE_NUM}=this.state;
+		let {rightDetails,unreadDetails}=this.state;
 		let tabContent=this.tabContent();
-		let moveHintClass="m-lookCustomerList-num";
-		let advanceClass="m-appointment-num";
-		let expireClass = "m-expire-num";
-
-
-
-		if(CUSTOMER_TRANSFER_NUM > 9 && CUSTOMER_TRANSFER_NUM < 100){
-			moveHintClass="m-lookCustomerList-num-moddle";
-		}
-		if(CUSTOMER_TRANSFER_NUM >99){
-			moveHintClass="m-lookCustomerList-num-max";
-		}
-
-		if(ORDER_VISIT_NUM > 9 && ORDER_VISIT_NUM < 100){
-			advanceClass="m-appointment-num-moddle";
-		}
-		if(ORDER_VISIT_NUM >99){
-			advanceClass="m-appointment-num-max";
-		}
-		if(CUSTOMER_DUE_NUM > 9 && CUSTOMER_DUE_NUM < 100){
-			expireClass = "m-expire-num-moddle";
-		}
-		if(CUSTOMER_DUE_NUM > 99){
-			expireClass = "m-expire-num-max";
-		}
+		
 		return(
 		    <div className="m-lookCustomerList" style={{paddingLeft:8}}>
 		      	<div className="title"  style={{top: 41,position: "absolute",right: 47}}>
@@ -239,21 +261,8 @@ class LookCustomerList extends Component{
 
 				</Tabs>
 			    <div className="no-table-click" style={{width:tabContent[1].length*108.33}}></div>
-				{!!CUSTOMER_TRANSFER_NUM &&
-					<div className = {moveHintClass}>
-						{CUSTOMER_TRANSFER_NUM > 99 ? 99 : CUSTOMER_TRANSFER_NUM}<label>+</label>
-					</div>
-				}
-				{!!ORDER_VISIT_NUM &&
-					<div className={advanceClass}>
-						{ORDER_VISIT_NUM > 99 ? 99 : ORDER_VISIT_NUM}<label>+</label>
-					</div>
-				}
-				{!!CUSTOMER_DUE_NUM &&
-					<div className={expireClass}>
-						{CUSTOMER_DUE_NUM > 99 ? 99 : CUSTOMER_DUE_NUM}<label>+</label>
-					</div>
-				}
+				 
+				{this.createRedNum()}
 
 
 		    </div>
@@ -263,4 +272,4 @@ class LookCustomerList extends Component{
 	}
 
 }
-export default LookCustomerList;
+export default MessageManagement;
