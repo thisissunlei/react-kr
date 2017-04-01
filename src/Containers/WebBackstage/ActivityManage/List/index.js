@@ -25,9 +25,9 @@ import {
 	Message,
 	Notify,
 	Tooltip,
+	Drawer,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
-import { Drawer} from 'material-ui';
 import State from './State';
 import dateFormat from 'dateformat';
 import {
@@ -91,7 +91,6 @@ export default class List extends Component {
 			}
 		}
 		window.location.href = url;
-		console.log('onexport------>',url);
 	}
 	// 查询
 	onSearchSubmit=(value)=>{

@@ -95,6 +95,15 @@ function commonTimeoutWarn(){
 */
 
 function commonRender(messages,type,fn){
+
+		var message = '';
+		if(typeof messages === 'object'){
+				message = messages.message;
+		}else if(typeof messages === 'string'){
+			message = messages;
+		}
+
+
 	  var className = 'normal';
     if(type == 'success'){
 				className = 'success';
@@ -108,52 +117,58 @@ function commonRender(messages,type,fn){
 			shadowDOM.appendChild(containerDOM);
 			document.body.appendChild(shadowDOM);
 		}
-			ReactDOM.render(<Message messages={messages} className={className}/>, shadowDOM);
+			ReactDOM.render(<Message messages={message} className={className}/>, shadowDOM);
 			if(fn){
 				fn();
 			}
 }
 function warnRender(messages,type,fn){
 
-	 var className = 'normal';
-    	if(type == 'success'){
-				className = 'succes-warn';
-		}else if (type == 'error') {
-			className = 'error-warn';
-		}else if(type == 'warn') {
-			className = 'warn';
-		}
-		if(!containerWarnDOM){
+	var message = '';
+	if(typeof messages === 'object'){
+		message = messages.message;
+	}else if(typeof messages === 'string'){
+		message = messages;
+	}
 
-			shadowDOM = document.createElement('div');
-			shadowDOM.className = `outer`;
-			containerWarnDOM = document.createElement('div');
-			shadowDOM.appendChild(containerWarnDOM);
-			document.body.appendChild(shadowDOM);
-		}
-			ReactDOM.render(<Warn messages={messages} className={className}/>, shadowDOM);
-			if(fn){
-				fn();
-			}
+	var className = 'normal';
+	if(type == 'success'){
+		className = 'succes-warn';
+	}else if (type == 'error') {
+		className = 'error-warn';
+	}else if(type == 'warn') {
+		className = 'warn';
+	}
+	if(!containerWarnDOM){
+
+		shadowDOM = document.createElement('div');
+		shadowDOM.className = `outer`;
+		containerWarnDOM = document.createElement('div');
+		shadowDOM.appendChild(containerWarnDOM);
+		document.body.appendChild(shadowDOM);
+	}
+	ReactDOM.render(<Warn messages={message} className={className}/>, shadowDOM);
+	if(fn){
+		fn();
+	}
 }
 
-Message.show = function (messages) {
-    commonRender(messages,'error');
+Message.show = function (message) {
+	commonRender(message,'error');
 };
 
-Message.success = function (messages) {
-		commonRender(messages,'success',commonTimeout);
-
+Message.success = function (message) {
+	commonRender(message,'success',commonTimeout);
 };
 
-Message.error = function (messages) {
-	  commonRender(messages,'error');
+Message.error = function (message) {
+	commonRender(message,'error');
 };
-Message.warn = function (messages,type,fn) {
-	  warnRender(messages,type,fn);
+Message.warn = function (message,type,fn) {
+	warnRender(message,type,fn);
 };
-Message.warntimeout = function (messages,type) {
-	  warnRender(messages,type,commonTimeoutWarn);
+Message.warntimeout = function (message,type) {
+	warnRender(message,type,commonTimeoutWarn);
 };
 
 
