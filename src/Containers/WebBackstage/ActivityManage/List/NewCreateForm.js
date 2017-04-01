@@ -126,10 +126,12 @@ import State from './State';
 
 		Http.request('newCreateActivity',{},values).then(function(response){
 
-			State.openNewCreate = !State.openNewCreate;
+			// State.openNewCreate = !State.openNewCreate;
 			Message.success('操作成功');
-			State.searchParams = searchParams;
-			Store.dispatch(reset('NewCreateForm'));
+			window.location.reload();
+			
+			// State.searchParams = searchParams;
+			// Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
 
 			Notify.show([{
