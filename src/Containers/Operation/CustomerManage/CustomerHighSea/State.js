@@ -50,6 +50,10 @@ State.importContent=action(function(ids,status){
 		Http.request('highSeaDataGet',{batchId:ids}).then(function(response) {
 		  _this.percentage=response.percent;
 		  _this.statusCode=1;
+			if(status){
+					Message.success('导入成功');
+					localStorage.setItem("selectCode",-100);
+			}
 		}).catch(function(err) {
           _this.statusCode=err.code;
 					_this.percentage=err.data.percent;
@@ -59,6 +63,7 @@ State.importContent=action(function(ids,status){
 	 						 _this.openSureTip();
 	 					 }
 						 if(_this.statusCode==-1){
+							 console.log('---fail异常')
 	 						 _this.openImportFun();
 	 					 }
 			 }
