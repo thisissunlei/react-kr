@@ -1014,7 +1014,6 @@ const APIS = {
   },
   //消息提醒-预约参观列表
 
-
    // 门禁授权列表
    'impowerList':{
       url: '/api/krspace-finance-web/permission/door-customer-list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',
@@ -1046,8 +1045,6 @@ const APIS = {
    },
 
 
-
-
     //社区管理－校验社区名称
    'check-name':{
       url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
@@ -1073,8 +1070,26 @@ const APIS = {
       url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
       method: 'get'
    },
-
-
+   //客户公海列表－查询
+   'highSeaSearch':{
+      url: '/api/krspace-finance-web/csr/market/list/type/search?cityId={cityId}&page={page}&pageSize={pageSize}&sourceId={sourceId}',
+      method: 'get'
+   },
+    //客户公海列表－客户公海列表数据准备
+   'highSeaDataReday':{
+      url: '/api/krspace-finance-web/csr/market/list-param-data',
+      method: 'get'
+   },
+   //客户公海列表－获取导入结果接口
+   'highSeaDataGet':{
+      url: '/api/krspace-finance-web/csr/market/import/actions/get-result?batchId={batchId}',
+      method: 'get'
+   },
+   //客户公海列表－客户公海导入数据准备
+   'highSourceName':{
+      url: '/api/krspace-finance-web/csr/market/upload-param-data?sourceName={sourceName}',
+      method: 'get'
+   },
  }
 
  module.exports = APIS;

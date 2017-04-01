@@ -68,13 +68,18 @@ module.exports = {
 			router: 'communityManage',
 			menuCode: 'coustomerInfoList',
 			menuItems: [{
-				primaryText: '客户列表',
+				primaryText: '客户线索',
 				router: '/operation/customerManage/customerList',
 				menuCode: 'coustomerInfoList',
-			},{
+			},
+			{
 				primaryText: '合同列表',
 				router: '/operation/customerManage/agreementList',
 				menuCode: 'contractList',
+			},{
+				primaryText: '客户公海',
+				router: '/operation/customerManage/customerHighSea',
+				menuCode: 'marketList',
 			},]
 		}, {
 			primaryText: "社区配置",

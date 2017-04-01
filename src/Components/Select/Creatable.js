@@ -261,7 +261,7 @@ function newOptionCreator ({ label, labelKey, valueKey }) {
 };
 
 function promptTextCreator (label) {
-	return `Create option "${label}"`;
+	return `创建"${label}"`;
 }
 
 function shouldKeyDownEventCreateNewOption ({ keyCode }) {

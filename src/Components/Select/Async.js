@@ -85,18 +85,16 @@ export default class Async extends Component {
 	loadOptions (inputValue) {
 		const { loadOptions } = this.props;
 		const cache = this._cache;
-
-		if (
-			cache &&
-			cache.hasOwnProperty(inputValue)
-		) {
-			this.setState({
-				options: cache[inputValue]
-			});
-
-			return;
-		}
-
+		// if (
+		// 	cache &&
+		// 	cache.hasOwnProperty(inputValue)
+		// ) {
+		// 	this.setState({
+		// 		options: cache[inputValue]
+		// 	});
+    //
+		// 	return;
+		// }
 		const callback = (error, data) => {
 			if (callback === this._callback) {
 				this._callback = null;
