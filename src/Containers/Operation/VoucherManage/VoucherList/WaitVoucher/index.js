@@ -42,6 +42,7 @@ import {
 import './index.less';
 import  ItemDetail from './ItemDetail';
 import SearchsForm from './SearchForm';
+import HightSearchForm from './HightSearchForm';
 
 export default class WaitVoucher extends Component {
 
@@ -56,6 +57,7 @@ export default class WaitVoucher extends Component {
       },
       openItem: false,
       delVoucher: false,
+      openSearch: false,
       infoList:[],
       Param: {
         page: 1,
@@ -93,6 +95,19 @@ export default class WaitVoucher extends Component {
       } else if (type == 'delete') {
         this.delVoucher(itemDetail);
       }
+    }
+  //高级查询
+  openSearch = () => {
+    this.setState({
+      openSearch: !this.state.openSearch
+    })
+  }
+  onSearchSubmit = (form) => {
+
+      this.setState({
+        Params: form
+      });
+      this.openSearch();
     }
   //删除
   //删除此条数据
@@ -268,6 +283,15 @@ export default class WaitVoucher extends Component {
                       </div>
                    </div>
                    </Dialog>
+                   <Dialog
+                      title="高级查询"
+                      modal={true}
+                      contentStyle ={{ width: '660'}}
+                      open={this.state.openSearch}
+                      onClose={this.openSearch}
+                    >
+                      <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+                    </Dialog>
 
       </div>
 

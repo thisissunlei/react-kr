@@ -72,7 +72,7 @@ export default class ItemDetail extends Component {
 	}
 	getThumbnailContent = (item) => {
   return (
-    <img src={item.thumbnail} width={120} height={90}/>
+    <img src={item.thumbnail} width={90} height={90}/>
   );
 	}
 	render() {
@@ -82,17 +82,45 @@ export default class ItemDetail extends Component {
   {
     src: 'http://lorempixel.com/1200/900/sports/1',
     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-    w: 1200,
+    w: 900,
     h: 900,
     title: 'Image 1'
   },
   {
     src: 'http://lorempixel.com/1200/900/sports/2',
     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-    w: 1200,
+    w: 900,
     h: 900,
     title: 'Image 2'
-  }
+  },
+	{
+    src: 'http://lorempixel.com/1200/900/sports/1',
+    thumbnail: 'http://lorempixel.com/120/90/sports/1',
+    w: 900,
+    h: 900,
+    title: 'Image 1'
+  },
+  {
+    src: 'http://lorempixel.com/1200/900/sports/2',
+    thumbnail: 'http://lorempixel.com/120/90/sports/2',
+    w: 900,
+    h: 900,
+    title: 'Image 2'
+  },
+	{
+    src: 'http://lorempixel.com/1200/900/sports/1',
+    thumbnail: 'http://lorempixel.com/120/90/sports/1',
+    w: 900,
+    h: 900,
+    title: 'Image 1'
+  },
+  {
+    src: 'http://lorempixel.com/1200/900/sports/2',
+    thumbnail: 'http://lorempixel.com/120/90/sports/2',
+    w: 900,
+    h: 900,
+    title: 'Image 2'
+  },
 ];
 		return (
 			<div className="u-audit-add">
@@ -104,19 +132,18 @@ export default class ItemDetail extends Component {
 						}} onTouchTap={this.onCancel}></span>
 			     </div>
 
-					 <div style={{marginLeft:46,marginTop:26}}>
+					 <div style={{marginLeft:46,marginTop:30}}>
 						 <KrField grid = {1 / 2}  name="customerId" inline={false} component="labelText" label="签约方名称" value={infoList.company}/>
 						 <KrField grid = {1 / 2}  component="labelText" inline={false} label="订单起止" value={infoList.mainBillDate}/>
 						 <KrField grid = {1 / 2} component="labelText" inline={false} label="公司主体" value={infoList.corporationName}/>
 						 <KrField grid = {1 / 2}  name="payName" component="labelText" label="入驻社区" inline={false} value={infoList.payWay}/>
 						 <KrField grid = {1 / 2} name="accountId" component="labelText" inline={false} value={infoList.accountNum} label="我司账户"/>
 						 <KrField grid = {1}  name="remark" component="labelText" inline={false} defaultValue={infoList.remark} label="备注说明" />
-						 <div>
-							 	<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
-						 </div>
+						 <KrField grid = {1}  name="remark" component="labelText" inline={false} label="添加凭证" />
+						 	<div style={{marginLeft:19}}>
+								<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+						 	</div>
 					 </div>
-
-
 			</div>
 
 
