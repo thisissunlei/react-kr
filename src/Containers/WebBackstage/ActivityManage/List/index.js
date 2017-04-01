@@ -24,6 +24,7 @@ import {
 	Dialog,
 	Message,
 	Notify,
+	Tooltip,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import { Drawer} from 'material-ui';
@@ -183,11 +184,16 @@ export default class List extends Component {
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="name"
 											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }} ></TableRowColumn>
 											<TableRowColumn name="type"
 											component={(value,oldValue)=>{
 												if(value=='CEO_TIME'){
