@@ -46,13 +46,8 @@ export default class  SearchSourceAddComponent extends React.Component {
 	    });
 	}
 
-	onFocus(value){
-   console.log('ppp----focus',value);
-
-	}
 
 	onChange(item){
-		console.log('=====',item);
 		this.setState({
 			value:item
 		})
@@ -90,7 +85,6 @@ export default class  SearchSourceAddComponent extends React.Component {
 					clearAllText="清除"
 					onChange={this.onChange}
 					noResultsText=""
-					onFocus={this.onFocus}
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
