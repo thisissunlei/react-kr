@@ -46,6 +46,11 @@ export default class  SearchSourceAddComponent extends React.Component {
 	    });
 	}
 
+	onFocus(value){
+   console.log('ppp----focus',value);
+
+	}
+
 	onChange(item){
 		console.log('=====',item);
 		this.setState({
@@ -78,12 +83,14 @@ export default class  SearchSourceAddComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
+					ref={(selectCustomer)=>this.selectCustomer=selectCustomer}
 					name={input.name}
 					value={this.state.value}
 					loadOptions={this.getOptions}
 					clearAllText="清除"
 					onChange={this.onChange}
 					noResultsText=""
+					onFocus={this.onFocus}
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
