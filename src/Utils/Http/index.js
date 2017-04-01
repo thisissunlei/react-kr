@@ -14,6 +14,10 @@ function getUrl(path, params = {},mode = false) {
 
     var url = APIS[path].url;
 
+    if(!url){
+      return ;
+    }
+
     if(url.indexOf('mockjsdata') !==-1){
     	 server='';
     }
@@ -159,7 +163,13 @@ function getUrl(path, params = {},mode = false) {
           reject(json);
         }
       })
-      .catch(err => reject(err));
+      .catch(function(err){
+        if(err == 'TypeError: Failed to fetch'){
+            console.log('后台接口404,联系后台开发人员吧')
+            return ;
+        }
+        reject(err)
+      });
     }),
 
     getdemo: (url, params) => new Promise((resolve, reject) => {
