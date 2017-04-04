@@ -2,18 +2,12 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
 
 import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -41,9 +35,6 @@ class HightSearchForm extends Component {
 		this.state = {
 			communityList: [],
 			payment: [{
-				label: '无',
-				value: 'NONE'
-			}, {
 				label: '支付宝支付',
 				value: 'ZHIFUBAO'
 			}, {
@@ -56,14 +47,15 @@ class HightSearchForm extends Component {
 				label: 'POS机支付',
 				value: 'POS'
 			}],
+			payType: [],
 			mainList: []
 		}
-		// this.getCommunity();
+		 this.getCommunity();
 		// this.getMain();
 	}
 
 	onSubmit = (form) => {
-		form.verifyStatus = "UNCHECKED";
+		form.verifyStatus = "CHECKED";
 		const {
 			onSubmit
 		} = this.props;
@@ -83,27 +75,25 @@ class HightSearchForm extends Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-	// getCommunity = () => {
-	// 	var communityList;
-	// 	var _this = this;
-	// 	Store.dispatch(Actions.callAPI('get-mainbill-community', {}, {})).then(function(response) {
-	// 		communityList = response.map((item, index) => {
-	// 			item.label = item.communityname;
-	// 			item.value = item.id;
-	// 			return item;
-	// 		})
-	// 		_this.setState({
-	// 			communityList: communityList
-	// 		})
-  //
-	// 	}).catch(function(err) {});
-	// }
-  //
-  //
+	getCommunity = () => {
+		var communityList;
+		var _this = this;
+		Http.request('findCommunityVoucher').then(function(response) {
+			communityList = response.map((item, index) => {
+				item.label = item.communityname;
+				item.value = item.id;
+				return item;
+			})
+			_this.setState({
+				communityList: communityList
+			})
+
+		}).catch(function(err) {});
+	}
 	// getMain = () => {
 	// 	var mainList;
 	// 	var _this = this;
-	// 	Store.dispatch(Actions.callAPI('get-fina-corporation', {}, {})).then(function(response) {
+	// 	Http.request('get-fina-corporation', {}, {}).then(function(response) {
 	// 		mainList = response.map((item, index) => {
 	// 			item.label = item.corporationName;
 	// 			item.value = item.id;
@@ -128,59 +118,66 @@ class HightSearchForm extends Component {
 		let {
 			communityList,
 			payment,
+			payType,
 			mainList
 		} = this.state;
 		return (
 			<div>
-			    <form onSubmit={handleSubmit(this.onSubmit)}>
-            <KrField
-  				    		grid={1/2}
-  				    		right={34}
-  				    		name="payWay"
-  				    		type="select"
-  				    		style={{marginTop:4}}
-  				    		label="收款方式"
-  				  			options={payment}
-  					/>
-				    <KrField
+			    <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:30}}>
+          <KrField
+                grid={1/2}
+                left={50}
+  							right={10}
+                name="payWay"
+                type="select"
+                style={{marginTop:4}}
+                label="付款方式"
+                options={payment}
+          />
+					<KrField
 				    		grid={1/2}
-				    		right={34}
+								right={50}
+				    		left={10}
 				    		name="communityId"
-				    		component="searchCommunity"
+				    		type="select"
 				    		style={{marginTop:4}}
-				    		label="社区名称"
+				    		label="入驻社区"
 				  			options={communityList}
 					/>
           <KrField
               grid={1/2}
-                right={34}
-              name="customerName"
+              left={50}
+              right={10}
+              name="payWayName"
               type="text"
               component="input"
-              label="客户名称"
-           /><KrField
- 							grid={1/2}
- 				    		right={34}
- 							name="customerName"
- 							type="text"
- 							component="input"
- 							label="客户名称"
- 					 />
-
+              label="付款方名称"
+           />
+           <KrField
+               grid={1/2}
+               right={50}
+               left={10}
+               name="customerName"
+               type="text"
+               component="input"
+               label="签约方名称"
+            />
 					<KrField
 							grid={1/1}
 							component="group"
-							label="收款时间"
+							label="创建日期"
+							left={50}
 							style={{marginTop:3}}
 					>
 						<div className='ui-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="dealStartTime" component="date" /></div></ListGroupItem>
-									<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="dealEndTime" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
+									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+								<ListGroupItem><div className='ui-date-end'><KrField name="stopDate" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		                </div>
 					</KrField>
+
 				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">

@@ -980,6 +980,26 @@ const APIS = {
       url: '/api/krspace-finance-web/finaVerify/data/get-fince-info?verifyStatus={verifyStatus}&payWay={payWay}&flowCategoryId={flowCategoryId}&dealStartTime={dealStartTime}&dealEndTime={dealEndTime}&customerName={customerName}&createStratTime={createStratTime}&createEndTime={createEndTime}&corporationId={corporationId}&communityId={communityId}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
+   //凭证管理--凭证列表--获取社区列表下拉框
+   'findCommunityVoucher':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/findCommunity',
+      method: 'get'
+   },
+   //凭证管理--凭证列表--待处理凭证列表
+   'wait-voucher-find-page':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/find-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&status={status}&stopDate={stopDate}',
+      method: 'get'
+   },
+   //凭证管理--凭证列表--待处理凭证查看
+   'findPaymentEvidence':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/findPaymentEvidence?id={id}',
+      method: 'get'
+   },
+   //凭证管理--凭证列表--删除
+   'deleteEvidence':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/deleteEvidence?id={id}',
+      method: 'delete'
+   },
  }
 
  module.exports = APIS;

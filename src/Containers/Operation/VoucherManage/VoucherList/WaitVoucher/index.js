@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react';
+import React from 'react';
 import {
   connect
 } from 'react-redux';
@@ -8,11 +6,7 @@ import {
   bindActionCreators
 } from 'redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {
-  Actions,
-  Store
-} from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
 
 import {
   Form,
@@ -44,7 +38,7 @@ import  ItemDetail from './ItemDetail';
 import SearchsForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
 
-export default class WaitVoucher extends Component {
+export default class WaitVoucher extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -53,7 +47,7 @@ export default class WaitVoucher extends Component {
       Params: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'UNCHECKED'
+        status: '0'
       },
       openItem: false,
       delVoucher: false,
@@ -62,7 +56,7 @@ export default class WaitVoucher extends Component {
       Param: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'UNCHECKED'
+        status: '0'
       },
     }
     //this.getInfo(this.state.Param);
@@ -72,7 +66,7 @@ export default class WaitVoucher extends Component {
     if (nextProps.tab != this.props.tab) {
       this.setState({
         Params: {
-          verifyStatus: 'UNCHECKED'
+          status: '0'
         }
       })
     }
@@ -103,14 +97,13 @@ export default class WaitVoucher extends Component {
     })
   }
   onSearchSubmit = (form) => {
-
+      form = Object.assign({},form);
       this.setState({
         Params: form
       });
       this.openSearch();
     }
   //删除
-  //删除此条数据
   delVoucher = (itemDetail) => {
     this.setState({
       itemDetail
@@ -121,24 +114,24 @@ export default class WaitVoucher extends Component {
   }
   sureToDel = (itemDetail) => {
     var _this = this;
-    //console.log(itemDetail);
-    // Store.dispatch(Actions.callAPI('del-fina-record', {}, {
-    //   finaVerifyId: this.state.itemDetail.id
-    // })).then(function(response) {
-    //   Message.success("删除成功");
-    //   _this.setState({
-    //     delVoucher: false,
-    //   }, function() {
-    //     window.setTimeout(function() {
-    //       window.location.reload();
-    //     }, 800);
-    //   });
-    // }).catch(function(err) {
-    //   Message.error(err.message);
-    //   _this.setState({
-    //     delVoucher: false,
-    //   });
-    // });
+    console.log(itemDetail);
+    Http.request('deleteEvidence', {
+      id: this.state.itemDetail.id
+    }).then(function(response) {
+      Message.success("删除成功");
+      _this.setState({
+        delVoucher: false,
+      }, function() {
+        window.setTimeout(function() {
+          window.location.reload();
+        }, 800);
+      });
+    }).catch(function(err) {
+      Message.error(err.message);
+      _this.setState({
+        delVoucher: false,
+      });
+    });
   }
     //保存编辑回款
   // EditAuditSubmit = (form) => {
@@ -184,8 +177,8 @@ export default class WaitVoucher extends Component {
       Params: {
         page: 1,
         pageSize: 15,
-        verifyStatus: 'UNCHECKED',
-        payWay: form.content
+        status: '0',
+        customerName: form.content
       }
     })
   }
@@ -203,7 +196,7 @@ export default class WaitVoucher extends Component {
         <Table
                           style={{marginTop:10}}
                           ajax={true}
-                          ajaxUrlName='get-fince-info'
+                          ajaxUrlName='wait-voucher-find-page'
                           ajaxParams={this.state.Params}
                           onOperation={this.onOperation}
                       >
@@ -219,24 +212,14 @@ export default class WaitVoucher extends Component {
                       </TableHeader>
                       <TableBody>
                         <TableRow>
-                            <TableRowColumn name="payWay"></TableRowColumn>
+                            <TableRowColumn name="customerName"></TableRowColumn>
                             <TableRowColumn name="payWayName"></TableRowColumn>
-                            <TableRowColumn name="payWayName"></TableRowColumn>
+                            <TableRowColumn name="paymentAccount" ></TableRowColumn>
 
-                            <TableRowColumn name="communityName" component={(value,oldValue)=>{
-                                    var TooltipStyle=""
-                                    if(value.length==""){
-                                      TooltipStyle="none"
+                            <TableRowColumn name="communityName" ></TableRowColumn>
 
-                                    }else{
-                                      TooltipStyle="block";
-                                    }
-                                     return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                                      <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                   }}></TableRowColumn>
-
-                            <TableRowColumn name="flowAmount"></TableRowColumn>
-                              <TableRowColumn name="dealTime"  component={(value, oldValue) => {
+                            <TableRowColumn name="memberName"></TableRowColumn>
+                              <TableRowColumn name="createDate"  component={(value, oldValue) => {
                                     return (<KrDate value={value} format="yyyy-mm-dd"/>)
                               }}></TableRowColumn>
 
@@ -286,9 +269,9 @@ export default class WaitVoucher extends Component {
                    <Dialog
                       title="高级查询"
                       modal={true}
-                      contentStyle ={{ width: '660'}}
                       open={this.state.openSearch}
                       onClose={this.openSearch}
+                      contentStyle={{width:666}}
                     >
                       <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
                     </Dialog>
