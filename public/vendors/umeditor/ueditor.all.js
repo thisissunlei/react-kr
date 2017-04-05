@@ -8086,6 +8086,7 @@ UE.Editor.defaultOptions = function(editor){
                     }
                 });
             } catch(e){
+              console.log('ee',e);
                 showErrorMsg(me.getLang('loadconfigError'));
             }
         });
