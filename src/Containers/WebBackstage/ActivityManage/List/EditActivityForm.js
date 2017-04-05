@@ -29,23 +29,16 @@ import State from './State';
 import {ShallowEqual,DateFormat} from 'kr/Utils';
 @observer
 
-
-
-
  class EditActivityForm extends Component{
 	constructor(props){
 		super(props);
+
 		Store.dispatch(reset('EditActivityForm'));
 
 		this.state = {
 			timeStart:'',
 			timeEnd:''
 		}
-	}
-
-	componentWillMount() {
-
-
 	}
 
 	componentDidMount(){
@@ -120,7 +113,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 				timeEnd : detailEndTime
 			},function(){
 				Store.dispatch(initialize('EditActivityForm', response));
-
 				// console.log("startDates",startDates,"detailStartTime",detailStartTime,"endDates",endDates,"detailEndTime",detailEndTime)
 				Store.dispatch(change('EditActivityForm','startDate',startDates));
 				Store.dispatch(change('EditActivityForm','startTime',detailStartTime));
@@ -159,7 +151,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 		values.publishType = this.publishType ;
 
-
 		values.beginDate = DateFormat(values.startDate,"yyyy-mm-dd HH:MM:ss");
 		values.endDate = DateFormat(values.stopDate,"yyyy-mm-dd HH:MM:ss");
 
@@ -184,6 +175,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		if(State.choseAdd){
 			EArr.push("ADDRESS")
 		}
+
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
@@ -194,7 +186,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			}
 		}
 
-
 		var searchParams = Object.assign({},State.searchParams);
 		searchParams.time = +new Date();
 
@@ -203,22 +194,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
 			State.searchParams = searchParams;
-		}).catch(function(err){
-
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-
-
-
-
+		}).catch(Message.error);
 
 	}
 	//存为草稿
 	toSave=()=>{
-
 		this.publishType = 0;
 	}
 	// 发布
@@ -232,9 +212,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 不置顶
 	noStick=()=>{
-
 		State.isStick = false;
-
 	}
 
 	// 复选框
@@ -254,12 +232,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	chooseCompany=(e)=>{
 		if(e.target.checked){
-
 			State.choseCompany = true;
 		}else{
 			State.choseCompany = false;
-
-
 		}
 	}
 	choosePosition=(e)=>{
@@ -298,7 +273,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 			}).catch(function(err){
 				State.serialNumRepeat = true;
-
 			});
 		}
 
@@ -465,7 +439,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 
-		// console.log("State.pcCoverPicDefaultValue===========>render",State.pcCoverPicDefaultValue);
 		return (
 
 			<div className="new-create-activity">

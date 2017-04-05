@@ -138,29 +138,27 @@ export default class Editor extends React.Component{
     super(props);
 
     this.containerId = 'container_'+Date.now();
-
     this.ue = '';
-
     this.init = false;
-
   }
 
 
   componentWillReceiveProps(nextProps){
-
-    if(nextProps.defaultValue){
+    if(nextProps.defaultValue !== this.props.defaultValue){
         this.setDefaultValue(nextProps.defaultValue);
     }
-
   }
 
   setDefaultValue = (value)=>{
-
+    return ;
+    if(!value){
+      return ;
+    }
     if(this.init){
         return ;
     }
     var _this = this;
-    _this.ue.setContent(value);
+    //_this.ue.setContent(value);
     this.init = true;
   }
 
@@ -175,15 +173,14 @@ export default class Editor extends React.Component{
     var ue = UE.getEditor(this.containerId,configs);
     ue.addListener('contentChange',function(value){
         var content = ue.getContent();
-        _this.onChange(content);
+        //_this.onChange(content);
     });
 
     ue.ready(function(){
-     _this.setDefaultValue(defaultValue);
+      //_this.setDefaultValue(defaultValue);
     });
 
     this.ue = ue;
-
 /*
     UE.commands['toUploadImg'] = {
       execCommand : function(){
@@ -195,6 +192,10 @@ export default class Editor extends React.Component{
     };
     */
 
+  }
+
+  componentWillUnmount(){
+    this.init = false;
   }
 
   render() {
