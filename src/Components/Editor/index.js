@@ -160,15 +160,25 @@ export default class Editor extends React.Component{
 
     var {configs,defaultValue} = this.props;
     var _this = this;
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+      if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+        return 'http://optest.krspace.cn/api/krspace-finance-web/activity/ue-upload-pic';
+      } else if (action == 'uploadvideo') {
+        return 'http://a.b.com/video.php';
+      } else {
+        return this._bkGetActionUrl.call(this, action);
+      }
+    }
     var ue = UE.getEditor(this.containerId,configs);
     this.ue = ue;
     this.ue.ready(function(editor){
-        if(!editor){
-           UE.delEditor(_this.containerId);
-          _this.initEditor();
-        }
-        ue.addListener('contentChange',_this.contentChange);
-        _this.setDefaultValue(defaultValue);
+      if(!editor){
+        UE.delEditor(_this.containerId);
+        _this.initEditor();
+      }
+      ue.addListener('contentChange',_this.contentChange);
+      _this.setDefaultValue(defaultValue);
     });
 
     /*
@@ -191,7 +201,6 @@ export default class Editor extends React.Component{
 
 
   setDefaultValue = (value)=>{
-    console.log('--->>>value',value,'init:',this.init);
     if(!value){
       return ;
     }
@@ -204,7 +213,6 @@ export default class Editor extends React.Component{
   }
 
   onChange =(value)=>{
-    console.log('dd',value);
     const {onChange} = this.props;
     onChange && onChange(value);
   }
