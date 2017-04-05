@@ -125,7 +125,6 @@ export default class Editor extends React.Component{
       maximumWords:2000,
       initialFrameHeight:200,
       enableAutoSave:false
-      //是否保持toolbar的位置不动,默认true
       ,autoFloatEnabled:false
     }
   }
@@ -164,9 +163,7 @@ export default class Editor extends React.Component{
     UE.Editor.prototype.getActionUrl = function(action) {
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
         return 'http://optest.krspace.cn/api/krspace-finance-web/activity/ue-upload-pic';
-      } else if (action == 'uploadvideo') {
-        return 'http://a.b.com/video.php';
-      } else {
+      }else {
         return this._bkGetActionUrl.call(this, action);
       }
     }
@@ -174,14 +171,12 @@ export default class Editor extends React.Component{
     this.ue = ue;
     this.ue.ready(function(editor){
       if(!editor){
-        UE.delEditor(_this.containerId);
         _this.initEditor();
       }
       ue.addListener('contentChange',_this.contentChange);
       _this.setDefaultValue(defaultValue);
     });
 
-    /*
     UE.commands['toUploadImg'] = {
     execCommand : function(){
     console.log("点击了图片==========>");
@@ -190,11 +185,11 @@ export default class Editor extends React.Component{
     console.log("点击图片之后==========>");
     }
     };
-    */
 
   }
 
   contentChange = ()=>{
+    console.log('chang');
     var content = UE.getEditor(this.containerId).getContent()
     this.onChange(content);
   }
