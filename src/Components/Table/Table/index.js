@@ -1,5 +1,6 @@
 import React from 'react';
 import Loading from '../../Loading';
+import Message from '../../Message';
 import http from 'kr/Redux/Utils/fetch';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import _ from 'lodash';
@@ -310,7 +311,6 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
-		console.log("http",ajaxUrlName);
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
 			_this.onInitial({
 				response: response,
@@ -330,10 +330,10 @@ export default class Table extends React.Component {
 				allRowsSelected:false
 			});
 
-			Notify.show([{
-				message: err.message,
-				type: 'error',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'error',
+			// }]);
 
 		});
 

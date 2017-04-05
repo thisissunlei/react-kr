@@ -24,7 +24,9 @@ import {
 	Message,
 	Tooltip,
 	Form,
+	
 } from 'kr-ui';
+import {Http} from "kr/Utils";
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
@@ -121,7 +123,15 @@ export default class OpenPanel  extends Component{
 		    }
 		})
 	 }
+	openExprot = () =>{
 
+			console.log("dddd");
+			// let {searchParams}=this.state;
+			// Http.request('openCompanyExprot',searchParams).then(function(response) {
+			// }).catch(function(err) {
+			//
+			// });
+	}
     render(){
     	let {searchParams}=this.state;
 
@@ -137,7 +147,7 @@ export default class OpenPanel  extends Component{
 									 <span  className='static-upload'>实时更新</span>
 									</Col>
 									<Col align="right" md={8}>
-								    <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>	
+								    <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
 									</Col>
 								</Row>
 							</Grid>
@@ -194,9 +204,13 @@ export default class OpenPanel  extends Component{
 		 								</TableRow>
 		 						 </TableBody>
 		 						 </Table>
-				 						</div>
 
+				 				</div>
+								<div style={{position:'relative',marginTop:20,left:0}} >
+										<Button  label="导出" type="button"/>
+								</div>
 				 		</div>
+
 		 </div>
 		);
 	}
