@@ -8063,6 +8063,7 @@ UE.Editor.defaultOptions = function(editor){
                 var configUrl = me.getActionUrl('config'),
                     isJsonp = utils.isCrossDomainUrl(configUrl);
 
+                    console.log('--->configUrl',configUrl);
                 /* 发出ajax请求 */
                 me._serverConfigLoaded = false;
 
