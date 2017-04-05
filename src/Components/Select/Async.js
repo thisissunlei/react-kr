@@ -83,14 +83,12 @@ export default class Async extends Component {
 	}
 
 	loadOptions (inputValue) {
-		console.log('--->>',inputValue);
 		const { loadOptions } = this.props;
 		const cache = this._cache;
 		/*
 		 if (
 		 	cache &&
 		 	cache.hasOwnProperty(inputValue)
-
 		 ) {
 		 	this.setState({
 		 		options: cache[inputValue]
