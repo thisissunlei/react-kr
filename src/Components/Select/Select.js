@@ -158,6 +158,7 @@ const Select = React.createClass({
 			tabSelectsValue: true,
 			valueComponent: Value,
 			valueKey: 'value',
+			resetValue:'',
 		};
 	},
 
