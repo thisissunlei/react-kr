@@ -10,6 +10,9 @@ import mobx, {
 //全局store
 let State = observable({
   demoForm:{
+		submitFailed:false,
+		submitSucceeded:false,
+		submitting:false,
     syncErrors:{
       email:'邮箱填写错误'
     },
@@ -31,16 +34,108 @@ let State = observable({
     },
     anyTouched:true,
     submitFailed:true,
-    validate:function(){
+		submitCallback:function(){
+
+		},
+    validateCallback:function(){
 
     }
   }
+});
+
+
+State.setSubmitCallback = action(function(formName,submitHandle) {
+	this.submitCallback = submitHandle;
+});
+
+State.isSubmitting = action(function(formName) {
+			return this.submitting;
+});
+
+State.isSubmitFailed = action(function(formName) {
+	return this.submitFailed;
+});
+
+State.isSubmitSucceeded = action(function(formName) {
+	return this.submitSucceeded;
+});
+
+State.startSubmit = action(function(formName) {
+	  var form = this.getForm(formName);
+		form.submitting = true;
+		form.submitSucceeded = false;
+		form.submitFailed = false;
+		this.setForm(formName,form);
+});
+
+State.stopSubmit = action(function(formName,errors) {
+	  var form = this.getForm(formName);
+		form.submitSucceeded = false;
+		form.submitting = false;
+		form.submitFailed = true;
+
+		this.setForm(formName,form);
+		this.setErrors(formName,errors);
+
+});
+
+State.submit = action(function(formName) {
+		this.validate(formName);
+		//this.stopSubmit(formName,errors);
+		var values = this.getValues(formName);
+		this.submitCallback(values);
+		this.touchAll(formName);
+});
+
+State.setValidateCallback = action(function(formName,validate) {
+	  var form = this.getForm(formName);
+		form.validateCallback = validate;
+		this.setForm(formName,form);
+});
+
+
+State.getValidateCallback = action(function(formName,validate) {
+	  var form = this.getForm(formName);
+		return form.validateCallback;
+});
+
+
+State.validate = action(function(formName) {
+		var values = this.getValues(formName);
+		var validate = this.getValidateCallback(formName);
+		var errors = validate(values);
+
+		this.stopSubmit(formName,errors);
+
+		/*
+		if(errors){
+		}
+		*/
+
 });
 
 State.createForm = action(function(formName,configs) {
   var form = {};
   form[formName] = Object.assign({},configs);
   extendObservable(this,form);
+
+	var form = this.getForm(formName);
+	var fields = form.fields;
+
+	var field = fields[fieldName];
+	field.touched = true;
+
+	fields[fieldName] = field;
+	form.fields = fields;
+
+	this.setForm(formName,form);
+
+});
+
+State.setForm = action(function(formName,form){
+	var formObject = {};
+	formObject[formName] = form;
+	mobx.extendObservable(this,formObject);
 });
 
 State.getForm = action(function(formName) {
@@ -81,13 +176,34 @@ State.getErrors = action(function(formName) {
 
 State.setErrors = action(function(formName,errors) {
 	  var form = this.getForm(formName);
-		form.syncErrors = Object.assign({},form.syncErrors,errors);
+		form.syncErrors = Object.assign({},errors);
 
 		var formObject = {};
 		formObject[formName] = form;
 		mobx.extendObservable(this,formObject);
 });
 
+State.touch = action(function(formName,fieldName) {
+
+	var form = this.getForm(formName);
+	var fields = form.fields;
+
+	var field = fields[fieldName];
+	field.touched = true;
+
+	fields[fieldName] = field;
+	form.fields = fields;
+
+
+	var formObject = {};
+	formObject[formName] = form;
+	mobx.extendObservable(this,formObject);
+
+});
+
+State.untouch = action(function(formName,fieldName) {
+
+});
 
 State.touchAll = action(function(formName) {
 	  var form = this.getForm(formName);
@@ -95,16 +211,13 @@ State.touchAll = action(function(formName) {
 
 		for(var item in fields){
 			if(fields.hasOwnProperty(item)){
+
 					this.touch(formName,item);
 			}
 		}
 
 });
 
-State.stopSubmit = action(function(formName,errors) {
-		this.setErrors(formName,errors);
-		this.touchAll(formName);
-});
 
 State.change = action(function(formName,fieldName,fieldValue) {
 	  var form = this.getForm(formName);
@@ -170,26 +283,7 @@ State.change = action(function(formName,fieldName,fieldValue) {
 
 	});
 
-	State.touch = action(function(formName,fieldName) {
 
-		var form = this.getForm(formName);
-		var fields = form.fields;
-
-		var field = fields[fieldName];
-		field.touched = true;
-
-		fields[fieldName] = field;
-		form.fields = fields;
-
-		var formObject = {};
-		formObject[formName] = form;
-		mobx.extendObservable(this,formObject);
-
-	});
-
-	State.untouch = action(function(formName,fieldName) {
-
-	});
 
 	State.destroy = action(function(formName) {
 
@@ -247,10 +341,6 @@ State.change = action(function(formName,fieldName,fieldValue) {
 
 	});
 
-	State.touch = action(function(formName,fieldName) {
-
-	});
-
 	State.untouch = action(function(formName,fieldName) {
 
 	});
@@ -261,6 +351,7 @@ State.change = action(function(formName,fieldName,fieldValue) {
 
 
 	State.registerField = action(function(formName,fieldName,type) {
+
 		var form = this.getForm(formName);
 
 
@@ -270,8 +361,12 @@ State.change = action(function(formName,fieldName,fieldValue) {
 		var values = Object.assign({},form.values);
 		values[fieldName] = '';
 
+		var fields = Object.assign({},form.fields);
+		fields[fieldName] = Object.assign({},{touched:false,visited:false});
+
 		form.registeredFields =  registeredFields;
 		form.values =  values;
+		form.fields =  fields;
 
 		var formObject = {};
 		formObject[formName] = form;
@@ -288,8 +383,5 @@ State.change = action(function(formName,fieldName,fieldValue) {
 		extendObservable(this,form);
 	});
 
-	State.submit = action(function(formName) {
-
-	});
 
 	module.exports = State;
