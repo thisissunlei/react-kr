@@ -177,15 +177,6 @@ export default class Editor extends React.Component{
       _this.setDefaultValue(defaultValue);
     });
 
-    UE.commands['toUploadImg'] = {
-    execCommand : function(){
-    console.log("点击了图片==========>");
-    },
-    queryCommandState:function(){
-    console.log("点击图片之后==========>");
-    }
-    };
-
   }
 
   contentChange = ()=>{
