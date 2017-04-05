@@ -425,6 +425,11 @@ const Select = React.createClass({
 			isOpen: isOpen
 		});
 		this._openAfterFocus = false;
+
+		if(this.props.onInputChange){
+			this.props.onInputChange('');
+		}
+
 	},
 
 	handleInputBlur (event) {
