@@ -54,10 +54,7 @@ class DemoComponent extends React.Component {
 
 					<form onSubmit={handleSubmit(this.onSubmit)} >
 
-						<KrField name="username" component="date" />
-						<KrField name="email" component="input" />
-						<KrField name="haahah" component="textarea" />
-
+					
 						<button type="submit" >submit</button>
 
 					</form>
