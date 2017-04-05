@@ -130,7 +130,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	// 提交
 	onSubmit=(values)=>{
 
-		console.log('-->>values',values);
 		// 时间是否正确
 		if(!State.timeIsTrue){
 			Notify.show([{
@@ -682,13 +681,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								<Grid style={{marginTop:19,marginBottom:'80px'}}>
 									<Row>
 										<ListGroup>
-											<ListGroupItem style={{width:'166px',textAlign:'right',padding:0,paddingRight:15}}>
+											<ListGroupItem style={{width:'166px',textAlign:'right',padding:0}}>
 												<Button  label="发布" type='submit' onClick={this.toPublish}/>
 											</ListGroupItem>
 											<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
 												<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
 											</ListGroupItem>
-											<ListGroupItem style={{width:'166px',textAlign:'left',padding:0,paddingLeft:15}}>
+											<ListGroupItem style={{width:'166px',textAlign:'left',padding:0}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 											</ListGroupItem>
 										</ListGroup>
