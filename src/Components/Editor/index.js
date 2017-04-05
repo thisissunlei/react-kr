@@ -125,6 +125,8 @@ export default class Editor extends React.Component{
       maximumWords:2000,
       initialFrameHeight:200,
       enableAutoSave:false
+      //是否保持toolbar的位置不动,默认true
+      ,autoFloatEnabled:false
     }
   }
 
