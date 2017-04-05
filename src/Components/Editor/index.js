@@ -189,8 +189,8 @@ export default class Editor extends React.Component{
   }
 
   contentChange = ()=>{
-    console.log('chang');
     var content = UE.getEditor(this.containerId).getContent()
+    console.log('chang',content);
     this.onChange(content);
   }
 
