@@ -932,6 +932,17 @@ const APIS = {
    url:'/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
    method:'get'
  },
+ //社区配置－社区列表
+  'communitySearch':{
+   url:'/api/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&openDateBegin={openDateBegin}&openDateEnd={openDateEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}&portalShow={portalShow}',
+   method:'get'
+ },
+  //社区配置－社区列表数据准备
+  'list-param-data':{
+   url:'/api/krspace-finance-web/cmt/community/list-param-data',
+   method:'get'
+ },
+
 
 
 
@@ -1000,6 +1011,66 @@ const APIS = {
       url: '/api/krspace-finance-web/finance/paymentEvidence/deleteEvidence?id={id}',
       method: 'delete'
    },
+   // 门禁授权列表
+   'impowerList':{
+      url: '/api/krspace-finance-web/permission/door-customer-list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+
+   // 新增／编辑门禁授权
+   'newCreateOrEditImpower':{
+      url: '/api/krspace-finance-web/permission/door-customer',
+      method: 'post'
+   },
+
+   // 删除客户门禁授权
+   'doorCustomerDelete':{
+      url: '/api/krspace-finance-web/permission/door-customer-delete?id={id}',
+      method: 'get'
+   },
+
+   // 授权该客户在指定社区下的设备列表
+   'doorCustomerDevice':{
+      url: '/api/krspace-finance-web/permission/door-customer-device?id={id}&communityId={communityId}',
+      method: 'get'
+   },
+
+   // 授权为客户授权
+   'doorCustomerGrant':{
+      url: '/api/krspace-finance-web/permission/door-customer-grant',
+      method: 'post'
+   },
+
+
+
+
+    //社区管理－校验社区名称
+   'check-name':{
+      url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
+      method: 'get'
+   },
+    //社区管理－校验社区名称
+   'check-code':{
+      url: '/api/krspace-finance-web/cmt/community/check/code?id={id}&code={code}',
+      method: 'get'
+   },
+    //社区管理－社区新增或编辑
+   'actions-edit':{
+      url: '/api/krspace-finance-web/cmt/community/actions/edit',
+      method: 'post'
+   },
+    //社区管理－获取社区编辑信息
+   'communityGetEdit':{
+      url: '/api/krspace-finance-web/cmt/community/info/type/edit?id={id}',
+      method: 'get'
+   },
+     //社区管理－校验社区排序
+   'check-rank':{
+      url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
+      method: 'get'
+   },
+
+
  }
 
  module.exports = APIS;

@@ -55,7 +55,7 @@ class HightSearchForm extends Component {
 	}
 
 	onSubmit = (form) => {
-		form.verifyStatus = "CHECKED";
+		form.status = "0";
 		const {
 			onSubmit
 		} = this.props;

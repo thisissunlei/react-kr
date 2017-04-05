@@ -118,7 +118,7 @@ import flushData from "../LookCustomerList/State";
 	  }
 
 	  var param=value.label;
-      if(param.indexOf('介绍')!=-1){
+      if(param.indexOf('推荐')!=-1){
          State.sourceCustomer=true;
       }else{
       	 State.sourceCustomer=false;

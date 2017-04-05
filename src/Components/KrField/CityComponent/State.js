@@ -13,5 +13,8 @@ import {
 let State = observable({
 		city:"请选择"
 });
+State.setCity = action(function(city) {
+	this.city=city;
+});
 
 module.exports = State;

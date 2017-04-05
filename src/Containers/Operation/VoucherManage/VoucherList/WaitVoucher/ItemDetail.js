@@ -2,10 +2,8 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
 
+import {Http} from 'kr/Utils';
 import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
 
@@ -14,11 +12,6 @@ import {
 	formValueSelector,
 	initialize
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
 import {
 	KrField,
 	Grid,
@@ -49,9 +42,9 @@ export default class ItemDetail extends Component {
 	componentDidMount() {
     var _this = this;
     var id = this.props.detail.id
-    Store.dispatch(Actions.callAPI('findPaymentEvidence', {
+    Http.request('findPaymentEvidence', {
             id: id
-        }, {})).then(function(response) {
+        }, {}).then(function(response) {
             _this.setState({infoList: response})
             console.log(response);
         }).catch(function(err) {});
@@ -61,36 +54,28 @@ export default class ItemDetail extends Component {
         let {onCancel} = this.props;
         onCancel && onCancel();
     }
-	renderFileName=()=>{
 
-		this.fileList.map((item, value) => {
-			return (
-				<div key={index}>{item}</div>
-			)
-		});
-	}
 	getThumbnailContent = (item) => {
-  return (
-    <img src={item.thumbnail} width={90} height={90}/>
-  );
+	  return (
+	    <img src={item.src} width={90} height={90}/>
+	  );
 	}
 	render() {
     let {infoList} = this.state;
 		console.log(this.state.infoList);
+		let urls = [];
 		let items = [];
-		let urls = ['http://lorempixel.com/1200/900/sports/1','http://lorempixel.com/1200/900/sports/2']
-		items = urls.map((item,value) => {
-			return(
-				{
-					src: item,
-			    thumbnail: item,
-			    w: 900,
-			    h: 900,
-			    title: value
-				}
-			)
+		urls = infoList.urls;
+		urls && urls.map((item,value) => {
+
+
+			    item.w=900;
+			    item.h= 900;
+
+				return item;
+
 		});
-		console.log(items);
+
 // 		let items = [
 //   {
 //     src: 'http://lorempixel.com/1200/900/sports/1',

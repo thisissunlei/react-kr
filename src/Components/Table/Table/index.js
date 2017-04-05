@@ -310,7 +310,7 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
-		console.log("http",ajaxUrlName);
+		// console.log("http",ajaxUrlName);
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
 			_this.onInitial({
 				response: response,
@@ -469,9 +469,11 @@ export default class Table extends React.Component {
 
 	onSelect() {
 
+		
 		let {
 			selectedRows,
-			visibilityRows
+			visibilityRows,
+			listData
 		} = this.state;
 
 		var allRowsSelected = true;
@@ -479,7 +481,7 @@ export default class Table extends React.Component {
 		visibilityRows.forEach(function(item, index) {
 			if (item && parseInt(selectedRows[index])) {
 				result.push(index);
-			}else{
+			} else {
 				allRowsSelected = false;
 			}
 		});
@@ -487,7 +489,12 @@ export default class Table extends React.Component {
 		const {
 			onSelect
 		} = this.props;
-		onSelect && onSelect(result);
+
+		var selectedListData = listData.filter(function(item,index){
+					return result.indexOf(index) !== -1;
+		});
+
+		onSelect && onSelect(result,selectedListData);
 
 		this.setState({
 			allRowsSelected

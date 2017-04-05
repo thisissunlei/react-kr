@@ -115,9 +115,9 @@ class EquipmentAdvancedQueryForm extends Component{
 			label: '会议室',
 			value: 2
 		},{
-			label: '功能室',
+			label: '独立办公室',
 			value: 3
-		}]
+		},{label: '路演厅',value: 4},{label: '配置门',value: 5}]
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: '开门',

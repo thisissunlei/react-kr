@@ -96,7 +96,7 @@ class Merchants extends Component{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
 			State.editprojectName=response.projectCategoryName;
-			 if(response.sourceName.indexOf("介绍")!=-1){
+			 if(response.sourceName.indexOf("推荐")!=-1){
 
 			 	editsourceCustomer.sourceCustomer=true;
 			}else{
