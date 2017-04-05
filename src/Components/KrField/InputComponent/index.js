@@ -32,7 +32,7 @@ export default class InputComponent extends React.Component{
 
 	onChange = (value)=>{
 
-        
+
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;
@@ -71,7 +71,7 @@ export default class InputComponent extends React.Component{
 
 	render(){
 
-		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+		let {input, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -86,8 +86,18 @@ export default class InputComponent extends React.Component{
 			if(touched && error){
 				className = 'error-input';
 			}
+
+			var wrapProps = {
+				label,
+				requireLabel,
+				inline,
+				simple,
+				notifys,
+				wrapStyle:style,
+			};
+
 			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple} notifys={this.props.notifys}>
+				<WrapComponent {...wrapProps}>
 					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} {...other} onError={this.onError} autoFocus={autoFocus}/>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>

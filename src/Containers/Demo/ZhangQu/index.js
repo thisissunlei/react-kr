@@ -6,10 +6,10 @@ import React, {
 import {
 	Section,
 	Dialog,
+	KrField,
 } from 'kr-ui';
 
-import {reduxForm,Field} from 'kr/Utils/reduxForm';
-
+import {reduxForm,Field} from 'kr/Utils/ReduxForm';
 
 class DemoComponent extends React.Component {
 		constructor(props){
@@ -27,7 +27,7 @@ class DemoComponent extends React.Component {
 			const {input,meta} = this.props;
 			return (
 				<div>
-					<input name={input.name} value={input.value}  onChange={this.onChange}/>
+					<input name={input.name} value={input.value}  onChange={this.onChange} onBlur={input.onBlur}/>
 					{meta.touched && meta.error}
 				</div>
 			)
@@ -54,10 +54,7 @@ class DemoComponent extends React.Component {
 
 					<form onSubmit={handleSubmit(this.onSubmit)} >
 
-						<Field name="username" component={DemoComponent} />
-						<Field name="email" component={DemoComponent} />
-						<Field name="zh" component={DemoComponent} />
-
+					
 						<button type="submit" >submit</button>
 
 					</form>
@@ -71,7 +68,7 @@ class DemoComponent extends React.Component {
 	const validate = values => {
 		const errors = {}
 		if (!values.username) {
-			errors.username = 'Required'
+			errors.username = '用户名称必须填写'
 		}
 
 		if (!values.email) {
