@@ -997,6 +997,40 @@ const APIS = {
       method: 'put'
    },
 
+
+   // 门禁授权列表
+   'impowerList':{
+      url: '/api/krspace-finance-web/permission/door-customer-list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+
+   // 新增／编辑门禁授权
+   'newCreateOrEditImpower':{
+      url: '/api/krspace-finance-web/permission/door-customer',
+      method: 'post'
+   },
+
+   // 删除客户门禁授权
+   'doorCustomerDelete':{
+      url: '/api/krspace-finance-web/permission/door-customer-delete?id={id}',
+      method: 'get'
+   },
+
+   // 授权该客户在指定社区下的设备列表
+   'doorCustomerDevice':{
+      url: '/api/krspace-finance-web/permission/door-customer-device?id={id}&communityId={communityId}',
+      method: 'get'
+   },
+
+   // 授权为客户授权
+   'doorCustomerGrant':{
+      url: '/api/krspace-finance-web/permission/door-customer-grant',
+      method: 'post'
+   },
+
+
+
+
     //社区管理－校验社区名称
    'check-name':{
       url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
@@ -1023,7 +1057,12 @@ const APIS = {
       method: 'get'
    },
     //招商数据统计-已开业
+  'already-open':{
+     url: '/api/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+     method: 'get'
+  },
   
+
 
  }
 

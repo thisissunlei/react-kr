@@ -24,7 +24,7 @@ import {
 	Message,
 	Tooltip,
 	Form,
-	
+
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import './index.less';
@@ -138,6 +138,9 @@ export default class OpenPanel  extends Component{
 
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
+				 <div style={{position:'relative',marginTop:20,left:0}}  onclick = {this.openExprot}>
+						 <Button  label="导出" type="button"/>
+				 </div>
 						 <div className='ui-open-info'>
 							 <Grid style={{height:'76'}}>
 								<Row>
@@ -156,7 +159,7 @@ export default class OpenPanel  extends Component{
 									 <Table style={{marginTop:0}}
 		 								 displayCheckbox={false}
 		 								 ajax={true}
-		 								 ajaxUrlName='openCompanyData'
+		 								 
 		 								 ajaxFieldListName="list"
 		 								 ajaxParams={this.state.searchParams}
 		 									 >
@@ -206,9 +209,7 @@ export default class OpenPanel  extends Component{
 		 						 </Table>
 
 				 				</div>
-								<div style={{position:'relative',marginTop:20,left:0}} >
-										<Button  label="导出" type="button"/>
-								</div>
+
 				 		</div>
 
 		 </div>

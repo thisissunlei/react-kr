@@ -150,7 +150,7 @@ class NewCreateDefinitionForm extends Component{
 				floorNum : floor.value
 			},function(){
 				_this.setState({
-					propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}]
+					propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3},{label: '路演厅',value: 4},{label: '配置门',value: 5}]
 				})
 			})
 		}

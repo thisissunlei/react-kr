@@ -26,7 +26,7 @@ import {
 
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
-// import MerchantsData from './MerchantsData';
+import MerchantsData from './MerchantsData';
 
 //import PanelsDic from './PanelsDic';
 
@@ -86,11 +86,15 @@ export default class PanelComponents  extends Component{
 			var component = null;
 			switch (value) {
 				case 1:{
-					component = <OpenPanel {...props}/>
+					component = <MerchantsData {...props}/>
 					break;
 				}
 				case 2:{
 					component = <NotOpenPanel {...props}/>
+					break;
+				}
+				case 3:{
+					component = <MerchantsData {...props}/>
 					break;
 				}
 				default:{

@@ -23,7 +23,7 @@ import {
 	Title,
 	Message
 } from 'kr-ui';
-
+import './index.less'
 import SearchDateForm from './SearchDateForm';
 
 class MerchantsData  extends Component{
@@ -37,7 +37,7 @@ class MerchantsData  extends Component{
 				endDate:this.props.todayDate
 			},
 			startValue:'',
-			endValue:''	
+			endValue:''
 		}
 	}
 
@@ -106,7 +106,7 @@ class MerchantsData  extends Component{
 
 
 			return(
-				<div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
+				<div className='open-merchants-data' style={{background:'#fff',marginBottom:'20'}}>
 					<div className='ui-open-info'>
 						<Grid style={{height:'76'}}>
 							<Row>
@@ -120,12 +120,62 @@ class MerchantsData  extends Component{
 								</Col>
 							</Row>
 						</Grid>
+								<div className = 'ui-table-wrap'>
 
-						<div className='ui-table-wrap'>
-							
-						</div>
+								<Table style={{marginTop:0}}
+									displayCheckbox={false}
+									ajax={true}
 
-					</div> 
+									ajaxFieldListName="list"
+									ajaxParams={this.state.searchParams}
+										>
+									}
+								<TableHeader>
+								<TableHeaderColumn>开业状态</TableHeaderColumn>
+								<TableHeaderColumn>城市</TableHeaderColumn>
+								<TableHeaderColumn>社区</TableHeaderColumn>
+								<TableHeaderColumn>新增客户</TableHeaderColumn>
+								<TableHeaderColumn>参观客户</TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>意向</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位数</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约入驻</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约续租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约增租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约入驻</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约续租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约增租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
+								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
+							</TableHeader>
+
+							<TableBody>
+									 <TableRow>
+									<TableRowColumn name="cityName"></TableRowColumn>
+									<TableRowColumn name="communityName"  component={(value,oldValue)=>{
+										 var maxWidth=6;
+										 if(value.length>maxWidth){
+											value = value.substring(0,6)+"...";
+										 }
+																	 return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									}} ></TableRowColumn>
+									<TableRowColumn name="totalStation"></TableRowColumn>
+									<TableRowColumn name="unUsedStation" ></TableRowColumn>
+									<TableRowColumn name="usedStation"></TableRowColumn>
+									<TableRowColumn name="leftStation"></TableRowColumn>
+									<TableRowColumn name="rateAll"></TableRowColumn>
+									<TableRowColumn name="lastRate"></TableRowColumn>
+									<TableRowColumn name="rateChange"></TableRowColumn>
+									<TableRowColumn name="rate"></TableRowColumn>
+									<TableRowColumn name="chainRate"></TableRowColumn>
+									<TableRowColumn name="newIntention"></TableRowColumn>
+									<TableRowColumn name="totalIntention"></TableRowColumn>
+									<TableRowColumn name="averagePrice"></TableRowColumn>
+								 </TableRow>
+							</TableBody>
+							</Table>
+							</div>
+					</div>
 		 		</div>
 			);
 		}
