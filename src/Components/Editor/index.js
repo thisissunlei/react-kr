@@ -111,7 +111,6 @@ export default class Editor extends React.Component{
           'charts', // 图表
           '|',
 
-
           'edittip ', //编辑提示
           'preview', //预览
           'searchreplace', //查询替换
@@ -140,70 +139,87 @@ export default class Editor extends React.Component{
     super(props);
 
     this.containerId = 'container_'+Date.now();
-    this.ue = '';
+    this.ue = null;
     this.init = false;
+  }
+
+  componentDidMount(){
+    this.initEditor();
   }
 
 
   componentWillReceiveProps(nextProps){
     if(nextProps.defaultValue !== this.props.defaultValue){
+        this.init = false;
         this.setDefaultValue(nextProps.defaultValue);
     }
   }
 
-  setDefaultValue = (value)=>{
-    return ;
-    if(!value){
-      return ;
-    }
-    if(this.init){
-        return ;
-    }
-    var _this = this;
-    //_this.ue.setContent(value);
-    this.init = true;
-  }
 
-  onChange =(value)=>{
-    const {onChange} = this.props;
-    onChange && onChange(value);
-  }
+  initEditor = () =>{
 
-  componentDidMount(){
     var {configs,defaultValue} = this.props;
     var _this = this;
     var ue = UE.getEditor(this.containerId,configs);
-    ue.addListener('contentChange',function(value){
-        var content = ue.getContent();
-        //_this.onChange(content);
-    });
-
-    ue.ready(function(){
-      //_this.setDefaultValue(defaultValue);
-    });
-
     this.ue = ue;
-/*
+    this.ue.ready(function(editor){
+        if(!editor){
+           UE.delEditor(_this.containerId);
+          _this.initEditor();
+        }
+        ue.addListener('contentChange',_this.contentChange);
+        _this.setDefaultValue(defaultValue);
+    });
+
+    /*
     UE.commands['toUploadImg'] = {
-      execCommand : function(){
-          console.log("点击了图片==========>");
-      },
-      queryCommandState:function(){
-            console.log("点击图片之后==========>");
-      }
+    execCommand : function(){
+    console.log("点击了图片==========>");
+    },
+    queryCommandState:function(){
+    console.log("点击图片之后==========>");
+    }
     };
     */
 
   }
 
+  contentChange = ()=>{
+    var content = UE.getEditor(this.containerId).getContent()
+    this.onChange(content);
+  }
+
+
+  setDefaultValue = (value)=>{
+    console.log('--->>>value',value,'init:',this.init);
+    if(!value){
+      return ;
+    }
+    if(this.init){
+      return ;
+    }
+    var _this = this;
+    UE.getEditor(this.containerId).setContent(value);
+    this.init = true;
+  }
+
+  onChange =(value)=>{
+    console.log('dd',value);
+    const {onChange} = this.props;
+    onChange && onChange(value);
+  }
+
+
+
   componentWillUnmount(){
     this.init = false;
+    UE.delEditor(this.containerId);
   }
 
   render() {
     let {label} = this.props;
     return (
-      <div id={this.containerId}> </div>
+      <div id={this.containerId} name="content"> </div>
     );
   }
 }

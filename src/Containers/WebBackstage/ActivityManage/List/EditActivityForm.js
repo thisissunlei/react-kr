@@ -129,6 +129,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 提交
 	onSubmit=(values)=>{
+
+		console.log('-->>values',values);
 		// 时间是否正确
 		if(!State.timeIsTrue){
 			Notify.show([{
@@ -254,7 +256,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		}else{
 			Http.request('getActivitySerialNumRepeat',{sort:value}).then(function(response){
 				State.serialNumRepeat = false;
-
 			}).catch(function(err){
 				State.serialNumRepeat = true;
 			});
@@ -315,8 +316,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			_this.compareTime();
 		})
 	}
-
-
 
 	// 时间校验
 	compareTime=()=>{
@@ -426,11 +425,35 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			value: 5
 		}]
 
+
+
+/*
+		return (
+				<form onSubmit={handleSubmit(this.onSubmit)}>
+								<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
+								<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
+					</form>
+		);
+		*/
 		return (
 
 			<div className="new-create-activity">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 
+
+					<KrField name="infoPic"
+						component="newuploadImage"
+						innerstyle={{width:392,height:230,padding:10}}
+						photoSize={'650*365'}
+						pictureFormat={'JPG,PNG,GIF'}
+						pictureMemory={'200'}
+						requestURI = {State.requestURI}
+						label="上传列表详情图"
+						inline={false}
+						defaultValue={State.infoPicDefaultValue}
+						onDeleteImg ={this.deleteInfoPicDefaultValue}
+
+						/>
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
 						<span className="title-text">编辑活动</span>
