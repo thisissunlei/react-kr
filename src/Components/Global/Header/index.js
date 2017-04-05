@@ -9,6 +9,16 @@ import {
 	Button,
 	Message
 } from 'kr-ui';
+import {
+	reduxForm,
+	formValueSelector,
+	initialize,
+	arrayPush,
+	arrayInsert,
+	FieldArray,
+	change
+} from 'redux-form';
+
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import './index.less';
 import {
@@ -24,6 +34,13 @@ import {
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("NotifyModel")
+@observer
 
 class Header extends Component {
 
@@ -61,11 +78,11 @@ class Header extends Component {
 			//消息铃铛显示
 			showMassge:false,
 			params:{
-				
+
 				id:260,
 				customerId:273,
 				orderId:166
-				
+
 			},
 			//合同类型
 			contractType:'',
@@ -171,7 +188,10 @@ class Header extends Component {
             console.log(err);
         });
 	}
+	//重置列别表
+  resettingAll = () =>{
 
+	}
 
 	handleToggle() {
 
@@ -254,6 +274,49 @@ class Header extends Component {
 	}
 
 	showInfo=()=>{
+		const {NotifyModel} = this.props;
+
+		const {customerTransform,appointmentVisit,urgeMoney,infoList} = NotifyModel;
+		customerTransform.setSearchParams({
+				page: 1 ,
+				pageSize: 15,
+				createDateEnd: "",
+				createDateStart:"",
+		});
+		appointmentVisit.setSearchParams({
+			page: 1,
+			pageSize: 15,
+			createDateEnd:"",
+			createDateStart:"",
+			msgCommunity : "",
+		});
+		urgeMoney.setSearchParams({
+			page:1,
+			pageSize:15,
+			endTime:"",
+			startTime:"",
+			communityId:""
+		});
+		infoList.setSearchParams({
+			page:1,
+			pageSize:15,
+			endTime:"",
+			startTime:"",
+			communityId:""
+		});
+		Store.dispatch(change('transferSearchForm','transferDateBegin',""));
+		Store.dispatch(change('transferSearchForm','transferDateEnd',""));
+		Store.dispatch(change('searchFormVisit','visitCreateDateBegin',""));
+		Store.dispatch(change('searchFormVisit','visitCreateDateEnd',""));
+		Store.dispatch(change('searchFormVisit','visitCommunity',""));
+		Store.dispatch(change('searchFormUrge','urgeCreateDateBegin',""));
+		Store.dispatch(change('searchFormUrge','urgeCreateDateEnd',""));
+		Store.dispatch(change('searchFormUrge','urgeCommunity',""));
+		Store.dispatch(change('infoSearchForm','infoCreateDateBegin',""));
+		Store.dispatch(change('infoSearchForm','infoCreateDateEnd',""));
+		Store.dispatch(change('infoSearchForm','infoCommunity',""));
+
+searchFormUrge
 		var {
 			actions,
 			sidebar_nav,
@@ -263,9 +326,12 @@ class Header extends Component {
 		this.setState({
 			openMassage:!this.state.openMassage,
 		})
-		// actions.switchRightBar(!!!right_bar.switch_value);
+
 	}
+
 	onClose=()=>{
+
+		console.log(this.refs.message,"PpPPPPppp");
 		this.setState({
 			openMassage:!this.state.openMassage
 		})
@@ -291,7 +357,7 @@ class Header extends Component {
 	agreementClick = (data) =>{
 		let {contractType,customerId,mainbillId,contractId} = data;
 		this.setState({
-			
+
 			openAgreementDetail : true,
 			contractType : contractType,
 			customerId : customerId,
@@ -323,15 +389,15 @@ class Header extends Component {
 				let {contractType,customerId,contractId,mainbillId} = this.state;
 		        let contractSelect='';
 			      if(contractType == 'INTENTION'){
-                            contractSelect=<Agreement.Admit.Detail 
-						    params={{id:contractId,customerId:customerId,orderId:mainbillId}}
+                            contractSelect=<Agreement.Admit.Detail
+						    						params={{id:contractId,customerId:customerId,orderId:mainbillId}}
                             onCancel={this.agreementDetailClose}
                             eidtBotton = "none"
 						  />
 			           	 }
-                         
+
                          if(contractType == 'ENTER'){
-                            contractSelect=<Agreement.Join.Detail 
+                            contractSelect=<Agreement.Join.Detail
 						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
                          onCancel={this.agreementDetailClose}
                          eidtBotton = "none"
@@ -339,7 +405,7 @@ class Header extends Component {
 			           	 }
 
 			           	  if(contractType == 'ADDRENT'){
-                            contractSelect=<Agreement.Increase.Detail 
+                            contractSelect=<Agreement.Increase.Detail
 						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
                          onCancel={this.agreementDetailClose}
                          eidtBotton = "none"
@@ -348,7 +414,7 @@ class Header extends Component {
 
 
 			           	 if(contractType == 'LESSRENT'){
-                            contractSelect=<Agreement.Reduce.Detail 
+                            contractSelect=<Agreement.Reduce.Detail
 						params={{id:contractId,customerId:customerId,orderId:mainbillId}}
                          onCancel={this.agreementDetailClose}
                          eidtBotton = "none"
@@ -357,7 +423,7 @@ class Header extends Component {
 
 
 			           	 if(contractType == 'QUITRENT'){
-                            contractSelect=<Agreement.Exit.Detail 
+                            contractSelect=<Agreement.Exit.Detail
 						   params={{id:contractId,customerId:customerId,orderId:mainbillId}}
                            onCancel={this.agreementDetailClose}
                            eidtBotton = "none"
@@ -365,11 +431,11 @@ class Header extends Component {
 			           	 }
 
                           if(contractType == 'RENEW'){
-                            contractSelect=<Agreement.Renew.Detail 
+                            contractSelect=<Agreement.Renew.Detail
 						 params={{id:contractId,customerId:customerId,orderId:mainbillId}}
                          onCancel={this.agreementDetailClose}
                          eidtBotton = "none"
-						/>		
+						/>
 			           	 }
 
 			     return contractSelect
@@ -503,10 +569,12 @@ class Header extends Component {
 					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
 
 					<MessageManagement
+						ref = "message"
 						onCancel = {this.onClose}
 						customerClick = {this.customerClick}
 						renovateRedDrop = {this.renovateRedDrop}
 						agreementClick = {this.agreementClick}
+						resettingAll = {this.resettingAll}
 					/>
 				</Drawer>
 				//客户详情
@@ -518,7 +586,7 @@ class Header extends Component {
 		                 companyName={customerName}
 		                 listId={msgExtra}
 						onCancel={this.lookCustomerListClose}
-		                 
+
 
 					/>
 				</Drawer>

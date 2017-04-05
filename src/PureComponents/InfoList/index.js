@@ -31,6 +31,13 @@ import {
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import SearchForm from "./SearchForm";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("NotifyModel")
+@observer
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -63,7 +70,11 @@ export default class AppointmentVisit extends Component {
 	}
 	//起始日期
 	onStartChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+		const {NotifyModel} = this.props;
+
+		const {infoList} = NotifyModel;
+		const {searchParams} = infoList;
+		let {newStartDate,newEndDate}=this.state;
         let start=value ||newStartDate;
         let end=newEndDate;
         this.setState({
@@ -74,21 +85,23 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
+
+				infoList.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					endTime : newEndDate === searchParams.endTime ? end : newEndDate,
 					startTime : newStartDate === searchParams.startTime ? start : newStartDate,
 					communityId : searchParams.communityId || "",
-					other:!this.state.searchParams.other
-				}
-			})
+				});
 	    }
 	}
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+		const {NotifyModel} = this.props;
+
+		const {infoList} = NotifyModel;
+		const {searchParams} = infoList;
+		let {newStartDate,newEndDate}=this.state;
         let start=newStartDate;
         let end=value || newEndDate;
         this.setState({
@@ -100,34 +113,33 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
+				infoList.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					endTime:newEndDate === searchParams.endTime ? end : newEndDate,
 					startTime:newStartDate === searchParams.startTime ? start : newStartDate,
 					communityId : searchParams.communityId || "",
-					other:!this.state.searchParams.other
-				}
-			});
+				});
 	    }
 	}
 	//选择社区
 	communityChange = (value) =>{
+		const {NotifyModel} = this.props;
+
+		const {infoList} = NotifyModel;
+		const {searchParams} = infoList;
 		let data = !value ? {} : value;
 		if(!data.id){
 			data.id=""
 		}
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				endTime:this.state.searchParams.endTime ||'',
-				startTime:this.state.searchParams.startTime || '',
-				communityId:data.id,
-				other:!this.state.searchParams.other
-			}
-		})
+
+		infoList.setSearchParams({
+			page: 1,
+			pageSize: 15,
+			endTime:searchParams.endTime ||'',
+			startTime:searchParams.startTime || '',
+			communityId:data.id,
+		});
 	}
 	//信息被点击
 	columnClick = (value) => {
@@ -150,18 +162,18 @@ export default class AppointmentVisit extends Component {
 
 	//刷新列表
 	renovateList = () =>{
-		let _this = this;
-		this.setState({
-			searchParams: {
-				page: _this.state.newPage ,
-				pageSize: 15,
-				endTime:_this.state.searchParams.endTime || "",
-				startTime:_this.state.searchParams.startTime || "",
-				communityId:this.state.searchParams.communityId,
-				other:!this.state.searchParams.other
-			}
-		},function(){
+		const {NotifyModel} = this.props;
 
+		const {infoList} = NotifyModel;
+		const {searchParams} = infoList;
+
+
+		infoList.setSearchParams({
+			page: this.state.newPage ,
+			pageSize: 15,
+			endTime:searchParams.endTime || "",
+			startTime:searchParams.startTime || "",
+			communityId:searchParams.communityId,
 		});
 	}
 
@@ -184,6 +196,9 @@ export default class AppointmentVisit extends Component {
 	render(){
 		let _this = this;
 		let {searchParams} = this.state;
+		const {NotifyModel} = this.props;
+
+		const {infoList} = NotifyModel;
 
 		return (
 			<div className="appointment-visit" style = {{paddingBottom:48}}>
@@ -201,7 +216,7 @@ export default class AppointmentVisit extends Component {
 							}
 						}
 						displayCheckbox={false}
-						ajaxParams={searchParams}
+						ajaxParams={infoList.searchParams}
 						ajaxFieldListName="items"
 						onLoaded = {this.showPage}
 						ajaxUrlName='getInfoList'

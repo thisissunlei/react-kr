@@ -31,18 +31,18 @@ import {
 
 } from 'kr-ui';
 import SearchForm from "./SearchForm";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("NotifyModel")
+@observer
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				endTime:'',
-				startTime:'',
-				communityId:'',
-				other:false
-			},
+
 			newStartDate:'',
 			newEndDate:'',
 			newPage :1,
@@ -63,7 +63,11 @@ export default class AppointmentVisit extends Component {
 	}
 	//起始日期
 	onStartChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+		const {NotifyModel} = this.props;
+
+		const {urgeMoney} = NotifyModel;
+		const {searchParams} = urgeMoney;
+		let {newStartDate,newEndDate}=this.state;
         let start=value ||newStartDate;
         let end=newEndDate;
         this.setState({
@@ -74,60 +78,60 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
-					page: 1,
-					pageSize: 15,
-					endTime : newEndDate === searchParams.endTime ? end : newEndDate,
-					startTime : newStartDate === searchParams.startTime ? start : newStartDate,
-					communityId : searchParams.communityId || "",
-					other:!this.state.searchParams.other
-				}
-			})
-	    }
-	}
-	//结束日期
-	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
-        let start=newStartDate;
-        let end=value || newEndDate;
-        this.setState({
-        		newStartDate : start,
-        		newEndDate : end
-        	});
-        if( !!start && !!end && start > end){
-
-	        Message.error('开始时间不能大于结束时间');
-	        return ;
-	    }else{
-	    	this.setState({
-				searchParams: {
+				urgeMoney.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					endTime:newEndDate === searchParams.endTime ? end : newEndDate,
 					startTime:newStartDate === searchParams.startTime ? start : newStartDate,
 					communityId : searchParams.communityId || "",
-					other:!this.state.searchParams.other
-				}
-			});
+				});
+	    }
+	}
+	//结束日期
+	onEndChange = (value) =>{
+		const {NotifyModel} = this.props;
+
+		const {urgeMoney} = NotifyModel;
+		const {searchParams} = urgeMoney;
+		let {newStartDate,newEndDate}=this.state;
+    let start=newStartDate;
+    let end=value || newEndDate;
+    this.setState({
+    		newStartDate : start,
+    		newEndDate : end
+    	});
+	    if( !!start && !!end && start > end){
+
+	      Message.error('开始时间不能大于结束时间');
+	      return ;
+	    }else{
+				urgeMoney.setSearchParams({
+					page: 1,
+					pageSize: 15,
+					endTime:newEndDate === searchParams.endTime ? end : newEndDate,
+					startTime:newStartDate === searchParams.startTime ? start : newStartDate,
+					communityId : searchParams.communityId || "",
+				});
 	    }
 	}
 	//选择社区
 	communityChange = (value) =>{
+		const {NotifyModel} = this.props;
+
+		const {urgeMoney} = NotifyModel;
+		const {searchParams} = urgeMoney;
 		let data = !value ? {} : value;
 		if(!data.id){
 			data.id=""
 		}
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				endTime:this.state.searchParams.endTime ||'',
-				startTime:this.state.searchParams.startTime || '',
-				communityId:data.id,
-				other:!this.state.searchParams.other
-			}
-		})
+
+		urgeMoney.setSearchParams({
+			page: 1,
+			pageSize: 15,
+			endTime:searchParams.endTime ||'',
+			startTime:searchParams.startTime || '',
+			communityId:data.id,
+		});
 	}
 	//信息被点击
 	columnClick = (value) => {
@@ -150,18 +154,18 @@ export default class AppointmentVisit extends Component {
 
 	//刷新列表
 	renovateList = () =>{
-		let _this = this;
-		this.setState({
-			searchParams: {
-				page: _this.state.newPage ,
-				pageSize: 15,
-				endTime:_this.state.searchParams.endTime || "",
-				startTime:_this.state.searchParams.startTime || "",
-				communityId:this.state.searchParams.communityId,
-				other:!this.state.searchParams.other
-			}
-		},function(){
+		const {NotifyModel} = this.props;
 
+		const {urgeMoney} = NotifyModel;
+		const {searchParams} = urgeMoney;
+		let _this = this;
+
+		urgeMoney.setSearchParams({
+			page: _this.state.newPage ,
+			pageSize: 15,
+			endTime:searchParams.endTime || "",
+			startTime:searchParams.startTime || "",
+			communityId:searchParams.communityId,
 		});
 	}
 
@@ -177,13 +181,15 @@ export default class AppointmentVisit extends Component {
 		tabNum && tabNum();
 	}
 	agreementClick = (data) =>{
-		
+
 		const {agreementClick} = this.props;
 		agreementClick && agreementClick(data);
 	}
 	render(){
 		let _this = this;
-		let {searchParams} = this.state;
+		const {NotifyModel} = this.props;
+
+		const {urgeMoney} = NotifyModel;
 		let detailDemo = [
 					  {id:260,customerId:273,orderId:166,type:"11"},
 					  {id:260,customerId:273,orderId:166,type:"22"},
@@ -206,7 +212,7 @@ export default class AppointmentVisit extends Component {
 							}
 						}
 						displayCheckbox={false}
-						ajaxParams={searchParams}
+						ajaxParams={urgeMoney.searchParams}
 						ajaxFieldListName="items"
 						onLoaded = {this.showPage}
 						ajaxUrlName='getAlertList'
@@ -225,9 +231,9 @@ export default class AppointmentVisit extends Component {
 											let detail = value[1];
 											let color="#999999";
 											let costomerColor="#20568C";
-                                            let agreementType = {INTENTION:"承租意向书",ENTER:"入驻协议书",ADDRENT:"增租协议书",LESSRENT:"减租协议书",QUITRENT:"退租协议书",RENEW:"续租协议书"}
-                                            let comtent = value[2].split("(")[0];
-                                            let time = value[2].split("(")[1];
+                      let agreementType = {INTENTION:"承租意向书",ENTER:"入驻协议书",ADDRENT:"增租协议书",LESSRENT:"减租协议书",QUITRENT:"退租协议书",RENEW:"续租协议书"}
+                      let comtent = value[2].split("(")[0];
+                      let time = value[2].split("(")[1];
 											if(itemData.msgStatu == "UNREAD"){
 												color="#333333";
 												costomerColor="#499DF1";
@@ -235,7 +241,7 @@ export default class AppointmentVisit extends Component {
 											console.log(detail,"gggggggg")
 											detail = eval(detail);
 											let htmlAgreement = detail.map(function(item,index){
-															
+
 												return (<span key = {index} className="customer" onClick = {_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{agreementType[item.contractType]+","}</span>)
 											})
 											return (
@@ -261,7 +267,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-												<div className="appointment-visit-time" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+												<div className="appointment-visit-time-urge" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 											);
 										}
 									}
@@ -279,7 +285,7 @@ export default class AppointmentVisit extends Component {
 												color="#499DF1";
 											}
 											return (
-												<div className="appointment-visit-read" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
+												<div className="appointment-visit-read-urge" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
 											);
 										}
 									}
@@ -291,7 +297,7 @@ export default class AppointmentVisit extends Component {
 						</TableBody>
 						<TableFooter ></TableFooter>
 
-							
+
 				</Table>
 			</div>
 			);

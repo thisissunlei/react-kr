@@ -69,8 +69,7 @@ class SearchForm extends Component {
 		} = this.props;
 		onEndChange && onEndChange(value);
      }
-
-
+		 
 	render() {
 
 		let {todayDate}=this.props;
@@ -85,7 +84,7 @@ class SearchForm extends Component {
 
 		return (
 
-			<form name="searchForm" className="appointment-visit-form" style={{height:50 }}>
+			<form name="transferSearchForm" className="appointment-visit-form" style={{height:50 }}>
 
 				<div className="searchForm-col" style={{marginTop:"0px"}}>
 					<KrField grid={1} label="" name="transferDateBegin" style={{width:"220px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
@@ -109,5 +108,5 @@ class SearchForm extends Component {
 }
 
 export default reduxForm({
-	form: 'SearchForm'
+	form: 'transferSearchForm'
 })(SearchForm);
