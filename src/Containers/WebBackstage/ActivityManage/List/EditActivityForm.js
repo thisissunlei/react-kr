@@ -53,8 +53,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			}else{
 				State.isStick = false;
 			}
-			var startDates = (new Date((DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10))).getTime();
-			var endDates   = (new Date((DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10))).getTime();
+			var startDates = (DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10);
+			var endDates   = (DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10);
 			var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss");
 			var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss");
 			var detailStartTime = startTimes.substr(11);
@@ -113,7 +113,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 				timeEnd : detailEndTime
 			},function(){
 				Store.dispatch(initialize('EditActivityForm', response));
-				// console.log("startDates",startDates,"detailStartTime",detailStartTime,"endDates",endDates,"detailEndTime",detailEndTime)
 				Store.dispatch(change('EditActivityForm','startDate',startDates));
 				Store.dispatch(change('EditActivityForm','startTime',detailStartTime));
 				Store.dispatch(change('EditActivityForm','stopDate',endDates));
@@ -153,8 +152,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 
 		values.publishType = this.publishType ;
 
-		values.beginDate = DateFormat(values.startDate,"yyyy-mm-dd HH:MM:ss");
-		values.endDate = DateFormat(values.stopDate,"yyyy-mm-dd HH:MM:ss");
+		values.beginDate = values.startDate+" "+values.startTime+":00";
+		values.endDate = values.stopDate+" "+values.endTime+":00";
 
 		if(values.top == 1){
 			values.sort = '';
@@ -217,21 +216,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		State.isStick = false;
 	}
 
-	// 复选框
-	chooseName=(e)=>{
-		if(e.target.checked){
-			State.choseName = true;
-		}else{
-			State.choseName = false;
-		}
-	}
-	choosePhone=(e)=>{
-		if(e.target.checked){
-			State.chosePhone = true;
-		}else{
-			State.chosePhone = false;
-		}
-	}
+	
+	
 	chooseCompany=(e)=>{
 		if(e.target.checked){
 			State.choseCompany = true;
@@ -256,7 +242,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 城市组件选到三级
 	changeCity=(thirdId,secondId,city)=>{
-		// console.log("secondId",secondId,"thirdId",thirdId);
 		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
 		Store.dispatch(change('EditActivityForm', 'cityId', secondId));
 		Store.dispatch(change('EditActivityForm', 'countyId', thirdId));
@@ -264,7 +249,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
-		// console.log("value",value);
 		if(!value){
 			State.serialNumRepeat = false;
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
@@ -285,7 +269,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		var beginDate = new Date(value);
 		beginDate = beginDate.getTime();
 
-		// Store.dispatch(change('EditActivityForm','startDate',startDates));
+		Store.dispatch(change('EditActivityForm','startDate',value.substr(0,10)));
 
 		_this.setState({
 			beginDate:beginDate
@@ -300,6 +284,9 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		let _this =this;
 		var endDate = new Date(value);
 		endDate = endDate.getTime();
+
+		Store.dispatch(change('EditActivityForm','stopDate',value.substr(0,10)));
+
 		_this.setState({
 			endDate:endDate
 		},function(){
@@ -659,13 +646,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
 
-												<input type="checkbox"  onChange={this.chooseName} checked={State.choseName} style={{marginRight:10}}/>
+												<input type="checkbox"   checked='checked' style={{marginRight:10}} readOnly/>
 												<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
 
-												<input type="checkbox"  onChange={this.choosePhone} checked={State.chosePhone} style={{marginRight:10}}/>
+												<input type="checkbox" checked='checked' style={{marginRight:10}} readOnly/>
 												<span style={{fontSize:14,color:"#333333"}} >电话</span>
 											</ListGroupItem>
 
@@ -767,7 +754,6 @@ const validate = values => {
 		}
 	}
 	if(values.maxPerson){
-		// console.log("values.maxPerson",values.maxPerson);
 		var personNum = (values.maxPerson+" ").replace(/(^\s*)|(\s*$)/g, "");
 
 		if(!numContr.test(personNum)){

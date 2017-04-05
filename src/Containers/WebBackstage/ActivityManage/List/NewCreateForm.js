@@ -66,7 +66,6 @@ import State from './State';
 	}
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values",values);
 		// 时间是否正确
 		if(!State.timeIsTrue){
 			Notify.show([{
@@ -161,21 +160,7 @@ import State from './State';
 		// State.serialNumRepeat = false;
 	}
 
-	// 复选框
-	chooseName=(e)=>{
-		if(e.target.checked){
-			State.choseName = true;
-		}else{
-			State.choseName = false;
-		}
-	}
-	choosePhone=(e)=>{
-		if(e.target.checked){
-			State.chosePhone = true;
-		}else{
-			State.chosePhone = false;
-		}
-	}
+	
 	chooseCompany=(e)=>{
 		if(e.target.checked){
 
@@ -208,7 +193,6 @@ import State from './State';
 	}
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
-		// console.log("value",value);
 		if(!value){
 			State.serialNumRepeat = false;
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
@@ -325,7 +309,6 @@ import State from './State';
 
 
 	render(){
-		// console.log("State.serialNumRepeat",State.serialNumRepeat);
 		const { handleSubmit} = this.props;
 
 		// 对应功能选项
@@ -549,13 +532,13 @@ import State from './State';
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
 
-												<input type="checkbox"  onChange={this.chooseName} style={{marginRight:10}}/>
+												<input type="checkbox"  style={{marginRight:10}} checked="checked" readOnly/>
 												<span style={{fontSize:14,color:"#333333"}} >姓名</span>
 
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
-
-												<input type="checkbox"  onChange={this.choosePhone} style={{marginRight:10}}/>
+ 
+												<input type="checkbox"  style={{marginRight:10}} checked="checked" readOnly/>
 												<span style={{fontSize:14,color:"#333333"}} >电话</span>
 											</ListGroupItem>
 
@@ -609,11 +592,9 @@ const validate = values => {
 	const errors = {}
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let numContr =/^[1-9]\d{0,4}$/;
-	// console.log("values.contactPhone",values.contactPhone);
 	if (values.contactPhone && !phone.test(values.contactPhone) ) {
       errors.contactPhone = '请输入正确电话号';
   	}
-	// console.log("values校验",values);
 
 	if(values.top==1){
 		if(!values.appCoverPic){
