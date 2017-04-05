@@ -8060,10 +8060,10 @@ UE.Editor.defaultOptions = function(editor){
             try{
                 me.options.imageUrl && me.setOpt('serverUrl', me.options.imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2'));
 
+                    console.log('--->configUrl',me);
                 var configUrl = me.getActionUrl('config'),
                     isJsonp = utils.isCrossDomainUrl(configUrl);
 
-                    console.log('--->configUrl',configUrl);
                 /* 发出ajax请求 */
                 me._serverConfigLoaded = false;
 
