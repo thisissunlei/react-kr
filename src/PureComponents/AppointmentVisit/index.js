@@ -31,18 +31,21 @@ import {
 } from 'kr-ui';
 import { Http } from "kr/Utils";
 import SearchForm from "./SearchForm";
+
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("NotifyModel")
+@observer
+
+
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:'',
-				msgCommunity:'',
-				other:false
-			},
+
 			newStartDate:'',
 			newEndDate:'',
 			newPage :1,
@@ -62,7 +65,13 @@ export default class AppointmentVisit extends Component {
 	}
 	//起始日期
 	onStartChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+		const {NotifyModel} = this.props;
+
+		const {appointmentVisit} = NotifyModel;
+		const{searchParams} = appointmentVisit;
+
+
+		let {newStartDate,newEndDate}=this.state;
         let start=value ||newStartDate;
         let end=newEndDate;
         this.setState({
@@ -73,21 +82,25 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
+				appointmentVisit.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
 					msgCommunity : searchParams.msgCommunity || "",
-					other:!this.state.searchParams.other
-				}
-			})
+				});
 	    }
 	}
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+
+		const {NotifyModel} = this.props;
+
+		const {appointmentVisit} = NotifyModel;
+		const{searchParams} = appointmentVisit;
+
+
+		let {newStartDate,newEndDate}=this.state;
         let start=newStartDate;
         let end=value || newEndDate;
         this.setState({
@@ -99,34 +112,33 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
+				appointmentVisit.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
 					msgCommunity : searchParams.msgCommunity || "",
-					other:!this.state.searchParams.other
-				}
-			});
+				});
 	    }
 	}
 	//选择社区
 	communityChange = (value) =>{
+		const {NotifyModel} = this.props;
+
+		const {appointmentVisit} = NotifyModel;
+		const{searchParams} = appointmentVisit;
+
 		let data = !value ? {} : value;
 		if(!data.id){
 			data.id=""
 		}
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:this.state.searchParams.createDateEnd || '',
-				createDateStart:this.state.searchParams.createDateStart || '',
-				msgCommunity:data.id,
-				other:!this.state.searchParams.other
-			}
-		})
+		appointmentVisit.setSearchParams({
+			page: 1,
+			pageSize: 15,
+			createDateEnd:searchParams.createDateEnd || '',
+			createDateStart:searchParams.createDateStart || '',
+			msgCommunity:data.id,
+		});
 	}
 	//信息被点击
 	columnClick = (value) => {
@@ -149,16 +161,17 @@ export default class AppointmentVisit extends Component {
 
 	//刷新列表
 	renovateList = (page) =>{
+		const {NotifyModel} = this.props;
+
+		const {appointmentVisit} = NotifyModel;
+		const{searchParams} = appointmentVisit;
 		let _this = this;
-		this.setState({
-			searchParams: {
-				page: _this.state.newPage ,
-				pageSize: 15,
-				createDateEnd:_this.state.searchParams.createDateEnd || "",
-				createDateStart:_this.state.searchParams.createDateStart || "",
-				msgCommunity:_this.state.searchParams.msgCommunity || "",
-				other:!this.state.searchParams.other
-			}
+		appointmentVisit.setSearchParams({
+			page: _this.state.newPage ,
+			pageSize: 15,
+			createDateEnd:searchParams.createDateEnd || "",
+			createDateStart:searchParams.createDateStart || "",
+			msgCommunity:searchParams.msgCommunity || "",
 		});
 	}
 
@@ -176,6 +189,8 @@ export default class AppointmentVisit extends Component {
 
 	render(){
 		let {searchParams} = this.state;
+		const {NotifyModel} = this.props;
+		const {appointmentVisit} = NotifyModel;
 
 		return (
 			<div className="appointment-visit" style = {{paddingBottom:48}}>
@@ -193,7 +208,7 @@ export default class AppointmentVisit extends Component {
 							}
 						}
 						displayCheckbox={false}
-						ajaxParams={searchParams}
+						ajaxParams={appointmentVisit.searchParams}
 						ajaxFieldListName="items"
 						onLoaded = {this.showPage}
 						ajaxUrlName='messageAppointmentVisit'

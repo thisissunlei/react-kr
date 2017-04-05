@@ -30,24 +30,24 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
-@inject("CommunityDetailModel")
+
+@inject("NotifyModel")
 @observer
 
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:'',
-				other:false
-			},
+
 			newStartDate:'',
 			newEndDate:'',
 			newPage :1,
 		}
+
+
+
+
+
 	}
 
 	//全部标为以读点击事件
@@ -65,7 +65,13 @@ export default class AppointmentVisit extends Component {
 
 	//起始日期
 	onStartChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+
+
+			const {NotifyModel} = this.props;
+
+			const {customerTransform} = NotifyModel;
+			const {searchParams} = customerTransform;
+		let {newStartDate,newEndDate}=this.state;
         let start=value ||newStartDate;
         let end=newEndDate;
         this.setState({
@@ -76,22 +82,25 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-						searchParams: {
-							page: 1,
-							pageSize: 15,
-							createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
-							createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-							other:!this.state.searchParams.other
-						}
-				})
+
+				customerTransform.setSearchParams({
+					page: 1,
+					pageSize: 15,
+					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+				});
 	    }
 
 	}
 
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate} = this.state;
+		const {NotifyModel} = this.props;
+
+		const {customerTransform} = NotifyModel;
+		const {searchParams} = customerTransform;
+
+		let {newStartDate,newEndDate} = this.state;
         let start = newStartDate;
         let end = value || newEndDate;
         this.setState({
@@ -103,15 +112,13 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
+
+				customerTransform.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-					other:!this.state.searchParams.other
-				}
-			});
+				});
 	    }
 
 	}
@@ -137,15 +144,19 @@ export default class AppointmentVisit extends Component {
 	//刷新列表
 	renovateList = () =>{
 		let _this=this;
-		this.setState({
-			searchParams: {
-				page: _this.state.newPage ,
-				pageSize: 15,
-				createDateEnd:_this.state.searchParams.createDateEnd || "",
-				createDateStart:_this.state.searchParams.createDateStart || "",
-				other:!_this.state.searchParams.other
-			}
+		const {NotifyModel} = this.props;
+
+		const {customerTransform} = NotifyModel;
+		const {searchParams} = customerTransform;
+
+		customerTransform.setSearchParams({
+			page: _this.state.newPage ,
+			pageSize: 15,
+			createDateEnd:searchParams.createDateEnd || "",
+			createDateStart:searchParams.createDateStart || "",
 		});
+
+
 	}
 
 
@@ -171,7 +182,12 @@ export default class AppointmentVisit extends Component {
 		tabNum && tabNum();
 	}
 	render(){
-		let {searchParams} = this.state;
+
+		const {NotifyModel} = this.props;
+
+		const {customerTransform} = NotifyModel;
+
+
 		let _this=this;
 
 		return (
@@ -190,7 +206,7 @@ export default class AppointmentVisit extends Component {
 							}
 						}
 						displayCheckbox={false}
-						ajaxParams={searchParams}
+						ajaxParams={customerTransform.searchParams}
 						ajaxFieldListName="items"
 						ajaxUrlName='messageRemindCustomerSwitching'
 						onLoaded = {this.showPage}

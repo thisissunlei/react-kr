@@ -49,7 +49,7 @@ class MessageManagement extends Component{
 				CUSTOMER_TRANSFER_NUM:0,
 				//预约参观 未读数
 				ORDER_VISIT_NUM:0,
-				
+
 				//客户id
 				redNum:[],
 		}
@@ -104,6 +104,11 @@ class MessageManagement extends Component{
 		const {agreementClick} = this.props;
 		agreementClick && agreementClick(data);
 	}
+	//重置消息列表
+
+	resettingAll = () =>{
+		this.refs.transfer.resettingList();
+	}
 	//tab title 的权限
 	tabContent = () => {
 		let {
@@ -124,11 +129,12 @@ class MessageManagement extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="客户转移" 
-					style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}} 
-					
+				<Tab label="客户转移"
+					style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}
+
 				>
 						<TransferCustomer
+							ref = "transfer"
 							customerClick = {this.customerClick}
 							tabNum = {this.tabNum}
 							renovateRedDrop = {this.renovateRedDrop}
@@ -186,7 +192,7 @@ class MessageManagement extends Component{
 		}else{
 			showTab.push(
 				<Tab label="客户到期" style = {{color:"#666",borderBottom:"solid 1px rgb(238, 238, 238)"}}>
-					<InfoList 
+					<InfoList
 						tabNum = {this.tabNum}
 						renovateRedDrop = {this.renovateRedDrop}
 					/>
@@ -211,7 +217,7 @@ class MessageManagement extends Component{
 		renovateRedDrop && renovateRedDrop();
 	}
 	createRedNum = () => {
-		
+
 		let {redNum} = this.state;
 
 		console.log(redNum,"?????")
@@ -236,7 +242,7 @@ class MessageManagement extends Component{
 		let noWidth=4*108.33;
 		let {rightDetails,unreadDetails}=this.state;
 		let tabContent=this.tabContent();
-		
+
 		return(
 		    <div className="m-lookCustomerList" style={{paddingLeft:8}}>
 		      	<div className="title"  style={{top: 41,position: "absolute",right: 47}}>
@@ -261,7 +267,7 @@ class MessageManagement extends Component{
 
 				</Tabs>
 			    <div className="no-table-click" style={{width:tabContent[1].length*108.33}}></div>
-				 
+
 				{this.createRedNum()}
 
 
