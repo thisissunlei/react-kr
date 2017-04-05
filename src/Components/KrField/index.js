@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	Field,
 	reduxForm
-} from 'kr/Utils/ReduxForm';
+} from 'redux-form';
 
 import Notify from '../Notify';
 
@@ -20,6 +20,9 @@ import SearchListComponent from './SearchListComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
+import SearchBelongCityComponent from './SearchBelongCityComponent';
+import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
+import SearchSourceAddComponent from './SearchSourceAddComponent';
 
 import SearchBelongCommunity from './SearchBelongCommunity';
 import SearchCompanyName from "./SearchCompanyName";
@@ -32,6 +35,9 @@ import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
+import UploadImageListComponent from './UploadImageListComponent';
+import SelectTimeComponent from './SelectTimeComponent';
+
 
 export default class KrField extends React.Component {
 
@@ -127,11 +133,25 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'uploadImageList') {
+			return (
+				<Field {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+		
+
 		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
+
+		if (component === 'selectTime') {
+			return (
+				<Field {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 		if (component === 'SearchList') {
 			return (
 				<Field {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
@@ -144,7 +164,7 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
-
+       
        if (component === 'searchLeader') {
 			return (
 
@@ -173,6 +193,25 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
 			);
 		}
+
+		if (component === 'searchCity') {
+			return (
+				<Field {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'searchSource') {
+			return (
+				<Field {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+        
+        if (component === 'searchSourceAdd') {
+			return (
+				<Field {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 
 		if (component === 'companyName') {
 			return (

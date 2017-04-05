@@ -69,6 +69,7 @@ export default class TreeComponent extends React.Component {
 		}
 
 	}
+	// other
 	imitateInputClick=(value,listId)=>{
 			let {input}=this.props;
 			if(typeof(value)=="string"){
@@ -206,8 +207,6 @@ export default class TreeComponent extends React.Component {
 							{this.uiList4Ele()}
 						</div>}
 					</div>}
-
-				{/*<ProjectType data={treeAll} num={true} treeClose={this.imitateInputClick} />*/}
 
 				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			 </div>
