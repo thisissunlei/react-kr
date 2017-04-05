@@ -143,7 +143,7 @@ export default class List extends Component {
 			className = 'none';
 		}
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list">
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 					<div className={className} onClick={this.closeNavs}></div>
 
 								<Title value="活动列表 "/>
@@ -152,7 +152,7 @@ export default class List extends Component {
 										<Button label="新建活动"  onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
 										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}}/>
+										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
 									</form>
 									<Table
 										className="member-list-table"

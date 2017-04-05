@@ -17,7 +17,12 @@ import {
 	Message,
 } from 'kr-ui';
 import dateFormat from 'dateformat';
-import $ from 'jquery'
+import $ from 'jquery';
+import {
+	observer
+} from 'mobx-react';
+import State from './State';
+@observer
 class AdvanceSearchDateForm extends Component{
 	constructor(props, context) {
 		super(props, context);
@@ -72,6 +77,17 @@ class NewCreateForm extends Component{
 		}
 	}
 	componentDidMount() {
+		State.searchParams = {
+			beginDate:'',
+			cityId:'',
+			countyId: '',
+			endDate:'',
+			name:'',
+			page: 1,
+			pageSize: 15,
+			type:'',
+			time:''
+		}
 	}
 	 onSubmit=(values)=>{
 		let {content,filter} = this.props;
