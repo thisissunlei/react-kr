@@ -441,7 +441,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 
 
-					<KrField name="infoPic"
+					{/*<KrField name="infoPic"
 						component="newuploadImage"
 						innerstyle={{width:392,height:230,padding:10}}
 						photoSize={'650*365'}
@@ -453,7 +453,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 						defaultValue={State.infoPicDefaultValue}
 						onDeleteImg ={this.deleteInfoPicDefaultValue}
 
-						/>
+						/>*/}
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
 						<span className="title-text">编辑活动</span>
