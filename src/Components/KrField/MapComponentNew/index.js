@@ -4,7 +4,10 @@ import WrapComponent from '../WrapComponent';
 import './index.less';
 export default class MapComponentNew extends Component {
 	static propTypes = {
-		className: React.PropTypes.string
+		className: React.PropTypes.string,
+		placeholder: React.PropTypes.string,
+		style : React.PropTypes.object,
+		mapStyle : React.PropTypes.object,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -26,32 +29,35 @@ export default class MapComponentNew extends Component {
 		if(!this.state.dragendMarker &&!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint){
 				this.setMarker(nextProps.initailPoint);
 		}
+
 		//回填具体地址
 		if(this.props.defaultValue){
 			this.refs.mapInput.defaultValue = nextProps.defaultValue;
 		}
 		//经纬度
-		if(nextProps.defaultPoint){
+		var {defaultPoint} = nextProps;
+		if(Array.isArray(defaultPoint)){
 			this.setState({
-				pointLng : nextProps.defaultPoint[0],
-				pointLat : nextProps.defaultPoint[1],
+				pointLng : defaultPoint[0],
+				pointLat : defaultPoint[1],
 			})
 		}
 	}
 	componentDidMount() {
+		let _this = this;
 		// 编辑时input回显
 		if(this.props.defaultValue){
 			this.refs.mapInput.defaultValue = this.props.defaultValue;
 		}
 		// 编辑时地图定位回显
-		if(this.props.defaultPoint){
+		const {defaultPoint}=this.props;
+		if(Array.isArray(defaultPoint)){
 			this.setState({
-				pointLng : this.props.defaultPoint[0],
-				pointLat : this.props.defaultPoint[1],
+				pointLng : defaultPoint[0],
+				pointLat : defaultPoint[1],
 			})
 		}
 		// 百度地图API功能
-		let _this = this;
 		_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 		// 对地图进行初始化
 		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);
@@ -73,7 +79,8 @@ export default class MapComponentNew extends Component {
 	}
 	// 输入文字
 	inputLocation=()=>{
-		let _this = this;
+
+		var _this = this;
 		var inputValue = this.refs.mapInput.value;
 		this.setState({
 			detailSearch : inputValue
@@ -81,9 +88,10 @@ export default class MapComponentNew extends Component {
 			if(!inputValue){
 				let {initailPoint} =_this.props;
 				_this.setMarker(initailPoint);
-			}else{
-				_this.setMarker(inputValue);
+				return;
 			}
+			_this.setMarker(inputValue);
+
 		})			 		
 	}
 	onChange=()=>{
@@ -92,6 +100,7 @@ export default class MapComponentNew extends Component {
 	}
 	// 搜索定位
 	setMarker=(searchValue)=>{
+
 		let _this =this;
 		_this.map.clearOverlays();
 		_this.setState({
@@ -168,30 +177,32 @@ export default class MapComponentNew extends Component {
 			});
 		})
 	}
+
 	render(){
-		let {placeholder,style,mapStyle,defaultValue,...other} = this.props;
+
+		let {placeholder,style,mapStyle} = this.props;
 		let {showMap} =this.state;
-		var newObj = {};
-		if(this.state.showMap){
-			newObj.display = "block";
-			newObj.zIndex = 10;
-			newObj.position = "absolute";
-			newObj.right = 0;
-		}else{
-			newObj.display = "none";
+		var newObj = {
+			zIndex:10,
+			position:'absolute',
+			right:0,
+			newObj.display:'block'
+		};
+		if(!this.state.showMap){
+			newObj.display = 'none';
 		}
 		var mapInnerStyle=Object.assign({},mapStyle,newObj);
 		var inputProps={
-			type:"text" ,
-			ref:"mapInput",
+			type:'text' ,
+			ref:'mapInput',
 			placeholder:placeholder, 
-			style:{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box",paddingRight:30},
+			style:{width:'100%',height:'100%',paddingLeft:10,boxSizing:'border-box',paddingRight:30},
 			onChange:this.inputLocation,
 			 
 		} 
 		var iconProps ={
 			src:require('./images/location.svg'),
-			className:"ui-map-img",
+			className:'ui-map-img',
 			onClick:this.showMap,
 		}
 		return(
