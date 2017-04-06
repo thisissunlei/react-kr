@@ -29,6 +29,9 @@ export default class SelectTimeComponent extends React.Component{
 	componentDidMount() {
 		
 	}
+	componentWillUnmount(){
+		console.log("componentWillUnmount()=====>componentWillUnmount()")
+	}
 
 	//input框被点击
 	 inputClick = (value) => {

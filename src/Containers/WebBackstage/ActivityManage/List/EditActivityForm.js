@@ -613,7 +613,7 @@ const validate = values => {
 		}
 	}
 	if(!values.maxPerson){
-		errors.maxPerson = '人数限制为必填项';
+		errors.maxPerson = '人数限制必填，为五位以内正整数';
 	}else if(values.maxPerson){
 		var personNum = (values.maxPerson+'').replace(/(^\s*)|(\s*$)/g, "");
 		if(!numContr.test(personNum)){
