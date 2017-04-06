@@ -241,7 +241,7 @@ import dateFormat from 'dateformat';
 
 							<div className="photo-box activity-content">
 								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs" >
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs" style={{margin:"30px 0 0 38px"}}>
 									{ReactHtmlParser(State.detailContent)}
 								</div>
 							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
@@ -297,7 +297,7 @@ import dateFormat from 'dateformat';
 							<span>报名情况</span>
 						</div>
 						<div className={State.HeightAuto?'auto':'stationList'}>
-							<Table displayCheckbox={false}>
+							<Table displayCheckbox={false} style={{margin:"58px 0 0 38px"}}>
 								<TableHeader>
 									{
 										State.actField.items.length && State.actField.actEnroll && State.actField.actEnroll.map((item,index)=>{
@@ -313,7 +313,7 @@ import dateFormat from 'dateformat';
 									return (
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
-											{list.phone && <TableRowColumn>{item.phone}</TableRowColumn>}
+											{list.phone && <TableRowColumn style={{width:180}}>{item.phone}</TableRowColumn>}
 											{list.company && <TableRowColumn>{item.company}</TableRowColumn>}
 											{list.job && <TableRowColumn>{item.job}</TableRowColumn>}
 											{list.address && <TableRowColumn>{item.cityName}</TableRowColumn>}
