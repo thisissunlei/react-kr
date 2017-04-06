@@ -71,11 +71,25 @@ export default class InputComponent extends React.Component{
 				wrapStyle:style,
 			};
 
-			return (
-				<WrapComponent {...wrapProps}>
-					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} {...other} autoFocus={autoFocus}/>
-					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-				</WrapComponent>
-		);
-	}
-}
+			var inputProps = {
+				 ...input,
+				 type,
+				placeholder:placeholder|| label,
+				disabled,
+			 className,
+			 style:heightStyle,
+			 onChange:this.onChange,
+			 onBlur:this.onBlur,
+			 onFocus:this.onFocus,
+			 ...other,
+			 autoFocus,
+		 }
+
+		 return (
+			 <WrapComponent {...wrapProps}>
+				 <Input {...inputProps}/>
+				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+			 </WrapComponent>
+		 );
+	 }
+ }
