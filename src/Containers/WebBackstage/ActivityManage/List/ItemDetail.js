@@ -57,7 +57,7 @@ import dateFormat from 'dateformat';
 	componentDidUpdate(){
 		if($('#clampjs').height()>110){
 			State.contentHeightAutoShow = true;
-			$('#clampjs').css('max-height','111px');
+			$('#clampjs').css({'max-height':'111px',position:'relative'});
 		}else{
 			State.contentHeightAutoShow = false;
 		}
