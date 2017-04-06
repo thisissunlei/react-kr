@@ -1,21 +1,12 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
-import {
-	bindActionCreators
-} from 'redux';
-
-
+import React from 'react';
 import WrapComponent from '../WrapComponent';
+
 import "./index.less";
 export default class SelectTimeComponent extends React.Component{
 
 	constructor(props, context) {
 		super(props, context);
+
 		this.state={
 			allOpen:false,
 			hourOpen:false,
@@ -26,11 +17,8 @@ export default class SelectTimeComponent extends React.Component{
 	    }
     }
 
-	componentDidMount() {
-		
-	}
 	componentWillUnmount(){
-		console.log("componentWillUnmount()=====>componentWillUnmount()")
+
 	}
 
 	//input框被点击
@@ -118,11 +106,8 @@ export default class SelectTimeComponent extends React.Component{
 
 	}
 
-	render() {
+	renderHour=()=>{
 
-		let {allOpen,widthState,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
-		let {label,style,requireLabel,inline,search,inputStyle}=this.props;
-        
         var hour=[];
         var minute=['00','10','20','30','40','50'];
         for(var i=0;i<24;i++){
@@ -131,6 +116,26 @@ export default class SelectTimeComponent extends React.Component{
            }
           hour.push(i); 
         }
+		return hour.map((item,index)=>{
+              	let everyhourStyle={};
+				if(hourNum==item){
+
+					everyhourStyle={
+                  		background: "rgb(245, 245, 245)",
+						height: 30,
+						fontSize: 20,
+                  	}
+				}
+                return <p key={index} style={everyhourStyle} onMouseOver={this.hourMouseOver.bind(this,item)}>{item}</p>
+              })
+		
+	}
+
+	render() {
+
+		let {allOpen,widthState,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
+		let {label,style,requireLabel,inline,search,inputStyle}=this.props;
+        
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
@@ -138,20 +143,7 @@ export default class SelectTimeComponent extends React.Component{
 	              	
 	              	<div className="ui-time-select-all" style={{display:allOpen?'block':'none'}}>
 		                <div  className="ui-hour-style">
-			                 {
-			                  hour.map((item,index)=>{
-			                  	let everyhourStyle={};
-								if(hourNum==item){
-
-									everyhourStyle={
-				                  		background: "rgb(245, 245, 245)",
-										height: 30,
-										fontSize: 20,
-				                  	}
-								}
-			                    return <p key={index} style={everyhourStyle} onMouseOver={this.hourMouseOver.bind(this,item)}>{item}</p>
-			                  })	
-			                 }
+			                 {this.renderHour()}
 		                </div>
 		               
 		                <div className="ui-minute-style" style={{display:minuteOpen?'inline-block':'none'}}>
