@@ -17,6 +17,7 @@ let State = observable({
       createDateEnd:'',
       createDateStart:'',
       msgCommunity:'',
+      other:true,
     }
 });
 

@@ -69,7 +69,7 @@ class SearchForm extends Component {
 		} = this.props;
 		onEndChange && onEndChange(value);
      }
-		 
+
 	render() {
 
 		let {todayDate}=this.props;
@@ -89,7 +89,7 @@ class SearchForm extends Component {
 				<div className="searchForm-col" style={{marginTop:"0px"}}>
 					<KrField grid={1} label="" name="transferDateBegin" style={{width:"220px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
 				</div>
-				<div className="searchForm-col" style={{width:0,position:"relative",left:-17,top:19}}>
+				<div className="searchForm-col" style={{width:0,position:"relative",left:-17,top:18}}>
 					<span>至</span>
 				</div>
 
