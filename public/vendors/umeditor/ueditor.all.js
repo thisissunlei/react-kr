@@ -8059,7 +8059,7 @@ UE.Editor.defaultOptions = function(editor){
         setTimeout(function(){
             try{
 
-                    console.log('--->configUrl',me);
+                    // console.log('--->configUrl',me);
                 me.options.imageUrl && me.setOpt('serverUrl', me.options.imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2'));
 
                 var configUrl = me.getActionUrl('config'),
@@ -8086,7 +8086,7 @@ UE.Editor.defaultOptions = function(editor){
                     }
                 });
             } catch(e){
-              console.log('ee',e);
+              // console.log('ee',e);
                 showErrorMsg(me.getLang('loadconfigError'));
             }
         });
