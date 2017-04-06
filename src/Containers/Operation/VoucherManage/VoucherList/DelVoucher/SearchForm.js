@@ -1,11 +1,19 @@
-import React from 'react';
-
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
 import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 import {
 	KrField,
@@ -20,7 +28,7 @@ import {
 //import './index.less';
 
 
-class SearchForm extends React.Component {
+class SearchForm extends Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,

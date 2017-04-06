@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
-
+import {Http} from 'kr/Utils';
 import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
 
@@ -9,11 +12,6 @@ import {
 	formValueSelector,
 	initialize
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
 import {
 	KrField,
 	Grid,
@@ -29,7 +27,7 @@ import {
 import './index.less';
 
 
-export default class VoucherDetail extends React.Component {
+export default class ItemDetail extends Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
@@ -56,36 +54,28 @@ export default class VoucherDetail extends React.Component {
         let {onCancel} = this.props;
         onCancel && onCancel();
     }
-	renderFileName=()=>{
 
-		this.fileList.map((item, value) => {
-			return (
-				<div key={index}>{item}</div>
-			)
-		});
-	}
 	getThumbnailContent = (item) => {
-  return (
-    <img src={item.thumbnail} width={90} height={90}/>
-  );
+	  return (
+	    <img src={item.src} width={90} height={90}/>
+	  );
 	}
 	render() {
     let {infoList} = this.state;
 		console.log(this.state.infoList);
+		let urls = [];
 		let items = [];
-		let urls = ['http://lorempixel.com/1200/900/sports/1','http://lorempixel.com/1200/900/sports/2']
-		items = urls.map((item,value) => {
-			return(
-				{
-					src: item,
-			    thumbnail: item,
-			    w: 900,
-			    h: 900,
-			    title: value
-				}
-			)
+		urls = infoList.urls;
+		urls && urls.map((item,value) => {
+
+
+			    item.w=900;
+			    item.h= 900;
+
+				return item;
+
 		});
-		console.log(items);
+
 // 		let items = [
 //   {
 //     src: 'http://lorempixel.com/1200/900/sports/1',
@@ -117,8 +107,16 @@ export default class VoucherDetail extends React.Component {
 //   },
 // ];
 		return (
-			<div >
-					 <div style={{marginTop:30}}>
+			<div className="u-audit-add">
+			     <div className="u-audit-add-title">
+			     	<span className="u-audit-add-icon"></span>
+			     	<span>凭证详情</span>
+			     	<span className="u-audit-close" style={{
+								marginRight: 40
+						}} onTouchTap={this.onCancel}></span>
+			     </div>
+
+					 <div style={{marginLeft:46,marginTop:30}}>
 						 <KrField grid = {1 / 2}   inline={false} component="labelText" label="签约方名称" value={infoList.customerName}/>
 						 <KrField grid = {1 / 2}  component="labelText" inline={false} label="付款方式" value={infoList.payWayName}/>
 						 <KrField grid = {1 / 2} component="labelText" inline={false} label="付款方名称" value={infoList.paymentAccount}/>

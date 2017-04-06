@@ -38,7 +38,7 @@ import  ItemDetail from './ItemDetail';
 import SearchsForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
 
-export default class WaitVoucher extends React.Component {
+export default class OverVoucher extends React.Component {
 
   constructor(props, context) {
     super(props, context);

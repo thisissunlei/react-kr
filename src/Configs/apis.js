@@ -946,48 +946,67 @@ const APIS = {
 
 
 
-    //会员卡列表
-    'memberCardList': {
-        url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
-        method: 'get'
-    },
-    //会员卡批量入库
-    'memberCardImport': {
-        url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
-        method: 'put'
-    },
-    //会员卡领用
-    'memberCardUse': {
-        url: '/api/krspace-finance-web/member/card/actions/receive',
-        method: 'post'
-    },
-    //会员卡删除
-    'memberCardDelete': {
-        url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
-        method: 'delete'
-    },
-    //会员卡查看
-    'memberCardView': {
-        url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
-        method: 'get'
-    },
-    // 会员卡原领用人列表
-    'memberRecvList': {
-        url: '/api/krspace-finance-web/member/card/recv-list',
-        method: 'get'
-    },
-    //查询领用人的会员卡数
-    'memberCardNum': {
-        url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
-        method: 'get'
-    },
-    //会员卡转移
-    'transferMemberCard': {
-        url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
-        method: 'put'
-    },
-
-
+<<<<<<< HEAD
+//会员卡列表
+   'memberCardList': {
+      url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      method: 'get'
+   },
+   //会员卡批量入库
+   'memberCardImport': {
+      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      method: 'put'
+   },
+   //会员卡领用
+   'memberCardUse': {
+      url: '/api/krspace-finance-web/member/card/actions/receive',
+      method: 'post'
+   },
+   //会员卡删除
+   'memberCardDelete': {
+      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      method: 'delete'
+   },
+   //会员卡查看
+   'memberCardView': {
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
+   // 会员卡原领用人列表
+   'memberRecvList':{
+      url: '/api/krspace-finance-web/member/card/recv-list',
+      method: 'get'
+   },
+   //查询领用人的会员卡数
+   'memberCardNum':{
+      url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
+      method: 'get'
+   },
+   //会员卡转移
+   'transferMemberCard':{
+      url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
+      method: 'put'
+   },
+   //凭证管理--凭证列表--获取社区列表下拉框
+   'findCommunityVoucher':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/findCommunity',
+      method: 'get'
+   },
+   //凭证管理--凭证列表--待处理凭证列表
+   'wait-voucher-find-page':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/find-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&status={status}&stopDate={stopDate}',
+      method: 'get'
+   },
+   //凭证管理--凭证列表--待处理凭证查看
+   'findPaymentEvidence':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/findPaymentEvidence?id={id}',
+      method: 'get'
+   },
+   //凭证管理--凭证列表--删除
+   'deleteEvidence':{
+      url: '/api/krspace-finance-web/finance/paymentEvidence/deleteEvidence?id={id}',
+      method: 'delete'
+   },
    // 门禁授权列表
    'impowerList':{
       url: '/api/krspace-finance-web/permission/door-customer-list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',

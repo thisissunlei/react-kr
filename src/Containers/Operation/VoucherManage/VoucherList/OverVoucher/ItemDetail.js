@@ -1,20 +1,13 @@
 
 
 
-import React, {
-  Component
-} from 'react';
-import {
-  connect
-} from 'react-redux';
+import React from 'react';
+
 import {
   bindActionCreators
 } from 'redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {
-  Actions,
-  Store
-} from 'kr/Redux';
+
 
 
 import {
@@ -42,7 +35,7 @@ import {
  import VoucherDetail from './VoucherDetail';
  import MoneyDetail from './MoneyDetail';
 
-export default class ItemDetail extends Component {
+export default class ItemDetail extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
