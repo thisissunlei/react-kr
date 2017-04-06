@@ -54,7 +54,7 @@ class DemoComponent extends React.Component {
 
 					<form onSubmit={handleSubmit(this.onSubmit)} >
 
-					
+
 						<button type="submit" >submit</button>
 
 					</form>
