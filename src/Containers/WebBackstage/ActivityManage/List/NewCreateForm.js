@@ -471,7 +471,7 @@ class NewCreateForm extends React.Component{
 								<Grid style={{marginTop:19,marginBottom:80}}>
 									<Row>
 										<ListGroup>
-											<ListGroupItem style={{width:166,textAlign:'right',padding:0}}>
+											<ListGroupItem style={{width:208,textAlign:'right',padding:0}}>
 												<Button  label="发布" type='submit' onClick={this.toPublish}/>
 											</ListGroupItem>
 											<ListGroupItem style={{width:140,textAlign:'center',padding:0}}>

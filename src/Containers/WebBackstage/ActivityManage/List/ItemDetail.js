@@ -323,7 +323,7 @@ import dateFormat from 'dateformat';
 								</TableBody>
 							</Table>
 						</div>
-						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
+						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:43}}>暂无</div>}
 
 
 						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
