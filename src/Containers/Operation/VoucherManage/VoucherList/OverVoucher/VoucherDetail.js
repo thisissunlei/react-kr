@@ -3,6 +3,7 @@ import React from 'react';
 
 import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
+import {Http} from 'kr/Utils';
 
 import {
 	reduxForm,
