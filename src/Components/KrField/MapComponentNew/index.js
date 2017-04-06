@@ -4,10 +4,11 @@ import WrapComponent from '../WrapComponent';
 import './index.less';
 export default class MapComponentNew extends Component {
 	static propTypes = {
-		className: React.PropTypes.string,
-		placeholder: React.PropTypes.string,
-		style : React.PropTypes.object,
-		mapStyle : React.PropTypes.object,
+		className:React.PropTypes.string,
+		placeholder:React.PropTypes.string,
+		style:React.PropTypes.object,
+		mapStyle:React.PropTypes.object,
+		initailPoint:React.PropTypes.string
 	}
 	constructor(props,context){
 		super(props,context);

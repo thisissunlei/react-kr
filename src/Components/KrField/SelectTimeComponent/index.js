@@ -39,7 +39,7 @@ export default class SelectTimeComponent extends React.Component{
 	}
 
 	componentWillUnmount(){
-			document.body.removeEventListener("click",this.onClickOther); 	
+		document.body.removeEventListener("click",this.onClickOther); 	
 	}
 
 	//input框被点击
@@ -81,9 +81,11 @@ export default class SelectTimeComponent extends React.Component{
 
     //分针被点
     minuteClick = (hour,minute) => {
+    	var {allOpen}=this.state;
+    	allOpen=!allOpen;
     	this.setState({
+    		allOpen ,
        		minuteNum : minute,
-       		allOpen : !this.state.allOpen,
        		timeNum : hour + ":" + minute
        	})
 
@@ -105,7 +107,7 @@ export default class SelectTimeComponent extends React.Component{
 
 
 	renderHour=()=>{
-		
+
 		let {hourNum}=this.state;
         var hour=[];
         

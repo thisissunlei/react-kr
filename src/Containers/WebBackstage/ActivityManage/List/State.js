@@ -36,7 +36,7 @@ let State = observable({
 	HeightAuto:false,
 	contentHeightAuto:false,
 	contentHeightAutoShow:false,
-	initailPoint : "",
+	initailPoint : '',
 	choseName: true,
 	chosePhone: true,
 	choseCompany: false,
@@ -93,7 +93,7 @@ State.itemUpPublish = action(function(id) {
 		Message.success('发布成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
-		Message.error('发布失败');
+		Message.error(err.message);
 	});
 
 
