@@ -142,7 +142,7 @@ export default class List extends Component {
 			className = 'none';
 		}
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="activity-list-a">
 					<div className={className} onClick={this.closeNavs}></div>
 
 								<Title value="活动列表 "/>
