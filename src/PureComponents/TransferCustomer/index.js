@@ -253,7 +253,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-												<div className="appointment-visit-time" style={{color:color,top:9}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+												<div className="appointment-visit-time-trans" style={{color:color,top:9}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 											);
 										}
 									}
