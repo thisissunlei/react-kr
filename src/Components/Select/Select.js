@@ -415,6 +415,7 @@ const Select = React.createClass({
 	},
 
 	handleInputFocus (event) {
+		console.log('--->>>')
 		if (this.props.disabled) return;
 		var isOpen = this.state.isOpen || this._openAfterFocus || this.props.openOnFocus;
 		if (this.props.onFocus) {
