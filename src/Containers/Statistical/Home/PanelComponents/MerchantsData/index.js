@@ -93,6 +93,8 @@ class MerchantsData  extends Component{
     // 获取列表数据
     gainData =() => {
     	let _this = this;
+    	let {searchParams}=this.state;
+
     	Http.request('already-open',searchParams).then(function(response) {
     		_this.setState({
     			data:response
@@ -110,12 +112,85 @@ class MerchantsData  extends Component{
 		
 		});
     }
-
+    createOpenElems = () =>{
+    	let {data} = this.state;
+		let {openList} = data;
+		if(!openList || openList.length == 0){
+			return;
+		}
+		let elems = openList.map(function(item,index){
+			return (
+					<TableRow>
+						<TableRowColumn >
+							
+						</TableRowColumn>
+						<TableRowColumn >{item.cityName}</TableRowColumn>
+						<TableRowColumn >
+							
+						</TableRowColumn>
+						<TableRowColumn>{item.newCustomer}</TableRowColumn>
+						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
+						<TableRowColumn>{item.intentionStation}</TableRowColumn>
+						<TableRowColumn>{item.enterCustomer}</TableRowColumn>
+						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						<TableRowColumn>{item.increaseCustomer}</TableRowColumn>
+						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						<TableRowColumn>{item.returnCustomer}</TableRowColumn>
+						<TableRowColumn>{item.enterSeveral}</TableRowColumn>
+						<TableRowColumn>{item.continueSeveral}</TableRowColumn>
+						<TableRowColumn>{item.increaseSeveral}</TableRowColumn>
+						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
+						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
+						
+					</TableRow>
+				);
+		})
+		return elems;
+    	
+    }
+    createUnopenElems = () => {
+    	let {data} = this.state;
+		let {unopenList} = data;
+		if(!unopenList || unopenList.length == 0){
+			return;
+		}
+		let elems = unopenList.map(function(item,index){
+			return (
+					<TableRow>
+						<TableRowColumn >
+							
+						</TableRowColumn>
+						<TableRowColumn >{item.cityName}</TableRowColumn>
+						<TableRowColumn >
+							
+						</TableRowColumn>
+						<TableRowColumn>{item.newCustomer}</TableRowColumn>
+						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
+						<TableRowColumn>{item.intentionStation}</TableRowColumn>
+						<TableRowColumn>{item.enterCustomer}</TableRowColumn>
+						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						<TableRowColumn>{item.increaseCustomer}</TableRowColumn>
+						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						<TableRowColumn>{item.returnCustomer}</TableRowColumn>
+						<TableRowColumn>{item.enterSeveral}</TableRowColumn>
+						<TableRowColumn>{item.continueSeveral}</TableRowColumn>
+						<TableRowColumn>{item.increaseSeveral}</TableRowColumn>
+						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
+						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
+						
+					</TableRow>
+				);
+		})
+		return elems;
+    	
+    }
 
 
 	
 	render(){
-
+		let {data} = this.state;
+		let {unopenList,openList} = data;
+			console.log(openList,">>>>>>>>>>>>>")
 
 			return(
 				<div className='open-merchants-data' style={{background:'#fff',marginBottom:'20'}}>
@@ -134,14 +209,8 @@ class MerchantsData  extends Component{
 						</Grid>
 								<div className = 'ui-table-wrap'>
 
-								<Table style={{marginTop:0}}
-									displayCheckbox={false}
-									ajax={true}
-									ajaxUrlName='already-open'
-									ajaxFieldListName="data.openList"
-									ajaxParams={this.state.searchParams}
-										>
-									}
+								<Table style={{marginTop:0}} displayCheckbox={false}>
+									
 								<TableHeader>
 								<TableHeaderColumn>开业状态</TableHeaderColumn>
 								<TableHeaderColumn>城市</TableHeaderColumn>
@@ -162,28 +231,9 @@ class MerchantsData  extends Component{
 							</TableHeader>
 
 							<TableBody>
-									 <TableRow>
-									<TableRowColumn name="cityName"></TableRowColumn>
-									<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-										 var maxWidth=6;
-										 if(value.length>maxWidth){
-											value = value.substring(0,6)+"...";
-										 }
-										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-									}} ></TableRowColumn>
-									<TableRowColumn name="totalStation"></TableRowColumn>
-									<TableRowColumn name="unUsedStation" ></TableRowColumn>
-									<TableRowColumn name="usedStation"></TableRowColumn>
-									<TableRowColumn name="leftStation"></TableRowColumn>
-									<TableRowColumn name="rateAll"></TableRowColumn>
-									<TableRowColumn name="lastRate"></TableRowColumn>
-									<TableRowColumn name="rateChange"></TableRowColumn>
-									<TableRowColumn name="rate"></TableRowColumn>
-									<TableRowColumn name="chainRate"></TableRowColumn>
-									<TableRowColumn name="newIntention"></TableRowColumn>
-									<TableRowColumn name="totalIntention"></TableRowColumn>
-									<TableRowColumn name="averagePrice"></TableRowColumn>
-								 </TableRow>
+								<div style={{position: "absolute",zIndex: 99,width: "6.03%",background: "red",top: 208,height:56}}>已开业</div>
+
+								{this.createUnopenElems()}	
 							</TableBody>
 							</Table>
 							</div>
