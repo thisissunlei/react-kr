@@ -114,15 +114,7 @@ export default class OpenPanel  extends Component{
 
 
 
-    componentWillReceiveProps(nextProps){
-		 this.setState({
-		 	searchParams:{
-               groupId:nextProps.groupId,
-               startDate:this.props.todayDate,
-			   endDate:this.props.todayDate
-		    }
-		})
-	 }
+    
 	openExprot = () =>{
 
 			console.log("dddd");
@@ -159,6 +151,7 @@ export default class OpenPanel  extends Component{
 									 <Table style={{marginTop:0}}
 		 								 displayCheckbox={false}
 		 								 ajax={true}
+										 ajaxUrlName='groupNameCheck'
 		 								 
 		 								 ajaxFieldListName="list"
 		 								 ajaxParams={this.state.searchParams}

@@ -1058,7 +1058,7 @@ const APIS = {
    },
     //招商数据统计-已开业
   'already-open':{
-     url: '/api/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+     url: '/mockjsdata/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
      method: 'get'
   },
   

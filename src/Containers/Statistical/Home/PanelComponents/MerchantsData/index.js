@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {Actions,Store} from 'kr/Redux';
+import dateFormat from 'dateformat';
+
 import {
 	KrField,
 	Table,
@@ -24,6 +26,7 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less'
+import {Http} from "kr/Utils";
 import SearchDateForm from './SearchDateForm';
 
 class MerchantsData  extends Component{
@@ -33,12 +36,14 @@ class MerchantsData  extends Component{
 		this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
+				startDate:"",
+				endDate:""
 			},
+			data:{},
 			startValue:'',
 			endValue:''
 		}
+		this.gainData();
 	}
 
 	onStartChange=(startD)=>{
@@ -59,12 +64,7 @@ class MerchantsData  extends Component{
 	        }
 	        let startDate=this.state.startValue;
 	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
-	    	this.setState({
-				searchParams
-			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
-
-			});
+	    	
 
 
         })
@@ -85,23 +85,35 @@ class MerchantsData  extends Component{
 	        }
 	        let endDate=this.state.endValue;
 	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue||searchParams.startDate,endDate:this.state.endValue,});
-	    	this.setState({
-				searchParams
-			},function(){
-
-			});
+	    	
 
         })
 
     }
+    // 获取列表数据
+    gainData =() => {
+    	let _this = this;
+    	Http.request('already-open',searchParams).then(function(response) {
+    		_this.setState({
+    			data:response
+    		})
+    		console.log(response,"??????");
+		}).catch(function(err) {
+		
+		});
+    }
+
+    openExprot = () =>{
+    	let {searchParams}=this.state;
+		Http.request('openCompanyExprot',searchParams).then(function(response) {
+		}).catch(function(err) {
+		
+		});
+    }
 
 
 
-
-	componentDidMount() {
-
-	}
-
+	
 	render(){
 
 
@@ -125,8 +137,8 @@ class MerchantsData  extends Component{
 								<Table style={{marginTop:0}}
 									displayCheckbox={false}
 									ajax={true}
-
-									ajaxFieldListName="list"
+									ajaxUrlName='already-open'
+									ajaxFieldListName="data.openList"
 									ajaxParams={this.state.searchParams}
 										>
 									}
@@ -157,7 +169,7 @@ class MerchantsData  extends Component{
 										 if(value.length>maxWidth){
 											value = value.substring(0,6)+"...";
 										 }
-																	 return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 									}} ></TableRowColumn>
 									<TableRowColumn name="totalStation"></TableRowColumn>
 									<TableRowColumn name="unUsedStation" ></TableRowColumn>
@@ -176,6 +188,7 @@ class MerchantsData  extends Component{
 							</Table>
 							</div>
 					</div>
+					 <Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
 		 		</div>
 			);
 		}
