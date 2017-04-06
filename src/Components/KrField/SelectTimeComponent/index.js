@@ -109,7 +109,7 @@ export default class SelectTimeComponent extends React.Component{
 	renderHour=()=>{
 
         var hour=[];
-        var minute=['00','10','20','30','40','50'];
+        
         for(var i=0;i<24;i++){
            if(i<10){
              i='0'+i;
@@ -131,15 +131,30 @@ export default class SelectTimeComponent extends React.Component{
 		
 	}
 
+	renderMinute=()=>{
+		let {hourNum}=this.state;
+		var minute=['00','10','20','30','40','50'];
+		return minute.map((item,index)=>{
+         	return <p key={index} onClick={this.minuteClick.bind(this,hourNum,item)} >{item}</p>
+      	})
+	}
+
 	render() {
 
 		let {allOpen,widthState,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
 		let {label,style,requireLabel,inline,search,inputStyle}=this.props;
+		var inputProps={
+			type:"text",
+			onClick:this.inputClick,
+			value:timeNum||this.props.timeNum,
+			onChange:this.inputChange.bind(this,hourNum,minuteNum),
+			style:inputStyle
+		}
         
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
-	               	<input type="text" onClick={this.inputClick} value={timeNum||this.props.timeNum} onChange={this.inputChange.bind(this,hourNum,minuteNum)} style={inputStyle}/>	
+	               	<input {...inputProps} />	
 	              	
 	              	<div className="ui-time-select-all" style={{display:allOpen?'block':'none'}}>
 		                <div  className="ui-hour-style">
@@ -147,11 +162,7 @@ export default class SelectTimeComponent extends React.Component{
 		                </div>
 		               
 		                <div className="ui-minute-style" style={{display:minuteOpen?'inline-block':'none'}}>
-			                 {
-			                  minute.map((item,index)=>{
-			                     return <p key={index} onClick={this.minuteClick.bind(this,hourNum,item)} >{item}</p>
-			                  })	
-			                 }
+			                 {this.renderMinute()}
 		                </div>
 	                             
 	               </div>
