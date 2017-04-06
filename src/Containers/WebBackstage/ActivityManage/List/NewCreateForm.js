@@ -1,25 +1,18 @@
-
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-
-
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	ButtonGroup,
 	Message,
-	SnackTip,
 	ListGroup,
 	ListGroupItem,
 	Notify,
 	DateComponent,
-	Checkbox,
 	Editor
 } from 'kr-ui';
 import {
@@ -28,9 +21,7 @@ import {
 import './index.less';
 import State from './State';
 @observer
-
-
- class NewCreateForm extends Component{
+class NewCreateForm extends Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -41,24 +32,15 @@ import State from './State';
 			beginTime:'',
 			endTime:''
 		}
-
-
 	}
 	componentWillMount() {
-
 		let response = {
 			top:'0',
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
-	componentDidMount(){
-	}
-
-	componentWillReceiveProps(){
-	
-	}
-
-
+	componentDidMount(){ }
+	componentWillReceiveProps(){}
 	// 取消新建
 	onCancel=()=>{
 		let {onCancel}=this.props;
@@ -84,17 +66,12 @@ import State from './State';
 				return;
 			}
 		}
-
 		values.publishType = this.publishType ;
-
 		values.beginDate = values.startDate.substr(0,values.startDate.indexOf(" "))+" "+values.startTime+":00";
 		values.endDate = values.stopDate.substr(0,values.stopDate.indexOf(" "))+" "+values.endTime+":00";
-
 		if(values.top == 1){
 			values.sort = '';
 		}
-
-
 		var EArr = [];
 		if(State.choseName){
 			EArr.push("NAME")
@@ -111,33 +88,25 @@ import State from './State';
 		if(State.choseAdd){
 			EArr.push("ADDRESS")
 		}
-
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
 			values.address = values.mapField.detailSearch;
-
 		}
 		var searchParams = Object.assign({},State.searchParams);
 		searchParams.time = +new Date();
-
 		values.enroll = EArr;
-
 		Http.request('newCreateActivity',{},values).then(function(response){
-
 			State.openNewCreate = !State.openNewCreate;
 			Message.success('操作成功');			
 			State.searchParams = searchParams;
 			Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
-
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-
-
 	}
 	//存为草稿
 	toSave=()=>{
@@ -150,18 +119,13 @@ import State from './State';
 	// 置顶
 	chooseStick=()=>{
 		State.isStick = true;
-
 	}
 	 // 不置顶
 	noStick=()=>{
 		State.isStick = false;
-		// State.serialNumRepeat = false;
 	}
-
-	
 	chooseCompany=(e)=>{
 		if(e.target.checked){
-
 			State.choseCompany = true;
 		}else{
 			State.choseCompany = false;
@@ -170,7 +134,6 @@ import State from './State';
 	choosePosition=(e)=>{
 		if(e.target.checked){
 			State.chosePosition = true;
-
 		}else{
 			State.chosePosition = false;
 		}
@@ -187,7 +150,6 @@ import State from './State';
 		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
 		Store.dispatch(change('NewCreateForm', 'cityId', secondId));
 		Store.dispatch(change('NewCreateForm', 'countyId', thirdId));
-
 	}
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
@@ -198,13 +160,10 @@ import State from './State';
 		}else{
 			Http.request('getActivitySerialNumRepeat',{sort:value}).then(function(response){
 				State.serialNumRepeat = false;
-
 			}).catch(function(err){
 				State.serialNumRepeat = true;
-
 			});
 		}
-
 	}
 	// 开始日期改变
 	beginDateChange=(value)=>{
@@ -216,9 +175,7 @@ import State from './State';
 		},function(){
 			_this.compareTime();
 		})
-
 	}
-
 	// 结束日期改变
 	endDateChange=(value)=>{
 		let _this =this;
@@ -229,9 +186,7 @@ import State from './State';
 		},function(){
 			_this.compareTime();
 		})
-
 	}
-
 	// 开始时间改变
 	beginTimeChange=(value)=>{
 		let _this =this;
@@ -240,10 +195,7 @@ import State from './State';
 		},function(){
 			_this.compareTime();
 		})
-
-
 	}
-
 	// 结束时间改变
 	endTimeChange=(value)=>{
 		let _this =this;
@@ -253,7 +205,6 @@ import State from './State';
 			_this.compareTime();
 		})
 	}
-
 	// 时间校验
 	compareTime=()=>{
 		let _this =this;
@@ -274,7 +225,6 @@ import State from './State';
 					var endMin = endTime.substr(3);
 					if(endHour<beginHour){
 						State.timeIsTrue  = false;
-
 						Notify.show([{
 							message: "结束时间不能大于开始日期",
 							type: 'danger',
@@ -301,14 +251,8 @@ import State from './State';
 			State.timeIsTrue  = true;
 		}
 	}
-
-
-
-
-
 	render(){
 		const { handleSubmit} = this.props;
-
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: 'CEO Time',
@@ -349,15 +293,9 @@ import State from './State';
 			label: '地址',
 			value: 5
 		}]
-
-
-
-
 		return (
-
 			<div className="new-create-activity">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
 						<span className="title-text">新建活动</span>
@@ -374,9 +312,6 @@ import State from './State';
 							</div>
 							<div className="activity-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
-
-
-
 								<KrField grid={1/2}
 									name="name"
 									type="text"
@@ -389,10 +324,8 @@ import State from './State';
 									options={correspondingFunction}
 									label="活动类型"
 									requireLabel={true}
-
 									style={{width:'252px',marginLeft:24,zIndex:11}}
 								/>
-
 								<Grid >
 									<Row>
 										<ListGroup>
@@ -413,7 +346,6 @@ import State from './State';
 													style={{width:80,marginTop:14,zIndex:10}}
 													onChange = {this.beginTimeChange}
 													label=''/>
-
 											</ListGroupItem>
 											<ListGroupItem style={{marginTop:32,padding:0}}>至</ListGroupItem>
 											<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 0"}}>
@@ -424,7 +356,6 @@ import State from './State';
 													simple={true}
 													requireLabel={false}
 													onChange = {this.endDateChange}
-
 												/>
 												<KrField
 													name="endTime"
@@ -436,9 +367,6 @@ import State from './State';
 										</ListGroup>
 									</Row>
 								</Grid>
-
-
-
 								<KrField grid={1/2} name="cityIdAndCountyId" requireLabel={true} component="city" label="举办地址" style={{width:'252px'}}  onSubmit={this.changeCity} />
 								<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 								<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
@@ -450,7 +378,6 @@ import State from './State';
 										initailPoint ={State.initailPoint}
 									/>
 								</div>
-
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:'252px',marginLeft:24}}/>
 								<KrField name="joinType"
@@ -467,13 +394,10 @@ import State from './State';
 				              	{/*置顶不显示排序*/}
 								<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
 								{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
-
-
 								<div style={{display:State.isStick?"block":"none",fontSize:14,marginBottom:10}}>
 									<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
 									<span>上传轮播图</span>
 								</div>
-
 								{/*置顶显示轮播图*/}
 				              	<KrField name="pcCoverPic"
 									component="newuploadImage"
@@ -482,11 +406,9 @@ import State from './State';
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'500'}
 									requestURI = {State.requestURI}
-									
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
-
 								/>
 								<KrField name="appCoverPic"
 									component="newuploadImage"
@@ -496,7 +418,6 @@ import State from './State';
 									pictureMemory={'300'}
 									label="手机端轮播图"
 									requestURI = {State.requestURI}
-									
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 								/>
@@ -511,10 +432,7 @@ import State from './State';
 									label="上传列表详情图"
 									inline={false}
 								/>
-
-
 							</div>
-
 						</div>
 						<div className="enroll-info">
 							<div className="enroll-title">
@@ -529,39 +447,28 @@ import State from './State';
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
-
 												<input type="checkbox"  style={{marginRight:10}} checked="checked" readOnly/>
 												<span style={{fontSize:14,color:"#333333"}} >姓名</span>
-
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
- 
 												<input type="checkbox"  style={{marginRight:10}} checked="checked" readOnly/>
 												<span style={{fontSize:14,color:"#333333"}} >电话</span>
 											</ListGroupItem>
-
 											<ListGroupItem style={{marginRight:48}}>
 												<input type="checkbox"  onChange={this.chooseCompany} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
-
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
 												<input type="checkbox"  onChange={this.choosePosition} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >职务</span>
-
 											</ListGroupItem>
 											<ListGroupItem style={{}}>
 												<input type="checkbox"  onChange={this.chooseAdd} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
-
 											</ListGroupItem>
-
 										</ListGroup>
 									</Row>
 								</Grid>
-
-
-
 								<Grid style={{marginTop:19,marginBottom:'80px'}}>
 									<Row>
 										<ListGroup>
@@ -593,7 +500,6 @@ const validate = values => {
 	if (values.contactPhone && !phone.test(values.contactPhone) ) {
       errors.contactPhone = '请输入正确电话号';
   	}
-
 	if(values.top==1){
 		if(!values.appCoverPic){
 			errors.appCoverPic = "请上传手机端轮播图"
@@ -617,37 +523,24 @@ const validate = values => {
 			errors.cityIdAndCountyId = '详细地址最多为30个字符';
 		}
 	}
-
 	if(values.contact){
 		var contactNum = values.contact.replace(/(^\s*)|(\s*$)/g, "");
 		if(contactNum.length >10){
 			errors.contact = '活动联系人最多为10个字符';
 		}
 	}
-
 	if(values.sort){
-
 		var sortNum = (values.sort+'').replace(/(^\s*)|(\s*$)/g, "");
-
 		if(!numContr.test(sortNum)){
 			errors.sort = '排序号必须为五位以内正整数';
-
 		}
 	}
 	if(values.maxPerson){
-
 		var personNum = (values.maxPerson+'').replace(/(^\s*)|(\s*$)/g, "");
-
 		if(!numContr.test(personNum)){
 			errors.maxPerson = '人数限制必须为五位以内正整数';
-
 		}
 	}
-
-
-
-
-
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
@@ -657,21 +550,12 @@ const validate = values => {
 	if(!values.countyId){
 		errors.cityIdAndCountyId = "请选择举办地址";
 	}
-
-
-
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
 	}
-
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
-
 	}
-
-
-
-
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');
