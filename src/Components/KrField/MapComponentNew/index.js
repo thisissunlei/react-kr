@@ -1,20 +1,9 @@
-import React, {
-	Component
-} from 'react';
-import {
-	Field,
-	reduxForm
-} from 'redux-form';
-import ReactDOM from 'react-dom';
-import './index.less';
-import refresh from "./images/location.svg";
-import {Actions,Store} from 'kr/Redux';
+import React, {Component} from 'react';
 import WrapComponent from '../WrapComponent';
-import {ShallowEqual} from 'kr/Utils';
+
+import './index.less';
 export default class MapComponentNew extends Component {
-	static defaultProps = {
-	}
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string
 	}
 	constructor(props,context){
@@ -31,8 +20,6 @@ export default class MapComponentNew extends Component {
 			dragendMarker : false
 		};
 		this.mapId = 'map_'+Date.now();
-	}
-	componentWillUnmount() {
 	}
 	componentWillReceiveProps(nextProps){
 		// 根据城市定位地图
@@ -184,7 +171,6 @@ export default class MapComponentNew extends Component {
 	render(){
 		let {placeholder,style,mapStyle,defaultValue,...other} = this.props;
 		let {showMap} =this.state;
-		let mapInnerStyle = {};
 		var newObj = {};
 		if(this.state.showMap){
 			newObj.display = "block";
@@ -194,17 +180,24 @@ export default class MapComponentNew extends Component {
 		}else{
 			newObj.display = "none";
 		}
-		Object.assign(mapInnerStyle,mapStyle,newObj);
+		var mapInnerStyle=Object.assign({},mapStyle,newObj);
+		var inputProps={
+			type:"text" ,
+			ref:"mapInput",
+			placeholder:placeholder, 
+			style:{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box",paddingRight:30},
+			onChange:this.inputLocation,
+			 
+		} 
+		var iconProps ={
+			src:require('./images/location.svg'),
+			className:"ui-map-img",
+			onClick:this.showMap,
+		}
 		return(
       		<div className="ui-map-component" style={style}>
-				<img src={require('./images/location.svg')} className="ui-map-img" onClick={this.showMap}/>
-				<input 
-					type="text" 
-					placeholder={placeholder} 
-					style={{width:"100%",height:"100%",paddingLeft:10,boxSizing:"border-box",paddingRight:30}} 
-					onChange={this.inputLocation} 
-					ref="mapInput"
-				/>
+				<img {...iconProps}/>
+				<input {...inputProps} />
 				<div id={this.mapId}  style={mapInnerStyle}></div>
 			</div>
 		);
