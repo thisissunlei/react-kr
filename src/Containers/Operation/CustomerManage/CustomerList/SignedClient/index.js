@@ -328,6 +328,17 @@ class SignedClient extends Component{
       		  <span className='mer-close' onClick={this.merClose}></span>
       		</div>
 	        <Row style={{marginBottom:21}}>
+
+	                  <Col
+					     align="left"
+					     style={{float:'left'}}
+					   >
+									<Button
+											label="新建订单"
+											type='button'
+											onTouchTap={this.opNewMerchants}
+									/>
+					  </Col>
 			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
