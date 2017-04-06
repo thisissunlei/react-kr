@@ -11,7 +11,6 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
-	Notify,
 	DateComponent,
 	Editor
 } from 'kr-ui';
@@ -50,19 +49,13 @@ class NewCreateForm extends Component{
 	onSubmit=(values)=>{
 		// 时间是否正确
 		if(!State.timeIsTrue){
-			Notify.show([{
-				message: "结束时间不能大于开始日期",
-				type: 'danger',
-			}]);
+			Message.error('结束时间不能大于开始日期');
 			return;
 		}
 		// 置顶时如果序列号重复不能提交
 		if(values.top==0){
 			if(State.serialNumRepeat){
-				Notify.show([{
-					message: "排序号已经存在",
-					type: 'danger',
-				}]);
+				Message.error('排序号已经存在');
 				return;
 			}
 		}
@@ -102,10 +95,7 @@ class NewCreateForm extends Component{
 			State.searchParams = searchParams;
 			Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
 	//存为草稿
@@ -211,10 +201,7 @@ class NewCreateForm extends Component{
 		if(_this.state.beginDate && _this.state.endDate){
 			if(_this.state.endDate <_this.state.beginDate){
 				State.timeIsTrue  = false;
-				Notify.show([{
-					message: "结束时间不能大于开始日期",
-					type: 'danger',
-				}]);
+				Message.error('结束时间不能大于开始日期');
 			}else if(_this.state.endDate ==_this.state.beginDate){
 				if(_this.state.beginTime && _this.state.endTime){
 					var beginTime = _this.state.beginTime;
@@ -225,18 +212,11 @@ class NewCreateForm extends Component{
 					var endMin = endTime.substr(3);
 					if(endHour<beginHour){
 						State.timeIsTrue  = false;
-						Notify.show([{
-							message: "结束时间不能大于开始日期",
-							type: 'danger',
-						}]);
+						Message.error('结束时间不能大于开始日期');
 					}else if(endHour == beginHour){
 						if(beginMin > endMin){
 							State.timeIsTrue  = false;
-
-							Notify.show([{
-								message: "结束时间不能大于开始日期",
-								type: 'danger',
-							}]);
+							Message.error('结束时间不能大于开始日期');
 						}
 					}else{
 						State.timeIsTrue  = true;
