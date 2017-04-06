@@ -150,25 +150,21 @@ module.exports = {
                 primaryText: '分组管理',
                 menuCode: 'groupManage',
                 router: '/operation/groupSetting'
-            },{
-      				primaryText: '凭证列表',
-      				router: '/operation/voucherManage/voucherList',
-      				menuCode: 'groupManage',
-      			}]
+            },]
 
-        }, ]
-    },{
-			primaryText: "凭证管理",
-			iconName: 'icon-wendang',
-			iconColor: '#79859a',
-			router: 'voucherManage',
-			menuCode: 'communityStationList',
-			menuItems: [{
-				primaryText: '凭证列表',
-				router: '/operation/voucherManage/voucherList',
-				menuCode: 'coustomerInfoList',
-			}]
-		}, {
+        },{
+    			primaryText: "凭证管理",
+    			iconName: 'icon-wendang',
+    			iconColor: '#79859a',
+    			router: 'voucherManage',
+    			menuCode: 'communityStationList',
+    			menuItems: [{
+    				primaryText: '凭证列表',
+    				router: '/operation/voucherManage/voucherList',
+    				menuCode: 'coustomerInfoList',
+    			}]
+    		}]
+    }, {
         primaryText: "会员中心",
         router: 'member',
         menuCode: 'member',

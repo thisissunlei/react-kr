@@ -943,11 +943,7 @@ const APIS = {
         url: '/api/krspace-finance-web/cmt/community/list-param-data',
         method: 'get'
     },
-
-
-
-<<<<<<< HEAD
-//会员卡列表
+ //会员卡列表
    'memberCardList': {
       url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
