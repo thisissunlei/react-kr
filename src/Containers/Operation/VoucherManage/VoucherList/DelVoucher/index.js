@@ -47,7 +47,6 @@ export default class DelVoucher extends React.Component {
       Params: {
         page: 1,
         pageSize: 10,
-        status: '0'
       },
       openItem: false,
       delVoucher: false,
@@ -56,21 +55,12 @@ export default class DelVoucher extends React.Component {
       Param: {
         page: 1,
         pageSize: 10,
-        status: '0'
       },
     }
     //this.getInfo(this.state.Param);
 
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.tab != this.props.tab) {
-      this.setState({
-        Params: {
-          status: '0'
-        }
-      })
-    }
-  }
+
   componentDidMount() {
 
   }
@@ -84,8 +74,6 @@ export default class DelVoucher extends React.Component {
 
       if (type == 'view') {
         this.openItem();
-      } else if (type == 'edit') {
-        this.openEditCreate();
       }
     }
   //高级查询
@@ -126,7 +114,6 @@ export default class DelVoucher extends React.Component {
       Params: {
         page: 1,
         pageSize: 15,
-        status: '0',
         customerName: form.content
       }
     })
@@ -145,7 +132,7 @@ export default class DelVoucher extends React.Component {
         <Table
                           style={{marginTop:10}}
                           ajax={true}
-                          ajaxUrlName='wait-voucher-find-page'
+                          ajaxUrlName='voucher-find-deleted-page'
                           ajaxParams={this.state.Params}
                           onOperation={this.onOperation}
                       >
@@ -195,7 +182,6 @@ export default class DelVoucher extends React.Component {
                                    }}></TableRowColumn>
                             <TableRowColumn>
                                 <Button label="查看"  type="operation"  operation="view"/>
-                                <Button label="删除"  type="operation"  operation="delete"/>
                             </TableRowColumn>
                           </TableRow>
                       </TableBody>

@@ -1251,7 +1251,11 @@ const APIS = {
      url: '/api/krspace-finance-web/finance/paymentEvidence/deleteEvidence?id={id}',
      method: 'delete'
   },
-
+  //凭证管理--凭证列表--已删除凭证列表
+  'voucher-find-deleted-page':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/find-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&status={status}&stopDate={stopDate}',
+     method: 'get'
+  },
 }
 
 module.exports = APIS;
