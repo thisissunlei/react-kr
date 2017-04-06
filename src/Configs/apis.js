@@ -1253,7 +1253,12 @@ const APIS = {
   },
   //凭证管理--凭证列表--已删除凭证列表
   'voucher-find-deleted-page':{
-     url: '/api/krspace-finance-web/finance/paymentEvidence/find-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&status={status}&stopDate={stopDate}',
+     url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--已审核凭证列表--查看回款详情
+  'findReceiptDetail':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/findReceiptDetail?id={id}',
      method: 'get'
   },
   //凭证管理--凭证列表--带处理凭证--添加回款数据
