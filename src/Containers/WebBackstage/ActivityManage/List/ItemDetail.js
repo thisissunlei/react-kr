@@ -313,7 +313,7 @@ import dateFormat from 'dateformat';
 									return (
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
-											{list.phone && <TableRowColumn style={{width:180}}>{item.phone}</TableRowColumn>}
+											{list.phone && <TableRowColumn >{item.phone}</TableRowColumn>}
 											{list.company && <TableRowColumn>{item.company}</TableRowColumn>}
 											{list.job && <TableRowColumn>{item.job}</TableRowColumn>}
 											{list.address && <TableRowColumn>{item.cityName}</TableRowColumn>}
