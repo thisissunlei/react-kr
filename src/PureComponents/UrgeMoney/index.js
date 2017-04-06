@@ -84,6 +84,7 @@ export default class AppointmentVisit extends Component {
 					endTime:newEndDate === searchParams.endTime ? end : newEndDate,
 					startTime:newStartDate === searchParams.startTime ? start : newStartDate,
 					communityId : searchParams.communityId || "",
+					other:!searchParams.other
 				});
 	    }
 	}
@@ -111,6 +112,8 @@ export default class AppointmentVisit extends Component {
 					endTime:newEndDate === searchParams.endTime ? end : newEndDate,
 					startTime:newStartDate === searchParams.startTime ? start : newStartDate,
 					communityId : searchParams.communityId || "",
+					other:!searchParams.other
+
 				});
 	    }
 	}
@@ -131,6 +134,8 @@ export default class AppointmentVisit extends Component {
 			endTime:searchParams.endTime ||'',
 			startTime:searchParams.startTime || '',
 			communityId:data.id,
+			other:!searchParams.other
+
 		});
 	}
 	//信息被点击
@@ -166,6 +171,8 @@ export default class AppointmentVisit extends Component {
 			endTime:searchParams.endTime || "",
 			startTime:searchParams.startTime || "",
 			communityId:searchParams.communityId,
+			other:!searchParams.other
+
 		});
 	}
 
@@ -203,7 +210,7 @@ export default class AppointmentVisit extends Component {
 						onStartChange = {this.onStartChange}
 						onEndChange = {this.onEndChange}
 					/>
-					<div className="all-read" onClick={this.allReadClick}>全部标为已读</div>
+					<div className="all-read"><span onClick={this.allReadClick} style = {{fontSize:14}}>全部标为已读</span></div>
 					<Table  style={{marginTop:10}}
 						ajax={true}
 						onProcessData={
@@ -231,25 +238,22 @@ export default class AppointmentVisit extends Component {
 											let detail = value[1];
 											let color="#999999";
 											let costomerColor="#20568C";
-                      let agreementType = {INTENTION:"承租意向书",ENTER:"入驻协议书",ADDRENT:"增租协议书",LESSRENT:"减租协议书",QUITRENT:"退租协议书",RENEW:"续租协议书"}
-                      let comtent = value[2].split("(")[0];
-                      let time = value[2].split("(")[1];
+						                      let agreementType = {INTENTION:"承租意向书",ENTER:"入驻协议书",ADDRENT:"增租协议书",LESSRENT:"减租协议书",QUITRENT:"退租协议书",RENEW:"续租协议书"}
+						                      let comtent = value[2].split("(")[0];
+						                      let time = value[2].split("(")[1];
 											if(itemData.msgStatu == "UNREAD"){
 												color="#333333";
 												costomerColor="#499DF1";
 											}
-											console.log(detail,"gggggggg")
 											detail = eval(detail);
 											let htmlAgreement = detail.map(function(item,index){
 
 												return (<span key = {index} className="customer" onClick = {_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{agreementType[item.contractType]+","}</span>)
 											})
 											return (
-														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
+														<div className='appointment-visit-content urge-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
 															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot"></span>}
-															{value[0]}
-															{htmlAgreement}
-															{comtent}
+															{value[0]}{htmlAgreement}{comtent}
 															<div>{"("+time}</div>
 														</div>
 													);

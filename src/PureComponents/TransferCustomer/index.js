@@ -88,6 +88,7 @@ export default class AppointmentVisit extends Component {
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!other,
 				});
 	    }
 
@@ -118,6 +119,7 @@ export default class AppointmentVisit extends Component {
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!searchParams.other,
 				});
 	    }
 
@@ -154,6 +156,7 @@ export default class AppointmentVisit extends Component {
 			pageSize: 15,
 			createDateEnd:searchParams.createDateEnd || "",
 			createDateStart:searchParams.createDateStart || "",
+			other:!searchParams.other,
 		});
 
 
@@ -191,12 +194,12 @@ export default class AppointmentVisit extends Component {
 		let _this=this;
 
 		return (
-				<div className="appointment-visit" style = {{paddingBottom:48}}>
+				<div className="transfer-customer" style = {{paddingBottom:48}}>
 					<SearchForm
 						onStartChange = {this.onStartChange}
 						onEndChange = {this.onEndChange}
 					/>
-					<div className="all-read" onClick={this.allReadClick}>全部标为已读</div>
+					<div className="all-read" ><span onClick={this.allReadClick} style = {{fontSize:14}}>全部标为已读</span></div>
 					<Table  style={{marginTop:10}}
 						ajax={true}
 
@@ -250,7 +253,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-												<div className="appointment-visit-time" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+												<div className="appointment-visit-time-trans" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 											);
 										}
 									}
@@ -269,7 +272,7 @@ export default class AppointmentVisit extends Component {
 												color="#499DF1";
 											}
 											return (
-												<div className="appointment-visit-read" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
+												<div className="appointment-visit-read" style={{color:color,top:13}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
 											);
 										}
 									}

@@ -5,10 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {
-	Message
-} from "kr-ui";
-import {Actions,Store} from 'kr/Redux';
+
 //全局store
 let State = observable({
     searchParams:{
@@ -17,6 +14,7 @@ let State = observable({
       createDateEnd:'',
       createDateStart:'',
       msgCommunity:'',
+      other:true,
     }
 });
 
