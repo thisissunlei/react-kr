@@ -77,17 +77,7 @@ class NewCreateForm extends Component{
 		}
 	}
 	componentDidMount() {
-		State.searchParams = {
-			beginDate:'',
-			cityId:'',
-			countyId: '',
-			endDate:'',
-			name:'',
-			page: 1,
-			pageSize: 15,
-			type:'',
-			time:''
-		}
+		
 	}
 	 onSubmit=(values)=>{
 		let {content,filter} = this.props;
