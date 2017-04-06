@@ -946,7 +946,6 @@ const APIS = {
 
 
 
-<<<<<<< HEAD
 //会员卡列表
    'memberCardList': {
       url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
