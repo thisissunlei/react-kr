@@ -39,7 +39,7 @@ export default class SelectTimeComponent extends React.Component{
 	}
 
 	componentWillUnmount(){
-
+			document.body.removeEventListener("click",this.onClickOther); 	
 	}
 
 	//input框被点击
@@ -105,7 +105,8 @@ export default class SelectTimeComponent extends React.Component{
 
 
 	renderHour=()=>{
-
+		
+		let {hourNum}=this.state;
         var hour=[];
         
         for(var i=0;i<24;i++){
