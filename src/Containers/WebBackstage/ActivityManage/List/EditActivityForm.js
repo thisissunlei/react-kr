@@ -33,7 +33,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	constructor(props){
 		super(props);
 
-		Store.dispatch(reset('EditActivityForm'));
+		// Store.dispatch(reset('EditActivityForm'));
 
 		this.state = {
 			timeStart:'',
