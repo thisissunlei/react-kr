@@ -62,7 +62,7 @@ export default class MapComponentNew extends Component {
 		}
 	}
 	componentDidMount() {
-
+		
 		// 编辑时input回显
 		if(this.props.defaultValue){
 			this.refs.mapInput.defaultValue = this.props.defaultValue;

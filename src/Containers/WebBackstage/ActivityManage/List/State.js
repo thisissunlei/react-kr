@@ -150,6 +150,7 @@ State.activityDetail = action(function(id) {
 	Http.request('getActivityDetail', {
 		id: id,
 	}).then(function(response) {
+		// console.log("response.summary",response.summary);
 		_this.detailContent = response.summary;
 	}).catch(function(err) {
 		console.log('err',err);

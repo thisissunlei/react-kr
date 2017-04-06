@@ -438,7 +438,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		*/
 		return (
 
-			<div className="new-create-activity">
+			<div className="edit-activity">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
@@ -447,6 +447,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							<img src={require('./images/closeIMG.svg')} className="close-page-img" />
 						</span>
 					</div>
+
 					<div className="detail-info">
 						<div className="activity-info">
 							<div className="activity-title">
@@ -565,6 +566,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 								</div>
 
 								{/*置顶显示轮播图*/}
+
 								<KrField name="pcCoverPic"
 									component="newuploadImage"
 									innerstyle={{width:524,height:159,padding:10}}
@@ -615,7 +617,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							</div>
 
 						</div>
-						<div className="enroll-info">
+						<div className="enroll-info-last">
 							<div className="enroll-title">
 								<span>2</span>
 								<span></span>
@@ -624,10 +626,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							<div className="enroll-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
 
-								<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
+								<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce} style={{margin:"52px 0 0 21px"}}/>
 
 
-								<Grid style={{margin:"19px 0 30px 7px"}}>
+								<Grid style={{margin:"19px 0 30px 27px"}}>
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
