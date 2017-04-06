@@ -1,9 +1,7 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React from 'react';
 
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {reduxForm,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-import {ShallowEqual} from 'kr/Utils';
 
 import {
 	KrField,
@@ -18,7 +16,7 @@ import {
 
 import './index.less';
 
-class Switchover extends Component{
+class Switchover extends React.Component{
 	constructor(props) {
 		super(props);
     this.state={
@@ -27,13 +25,7 @@ class Switchover extends Component{
     }
   }
 
-	// componentWillReceiveProps(nextProps){
-	// 	if(!ShallowEqual(nextProps.allData,this.state.allData)){
-	// 		this.setState({
-	// 			allData:nextProps.allData,
-	// 		});
-	// 	}
-	// }
+
 	//向右边添加
 	rightAdd=(value)=>{
 		var _this=this;
@@ -53,6 +45,7 @@ class Switchover extends Component{
 			_this.props.changeMudle(_this.state.okData)
 		});
 	}
+
 	//右边全部数据添加到左边
 	leftToAll=()=>{
 		var _this=this;
@@ -61,6 +54,7 @@ class Switchover extends Component{
 			_this.props.changeMudle(_this.state.okData);
 		});
 	}
+
 	//左边全部数据添加到右边
 
 	rightToAll=()=>{
@@ -126,6 +120,7 @@ class Switchover extends Component{
 
 
 class ZhuanHuan extends React.Component{
+
 	constructor(props) {
 		super(props);
     this.state={
@@ -134,7 +129,7 @@ class ZhuanHuan extends React.Component{
   }
 
 	componentWillReceiveProps(nextProps) {
-			 this.setState({mouldSort: nextProps.Data});
+		 this.setState({mouldSort: nextProps.Data});
 	 }
 
    //上移
@@ -146,6 +141,7 @@ class ZhuanHuan extends React.Component{
 
 
   }
+
   //下移
   downMove=(index,event)=>{
     if(index == this.state.mouldSort.length -1) {
@@ -231,13 +227,11 @@ class ZhuanHuan extends React.Component{
 }
 
 
-
-
  /**
   * 模板条组件
   * @return {[type]} [description]
   */
-  class KrMould extends Component{
+  class KrMould extends  React.Component{
     render(){
       var upShow,downShow,className="ui-KrMould";
 
@@ -292,7 +286,6 @@ class ZhuanHuan extends React.Component{
           <span className={className}>{this.props.text}</span>
           <span className="ui-iconDown" onClick={this.props.downMove} style={downShow}></span>
           <span className="ui-iconUp"  onClick={this.props.upMoves} style={upStyle}></span>
-
         </div>)
     }
 
@@ -300,9 +293,9 @@ class ZhuanHuan extends React.Component{
 
 
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
-	 static PropTypes = {
+	 static propTypes = {
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
 		 detail:React.PropTypes.object,
@@ -387,13 +380,9 @@ class ZhuanHuan extends React.Component{
 		 })
 	 }
 
-
-
-
-
 	 //去除前后空格
 	Trim=(str)=>{
-					return str.replace(/(^\s*)|(\s*$)/g, "");
+		return str.replace(/(^\s*)|(\s*$)/g, "");
 	}
 
 
@@ -404,9 +393,6 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25}}>
 
 				<KrField name="id" type="hidden" label="id"/>
-
-
-
 				<KrField grid={1/2} maxLength={20} style={{marginTop:30}} right={43} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus} />
 				<KrField grid={1/2} right={43} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:30,marginLeft:-10}} onBlur={this.sortCheck} onFocus={this.inputFocus}/>
 
@@ -414,9 +400,9 @@ class ZhuanHuan extends React.Component{
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
 							 <KrField name="enable" label="否" type="radio" value="DISABLE" />
 				</KrField>
+
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
 				<Switchover allData={this.state.moduleData} okData={this.state.okData} changeMudle={this.props.changeMudle}/>
-
 
 			<KrField name="groupDesc" style={{width:558}} heightStyle={{height:"80px"}} component="textarea" label="分组描述" maxSize={100}  />
 
@@ -430,15 +416,20 @@ class ZhuanHuan extends React.Component{
 						</Col>
 					</Row>
 				</Grid>
+
 		</form>
 		);
 	}
 }
+
 const validate = values =>{
+
 		const errors = {}
+
 		if(!values.groupName){
 			errors.groupName = '请填写分组名称';
 		}
+
 		if (!values.sort) {
 			errors.sort = '请填写排序号';
 		}else if(isNaN(+values.sort)){
@@ -452,7 +443,6 @@ const validate = values =>{
 		if (!values.enable) {
 			errors.enable = '请先选择是否启用';
 		}
-
 
 		return errors
 	}
