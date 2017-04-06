@@ -46,6 +46,7 @@ export default class  SearchSourceAddComponent extends React.Component {
 
 
 	onChange = (item) =>{
+	
 		this.setState({
 			value:item
 		})
@@ -76,7 +77,7 @@ export default class  SearchSourceAddComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
-					ref={(selectCustomer)=>this.selectCustomer=selectCustomer}
+					ref={(element)=>this.element=element}
 					name={input.name}
 					value={this.state.value}
 					loadOptions={this.getOptions}

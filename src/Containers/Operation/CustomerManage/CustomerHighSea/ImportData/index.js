@@ -77,8 +77,6 @@ class ImportData extends React.Component{
 	 }
 
 	 onSubmit=(params)=>{
-		 console.log('params:',params);
-		 return ;
 		 let {customerName}=this.state;
 		 let _this = this;
 		 var form = new FormData();

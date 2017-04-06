@@ -1,10 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const node_modules_dir = path.join(process.cwd(),'node_modules');
 const HappyPack = require('happypack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var env = process.env.NODE_ENV || 'production';
 
@@ -85,7 +86,10 @@ const config = {
 			showErrors:true,
 			chunksSortMode:'none'
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
+		])
 	],
 	module: {
 		exprContextRegExp: /$^/,
