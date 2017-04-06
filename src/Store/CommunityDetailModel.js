@@ -64,7 +64,7 @@ State.lookListId=action(function(params,operType) {
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
          _this.loading=false;
-				 if(response.sourceName.indexOf('推荐') != -1){
+				 if(response.sourceName && response.sourceName.indexOf('推荐') != -1){
 
  				 	 _this.presentShow = true;
  				}else{

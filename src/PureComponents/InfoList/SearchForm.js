@@ -112,7 +112,7 @@ class SearchForm extends Component {
 				<div className="searchForm-col" style={{marginTop:"0px",}}>
 					<KrField grid={1} label="" name="infoCreateDateBegin" style={{width:"220px"}}  component="date" inline={false} onChange={this.onEndChange} placeholder='日期'/>
 				</div>
-				<div className="searchForm-col" style={{width:0,position:"relative",left:-17,top:19}}>
+				<div className="searchForm-col" style={{width:0,position:"relative",left:-17,top:18}}>
 					<span>至</span>
 				</div>
 
@@ -120,7 +120,7 @@ class SearchForm extends Component {
 					<KrField grid={1} label="" name="infoCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
-				<KrField style={{width:205,marginLeft:-44,position:"relative",marginTop:6}} name="infoCommunity" component="select" search={true}  options={communityIdList} onChange={this.communityChange} />
+				<KrField style={{width:232,marginLeft:-44,position:"absolute",marginTop:7}} name="infoCommunity" component="select" search={true}  options={communityIdList} onChange={this.communityChange} />
 
 
 			</form>

@@ -16,7 +16,9 @@ let State = observable({
 			pageSize:15,
 			endTime:"",
 			startTime:"",
-			communityId:""
+			communityId:"",
+			other:true
+
     }
 });
 
