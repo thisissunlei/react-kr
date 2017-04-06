@@ -17,6 +17,27 @@ export default class SelectTimeComponent extends React.Component{
 	    }
     }
 
+
+    onClickOther = (event)=>{
+    	  event = event || window.event;
+			var target = event.target;
+
+			while (target) {
+				if (target && target.className && target.className.indexOf('ui-time-select-all') !== -1) {
+					return;
+				}
+				target = target.parentNode;
+			}
+              this.setState({
+              	allOpen:false
+              });
+    }
+
+    componentDidMount() {
+		document.body.addEventListener("click",this.onClickOther); 		
+
+	}
+
 	componentWillUnmount(){
 
 	}
@@ -82,29 +103,6 @@ export default class SelectTimeComponent extends React.Component{
     }
 
 
-    componentDidMount() {
-      
-      let _this=this;
-		let bodyElem=document.getElementsByTagName("body")[0];
-		bodyElem.addEventListener("click",function(){
-           event = event || window.event;
-			var target = event.target;
-
-			while (target) {
-				if (target && target.className && target.className.indexOf('ui-time-select-all') !== -1) {
-					return;
-				}
-				target = target.parentNode;
-			}
-              _this.setState({
-              	allOpen:false
-              })
-		    }
-		); 
-		
-			
-
-	}
 
 	renderHour=()=>{
 
@@ -141,7 +139,7 @@ export default class SelectTimeComponent extends React.Component{
 
 	render() {
 
-		let {allOpen,widthState,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
+		let {allOpen,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
 		let {label,style,requireLabel,inline,search,inputStyle}=this.props;
 		var inputProps={
 			type:"text",

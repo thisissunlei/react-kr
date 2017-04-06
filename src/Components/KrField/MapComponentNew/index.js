@@ -186,7 +186,7 @@ export default class MapComponentNew extends Component {
 			zIndex:10,
 			position:'absolute',
 			right:0,
-			newObj.display:'block'
+			display:'block'
 		};
 		if(!this.state.showMap){
 			newObj.display = 'none';
