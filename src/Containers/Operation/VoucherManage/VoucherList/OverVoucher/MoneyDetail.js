@@ -25,8 +25,19 @@ export default class VoucherDetail extends React.Component {
 	componentDidMount() {
     var _this = this;
     var id = this.props.detail.id
-		Http.request('findPaymentEvidence',{id:id}).then(function(response) {
-			  _this.setState({infoList: response})
+		Http.request('findReceiptDetail',{id:id}).then(function(response) {
+			  _this.setState({infoList: response},function(){
+					var fileList=[];
+					if(this.state.infoList.uploadFileIds.length>0){
+						this.state.infoList.uploadFileIds.map((item, value) => {
+							fileList.push(<a href={item.fileUrl} target="_blank">{item.fileName}</a>)
+							fileList.push(<br />)
+						});
+					}else{
+						fileList=['暂无上传任何附件'];
+					}
+						this.fileList=fileList;
+				})
 				console.log(response);
 		})
 
@@ -35,14 +46,6 @@ export default class VoucherDetail extends React.Component {
         let {onCancel} = this.props;
         onCancel && onCancel();
     }
-	renderFileName=()=>{
-
-		this.fileList.map((item, value) => {
-			return (
-				<div key={index}>{item}</div>
-			)
-		});
-	}
 	getThumbnailContent = (item) => {
   return (
     <img src={item.thumbnail} width={90} height={90}/>
@@ -197,6 +200,8 @@ export default class VoucherDetail extends React.Component {
 											component="labelText"
 											inline={false}
 											label="上传附件"
+											name="uploadFileIds"
+											value={this.fileList}
 							/>
 						</CircleStyleTwo>
 					 <CircleStyleTwo num="3" info="付款明细" circle="bottom">
@@ -206,7 +211,7 @@ export default class VoucherDetail extends React.Component {
 							 <span>{infoList.flowAmount}</span>
 						 </div>
 						 <div className="u-order-title">对应合同</div>
-						 {/*this.renderPayList()*/}
+						 {/*\\this.renderPayList()*/}
 					</CircleStyleTwo>
 			</div>
 
