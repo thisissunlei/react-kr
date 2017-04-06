@@ -194,7 +194,7 @@ export default class AppointmentVisit extends Component {
 		let _this=this;
 
 		return (
-				<div className="appointment-visit" style = {{paddingBottom:48}}>
+				<div className="transfer-customer" style = {{paddingBottom:48}}>
 					<SearchForm
 						onStartChange = {this.onStartChange}
 						onEndChange = {this.onEndChange}
@@ -253,7 +253,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-												<div className="appointment-visit-time-trans" style={{color:color,top:9}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+												<div className="appointment-visit-time-trans" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 											);
 										}
 									}
