@@ -26,7 +26,6 @@ import {
 
 import './index.less';
 
-
 class AddMoney extends React.Component {
 
 	static propTypes = {
@@ -41,14 +40,11 @@ class AddMoney extends React.Component {
 			accountList: [],
 			mainbillInfo: {},
 			finaflowInfo: {},
-			billInfo: " ",
-			corporationId: "",
       AddInfo:{},
       mainBillList:[],
 		}
 		this.receivedBtnFormChangeValues = {};
     this.getAddInfo();
-
 	}
   //获取基本数据
   getAddInfo=()=>{
@@ -174,7 +170,6 @@ class AddMoney extends React.Component {
     Http.request('get-mainbill-info',{mainBillId: form.value}).then(function(response) {
       _this.setState({
         mainbillInfo: response,
-        corporationId: response.corporationId
       })
       var form={
         payWay:AddInfo.payWay,
