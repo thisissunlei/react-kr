@@ -131,7 +131,7 @@ class ImportData extends React.Component{
 		 return(
 
 			 <div className='m-importData'>
-				 <form onSubmit={handleSubmit(this.onSubmit)}>
+				 <form onSubmit={handleSubmit(this.onSubmit)} style={{minWidth:'330px'}}>
 
 					 <span className='source-customer'>客户来源:</span>
 					 <KrField  grid={1} name="sourceId" style={{marginTop:4,width:262}} component='searchSourceAdd'  onChange={this.onChangeAdd} placeholder='请选择'/>
