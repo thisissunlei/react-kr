@@ -180,6 +180,9 @@ export default class WaitVoucher extends React.Component {
   //   }).catch(function(err) {});
   //
   // }
+  onAddSubmit=()=>{
+    window.reload();
+  }
   searchParams = (form) => {
     var _this = this;
     this.setState({
@@ -302,7 +305,7 @@ export default class WaitVoucher extends React.Component {
                      onClose={this.openCreate}
                      openSecondary={true}
                    >
-                     <AddMoney  detail={itemDetail} onCancel={this.openCreate}  />
+                     <AddMoney  detail={itemDetail} onSubmit={this.onAddSubmit} onCancel={this.openCreate}  />
                    </Drawer>
 
 
