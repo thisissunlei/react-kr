@@ -1,45 +1,21 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react'; 
 
 import {
-	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	change
+	reduxForm
 } from 'redux-form';
 
 import {
 	Actions,
 	Store,
-	connect
 } from 'kr/Redux';
+
 import {
-	observer
-} from 'mobx-react';
-import {
-	Section,
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
-	ListGroup,
-	ListGroupItem,
-	SearchDateForm,
-	SearchForms,
-	Message
 } from 'kr-ui';
+
 import "./index.less";
-class SearchForm extends Component {
+
+class SearchForm extends React.Component {
 
 
 	constructor(props) {
@@ -118,8 +94,8 @@ class SearchForm extends Component {
 
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:30}}>
 					<KrField grid={1} label="" name="visitCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
-
 				</div>
+
 				<KrField style={{width:222,marginLeft:-44,position:"absolute",marginTop:7}} name="visitCommunity" component="select" search={true}  options={communityIdList} onChange={this.communityChange} />
 
 
