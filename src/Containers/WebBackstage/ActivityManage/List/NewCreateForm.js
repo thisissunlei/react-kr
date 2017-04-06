@@ -366,7 +366,7 @@ class NewCreateForm extends Component{
 									label="参与人"
 									style={{width:'252px'}}
 								/>
-								<KrField grid={1/2} name="maxPerson" type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
+								<KrField grid={1/2} name="maxPerson"  requireLabel={true} type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
 								<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
 									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
 									<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
@@ -515,7 +515,9 @@ const validate = values => {
 			errors.sort = '排序号必须为五位以内正整数';
 		}
 	}
-	if(values.maxPerson){
+	if(!values.maxPerson){
+		errors.maxPerson = '人数限制为必填项';
+	}else if(values.maxPerson){
 		var personNum = (values.maxPerson+'').replace(/(^\s*)|(\s*$)/g, "");
 		if(!numContr.test(personNum)){
 			errors.maxPerson = '人数限制必须为五位以内正整数';
