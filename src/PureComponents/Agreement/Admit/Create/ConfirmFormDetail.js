@@ -1,6 +1,4 @@
-import React, {Component, PropTypes} from 'react';
-
-import {Actions,Store} from 'kr/Redux';
+import React from 'react';
 
 import {
 	Table,
@@ -21,11 +19,12 @@ import {
 	DotTitle
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
-export default class ConfirmFormDetail  extends Component{
+import {DateFormat} from 'kr/Utils';
+
+export default class ConfirmFormDetail  extends React.Component{
 
 
-	static PropTypes = {
+	static propTypes = {
 		detail:React.PropTypes.object,
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
@@ -34,18 +33,14 @@ export default class ConfirmFormDetail  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel  = this.onCancel.bind(this);
-
 	}
 
-	onSubmit(form){
+	onSubmit = (form) =>{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
 
-	onCancel(){
+	onCancel = ()=>{
 
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -69,9 +64,9 @@ export default class ConfirmFormDetail  extends Component{
         		return payment = item.label;
         	}
         })
-         	detail.leaseBegindate=dateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
-	        detail.leaseEnddate=dateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
-	        detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+         	detail.leaseBegindate=DateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
+	        detail.leaseEnddate=DateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
+	        detail.signdate=DateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 
@@ -97,7 +92,6 @@ export default class ConfirmFormDetail  extends Component{
 
 								 <KrField grid={1/2}   component="labelText" label="定金总额"  value={detail.totaldownpayment} inline={false}/>
 								 <KrField grid={1/2}    component="labelText" label="签署日期"  value={detail.signdate} inline={false}/>
-
 
 
 
@@ -156,7 +150,6 @@ export default class ConfirmFormDetail  extends Component{
 										})}
 								   </TableBody>
 							 </Table>
-
 
                </DotTitle>
 			    <Grid>
