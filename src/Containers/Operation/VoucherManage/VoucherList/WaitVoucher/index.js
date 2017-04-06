@@ -37,6 +37,7 @@ import './index.less';
 import  ItemDetail from './ItemDetail';
 import SearchsForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
+import AddMoney from './AddMoney';
 
 export default class WaitVoucher extends React.Component {
 
@@ -52,6 +53,7 @@ export default class WaitVoucher extends React.Component {
       openItem: false,
       delVoucher: false,
       openSearch: false,
+      openCreate:false,
       infoList:[],
       Param: {
         page: 1,
@@ -88,8 +90,15 @@ export default class WaitVoucher extends React.Component {
         this.openEditCreate();
       } else if (type == 'delete') {
         this.delVoucher(itemDetail);
+      }else if(type="add"){
+        this.openCreate();
       }
     }
+  openCreate=()=>{
+    this.setState({
+       openCreate:!this.state.openCreate
+    })
+  }
   //高级查询
   openSearch = () => {
     this.setState({
@@ -247,6 +256,7 @@ export default class WaitVoucher extends React.Component {
                             <TableRowColumn>
                                 <Button label="查看"  type="operation"  operation="view"/>
                                 <Button label="删除"  type="operation"  operation="delete"/>
+                                <Button label="添加收款"  type="operation"  operation="add"/>
                             </TableRowColumn>
                           </TableRow>
                       </TableBody>
@@ -285,6 +295,16 @@ export default class WaitVoucher extends React.Component {
                     >
                       <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
                     </Dialog>
+                    <Drawer
+                     modal={true}
+                     width={750}
+                     open={this.state.openCreate}
+                     onClose={this.openCreate}
+                     openSecondary={true}
+                   >
+                     <AddMoney  detail={itemDetail} onCancel={this.openCreate}  />
+                   </Drawer>
+
 
       </div>
 

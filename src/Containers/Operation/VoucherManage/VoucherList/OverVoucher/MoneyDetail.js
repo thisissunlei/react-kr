@@ -48,6 +48,58 @@ export default class VoucherDetail extends React.Component {
     <img src={item.thumbnail} width={90} height={90}/>
   );
 	}
+	renderPayList = () => {
+		let {
+			payInfoList
+		} = this.state;
+		var type;
+		if (payInfoList.cimbList && payInfoList.cimbList.length > 0) {
+			return payInfoList.cimbList.map((item, index) => {
+				if (item.contactType == 1) {
+					type = "承租意向书"
+				} else if (item.contactType == 2) {
+					type = "入驻协议书"
+				} else if (item.contactType == 3) {
+					type = "增租协议书"
+				} else if (item.contactType == 4) {
+					type = "续租协议书"
+				}
+				return (
+					<div key={index} className="u-order-list u-clearfix">
+						<div className="u-order-name">{`${type}-${item.contactName}`}</div>
+						{
+							item.frontmoney?(
+							<div className="u-order-font-list">
+								<div className="u-order-deatil">定金<span className="u-font-red">{`（未回款额：${item.nFrontmoney}）`}</span></div>
+								<div className="u-order-count">{item.frontmoney}</div>
+							</div>
+						):''
+						}
+						{
+							item.depositId?(
+							<div className="u-order-font-list">
+								<div className="u-order-deatil">履约保证金<span className="u-font-red">{`（未回款额：${item.nDeposit}）`}</span></div>
+								<div className="u-order-count">{item.deposit}</div>
+							</div>
+						):''
+						}
+						{
+							item.totalrentId?(
+							<div className="u-order-font-list">
+								<div className="u-order-deatil">工位服务费<span className="u-font-red">{`（未回款额：${item.nTotalrent}）`}</span></div>
+								<div className="u-order-count">{item.totalrent}</div>
+							</div>
+						):''
+						}
+
+					</div>
+
+				)
+
+			})
+		}
+
+	}
 	render() {
     let {infoList} = this.state;
 		console.log(this.state.infoList);
@@ -154,6 +206,7 @@ export default class VoucherDetail extends React.Component {
 							 <span>{infoList.flowAmount}</span>
 						 </div>
 						 <div className="u-order-title">对应合同</div>
+						 {/*this.renderPayList()*/}
 					</CircleStyleTwo>
 			</div>
 
