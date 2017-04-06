@@ -11,12 +11,13 @@ export default class DrawerBody extends React.Component {
     super(props);
   }
 
+
   render() {
 
     let {children,style} = this.props;
 
     return (
-      <div className="drawer-body" style={style}>
+      <div className="drawer-body" style={style} ref="drawerBody">
           {children}
       </div>
     );
