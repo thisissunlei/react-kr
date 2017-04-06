@@ -1,40 +1,16 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-
+import React from 'react';
 import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
-
-import {
-	reduxForm,
-	formValueSelector,
-	initialize
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
 	KrDate,
-	ListGroupItem,
-	SearchForms,
-	ButtonGroup,
+	CircleStyleTwo
 } from 'kr-ui';
 import './index.less';
 
 
-export default class VoucherDetail extends Component {
+export default class VoucherDetail extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
@@ -49,12 +25,10 @@ export default class VoucherDetail extends Component {
 	componentDidMount() {
     var _this = this;
     var id = this.props.detail.id
-    Store.dispatch(Actions.callAPI('findPaymentEvidence', {
-            id: id
-        }, {})).then(function(response) {
-            _this.setState({infoList: response})
-            console.log(response);
-        }).catch(function(err) {});
+		Http.request('findPaymentEvidence',{id:id}).then(function(response) {
+			  _this.setState({infoList: response})
+				console.log(response);
+		})
 
 	}
   onCancel = () => {
@@ -78,7 +52,12 @@ export default class VoucherDetail extends Component {
     let {infoList} = this.state;
 		console.log(this.state.infoList);
 		let items = [];
-		let urls = ['http://lorempixel.com/1200/900/sports/1','http://lorempixel.com/1200/900/sports/2']
+		let urls = ['http://lorempixel.com/1200/900/sports/1',
+		'http://lorempixel.com/1200/900/sports/2',
+		'http://lorempixel.com/1200/900/sports/1',
+		'http://lorempixel.com/1200/900/sports/2',
+		'http://lorempixel.com/1200/900/sports/1',
+	]
 		items = urls.map((item,value) => {
 			return(
 				{
@@ -90,50 +69,92 @@ export default class VoucherDetail extends Component {
 				}
 			)
 		});
-		console.log(items);
-// 		let items = [
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/1',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 1'
-//   },
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/2',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 2'
-//   },
-// 	{
-//     src: 'http://lorempixel.com/1200/900/sports/1',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 1'
-//   },
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/2',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 2'
-//   },
-// ];
 		return (
-			<div className="u-audit-add">
-					 <div>
-						 <KrField grid = {1 / 2}   inline={false} component="labelText" label="签约方名称" value={infoList.customerName}/>
-						 <KrField grid = {1 / 2}  component="labelText" inline={false} label="付款方式" value={infoList.payWayName}/>
-						 <KrField grid = {1 / 2} component="labelText" inline={false} label="付款方名称" value={infoList.paymentAccount}/>
-						 <KrField grid = {1 / 2}  component="labelText" label="入驻社区" inline={false} value={infoList.communityName}/>
-						 <KrField grid = {1}  component="labelText" inline={false} defaultValue={infoList.remark} label="备注说明" />
-						 <KrField grid = {1}  component="labelText" inline={false} label="添加凭证" />
-						 	<div style={{marginLeft:19,marginTop:-28}}>
+			<div className="u-audit-detail">
+					 <CircleStyleTwo num="1" info="付款凭证">
+						 	<div style={{marginTop:-28}}>
 								<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
 						 	</div>
-					 </div>
+					 </CircleStyleTwo>
+					  <CircleStyleTwo num="2" info="付款信息" style={{marginTop:45}}>
+							<KrField
+											grid = {1 / 2}
+											inline={false}
+											component="labelText"
+											label="客户名称"
+											value={infoList.customerName}
+							/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											inline={false}
+											label="所属订单"
+											value={infoList.payWayName}
+							/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											inline={false}
+											label="订单起止"
+											value={infoList.paymentAccount}
+								/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											label="公司主体"
+											inline={false}
+											value={infoList.communityName}
+							/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											inline={false}
+											label="收款方式"
+											value={infoList.paymentAccount}
+								/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											label="我司账户"
+											inline={false}
+											value={infoList.communityName}
+							/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											inline={false}
+											label="付款账户"
+											value={infoList.paymentAccount}
+								/>
+							<KrField
+											grid = {1 / 2}
+											component="labelText"
+											label="收款日期"
+											inline={false}
+											value={infoList.communityName}
+							/>
+							<KrField
+											grid = {1}
+											component="labelText"
+											inline={false}
+											defaultValue={infoList.remark}
+											label="备注"
+							/>
+							<KrField
+											grid = {1}
+											component="labelText"
+											inline={false}
+											label="上传附件"
+							/>
+						</CircleStyleTwo>
+					 <CircleStyleTwo num="3" info="付款明细" circle="bottom">
+						 <div className="u-add-total-count">
+							 <span className="u-add-total-icon"></span>
+							 <span className="u-add-total-title">付款总金额：</span>
+							 <span>{infoList.flowAmount}</span>
+						 </div>
+						 <div className="u-order-title">对应合同</div>
+					</CircleStyleTwo>
 			</div>
 
 

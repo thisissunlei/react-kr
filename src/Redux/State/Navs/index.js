@@ -150,7 +150,12 @@ module.exports = {
                 primaryText: '分组管理',
                 menuCode: 'groupManage',
                 router: '/operation/groupSetting'
-            }]
+            },{
+      				primaryText: '凭证列表',
+      				router: '/operation/voucherManage/voucherList',
+      				menuCode: 'groupManage',
+      			}]
+
         }, ]
     },{
 			primaryText: "凭证管理",
