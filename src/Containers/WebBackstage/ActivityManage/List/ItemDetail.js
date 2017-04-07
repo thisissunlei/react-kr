@@ -241,7 +241,7 @@ import dateFormat from 'dateformat';
 
 							<div className="photo-box activity-content">
 								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs" style={{margin:"30px 0 0 14px"}}>
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs" style={{margin:"12px 0 0 14px"}}>
 									{ReactHtmlParser(State.detailContent)}
 								</div>
 							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
@@ -257,10 +257,10 @@ import dateFormat from 'dateformat';
 							<span></span>
 							<span>报名信息</span>
 						</div>
-						<div className="enroll-detail-info">
+						<div className="enroll-detail-info-detail">
 							<img src={require('./images/selectOne.svg')} className="select-one-see"/>
 
-							<Grid style={{marginTop:19,paddingBottom:32,marginLeft:17}}>
+							<Grid style={{marginTop:5,paddingBottom:15,marginLeft:17}}>
 								<Row>
 									<ListGroup>
 										{	list.name && <ListGroupItem style={{marginRight:48}}>
@@ -323,10 +323,10 @@ import dateFormat from 'dateformat';
 								</TableBody>
 							</Table>
 						</div>
-						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:43}}>暂无</div>}
+						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:43,marginTop:'-12px'}}>暂无</div>}
 
 
-						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
+						{State.actField.items.length>5?<div className="Btip"  style={{height:42}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
 
 					</div>
 

@@ -87,7 +87,7 @@ class EditEquipmentForm extends Component{
 			id : detail.id,
 		})
 		
-		if(detail.propertyId && detail.propertyId!==1){
+		if(detail.propertyId && detail.propertyId!==1 && detail.propertyId!==4 ){
 			_this.setState({
 				locationOpen : !_this.state.locationOpen
 			})
