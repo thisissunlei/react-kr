@@ -44,6 +44,7 @@ class MerchantsData  extends Component{
 			endValue:''
 		}
 		this.gainData();
+		console.log("...,,,,,..,,>>>>",this.props.groupId);
 	}
 
 	onStartChange=(startD)=>{
@@ -99,7 +100,6 @@ class MerchantsData  extends Component{
     		_this.setState({
     			data:response
     		})
-    		console.log(response,"??????");
 		}).catch(function(err) {
 		
 		});
@@ -107,9 +107,10 @@ class MerchantsData  extends Component{
 
     openExprot = () =>{
     	let {searchParams}=this.state;
-		Http.request('openCompanyExprot',searchParams).then(function(response) {
+    	console.log(searchParams,">>>>>>>>")
+		Http.request('already-export',searchParams).then(function(response) {
 		}).catch(function(err) {
-		
+			
 		});
     }
     createOpenElems = () =>{
@@ -184,6 +185,43 @@ class MerchantsData  extends Component{
 		return elems;
     	
     }
+    createTotalList = () =>{
+    	let {data} = this.state;
+		let {totalList} = data;
+
+		if(!totalList || totalList.length == 0){
+			return;
+		}
+		let elems = totalList.map(function(item,index){
+			return (
+					<TableRow>
+						<TableRowColumn >
+							
+						</TableRowColumn>
+						<TableRowColumn >{item.cityName}</TableRowColumn>
+						<TableRowColumn >
+							
+						</TableRowColumn>
+						<TableRowColumn>{item.newCustomer}</TableRowColumn>
+						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
+						<TableRowColumn>{item.intentionStation}</TableRowColumn>
+						<TableRowColumn>{item.enterCustomer}</TableRowColumn>
+						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						<TableRowColumn>{item.increaseCustomer}</TableRowColumn>
+						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						<TableRowColumn>{item.returnCustomer}</TableRowColumn>
+						<TableRowColumn>{item.enterSeveral}</TableRowColumn>
+						<TableRowColumn>{item.continueSeveral}</TableRowColumn>
+						<TableRowColumn>{item.increaseSeveral}</TableRowColumn>
+						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
+						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
+						
+					</TableRow>
+				);
+		})
+		return elems;
+    	
+    }
 
 
 	
@@ -191,6 +229,14 @@ class MerchantsData  extends Component{
 		let {data} = this.state;
 		let {unopenList,openList} = data;
 			console.log(openList,">>>>>>>>>>>>>")
+		if(!openList){
+			openList=[];
+		}
+		if(!unopenList){
+			unopenList=[];
+		}
+			console.log(openList,"<<<<<<<<<<<<<")
+
 
 			return(
 				<div className='open-merchants-data' style={{background:'#fff',marginBottom:'20'}}>
@@ -231,14 +277,20 @@ class MerchantsData  extends Component{
 							</TableHeader>
 
 							<TableBody>
-								<div style={{position: "absolute",zIndex: 99,width: "6.03%",background: "red",top: 208,height:56}}>已开业</div>
+								
+								<div style={{position: "absolute",zIndex: 10,width: "6.03%",boxSizing:" border-box",border:"solid 1px #eee",background: "#fff",top: 208,height:51*(openList.length),lineHeight:51*(openList.length)+"px"}}>已开业</div>
+								<div style={{position: "absolute",zIndex: 10,width: "6.03%",boxSizing:" border-box",border:"solid 1px #eee",background: "#fff",top: 208+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px"}}>未开业</div>
+								<div style={{position: "absolute",zIndex: 10,width: "12.06%",boxSizing:" border-box",border:"solid 1px #eee",background: "#fff",top: 208+51*(openList.length+unopenList.length),height:51,lineHeight:51+"px"}}>总计</div>
 
+								{this.createOpenElems()}
 								{this.createUnopenElems()}	
+								{this.createTotalList()}
 							</TableBody>
 							</Table>
 							</div>
-					</div>
 					 <Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+
+					</div>
 		 		</div>
 			);
 		}

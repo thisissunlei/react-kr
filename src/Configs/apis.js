@@ -1061,6 +1061,11 @@ const APIS = {
      url: '/api/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
      method: 'get'
   },
+    //招商数据统计-导出
+  'already-export':{
+     url: '/api/krspace-finance-web/stat/merchant/data/customer/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+     method: 'get'
+  },
   
 
 
