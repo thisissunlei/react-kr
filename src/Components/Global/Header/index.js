@@ -115,6 +115,7 @@ class Header extends Component {
 	 let showRedDrop = false;
 	 let showMassge = false;
 	 let Details=[];
+	 let sum=0;
 	 Http.request('messageLookJurisdiction').then(function(response) {
 
 		for (var key in response.rightDetails){
@@ -123,8 +124,12 @@ class Header extends Component {
 				break;
 			}
 		}
-		console.log(response,">>>>>>>>>>")
-		if(response.unreadTotal != 0){
+		for (var key in response.rightDetails){
+		    if(response.rightDetails[key]){
+				sum+=response.unreadDetails[key]||0;
+			}
+		}
+		if(sum != 0){
 			showRedDrop=true;
 		}
 
