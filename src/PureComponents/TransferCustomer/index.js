@@ -233,7 +233,7 @@ export default class AppointmentVisit extends Component {
 											}
 											return (
 														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
-															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot"></span>}
+															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot" style = {{top:6}}></span>}
 															{value[0]}
 															<span className="customer" onClick={_this.customerClick.bind(this,itemData)} style={{color:costomerColor}}>{value[1]}</span>
 															{value[2]}
