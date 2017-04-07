@@ -53,11 +53,11 @@ export default class VoucherDetail extends React.Component {
 	}
 	renderPayList = () => {
 		let {
-			payInfoList
+			infoList
 		} = this.state;
 		var type;
-		if (payInfoList.cimbList && payInfoList.cimbList.length > 0) {
-			return payInfoList.cimbList.map((item, index) => {
+		if (infoList.cimbList && infoList.cimbList.length > 0) {
+			return infoList.cimbList.map((item, index) => {
 				if (item.contactType == 1) {
 					type = "承租意向书"
 				} else if (item.contactType == 2) {
@@ -96,38 +96,57 @@ export default class VoucherDetail extends React.Component {
 						}
 
 					</div>
-
-				)
-
+					)
 			})
 		}
+	}
+	renderNullOrder = () => {
+		let {
+			infoList
+		} = this.state;
+		if (infoList.scvList && infoList.scvList.length > 0) {
 
+			return (
+				<div style={{marginTop:16}}>
+						<div className="u-order-title">无合同</div>
+						<div className="u-order-list u-clearfix">
+						{ infoList.scvList.map((item, index) => {
+							return (
+								<div className="u-order-font-list" key={index}>
+									<div className="u-order-deatil">{item.propname}</div>
+									<div className="u-order-count">{item.propamount}</div>
+								</div>
+							)
+						})}
+						</div>
+					</div>
+
+			)
+
+
+
+		}
 	}
 	render() {
     let {infoList} = this.state;
-		console.log(this.state.infoList);
 		let items = [];
-		let urls = ['http://lorempixel.com/1200/900/sports/1',
-		'http://lorempixel.com/1200/900/sports/2',
-		'http://lorempixel.com/1200/900/sports/1',
-		'http://lorempixel.com/1200/900/sports/2',
-		'http://lorempixel.com/1200/900/sports/1',
-	]
-		items = urls.map((item,value) => {
-			return(
-				{
-					src: item,
-			    thumbnail: item,
-			    w: 900,
-			    h: 900,
-			    title: value
-				}
-			)
-		});
+	if(infoList.urls){
+			items = infoList.urls.map((item,value) => {
+				return(
+					{
+						src: item,
+				    thumbnail: item,
+				    w: 900,
+				    h: 900,
+				    title: value
+					}
+				)
+			});
+		}
 		return (
 			<div className="u-audit-detail">
 					 <CircleStyleTwo num="1" info="付款凭证">
-						 	<div style={{marginTop:-28}}>
+						 	<div style={{marginTop:-28,paddingBottom:15}}>
 								<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
 						 	</div>
 					 </CircleStyleTwo>
@@ -144,49 +163,49 @@ export default class VoucherDetail extends React.Component {
 											component="labelText"
 											inline={false}
 											label="所属订单"
-											value={infoList.payWayName}
+											value={infoList.mainBillName}
 							/>
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
 											inline={false}
 											label="订单起止"
-											value={infoList.paymentAccount}
+											value={infoList.mainBillDate}
 								/>
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
 											label="公司主体"
 											inline={false}
-											value={infoList.communityName}
+											value={infoList.corporationName}
 							/>
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
 											inline={false}
 											label="收款方式"
-											value={infoList.paymentAccount}
+											value={infoList.payName}
 								/>
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
 											label="我司账户"
 											inline={false}
-											value={infoList.communityName}
+											value={infoList.accountNum}
 							/>
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
 											inline={false}
 											label="付款账户"
-											value={infoList.paymentAccount}
+											value={infoList.payAccount}
 								/>
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
 											label="收款日期"
 											inline={false}
-											value={infoList.communityName}
+											value={infoList.dealTime}
 							/>
 							<KrField
 											grid = {1}
@@ -205,13 +224,16 @@ export default class VoucherDetail extends React.Component {
 							/>
 						</CircleStyleTwo>
 					 <CircleStyleTwo num="3" info="付款明细" circle="bottom">
-						 <div className="u-add-total-count">
-							 <span className="u-add-total-icon"></span>
-							 <span className="u-add-total-title">付款总金额：</span>
-							 <span>{infoList.flowAmount}</span>
+						 <div style={{marginLeft:20}}>
+								 <div className="u-add-total-count">
+									 <span className="u-add-total-icon"></span>
+									 <span className="u-add-total-title">付款总金额：</span>
+									 <span>{infoList.flowAmount}</span>
+								 </div>
+								 <div className="u-order-title">对应合同</div>
+								 {this.renderPayList()}
+								 {this.renderNullOrder()}
 						 </div>
-						 <div className="u-order-title">对应合同</div>
-						 {/*\\this.renderPayList()*/}
 					</CircleStyleTwo>
 			</div>
 
