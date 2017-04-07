@@ -1,8 +1,8 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
 import {connect, Actions, Store} from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
 import CreateAccount from './CreateAccount';
 import DataPermission from './DataPermission';
 import SearchForm from './SearchForm';
@@ -30,7 +30,7 @@ import {
     Dialog
 } from 'kr-ui';
 import './index.less';
-class AccountList extends Component {
+class AccountList extends React.Component {
 
     constructor(props, context) {
         super(props, context);
@@ -70,11 +70,7 @@ class AccountList extends Component {
     // }
     openNewCreate = () => {
         this.setState({
-            openNewCreate: !this.state.openNewCreate,
-            searchParams: {
-                page: 1,
-                pageSize: '15'
-            }
+            openNewCreate: !this.state.openNewCreate            
         })
     }
     openEditAcc = () => {
@@ -123,13 +119,17 @@ class AccountList extends Component {
             this.openEditAcc();
         }
     }
-    onNewCreateSubmit(searchParams) {
-        searchParams = Object.assign({}, this.state.searchParams, searchParams);
-        this.setState({
-            searchParams,
-            openNewCreate: !this.state.openNewCreate
+    onNewCreateSubmit(form) {
+        console.log(form);
+        form = Object.assign({},form);
+        Http.request('createSsoUser', {}, form).then(function(response) {
+            Message.success('新建成功')
+            window.setTimeout(function() {
+              window.location.reload();
+            }, 800);
+        }).catch(function(err) {
+            Message.error(err.message);
         });
-
     }
 
     onNewCreateCancel() {

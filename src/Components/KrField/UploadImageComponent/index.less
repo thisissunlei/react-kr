@@ -1,0 +1,111 @@
+.ui-uploadimg-box{
+	width:100%;
+	text-align:center;
+	.ui-uploadimg-outbox{
+		width:214px;
+		height:138px;
+		border:dashed 1px #c5c5c5;
+		padding:16px;
+		display:inline-block;
+		.ui-uploadimg-innerbox{
+			position:relative;
+			width:100%;
+			height:100%;
+			border:dashed 1px #c5c5c5;
+			background-color:#f6f6f6;
+			.ui-uploadimg-inner{
+				position:absolute;
+				top:35px;
+				left:85px;
+				width:50px;
+				height:46px;
+				display:inline-block;
+				.ui-uploadimg-button{
+					display:inline-block;
+					width:26px;
+					height:26px;
+					line-height:26px;
+					text-align:center;
+					background-color:#499df1;
+					font-size:24px;
+					color:#fff;
+					border-radius:12px;
+				}
+				.ui-uploadimg-tip{
+					font-size:12px;
+					color:#666;
+					display: block;
+	    			margin-top: 7px;
+				}
+				input {
+					position: absolute;
+	    			left: 12px;
+	    			top: 0px;
+	    			width:26px;
+					height:26px;
+					border-radius:15px;
+					opacity:0;
+					cursor: pointer;
+				}
+				.image{
+					position: absolute;
+				    left: -84px;
+				    top: -34px;
+				}
+			}
+			.ui-uploadimg-fresh-delete{
+				position:absolute;
+				top:0;
+				left:0;
+				width:214px;
+				height:138px;
+				line-height:138px;
+				background-color:rgba(0,0,0,0.4);
+				.ui-uploadimg-operateimg{
+					position: relative;
+				    display: inline-block;
+					width:30px;
+					height:30px;
+					background-color:#fff;
+					border-radius: 15px;
+					text-align:center;
+					cursor: pointer;
+					.ui-refreshImgBtn{
+						position:absolute;
+						width:30px;
+						height:30px;
+						border-radius: 15px;
+						left:0;
+						opacity: 0;
+						cursor: pointer;
+					}
+				}
+				.ui-uploadimg-operateimg-left{
+					margin-right:52px;
+					text-align:center;
+				}
+				.ui-uploadimg-operateimg-btn{
+					position:absolute;
+					width:18px;
+					left:6px;
+					top:6px;
+				}
+				
+			}
+		}
+	}
+	.ui-uploadimg-notice{
+		margin:0;
+		color:#999999;
+		margin-top:7px;
+		span{
+			font-size:12px;
+		}
+	}
+	.ui-uploadimg-error{
+		font-size:12px;
+		margin:0;
+		color: #ff6868;
+		margin-top:7px;
+	}
+}

@@ -111,7 +111,9 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
-			communityId: 1
+			communityId: 1,
+			type :0,
+			
 		})).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
@@ -125,6 +127,13 @@ export default class JoinCreate extends Component {
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
+
+      		
+
+      		initialValues.contractcode = response.contractCode;
+
+			initialValues.agreement = '无';
+
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'LESSRENT';

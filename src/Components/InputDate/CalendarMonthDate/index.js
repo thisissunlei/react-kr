@@ -64,44 +64,90 @@ export default class CalendarMonthDate extends React.Component {
 	}
 
 	getDaysInMonth = (year,month)=>{
-	    //  month = parseInt(month,10)+1;
-	      var temp = new Date(year,month,0);
-	      return temp.getDate();
+	    var temp = new Date(Number(year),Number(month),0);
+	    return temp.getDate();
 	}
 
-	createDate(date,key){
+	createDate(year,month,date,key){
 
 		let handlers = {
 			onClick:this.context.onSelectedDate
 		};
+
 		let props = {
-			value:date,
 			key:key,
-			date:this.props.date,
-			year:this.props.year,
-			month:this.props.month
+			year:year,
+			month:month,
+			date:date,
+			active:false
 		};
+
+		if(this.props.year == year && this.props.month == month && this.props.date == date){
+				props.active = true;
+		}
 
 		return <CalendarDay {...props} {...handlers} />
 
 	}
 
-	createPlaceholderElement = (key)=>{
-		return ( <span className="calendar-day placeholder" key={key}>&nbsp;</span> );
+	createPlaceholderElement = (year,month,date,key)=>{
+		let handlers = {
+			onClick:this.context.onSelectedDate
+		};
+		let props = {
+			key:key,
+			date:date,
+			year:year,
+			month:month,
+			disable:true,
+			active:false,
+		};
+
+		return <CalendarDay {...props} {...handlers} />
 	}
 
 	renderMonthDate =()=>{
 
 		let monthDateAll = [];
 		let {year,month,date} = this.props;
+
+		year = Number(year);
+		month = Number(month);
+		date = Number(date);
+
+		console.log('year:',year,'month:',month,'date:',date);
+
 		var lastDate = this.getDaysInMonth(year,month);
-		var nowTime = new Date(`${year}-${month}-${1}`);
+
+		//preTime
+		var preLastDate = this.getDaysInMonth(year,month-1);
+
+		var nowTime = new Date(year,month-1,1);
 		var placeholderSize = nowTime.getDay();
-		for(var i = 1;i<=placeholderSize;i++){
-				monthDateAll.push(this.createPlaceholderElement(i));
+		var key = 0;
+
+		let calcTime = null;
+
+		for(var i = placeholderSize-1;i>=0;i--){
+			calcTime = new Date(year,month,1);
+			calcTime.setMonth(calcTime.getMonth()-1);
+			monthDateAll.push(this.createPlaceholderElement(calcTime.getFullYear(),calcTime.getMonth(),preLastDate-i,key));
+			key++;
 		}
 		for(i = 1;i<=lastDate;i++){
-				monthDateAll.push(this.createDate(i,i+placeholderSize));
+			monthDateAll.push(this.createDate(year,month,i,key));
+			key++;
+		}
+
+		var nextMonth = (7-key%7)%7;
+
+		let time = null;
+
+		for(var j = 1;j<=nextMonth;j++){
+			time = new Date(year,month,1);
+			time.setMonth(time.getMonth()+1);
+			monthDateAll.push(this.createPlaceholderElement(time.getFullYear(),time.getMonth(),j,key));
+			key++;
 		}
 		return monthDateAll;
 
@@ -113,14 +159,14 @@ export default class CalendarMonthDate extends React.Component {
 		let className = 'calendar-month-date animated';
 
 		if(isLoading){
-					className += ' fadeInRightBig';
+			className += ' fadeInRightBig';
 		}else{
-				className += ' ';
+			className += ' ';
 		}
 		return (
-				<div className={className} style={{'animationDuration':'0.2s'}}>
-					{this.renderMonthDate()}
-				</div>
+			<div className={className} style={{'animationDuration':'0.2s'}}>
+				{this.renderMonthDate()}
+			</div>
 		);
 
 	}

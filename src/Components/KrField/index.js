@@ -16,10 +16,13 @@ import SelectComponent from './SelectComponent';
 import TextareaComponent from './TextareaComponent';
 import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
+import SearchListComponent from './SearchListComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
+
 import SearchBelongCommunity from './SearchBelongCommunity';
+import SearchCompanyName from "./SearchCompanyName";
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
@@ -28,7 +31,15 @@ import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import SearchMethodComponent from './SearchMethodComponent';
-
+import DoorCardComponent from './DoorCardComponent';
+import UploadImageComponent from './UploadImageComponent';
+import UploadImageListComponent from './UploadImageListComponent';
+import SelectTimeComponent from './SelectTimeComponent';
+import SearchCorporation from './SearchCorporation';
+import SearchCommunitys from './SearchCommunitys';
+import SearchCustomer from './SearchCustomer';
+import SearchMainbill from './SearchMainbill';
+import SearchPayment from './SearchPayment';
 
 export default class KrField extends React.Component {
 
@@ -113,16 +124,69 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'doorCard') {
+			return (
+				<Field {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+		if (component === 'uploadImage') {
+			return (
+				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+
+		if (component === 'uploadImageList') {
+			return (
+				<Field {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+
+		if (component === 'searchPayment') {
+			return (
+				<Field {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCustomer') {
+			return (
+				<Field {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchMainbill') {
+			return (
+				<Field {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCommunitys') {
+			return (
+				<Field {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCorporation') {
+			return (
+				<Field {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
+			)
+		}
+
+
 		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
-		// if (component === 'searchCommunities') {
-		// 	return (
-		// 		<Field {...this.props} component={SearchCommunityComponent}  style={WrapStyles} {...other}/>
-		// 	);
-		// }
+
+		if (component === 'selectTime') {
+			return (
+				<Field {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'SearchList') {
+			return (
+				<Field {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
+			);
+		}
 
 		if (component === 'searchCommunity') {
 			return (
@@ -165,6 +229,12 @@ export default class KrField extends React.Component {
 			);
 		}
 
+
+		if (component === 'companyName') {
+			return (
+				<Field {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
+			);
+		}
 
 		if (component === 'search') {
 			return (

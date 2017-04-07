@@ -11,7 +11,6 @@ import {
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
-	DatePicker,
 	Form,
 	KrField,
 	Table,

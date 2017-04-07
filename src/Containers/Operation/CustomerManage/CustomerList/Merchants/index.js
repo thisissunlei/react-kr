@@ -65,7 +65,7 @@ class Merchants extends Component{
 		// customerItem.map(function(item,index){
   //         Store.dispatch(change('NewCustomerList',item,''));
 		// })
-		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
+		// Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
 
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		 State.switchNewCustomerList();
@@ -96,7 +96,7 @@ class Merchants extends Component{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
 			State.editprojectName=response.projectCategoryName;
-			 if(response.sourceName.indexOf("介绍")!=-1){
+			 if(response.sourceName.indexOf("推荐")!=-1){
 
 			 	editsourceCustomer.sourceCustomer=true;
 			}else{
@@ -525,7 +525,7 @@ class Merchants extends Component{
 							State.openEditCustomerList||
 							State.openNewCustomerIndent
 						)&&
-							<div className="mask"
+							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
 							>
 							</div>

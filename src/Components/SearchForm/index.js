@@ -43,14 +43,22 @@ export default class SearchForm extends Component{
 	    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 	}
 	onBlur=(event)=>{
-		let {onSubmit,searchFilter} = this.props;
+		let {onSubmit,searchFilter,defaultFilter} = this.props;
 		let {value} = this.state;
-		let type = '';
-		searchFilter.map((item)=>{
+		let type = '';	
+		if(!value){
+		 searchFilter.map((item)=>{
+			if(item.value == defaultFilter){
+				type = item.value;
+			}
+		 })		
+		}else{
+		  searchFilter.map((item)=>{
 			if(item.label == value){
 				type = item.value;
 			}
-		})
+		  })	
+		}	
 		this.setState({
 			content:event.target.value
 		})
@@ -188,7 +196,7 @@ export default class SearchForm extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" defaultValue={defaultContent} className="search-val" placeholder="请输入查找内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
+						<input type="text" defaultValue={defaultContent} className="search-val" placeholder="请输入查找内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off" ref="componentSearchInput"/>
 					</div>
 				</div>
 

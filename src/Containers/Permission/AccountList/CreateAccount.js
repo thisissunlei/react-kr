@@ -37,7 +37,7 @@ class CreateAccount extends Component {
     }
 
     render() {
-
+        const {handleSubmit} = this.props;
         return (
 
             <div>
@@ -51,7 +51,7 @@ class CreateAccount extends Component {
                         height: 42,
                         marginLeft: '17px',
                         width: 222
-                    }} name="loginName" component="input" type="text" inline={true} placeholder="请输入登录名"/>
+                    }} name="accountName" component="input" inline={true} placeholder="请输入登录名"/>
                     <KrField label="姓名：" style={{
                         width: 320,
                         marginTop: 20
@@ -59,15 +59,15 @@ class CreateAccount extends Component {
                         height: 42,
                         marginLeft: 16,
                         width: 222
-                    }} name="idName" component="input" inline={true} type="text" placeholder="请输入姓名"/>
+                    }} name="realName" component="input" inline={true}  placeholder="请输入姓名"/>
                     <KrField label="手机号：" style={{
                         textAlign: 'center',
                         marginTop: 20
-                    }} heightStyle={{
+                    }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: '17px',
                         width: 222
-                    }} name="loginName" component="input" inline={true} type="text" placeholder="请输入手机号"/>
+                    }} name="mobilePhone" component="input" inline={true}  placeholder="请输入手机号"/>
                     <KrField label="邮箱：" style={{
                         width: 320,
                         marginTop: 20,
@@ -76,7 +76,7 @@ class CreateAccount extends Component {
                         height: 42,
                         marginLeft: 16,
                         width: 222
-                    }} name="idName" component="input" inline={true} type="text" placeholder="请输入电子邮箱"/>
+                    }} name="email" component="input" inline={true}  placeholder="请输入电子邮箱"/>
                     <ListGroup>
                         <ListGroupItem style={{
                             paddingLeft: 17,
@@ -100,6 +100,8 @@ class CreateAccount extends Component {
     }
 
 }
-CreateAccount = reduxForm({form: 'CreateAccount'})(CreateAccount);
-
-export default CreateAccount;
+export default reduxForm({
+	form: 'CreateAccount',
+  enableReinitialize: true,
+	keepDirtyOnReinitialize: true,
+})(CreateAccount);

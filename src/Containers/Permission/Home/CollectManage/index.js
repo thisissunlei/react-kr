@@ -25,7 +25,6 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker,
 	Paper,
 	Avatar,
 } from 'material-ui';

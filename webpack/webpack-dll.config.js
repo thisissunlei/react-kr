@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
@@ -12,13 +12,18 @@ const configs = {
     lib: [
       'react',
       'react-dom',
+      'redux',
+      'react-redux',
+      'mobx',
+      'mobx-react',
+      'react-router',
       'material-ui',
       'lodash',
     ]
   },
   output: {
     path: path.resolve(buildPath),
-    filename: 'scripts/lib.js',
+    filename: 'vendors/lib.js',
     library: 'lib',
   },
   plugins: [
@@ -41,7 +46,7 @@ const configs = {
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 
     new webpack.DllPlugin({
-      path: path.resolve(buildPath,'manifest.json'),
+      path: path.join(buildPath,'vendors','manifest.json'),
       name: 'lib',
       context:__dirname
     })

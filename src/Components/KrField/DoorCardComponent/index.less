@@ -1,0 +1,203 @@
+.ui-door-card{
+	padding-left:50px;
+	margin-top:15px;
+	.ui-door-card-left-part{
+		display:inline-block;
+		width:285px;
+		vertical-align: top;
+		.ui-door-card-left-search-box{
+			position:relative;
+			.ui-door-card-search-community{
+				position:absolute;
+				font-size: 15px;
+			    top: 10px;
+			    left: 10px;
+			    color: #cccccc;
+			}
+		}
+		.ui-door-card-left-toright-img{
+			display:inline-block;
+			width:13px;
+			img{
+				width:13px;
+			}
+		}
+		.ui-door-card-left{
+		display:inline-block;
+		width:251px;
+		height:282px;
+		margin-right: 10px;
+		border: solid 1px #dfdfdf;
+		border-radius:4px;
+		vertical-align:middle;
+		.ui-door-card-all-li{
+			height:31px;
+			border-bottom: solid 1px #dfdfdf;
+			padding:0 16px 0 8px;
+			color:#333333;
+			.ui-door-card-select-all{
+				width:24px;
+				float:right;
+				margin-top:3px;
+			}
+			.ui-door-card-all-community-text{
+				display:inline-block;
+				height:31px;
+				line-height:31px;
+			}
+		}
+
+		.ui-door-card-community-list{
+			font-size:14px;
+			padding: 5px 16px 0 16px;
+			height: 244px;
+    		overflow: scroll;
+    		color: #666666;
+    		cursor:pointer;
+    		position: relative;
+    		top: 0;
+    		width:220px;
+    		.ui-door-card-community-list-inner{
+    			width:219px;
+    			.ui-door-card-left-community-box{
+					.ui-door-card-left-item{
+						color:#666666;
+						font-size:14px;
+						height:24px;
+						line-height:24px;
+						.ui-door-card-left-item-city{
+							display:inline-block;
+							width:160px;
+							cursor:pointer;
+						}
+						.ui-door-card-left-detail-community-plus{
+							width:24px;
+							vertical-align: bottom;
+							float:right;
+							cursor:pointer;
+							float : right;
+						}	
+						.ui-door-card-left-item-city-img{
+							width:15px;
+							vertical-align:sub;
+							margin-right:3px;
+						}
+					}
+					.ui-door-card-left-community-detail-box{
+						.ui-door-card-left-detail-community{
+							height:24px;
+							line-height:24px;
+							padding-left: 18px;
+						}
+						.ui-door-card-left-detail-community:hover{
+							background: #f5f5f5;
+						}
+					}
+				}
+    		}
+			
+
+		}
+	}
+	}
+	.ui-door-card-right-part{
+		display:inline-block;
+		.ui-door-card-right-selected-num{
+		    width: 252px;
+		    height: 42px;
+		    line-height: 42px;
+		    color:#333333;
+		    padding-left: 10px;
+		}
+		.ui-door-card-right{
+			display:inline-block;
+			width:252px;
+			height:282px;
+			border: solid 1px #dfdfdf;
+			border-radius:4px;
+			.ui-door-card-all-selected-li{
+				height:31px;
+				border-bottom: solid 1px #dfdfdf;
+				padding:0 19px 0 8px;
+				color:#333333;
+				.ui-door-card-not-select-all{
+					width:24px;
+					float:right;
+					margin-top:3px;
+				}
+				.ui-door-card-selected-community-title{
+					display:inline-block;
+					height:31px;
+					line-height:31px;
+				}
+			}
+			.ui-door-card-selected-community-list{
+				position:relative;
+				font-size:14px;
+				padding: 5px 16px 0 16px;
+				height: 244px;
+	    		overflow-y: scroll;
+	    		color: #666666;
+	    		cursor:pointer;
+				.ui-door-card-right-community-box{
+					width:220px;
+					height:24px;
+					.ui-door-card-right-community-item{
+						display:inline-block;
+						width:193px;
+						float:left;
+					}
+					.ui-door-card-right-reduce-community-img{
+						width:24px;
+						vertical-align:sub;
+						margin-right:3px;
+						float:right;
+					}
+					.ui-door-card-left-community-detail-box{
+						.ui-door-card-left-detail-community{
+							height:24px;
+							line-height:24px;
+							padding-left: 18px;
+						}
+					}
+				}
+				ui-door-card-selected-community-list-inner{
+					
+					position:absolute;
+					height: 244px;
+	    			overflow-y: scroll;
+				}
+
+			}
+		}
+	}
+	
+		
+
+		/*滚动条 start */
+      ::-webkit-scrollbar {  
+        width: 12px;  
+        height: 0px;  
+        background-color: #fff;  
+      }  
+      /*定义滚动条轨道 内阴影+圆角*/  
+      ::-webkit-scrollbar-track {  
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);  
+        background: #fff ;  
+      }  
+      /*定义滑块 内阴影+圆角*/  
+      ::-webkit-scrollbar-thumb {
+      	height: 68px;
+      	width: 6px;  
+        border-radius: 3px;  
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);  
+        background-color:#dfdfdf;  
+      }  
+      ::-webkit-scrollbar-thumb:hover {  
+        border-radius: 3px;  
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);  
+        background-color:#dfdfdf;  
+      } 
+
+
+}

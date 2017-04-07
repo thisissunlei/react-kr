@@ -4,6 +4,7 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {
 	bindActionCreators
 } from 'redux';
@@ -13,53 +14,84 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
-} from 'kr-ui';
+	KrField,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
 
-export default class ZhangQu extends Component {
+} from 'kr-ui';
+import './index.less';
+class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state={
+			open:false,
+	    }
 
-		this.state = {
-			open:true,
-			checkedStations:[],
-		}
+	
+    }
 
+	
+
+	componentDidMount() {
+		
 	}
 
-	close = ()=>{
-		this.setState({
-			open:!this.state.open
-		})
+	liOver=()=>{
+      this.setState({
+      	 open:true,
+      })
 	}
-
-	confirm = ()=>{
-		this.close();
-		console.log('resule:',this.state.checkedStations);
+	liOut=()=>{
+	  this.setState({
+      	 open:false
+      })	
 	}
+    
 
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
-		});
-	}
 
-	componentDidMount() {}
 
 	render() {
+
+		let {open,widthState}=this.state;
+
+        
+        var hour=[];
+        var minute=['00','10','20','30','40','50'];
+        for(var i=0;i<25;i++){
+           if(i<10){
+             i='0'+i;
+           }
+          hour.push(i); 
+        }
+        
+       var progress='20';
+       
+        
 		return (
 			<div>
-					<Dialog
-						title="平面图"
-						contentStyle={{width:1000}}
-						actions={<Button label="确定" onTouchTap={this.confirm}/>}
-						onClose={this.close}
-						bodyStyle={{paddingLeft:0,paddingRight:0}}
-						open={this.state.open} >
-								<PlanMap onCheckedStation={this.onCheckedStation} />
-				</Dialog>
-			</div>
+               <form>
+			       <KrField component="selectTime" />
+			       	<h1>sdfsdf</h1>
+
+			       <KrField component="file" />	
+
+			       
+			   </form>
+
+              <li className="loading-progress" style={{position:'relative'}}>
+                 <span className="progress" style={{width:`${progress}%`,height:'30px',position:'absolute',top:0}}></span>
+                 <span style={{display:'block',position:'absolute',top:33}}>{progress}%</span>
+              </li>
+		</div>
+
 
 		);
 	}
 }
+
+export default reduxForm({ form: 'ZhangQu'})(ZhangQu);

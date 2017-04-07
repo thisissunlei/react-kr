@@ -49,7 +49,6 @@ import {
 	MenuItem,
 	Divider,
 	FontIcon,
-	DatePicker,
 	Paper,
 	IconButton
 } from 'material-ui';
@@ -197,11 +196,11 @@ class StaionInfo extends Component {
 							</div>
 
 						)
-							
-						
+
+
 
 					})}
-					
+
 
 				</div>
 				<div className="close-btn-n" onTouchTap={this.close}>关闭</div>
@@ -478,7 +477,7 @@ export default class OrderDetail extends React.Component {
 			})
 		}
 	}
-		
+
 	change = (form) => {
 		const {
 			orderBaseInfo
@@ -567,7 +566,7 @@ export default class OrderDetail extends React.Component {
 			console.log('dddddddd');
 			document.addEventListener('click', this.docClick)
 		}
-		
+
 	}
 	docClick = (event) => {
 		event = event || window.event;
@@ -642,7 +641,7 @@ export default class OrderDetail extends React.Component {
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
-			
+
 			<div className="content">
 						{/*<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>*/}
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,fontSize:'18px !important'}}/>
@@ -665,7 +664,7 @@ export default class OrderDetail extends React.Component {
 			<TableBody>
 
 			{contractList.map((item,index)=>{
-				
+
 				let {opretionOpen,opretionId} = this.state;
 				let showMoreOnExit = false;
 				let showPrint = (item.contracttype == 'QUITRENT')?'hidden':'visible';
@@ -688,7 +687,7 @@ export default class OrderDetail extends React.Component {
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 					{(item.contracttype != 'QUITRENT' || showMoreOnExit)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:''}
-					
+
 					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 					<div style={{visibility:showOpretion}} className="m-operation" >
 						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
@@ -696,11 +695,10 @@ export default class OrderDetail extends React.Component {
 
 						{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 					</div>
-							
+
 						{/*
 							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-
-							*/}
+						*/}
 
 
 					</TableRowColumn>
@@ -736,7 +734,7 @@ export default class OrderDetail extends React.Component {
 								<div className="typeCon">
 									<div className="p">{item.detailName}{item.detailStart}至{item.detailEnd}</div>
 								</div>
-								
+
 							</div>
 							<div className="conlist">
 							{item.installment && item.installment.map((items,indexs)=>{
@@ -755,7 +753,7 @@ export default class OrderDetail extends React.Component {
 
 							})}
 							</div>
-							
+
 						</div>
 
 
@@ -763,11 +761,11 @@ export default class OrderDetail extends React.Component {
 
 
 				})}
-					
+
 
 
 			</div>
-			
+
             <DotTitle title='订单描述' style={{marginTop:24}}/>
 			<div className="orderList">
 			<Grid style={{marginTop:40}} >
@@ -807,12 +805,12 @@ export default class OrderDetail extends React.Component {
 
             </div>
 
-            
+
 			<span className="border-bottom" style={{marginTop:60}}></span>
-			
+
           	</div>
-          	
-          	
+
+
 			</Section>
 
 

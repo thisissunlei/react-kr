@@ -57,11 +57,13 @@ export default class InputDate extends React.Component {
 
 	setDefaultValue = (value) => {
 
-		if (typeof value === 'undefined' || !value) {
-			this.setState({
-				value: ''
-			});
-			return '';
+		if (!value) {
+			this.setState({ value: '' });
+			return ;
+		}
+
+		if(typeof value === 'string' && value.indexOf(' ')){
+			value = value.split(' ')[0];
 		}
 
 		if (!isNaN(value)) {
@@ -147,7 +149,16 @@ export default class InputDate extends React.Component {
 		});
 	}
 
+	supplementZero = (value) =>{
+		if (Number(value) < 10) {
+			value = '0' + value;
+		}
+		return value
+	}
+
 	onChange = (value) => {
+
+
 
 		var year;
 		var month;
@@ -173,13 +184,24 @@ export default class InputDate extends React.Component {
 			return;
 		}
 
-		if (!month || month < -1 || month > 12) {
+		if (month < -1 || month > 12) {
 			return;
 		}
+
+		var time = new Date(year,month,1);
+				time.setMonth(time.getMonth()-1);
+				time.setDate(date);
+
+		year = this.supplementZero(time.getFullYear());
+		month = this.supplementZero(time.getMonth()+1);
+		date = this.supplementZero(time.getDate());
+
 		value = `${year}-${month}-${date}`;
+
 		this.setState({
 			value
 		});
+
 		let {
 			onChange
 		} = this.props;
@@ -187,11 +209,19 @@ export default class InputDate extends React.Component {
 	}
 
 	closeCalendarDialog = () => {
+
+		const {openCalendar} = this.state;
+
+		if(!openCalendar){
+			return ;
+		}
+
 		this.setState({
 			openCalendar: false
 		}, function() {
 			document.removeEventListener('click', this.docClick);
 		});
+
 	}
 
 
@@ -200,15 +230,14 @@ export default class InputDate extends React.Component {
 		let {
 			openCalendar
 		} = this.state;
-
 		return (
 			<div className="ui-calendar" ref="calendar">
-					<div className="calendar-content"  onClick={this.openCalendarDialog} >
-							<div className="calendar-value">{(this.state.value && <KrDate value={this.state.value} />) || this.props.placeholder} </div>
-							<span className="icon"></span>
-					</div>
-					{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
+				<div className="calendar-content"  onClick={this.openCalendarDialog} >
+					<div className="calendar-value">{(this.state.value && <KrDate value={this.state.value} />) || this.props.placeholder} </div>
+					<span className="icon"></span>
 				</div>
+				{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
+			</div>
 		);
 
 	}

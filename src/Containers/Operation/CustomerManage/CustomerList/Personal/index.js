@@ -74,7 +74,7 @@ class Personal extends Component{
 		customerItem.map(function(item,index){
           Store.dispatch(change('NewCustomerList',item,''));
 		})
-		Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		// Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
 		// if(response.hasOffice=="YES"){
 		// 	State.hasOfficeChange(true);
@@ -101,7 +101,7 @@ class Personal extends Component{
 			}else{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
-			 if(response.sourceName.indexOf("介绍")!=-1){
+			 if(response.sourceName.indexOf("推荐")!=-1){
 
 			 	editsourceCustomer.sourceCustomer=true;
 			}else{
@@ -675,7 +675,7 @@ class Personal extends Component{
 							State.openNewIndent||
 							State.openEditIndent
 						)&&
-							<div className="mask"
+							<div className="mask" style={{right:750}}
 								onClick={this.closeAllMerchants}
 							>
 							</div>

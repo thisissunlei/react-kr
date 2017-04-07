@@ -99,7 +99,9 @@ export default class JoinCreate extends Component {
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
-      communityId: 1
+      communityId: 1,
+      type :1,
+
     })).then(function(response) {
 
       initialValues.contractstate = 'UNSTART';
@@ -107,6 +109,8 @@ export default class JoinCreate extends Component {
 
       initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 
+      // optionValues.contractCode = response.contractCode;
+      
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
@@ -167,6 +171,11 @@ export default class JoinCreate extends Component {
             rentamount
           });
 
+        }
+        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+          initialValues.agreement = '无';
+        }else{
+          initialValues.agreement = response.agreement;
         }
         initialValues.lessorContacttel = response.lessorContacttel;
 

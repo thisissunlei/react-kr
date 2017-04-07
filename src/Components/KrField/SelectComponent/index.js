@@ -18,9 +18,6 @@ export default class SelectComponent extends React.Component {
 		onChange: React.PropTypes.func,
 		inline: React.PropTypes.bool,
 		search: React.PropTypes.bool,
-
-		heightStyle: React.PropTypes.object
-
 	}
 
 	constructor(props) {
@@ -80,9 +77,9 @@ export default class SelectComponent extends React.Component {
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
-	}
+}
 
-	render() {
+render() {
 
 		let {
 			input,
@@ -97,7 +94,6 @@ export default class SelectComponent extends React.Component {
 			children,
 			disabled,
 			style,
-			heightStyle,
 			requireLabel,
 			options,
 			multi,
@@ -151,9 +147,7 @@ export default class SelectComponent extends React.Component {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-
-					<select {...input}  disabled={disabled} style={heightStyle}>
-
+					<select {...input}  disabled={disabled}>
 									{children}
 					</select>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
