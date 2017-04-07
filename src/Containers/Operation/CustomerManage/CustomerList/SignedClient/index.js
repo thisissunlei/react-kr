@@ -4,10 +4,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
-     observer,
-     //inject
-} from 'mobx-react';
-import {
 	KrField,
 	Table,
 	TableBody,
@@ -30,12 +26,12 @@ import {
 	Drawer,
 	Message
 } from 'kr-ui';
-
+import {
+	LookCustomerList
+} from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
-import LookCustomerList from '../LookCustomerList';
-import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewIndent from "../NewIndent";
@@ -50,7 +46,11 @@ import newIndentState from "../NewIndent/State";
 //新建订单第一级
 import CustomerNameNext from '../CustomerNameNext';
 import './index.less';
-
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class SignedClient extends Component{
 
@@ -65,18 +65,16 @@ class SignedClient extends Component{
 			arrItem:[]
 		}
 	}
-
-
 	//查看页面开关
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
 	}
-	
+
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
-      	LookCustomerState.orderList(itemDetail.id);
-      	LookCustomerState.lookListId(itemDetail.id,'SIGN');
+      	this.props.CommunityDetailModel.orderList(itemDetail.id);
+      	this.props.CommunityDetailModel.lookListId(itemDetail.id,'SIGN');
       	State.switchLookCustomerList();
       	State.MerchantsListId(itemDetail.id)
       	State.companyName=itemDetail.company;
@@ -111,7 +109,7 @@ class SignedClient extends Component{
 		State.switchNewIndent();
 		newIndentState.cityLable="";
 	}
-	
+
 	//新建订单页面的开关
 	switchNewIndent=()=>{
 		State.switchNewIndent();
@@ -143,7 +141,7 @@ class SignedClient extends Component{
 			}
 			State.editprojectName=response.projectCategoryName;
 		}).catch(function(err) {
-			
+
 		});
 		State.switchEditCustomerList();
 	}
@@ -160,7 +158,7 @@ class SignedClient extends Component{
 
 		data.mainBillId=editIndentId;
 		editIndentState.orderName="";
-		
+
 		var _this=this;
 		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
 			for(var i=0;i<orderReady.communityCity.length;i++){
@@ -214,7 +212,7 @@ class SignedClient extends Component{
         this.setState({
          dialogNum:value.length,
          arrItem
-        })	
+        })
       }else{
         State.openPersonDialog=false;
       }
@@ -230,7 +228,7 @@ class SignedClient extends Component{
 
     //领取浮框的关闭
     merClose=()=>{
-       State.openPersonDialog=false; 	
+       State.openPersonDialog=false;
     }
 
 	//搜索
@@ -238,9 +236,9 @@ class SignedClient extends Component{
         let obj = {
 			company:params.content,
 		}
-		
+
 		State.searchParams=obj
-		
+
 	}
 	componentWillReceiveProps(nextProps){
 		State.openPersonDialog=false;
@@ -300,7 +298,7 @@ class SignedClient extends Component{
 
 	//导出
 	onExport=(value)=>{
-	    State.exportData(value);	
+	    State.exportData(value);
 	}
 
 	closeAllMerchants=()=>{
@@ -317,9 +315,10 @@ class SignedClient extends Component{
 	}
 
 	render(){
-       
-     
-       let {searchSignParams,dataReady,orderReady}=this.props; 
+
+
+       let {searchSignParams,dataReady,orderReady}=this.props;
+       let deleteId = this.props.CommunityDetailModel.deleteIndentId
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -418,7 +417,7 @@ class SignedClient extends Component{
 			        <TableFooter></TableFooter>
            </Table>
 
-					
+
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
@@ -438,7 +437,7 @@ class SignedClient extends Component{
 				                 	newIndentSwitch={this.openNewIndent}
 				                	editIndentSwitch={this.openEditIndent}
 				                 	DeleteSwitch={this.openDeleteDialog}
-									operType="SIGN"								
+									operType="SIGN"
 								/>
 					</Drawer>
 
@@ -446,7 +445,7 @@ class SignedClient extends Component{
 					<Drawer
 							open={State.openEditCustomerList}
 							width={750}
-							operType="SIGN"	
+							operType="SIGN"
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
@@ -496,7 +495,7 @@ class SignedClient extends Component{
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 selectDatas={dataReady}
-			                 operType="SIGN"	
+			                 operType="SIGN"
 			                 companyName={State.companyName}
 						/>
 					</Drawer>
@@ -531,9 +530,9 @@ class SignedClient extends Component{
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666',height:'385px',overflow:'visible'}}
-						operType="SIGN"	
+						operType="SIGN"
 					>
-						<SearchUpperForm  
+						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
 						    onSubmit={this.onSearchUpperSubmit}
 						    flag='签约'
@@ -550,9 +549,9 @@ class SignedClient extends Component{
 						open={State.openDelete}
 						contentStyle ={{ width: '445',height:'230'}}
 					>
-						<OrderDelete 
+						<OrderDelete
 						   onCancel={this.openDeleteDialog}
-						   orderId={State.deleteId}
+						   orderId={deleteId}
 				           operType="SIGN"
 				           listId={State.listId}
 						 />
@@ -566,7 +565,7 @@ class SignedClient extends Component{
 						open={State.openSwitch}
 						contentStyle ={{ width: '444',height:'284',overflow:'visible'}}
 					>
-						<SwitchPerson 
+						<SwitchPerson
 						  onSubmit={this.switchPersonSubmit}
 						  onCancel={this.openSwitchDialog}
 						  customerIds={this.state.dialogNum}

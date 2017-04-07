@@ -1,57 +1,30 @@
 import React, {
 	Component
 } from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
+
 
 import {
 	Section,
-	PlanMap,
 	Dialog,
-	Button,
+	KrField,
 } from 'kr-ui';
 
-export default class ZhangQu extends Component {
 
-	constructor(props, context) {
-		super(props, context);
+	export default class ZhangQu extends Component {
 
-		this.state = {
-			open:true,
-			checkedStations:[],
+		constructor(props, context) {
+			super(props, context);
+
+		}
+
+		onSubmit = (values)=>{
+				console.log(values);
+		}
+
+	render() {
+
+		return ( <div> ddddd </div> );
+
 		}
 
 	}
-
-	close = ()=>{
-		this.setState({
-			open:!this.state.open
-		})
-	}
-
-	confirm = ()=>{
-		this.close();
-		console.log('resule:',this.state.checkedStations);
-	}
-
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
-		});
-	}
-
-	componentDidMount() {}
-
-	render() {
-		return (
-			<div>
-					
-			</div>
-
-		);
-	}
-}
