@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/dist');
+const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -68,7 +68,7 @@ const config = {
 				comments: false,
 			},
 		}),
-
+		
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({

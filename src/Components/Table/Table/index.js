@@ -148,7 +148,8 @@ export default class Table extends React.Component {
 			this.setState({
 				isLoaded: false
 			});
-			this.onLoadData(1, nextProps.ajaxParams);
+			var page = nextProps.ajaxParams.page || 1;
+			this.onLoadData(page, nextProps.ajaxParams);
 		}
 
 		if (nextProps.page != this.props.page) {
@@ -315,7 +316,6 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
-
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
 			_this.onInitial({
@@ -486,7 +486,7 @@ export default class Table extends React.Component {
 
 	onSelect = () =>{
 
-		
+
 		let {
 			selectedRows,
 			visibilityRows,

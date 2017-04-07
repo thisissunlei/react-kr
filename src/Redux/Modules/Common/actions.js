@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import param from 'jquery-param';
 
-import Fetch from 'kr/Redux/Utils/fetch';
+import {Http} from 'kr/Utils';
 
 export function callAPI(apiName,request,payload){
 
@@ -16,7 +16,7 @@ export function callAPI(apiName,request,payload){
 
 
 export function callAjaxAPI(apiName,request,payload){
-	return  Fetch.request(apiName,request,payload);
+	return  Http.request(apiName,request,payload);
 };
 
 
@@ -40,24 +40,14 @@ export function showModalDialog(url, width, height,param,windowname) {
 	}else {
 		var winOption = "height="+dialogHeight+",width="+dialogWidth+",top=100,left=200,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,fullscreen=0";
 		result =  window.open(url,windowname?windowname:'_blank', winOption);
-		var loop = window.setInterval(function() {     
-			if(result.closed) {    
+		var loop = window.setInterval(function() {
+			if(result.closed) {
 
-				window.clearInterval(loop);    		  
-			}    
+				window.clearInterval(loop);
+			}
 		}, 50);
 	}
 
 	return result;
 
 }
-
-
-
-
-
-
-
-
-
-

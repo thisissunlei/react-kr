@@ -1,41 +1,27 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 
-import {
-	reduxForm,
-	formValueSelector
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import { reduxForm } from 'redux-form';
+
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 
 import './index.less';
 
-class SearchNotDateForm extends Component {
+class SearchNotDateForm extends React.Component {
 
 	static defaultProps = {
 			todayDate:'2017-1-1'
 	}
-	static PropTypes = {
+
+	static propTypes = {
 		todayDate:React.PropTypes.string,
-	}
-	static PropTypes = {
 		onStartNotChange: React.PropTypes.func,
 		onEndNotChange:React.PropTypes.func,
 		todayDate:React.PropTypes.string,
@@ -44,13 +30,7 @@ class SearchNotDateForm extends Component {
 	constructor(props) {
 		super(props);
 
-
-
 	}
-	componentDidMount() {
-
-	}
-
 
 
 	render() {

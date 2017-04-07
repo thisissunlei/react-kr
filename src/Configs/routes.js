@@ -74,12 +74,12 @@ export default (
         {/*会员中心*/}
         <Route path="member" component={Basic}>
              <IndexRedirect to="memberManage/list" />
-			<Route path="memberManage" component={Basic}>
-				<Route path="list"  component={Member.MemberManage.List}/>
-				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
-				<Route path="setting"  component={Member.MemberManage.Setting}/>
-				<Route path="card"  component={Member.MemberManage.Card}/>
-				<Route path="doormanage"  component={Member.MemberManage.DoorManage}/>
+            <Route path="memberManage" component={Basic}>
+                <Route path="list"  component={Member.MemberManage.List}/>
+                <Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
+                <Route path="setting"  component={Member.MemberManage.Setting}/>
+                <Route path="card"  component={Member.MemberManage.Card}/>
+                <Route path="doormanage"  component={Member.MemberManage.DoorManage}/>
             </Route>
 
         </Route>
@@ -139,7 +139,8 @@ export default (
                 <Route path="customerManage" component={Basic}>
                     <Route path="customerList" component={Operation.CustomerManage.CustomerList} />
                     <Route path="agreementList" component={Operation.CustomerManage.AgreementList} />
-
+                    {/*客户公海*/}
+                    <Route path="customerHighSea" component={Operation.CustomerManage.CustomerHighSea}/>
                     <Route path="list" component={Operation.CustomerManage.List} />
 
                     <Route path=":customerId/" component={Basic} >

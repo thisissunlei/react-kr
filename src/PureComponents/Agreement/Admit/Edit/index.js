@@ -25,6 +25,15 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
+// import allState from "../../State";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityAgreementList")
+@observer
+
 
 
 export default class JoinCreate extends Component {
@@ -32,6 +41,17 @@ export default class JoinCreate extends Component {
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
 	}
+	 static childContextTypes = {
+        params: React.PropTypes.object.isRequired
+     }
+
+
+
+		getChildContext() {
+	    return {
+	        params: this.props.params
+	      }
+	    }
 
 	constructor(props, context) {
 		super(props, context);
@@ -79,7 +99,11 @@ export default class JoinCreate extends Component {
 				message: '更新成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			this.props.CommunityAgreementList.openEditAgreement=false;
+		
+
+			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -88,14 +112,16 @@ export default class JoinCreate extends Component {
 			}]);
 		});
 
-		//this.openConfirmCreateDialog();
+		this.openConfirmCreateDialog();
 	}
 
 	onCancel() {
 		let {
 			params
 		} = this.context;
-		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		this.props.CommunityAgreementList.openEditAgreement=false;
+		
+		// window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
 	openConfirmCreateDialog() {
@@ -117,6 +143,7 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
+			type : 1,
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -127,7 +154,11 @@ export default class JoinCreate extends Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
-
+			if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+				initialValues.agreement = '无';
+			}else{
+				initialValues.agreement = response.agreement;
+			}
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -230,21 +261,21 @@ export default class JoinCreate extends Component {
 
 		return (
 
-			<div>
+			<div style={{marginLeft:22}}>
 			<Title value="编辑承租意向书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			<Section title="承租意向书" description="">
+			<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
-			</Section>
+			</div>
 
-			<Dialog
+			{/*<Dialog
 				title="确定新建"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
-			  </Dialog>
+			  </Dialog>*/}
 		</div>
 		);
 	}
