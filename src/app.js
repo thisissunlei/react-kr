@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { Provider,connect } from 'react-redux';
 
-import routes from './Configs/routes';
+import routes from './Configs/Router';
 
 import store from './Redux/Store';
 
@@ -23,7 +23,7 @@ injectTapEventPlugin({
 });
 
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import * as actionCreators from 'kr/Redux/Actions';
 
 
 

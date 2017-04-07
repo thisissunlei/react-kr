@@ -16,7 +16,8 @@ import {
 import {Demo,Basic} from 'kr/Containers';
 
 
-const DemoRouter = ()=>{
+
+module.exports =()=>{
 
 
   return (
@@ -35,6 +36,4 @@ const DemoRouter = ()=>{
     </Route>
   );
 
-}
-
-module.exports = DemoRouter;
+};
