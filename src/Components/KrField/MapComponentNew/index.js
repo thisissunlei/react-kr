@@ -44,7 +44,28 @@ export default class MapComponentNew extends Component {
 			})
 		}
 	}
+
+	onClickOther = (event)=>{
+
+    	  event = event || window.event;
+			var target = event.target;
+			
+			while (target) {
+				if (target && target.className && target.className.indexOf('ui-map-component') !== -1) {
+					return;
+				}
+				target = target.parentNode;
+			}
+              this.setState({
+              	showMap:false
+              });
+    }
+
+
 	componentDidMount() {
+		document.body.addEventListener("click",this.onClickOther);
+
+
 		let _this = this;
 		// 编辑时input回显
 		if(this.props.defaultValue){
@@ -159,7 +180,13 @@ export default class MapComponentNew extends Component {
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
-			_this.map.centerAndZoom(point, 11);
+			console.log("this.refs.mapInput.value",this.refs.mapInput.value)
+			if(this.refs.mapInput.value){
+				_this.map.centerAndZoom(point, 15);
+			}else{
+				_this.map.centerAndZoom(point, 11);
+			}
+			
 			// 添加标注
 			var marker = new BMap.Marker(point);        // 创建标注    
 			_this.map.addOverlay(marker);
