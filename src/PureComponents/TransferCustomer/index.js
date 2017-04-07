@@ -272,7 +272,7 @@ export default class AppointmentVisit extends Component {
 												color="#499DF1";
 											}
 											return (
-												<div className="appointment-visit-read" style={{color:color,top:13}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
+												<div className="appointment-visit-read-trans" style={{color:color,top:13}} onClick={this.columnClick.bind(this,itemData)}><span>{condition}</span></div>
 											);
 										}
 									}

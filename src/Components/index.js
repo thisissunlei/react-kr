@@ -42,14 +42,15 @@ import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import CircleStyle from './CircleStyle';
 import UpLoadList from './UpLoadList';
-import 	DatePicker from './DatePicker';
-import 	Tooltip from './Tooltip';
-import 	Tooltips from './Tooltips';
-import 	KrForm from './KrForm';
-import 	InputDate from './InputDate';
-import  SnackTip from './SnackTip';
+import DatePicker from './DatePicker';
+import Tooltip from './Tooltip';
+import Tooltips from './Tooltips';
+import KrForm from './KrForm';
+import InputDate from './InputDate';
+import SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
-
+import CircleStyleTwo from './CircleStyleTwo';
+import LoadingTwo from './LoadingTwo';
 
 import {
 	Grid,
@@ -139,4 +140,6 @@ module.exports = {
 	SearchForm,
 	Tooltips,
 	Tooltip,
+	CircleStyleTwo,
+	LoadingTwo
 }
