@@ -27,6 +27,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
+	Tooltip,
 } from 'kr-ui';
 import {
 	observer
@@ -314,9 +315,20 @@ import dateFormat from 'dateformat';
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
 											{list.phone && <TableRowColumn >{item.phone}</TableRowColumn>}
-											{list.company && <TableRowColumn>{item.company}</TableRowColumn>}
-											{list.job && <TableRowColumn>{item.job}</TableRowColumn>}
-											{list.address && <TableRowColumn>{item.cityName}{item.countyName}{item.address}</TableRowColumn>}
+											{list.company && <TableRowColumn>
+												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.company}</span>
+												<Tooltip offsetTop={5} place='top' style={{marginLeft:5}}>{item.company}</Tooltip>
+											</TableRowColumn>}
+											{list.address && <TableRowColumn>
+												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.cityName}{item.countyName}{item.address}</span>
+												<Tooltip offsetTop={5} place='top' style={{marginLeft:5}}>{item.cityName}{item.countyName}{item.address}</Tooltip>
+											</TableRowColumn>}
+											{list.job && <TableRowColumn>
+												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>
+													{item.job}
+												</span>
+												<Tooltip offsetTop={5} place='top' style={{marginLeft:5}}>{item.job}</Tooltip>
+											</TableRowColumn>}
 									   	</TableRow>
 									);
 								})}
