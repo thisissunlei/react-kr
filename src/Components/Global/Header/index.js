@@ -274,6 +274,21 @@ class Header extends Component {
 	}
 
 	showInfo=()=>{
+
+searchFormUrge
+		var {
+			actions,
+			sidebar_nav,
+			flag,
+			right_bar
+		} = this.props;
+		this.setState({
+			openMassage:!this.state.openMassage,
+		})
+
+	}
+
+	onClose=()=>{
 		const {NotifyModel} = this.props;
 
 		const {customerTransform,appointmentVisit,urgeMoney,infoList} = NotifyModel;
@@ -316,20 +331,6 @@ class Header extends Component {
 		Store.dispatch(change('infoSearchForm','infoCreateDateEnd',""));
 		Store.dispatch(change('infoSearchForm','infoCommunity',""));
 
-searchFormUrge
-		var {
-			actions,
-			sidebar_nav,
-			flag,
-			right_bar
-		} = this.props;
-		this.setState({
-			openMassage:!this.state.openMassage,
-		})
-
-	}
-
-	onClose=()=>{
 
 		console.log(this.refs.message,"PpPPPPppp");
 		this.setState({
