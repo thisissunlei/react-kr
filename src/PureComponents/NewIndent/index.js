@@ -17,9 +17,9 @@ import {
     Message
 } from 'kr-ui';
 import State from './State';
-import allState from '../State';
+/*import allState from '../State';
 import oneState from '../OneNewAgreement/State';
-import OneNewAgreement from '../OneNewAgreement';
+import OneNewAgreement from '../OneNewAgreement';*/
 import './index.less';
 @observer
  class NewIndent extends Component{

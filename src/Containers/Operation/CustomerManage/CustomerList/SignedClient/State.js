@@ -30,7 +30,6 @@ let State = observable({
 		listId:"",
 		deleteId:'',
 		companyName:'',
-		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
 		customerName:"",
@@ -47,7 +46,7 @@ let State = observable({
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
-})
+});
 //新建页的开关
 State.switchNewCustomerList = action(function() {
 	this.openNewMerchants=!this.openNewMerchants;
@@ -59,19 +58,19 @@ State.switchLookCustomerList = action(function() {
 //编辑页面的开关
 State.switchEditCustomerList = action(function() {
 	this.openEditCustomerList=!this.openEditCustomerList;
-})
+});
 //新增排放记录的开关
 State.switchCustomerIndent = action(function() {
 	this.openNewCustomerIndent=!this.openNewCustomerIndent;
-})
+});
 //新建订单的开关
 State.switchNewIndent = action(function() {
 	this.openNewIndent=!this.openNewIndent;
-})
+});
 //编辑订单的开关
 State.switchEditIndent=action(function() {
 	this.openEditIndent=!this.openEditIndent;
-})
+});
 //高级查询的开关
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
@@ -83,20 +82,20 @@ State.openSwitchGoDialog= action(function() {
 //删除订单
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
-})
+});
 //新建订单页得数据准备
 State.indentReady= action(function(params) {
 	this.indentReady=params;
-})
+});
 
 //编辑定点id
 State.editIndentIdChange=action(function(params){
 	this.editIndentId=params;
-})
+});
 //订单名称
 State.orderNameChange=action(function(params){
 	this.orderName=params;
-})
+});
 
 //获取订单名称
 State.orderNameInit= action(function(value) {

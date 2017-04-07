@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-
 import {
-	observer
+     observer,
+     //inject
 } from 'mobx-react';
 import {
 	KrField,
@@ -47,10 +47,10 @@ import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
 import newIndentState from "../NewIndent/State";
 
-//新建订单
+//新建订单第一级
 import CustomerNameNext from '../CustomerNameNext';
+import './index.less';
 
-import './index.less'
 @observer
 class SignedClient extends Component{
 

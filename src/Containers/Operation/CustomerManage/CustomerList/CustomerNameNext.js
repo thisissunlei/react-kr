@@ -13,12 +13,15 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
-	Message
+	Message,
+	Drawer
 } from 'kr-ui';
-/*
-import allState from '../State';
-import NewIndent from "../NewIndent";
-import newIndentState from "../NewIndent/State";*/
+import {
+     NewIndent
+} from 'kr/PureComponents';
+import  State from "./SignedClient/State";
+import  newIndentState from './NewIndent/State';
+
 @observer
  class CustomerNameNext extends React.Component{
 
@@ -37,8 +40,11 @@ import newIndentState from "../NewIndent/State";*/
 
 	//下一步被点击
 	onSubmit = () => {			
-	  allState.openNewIndent=true;
-      this.openNewIndent(); 
+        //Store.dispatch(initialize('NewIndent',{}));
+		//State.orderNameInit(State.listId);
+		console.log(';;;;====');
+		State.switchNewIndent();
+		newIndentState.cityLable="";
 	}
 	//下一步取消
 	onCancel = () => {
@@ -65,7 +71,7 @@ import newIndentState from "../NewIndent/State";*/
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 		let {orderList}=this.state;
 		return (
-
+          <div>
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
 						<div><span className="new-icon"></span><label className="title-text">新建订单</label></div>
@@ -82,6 +88,27 @@ import newIndentState from "../NewIndent/State";*/
 							</Row>
 						</Grid>
 				</form>
+
+				{/*新建订单*/}
+					<Drawer
+							open={State.openNewIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewIndent
+							 companyName={State.companyName}
+							 onCancel={this.switchNewIndent}
+			                 //orderReady={orderReady}
+			                 listId={State.listId}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 isOpenIndent={State.orderName}
+
+						/>
+					</Drawer>
+			</div>
 		);
 	}
 }
