@@ -123,7 +123,7 @@ class Header extends Component {
 				break;
 			}
 		}
-
+		console.log(response,">>>>>>>>>>")
 		if(response.unreadTotal != 0){
 			showRedDrop=true;
 		}
@@ -275,7 +275,7 @@ class Header extends Component {
 
 	showInfo=()=>{
 
-		
+
 		var  {
 			actions,
 			sidebar_nav,
