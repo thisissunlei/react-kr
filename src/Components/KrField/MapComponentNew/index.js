@@ -101,7 +101,8 @@ export default class MapComponentNew extends Component {
 	}
 	// 输入文字
 	inputLocation=()=>{
-
+		console.log("000000000");
+		this.showMap();
 		var _this = this;
 		var inputValue = this.refs.mapInput.value;
 		this.setState({
@@ -174,13 +175,51 @@ export default class MapComponentNew extends Component {
 	showMap=()=>{
 		let _this = this;
 		this.setState({
-			showMap : !this.state.showMap
+			showMap : true
 		},function(){
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			console.log("this.refs.mapInput.value",this.refs.mapInput.value)
+			if(this.refs.mapInput.value){
+				_this.map.centerAndZoom(point, 15);
+			}else{
+				_this.map.centerAndZoom(point, 11);
+			}
+			
+			// 添加标注
+			var marker = new BMap.Marker(point);        // 创建标注    
+			_this.map.addOverlay(marker);
+			// map可缩放
+			_this.map.enableScrollWheelZoom(true);
+			// marker可拖拽
+			marker.enableDragging();    
+			marker.addEventListener("dragend", function(e){ 
+			 	_this.setState({
+			 		pointLng : e.point.lng,
+					pointLat : e.point.lat,
+					changePosition:true
+			 	},function(){
+			 		_this.onChange();
+			 	});
+			});
+		})
+	}
+
+
+	isShowMap=(event)=>{
+		console.log("=======>isShowMap")
+		event.stopPropagation();
+		let _this = this;
+		this.setState({
+			showMap : !_this.state.showMap
+		},function(){
+			console.log("this.state.showMap",_this.state.showMap);
+			// 百度地图API功能
+			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
+			// 初始化
+			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			if(this.refs.mapInput.value){
 				_this.map.centerAndZoom(point, 15);
 			}else{
@@ -226,12 +265,13 @@ export default class MapComponentNew extends Component {
 			placeholder:placeholder, 
 			style:{width:'100%',height:'100%',paddingLeft:10,boxSizing:'border-box',paddingRight:30},
 			onChange:this.inputLocation,
+			onClick :this.showMap
 			 
 		} 
 		var iconProps ={
 			src:require('./images/location.svg'),
 			className:'ui-map-img',
-			onClick:this.showMap,
+			onClick:this.isShowMap,
 		}
 		return(
       		<div className="ui-map-component" style={style}>
