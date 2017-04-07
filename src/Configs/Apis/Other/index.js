@@ -1,4 +1,4 @@
-const APIS = {
+module.exports = {
 
     'delete-enter-contract': {
         url: '/api/krspace-finance-web/checkinagreement/delete-enter-contract?contractId={contractId}',
@@ -1272,7 +1272,4 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-id?customerId={customerId}&mainBillTypeName={mainBillTypeName}',
         method: 'get'
     },
-
 }
-
-module.exports = APIS;

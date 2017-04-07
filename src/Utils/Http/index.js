@@ -2,8 +2,8 @@ import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
-import APIS from '../../Configs/apis';
-import Envs from '../../Configs/envs';
+import APIS from 'kr/Configs/Apis';
+import Envs from 'kr/Configs/envs';
 
 var env = process.env.NODE_ENV;
 
