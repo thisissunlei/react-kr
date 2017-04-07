@@ -16,11 +16,10 @@ import {
 import {Demo,Basic} from 'kr/Containers';
 
 
-
 module.exports =()=>{
 
 
-  return (
+	return (
     <Route path="demo" component={Basic}>
 
       <Route path="zhangqu" component={Demo.ZhangQu}/>
@@ -34,6 +33,5 @@ module.exports =()=>{
       <Route path="tanlinlin" component={Demo.TanLinLin}/>
       <Route path="wushulin" component={Demo.WuShuLin}/>
     </Route>
-  );
-
+	);
 };
