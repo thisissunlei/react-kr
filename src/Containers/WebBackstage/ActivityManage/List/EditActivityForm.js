@@ -207,12 +207,16 @@ class EditActivityForm extends Component{
 	}
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
+
+		// 
+		let {detail} = this.props;
+		console.log("detail------->",detail);
 		if(!value){
 			State.serialNumRepeat = false;
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
 			return;
 		}else{
-			Http.request('getActivitySerialNumRepeat',{sort:value}).then(function(response){
+			Http.request('getActivitySerialNumRepeat',{sort:value,id:detail.id}).then(function(response){
 				State.serialNumRepeat = false;
 			}).catch(function(err){
 				State.serialNumRepeat = true;
