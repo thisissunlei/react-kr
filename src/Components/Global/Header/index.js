@@ -275,8 +275,8 @@ class Header extends Component {
 
 	showInfo=()=>{
 
-searchFormUrge
-		var {
+		
+		var  {
 			actions,
 			sidebar_nav,
 			flag,
