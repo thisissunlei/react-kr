@@ -88,7 +88,7 @@ export default class AppointmentVisit extends Component {
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-					other:!other,
+					other:!searchParams.other,
 				});
 	    }
 
