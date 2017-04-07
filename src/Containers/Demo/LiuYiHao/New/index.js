@@ -14,8 +14,13 @@ import {
 	Dialog,
 	Button,
 } from 'kr-ui';
+import Child from "./Child.js";
 
 export default class New extends Component {
+	static childContextTypes = {
+	  color: React.PropTypes.string,
+	  fun: React.PropTypes.func
+	};
 
 	constructor(props, context) {
 		super(props, context);
@@ -26,30 +31,22 @@ export default class New extends Component {
 		}
 
 	}
-
-	close = ()=>{
-		this.setState({
-			open:!this.state.open
-		})
+	getChildContext() {
+	    return {color: "purple",fun:this.nn};
+	}
+	nn = () =>{
+		  this.refs.cc.ff();
 	}
 
-	confirm = ()=>{
-		this.close();
-		console.log('resule:',this.state.checkedStations);
-	}
-
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
-		});
-	}
+	
 
 	componentDidMount() {}
 
 	render() {
 		return (
 			<div>
-					<h1>322</h1>
+					<h1  onClick={this.nn}>A</h1>
+					<Child ref="cc"/>
 			</div>
 
 		);

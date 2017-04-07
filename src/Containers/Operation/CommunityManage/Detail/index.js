@@ -110,7 +110,6 @@ class CommunityManage extends Component {
 			color: '#000',
 			borderBottom: "1px solid #eee"
 		}
-		console.log('=======>props',this.props);
 		let tableStyle = (tab == 'table') ? activeTab : commenTab;
 		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
 		const inkBarStyle = {
@@ -154,8 +153,7 @@ export default connect((state) => {
 	// changeValues.lessorId = selector(state, 'tab');
 	// changeValues.openRight = state.tab;
 	changeValues = state.right_bar.switch_value || false;
-	
-	console.log(state);
+
 	return {
 		changeValues
 	}

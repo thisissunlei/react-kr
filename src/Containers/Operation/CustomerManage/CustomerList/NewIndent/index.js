@@ -4,9 +4,6 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Grid,
 	Row,
@@ -18,9 +15,14 @@ import {
 
 } from 'kr-ui';
 import State from './State';
-import flushData from "../LookCustomerList/State";
 
 import './index.less'
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityDetailModel")
 @observer
  class NewIndent extends Component{
 
@@ -55,7 +57,7 @@ import './index.less'
 		values.customerid=listId;
 		values.mainbillname=State.orderName;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
-			flushData.orderList(_this.props.listId);
+			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
          	setTimeout(function(){
          		State.ChangeCanSubmitState();
@@ -78,6 +80,7 @@ import './index.less'
 
 		}
 	}
+	
 	componentWillReceiveProps(nextProps){
 		
 			if(typeof(nextProps.orderReady)=="function"){
