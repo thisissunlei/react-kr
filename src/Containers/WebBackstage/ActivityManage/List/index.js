@@ -103,7 +103,17 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		State.searchParams = Object.assign({},State.searchParams,values);
+		State.searchParams = {
+			beginDate:values.beginDate ||'',
+			cityId: values.cityId ||'',
+			countyId: values.countyId ||'',
+			endDate: values.endDate ||'',
+			name: values.name ||'',
+			page: 1,
+			pageSize: 15,
+			type: values.type || '',
+			time:''
+		}
 		State.openAdvancedQuery = !State.openAdvancedQuery;
 
 	}
@@ -142,7 +152,7 @@ export default class List extends Component {
 			className = 'none';
 		}
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="activity-list-a">
 					<div className={className} onClick={this.closeNavs}></div>
 
 								<Title value="活动列表 "/>

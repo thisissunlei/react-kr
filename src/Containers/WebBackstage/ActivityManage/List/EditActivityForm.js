@@ -1,22 +1,16 @@
-
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	ButtonGroup,
 	Message,
-	SnackTip,
 	ListGroup,
 	ListGroupItem,
-	Notify,
 	DateComponent,
 	Checkbox,
 	Editor
@@ -28,24 +22,18 @@ import './index.less';
 import State from './State';
 import {ShallowEqual,DateFormat} from 'kr/Utils';
 @observer
-
- class EditActivityForm extends Component{
+class EditActivityForm extends Component{
 	constructor(props){
 		super(props);
-
-		Store.dispatch(reset('EditActivityForm'));
-
+		// Store.dispatch(reset('EditActivityForm'));
 		this.state = {
 			timeStart:'',
 			timeEnd:''
 		}
 	}
-
 	componentDidMount(){
 		let _this = this;
-
 		let {detail} = this.props;
-
 		Http.request('activityDetail',{id:detail.id}).then(function(response){
 			// 置顶与否
 			if(response.top == 1){
@@ -59,28 +47,20 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			var endTimes   = DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss");
 			var detailStartTime = startTimes.substr(11);
 			var detailEndTime = endTimes.substr(11);
-
 			detailStartTime = detailStartTime.substr(0,5);
 			detailEndTime = detailEndTime.substr(0,5);
-
 			var EmptyArr = [];
 			EmptyArr.push(response.xPoint);
 			EmptyArr.push(response.yPoint);
-
 			State.defaultPoint =  EmptyArr;
-
 			State.mapDefaultValue = response.address;
 			State.initailPoint = response.countyName;
-
-			State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
-			
+			State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;			
 			State.mapdefaultValue = response.address;
 			State.activityIntroduce = response.summary;
 			State.pcCoverPicDefaultValue = response.pcCoverPic || '';
 			State.appCoverPicDefaultValue = response.appCoverPic ||'';
-
 			State.infoPicDefaultValue = response.infoPic;
-
 			var enrollArr = response.enrollFiels;
 			if(enrollArr.indexOf("NAME")>-1){
 				State.choseName = true;
@@ -121,7 +101,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 				Store.dispatch(change('EditActivityForm','top',`${response.top}`));
 			})
 		}).catch(Message.error);
-
 	}
 	// 取消新建
 	onCancel=()=>{
@@ -130,36 +109,24 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	}
 	// 提交
 	onSubmit=(values)=>{
-
 		// 时间是否正确
 		if(!State.timeIsTrue){
-			Notify.show([{
-				message: "结束时间不能大于开始日期",
-				type: 'danger',
-			}]);
+			Message.error('结束时间不能大于开始日期');
 			return;
 		}
 		// 置顶时如果序列号重复不能提交
 		if(values.top==0){
 			if(State.serialNumRepeat){
-				Notify.show([{
-					message: "排序号已经存在",
-					type: 'danger',
-				}]);
+				Message.error('排序号已经存在');
 				return;
 			}
 		}
-
 		values.publishType = this.publishType ;
-
 		values.beginDate = values.startDate+" "+values.startTime+":00";
 		values.endDate = values.stopDate+" "+values.endTime+":00";
-
 		if(values.top == 1){
 			values.sort = '';
 		}
-
-
 		var EArr = [];
 		if(State.choseName){
 			EArr.push("NAME")
@@ -176,7 +143,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		if(State.choseAdd){
 			EArr.push("ADDRESS")
 		}
-
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
@@ -186,17 +152,14 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 				values.address = values.mapField.detailSearch;
 			}
 		}
-
 		var searchParams = Object.assign({},State.searchParams);
 		searchParams.time = +new Date();
-
 		values.enroll = EArr;
 		Http.request('newCreateActivity',{},values).then(function(response){
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
 			State.searchParams = searchParams;
 		}).catch(Message.error);
-
 	}
 	//存为草稿
 	toSave=()=>{
@@ -209,15 +172,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 	// 置顶
 	chooseStick=()=>{
 		State.isStick = true;
-
 	}
 	// 不置顶
 	noStick=()=>{
 		State.isStick = false;
 	}
-
-	
-	
 	chooseCompany=(e)=>{
 		if(e.target.checked){
 			State.choseCompany = true;
@@ -245,56 +204,49 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		State.initailPoint = city.substr(city.lastIndexOf('/')+1);
 		Store.dispatch(change('EditActivityForm', 'cityId', secondId));
 		Store.dispatch(change('EditActivityForm', 'countyId', thirdId));
-
 	}
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
+
+		// 
+		let {detail} = this.props;
+		console.log("detail------->",detail);
 		if(!value){
 			State.serialNumRepeat = false;
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
 			return;
 		}else{
-			Http.request('getActivitySerialNumRepeat',{sort:value}).then(function(response){
+			Http.request('getActivitySerialNumRepeat',{sort:value,id:detail.id}).then(function(response){
 				State.serialNumRepeat = false;
 			}).catch(function(err){
 				State.serialNumRepeat = true;
 			});
 		}
-
 	}
-
 	// 开始日期改变
 	beginDateChange=(value)=>{
 		let _this = this;
 		var beginDate = new Date(value);
 		beginDate = beginDate.getTime();
-
 		Store.dispatch(change('EditActivityForm','startDate',value.substr(0,10)));
-
 		_this.setState({
 			beginDate:beginDate
 		},function(){
 			_this.compareTime();
 		})
-
 	}
-
 	// 结束日期改变
 	endDateChange=(value)=>{
 		let _this =this;
 		var endDate = new Date(value);
 		endDate = endDate.getTime();
-
 		Store.dispatch(change('EditActivityForm','stopDate',value.substr(0,10)));
-
 		_this.setState({
 			endDate:endDate
 		},function(){
 			_this.compareTime();
 		})
-
 	}
-
 	// 开始时间改变
 	beginTimeChange=(value)=>{
 		let _this =this;
@@ -303,10 +255,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		},function(){
 			_this.compareTime();
 		})
-
-
 	}
-
 	// 结束时间改变
 	endTimeChange=(value)=>{
 		let _this =this;
@@ -316,17 +265,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			_this.compareTime();
 		})
 	}
-
 	// 时间校验
 	compareTime=()=>{
 		let _this =this;
 		if(_this.state.beginDate && _this.state.endDate){
 			if(_this.state.endDate <_this.state.beginDate){
 				State.timeIsTrue  = false;
-				Notify.show([{
-					message: "结束时间不能大于开始日期",
-					type: 'danger',
-				}]);
+				Message.error('结束时间不能大于开始日期');
 			}else if(_this.state.endDate ==_this.state.beginDate){
 				if(_this.state.beginTime && _this.state.endTime){
 					var beginTime = _this.state.beginTime;
@@ -337,19 +282,11 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 					var endMin = endTime.substr(3);
 					if(endHour<beginHour){
 						State.timeIsTrue  = false;
-
-						Notify.show([{
-							message: "结束时间不能大于开始日期",
-							type: 'danger',
-						}]);
+						Message.error('结束时间不能大于开始日期');
 					}else if(endHour == beginHour){
 						if(beginMin > endMin){
 							State.timeIsTrue  = false;
-
-							Notify.show([{
-								message: "结束时间不能大于开始日期",
-								type: 'danger',
-							}]);
+							Message.error('结束时间不能大于开始日期');
 						}
 					}else{
 						State.timeIsTrue  = true;
@@ -362,29 +299,21 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			State.timeIsTrue  = true;
 		}
 	}
-
-
 	// 删除详情图
 	deleteInfoPicDefaultValue=()=>{
 		State.infoPicDefaultValue ='';
 	}
-
 	// 删除App轮播图
 	deleteAppCoverPicDefaultValue=()=>{
 		State.appCoverPicDefaultValue ='';
 	}
-
 	// 删除pc轮播图
 	deletePcCoverPicDefaultValue=()=>{
 		State.pcCoverPicDefaultValue = '';
 	}
-
-
 	render(){
-
 		const {handleSubmit} = this.props;
 		let {timeStart,timeEnd} = this.state;
-
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: 'CEO Time',
@@ -425,20 +354,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 			label: '地址',
 			value: 5
 		}]
-
-
-
-/*
 		return (
-				<form onSubmit={handleSubmit(this.onSubmit)}>
-								<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
-								<Button  label="存为草稿" type='submit' onClick={this.toSave}/>
-					</form>
-		);
-		*/
-		return (
-
-			<div className="new-create-activity">
+			<div className="edit-activity">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
@@ -456,21 +373,14 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							</div>
 							<div className="activity-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
-
-
-
 								<KrField grid={1/2} name="name" type="text" label="活动名称" requireLabel={true} style={{width:'252px'}} />
 								<KrField name="type"
 									component="select"
 									options={correspondingFunction}
 									label="活动类型"
 									requireLabel={true}
-
 									style={{width:'252px',marginLeft:24,zIndex:11}}
 									/>
-
-
-
 								<Grid >
 									<Row>
 										<ListGroup>
@@ -493,9 +403,7 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 													onChange = {this.beginTimeChange}
 													label=''
 													/>
-
 											</ListGroupItem>
-
 											<ListGroupItem style={{width:262,textAlign:'left',padding:"14px 0  0 15px"}}>
 												<KrField
 													name="stopDate"
@@ -517,8 +425,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 										</ListGroup>
 									</Row>
 								</Grid>
-
-
 								<KrField grid={1/2}
 									name="cityIdAndCountyId"
 									requireLabel={true}
@@ -528,7 +434,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									onSubmit={this.changeCity}
 									cityName={State.cityData}
 									/>
-
 								<span style={{display:"inline-block",width:22,textAlign:"right",height:74,lineHeight:"83px"}}>-</span>
 								<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 									<KrField name="mapField"
@@ -541,7 +446,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 										defaultPoint = {State.defaultPoint}
 										/>
 								</div>
-
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:'252px',marginLeft:24}}/>
 								<KrField name="joinType"
@@ -550,20 +454,18 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									label="参与人"
 									style={{width:'252px'}}
 									/>
-								<KrField grid={1/2} name="maxPerson" type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
+								<KrField grid={1/2} name="maxPerson" requireLabel={true} type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
 								<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
-									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
+									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{display:"inline-block",marginTop:10}} onClick={this.chooseStick}/>
 									<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
 								</KrField>
 								{/*置顶不显示排序*/}
 								<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
 								{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}
-
 								<div style={{display:State.isStick?"block":"none",fontSize:14,marginBottom:10}}>
 									<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
 									<span>上传轮播图</span>
 								</div>
-
 								{/*置顶显示轮播图*/}
 								<KrField name="pcCoverPic"
 									component="newuploadImage"
@@ -571,15 +473,12 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									photoSize={'1920*520'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'500'}
-
 									label="电脑端轮播图"
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 									defaultValue={State.pcCoverPicDefaultValue}
 									onDeleteImg ={this.deletePcCoverPicDefaultValue}
 									requestURI = {State.requestURI}
-
-
 									/>
 								<KrField name="appCoverPic"
 									component="newuploadImage"
@@ -593,8 +492,6 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									defaultValue={State.appCoverPicDefaultValue}
 									onDeleteImg ={this.deleteAppCoverPicDefaultValue}
 									requestURI = {State.requestURI}
-
-
 									/>
 								<KrField name="infoPic"
 									component="newuploadImage"
@@ -607,15 +504,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 									inline={false}
 									defaultValue={State.infoPicDefaultValue}
 									onDeleteImg ={this.deleteInfoPicDefaultValue}
-
 									/>
-
-
-
 							</div>
-
 						</div>
-						<div className="enroll-info">
+						<div className="enroll-info-last">
 							<div className="enroll-title">
 								<span>2</span>
 								<span></span>
@@ -623,11 +515,8 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 							</div>
 							<div className="enroll-detail-info">
 								<img src={require('./images/selectOne.svg')} className="select-one"/>
-
-								<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce}/>
-
-
-								<Grid style={{margin:"19px 0 30px 7px"}}>
+								<KrField component="editor" name="summary" label="活动介绍" defaultValue={State.activityIntroduce} style={{margin:"52px 0 0 21px"}}/>
+								<Grid style={{margin:"19px 0 30px 27px"}}>
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{marginRight:48}}>
@@ -662,13 +551,10 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 										</ListGroup>
 									</Row>
 								</Grid>
-
-
-
 								<Grid style={{marginTop:19,marginBottom:'80px'}}>
 									<Row>
 										<ListGroup>
-											<ListGroupItem style={{width:'166px',textAlign:'right',padding:0}}>
+											<ListGroupItem style={{width:238,textAlign:'right',padding:0}}>
 												<Button  label="发布" type='submit' onClick={this.toPublish}/>
 											</ListGroupItem>
 											<ListGroupItem style={{width:'140px',textAlign:'center',padding:0}}>
@@ -689,16 +575,13 @@ import {ShallowEqual,DateFormat} from 'kr/Utils';
 		);
 	}
 }
-
 const validate = values => {
 	const errors = {}
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let numContr =/^[1-9]\d{0,4}$/;
-
 	if (values.contactPhone && !phone.test(values.contactPhone) ) {
 		errors.contactPhone = '请输入正确电话号';
 	}
-
 	if(values.top==1){
 		if(!values.appCoverPic){
 			errors.appCoverPic = "请上传手机端轮播图"
@@ -716,42 +599,31 @@ const validate = values => {
 		}
 	}
 	if(values.mapField){
-
 		var mapFieldNum = values.mapField.detailSearch.replace(/(^\s*)|(\s*$)/g, "");
 		if(mapFieldNum.length >30){
 			errors.cityIdAndCountyId = '详细地址最多为30个字符';
 		}
 	}
-
 	if(values.contact){
 		var contactNum = (values.contact+" ").replace(/(^\s*)|(\s*$)/g, "");
 		if(contactNum.length >10){
 			errors.contact = '活动联系人最多为10个字符';
 		}
 	}
-
 	if(values.sort){
-
 		var sortNum = (values.sort+'').replace(/(^\s*)|(\s*$)/g, "");
-
 		if(!numContr.test(sortNum)){
 			errors.sort = '排序号必须为五位以内正整数';
-
 		}
 	}
-	if(values.maxPerson){
-		var personNum = (values.maxPerson+" ").replace(/(^\s*)|(\s*$)/g, "");
-
+	if(!values.maxPerson){
+		errors.maxPerson = '人数限制必填，为五位以内正整数';
+	}else if(values.maxPerson){
+		var personNum = (values.maxPerson+'').replace(/(^\s*)|(\s*$)/g, "");
 		if(!numContr.test(personNum)){
 			errors.maxPerson = '人数限制必须为五位以内正整数';
-
 		}
 	}
-
-
-
-
-
 	if(!values.type){
 		errors.type = '请选择活动类型';
 	}
@@ -761,19 +633,12 @@ const validate = values => {
 	if(!values.countyId){
 		errors.cityIdAndCountyId = "请选择举办地址";
 	}
-
-
-
 	if(!values.infoPic){
 		errors.infoPic = '请上传详情图';
 	}
 	if(values.mapField && !values.mapField.detailSearch && !State.mapDefaultValue){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
-
-
-
-
 	return errors
 }
 const selector = formValueSelector('EditActivityForm');

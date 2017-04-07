@@ -1095,7 +1095,7 @@ const APIS = {
    },
    //活动序号是否重复
    'getActivitySerialNumRepeat':{
-      url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}',
+      url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}&id={id}',
       method: 'get'
    },
 

@@ -36,7 +36,7 @@ let State = observable({
 	HeightAuto:false,
 	contentHeightAuto:false,
 	contentHeightAutoShow:false,
-	initailPoint : "",
+	initailPoint : '',
 	choseName: true,
 	chosePhone: true,
 	choseCompany: false,
@@ -93,7 +93,7 @@ State.itemUpPublish = action(function(id) {
 		Message.success('发布成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
-		Message.error('发布失败');
+		Message.error(err.message);
 	});
 
 
@@ -150,6 +150,7 @@ State.activityDetail = action(function(id) {
 	Http.request('getActivityDetail', {
 		id: id,
 	}).then(function(response) {
+		// console.log("response.summary",response.summary);
 		_this.detailContent = response.summary;
 	}).catch(function(err) {
 		console.log('err',err);

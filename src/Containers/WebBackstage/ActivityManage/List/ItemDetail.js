@@ -47,21 +47,22 @@ import dateFormat from 'dateformat';
 		}
 	}
 	componentWillMount() {
-		console.log('dddd');
 	}
 	componentDidMount(){
+		let {detail}= this.props;
+		
+		State.activityDetail(detail.id);
+		State.activityGetList(detail.id);
 	}
 	componentDidUpdate(){
-		console.log('======?',$('#clampjs').height())
 		if($('#clampjs').height()>110){
 			State.contentHeightAutoShow = true;
-			$('#clampjs').css('max-height','111px');
+			$('#clampjs').css({'max-height':'111px',position:'relative'});
 		}else{
 			State.contentHeightAutoShow = false;
 		}
 	}
 	componentWillReceiveProps(nextProps){
-		console.log('componentWillReceiveProps');
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
@@ -175,7 +176,6 @@ import dateFormat from 'dateformat';
 		});
 		let same = this.isSameDay(initValue.beginDate,initValue.endDate);
 		let time = this.setTime(same,initValue);
-		console.log('State.contentHeightAuto',State.contentHeightAuto);
 		return (
 
 			<div className="new-create-activity">
@@ -200,7 +200,7 @@ import dateFormat from 'dateformat';
 
 
 
-							<KrField grid={1/2} name="name" type="labelText" inline={false} label="活动名称" requireLabel={true} style={{width:'252px'}} value={initValue.name} />
+							<KrField grid={1/2} name="name" type="labelText" inline={false} label="活动名称" requireLabel={true} style={{width:276}} value={initValue.name} />
 							<KrField grid={1/2} name="type" type="labelText" inline={false} label="活动类型" requireLabel={true} style={{width:'252px'}} value={activityType} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="活动类型" requireLabel={true} value={time} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="举办地址" requireLabel={true} value={`${initValue.cityName}${initValue.countyName}-${initValue.address}`} />
@@ -220,20 +220,20 @@ import dateFormat from 'dateformat';
 
 							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
 								<span className="photo-title">电脑端轮播图</span>
-								<div className="photo-img-box">
+								<div className="photo-img-box" style={{marginLeft:15}}>
 									<img src={initValue.pcCoverPic} style={{width:'100%',height:'100%'}}/>
 								</div>
 							</div>
 							<div className="photo-box" style={{display:initValue.top?'block':'none'}}>
 								<span className="photo-title">移动端轮播图</span>
-								<div className="photo-img-box" style={{width:217,height:157}}>
+								<div className="photo-img-box" style={{width:217,height:157,marginLeft:15}}>
 									<img src={initValue.appCoverPic} style={{width:'100%',height:'100%'}}/>
 								</div>
 							</div>
 
 							<div className="photo-box">
 								<span className="photo-title">上传列表详情图</span>
-								<div className="photo-img-box" style={{width:390,height:230}}>
+								<div className="photo-img-box" style={{width:390,height:230,marginLeft:15}}>
 									<img src={initValue.infoPic} style={{width:'100%',height:'100%'}}/>
 
 								</div>
@@ -241,7 +241,7 @@ import dateFormat from 'dateformat';
 
 							<div className="photo-box activity-content">
 								<span className="photo-title">活动介绍</span>
-								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs">
+								<div className={State.contentHeightAuto?'content-info auto':'content-info stationList'} id="clampjs" style={{margin:"12px 0 0 14px"}}>
 									{ReactHtmlParser(State.detailContent)}
 								</div>
 							{State.contentHeightAutoShow && State.detailContent && <div className="Btip"  style={{height:70}} onTouchTap={this.showMoreContent}> <p style={{width:'auto',textAlign:'center'}}><span>{State.contentHeightAuto?'收起':'查看余下全文'}</span><span className={State.contentHeightAuto?'Toprow':'Bottomrow'} style={{display:'block',margin:'0 auto'}}></span></p></div>}
@@ -251,16 +251,16 @@ import dateFormat from 'dateformat';
 						</div>
 
 					</div>
-					<div className="enroll-info">
+					<div className="enroll-info" style={{marginTop:'-14px'}}>
 						<div className="enroll-title">
 							<span>2</span>
 							<span></span>
 							<span>报名信息</span>
 						</div>
-						<div className="enroll-detail-info">
-							<img src={require('./images/selectOne.svg')} className="select-one"/>
+						<div className="enroll-detail-info-detail">
+							<img src={require('./images/selectOne.svg')} className="select-one-see"/>
 
-							<Grid style={{marginTop:19,marginBottom:'80px'}}>
+							<Grid style={{marginTop:5,paddingBottom:15,marginLeft:17}}>
 								<Row>
 									<ListGroup>
 										{	list.name && <ListGroupItem style={{marginRight:48}}>
@@ -288,14 +288,16 @@ import dateFormat from 'dateformat';
 							</Grid>
 						</div>
 					</div>
-					<div className="enroll-info" style={{minHeight:150,paddingBottom:50}}>
+					<div className="enroll-info-last" style={{minHeight:150,paddingBottom:30}}>
+						<img src={require('./images/selectOne.svg')} className="select-one-see"/>
+
 						<div className="enroll-title">
 							<span>3</span>
 							<span></span>
 							<span>报名情况</span>
 						</div>
 						<div className={State.HeightAuto?'auto':'stationList'}>
-							<Table displayCheckbox={false}>
+							<Table displayCheckbox={false} style={{margin:"58px 0 0 38px",width:547}}>
 								<TableHeader>
 									{
 										State.actField.items.length && State.actField.actEnroll && State.actField.actEnroll.map((item,index)=>{
@@ -311,20 +313,20 @@ import dateFormat from 'dateformat';
 									return (
 										<TableRow key={index}>
 											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
-											{list.phone && <TableRowColumn>{item.phone}</TableRowColumn>}
+											{list.phone && <TableRowColumn >{item.phone}</TableRowColumn>}
 											{list.company && <TableRowColumn>{item.company}</TableRowColumn>}
 											{list.job && <TableRowColumn>{item.job}</TableRowColumn>}
-											{list.address && <TableRowColumn>{item.cityName}</TableRowColumn>}
+											{list.address && <TableRowColumn>{item.cityName}{item.countyName}{item.address}</TableRowColumn>}
 									   	</TableRow>
 									);
 								})}
 								</TableBody>
 							</Table>
 						</div>
-						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:'55px'}}>暂无</div>}
+						{!State.actField.items.length && <div style={{fontSize:'14px',paddingLeft:43,marginTop:'-12px'}}>暂无</div>}
 
 
-						{State.actField.items.length>5?<div className="Btip"  style={{height:70}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
+						{State.actField.items.length>5?<div className="Btip"  style={{height:42}} onTouchTap={this.showMore}> <p style={{textAlign:'center'}}><span style={{display:'inline-block'}}>{State.HeightAuto?'收起':'查看全部'}</span><span className={State.HeightAuto?'Toprow':'Bottomrow'} style={{margin:'0 auto',display:'block'}}></span></p></div>:''}
 
 					</div>
 
