@@ -90,7 +90,7 @@ class NewCreateDefinitionForm extends Component{
   			})
 			return;
 		}
-  		if(propertyId.value == 2 || propertyId.value == 3 ){
+  		if(propertyId.value == 2 || propertyId.value == 3 || propertyId.value == 5){
   			_this.setState({
   				locationOpen : true
   			})
