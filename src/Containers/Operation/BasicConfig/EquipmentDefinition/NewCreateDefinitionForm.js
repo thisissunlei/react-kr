@@ -90,7 +90,7 @@ class NewCreateDefinitionForm extends Component{
   			})
 			return;
 		}
-  		if(propertyId.value == 2 || propertyId.value == 3 || propertyId.value == 5){
+  		if(propertyId.value == 2 || propertyId.value == 3 ||propertyId.value == 4 || propertyId.value == 5){
   			_this.setState({
   				locationOpen : true
   			})
@@ -366,7 +366,7 @@ class NewCreateDefinitionForm extends Component{
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',display:this.state.locationOpen?'block':'none'}}
 					/>
-					<div>
+					<div style={{marginLeft:6}}>
 						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/> 
 						<span style={{fontSize:14,color:"#333333"}} >保存后自动上线</span>
 					</div>
