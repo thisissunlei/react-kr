@@ -385,9 +385,9 @@ class NewCreateForm extends React.Component{
 									style={{width:'252px'}}
 								/>
 								<KrField grid={1/2} name="maxPerson"  requireLabel={true} type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
-								<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
-									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
-									<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
+								<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:252}} >
+									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginTop:10,display:"inline-block"}} onClick={this.chooseStick}/>
+									<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick} style={{marginTop:10}}/>
 				              	</KrField>
 								<KrField name="sort" type="text" label="排序"  style={{display:State.isStick?"none":"inline-block",width:252,marginLeft:24}} onChange={this.NumRepeat}/>
 								{State.serialNumRepeat && <div style={{display:State.isStick?"none":"inline-block",width:"64%",textAlign:"right",fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该排序号已存在</div>}

@@ -456,7 +456,7 @@ class EditActivityForm extends Component{
 									/>
 								<KrField grid={1/2} name="maxPerson" requireLabel={true} type="text" label="人数限制" style={{width:'252px',marginLeft:24}}/>
 								<KrField grid={1/2} name="top" component="group" label="是否置顶"  style={{width:'252px'}} >
-									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{marginRight:'50'}} onClick={this.chooseStick}/>
+									<KrField name="top" grid={1/2} label="置顶" type="radio" value='1' style={{display:"inline-block",marginTop:10}} onClick={this.chooseStick}/>
 									<KrField name="top" grid={1/2} label="不置顶" type="radio" value='0' onClick={this.noStick}/>
 								</KrField>
 								{/*置顶不显示排序*/}
