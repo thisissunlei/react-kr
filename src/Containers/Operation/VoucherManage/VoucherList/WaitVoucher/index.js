@@ -181,7 +181,7 @@ export default class WaitVoucher extends React.Component {
   //
   // }
   onAddSubmit=()=>{
-    window.reload();
+    window.location.reload();
   }
   searchParams = (form) => {
     var _this = this;

@@ -137,7 +137,7 @@ export default class VoucherDetail extends React.Component {
 											inline={false}
 											component="labelText"
 											label="客户名称"
-											value={infoList.customerName}
+											value={infoList.company}
 							/>
 							<KrField
 											grid = {1 / 2}
