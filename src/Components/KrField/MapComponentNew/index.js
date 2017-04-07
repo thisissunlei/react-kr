@@ -47,22 +47,23 @@ export default class MapComponentNew extends Component {
 
 	onClickOther = (event)=>{
 
-    	  event = event || window.event;
-			var target = event.target;
-			
-			while (target) {
-				if (target && target.className && target.className.indexOf('ui-map-component') !== -1) {
-					return;
-				}
-				target = target.parentNode;
+	  	event = event || window.event;
+		var target = event.target;
+		
+		while (target) {
+			if (target && target.className && target.className.indexOf('ui-map-component') !== -1) {
+				return;
 			}
-              this.setState({
-              	showMap:false
-              });
+			target = target.parentNode;
+		}
+        this.setState({
+          	showMap:false
+        });
     }
 
 
 	componentDidMount() {
+
 		document.body.addEventListener("click",this.onClickOther);
 
 
@@ -101,7 +102,6 @@ export default class MapComponentNew extends Component {
 	}
 	// 输入文字
 	inputLocation=()=>{
-		console.log("000000000");
 		this.showMap();
 		var _this = this;
 		var inputValue = this.refs.mapInput.value;
@@ -181,7 +181,6 @@ export default class MapComponentNew extends Component {
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
-			console.log("this.refs.mapInput.value",this.refs.mapInput.value)
 			if(this.refs.mapInput.value){
 				_this.map.centerAndZoom(point, 15);
 			}else{
@@ -209,13 +208,11 @@ export default class MapComponentNew extends Component {
 
 
 	isShowMap=(event)=>{
-		console.log("=======>isShowMap")
 		event.stopPropagation();
 		let _this = this;
 		this.setState({
 			showMap : !_this.state.showMap
 		},function(){
-			console.log("this.state.showMap",_this.state.showMap);
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
