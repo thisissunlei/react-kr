@@ -41,6 +41,9 @@ let State = observable({
 		editprojectName:'',
 		ishasOffice:false,
 		editIndentState:"",
+
+		//打开新建订单第一层
+		openContract:false
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
@@ -162,6 +165,10 @@ State.exportData = action(function(value) {
 //城市改变
 State.cityChange=action(function(params){
 	this.cityname=params;
+})
+//新建订单打开第一层
+State.openFirstContract=action(function(){
+    this.openContract=!this.openContract;
 })
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;

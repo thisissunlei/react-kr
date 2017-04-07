@@ -47,6 +47,9 @@ import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
 import newIndentState from "../NewIndent/State";
 
+//新建订单
+import CustomerNameNext from '../CustomerNameNext';
+
 import './index.less'
 @observer
 class SignedClient extends Component{
@@ -304,6 +307,15 @@ class SignedClient extends Component{
 		State.closeAllMerchants();
 	}
 
+	//新建订单第一层
+	openContractFirst=()=>{
+	  State.openFirstContract();
+	}
+	//新建订单第一层关闭
+	cancelCustomerNameNext=()=>{
+	  State.openFirstContract();	
+	}
+
 	render(){
        
      
@@ -336,7 +348,7 @@ class SignedClient extends Component{
 									<Button
 											label="新建订单"
 											type='button'
-											onTouchTap={this.opNewMerchants}
+											onTouchTap={this.openContractFirst}
 									/>
 					  </Col>
 			         
@@ -560,6 +572,19 @@ class SignedClient extends Component{
 						  customerIds={this.state.dialogNum}
 						/>
 				    </Dialog>
+
+				     {/*打开新建订单第一层*/}
+				     <Drawer
+							open={State.openContract}
+							width={750}
+							openSecondary={true}
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<CustomerNameNext
+			                onSubmit={this.switchPersonSubmit}
+						    onCancel={this.cancelCustomerNameNext}  
+						/>
+					</Drawer>
 
 
 					{
