@@ -21,13 +21,10 @@ import {
 				console.log(values);
 		}
 
-		render() {
-
 	render() {
-		return (
-			<div>
-				ddddd
-			</div>
-			);
+
+		return ( <div> ddddd </div> );
+
 		}
+
 	}
