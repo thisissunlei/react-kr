@@ -806,66 +806,71 @@ const APIS = {
         url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
         method: 'post'
     },
+ 'planMap': {
+   url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
+   method:'get'
+ },
+ //获取消息列表
+ 'getInfoList': {
+   url:'/api/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}&communityId={communityId}',
+   method:'get'
+ },
 
-    'planMap': {
-        url: '/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
-        method: 'get'
-    },
-    //获取消息列表
-    'getInfoList': {
-        url: '/api/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}',
-        method: 'get'
-    },
-    //消息设为已读
-    'setInfoReaded': {
-        url: '/api/krspace-finance-web/msg/msg-read?id={id}',
-        method: 'put'
-    },
-    //获取未读消息数
-    'getUnReadInfo': {
-        url: '/api/krspace-finance-web/msg/msg-count?&endTime={endTime}&startTime={startTime}',
-        method: 'get'
-    },
-    //客户管理－获取招商人员列表
-    'get-receive-list': {
-        url: '/api/krspace-finance-web/customer/actions/get-receive-list?searchKey={searchKey}',
-        method: 'get'
-    },
-    //计算工位总价
-    'getAllRent': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total',
-        method: 'post'
-    },
-    //减租计算工位总价
-    'reduceGetAllRent': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
-        method: 'post'
-    },
-    //合同列表-列表接口
-    'contract-list': {
-        url: '/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
-        method: 'get'
-    },
-    //合同列表-客户订单下拉接口
-    'orders-names': {
-        url: '/api/krspace-finance-web/customer/orders-names?customerId={customerId}',
-        method: 'get'
-    },
-    //合同列表-客户名称下拉接口
-    'customers-names': {
-        url: '/api/krspace-finance-web/customer/my-customers?company={company}',
-        method: 'get'
-    },
-    //合同列表-获取合同是否可创建
-    'contracts-creation': {
-        url: '/api/krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
-        method: 'get'
-    },
-    //合同列表-获取登录人是否有创建合同的权限
-    'edit-right': {
-        url: '/api/krspace-finance-web/finacontractdetail/contract-list/edit-right',
-        method: 'get'
-    },
+//消息提醒-催款
+ 'getAlertList': {
+   url:'/api/krspace-finance-web/msg/msg-alert?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}&communityId={communityId}',
+   method:'get'
+ },
+ //消息设为已读
+ 'setInfoReaded': {
+   url:'/api/krspace-finance-web/msg/msg-read?id={id}',
+   method:'put'
+ },
+ //获取未读消息数
+ 'getUnReadInfo': {
+   url:'/api/krspace-finance-web/msg/msg-count?&endTime={endTime}&startTime={startTime}',
+   method:'get'
+ },
+ //客户管理－获取招商人员列表
+ 'get-receive-list': {
+   url:'/api/krspace-finance-web/customer/actions/get-receive-list?searchKey={searchKey}',
+   method:'get'
+ },
+ //计算工位总价
+ 'getAllRent':{
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total',
+   method:'post'
+ },
+ //减租计算工位总价
+ 'reduceGetAllRent':{
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
+   method:'post'
+ },
+ //合同列表-列表接口
+   'contract-list':{
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
+   method:'get'
+   },
+ //合同列表-客户订单下拉接口
+   'orders-names':{
+   url:'/api/krspace-finance-web/customer/orders-names?customerId={customerId}',
+   method:'get'
+   },
+ //合同列表-客户名称下拉接口
+   'customers-names':{
+      url:'/api/krspace-finance-web/customer/my-customers?company={company}',
+      method:'get'
+   },
+ //合同列表-获取合同是否可创建
+   'contracts-creation':{
+      url:'/api/krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
+      method:'get'
+   },
+   //合同列表-获取登录人是否有创建合同的权限
+   'edit-right':{
+      url:'/api/krspace-finance-web/finacontractdetail/contract-list/edit-right',
+      method:'get'
+   },
 
 
     //运营平台-基础配置-设备定义-设备列表
@@ -943,50 +948,66 @@ const APIS = {
         url: '/api/krspace-finance-web/cmt/community/list-param-data',
         method: 'get'
     },
-
-
-
-    //会员卡列表
-    'memberCardList': {
-        url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
-        method: 'get'
-    },
-    //会员卡批量入库
-    'memberCardImport': {
-        url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
-        method: 'put'
-    },
-    //会员卡领用
-    'memberCardUse': {
-        url: '/api/krspace-finance-web/member/card/actions/receive',
-        method: 'post'
-    },
-    //会员卡删除
-    'memberCardDelete': {
-        url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
-        method: 'delete'
-    },
-    //会员卡查看
-    'memberCardView': {
-        url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
-        method: 'get'
-    },
-    // 会员卡原领用人列表
-    'memberRecvList': {
-        url: '/api/krspace-finance-web/member/card/recv-list',
-        method: 'get'
-    },
-    //查询领用人的会员卡数
-    'memberCardNum': {
-        url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
-        method: 'get'
-    },
-    //会员卡转移
-    'transferMemberCard': {
-        url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
-        method: 'put'
-    },
-
+//会员卡列表
+   'memberCardList': {
+      url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      method: 'get'
+   },
+   //会员卡批量入库
+   'memberCardImport': {
+      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      method: 'put'
+   },
+   //会员卡领用
+   'memberCardUse': {
+      url: '/api/krspace-finance-web/member/card/actions/receive',
+      method: 'post'
+   },
+   //会员卡删除
+   'memberCardDelete': {
+      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      method: 'delete'
+   },
+   //会员卡查看
+   'memberCardView': {
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
+   // 会员卡原领用人列表
+   'memberRecvList':{
+      url: '/api/krspace-finance-web/member/card/recv-list',
+      method: 'get'
+   },
+   //查询领用人的会员卡数
+   'memberCardNum':{
+      url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
+      method: 'get'
+   },
+   //会员卡转移
+   'transferMemberCard':{
+      url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
+      method: 'put'
+   },
+   //消息提醒-客户转移列表
+   'messageRemindCustomerSwitching':{
+      url: '/api/krspace-finance-web/msg/customer-transfer/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+   //消息提醒-预约参观列表
+   'messageAppointmentVisit':{
+      url: '/api/krspace-finance-web/msg/order-visit/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&msgCommunity={msgCommunity}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+    //消息提醒-获取消息查看权限及
+   'messageLookJurisdiction':{
+      url: '/api/krspace-finance-web/msg/msg-right-count',
+      method: 'get'
+   },
+   //消息提醒-消息设为全部已读
+  'messageAllReade':{
+     url: '/api/krspace-finance-web/msg/msg-all-read?msgType={msgType}',
+     method: 'put'
+  },
 
    // 门禁授权列表
    'impowerList':{
@@ -1019,8 +1040,6 @@ const APIS = {
    },
 
 
-
-
     //社区管理－校验社区名称
     'check-name': {
         url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
@@ -1037,15 +1056,37 @@ const APIS = {
         method: 'post'
     },
     //社区管理－获取社区编辑信息
-    'communityGetEdit': {
-        url: '/api/krspace-finance-web/cmt/community/info/type/edit?id={id}',
-        method: 'get'
-    },
-    //社区管理－校验社区排序
-    'check-rank': {
-        url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
-        method: 'get'
-    },
+
+   'communityGetEdit':{
+      url: '/api/krspace-finance-web/cmt/community/info/type/edit?id={id}',
+      method: 'get'
+   },
+     //社区管理－校验社区排序
+   'check-rank':{
+      url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
+      method: 'get'
+   },
+   //客户公海列表－查询
+   'highSeaSearch':{
+      url: '/api/krspace-finance-web/csr/market/list/type/search?cityId={cityId}&page={page}&pageSize={pageSize}&sourceId={sourceId}',
+      method: 'get'
+   },
+    //客户公海列表－客户公海列表数据准备
+   'highSeaDataReday':{
+      url: '/api/krspace-finance-web/csr/market/list-param-data',
+      method: 'get'
+   },
+   //客户公海列表－获取导入结果接口
+   'highSeaDataGet':{
+      url: '/api/krspace-finance-web/csr/market/import/actions/get-result?batchId={batchId}',
+      method: 'get'
+   },
+   //客户公海列表－客户公海导入数据准备
+   'highSourceName':{
+      url: '/api/krspace-finance-web/csr/market/upload-param-data?sourceName={sourceName}',
+      method: 'get'
+   },
+
     //财务--款项--获取一级款项分页
     'findPage': {
         url: '/api/krspace-finance-web/finaccount/category/findPage?page={page}&pageSize={pageSize}&searchParam={searchParam}',
