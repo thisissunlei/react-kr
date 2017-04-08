@@ -1,23 +1,20 @@
+import React from 'react';
 
-import React,{Component} from 'react';
 import './index.less';
-
-export default class ButtonGroup extends Component{
+export default class ButtonGroup extends React.Component{
 
 	static displayName = 'ButtonGroup';
 
-	static PropTypes = {
+	static propTypes = {
 		children: React.PropTypes.node,
 		style: React.PropTypes.number,
 	}
 
 	constructor(props){
 		super(props);
-
 	}
 
 	render(){
-
 
 		let {children,style} = this.props;
 
