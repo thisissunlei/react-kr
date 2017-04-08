@@ -1,14 +1,12 @@
-import React, {
-	Component
-} from 'react';
-import './index.less';
-
-import ReactDOM from 'react-dom';
+import React from 'react';
 
 import DialogBody from './DialogBody';
 import DialogFooter from './DialogFooter';
 
-export default class DialogComponent extends Component {
+
+import './index.less';
+
+export default class DialogComponent extends React.Component {
 
 	static displayName = 'DialogComponent';
 
@@ -89,7 +87,6 @@ export default class DialogComponent extends Component {
 
 	initializeStyles = ()=>{
 
-			// var ele = ReactDOM.findDOMNode(this);
 			var ele;
 			try{
 				ele = this.refs.dialog;
