@@ -46,6 +46,7 @@ class MerchantsData  extends Component{
 			startValue:this.props.todayDate,
 			endValue:this.props.todayDate,
 			loading:true,
+			tabLoading:true,
 			moveStyle:{
 				position: "absolute",
 			    marginRight: 20,
@@ -121,11 +122,15 @@ class MerchantsData  extends Component{
     	searchParams.groupId = this.props.groupId;
     	searchParams.startDate=startValue+" 00:00:00"
     	searchParams.endDate=endValue+" 00:00:00"
-
+    	this.setState({
+    		
+    		tabLoading:true,
+    	})
     	Http.request('already-open',searchParams).then(function(response) {
     		_this.setState({
     			data:response,
     			loading:false,
+    			tabLoading:false
     		})
 		}).catch(function(err) {
 		
@@ -135,7 +140,7 @@ class MerchantsData  extends Component{
     openExprot = () =>{
     	let {groupId} = this.props;
     	let {endValue,startValue}=this.state;
-		var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+		var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue+" 00:00:00"}&startDate=${startValue+" 00:00:00"}`;
 		window.location.href = url;
     }
     componentDidMount() {
@@ -301,7 +306,7 @@ class MerchantsData  extends Component{
 
 	
 	render(){
-		let {data,loading,moveStyle} = this.state;
+		let {data,loading,moveStyle,tabLoading} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
 			
@@ -311,9 +316,9 @@ class MerchantsData  extends Component{
 		if(!unopenList){
 			unopenList=[];
 		}
-		// if(loading){
-		// 	return <Loading />
-		// }
+		if(loading){
+			return <Loading />
+		}
 		
 		if(unopenList.length == 0 && openList.length == 0){
 			nothingData = true;
@@ -377,9 +382,9 @@ class MerchantsData  extends Component{
 
 							<TableBody>
 								
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 56,height:51*(openList.length),lineHeight:51*(openList.length)+"px",borderRightWidth: 0}}>已开业</div>}
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 56+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",borderRightWidth: 0}}>未开业</div>}
-								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 56+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",borderRightWidth: 0}}>已开业</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",borderRightWidth: 0}}>未开业</div>}
+								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
 
 								{!nothingData && this.createOpenElems()}
 								{!nothingData && this.createUnopenElems()}	
