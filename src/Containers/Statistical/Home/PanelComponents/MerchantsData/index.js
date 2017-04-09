@@ -36,15 +36,18 @@ class MerchantsData  extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		let {todayDate} = this.props;
+		let nowDate = dateFormat(todayDate,"yyyy-mm-dd");
+		console.log(dateFormat(todayDate,"yyyy-mm-dd"),"LLLLLLLL")
 		this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
+				startDate:nowDate,
+				endDate:nowDate
 			},
 			data:{},
-			startValue:this.props.todayDate,
-			endValue:this.props.todayDate,
+			startValue:nowDate,
+			endValue:nowDate,
 			loading:true,
 			tabLoading:true,
 			moveStyle:{
@@ -200,20 +203,34 @@ class MerchantsData  extends Component{
 						<TableRowColumn >
 							
 						</TableRowColumn>
+
 						<TableRowColumn >{item.cityName}</TableRowColumn>
 						<TableRowColumn >{_this.tooltip(item.communityName)}</TableRowColumn>
+						//新增客户
 						<TableRowColumn>{item.newCustomer}</TableRowColumn>
+						//参观客户
 						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
+						//意向工位数
 						<TableRowColumn>{item.intentionStation}</TableRowColumn>
+						//入驻客户数
 						<TableRowColumn>{item.enterCustomer}</TableRowColumn>
-						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						//续租客户数
+						<TableRowColumn>{item.continueCustomer}</TableRowColumn>
+						//增租客户数
 						<TableRowColumn>{item.increaseCustomer}</TableRowColumn>
+						//减租客户数
 						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						//退租客户数
 						<TableRowColumn>{item.returnCustomer}</TableRowColumn>
+						//入驻/
 						<TableRowColumn>{item.enterSeveral}</TableRowColumn>
+						//续租/
 						<TableRowColumn>{item.continueSeveral}</TableRowColumn>
+						//曾珠
 						<TableRowColumn>{item.increaseSeveral}</TableRowColumn>
+						//减租
 						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
+						//tuizu
 						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
 						
 					</TableRow>
@@ -235,22 +252,34 @@ class MerchantsData  extends Component{
 						<TableRowColumn >
 							
 						</TableRowColumn>
+
 						<TableRowColumn >{item.cityName}</TableRowColumn>
-						<TableRowColumn >
-							{_this.tooltip(item.communityName)}
-						</TableRowColumn>
+						<TableRowColumn >{_this.tooltip(item.communityName)}</TableRowColumn>
+						//新增客户
 						<TableRowColumn>{item.newCustomer}</TableRowColumn>
+						//参观客户
 						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
+						//意向工位数
 						<TableRowColumn>{item.intentionStation}</TableRowColumn>
+						//入驻客户数
 						<TableRowColumn>{item.enterCustomer}</TableRowColumn>
-						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						//续租客户数
+						<TableRowColumn>{item.continueCustomer}</TableRowColumn>
+						//增租客户数
 						<TableRowColumn>{item.increaseCustomer}</TableRowColumn>
+						//减租客户数
 						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						//退租客户数
 						<TableRowColumn>{item.returnCustomer}</TableRowColumn>
+						//入驻/
 						<TableRowColumn>{item.enterSeveral}</TableRowColumn>
+						//续租/
 						<TableRowColumn>{item.continueSeveral}</TableRowColumn>
+						//曾珠
 						<TableRowColumn>{item.increaseSeveral}</TableRowColumn>
+						//减租
 						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
+						//tuizu
 						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
 						
 					</TableRow>
@@ -331,8 +360,7 @@ class MerchantsData  extends Component{
 						<Grid style={{height:'76'}}>
 							<Row>
 								<Col align="left" md={4} style={{marginTop:'25'}}>
-									<span  className='ui-pic-open'>招商数据统计-</span>
-									<span  className='static-openCompany'>已开业</span>
+									<span  className='ui-pic-open' style = {{width:150}}>客户信息数据统计</span>
 									<span  className='static-upload'>实时更新</span>
 								</Col>
 								<Col align="right" md={8}>
@@ -346,6 +374,8 @@ class MerchantsData  extends Component{
 								<div className = "merchants-header">城市</div>
 								<div className = "merchants-header">社区</div>
 								<div className = "merchants-header">新增客户</div>
+								<div className = "merchants-header">参观客户</div>
+
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>意向</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位数</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约入驻</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约续租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
@@ -356,7 +386,6 @@ class MerchantsData  extends Component{
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约续租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约增租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
-								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
 							
 							</div>
@@ -394,6 +423,7 @@ class MerchantsData  extends Component{
 				    					
 				    			
 							</TableBody>
+							
 							</Table>
 							</div>
 							{nothingData && this.nothingData()}
