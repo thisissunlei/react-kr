@@ -116,13 +116,11 @@ export default class OpenPanel  extends Component{
 
     
 	openExprot = () =>{
-
-			console.log("dddd");
-			// let {searchParams}=this.state;
-			// Http.request('openCompanyExprot',searchParams).then(function(response) {
-			// }).catch(function(err) {
-			//
-			// });
+		let {searchParams}=this.state;
+		Http.request('openCompanyExprot',searchParams).then(function(response) {
+		}).catch(function(err) {
+		
+		});
 	}
     render(){
     	let {searchParams}=this.state;
@@ -130,9 +128,7 @@ export default class OpenPanel  extends Component{
 
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
-				 <div style={{position:'relative',marginTop:20,left:0}}  onclick = {this.openExprot}>
-						 <Button  label="导出" type="button"/>
-				 </div>
+				 
 						 <div className='ui-open-info'>
 							 <Grid style={{height:'76'}}>
 								<Row>
@@ -199,8 +195,11 @@ export default class OpenPanel  extends Component{
 		 								 <TableRowColumn name="averagePrice"></TableRowColumn>
 		 								</TableRow>
 		 						 </TableBody>
-		 						 </Table>
-
+		 						 
+						 		 </Table>
+								 <div style={{position:'relative',marginTop:20,left:0,textAlign:"left"}}  >
+										 <Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+								 </div>
 				 				</div>
 
 				 		</div>

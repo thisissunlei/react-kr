@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 import dateFormat from 'dateformat';
@@ -23,7 +24,9 @@ import {
 	Tabs,
 	Tab,
 	Title,
-	Message
+	Message,
+	Loading,
+	Tooltip
 } from 'kr-ui';
 import './index.less'
 import {Http} from "kr/Utils";
@@ -36,69 +39,93 @@ class MerchantsData  extends Component{
 		this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:"",
-				endDate:""
+				startDate:this.props.todayDate,
+				endDate:this.props.todayDate
 			},
 			data:{},
-			startValue:'',
-			endValue:''
+			startValue:this.props.todayDate,
+			endValue:this.props.todayDate,
+			loading:true,
+			moveStyle:{
+				position: "absolute",
+			    marginRight: 20,
+			    lineHeight: "54px",
+			    zIndex: 1,
+			    marginLeft: 1,
+			    
+			}
 		}
 		this.gainData();
-		console.log("...,,,,,..,,>>>>",this.props.groupId);
+		
 	}
 
-	onStartChange=(startD)=>{
-
-    	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-
-
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+	onStartChange=(value)=>{
+    	let {startValue,endValue}=this.state;
+    	let {groupId} = this.props;
+    	let start = value;
+        let end = endValue;
+        let _this = this;
         this.setState({
-        	startValue:startD
-
-        },function () {
-
-        	if(start>end){
-	         Message.error('开始时间不能大于结束时间');
-	          return ;
-	        }
-	        let startDate=this.state.startValue;
-	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
-	    	
-
-
+        	startValue:value,
         })
+
+    	if(!!start && !!end && start>end){
+         Message.error('开始时间不能大于结束时间');
+          return ;
+        }else{
+        	this.setState({
+        		searchParams:{
+        			groupId:groupId,
+	        		startDate:startValue,
+					endDate:endValue,
+        		}
+        	},function(){
+        		this.gainData();
+        	})
+        }
+        
 
     }
-    onEndChange=(endD)=>{
-    	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+    onEndChange=(value)=>{
+    	let {startValue,endValue}=this.state;
+    	let {groupId} = this.props;
+
+        let start = startValue;
+        let end = value;
         this.setState({
-        	endValue:endD
-
-        },function () {
-
-        	if(start>end){
-	         Message.error('开始时间不能大于结束时间');
-	          return ;
-	        }
-	        let endDate=this.state.endValue;
-	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue||searchParams.startDate,endDate:this.state.endValue,});
-	    	
-
+        	endValue:value,
         })
+
+    	if(!!start && !!end && start>end){
+         Message.error('开始时间不能大于结束时间');
+          return ;
+        }else{
+        	this.setState({
+        		searchParams:{
+        			groupId:groupId,
+	        		startDate:startValue,
+					endDate:endValue,
+        		}
+        		
+        	},function(){
+        		this.gainData();
+        	})
+        }
 
     }
     // 获取列表数据
     gainData =() => {
     	let _this = this;
-    	let {searchParams}=this.state;
+    	let {endValue,startValue}=this.state;
+    	let searchParams={}
+    	searchParams.groupId = this.props.groupId;
+    	searchParams.startDate=startValue+" 00:00:00"
+    	searchParams.endDate=endValue+" 00:00:00"
 
     	Http.request('already-open',searchParams).then(function(response) {
     		_this.setState({
-    			data:response
+    			data:response,
+    			loading:false,
     		})
 		}).catch(function(err) {
 		
@@ -106,12 +133,58 @@ class MerchantsData  extends Component{
     }
 
     openExprot = () =>{
-    	let {searchParams}=this.state;
-    	console.log(searchParams,">>>>>>>>")
+    	let {groupId} = this.props;
+    	let searchParams = {
+    		groupId:groupId,
+    		endDate:"",
+    		startDate:"",
+    	}
+    	
 		Http.request('already-export',searchParams).then(function(response) {
 		}).catch(function(err) {
 			
 		});
+    }
+    componentDidMount() {
+    	var _this=this;
+    	window.onscroll = function () { 
+			var t = document.documentElement.scrollTop || document.body.scrollTop;
+			if(t>150){
+				_this.setState({
+					moveStyle:{
+						position: "fixed",
+					    marginRight: 40,
+					    lineHeight: "54px",
+					    zIndex: 99,
+					    marginLeft: 1,
+					    top:60
+					    
+					}
+				})
+			}else{
+				_this.setState({
+					moveStyle:{
+						position: "absolute",
+					    marginRight: 20,
+					    lineHeight: "54px",
+					    zIndex: 1,
+					    marginLeft: 1,
+					    
+					}
+				})
+			}
+		}	
+      Store.dispatch(change('merchansDateForm','startDate',this.props.todayDate));
+      Store.dispatch(change('merchansDateForm','endDate',this.props.todayDate));
+
+    }
+    tooltip = (value) =>{
+    	var maxWidth=6;
+		if(value.length>maxWidth){
+		 value = value.substring(0,6)+"...";
+		}
+		return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+		 									
     }
     createOpenElems = () =>{
     	let {data} = this.state;
@@ -119,16 +192,16 @@ class MerchantsData  extends Component{
 		if(!openList || openList.length == 0){
 			return;
 		}
+		let _this = this;
+
 		let elems = openList.map(function(item,index){
 			return (
-					<TableRow>
+					<TableRow key = {index}>
 						<TableRowColumn >
 							
 						</TableRowColumn>
 						<TableRowColumn >{item.cityName}</TableRowColumn>
-						<TableRowColumn >
-							
-						</TableRowColumn>
+						<TableRowColumn >{_this.tooltip(item.communityName)}</TableRowColumn>
 						<TableRowColumn>{item.newCustomer}</TableRowColumn>
 						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
 						<TableRowColumn>{item.intentionStation}</TableRowColumn>
@@ -152,18 +225,19 @@ class MerchantsData  extends Component{
     createUnopenElems = () => {
     	let {data} = this.state;
 		let {unopenList} = data;
+		let _this = this;
 		if(!unopenList || unopenList.length == 0){
 			return;
 		}
 		let elems = unopenList.map(function(item,index){
 			return (
-					<TableRow>
+					<TableRow key = {index}>
 						<TableRowColumn >
 							
 						</TableRowColumn>
 						<TableRowColumn >{item.cityName}</TableRowColumn>
 						<TableRowColumn >
-							
+							{_this.tooltip(item.communityName)}
 						</TableRowColumn>
 						<TableRowColumn>{item.newCustomer}</TableRowColumn>
 						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
@@ -194,7 +268,7 @@ class MerchantsData  extends Component{
 		}
 		let elems = totalList.map(function(item,index){
 			return (
-					<TableRow>
+					<TableRow key = {index}>
 						<TableRowColumn >
 							
 						</TableRowColumn>
@@ -223,21 +297,34 @@ class MerchantsData  extends Component{
     	
     }
 
+    nothingData = () =>{
+    	return (<div className = "merchants-data-nothing">
+    				<div className = "ui-nothing" >
+    					<div className="icon" ></div>
+    					<p className="tip" >暂时还没有数据呦~</p>
+    				</div>
+    			</div>)
+    }
 
 	
 	render(){
-		let {data} = this.state;
+		let {data,loading,moveStyle} = this.state;
 		let {unopenList,openList} = data;
-			console.log(openList,">>>>>>>>>>>>>")
+		let nothingData = false;
+			
 		if(!openList){
 			openList=[];
 		}
 		if(!unopenList){
 			unopenList=[];
 		}
-			console.log(openList,"<<<<<<<<<<<<<")
-
-
+		// if(loading){
+		// 	return <Loading />
+		// }
+		
+		if(unopenList.length == 0 && openList.length == 0){
+			nothingData = true;
+		}
 			return(
 				<div className='open-merchants-data' style={{background:'#fff',marginBottom:'20'}}>
 					<div className='ui-open-info'>
@@ -253,11 +340,30 @@ class MerchantsData  extends Component{
 								</Col>
 							</Row>
 						</Grid>
-								<div className = 'ui-table-wrap'>
+						<div className = 'ui-table-wrap'>
+							<div className = "merchants-move" style={moveStyle}>
+								<div className = "merchants-header">开业状态</div>
+								<div className = "merchants-header">城市</div>
+								<div className = "merchants-header">社区</div>
+								<div className = "merchants-header">新增客户</div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>意向</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位数</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约入驻</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约续租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约增租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>客户数</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约入驻</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约续租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约增租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
+								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
+							
+							</div>
 
-								<Table style={{marginTop:0}} displayCheckbox={false}>
-									
-								<TableHeader>
+							<Table style={{marginTop:0}} displayCheckbox={false}>
+								
+							<TableHeader ref = "merchants-column">
 								<TableHeaderColumn>开业状态</TableHeaderColumn>
 								<TableHeaderColumn>城市</TableHeaderColumn>
 								<TableHeaderColumn>社区</TableHeaderColumn>
@@ -278,17 +384,25 @@ class MerchantsData  extends Component{
 
 							<TableBody>
 								
-								<div style={{position: "absolute",zIndex: 10,width: "6.03%",boxSizing:" border-box",border:"solid 1px #eee",background: "#fff",top: 208,height:51*(openList.length),lineHeight:51*(openList.length)+"px"}}>已开业</div>
-								<div style={{position: "absolute",zIndex: 10,width: "6.03%",boxSizing:" border-box",border:"solid 1px #eee",background: "#fff",top: 208+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px"}}>未开业</div>
-								<div style={{position: "absolute",zIndex: 10,width: "12.06%",boxSizing:" border-box",border:"solid 1px #eee",background: "#fff",top: 208+51*(openList.length+unopenList.length),height:51,lineHeight:51+"px"}}>总计</div>
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 56,height:51*(openList.length),lineHeight:51*(openList.length)+"px",borderRightWidth: 0}}>已开业</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 56+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",borderRightWidth: 0}}>未开业</div>}
+								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 56+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
 
-								{this.createOpenElems()}
-								{this.createUnopenElems()}	
-								{this.createTotalList()}
+								{!nothingData && this.createOpenElems()}
+								{!nothingData && this.createUnopenElems()}	
+								{!nothingData && this.createTotalList()}
+				    					
+				    			
 							</TableBody>
 							</Table>
 							</div>
-					 <Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+							{nothingData && this.nothingData()}
+							
+							<div style={{marginTop:20}}>
+
+								<Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+
+							</div>
 
 					</div>
 		 		</div>

@@ -7,5 +7,5 @@ import React,{Component} from 'react';
 module.exports ={
 	'3':<MerchantsData/>,
 	'2':<NotOpenPanel/>,
-	'1':<MerchantsData/>,
+	'1':<OpenPanel/>,
 }

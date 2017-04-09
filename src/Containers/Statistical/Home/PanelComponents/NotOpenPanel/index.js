@@ -26,6 +26,8 @@ import {
 	Form
 } from 'kr-ui';
 import './index.less';
+import {Http} from "kr/Utils";
+
 import SearchNotDateForm from './SearchNotDateForm';
 
 
@@ -57,7 +59,13 @@ export default class NotOpenPanel  extends Component{
 	}
 
 
-
+	openExprot = () =>{
+		let {searchParams}=this.state;
+		Http.request('notopenCompanyExprot',searchParams).then(function(response) {
+		}).catch(function(err) {
+		
+		});
+	}
     onStartNotChange=(startD)=>{
     	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
@@ -176,6 +184,9 @@ export default class NotOpenPanel  extends Component{
 					 </TableRow>
 				</TableBody>
 				</Table>
+				<div style={{position:'relative',marginTop:20,left:0,textAlign:"left"}}  >
+					<Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+				</div>
               </div>
             </div>
 		  </div>

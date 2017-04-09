@@ -61,9 +61,6 @@ class MerchantsData  extends Component{
 	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
 	    	this.setState({
 				searchParams
-			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
-
 			});
 
 

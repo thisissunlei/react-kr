@@ -597,11 +597,6 @@ const APIS = {
  		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
  		method: 'get'
  	},
- 	//数据统计-集团经营-招商数据已开业
- 	'openCompanyExprot': {
- 		url: '/api/krspace-finance-web/stat/merchant/open/exprot?groupId={groupId}&endDate={endDate}&startDate={startDate}',
- 		method: 'get'
- 	},
    //数据统计-集团经营-招商数据未开业
    'notopenCompanyExprot': {
       url: '/api/krspace-finance-web/stat/merchant/notopen/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
@@ -1066,9 +1061,17 @@ const APIS = {
      url: '/api/krspace-finance-web/stat/merchant/data/customer/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
      method: 'get'
   },
-  
-
-
+  //数据统计-集团经营-招商数据已开业导出
+   'openCompanyExprot': {
+      url: '/api/krspace-finance-web/stat/merchant/open/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+      method: 'get'
+   },
+//数据统计-集团经营-招商数据未开业导出
+   'notopenCompanyExprot': {
+      url: '/api/krspace-finance-web/stat/merchant/notopen/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+      method: 'get'
+   },
  }
+
 
  module.exports = APIS;

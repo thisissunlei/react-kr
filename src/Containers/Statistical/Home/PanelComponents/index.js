@@ -62,7 +62,7 @@ export default class PanelComponents  extends Component{
 						if(dateDay<10){
 							dateDay='0'+dateDay
 						}
-		var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+				var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
 
 				var renderComponent = [];
 				var props = {
@@ -86,7 +86,7 @@ export default class PanelComponents  extends Component{
 			var component = null;
 			switch (value) {
 				case 1:{
-					component = <MerchantsData {...props}/>
+					component = <OpenPanel {...props}/>
 					break;
 				}
 				case 2:{
