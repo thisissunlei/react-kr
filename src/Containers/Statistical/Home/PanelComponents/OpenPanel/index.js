@@ -146,7 +146,7 @@ export default class OpenPanel  extends Component{
 									 <Table style={{marginTop:0}}
 		 								 displayCheckbox={false}
 		 								 ajax={true}
-										 ajaxUrlName='groupNameCheck'
+										 ajaxUrlName='openCompanyData'
 		 								 
 		 								 ajaxFieldListName="list"
 		 								 ajaxParams={this.state.searchParams}

@@ -597,11 +597,11 @@ const APIS = {
  		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
  		method: 'get'
  	},
-   //数据统计-集团经营-招商数据未开业
-   'notopenCompanyExprot': {
-      url: '/api/krspace-finance-web/stat/merchant/notopen/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
-      method: 'get'
-   },
+   //数据统计-集团经营-招商数据已开业
+    'openCompanyData': {
+        url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+        method: 'get'
+    },
  	//数据统计-集团经营-获取当前登陆人的组合模块
  	'get-my-groups': {
  		url: '/api/krspace-finance-web/stat/group/actions/get-my-groups',
@@ -612,11 +612,6 @@ const APIS = {
  		url: '/api/krspace-finance-web/stat/merchant/actions/notopen?groupId={groupId}&endDate={endDate}&startDate={startDate}',
  		method: 'get'
  	},
-   //数据统计-集团经营-已开业数据导出
-   'groupNameCheck': {
-      url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
-      method: 'get'
-   },
  	//数据统计-模板分组-模板列表
  	'MouldGroupList': {
  		url: '/api/krspace-finance-web/stat/group/group-list?page={page}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
@@ -1051,7 +1046,7 @@ const APIS = {
       url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
       method: 'get'
    },
-    //招商数据统计-已开业
+    //招商数据统计-all列表
   'already-open':{
      url: '/api/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
      method: 'get'
