@@ -51,8 +51,8 @@ export default class NotOpenPanel  extends Component{
 				startDate:this.props.todayDate,
 				endDate:this.props.todayDate
 			},
-			startValue:'',
-			endValue:''
+			startValue:this.props.todayDate,
+			endValue:this.props.todayDate
 
 		}
 
@@ -60,11 +60,10 @@ export default class NotOpenPanel  extends Component{
 
 
 	openExprot = () =>{
-		let {searchParams}=this.state;
-		Http.request('notopenCompanyExprot',searchParams).then(function(response) {
-		}).catch(function(err) {
-		
-		});
+		let {groupId} = this.props;
+    	let {endValue,startValue}=this.state;
+		var url = `/api/krspace-finance-web/stat/merchant/notopen/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+		window.location.href = url;
 	}
     onStartNotChange=(startD)=>{
     	let {searchParams}=this.state;

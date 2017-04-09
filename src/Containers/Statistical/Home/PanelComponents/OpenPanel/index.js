@@ -51,8 +51,8 @@ export default class OpenPanel  extends Component{
 				startDate:this.props.todayDate,
 				endDate:this.props.todayDate
 			},
-			startValue:'',
-			endValue:''
+			startValue:this.props.todayDate,
+			endValue:this.props.todayDate
 		}
 	}
 
@@ -116,11 +116,10 @@ export default class OpenPanel  extends Component{
 
     
 	openExprot = () =>{
-		let {searchParams}=this.state;
-		Http.request('openCompanyExprot',searchParams).then(function(response) {
-		}).catch(function(err) {
-		
-		});
+		let {groupId} = this.props;
+    	let {endValue,startValue}=this.state;
+		var url = `/api/krspace-finance-web/stat/merchant/open/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+		window.location.href = url;
 	}
     render(){
     	let {searchParams}=this.state;

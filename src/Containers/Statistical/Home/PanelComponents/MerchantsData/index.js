@@ -134,16 +134,9 @@ class MerchantsData  extends Component{
 
     openExprot = () =>{
     	let {groupId} = this.props;
-    	let searchParams = {
-    		groupId:groupId,
-    		endDate:"",
-    		startDate:"",
-    	}
-    	
-		Http.request('already-export',searchParams).then(function(response) {
-		}).catch(function(err) {
-			
-		});
+    	let {endValue,startValue}=this.state;
+		var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+		window.location.href = url;
     }
     componentDidMount() {
     	var _this=this;
