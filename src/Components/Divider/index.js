@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 
 const Divider = (props, context) => {
+
   const {
     inset,
     style,
@@ -34,11 +35,11 @@ Divider.propTypes = {
   /**
    * If true, the `Divider` will be indented.
    */
-  inset: PropTypes.bool,
+  inset: React.PropTypes.bool,
   /**
    * Override the inline-styles of the root element.
    */
-  style: PropTypes.object,
+  style: React.PropTypes.object,
 };
 
 Divider.defaultProps = {
@@ -46,7 +47,7 @@ Divider.defaultProps = {
 };
 
 Divider.contextTypes = {
-  muiTheme: PropTypes.object.isRequired,
+  muiTheme: React.PropTypes.object.isRequired,
 };
 
 export default Divider;

@@ -1,12 +1,11 @@
 import React from 'react';
 
-
 export default class DialogFooter extends React.Component {
 
 	static displayName = 'DialogFooter';
 
 	static propTypes = {
-    children:React.PropTypes.node
+	    children:React.PropTypes.node
 	}
 
 
