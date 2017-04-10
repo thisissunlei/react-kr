@@ -281,6 +281,4 @@ function getUrl(path, params = {},mode = false) {
     }),
   }
 
-http.callAPI = http.request;
-
 module.exports = http;
