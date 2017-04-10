@@ -119,7 +119,7 @@ export default class Button extends Component {
 		}
 
 
-		
+
 
         let linkStyles={
         	minWidth:30,
@@ -188,7 +188,7 @@ export default class Button extends Component {
 
 		return (
 			<div className="ui-button" >
-					<RaisedButton backgroundColor="#499df1"  label={label} labelStyle={labelStyle} labelColor="#fff" style={defaultStyle}{...other}/>
+					<RaisedButton backgroundColor={backgroundColor || "#499df1"}  label={label} labelStyle={labelStyle} labelColor="#fff" style={defaultStyle}{...other}/>
 			</div>
 
 		);

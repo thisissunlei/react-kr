@@ -140,12 +140,13 @@ export default class DialogComponent extends Component {
 			contentStyle,
 			footerStyle,
 			actions,
+			dialogHeaderStyle,
 			...other
 		} = this.props;
 
 		let styles = {};
 		// let content=Object.assign(contentStyle,this.state.contentStyle);
-
+        let closeStyle={};
 		if(open){
 				styles.display = 'block';
 			//document.body.style.overflow = 'hidden';
@@ -153,13 +154,17 @@ export default class DialogComponent extends Component {
 				styles.display = 'none';
 		}
 
+		if(typeof onClose!='function'){
+		  closeStyle.display='none';
+		}
+
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
 				<div className="dialog-modal"></div>
 				<div id="dialog-content" className="dialog-content" style={contentStyle}>
-						<div className="dialog-header">
+						<div className="dialog-header" style={dialogHeaderStyle}>
 								<div className="dialog-header-title"> {title} </div>
-								<span className="close" onClick={this.onClose}></span>
+								<span className="close" onClick={this.onClose} style={closeStyle}></span>
 						</div>
 						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
 						{open && actions &&  <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}

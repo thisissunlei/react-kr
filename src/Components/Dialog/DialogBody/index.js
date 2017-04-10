@@ -45,8 +45,6 @@ export default class DialogBody extends Component {
 		    eleBoxStyle = {width:0,height:0};
     }
 
-		console.log('=-=-',page,eleBoxStyle);
-
 		ele.style.maxHeight = page.height-200+'px';
 		ele.style.minHeight = 100 +'px';
 

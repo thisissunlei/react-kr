@@ -69,6 +69,7 @@ export default class TreeComponent extends React.Component {
 		}
 
 	}
+	// other
 	imitateInputClick=(value,listId)=>{
 			let {input}=this.props;
 			if(typeof(value)=="string"){
