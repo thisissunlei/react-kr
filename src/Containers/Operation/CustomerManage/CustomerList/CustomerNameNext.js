@@ -39,8 +39,9 @@ import  newIndentState from './NewIndent/State';
 
 
 	//下一步被点击
-	onSubmit = () => {			
-        Store.dispatch(initialize('NewIndent',{}));
+	onSubmit = (value) => {
+		console.log('value',value);
+    Store.dispatch(initialize('NewIndent',{}));
 		//State.orderNameInit(State.listId);
 		State.switchNewIndent();
 		newIndentState.cityLable="";
@@ -49,7 +50,7 @@ import  newIndentState from './NewIndent/State';
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
-	};	
+	};
     //打开新建订单
     openNewIndent=()=>{
 		Store.dispatch(initialize('NewIndent',{}));
@@ -63,7 +64,7 @@ import  newIndentState from './NewIndent/State';
 			newIndentState.orderName="";
 		}).catch(function(err) {
 			 Message.error(err.message);
-		});		
+		});
 	}
 
 	render(){
@@ -76,7 +77,7 @@ import  newIndentState from './NewIndent/State';
 						<div><span className="new-icon"></span><label className="title-text">新建订单</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
-						<KrField  grid={1/2}  name="companyId" style={{width:262,display:'block',margin:'0 auto'}} component='companyName'  label="客户名称" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
+						<KrField  grid={1/2}  name="companyId" style={{width:262,display:'block',margin:'0 auto'}} component='searchSignCompany'  label="客户名称" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
 
 						<Grid style={{marginTop:30}}>
 							<Row>

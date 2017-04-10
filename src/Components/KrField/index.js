@@ -24,6 +24,7 @@ import SearchBelongCityComponent from './SearchBelongCityComponent';
 import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
 import SearchSourceAddComponent from './SearchSourceAddComponent';
 import SearchSignBillTypeComponent from './SearchSignBillTypeComponent';
+import SearchSignCompanyName from './SearchSignCompanyName';
 
 import SearchBelongCommunity from './SearchBelongCommunity';
 import SearchCompanyName from "./SearchCompanyName";
@@ -225,6 +226,13 @@ export default class KrField extends React.Component {
 			return (
 
 				<Field {...this.props} component={SearchSignBillTypeComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+        
+         if (component === 'searchSignCompany') {
+			return (
+
+				<Field {...this.props} component={SearchSignCompanyName}  style={WrapStyles} {...other}/>
 			);
 		}
 

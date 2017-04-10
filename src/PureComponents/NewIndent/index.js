@@ -24,7 +24,7 @@ import './index.less';
 @observer
  class NewIndent extends Component{
 
-		
+
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -42,7 +42,7 @@ import './index.less';
 			stationTypeList:[],
 			visitTypeList:[]
 		};
-		
+
 	}
 	onSubmit = (values) => {
 		delete values.cityid;
@@ -62,15 +62,15 @@ import './index.less';
          	allState.mainBillId=response.mainBillId;
 			oneState.ordersListData({customerId:allState.listId},response.mainBillId);
 			Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
-			
+
 			_this.onCancel(response.mainBillId);
 		}).catch(function(err) {
 			 Message.error(err.message);
-		});	
+		});
 	}
 
 	onCancel = (value) => {
-		
+
 		const {onCancel} = this.props;
 		onCancel && onCancel(value);
 	}
@@ -85,7 +85,7 @@ import './index.less';
 	}
 	componentWillReceiveProps(nextProps){
 
-		
+
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
@@ -93,10 +93,10 @@ import './index.less';
 				return;
 			}
 			State.orderReady(nextProps.orderReady)
-			
+
 
 	}
-	communityChange=(value)=>{ 
+	communityChange=(value)=>{
 		if(!value){
 			return;
 		}
@@ -117,7 +117,7 @@ import './index.less';
 
 	render(){
 		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount} = this.props;
-		
+
 		let city=State.cityLable;
 			city=!city?"无":city;
 		return (
@@ -127,23 +127,23 @@ import './index.less';
 						<div><span className="order-new-icon"></span><label className="title-text">{companyName}</label></div>
 						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
-				
-				<div className="kk" style={{marginTop:30,paddingLeft:20}}>		
-					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select" 
+
+				<div className="kk" style={{marginTop:30,paddingLeft:20}}>
+					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select"
 							options={State.orderFound}
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
-					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}} 
+					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}}
 							options={State.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
-					
+
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
-				</div>		
+				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
@@ -154,8 +154,8 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-						
-						    
+
+
 				</form>
 		);
 	}
@@ -170,9 +170,9 @@ const validate = values =>{
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
 		}
-		
 
-		
+
+
 		return errors
 	}
 export default reduxForm({ form: 'NewIndent',validate})(NewIndent);
