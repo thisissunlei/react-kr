@@ -1,7 +1,6 @@
 import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
-import { browserHistory } from 'react-router';
 import APIS from 'kr/Configs/Apis';
 import Envs from 'kr/Configs/Envs';
 
@@ -21,6 +20,7 @@ function getUrl(path, params = {},mode = false) {
     if(url.indexOf('mockjsdata') !==-1){
     	 server='';
     }
+
     if(url.indexOf('http') !== -1){
       server='';
     }
@@ -88,8 +88,6 @@ function getUrl(path, params = {},mode = false) {
 
     request:(path='demo', params,payload,method)=>{
 
-
-
       const url = getUrl(path, params);
 
       method = method || getMethod(path);
@@ -123,7 +121,6 @@ function getUrl(path, params = {},mode = false) {
           break;
         }
       }
-
       return promise;
     },
     transformPreResponse(response){
@@ -170,33 +167,6 @@ function getUrl(path, params = {},mode = false) {
         }
         reject(err)
       });
-    }),
-
-    getdemo: (url, params) => new Promise((resolve, reject) => {
-
-      if (!url) {
-        return;
-      }
-
-      var xhr = new XMLHttpRequest();
-
-      xhr.withCredentials = true;
-      xhr.open('GET', url, true);
-      xhr.responseType = 'json';
-      xhr.onload = function(e) {
-        if (this.status >= 200 || this.status <300 ) {
-          var json = http.transformPreResponse(xhr.response);
-          if(json && json.code && parseInt(json.code)>0){
-            //处理数据格式
-            resolve(http.transformResponse(json))
-          }else{
-            reject(json)
-          }
-        }else{
-          reject(xhr.response);
-        }
-      };
-      xhr.send();
     }),
 
     post: (url, params, payload) => new Promise((resolve, reject) => {
@@ -308,6 +278,6 @@ function getUrl(path, params = {},mode = false) {
     }),
   }
 
+http.callAPI = http.request;
 
-
-  module.exports = http;
+module.exports = http;
