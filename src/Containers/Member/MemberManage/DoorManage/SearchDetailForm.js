@@ -49,7 +49,7 @@ export default class SearchDetailForm extends Component {
 		this.detail = this.props.detail;
 
 		this.state={
-			
+
 		}
 	}
 	//首次加载，只执行一次
@@ -57,20 +57,20 @@ export default class SearchDetailForm extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
-		
+
 	}
 
 	onSubmit=(values)=>{
 		// console.log("values",values);
 	}
-	
+
 	changeCommunity=(item)=>{
 		// console.log("选择了社区",item);
-		
+
 		let {onChange} = this.props;
 		onChange && onChange(item);
 	}
-	
+
 	render() {
 		let {detail,handleSubmit} = this.props;
 		return (
@@ -85,8 +85,8 @@ export default class SearchDetailForm extends Component {
 const validate = values => {
 
 	const errors = {}
-	
-	
+
+
 	return errors
 }
 SearchDetailForm = reduxForm({

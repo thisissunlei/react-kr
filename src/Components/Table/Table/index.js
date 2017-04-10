@@ -640,7 +640,6 @@ export default class Table extends React.Component {
 			children,
 			style
 		} = this.props;
-		console.log('23456x')
 		return (
 			<table className={"ui-table "+className} style={style}>
 		{
