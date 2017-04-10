@@ -4,7 +4,7 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import $ from 'jquery';
-import ReactHtmlParser from 'react-html-parser';
+import {ReactHtmlParser} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -51,7 +51,7 @@ import dateFormat from 'dateformat';
 	}
 	componentDidMount(){
 		let {detail}= this.props;
-		
+
 		State.activityDetail(detail.id);
 		State.activityGetList(detail.id);
 	}
