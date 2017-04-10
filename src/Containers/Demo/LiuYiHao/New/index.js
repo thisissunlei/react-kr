@@ -34,9 +34,7 @@ export default class New extends Component {
 	getChildContext() {
 	    return {color: "purple",fun:this.nn};
 	}
-	nn = () =>{
-		  this.refs.cc.ff();
-	}
+	
 
 	
 
@@ -45,8 +43,7 @@ export default class New extends Component {
 	render() {
 		return (
 			<div>
-					<h1  onClick={this.nn}>A</h1>
-					<Child ref="cc"/>
+					fff
 			</div>
 
 		);

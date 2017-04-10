@@ -436,6 +436,7 @@ class MerchantsData  extends Component{
 							{tabLoading && <Loading />}
 							<div style={{marginTop:20}}>
 
+
 								<Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
 
 							</div>
