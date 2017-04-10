@@ -27,7 +27,7 @@ let State = observable({
 		openNewCustomerIndent:false,
 		openNewIndent:false,
 		openEditIndent:false,
-		listId:"",
+		listId:0,
 		companyName:'',
 		openDelete:false,
 		editIndentData:{},

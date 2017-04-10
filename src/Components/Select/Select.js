@@ -158,6 +158,7 @@ const Select = React.createClass({
 			tabSelectsValue: true,
 			valueComponent: Value,
 			valueKey: 'value',
+			resetValue:'',
 		};
 	},
 
@@ -414,6 +415,7 @@ const Select = React.createClass({
 	},
 
 	handleInputFocus (event) {
+		console.log('--->>>')
 		if (this.props.disabled) return;
 		var isOpen = this.state.isOpen || this._openAfterFocus || this.props.openOnFocus;
 		if (this.props.onFocus) {
@@ -424,6 +426,11 @@ const Select = React.createClass({
 			isOpen: isOpen
 		});
 		this._openAfterFocus = false;
+
+		if(this.props.onInputChange){
+			this.props.onInputChange('');
+		}
+
 	},
 
 	handleInputBlur (event) {

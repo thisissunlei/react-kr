@@ -82,14 +82,16 @@ class NewCreateForm extends React.Component{
 		if(State.choseCompany){
 			enrollArr.push("COMPANY")
 		}
-		 
+		
+		if(State.choseAdd){
+			enrollArr.push("ADDRESS")
+		}
+		
 		if(State.chosePosition){
 			enrollArr.push("POSITION")
 		}
 
-		if(State.choseAdd){
-			enrollArr.push("ADDRESS")
-		}
+		
 
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
@@ -370,7 +372,7 @@ class NewCreateForm extends React.Component{
 								<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 									<KrField name="mapField"
 										component="mapnew"
-										placeholder="例如：北京市海淀区中关村大街"
+										placeholder="例如：中关村创业大街2号楼3层"
 										style={{width:242,height:36}}
 										mapStyle={{width:500,height:300}}
 										initailPoint ={State.initailPoint}
@@ -458,13 +460,14 @@ class NewCreateForm extends React.Component{
 												<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 											</ListGroupItem>
 											<ListGroupItem style={{marginRight:48}}>
-												<input type="checkbox"  onChange={this.choosePosition} style={{marginRight:10}}/>
-												<span style={{fontSize:14,color:"#333333"}} >职务</span>
-											</ListGroupItem>
-											<ListGroupItem style={{}}>
 												<input type="checkbox"  onChange={this.chooseAdd} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
 											</ListGroupItem>
+											<ListGroupItem style={{}}>
+												<input type="checkbox"  onChange={this.choosePosition} style={{marginRight:10}}/>
+												<span style={{fontSize:14,color:"#333333"}} >职务</span>
+											</ListGroupItem>
+											
 										</ListGroup>
 									</Row>
 								</Grid>

@@ -4,9 +4,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Table,
 	TableBody,
@@ -36,8 +33,6 @@ import State from './State';
 import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
-import LookCustomerList from '../LookCustomerList';
-import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewVisitIndent from '../NewVisitIndent';
@@ -45,6 +40,14 @@ import CatchMerchants from './CatchMerchants';
 import treeData from "../../../../../Components/KrField/TreeComponent/State";
 import cityData from "../../../../../Components/KrField/CityComponent/State";
 import './index.less';
+import {
+	LookCustomerList
+} from 'kr/PureComponents';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("CommunityDetailModel")
 @observer
 class Merchants extends Component{
 
@@ -61,13 +64,6 @@ class Merchants extends Component{
 	}
 	//新建页面的开关
 	opNewMerchants=()=>{
-		// var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
-		// customerItem.map(function(item,index){
-  //         Store.dispatch(change('NewCustomerList',item,''));
-		// })
-		// Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
-
-		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		 State.switchNewCustomerList();
 		 treeData.listValue="请选择项目类型";
 		 cityData.city="请选择";
@@ -110,17 +106,17 @@ class Merchants extends Component{
 			}else{
 				State.hasOfficeChange(false);
 			}
-			
+
 		}).catch(function(err) {
-			Message.error(err.message);			
+			Message.error(err.message);
 		});
 		State.switchEditCustomerList();
 	}
 
-	
+
 	//客户编辑页面开关
 	switchEditCustomerList=() => {
-		
+
 		State.switchEditCustomerList();
 
 	}
@@ -142,7 +138,7 @@ class Merchants extends Component{
 		State.switchCustomerIndent();
 	}
 
-    
+
     //选中几项领取，转移等
     onSelect=(value)=>{
     	var arrItem=[]
@@ -159,13 +155,13 @@ class Merchants extends Component{
         }
 
       if(value.length>0){
-      	State.openDialog=true;	
+      	State.openDialog=true;
         this.setState({
          dialogNum:value.length,
          arrItem
-        })	
+        })
       }else{
-      	State.openDialog=false;	
+      	State.openDialog=false;
       }
     }
     //加载所有数据
@@ -177,14 +173,14 @@ class Merchants extends Component{
     }
     //领取浮框的关闭
     merClose=()=>{
-        State.openDialog=false;	
+        State.openDialog=false;
     }
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
-      	LookCustomerState.lookListId(State.listId,"SHARE");
+      	this.props.CommunityDetailModel.lookListId(State.listId,"SHARE");
       	State.companyName=itemDetail.company;
       }
     }
@@ -192,25 +188,38 @@ class Merchants extends Component{
 	onNewMerchants=(params)=>{
 		switchNewMerchants(params);
 	}
-	
+
 	//搜索
 	onSearchSubmit=(params)=>{
         let obj = {
 			company: params.content,
-		}	
-		State.searchParams=obj	
+		}
+		State.searchParams=obj
 	}
 
-	componentWillReceiveProps(nextProps){	
+	componentWillReceiveProps(nextProps){
 		if(nextProps.initSearch=='m'){
 			State.openDialog=false;
 			State.searchParams={
 			 time:+new Date(),
 			 company:'',
 			 page:1,
-			}		
-		}		
+			}
+		}
 	}
+	//
+
+	openNewIndent = () =>{
+
+	}
+
+	openEditIndent = () =>{
+
+	}
+	openDeleteDialog = () => {
+		
+	}
+
 
 	//高级查询
 	openSearchUpperDialog=()=>{
@@ -237,9 +246,9 @@ class Merchants extends Component{
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate==''){
 			searchParams.createEndDate=searchParams.createStartDate
 		}
-      	
+
       	  State.searchParams=searchParams;
-      	
+
       	State.searchUpperCustomer();
      }
 
@@ -253,7 +262,7 @@ class Merchants extends Component{
      	State.catchSubmit(arrItem);
      }
 
-     
+
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
@@ -275,7 +284,7 @@ class Merchants extends Component{
         	display:'none'
         }
       }
-       
+
 
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
@@ -432,12 +441,17 @@ class Merchants extends Component{
 				                 comeFrom="Merchant"
 				                 operType="SHARE"
 				                 companyName={State.companyName}
-								 onCancel={this.switchLookCustomerList}
+								 			 	 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}
 				                 editsSwitch={this.openEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
+
+				                 newIndentSwitch={this.openNewIndent}
+				                 editIndentSwitch={this.openEditIndent}
+				                 DeleteSwitch={this.openDeleteDialog}
 				                 
+
 							/>
 					</Drawer>
 
@@ -459,7 +473,7 @@ class Merchants extends Component{
 			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
-			      
+
 						/>
 					</Drawer>
 
@@ -492,7 +506,7 @@ class Merchants extends Component{
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 					>
-						<SearchUpperForm  
+						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
 						    onSubmit={this.onSearchUpperSubmit}
 						    flag='招商'
@@ -508,15 +522,15 @@ class Merchants extends Component{
 						open={State.openCatch}
 						contentStyle ={{ width: '445',height:'230'}}
 					>
-						<CatchMerchants 
-						  onSubmit={this.catchGoSubmit} 
+						<CatchMerchants
+						  onSubmit={this.catchGoSubmit}
 						  onCancel={this.openCatchDialog}
 						  customerIds={this.state.dialogNum}
 						  />
 				    </Dialog>
 
 
-				   
+
 
 					{
 						(State.openNewMerchants||

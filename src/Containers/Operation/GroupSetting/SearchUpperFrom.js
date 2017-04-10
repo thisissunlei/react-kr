@@ -1,25 +1,21 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React from 'react';
 
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {reduxForm} from 'redux-form';
+
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup
 } from 'kr-ui';
 
 
 
+ class SearchUpperForm extends React.Component{
 
-
- class SearchUpperForm extends Component{
-
-	 static PropTypes = {
+	 static propTypes = {
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
 		 detail:React.PropTypes.object,
@@ -27,25 +23,22 @@ import {
 
 	constructor(props){
 		super(props);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
 	}
 
 
-	 onSubmit(values){
+	 onSubmit = (values)=>{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	 }
 
-	 onCancel(){
+	 onCancel = ()=>{
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
 	 }
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { handleSubmit} = this.props;
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -53,10 +46,6 @@ import {
 				<KrField name="id" type="hidden" label="id"/>
 				<KrField grid={1/2} right={25} style={{marginTop:25}} name="groupName" type="text" label="分组名称"  />
 				<KrField grid={1/2} right={25} style={{marginTop:25}} name="enable" type="select" label="启用状态" options={[{value:'',label:'全部'},{value:'ENABLE',label:'启用'}, {value:'DISABLE',label:'禁用'} ]}  />
-
-
-
-
 
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
@@ -72,17 +61,5 @@ import {
 		);
 	}
 }
-const validate = values =>{
 
-		const errors = {}
-		
-
-
-
-		return errors
-	}
-const selector = formValueSelector('SearchUpperForm');
-
-
-
-export default reduxForm({ form: 'SearchUpperForm', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(SearchUpperForm);
+export default reduxForm({ form: 'SearchUpperForm', enableReinitialize:true, keepDirtyOnReinitialize:true })(SearchUpperForm);

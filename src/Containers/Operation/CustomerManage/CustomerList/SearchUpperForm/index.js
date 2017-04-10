@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'kr/Redux';
@@ -37,7 +34,7 @@ import {
 
 import './index.less';
 @observer
-class SearchUpperForm extends Component {
+class SearchUpperForm extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

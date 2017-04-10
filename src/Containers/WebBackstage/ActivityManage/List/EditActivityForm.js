@@ -137,12 +137,13 @@ class EditActivityForm extends Component{
 		if(State.choseCompany){
 			EArr.push("COMPANY")
 		}
-		if(State.chosePosition){
-			EArr.push("POSITION")
-		}
 		if(State.choseAdd){
 			EArr.push("ADDRESS")
 		}
+		if(State.chosePosition){
+			EArr.push("POSITION")
+		}
+		
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
@@ -438,7 +439,7 @@ class EditActivityForm extends Component{
 								<div style={{display:"inline-block",verticalAlign:"middle",marginLeft:12}}>
 									<KrField name="mapField"
 										component="mapnew"
-										placeholder="例如：北京市海淀区中关村大街"
+										placeholder="例如：中关村创业大街2号楼3层"
 										style={{width:242,height:36}}
 										mapStyle={{width:500,height:300}}
 										initailPoint ={State.initailPoint}
@@ -536,17 +537,18 @@ class EditActivityForm extends Component{
 												<span style={{fontSize:14,color:"#333333"}} >公司名称</span>
 
 											</ListGroupItem>
-											<ListGroupItem style={{marginRight:48}}>
-												<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition} style={{marginRight:10}}/>
-												<span style={{fontSize:14,color:"#333333"}} >职务</span>
-
-											</ListGroupItem>
 											<ListGroupItem style={{}}>
 												<input type="checkbox"  onChange={this.chooseAdd} checked={State.choseAdd} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >地址</span>
 
 
 											</ListGroupItem>
+											<ListGroupItem style={{marginRight:48}}>
+												<input type="checkbox"  onChange={this.choosePosition} checked={State.chosePosition} style={{marginRight:10}}/>
+												<span style={{fontSize:14,color:"#333333"}} >职务</span>
+
+											</ListGroupItem>
+											
 
 										</ListGroup>
 									</Row>

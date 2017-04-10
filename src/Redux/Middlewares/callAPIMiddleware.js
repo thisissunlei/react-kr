@@ -1,4 +1,4 @@
-import http from 'kr/Redux/Utils/fetch';
+import Http from 'kr/Utils/Http';
 import Promise from 'promise-polyfill';
 import ES6Promise from 'es6-promise';
 
@@ -46,8 +46,8 @@ function callAPIMiddleware({dispatch,getState}){
 			return new Promise((resolve, reject) => {
 
 
-				http.request(apiName,request,payload).then(function(response){
-					
+				Http.request(apiName,request,payload).then(function(response){
+
 					dispatch(Object.assign({},payload,{
 						type:successType,
 						response:response,
