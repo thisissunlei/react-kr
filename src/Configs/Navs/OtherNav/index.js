@@ -3,7 +3,6 @@
  * 导航字典
  *
  */
-
 const OtherNav = [
       {
         primaryText: "首页",

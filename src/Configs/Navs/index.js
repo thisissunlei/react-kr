@@ -17,6 +17,6 @@ module.exports = {
         router: 'order',
         menuCode: 'rightadmin',
         menuItems: [],
-    }, ],
+    }],
     items: NavItems
 }
