@@ -13,13 +13,15 @@ import {
 	ListGroupItem,
 } from 'kr-ui';
 
- export default class NewCreateForm extends Component{
+import {ReactHtmlParser} from 'kr/Utils';
+
+ export default class Demo extends Component{
 
 	constructor(props){
 		super(props);
 
 	}
-	
+
 	componentWillMount() {
 	}
 
@@ -28,7 +30,10 @@ import {
 	}
 
 	render(){
-		return ( <div> ddddd </div> );
+		return ( <div>
+			dd
+			{ReactHtmlParser('&lt;fsdfs<span>你的</span>')}
+		</div> );
 		}
 
 }
