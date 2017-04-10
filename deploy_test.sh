@@ -1,11 +1,9 @@
 #!/bin/bash
 
 npm run dll
-<<<<<<< HEAD
+
 npm run test 
-=======
-npm run build 
->>>>>>> master
+
 
 buildEnvDir=$1
 target_site=www@10.1.60.201
