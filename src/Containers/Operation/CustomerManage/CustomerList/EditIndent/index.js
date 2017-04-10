@@ -5,9 +5,6 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
-} from 'mobx-react';
-import {
 	KrField,
 	Grid,
 	Row,
@@ -18,8 +15,13 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
-import flushData from "../LookCustomerList/State";
 import './index.less'
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityDetailModel")
 @observer
  class EditIndent extends Component{
 
@@ -55,7 +57,7 @@ import './index.less'
 		values.mainbillcode="";
 		let _this=this;
 		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response) {
-			 flushData.orderList(_this.props.listId);
+			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
 		}).catch(function(err) {
 			Message.error(err.message);

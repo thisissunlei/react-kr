@@ -20,6 +20,9 @@ import SearchListComponent from './SearchListComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
+import SearchBelongCityComponent from './SearchBelongCityComponent';
+import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
+import SearchSourceAddComponent from './SearchSourceAddComponent';
 
 import SearchBelongCommunity from './SearchBelongCommunity';
 import SearchCompanyName from "./SearchCompanyName";
@@ -34,7 +37,11 @@ import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 import UploadImageListComponent from './UploadImageListComponent';
 import SelectTimeComponent from './SelectTimeComponent';
-
+import SearchCorporation from './SearchCorporation';
+import SearchCommunitys from './SearchCommunitys';
+import SearchCustomer from './SearchCustomer';
+import SearchMainbill from './SearchMainbill';
+import SearchPayment from './SearchPayment';
 
 export default class KrField extends React.Component {
 
@@ -55,7 +62,7 @@ export default class KrField extends React.Component {
 		search: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    colorStyle:React.PropTypes.object,
+		colorStyle: React.PropTypes.object,
 	}
 
 	render() {
@@ -101,7 +108,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'groupCheckbox') {
 			return (
-					<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
+				<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
 			);
 		}
 
@@ -130,12 +137,40 @@ export default class KrField extends React.Component {
 			);
 		}
 
+
 		if (component === 'uploadImageList') {
 			return (
 				<Field {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
 			);
 		}
-		
+
+
+		if (component === 'searchPayment') {
+			return (
+				<Field {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCustomer') {
+			return (
+				<Field {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchMainbill') {
+			return (
+				<Field {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCommunitys') {
+			return (
+				<Field {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+			)
+		}
+		if (component === 'searchCorporation') {
+			return (
+				<Field {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
+			)
+		}
+
 
 		if (component === 'searchPersonel') {
 			return (
@@ -161,8 +196,8 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
-       
-       if (component === 'searchLeader') {
+
+		if (component === 'searchLeader') {
 			return (
 
 				<Field {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
@@ -190,6 +225,25 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
 			);
 		}
+
+		if (component === 'searchCity') {
+			return (
+				<Field {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'searchSource') {
+			return (
+				<Field {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+        
+        if (component === 'searchSourceAdd') {
+			return (
+				<Field {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 
 		if (component === 'companyName') {
 			return (

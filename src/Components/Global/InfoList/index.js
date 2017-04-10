@@ -10,6 +10,7 @@ import {ListGroup,ListGroupItem} from '../../ListGroup';
 import dateFormat from 'dateformat';
 import $ from 'jquery';
 import './index.less';
+
 export default class InfoList extends Component {
 
     PropTypes = {
@@ -56,7 +57,6 @@ export default class InfoList extends Component {
     }
     componentWillMount() {
         this.getInfoData();
-        console.log('pppppp', this.props.infoTab);
 
     }
     componentWillReceiveProps(next, state) {
@@ -98,16 +98,10 @@ export default class InfoList extends Component {
             	console.log(this.state);
             })
             return;
-            // alert('community');
+            
 
         }
-        // if(infoTab == 'member'){
-        // 	this.setState({
-        // 		url:'2222',
-        // 		readedUrl:'2222'
-        // 	})
-        // 	// alert('member');
-        // }
+        
         this.setState({
             url: '',
             readedUrl: ''
@@ -202,9 +196,6 @@ export default class InfoList extends Component {
         let {currentPage, pageSize,totalCount,pagination,infoList} = this.state;
         let {infoTab} = this.props;
         let height = document.documentElement.clientHeight - 160;
-        // if (!pagination) {
-        //     return null;
-        // }
         return (
             <div className="ui-info-list-myself" style={{position:'relative',borderTop:'1px solid rgb(216, 212, 212)'}}>
 				<div style={{

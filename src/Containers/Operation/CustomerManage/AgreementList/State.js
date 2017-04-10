@@ -84,7 +84,7 @@ State.ajaxListData=action(function(ajaxData){
 			setTimeout(function() {
 					loading: false
 			}, 0);
-		}).catch(function(err) {
+		}).catch(function(err) {z
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));

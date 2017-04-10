@@ -26,10 +26,32 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
+// import allState from "../../State";
+
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityAgreementList")
+@observer
 
 
 export default class JoinCreate extends Component {
+	 
+      static childContextTypes = {
+        par: React.PropTypes.object.isRequired
+     }
 
+
+
+		getChildContext() {
+			// console.log(this.props.params,)
+	    return {
+	        par: this.props.params
+	      }
+
+	    }
 	constructor(props, context) {
 		super(props, context);
 
@@ -80,10 +102,13 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
+			this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			this.props.CommunityAgreementList.openTowAgreement=false;
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+		    this.props.CommunityAgreementList.openOneAgreement=false;
 
-			window.setTimeout(function() {
-				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			}, 0);
 
 		}).catch(function(err) {
 				_this.isConfirmSubmiting = false;
@@ -93,11 +118,13 @@ export default class JoinCreate extends Component {
 			}]);
 		});
 
-		//this.openConfirmCreateDialog();
+		this.openConfirmCreateDialog();
 	}
 
 	onCancel() {
-		window.history.back();
+		//window.history.back();
+		this.props.CommunityAgreementList.openTowAgreement=false;
+		this.props.CommunityAgreementList.openOneAgreement=false;
 	}
 
 	openConfirmCreateDialog() {
@@ -118,7 +145,8 @@ export default class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
-			communityId: 1
+			communityId: 1,
+			type : 0,
 		})).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
@@ -129,9 +157,12 @@ export default class JoinCreate extends Component {
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseAddress = response.customer.customerAddress;
+			
+			initialValues.contractcode= response.contractCode;
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
+			initialValues.agreement = '无';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
@@ -164,7 +195,7 @@ export default class JoinCreate extends Component {
 
 		}).catch(function(err) {
 			Notify.show([{
-				message: '后台出错请联系管理员',
+				message: '后台出错请联系管理员1',
 				type: 'danger',
 			}]);
 		});
@@ -181,14 +212,12 @@ export default class JoinCreate extends Component {
 		return (
 
 
-			<div>
-
-				<Title value="创建承租意向书_财务管理"/>
+			<div >
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			<Section title="承租意向书" description="">
+			<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
-			</Section>
+			</div>
 
 			<Dialog
 				title="承租意向书"

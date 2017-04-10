@@ -24,36 +24,37 @@ import {
 	Tooltip,
 	Message
 } from "kr-ui";
+import { Http} from "kr/Utils";
 import SearchForm from "./SearchForm";
 import {
 	observer,
 	inject
 } from 'mobx-react';
-@inject("CommunityDetailModel")
+
+@inject("NotifyModel")
 @observer
 
 export default class AppointmentVisit extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				createDateEnd:'',
-				createDateStart:'',
-				other:false
-			},
+
 			newStartDate:'',
 			newEndDate:'',
 			newPage :1,
 		}
+
+
+
+
+
 	}
 
 	//全部标为以读点击事件
 	allReadClick = () => {
 		let {renovateRedDrop} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('messageAllReade',{msgType:"CUSTOMER_TRANSFER"})).then(function(response) {
+		Http.request('messageAllReade',{msgType:"CUSTOMER_TRANSFER"}).then(function(response) {
 			_this.renovateList();
 			_this.tabNum();
 			renovateRedDrop();
@@ -64,7 +65,13 @@ export default class AppointmentVisit extends Component {
 
 	//起始日期
 	onStartChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate}=this.state;
+
+
+			const {NotifyModel} = this.props;
+
+			const {customerTransform} = NotifyModel;
+			const {searchParams} = customerTransform;
+		let {newStartDate,newEndDate}=this.state;
         let start=value ||newStartDate;
         let end=newEndDate;
         this.setState({
@@ -75,22 +82,26 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-						searchParams: {
-							page: 1,
-							pageSize: 15,
-							createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
-							createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-							other:!this.state.searchParams.other
-						}
-				})
+
+				customerTransform.setSearchParams({
+					page: 1,
+					pageSize: 15,
+					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
+					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
+					other:!searchParams.other,
+				});
 	    }
 
 	}
 
 	//结束日期
 	onEndChange = (value) =>{
-		let {searchParams,newStartDate,newEndDate} = this.state;
+		const {NotifyModel} = this.props;
+
+		const {customerTransform} = NotifyModel;
+		const {searchParams} = customerTransform;
+
+		let {newStartDate,newEndDate} = this.state;
         let start = newStartDate;
         let end = value || newEndDate;
         this.setState({
@@ -102,15 +113,14 @@ export default class AppointmentVisit extends Component {
 	        Message.error('开始时间不能大于结束时间');
 	        return ;
 	    }else{
-	    	this.setState({
-				searchParams: {
+
+				customerTransform.setSearchParams({
 					page: 1,
 					pageSize: 15,
 					createDateEnd:newEndDate === searchParams.createDateEnd ? end : newEndDate,
 					createDateStart:newStartDate === searchParams.createDateStart ? start : newStartDate,
-					other:!this.state.searchParams.other
-				}
-			});
+					other:!searchParams.other,
+				});
 	    }
 
 	}
@@ -121,9 +131,9 @@ export default class AppointmentVisit extends Component {
 		}
 		let {renovateRedDrop} = this.props;
 		let _this=this;
-		Store.dispatch(Actions.callAPI("setInfoReaded", {
+		Http.request("setInfoReaded", {
 				id: value.id
-		})).then(function(response) {
+		}).then(function(response) {
 			console.log(response.page)
 			_this.renovateList();
 			renovateRedDrop();
@@ -136,24 +146,26 @@ export default class AppointmentVisit extends Component {
 	//刷新列表
 	renovateList = () =>{
 		let _this=this;
-		this.setState({
-			searchParams: {
-				page: _this.state.newPage ,
-				pageSize: 15,
-				createDateEnd:_this.state.searchParams.createDateEnd || "",
-				createDateStart:_this.state.searchParams.createDateStart || "",
-				other:!_this.state.searchParams.other
-			}
-		},function(){
-			console.log(this.state.searchParams.page,"?????????");
+		const {NotifyModel} = this.props;
+
+		const {customerTransform} = NotifyModel;
+		const {searchParams} = customerTransform;
+
+		customerTransform.setSearchParams({
+			page: _this.state.newPage ,
+			pageSize: 15,
+			createDateEnd:searchParams.createDateEnd || "",
+			createDateStart:searchParams.createDateStart || "",
+			other:!searchParams.other,
 		});
+
+
 	}
 
 
 	//客户名称被点击
 	customerClick = (data) => {
 		let msgExtra = JSON.parse(data.msgExtra)
-		this.props.CommunityDetailModel.lookListId(msgExtra.customerId,"SHARE");
 		let customerName = data.msgContent.split("#")[1]
 		data.customerName = customerName;
 		const {customerClick} = this.props;
@@ -173,16 +185,21 @@ export default class AppointmentVisit extends Component {
 		tabNum && tabNum();
 	}
 	render(){
-		let {searchParams} = this.state;
+
+		const {NotifyModel} = this.props;
+
+		const {customerTransform} = NotifyModel;
+
+
 		let _this=this;
 
 		return (
-				<div className="appointment-visit">
+				<div className="transfer-customer" style = {{paddingBottom:48}}>
 					<SearchForm
 						onStartChange = {this.onStartChange}
 						onEndChange = {this.onEndChange}
 					/>
-					<div className="all-read" onClick={this.allReadClick}>全部标为已读</div>
+					<div className="all-read" ><span onClick={this.allReadClick} style = {{fontSize:14}}>全部标为已读</span></div>
 					<Table  style={{marginTop:10}}
 						ajax={true}
 
@@ -192,7 +209,7 @@ export default class AppointmentVisit extends Component {
 							}
 						}
 						displayCheckbox={false}
-						ajaxParams={searchParams}
+						ajaxParams={customerTransform.searchParams}
 						ajaxFieldListName="items"
 						ajaxUrlName='messageRemindCustomerSwitching'
 						onLoaded = {this.showPage}
@@ -216,7 +233,7 @@ export default class AppointmentVisit extends Component {
 											}
 											return (
 														<div className='appointment-visit-content' style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>
-															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot"></span>}
+															{itemData.msgStatu == "UNREAD" && <span className="appointment-visit-spot" style = {{top:6}}></span>}
 															{value[0]}
 															<span className="customer" onClick={_this.customerClick.bind(this,itemData)} style={{color:costomerColor}}>{value[1]}</span>
 															{value[2]}
@@ -236,7 +253,7 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 											}
 											return (
-												<div className="appointment-visit-time" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+												<div className="appointment-visit-time-trans" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}> <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 											);
 										}
 									}
@@ -255,7 +272,7 @@ export default class AppointmentVisit extends Component {
 												color="#499DF1";
 											}
 											return (
-												<div className="appointment-visit-read" style={{color:color}} onClick={this.columnClick.bind(this,itemData)}>{condition}</div>
+												<div className="appointment-visit-read-transfer" style={{color:color,top:13}} onClick={this.columnClick.bind(this,itemData)}><span>{condition}</span></div>
 											);
 										}
 									}

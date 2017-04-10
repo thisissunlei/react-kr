@@ -148,6 +148,7 @@ class MerchantsData  extends Component{
 		var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
 		window.location.href = url;
     }
+   
     componentDidMount() {
     	var _this=this;
     	window.onscroll = function () { 
