@@ -24,6 +24,7 @@ import {
     ListGroupItem,
     SearchForms,
 	Drawer,
+	KrDate,
 	Message
 } from 'kr-ui';
 import {
@@ -378,6 +379,8 @@ class SignedClient extends Component{
 		              <TableHeaderColumn>订单总额</TableHeaderColumn>
 		              <TableHeaderColumn>已回款额</TableHeaderColumn>
 		              <TableHeaderColumn>未回款额</TableHeaderColumn>
+		              <TableHeaderColumn>客户创建时间</TableHeaderColumn>
+		              <TableHeaderColumn>订单创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -409,6 +412,14 @@ class SignedClient extends Component{
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
 			                <TableRowColumn name="unBackamount"></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
+						                				
+														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+													 }}></TableRowColumn>
+			                <TableRowColumn name="billCreateDate" type='date' component={(value,oldValue)=>{
+						                				
+														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
