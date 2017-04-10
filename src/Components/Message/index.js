@@ -1,4 +1,6 @@
-import React,{Component} from 'react';
+import React, {
+	Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import './index.less';
 
@@ -9,29 +11,34 @@ let containerDOM = '';
 let shadowDOM = '';
 let containerWarnDOM = '';
 
-class Message extends Component{
+class Message extends Component {
 
 	static displayName = 'Message';
-  constructor(props){
-    super(props)
-		this.state={
-				isClassName:false,
+	constructor(props) {
+		super(props)
+		this.state = {
+			isClassName: false,
 		}
-  }
+	}
 
-  onClose = ()=>{
+	onClose = () => {
 		this.setState({
-			isClassName:!this.state.isClassName
+			isClassName: !this.state.isClassName
 		})
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			ReactDOM.render(<div className='hide'></div>, shadowDOM);
-		},500)
+		}, 0)
 
-  }
+	}
 
-	render(){
-    let {messages,className} = this.props;
-		let {isClassName}=this.state;
+	render() {
+		let {
+			messages,
+			className
+		} = this.props;
+		let {
+			isClassName
+		} = this.state;
 		return (
 			<div className="shadow">
         <div className={`ui-message message_box ${isClassName?'exit':''}`}>
@@ -44,31 +51,36 @@ class Message extends Component{
 		);
 	}
 }
-class Warn extends Component{
+class Warn extends Component {
 
 	static displayName = 'Message';
-  constructor(props){
-    super(props)
-		this.state={
-				isClassName:false,
+	constructor(props) {
+		super(props)
+		this.state = {
+			isClassName: false,
 		}
-  }
+	}
 
-  onClose = ()=>{
+	onClose = () => {
 		this.setState({
-			isClassName:!this.state.isClassName
+			isClassName: !this.state.isClassName
 		})
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			ReactDOM.render(<div className='hide'></div>, shadowDOM);
-		},500)
+		}, 500)
 
-  }
+	}
 
-	render(){
-    let {messages,className} = this.props;
-		let {isClassName}=this.state;
+	render() {
+		let {
+			messages,
+			className
+		} = this.props;
+		let {
+			isClassName
+		} = this.state;
 		return (
-		<div className={`shadows ${className}`}><div className="container-warn">
+			<div className={`shadows ${className}`}><div className="container-warn">
         	<div className={`ui-messages message_box_warn ${className} ${isClassName?'exit':''}`}>
 				<span className={className} onTouchTap={this.onClose}></span>
 			<span>{messages}</span></div>
@@ -79,67 +91,53 @@ class Warn extends Component{
 }
 
 
-function commonTimeout(){
-	setTimeout(function(){
+function commonTimeout() {
+	setTimeout(function() {
 		ReactDOM.render(<div className='hide'></div>, shadowDOM);
-	},1000)
+	}, 1000)
 }
-function commonTimeoutWarn(){
-	setTimeout(function(){
+
+function commonTimeoutWarn() {
+	setTimeout(function() {
 		ReactDOM.render(<div className='hide'></div>, shadowDOM);
-	},2000)
+	}, 2000)
 }
 
 /**
-* type success error normal
-*/
+ * type success error normal
+ */
 
-function commonRender(messages,type,fn){
-
-		var message = '';
-		if(typeof messages === 'object'){
-				message = messages.message;
-		}else if(typeof messages === 'string'){
-			message = messages;
-		}
-
-
-	  var className = 'normal';
-    if(type == 'success'){
-				className = 'success';
-		}else if (type == 'error') {
-			className = 'error';
-		}
-		if(!containerDOM){
-			shadowDOM = document.createElement('div');
-			shadowDOM.className = "outer";
-			containerDOM = document.createElement('div');
-			shadowDOM.appendChild(containerDOM);
-			document.body.appendChild(shadowDOM);
-		}
-			ReactDOM.render(<Message messages={message} className={className}/>, shadowDOM);
-			if(fn){
-				fn();
-			}
-}
-function warnRender(messages,type,fn){
-
-	var message = '';
-	if(typeof messages === 'object'){
-		message = messages.message;
-	}else if(typeof messages === 'string'){
-		message = messages;
+function commonRender(messages, type, fn) {
+	var className = 'normal';
+	if (type == 'success') {
+		className = 'success';
+	} else if (type == 'error') {
+		className = 'error';
 	}
+	if (!containerDOM) {
+		shadowDOM = document.createElement('div');
+		shadowDOM.className = "outer";
+		containerDOM = document.createElement('div');
+		shadowDOM.appendChild(containerDOM);
+		document.body.appendChild(shadowDOM);
+	}
+	ReactDOM.render(<Message messages={messages} className={className}/>, shadowDOM);
+	if (fn) {
+		fn();
+	}
+}
+
+function warnRender(messages, type, fn) {
 
 	var className = 'normal';
-	if(type == 'success'){
+	if (type == 'success') {
 		className = 'succes-warn';
-	}else if (type == 'error') {
+	} else if (type == 'error') {
 		className = 'error-warn';
-	}else if(type == 'warn') {
+	} else if (type == 'warn') {
 		className = 'warn';
 	}
-	if(!containerWarnDOM){
+	if (!containerWarnDOM) {
 
 		shadowDOM = document.createElement('div');
 		shadowDOM.className = `outer`;
@@ -147,28 +145,29 @@ function warnRender(messages,type,fn){
 		shadowDOM.appendChild(containerWarnDOM);
 		document.body.appendChild(shadowDOM);
 	}
-	ReactDOM.render(<Warn messages={message} className={className}/>, shadowDOM);
-	if(fn){
+	ReactDOM.render(<Warn messages={messages} className={className}/>, shadowDOM);
+	if (fn) {
 		fn();
 	}
 }
 
-Message.show = function (message) {
-	commonRender(message,'error');
+Message.show = function(messages) {
+	commonRender(messages, 'error');
 };
 
-Message.success = function (message) {
-	commonRender(message,'success',commonTimeout);
+Message.success = function(messages) {
+	commonRender(messages, 'success', commonTimeout);
+
 };
 
-Message.error = function (message) {
-	commonRender(message,'error');
+Message.error = function(messages) {
+	commonRender(messages, 'error');
 };
-Message.warn = function (message,type,fn) {
-	warnRender(message,type,fn);
+Message.warn = function(messages, type, fn) {
+	warnRender(messages, type, fn);
 };
-Message.warntimeout = function (message,type) {
-	warnRender(message,type,commonTimeoutWarn);
+Message.warntimeout = function(messages, type) {
+	warnRender(messages, type, commonTimeoutWarn);
 };
 
 

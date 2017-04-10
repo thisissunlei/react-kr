@@ -62,7 +62,7 @@ const config = {
 				comments: false,
 			},
 		}),
-
+		
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({

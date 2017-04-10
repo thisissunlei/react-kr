@@ -31,7 +31,8 @@ import {
     Community,
     Retail,
     Statistical,
-    customerManage
+    customerManage,
+    WebBackstage,
 } from '../Containers';
 
 import Master from '../master';
@@ -265,14 +266,15 @@ export default (
             </Route>
         </Route>
 
-    {/*网站后台*/}
+
+    {/*后台管理*/}
         <Route path="WebBackstage" component={Basic}>
 
 
-                {/*活动列表*/}
-                <Route path="activity" component={Basic}>
-                    <Route path="list" component={WebBackstage.ActivityManage.List}/>
-                </Route>
+            {/*活动列表*/}
+            <Route path="activity" component={Basic}>
+                <Route path="list" component={WebBackstage.ActivityManage.List}/>
+            </Route>
 
         </Route>
 
