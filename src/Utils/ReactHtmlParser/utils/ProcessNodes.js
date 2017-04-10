@@ -23,7 +23,7 @@ const convertNodeToElement = function(node, index) {
   var result = ElementTypes[node.type](node, key);
 
   if(typeof result === 'string'){
-    result = result.replace('&lt;','<').replace('&gt;','>');
+    result = result.replace('&lt;','<').replace('&gt;','>').replace('&nbsp;',' ');
   }
   return result;
 };
