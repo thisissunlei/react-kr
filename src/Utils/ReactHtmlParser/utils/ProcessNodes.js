@@ -23,9 +23,55 @@ const convertNodeToElement = function(node, index) {
   var result = ElementTypes[node.type](node, key);
 
   if(typeof result === 'string'){
-    result = result.replace('&lt;','<').replace('&gt;','>').replace('&nbsp;',' ');
+
+    var reg = /(&lt;)|(&nbsp;)|(&quot;)|(&amp;ldquo;)|(&amp;rdquo;)|(&amp;)|(&qpos;)|(&gt;)/g;
+    result = result.replace(reg,function(regStr){
+        var str = '';
+          switch(regStr){
+            case '&lt;':{
+                str = '<';
+              break;
+            }
+            case '&nbsp;':{
+                str = ' ';
+              break;
+            }
+            case '&gt;':{
+                str = '>';
+              break;
+            }
+            case '&quot;':{
+                str = '"';
+              break;
+            }
+            case '&amp;ldquo;':{
+                str = '“';
+              break;
+            }
+            case '&amp;rdquo;':{
+                str = '”';
+              break;
+            }
+            case '&amp;':{
+                str = '&';
+              break;
+            }
+            case '&qpos;':{
+                str = "'";
+              break;
+            }
+          }
+          return str;
+    });
+
+    /*
+    .replace(/&gt;/g,'>').replace('&nbsp;',' ').replace('&quot;','"').replace('&amp;','&').replace('&qpos;',"'")
+    .replace('&ldquo;','“').replace('&rdquo;','”').replace('&amp;ldquo;','“').replace('&amp;rdquo;','”');
+    */
   }
   return result;
+
+
 };
 
 /**
