@@ -87,7 +87,7 @@ class EditEquipmentForm extends Component{
 			id : detail.id,
 		})
 		
-		if(detail.propertyId && detail.propertyId!==1){
+		if(detail.propertyId && detail.propertyId!==1  ){
 			_this.setState({
 				locationOpen : !_this.state.locationOpen
 			})
@@ -158,16 +158,16 @@ class EditEquipmentForm extends Component{
 		if(propertyId == null){
 			_this.setState({
   				locationOpen : false,
-  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
+  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3},{label: '路演厅',value: 4},{label: '配置门',value: 5}],
 
   			})
   			return;
 		}
-  		if(propertyId.value == "2" || propertyId.value == "3" ){
+  		if(propertyId.value == 2 || propertyId.value == 3 || propertyId.value == 4 ||propertyId.value == 5){
   			_this.setState({
   				locationOpen : true,
   				propertyId : propertyId.value,
-  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
+  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3},{label: '路演厅',value: 4},{label: '配置门',value: 5}],
 
   			})
   			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floor}
@@ -185,7 +185,7 @@ class EditEquipmentForm extends Component{
   			_this.setState({
   				locationOpen : false,
   				propertyId : propertyId.value,
-  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
+  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3},{label: '路演厅',value: 4},{label: '配置门',value: 5}],
 
   			})
   		}
@@ -228,7 +228,7 @@ class EditEquipmentForm extends Component{
 		}else{
 			_this.setState({
 				floor : floor.value,
-				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}]
+				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3},{label: '路演厅',value: 4},{label: '配置门',value: 5}]
 			})
 		}
 	}
@@ -461,7 +461,7 @@ class EditEquipmentForm extends Component{
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',display:this.state.locationOpen?'block':'none'}}
 					/>
-					<div>
+					<div style={{marginLeft:6}}>
 						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/> 
 						<span style={{fontSize:14,color:"#333333"}} >保存后自动上线</span>
 					</div>

@@ -61,6 +61,7 @@ export default  class Input extends React.Component {
 			 });
 		}
 	}
+
 	componentDidMount(){
 		if(!this.props.autoFocus){
 			return;
@@ -121,7 +122,6 @@ export default  class Input extends React.Component {
 		let {value} = this.state;
 		let message = this.onValidate();
 		let {onError,onBlur} = this.props;
-		// console.log("^^^^",value)
 		if(typeof message !== 'undefined'){
 			onError && onError(message);
 		}
@@ -151,4 +151,5 @@ export default  class Input extends React.Component {
 
 		);
 	}
+
 }

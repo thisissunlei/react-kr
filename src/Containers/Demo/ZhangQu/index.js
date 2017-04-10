@@ -1,33 +1,34 @@
-import React, {
-	Component
-} from 'react';
-
+import React, {Component, PropTypes} from 'react';
 
 import {
-	Section,
-	Dialog,
 	KrField,
+	Grid,
+	Row,
+	Col,
+	Button,
+	ButtonGroup,
+	Message,
+	SnackTip,
+	ListGroup,
+	ListGroupItem,
 } from 'kr-ui';
 
+ export default class NewCreateForm extends Component{
 
-	export default class ZhangQu extends Component {
+	constructor(props){
+		super(props);
 
-		constructor(props, context) {
-			super(props, context);
-
-		}
-
-		onSubmit = (values)=>{
-				console.log(values);
-		}
-
-		render() {
-
-			return (
-				<div>
-adddd
-				</div>
-
-			);
-		}
 	}
+	
+	componentWillMount() {
+	}
+
+	componentDidMount(){
+
+	}
+
+	render(){
+		return ( <div> ddddd </div> );
+		}
+
+}

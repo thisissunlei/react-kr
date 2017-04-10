@@ -6,12 +6,12 @@ import {createHashHistory} from 'history';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { Provider,connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import MobxReact from 'mobx-react';
 
-import routes from './Configs/routes';
+import routes from 'kr/Configs/Router';
 
-import store from './Redux/Store';
+import store from 'kr/Redux/Store';
 
 import MobxStore from './Store';
 
@@ -26,7 +26,7 @@ injectTapEventPlugin({
 });
 
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import * as Actions from 'kr/Redux/Actions';
 
 
 ReactDOM.render((
@@ -38,7 +38,7 @@ ReactDOM.render((
 				history={useRouterHistory(createHashHistory)({queryKey: false})}
 				onUpdate={() => {
 					window.scrollTo(0, 0)
-					store.dispatch(actionCreators.setCurrentNav(window.location.hash));
+					store.dispatch(Actions.setCurrentNav(window.location.hash));
 				}}
 				/>
 			</MobxReact.Provider>

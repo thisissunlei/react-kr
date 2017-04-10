@@ -1,27 +1,24 @@
-import React, {Component, PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
+import React from 'react';
 
 import {Actions,Store,connect} from 'kr/Redux';
-
-import  './Styles/index.less';
 
 import Header from './Components/Global/Header';
 import Footer from './Components/Global/Footer';
 
-class Master extends Component {
+import  './Styles/index.less';
+
+class Master extends React.Component {
 
 
 	static childContextTypes =  {
-          params: React.PropTypes.object.isRequired,
-          //router: React.PropTypes.object.isRequired
-  }
+		params: React.PropTypes.object.isRequired,
+	}
 
 	getChildContext() {
-				return {
-					params:this.props.params,
-					//router:this.props.router
-				};
-	 }
+		return {
+			params:this.props.params,
+		};
+	}
 
 
 	constructor(props,context){
@@ -32,24 +29,10 @@ class Master extends Component {
 			Store.dispatch(Actions.setUserBasicInfo(response.user));
 		}).catch(function(err){
 
-	   	});
-	}
-
-	componentWillMount() {
-
-
-	}
-
-	componentDidMount(){
-	}
-
-	componentWillReceiveProps(nextProps, nextContext) {
-
+		});
 	}
 
 	render() {
-
-
 
 		var styles = {};
 
@@ -67,13 +50,13 @@ class Master extends Component {
 
 		return (
 			<div className="app-container">
-			<Header/>
+				<Header/>
 
-			<div className="container" style={styles}>
-			{this.props.children}
-			</div>
-					<Footer/>
-			<div id="nowtify-wrapper"></div>
+				<div className="container" style={styles}>
+					{this.props.children}
+				</div>
+				<Footer/>
+				<div id="nowtify-wrapper"></div>
 
 			</div>
 		);

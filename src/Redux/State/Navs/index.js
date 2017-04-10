@@ -6,85 +6,85 @@
 
 module.exports = {
 
-	current_parent: '',
-	current_child: '',
-	current_router: '',
-	current_items: [{
-		primaryText: "权限管理",
-		router: 'order',
-		menuCode: 'rightadmin',
-		menuItems: [],
-	}, ],
-	items: [{
-		primaryText: "首页",
-		router: 'index',
-		menuCode: 'index',
-		originUrl: '/'
-	}, {
-		primaryText: "数据统计",
-		menuCode: 'stat',
-		router: 'statistical',
-		menuItems: [{
-			primaryText: "数据统计",
-			router: 'statistical',
-			iconName: 'icon-com',
-			iconColor: '#79859a',
-			menuCode: 'dataStat',
-			menuItems: [{
-				primaryText: "集团经营",
-				router: '/statistical/index',
-				menuCode: 'dataStat',
-			}, ]
-		}, ]
-	}, {
-		primaryText: "社区经营",
-		router: 'community',
-		menuCode: 'op_manage',
-		originUrl: '#/community/communityManage/detail',
-		menuItems: [{
-			primaryText: "社区管理",
-			iconName: 'icon-com',
-			iconColor: '#79859a',
-			menuCode: 'community_manage',
-			menuItems: [{
-				primaryText: '销控表',
-				menuCode: 'plan_table',
-				router: '/community/communityManage/detail',
-			}, {
-				primaryText: '访客记录',
-				menuCode: 'sysVisitRecord',
-				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
-			}, ]
-		}, ],
-	}, {
-		primaryText: "运营平台",
-		router: 'operation',
-		menuCode: 'operate',
-		originUrl: '#/operation/customerManage/customerList',
-		menuItems: [{
-			primaryText: "客户管理",
-			iconName: 'icon-user',
-			iconColor: '#79859a',
-			router: 'communityManage',
-			menuCode: 'coustomerInfoList',
-			menuItems: [{
-				primaryText: '客户线索',
-				router: '/operation/customerManage/customerList',
-				menuCode: 'coustomerInfoList',
-			},
-			{
-				primaryText: '合同列表',
-				router: '/operation/customerManage/agreementList',
-				menuCode: 'contractList',
-			},{
-				primaryText: '客户公海',
-				router: '/operation/customerManage/customerHighSea',
-				menuCode: 'marketList',
-			},]
-		}, {
-			primaryText: "社区配置",
-			iconName: 'icon-community',
-			iconColor: '#79859a',
+    current_parent: '',
+    current_child: '',
+    current_router: '',
+    current_items: [{
+        primaryText: "权限管理",
+        router: 'order',
+        menuCode: 'rightadmin',
+        menuItems: [],
+    }, ],
+    items: [{
+        primaryText: "首页",
+        router: 'index',
+        menuCode: 'index',
+        originUrl: '/'
+    }, {
+        primaryText: "数据统计",
+        menuCode: 'stat',
+        router: 'statistical',
+        menuItems: [{
+            primaryText: "数据统计",
+            router: 'statistical',
+            iconName: 'icon-com',
+            iconColor: '#79859a',
+            menuCode: 'dataStat',
+            menuItems: [{
+                primaryText: "集团经营",
+                router: '/statistical/index',
+                menuCode: 'dataStat',
+            }, ]
+        }, ]
+    }, {
+        primaryText: "社区经营",
+        router: 'community',
+        menuCode: 'op_manage',
+        originUrl: '#/community/communityManage/detail',
+        menuItems: [{
+            primaryText: "社区管理",
+            iconName: 'icon-com',
+            iconColor: '#79859a',
+            menuCode: 'community_manage',
+            menuItems: [{
+                primaryText: '销控表',
+                menuCode: 'plan_table',
+                router: '/community/communityManage/detail',
+            }, {
+                primaryText: '访客记录',
+                menuCode: 'sysVisitRecord',
+                originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
+            }, ]
+        }, ],
+    }, {
+        primaryText: "运营平台",
+        router: 'operation',
+        menuCode: 'operate',
+        originUrl: '#/operation/customerManage/customerList',
+        menuItems: [{
+            primaryText: "客户管理",
+            iconName: 'icon-user',
+            iconColor: '#79859a',
+            router: 'communityManage',
+            menuCode: 'coustomerInfoList',
+            menuItems: [{
+                primaryText: '客户线索',
+                router: '/operation/customerManage/customerList',
+                menuCode: 'coustomerInfoList',
+            },
+            {
+                primaryText: '合同列表',
+                router: '/operation/customerManage/agreementList',
+                menuCode: 'contractList',
+            },{
+                primaryText: '客户公海',
+                router: '/operation/customerManage/customerHighSea',
+                menuCode: 'marketList',
+            },]
+        }, {
+            primaryText: "社区配置",
+            iconName: 'icon-community',
+            iconColor: '#79859a',
 
 
             router: 'communityManage',
@@ -599,5 +599,22 @@ module.exports = {
                 originUrl: '/sys/onLineUser/onLineUserList?mid=42'
             }, ]
         }, ]
-    }, ]
+    }, {
+        primaryText: "官网后台",
+        router: 'WebBackstage',
+        menuCode: 'krspace_main_manage',
+        originUrl: '#/WebBackstage/activity/list',
+        menuItems: [{
+            primaryText: "活动管理",
+            iconName: 'icon-com',
+            iconColor: '#79859a',
+            menuCode: 'activityManage',
+            router :'activity',
+            menuItems: [{
+                primaryText: '活动列表',
+                menuCode: 'activityList',
+                router: '/WebBackstage/activity/list',
+            },]
+        }, ],
+    },]
 }

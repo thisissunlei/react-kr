@@ -1,15 +1,10 @@
-import React, {
-	Component
-} from 'react';
-import {
-	Field,
-	reduxForm
-} from 'redux-form';
-import ReactDOM from 'react-dom';
-import { default as CommunityListData } from './CommunityListData.json';
+import React from 'react';
 import Input from '../Input'
+
+import { default as CommunityListData } from './CommunityListData.json';
+
 import './index.less';
-export default class CommunityList extends Component {
+export default class CommunityList extends React.Component {
 	// static displayName = 'CircleStyle';
 	static defaultProps = {
 		num: 1,

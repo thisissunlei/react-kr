@@ -7,17 +7,17 @@
     bottom: -5px;
     width: 0;
     height: 0;
-     border-left: 0px solid transparent; 
-     border-right: 0px solid transparent; 
-     border-top: 0px solid rgba(0, 0, 0, 0.7); 
+     border-left: 0px solid transparent;
+     border-right: 0px solid transparent;
+     border-top: 0px solid rgba(0, 0, 0, 0.7);
 }
 div.merchants-header{
   display: table-cell;
   position: relative;
-  
+
   border-left:solid 0px #eee !important;
   border-right:solid 1px #eee !important;
-  
+
   min-height: 54px;
   font-weight: 100;
   font-family: sans-serif;
@@ -25,7 +25,7 @@ div.merchants-header{
   div{
     display: inline-block;
     line-height: 20px;
-    
+
     vertical-align: middle;
   }
   span{
@@ -124,12 +124,17 @@ div.merchants-header{
   	}
 
   }
-
-  .tableOver{
-  	display:inline-block;
-  	max-width:100px;
-  	padding-bottom:5px;
+  span.tableOver-merchants{
+    display: inline-block;
+    position: absolute;
+    top: -6px;
+    width: 80%;
+    left: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: -40%;
   }
+
 
   .tooltipParent .ui-tooltip.center {
   	left:50%;
@@ -150,7 +155,7 @@ div.merchants-header{
       height: 196px;
       background: url(./images/nothings.png) no-repeat center center;
       background-size: 100% 100%;
-      
+
     }
     .tip {
       font-size: 18px;

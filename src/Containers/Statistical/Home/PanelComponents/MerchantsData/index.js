@@ -55,11 +55,11 @@ class MerchantsData  extends Component{
 			    lineHeight: "54px",
 			    zIndex: 1,
 			    marginLeft: 1,
-			    
+
 			}
 		}
 		this.gainData();
-		
+
 	}
 
 	onStartChange=(value)=>{
@@ -86,7 +86,7 @@ class MerchantsData  extends Component{
         		this.gainData();
         	})
         }
-        
+
 
     }
     onEndChange=(value)=>{
@@ -109,7 +109,7 @@ class MerchantsData  extends Component{
 	        		startDate:startValue,
 					endDate:endValue,
         		}
-        		
+
         	},function(){
         		this.gainData();
         	})
@@ -125,7 +125,7 @@ class MerchantsData  extends Component{
     	searchParams.startDate=startValue+" 00:00:00"
     	searchParams.endDate=endValue+" 00:00:00"
     	this.setState({
-    		
+
     		tabLoading:true,
     	})
 		Http.request('already-open',searchParams).then(function(response) {
@@ -135,7 +135,7 @@ class MerchantsData  extends Component{
 			tabLoading:false
 		})
 		}).catch(function(err) {
-		
+
 		});
     }
 
@@ -148,10 +148,10 @@ class MerchantsData  extends Component{
 		var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
 		window.location.href = url;
     }
-   
+
     componentDidMount() {
     	var _this=this;
-    	window.onscroll = function () { 
+    	window.onscroll = function () {
 			var t = document.documentElement.scrollTop || document.body.scrollTop;
 			if(t>150){
 				_this.setState({
@@ -162,7 +162,7 @@ class MerchantsData  extends Component{
 					    zIndex: 99,
 					    marginLeft: 1,
 					    top:60
-					    
+
 					}
 				})
 			}else{
@@ -173,22 +173,19 @@ class MerchantsData  extends Component{
 					    lineHeight: "54px",
 					    zIndex: 1,
 					    marginLeft: 1,
-					    
+
 					}
 				})
 			}
-		}	
+		}
       Store.dispatch(change('merchansDateForm','startDate',this.props.todayDate));
       Store.dispatch(change('merchansDateForm','endDate',this.props.todayDate));
 
     }
     tooltip = (value) =>{
-    	var maxWidth=6;
-		if(value.length>maxWidth){
-		 value = value.substring(0,6)+"...";
-		}
-		return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-		 									
+
+		return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver-merchants'>{value}</span><Tooltip offsetTop={15} place='top'>{value}</Tooltip></div>)
+
     }
     createOpenElems = () =>{
     	let {data} = this.state;
@@ -202,7 +199,7 @@ class MerchantsData  extends Component{
 			return (
 					<TableRow key = {index}>
 						<TableRowColumn >
-							
+
 						</TableRowColumn>
 
 						<TableRowColumn >{item.cityName}</TableRowColumn>
@@ -233,12 +230,12 @@ class MerchantsData  extends Component{
 						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
 						//tuizu
 						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
-						
+
 					</TableRow>
 				);
 		})
 		return elems;
-    	
+
     }
     createUnopenElems = () => {
     	let {data} = this.state;
@@ -251,7 +248,7 @@ class MerchantsData  extends Component{
 			return (
 					<TableRow key = {index}>
 						<TableRowColumn >
-							
+
 						</TableRowColumn>
 
 						<TableRowColumn >{item.cityName}</TableRowColumn>
@@ -282,12 +279,12 @@ class MerchantsData  extends Component{
 						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
 						//tuizu
 						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
-						
+
 					</TableRow>
 				);
 		})
 		return elems;
-    	
+
     }
     createTotalList = () =>{
     	let {data} = this.state;
@@ -300,11 +297,11 @@ class MerchantsData  extends Component{
 			return (
 					<TableRow key = {index}>
 						<TableRowColumn >
-							
+
 						</TableRowColumn>
 						<TableRowColumn >{item.cityName}</TableRowColumn>
 						<TableRowColumn >
-							
+
 						</TableRowColumn>
 						<TableRowColumn>{item.newCustomer}</TableRowColumn>
 						//参观客户
@@ -331,12 +328,12 @@ class MerchantsData  extends Component{
 						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
 						//tuizu
 						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
-						
+
 					</TableRow>
 				);
 		})
 		return elems;
-    	
+
     }
 
     nothingData = () =>{
@@ -348,12 +345,12 @@ class MerchantsData  extends Component{
     			</div>)
     }
 
-	
+
 	render(){
 		let {data,loading,moveStyle,tabLoading} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
-			
+
 		if(!openList){
 			openList=[];
 		}
@@ -363,7 +360,7 @@ class MerchantsData  extends Component{
 		if(loading){
 			return <Loading />
 		}
-		
+
 		if(unopenList.length == 0 && openList.length == 0){
 			nothingData = true;
 		}
@@ -400,11 +397,11 @@ class MerchantsData  extends Component{
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约增租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
 								<div className = "merchants-header"><div><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></div></div>
-							
+
 							</div>
 
 							<Table style={{marginTop:0}} displayCheckbox={false}>
-								
+
 							<TableHeader ref = "merchants-column">
 								<TableHeaderColumn>开业状态</TableHeaderColumn>
 								<TableHeaderColumn>城市</TableHeaderColumn>
@@ -425,15 +422,15 @@ class MerchantsData  extends Component{
 							</TableHeader>
 							{!tabLoading && <TableBody>
 								{!nothingData && this.createOpenElems()}
-								{!nothingData && this.createUnopenElems()}	
+								{!nothingData && this.createUnopenElems()}
 								{!nothingData && this.createTotalList()}
 							</TableBody>}
 							</Table>
 							</div>
 							{!tabLoading &&<div style= {{position:"absolute",top:0,width: "100%",textAlign: "center"}}>
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",borderRightWidth: 0}}>已开业</div>}
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",borderRightWidth: 0}}>未开业</div>}
-								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",}}>未开业</div>}
+								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
 							</div>}
 							{nothingData && this.nothingData()}
 							{tabLoading && <Loading />}
