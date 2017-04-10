@@ -121,7 +121,6 @@ import dateFormat from 'dateformat';
 	render(){
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
-		console.log("initValue",initValue);
 		let partakeMan =[{
 			label: '会员专属',
 			value: 'MEMBER_ONLY'
