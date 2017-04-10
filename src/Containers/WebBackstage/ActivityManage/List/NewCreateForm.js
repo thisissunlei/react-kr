@@ -186,7 +186,6 @@ class NewCreateForm extends React.Component{
 	endDateChange=(value)=>{
 		let _this =this;
 		var endDate = Date.parse(value);
-		console.log("endDate",endDate);
 		_this.setState({
 			endDate:endDate
 		},function(){

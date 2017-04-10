@@ -28,9 +28,9 @@ export default class SelectTimeComponent extends React.Component{
 				}
 				target = target.parentNode;
 			}
-              this.setState({
-              	allOpen:false
-              });
+          	this.setState({
+          		allOpen:false
+          	});
     }
 
     componentDidMount() {

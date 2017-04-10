@@ -211,7 +211,6 @@ class EditActivityForm extends Component{
 
 		// 
 		let {detail} = this.props;
-		console.log("detail------->",detail);
 		if(!value){
 			State.serialNumRepeat = false;
 		}else if(value && !/^[1-9]\d{0,4}$/.test(String(value))){
