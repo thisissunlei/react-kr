@@ -162,7 +162,7 @@ export default class Editor extends React.Component{
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function(action) {
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return 'http://optest.krspace.cn/api/krspace-finance-web/activity/ue-upload-pic';
+        return '/api/krspace-finance-web/activity/ue-upload-pic';
       }else {
         return this._bkGetActionUrl.call(this, action);
       }

@@ -112,7 +112,6 @@ State.upItemPosition = action(function(id) {
 		Message.success('置顶成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
-		console.log('err',err);
 		Message.error(err.message);
 	});
 
@@ -130,7 +129,6 @@ State.resetUpItemPosition = action(function(id) {
 		Message.success('取消置顶成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
-		console.log('err',err);
 		Message.error(err.message);
 	});
 });
@@ -142,7 +140,7 @@ State.activityGetList = action(function(id) {
 	}).then(function(response) {
 		_this.actField = response;
 	}).catch(function(err) {
-		console.log('err',err);
+		
 	});
 });
 State.activityDetail = action(function(id) {
@@ -150,10 +148,9 @@ State.activityDetail = action(function(id) {
 	Http.request('getActivityDetail', {
 		id: id,
 	}).then(function(response) {
-		// console.log("response.summary",response.summary);
 		_this.detailContent = response.summary;
 	}).catch(function(err) {
-		console.log('err',err);
+		
 	});
 
 });
