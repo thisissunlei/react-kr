@@ -178,7 +178,7 @@ export default class OpenPanel  extends Component{
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,6)+"...";
 		 										}
-		 																	return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
 		 								 <TableRowColumn name="totalStation"></TableRowColumn>
 		 								 <TableRowColumn name="unUsedStation" ></TableRowColumn>

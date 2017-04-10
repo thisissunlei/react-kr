@@ -38,7 +38,6 @@ class MerchantsData  extends Component{
 		super(props, context);
 		let {todayDate} = this.props;
 		let nowDate = dateFormat(todayDate,"yyyy-mm-dd");
-		console.log(dateFormat(todayDate,"yyyy-mm-dd"),"LLLLLLLL")
 		this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
@@ -129,17 +128,18 @@ class MerchantsData  extends Component{
     		
     		tabLoading:true,
     	})
-    	Http.request('already-open',searchParams).then(function(response) {
-    		_this.setState({
-    			data:response,
-    			loading:false,
-    			tabLoading:false
-    		})
+		Http.request('already-open',searchParams).then(function(response) {
+		_this.setState({
+			data:response,
+			loading:false,
+			tabLoading:false
+		})
 		}).catch(function(err) {
 		
 		});
     }
 
+    //导出方法
     openExprot = () =>{
     	let {groupId} = this.props;
     	let {endValue,startValue}=this.state;
@@ -306,17 +306,29 @@ class MerchantsData  extends Component{
 							
 						</TableRowColumn>
 						<TableRowColumn>{item.newCustomer}</TableRowColumn>
+						//参观客户
 						<TableRowColumn>{item.visitCustomer}</TableRowColumn>
+						//意向工位数
 						<TableRowColumn>{item.intentionStation}</TableRowColumn>
+						//入驻客户数
 						<TableRowColumn>{item.enterCustomer}</TableRowColumn>
-						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						//续租客户数
+						<TableRowColumn>{item.continueCustomer}</TableRowColumn>
+						//增租客户数
 						<TableRowColumn>{item.increaseCustomer}</TableRowColumn>
+						//减租客户数
 						<TableRowColumn>{item.reduceCustomer}</TableRowColumn>
+						//退租客户数
 						<TableRowColumn>{item.returnCustomer}</TableRowColumn>
+						//入驻/
 						<TableRowColumn>{item.enterSeveral}</TableRowColumn>
+						//续租/
 						<TableRowColumn>{item.continueSeveral}</TableRowColumn>
+						//曾珠
 						<TableRowColumn>{item.increaseSeveral}</TableRowColumn>
+						//减租
 						<TableRowColumn>{item.reduceSeveral}</TableRowColumn>
+						//tuizu
 						<TableRowColumn>{item.returnSeveral}</TableRowColumn>
 						
 					</TableRow>
@@ -410,24 +422,20 @@ class MerchantsData  extends Component{
 								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约减租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
 								<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>签约退租</span><span style={{display:'inline-block',lineHeight:'16px'}}>工位/独立空间</span></TableHeaderColumn>
 							</TableHeader>
-
-							<TableBody>
-								
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",borderRightWidth: 0}}>已开业</div>}
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6.03%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",borderRightWidth: 0}}>未开业</div>}
-								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
-
+							{!tabLoading && <TableBody>
 								{!nothingData && this.createOpenElems()}
 								{!nothingData && this.createUnopenElems()}	
 								{!nothingData && this.createTotalList()}
-				    					
-				    			
-							</TableBody>
-							
+							</TableBody>}
 							</Table>
 							</div>
+							{!tabLoading &&<div style= {{position:"absolute",top:0,width: "100%",textAlign: "center"}}>
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",borderRightWidth: 0}}>已开业</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",borderRightWidth: 0}}>未开业</div>}
+								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
+							</div>}
 							{nothingData && this.nothingData()}
-							
+							{tabLoading && <Loading />}
 							<div style={{marginTop:20}}>
 
 								<Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
