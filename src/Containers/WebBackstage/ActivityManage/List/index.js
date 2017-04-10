@@ -219,11 +219,19 @@ export default class List extends Component {
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
 											<TableRowColumn name="cityId"
+
+
 											component={(value,oldValue,itemData)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{itemData.cityName}{itemData.countyName}</span>)}}
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{itemData.cityName}{itemData.countyName}</span>
+														 	<Tooltip offsetTop={5} place='top'>{itemData.cityName}{itemData.countyName}</Tooltip></div>)
+													 }} 
 											></TableRowColumn>
 
 											<TableRowColumn name="beginDate" style={{width:250}} type="date"
