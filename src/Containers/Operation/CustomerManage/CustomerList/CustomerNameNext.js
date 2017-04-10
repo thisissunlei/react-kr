@@ -40,9 +40,8 @@ import  newIndentState from './NewIndent/State';
 
 	//下一步被点击
 	onSubmit = () => {			
-        //Store.dispatch(initialize('NewIndent',{}));
+        Store.dispatch(initialize('NewIndent',{}));
 		//State.orderNameInit(State.listId);
-		console.log(';;;;====');
 		State.switchNewIndent();
 		newIndentState.cityLable="";
 	}

@@ -74,7 +74,9 @@ class SearchUpperForm extends React.Component {
     onChangeSign=(person)=>{
 		Store.dispatch(change('SearchUpperForm','communityId',person.value));
     }
-
+    searchSignBill=(person)=>{
+    	Store.dispatch(change('SearchUpperForm','mainBillType',person.value));
+    }
 	renderSigned=()=>{
 		   let {flag,searchParams,searchSignParams}=this.props;
 		    if(searchParams){
@@ -85,7 +87,6 @@ class SearchUpperForm extends React.Component {
 		    }
 		    if(searchSignParams){
 		    	var belongCity=searchSignParams.cities;
-			    var belongCommunity=searchSignParams.communities
 		    }
 
 			
@@ -96,7 +97,7 @@ class SearchUpperForm extends React.Component {
 				 options={belongCity}
 				/>
 				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchSign' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
-				<KrField  grid={1/2} right={34} name="communityId"  style={{marginLeft:-5,marginTop:4}} component='searchSign' label="订单类型" inline={false} onChange={this.onChangeSign} placeholder='请输入订单类型'/>
+				<KrField  grid={1/2} right={34} name="mainBillType"  style={{marginLeft:-5,marginTop:4}} component='searchSignBill' label="订单类型" inline={false} onChange={this.onChangeSignBill} placeholder='请输入订单类型'/>
 				<KrField grid={1/1}  component="group" label="签约时间" style={{marginTop:3}}>
 				<div className='ui-listDate'>
 					<ListGroup>
