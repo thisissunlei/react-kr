@@ -1,21 +1,13 @@
 import React from 'react';
-import Loading from '../../Loading';
-import http from 'kr/Redux/Utils/fetch';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import _ from 'lodash';
+import { ShallowEqual,Http } from 'kr/Utils';
 
+import Loading from '../../Loading';
 import TableBody from '../TableBody';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import Notify from '../../Notify';
 
-
-import {
-	ShallowEqual
-} from 'kr/Utils';
-
 import './index.less';
-
 export default class Table extends React.Component {
 
 	static displayName = 'Table';
@@ -36,7 +28,7 @@ export default class Table extends React.Component {
 		foldOpen: false,
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		displayCheckbox: React.PropTypes.bool,
@@ -76,8 +68,6 @@ export default class Table extends React.Component {
 	constructor(props) {
 
 		super(props);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
@@ -316,7 +306,7 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
-		http.request(ajaxUrlName, ajaxParams).then(function(response) {
+		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
 			_this.onInitial({
 				response: response,
