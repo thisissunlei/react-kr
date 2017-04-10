@@ -199,7 +199,7 @@ export default class List extends Component {
 														}else{
 															TooltipStyle="inline-block";
 														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 											<TableRowColumn name="type"
