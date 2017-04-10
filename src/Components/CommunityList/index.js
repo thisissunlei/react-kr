@@ -34,23 +34,19 @@ export default class CommunityList extends React.Component {
 	componentWillReceiveProps(nextProps) {
 	}
 	showChildCommunity=()=>{
-		
+
 	}
 	getCityList=()=>{
 		var cityList = [];
 		cityList = CommunityListData.map((item)=>{
-			
+
 			var obj = {};
 			obj.cityName = item.cityName;
 			return obj;
 		})
 		return cityList;
 	}
-	getCommunityList=()=>{
-		for(var i=0;i<CommunityListData.length;i++){
-			console.log(CommunityListData.length)
-		}
-	}
+
 	render() {
 		let {
 			style,
@@ -58,8 +54,6 @@ export default class CommunityList extends React.Component {
 		} = this.props;
 		let childCommunityList ={};
 		let cityList=this.getCityList();
-		console.log("cityList",cityList)
-		let communityList = this.getCommunityList();
 		return (
 			<div className="ui-community-list-box" style={style}>
 				<div className="ui-community-list-left">
@@ -67,7 +61,7 @@ export default class CommunityList extends React.Component {
 					<div className="ui-community-list-all">
 						<div className="ui-community-list-title">
 							<span>全部社区</span>
-							<span></span>	
+							<span></span>
 						</div>
 						<div className="ui-community-list-all-table">
 							<ul className="ui-community-list-all-ul">
@@ -75,7 +69,7 @@ export default class CommunityList extends React.Component {
 									return (<li className='ui-community-list-all-cityLi' key={item.cityName}>
 												<span>{item.cityName}</span>
 												<ul>
-													
+
 												</ul>
 											</li>
 									)
@@ -87,9 +81,6 @@ export default class CommunityList extends React.Component {
 				<div className="ui-community-list-right"></div>
 			</div>
 		);
-		
+
 	}
 }
-
-
-

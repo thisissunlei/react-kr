@@ -70,16 +70,12 @@ export default  class Input extends React.Component {
 	}
 
 	onChange(event){
-
-
-
-			// console.log('----<MMMM',this.state.value)
 			var value = event.target.value;
 			const {onChange,maxLength} = this.props;
 			if (maxLength) {
 					value = value.slice(0,maxLength);
 			}
-            
+
 			this.setState({
 				value
 			});
