@@ -217,7 +217,7 @@ class Merchants extends Component{
 
 	}
 	openDeleteDialog = () => {
-		
+
 	}
 
 
@@ -450,7 +450,7 @@ class Merchants extends Component{
 				                 newIndentSwitch={this.openNewIndent}
 				                 editIndentSwitch={this.openEditIndent}
 				                 DeleteSwitch={this.openDeleteDialog}
-				                 
+
 
 							/>
 					</Drawer>

@@ -20,7 +20,6 @@ import {
      NewIndent
 } from 'kr/PureComponents';
 import  State from "./SignedClient/State";
-import  newIndentState from './NewIndent/State';
 
 @observer
  class CustomerNameNext extends React.Component{
@@ -44,7 +43,7 @@ import  newIndentState from './NewIndent/State';
     Store.dispatch(initialize('NewIndent',{}));
 		//State.orderNameInit(State.listId);
 		State.switchNewIndent();
-		newIndentState.cityLable="";
+		//newIndentState.cityLable="";
 	}
 	//下一步取消
 	onCancel = () => {
@@ -61,7 +60,7 @@ import  newIndentState from './NewIndent/State';
 		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
 			allState.customerName=response.customerName;
 			allState.orderCount=response.orderCount;
-			newIndentState.orderName="";
+			//newIndentState.orderName="";
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
