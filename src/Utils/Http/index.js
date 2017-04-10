@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import APIS from 'kr/Configs/Apis';
 import Envs from 'kr/Configs/Envs';
+import {Message} from 'kr-ui';
 
 var env = process.env.NODE_ENV;
 
@@ -76,6 +77,8 @@ function getUrl(path, params = {},mode = false) {
   function check401(res) {
     if (res.code ===-4011) {
       window.location.href = '/';
+    }else if (res.code ===-4033) {
+        Message.error('啊哦，对不起，您没有该权限!');
     }
     return res;
   }
