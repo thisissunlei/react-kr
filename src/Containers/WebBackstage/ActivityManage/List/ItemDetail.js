@@ -203,7 +203,7 @@ import dateFormat from 'dateformat';
 
 							<KrField grid={1/2} name="name" type="labelText" inline={false} label="活动名称" requireLabel={true} style={{width:276}} value={initValue.name} />
 							<KrField grid={1/2} name="type" type="labelText" inline={false} label="活动类型" requireLabel={true} style={{width:'252px'}} value={activityType} />
-							<KrField grid={1} name="date" type="labelText" inline={false} label="活动类型" requireLabel={true} value={time} />
+							<KrField grid={1} name="date" type="labelText" inline={false} label="活动时间" requireLabel={true} value={time} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="举办地址" requireLabel={true} value={`${initValue.cityName}${initValue.countyName}-${initValue.address}`} />
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="地址坐标" requireLabel={true} value={`X:${initValue.xPoint} Y:${initValue.yPoint}`} />
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="排序" requireLabel={true} value={initValue.sort}  defaultValue='无'/>
@@ -212,7 +212,7 @@ import dateFormat from 'dateformat';
 							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:24}} value={initValue.contactPhone} defaultValue='无'/>
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
 							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
-							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.sortShow}  defaultValue='不置顶'/>
+							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.top==1?'置顶':'不置顶'}  />
 
 							<div style={{display:initValue.top?"block":"none",fontSize:14,marginBottom:10}}>
 								<span style={{fontSize:14,color:"red",marginRight:8}}>*</span>
