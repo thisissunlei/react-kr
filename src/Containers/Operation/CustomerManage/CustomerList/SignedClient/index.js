@@ -259,6 +259,7 @@ class SignedClient extends Component{
       State.searchParams.communityId='';
       State.searchParams.signEndDate='';
       State.searchParams.signStartDate='';
+      State.searchParams.mainBillType='';
       State.searchUpperCustomer();
 	}
 
