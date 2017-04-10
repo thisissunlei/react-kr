@@ -131,34 +131,30 @@ State.switchSureSubmit= action(function(value) {
 });
 //导出
 State.exportData = action(function(value) {
-	    var search={};
-	    search.company= this.searchParams.company;
-	    search.cityId=this.searchParams.cityId;
-	    search.communityId=this.searchParams.communityId;
-	    search.signEndDate=this.searchParams.signEndDate;
-	    search.signStartDate=this.searchParams.signStartDate;
-	    if(!search.company){
-	    	search.company='';
-	    }
-	    if(!search.cityId){
-	    	search.cityId='';
-	    }
-	    if(!search.signStartDate){
-	    	search.signStartDate='';
-	    }
-	    if(!search.communityId){
-	    	search.communityId='';
-	    }
-	    if(!search.signEndDate){
-	    	search.signEndDate='';
-	    }
+	    let defaultParams = {
+	      company:'',
+	      cityId:'',
+	      communityId:'',
+	      signEndDate:'',
+	      signStartDate:'',
+	      mainBillType:''
+	    };
+	    var searchParam= Object.assign({},defaultParams,this.searchParams);
+	    
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&company=${search.company}&cityId=${search.cityId}&signStartDate=${search.signStartDate}&communityId=${search.communityId}&signEndDate=${search.signEndDate}`
+		var where=[];
+        for(var item in searchParam){
+        if(searchParam.hasOwnProperty(item)){
+           where.push(`${item}=${searchParam[item]}`);
+        }
+      }
+        where.push(`customerIds=${customerIds}`);;
+		var url = `/api/krspace-finance-web/customer/sign-customers-export?${where.join('&')}`;
 		window.location.href = url;
 });
 //城市改变
