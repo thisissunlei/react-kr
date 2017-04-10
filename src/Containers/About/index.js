@@ -1,31 +1,11 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
+import React from 'react';
 
-} from 'kr-ui';
+import { Section } from 'kr-ui';
 
-export default class Initialize  extends Component{
+export default class Initialize  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 
