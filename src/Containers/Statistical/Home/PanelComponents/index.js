@@ -72,7 +72,6 @@ export default class PanelComponents  extends Component{
 
 				var _this = this;
 				panels.map(function(item,index){
-					console.log('item',item);
 						props.key = index;
 						props.todayDate=todayDate;
 						renderComponent.push(_this.createPanelComponent(item.id,props));
