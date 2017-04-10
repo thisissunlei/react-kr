@@ -125,6 +125,7 @@ export default class JoinCreate extends Component {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -132,9 +133,12 @@ export default class JoinCreate extends Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.contractcode = response.contractCode;
+			initialValues.lessorContactId = localStorage.getItem('lessorContactName') || '';
+			optionValues.lessorContactName = localStorage.getItem('lessorContactName');
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
 			initialValues.agreement = '无';
+			initialValues.signdate = localStorage.getItem('signdate')|| '日期';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;

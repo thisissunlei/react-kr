@@ -121,7 +121,7 @@ export default class JoinCreate extends Component {
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
-			
+
 			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 
 			// optionValues.contractCode = response.contractCode;
