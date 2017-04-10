@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
 import APIS from 'kr/Configs/Apis';
-import Envs from 'kr/Configs/envs';
+import Envs from 'kr/Configs/Envs';
 
 var env = process.env.NODE_ENV;
 
