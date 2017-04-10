@@ -55,7 +55,6 @@ export default class CityComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		// console.log('====>',this.props.cityName)
 		let {cityName} = this.props;
 		if(cityName){
 			State.city=cityName;
@@ -71,7 +70,7 @@ export default class CityComponent extends React.Component {
 		if(cityName){
 			State.city=cityName;
 		}
-		
+
 	}
 
 	firstCityList=()=>{
@@ -184,7 +183,7 @@ export default class CityComponent extends React.Component {
 
 	}
 
-	
+
     onSecondSubmit=()=>{
       let {thirdName,firstName,secondName,secondId} = this.state;
       let {openCity}=this.props;
@@ -195,8 +194,8 @@ export default class CityComponent extends React.Component {
 			showCity:false
 		});
 		let {onSubmit} = this.props;
-		onSubmit && onSubmit('',secondId,city);	
-      }	
+		onSubmit && onSubmit('',secondId,city);
+      }
     }
 
 	bodyEvent=()=>{
@@ -252,7 +251,7 @@ export default class CityComponent extends React.Component {
 		}
 		let hoverColor = {};
 		let color="#666";
-		
+
 
 		return (
 

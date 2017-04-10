@@ -336,8 +336,6 @@ class Header extends Component {
 		Store.dispatch(change('infoSearchForm','infoCreateDateEnd',""));
 		Store.dispatch(change('infoSearchForm','infoCommunity',""));
 
-
-		console.log(this.refs.message,"PpPPPPppp");
 		this.setState({
 			openMassage:!this.state.openMassage
 		})
