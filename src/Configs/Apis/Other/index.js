@@ -357,12 +357,6 @@ const APIS = {
       url: '/api/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
       method: 'get'
    },
-   //会员中心-新增会员-根据邮箱查询会员是否存在
-   // 'isMemberHasByEmail': {
-   // 	url: '/api/krspace-finance-web/member/member-mail?email={email}',
-   // 	method: 'get'
-   // },
-   //会员中心-会员详细信息－个人资料
    'getMemberDetailData': {
       url: '/api/krspace-finance-web/member/member?id={id}',
       method: 'get'
