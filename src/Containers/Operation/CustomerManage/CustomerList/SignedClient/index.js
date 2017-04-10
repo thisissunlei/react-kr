@@ -313,7 +313,7 @@ class SignedClient extends Component{
 	}
 	//新建订单第一层关闭
 	cancelCustomerNameNext=()=>{
-	  State.openFirstContract();	
+	  State.openFirstContract();
 	}
 
 	render(){
@@ -352,7 +352,7 @@ class SignedClient extends Component{
 											onTouchTap={this.openContractFirst}
 									/>
 					  </Col>
-			         
+
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
 				            <ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='sign' onSubmit={this.onSearchSubmit}/></ListGroupItem>
@@ -414,11 +414,11 @@ class SignedClient extends Component{
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
 			                <TableRowColumn name="unBackamount"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
-						                				
+
 														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="billCreateDate" type='date' component={(value,oldValue)=>{
-						                				
+
 														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
@@ -593,7 +593,7 @@ class SignedClient extends Component{
 					 >
 						<CustomerNameNext
 			                onSubmit={this.switchPersonSubmit}
-						    onCancel={this.cancelCustomerNameNext}  
+						    onCancel={this.cancelCustomerNameNext}
 						/>
 					</Drawer>
 

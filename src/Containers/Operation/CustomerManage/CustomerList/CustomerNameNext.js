@@ -41,29 +41,33 @@ import  State from "./SignedClient/State";
 	onSubmit = (value) => {
 		console.log('value',value);
     Store.dispatch(initialize('NewIndent',{}));
+		this.orderNameInit(value.companyId);
 		//State.orderNameInit(State.listId);
 		State.switchNewIndent();
 		//newIndentState.cityLable="";
 	}
+
 	//下一步取消
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	};
-    //打开新建订单
-    openNewIndent=()=>{
-		Store.dispatch(initialize('NewIndent',{}));
-		var _this=this;
-		let data={};
-		data.customerId=allState.listId;
 
-		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
-			allState.customerName=response.customerName;
-			allState.orderCount=response.orderCount;
-			//newIndentState.orderName="";
-		}).catch(function(err) {
-			 Message.error(err.message);
-		});
+//获取订单名称
+orderNameInit = (value) => {
+	var _this=this;
+	let data={};
+	data.customerId=value;
+	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+		allState.customerName=response.customerName;
+		allState.orderCount=response.orderCount;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});
+}
+
+	searchSignChange=(value)=>{
+	  State.companyName=value.label;
 	}
 
 	render(){
@@ -76,7 +80,7 @@ import  State from "./SignedClient/State";
 						<div><span className="new-icon"></span><label className="title-text">新建订单</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
-						<KrField  grid={1/2}  name="companyId" style={{width:262,display:'block',margin:'0 auto'}} component='searchSignCompany'  label="客户名称" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
+						<KrField  grid={1/2}  name="companyId" style={{width:262,display:'block',margin:'0 auto'}} component='searchSignCompany'  label="客户名称" inline={false}  placeholder='请输入客户名称' onChange={this.searchSignChange} requireLabel={true}/>
 
 						<Grid style={{marginTop:30}}>
 							<Row>
@@ -97,8 +101,8 @@ import  State from "./SignedClient/State";
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<NewIndent
-							 companyName={State.companyName}
-							 onCancel={this.switchNewIndent}
+							         companyName={State.companyName}
+							         onCancel={this.switchNewIndent}
 			                 //orderReady={orderReady}
 			                 listId={State.listId}
 			                 customerName={State.customerName}

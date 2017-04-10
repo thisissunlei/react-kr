@@ -101,7 +101,7 @@ State.orderNameChange=action(function(params){
 State.orderNameInit= action(function(value) {
 	var _this=this;
 	let data={};
-	
+
 	data.customerId=value;
 
 	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
@@ -110,7 +110,7 @@ State.orderNameInit= action(function(value) {
 
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});		
+	});
 });
 
 
@@ -127,7 +127,7 @@ State.switchSureSubmit= action(function(value) {
          }
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});		
+	});
 });
 //导出
 State.exportData = action(function(value) {
@@ -140,7 +140,7 @@ State.exportData = action(function(value) {
 	      mainBillType:''
 	    };
 	    var searchParam= Object.assign({},defaultParams,this.searchParams);
-	    
+
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
@@ -176,6 +176,6 @@ State.closeAllMerchants = action(function() {
 });
 State.MerchantsListId = action(function(params) {
 	this.listId=params;
-	
+
 });
 module.exports = State;
