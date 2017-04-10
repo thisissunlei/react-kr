@@ -52,21 +52,11 @@ export default class SearchDetailForm extends Component {
 
 		}
 	}
-	//首次加载，只执行一次
-	componentWillMount() {
-
-	}
-	componentWillReceiveProps(nextProps){
-
-	}
 
 	onSubmit=(values)=>{
-		// console.log("values",values);
 	}
 
 	changeCommunity=(item)=>{
-		// console.log("选择了社区",item);
-
 		let {onChange} = this.props;
 		onChange && onChange(item);
 	}

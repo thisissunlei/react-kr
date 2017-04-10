@@ -353,7 +353,6 @@ export default class FinishUploadImgForm extends Component{
 	render(){
 
 		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor,totleNum}=this.state;
-		// console.log("this.state.totleNum",this.state.totleNum);
 		return (
 			<div className="upload-img-outer-box">
 				<div className="upload-img-box">
