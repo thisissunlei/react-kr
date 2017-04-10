@@ -33,9 +33,9 @@ import {
     Statistical,
     customerManage,
     WebBackstage,
-} from '../Containers';
+} from 'kr/Containers';
 
-import Master from '../master';
+import Master from 'kr/master';
 
 export default (
 

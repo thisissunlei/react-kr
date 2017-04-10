@@ -17,19 +17,16 @@ import {
 
 	constructor(props){
 		super(props);
-		this.state={
-			initailPoint : '承德'
-		}
+
 	}
+	
 	componentWillMount() {
 	}
 
 	componentDidMount(){
 
 	}
-	onSubmit=(values)=>{
-		console.log("提交values",values);
-	}
+
 	render(){
 		return ( <div> ddddd </div> );
 		}

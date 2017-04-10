@@ -9,9 +9,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Provider } from 'react-redux';
 import MobxReact from 'mobx-react';
 
-import routes from './Configs/Router';
+import routes from 'kr/Configs/Router';
 
-import store from './Redux/Store';
+import store from 'kr/Redux/Store';
 
 import MobxStore from './Store';
 
