@@ -7,7 +7,7 @@ import {DateFormat} from 'kr/Utils/DateFormat';
 */
 function log(message,type){
   var now = DateFormat(Date.now(),'yyyy-mm-dd hh:MM:ss');
-  Notify.error(message);
+  //Notify.error(message);
   console.log(now,message);
 }
 
