@@ -79,7 +79,7 @@ class CustomerIndent extends Component{
 				<div>
 				<div className="indentList">
 					<div className="orderNumber">{index+1}</div>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单名称:" style={unifyStyle} component="labelText" value={item.mainbillname} inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单名称:" style={unifyStyle} component="labelText" value={item.mainbillname} inline={true} toolTrue/></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="合同总数:" style={unifyStyle} component="labelText" value={item.contractSize} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="城市:" style={unifyStyle} component="labelText" value={item.cityStr} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单类型:" style={unifyStyle} component="labelText" value={item.mainBillTypeDesc} defaultValue='0' inline={true} /></li>
