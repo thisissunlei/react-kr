@@ -1,11 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-import {
-	observer
-} from 'mobx-react';
 import {
 	KrField,
 	Grid,
@@ -14,13 +10,16 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-    Message
+  Message
 } from 'kr-ui';
-import State from './State';
-/*import allState from '../State';
-import oneState from '../OneNewAgreement/State';
-import OneNewAgreement from '../OneNewAgreement';*/
-import './index.less';
+import './index.less'
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
  class NewIndent extends Component{
 
@@ -51,75 +50,68 @@ import './index.less';
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
 		}
-		State.ChangeSubmitState();
-
 		values.customerid=listId;
-		values.mainbillname=State.orderName;
+		values.mainbillname=_this.props.NewIndentModel.orderName;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
-         	setTimeout(function(){
-         		State.ChangeCanSubmitState();
-         	},1000)
-         	allState.mainBillId=response.mainBillId;
-			oneState.ordersListData({customerId:allState.listId},response.mainBillId);
-			Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
-
-			_this.onCancel(response.mainBillId);
+			_this.props.CommunityDetailModel.orderList(_this.props.listId);
+    	_this.onCancel();
+			_this.props.NewIndentModel.openContract=false;
 		}).catch(function(err) {
-			 Message.error(err.message);
+			Message.error(err.message);
 		});
 	}
 
-	onCancel = (value) => {
-
+	onCancel = () => {
 		const {onCancel} = this.props;
-		onCancel && onCancel(value);
+		onCancel && onCancel();
 	}
 
 	hasOfficeClick = (params) =>{
 		if(params.value=="HAS"){
-			State.showMatureTime();
+			this.props.NewIndentModel.showMatureTime();
 		}else if(params.value=="NOHAS"){
-			State.noShowMatureTime();
+			this.props.NewIndentModel.noShowMatureTime();
 
 		}
 	}
-	componentWillReceiveProps(nextProps){
 
+	componentWillReceiveProps(nextProps){
 
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
-			if(State.isInit){
+			if(this.props.NewIndentModel.isInit){
 				return;
 			}
-			State.orderReady(nextProps.orderReady)
-
-
+			this.props.NewIndentModel.orderReady(nextProps.orderReady)
 	}
 	communityChange=(value)=>{
 		if(!value){
 			return;
 		}
-		var community=State.orderReady.communityCity
+		var community=this.props.NewIndentModel.orderReady.communityCity
 		for(var i=0;i<community.length;i++){
 			if(community[i].communityName==value.label){
 				Store.dispatch(change('NewIndent','cityid',community[i].cityId));
-				State.cityLableChange(community[i].cityName)
+				this.props.NewIndentModel.cityLableChange(community[i].cityName)
 			}
 
 		}
 	}
 	mainbilltypeChange=(value)=>{
-		State.orderName=this.props.customerName+value.label+this.props.orderCount;
+		this.props.NewIndentModel.orderName=this.props.customerName+value.label+this.props.orderCount;
 
 	}
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName,isOpenIndent,customerName,orderCount} = this.props;
 
-		let city=State.cityLable;
+		let city=this.props.NewIndentModel.cityLable;
 			city=!city?"无":city;
+		// if(!isOpenIndent){
+		// 	city="无"
+		// }
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
@@ -130,26 +122,26 @@ import './index.less';
 
 				<div className="kk" style={{marginTop:30,paddingLeft:20}}>
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select"
-							options={State.orderFound}
+							options={this.props.NewIndentModel.orderFound}
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
 					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}}
-							options={State.community}
+							options={this.props.NewIndentModel.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
 
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={this.props.NewIndentModel.orderName?this.props.NewIndentModel.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+							<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
+							<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>

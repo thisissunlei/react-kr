@@ -41,8 +41,6 @@ let State = observable({
 		ishasOffice:false,
 		editIndentState:"",
 
-		//打开新建订单第一层
-		openContract:false
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
@@ -107,7 +105,6 @@ State.orderNameInit= action(function(value) {
 	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
 		_this.customerName=response.customerName;
 		_this.orderCount=response.orderCount;
-
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});
@@ -123,7 +120,7 @@ State.switchSureSubmit= action(function(value) {
          _this.openPersonDialog=false;
          _this.searchParams={
          	page:1,
-			time:+new Date()
+			    time:+new Date()
          }
 	}).catch(function(err) {
 		 Message.error(err.message);
@@ -160,10 +157,6 @@ State.exportData = action(function(value) {
 //城市改变
 State.cityChange=action(function(params){
 	this.cityname=params;
-})
-//新建订单打开第一层
-State.openFirstContract=action(function(){
-    this.openContract=!this.openContract;
 })
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;

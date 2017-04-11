@@ -30,19 +30,20 @@ import {
 import {
 	LookCustomerList
 } from 'kr/PureComponents';
+import {
+     NewIndent
+} from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
-import NewIndent from "../NewIndent";
 import EditIndent from "../EditIndent";
 import NewVisitIndent from '../NewVisitIndent';
 import editsourceCustomer from "../EditCustomerList/State";
 import SwitchPerson from '../SwitchPerson';
 import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
-import newIndentState from "../NewIndent/State";
 
 //新建订单第一级
 import CustomerNameNext from '../CustomerNameNext';
@@ -52,6 +53,7 @@ import {
 	inject
 } from 'mobx-react';
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
 class SignedClient extends Component{
 
@@ -108,7 +110,7 @@ class SignedClient extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
-		newIndentState.cityLable="";
+		this.props.NewIndentModel.cityLable="";
 	}
 
 	//新建订单页面的开关
@@ -280,7 +282,7 @@ class SignedClient extends Component{
       	  State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
-     //转移客户
+  //转移客户
 	openSwitchDialog=()=>{
 		State.openSwitchGoDialog();
 	}
@@ -309,11 +311,20 @@ class SignedClient extends Component{
 
 	//新建订单第一层
 	openContractFirst=()=>{
-	  State.openFirstContract();
+	  this.props.NewIndentModel.openFirstContract();
 	}
 	//新建订单第一层关闭
 	cancelCustomerNameNext=()=>{
-	  State.openFirstContract();
+	  this.props.NewIndentModel.openFirstContract();
+	}
+
+	//新建第一层提交
+	firstSubmitOrder=(value)=>{
+		Store.dispatch(initialize('NewIndent',{}));
+	  State.orderNameInit(value.companyId);
+	  State.listId=value.companyId;
+	  State.switchNewIndent();
+	  this.props.NewIndentModel.cityLable="";
 	}
 
 	render(){
@@ -331,6 +342,7 @@ class SignedClient extends Component{
         	display:'none'
         }
       }
+
 
 		return(
       <div className="m-signed" style={{paddingTop:25}}>
@@ -474,25 +486,7 @@ class SignedClient extends Component{
 						/>
 					</Drawer>
 
-					{/*新建订单*/}
-					<Drawer
-							open={State.openNewIndent}
-							width={750}
-							openSecondary={true}
-							className='m-finance-drawer'
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-					 >
-						<NewIndent
-							 companyName={State.companyName}
-							 onCancel={this.switchNewIndent}
-			                 orderReady={orderReady}
-			                 listId={State.listId}
-			                 customerName={State.customerName}
-			                 orderCount={State.orderCount}
-			                 isOpenIndent={State.orderName}
 
-						/>
-					</Drawer>
 
 					{/*新增拜访记录*/}
 					<Drawer
@@ -535,8 +529,8 @@ class SignedClient extends Component{
 						/>
 					</Drawer>
 
-                    {/*高级查询*/}
-                    <Dialog
+        {/*高级查询*/}
+          <Dialog
 						title="高级查询"
 						modal={true}
 						onClose={this.openSearchUpperDialog}
@@ -586,14 +580,34 @@ class SignedClient extends Component{
 
 				     {/*打开新建订单第一层*/}
 				     <Drawer
-							open={State.openContract}
+							open={this.props.NewIndentModel.openContract}
 							width={750}
 							openSecondary={true}
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+							containerStyle={{top:60,paddingBottom:228}}
 					 >
 						<CustomerNameNext
-			                onSubmit={this.switchPersonSubmit}
-						    onCancel={this.cancelCustomerNameNext}
+			               onSubmit={this.firstSubmitOrder}
+						         onCancel={this.cancelCustomerNameNext}
+						/>
+					</Drawer>
+
+					{/*新建订单*/}
+					<Drawer
+							open={State.openNewIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228}}
+					 >
+						<NewIndent
+							        companyName={State.companyName}
+							         onCancel={this.switchNewIndent}
+			                 orderReady={orderReady}
+			                 listId={State.listId}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 //isOpenIndent={State.orderName}
+
 						/>
 					</Drawer>
 

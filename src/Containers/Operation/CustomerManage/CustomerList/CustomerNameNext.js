@@ -1,5 +1,6 @@
 import React from 'react';
 import {reduxForm,initialize,change} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
@@ -16,9 +17,6 @@ import {
 	Message,
 	Drawer
 } from 'kr-ui';
-import {
-     NewIndent
-} from 'kr/PureComponents';
 import  State from "./SignedClient/State";
 
 @observer
@@ -39,12 +37,8 @@ import  State from "./SignedClient/State";
 
 	//下一步被点击
 	onSubmit = (value) => {
-		console.log('value',value);
-    Store.dispatch(initialize('NewIndent',{}));
-		this.orderNameInit(value.companyId);
-		//State.orderNameInit(State.listId);
-		State.switchNewIndent();
-		//newIndentState.cityLable="";
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(value);
 	}
 
 	//下一步取消
@@ -53,19 +47,7 @@ import  State from "./SignedClient/State";
 		onCancel && onCancel();
 	};
 
-//获取订单名称
-orderNameInit = (value) => {
-	var _this=this;
-	let data={};
-	data.customerId=value;
-	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
-		allState.customerName=response.customerName;
-		allState.orderCount=response.orderCount;
-	}).catch(function(err) {
-		 Message.error(err.message);
-	});
-}
-
+  //客户名称改变
 	searchSignChange=(value)=>{
 	  State.companyName=value.label;
 	}
@@ -92,25 +74,7 @@ orderNameInit = (value) => {
 						</Grid>
 				</form>
 
-				{/*新建订单*/}
-					<Drawer
-							open={State.openNewIndent}
-							width={750}
-							openSecondary={true}
-							className='m-finance-drawer'
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-					 >
-						<NewIndent
-							         companyName={State.companyName}
-							         onCancel={this.switchNewIndent}
-			                 //orderReady={orderReady}
-			                 listId={State.listId}
-			                 customerName={State.customerName}
-			                 orderCount={State.orderCount}
-			                 isOpenIndent={State.orderName}
 
-						/>
-					</Drawer>
 			</div>
 		);
 	}
