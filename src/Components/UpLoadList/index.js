@@ -1,20 +1,11 @@
-import React, {
-	Component
-} from 'react';
-
-import $ from 'jquery';
-import {
-	FontIcon,
-} from 'kr-ui';
-import Notify from '../Notify';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
+import Notify from '../Notify';
+import { Actions, Store } from 'kr/Redux';
 import {ShallowEqual} from 'kr/Utils';
-export default class UpLoadList extends Component {
+
+import './index.less';
+export default class UpLoadList extends React.Component {
 
 	static defaultProps = {
 		backgroundColor:"#fff",

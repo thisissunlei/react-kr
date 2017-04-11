@@ -5,7 +5,7 @@ export default class TableRow extends React.Component {
 
 	static displayName = 'TableRow';
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		onCellClick: React.PropTypes.func,
@@ -23,28 +23,17 @@ export default class TableRow extends React.Component {
 
 	constructor(props){
 		super(props);
-
-		this.onCellClick = this.onCellClick.bind(this);
-		this.onCellHover = this.onCellHover.bind(this);
-		this.onCellHoverExit = this.onCellHoverExit.bind(this);
-		this.onRowHover = this.onRowHover.bind(this);
-		this.onRowHoverExit = this.onRowHoverExit.bind(this);
-		this.onRowClick = this.onRowClick.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-
-		this.renderRow = this.renderRow.bind(this);
-		this.createRowColumn = this.createRowColumn.bind(this);
 	}
 
-	onCellClick(event){
+	onCellClick = (event) =>{
 		this.onRowClick(event);
 	}
 
-	onCellHover(){
+	onCellHover =()=>{
 
 	}
 
-	onOperation(event){
+	onOperation = (event)=>{
 		const {onOperation}  = this.props;
 		let type = '';
 
@@ -56,19 +45,19 @@ export default class TableRow extends React.Component {
 		onOperation && onOperation(type,this.props.itemData);
 	}
 
-	onCellHoverExit(){
+	onCellHoverExit = () =>{
 
 	}
 
-	onRowHover(){
+	onRowHover =()=>{
 
 	}
 
-	onRowHoverExit(){
+	onRowHoverExit =()=>{
 
 	}
 
-	onRowClick(event){
+	onRowClick = (event)=>{
 		if (this.props.onRowClick) {
 			this.props.onRowClick(event, this.props.rowNumber);
 		}
@@ -83,7 +72,7 @@ export default class TableRow extends React.Component {
 
 	}
 
-	createRowColumn(basic,columnNumber,rowNumber){
+	createRowColumn = (basic,columnNumber,rowNumber)=>{
 
 		const {itemData} = this.props;
 		let {name,actions} = basic.props;
@@ -122,7 +111,8 @@ export default class TableRow extends React.Component {
 		},children);
 	}
 
-	renderRow(){
+	renderRow = ()=>{
+
 		const {
 			className,
 			hovered,

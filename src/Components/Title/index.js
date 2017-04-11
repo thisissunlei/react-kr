@@ -1,23 +1,20 @@
-import React, {Component, PropTypes} from 'react';
-import Title, { flushTitle } from 'react-title-component';
+import React from 'react';
+import Title  from 'react-title-component';
 
-export default class TitleList extends Component {
+export default class TitleList extends React.Component {
 
-	static displayName = 'TitleList';
+	static displayName = 'TitleComponent';
 
 	constructor(props){
 		super(props);
 	}
 
-	  render() {
+	render() {
 
-    var {value} = this.props;
+		var {value} = this.props;
 
-		return (
-		  <div>
-        		<Title render={value}/>
-		  </div>
-		);
-	  }
+		return ( <Title render={value}/>);
+
+	}
 
 }

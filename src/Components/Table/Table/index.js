@@ -1,22 +1,14 @@
 import React from 'react';
-import Loading from '../../Loading';
-import Message from '../../Message';
-import http from 'kr/Redux/Utils/fetch';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import _ from 'lodash';
+import { ShallowEqual,Http } from 'kr/Utils';
 
+import Loading from '../../Loading';
 import TableBody from '../TableBody';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import Notify from '../../Notify';
 
-
-import {
-	ShallowEqual
-} from 'kr/Utils';
-
 import './index.less';
-
 export default class Table extends React.Component {
 
 	static displayName = 'Table';
@@ -37,7 +29,7 @@ export default class Table extends React.Component {
 		foldOpen: false,
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		displayCheckbox: React.PropTypes.bool,
@@ -69,7 +61,7 @@ export default class Table extends React.Component {
 		onProcessData: React.PropTypes.func,
 
 		fold: React.PropTypes.bool,
-		foldSize: React.PropTypes.string,
+		foldSize: React.PropTypes.any,
 		foldOpen: React.PropTypes.bool,
 		onFold: React.PropTypes.func,
 	}
@@ -78,32 +70,8 @@ export default class Table extends React.Component {
 
 		super(props);
 
+
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-
-		this.createTableHeader = this.createTableHeader.bind(this);
-		this.createTableBody = this.createTableBody.bind(this);
-		this.createTableFooter = this.createTableFooter.bind(this);
-		this.setVisibilityRow = this.setVisibilityRow.bind(this);
-
-		this.onSort = this.onSort.bind(this);
-		this.onSelectAll = this.onSelectAll.bind(this);
-		this.onRowClick = this.onRowClick.bind(this);
-		this.onExport = this.onExport.bind(this);
-		this.onCellClick = this.onCellClick.bind(this);
-		this.onPageChange = this.onPageChange.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-		this.onLoaded = this.onLoaded.bind(this);
-
-		this.onLoadData = this.onLoadData.bind(this);
-		this.onInitial = this.onInitial.bind(this);
-		this.onProcessData = this.onProcessData.bind(this);
-
-
-		this.renderTableHeader = this.renderTableHeader.bind(this);
-		this.renderTableBody = this.renderTableBody.bind(this);
-		this.renderTableFooter = this.renderTableFooter.bind(this);
-		this.renderLoading = this.renderLoading.bind(this);
-		this.renderNotListData = this.renderNotListData.bind(this);
 
 
 		this.state = {
@@ -135,12 +103,6 @@ export default class Table extends React.Component {
 		if (initialValues) {
 			this.onInitial(initialValues);
 		}
-
-
-	}
-
-
-	componentDidMount() {
 
 	}
 
@@ -187,19 +149,18 @@ export default class Table extends React.Component {
 		return false;
 	}
 
-	onSort(name) {
+	onSort = (name)=> {
 		if (!name) {
 			return;
 		}
-		let {
-			listData
-		} = this.state;
+
+		let { listData } = this.state;
 		this.setState({
 			listData
 		});
 	}
 
-	onProcessData(state) {
+	onProcessData=(state)=> {
 		let {
 			onProcessData
 		} = this.props;
@@ -210,7 +171,9 @@ export default class Table extends React.Component {
 		return state;
 	}
 
-	onInitial(state) {
+	onInitial = (state) => {
+
+			state = Object.assign({},state);
 
 		let {
 			defaultSelectedRows
@@ -226,7 +189,7 @@ export default class Table extends React.Component {
 
 	}
 
-	onLoaded() {
+	onLoaded = ()=> {
 		const {
 			onLoaded
 		} = this.props;
@@ -235,14 +198,15 @@ export default class Table extends React.Component {
 	}
 
 
-	onOperation(type, itemData) {
+	onOperation=(type, itemData)=> {
+
 		const {
 			onOperation
 		} = this.props;
 		onOperation && onOperation(type, itemData);
 	}
 
-	onPageChange(page) {
+	onPageChange=(page)=> {
 
 		const {
 			onPageChange
@@ -252,12 +216,12 @@ export default class Table extends React.Component {
 		this.onLoadData(page);
 	}
 
-	onCellClick() {
+	onCellClick=() =>{
 
 	}
 
 
-	onExport() {
+	onExport = () =>{
 
 		let {
 			selectedRows,
@@ -297,7 +261,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onLoadData(page = 1, ajaxParams = this.props.ajaxParams) {
+	onLoadData = (page = 1, ajaxParams = this.props.ajaxParams)=> {
 
 		ajaxParams = Object.assign({}, ajaxParams);
 
@@ -318,7 +282,7 @@ export default class Table extends React.Component {
 
 		var _this = this;
 
-		http.request(ajaxUrlName, ajaxParams).then(function(response) {
+		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
 			_this.onInitial({
 				response: response,
@@ -438,7 +402,7 @@ export default class Table extends React.Component {
 
 	}
 
-	setVisibilityRow(rowNumber) {
+	setVisibilityRow = (rowNumber)=> {
 		var visibilityRows = this.state.visibilityRows;
 		visibilityRows[rowNumber] = new Number(!!!parseInt(visibilityRows[rowNumber]));
 		this.setState({
@@ -447,7 +411,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onRowClick(event, rowNumber) {
+	onRowClick = (event, rowNumber)=> {
 
 		let {
 			selectedRows
@@ -520,7 +484,7 @@ export default class Table extends React.Component {
 
 	}
 
-	onSelectAll() {
+	onSelectAll = ()=> {
 
 		let {
 			allRowsSelected
@@ -544,7 +508,7 @@ export default class Table extends React.Component {
 		}, 0);
 	}
 
-	createTableHeader(base) {
+	createTableHeader =(base)=> {
 
 		return React.cloneElement(
 			base, {
@@ -557,7 +521,7 @@ export default class Table extends React.Component {
 		);
 	}
 
-	createTableBody(base) {
+	createTableBody = (base)=> {
 
 		return React.cloneElement(
 			base, {
@@ -575,7 +539,7 @@ export default class Table extends React.Component {
 
 	}
 
-	createTableFooter(base) {
+	createTableFooter = (base)=> {
 
 		let {
 			pagination,
@@ -613,7 +577,7 @@ export default class Table extends React.Component {
 	}
 
 
-	renderTableHeader() {
+	renderTableHeader=() =>{
 		let {
 			className,
 			children,
@@ -634,7 +598,7 @@ export default class Table extends React.Component {
 		return tHead;
 	}
 
-	renderNotListData() {
+	renderNotListData = ()=> {
 
 		let {
 			className,
@@ -662,7 +626,7 @@ export default class Table extends React.Component {
 		);
 	}
 
-	renderTableBody() {
+	renderTableBody=() =>{
 
 		let {
 			className,
@@ -685,7 +649,7 @@ export default class Table extends React.Component {
 		return tBody;
 	}
 
-	renderTableFooter() {
+	renderTableFooter=() =>{
 
 		let {
 			className,
@@ -710,7 +674,7 @@ export default class Table extends React.Component {
 
 	}
 
-	renderLoading() {
+	renderLoading = ()=> {
 		let {
 			className,
 			children,
@@ -776,7 +740,6 @@ export default class Table extends React.Component {
 		if (loading) {
 			return this.renderLoading();
 		}
-
 		if (ajax && !listData.length) {
 			return this.renderNotListData();
 		}

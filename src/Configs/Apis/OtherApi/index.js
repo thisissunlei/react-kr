@@ -1,34 +1,5 @@
 const APIS = {
 
-    'delete-enter-contract': {
-        url: '/api/krspace-finance-web/checkinagreement/delete-enter-contract?contractId={contractId}',
-        method: 'delete'
-    },
-    //获取全局导航
-    'getSelfMenuInfo': {
-        url: '/api-old/sys/sysfunrights/sysMenu/getSelfMenuInfo',
-        method: 'get'
-    },
-    //合同－工位信息
-    'getStationOrSettingList': {
-        url: '/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainBillId={mainBillid}&page={page}&pageSize={pageSize}&contractId={contractId}',
-        method: 'get'
-    },
-    //退租协议-新增-编辑
-    'addFnaContractWithdrawal': {
-        url: '/api/krspace-finance-web/fnaContractWithdrawalController/addFnaContractWithdrawal',
-        method: 'post'
-    },
-    //续租协议-新增-编辑
-    'addOrEditContinueContract': {
-        url: '/api/krspace-finance-web/checkinagreement/addOrEditContinueContract',
-        method: 'post'
-    },
-    //续租协议-查看
-    'renewshow': {
-        url: '/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
-        method: 'get'
-    },
     //获取文件token
     'getSourceServiceToken': {
         url: '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
@@ -52,23 +23,7 @@ const APIS = {
         method: 'post'
     },
 
-    //增租协议-创建-编辑
-    'addOrEditIncreaseContract': {
-        url: '/api/krspace-finance-web/checkinagreement/addOrEditIncreaseContract',
-        method: 'post'
-    },
 
-    //入驻协议-新增-编辑
-    'addOrEditEnterContract': {
-        url: '/api/krspace-finance-web/checkinagreement/addOrEditEnterContract',
-        method: 'post'
-    },
-
-    //创建合同时初始化数据
-    'fina-contract-intention': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}&type={type}',
-        method: 'get'
-    },
     //根据人员姓名获取人员基本信息
     'getHrmResourceExtListByLastname': {
         url: '/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
@@ -76,118 +31,12 @@ const APIS = {
         method: 'get'
     },
 
-    //合同－退租合同－查看
-    'getFnaContractWithdrawalById': {
-        url: '/api/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById?id={id}',
-        method: 'get'
-    },
-
-    //合同－承租合同－查看
-    'show-fina-contract-intentletter': {
-        url: '/api/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
-        method: 'get'
-    },
-
-    //合同－承租合同－查看
-    'showFinaContractIntentletter': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show?id={id}',
-        method: 'get'
-    },
-
-    //合同－减租合同－查看
-    'showFnaContractRentController': {
-        url: '/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?id={id}',
-        method: 'get'
-    },
-    //合同－减租合同－新建或编辑
-    'getFnaContractRentController': {
-        url: '/api/krspace-finance-web/fnaContractRentController/saveFnaContractRent',
-        method: 'post'
-    },
-    //合同－(入驻合同、增租、续租)－查看
-    'show-checkin-agreement': {
-        url: '/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
-        method: 'get'
-    },
-
-    //合同－承租合同－新建
-    'addFinaContractIntentletter': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/save',
-        method: 'post'
-    },
-    //合同－承租合同－编辑
-    'updateFinaContractIntentletter': {
-        url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
-        method: 'put'
-    },
-    //合同－创建基础数据
-    'finaContractIntention': {
-        url: '/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intention?communityId={communityId}&customerId={customerId}',
-        method: 'get'
-    },
-    //合同-出租方管理-基本信息
-    'getFnaCorporation': {
-        url: '/api/krspace-finance-web/getFnaCorporation?id={id}',
-        method: 'get'
-    },
-
-    //合同-出租方管理-编辑
-    'editFnaCorporation': {
-        url: '/api/krspace-finance-web/editFnaCorporation',
-        method: 'post'
-    },
-
-    //合同-出租方管理-新增
-    'addFnaCorporation': {
-        url: '/api/krspace-finance-web/addFnaCorporation',
-        method: 'post'
-    },
-    //合同-出租方管理-list
-    'fnaCorporationList': {
-        url: '/api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
-        method: 'get'
-    },
-    //合同-基础配置-新增
-    'addSysDicPayment': {
-        url: '/api/krspace-finance-web/addSysDicPayment',
-        method: 'post'
-    },
-    //合同-基础配置-编辑
-    'editSysDicPayment': {
-        url: '/api/krspace-finance-web/editSysDicPayment',
-        method: 'post'
-    },
-    //合同-基础配置-查看
-    'getSysDicPayment': {
-        url: '/api/krspace-finance-web/getSysDicPayment?id={id}',
-        method: 'get'
-    },
-    //合同-基础配置-获取基本信息
-    'sysDicPaymentList': {
-        url: '/api/krspace-finance-web/sysDicPaymentList',
-        method: 'get'
-    },
-
-    //合同－属性配置－搜索（list）
-    'findFinaFinaflowPropertyList': {
-        url: '/api/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList?page={currentPage}&pageSize={pageSize}&searchParam={searchParam}',
-        method: 'get'
-    },
-    //合同－属性配置－新建
-    'addFinaFinaflowProperty': {
-        url: '/api/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
-        method: 'post'
-    },
-    //demo
-    'demo': {
-        url: '/api/krspace-finance-web/action/community-city-selected',
-        method: 'get'
-    },
     //下拉菜单
     'community-city-selected': {
         url: '/api/krspace-finance-web/action/community-city-selected',
         method: 'get'
     },
+<<<<<<< HEAD:src/Configs/Apis/Other/index.js
     //订单基本信息名字
     'get-customName-orderName': {
         url: '/api/krspace-finance-web/action/get-customName-orderName?customerId={customerId}',
@@ -632,52 +481,9 @@ const APIS = {
  		url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
  		method: 'get'
  	},
+=======
+>>>>>>> feature/dev:src/Configs/Apis/OtherApi/index.js
 
-    //财务管理－属性配置-查看
-    'viewFinaFinaflowProperty': {
-        url: '/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
-        method: 'get'
-    },
-    //财务管理－订单账单列表-分页获取订单
-    'getFinaDataByList': {
-        url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
-        method: 'get'
-    },
-    //财务管理－订单账单列表-高级查询
-    'getFinaDataCommunityAndMainBillType': {
-        url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
-        method: 'get'
-    },
-    //财务管理－订单账单列表-高级查询-订单类型
-    'getMainBillTypeList': {
-        url: '/api/krspace-finance-web/finaccount/data/getMainBillTypeList',
-        method: 'get'
-    },
-    //财务管理－订单账单列表-高级查询-社区类型
-    'getCommunityListByParams': {
-        url: '/api/krspace-finance-web/finaccount/data/getCommunityListByParams?communityName={communityName}',
-        method: 'get'
-    },
-    //财务管理－订单账单列表-导出
-    'finaExportExcel': {
-        url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&startDate={startDate}&idList={idList}',
-        method: 'get'
-    },
-    //财务管理－科目配置－新建(修改)
-    'saveFinaFinaflowAccountModel': {
-        url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',
-        method: 'post'
-    },
-    //财务管理－科目配置－搜索(list)
-    'getFinaFinaflowAccountModelByAjax': {
-        url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax?accountname={accountname}&currentPage={currentPage}&pageSize={pageSize}',
-        method: 'get'
-    },
-    //财务管理－科目配置－导出
-    'getfinancExportExcel': {
-        url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
-        method: 'get'
-    },
     //获取附件列表
     'getFileList': {
         url: '/api/krspace-finance-web/finacontractdetail/fileList-show?detailId={detailId}',
@@ -693,61 +499,7 @@ const APIS = {
         url: '/api/krspace-finance-web/finacontractdetail/fileList-delete?detailId={detailId}&fileId={fileId}',
         method: 'delete'
     },
-    //电子合同-入驻协议(入驻，增租，续租)
-    'checkinagreement-print-info': {
-        url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
-        method: 'get'
-    },
-    //电子合同-承租意向
-    'intentletter-print-info': {
-        url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
-        method: 'get'
-    },
-    //电子合同-减租
-    'fnaContractRentController': {
-        url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
-        method: 'get'
-    },
-    //个人中心-获取个人信息
-    'PersonalCenterData': {
-        url: '/api-old/sys/sysOwn/getPersonalInfo',
-        method: 'get'
-    },
-    //个人中心-身份验证手机
-    'PersonalCenterVerifyIdByMobile': {
-        url: '/api-old/sys/sysOwn/verifyMobile?verifyCode={verifyCode}',
-        method: 'get'
-    },
-    //个人中心-身份验证邮箱
-    'PersonalCenterVerifyIdByMail': {
-        url: '/api-old/sys/sysOwn/verifyEmail?verifyCode={verifyCode}',
-        method: 'get'
-    },
-    //个人中心-获取手机验证码
-    'PersonalCenterGetMobileVerificationCode': {
-        url: '/api-old/sys/sysOwn/getVerifyCodeByMobile',
-        method: 'get'
-    },
-    //个人中心-获取邮箱验证码
-    'PersonalCenterGetMailVerificationCode': {
-        url: '/api-old/sys/sysOwn/getVerifyCodeByEmail',
-        method: 'get'
-    },
-    //个人中心-修改手机号时新手机号获取验证码
-    'PersonalCenterGetNewMobileVerificationCode': {
-        url: '/api-old/sys/sysOwn/getVerifyCodeByNewMobile?mobile={mobile}',
-        method: 'get'
-    },
-    //个人中心-验证修改手机号验证码
-    'PersonalCenterVerifyReviseMobileVerificationCode': {
-        url: '/api-old/sys/sysOwn/editMobile',
-        method: 'post'
-    },
-    //个人中心-修改密码
-    'PersonalCenterVerifyRevisePwd': {
-        url: '/api-old/sys/sysOwn/editPassword',
-        method: 'post'
-    },
+
     // 计划表获取合同数据
     'getRedPoint': {
         url: '/api/krspace-finance-web/finacontractdetail/plan-table/redPoint?billId={billId}&remindDate={remindDate}',
