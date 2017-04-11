@@ -7,7 +7,9 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
+import 'react-photoswipe/lib/photoswipe.css';
+import {PhotoSwipeGallery} from 'react-photoswipe';
 import {
 	KrField,
 	Grid,
@@ -24,7 +26,6 @@ import {
 
 import './index.less';
 
-
 class AddMoney extends React.Component {
 
 	static propTypes = {
@@ -36,98 +37,34 @@ class AddMoney extends React.Component {
 		super(props);
 		this.state = {
 			flowAmount: 0,
-			payment: [{
-				label: '支付宝支付',
-				value: 'ZHIFUBAO'
-			}, {
-				label: '微信支付',
-				value: 'WEIXIN'
-			}, {
-				label: '银行转账',
-				value: 'YINGHANG'
-			}, {
-				label: 'POS机支付',
-				value: 'POS'
-			}],
 			accountList: [],
 			mainbillInfo: {},
-			showName: false,
 			finaflowInfo: {},
-			customerId: " ",
-			billInfo: " ",
-			corporationId: ""
+      AddInfo:{},
+      mainBillList:[],
 		}
 		this.receivedBtnFormChangeValues = {};
-
-
+    this.getAddInfo();
 	}
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			showName: !this.state.showName
-		})
-		if (nextProps.customerId) {
-			this.setState({
-				customerId: nextProps.customerId
-			})
-		}
-		var _this = this;
-		if (nextProps.mainBill) {
+  //获取基本数据
+  getAddInfo=()=>{
+    var _this = this;
+    var id=this.props.detail.id;
+     Http.request('findReceiptData',{id:id}).then(function(response) {
+       response.mainBillList.map((item)=>{
+         item.label=item.mainBillName;
+         item.value=item.id;
+         return item;
+       })
+         _this.setState({
+           AddInfo: response.evidenceData,
+           mainBillList:response.mainBillList
+         })
+     })
+  }
 
-			Store.dispatch(Actions.callAPI('get-mainbill-info', {
-				mainBillId: nextProps.mainBillId
-			}, {})).then(function(response) {
-
-				_this.setState({
-					mainbillInfo: response
-				})
-
-			}).catch(function(err) {});
-			Store.dispatch(Actions.callAPI('get-finaflow-info', {
-				mainBillId: nextProps.mainBillId
-			}, {})).then(function(response) {
-				var obj = {
-					label: "无合同",
-					contactType: '0',
-					value: '0'
-				}
-				response.cimbList.map((item, index) => {
-					item.value = item.detailid;
-					item.label = item.contactName;
-					return item;
-				})
-				response.cimbList.push(obj)
-				_this.setState({
-					finaflowInfo: response
-				})
-
-			}).catch(function(err) {});
-
-		}
-
-	}
 	trim = (str) => {
 		return str.replace(/\s+/g, "");
-	}
-	openCreateCustomer = () => {
-		let {
-			openCreateCustomer
-		} = this.props;
-		openCreateCustomer && openCreateCustomer();
-	}
-	openCustomer = (form) => {
-		form = Object.assign({},form);
-		this.setState({
-			flowAmount: 0,
-			finaflowInfo: {}
-		})
-		this.receivedBtnFormChangeValues = {};
-		if (!form.id) {
-			this.openCreateCustomer();
-			return;
-		}
-		this.setState({
-			customerId: form.id
-		})
 	}
 
 	argreementChecked = (options) => {
@@ -225,30 +162,21 @@ class AddMoney extends React.Component {
 
 	}
 
-	openCreateMainbill = (id) => {
-		let {
-			openCreateMainbill
-		} = this.props;
-		let {
-			customerId
-		} = this.state;
-		openCreateMainbill && openCreateMainbill(id, customerId);
-	}
+
+  //根据订单获取公司，主体，账户及合同
 	getMainbillInfo = (form) => {
 		var _this = this;
-		if (!form.id) {
-			this.openCreateMainbill(form.id);
-		}
-		Store.dispatch(Actions.callAPI('get-mainbill-info', {
-			mainBillId: form.value
-		}, {})).then(function(response) {
-
-			_this.setState({
-				mainbillInfo: response,
-				corporationId: response.corporationId
-			})
-
-		}).catch(function(err) {});
+    let {AddInfo}=this.state;
+    Http.request('get-mainbill-info',{mainBillId: form.value}).then(function(response) {
+      _this.setState({
+        mainbillInfo: response,
+      })
+      var form={
+        payWay:AddInfo.payWay,
+        corporationId:response.corporationId
+      }
+      _this.getAccount(form);
+    })
 
 		Store.dispatch(Actions.callAPI('get-finaflow-info', {
 			mainBillId: form.value
@@ -275,15 +203,14 @@ class AddMoney extends React.Component {
 
 		}).catch(function(err) {});
 	}
+  //通过付款方式获取我司账户
 	getAccount = (form) => {
 		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
-		var corporationId = this.state.corporationId || this.props.corporationId;
-		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(Actions.callAPI('get-account-info', {
-			accountType: form.value,
-			corporationId
+			accountType: form.payWay,
+			corporationId:form.corporationId
 		})).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
@@ -302,6 +229,7 @@ class AddMoney extends React.Component {
 			Message.error('请选择对应合同');
 			return;
 		}
+    var id=this.props.detail.id;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
 		var reg = /^fix/;
@@ -357,18 +285,20 @@ class AddMoney extends React.Component {
 		} = this.props;
 		var params = {
 			accountId: form.accountId,
-			customerId: form.customerId,
 			dealTime: form.dealTime,
 			mainBillId: form.mainBillId,
-			payAccount: form.payAccount,
-			payWay: form.payWay,
 			remark: form.remark || "",
 			uploadFileIds: form.uploadFileIds || [],
 			conJasonStr: JSON.stringify(childrenList) || '',
 			propJasonStr: JSON.stringify(noList),
-			flowAmount: this.state.flowAmount
+			flowAmount: this.state.flowAmount,
+      id:id
 		}
-		onSubmit && onSubmit(params);
+      Http.request('add-receipt',{},params).then(function(response) {
+        onSubmit && onSubmit();
+      })
+
+
 	}
 	onCancel = () => {
 		let {
@@ -673,6 +603,11 @@ class AddMoney extends React.Component {
 
 		}
 
+    getThumbnailContent = (item) => {
+    return (
+      <img src={item.thumbnail} width={90} height={90}/>
+    );
+  	}
 
 
 		render() {
@@ -684,13 +619,27 @@ class AddMoney extends React.Component {
 				reset
 			} = this.props;
 			let {
-				payment,
 				accountList,
 				mainbillInfo,
-				showName,
-				customerId,
 				flowAmount,
+        AddInfo,
+        mainBillList
 			} = this.state;
+        let items = [];
+        if(AddInfo.urls){
+          items = AddInfo.urls.map((item,value) => {
+            return(
+              {
+                src: item,
+                thumbnail: item,
+                w: 900,
+                h: 900,
+                title: value
+              }
+            )
+          });
+        }
+
 			return (
 				<div className="u-audit-add">
 			     <div className="u-audit-add-title">
@@ -699,23 +648,26 @@ class AddMoney extends React.Component {
 			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
-					<CircleStyleTwo num="1" info="付款信息">
+           <CircleStyleTwo num="1" info="付款凭证">
+             <div style={{marginTop:28}}>
+               <PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+             </div>
+           </CircleStyleTwo>
+					<CircleStyleTwo num="2" info="付款信息" style={{marginTop:45}}>
 						<KrField
 								style={{width:260}}
-								name="customerId"
-								component="searchCustomer"
+								component="labelText"
 								label="客户名称"
-								requireLabel={true}
-								onChange={this.openCustomer}
-								showName={showName}
+                inline={false}
+                value={AddInfo.customerName}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="mainBillId"
-								component="searchMainbill"
+								component="select"
 								label="所属订单"
 								requireLabel={true}
-								customerId={customerId}
+                options={mainBillList}
 								onChange={this.getMainbillInfo}
 						/>
 						<KrField
@@ -736,12 +688,10 @@ class AddMoney extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay"
-								component="select"
+								component="labelText"
 								label="收款方式"
-								options={payment}
-								onChange={this.getAccount}
-								requireLabel={true}
+                inline={false}
+                value={AddInfo.payWayName}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -755,10 +705,10 @@ class AddMoney extends React.Component {
 								style={{width:260}}
 								name="payAccount"
 								type="text"
-								component="input"
+								component="labelText"
 								label="付款账户"
-								options=""
-								requireLabel={true}
+                inline={false}
+								value={AddInfo.paymentAccount}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -791,7 +741,7 @@ class AddMoney extends React.Component {
 							}}
 						/>
 					</CircleStyleTwo>
-					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
+					<CircleStyleTwo num="3" info="付款明细" circle="bottom">
 						<div className="u-add-total-count">
 							<span className="u-add-total-icon"></span>
 							<span className="u-add-total-title">付款总金额：</span>
@@ -819,25 +769,14 @@ class AddMoney extends React.Component {
 	const validate = values => {
 
 		const errors = {};
-
-
-		if (!values.customerId) {
-			errors.customerId = '请选择客户名称';
-		}
-
 		if (!values.mainBillId) {
 			errors.mainBillId = '请选择所属订单';
 		}
 
-		if (!values.payWay) {
-			errors.payWay = '请选择收款方式';
-		}
 		if (!values.accountId) {
 			errors.accountId = '请选择我司账户';
 		}
-		if (!values.payAccount) {
-			errors.payAccount = '请输入付款账户';
-		}
+
 		if (!values.dealTime) {
 			errors.dealTime = '请选择收款日期';
 		}
