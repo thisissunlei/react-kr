@@ -318,5 +318,50 @@ module.exports = {
         url: '/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',
         method: 'get'
     },
+    //财务系统－订单明细账－二期－添加挂帐
+    'onNewAccountg': {
+        url: '/api/krspace-finance-web/finaccount/opt/onAccount',
+        method: 'post'
+    },
+    //财务系统－订单明细账－二期－点击挂帐所需数据
+    'getOnNewAccountData': {
+        url: '/api/krspace-finance-web/finaccount/data/getOnAccountData?mainbillId={mainbillId}',
+        method: 'get'
+    },
+    //财务系统－订单明细账－二期－根据选中id来获取金额
+    'getFlowRemainMoney': {
+        url: '/api/krspace-finance-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
+        method: 'get'
+    },
+    //财务系统－订单明细账－二期－点击转移加载数据
+    'getTransferData': {
+        url: '/api/krspace-finance-web/finaccount/data/getTransferData?flowId={flowId}&mainbillId={mainbillId}',
+        method: 'get'
+    },
+    //财务系统－订单明细账－二期－转移确定
+    'transferPayment': {
+        url: '/api/krspace-finance-web/finaccount/opt/transferPayment',
+        method: 'post'
+    },
+    //财务系统－订单明细账－二期－分页加载流水数据
+    'getAccountNewFlow': {
+        url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}&tradingCode={tradingCode}',
+        method: 'get'
+    },
+    //财务系统－订单明细账－二期－支付方式
+    'findAccountListTwo': {
+        url: '/api/krspace-finance-web/finaccount/data/findAccountList',
+        method: 'get'
+    },
+    //财务系统－订单明细账－二期－点击回款加载数据
+    'getPaymentActData': {
+        url: '/api/krspace-finance-web/finaccount/data/getPaymentActData?mainbillId={mainbillId}',
+        method: 'get'
+    },
+    //财务系统－订单明细账－二期－点击确定进行回款操作
+    'returnMoneyNew': {
+        url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
+        method: 'post'
+    },
 
 }
