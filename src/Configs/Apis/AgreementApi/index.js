@@ -160,5 +160,31 @@ module.exports = {
       url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
       method: 'get'
   },
+  //计算工位总价
+ 'getAllRent':{
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total',
+   method:'post'
+ },
+ //减租计算工位总价
+ 'reduceGetAllRent':{
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
+   method:'post'
+ },
+ //合同列表-列表接口
+   'contract-list':{
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
+   method:'get'
+   },
+ //合同列表-客户名称下拉接口
+   'customers-names':{
+      url:'/api/krspace-finance-web/customer/my-customers?company={company}',
+      method:'get'
+   },
+
+   //合同列表-获取登录人是否有创建合同的权限
+   'edit-right':{
+      url:'/api/krspace-finance-web/finacontractdetail/contract-list/edit-right',
+      method:'get'
+   },
 
 }
