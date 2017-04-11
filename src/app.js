@@ -7,10 +7,13 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { Provider,connect } from 'react-redux';
+import MobxReact from 'mobx-react';
 
 import routes from './Configs/routes';
 
 import store from './Redux/Store';
+
+import MobxStore from './Store';
 
 //document.domain = "krspace.cn";
 
@@ -26,10 +29,10 @@ injectTapEventPlugin({
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
-
 ReactDOM.render((
 	<MuiThemeProvider>
 		<Provider store={store} key="provider">
+			<MobxReact.Provider {...MobxStore}>
 			<Router
 				routes={routes}
 				history={useRouterHistory(createHashHistory)({queryKey: false})}
@@ -38,6 +41,7 @@ ReactDOM.render((
 					store.dispatch(actionCreators.setCurrentNav(window.location.hash));
 				}}
 				/>
+			</MobxReact.Provider>
 		</Provider>
 	</MuiThemeProvider>
 ), document.getElementById('app'))
