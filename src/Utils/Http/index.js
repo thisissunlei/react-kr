@@ -4,6 +4,8 @@ import URLSearchParams from 'url-search-params';
 import APIS from 'kr/Configs/Apis';
 import Envs from 'kr/Configs/Envs';
 
+import Notify from 'kr/Components/Notify';
+
 var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {
@@ -76,12 +78,9 @@ function getUrl(path, params = {},mode = false) {
   function check401(res) {
     if (res.code ===-4011) {
       window.location.href = '/';
+    } else if (res.code ===-4033) {
+        Notify.error('啊哦，对不起，您没有该权限!');
     }
-    /*
-    else if (res.code ===-4033) {
-        Message.error('啊哦，对不起，您没有该权限!');
-    }
-    */
     return res;
   }
 
@@ -167,7 +166,7 @@ function getUrl(path, params = {},mode = false) {
       })
       .catch(function(err){
         if(err == 'TypeError: Failed to fetch'){
-            console.log('后台接口404,联系后台开发人员吧')
+            Notify.error('后台接口404,请联系后台开发人员');
             return ;
         }
         reject(err)
