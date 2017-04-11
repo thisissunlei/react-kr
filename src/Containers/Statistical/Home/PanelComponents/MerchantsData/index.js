@@ -80,7 +80,7 @@ class MerchantsData  extends Component{
         		searchParams:{
         			groupId:groupId,
 	        		startDate:startValue,
-					endDate:endValue,
+							endDate:endValue,
         		}
         	},function(){
         		this.gainData();
@@ -143,10 +143,15 @@ class MerchantsData  extends Component{
     openExprot = () =>{
     	let {groupId} = this.props;
     	let {endValue,startValue}=this.state;
-    	endValue+=" 00:00:00";
-    	startValue+=" 00:00:00";
-		var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
-		window.location.href = url;
+
+			if(startValue>endValue){
+				Message.error('开始时间不能大于结束时间');
+				 return ;
+			}
+	    endValue+=" 00:00:00";
+	    startValue+=" 00:00:00";
+			var url = `/api/krspace-finance-web/stat/merchant/data/customer/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+			window.location.href = url;
     }
 
     componentDidMount() {

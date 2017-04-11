@@ -13,7 +13,7 @@ import routes from 'kr/Configs/Router';
 
 import store from 'kr/Redux/Store';
 
-import MobxStore from './Store';
+import MobxStore from 'kr/Store';
 
 //document.domain = "krspace.cn";
 

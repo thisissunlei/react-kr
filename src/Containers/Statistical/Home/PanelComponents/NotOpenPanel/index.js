@@ -61,7 +61,11 @@ export default class NotOpenPanel  extends Component{
 
 	openExprot = () =>{
 		let {groupId} = this.props;
-    	let {endValue,startValue}=this.state;
+    let {endValue,startValue}=this.state;
+		if(startValue>endValue){
+			Message.error('开始时间不能大于结束时间');
+			 return ;
+		}
 		var url = `/api/krspace-finance-web/stat/merchant/notopen/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
 		window.location.href = url;
 	}

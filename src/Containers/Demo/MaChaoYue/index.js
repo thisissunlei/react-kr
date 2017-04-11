@@ -202,14 +202,10 @@ export default class List extends Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-			// searchParams:{
-			// 	pageSize:'15'
-			// }
 		});
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
 		let _this = this;
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,

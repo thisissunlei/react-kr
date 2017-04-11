@@ -62,9 +62,18 @@ export default class MapComponentNew extends Component {
     }
 
 
-	componentDidMount() {
+ 
+    componentWillUnmount(){
+		
 
-		document.body.addEventListener("click",this.onClickOther);
+		document.body.removeEventListener("click",this.onClickOther.bind(this)); 	
+	}
+
+
+	componentDidMount() {
+		
+
+		document.body.addEventListener("click",this.onClickOther.bind(this));
 
 
 		let _this = this;

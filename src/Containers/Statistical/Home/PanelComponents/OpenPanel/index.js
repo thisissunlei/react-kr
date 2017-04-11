@@ -114,10 +114,14 @@ export default class OpenPanel  extends Component{
 
 
 
-    
+
 	openExprot = () =>{
 		let {groupId} = this.props;
-    	let {endValue,startValue}=this.state;
+  	let {endValue,startValue}=this.state;
+		if(startValue>endValue){
+			Message.error('开始时间不能大于结束时间');
+			 return ;
+		}
 		var url = `/api/krspace-finance-web/stat/merchant/open/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
 		window.location.href = url;
 	}
@@ -127,7 +131,7 @@ export default class OpenPanel  extends Component{
 
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
-				 
+
 						 <div className='ui-open-info'>
 							 <Grid style={{height:'76'}}>
 								<Row>
@@ -147,7 +151,7 @@ export default class OpenPanel  extends Component{
 		 								 displayCheckbox={false}
 		 								 ajax={true}
 										 ajaxUrlName='openCompanyData'
-		 								 
+
 		 								 ajaxFieldListName="list"
 		 								 ajaxParams={this.state.searchParams}
 		 									 >
@@ -194,7 +198,7 @@ export default class OpenPanel  extends Component{
 		 								 <TableRowColumn name="averagePrice"></TableRowColumn>
 		 								</TableRow>
 		 						 </TableBody>
-		 						 
+
 						 		 </Table>
 								 <div style={{position:'relative',marginTop:20,left:0,textAlign:"left"}}  >
 										 <Button  label="导出" type="button" onTouchTap = {this.openExprot}/>

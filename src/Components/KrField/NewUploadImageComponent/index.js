@@ -15,10 +15,10 @@ import WrapComponent from '../WrapComponent';
 
 export default class UploadImageComponent extends Component {
 	static defaultProps = {
-		
+
 	}
 
-	
+
 	static PropTypes = {
 		className: React.PropTypes.string,
 		onDeleteImg: React.PropTypes.func,
@@ -62,7 +62,7 @@ export default class UploadImageComponent extends Component {
 				imgUpload : false
 			})
 		}
-		
+
 
 	}
 	onTokenError() {
@@ -110,7 +110,7 @@ export default class UploadImageComponent extends Component {
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 
-		
+
 		var {requestURI} = this.props;
 		this.setState({
 			imgSrc: "",
@@ -125,7 +125,7 @@ export default class UploadImageComponent extends Component {
 		var {pictureFormat}=this.props;
 		if (!file) {
 			return;
-		}		
+		}
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
@@ -144,13 +144,9 @@ export default class UploadImageComponent extends Component {
 		}
 		let imgType = file.type;
 		let realimgType = imgType.substr(-3).toUpperCase();
-		// console.log("realimgType",realimgType);
-		// console.log("pictureFormat",pictureFormat);
-		// console.log(pictureFormat.split(","));
 		var typeArr = pictureFormat.split(",");
 		let imgSize = Math.round(file.size/1024*100)/100;
 		for(var i=0;i<typeArr.length;i++){
-			// console.log("imgType",imgType,"typeArr[i]",typeArr[i]);
 			if(imgType == typeArr[i]){
 				this.refs.inputImg.value ="";
 				this.refs.inputImgNew.value ="";
@@ -162,7 +158,7 @@ export default class UploadImageComponent extends Component {
 	  			return;
 			}
 		}
-	
+
 		// console.log("pictureMemory",pictureMemory);
 		if(imgSize>pictureMemory){
 			this.refs.inputImg.value ="";
@@ -181,7 +177,6 @@ export default class UploadImageComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					// console.log("response",response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -211,8 +206,6 @@ export default class UploadImageComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					// console.log("requestURI",requestURI);
-					// xhrfile.open('POST', '/mockjsdata/33/activity/upload-pic', true);
 					 xhrfile.open('POST', requestURI, true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
@@ -242,7 +235,7 @@ export default class UploadImageComponent extends Component {
 	functionHeightWidth=(file,xhrfile)=>{
 		let _this = this;
 		let {photoSize}=this.props;
-		
+
 		if(file ){
                 var fileData = file;
                  //读取图片数据
@@ -256,7 +249,7 @@ export default class UploadImageComponent extends Component {
                          var width = image.width;
                          var height = image.height;
                          var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
-                         
+
                          var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
 
 
@@ -270,7 +263,7 @@ export default class UploadImageComponent extends Component {
 							const {input}=_this.props;
 							input.onChange(xhrfile.response.data);
 
-                         	
+
                         }else{
                         	_this.refs.inputImg.value ="";
 							_this.refs.inputImgNew.value ="";
@@ -287,7 +280,7 @@ export default class UploadImageComponent extends Component {
                     image.src= data;
                  };
                  reader.readAsDataURL(fileData);
- 
+
              }
 	}
 	// 删除图片
@@ -309,17 +302,15 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,...other} = this.props;
 		let {operateImg} = this.state;
-		// console.log("imgSrc",this.state.imgSrc);
-		// console.log("defaultValue",defaultValue);
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
 			<div className="ui-new-uploadimg-box">
-				
+
 					<div className='ui-uploadimg-outbox' style={innerstyle}>
 						<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 							<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{opacity:this.state.imgUpload?1:0}}/>
-							
+
 							<div className='ui-uploadimg-inner-new' >
 								<span className='ui-uploadimg-button'>+</span>
 								<input type='file' onChange={this.onChange} ref="inputImg"/>
@@ -336,7 +327,7 @@ export default class UploadImageComponent extends Component {
 							</div>
 						</div>
 					</div>
-				
+
 				<p className="ui-uploadimg-notice">
 					提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}
 				</p>
