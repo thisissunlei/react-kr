@@ -9,6 +9,9 @@ import FinanceApi from './FinanceApi';
 import PersonalApi from './PersonalApi';
 import OperationApi from './OperationApi';
 import CommunityApi from './CommunityApi';
+import WebBackstageApi from './WebBackstageApi';
+import MemberApi from './MemberApi';
+
 
 module.exports = {
   ...AgreementApi,
@@ -22,4 +25,5 @@ module.exports = {
   ...PersonalApi,
   ...OperationApi,
   ...CommunityApi,
+  ...MemberApi,
 }
