@@ -37,6 +37,10 @@ import {
 
 import Master from 'kr/master';
 
+import DemoRouter from './DemoRouter';
+import MemberRouter from './MemberRouter';
+import CommunityRouter from './CommunityRouter';
+
 export default (
 
     <Route path="/" component={Master}>
@@ -57,33 +61,8 @@ export default (
 
         <Route path="initialize" component={Initialize}/>
 
-        {/*demo*/}
-        <Route path="demo" component={Basic}>
-
-            <Route path="zhangqu" component={Demo.ZhangQu}/>
-            <Route path="machaoyue" component={Demo.MaChaoYue}/>
-            <Route path="dongfanai" component={Demo.DongFanAi}/>
-            <Route path="liuyihao" component={Basic}>
-                <Route path="new" component={Demo.LiuYiHao.New}/>
-                <Route path="detail" component={Demo.LiuYiHao.Detail}/>
-            </Route>
-            <Route path="zhangchi" component={Demo.ZhangChi}/>
-            <Route path="tanlinlin" component={Demo.TanLinLin}/>
-            <Route path="wushulin" component={Demo.WuShuLin}/>
-        </Route>
-
-        {/*会员中心*/}
-        <Route path="member" component={Basic}>
-             <IndexRedirect to="memberManage/list" />
-            <Route path="memberManage" component={Basic}>
-                <Route path="list"  component={Member.MemberManage.List}/>
-                <Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
-                <Route path="setting"  component={Member.MemberManage.Setting}/>
-                <Route path="card"  component={Member.MemberManage.Card}/>
-                <Route path="doormanage"  component={Member.MemberManage.DoorManage}/>
-            </Route>
-
-        </Route>
+        {DemoRouter()}
+        {MemberRouter()}
 
         {/*统计看板*/}
         <Route path="statistical" component={Basic}>
@@ -91,21 +70,9 @@ export default (
                 <IndexRedirect to="index" />
         </Route>
 
-
         {/*社区经营*/}
-        <Route path="community" component={Basic}>
-             <IndexRedirect to="communityManage/detail" />
-            {/*销控表*/}
+        {CommunityRouter()}
 
-            <Route path="communityManage" component={Basic}>
-                    <Route path="detail" component={Operation.CommunityManage.Detail}/>
-            </Route>
-            {/*公司成员*/}
-
-            <Route path="companyMembers" component={Basic}>
-                    <Route path=":companyId/list/:communityId" component={Operation.CommunityManage.CompanyMembers}/>
-            </Route>
-        </Route>
 
         {/*OA办公*/}
         <Route path="oa" component={Basic}>
