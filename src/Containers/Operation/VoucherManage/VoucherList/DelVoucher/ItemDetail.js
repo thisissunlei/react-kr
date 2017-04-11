@@ -61,51 +61,21 @@ export default class ItemDetail extends Component {
 	  );
 	}
 	render() {
-    let {infoList} = this.state;
-		console.log(this.state.infoList);
-		let urls = [];
+		let {infoList} = this.state;
 		let items = [];
-		urls = infoList.urls;
-		urls && urls.map((item,value) => {
+		if(infoList.urls){
+			items = infoList.urls.map((item,value) => {
+				return(
+					{
+						src: item.src,
+						w: 900,
+						h: 900,
+					}
+				)
+				console.log(items,"items");
+			});
+		}
 
-
-			    item.w=900;
-			    item.h= 900;
-
-				return item;
-
-		});
-
-// 		let items = [
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/1',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 1'
-//   },
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/2',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 2'
-//   },
-// 	{
-//     src: 'http://lorempixel.com/1200/900/sports/1',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 1'
-//   },
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/2',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 2'
-//   },
-// ];
 		return (
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
