@@ -40,6 +40,11 @@ import Master from 'kr/master';
 import DemoRouter from './DemoRouter';
 import MemberRouter from './MemberRouter';
 import CommunityRouter from './CommunityRouter';
+import PermissionRouter from './PermissionRouter';
+import DocumentRouter from './DocumentRouter';
+import WebBackstageRouter from './WebBackstageRouter';
+import FinanceRouter from './FinanceRouter';
+import StatisticalRouter from './StatisticalRouter';
 
 export default (
 
@@ -65,10 +70,8 @@ export default (
         {MemberRouter()}
 
         {/*统计看板*/}
-        <Route path="statistical" component={Basic}>
-            <Route path="index" component={Statistical.Home}/>
-                <IndexRedirect to="index" />
-        </Route>
+        
+		{StatisticalRouter()}
 
         {/*社区经营*/}
         {CommunityRouter()}
@@ -200,71 +203,20 @@ export default (
         </Route>
 
             {/*财务管理*/}
-               <Route path="finance" component={Basic}>
-
-            <IndexRedirect to="manage/audit/auditlist"/>
-
-            <Route path="manage" component={Basic}>
-                <Route path="orderbill" component={Basic}>
-                    <Route path="receiptList" component={Finance.Manage.OrderBill.ReceiptList}/> {/*订单账单*/}
-                    <Route path="orderList" component={Finance.Manage.OrderBill.OrderList}/> {/*订单账单明细*/}
-                    <Route path=":orderId/detail" component={Finance.Manage.OrderBill.OrderBillDetail}/>
-                </Route>
-
-                <Route path="fundSetting" component={Basic}>
-                    <Route path="totalFund" component={Finance.Manage.FundSetting.TotalFund}/>
-                    <Route path=":fundId/detailFund" component={Finance.Manage.FundSetting.DetailFund}/>
-                </Route>
-
-                {/*开票列表*/}
-                <Route path="invoice" component={Basic}>
-                    <Route path="list" component={Finance.Manage.Invoice}/>
-                </Route>
-
-                {/*代码配置*/}
-                <Route path="codeSetting" component={Basic}>
-                    <Route path="attribute" component={Finance.Manage.CodeSetting.Attribute}/>
-                    <Route path="subject" component={Finance.Manage.CodeSetting.Subject}/>
-                </Route>
-                {/*审核列表*/}
-                <Route path="audit" component={Basic}>
-                    <Route path="auditlist" component={Finance.Manage.Audit}/>
-                </Route>
-            </Route>
-        </Route>
+			{FinanceRouter()}
+               
 
 
-    {/*后台管理*/}
-        <Route path="WebBackstage" component={Basic}>
+		{/*后台管理*/}
+
+		{WebBackstageRouter()}
 
 
-            {/*活动列表*/}
-            <Route path="activity" component={Basic}>
-                <Route path="list" component={WebBackstage.ActivityManage.List}/>
-            </Route>
+		{/*权限管理*/}
+		{PermissionRouter()}
 
-        </Route>
-
-
-        {/*权限管理*/}
-        <Route path="permission" component={Basic}>
-{/*
-    <Route path="index" component={Permission.Home}/>
-    <Route path="notify" component={Permission.Notify}/>
-    <Route path="memo" component={Permission.Memo}/>
-    <Route path="docs" component={Permission.Docs}/>
-    <Route path="order" component={Permission.Order}/>
-
-    */}
-
-    <Route path="personalCenter" component={Permission.PersonalCenter}/>
-            <Redirect from="permission" to="permission/personalCenter" />
-        </Route>
-
-        {/*文档管理*/}
-        <Route path="document" component={Basic}>
-            <Route path="index" component={Document.Home}/>
-        </Route>
+		{/*文档管理*/}
+		{DocumentRouter()}
 
         {/*帮助*/}
         <Route path="help" component={Help}/>
@@ -273,6 +225,6 @@ export default (
         <Route path="undefined" component={Undefined}/>
         <Route path="*" component={Undefined}/>
 
-    </Route>
+	</Route>
 
 );

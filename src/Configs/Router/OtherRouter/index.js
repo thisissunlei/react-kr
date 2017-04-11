@@ -13,7 +13,7 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {Demo,Basic} from 'kr/Containers';
+import {Help,Undefined,Basic} from 'kr/Containers';
 
 
 module.exports =()=>{
