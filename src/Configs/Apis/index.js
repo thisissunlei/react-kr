@@ -1,9 +1,11 @@
-import Agreement from './Agreement';
-import Other from './Other';
-import Demo from './Demo';
+import AgreementApi from './AgreementApi';
+import OtherApi from './OtherApi';
+import DemoApi from './DemoApi';
+import NavApi from './NavApi';
 
 module.exports = {
-  ...Agreement,
-  ...Other,
-  ...Demo,
+  ...AgreementApi,
+  ...OtherApi,
+  ...DemoApi,
+  ...NavApi,
 }
