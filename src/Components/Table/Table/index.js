@@ -74,23 +74,6 @@ export default class Table extends React.Component {
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
 
-		this.onSort = this.onSort.bind(this);
-		this.onSelectAll = this.onSelectAll.bind(this);
-		this.onRowClick = this.onRowClick.bind(this);
-		this.onExport = this.onExport.bind(this);
-		this.onCellClick = this.onCellClick.bind(this);
-		this.onPageChange = this.onPageChange.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-		this.onLoaded = this.onLoaded.bind(this);
-
-		this.onProcessData = this.onProcessData.bind(this);
-
-
-		this.renderTableHeader = this.renderTableHeader.bind(this);
-		this.renderTableBody = this.renderTableBody.bind(this);
-		this.renderTableFooter = this.renderTableFooter.bind(this);
-
-
 		this.state = {
 			response: {},
 			page: this.props.page,
@@ -166,7 +149,7 @@ export default class Table extends React.Component {
 		return false;
 	}
 
-	onSort(name) {
+	onSort = (name)=> {
 		if (!name) {
 			return;
 		}
@@ -177,7 +160,7 @@ export default class Table extends React.Component {
 		});
 	}
 
-	onProcessData(state) {
+	onProcessData=(state)=> {
 		let {
 			onProcessData
 		} = this.props;
@@ -206,7 +189,7 @@ export default class Table extends React.Component {
 
 	}
 
-	onLoaded() {
+	onLoaded = ()=> {
 		const {
 			onLoaded
 		} = this.props;
@@ -215,7 +198,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onOperation(type, itemData) {
+	onOperation=(type, itemData)=> {
 
 		const {
 			onOperation
@@ -223,7 +206,7 @@ export default class Table extends React.Component {
 		onOperation && onOperation(type, itemData);
 	}
 
-	onPageChange(page) {
+	onPageChange=(page)=> {
 
 		const {
 			onPageChange
@@ -233,12 +216,12 @@ export default class Table extends React.Component {
 		this.onLoadData(page);
 	}
 
-	onCellClick() {
+	onCellClick=() =>{
 
 	}
 
 
-	onExport() {
+	onExport = () =>{
 
 		let {
 			selectedRows,
@@ -427,7 +410,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onRowClick(event, rowNumber) {
+	onRowClick = (event, rowNumber)=> {
 
 		let {
 			selectedRows
@@ -501,7 +484,7 @@ export default class Table extends React.Component {
 
 	}
 
-	onSelectAll() {
+	onSelectAll = ()=> {
 
 		let {
 			allRowsSelected
@@ -594,7 +577,7 @@ export default class Table extends React.Component {
 	}
 
 
-	renderTableHeader() {
+	renderTableHeader=() =>{
 		let {
 			className,
 			children,
@@ -643,7 +626,7 @@ export default class Table extends React.Component {
 		);
 	}
 
-	renderTableBody() {
+	renderTableBody=() =>{
 
 		let {
 			className,
@@ -666,7 +649,7 @@ export default class Table extends React.Component {
 		return tBody;
 	}
 
-	renderTableFooter() {
+	renderTableFooter=() =>{
 
 		let {
 			className,
