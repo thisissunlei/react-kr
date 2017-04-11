@@ -52,7 +52,7 @@ class SearchUpperForm extends React.Component {
 		}
 
 	}
-	
+
 
 	onSubmit(values) {
 	  const {
@@ -65,7 +65,7 @@ class SearchUpperForm extends React.Component {
 	   const {
 			onCancel
 		} = this.props;
-		onCancel && onCancel();		
+		onCancel && onCancel();
 	}
 
 	onChangeIntend=(person)=>{
@@ -89,16 +89,16 @@ class SearchUpperForm extends React.Component {
 		    	var belongCity=searchSignParams.cities;
 		    }
 
-			
+
 		      var selectData='';
               if(flag=='签约'){
-			     selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 
-				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市" 
+			     selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/>
+				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市"
 				 options={belongCity}
 				/>
 				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchSign' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} name="mainBillType"  style={{marginLeft:-5,marginTop:4}} component='searchSignBill' label="订单类型" inline={false} onChange={this.onChangeSignBill} placeholder='请输入订单类型'/>
-				<KrField grid={1/1}  component="group" label="签约时间" style={{marginTop:3}}>
+				<KrField grid={1/1}  component="group" label="工位签约时间" style={{marginTop:3}}>
 				<div className='ui-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="signStartDate" component="date" /></div></ListGroupItem>
@@ -106,17 +106,17 @@ class SearchUpperForm extends React.Component {
 						<ListGroupItem><div className='ui-date-end'><KrField name="signEndDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 					</ListGroup>
                 </div>
-				</KrField></div>) 
+				</KrField></div>)
 		       }else{
                  selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/>
-                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="intentionCityId" type="select" label="意向城市" 
+                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="intentionCityId" type="select" label="意向城市"
                  options={cityList}
                 />
 				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} component='searchIntend'  label="意向社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
-				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类" 
-				 options={levelList} 
+				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类"
+				 options={levelList}
 				/>
-				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源" 
+				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源"
 				  options={sourceList}
 				></KrField>
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
@@ -128,22 +128,22 @@ class SearchUpperForm extends React.Component {
 					</ListGroup>
                 </div>
 				</KrField></div>)
-		       }		       
-		
-		return (             
-			selectData   				
+		       }
+
+		return (
+			selectData
 		);
 	}
 	componentDidUpdate(prevProps, prevState){
-		
+
 			$('.m-merchants .dialog-body').scrollTop(558);
 
-		
+
 			$('.m-personal .dialog-body').scrollTop(558);
 
-		
+
 			$('.m-signed .dialog-body').scrollTop(558);
-		
+
 	}
 	clickDiv=(event)=>{
 		this.setState({
@@ -159,7 +159,7 @@ class SearchUpperForm extends React.Component {
 		})
 	}
 
-	
+
 
 	render() {
 
@@ -188,7 +188,7 @@ class SearchUpperForm extends React.Component {
 						</Col>
 					</Row>
 				</Grid>
-				</form>  
+				</form>
 			</div>
 		);
 	}
