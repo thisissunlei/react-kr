@@ -4,6 +4,7 @@ import * as ShallowEqual from './ShallowEqual';
 import * as IsPhoneNumber from './IsPhoneNumber';
 import Http from './Http';
 import ReactHtmlParser from './ReactHtmlParser';
+import Debug from './Debug';
 
 module.exports = {
 	...DateFormat,
@@ -11,5 +12,6 @@ module.exports = {
 	...ShallowEqual,
 	...IsPhoneNumber,
 	Http,
+	Debug,
 	ReactHtmlParser,
 }

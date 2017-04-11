@@ -5,11 +5,11 @@ import APIS from 'kr/Configs/Apis';
 import Envs from 'kr/Configs/Envs';
 
 import Notify from 'kr/Components/Notify';
+import Debug from 'kr/Utils/Debug';
 
 var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {
-
 
     let server = Envs[env] || '';
 
@@ -166,7 +166,7 @@ function getUrl(path, params = {},mode = false) {
       })
       .catch(function(err){
         if(err == 'TypeError: Failed to fetch'){
-            Notify.error('后台接口404,请联系后台开发人员');
+            Debug.log('后台接口404,请联系后台开发人员');
             return ;
         }
         reject(err)
