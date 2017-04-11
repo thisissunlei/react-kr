@@ -15,10 +15,7 @@ import {
 
 import {Retail,Basic} from 'kr/Containers';
 
-
 module.exports =()=>{
-
-
 	return (
         <Route path="retail" component={Basic}>
             <Route path="index" component={Retail.Home}/>

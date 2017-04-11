@@ -15,7 +15,6 @@ import {
 
 import {Document,Basic} from 'kr/Containers';
 
-
 module.exports =()=>{
 	return (
         <Route path="document" component={Basic}>

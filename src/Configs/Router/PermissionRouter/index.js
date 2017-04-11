@@ -15,9 +15,7 @@ import {
 
 import {Permission,Basic} from 'kr/Containers';
 
-
 module.exports =()=>{
-
 
 	return (
 		<Route path="permission" component={Basic}>

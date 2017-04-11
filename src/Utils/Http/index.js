@@ -13,6 +13,7 @@ function getUrl(path, params = {},mode = false) {
 
     let server = Envs[env] || '';
 
+    Debug.log(path);
     var url = APIS[path].url;
 
     if(!url){

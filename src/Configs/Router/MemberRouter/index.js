@@ -15,10 +15,7 @@ import {
 
 import {Member,Basic} from 'kr/Containers';
 
-
 module.exports =()=>{
-
-
 	return (
     <Route path="member" component={Basic}>
          <IndexRedirect to="memberManage/list" />

@@ -9,7 +9,7 @@ function log(){
   var now = DateFormat(Date.now(),'yyyy-mm-dd hh:MM:ss');
   //Notify.error(message);
   var messages = [].slice.apply(arguments);
-  messages.unshift(now);
+  messages.unshift('['+now+']');
   console.log.apply(this,messages);
 }
 

@@ -15,7 +15,6 @@ import {Statistical,Basic} from 'kr/Containers';
 
 module.exports =()=>{
 
-
 	return (
 		<Route path="statistical" component={Basic}>
             <Route path="index" component={Statistical.Home}/>

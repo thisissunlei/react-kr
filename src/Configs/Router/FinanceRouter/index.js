@@ -10,15 +10,10 @@ import {
 
 import {Finance,Basic} from 'kr/Containers';
 
-
 module.exports =()=>{
-
-
 	return (
 		<Route path="finance" component={Basic}>
-
             <IndexRedirect to="manage/audit/auditlist"/>
-
             <Route path="manage" component={Basic}>
                 <Route path="orderbill" component={Basic}>
                     <Route path="receiptList" component={Finance.Manage.OrderBill.ReceiptList}/> {/*订单账单*/}

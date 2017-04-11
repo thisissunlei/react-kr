@@ -14,10 +14,7 @@ import {
 } from 'kr/Redux';
 
 import {Operation,Basic} from 'kr/Containers';
-
-
 module.exports =()=>{
-
 	return (
 
 		<Route path="operation" component={Basic}>
