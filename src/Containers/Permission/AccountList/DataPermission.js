@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
@@ -24,7 +24,7 @@ import {
 } from 'kr-ui';
 import './DataPermission.less';
 
-export default class DataPermission extends Component{
+export default class DataPermission extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -35,33 +35,38 @@ export default class DataPermission extends Component{
     };
 		this.onCancel = this.onCancel.bind(this);
 	}
-  componentWillReceiveProps(nextProps) {
-		let {roleList}=this.state;
-		if(nextProps.detail){
-			let id=nextProps.detail.id;
-			var _this = this;
-			Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
-        _this.setState({
-					roleList: response.roleList
-				});
-			}).catch(function(err) {
-
-			});
-		}
-
+  componentDidMount() {
+		var _this = this;
+		setTimeout(function() {
+			_this.getInfo();
+		}, 0)
   }
+getInfo=()=>{
+		let {roleList}=this.state;
+		console.log('sdafsdafsadf',this.props.detail);
+
+		let id=this.props.detail.id;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
+		  _this.setState({
+				roleList: response.roleList
+			});
+		}).catch(function(err) {
+
+		});
+}
 renderData=(item,index)=>{
-	// return (
-	// 	<div key={index}>
-	// 		<CheckboxGroup
-	// 				style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
-	// 				name={item.name}
-	// 				options={}
-	// 				checked={item.ownFlag==1?true:false}
-	// 		/>
-	//
-	// 	</div>
-	// );
+	return (
+		<div key={index}>
+			<Checkbox
+					style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
+					label={item.name}
+					checked={item.ownFlag==1?true:false}
+					onCheck={this.checked(item,index)}
+			/>
+
+		</div>
+	);
 }
 onCancel=()=>{
   const {
@@ -77,21 +82,17 @@ allSelect=()=>{
 }
 
 	render(){
-
 		let {roleList}=this.state;
-		console.log("cccc",roleList);
 		return(
-
 			<div className="g-DataPermission">
           <div className="leftSec">
             <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect}/>
-							<CheckboxGroup
-									style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
-									label={roleList.name}
-									options={roleList}
-							/>
-			      {/*roleList.map((item,index)=>{return this.renderData(item,index)})*/}
+						{roleList.map((item,index)=>{return this.renderData(item,index)})}
           </div>
+					<div className="rightSec">
+						<Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect}/>
+						{roleList.map((item,index)=>{return this.renderData(item,index)})}
+					</div>
 			</div>
 		);
 	}

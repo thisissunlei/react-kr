@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {connect, Actions, Store} from 'kr/Redux';
+import React from 'react';
+import {Actions, Store} from 'kr/Redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {reduxForm, formValueSelector, change} from 'redux-form';
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import {
     KrField,
     Table,
@@ -25,7 +25,7 @@ import {
 } from 'kr-ui';
 import './DataPermission.less';
 
-class EditAccount extends Component {
+class EditAccount extends React.Component {
 
     static PropTypes = {
         detail: React.PropTypes.object,
@@ -40,7 +40,9 @@ class EditAccount extends Component {
     }
     componentDidMount() {
         let {detail} = this.props;
-        //console.log(detail);
+        let initialValues = {};
+        initialValues = detail;
+        Store.dispatch(initialize('EditAccount', initialValues));
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -69,6 +71,7 @@ class EditAccount extends Component {
     render() {
 
         let {detail} = this.props;
+        console.log(detail,"detail");
         const {handleSubmit} = this.props;
         return (
 
@@ -83,7 +86,7 @@ class EditAccount extends Component {
                         height: 42,
                         marginLeft: '17px',
                         width: 222
-                    }} name="accountName" component="input" type="text" inline={true} placeholder="请输入登录名"/>
+                    }} name="accountName" component="input" inline={true} placeholder="请输入登录名" />
                     <KrField label="姓名：" style={{
                         width: 320,
                         marginTop: 20
@@ -91,24 +94,24 @@ class EditAccount extends Component {
                         height: 42,
                         marginLeft: 16,
                         width: 222
-                    }} name="realName" component="input" inline={true} type="text" placeholder="请输入姓名"/>
+                    }} name="realName" component="input" inline={true} placeholder="请输入姓名"/>
                     <KrField label="手机号：" style={{
                         textAlign: 'center',
                         marginTop: 20
-                    }} heightStyle={{
+                    }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: '17px',
                         width: 222
-                    }} name="mobilePhone" component="input" inline={true} type="text" placeholder="请输入手机号"/>
+                    }} name="mobilePhone" component="input" inline={true} placeholder="请输入手机号"/>
                     <KrField label="邮箱：" style={{
                         width: 320,
                         marginTop: 20,
                         marginBottom: 20
-                    }} heightStyle={{
+                    }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: 16,
                         width: 222
-                    }} name="email" component="input" inline={true} type="text" placeholder="请输入电子邮箱"/>
+                    }} name="email" component="input" inline={true} placeholder="请输入电子邮箱"/>
                     <ListGroup>
                         <ListGroupItem style={{
                             paddingLeft: 17,
@@ -132,6 +135,6 @@ class EditAccount extends Component {
     }
 
 }
-EditAccount = reduxForm({form: 'updatePasswordForm'})(EditAccount);
+EditAccount = reduxForm({form: 'EditAccount'})(EditAccount);
 
 export default EditAccount;

@@ -72,7 +72,7 @@ class CreateAccount extends Component {
                         width: 320,
                         marginTop: 20,
                         marginBottom: 20
-                    }} heightStyle={{
+                    }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: 16,
                         width: 222

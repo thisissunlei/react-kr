@@ -1301,6 +1301,11 @@ const APIS = {
       url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/createSsoUser',
       method: 'post'
     },
+    //权限--账户列表--角色编辑
+    'editUserRole': {
+      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editUserRole',
+      method: 'post'
+    },
     //权限--角色列表--获取角色列表
     'UserfindPage': {
       url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',

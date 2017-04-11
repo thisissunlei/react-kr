@@ -7,6 +7,7 @@ import CreateAccount from './CreateAccount';
 import DataPermission from './DataPermission';
 import SearchForm from './SearchForm';
 import EditAccount from './EditAccount';
+import SetPermission from './SetPermission';
 
 import {reduxForm, formValueSelector, change} from 'redux-form';
 import {
@@ -47,6 +48,7 @@ class AccountList extends React.Component {
             openNewCreate: false,
             openDataPermission: false,
             openEditAcc: false,
+            openSetAcc: false,
             item: {},
             itemDetail: {}
         }
@@ -70,7 +72,7 @@ class AccountList extends React.Component {
     // }
     openNewCreate = () => {
         this.setState({
-            openNewCreate: !this.state.openNewCreate            
+            openNewCreate: !this.state.openNewCreate
         })
     }
     openEditAcc = () => {
@@ -104,19 +106,27 @@ class AccountList extends React.Component {
             });
         } else if (type == 'reset') {
             Store.dispatch(Actions.callAPI('resetPassword', {}, {id: itemDetail.id})).then(function(response) {
-                Message.success('重置成功')
+                Message.success('重置成功');
+                window.setTimeout(function() {
+                  window.location.reload();
+                }, 800);
             }).catch(function(err) {
                 Message.error(err.message);
             });
         } else if (type == 'lock') {
             Store.dispatch(Actions.callAPI('lockAccount', {}, {id: itemDetail.id})).then(function(response) {
                 Message.success('已加锁')
+                window.setTimeout(function() {
+                  window.location.reload();
+                }, 800);
             }).catch(function(err) {
                 Message.error(err.message);
             });
         } else if (type == 'edit') {
             _this.setState({itemDetail});
             this.openEditAcc();
+        } else if (type == 'set') {
+            this.openSetAcc();
         }
     }
     onNewCreateSubmit(form) {
@@ -181,6 +191,12 @@ class AccountList extends React.Component {
             })
         }
     }
+    //授予
+    openSetAcc=()=>{
+      this.setState({
+          openSetAcc: !this.state.openSetAcc
+      });
+    }
     render() {
         let {searchParams} = this.state;
         let {itemDetail} = this.state;
@@ -203,7 +219,7 @@ class AccountList extends React.Component {
             }
         ];
         return (
-            <div>
+            <div className="g-account-list">
                 <Section title="账户列表">
                     <Row style={{
                         position: 'relative',
@@ -300,7 +316,13 @@ class AccountList extends React.Component {
                     width: 500,
                     height: 500
                 }}>
-                    <DataPermission detailFuc={this.reloadFunc} detail={this.state.itemDetail} onCancel={this.openDataPermission}/>
+                    <DataPermission detail={itemDetail} onCancel={this.openDataPermission}/>
+                </Dialog>
+                <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
+                    width: 500,
+                    height: 500
+                }}>
+                    <SetPermission detail={itemDetail} onCancel={this.openSetAcc}/>
                 </Dialog>
             </div>
         );
