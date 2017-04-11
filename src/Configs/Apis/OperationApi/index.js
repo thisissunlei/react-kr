@@ -82,5 +82,91 @@ module.exports = {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
         method: 'get'
     },
+    //会员中心-新增会员－社区模糊查询
+    'searchCommunityByCommunityText': {
+        url: '/api/krspace-finance-web/member/work/community-list?communityText={communityText}',
+        method: 'get'
+    },
+    //验证成员
+    'validMember': {
+        url: '/api/krspace-finance-web/member/actions/set-as-valid?memberIds={memberIds}&companyId={companyId}',
+        method: 'post'
+    },
+    //批量删除
+    'deleteMembers': {
+        url: '/api/krspace-finance-web/member/actions/unbind-from-company?memberIds={memberIds}',
+        method: 'delete'
+    },
+    //客户管理-计划表-分配工位-list
+    'getStation': {
+        url: '/api/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
+        method: 'get'
+    },
+    //运营平台－客户管理-计划表-撤场日期修改
+    'updateLeaveDate': {
+        url: '/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
+        method: 'post'
+    },
+    //客户管理-计划表-分配员工-获取所有客户
+    'getmembers': {
+        url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
+        method: 'get'
+    },
+    //客户管理-计划表-分配员工-保存更改信息
+    'changeStation': {
+        url: '/api/krspace-finance-web/find-contract-station/action/change-station',
+        method: 'post'
+    },
+    // 运营平台－获取社区楼层数据
+    'getCommunityFloors': {
+        url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
+        method: 'get'
+    },
+    // 计划表获取数据
+    'getInstallmentplan': {
+        url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
+        method: 'get'
+    },
+    //运营平台
+    'groupNameCheck': {
+        url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
+        method: 'get'
+    },
+    //运营平台
+    'sortCheck': {
+        url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
+        method: 'get'
+    },
+    //运营平台－合同详情-修改订单名字
+    'edit-order-name': {
+        url: ' /api/krspace-finance-web/edit-order-name',
+        method: 'put'
+    },
+    //运营平台－合同详情-订单工位
+    'get-order-station': {
+        url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
+        method: 'get'
+    },
+
+    //运营平台-会员管理-会员配置-会员卡激活-会卡列表
+    'CardActivationList': {
+        url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营平台-会员管理-会员配置-列表
+    'memberCardList': {
+        url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
+    'CardActivation': {
+        url: '/api/krspace-finance-web/member/card/mbr-card',
+        method: 'post'
+    },
+    //运营平台-会员管理-会员配置-会员卡激活-会卡编辑
+    'CardEdit': {
+        url: '/api/krspace-finance-web/member/card/mbr-card',
+        method: 'put'
+    },
    
 }

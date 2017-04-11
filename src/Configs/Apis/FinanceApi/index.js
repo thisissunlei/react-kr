@@ -237,5 +237,86 @@ module.exports = {
         url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-id?customerId={customerId}&mainBillTypeName={mainBillTypeName}',
         method: 'get'
     },
+     
+    //财务管理－订单明细账－补历史收入
+    'runStationIncome': {
+        url: '/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+        method: 'get'
+    },
+    //财务管理－订单明细账－补充完成之后
+    'removeRunningTag': {
+        url: '/api/krspace-finance-web/finaccount/opt/removeRunningTag',
+        method: 'post'
+    },
+    //财务管理－订单明细账-分页获得财务流水
+    'getPageAccountFlow': {
+        url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
+        method: 'get'
+    },
+    //财务管理－订单明细账-订单明细页首次加载
+    'getAccountFlow': {
+        url: '/api/krspace-finance-web/finaccount/data/getFinaContractBillDataById?accountType={accountType}&mainbillid={mainbillid}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //财务管理－订单明细账-回款
+    'receiveMoney': {
+        url: '/api/krspace-finance-web/finaccount/opt/receiveMoney',
+        method: 'post'
+    },
+    //财务管理－订单明细账-退款
+    'payBack': {
+        url: '/api/krspace-finance-web/finaccount/opt/payBack',
+        method: 'post'
+    },
+    //财务管理－订单明细账-查询代码列表
+    'findAccountList': {
+        url: '/api/krspace-finance-web/finaccount/data/findAccountList?accountType={accountType}',
+        method: 'get'
+    },
+    //财务管理－订单明细账-转押金
+    'transToDeposit': {
+        url: '/api/krspace-finance-web/finaccount/opt/transToDeposit',
+        method: 'post'
+    },
+    //财务管理－订单明细账-转押金按钮查询合同编号
+    'findContractListById': {
+        url: '/api/krspace-finance-web/finaccount/data/findContractListById?mainbillId={mainbillId}',
+        method: 'get'
+    },
+    //财务管理－订单明细账-转营收
+    'transToOperateIncome': {
+        url: '/api/krspace-finance-web//finaccount/opt/transToOperateIncome',
+        method: 'post'
+    },
+    //财务管理－订单明细账-添加挂账
+    'supplementIncome': {
+        url: '/api/krspace-finance-web//finaccount/opt/onAccount',
+        method: 'post'
+    },
+    //财务管理－订单明细账-补收入
+    'addIncome': {
+        url: '/api/krspace-finance-web/finaccount/opt/supplementIncome?mainbillid={mainbillid}',
+        method: 'get'
+    },
+    //财务管理－开票列表-list
+    'getFnaInvoiceModelListByAjax': {
+        url: '/api/krspace-finance-web/finaccount/fnaInvoiceModel/getFnaInvoiceModelListByAjax?pageSize={pageSize}&operatedate={operatedate}&page={page}&operateName={operateName}&invoiceType={invoiceType}&creater={creater}',
+        method: 'get'
+    },
+    //财务管理-订单明细账-款项查询
+    'getPropList': {
+        url: '/api/krspace-finance-web/finaccount/data/getPropList?accountType={accountType}',
+        method: 'get'
+    },
+    //财务管理-订单明细账-款项和代码列表
+    'findAccountAndPropList': {
+        url: '/api/krspace-finance-web/finaccount/data/findPayWayAndCategoryList?flowType={accountType}',
+        method: 'get'
+    },
+    //财务管理-订单明细账-查看流水
+    'getAccountFlowDetail': {
+        url: '/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',
+        method: 'get'
+    },
 
 }
