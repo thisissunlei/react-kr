@@ -430,8 +430,8 @@ class MerchantsData  extends Component{
 							{!tabLoading &&<div style= {{position:"absolute",top:0,width: "100%",textAlign: "center"}}>
 								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
 								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",}}>未开业</div>}
-								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px",borderRightWidth: 0}}>总计</div>}
-								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "autoshe",background: "#dfdfdf",top: 133+51*(openList.length),height:2,left:0,right:40}}></div>}
+								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
+								{!nothingData && <div style={{position: "absolute",zIndex: 1,width: "autoshe",background: "#dfdfdf",top: 133+51*(openList.length),height:2,left:0,right:40}}></div>}
 							</div>}
 							{nothingData && this.nothingData()}
 							{tabLoading && <Loading />}
