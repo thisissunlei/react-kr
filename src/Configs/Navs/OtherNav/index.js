@@ -6,13 +6,6 @@
 const OtherNav = [
 	
 	
-	
-	 
-	 
-	 
-	
-
-	
 ]
 
 module.exports = OtherNav;
