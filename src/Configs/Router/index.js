@@ -61,7 +61,7 @@ export default (
         {MemberRouter()}
 
         {/*统计看板*/}
-        
+
 		{StatisticalRouter()}
 
         {/*社区经营*/}
@@ -80,7 +80,6 @@ export default (
 		{FinanceRouter()}
 
 		{/*后台管理*/}
-
 		{WebBackstageRouter()}
 
 		{/*权限管理*/}
