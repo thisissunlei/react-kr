@@ -9,17 +9,11 @@ import './index.less';
 
 export default class InputComponent extends React.Component{
 
-
-
-	static contextTypes =  {
-	    _reduxForm: React.PropTypes.object.isRequired,
-	}
 	static propTypes = {
 		inline:React.PropTypes.bool,
 		simple:React.PropTypes.bool,
 		heightStyle:React.PropTypes.object,
 		maxLength:React.PropTypes.number,
-		//自动获取焦点
 		autoFocus:React.PropTypes.bool,
 	}
 
@@ -27,28 +21,21 @@ export default class InputComponent extends React.Component{
 		super(props,context)
 	}
 
-	componentDidMount(){
-	}
-
 	onChange = (value)=>{
 
-        
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;
-
 		onChange && onChange(value,input)
-
-
-
 	}
+
 	onBlur=(value)=>{
-		// console.log("####",value)
 		let {input} = this.props;
 		input.onBlur(value);
 		const {onBlur} = this.props;
 		onBlur && onBlur(value)
 	}
+
 	onFocus=(value)=>{
 		let {input} = this.props;
 		input.onFocus(value);
@@ -56,22 +43,10 @@ export default class InputComponent extends React.Component{
 		onFocus && onFocus(value)
 	}
 
-	onError = (message)=>{
-		let {meta,input} = this.props;
-		const {onError} = this.props;
-		const {_reduxForm} = this.context;
-		let errors = {};
-		errors[input.name] = message;
-		meta.dispatch(stopAsyncValidation(_reduxForm.form,errors));
-
-		_reduxForm.blur();
-
-		onError && onError();
-	}
 
 	render(){
 
-		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+		let {input, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -86,11 +61,35 @@ export default class InputComponent extends React.Component{
 			if(touched && error){
 				className = 'error-input';
 			}
-			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple} notifys={this.props.notifys}>
-					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} {...other} onError={this.onError} autoFocus={autoFocus}/>
-					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-				</WrapComponent>
-		);
-	}
-}
+
+			var wrapProps = {
+				label,
+				requireLabel,
+				inline,
+				simple,
+				notifys,
+				wrapStyle:style,
+			};
+
+			var inputProps = {
+				 ...input,
+				 type,
+				placeholder:placeholder|| label,
+				disabled,
+			 className,
+			 style:heightStyle,
+			 onChange:this.onChange,
+			 onBlur:this.onBlur,
+			 onFocus:this.onFocus,
+			 ...other,
+			 autoFocus,
+		 }
+
+		 return (
+			 <WrapComponent {...wrapProps}>
+				 <Input {...inputProps}/>
+				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+			 </WrapComponent>
+		 );
+	 }
+ }

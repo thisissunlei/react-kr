@@ -53,7 +53,7 @@ export default class ConfirmFormDetail  extends Component{
 	render(){
 
 		let {detail} = this.props;
-
+		
 
 	  return (
 
@@ -112,7 +112,9 @@ export default class ConfirmFormDetail  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{detail && detail.stationVos && detail.stationVos.map((item,index)=>{
+										{console.log(detail.stationVos,"????????22")}
+
+										{detail && (Object.prototype.toString.call(detail.stationVos)==["objectArray"]) &&detail.stationVos && detail.stationVos.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

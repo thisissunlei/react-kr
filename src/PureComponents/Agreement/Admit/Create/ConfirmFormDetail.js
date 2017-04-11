@@ -1,6 +1,4 @@
-import React, {Component, PropTypes} from 'react';
-
-import {Actions,Store} from 'kr/Redux';
+import React from 'react';
 
 import {
 	Table,
@@ -21,11 +19,12 @@ import {
 	DotTitle
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
-export default class ConfirmFormDetail  extends Component{
+import {DateFormat} from 'kr/Utils';
+
+export default class ConfirmFormDetail  extends React.Component{
 
 
-	static PropTypes = {
+	static propTypes = {
 		detail:React.PropTypes.object,
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
@@ -34,18 +33,14 @@ export default class ConfirmFormDetail  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel  = this.onCancel.bind(this);
-
 	}
 
-	onSubmit(form){
+	onSubmit = (form) =>{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
 
-	onCancel(){
+	onCancel = ()=>{
 
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -69,16 +64,16 @@ export default class ConfirmFormDetail  extends Component{
         		return payment = item.label;
         	}
         })
-         	detail.leaseBegindate=dateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
-	        detail.leaseEnddate=dateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
-	        detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+         	detail.leaseBegindate=DateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
+	        detail.leaseEnddate=DateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
+	        detail.signdate=DateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 
 
 		       <div>
 
-								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
+								<KrField  grid={1/2} style={{width:"252px"}} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
 								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress} inline={false}/>
 
@@ -100,7 +95,6 @@ export default class ConfirmFormDetail  extends Component{
 
 
 
-
 								<KrField name="paymodel"  grid={1/2} component="labelText" label="合同编号" value={detail.contractcode} inline={false}/>
 								<KrField name="paytype"  grid={1/2} component="labelText" label="付款方式" value={payment} inline={false}/>
 
@@ -113,7 +107,9 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0"  inline={false}/>
 
 
-							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无" inline={false}/>
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="" inline={false}/>
+							 <KrField grid={1}  name="agreement" component="labelText" label="双方其他约定内容" value={detail.agreement} defaultValue="无" inline={false}/>
+							 
 
 							 <KrField component="group" label="上传附件" inline={false}>
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
@@ -154,7 +150,6 @@ export default class ConfirmFormDetail  extends Component{
 										})}
 								   </TableBody>
 							 </Table>
-
 
                </DotTitle>
 			    <Grid>
