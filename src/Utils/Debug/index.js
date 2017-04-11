@@ -5,10 +5,12 @@ import {DateFormat} from 'kr/Utils/DateFormat';
 * @param  string message
 * @return null
 */
-function log(message,type){
+function log(){
   var now = DateFormat(Date.now(),'yyyy-mm-dd hh:MM:ss');
   //Notify.error(message);
-  console.log(now,message);
+  var messages = [].slice.apply(arguments);
+  messages.unshift(now);
+  console.log.apply(this,messages);
 }
 
 /**
