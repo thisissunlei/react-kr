@@ -5,7 +5,6 @@ import APIS from 'kr/Configs/Apis';
 import Envs from 'kr/Configs/Envs';
 
 import Notify from 'kr/Components/Notify';
-import Debug from 'kr/Utils/Debug';
 
 var env = process.env.NODE_ENV;
 
