@@ -1,3 +1,7 @@
+//导航
+
+
+
 module.exports = {
   //获取全局导航
   'getSelfMenuInfo': {
