@@ -48,11 +48,11 @@ export default class NotOpenPanel  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
+				startDate:this.props.yesterday,
+				endDate:this.props.yesterday
 			},
-			startValue:this.props.todayDate,
-			endValue:this.props.todayDate
+			startValue:this.props.yesterday,
+			endValue:this.props.yesterday
 
 		}
 
@@ -120,7 +120,7 @@ export default class NotOpenPanel  extends Component{
 		 	searchParams:{
                groupId:nextProps.groupId,
                startDate:this.props.yesterday,
-			   endDate:this.props.today
+			   endDate:this.props.yesterday
 		    }
 		})
 	 }

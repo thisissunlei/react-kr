@@ -42,11 +42,11 @@ class MerchantsData  extends Component{
 			searchParams: {
 				groupId:this.props.groupId,
 				startDate:yesterday,
-				endDate:today
+				endDate:yesterday
 			},
 			data:{},
 			startValue:yesterday,
-			endValue:today,
+			endValue:yesterday,
 			loading:true,
 			tabLoading:true,
 			moveStyle:{
@@ -184,7 +184,7 @@ class MerchantsData  extends Component{
 			}
 		}
       Store.dispatch(change('merchansDateForm','startDate',this.props.yesterday));
-      Store.dispatch(change('merchansDateForm','endDate',this.props.today));
+      Store.dispatch(change('merchansDateForm','endDate',this.props.yesterday));
 
     }
     tooltip = (value) =>{

@@ -94,7 +94,7 @@ class SearchDateForm extends Component {
 
 					<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange}  dateNoSecond='true' placeholder={yesterday}/></div></ListGroupItem>
 					<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-					<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={today} dateNoSecond='true' /></div></ListGroupItem>
+					<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={yesterday} dateNoSecond='true' /></div></ListGroupItem>
 				</ListGroup>
 
 				</div>

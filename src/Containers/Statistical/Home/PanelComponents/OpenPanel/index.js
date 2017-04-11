@@ -49,10 +49,10 @@ export default class OpenPanel  extends Component{
 			searchParams: {
 				groupId:this.props.groupId,
 				startDate:this.props.yesterday,
-				endDate:this.props.today
+				endDate:this.props.yesterday
 			},
 			startValue:this.props.yesterday,
-			endValue:this.props.today
+			endValue:this.props.yesterday
 		}
 	}
 

@@ -56,7 +56,7 @@ class SearchNotDateForm extends React.Component {
 				        <span className='statis-date-title'>时间：</span>
 						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartNotChange}  dateNoSecond='true' placeholder={yesterday} /></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndNotChange} placeholder={today} dateNoSecond='true'  /></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndNotChange} placeholder={yesterday} dateNoSecond='true'  /></div></ListGroupItem>
 					</ListGroup>
 				</div>
 			</form>
