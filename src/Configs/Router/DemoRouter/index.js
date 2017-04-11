@@ -8,17 +8,9 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
 import {Demo,Basic} from 'kr/Containers';
 
-
 module.exports =()=>{
-
-
 	return (
 		<Route path="demo" component={Basic}>
 				<Route path="zhangqu" component={Demo.ZhangQu}/>
