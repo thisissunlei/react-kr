@@ -35,6 +35,13 @@ import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
+
+import NewUploadImageComponent from './NewUploadImageComponent';
+
+import MapComponentNew from './MapComponentNew';
+
+import EditorComponent from './EditorComponent';
+
 import UploadImageListComponent from './UploadImageListComponent';
 import SelectTimeComponent from './SelectTimeComponent';
 import SearchCorporation from './SearchCorporation';
@@ -42,6 +49,7 @@ import SearchCommunitys from './SearchCommunitys';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
+
 
 export default class KrField extends React.Component {
 
@@ -106,6 +114,12 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'editor') {
+			return (
+							<Field {...this.props} component={EditorComponent}  style={WrapStyles}/>
+			);
+		}
+
 		if (component === 'groupCheckbox') {
 			return (
 				<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
@@ -136,6 +150,12 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
 			);
 		}
+		if (component === 'newuploadImage') {
+			return (
+				<Field {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 
 
 		if (component === 'uploadImageList') {
@@ -197,7 +217,9 @@ export default class KrField extends React.Component {
 			);
 		}
 
-		if (component === 'searchLeader') {
+
+       if (component === 'searchLeader') {
+
 			return (
 
 				<Field {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
@@ -300,6 +322,12 @@ export default class KrField extends React.Component {
 		if (component === 'group' || type == 'group') {
 			return (
 				<GroupComponent {...this.props} style={WrapStyles}/>
+			);
+		}
+		
+		if (component === 'mapnew' ) {
+			return (
+				<Field  {...this.props} component={MapComponentNew} style={WrapStyles}/>
 			);
 		}
 

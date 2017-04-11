@@ -49,7 +49,6 @@ export default class SelectComponent extends React.Component {
 		let _this = this;
 		Store.dispatch(Actions.callAPI('memberRecvList'))
 		.then(function(response){
-			console.log('response',response);
 			let option = [];
 			option = response.map((item)=>{
 				item.value = item.id ;
@@ -59,12 +58,9 @@ export default class SelectComponent extends React.Component {
 			_this.setState({
 				options:option,
 				optionsList:option
-			},function(){
-				console.log('dddddd',_this.state)
-			})
-		}).catch(function(err){
-			console.log('err',err);
+			});
 		});
+
 	}
 
 
@@ -94,7 +90,7 @@ export default class SelectComponent extends React.Component {
 		input.onChange(value);
 	}
 
-	
+
 
 	onfocus=()=>{
 		let {showCity} = this.state;
@@ -105,10 +101,8 @@ export default class SelectComponent extends React.Component {
 		this.setState({
 			showCity:true
 		})
-		console.log('onfocus');
 	}
 	onChange=(e)=>{
-		console.log('onChange',e.target.value);
 		let key = e.target.value;
 		let {options} = this.state;
 		let optionsList = [];
@@ -126,7 +120,6 @@ export default class SelectComponent extends React.Component {
 		console.log(e.target.id,e.target.innerHTML);
 		let select = this.refs.input;
 		let nameId = e.target.id.split('-')[2];
-		console.log(select.value);
 		select.value = e.target.innerHTML;
 
 		this.setState({

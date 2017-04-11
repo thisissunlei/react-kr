@@ -20,7 +20,6 @@ export default class TabItem extends React.Component {
 
 	render() {
 		const {children,label,icon} = this.props;
-		console.log(icon,"???????????????")
 		return(
 				<Tab label={label} icon = {icon}>
 				{children}
@@ -29,11 +28,3 @@ export default class TabItem extends React.Component {
 	}
 
 }
-
-
-
-
-
-
-
-

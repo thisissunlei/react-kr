@@ -361,7 +361,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
    }
 
 	//所属区县
-    cityValue=(cityId,communityId,city)=>{
+    cityValue=(communityId,cityId,city)=>{
      this.setState({
         cityId:cityId
       })

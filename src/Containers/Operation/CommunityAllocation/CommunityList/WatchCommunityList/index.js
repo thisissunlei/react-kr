@@ -144,7 +144,7 @@ import State from '../State';
     }
 
     
-        var brights_brights=[];
+      var brights_brights=[];
 	    var brights_basic=[];
 	    var brights_special=[];
 	    var brights_ports=[];

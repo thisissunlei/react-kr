@@ -128,8 +128,6 @@ export default class TableFooter extends React.Component {
 	renderOther=()=>{
 		let {renderOther} = this.props;
 		renderOther && renderOther();
-		// return (<span>dddd</span>)
-		console.log('other',renderOther);
 	}
 
 	render() {

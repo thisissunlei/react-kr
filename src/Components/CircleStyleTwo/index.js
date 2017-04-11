@@ -1,11 +1,8 @@
-import React, {
-	Component
-} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
 import './index.less';
 
-export default class CircleStyleTwo extends Component {
+export default class CircleStyleTwo extends React.Component {
 
 	static displayName = 'CircleStyleTwo';
 

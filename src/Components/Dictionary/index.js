@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DictionaryConfigs from '../../Configs/dictionary';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 
 export default class Dictionary extends React.Component {
 
