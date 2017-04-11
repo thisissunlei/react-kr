@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { ShallowEqual,Http } from 'kr/Utils';
 
 import Loading from '../../Loading';
@@ -60,7 +61,7 @@ export default class Table extends React.Component {
 		onProcessData: React.PropTypes.func,
 
 		fold: React.PropTypes.bool,
-		foldSize: React.PropTypes.string,
+		foldSize: React.PropTypes.any,
 		foldOpen: React.PropTypes.bool,
 		onFold: React.PropTypes.func,
 	}
@@ -68,6 +69,9 @@ export default class Table extends React.Component {
 	constructor(props) {
 
 		super(props);
+
+
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
@@ -125,12 +129,6 @@ export default class Table extends React.Component {
 			this.onInitial(initialValues);
 		}
 
-
-	}
-
-
-	componentDidMount() {
-
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -180,9 +178,8 @@ export default class Table extends React.Component {
 		if (!name) {
 			return;
 		}
-		let {
-			listData
-		} = this.state;
+
+		let { listData } = this.state;
 		this.setState({
 			listData
 		});
@@ -200,6 +197,8 @@ export default class Table extends React.Component {
 	}
 
 	onInitial(state) {
+
+			state = Object.assign({},state);
 
 		let {
 			defaultSelectedRows
@@ -225,6 +224,7 @@ export default class Table extends React.Component {
 
 
 	onOperation(type, itemData) {
+
 		const {
 			onOperation
 		} = this.props;
@@ -765,7 +765,6 @@ export default class Table extends React.Component {
 		if (loading) {
 			return this.renderLoading();
 		}
-
 		if (ajax && !listData.length) {
 			return this.renderNotListData();
 		}
