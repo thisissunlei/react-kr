@@ -8,13 +8,7 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
 import {Operation,Basic} from 'kr/Containers';
-
 
 module.exports =()=>{
 

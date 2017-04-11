@@ -57,7 +57,6 @@ export default (
 
         <Redirect from="messages/:id" to="/messages/:id" />
 
-
         {DemoRouter()}
         {MemberRouter()}
 
