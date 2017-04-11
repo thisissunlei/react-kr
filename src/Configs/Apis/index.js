@@ -32,4 +32,5 @@ module.exports = {
   ...MemberApi,
   ...NotifyApi,
   ...StatisticalApi,
+  ...WebBackstageApi,
 }

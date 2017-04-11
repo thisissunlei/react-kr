@@ -104,7 +104,6 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-		// console.log("itemDetail",itemDetail);
 		if (type == 'view') {
 			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
@@ -149,7 +148,6 @@ export default class List extends Component {
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		// console.log("value",values);
 		let params = {
 			email:values.email
 		}
