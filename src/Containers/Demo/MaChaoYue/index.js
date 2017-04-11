@@ -104,7 +104,6 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-		// console.log("itemDetail",itemDetail);
 		if (type == 'view') {
 			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
@@ -149,7 +148,6 @@ export default class List extends Component {
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		// console.log("value",values);
 		let params = {
 			email:values.email
 		}
@@ -224,7 +222,6 @@ export default class List extends Component {
 		})
 	}
 	renderOpration=(oldValue)=>{
-		console.log('=====>',oldValue);
 		return (
 			<div>
 				<Button label="编辑"  type="operation" operation="edit"/>
@@ -238,7 +235,6 @@ export default class List extends Component {
 		let {
 			list,itemDetail,seleced
 		} = this.state;
-		// console.log("list",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}

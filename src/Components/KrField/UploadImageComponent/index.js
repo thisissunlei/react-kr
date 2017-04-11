@@ -137,7 +137,6 @@ export default class UploadImageComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					// console.log("response",response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -196,7 +195,6 @@ export default class UploadImageComponent extends Component {
                  //读取图片数据
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                 	// console.log("e",e);
                     var data = e.target.result;
                      //加载图片获取图片真实宽度和高度
                     var image = new Image();
@@ -247,7 +245,6 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg} = this.state;
-		// console.log("this.state.operateImg",this.state.operateImg)
 		return(
 			<div className="ui-uploadimg-box" style={style}>
 				<div className='ui-uploadimg-outbox' >

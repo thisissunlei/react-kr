@@ -40,7 +40,6 @@ export default class TableRow extends React.Component {
 		try{
 		   type = event.target.getAttribute('data-operation');
 		}catch(err){
-			console.log("file:TableRow/index.js 53行 浏览器不支持getAttribute DOM方法")
 		}
 		onOperation && onOperation(type,this.props.itemData);
 	}

@@ -67,7 +67,6 @@ export default class UpLoadList extends React.Component {
 		}
 	}
 	componentWillUnmount(){
-		console.log('componentWillUnmount');
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		node.style.visibility = 'hidden';
 	}

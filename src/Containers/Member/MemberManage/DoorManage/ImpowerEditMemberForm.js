@@ -56,7 +56,7 @@ export default class ImpowerEditMemberForm extends Component {
 			open:'false',
 			onsubmit:true,
 			phoneSame:'true',
-			
+
 			code:'',
 			email:'',
 		}
@@ -68,7 +68,7 @@ export default class ImpowerEditMemberForm extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
-		
+
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
@@ -78,7 +78,7 @@ export default class ImpowerEditMemberForm extends Component {
 	componentDidMount(){
 		var start = DateFormat(this.detail.beginDate,"yyyy-mm-dd hh:MM:ss");
 		var end = DateFormat(this.detail.endDate,"yyyy-mm-dd hh:MM:ss");
-		
+
 		// console.log("start",start,"end",end);
 		this.setState({
 			date:start,
@@ -92,7 +92,6 @@ export default class ImpowerEditMemberForm extends Component {
 		start = start.getTime();
 		var end = new Date(values.endDate);
 		end = end.getTime();
-		// console.log("start",start,"end",end);
 		if(start >end){
 			Notify.show([{
 					message: '结束时间不能小于开始时间',
@@ -115,7 +114,6 @@ export default class ImpowerEditMemberForm extends Component {
 		onCancel && onCancel();
 	}
 	onStartChange=(personel)=>{
-		// console.log("kaishi",personel)
 		let firstDate = new Date(personel);
 		let {date} = this.state;
 		if (this.state.dateend) {
@@ -142,7 +140,7 @@ export default class ImpowerEditMemberForm extends Component {
 		}
 
 
-		
+
 
 	}
 	onEndChange=(personel)=>{
@@ -173,7 +171,7 @@ export default class ImpowerEditMemberForm extends Component {
 			})
 		}
 	}
-	
+
 
 	render() {
 		let {detail,handleSubmit} = this.props;
@@ -187,7 +185,7 @@ export default class ImpowerEditMemberForm extends Component {
 					</div>
 
 					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0}}/>
-					
+
 					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
 
 					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange}/>
@@ -202,13 +200,13 @@ export default class ImpowerEditMemberForm extends Component {
 					</Grid>
 							 </form>
 			</div>
-		)	
+		)
 	}
 }
 const validate = values => {
 
 	const errors = {}
-	
+
 	if (!values.customerId) {
 		errors.customerId = '请输入客户名称';
 	}
@@ -221,7 +219,7 @@ const validate = values => {
 	if (!values.endDate) {
 		errors.endDate = '请输入结束时间';
 	}
-	
+
 	return errors
 }
 ImpowerEditMemberForm = reduxForm({
