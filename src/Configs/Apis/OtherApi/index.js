@@ -36,7 +36,6 @@ const APIS = {
         url: '/api/krspace-finance-web/action/community-city-selected',
         method: 'get'
     },
-<<<<<<< HEAD:src/Configs/Apis/Other/index.js
     //订单基本信息名字
     'get-customName-orderName': {
         url: '/api/krspace-finance-web/action/get-customName-orderName?customerId={customerId}',
@@ -481,9 +480,6 @@ const APIS = {
  		url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
  		method: 'get'
  	},
-=======
->>>>>>> feature/dev:src/Configs/Apis/OtherApi/index.js
-
     //获取附件列表
     'getFileList': {
         url: '/api/krspace-finance-web/finacontractdetail/fileList-show?detailId={detailId}',
