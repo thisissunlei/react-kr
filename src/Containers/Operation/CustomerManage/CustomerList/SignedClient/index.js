@@ -28,10 +28,8 @@ import {
 	Message
 } from 'kr-ui';
 import {
-	LookCustomerList
-} from 'kr/PureComponents';
-import {
-     NewIndent
+	LookCustomerList,
+	NewIndent
 } from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
@@ -327,6 +325,11 @@ class SignedClient extends Component{
 	  this.props.NewIndentModel.cityLable="";
 	}
 
+	closeAllDraw=()=>{
+		 State.openNewIndent=false;
+		 this.props.NewIndentModel.openContract=false;
+	}
+
 	render(){
 
 
@@ -583,6 +586,7 @@ class SignedClient extends Component{
 							open={this.props.NewIndentModel.openContract}
 							width={750}
 							openSecondary={true}
+							onClose={this.closeAllDraw}
 							containerStyle={{top:60,paddingBottom:228}}
 					 >
 						<CustomerNameNext
@@ -597,6 +601,7 @@ class SignedClient extends Component{
 							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
+							onClose={this.closeAllDraw}
 							containerStyle={{top:60,paddingBottom:228}}
 					 >
 						<NewIndent
