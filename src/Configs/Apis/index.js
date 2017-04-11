@@ -26,4 +26,5 @@ module.exports = {
   ...OperationApi,
   ...CommunityApi,
   ...MemberApi,
+  ...WebBackstageApi,
 }
