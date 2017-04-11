@@ -73,10 +73,6 @@ export default class Table extends React.Component {
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
-		this.createTableHeader = this.createTableHeader.bind(this);
-		this.createTableBody = this.createTableBody.bind(this);
-		this.createTableFooter = this.createTableFooter.bind(this);
-		this.setVisibilityRow = this.setVisibilityRow.bind(this);
 
 		this.onSort = this.onSort.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
@@ -87,16 +83,12 @@ export default class Table extends React.Component {
 		this.onOperation = this.onOperation.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 
-		this.onLoadData = this.onLoadData.bind(this);
-		this.onInitial = this.onInitial.bind(this);
 		this.onProcessData = this.onProcessData.bind(this);
 
 
 		this.renderTableHeader = this.renderTableHeader.bind(this);
 		this.renderTableBody = this.renderTableBody.bind(this);
 		this.renderTableFooter = this.renderTableFooter.bind(this);
-		this.renderLoading = this.renderLoading.bind(this);
-		this.renderNotListData = this.renderNotListData.bind(this);
 
 
 		this.state = {
@@ -196,7 +188,7 @@ export default class Table extends React.Component {
 		return state;
 	}
 
-	onInitial(state) {
+	onInitial = (state) => {
 
 			state = Object.assign({},state);
 
@@ -286,7 +278,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onLoadData(page = 1, ajaxParams = this.props.ajaxParams) {
+	onLoadData = (page = 1, ajaxParams = this.props.ajaxParams)=> {
 
 		ajaxParams = Object.assign({}, ajaxParams);
 
@@ -426,7 +418,7 @@ export default class Table extends React.Component {
 
 	}
 
-	setVisibilityRow(rowNumber) {
+	setVisibilityRow = (rowNumber)=> {
 		var visibilityRows = this.state.visibilityRows;
 		visibilityRows[rowNumber] = new Number(!!!parseInt(visibilityRows[rowNumber]));
 		this.setState({
@@ -533,7 +525,7 @@ export default class Table extends React.Component {
 		}, 0);
 	}
 
-	createTableHeader(base) {
+	createTableHeader =(base)=> {
 
 		return React.cloneElement(
 			base, {
@@ -546,7 +538,7 @@ export default class Table extends React.Component {
 		);
 	}
 
-	createTableBody(base) {
+	createTableBody = (base)=> {
 
 		return React.cloneElement(
 			base, {
@@ -564,7 +556,7 @@ export default class Table extends React.Component {
 
 	}
 
-	createTableFooter(base) {
+	createTableFooter = (base)=> {
 
 		let {
 			pagination,
@@ -623,7 +615,7 @@ export default class Table extends React.Component {
 		return tHead;
 	}
 
-	renderNotListData() {
+	renderNotListData = ()=> {
 
 		let {
 			className,
@@ -699,7 +691,7 @@ export default class Table extends React.Component {
 
 	}
 
-	renderLoading() {
+	renderLoading = ()=> {
 		let {
 			className,
 			children,
