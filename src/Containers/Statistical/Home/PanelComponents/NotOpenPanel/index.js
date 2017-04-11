@@ -119,8 +119,8 @@ export default class NotOpenPanel  extends Component{
 		 this.setState({
 		 	searchParams:{
                groupId:nextProps.groupId,
-               startDate:this.props.todayDate,
-			   endDate:this.props.todayDate
+               startDate:this.props.yesterday,
+			   endDate:this.props.today
 		    }
 		})
 	 }
@@ -128,6 +128,7 @@ export default class NotOpenPanel  extends Component{
     render(){
 
     	let {searchParams}=this.state;
+			let {yesterday, today} = this.props;
 		return(
           <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-in'>
@@ -139,7 +140,7 @@ export default class NotOpenPanel  extends Component{
 							 <span  className='static-upload'>实时更新</span>
 							</Col>
 							<Col align="right" md={8}>
-							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} yesterday={yesterday} today = {today} todayEndDate={searchParams.endDate}/>
 							</Col>
 						</Row>
 					</Grid>

@@ -36,17 +36,17 @@ class MerchantsData  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		let {todayDate} = this.props;
-		let nowDate = dateFormat(todayDate,"yyyy-mm-dd");
+		let {yesterday,today} = this.props;
+
 		this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:nowDate,
-				endDate:nowDate
+				startDate:yesterday,
+				endDate:today
 			},
 			data:{},
-			startValue:nowDate,
-			endValue:nowDate,
+			startValue:yesterday,
+			endValue:today,
 			loading:true,
 			tabLoading:true,
 			moveStyle:{
@@ -122,8 +122,8 @@ class MerchantsData  extends Component{
     	let {endValue,startValue}=this.state;
     	let searchParams={}
     	searchParams.groupId = this.props.groupId;
-    	searchParams.startDate=startValue+" 00:00:00"
-    	searchParams.endDate=endValue+" 00:00:00"
+    	searchParams.startDate = startValue+" 00:00:00"
+    	searchParams.endDate = endValue+" 00:00:00"
     	this.setState({
 
     		tabLoading:true,
@@ -183,8 +183,8 @@ class MerchantsData  extends Component{
 				})
 			}
 		}
-      Store.dispatch(change('merchansDateForm','startDate',this.props.todayDate));
-      Store.dispatch(change('merchansDateForm','endDate',this.props.todayDate));
+      Store.dispatch(change('merchansDateForm','startDate',this.props.yesterday));
+      Store.dispatch(change('merchansDateForm','endDate',this.props.today));
 
     }
     tooltip = (value) =>{

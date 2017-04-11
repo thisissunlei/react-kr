@@ -48,11 +48,11 @@ export default class OpenPanel  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
+				startDate:this.props.yesterday,
+				endDate:this.props.today
 			},
-			startValue:this.props.todayDate,
-			endValue:this.props.todayDate
+			startValue:this.props.yesterday,
+			endValue:this.props.today
 		}
 	}
 
@@ -127,6 +127,7 @@ export default class OpenPanel  extends Component{
 	}
     render(){
     	let {searchParams}=this.state;
+			let {yesterday,today} = this.props;
 
 
 	return(
@@ -141,7 +142,7 @@ export default class OpenPanel  extends Component{
 									 <span  className='static-upload'>实时更新</span>
 									</Col>
 									<Col align="right" md={8}>
-								    <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
+								    <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} yesterday = {yesterday} today = {today}  todayEndDate={searchParams.endDate}/>
 									</Col>
 								</Row>
 							</Grid>
