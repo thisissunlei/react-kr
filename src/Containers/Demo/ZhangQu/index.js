@@ -1420,7 +1420,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					username:'yyyyaa',
 					textarea:'bbbb'
 		}
-		$form.changeValues(values);
+		$form.initialize(values);
 	}
 
 	onSubmit = (values)=>{
@@ -1436,6 +1436,11 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 		const {$form} = this.props;
 		Debug.log("form",form);
 		$form.change('editLabelText',form);
+	}
+
+	onReset = ()=>{
+		const {$form} = this.props;
+		$form.reset();
 	}
 
 	selectOldUser=(value)=>{
@@ -1477,6 +1482,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					<KrField label="file"  component="file"  name="file" mobx={true}/>
 					<KrField label="doorCard"  component="doorCard"  name="doorCard" mobx={true}/>
 					{/*上传图片有问题*/}
+
 					<KrField
 			              		label="电脑端轮播图newuploadImage"
 			              		name="newuploadImage"
@@ -1522,9 +1528,24 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  value="DISENABLE" mobx={true}/>
               		</KrField>
 
+						<KrField
+				              		label="电脑端轮播图newuploadImage"
+				              		name="newuploadImage"
+									component="newuploadImage"
+									innerstyle={{width:524,height:159,padding:10}}
+									photoSize={'1920*520'}
+									pictureFormat={'JPG,PNG,GIF'}
+									pictureMemory={'500'}
+									requestURI = {this.state.requestURI}
+									inline={false}
+									mobx={true}
+								/>
+
+
 
 					<Button type="submit" label="提交"/>
 					<Button type="button" label="暂存" onClick={this.onClick}/>
+					<Button type="button" label="重置" onClick={this.onReset}/>
 
 				</form>
 

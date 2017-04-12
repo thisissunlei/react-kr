@@ -32,6 +32,8 @@ let State = observable({
     values:{
       email:'ayaya@qq.com'
     },
+		initializeValues:{},
+		initialized:false,
     anyTouched:true,
     submitFailed:true,
 		submitCallback:function(){
@@ -76,7 +78,6 @@ State.stopSubmit = action(function(formName,errors) {
 		for(var item in errors){
 			if(errors.hasOwnProperty(item)){
 				isError = true;
-				throw "isError true";
 			}
 		}
 
@@ -122,6 +123,23 @@ State.stopSubmit = action(function(formName,errors) {
 		return form.validateCallback;
 	});
 
+	State.initialize = action(function(formName,fieldValues){
+
+		if(typeof fieldValues !== 'object'){
+				return ;
+		}
+
+		this.changeValues(formName,fieldValues);
+		var form = this.getForm(formName);
+
+		if(form.initialized){
+			return ;
+		}
+
+		form.initializeValues = fieldValues;
+		form.initialized = true;
+		this.setForm(formName,form);
+	});
 
 	State.validate = action(function(formName) {
 		var values = this.getValues(formName);
@@ -165,7 +183,8 @@ State.stopSubmit = action(function(formName,errors) {
 				values:{},
 				fields:{},
 				registeredFields:{},
-				syncErrors:{}
+				syncErrors:{},
+				initializeValues:{},
 			};
 			mobx.extendObservable(this,form);
 		}else{
@@ -390,9 +409,15 @@ State.stopSubmit = action(function(formName,errors) {
 		var fields = Object.assign({},form.fields);
 		fields[fieldName] = Object.assign({},{touched:false,visited:false});
 
+		var initializeValues = form.initializeValues;
+
+		initializeValues[fieldName] = '';
+
+
 		form.registeredFields =  registeredFields;
 		form.values =  values;
 		form.fields =  fields;
+		form.initializeValues = initializeValues;
 
 		var formObject = {};
 		formObject[formName] = form;
@@ -405,8 +430,11 @@ State.stopSubmit = action(function(formName,errors) {
 	});
 
 	State.reset = action(function(formName) {
-		var form = {};
-		extendObservable(this,form);
+		var form = this.getForm(formName);
+		var initializeValues = form.initializeValues;
+
+		Debug.log('ddsdsd',initializeValues)
+		this.changeValues(formName,initializeValues);
 	});
 
 
