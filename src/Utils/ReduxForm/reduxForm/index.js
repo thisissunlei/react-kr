@@ -24,7 +24,6 @@ module.exports =  function (initializeConfigs){
         onBlur: React.PropTypes.func.isRequired,
         onFocus: React.PropTypes.func.isRequired,
         reset: React.PropTypes.func.isRequired,
-        _reduxForm: React.PropTypes.object.isRequired,
       }
 
       getChildContext() {
