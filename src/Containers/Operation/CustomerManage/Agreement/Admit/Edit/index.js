@@ -43,6 +43,7 @@ export default class JoinCreate extends Component {
 
 		this.state = {
 			stationVos: [],
+			delStationVos:[],
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
@@ -129,6 +130,7 @@ export default class JoinCreate extends Component {
 		let initialValues = {};
 		let optionValues = {};
 		let stationVos = [];
+		let delStationVos = [];
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
@@ -219,14 +221,16 @@ export default class JoinCreate extends Component {
 				initialValues.signdate =  localStorage.getItem(keyWord+'signdate') ||  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 				console.log('stationVos',localStorage.getItem(keyWord+'stationVos'));
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
-
+				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos'));
+				console.log('delStationVos',localStorage.getItem(keyWord+'delStationVos'));
 				//处理stationvos
 				stationVos = initialValues.stationVos;
-
+				delStationVos = initialValues.delStationVos;
 				_this.setState({
 					initialValues,
 					optionValues,
-					stationVos
+					stationVos,
+					delStationVos
 				});
 
 			}).catch(function(err) {
@@ -253,7 +257,8 @@ export default class JoinCreate extends Component {
 		let {
 			initialValues,
 			optionValues,
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
 
 		return (
@@ -262,7 +267,7 @@ export default class JoinCreate extends Component {
 			<Title value="编辑承租意向书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租意向书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos}/>
 			</Section>
 
 			<Dialog

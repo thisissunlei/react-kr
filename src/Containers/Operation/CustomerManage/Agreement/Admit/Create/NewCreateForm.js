@@ -513,7 +513,9 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} = this.props;
 		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
 
 	}
 	setAllRent=(list)=>{

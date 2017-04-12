@@ -41,6 +41,7 @@ export default class JoinCreate extends Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
+
 			openConfirmCreate: false
 		}
 		Store.dispatch(reset('joinCreateForm'));
@@ -81,7 +82,7 @@ export default class JoinCreate extends Component {
 			_this.setState({baiscInf:response});
 
 			_this.isConfirmSubmiting = false;
-
+			_this.removeLocalStorage();
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -102,8 +103,23 @@ export default class JoinCreate extends Component {
 
 		this.openConfirmCreateDialog();
 	}
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+'ENTERcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 
 	onCancel() {
+		this.removeLocalStorage();
 		window.history.back();
 	}
 
@@ -131,6 +147,7 @@ export default class JoinCreate extends Component {
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
 
 			initialValues.agreement = '无';
 
@@ -162,6 +179,39 @@ export default class JoinCreate extends Component {
 				item.label = item.dicName;
 				return item;
 			});
+			//获取localStorage数据
+			let keyWord = params.orderId+ params.customerId+'ENTERcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			console.log('--->localStorage',mainbillId,customerId);
+			if(mainbillId && customerId){
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
+				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
+				initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate');
+				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
+				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
+				optionValues.totalrent = localStorage.getItem(keyWord+'totalrent');
+			}
+			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVos);
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
@@ -173,6 +223,7 @@ export default class JoinCreate extends Component {
 			_this.setState({
 				initialValues,
 				optionValues,
+				stationVos
 			});
 
 		}).catch(function(err) {
@@ -188,7 +239,8 @@ export default class JoinCreate extends Component {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			stationVos
 		} = this.state;
 
 
@@ -199,7 +251,7 @@ export default class JoinCreate extends Component {
 				<Title value="创建入驻协议书_财务管理"/>
 
 			<Section title="入驻协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos || []}/>
 			</Section>
 
 			<Dialog

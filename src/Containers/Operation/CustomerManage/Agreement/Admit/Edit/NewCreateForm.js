@@ -126,7 +126,8 @@ class NewCreateForm extends Component {
 	}
 	calcStationNum() {
 		let {
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
 
 		var stationnum = 0;
@@ -140,6 +141,7 @@ class NewCreateForm extends Component {
 			}
 		});
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
 
 
 		Store.dispatch(change('admitCreateForm', 'stationnum', stationnum));
@@ -210,7 +212,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			delStationVos
 		} = this.state;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
@@ -218,6 +220,9 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
+
 
 		this.setState({
 			stationVos,
@@ -304,7 +309,8 @@ class NewCreateForm extends Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
-				stationVos
+				stationVos,
+				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
 			});
@@ -496,6 +502,7 @@ class NewCreateForm extends Component {
 		}
 
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(billList));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
 
 
 
@@ -523,8 +530,10 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
+		let {initialValues} = this.props;
 		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+
 
 	}
 	setAllRent=(list)=>{
@@ -846,7 +855,7 @@ const validate = values => {
 						if(i === 'contractFileList'){
 							console.log('contractFileList',values[i])
 							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-						}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+						}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
 						}
 
