@@ -145,7 +145,7 @@ class HightSearchForm extends React.Component {
               grid={1/2}
               left={50}
               right={10}
-              name="payWayName"
+              name="paymentAccount"
               type="text"
               component="input"
               label="付款方名称"

@@ -48,7 +48,7 @@ export default class VoucherDetail extends React.Component {
     }
 	getThumbnailContent = (item) => {
   return (
-    <img src={item.thumbnail} width={90} height={90}/>
+    <img src={item.src} width={90} height={90}/>
   );
 	}
 	renderPayList = () => {
@@ -134,11 +134,9 @@ export default class VoucherDetail extends React.Component {
 			items = infoList.urls.map((item,value) => {
 				return(
 					{
-						src: item,
-				    thumbnail: item,
+						src: item.src,
 				    w: 900,
 				    h: 900,
-				    title: value
 					}
 				)
 			});

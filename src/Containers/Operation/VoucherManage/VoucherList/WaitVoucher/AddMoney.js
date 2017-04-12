@@ -630,8 +630,8 @@ class AddMoney extends React.Component {
           items = AddInfo.urls.map((item,value) => {
             return(
               {
-                src: item,
-                thumbnail: item,
+                src: item.src,
+                thumbnail: item.src,
                 w: 900,
                 h: 900,
                 title: value
