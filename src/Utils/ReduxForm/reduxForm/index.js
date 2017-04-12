@@ -16,11 +16,11 @@ module.exports =  function (initializeConfigs){
       static displayName = "Form";
 
       static childContextTypes = {
-        onChange: React.PropTypes.func.isRequired,
         getFieldValue: React.PropTypes.func.isRequired,
         getField: React.PropTypes.func.isRequired,
         getFieldError: React.PropTypes.func.isRequired,
         registerField: React.PropTypes.func.isRequired,
+        onChange: React.PropTypes.func.isRequired,
         onBlur: React.PropTypes.func.isRequired,
         onFocus: React.PropTypes.func.isRequired,
         reset: React.PropTypes.func.isRequired,
@@ -32,11 +32,11 @@ module.exports =  function (initializeConfigs){
         const {onChange,getFieldValue,registerField,getFieldError,getField,onBlur,reset,register,onFocus}  = this.props;
 
         return {
-          onChange,
           getFieldValue,
           registerField,
           getFieldError,
           getField,
+          onChange,
           onBlur,
           onFocus,
           reset,
@@ -49,6 +49,7 @@ module.exports =  function (initializeConfigs){
 
       constructor(props,context){
         super(props,context);
+
       }
 
       render(){
@@ -202,7 +203,6 @@ module.exports =  function (initializeConfigs){
         }
 
         const handles = {
-          onChange:this.onChange,
           getFieldValue:this.getFieldValue,
           getFieldError:this.getFieldError,
           getField:this.getField,
@@ -211,6 +211,7 @@ module.exports =  function (initializeConfigs){
           reset:this.reset,
           onBlur:this.onBlur,
           onFocus:this.onFocus,
+          onChange:this.onChange,
           stopSubmit:this.stopSubmit,
           register:this.register,
           getFormState:this.getFormState
