@@ -1,5 +1,5 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import MobxForm from 'kr/Utils/ReduxForm';
 
 import Notify from '../Notify';
@@ -49,7 +49,6 @@ import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
 
 
-
 class FieldRevert extends React.Component {
 
 		static defaultProps = {
@@ -69,10 +68,10 @@ class FieldRevert extends React.Component {
 			const {mobx} = this.props;
 
 			if(mobx){
-				return <MobxForm.Field {...this.props}/>;
+				return <MobxForm.Field {...this.props} />;
 			}
-			
-			return <ReduxForm.Field  {...this.props}/>;
+
+			return <Field  {...this.props} />;
 
 		}
 }
