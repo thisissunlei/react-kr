@@ -1433,22 +1433,30 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 	}
 
 	change=(form)=>{
-		const {FormModel} = this.props;
+		const {$form} = this.props;
 		Debug.log("form",form);
-		FormModel.change('dForm','editLabelText',form);
+		$form.change('editLabelText',form);
 	}
 
 	selectOldUser=(value)=>{
-		const {FormModel} = this.props;
-		FormModel.change('dForm','SearchList',value);
+		const {$form} = this.props;
+		$form.change('SearchList',value);
 	}
 	changeSearch=(value)=>{
-		const {FormModel} = this.props;
-		FormModel.change('dForm','search',value);
+		const {$form} = this.props;
+		$form.change('search',value);
 	}
 	cityValue=(value)=>{
-		const {FormModel} = this.props;
-		FormModel.change('dForm','city',value);
+		const {$form} = this.props;
+		$form.change('city',value);
+	}
+	changeYes=(value)=>{
+		const {$form} = this.props;
+		$form.change('radio',value);
+	}
+	changeNo=(value)=>{
+		const {$form} = this.props;
+		$form.change('radio',value);
 	}
 
 	render(){
@@ -1463,7 +1471,6 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					<KrField label="uploadImageList" component="uploadImageList" name="file" mobx={true} />
 					<KrField label="searchCustomer" component="searchCustomer" name="searchCustomer" mobx={true} />
 					<KrField label="select"  component="select" name="select" options={[{label:'ddd',value:'yy'}]} mobx={true} />
-					<KrField label="radio"  component="radio" type="radio" name="radio" mobx={true} />
 					<KrField label="editor"  component="editor"  name="editor" mobx={true}  />
 					{/*<KrField label="groupCheckbox" component="groupCheckbox"  name="groupCheckbox"  defaultValue=={[{label:'ddd',value:'yy'}]} />*/}
 					<KrField label="editLabelText"  component="editLabelText"  name="editLabelText" save={this.change} mobx={true}/>
@@ -1509,8 +1516,11 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					<KrField label="search填写1"  component="search"  name="search" mobx={true} onChange={this.changeSearch}/>
 					<KrField label="city"  component="city"  name="city" mobx={true} onSubmit={this.cityValue}/>
 					<KrField label="tree"  component="tree"  name="tree" mobx={true} treeAll={treeAll}/>
-
-					
+					<KrField label="textarea"  component="textarea"  name="textarea" mobx={true} />
+   					<KrField grid={1/2} component="group" label="是否启用" requireLabel={true} mobx={true}>
+						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" value="ENABLE" mobx={true}/>
+						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  value="DISENABLE" mobx={true}/>
+              		</KrField>
 
 
 					<Button type="submit" label="提交"/>
