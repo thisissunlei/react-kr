@@ -104,6 +104,10 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
+		let {formfile} = this.props;
+		if(!formfile){
+			formfile ='upfile'
+		}
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 
@@ -168,7 +172,7 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		var form = new FormData();
-		form.append('upfile', file);
+		form.append(formfile, file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -190,6 +194,7 @@ export default class UploadImageComponent extends Component {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
+									console.log("fileResponse",fileResponse);
 									_this.onError(fileResponse.msg);
 									return;
 								}
@@ -291,12 +296,13 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
+		
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
-			<div className="ui-new-uploadimg-box">
+			<div className={center==center?"ui-new-uploadimg-box-center":"ui-new-uploadimg-box"}>
 
 					<div className='ui-uploadimg-outbox' style={innerstyle}>
 						<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
