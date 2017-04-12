@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {Http} from 'kr/Utils';
 import 'react-photoswipe/lib/photoswipe.css';
@@ -27,7 +24,7 @@ import {
 import './index.less';
 
 
-export default class ItemDetail extends Component {
+export default class ItemDetail extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
@@ -46,9 +43,7 @@ export default class ItemDetail extends Component {
             id: id
         }, {}).then(function(response) {
             _this.setState({infoList: response})
-            console.log(response);
         }).catch(function(err) {});
-
 	}
   onCancel = () => {
         let {onCancel} = this.props;
@@ -72,7 +67,6 @@ export default class ItemDetail extends Component {
 						h: 900,
 					}
 				)
-				console.log(items,"items");
 			});
 		}
 

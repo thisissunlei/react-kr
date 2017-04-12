@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  connect
-} from 'react-redux';
+
 import {
   bindActionCreators
 } from 'redux';
@@ -59,8 +57,6 @@ export default class OverVoucher extends React.Component {
         status: '1'
       },
     }
-    //this.getInfo(this.state.Param);
-
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.tab != this.props.tab) {
@@ -70,9 +66,6 @@ export default class OverVoucher extends React.Component {
         }
       })
     }
-  }
-  componentDidMount() {
-
   }
 
   //操作相关
@@ -101,25 +94,6 @@ export default class OverVoucher extends React.Component {
       });
       this.openSearch();
     }
-    //保存编辑回款
-  // EditAuditSubmit = (form) => {
-  //     var _this = this;
-  //     var params = Object.assign({}, form);
-  //     Store.dispatch(Actions.callAPI('edit-verify-checked', {}, params)).then(function(response) {
-  //       Message.success('修改成功');
-  //       _this.setState({
-  //         Params: {
-  //           page: 1,
-  //           pageSize: 10,
-  //           verifyStatus: 'CHECKED'
-  //         }
-  //       })
-  //       _this.openEditCreate();
-  //       _this.getInfo(this.state.Param);
-  //
-  //     }).catch(function(err) {});
-  //
-  //   }
 
     //打开查看回款
   openItem = () => {
@@ -128,17 +102,6 @@ export default class OverVoucher extends React.Component {
     })
   }
 
-  // getInfo = (form) => {
-  //   var params = Object.assign({}, form);
-  //   var _this = this;
-  //   Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
-  //     _this.setState({
-  //       infoList: response
-  //     })
-  //
-  //   }).catch(function(err) {});
-  //
-  // }
   searchParams = (form) => {
     var _this = this;
     this.setState({

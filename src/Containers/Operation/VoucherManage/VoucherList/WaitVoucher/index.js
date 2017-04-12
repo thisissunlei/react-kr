@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-  connect
-} from 'react-redux';
-import {
   bindActionCreators
 } from 'redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
@@ -61,8 +58,6 @@ export default class WaitVoucher extends React.Component {
         status: '0'
       },
     }
-    //this.getInfo(this.state.Param);
-
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.tab != this.props.tab) {
@@ -72,9 +67,6 @@ export default class WaitVoucher extends React.Component {
         }
       })
     }
-  }
-  componentDidMount() {
-
   }
 
   //操作相关
@@ -123,7 +115,6 @@ export default class WaitVoucher extends React.Component {
   }
   sureToDel = (itemDetail) => {
     var _this = this;
-    console.log(itemDetail);
     Http.request('deleteEvidence', {
       id: this.state.itemDetail.id
     }).then(function(response) {
@@ -142,44 +133,14 @@ export default class WaitVoucher extends React.Component {
       });
     });
   }
-    //保存编辑回款
-  // EditAuditSubmit = (form) => {
-  //     var _this = this;
-  //     var params = Object.assign({}, form);
-  //     Store.dispatch(Actions.callAPI('edit-verify-checked', {}, params)).then(function(response) {
-  //       Message.success('修改成功');
-  //       _this.setState({
-  //         Params: {
-  //           page: 1,
-  //           pageSize: 10,
-  //           verifyStatus: 'CHECKED'
-  //         }
-  //       })
-  //       _this.openEditCreate();
-  //       _this.getInfo(this.state.Param);
-  //
-  //     }).catch(function(err) {});
-  //
-  //   }
 
-    //打开查看回款
+    //打开查看
   openItem = () => {
     this.setState({
       openItem: !this.state.openItem
     })
   }
 
-  // getInfo = (form) => {
-  //   var params = Object.assign({}, form);
-  //   var _this = this;
-  //   Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
-  //     _this.setState({
-  //       infoList: response
-  //     })
-  //
-  //   }).catch(function(err) {});
-  //
-  // }
   onAddSubmit=()=>{
     window.location.reload();
   }

@@ -17,7 +17,6 @@ import {
 	ListGroupItem,
 	SearchForms
 } from 'kr-ui';
-//import './index.less';
 
 
 class SearchForm extends React.Component {

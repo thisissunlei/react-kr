@@ -257,14 +257,16 @@ export default class AttributeSetting extends Component {
     openQuitBtn() {
         let items = this.state.selectedList
         var _this = this;
-       
         items.map(function(item, index) {
-            if (typeof(item.finaflowAmount) == 'number') {
-                fiMoney = item.finaflowAmount;
-                fiItem = item;
+            if(item.finaflowAmount){
+              var finaF = item.finaflowAmount;
+              parseFloat(finaF.replace(/[^\d\.-]/g, ""));
+              console.log(finaF);
+              fiMoney = finaF;
+              fiItem = item;
             }
         })
-       
+
         if (this.state.listValues.length == 0) {
             Message.error('请选择一条回款数据进行退款');
         } else if (this.state.listValues.length > 1) {
@@ -284,9 +286,12 @@ export default class AttributeSetting extends Component {
         let items = this.state.selectedList
         var _this = this;
         items.map(function(item, index) {
-            if (typeof(item.finaflowAmount) == 'number') {
-                fiMoney = item.finaflowAmount;
-                fiItem = item;
+            if(item.finaflowAmount){
+              var finaF = item.finaflowAmount;
+              parseFloat(finaF.replace(/[^\d\.-]/g, ""));
+              console.log(finaF);
+              fiMoney = finaF;
+              fiItem = item;
             }
         })
 
@@ -317,12 +322,15 @@ export default class AttributeSetting extends Component {
         }
     }
     openBusinessBtn() {
-        let items = this.state.selectedList
+        let items = this.state.selectedList;
         var _this = this;
         items.map(function(item, index) {
-            if (typeof(item.finaflowAmount) == 'number') {
-                fiMoney = item.finaflowAmount;
-                fiItem = item;
+            if(item.finaflowAmount){
+              var finaF = item.finaflowAmount;
+              parseFloat(finaF.replace(/[^\d\.-]/g, ""));
+              console.log(finaF);
+              fiMoney = finaF;
+              fiItem = item;
             }
         })
         if (this.state.listValues.length == 0) {
@@ -406,9 +414,12 @@ export default class AttributeSetting extends Component {
         var _this = this;
         let items = this.state.selectedList
         items.map(function(item, index) {
-            if (typeof(item.finaflowAmount) == 'number') {
-                fiMoney = item.finaflowAmount;
-                fiItem = item;
+            if(item.finaflowAmount){
+              var finaF = item.finaflowAmount;
+              parseFloat(finaF.replace(/[^\d\.-]/g, ""));
+              console.log(finaF);
+              fiMoney = finaF;
+              fiItem = item;
             }
         })
         if (this.state.listValues.length == 0) {
@@ -526,7 +537,7 @@ export default class AttributeSetting extends Component {
     onLoaded(response) {
         let list = response.items;
         this.setState({
-           list:list     
+           list:list
         })
     }
     //回款提交
@@ -635,7 +646,7 @@ export default class AttributeSetting extends Component {
         params.propJasonStr = JSON.stringify(params.propJasonStr);
         params.conJasonStr = JSON.stringify(params.conJasonStr);
 
-      
+
 
         if (!params.contract) {
             Message.error('请选择对应合同');

@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {Http} from 'kr/Utils';
 import 'react-photoswipe/lib/photoswipe.css';
@@ -27,7 +24,7 @@ import {
 import './index.less';
 
 
-export default class ItemDetail extends Component {
+export default class ItemDetail extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,

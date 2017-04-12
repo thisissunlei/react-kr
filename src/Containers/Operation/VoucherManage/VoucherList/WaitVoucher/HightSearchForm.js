@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {
 	reduxForm,
@@ -23,7 +20,7 @@ import {
 import './index.less';
 
 
-class HightSearchForm extends Component {
+class HightSearchForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,

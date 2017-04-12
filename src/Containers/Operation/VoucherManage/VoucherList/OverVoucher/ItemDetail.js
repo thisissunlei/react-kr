@@ -1,14 +1,9 @@
-
-
-
 import React from 'react';
 
 import {
   bindActionCreators
 } from 'redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
-
 
 import {
   Form,

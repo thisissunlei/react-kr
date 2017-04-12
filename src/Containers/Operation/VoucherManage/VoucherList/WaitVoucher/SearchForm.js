@@ -1,10 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React from 'react';
 
 import {
 	reduxForm,
@@ -25,10 +19,9 @@ import {
 	ListGroupItem,
 	SearchForms
 } from 'kr-ui';
-//import './index.less';
 
 
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
