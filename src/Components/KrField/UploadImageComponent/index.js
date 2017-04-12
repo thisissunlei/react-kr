@@ -13,7 +13,7 @@ import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
 export default class UploadImageComponent extends Component {
 	static defaultProps = {
-		
+
 	}
 	static PropTypes = {
 		className: React.PropTypes.string
@@ -49,7 +49,6 @@ export default class UploadImageComponent extends Component {
 		}]);
 	}
 	operationImg=()=>{
-		// console.log("this.state.imgUpload)",this.state.imgUpload);
 		if(this.state.imgUpload){
 			this.setState({
 				operateImg :true
@@ -92,7 +91,7 @@ export default class UploadImageComponent extends Component {
 
 		if (!file) {
 			return;
-		}		
+		}
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
@@ -229,7 +228,7 @@ export default class UploadImageComponent extends Component {
                     image.src= data;
                  };
                  reader.readAsDataURL(fileData);
- 
+
              }
 	}
 	// 删除图片

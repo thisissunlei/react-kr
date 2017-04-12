@@ -154,8 +154,6 @@ class Calendar extends Component {
     date.setFullYear(year);
     this.setSelectedDate(date, event);
 
-    console.log('----->>>')
-
     this.handleTouchTapDateDisplayYear();
   };
 

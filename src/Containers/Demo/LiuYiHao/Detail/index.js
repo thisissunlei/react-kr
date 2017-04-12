@@ -145,11 +145,7 @@ export default class OrderDetail extends React.Component {
 			window.setTimeout(function() {
 				window.location.reload();
 			}, 100)
-		}).catch(function(err) {
-			console.log(err.message);
 		});
-
-
 	}
 
 	componentDidMount() {
@@ -402,9 +398,7 @@ export default class OrderDetail extends React.Component {
 
 		this.onClose();
 	}
-	onChange=(files)=>{
-		console.log('onChange',files);
-	}
+
 	showMoreOpretion(id){
 		let {opretionId,opretionOpen} = this.state;
 		if(opretionId == id){
@@ -421,7 +415,6 @@ export default class OrderDetail extends React.Component {
 			})
 		}
 		if(!opretionOpen){
-			console.log('dddddddd');
 			document.addEventListener('click', this.docClick)
 		}
 
@@ -540,7 +533,7 @@ export default class OrderDetail extends React.Component {
 					<span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 					{(item.contracttype != 'QUITRENT' || showMoreOnExit)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:''}
 
-					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
+					<UpLoadList open={[this.state.openMenu,this.state.openId]}  detail={item}>Tooltip</UpLoadList>
 					<div style={{visibility:showOpretion}} className="m-operation" >
 						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
 						{ item.contracttype !=  'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}

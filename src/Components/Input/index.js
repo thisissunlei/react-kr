@@ -61,6 +61,7 @@ export default  class Input extends React.Component {
 			 });
 		}
 	}
+
 	componentDidMount(){
 		if(!this.props.autoFocus){
 			return;
@@ -69,16 +70,12 @@ export default  class Input extends React.Component {
 	}
 
 	onChange(event){
-
-
-
-			// console.log('----<MMMM',this.state.value)
 			var value = event.target.value;
 			const {onChange,maxLength} = this.props;
 			if (maxLength) {
 					value = value.slice(0,maxLength);
 			}
-            
+
 			this.setState({
 				value
 			});
@@ -121,7 +118,6 @@ export default  class Input extends React.Component {
 		let {value} = this.state;
 		let message = this.onValidate();
 		let {onError,onBlur} = this.props;
-		// console.log("^^^^",value)
 		if(typeof message !== 'undefined'){
 			onError && onError(message);
 		}
@@ -151,4 +147,5 @@ export default  class Input extends React.Component {
 
 		);
 	}
+
 }
