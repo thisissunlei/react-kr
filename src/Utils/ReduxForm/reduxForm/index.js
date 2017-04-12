@@ -15,6 +15,9 @@ module.exports =  function (initializeConfigs){
 
       static displayName = "Form";
 
+      static propTypes = {
+        onChange:React.PropTypes.func,
+      }
       static childContextTypes = {
         getFieldValue: React.PropTypes.func.isRequired,
         getField: React.PropTypes.func.isRequired,
@@ -48,24 +51,52 @@ module.exports =  function (initializeConfigs){
 
       }
 
+      change = (field,fieldValue)=>{
+        const {onChange} = this.props;
+        onChange && onChange(field,fieldValue);
+      }
+
+      submit = ()=>{
+        const {submit} = this.props;
+        submit && submit();
+      }
+
+      reset = ()=>{
+
+      }
+
+      changeValues = (fieldValues)=>{
+          const {changeValues} = this.props;
+          changeValues && changeValues(fieldValues);
+      }
+
+
       render(){
 
         const {
           handleSubmit,
           pristine,
-          reset,
           submitting,
         } = this.props;
+
 
         const props = {
           handleSubmit,
           pristine,
-          reset,
           submitting,
           FormModel:this.props.FormModel
          };
 
-        return <WrapComponent {...props}/>
+         const handles = {
+           $form:{
+             submit:this.submit,
+             reset:this.reset,
+             change:this.change,
+             changeValues:this.changeValues,
+           }
+         }
+
+        return <WrapComponent {...props} {...handles}/>
       }
 
     }
@@ -96,6 +127,7 @@ module.exports =  function (initializeConfigs){
       }
 
       setValidateCallback = (validate)=>{
+        validate = validate || function(){return {}};
         const {FormModel} = this.props;
         FormModel.setValidateCallback(this.formName,validate);
       }
@@ -156,6 +188,7 @@ module.exports =  function (initializeConfigs){
       }
 
       setSubmitCallback = (onSubmit) =>{
+        onSubmit = onSubmit || function(){};
         const {FormModel} = this.props;
         FormModel.setSubmitCallback(this.formName,onSubmit);
       }
@@ -166,7 +199,6 @@ module.exports =  function (initializeConfigs){
       }
 
       submit = ()=>{
-
         const {FormModel} = this.props;
         FormModel.submit(this.formName);
       }
@@ -176,7 +208,13 @@ module.exports =  function (initializeConfigs){
       }
 
       reset = ()=>{
+        const {FormModel} = this.props;
+        FormModel.reset(this.formName);
+      }
 
+      changeValues = (fieldValues)=>{
+        const {FormModel} = this.props;
+        FormModel.changeValues(this.formName,fieldValues);
       }
 
       touch = (fieldName)=>{
@@ -207,12 +245,14 @@ module.exports =  function (initializeConfigs){
           registerField:this.registerField,
           handleSubmit:this.handleSubmit,
           reset:this.reset,
+          submit:this.submit,
           onBlur:this.onBlur,
           onFocus:this.onFocus,
           onChange:this.onChange,
           stopSubmit:this.stopSubmit,
           register:this.register,
           getFormState:this.getFormState,
+          changeValues:this.changeValues,
           FormModel:this.props.FormModel,
         }
         return <Form {...props} {...handles}/>
