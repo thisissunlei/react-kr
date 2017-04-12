@@ -347,7 +347,8 @@ class MerchantsData  extends Component{
     nothingData = () =>{
     	return (<div className = "merchants-data-nothing">
     				<div className = "ui-nothing" >
-    					<div className="icon" ></div>
+    					<div className="icon" ></div> 
+    					
     					<p className="tip" >暂时还没有数据呦~</p>
     				</div>
     			</div>)
