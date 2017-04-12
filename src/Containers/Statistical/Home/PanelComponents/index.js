@@ -80,7 +80,8 @@ export default class PanelComponents  extends Component{
 	}
 
 	createPanelComponent = (value,props)=>{
-
+			let {groupList} = this.props;
+			props.groupList = groupList;
 			var component = null;
 			switch (value) {
 				case 1:{

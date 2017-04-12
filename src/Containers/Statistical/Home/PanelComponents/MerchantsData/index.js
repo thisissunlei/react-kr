@@ -36,8 +36,8 @@ class MerchantsData  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		let {yesterday,today} = this.props;
-
+		let {yesterday,today,groupList} = this.props;
+		let right = groupList.length == 1 ? 40 :20;
 		this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
@@ -51,7 +51,7 @@ class MerchantsData  extends Component{
 			tabLoading:true,
 			moveStyle:{
 				position: "absolute",
-			    marginRight: 20,
+			    marginRight: right,
 			    lineHeight: "54px",
 			    zIndex: 1,
 			    marginLeft: 1,
@@ -155,7 +155,10 @@ class MerchantsData  extends Component{
     }
 
     componentDidMount() {
+
     	var _this=this;
+    	let {groupList} = this.props;
+		let right = groupList.length == 1 ? 40 :20;
     	window.onscroll = function () {
 			var t = document.documentElement.scrollTop || document.body.scrollTop;
 			if(t>150){
@@ -174,7 +177,7 @@ class MerchantsData  extends Component{
 				_this.setState({
 					moveStyle:{
 						position: "absolute",
-					    marginRight: 20,
+					    marginRight: right,
 					    lineHeight: "54px",
 					    zIndex: 1,
 					    marginLeft: 1,
@@ -355,6 +358,10 @@ class MerchantsData  extends Component{
 		let {data,loading,moveStyle,tabLoading} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
+		let {groupList} = this.props; 
+		let right = groupList.length == 1 ? 40 :20;
+		let top = groupList.length == 1 ? 208 :133;
+		let width = groupList.length == 1 ?"5.9%" : "6%";
 
 		if(!openList){
 			openList=[];
@@ -433,10 +440,10 @@ class MerchantsData  extends Component{
 							</Table>
 							</div>
 							{!tabLoading &&<div style= {{position:"absolute",top:0,width: "100%",textAlign: "center"}}>
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
-								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: "6%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",}}>未开业</div>}
-								{!nothingData && <div style={{paddingRight: 4,position: "absolute",zIndex: 1,width: "18.09%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
-								{!nothingData && <div style={{position: "absolute",zIndex: 1,width: "autoshe",background: "#dfdfdf",top: 133+51*(openList.length),height:2,left:0,right:40}}></div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
+								{!nothingData && <div style={{paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length),height:51*(unopenList.length),lineHeight:51*(unopenList.length)+"px",}}>未开业</div>}
+								{!nothingData && <div style={{paddingRight: groupList.length == 1 ? 0 :4 ,position: "absolute",zIndex: 1,width: groupList.length == 1 ?"17.899%":"18.09%",border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
+								{!nothingData && <div style={{marginRight:groupList.length == 1?40:0,position: "absolute",zIndex: 1,width: "auto",background: "#dfdfdf",top: top+51*(openList.length),height:2,left:0,right:40}}></div>}
 							</div>}
 							{nothingData && this.nothingData()}
 							{tabLoading && <Loading />}
