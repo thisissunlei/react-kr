@@ -27,7 +27,9 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 	constructor(props){
 		super(props);
-
+		this.state={
+			requestURI:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
+		}
 	}
 
 	componentWillMount() {
@@ -51,7 +53,10 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 	}
 
 	change=(form)=>{
-		console.log("form",form);
+		const {FormModel} = this.props;
+
+		Debug.log("form",form);
+		FormModel.change('dForm','editLabelText',form);
 	}
 
 	render(){
@@ -70,6 +75,20 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 						<KrField label="editor"  component="editor"  name="editor" />
 						{/*<KrField label="groupCheckbox" component="groupCheckbox"  name="groupCheckbox"  defaultValue=={[{label:'ddd',value:'yy'}]} />*/}
 						<KrField label="editLabelText"  component="editLabelText"  name="editLabelText" save={this.change}/>
+						<KrField label="file"  component="file"  name="file" />
+						<KrField label="doorCard"  component="doorCard"  name="doorCard" />
+					{/*上传图片有问题*/}
+						<KrField
+				              		label="电脑端轮播图newuploadImage"
+				              		name="newuploadImage"
+									component="newuploadImage"
+									innerstyle={{width:524,height:159,padding:10}}
+									photoSize={'1920*520'}
+									pictureFormat={'JPG,PNG,GIF'}
+									pictureMemory={'500'}
+									requestURI = {this.state.requestURI}
+									inline={false}
+								/>
 						
 
 					<Button type="submit" label="提交"/>
