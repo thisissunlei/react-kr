@@ -75,9 +75,9 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 						<KrField label="radio"  component="radio" type="radio" name="radio" mobx={true} />
 						<KrField label="editor"  component="editor"  name="editor" mobx={true}  />
 						{/*<KrField label="groupCheckbox" component="groupCheckbox"  name="groupCheckbox"  defaultValue=={[{label:'ddd',value:'yy'}]} />*/}
-						<KrField label="editLabelText"  component="editLabelText"  name="editLabelText" save={this.change}/>
-						<KrField label="file"  component="file"  name="file" />
-						<KrField label="doorCard"  component="doorCard"  name="doorCard" />
+						<KrField label="editLabelText"  component="editLabelText"  name="editLabelText" save={this.change} mobx={true}/>
+						<KrField label="file"  component="file"  name="file" mobx={true}/>
+						<KrField label="doorCard"  component="doorCard"  name="doorCard" mobx={true}/>
 					{/*上传图片有问题*/}
 						<KrField
 				              		label="电脑端轮播图newuploadImage"
@@ -89,6 +89,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 									pictureMemory={'500'}
 									requestURI = {this.state.requestURI}
 									inline={false}
+									mobx={true}
 								/>
 						
 
