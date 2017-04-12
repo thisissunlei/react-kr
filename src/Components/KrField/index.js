@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-	Field,
-	reduxForm
-} from 'redux-form';
+//import { Field } from 'redux-form';
+import {Field} from 'kr/Utils/ReduxForm';
 
 import Notify from '../Notify';
 
@@ -259,7 +257,7 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
 			);
 		}
-        
+
         if (component === 'searchSourceAdd') {
 			return (
 				<Field {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
@@ -324,7 +322,7 @@ export default class KrField extends React.Component {
 				<GroupComponent {...this.props} style={WrapStyles}/>
 			);
 		}
-		
+
 		if (component === 'mapnew' ) {
 			return (
 				<Field  {...this.props} component={MapComponentNew} style={WrapStyles}/>
