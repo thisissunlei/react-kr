@@ -36,7 +36,7 @@ export default class List extends Component {
 	constructor(props, context) {
 		super(props, context);
 		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
-		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
+		// this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
@@ -76,7 +76,7 @@ export default class List extends Component {
 		});
 	}
 	// 编辑详情的Dialog
-	openEditDetailDialog(){
+	openEditDetailDialog=()=>{
 		this.setState({
 			openEditDetail: !this.state.openEditDetail,
 		});
