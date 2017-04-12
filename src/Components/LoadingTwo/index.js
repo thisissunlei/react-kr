@@ -1,9 +1,8 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
+
 import './index.less';
 
-export default class LoadingTwo extends Component {
+export default class LoadingTwo extends React.Component {
 
 	static displayName = 'LoadingTwo';
 

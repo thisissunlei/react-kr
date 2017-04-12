@@ -15,16 +15,18 @@ module.exports =  function (initializeConfigs){
 
       static displayName = "Form";
 
+      static propTypes = {
+        onChange:React.PropTypes.func,
+      }
       static childContextTypes = {
-        onChange: React.PropTypes.func.isRequired,
         getFieldValue: React.PropTypes.func.isRequired,
         getField: React.PropTypes.func.isRequired,
         getFieldError: React.PropTypes.func.isRequired,
         registerField: React.PropTypes.func.isRequired,
+        onChange: React.PropTypes.func.isRequired,
         onBlur: React.PropTypes.func.isRequired,
         onFocus: React.PropTypes.func.isRequired,
         reset: React.PropTypes.func.isRequired,
-        _reduxForm: React.PropTypes.object.isRequired,
       }
 
       getChildContext() {
@@ -32,41 +34,69 @@ module.exports =  function (initializeConfigs){
         const {onChange,getFieldValue,registerField,getFieldError,getField,onBlur,reset,register,onFocus}  = this.props;
 
         return {
-          onChange,
           getFieldValue,
           registerField,
           getFieldError,
           getField,
+          onChange,
           onBlur,
           onFocus,
           reset,
-          _reduxForm:{
-
-          }
         }
 
       }
 
       constructor(props,context){
         super(props,context);
+
       }
+
+      change = (field,fieldValue)=>{
+        const {onChange} = this.props;
+        onChange && onChange(field,fieldValue);
+      }
+
+      submit = ()=>{
+        const {submit} = this.props;
+        submit && submit();
+      }
+
+      reset = ()=>{
+
+      }
+
+      changeValues = (fieldValues)=>{
+          const {changeValues} = this.props;
+          changeValues && changeValues(fieldValues);
+      }
+
 
       render(){
 
         const {
           handleSubmit,
           pristine,
-          reset,
           submitting,
         } = this.props;
+
 
         const props = {
           handleSubmit,
           pristine,
-          reset,
           submitting,
+          FormModel:this.props.FormModel
          };
-        return <WrapComponent {...props}/>
+
+         const handles = {
+           $form:{
+             submit:this.submit,
+             reset:this.reset,
+             change:this.change,
+             changeValues:this.changeValues,
+           }
+         }
+
+        return <WrapComponent {...props} {...handles}/>
       }
 
     }
@@ -97,6 +127,7 @@ module.exports =  function (initializeConfigs){
       }
 
       setValidateCallback = (validate)=>{
+        validate = validate || function(){return {}};
         const {FormModel} = this.props;
         FormModel.setValidateCallback(this.formName,validate);
       }
@@ -157,6 +188,7 @@ module.exports =  function (initializeConfigs){
       }
 
       setSubmitCallback = (onSubmit) =>{
+        onSubmit = onSubmit || function(){};
         const {FormModel} = this.props;
         FormModel.setSubmitCallback(this.formName,onSubmit);
       }
@@ -167,7 +199,6 @@ module.exports =  function (initializeConfigs){
       }
 
       submit = ()=>{
-
         const {FormModel} = this.props;
         FormModel.submit(this.formName);
       }
@@ -177,7 +208,13 @@ module.exports =  function (initializeConfigs){
       }
 
       reset = ()=>{
+        const {FormModel} = this.props;
+        FormModel.reset(this.formName);
+      }
 
+      changeValues = (fieldValues)=>{
+        const {FormModel} = this.props;
+        FormModel.changeValues(this.formName,fieldValues);
       }
 
       touch = (fieldName)=>{
@@ -202,18 +239,21 @@ module.exports =  function (initializeConfigs){
         }
 
         const handles = {
-          onChange:this.onChange,
           getFieldValue:this.getFieldValue,
           getFieldError:this.getFieldError,
           getField:this.getField,
           registerField:this.registerField,
           handleSubmit:this.handleSubmit,
           reset:this.reset,
+          submit:this.submit,
           onBlur:this.onBlur,
           onFocus:this.onFocus,
+          onChange:this.onChange,
           stopSubmit:this.stopSubmit,
           register:this.register,
-          getFormState:this.getFormState
+          getFormState:this.getFormState,
+          changeValues:this.changeValues,
+          FormModel:this.props.FormModel,
         }
         return <Form {...props} {...handles}/>
       }

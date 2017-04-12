@@ -10,14 +10,14 @@ export default class Field extends React.Component{
   }
 
   static contextTypes =  {
-      getField: React.PropTypes.func.isRequired,
-      getFieldValue: React.PropTypes.func.isRequired,
-      getFieldError: React.PropTypes.func.isRequired,
-      registerField: React.PropTypes.func.isRequired,
-      onChange: React.PropTypes.func.isRequired,
-      onBlur: React.PropTypes.func.isRequired,
-      onFocus: React.PropTypes.func.isRequired,
-      reset: React.PropTypes.func.isRequired,
+      getField: React.PropTypes.func,
+      getFieldValue: React.PropTypes.func,
+      getFieldError: React.PropTypes.func,
+      registerField: React.PropTypes.func,
+      onChange: React.PropTypes.func,
+      onBlur: React.PropTypes.func,
+      onFocus: React.PropTypes.func,
+      reset: React.PropTypes.func,
   }
 
 	constructor(props,context){

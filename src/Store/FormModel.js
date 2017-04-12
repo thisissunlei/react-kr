@@ -69,158 +69,184 @@ State.startSubmit = action(function(formName) {
 });
 
 State.stopSubmit = action(function(formName,errors) {
-	  var form = this.getForm(formName);
-		form.submitSucceeded = false;
-		form.submitting = false;
-		form.submitFailed = true;
 
-		this.setForm(formName,form);
 		this.setErrors(formName,errors);
 
-});
+		var isError = false;
+		for(var item in errors){
+			if(errors.hasOwnProperty(item)){
+				isError = true;
+				throw "isError true";
+			}
+		}
 
-State.submit = action(function(formName) {
+		var form = this.getForm(formName);
+		if(isError){
+			form.submitSucceeded = false;
+			form.submitting = false;
+			form.submitFailed = true;
+		}else{
+			form.submitSucceeded = true;
+			form.submitting = false;
+			form.submitFailed = true;
+		}
+
+		this.setForm(formName,form);
+
+	});
+
+	State.submit = action(function(formName) {
+
 		this.validate(formName);
-		//this.stopSubmit(formName,errors);
-		var values = this.getValues(formName);
-		this.submitCallback(values);
-		this.touchAll(formName);
-});
 
-State.setValidateCallback = action(function(formName,validate) {
-	  var form = this.getForm(formName);
+		this.touchAll(formName);
+
+		var form = this.getForm(formName);
+
+		if(form.submitSucceeded){
+			var values = this.getValues(formName);
+			this.submitCallback(values);
+		}
+
+	});
+
+	State.setValidateCallback = action(function(formName,validate) {
+		var form = this.getForm(formName);
 		form.validateCallback = validate;
 		this.setForm(formName,form);
-});
+	});
 
 
-State.getValidateCallback = action(function(formName,validate) {
-	  var form = this.getForm(formName);
+	State.getValidateCallback = action(function(formName,validate) {
+		var form = this.getForm(formName);
 		return form.validateCallback;
-});
+	});
 
 
-State.validate = action(function(formName) {
+	State.validate = action(function(formName) {
 		var values = this.getValues(formName);
 		var validate = this.getValidateCallback(formName);
 		var errors = validate(values);
-
+		this.startSubmit(formName);
 		this.stopSubmit(formName,errors);
+	});
 
-		/*
-		if(errors){
-		}
-		*/
+	State.createForm = action(function(formName,configs) {
+		var form = {};
+		form[formName] = Object.assign({},configs);
+		extendObservable(this,form);
 
-});
+		var form = this.getForm(formName);
+		var fields = form.fields;
 
-State.createForm = action(function(formName,configs) {
-  var form = {};
-  form[formName] = Object.assign({},configs);
-  extendObservable(this,form);
+		var field = fields[fieldName];
+		field.touched = true;
 
-	var form = this.getForm(formName);
-	var fields = form.fields;
+		fields[fieldName] = field;
+		form.fields = fields;
 
-	var field = fields[fieldName];
-	field.touched = true;
+		this.setForm(formName,form);
 
-	fields[fieldName] = field;
-	form.fields = fields;
+	});
 
-	this.setForm(formName,form);
+	State.setForm = action(function(formName,form){
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
+	});
 
-});
+	State.getForm = action(function(formName) {
 
-State.setForm = action(function(formName,form){
-	var formObject = {};
-	formObject[formName] = form;
-	mobx.extendObservable(this,formObject);
-});
+		var state = mobx.toJS(this);
+		var form = {};
 
-State.getForm = action(function(formName) {
-
-  var state = mobx.toJS(this);
-  var form = {};
-
-  if(!state.hasOwnProperty(formName)){
-      form[formName] = {
+		if(!state.hasOwnProperty(formName)){
+			form[formName] = {
 				values:{},
 				fields:{},
 				registeredFields:{},
 				syncErrors:{}
 			};
-      mobx.extendObservable(this,form);
-  }else{
-    form = state;
-  }
-  return form[formName];
-});
+			mobx.extendObservable(this,form);
+		}else{
+			form = state;
+		}
+		return form[formName];
+	});
 
 
-State.getField = action(function(formName,fieldName) {
-	  var form = this.getForm(formName);
+	State.getField = action(function(formName,fieldName) {
+		var form = this.getForm(formName);
 		var fields = form.fields;
 		return fields[fieldName];
-});
+	});
 
-State.getValues = action(function(formName) {
-	  var form = this.getForm(formName);
+	State.getValues = action(function(formName) {
+		var form = this.getForm(formName);
 		return form.values;
-});
+	});
 
-State.getErrors = action(function(formName) {
-	  var form = this.getForm(formName);
+	State.getErrors = action(function(formName) {
+		var form = this.getForm(formName);
 		return form.syncErrors;
-});
+	});
 
-State.setErrors = action(function(formName,errors) {
-	  var form = this.getForm(formName);
+	State.setErrors = action(function(formName,errors) {
+		var form = this.getForm(formName);
 		form.syncErrors = Object.assign({},errors);
 
 		var formObject = {};
 		formObject[formName] = form;
 		mobx.extendObservable(this,formObject);
-});
+	});
 
-State.touch = action(function(formName,fieldName) {
+	State.touch = action(function(formName,fieldName) {
 
-	var form = this.getForm(formName);
-	var fields = form.fields;
+		var form = this.getForm(formName);
+		var fields = form.fields;
 
-	var field = fields[fieldName];
-	field.touched = true;
+		var field = fields[fieldName];
+		field.touched = true;
 
-	fields[fieldName] = field;
-	form.fields = fields;
+		fields[fieldName] = field;
+		form.fields = fields;
 
 
-	var formObject = {};
-	formObject[formName] = form;
-	mobx.extendObservable(this,formObject);
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
 
-});
+	});
 
-State.untouch = action(function(formName,fieldName) {
+	State.untouch = action(function(formName,fieldName) {
 
-});
+	});
 
-State.touchAll = action(function(formName) {
-	  var form = this.getForm(formName);
+	State.touchAll = action(function(formName) {
+		var form = this.getForm(formName);
 		var fields = form.fields;
 
 		for(var item in fields){
 			if(fields.hasOwnProperty(item)){
 
-					this.touch(formName,item);
+				this.touch(formName,item);
 			}
 		}
 
-});
+	});
 
 
-State.change = action(function(formName,fieldName,fieldValue) {
-	  var form = this.getForm(formName);
+	State.changeValues = action(function(formName,values){
+		for(var field in values){
+			if(values.hasOwnProperty(field)){
+				this.change(formName,field,values[field]);
+			}
+		}
+	});
+
+	State.change = action(function(formName,fieldName,fieldValue) {
+
+		var form = this.getForm(formName);
 		var values = form.values;
 		values[fieldName] = fieldValue;
 		form.values = values;

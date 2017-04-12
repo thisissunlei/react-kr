@@ -1,24 +1,19 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
 
-export default class ListGroupItem extends Component {
+export default class ListGroupItem extends React.Component {
 
 	static displayName = 'ListGroupItem';
-	
-	static PropTypes = {
+
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		style: React.PropTypes.object,
 	}
 
-
 	constructor(props) {
 		super(props);
-
 	}
-
 
 	render() {
 
@@ -26,7 +21,7 @@ export default class ListGroupItem extends Component {
 
 		return (
 			<div className="list-group-item" style={style}>
-				{children}	
+				{children}
 			</div>
 		);
 	}

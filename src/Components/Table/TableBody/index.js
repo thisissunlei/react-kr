@@ -1,16 +1,16 @@
 import React from 'react';
 
+import Checkbox from '../../Checkbox';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 
-import Checkbox from '../../Checkbox';
 
 
 export default class TableBody extends React.Component {
 
 	static displayName = 'TableBody';
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		insertElement: React.PropTypes.node,
@@ -20,7 +20,7 @@ export default class TableBody extends React.Component {
 		visibilityRows: React.PropTypes.array,
 		setRowTotalCount: React.PropTypes.func,
 		defaultValue: React.PropTypes.object,
-		listData: React.PropTypes.listData,
+		listData: React.PropTypes.array,
 		onOperation: React.PropTypes.func,
 	}
 
@@ -28,29 +28,13 @@ export default class TableBody extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
-		this.toggleInsertElement = this.toggleInsertElement.bind(this);
-		this.createRowElement = this.createRowElement.bind(this);
-
-		this.renderRows = this.renderRows.bind(this);
-		this.onCellClick = this.onCellClick.bind(this);
-		this.onCellHover = this.onCellHover.bind(this);
-		this.onCellHoverExit = this.onCellHoverExit.bind(this);
-		this.onRowHover = this.onRowHover.bind(this);
-		this.onRowHoverExit = this.onRowHoverExit.bind(this);
-		this.onRowClick = this.onRowClick.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-
-		this.createRowCheckboxColumn = this.createRowCheckboxColumn.bind(this);
-
-		this.createAjaxRow = this.createAjaxRow.bind(this);
-		this.createNormalRow = this.createNormalRow.bind(this);
-
 		this.state = {
 			showInsertElement: false,
 		}
+
 	}
 
-	toggleInsertElement(event) {
+	toggleInsertElement = (event)=> {
 
 		if(event&&!event.hasOwnProperty('target')){
 				return ;
@@ -84,34 +68,34 @@ export default class TableBody extends React.Component {
 		)
 	}
 
-	onOperation(type, itemData) {
+	onOperation = (type, itemData) => {
 		const {
 			onOperation
 		} = this.props;
 		onOperation && onOperation(type, itemData);
 	}
 
-	onCellClick() {
+	onCellClick =() =>{
 
 	}
 
-	onCellHover() {
+	onCellHover=()=>{
 
 	}
 
-	onCellHoverExit() {
+	onCellHoverExit=()=>{
 
 	}
 
-	onRowHover() {
+	onRowHover = ()=> {
 
 	}
 
-	onRowHoverExit() {
+	onRowHoverExit = () =>{
 
 	}
 
-	onRowClick(event, rowNumber) {
+	onRowClick = (event, rowNumber)=> {
 
 		const {
 			onRowClick
@@ -121,7 +105,7 @@ export default class TableBody extends React.Component {
 		this.toggleInsertElement(event);
 	}
 
-	createRowCheckboxColumn(rowProps) {
+	createRowCheckboxColumn = (rowProps)=>{
 
 		if (!this.props.displayCheckbox) {
 			return null;
@@ -142,7 +126,7 @@ export default class TableBody extends React.Component {
 	}
 
 
-	createRowElement(child, rowNumber) {
+	createRowElement =(child, rowNumber)=> {
 
 		let {
 			listData,
@@ -196,7 +180,7 @@ export default class TableBody extends React.Component {
 	}
 
 
-	createAjaxRow() {
+	createAjaxRow = ()=>{
 
 		let {
 			listData,
@@ -224,7 +208,7 @@ export default class TableBody extends React.Component {
 		return rows;
 	}
 
-	createNormalRow() {
+	createNormalRow = ()=>{
 		let rows = [];
 		let numChildren = React.Children.count(this.props.children);
 		let {
@@ -238,7 +222,7 @@ export default class TableBody extends React.Component {
 		return rows;
 	}
 
-	renderRows() {
+	renderRows = ()=> {
 
 		let {
 			ajax

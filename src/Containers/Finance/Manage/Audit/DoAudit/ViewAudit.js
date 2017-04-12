@@ -196,7 +196,6 @@ export default class ViewAudit extends Component {
 
         const {error, handleSubmit, pristine, reset} = this.props;
         let {infoList, payInfoList, topInfoList} = this.state;
-        console.log('sadfsad',payInfoList);
         return (
             <div className="u-audit-add u-audit-edit">
                 <div className="u-audit-add-title">

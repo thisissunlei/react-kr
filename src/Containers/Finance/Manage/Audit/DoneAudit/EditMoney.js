@@ -118,7 +118,7 @@ class EditMoney extends Component {
 						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
 						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
 					}
-					if(item.totalrentId){	
+					if(item.totalrentId){
 						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
 						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
 					}
@@ -126,7 +126,7 @@ class EditMoney extends Component {
 						Store.dispatch(change('EditMoney', `fix-${item.detailid}-${item.frontId}-1`, item.frontmoney));
 						_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.frontmoney * 100;
 					}
-					
+
 					return item;
 				})
 
@@ -242,7 +242,7 @@ class EditMoney extends Component {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		
+
 		let {
 			changeValues,
 		} = this.props;
@@ -304,7 +304,6 @@ class EditMoney extends Component {
 			})
 			return
 		}
-		console.log('form.contract', form.contract)
 		var _this = this;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
@@ -734,81 +733,81 @@ class EditMoney extends Component {
 						<KrField
 								style={{width:260}}
 								name="customerId"
-								inline={false}  
-								component="labelText" 
+								inline={false}
+								component="labelText"
 								label="客户名称"
 								value={infoList.company}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId" 
-								component="labelText" 
-								inline={false} 
+								name="mainBillId"
+								component="labelText"
+								inline={false}
 								label="所属订单"
 								value={infoList.mainBillName}
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								inline={false} 
+								inline={false}
 								label="订单起止"
 								value={ infoList.mainBillDate}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								component="labelText" 
+								component="labelText"
 								inline={false}
 								label="公司主体"
-								value={infoList.corporationName} 
+								value={infoList.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay" 
-								component="select" 
-								label="收款方式" 
+								name="payWay"
+								component="select"
+								label="收款方式"
 								options={payment}
 								onChange={this.getAccount}
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="accountId" 
-								component="select" 
-								label="我司账户" 
+								name="accountId"
+								component="select"
+								label="我司账户"
 								options={accountList}
 								requireLabel={true}
 
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount" 
-								type="text" 
+								name="payAccount"
+								type="text"
 								component="input"
-								label="付款账户" 
+								label="付款账户"
 								options=""
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="dealTime" 
-								component="date" 
-								label="收款日期" 
+								name="dealTime"
+								component="date"
+								label="收款日期"
 								requireLabel={true}
 						/>
-						<KrField  
-								style={{width:548}}  
-								name="remark" 
-								component="textarea" 
-								label="备注" 
+						<KrField
+								style={{width:548}}
+								name="remark"
+								component="textarea"
+								label="备注"
 								maxSize={100}
 						/>
-						<KrField  
-							style={{width:548}}  
-							name="uploadFileIds" 
-							component="file" 
-							label="上传附件" 
-							defaultValue={infoList.uploadFileIds} 
-							
+						<KrField
+							style={{width:548}}
+							name="uploadFileIds"
+							component="file"
+							label="上传附件"
+							defaultValue={infoList.uploadFileIds}
+
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
