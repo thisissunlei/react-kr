@@ -1,15 +1,11 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
-import ReactDOM from 'react-dom';
-
-export default class DialogBody extends Component {
+export default class DialogBody extends React.Component {
 
 	static displayName = 'DialogBody';
 
 	static propTypes = {
-    children:React.PropTypes.node
+		   children:React.PropTypes.node
 	}
 
 	componentDidMount(){
@@ -19,31 +15,36 @@ export default class DialogBody extends Component {
 			let _this = this;
 			_this.initializeDialogBodyStyles();
 	}
+
 	componentDidUpdate(){
 		this.initializeDialogBodyStyles();
 	}
+
 	initializeDialogBodyStyles = ()=>{
 
 		var ele = null;
+
 		try{
 		   ele = this.refs.dialogBody;
 		}catch(err){
 			ele = null;
 		}
+
 		const {autoScrollBodyContent} = this.props;
 
 		if(!ele){
 				return ;
 		}
+
 		var page = this.getPageWidthOrHeight();
 
 		var eleBoxStyle = {};
 
-    try{
+		try{
 			eleBoxStyle = ele.getBoundingClientRect();
-    }catch(err){
-		    eleBoxStyle = {width:0,height:0};
-    }
+		}catch(err){
+			eleBoxStyle = {width:0,height:0};
+		}
 
 		ele.style.maxHeight = page.height-200+'px';
 		ele.style.minHeight = 100 +'px';
@@ -56,17 +57,17 @@ export default class DialogBody extends Component {
 
 	getPageWidthOrHeight = ()=>{
 
-			var page = {};
-			 page.width = window.innerWidth;
-			 page.height = window.innerHeight;
-			if(document.compatMode == 'CSS1Compat'){
-				 page.width = document.documentElement.clientWidth;
-				 page.height = document.documentElement.clientHeight;
-			}else{
-				page.width = document.body.clientWidth;
-				page.height = document.body.clientHeight;
-			}
-			return  Object.assign({},page);
+		var page = {};
+		page.width = window.innerWidth;
+		page.height = window.innerHeight;
+		if(document.compatMode == 'CSS1Compat'){
+			page.width = document.documentElement.clientWidth;
+			page.height = document.documentElement.clientHeight;
+		}else{
+			page.width = document.body.clientWidth;
+			page.height = document.body.clientHeight;
+		}
+		return  Object.assign({},page);
 	}
 
 
@@ -75,8 +76,8 @@ export default class DialogBody extends Component {
 		const { children ,bodyStyle} = this.props;
 
 		return (
-				<div className="dialog-body" ref="dialogBody" style={bodyStyle}>
-						{children}
+			<div className="dialog-body" ref="dialogBody" style={bodyStyle}>
+				{children}
 			</div>
 		);
 

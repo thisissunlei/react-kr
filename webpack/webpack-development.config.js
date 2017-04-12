@@ -3,7 +3,7 @@ const path = require('path');
 const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
 
@@ -26,7 +26,8 @@ const config = {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src'),
+			'kr': path.join(process.cwd(), '/src')
+			/*
 			'redux':path.join(node_modules_dir,'redux'),
 			'react-redux':path.join(node_modules_dir,'react-redux'),
 			'mobx':path.join(node_modules_dir,'mobx'),
@@ -34,6 +35,7 @@ const config = {
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
 			'lodash':path.join(node_modules_dir,'lodash'),
+			*/
 		},
 	},
 	devServer: {
@@ -81,11 +83,14 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:false,
-			showErrors:true
+			showErrors:true,
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
+		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+		new CopyWebpackPlugin([
+			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
+		])
 	],
 	watch: true,
   keepalive: true,

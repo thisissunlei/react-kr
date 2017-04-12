@@ -1,15 +1,11 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
-import ReactDOM from 'react-dom';
-
-export default class DialogFooter extends Component {
+export default class DialogFooter extends React.Component {
 
 	static displayName = 'DialogFooter';
 
 	static propTypes = {
-    children:React.PropTypes.node
+	    children:React.PropTypes.node
 	}
 
 

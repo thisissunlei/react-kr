@@ -19,7 +19,6 @@ export default class RightItem extends React.Component{
 	}
 	render(){
 		let {selectedCommunity} = this.props;
-		// console.log("selectedCommunity",selectedCommunity);
 		return (
 				<div className="ui-door-card-right-community-box">
 					<div className="ui-door-card-right-community-item">{selectedCommunity.communityName}</div>

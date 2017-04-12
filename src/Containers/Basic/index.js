@@ -1,23 +1,18 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-export default class Basic extends Component {
+export default class Basic extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
 	}
 
-  componentWillMount() {
-
-  }
-
-  render() {
+	render() {
 
 
-    return (
-      <div style={{marginBottom:"50px"}}>
-					{this.props.children}
-      </div>
-    );
-  }
+		return (
+				<div style={{marginBottom:"50px"}}>
+				{this.props.children}
+				</div>
+			   );
+	}
 }
