@@ -527,7 +527,7 @@ class SignedClient extends Component{
 			                 customerName={State.customerName}
 			                 orderCount={State.orderCount}
 			                 mainbillname={State.mainbillname}
-			                 cityName={State.editCity}
+			                 cityNameIndent={State.editIndentState}
 			                 listValue={State.editprojectName}
 						/>
 					</Drawer>
