@@ -365,8 +365,6 @@ class NewCreateForm extends Component {
 
 	onSubmit(form) {
 
-
-
 		let {
 			stationVos
 		} = this.state;
@@ -387,13 +385,12 @@ class NewCreateForm extends Component {
 			return;
 		};
 		form.lessorAddress = changeValues.lessorAddress;
-
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
-		form.totalrent = (this.state.allRent).toFixed(2);
+		form.totalrent = this.state.allRent;
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -513,7 +510,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -522,19 +518,16 @@ class NewCreateForm extends Component {
 				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
 					rentDay = mounth[mounthIndex]+2+a;
 				}
-				console.log('mounthIndex',mounth[mounthIndex]);
 				rentDay = mounth[mounthIndex]+1+a;
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',typeof allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -542,7 +535,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('--->>选择的工位', billList);
 
 		if (!billList) {
 			return;
@@ -645,7 +637,6 @@ class NewCreateForm extends Component {
 		} = this.state;
 		let  allRentName = this.dealRentName(allRent);
 
-		console.log('==this.state.allRent==>',this.state.allRent);
 
 		return (
 
@@ -839,7 +830,6 @@ const validate = values => {
 
 	const errors = {}
 
-	console.log('====>',values);
 
 	if (!values.leaseId) {
 		errors.leaseId = '请输入出租方';

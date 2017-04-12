@@ -41,7 +41,7 @@ export default class JoinCreate extends Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-
+			stationVos:[],
 			openConfirmCreate: false
 		}
 		Store.dispatch(reset('joinCreateForm'));
@@ -137,6 +137,7 @@ export default class JoinCreate extends Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		let stationVos = [];
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
@@ -211,7 +212,7 @@ export default class JoinCreate extends Component {
 				optionValues.totalrent = localStorage.getItem(keyWord+'totalrent');
 			}
 			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVos);
+			stationVos = JSON.parse(initialValues.stationVos);
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
@@ -251,7 +252,7 @@ export default class JoinCreate extends Component {
 				<Title value="创建入驻协议书_财务管理"/>
 
 			<Section title="入驻协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos || []}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</Section>
 
 			<Dialog

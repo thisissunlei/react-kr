@@ -221,7 +221,7 @@ export default class JoinCreate extends Component {
 				initialValues.signdate =  localStorage.getItem(keyWord+'signdate') ||  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 				console.log('stationVos',localStorage.getItem(keyWord+'stationVos'));
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
-				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos'));
+				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				console.log('delStationVos',localStorage.getItem(keyWord+'delStationVos'));
 				//处理stationvos
 				stationVos = initialValues.stationVos;
