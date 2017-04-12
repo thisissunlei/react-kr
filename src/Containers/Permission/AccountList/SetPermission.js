@@ -34,6 +34,9 @@ class EditAccount extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.onCancel = this.onCancel.bind(this);
+        this.state = {
+          allCheck:false,
+        }
     }
     componentDidMount() {
         let {detail} = this.props;
@@ -73,17 +76,38 @@ class EditAccount extends React.Component {
     	);
     }
     checked=()=>{
-
       if (checked.indexOf(false) == -1) {
-        extendObservable(_this, {
-            allCheck: true
+        this.setState({
+          allCheck:true,
         })
-    } else {
-        extendObservable(_this, {
-            allCheck: false
+      } else {
+        this.setState({
+          allCheck:false,
         })
+
+      }
     }
-    }
+    //点击全选
+  	allSelect = () => {
+      let {roleList}=this.state;
+      var _this = this,
+      var id = [];
+      this.setState({
+        allCheck:!allCheck,
+      },function(){
+        if (_this.allCheck) {
+            _this.roleList.map((item, index) => {
+                item.checked = true;
+                id.push(item.setId)
+            })
+          } else {
+            _this.roleList.map((item, index) => {
+                item.checked = false;
+                _this.gcmIds = [];
+            })
+         }
+      })
+  	}
     onSubmit = (form) => {
         const {detailFuc} = this.props;
         var _this = this;
