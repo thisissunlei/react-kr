@@ -155,7 +155,7 @@ class EditMoney extends Component {
 				response.dealTime = dateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
-					flowAmount: response.flowAmount,
+					flowAmount: response.flowAmount.replace(/,/gi,''),
 					corporationId: response.corporationId
 				})
 				var form = {

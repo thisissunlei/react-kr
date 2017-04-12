@@ -84,7 +84,7 @@ class EditMoney extends React.Component {
 				response.dealTime = DateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
-					flowAmount: response.flowAmount,
+					flowAmount: response.flowAmount.replace(/,/gi,''),
 					corporationId: response.corporationId
 				})
 				var form = {
