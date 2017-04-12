@@ -129,7 +129,10 @@ export default (
         </Route>
         {/*基础配置*/}
         <Route path="basicConfig" component={Basic}>
+            {/*设备定义*/}
             <Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
+            {/*设备列表*/}
+            <Route path="equipmentList" component={Operation.BasicConfig.EquipmentList}/>
         </Route>
                  {/*客户管理*/}
                 <Route path="customerManage" component={Basic}>
@@ -206,13 +209,14 @@ export default (
 
                     {/*合同配置*/}
                     <Route path="agreement" component={Basic} >
+                            
 
                             {/*出租方管理*/}
                             <Route path="lessorManage" component={Basic}>
                                 <Route path="list" component={Operation.CustomerManage.Agreement.LessorManage.List}/>
                             </Route>
 
-                            {/*基础配置*/}
+                            {/*分组管理*/}
                             <Route path="setting" component={Basic}>
                                 <Route path="list" component={Operation.CustomerManage.Agreement.Setting.List}/>
                             </Route>

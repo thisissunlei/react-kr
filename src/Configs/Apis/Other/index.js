@@ -1323,7 +1323,23 @@ const APIS = {
       url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}&id={id}',
       method: 'get'
    },
+   //设备列表
+   'equipment-list':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/device/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+   //新建设备
+   'equipment-submit':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/edit?id={id}&name={name}',
+      method: 'post'
+   },
+   //删除设备
+   'equipment-delete':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/delete?id={id}',
+      method: 'delete'
+   },
 
+   
 }
 
 module.exports = APIS;

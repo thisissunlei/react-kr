@@ -317,7 +317,6 @@ export default class Table extends React.Component {
 
 		var _this = this;
 		http.request(ajaxUrlName, ajaxParams).then(function(response) {
-
 			_this.onInitial({
 				response: response,
 				listData: response[_this.props.ajaxFieldListName],
@@ -328,7 +327,6 @@ export default class Table extends React.Component {
 				loading: false,
 				allRowsSelected: false
 			});
-
 
 		}).catch(function(err) {
 
@@ -775,8 +773,9 @@ export default class Table extends React.Component {
 		if (loading) {
 			return this.renderLoading();
 		}
-
 		if (ajax && !listData.length) {
+		console.log(listData,">>>>>>>>>>>>")
+
 			return this.renderNotListData();
 		}
 
