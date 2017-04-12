@@ -40,9 +40,6 @@ module.exports =  function (initializeConfigs){
           onBlur,
           onFocus,
           reset,
-          _reduxForm:{
-
-          }
         }
 
       }
@@ -66,7 +63,9 @@ module.exports =  function (initializeConfigs){
           pristine,
           reset,
           submitting,
+          FormModel:this.props.FormModel
          };
+
         return <WrapComponent {...props}/>
       }
 
@@ -214,7 +213,8 @@ module.exports =  function (initializeConfigs){
           onChange:this.onChange,
           stopSubmit:this.stopSubmit,
           register:this.register,
-          getFormState:this.getFormState
+          getFormState:this.getFormState,
+          FormModel:this.props.FormModel,
         }
         return <Form {...props} {...handles}/>
       }

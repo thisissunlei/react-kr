@@ -11,10 +11,17 @@ import {
 	SnackTip,
 	ListGroup,
 	ListGroupItem,
+	Dialog
 } from 'kr-ui';
+
+import {
+  observer,
+  inject
+} from 'mobx-react';
 
 
 import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+
 
  class Demo extends Component{
 
@@ -27,6 +34,15 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 	}
 
 	componentDidMount(){
+
+		const {FormModel} = this.props;
+
+		var values = {
+					username:'yyyy',
+					textarea:'bbbb'
+		}
+
+		FormModel.changeValues('dForm',values);
 
 	}
 
@@ -42,7 +58,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 
 						<KrField label="用户名称" type="text" component="input" name="username" />
-						<KrField label="用户名称" type="text" component="textarea" name="desc" />
+						<KrField label="用户名称" type="text" component="textarea" name="textarea" />
 						<KrField label="uploadImageList" component="uploadImageList" name="file" />
 						<KrField label="searchCustomer" component="searchCustomer" name="searchCustomer" />
 						<KrField label="select"  component="select" name="select" options={[{label:'ddd',value:'yy'}]}/>
@@ -51,6 +67,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 					<Button type="submit" label="提交"/>
 				</form>
+
 		</div>
 	 );
 
@@ -73,6 +90,6 @@ const validate = (values)=>{
 }
 
 export default reduxForm({
-	form:'deddmoForm',
+	form:'dForm',
 	validate,
 })(Demo);
