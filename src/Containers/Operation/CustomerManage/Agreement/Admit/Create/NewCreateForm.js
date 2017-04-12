@@ -110,12 +110,31 @@ class NewCreateForm extends Component {
 		this.onCloseStation = this.onCloseStation.bind(this);
 
 		this.state = {
-			stationVos: [],
+			stationVos: this.props.stationVos || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+		}
+		console.log('this.props.stationVos',this.props.stationVos);
+	}
+	componentDidMount() {
+		let {
+			initialValues
+		} = this.props;
+		Store.dispatch(initialize('admitCreateForm', initialValues));
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!this.isInit && nextProps.stationVos.length) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			}, function() {
+				this.calcStationNum();
+			});
+			this.isInit = true;
 		}
 	}
 
@@ -221,18 +240,10 @@ class NewCreateForm extends Component {
 		});
 	}
 
-	componentDidMount() {
-		let {
-			initialValues
-		} = this.props;
-		Store.dispatch(initialize('admitCreateForm', initialValues));
-	}
 
 
 
-	componentWillReceiveProps(nextProps) {
 
-	}
 	openPreStationUnitPriceDialog=()=> {
 		let {
 			selectedStation
@@ -264,6 +275,7 @@ class NewCreateForm extends Component {
 		} = this.state;
 		let _this = this;
 		let allMoney = 0;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -272,10 +284,8 @@ class NewCreateForm extends Component {
 			return item;
 		});
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allMoney += _this.getSingleRent(item);
-		// })
-		// allMoney = parseFloat(allMoney).toFixed(2)*1;
+
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
 
 		this.setState({
 			stationVos,
@@ -316,19 +326,8 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
-
-		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
-
-		// form.totalrent = 0;
-		// if(form.totalrent == 0){
-		// 	Notify.show([{
-		// 		message: '服务费不能为零',
-		// 		type: 'danger',
-		// 	}]);
-		// 	return;
-		// }
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
@@ -344,9 +343,8 @@ class NewCreateForm extends Component {
 		onSubmit && onSubmit(form);
 	}
 	calcStationNum() {
-		let {
-			stationVos
-		} = this.state;
+		let {stationVos} = this.state;
+		let {initialValues} = this.props;
 
 		var stationnum = 0;
 		var boardroomnum = 0;
@@ -359,16 +357,18 @@ class NewCreateForm extends Component {
 			}
 		});
 
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
+
 		Store.dispatch(change('admitCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('admitCreateForm', 'boardroomnum', boardroomnum));
 	}
 
 	onCancel() {
-		const {
-			onCancel
-		} = this.props;
+		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
+
 
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
@@ -467,7 +467,8 @@ class NewCreateForm extends Component {
 		var _this = this;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues,
 		} = this.props;
 
 		let {
@@ -493,6 +494,9 @@ class NewCreateForm extends Component {
 			stationVos: billList
 		}, function() {
 			this.calcStationNum();
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(billList));
+
+
 		});
 
 	}
@@ -589,6 +593,7 @@ class NewCreateForm extends Component {
 			allRent
 		} = this.state;
 		var nzhcn = nzh.cn;
+		console.log('===stationVos===>>>>',stationVos);
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 		return (
 
@@ -668,7 +673,7 @@ class NewCreateForm extends Component {
 								 <KrField style={{width:370,marginLeft:70}} name="leaseId" component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField style={{width:370,marginLeft:90}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
-								 <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName}/>
+								 <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 								 <KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -713,7 +718,7 @@ class NewCreateForm extends Component {
 							<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 </CircleStyle>
-							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
 
@@ -830,7 +835,12 @@ const validate = values => {
 	}
 	for(var i in values){
 	        if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-	            localStorage.setItem(i,values[i]);
+						if(i === 'contractFileList'){
+							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+						}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+						}
+
 	        };
 	    }
 	return errors

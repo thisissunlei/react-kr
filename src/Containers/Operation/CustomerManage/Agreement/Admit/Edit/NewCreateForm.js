@@ -131,7 +131,7 @@ class NewCreateForm extends Component {
 
 		var stationnum = 0;
 		var boardroomnum = 0;
-
+		let {initialValues} = this.props;
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
 				stationnum++;
@@ -139,6 +139,8 @@ class NewCreateForm extends Component {
 				boardroomnum++;
 			}
 		});
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+
 
 		Store.dispatch(change('admitCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('admitCreateForm', 'boardroomnum', boardroomnum));
@@ -338,6 +340,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} = this.props;
 		let _this = this;
 		let allMoney = 0;
 
@@ -348,10 +351,8 @@ class NewCreateForm extends Component {
 			return item;
 		});
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allMoney += _this.getSingleRent(item);
-		// })
-		// allMoney = parseFloat(allMoney).toFixed(2)*1;
+
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
 
 		this.setState({
 			stationVos,
@@ -467,7 +468,7 @@ class NewCreateForm extends Component {
 
 		var _this = this;
 		let {delStationVos} = this.state;
-
+		let {initialValues} = this.props;
 		let {
 			changeValues
 		} = this.props;
@@ -493,6 +494,8 @@ class NewCreateForm extends Component {
 		} catch (err) {
 			console.log('billList 租赁明细工位列表为空');
 		}
+
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(billList));
 
 
 
@@ -522,7 +525,7 @@ class NewCreateForm extends Component {
 		let allMoney = 0;
 		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
-		
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
@@ -634,7 +637,7 @@ class NewCreateForm extends Component {
 								</Col>
 							</Row>
 						</Grid>
-				
+
 				<div  className={HeightAuto?'auto':'stationList'} style={{marginTop:"-10px"}}>
 				<Table onSelect={this.onStationSelect}>
 				<TableHeader>
@@ -698,7 +701,7 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:370,marginLeft:70}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
 
-				
+
                 <KrField style={{width:370,marginLeft:90}}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true}
 								requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:370,marginLeft:70}} name="paymentId"  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
@@ -711,7 +714,7 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:370,marginLeft:70}} name="signdate"  component="date" label="签署日期"  />
 
-				
+
 				<KrField style={{width:900,marginLeft:70}} component="group" label="租赁项目" requireLabel={true}>
 								<KrField style={{width:370}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue={0} />
 								<KrField style={{width:370,marginLeft:80}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
@@ -721,10 +724,13 @@ class NewCreateForm extends Component {
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
 							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200} defaultValue="无"/>
 				 </CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
+				{/*<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>*/}
 
-               
-               
+				<KrField style={{width:830,marginLeft:70}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					Store.dispatch(change('admitCreateForm','contractFileList',files));
+				}} />
+
 
 						<Grid style={{paddingBottom:50}}>
 						<Row >
@@ -763,6 +769,7 @@ class NewCreateForm extends Component {
 const selector = formValueSelector('admitCreateForm');
 
 const validate = values => {
+	console.log('----->--->',values);
 
 	const errors = {}
 
@@ -834,13 +841,26 @@ const validate = values => {
 	}
 
 
+	for(var i in values){
+	        if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+						if(i === 'contractFileList'){
+							console.log('contractFileList',values[i])
+							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+						}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+						}
+
+	        };
+	    }
+
+
 
 	return errors
 }
 
 NewCreateForm = reduxForm({
 	form: 'admitCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

@@ -42,6 +42,7 @@ export default class JoinCreate extends Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
+			stationVos:[],
 			openConfirmCreate: false
 		}
 		this.isConfirmSubmiting = false;
@@ -60,6 +61,20 @@ export default class JoinCreate extends Component {
 
 		this.openConfirmCreateDialog();
 	}
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+'INTENTIONcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 
 	onConfrimSubmit() {
 
@@ -77,6 +92,7 @@ export default class JoinCreate extends Component {
 			var _this = this;
 		Store.dispatch(Actions.callAPI('addFinaContractIntentletter', {}, formValues)).then(function(response) {
 			_this.isConfirmSubmiting = false;
+			_this.removeLocalStorage();
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -98,7 +114,10 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		window.history.back();
+		this.removeLocalStorage();
+
+			window.history.back();
+
 	}
 
 	openConfirmCreateDialog() {
@@ -131,14 +150,11 @@ export default class JoinCreate extends Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
-			initialValues.leaseAddress = response.customer.customerAddress;
+			initialValues.leaseAddress = response.customer.customerAddress || null;
 			initialValues.contractcode = response.contractCode;
-			initialValues.lessorContactId = localStorage.getItem('lessorContactName') || '';
-			optionValues.lessorContactName = localStorage.getItem('lessorContactName');
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
 			initialValues.agreement = '无';
-			initialValues.signdate = localStorage.getItem('signdate')|| '日期';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
@@ -156,17 +172,50 @@ export default class JoinCreate extends Component {
 				item.label = item.dicName;
 				return item;
 			});
+			//获取localStorage数据
+			let keyWord = params.orderId+ params.customerId+'INTENTIONcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			console.log('--->localStorage',mainbillId,customerId);
+			if(mainbillId && customerId){
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
+				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+				console.log('=======>>>>',initialValues);
+
+			}
+			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVos);
+
+
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
-			optionValues.leaseAddress = response.customer.customerAddress;
+			// optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 			_this.setState({
 				initialValues,
-				optionValues
+				optionValues,
+				stationVos
 			});
 
 		}).catch(function(err) {
@@ -182,8 +231,10 @@ export default class JoinCreate extends Component {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			 stationVos
 		} = this.state;
+		console.log('index',stationVos,typeof stationVos );
 
 		return (
 
@@ -194,7 +245,7 @@ export default class JoinCreate extends Component {
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租意向书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} />
 			</Section>
 
 			<Dialog
