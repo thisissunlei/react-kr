@@ -44,7 +44,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					username:'yyyyaa',
 					textarea:'bbbb'
 		}
-		$form.changeValues(values);
+		$form.initialize(values);
 	}
 
 	onSubmit = (values)=>{
@@ -57,10 +57,14 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 	}
 
 	change=(form)=>{
-		const {FormModel} = this.props;
+		const {$form} = this.props;
+		$form.change('dForm','editLabelText');
+	}
 
-		Debug.log("form",form);
-		FormModel.change('dForm','editLabelText',form);
+	onReset = ()=>{
+		const {$form} = this.props;
+		$form.reset();
+
 	}
 
 	render(){
@@ -94,11 +98,12 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 									inline={false}
 									mobx={true}
 								/>
-						
+
 
 
 					<Button type="submit" label="提交"/>
 					<Button type="button" label="暂存" onClick={this.onClick}/>
+					<Button type="button" label="重置" onClick={this.onReset}/>
 
 				</form>
 
