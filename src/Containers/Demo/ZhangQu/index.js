@@ -31,6 +31,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 	}
 
 	componentWillMount() {
+
 	}
 
 	componentDidMount(){
@@ -57,13 +58,13 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 
-						<KrField label="用户名称" type="text" component="input" name="username" />
-						<KrField label="用户名称" type="text" component="textarea" name="textarea" />
-						<KrField label="uploadImageList" component="uploadImageList" name="file" />
-						<KrField label="searchCustomer" component="searchCustomer" name="searchCustomer" />
-						<KrField label="select"  component="select" name="select" options={[{label:'ddd',value:'yy'}]}/>
-						<KrField label="radio"  component="radio" type="radio" name="radio" />
-						<KrField label="editor"  component="editor"  name="editor" />
+						<KrField label="用户名称" type="text" component="input" name="username" mobx={true} />
+						<KrField label="用户名称" type="text" component="textarea" name="textarea" mobx={true} />
+						<KrField label="uploadImageList" component="uploadImageList" name="file" mobx={true} />
+						<KrField label="searchCustomer" component="searchCustomer" name="searchCustomer" mobx={true} />
+						<KrField label="select"  component="select" name="select" options={[{label:'ddd',value:'yy'}]} mobx={true} />
+						<KrField label="radio"  component="radio" type="radio" name="radio" mobx={true} />
+						<KrField label="editor"  component="editor"  name="editor" mobx={true}  />
 
 					<Button type="submit" label="提交"/>
 				</form>

@@ -1,6 +1,6 @@
 import React from 'react';
-//import { Field } from 'redux-form';
-import {Field} from 'kr/Utils/ReduxForm';
+import ReduxForm from 'redux-form';
+import MobxForm from 'kr/Utils/ReduxForm';
 
 import Notify from '../Notify';
 
@@ -48,6 +48,34 @@ import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
 
+
+
+class FieldRevert extends React.Component {
+
+		static defaultProps = {
+			mobx:false
+		}
+
+		static propTypes = {
+			mobx:React.PropTypes.bool,
+		}
+
+		constructor(props){
+			super(props);
+		}
+
+		render(){
+
+			const {mobx} = this.props;
+
+			if(mobx){
+				return <MobxForm.Field {...this.props}/>;
+			}
+			
+			return <ReduxForm.Field  {...this.props}/>;
+
+		}
+}
 
 export default class KrField extends React.Component {
 
@@ -102,7 +130,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'input' || component === 'text') {
 			return (
-				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
+				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
 		}
 
@@ -114,13 +142,13 @@ export default class KrField extends React.Component {
 
 		if (component === 'editor') {
 			return (
-							<Field {...this.props} component={EditorComponent}  style={WrapStyles}/>
+							<FieldRevert {...this.props} component={EditorComponent}  style={WrapStyles}/>
 			);
 		}
 
 		if (component === 'groupCheckbox') {
 			return (
-				<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
+				<FieldRevert {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
 			);
 		}
 
@@ -134,23 +162,23 @@ export default class KrField extends React.Component {
 
 		if (component === 'file') {
 			return (
-				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'doorCard') {
 			return (
-				<Field {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 		if (component === 'uploadImage') {
 			return (
-				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 		if (component === 'newuploadImage') {
 			return (
-				<Field {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
@@ -158,60 +186,60 @@ export default class KrField extends React.Component {
 
 		if (component === 'uploadImageList') {
 			return (
-				<Field {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 
 		if (component === 'searchPayment') {
 			return (
-				<Field {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
 			)
 		}
 		if (component === 'searchCustomer') {
 			return (
-				<Field {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
 			)
 		}
 		if (component === 'searchMainbill') {
 			return (
-				<Field {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
 			)
 		}
 		if (component === 'searchCommunitys') {
 			return (
-				<Field {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
 			)
 		}
 		if (component === 'searchCorporation') {
 			return (
-				<Field {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
 			)
 		}
 
 
 		if (component === 'searchPersonel') {
 			return (
-				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'selectTime') {
 			return (
-				<Field {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'SearchList') {
 			return (
-				<Field {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'searchCommunity') {
 			return (
 
-				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
 
@@ -220,21 +248,21 @@ export default class KrField extends React.Component {
 
 			return (
 
-				<Field {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'searchIntend') {
 			return (
 
-				<Field {...this.props} component={SearchIntendCommunity}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchIntendCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'searchSign') {
 			return (
 
-				<Field {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
 
@@ -242,78 +270,78 @@ export default class KrField extends React.Component {
 
 		if (component === 'searchCompany') {
 			return (
-				<Field {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'searchCity') {
 			return (
-				<Field {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'searchSource') {
 			return (
-				<Field {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
         if (component === 'searchSourceAdd') {
 			return (
-				<Field {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 
 		if (component === 'companyName') {
 			return (
-				<Field {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
 			);
 		}
 
 		if (component === 'search') {
 			return (
-				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
 
 		if (component === 'city' || type == 'city') {
 			return (
-				<Field {...this.props} component={CityComponent} style={WrapStyles}/>
+				<FieldRevert {...this.props} component={CityComponent} style={WrapStyles}/>
 			);
 		}
 
 		if (component === 'tree' || type == 'tree') {
 
 			return (
-				<Field  {...this.props} component={TreeComponent}  style={WrapStyles}/>
+				<FieldRevert  {...this.props} component={TreeComponent}  style={WrapStyles}/>
 			);
 		}
 
 		if (component === 'textarea') {
 			return (
-				<Field {...this.props} component={TextareaComponent} style={WrapStyles} heightStyle={heightStyle} lengthClass={lengthClass}/>
+				<FieldRevert {...this.props} component={TextareaComponent} style={WrapStyles} heightStyle={heightStyle} lengthClass={lengthClass}/>
 			);
 		}
 
 		if (component === 'select' || type == 'select') {
 			return (
-				<Field {...this.props} component={SelectComponent} style={WrapStyles}>
+				<FieldRevert {...this.props} component={SelectComponent} style={WrapStyles}>
 				{children}
-				</Field>
+				</FieldRevert>
 			);
 		}
 
 		if (component === 'radio' || type == 'radio') {
 			return (
-				<Field {...this.props} component={RadioComponent}  style={WrapStyles}/>
+				<FieldRevert {...this.props} component={RadioComponent}  style={WrapStyles}/>
 			);
 		}
 
 		if (component === 'date' || type == 'date') {
 			return (
-				<Field {...this.props} component={DateComponent}  style={WrapStyles}/>
+				<FieldRevert {...this.props} component={DateComponent}  style={WrapStyles}/>
 			);
 		}
 
@@ -325,19 +353,19 @@ export default class KrField extends React.Component {
 
 		if (component === 'mapnew' ) {
 			return (
-				<Field  {...this.props} component={MapComponentNew} style={WrapStyles}/>
+				<FieldRevert  {...this.props} component={MapComponentNew} style={WrapStyles}/>
 			);
 		}
 
 		if (!component || component === 'input') {
 
 			return (
-				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
+				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
 		}
 
 		return (
-			<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
+			<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 		);
 
 	}
