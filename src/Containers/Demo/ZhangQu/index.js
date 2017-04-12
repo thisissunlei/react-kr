@@ -51,6 +51,10 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 		Debug.log(values);
 	}
 
+	change=(form)=>{
+		console.log("form",form);
+	}
+
 	render(){
 
 		const {handleSubmit} = this.props;
@@ -65,6 +69,9 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 						<KrField label="select"  component="select" name="select" options={[{label:'ddd',value:'yy'}]} mobx={true} />
 						<KrField label="radio"  component="radio" type="radio" name="radio" mobx={true} />
 						<KrField label="editor"  component="editor"  name="editor" mobx={true}  />
+						{/*<KrField label="groupCheckbox" component="groupCheckbox"  name="groupCheckbox"  defaultValue=={[{label:'ddd',value:'yy'}]} />*/}
+						<KrField label="editLabelText"  component="editLabelText"  name="editLabelText" save={this.change}/>
+
 
 					<Button type="submit" label="提交"/>
 				</form>
