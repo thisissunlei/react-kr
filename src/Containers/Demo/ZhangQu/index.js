@@ -36,19 +36,22 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 	componentDidMount(){
 
-		const {FormModel} = this.props;
+		const {$form} = this.props;
 
 		var values = {
-					username:'yyyy',
+					username:'yyyyaa',
 					textarea:'bbbb'
 		}
-
-		FormModel.changeValues('dForm',values);
-
+		$form.changeValues(values);
 	}
 
 	onSubmit = (values)=>{
 		Debug.log(values);
+	}
+
+	onClick = ()=>{
+		const {$form} = this.props;
+		$form.submit();
 	}
 
 	change=(form)=>{
@@ -74,6 +77,8 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 
 					<Button type="submit" label="提交"/>
+					<Button type="button" label="暂存" onClick={this.onClick}/>
+
 				</form>
 
 		</div>
