@@ -150,7 +150,7 @@ State.exportData = action(function(value) {
            where.push(`${item}=${searchParam[item]}`);
         }
       }
-        where.push(`customerIds=${customerIds}`);;
+        where.push(`customerIds=${customerIds}`);
 		var url = `/api/krspace-finance-web/customer/sign-customers-export?${where.join('&')}`;
 		window.location.href = url;
 });
