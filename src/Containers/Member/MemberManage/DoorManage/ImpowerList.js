@@ -373,7 +373,7 @@ export default class FinishUploadImgForm extends Component{
 					</div>
 					<div className="upload-img-footer">
 
-						<Grid style={{marginTop:30,marginBottom:'4px'}}>
+						<Grid style={{marginTop:31,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{width:171,textAlign:'right',padding:0,paddingRight:15}}>
