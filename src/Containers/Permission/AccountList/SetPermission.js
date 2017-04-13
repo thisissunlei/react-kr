@@ -25,7 +25,7 @@ import {
 } from 'kr-ui';
 import './DataPermission.less';
 
-class EditAccount extends React.Component {
+export default class SetPermission extends React.Component {
 
     static PropTypes = {
         detail: React.PropTypes.object,
@@ -36,22 +36,21 @@ class EditAccount extends React.Component {
         this.onCancel = this.onCancel.bind(this);
         this.state = {
           allCheck:false,
+          roleList:[],
+          idList:[],
         }
     }
     componentDidMount() {
-        let {detail} = this.props;
-        let initialValues = {};
-        initialValues = detail;
-        Store.dispatch(initialize('EditAccount', initialValues));
+      this.getInfo();
     }
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel()
     }
     getInfo=()=>{
+
     		let {roleList}=this.state;
     		console.log('sdafsdafsadf',this.props.detail);
-
     		let id=this.props.detail.id;
     		var _this = this;
     		Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
@@ -61,22 +60,34 @@ class EditAccount extends React.Component {
     		}).catch(function(err) {
 
     		});
+
     }
     renderData=(item,index)=>{
+      console.log("sdfa",item);
     	return (
-    		<div key={index}>
+    		<div key={index} style={{textAlign:'center'}}>
     			<Checkbox
     					style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
     					label={item.name}
     					checked={item.ownFlag==1?true:false}
-    					onCheck={this.checked(item,index)}
+    					onCheck={this.checked.bind(this,item,index)}
     			/>
-
     		</div>
     	);
     }
-    checked=()=>{
-      if (checked.indexOf(false) == -1) {
+    checked=(item,index)=>{
+      let {roleList} = this.state;
+      var checked = [];
+      if(item.ownFlag==0){
+        item.ownFlag=1;
+      }else{
+        item.ownFlag=0;
+      }
+      console.log(this.state.roleList);
+      roleList.map((item, index) => {
+        checked.push(item.ownFlag);
+      })
+      if (checked.indexOf(0) == -1) {
         this.setState({
           allCheck:true,
         })
@@ -84,65 +95,82 @@ class EditAccount extends React.Component {
         this.setState({
           allCheck:false,
         })
-
       }
     }
     //点击全选
   	allSelect = () => {
-      let {roleList}=this.state;
-      var _this = this,
+      var _this = this;
       var id = [];
-      this.setState({
-        allCheck:!allCheck,
+      let {roleList}=this.state;
+      var list;
+      _this.setState({
+        allCheck:!_this.state.allCheck,
       },function(){
-        if (_this.allCheck) {
-            _this.roleList.map((item, index) => {
-                item.checked = true;
-                id.push(item.setId)
+        console.log("trueOrfalse",_this.state.allCheck);
+        if (_this.state.allCheck) {
+          list=roleList.map((item, index) => {
+                item.ownFlag = 1;
+                return item;
             })
           } else {
-            _this.roleList.map((item, index) => {
-                item.checked = false;
-                _this.gcmIds = [];
-            })
+            list=roleList.map((item, index) => {
+                  item.ownFlag = 0;
+                  return item;
+              })
          }
+         this.setState({
+           roleList:list
+         })
       })
   	}
-    onSubmit = (form) => {
-        const {detailFuc} = this.props;
-        var _this = this;
-        console.log("form", form);
-        let {detail} = this.props;
+    onSubmit = () => {
+        let {roleList} = this.state;
+        const {detail} = this.props;
+        var idList = [];
+        roleList.map((item, index) => {
+          if(item.ownFlag==1){
+            idList.push(item.id);
+          }
+        })
+        console.log("idList",idList);
         Store.dispatch(Actions.callAPI('editUserRole', {}, {
-            id: detail.id,
-            accountName: form.accountName,
-            email: form.email,
-            realName: form.realName,
-            mobilePhone: form.mobilePhone
+          id:detail.id,
+          roleIds:idList
         })).then(function(response) {
             Message.success('修改成功')
+            window.setTimeout(function(){
+              window.location.reload();
+            },800)
         }).catch(function(err) {
             Message.error(err.message);
         });
     }
     render() {
-
       let {roleList}=this.state;
       return(
         <div className="g-SetPermission">
-            <div className="leftSec">
-              <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect}/>
+            <div style={{marginLeft:230}}>
+              <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect} checked={this.state.allCheck}/>
               {roleList.map((item,index)=>{return this.renderData(item,index)})}
             </div>
-            <div className="rightSec">
-              <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect}/>
-              {roleList.map((item,index)=>{return this.renderData(item,index)})}
-            </div>
+            <ListGroup>
+                <ListGroupItem style={{
+                    paddingLeft: 170,
+                    paddingRight: 40,
+                    paddingTop: 20,
+                    paddingBottom: 6
+                }}>
+                    <Button label="确定" type="submit" onClick={this.onSubmit} width={90} height={36} fontSize={14}/>
+                </ListGroupItem>
+                <ListGroupItem style={{
+                    paddingTop: 20,
+                    paddingBottom: 6
+                }}>
+                    <Button label="取消" cancle={true} type="button" onTouchTap={this.onCancel} width={90} height={34} fontSize={14}/>
+                </ListGroupItem>
+            </ListGroup>
         </div>
         );
     }
 
 }
-EditAccount = reduxForm({form: 'EditAccount'})(EditAccount);
-
-export default EditAccount;

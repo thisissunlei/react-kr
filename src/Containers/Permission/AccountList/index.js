@@ -200,9 +200,7 @@ class AccountList extends React.Component {
     render() {
         let {searchParams} = this.state;
         let {itemDetail} = this.state;
-        console.log("124124124", this.state.itemDetail);
         var logFlag = '';
-
         let options = [
             {
                 label: '登录名',
@@ -293,6 +291,7 @@ class AccountList extends React.Component {
                                         ? '解锁'
                                         : '加锁'} type="operation" operation="lock"/>
                                     <Button label="删除" type="operation" operation="dele"/>
+                                    <Button label="授予" type="operation" operation="set"/>
                                     <Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
                                 </TableRowColumn>
                             </TableRow>
@@ -314,13 +313,11 @@ class AccountList extends React.Component {
                 </Dialog>
                 <Dialog title="编辑数据权限" modal={true} open={this.state.openDataPermission} onClose={this.openDataPermission} contentStyle={{
                     width: 500,
-                    height: 500
                 }}>
                     <DataPermission detail={itemDetail} onCancel={this.openDataPermission}/>
                 </Dialog>
                 <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
-                    width: 500,
-                    height: 500
+                    width: 600,
                 }}>
                     <SetPermission detail={itemDetail} onCancel={this.openSetAcc}/>
                 </Dialog>

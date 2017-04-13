@@ -1352,6 +1352,16 @@ const APIS = {
       url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',
       method: 'get'
     },
+    //权限--数据--获取城市列表
+    'findCityList': {
+      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findCityList',
+      method: 'get'
+    },
+    //权限--数据--根据城市id获取社区列表
+    'findCommunityList': {
+      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findCommunityList?cityId={cityId}&userId={userId}',
+      method: 'get'
+    },
     //权限--操作项--删除
     'delResources': {
       url: '/api/krspace-sso-web/sso/resource/delResources?id={id}',
