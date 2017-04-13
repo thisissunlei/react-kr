@@ -143,6 +143,7 @@ class Personal extends Component{
 		State.switchNewIndent();
 		State.isOpenIndent=true;
 		this.props.NewIndentModel.cityLable="";
+		this.props.NewIndentModel.orderName="";
 
 	}
 	//新建订单页面的开关

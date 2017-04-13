@@ -109,6 +109,7 @@ class SignedClient extends Component{
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 		this.props.NewIndentModel.cityLable="";
+		this.props.NewIndentModel.orderName="";
 	}
 
 	//新建订单页面的开关
@@ -321,8 +322,8 @@ class SignedClient extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 	  State.orderNameInit(value.companyId);
 	  State.listId=value.companyId;
-	  State.switchNewIndent();
 	  this.props.NewIndentModel.cityLable="";
+		State.switchNewIndent();
 	}
 
 	closeAllDraw=()=>{
