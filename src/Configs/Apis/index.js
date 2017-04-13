@@ -6,6 +6,6 @@ import Demo from './Demo';
 module.exports = {
   ...Agreement,
   ...Other,
-  ...Order
+  ...Order,
   ...Demo,
 }
