@@ -48,7 +48,7 @@ module.exports = [
 					{
 						primaryText: '会议室列表',
 						menuCode: 'communityBoardroomList',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
+						originUrl: '/operation/communityAllocation/communityMeetingRoom'
 					}, 
 					{
 						primaryText: '设备列表',
