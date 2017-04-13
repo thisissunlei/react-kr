@@ -37,10 +37,7 @@ import {
 	Message
 } from 'kr-ui';
 import  "./index.less";
-import NewEquipment from "./NewEquipment";
-import EditEquipment from "./EditEquipment";
-import DelEquipment from "./DelEquipment";
-class EquipmentList  extends React.Component{
+class BusinessList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -50,10 +47,14 @@ class EquipmentList  extends React.Component{
 				name:'',
 				page: 1,
      			pageSize: 15,
+     			districtId:'',
+     			enable:'',
+     			name:'',
+     			no:'',
      			date:date
 			},
-			openNewEquipment:false,
-			openEditEquipment:false,
+			openNewBusiness:false,
+			openEditBusiness:false,
 			openDelEquipment:false,
 			id : '',
 		}
@@ -66,6 +67,8 @@ class EquipmentList  extends React.Component{
    //搜索列表
    onSearchSubmit = (value) =>{
    	let {searchParams} = this.state;
+	let date = new Date();
+
    	this.setState({
    		searchParams:{
    			name:searchParams.name,
@@ -77,16 +80,16 @@ class EquipmentList  extends React.Component{
    	})
    }
    
-   //新建设备
-   openNewEquipment = () =>{
+   //新建商圈
+   openNewBusiness = () =>{
    		this.setState({
-   			openNewEquipment:true,
+   			openNewBusiness:true,
    		});
-   		Store.dispatch(initialize('NewEquipment',{}));
+   		Store.dispatch(initialize('NewBusiness',{}));
 
    }
-   //关闭新建设备
-   closeNewEquipment = () =>{
+   //关闭新建商圈
+   closeNewBusiness = () =>{
 
    		this.setState({
    			openNewEquipment:false,
@@ -156,14 +159,19 @@ class EquipmentList  extends React.Component{
    			})
 		}
 	}
+	closeAll = () =>{
+		this.setState({
+			openNewBusiness:false,
+		})
+	}
 	render(){
-		let {searchParams,openNewEquipment,openEditEquipment,openDelEquipment} = this.state;
+		let {searchParams,openNewBusiness} = this.state;
 		
 
 		return(
 			<div className="m-equipment-list" style={{paddingTop:25,minHeight:'910'}}>
-				<Title value="设备列表"/>
-      		<Section title="设备列表"  style={{marginBottom:-5,minHeight:910}}>
+				<Title value="商圈列表"/>
+      		<Section title="商圈列表"  style={{marginBottom:-5,minHeight:910}}>
 	      		
 		        <Row style={{marginBottom:21}}>
 				          <Col
@@ -171,9 +179,9 @@ class EquipmentList  extends React.Component{
 						     style={{float:'left'}}
 						   >
 								<Button
-									label="新建设备"
+									label="新建商圈"
 									type='button'
-									onTouchTap={this.openNewEquipment}
+									onTouchTap={this.openNewBusiness}
 								/>
 						  </Col>
 
@@ -194,83 +202,60 @@ class EquipmentList  extends React.Component{
 							}
 						}
 					onOperation={this.onOperation}
-		            displayCheckbox={false}
+		            displayCheckbox={true}
 		            ajaxParams={searchParams}
-		            ajaxUrlName='equipment-list'
+		            ajaxUrlName='business-list'
 		            ajaxFieldListName="items"
 				>
 			            <TableHeader>
-			              <TableHeaderColumn>ID</TableHeaderColumn>
-			              <TableHeaderColumn>设备名称</TableHeaderColumn>
+			              <TableHeaderColumn>所属区县</TableHeaderColumn>
+			              <TableHeaderColumn>商圈编码</TableHeaderColumn>
+			              <TableHeaderColumn>商圈名称</TableHeaderColumn>
+			              <TableHeaderColumn>排序号</TableHeaderColumn>
 			              <TableHeaderColumn>创建人</TableHeaderColumn>
 			              <TableHeaderColumn>创建时间</TableHeaderColumn>
-			              <TableHeaderColumn>最后操作人</TableHeaderColumn>
-			              <TableHeaderColumn>最后操作时间</TableHeaderColumn>
+			              <TableHeaderColumn>是否有效</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 
 			          	</TableHeader>
 
 				        <TableBody >
 				          <TableRow>
-			                <TableRowColumn name="id"></TableRowColumn>
+			                <TableRowColumn name="districtName"></TableRowColumn>
+			                <TableRowColumn name="no"></TableRowColumn>
 			                <TableRowColumn name="name"></TableRowColumn>
+			                <TableRowColumn name="sort"></TableRowColumn>
 			                <TableRowColumn name="createName"></TableRowColumn>
-			                <TableRowColumn name="createrDate"></TableRowColumn>
-			                <TableRowColumn name="updateName"></TableRowColumn>
-			                <TableRowColumn name="updateDate"></TableRowColumn>
+			                <TableRowColumn name="createDate"></TableRowColumn>
+			                <TableRowColumn name="enable"></TableRowColumn>
 			                
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
-			                    <Button label="删除"  type="operation"  operation="delete" />
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>
 				        <TableFooter></TableFooter>
 	           </Table>
 	           </Section>
-	       	   {/*新建设备*/}
-	           <Dialog
-						title="新建设备"
-						modal={true}
-						open={openNewEquipment}
-						onClose={this.closeNewEquipment}
-						bodyStyle={{paddingTop:34}}
-						contentStyle={{width:400}}
+	       	   
+	           <Drawer
+					title="新建商圈"
+					modal={true}
+					width={750}
+					onClose={this.closeAll}
+					open={openNewBusiness}
+					containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
 					>
-						<NewEquipment  onClose={this.closeNewEquipment} onSubmit = {this.onSubmit} />
-
-				</Dialog>
-
-				<Dialog
-						title="编辑设备"
-						modal={true}
-						open={openEditEquipment}
-						onClose={this.closeEditEquipment}
-						bodyStyle={{paddingTop:34}}
-						contentStyle={{width:400}}
-					>
-						<NewEquipment  onClose={this.closeEditEquipment} onSubmit = {this.onSubmit} />
-
-				</Dialog>
-
-				<Dialog
-						title="提示"
-						modal={true}
-						open={openDelEquipment}
-						onClose={this.closeDelEquipment}
-						bodyStyle={{paddingTop:34}}
-						contentStyle={{width:400}}
-					>
-						<DelEquipment  onClose={this.closeDelEquipment} onSubmit = {this.onDelSubmit} />
-
-				</Dialog>
+						<div>fdfd</div>
+				</Drawer>
+				
 	        </div>
 				
 		);
 	}
 }
 
-export default EquipmentList;
+export default BusinessList;
 
 
 

@@ -126,13 +126,17 @@ export default (
         {/*社区配置*/}
         <Route path="communityAllocation" component={Basic}>
                 <Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
+                {/*设备列表*/}
+                <Route path="equipmentList" component={Operation.CommunityAllocation.EquipmentList}/>
         </Route>
         {/*基础配置*/}
         <Route path="basicConfig" component={Basic}>
+            {/*商圈列表*/}
+            <Route path="businessList" component={Operation.BasicConfig.BusinessList} />
+
             {/*设备定义*/}
             <Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
-            {/*设备列表*/}
-            <Route path="equipmentList" component={Operation.BasicConfig.EquipmentList}/>
+            
         </Route>
                  {/*客户管理*/}
                 <Route path="customerManage" component={Basic}>

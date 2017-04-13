@@ -92,7 +92,7 @@ const OtherNav = [
             }, {
                 primaryText: '设备列表',
                 menuCode: 'communityDeviceList',
-                originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
+                router: '/operation/communityAllocation/equipmentList'
 
             }, {
                 primaryText: '工位列表',
@@ -131,7 +131,7 @@ const OtherNav = [
             }, {
                 primaryText: '商圈列表',
                 menuCode: 'businessAreaList',
-                originUrl: '/krspace_operate_web/businessArea/toBusinessAreaList?mid=87'
+                router: '/operation/basicconfig/businessList'
             }, {
                 primaryText: "出租方管理",
                 menuCode: 'lessorManage',

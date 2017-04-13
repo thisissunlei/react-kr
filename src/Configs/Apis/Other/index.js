@@ -1338,6 +1338,12 @@ const APIS = {
       url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/delete?id={id}',
       method: 'delete'
    },
+   //商圈列表
+   'business-list':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&&name={name}&&no={no}',
+      method: 'get'
+   },
+   
 
    
 }
