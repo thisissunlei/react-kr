@@ -28,5 +28,4 @@ module.exports = {
 	CommunityAllocation,
 	GroupSetting,
 	BasicConfig,
-	
 }

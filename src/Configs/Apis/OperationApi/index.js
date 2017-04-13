@@ -298,5 +298,14 @@ module.exports = {
         url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
         method: 'post'
     },
-   
+    //运营平台－代码分类列表
+    'codeCategoryList': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/codeCategory/action/list?noOrName={noOrName}&pid={pid}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营平台－代码分类新增或编辑
+    'codeCategoryEdit': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/codeCategory/action/edit',
+        method: 'post'
+    },
 }

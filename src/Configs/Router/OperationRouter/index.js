@@ -28,6 +28,8 @@ module.exports =()=>{
 				<Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
                 {/*会议室*/}
 				<Route path="communityMeetingRoom" component={Operation.CommunityAllocation.CommunityMeetingRoom}/>
+				{/*代码分类*/}
+				<Route path="codeClassification" component={Operation.CommunityAllocation.CodeClassification}/>
 			</Route>
 			{/*基础配置*/}
 			<Route path="basicConfig" component={Basic}>
