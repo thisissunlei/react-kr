@@ -21,18 +21,28 @@ export default class MapComponentNew extends Component {
 			detailSearch : '',
 			initialValue:{},
 			changePosition:false,
-			dragendMarker : false
+			dragendMarker : false,
+			initailPoint:''
 		};
 		this.mapId = 'map_'+Date.now();
 	}
 	componentWillReceiveProps(nextProps){
+		let _this=this;
 		// 根据城市定位地图
-		if(!this.state.dragendMarker &&!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint){
+		if(!this.state.dragendMarker &&!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint &&nextProps.initailPoint !== this.state.initailPoint ){
+			this.setState({
+				initailPoint : nextProps.initailPoint
+			},function(){
 				this.setMarker(nextProps.initailPoint);
+			})
 		}
+		// if(!this.state.dragendMarker &&!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint){
+		// 		this.setMarker(nextProps.initailPoint);
+		// }
 
 		//回填具体地址
 		if(this.props.defaultValue){
+			Debug.log("this.props.defaultValue",this.props.defaultValue);
 			this.refs.mapInput.defaultValue = nextProps.defaultValue;
 		}
 		//经纬度
@@ -190,7 +200,7 @@ export default class MapComponentNew extends Component {
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
-			if(this.refs.mapInput.value){
+			if(_this.refs.mapInput.value){
 				_this.map.centerAndZoom(point, 15);
 			}else{
 				_this.map.centerAndZoom(point, 11);

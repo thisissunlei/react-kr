@@ -157,14 +157,14 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  mobx={true} value="no" />
               		</KrField>
 					<KrField name="date"  component="date" type="date" mobx={true} />
-					{/*<KrField name="mapField"
+					<KrField name="mapField"
 						component="mapnew"
 						placeholder="例如：中关村创业大街2号楼3层"
 						style={{width:242,height:36}}
 						mapStyle={{width:500,height:300}}
 						initailPoint ={this.state.initailPoint}
 						mobx={true}
-					/>*/}
+					/>
 
 
 					
@@ -186,22 +186,21 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 
 const validate = (values)=>{
-	Debug.log("values校验",values);
 	const errors = {};
+	Debug.log("values校验",values);
 
-
-	if(!values.input){
-		errors.input = '请输入input'
-	}
-	if(!values.textarea){
-		errors.textarea = '请输入textarea'
-	}
-	if(!values.uploadImageList){
-		errors.uploadImageList = '请输入uploadImageList'
-	}
-	if(!values.searchCustomer){
-		errors.searchCustomer = '请输入searchCustomer'
-	}
+	// if(!values.input){
+	// 	errors.input = '请输入input'
+	// }
+	// if(!values.textarea){
+	// 	errors.textarea = '请输入textarea'
+	// }
+	// if(!values.uploadImageList){
+	// 	errors.uploadImageList = '请输入uploadImageList'
+	// }
+	// if(!values.searchCustomer){
+	// 	errors.searchCustomer = '请输入searchCustomer'
+	// }
 	
 
 	return errors;
