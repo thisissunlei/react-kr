@@ -66,17 +66,25 @@ import './index.less';
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
-						<div><span className="new-icon"></span><label className="title-text">{title}</label></div>
+						<div><span className="new-icon"></span><label className="title-text">新建商圈</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 
 
 						
+						<KrField grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='input'  label="商圈代码" inline={false}  placeholder='请输入代码名称' requireLabel={true}/>
+						<KrField grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='companyName'  label="区县" inline={false}  placeholder='请选择区县' requireLabel={true}/>
+						<KrField grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='input'  label="商圈名称" inline={false}  placeholder='请输入商圈名称' requireLabel={true}/>
+						<KrField grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='input'  label="客户名称" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
+						<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态" requireLabel={true}>
+							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
+							 <KrField name="enable" label="否" type="radio" value="DISABLE" />
+						</KrField>
 
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center" style={{marginLeft:"-27px"}}>
-										<div  className='ui-btn-center' style={{marginRight:20,display:"inline-block"}}><Button  label="下一步" type="submit"/></div>
+										<div  className='ui-btn-center' style={{marginRight:20,display:"inline-block"}}><Button  label="确定" type="submit"/></div>
 									
 										<div style={{marginLeft:15,display:"inline-block"}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /></div>
 

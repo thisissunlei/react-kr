@@ -240,7 +240,6 @@ class BusinessList  extends React.Component{
 	           </Section>
 	       	   
 	           <Drawer
-					title="新建商圈"
 					modal={true}
 					width={750}
 					onClose={this.closeAll}
