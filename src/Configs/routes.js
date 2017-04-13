@@ -31,15 +31,10 @@ import {
     Community,
     Retail,
     Statistical,
-    customerManage,
-    WebBackstage,
-} from 'kr/Containers';
+    customerManage
+} from '../Containers';
 
-import Master from 'kr/master';
-
-import DemoRouter from './DemoRouter';
-import MemberRouter from './MemberRouter';
-import CommunityRouter from './CommunityRouter';
+import Master from '../master';
 
 export default (
 
@@ -61,8 +56,33 @@ export default (
 
         <Route path="initialize" component={Initialize}/>
 
-        {DemoRouter()}
-        {MemberRouter()}
+        {/*demo*/}
+        <Route path="demo" component={Basic}>
+
+            <Route path="zhangqu" component={Demo.ZhangQu}/>
+            <Route path="machaoyue" component={Demo.MaChaoYue}/>
+            <Route path="dongfanai" component={Demo.DongFanAi}/>
+            <Route path="liuyihao" component={Basic}>
+                <Route path="new" component={Demo.LiuYiHao.New}/>
+                <Route path="detail" component={Demo.LiuYiHao.Detail}/>
+            </Route>
+            <Route path="zhangchi" component={Demo.ZhangChi}/>
+            <Route path="tanlinlin" component={Demo.TanLinLin}/>
+            <Route path="wushulin" component={Demo.WuShuLin}/>
+        </Route>
+
+        {/*会员中心*/}
+        <Route path="member" component={Basic}>
+             <IndexRedirect to="memberManage/list" />
+            <Route path="memberManage" component={Basic}>
+                <Route path="list"  component={Member.MemberManage.List}/>
+                <Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
+                <Route path="setting"  component={Member.MemberManage.Setting}/>
+                <Route path="card"  component={Member.MemberManage.Card}/>
+                <Route path="doormanage"  component={Member.MemberManage.DoorManage}/>
+            </Route>
+
+        </Route>
 
         {/*统计看板*/}
         <Route path="statistical" component={Basic}>
@@ -70,9 +90,21 @@ export default (
                 <IndexRedirect to="index" />
         </Route>
 
-        {/*社区经营*/}
-        {CommunityRouter()}
 
+        {/*社区经营*/}
+        <Route path="community" component={Basic}>
+             <IndexRedirect to="communityManage/detail" />
+            {/*销控表*/}
+
+            <Route path="communityManage" component={Basic}>
+                    <Route path="detail" component={Operation.CommunityManage.Detail}/>
+            </Route>
+            {/*公司成员*/}
+
+            <Route path="companyMembers" component={Basic}>
+                    <Route path=":companyId/list/:communityId" component={Operation.CommunityManage.CompanyMembers}/>
+            </Route>
+        </Route>
 
         {/*OA办公*/}
         <Route path="oa" component={Basic}>
@@ -86,23 +118,23 @@ export default (
 
         {/*运营管理*/}
         <Route path="operation" component={Basic}>
-            <Route path="index" component={Operation.Home}/>
+                <Route path="index" component={Operation.Home}/>
         {/*分组模版管理*/}
-            <Route path="groupSetting" component={Operation.GroupSetting}/>
+        <Route path="groupSetting" component={Operation.GroupSetting}/>
 
         {/*社区配置*/}
-            <Route path="communityAllocation" component={Basic}>
-                    <Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
-            </Route>
-            {/*基础配置*/}
-            <Route path="basicConfig" component={Basic}>
-                <Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
-            </Route>
-             {/*凭证管理*/}
-                <Route path="voucherManage" component={Basic} >
-                        {/*凭证列表*/}
-                            <Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
-                </Route>
+        <Route path="communityAllocation" component={Basic}>
+                <Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
+        </Route>
+        {/*基础配置*/}
+        <Route path="basicConfig" component={Basic}>
+            <Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
+        </Route>
+        {/*凭证管理*/}
+				<Route path="voucherManage" component={Basic} >
+						{/*凭证列表*/}
+							<Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
+				</Route>
                  {/*客户管理*/}
                 <Route path="customerManage" component={Basic}>
                     <Route path="customerList" component={Operation.CustomerManage.CustomerList} />
@@ -188,7 +220,6 @@ export default (
                             <Route path="setting" component={Basic}>
                                 <Route path="list" component={Operation.CustomerManage.Agreement.Setting.List}/>
                             </Route>
-
                     </Route>
 
 
@@ -237,18 +268,6 @@ export default (
                     <Route path="auditlist" component={Finance.Manage.Audit}/>
                 </Route>
             </Route>
-        </Route>
-
-
-    {/*后台管理*/}
-        <Route path="WebBackstage" component={Basic}>
-
-
-            {/*活动列表*/}
-            <Route path="activity" component={Basic}>
-                <Route path="list" component={WebBackstage.ActivityManage.List}/>
-            </Route>
-
         </Route>
 
 
