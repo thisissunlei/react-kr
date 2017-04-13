@@ -2,7 +2,7 @@
 //数据统计
 
 module.exports = {
-  
+
   //数据统计-集团经营-招商数据已开业
   'openCompanyData': {
     url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
@@ -33,4 +33,26 @@ module.exports = {
     url: '/api/krspace-finance-web/stat/template/list',
     method: 'get'
   },
+  //招商数据统计-all列表
+ 'already-open':{
+    url: '/api/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+    method: 'get'
+ },
+
+   //招商数据统计-导出
+ 'already-export':{
+    url: '/api/krspace-finance-web/stat/merchant/data/customer/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+    method: 'get'
+ },
+ //数据统计-集团经营-招商数据已开业导出
+  'openCompanyExprot': {
+     url: '/api/krspace-finance-web/stat/merchant/open/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+     method: 'get'
+  },
+//数据统计-集团经营-招商数据未开业导出
+  'notopenCompanyExprot': {
+     url: '/api/krspace-finance-web/stat/merchant/notopen/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+     method: 'get'
+  },
+
 }

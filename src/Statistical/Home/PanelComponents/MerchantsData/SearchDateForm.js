@@ -25,7 +25,6 @@ import {
 	ListGroupItem
 } from 'kr-ui';
 
-import './index.less';
 
 class SearchDateForm extends Component {
 
@@ -89,7 +88,7 @@ class SearchDateForm extends Component {
 				<div className='s-date-search'>
 
 					<ListGroup>
-							<span className='statis-date-title'>时间：</span>
+					<span className='statis-date-title'>时间：</span>
 
 					<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange}  dateNoSecond='true' placeholder={todayDate}/></div></ListGroupItem>
 					<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
@@ -104,5 +103,5 @@ class SearchDateForm extends Component {
 
 
 export default reduxForm({
-	form: 'SearchDateForm'
+	form: 'merchansDateForm'
 })(SearchDateForm);
