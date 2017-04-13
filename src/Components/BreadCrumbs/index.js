@@ -1,22 +1,8 @@
-
-import React, {Component, PropTypes} from 'react';
+import React  from 'react';
 
 import './index.less';
 
-
-import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	Divider,
-} from 'material-ui';
-
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
-
-export default class TitleList extends Component {
+export default class TitleList extends React.Component {
 
 	static displayName = 'TitleList';
 

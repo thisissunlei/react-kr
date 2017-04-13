@@ -9,7 +9,6 @@ import SelfAdaption from './SelfAdaption';
 import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
 import Table from './Table/index';
-import Date from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
@@ -49,8 +48,10 @@ import KrForm from './KrForm';
 import InputDate from './InputDate';
 import SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
+import Editor from './Editor';
 import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
+
 
 import {
 	Grid,
@@ -84,7 +85,6 @@ module.exports = {
 	SplitLine,
 	Section,
 	BreadCrumbs,
-	Date,
 	Loading,
 	Pagination,
 	Notify,
@@ -120,6 +120,7 @@ module.exports = {
 	...KrForm,
 	InputDate,
 	SnackTip,
+	Editor,
 
 	//materal-ui
 	Menu,

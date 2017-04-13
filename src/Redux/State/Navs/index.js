@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  *
  * 导航字典
@@ -612,3 +613,7 @@ module.exports = {
         }, ]
     }, ]
 }
+=======
+import Navs from 'kr/Configs/Navs';
+module.exports = Navs;
+>>>>>>> master
