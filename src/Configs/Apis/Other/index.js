@@ -718,12 +718,12 @@ module.exports = {
     },
     //客户管理－签约客户列表
     'signCustomers': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}&mainBillType={mainBillType}',
+        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}&mainBillType={mainBillType}',
         method: 'get'
     },
     //客户管理－签约客户列表－导出
     'signCustomersExport': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/customer/sign-customers-export',
+        url: '/api/krspace-finance-web/customer/sign-customers-export',
         method: 'get'
     },
     //客户管理－获取客户编辑信息
@@ -758,7 +758,7 @@ module.exports = {
     },
     //客户管理－签约高级查询准备
     'sign-search-conditions': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/customer/sign-customers/search-conditions',
+        url: '/api/krspace-finance-web/customer/sign-customers/search-conditions',
         method: 'get'
     },
     //订单明细账－二期－添加挂帐
