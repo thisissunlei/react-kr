@@ -190,7 +190,6 @@ class Header extends Component {
             	})
             }
         }).catch(function(err) {
-            console.log(err);
         });
 	}
 	//重置列别表

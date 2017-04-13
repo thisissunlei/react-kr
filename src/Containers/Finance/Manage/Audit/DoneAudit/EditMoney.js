@@ -325,7 +325,6 @@ class EditMoney extends Component {
 			})
 			return
 		}
-		console.log('form.contract', form.contract)
 		var _this = this;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
