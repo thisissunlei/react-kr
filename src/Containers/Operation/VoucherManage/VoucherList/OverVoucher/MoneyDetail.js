@@ -61,7 +61,8 @@ export default class VoucherDetail extends React.Component {
 				if (item.contactType == 1) {
 					type = "承租意向书"
 				} else if (item.contactType == 2) {
-					type = "入驻协议书"
+					type = "入驻协议书"  
+					
 				} else if (item.contactType == 3) {
 					type = "增租协议书"
 				} else if (item.contactType == 4) {
