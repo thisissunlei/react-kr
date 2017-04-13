@@ -1,10 +1,9 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import './index.less';
 
-export default class DotTitle extends Component {
-	static PropTypes = {
+export default class DotTitle extends React.Component {
+
+	static propTypes = {
 		/**
 		 *标题
 		 */
@@ -20,6 +19,7 @@ export default class DotTitle extends Component {
 	}
 
 	render() {
+
 		const {
 			title,
 			children,
@@ -28,17 +28,16 @@ export default class DotTitle extends Component {
 
 		return (
 			<div className='ui-title' style={style}>
-         <div className={children?'ui-heads':'ui-head'}>
-			 <span className='ui-title-mid'>{title}</span>
-         </div>
-		 {children &&
-		  <div className='ui-body'>
-		     <div className='ui-body-inner'>
-		 	   {children}
-		 	 </div>
-		  </div>}
-
-		</div>
+				<div className={children?'ui-heads':'ui-head'}>
+					<span className='ui-title-mid'>{title}</span>
+				</div>
+				{children &&
+						<div className='ui-body'>
+							<div className='ui-body-inner'>
+								{children}
+							</div>
+						</div>}
+					</div>
 		)
 	}
 }

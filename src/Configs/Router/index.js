@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-	Router,
-	Route,
-	Link,
-	Redirect,
-	IndexRoute,
-	browserHistory,
-	IndexRedirect
+    Router,
+    Route,
+    Link,
+    Redirect,
+    IndexRoute,
+    browserHistory,
+    IndexRedirect
 } from 'react-router';
 
 import {
-	Actions,
-	Store
+    Actions,
+    Store
 } from 'kr/Redux';
 
 
@@ -34,7 +34,8 @@ import {
     Community,
     Retail,
     Statistical,
-    customerManage
+    customerManage,
+    WebBackstage,
 } from 'kr/Containers';
 
 import Master from 'kr/master';
@@ -60,8 +61,19 @@ export default (
         <Route path="initialize" component={Initialize}/>
 
         {/*demo*/}
+        <Route path="demo" component={Basic}>
 
-				{DemoRouter()}
+            <Route path="zhangqu" component={Demo.ZhangQu}/>
+            <Route path="machaoyue" component={Demo.MaChaoYue}/>
+            <Route path="dongfanai" component={Demo.DongFanAi}/>
+            <Route path="liuyihao" component={Basic}>
+                <Route path="new" component={Demo.LiuYiHao.New}/>
+                <Route path="detail" component={Demo.LiuYiHao.Detail}/>
+            </Route>
+            <Route path="zhangchi" component={Demo.ZhangChi}/>
+            <Route path="tanlinlin" component={Demo.TanLinLin}/>
+            <Route path="wushulin" component={Demo.WuShuLin}/>
+        </Route>
 
         {/*会员中心*/}
         <Route path="member" component={Basic}>
@@ -109,7 +121,7 @@ export default (
         </Route>
 
            {/*运营管理*/}
-           
+
                {OperationRouter()}
 
             {/*财务管理*/}
@@ -144,6 +156,18 @@ export default (
                     <Route path="auditlist" component={Finance.Manage.Audit}/>
                 </Route>
             </Route>
+        </Route>
+
+
+    {/*后台管理*/}
+        <Route path="WebBackstage" component={Basic}>
+
+
+            {/*活动列表*/}
+            <Route path="activity" component={Basic}>
+                <Route path="list" component={WebBackstage.ActivityManage.List}/>
+            </Route>
+
         </Route>
 
 
