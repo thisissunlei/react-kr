@@ -37,6 +37,7 @@ import {
 	Message
 } from 'kr-ui';
 import  "./index.less";
+ import NewBusiness from "./NewBusiness";
 class BusinessList  extends React.Component{
 
 	constructor(props,context){
@@ -246,7 +247,7 @@ class BusinessList  extends React.Component{
 					open={openNewBusiness}
 					containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
 					>
-						<div>fdfd</div>
+						<NewBusiness />
 				</Drawer>
 				
 	        </div>

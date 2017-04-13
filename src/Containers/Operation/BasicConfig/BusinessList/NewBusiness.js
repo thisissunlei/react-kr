@@ -48,77 +48,25 @@ import './index.less';
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 
 	}
-	//下一步被点击
-	onSubmit = () => {
-			
-	    var _this = this;
-	    
-		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
-		//承租意向
-		allState.admit=response.intention;
-		//入驻合同是否可创建	
-
-		// allState.enter=true;
-		allState.enter=response.enter;
-		//增租合同是否可创建
-		allState.increase=response.increase;
-		//减租合同是否可创建
-		allState.reduce=response.reduce;
-		// allState.reduce=true;
-		//续租合同是否可创建
-		allState.relet=response.relet;
-		
-		//allState.relet=true;
-		//退组合同是否可创建
-		allState.returnRent=response.returnRent;
-        if(!allState.enter&&!allState.increase&&!allState.reduce&&!allState.relet&&!allState.returnRent){
-        	if(response.quitRentAll>0){
-        		Message.error('该订单已签订退租，无法继续签订合同');
-        		return ;
-        	}
-        	Message.error('没有合同可以创建');
-        	return ;
-        }
-        allState.openTowAgreement=true;	
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
 
-    
-    //打开新建订单
-    openNewIndent=()=>{
-		Store.dispatch(initialize('NewIndent',{}));
-		var _this=this;
-		let data={};
-		data.customerId=allState.listId;
-
-		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
-			allState.customerName=response.customerName;
-			allState.orderCount=response.orderCount;
-			newIndentState.orderName="";
-		}).catch(function(err) {
-			 Message.error(err.message);
-		});		
-	}
-    //下一步被点击
+    //确定按钮
     onSubmit = () =>{
     	let {onSubmit} = this.props;
     	onSubmit && onSubmit();
     }
 
 	render(){
-		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
+		const { error, handleSubmit, pristine, reset,dataReady,open,title} = this.props;
 		let {orderList}=this.state;
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
-						<div><span className="new-icon"></span><label className="title-text">新建合同</label></div>
+						<div><span className="new-icon"></span><label className="title-text">{title}</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 
