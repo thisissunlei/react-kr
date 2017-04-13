@@ -1274,77 +1274,77 @@ const APIS = {
     },
     //权限--登录
     'loginSubmit': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/loginSubmit',
+      url: '/api/krspace-sso-web/sso/login/loginSubmit',
       method: 'post'
     },
     //权限--手机获取验证码
     'getVcodeByPhone': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByPhone?mobile={mobile}',
+      url: '/api/krspace-sso-web/sso/login/getVcodeByPhone?mobile={mobile}',
       method: 'get'
     },
     //权限--邮箱获取验证码
     'getVcodeByMail': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}',
+      url: '/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}',
       method: 'get'
     },
     //权限--提交手机验证码
     'validPhoneCode': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validPhoneCode',
+      url: '/api/krspace-sso-web/sso/login/validPhoneCode',
       method: 'post'
     },
     //权限--提交邮箱验证码
     'validEmailCode': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validEmailCode',
+      url: '/api/krspace-sso-web/sso/login/validEmailCode',
       method: 'post'
     },
     //权限--提交新密码
     'setNewPwd': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/setNewPwd',
+      url: '/api/krspace-sso-web/sso/login/setNewPwd',
       method: 'post'
     },
     //权限--账户列表--获取账户列表
     'getSsoUserList': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
+      url: '/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
       method: 'get'
     },
     //权限--账户列表--获取数据权限
     'findRoleData': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findRoleData?id={id}',
+      url: '/api/krspace-sso-web/sso/ssoUser/findRoleData?id={id}',
       method: 'get'
     },
     //权限--账户列表--删除
     'delSsoUser': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/delSsoUser?id={id}',
+      url: '/api/krspace-sso-web/sso/ssoUser/delSsoUser?id={id}',
       method: 'delete'
     },
     //权限--账户列表--加锁
     'lockAccount': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/lockAccount',
+      url: '/api/krspace-sso-web/sso/ssoUser/lockAccount',
       method: 'post'
     },
     //权限--账户列表--解锁
     'unlockAccount': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/unlockAccount',
+      url: '/api/krspace-sso-web/sso/ssoUser/unlockAccount',
       method: 'post'
     },
     //权限--账户列表--重置密码
     'resetPassword': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/resetPassword',
+      url: '/api/krspace-sso-web/sso/ssoUser/resetPassword',
       method: 'post'
     },
     //权限--账户列表--编辑登录账户
     'editSsoUser': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editSsoUser',
+      url: '/api/krspace-sso-web/sso/ssoUser/editSsoUser',
       method: 'post'
     },
     //权限--账户列表--新建
     'createSsoUser': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/createSsoUser',
+      url: '/api/krspace-sso-web/sso/ssoUser/createSsoUser',
       method: 'post'
     },
     //权限--账户列表--角色编辑
     'editUserRole': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editUserRole',
+      url: '/api/krspace-sso-web/sso/ssoUser/editUserRole',
       method: 'post'
     },
     //权限--角色列表--获取角色列表
@@ -1354,12 +1354,12 @@ const APIS = {
     },
     //权限--数据--获取城市列表
     'findCityList': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findCityList',
+      url: '/api/krspace-sso-web/sso/ssoUser/findCityList',
       method: 'get'
     },
     //权限--数据--根据城市id获取社区列表
     'findCommunityList': {
-      url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findCommunityList?cityId={cityId}&userId={userId}',
+      url: '/api/krspace-sso-web/sso/ssoUser/findCommunityList?cityId={cityId}&userId={userId}',
       method: 'get'
     },
     //权限--操作项--删除
