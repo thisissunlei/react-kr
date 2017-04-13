@@ -60,9 +60,9 @@ module.exports =  function (initializeConfigs){
 
       }
 
-      change = (field,fieldValue)=>{
+      change = (fieldName,fieldValue)=>{
         const {onChange} = this.props;
-        onChange && onChange(field,fieldValue);
+        onChange && onChange(fieldName,fieldValue);
       }
 
       submit = ()=>{

@@ -433,7 +433,6 @@ State.stopSubmit = action(function(formName,errors) {
 		var form = this.getForm(formName);
 		var initializeValues = form.initializeValues;
 
-		Debug.log('ddsdsd',initializeValues)
 		this.changeValues(formName,initializeValues);
 	});
 

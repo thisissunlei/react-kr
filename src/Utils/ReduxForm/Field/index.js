@@ -33,6 +33,8 @@ export default class Field extends React.Component{
   onChange = (value)=>{
     const {onChange} = this.context;
     const {name} = this.props;
+
+    Debug.log('value----<><>',value);
     onChange && onChange(name,value);
   }
 
@@ -46,6 +48,14 @@ export default class Field extends React.Component{
     const {onBlur} = this.context;
     const {name} = this.props;
     onBlur && onBlur(name);
+  }
+
+
+  getFieldValue = ()=>{
+    const {name} = this.props;
+    var value = '';
+
+    return value;
   }
 
   renderComponent = (component)=>{
