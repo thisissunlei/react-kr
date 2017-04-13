@@ -1455,11 +1455,12 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 		const {$form} = this.props;
 		$form.change('city',value);
 	}
-	changeYes=(value)=>{
+	chooseYes=(value)=>{
+		Debug.log("value------>",value)
 		const {$form} = this.props;
 		$form.change('radio',value);
 	}
-	changeNo=(value)=>{
+	chooseNo=(value)=>{
 		const {$form} = this.props;
 		$form.change('radio',value);
 	}
@@ -1523,23 +1524,13 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					<KrField label="city"  component="city"  name="city" mobx={true} onSubmit={this.cityValue}/>
 					<KrField label="tree"  component="tree"  name="tree" mobx={true} treeAll={treeAll}/>
 					<KrField label="textarea"  component="textarea"  name="textarea" mobx={true} />
-   					<KrField grid={1/2} component="group" label="是否启用" requireLabel={true} mobx={true}>
-						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" value="ENABLE" mobx={true}/>
-						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  value="DISENABLE" mobx={true}/>
+   					{/*有问题*/}
+   					<KrField grid={1/2} component="group"  name="enableflag"  label="是否启用" requireLabel={true} mobx={true}>
+						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" mobx={true} value="yes" />
+						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  mobx={true} value="no" />
               		</KrField>
 
-						<KrField
-				              		label="电脑端轮播图newuploadImage"
-				              		name="newuploadImage"
-									component="newuploadImage"
-									innerstyle={{width:524,height:159,padding:10}}
-									photoSize={'1920*520'}
-									pictureFormat={'JPG,PNG,GIF'}
-									pictureMemory={'500'}
-									requestURI = {this.state.requestURI}
-									inline={false}
-									mobx={true}
-								/>
+						
 
 
 
