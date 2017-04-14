@@ -102,7 +102,6 @@ export default class MemeberEditMemberForm extends Component {
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			console.log("response.memberInfoVO",response.memberInfoVO);
 			Store.dispatch(initialize('memeberEditMemberForm', response.memberInfoVO));
 
 			_this.setState({

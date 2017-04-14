@@ -613,8 +613,6 @@ PlanMap.prototype.calcScale = function(){
     defaultTranslateY = -defaultTranslateY;
   }
 
-  console.log(defaultTranslateX,move.x,defaultScale,defaultTranslateY);
-
 
 var translateX = this.translateX + defaultTranslateX;
 var translateY = this.translateY + defaultTranslateY;
@@ -795,7 +793,6 @@ PlanMap.prototype.onDrag = function(){
 }
 
 PlanMap.prototype.onDragBegin = function(){
-  console.log('---???')
 	this.onDragMapBegin();
 }
 
@@ -805,7 +802,6 @@ PlanMap.prototype.onDragEnd = function(){
 	this.drawStations();
 
 
-  console.log('end');
 	if(this.getEvent('drag') && this.getEvent('dragBegin') && this.getEvent('dargMap')){
 		this.onDragMapEnd();
 	}

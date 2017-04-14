@@ -103,7 +103,6 @@ export default class PersonalBehavior extends Component {
 			});
 	}
 	onLoaded(response) {
-		// console.log(response,"response");
 		let list = response;
 		this.setState({
 			list

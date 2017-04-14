@@ -49,7 +49,6 @@ class EditDetail extends Component {
 			}
 		}
 		const detail=props.detail;
-		console.log(detail,">>>>>>")
 		Store.dispatch(initialize('EditDetail',detail));
 	}
 
@@ -57,14 +56,14 @@ class EditDetail extends Component {
 		var oldInterCode=this.props.detail.interCode;
 		console.log("99",oldInterCode)
 
-		if (navigator.onLine) 
+		if (navigator.onLine)
 		{ //正常工作
-		} 
+		}
 		else { //执行离线状态时的任务
 		 		Message.error("网络已断开")
 		 		return;
-		} 
-		
+		}
+
 		const {
 			onSubmit
 		} = this.props;
@@ -105,7 +104,7 @@ class EditDetail extends Component {
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
-		
+
 	}
 	render() {
 		const {

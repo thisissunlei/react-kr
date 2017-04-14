@@ -28,6 +28,10 @@ injectTapEventPlugin({
 
 import * as Actions from 'kr/Redux/Actions';
 
+import {Debug} from 'kr/Utils';
+
+window.Debug = Debug;
+
 
 ReactDOM.render((
 	<MuiThemeProvider>

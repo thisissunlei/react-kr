@@ -10,7 +10,6 @@ export default class CircleStyle extends React.Component {
 		num: 1,
 		info: '',
 		circle: 'center',
-
 	}
 
 	static propTypes = {
@@ -35,13 +34,7 @@ export default class CircleStyle extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 	}
-
-	componentWillReceiveProps(nextProps) {
-
-	}
-
 
 	render() {
 
@@ -53,6 +46,7 @@ export default class CircleStyle extends React.Component {
 			style,
 			...other
 		} = this.props;
+
 		if (circle == 'center') {
 			return (
 				<div className="ui-detailContent" style={style}>
@@ -62,7 +56,9 @@ export default class CircleStyle extends React.Component {
 			</div>
 			);
 		}
+
 		if (circle == 'bottom') {
+
 			return (
 				<div className="ui-textInfo" style={style}>
 					<div className="one"><p>{num}</p><div className="txt">—— {info}</div></div>
@@ -70,8 +66,7 @@ export default class CircleStyle extends React.Component {
 					{children}
 			</div>
 			);
+
 		}
-
-
 	}
 }
