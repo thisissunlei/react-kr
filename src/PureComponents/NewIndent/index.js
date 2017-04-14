@@ -54,6 +54,10 @@ import {
 		values.mainbillname=_this.props.NewIndentModel.orderName;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
+			_this.props.NewIndentModel.searchParams={
+				page:1,
+				time:+new Date()
+			 }
     	_this.onCancel();
 			_this.props.NewIndentModel.openContract=false;
 		}).catch(function(err) {

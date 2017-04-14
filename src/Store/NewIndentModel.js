@@ -9,6 +9,9 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {
+	Message
+} from 'kr-ui';
 let State = observable({
 		matureTime:false,
 		selectData:{
@@ -31,6 +34,17 @@ let State = observable({
 
 	 //打开新建订单第一层
 	 openContract:false,
+
+   //个人客户
+	 searchParams:{
+		 page:1,
+	 },
+	//转移
+	 openSwitch:false,
+
+	 openPersonDialog:false,
+
+	 openQuit:false
 });
 
 //显示到期时间
@@ -95,4 +109,85 @@ State.orderReady = action(function(params) {
 State.openFirstContract=action(function(){
     this.openContract=!this.openContract;
 })
+
+//个人客户导出
+State.exportData = action(function(value) {
+	    var search={};
+	    search.company= this.searchParams.company;
+	    search.createEndDate=this.searchParams.createEndDate;
+	    search.createStartDate=this.searchParams.createStartDate;
+	    search.intentionCityId=this.searchParams.intentionCityId;
+	    search.intentionCommunityId=this.searchParams.intentionCommunityId;
+	    search.levelId=this.searchParams.levelId;
+	    search.sourceId=this.searchParams.sourceId;
+	    if(!search.company){
+	    	search.company='';
+	    }
+	    if(!search.createEndDate){
+	    	search.createEndDate='';
+	    }
+	    if(!search.createStartDate){
+	    	search.createStartDate='';
+	    }
+	    if(!search.intentionCityId){
+	    	search.intentionCityId='';
+	    }
+	    if(!search.intentionCommunityId){
+	    	search.intentionCommunityId='';
+	    }
+	    if(!search.levelId){
+	    	search.levelId='';
+	    }
+	    if(!search.sourceId){
+	    	search.sourceId='';
+	    }
+		let customerIds = [];
+		if (value.length != 0) {
+			value.map((item, value) => {
+				customerIds.push(item.id)
+			});
+		}
+		var url = `/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company=${search.company}&createEndDate=${search.createEndDate}&createStartDate=${search.createStartDate}&intentionCityId=${search.intentionCityId}&intentionCommunityId=${search.intentionCommunityId}&levelId=${search.levelId}&sourceId=${search.sourceId}`
+		window.location.href = url;
+});
+//个人客户转移提交
+State.switchSureSubmit= action(function(value) {
+	var _this=this;
+	Store.dispatch(Actions.callAPI('customerTransfer',{},value)).then(function(response) {
+		     _this.openSwitch=false;
+         Message.success('转移成功');
+         _this.openPersonDialog=false;
+         _this.searchParams={
+         	page:1,
+			    time:+new Date()
+         }
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});
+});
+	//个人客户转移开关
+	State.openSwitchGoDialog= action(function() {
+		this.openSwitch=!this.openSwitch;
+	});
+
+	//个人客户取消客户跟进提交
+	State.quitSubmit= action(function(arrItem) {
+		var ids=arrItem;
+		var _this=this;
+		Store.dispatch(Actions.callAPI('customerGiveBack',{},{ids})).then(function(response) {
+			 _this.openQuit=false;
+	         Message.success('取消成功');
+	         _this.openPersonDialog=false;
+	         _this.searchParams={
+	         	page:1,
+				    time:+new Date()
+	         }
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});
+	});
+	//取消客户跟进
+	State.openQuitContinue= action(function() {
+		this.openQuit=!this.openQuit;
+	});
 module.exports = State;
