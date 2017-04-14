@@ -27,7 +27,6 @@ export default class MapComponentNew extends Component {
 		this.mapId = 'map_'+Date.now();
 	}
 	componentWillReceiveProps(nextProps){
-		console.log("nextProps=====>",nextProps);
 		let _this=this;
 		// 根据城市定位地图
 		if(!this.state.dragendMarker &&!this.state.changePosition && !nextProps.defaultValue && nextProps.initailPoint &&nextProps.initailPoint !== this.state.initailPoint ){
@@ -43,7 +42,6 @@ export default class MapComponentNew extends Component {
 
 		//回填具体地址
 		if(this.props.defaultValue){
-			Debug.log("this.props.defaultValue",this.props.defaultValue);
 			this.refs.mapInput.defaultValue = nextProps.defaultValue;
 		}
 		//经纬度
@@ -169,12 +167,10 @@ export default class MapComponentNew extends Component {
 				_this.map.clearOverlays();  
 
 	          	if (local.getStatus() == BMAP_STATUS_SUCCESS){ 
-	          		console.log("results.getPoi(0).point.lng",results.getPoi(0).point.lng);
 	             	_this.setState({
 	             		pointLng : results.getPoi(0).point.lng,
 						pointLat : results.getPoi(0).point.lat
 	             	},function(){
-	             		console.log("this.state====>输入文字",this.state)
 	             		_this.onChange();
 	             		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);    
 						var marker = new BMap.Marker(point); // 创建标注
@@ -215,7 +211,6 @@ export default class MapComponentNew extends Component {
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
-			console.log("this.state",this.state);
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			if(_this.refs.mapInput.value){
 				_this.map.centerAndZoom(point, 15);
@@ -237,7 +232,6 @@ export default class MapComponentNew extends Component {
 					pointLat : e.point.lat,
 					changePosition:true
 			 	},function(){
-			 		console.log("this.state",this.state);
 			 		_this.onChange();
 			 	});
 			});
