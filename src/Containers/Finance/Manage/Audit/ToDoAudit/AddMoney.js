@@ -125,8 +125,10 @@ class AddMoney extends React.Component {
 			this.openCreateCustomer();
 			return;
 		}
+		Store.dispatch(change('addMoney', 'mainBillId', ''));
 		this.setState({
-			customerId: form.id
+			customerId: form.id,
+			mainbillInfo:{}
 		})
 	}
 
@@ -463,7 +465,7 @@ class AddMoney extends React.Component {
 			onBlur = {
 				this.moneyCheck
 			}
-			/> 
+			/>
 			< KrField label = {`工位服务费（未回款额：${item.nTotalrent}）`}
 			grid = {
 				1 / 2
