@@ -51,321 +51,328 @@ import SearchPayment from './SearchPayment';
 
 class FieldRevert extends React.Component {
 
-		static defaultProps = {
-			mobx:false
-		}
-
 		static propTypes = {
 			mobx:React.PropTypes.bool,
 		}
 
-		constructor(props){
-			super(props);
+		static contextTypes =  {
+			isMobx: React.PropTypes.bool,
+		}
+
+		constructor(props,context){
+			super(props,context);
 		}
 
 		render(){
 
-			const {mobx} = this.props;
+			const {isMobx} = this.context;
 
-			if(mobx){
+			if(isMobx){
 				return <MobxForm.Field {...this.props} />;
 			}
 
 			return <Field  {...this.props} />;
 
 		}
-}
-
-export default class KrField extends React.Component {
-
-	static defaultProps = {
-		left: 0,
-		right: 0,
 	}
 
-	static propTypes = {
-		type: React.PropTypes.string,
-		name: React.PropTypes.string,
-		label: React.PropTypes.string,
-		component: React.PropTypes.string,
-		disabled: React.PropTypes.bool,
-		grid: React.PropTypes.number,
-		// value: React.PropTypes.string,
-		inline: React.PropTypes.bool,
-		search: React.PropTypes.bool,
-		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-		colorStyle: React.PropTypes.object,
-	}
-
-	render() {
-
-		let {
-			style,
-			left,
-			right,
-			grid = 1,
-			className,
-			children,
-			inline,
-			component,
-			type,
-			requireLabel,
-			label,
-			value,
-			search,
-			colorStyle,
-			heightStyle,
-			lengthClass,
-			...other
-		} = this.props;
+	export default class KrField extends React.Component {
 
 
-		let WrapStyles = Object.assign({}, {
-			width: (grid * 100) + '%',
-			paddingLeft: left,
-			paddingRight: right
-		}, style);
+		static defaultProps = {
+			left: 0,
+			right: 0,
+		}
 
-		if (component === 'input' || component === 'text') {
+		static propTypes = {
+			type: React.PropTypes.string,
+			name: React.PropTypes.string,
+			label: React.PropTypes.string,
+			component: React.PropTypes.string,
+			disabled: React.PropTypes.bool,
+			grid: React.PropTypes.number,
+			// value: React.PropTypes.string,
+			inline: React.PropTypes.bool,
+			search: React.PropTypes.bool,
+			left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+			right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+			colorStyle: React.PropTypes.object,
+		}
+
+
+		constructor(props,context){
+			super(props,context);
+
+		}
+
+		render() {
+
+			let {
+				style,
+				left,
+				right,
+				grid = 1,
+				className,
+				children,
+				inline,
+				component,
+				type,
+				requireLabel,
+				label,
+				value,
+				search,
+				colorStyle,
+				heightStyle,
+				lengthClass,
+				...other
+			} = this.props;
+
+
+			let WrapStyles = Object.assign({}, {
+				width: (grid * 100) + '%',
+				paddingLeft: left,
+				paddingRight: right
+			}, style);
+
+			if (component === 'input' || component === 'text') {
+				return (
+					<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'labelText' || type == 'labelText') {
+				return (
+					<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+				);
+			}
+
+			if (component === 'editor') {
+				return (
+					<FieldRevert {...this.props} component={EditorComponent}  style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'groupCheckbox') {
+				return (
+					<FieldRevert {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
+				);
+			}
+
+
+			if (component === 'editLabelText' || type == 'editLabelText') {
+				return (
+					<EditLabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+				);
+			}
+
+
+			if (component === 'file') {
+				return (
+					<FieldRevert {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'doorCard') {
+				return (
+					<FieldRevert {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'uploadImage') {
+				return (
+					<FieldRevert {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'newuploadImage') {
+				return (
+					<FieldRevert {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+
+
+			if (component === 'uploadImageList') {
+				return (
+					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+
+			if (component === 'searchPayment') {
+				return (
+					<FieldRevert {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchCustomer') {
+				return (
+					<FieldRevert {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchMainbill') {
+				return (
+					<FieldRevert {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchCommunitys') {
+				return (
+					<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchCorporation') {
+				return (
+					<FieldRevert {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
+				)
+			}
+
+
+			if (component === 'searchPersonel') {
+				return (
+					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'selectTime') {
+				return (
+					<FieldRevert {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'SearchList') {
+				return (
+					<FieldRevert {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchCommunity') {
+				return (
+
+					<FieldRevert {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
+				);
+			}
+
+
+			if (component === 'searchLeader') {
+
+				return (
+
+					<FieldRevert {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchIntend') {
+				return (
+
+					<FieldRevert {...this.props} component={SearchIntendCommunity}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchSign') {
+				return (
+
+					<FieldRevert {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
+				);
+			}
+
+
+
+			if (component === 'searchCompany') {
+				return (
+					<FieldRevert {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchCity') {
+				return (
+					<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchSource') {
+				return (
+					<FieldRevert {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchSourceAdd') {
+				return (
+					<FieldRevert {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+
+			if (component === 'companyName') {
+				return (
+					<FieldRevert {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'search') {
+				return (
+					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+
+			if (component === 'city' || type == 'city') {
+				return (
+					<FieldRevert {...this.props} component={CityComponent} style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'tree' || type == 'tree') {
+
+				return (
+					<FieldRevert  {...this.props} component={TreeComponent}  style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'textarea') {
+				return (
+					<FieldRevert {...this.props} component={TextareaComponent} style={WrapStyles} heightStyle={heightStyle} lengthClass={lengthClass}/>
+				);
+			}
+
+			if (component === 'select' || type == 'select') {
+				return (
+					<FieldRevert {...this.props} component={SelectComponent} style={WrapStyles}>
+						{children}
+					</FieldRevert>
+				);
+			}
+
+			if (component === 'radio' || type == 'radio') {
+				return (
+					<FieldRevert {...this.props} component={RadioComponent}  style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'date' || type == 'date') {
+				return (
+					<FieldRevert {...this.props} component={DateComponent}  style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'group' || type == 'group') {
+				return (
+					<GroupComponent {...this.props} style={WrapStyles}/>
+				);
+			}
+
+			if (component === 'mapnew' ) {
+				return (
+					<FieldRevert  {...this.props} component={MapComponentNew} style={WrapStyles}/>
+				);
+			}
+
+			if (!component || component === 'input') {
+
+				return (
+					<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
+				);
+			}
+
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
+
 		}
-
-		if (component === 'labelText' || type == 'labelText') {
-			return (
-				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
-			);
-		}
-
-		if (component === 'editor') {
-			return (
-							<FieldRevert {...this.props} component={EditorComponent}  style={WrapStyles}/>
-			);
-		}
-
-		if (component === 'groupCheckbox') {
-			return (
-				<FieldRevert {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
-			);
-		}
-
-
-		if (component === 'editLabelText' || type == 'editLabelText') {
-			return (
-				<EditLabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
-			);
-		}
-
-
-		if (component === 'file') {
-			return (
-				<FieldRevert {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'doorCard') {
-			return (
-				<FieldRevert {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-		if (component === 'uploadImage') {
-			return (
-				<FieldRevert {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-		if (component === 'newuploadImage') {
-			return (
-				<FieldRevert {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-
-
-		if (component === 'uploadImageList') {
-			return (
-				<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-
-		if (component === 'searchPayment') {
-			return (
-				<FieldRevert {...this.props} component={SearchPayment}  style={WrapStyles} {...other}/>
-			)
-		}
-		if (component === 'searchCustomer') {
-			return (
-				<FieldRevert {...this.props} component={SearchCustomer}  style={WrapStyles} {...other}/>
-			)
-		}
-		if (component === 'searchMainbill') {
-			return (
-				<FieldRevert {...this.props} component={SearchMainbill}  style={WrapStyles} {...other}/>
-			)
-		}
-		if (component === 'searchCommunitys') {
-			return (
-				<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
-			)
-		}
-		if (component === 'searchCorporation') {
-			return (
-				<FieldRevert {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
-			)
-		}
-
-
-		if (component === 'searchPersonel') {
-			return (
-				<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'selectTime') {
-			return (
-				<FieldRevert {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'SearchList') {
-			return (
-				<FieldRevert {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'searchCommunity') {
-			return (
-
-				<FieldRevert {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
-			);
-		}
-
-
-       if (component === 'searchLeader') {
-
-			return (
-
-				<FieldRevert {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'searchIntend') {
-			return (
-
-				<FieldRevert {...this.props} component={SearchIntendCommunity}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'searchSign') {
-			return (
-
-				<FieldRevert {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
-			);
-		}
-
-
-
-		if (component === 'searchCompany') {
-			return (
-				<FieldRevert {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'searchCity') {
-			return (
-				<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'searchSource') {
-			return (
-				<FieldRevert {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-        if (component === 'searchSourceAdd') {
-			return (
-				<FieldRevert {...this.props} component={SearchSourceAddComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-
-		if (component === 'companyName') {
-			return (
-				<FieldRevert {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
-			);
-		}
-
-		if (component === 'search') {
-			return (
-				<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
-			);
-		}
-
-
-		if (component === 'city' || type == 'city') {
-			return (
-				<FieldRevert {...this.props} component={CityComponent} style={WrapStyles}/>
-			);
-		}
-
-		if (component === 'tree' || type == 'tree') {
-
-			return (
-				<FieldRevert  {...this.props} component={TreeComponent}  style={WrapStyles}/>
-			);
-		}
-
-		if (component === 'textarea') {
-			return (
-				<FieldRevert {...this.props} component={TextareaComponent} style={WrapStyles} heightStyle={heightStyle} lengthClass={lengthClass}/>
-			);
-		}
-
-		if (component === 'select' || type == 'select') {
-			return (
-				<FieldRevert {...this.props} component={SelectComponent} style={WrapStyles}>
-				{children}
-				</FieldRevert>
-			);
-		}
-
-		if (component === 'radio' || type == 'radio') {
-			return (
-				<FieldRevert {...this.props} component={RadioComponent}  style={WrapStyles}/>
-			);
-		}
-
-		if (component === 'date' || type == 'date') {
-			return (
-				<FieldRevert {...this.props} component={DateComponent}  style={WrapStyles}/>
-			);
-		}
-
-		if (component === 'group' || type == 'group') {
-			return (
-				<GroupComponent {...this.props} style={WrapStyles}/>
-			);
-		}
-
-		if (component === 'mapnew' ) {
-			return (
-				<FieldRevert  {...this.props} component={MapComponentNew} style={WrapStyles}/>
-			);
-		}
-
-		if (!component || component === 'input') {
-
-			return (
-				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
-			);
-		}
-
-		return (
-			<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
-		);
-
 	}
-}
