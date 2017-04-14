@@ -30,9 +30,19 @@ export default class Field extends React.Component{
     registerField && registerField(name,'field');
   }
 
-  onChange = (value)=>{
+  onChange = (event)=>{
     const {onChange} = this.context;
     const {name} = this.props;
+
+    var value = '';
+
+    if(typeof event === 'string'){
+        value = event;
+    }else if(typeof event === 'object' && event.target){
+        var target = event.target;
+        value = target.value;
+    }
+
     onChange && onChange(name,value);
   }
 
