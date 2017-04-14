@@ -28,7 +28,7 @@ class BatchUploadImageForm extends Component{
 			uploadedNum:0,
 			totalNum:0,
 			submitValuesParams:{},
-			requestURI:"postEquipmentImg",
+			requestURI:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
 			communitys: []
 		}
 	}
@@ -164,13 +164,26 @@ class BatchUploadImageForm extends Component{
 		return(
 			
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField name="uploadImage" 
+					{/*<KrField name="uploadImage" 
 						component="uploadImage" 
 						style={{marginTop:10}} 
 						photoSize={'212*136'} 
 						pictureFormat={'JPG'} 
 						pictureMemory={'32K'}
 						requestURI = {this.state.requestURI}
+					/>*/}
+					<KrField
+	              		label=""
+	              		name="uploadImage"
+						component="newuploadImage"
+						innerstyle={{width:248,height:167,padding:10}}
+						photoSize={'212*136'}
+						pictureFormat={'JPG'}
+						pictureMemory={'32'}
+						requestURI = {this.state.requestURI}
+						inline={false}
+						formfile='file'
+						center='center'
 					/>
 					<KrField name="communitys" 
 						options={communitys} 

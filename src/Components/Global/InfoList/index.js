@@ -26,7 +26,7 @@ export default class InfoList extends Component {
             url: '',
             readedUrl: '',
             infoList:[],
-            page:1, 
+            page:1,
             pageSize:15,
             totalCount:0,
             pagination:0,
@@ -46,7 +46,6 @@ export default class InfoList extends Component {
         }
         this.getDataList(url, params);
 
-        console.log('onPageChange', params);
         // this.setState({
         //     params:params
         // })
@@ -60,17 +59,14 @@ export default class InfoList extends Component {
 
     }
     componentWillReceiveProps(next, state) {
-        console.log('componentWillReceiveProps', next.infoTab, this.props.infoTab);
         if (next.infoTab != this.props.infoTab) {
             this.setState({
                 infoTab: next.infoTab
             }, function() {
-                console.log('next.infoTab', next.infoTab, this.state.infoTab);
                 this.getInfoData();
             })
 
         }
-        // console.log('pppppp');
 
     }
     click=()=>{
@@ -80,7 +76,6 @@ export default class InfoList extends Component {
 
     getInfoData = () => {
         let {infoTab} = this.state;
-        console.log('getInfoData', infoTab);
         if (!infoTab) {
             return;
         }
@@ -94,14 +89,10 @@ export default class InfoList extends Component {
             this.setState({
                 url: 'getInfoList',
                 readedUrl: 'setInfoReaded'
-            },function(){
-            	console.log(this.state);
             })
             return;
-            
-
         }
-        
+
         this.setState({
             url: '',
             readedUrl: ''
@@ -110,7 +101,6 @@ export default class InfoList extends Component {
     getDataList = (url, params) => {
     	let _this = this;
         Store.dispatch(Actions.callAPI(url, params)).then(function(response) {
-            console.log('ddd',response,url,_this.state);
             _this.setState({
             	infoList:response.items,
             	currentPage:parseInt(response.page),
@@ -118,17 +108,15 @@ export default class InfoList extends Component {
             	pagination:response.totalPages,
             })
         }).catch(function(err) {
-            console.log(err);
         });
     }
     readed(item) {
         let {readedUrl,url} = this.state;
         let _this = this;
-        console.log('item', item,readedUrl);
         Store.dispatch(Actions.callAPI(readedUrl, {
             id: item.msgInfoId
         })).then(function(response) {
-        	
+
         	if(item.msgStatu == 'UNREAD'){
         		_this.click();
         	}
@@ -138,12 +126,9 @@ export default class InfoList extends Component {
                 startTime:_this.state.startTime,
                 endTime:_this.state.endTime,
             });
-        }).catch(function(err) {
-            console.log(err);
         });
     }
     startDate=(person)=>{
-    	console.log('start',person);
     	let {url} = this.state;
     	let params = {
     		startTime:person,
@@ -181,7 +166,7 @@ export default class InfoList extends Component {
         Store.dispatch(change('time','end',''));
         Store.dispatch(change('time','start',''));
         Store.dispatch(Actions.switchRightBar(false));
-        
+
         let {url} = this.state;
         let params = {
             startTime:'',
@@ -216,8 +201,8 @@ export default class InfoList extends Component {
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
 						<ListGroupItem  style={{width:200,marginTop:'-3px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.endDate}/> </ListGroupItem>
 						</ListGroup>
-						
-						
+
+
 					</form>
 					{infoList.map((item, index) => {
 		                return (
@@ -228,9 +213,9 @@ export default class InfoList extends Component {
 		                )
 		            })}
 		            {!infoList.length && this.dataNone()}
-				</div> 
+				</div>
 				< div style = {{paddingRight: '15px',visibility:pagination?'visible':'hidden',position:'absolute',bottom:'-27px',left:'25px'}} >
-				<Pagination totalCount={totalCount} page={currentPage} pageSize={pageSize} onPageChange={this.onPageChange} pageJump={4}/> 
+				<Pagination totalCount={totalCount} page={currentPage} pageSize={pageSize} onPageChange={this.onPageChange} pageJump={4}/>
 				< /div>
 				 < /div >
             );

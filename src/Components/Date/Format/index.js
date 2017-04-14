@@ -1,5 +1,4 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
 
 import {
   DateFormat
@@ -14,7 +13,7 @@ export default class Format extends React.Component {
 		format:'yyyy-mm-dd',
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		value:React.PropTypes.string,
 		format:React.PropTypes.string
 	};

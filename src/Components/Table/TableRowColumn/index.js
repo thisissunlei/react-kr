@@ -27,15 +27,9 @@ export default class TableRowColumn extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		this.onClick = this.onClick.bind(this);
-		this.onMouseEnter = this.onMouseEnter.bind(this);
-		this.onMouseLeave = this.onMouseLeave.bind(this);
-		this.onFormatData = this.onFormatData.bind(this);
-
 	}
 
-	onClick(event) {
+	onClick = (event)=> {
 
 		if (event.target.nodeName.toLowerCase() != 'td' || event.target.nodeName.toLowerCase() == 'input') {
 			return null;
@@ -46,20 +40,20 @@ export default class TableRowColumn extends React.Component {
 		}
 	}
 
-	onMouseEnter(event) {
+	onMouseEnter = (event)=> {
 		if (this.props.onHover) {
 			this.props.onHover(event, this.props.columnNumber);
 		}
 	}
 
-	onMouseLeave(event) {
+	onMouseLeave = (event)=>{
 		if (this.props.onHoverExit) {
 			this.props.onHoverExit(event, this.props.columnNumber);
 		}
 	}
 
 
-	onFormatData(value){
+	onFormatData = (value)=>{
 
 		const {onFormatData} = this.props;
 

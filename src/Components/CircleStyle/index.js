@@ -1,11 +1,8 @@
-import React, {
-	Component
-} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
 import './index.less';
 
-export default class CircleStyle extends Component {
+export default class CircleStyle extends React.Component {
 
 	static displayName = 'CircleStyle';
 
@@ -13,7 +10,6 @@ export default class CircleStyle extends Component {
 		num: 1,
 		info: '',
 		circle: 'center',
-
 	}
 
 	static propTypes = {
@@ -38,13 +34,7 @@ export default class CircleStyle extends Component {
 
 	constructor(props) {
 		super(props);
-
 	}
-
-	componentWillReceiveProps(nextProps) {
-
-	}
-
 
 	render() {
 
@@ -56,6 +46,7 @@ export default class CircleStyle extends Component {
 			style,
 			...other
 		} = this.props;
+
 		if (circle == 'center') {
 			return (
 				<div className="ui-detailContent" style={style}>
@@ -65,7 +56,9 @@ export default class CircleStyle extends Component {
 			</div>
 			);
 		}
+
 		if (circle == 'bottom') {
+
 			return (
 				<div className="ui-textInfo" style={style}>
 					<div className="one"><p>{num}</p><div className="txt">—— {info}</div></div>
@@ -73,8 +66,7 @@ export default class CircleStyle extends Component {
 					{children}
 			</div>
 			);
+
 		}
-
-
 	}
 }

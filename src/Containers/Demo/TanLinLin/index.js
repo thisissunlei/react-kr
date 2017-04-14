@@ -1,86 +1,83 @@
-import React, {
-	Component
-} from 'react';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'kr/Redux';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import {
-	connect
-} from 'react-redux';
-import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
-import {
-	bindActionCreators
-} from 'redux';
-
-import {
-	Section,
-	PlanMap,
-	Dialog,
+	KrField,
+	Grid,
+	Row,
+	Col,
 	Button,
-	KrField
+	ButtonGroup,
+	Message,
+	SnackTip,
+	ListGroup,
+	ListGroupItem,
 } from 'kr-ui';
+import './index.less';
 
-class ZhangQu extends Component {
-
-	constructor(props, context) {
-		super(props, context);
-
-		this.state = {
-			open:true,
-			checkedStations:[],
+ class NewCreateForm extends Component{
+	constructor(props){
+		super(props);
+		this.state={
+			initailPoint : '承德'
 		}
-
+	}
+	componentWillMount() {
 	}
 
-	close = ()=>{
-		this.setState({
-			open:!this.state.open
-		})
+	componentDidMount(){
+
 	}
-
-	confirm = ()=>{
-		this.close();
-		console.log('resule:',this.state.checkedStations);
+	onSubmit=(values)=>{
 	}
+	render(){
+		let {initailPoint} = this.state;
+		const { error, handleSubmit, pristine, reset,mapStyle} = this.props;
 
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
-		});
-	}
-
-	componentDidMount() {}
-
-	render() {
-       
-
-        
 		return (
-			<div>
-					{/*<Dialog
-						title="平面图"
-						contentStyle={{width:1000}}
-						actions={<Button label="确定" onTouchTap={this.confirm}/>}
-						onClose={this.close}
-						bodyStyle={{paddingLeft:0,paddingRight:0}}
-						open={this.state.open} >
-								<PlanMap onCheckedStation={this.onCheckedStation} />
-				   </Dialog>*/}
-              <form>
-			       <KrField name="uploadImage" 
-								component="uploadImage" 
-								style={{marginTop:10}} 
-								photoSize={'212*136'} 
-								pictureFormat={'JPG'} 
-								pictureMemory={'32K'}
-								//requestURI = {this.state.requestURI}
-					/>
+			<div className="demo-tll">
 
-			  </form>
 
-             
+					<form onSubmit={handleSubmit(this.onSubmit)}>
 
-			</div>
 
+			              	<KrField name="newuploadImage"
+								component="map"
+								placeholder="例如：北京市1111"
+								style={{width:252,height:36}}
+								mapStyle={{width:400,height:400}}
+								initailPoint ={initailPoint}
+							/>
+
+							<Grid style={{marginTop:19,marginBottom:'4px'}}>
+								<Row>
+									<ListGroup>
+											<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+											<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+										</ListGroup>
+								</Row>
+							</Grid>
+
+					</form>
+
+
+		  	</div>
 		);
 	}
 }
+const validate = values => {
+	const errors = {}
 
-export default reduxForm({ form: 'ZhangQu'})(ZhangQu);
+	// if (!values.email) {
+	// 	errors.email = '请输入邮箱';
+	// }
+
+
+	return errors
+}
+const selector = formValueSelector('NewCreateForm');
+export default NewCreateForm = reduxForm({
+	form: 'NewCreateForm',
+	validate,
+})(NewCreateForm);

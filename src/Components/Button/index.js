@@ -1,13 +1,11 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import './index.less';
 
-export default class Button extends Component {
+export default class Button extends React.Component {
 
 	static displayName = 'Button';
 
@@ -183,8 +181,6 @@ export default class Button extends Component {
 				</div>
 			);
 		}
-
-
 
 		return (
 			<div className="ui-button" >

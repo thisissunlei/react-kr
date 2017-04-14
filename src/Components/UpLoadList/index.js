@@ -1,20 +1,11 @@
-import React, {
-	Component
-} from 'react';
-
-import $ from 'jquery';
-import {
-	FontIcon,
-} from 'kr-ui';
-import Notify from '../Notify';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
+import Notify from '../Notify';
+import { Actions, Store } from 'kr/Redux';
 import {ShallowEqual} from 'kr/Utils';
-export default class UpLoadList extends Component {
+
+import './index.less';
+export default class UpLoadList extends React.Component {
 
 	static defaultProps = {
 		backgroundColor:"#fff",
@@ -69,14 +60,13 @@ export default class UpLoadList extends Component {
 			},function(){
 				this.renderHover();
 				// document.addEventListener('click', this.docClick)
-				
-				
+
+
 			})
-			
+
 		}
 	}
 	componentWillUnmount(){
-		console.log('componentWillUnmount');
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		node.style.visibility = 'hidden';
 	}
@@ -132,8 +122,6 @@ export default class UpLoadList extends Component {
 		}).catch(function(err) {
 			let node = ReactDOM.findDOMNode(_this.tooltip);
 			node.style.visibility = 'hidden';
-			console.log(err.message);
-
 		});
 	}
 	saveFileList=(id)=>{
@@ -147,10 +135,7 @@ export default class UpLoadList extends Component {
 				message: err.message,
 				type: 'danger',
 			}]);
-			
-			// let node = ReactDOM.findDOMNode(_this.tooltip);
-			// node.style.visibility = 'hidden';
-			// console.log(err.message);
+
 		});
 	}
 
@@ -201,7 +186,6 @@ export default class UpLoadList extends Component {
 			files
 		} = this.state;
 
-		// files.unshift(response);
 		files.push(response);
 		this.saveFileList(response.id);
 
@@ -246,7 +230,6 @@ export default class UpLoadList extends Component {
 		var _this = this;
 
 		let file = event.target.files[0];
-		console.log('pppppp-----');
 		if (!file) {
 			return;
 		}
@@ -355,7 +338,6 @@ export default class UpLoadList extends Component {
 		}
 	}
 	download(item){
-		console.log('download',item);
 		window.location.href = item.fileUrl;
 	}
 	render() {
@@ -372,7 +354,7 @@ export default class UpLoadList extends Component {
 					let bottom = (index==5)?'10px':'0';
 					return (
 						<li className="upload-li" key={index} style={{marginBottom:bottom}}>
-						
+
 						<span className="file-name" onClick={this.download.bind(this,item)}>{item.fileName}</span>
 						<span className="file-delete icon-delete" onClick={this.delete.bind(this,item)}></span>
 						</li>

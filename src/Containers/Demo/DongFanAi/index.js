@@ -35,7 +35,6 @@ export default class ZhangQu extends Component {
 
 	confirm = ()=>{
 		this.close();
-		console.log('resule:',this.state.checkedStations);
 	}
 
 	onCheckedStation =(clickStation,checkedStations)=>{

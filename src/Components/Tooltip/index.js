@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import $ from 'jquery';
-
-import {
-	FontIcon,
-	KrDate
-} from 'kr-ui';
 import ReactDOM from 'react-dom';
+
 import './index.less';
-export default class Tooltip extends Component {
+export default class Tooltip extends React.Component {
 
 	static defaultProps = {
 		backgroundColor:"rgba(0,0,0,.7)",
@@ -36,6 +31,7 @@ export default class Tooltip extends Component {
 
 	constructor(props){
 		super(props);
+
 		this.state={
 			width:0,
 			height:0,
@@ -44,13 +40,15 @@ export default class Tooltip extends Component {
 		}
 
 	}
+
 	componentDidMount() {
 		this.renderHover();
 	}
+
 	renderHover=()=>{
+
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
-		// node.style.backgroundColor = backgroundColor;
 
 		parent.style.position = "relative";
 		parent.onmouseover = function(){

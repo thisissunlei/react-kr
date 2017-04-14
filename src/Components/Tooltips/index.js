@@ -1,15 +1,9 @@
-import React, {
-	Component
-} from 'react';
-
-import $ from 'jquery';
-import {
-	FontIcon,
-} from 'kr-ui';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
 import {ShallowEqual} from 'kr/Utils';
-export default class Tooltip extends Component {
+
+import './index.less';
+export default class Tooltip extends React.Component {
 
 	static defaultProps = {
 		backgroundColor:"rgba(0,0,0,.7)",
@@ -17,7 +11,8 @@ export default class Tooltip extends Component {
 		scroll:false
 	}
 
-	static PropTypes = {
+	static propTypes = {
+
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		/**
@@ -47,9 +42,11 @@ export default class Tooltip extends Component {
 		}
 
 	}
+
 	componentDidMount() {
 		this.renderHover();
 	}
+
 	componentWillReceiveProps(nextProps){
 		if(!ShallowEqual(this.props.offsetTop,nextProps.offsetTop)){
 			this.renderHover();
@@ -57,22 +54,23 @@ export default class Tooltip extends Component {
 		}
 	}
 	renderHover=()=>{
-		// let {tipName} = this.props;
+
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
-		// node.style.backgroundColor = backgroundColor;
 
-		// parent.style.position = "relative";
 		parent.onmouseover = function(){
 			node.style.visibility = 'visible';
 		}
+
 		parent.onmouseout = function(){
 			node.style.visibility = 'hidden';
 		}
+
 		this.setState({
 			width:node.offsetWidth,
 			height:node.offsetHeight
 		})
+
 	}
 
 	render() {

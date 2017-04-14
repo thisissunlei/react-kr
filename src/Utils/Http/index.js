@@ -1,14 +1,14 @@
 import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
-import { browserHistory } from 'react-router';
-import APIS from '../../Configs/apis';
-import Envs from '../../Configs/envs';
+import APIS from 'kr/Configs/Apis';
+import Envs from 'kr/Configs/Envs';
+
+import Notify from 'kr/Components/Notify';
 
 var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {
-
 
     let server = Envs[env] || '';
 
@@ -21,6 +21,7 @@ function getUrl(path, params = {},mode = false) {
     if(url.indexOf('mockjsdata') !==-1){
     	 server='';
     }
+
     if(url.indexOf('http') !== -1){
       server='';
     }
@@ -76,6 +77,8 @@ function getUrl(path, params = {},mode = false) {
   function check401(res) {
     if (res.code ===-4011) {
       window.location.href = '/';
+    } else if (res.code ===-4033) {
+        Notify.error('啊哦，对不起，您没有该权限!');
     }
     return res;
   }
@@ -87,8 +90,6 @@ function getUrl(path, params = {},mode = false) {
   const http = {
 
     request:(path='demo', params,payload,method)=>{
-
-
 
       const url = getUrl(path, params);
 
@@ -123,7 +124,6 @@ function getUrl(path, params = {},mode = false) {
           break;
         }
       }
-
       return promise;
     },
     transformPreResponse(response){
@@ -165,38 +165,11 @@ function getUrl(path, params = {},mode = false) {
       })
       .catch(function(err){
         if(err == 'TypeError: Failed to fetch'){
-            console.log('后台接口404,联系后台开发人员吧')
+            Debug.log('后台接口404,请联系后台开发人员');
             return ;
         }
         reject(err)
       });
-    }),
-
-    getdemo: (url, params) => new Promise((resolve, reject) => {
-
-      if (!url) {
-        return;
-      }
-
-      var xhr = new XMLHttpRequest();
-
-      xhr.withCredentials = true;
-      xhr.open('GET', url, true);
-      xhr.responseType = 'json';
-      xhr.onload = function(e) {
-        if (this.status >= 200 || this.status <300 ) {
-          var json = http.transformPreResponse(xhr.response);
-          if(json && json.code && parseInt(json.code)>0){
-            //处理数据格式
-            resolve(http.transformResponse(json))
-          }else{
-            reject(json)
-          }
-        }else{
-          reject(xhr.response);
-        }
-      };
-      xhr.send();
     }),
 
     post: (url, params, payload) => new Promise((resolve, reject) => {
@@ -309,5 +282,4 @@ function getUrl(path, params = {},mode = false) {
   }
 
 
-
-  module.exports = http;
+module.exports = http;

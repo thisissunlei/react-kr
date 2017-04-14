@@ -1,28 +1,6 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
-
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
-} from 'kr-ui';
-
-
-export default class Home extends Component {
+export default class Home extends React.Component {
 
 
 	constructor(props, context) {
@@ -34,15 +12,8 @@ export default class Home extends Component {
 
 	render() {
 
-		let initialValues = {
-			age: ''
-		}
-
 		return (
-
-			    <div >
-
-				</div>
+			    <div > </div>
 		);
 
 	}

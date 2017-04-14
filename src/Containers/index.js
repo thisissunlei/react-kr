@@ -13,6 +13,7 @@ import Community from './Community';
 import Retail from './Retail';
 import OA from './OA';
 import Statistical from './Statistical';
+import WebBackstage from './WebBackstage';
 
 module.exports = {
 	Welcome,
@@ -30,4 +31,5 @@ module.exports = {
 	Retail,
 	OA,
 	Statistical,
+	WebBackstage,
 }

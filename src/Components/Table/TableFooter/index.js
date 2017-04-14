@@ -19,7 +19,7 @@ export default class TableFooter extends React.Component {
 		exportSwitch: false,
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		page: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
@@ -37,52 +37,39 @@ export default class TableFooter extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		this.onExport = this.onExport.bind(this);
-		this.onPageChange = this.onPageChange.bind(this);
-		this.onSelectAll = this.onSelectAll.bind(this);
-
-		this.renderCheckbox = this.renderCheckbox.bind(this);
-		this.renderPagination = this.renderPagination.bind(this);
-		this.renderExport = this.renderExport.bind(this);
-
 	}
 
-	onSelectAll() {
-		const {
-			onSelectAll
-		} = this.props;
+	onSelectAll = ()=> {
+
+		const { onSelectAll } = this.props;
 		onSelectAll && onSelectAll();
+
 	}
 
-	onExport() {
-		const {
-			onExport
-		} = this.props;
+	onExport = ()=> {
+		const { onExport } = this.props;
 		onExport && onExport();
 	}
+
 	onImport=()=>{
 		const {onImport}=this.props;
 		onImport && onImport();
 	}
+
 	batchDelet=()=>{
 		const {batchDelet} = this.props;
 		batchDelet && batchDelet();
 	}
 
-	onPageChange(page) {
-		const {
-			onPageChange
-		} = this.props;
+	onPageChange = (page)=>{
+		const { onPageChange } = this.props;
 		onPageChange && onPageChange(page);
 	}
 
 
-	renderCheckbox() {
+	renderCheckbox = ()=>{
 
-		let {
-			displayCheckbox
-		} = this.props;
+		let { displayCheckbox } = this.props;
 
 		if (!displayCheckbox) {
 			return null;
@@ -93,7 +80,7 @@ export default class TableFooter extends React.Component {
 	}
 
 
-	renderPagination() {
+	renderPagination = ()=> {
 
 		let {
 			pagination,
@@ -111,7 +98,7 @@ export default class TableFooter extends React.Component {
 		);
 	}
 
-	renderExport() {
+	renderExport = ()=> {
 
 		let {
 			exportSwitch
@@ -128,8 +115,6 @@ export default class TableFooter extends React.Component {
 	renderOther=()=>{
 		let {renderOther} = this.props;
 		renderOther && renderOther();
-		// return (<span>dddd</span>)
-		console.log('other',renderOther);
 	}
 
 	render() {
