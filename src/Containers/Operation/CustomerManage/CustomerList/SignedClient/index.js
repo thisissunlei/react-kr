@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
@@ -53,7 +53,7 @@ import {
 @inject("CommunityDetailModel")
 @inject("NewIndentModel")
 @observer
-class SignedClient extends Component{
+class SignedClient extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
