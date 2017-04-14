@@ -18,7 +18,7 @@ import {
 import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 import './index.less';
 
- class NewBusiness extends Component{
+ class EditBusiness extends Component{
 
 
 
@@ -100,4 +100,4 @@ const validate = values =>{
 
 	return errors;
 }
-export default reduxForm({ form: 'NewBusiness',validate})(NewBusiness);
+export default reduxForm({ form: 'EditBusiness',validate})(NewBusiness);

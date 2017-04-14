@@ -62,7 +62,7 @@ class BusinessList  extends React.Component{
 	}
 
 	componentDidMount(){
-		
+
 
 	}
    //搜索列表
@@ -77,24 +77,20 @@ class BusinessList  extends React.Component{
 			pageSize: searchParams.pageSize,
 			date:date
    		},
-   		
+
    	})
    }
-   
+
    //新建商圈
    openNewBusiness = () =>{
    		this.setState({
    			openNewBusiness:true,
    		});
-   		Store.dispatch(initialize('NewBusiness',{}));
-
    }
    //关闭新建商圈
    closeNewBusiness = () =>{
+     console.log("pppp");
 
-   		this.setState({
-   			openNewEquipment:false,
-   		})
    }
    // 打开编辑设备
    openEditEquipment = () =>{
@@ -131,7 +127,7 @@ class BusinessList  extends React.Component{
 
 		let {id} = this.state;
 		let _this = this;
-		
+
 		params.id = id;
 
 		Http.request('equipment-submit',params).then(function(response) {
@@ -146,20 +142,10 @@ class BusinessList  extends React.Component{
 	onOperation = (type, itemDetail) =>{
 
 		if(type === "edit"){
-			this.setState({
-   				openEditEquipment:true,
-   				id:itemDetail.id
-   			})
-   			Store.dispatch(initialize('NewEquipment',{name:itemDetail.name}));
 
 		}
-		if(type === "delete"){
-			this.setState({
-   				openDelEquipment:true,
-   				id:itemDetail.id
-   			})
-		}
 	}
+  //全部关闭
 	closeAll = () =>{
 		this.setState({
 			openNewBusiness:false,
@@ -167,13 +153,13 @@ class BusinessList  extends React.Component{
 	}
 	render(){
 		let {searchParams,openNewBusiness} = this.state;
-		
+
 
 		return(
 			<div className="m-equipment-list" style={{paddingTop:25,minHeight:'910'}}>
 				<Title value="商圈列表"/>
       		<Section title="商圈列表"  style={{marginBottom:-5,minHeight:910}}>
-	      		
+
 		        <Row style={{marginBottom:21}}>
 				          <Col
 						     align="left"
@@ -188,7 +174,7 @@ class BusinessList  extends React.Component{
 
 				          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 					          <ListGroup>
-					            <ListGroupItem><SearchForms placeholder='请输入设备名称' inputName='mr' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+					            <ListGroupItem><SearchForms placeholder='请输入设备名称' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 					          </ListGroup>
 				          </Col>
 		        </Row>
@@ -229,7 +215,7 @@ class BusinessList  extends React.Component{
 			                <TableRowColumn name="createName"></TableRowColumn>
 			                <TableRowColumn name="createDate"></TableRowColumn>
 			                <TableRowColumn name="enable"></TableRowColumn>
-			                
+
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
 			                </TableRowColumn>
@@ -238,24 +224,21 @@ class BusinessList  extends React.Component{
 				        <TableFooter></TableFooter>
 	           </Table>
 	           </Section>
-	       	   
-	           <Drawer
-					modal={true}
-					width={750}
-					onClose={this.closeAll}
-					open={openNewBusiness}
-					containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
-					>
-						<NewBusiness />
-				</Drawer>
-				
-	        </div>
-				
+
+	        <Drawer
+    					modal={true}
+    					width={750}
+    					onClose={this.closeAll}
+    					open={openNewBusiness}
+    					containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
+    					>
+    						<NewBusiness onCloset = {this.closeNewBusiness}/>
+				 </Drawer>
+
+	     </div>
+
 		);
 	}
 }
 
 export default BusinessList;
-
-
-

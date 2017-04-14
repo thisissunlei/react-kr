@@ -109,6 +109,7 @@ module.exports =  function (initializeConfigs){
             initialize:this.initialize,
           }
         }
+        console.log(WrapComponent.props,"llllll")
 
         return <WrapComponent {...props} {...handles}/>
       }
