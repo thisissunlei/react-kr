@@ -76,7 +76,6 @@ export default class CancleLeader extends Component {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					console.log('ss',xhr.response);
 					if(xhr.response.code=='-1'){
 						Message.error(xhr.response.message);
 					}else{
@@ -94,7 +93,6 @@ export default class CancleLeader extends Component {
 		};
 
 		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
 		};
 		xhr.open('POST', 'http://op.krspace.cn/api/krspace-finance-web/member/member-excel', true);
 		xhr.responseType = 'json';
@@ -115,7 +113,6 @@ export default class CancleLeader extends Component {
 		onLoadDemo && onLoadDemo();
 	}
 	importFile=()=>{
-		// console.log('importFile');
 	}
 	onTokenSuccess=(form)=> {
 		this.setState({

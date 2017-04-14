@@ -207,7 +207,6 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
 		let _this = this;
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
@@ -229,7 +228,6 @@ export default class List extends Component {
 		let {
 			list,itemDetail,seleced
 		} = this.state;
-		// console.log("list",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}

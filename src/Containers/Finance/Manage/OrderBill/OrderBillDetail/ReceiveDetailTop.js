@@ -62,7 +62,6 @@ export default class ReceiveDetailTop extends Component {
 			liveMoneyValue,
 		} = this.props;
 
-		//console.log('4444wwww',contractTopReceive)
 		var _this = this;
 
 		return (

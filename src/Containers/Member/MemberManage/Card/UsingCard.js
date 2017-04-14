@@ -48,7 +48,6 @@ class ImportCard extends Component{
 	 	}
 	 	const {onSubmit} = this.props;
 	 	Store.dispatch(Actions.callAPI('memberCardUse',{}, params)).then(function(response) {
-			console.log('response',response);
 			onSubmit && onSubmit(values);
 		}).catch(function(err) {
 		 	Message.error(err.message);

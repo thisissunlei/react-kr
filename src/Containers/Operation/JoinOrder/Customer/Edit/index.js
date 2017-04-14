@@ -142,11 +142,9 @@ export default class JoinEdit extends Component {
 	}
 
 	confirmJoinSubmit(values){
-		console.log('---',values);
 	}
 
 	confirmSubmit(values){
-		console.log('---',values);
 		this.setState({open: false});
 	}
 	handleOpen(){
@@ -154,7 +152,6 @@ export default class JoinEdit extends Component {
 	}
 
 	handleClose(values){
-		console.log('---',values);
 		this.setState({open: false});
 	}
 

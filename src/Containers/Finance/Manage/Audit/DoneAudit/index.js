@@ -105,7 +105,6 @@ export default class DoneAudit extends Component {
     //导出
   onExport = (values) => {
       var searchParams = this.state.Params;
-      console.log(searchParams);
       let idList = [];
       values.map((item, index) => {
         idList.push(item.id)
@@ -216,7 +215,6 @@ export default class DoneAudit extends Component {
     let {
       itemDetail
     } = this.state;
-    console.log('')
     return (
 
       <div className="m-done-audit">

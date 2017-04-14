@@ -38,7 +38,6 @@ export default class VoucherDetail extends React.Component {
 					}
 						this.fileList=fileList;
 				})
-				console.log(response);
 		})
 
 	}

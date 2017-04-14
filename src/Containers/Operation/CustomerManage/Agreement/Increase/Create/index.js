@@ -118,7 +118,6 @@ export default class JoinCreate extends Component {
 			communityId: 1,
 			type :0,
 		})).then(function(response) {
-			console.log(response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
@@ -169,7 +168,6 @@ export default class JoinCreate extends Component {
 			});
 
 		}).catch(function(err) {
-			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',

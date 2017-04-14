@@ -36,6 +36,7 @@ module.exports =  function (initializeConfigs){
         onBlur: React.PropTypes.func.isRequired,
         onFocus: React.PropTypes.func.isRequired,
         reset: React.PropTypes.func.isRequired,
+        isMobx: React.PropTypes.bool.isRequired,
       }
 
       getChildContext() {
@@ -51,6 +52,7 @@ module.exports =  function (initializeConfigs){
           onBlur,
           onFocus,
           reset,
+          isMobx:true
         }
 
       }
@@ -91,6 +93,7 @@ module.exports =  function (initializeConfigs){
           handleSubmit,
           pristine,
           submitting,
+          ...otherProps
         } = this.props;
 
 
@@ -109,8 +112,8 @@ module.exports =  function (initializeConfigs){
             initialize:this.initialize,
           }
         }
-
-        return <WrapComponent {...props} {...handles}/>
+        
+        return <WrapComponent {...props} {...handles} {...otherProps}/>
       }
 
     }
@@ -249,7 +252,7 @@ module.exports =  function (initializeConfigs){
 
       render(){
 
-        const {FormModel} = this.props;
+        const {FormModel,...otherProps} = this.props;
 
         const props = {
           values:this.getValues(),
@@ -274,7 +277,7 @@ module.exports =  function (initializeConfigs){
           changeValues:this.changeValues,
           initialize:this.initialize,
         }
-        return <Form {...props} {...handles}/>
+        return <Form {...props} {...handles} {...otherProps}/>
       }
 
     }

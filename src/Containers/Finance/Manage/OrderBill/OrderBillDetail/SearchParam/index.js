@@ -84,8 +84,6 @@ export default class SearchParam extends Component {
             item.sssI = false;
             return item
         })
-        console.log("wtf!", childType);
-        //console.log('5555555',window.location.href+'?type='+type+'&index='+index);
         if (type == 'PAYMENT' && childType == 'basic') {
             this.setState({primaryR: 'true', primaryI: 'false', activeI: 10000, active: 10000});
         }
@@ -110,7 +108,6 @@ export default class SearchParam extends Component {
         searchParam.index = index;
         searchParam.pageSize = 30;
         //searchParam.childType = params.childType;
-        console.log(params.childType);
         onSearch && onSearch(searchParam);
         var m = this.state.detailPaymentS;
         m.map((item, indexs) => {
@@ -162,7 +159,6 @@ export default class SearchParam extends Component {
             item.sss = false;
             return item
         })
-        //console.log('5555555',window.location.href+'?type='+type+'&index='+index);
 
         if (type == 'PAYMENT' && childType == 'basic') {
             this.setState({primaryR: 'true', primaryI: 'false', activeI: 10000, active: 10000});
@@ -194,9 +190,6 @@ export default class SearchParam extends Component {
             item.sssI = false;
             return item
         })
-        console.log("mmmm",m);
-        console.log("index",index);
-        console.log("chil",childType);
         if(childType != 'basic'){
           if (index+1>0) {
               if (m[index].sssI == true) {
@@ -269,7 +262,6 @@ export default class SearchParam extends Component {
     }
     onSearchSub = (type, subId, activeSub, index, childType) => {
         var m = this.state.testA;
-        console.log(m);
         m.map((item, indexs) => {
             item.activeSub = false;
             return item
@@ -280,7 +272,6 @@ export default class SearchParam extends Component {
         } else if (m[index].activeSub == false) {
             m[index].activeSub = true;
         }
-        console.log(m[index].activeSub);
         const {onSearch, params} = this.props;
         var searchParam = {};
         var _this = this;
@@ -300,7 +291,6 @@ export default class SearchParam extends Component {
     }
     onSearchSubI = (type, subId, activeSubI, index, childType) => {
         var m = this.state.testA;
-        console.log(childType);
         m.map((item, indexs) => {
             item.activeSubI = false;
             return item
@@ -311,7 +301,6 @@ export default class SearchParam extends Component {
         } else if (m[index].activeSubI == false) {
             m[index].activeSubI = true;
         }
-        console.log(m[index].activeSubI);
         const {onSearch, params} = this.props;
         var searchParam = {};
         var _this = this;
@@ -324,7 +313,6 @@ export default class SearchParam extends Component {
         searchParam.page = 1;
         searchParam.pageSize = 30;
         onSearch && onSearch(searchParam);
-        console.log(subId);
     }
     onHandleOver(type, index) {
         var _this = this;
@@ -349,7 +337,6 @@ export default class SearchParam extends Component {
         const {detailIncome, detailBalance} = this.props;
         let {detailPaymentS} = this.state;
 
-        //console.log('props',this.props.params.accountType,this.props.params.index);
 
         return (
 

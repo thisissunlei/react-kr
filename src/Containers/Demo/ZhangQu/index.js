@@ -33,7 +33,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 			requestURI:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
 			initailPoint :'北京',
 			treeAll :TreeAll
-		}	
+		}
 	}
 
 	componentWillMount() {
@@ -153,8 +153,8 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					<KrField label="textarea"  component="textarea"  name="textarea" mobx={true} />
    					{/*有问题*/}
    					<KrField grid={1/2} component="group"  name="enableflag"  label="是否启用" requireLabel={true} mobx={true}>
-						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" mobx={true} value="yes" />
-						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  mobx={true} value="no" />
+						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" value="yes" />
+						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"   value="no" />
               		</KrField>
 					<KrField name="date"  component="date" type="date" mobx={true} />
 					<KrField name="mapField"
@@ -167,7 +167,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 					/>
 
 
-					
+
 
 
 
@@ -201,7 +201,7 @@ const validate = (values)=>{
 	// if(!values.searchCustomer){
 	// 	errors.searchCustomer = '请输入searchCustomer'
 	// }
-	
+
 
 	return errors;
 

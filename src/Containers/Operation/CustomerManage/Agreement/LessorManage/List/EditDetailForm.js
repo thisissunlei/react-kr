@@ -98,7 +98,6 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 
-		console.log('detail', detail);
 
 
 		return (

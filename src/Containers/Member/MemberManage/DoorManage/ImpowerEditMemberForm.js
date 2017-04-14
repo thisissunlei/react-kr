@@ -79,7 +79,6 @@ export default class ImpowerEditMemberForm extends Component {
 		var start = DateFormat(this.detail.beginDate,"yyyy-mm-dd hh:MM:ss");
 		var end = DateFormat(this.detail.endDate,"yyyy-mm-dd hh:MM:ss");
 
-		// console.log("start",start,"end",end);
 		this.setState({
 			date:start,
 			dateend : end

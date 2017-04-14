@@ -56,7 +56,6 @@ export default class JoinCreate extends Component {
     let {
       params
     } = this.props;
-    console.log('dasdasdasd');
 
     Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
       Notify.show([{
@@ -185,13 +184,11 @@ export default class JoinCreate extends Component {
         initialValues.leaseBegindate = new Date(response.leaseBegindate);
         initialValues.leaseEnddate = new Date(response.leaseEnddate);
 
-        console.log('时间', initialValues);
 
 
         //处理stationvos
         stationVos = response.stationVos;
 
-        console.log(stationVos, '---->>>>', response);
 
         _this.setState({
           initialValues,
@@ -200,7 +197,6 @@ export default class JoinCreate extends Component {
         });
 
       }).catch(function(err) {
-        console.log(err);
         Notify.show([{
           message: '后台出错请联系管理员',
           type: 'danger',
@@ -209,7 +205,6 @@ export default class JoinCreate extends Component {
 
 
     }).catch(function(err) {
-      console.log('------', err);
       Notify.show([{
         message: '后台出错请联系管理员',
         type: 'danger',

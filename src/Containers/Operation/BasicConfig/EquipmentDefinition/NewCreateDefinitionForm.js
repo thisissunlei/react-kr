@@ -230,7 +230,6 @@ class NewCreateDefinitionForm extends Component{
 	}
 	// 新增设备定义
 	onSubmit=(values)=>{
-		console.log("values",values);
 		let _this = this;
 		values.enable = _this.state.isOnlines?"ONLINE":"OFFLINE";
 		let deviceCodeParams = {

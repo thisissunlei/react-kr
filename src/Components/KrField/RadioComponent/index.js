@@ -25,6 +25,7 @@ export default class RadioComponent  extends React.Component{
 
 		var inputProps = {
 				...input,
+				value:this.state.value,
 				placeholder:placeholder||label,
 				type,
 				disabled,

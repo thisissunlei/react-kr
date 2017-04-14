@@ -85,7 +85,6 @@ class DismantlingForm extends Component {
 
 
 	    }).catch(function(err) {
-	    	console.log(err,err);
 	    });
 	}
 

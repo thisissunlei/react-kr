@@ -47,7 +47,6 @@ class NewCreateFund extends Component {
         initialValues.sortNum = detail.sortNum;
         initialValues.status = detail.status;
 
-        console.log(initialValues);
         Store.dispatch(initialize('NewCreateFund', initialValues));
         // if (detail.status=="ENABLE") {
         //   Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));

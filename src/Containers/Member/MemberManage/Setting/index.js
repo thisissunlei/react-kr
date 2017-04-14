@@ -132,7 +132,6 @@ export default class List extends Component {
 	}
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
-		// console.log("values",values);
 		var _this=this;
 		const params={};
 		params.foreignCode=values.foreignCode;
@@ -178,7 +177,6 @@ export default class List extends Component {
 	onEditDetail=(values)=>{
 		var _this=this;
 		const params={};
-		console.log(this.state.itemDetail.interCode,"ll",values.interCode)
 		if(values.interCode==this.state.itemDetail.interCode){
 			
 			this.openEditDetailDialog();

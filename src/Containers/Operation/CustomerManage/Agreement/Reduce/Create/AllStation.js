@@ -125,7 +125,6 @@ class SelectStationForm extends Component {
 			page: 1,
 			pagesize: 100
 		})).then(function(response) {
-			console.log('response', response)
 
 			_this.setState({
 				stationVos: response.items
@@ -147,7 +146,6 @@ class SelectStationForm extends Component {
 	}
 
 	onSubmit() {
-		console.log('1223')
 		let {
 			stationVos,
 			selected
@@ -252,7 +250,6 @@ class SelectStationForm extends Component {
 			}]);
 			return false;
 		}
-		console.log('---->>>>', selectedStationVos)
 
 		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
 

@@ -172,7 +172,6 @@ export default class ToDoAudit extends React.Component {
   }
   sureToDel = (itemDetail) => {
       var _this = this;
-      //console.log(itemDetail);
       Store.dispatch(Actions.callAPI('del-fina-unchecked-record', {}, {
         finaVerifyId: this.state.itemDetail.id
       })).then(function(response) {

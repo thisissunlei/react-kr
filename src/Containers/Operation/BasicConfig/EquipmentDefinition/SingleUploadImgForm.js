@@ -60,7 +60,6 @@ class SingleUploadImgDefinitionForm extends Component{
 			deviceId : this.detail.hardwareId,
 			picUrl : values.uploadImage
 		}
-		// console.log("valuesParams",valuesParams);
 		// 向指定社区推送图片
 		Store.dispatch(Actions.callAPI('uploadImgToEquipmentSingle',{},valuesParams))
 	      .then(function(response){
