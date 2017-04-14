@@ -579,7 +579,7 @@ const APIS = {
     },
     // 获取社区数据
     'getCommunity': {
-        url: '/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
+        url: '/api/krspace-finance-web/finacontractdetail/community-list?communityName={communityName}',
         method: 'get'
     },
     // 获取社区楼层数据

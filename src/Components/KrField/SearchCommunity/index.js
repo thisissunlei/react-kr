@@ -53,16 +53,16 @@ export default class SearchCommunity extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-mainbill-community', {
+			Store.dispatch(Actions.callAPI('getCommunity', {
 				communityName: lastname
 			})).then(function(response) {
-				response.forEach(function(item, index) {
+				response.communityInfoList.forEach(function(item, index) {
 					item.value = item.id;
-					item.label = item.communityname;
+					item.label = item.name;
 					return item;
 				});
 				resolve({
-					options: response
+					options: response.communityInfoList
 				});
 			}).catch(function(err) {
 				reject(err);

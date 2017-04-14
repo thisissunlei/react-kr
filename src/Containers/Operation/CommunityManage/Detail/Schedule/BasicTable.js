@@ -40,9 +40,7 @@ class SearchForm extends Component {
 			istip: false,
 
 		};
-		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
-		this.getcommunity();
 
 
 	}
@@ -75,35 +73,6 @@ class SearchForm extends Component {
 
 
 
-	}
-	getcommunity() {
-		let _this = this;
-		let {communityIdList, page, pageSize, type} = this.state;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			communityIdList.unshift({
-				label: '请选择',
-				value: '0'
-			});
-
-			_this.setState({
-				communityIdList,
-			});
-
-
-		}).catch(function(err) {
-
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
 	}
 	selectCommunity(personel) {
 		let id = 0;
