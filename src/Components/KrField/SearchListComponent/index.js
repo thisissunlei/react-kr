@@ -117,7 +117,6 @@ export default class SelectComponent extends React.Component {
 		})
 	}
 	selectList=(e)=>{
-		console.log(e.target.id,e.target.innerHTML);
 		let select = this.refs.input;
 		let nameId = e.target.id.split('-')[2];
 		select.value = e.target.innerHTML;

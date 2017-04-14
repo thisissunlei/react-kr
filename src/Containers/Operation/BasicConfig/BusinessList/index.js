@@ -89,7 +89,9 @@ class BusinessList  extends React.Component{
    }
    //关闭新建商圈
    closeNewBusiness = () =>{
-     console.log("pppp");
+     this.setState({
+       openNewBusiness:false,
+     });
 
    }
    // 打开编辑设备
@@ -232,7 +234,7 @@ class BusinessList  extends React.Component{
     					open={openNewBusiness}
     					containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
     					>
-    						<NewBusiness onCloset = {this.closeNewBusiness}/>
+    						<NewBusiness onCancel= {this.closeNewBusiness}/>
 				 </Drawer>
 
 	     </div>
