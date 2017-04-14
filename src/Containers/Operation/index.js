@@ -14,12 +14,15 @@ import {
 import {
 	default as CommunityManage
 } from './CommunityManage';
-import { 
+import {
 	default as GroupSetting
  } from './GroupSetting';
 import{
 	default as BasicConfig
 }from './BasicConfig';
+import{
+	default as VoucherManage
+}from './VoucherManage';
 module.exports = {
 	Home,
 	JoinOrder,
@@ -28,4 +31,5 @@ module.exports = {
 	CommunityAllocation,
 	GroupSetting,
 	BasicConfig,
+	VoucherManage,
 }

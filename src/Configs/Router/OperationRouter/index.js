@@ -35,6 +35,13 @@ module.exports =()=>{
 			<Route path="basicConfig" component={Basic}>
 				<Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
 			</Route>
+
+			{/*凭证管理*/}
+			<Route path="voucherManage" component={Basic} >
+					{/*凭证列表*/}
+						<Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
+			</Route>
+			
 			{/*客户管理*/}
 			<Route path="customerManage" component={Basic}>
 				<Route path="customerList" component={Operation.CustomerManage.CustomerList} />

@@ -265,6 +265,7 @@ export default class UploadImageListComponent extends Component {
 
     changeImages=(images)=>{
        const {input,onChange}=this.props;
+       console.log("images",images);
        input.onChange(images);
 		this.setState({
 			images

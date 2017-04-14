@@ -16,8 +16,17 @@ module.exports =  function (initializeConfigs){
       static displayName = "Form";
 
       static propTypes = {
-        onChange:React.PropTypes.func,
+        initialize:React.PropTypes.func.isRequired,
+        reset: React.PropTypes.func.isRequired,
+        register: React.PropTypes.func.isRequired,
+        onChange:React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func.isRequired,
+        onBlur: React.PropTypes.func.isRequired,
+        getField: React.PropTypes.func.isRequired,
+        getFieldValue: React.PropTypes.func.isRequired,
+        getFieldError: React.PropTypes.func.isRequired,
       }
+
       static childContextTypes = {
         getFieldValue: React.PropTypes.func.isRequired,
         getField: React.PropTypes.func.isRequired,
@@ -51,9 +60,9 @@ module.exports =  function (initializeConfigs){
 
       }
 
-      change = (field,fieldValue)=>{
+      change = (fieldName,fieldValue)=>{
         const {onChange} = this.props;
-        onChange && onChange(field,fieldValue);
+        onChange && onChange(fieldName,fieldValue);
       }
 
       submit = ()=>{
@@ -62,14 +71,19 @@ module.exports =  function (initializeConfigs){
       }
 
       reset = ()=>{
+        const {reset} = this.props;
+        reset && reset();
+      }
 
+      initialize = (fieldValues)=>{
+        const {initialize} = this.props;
+        initialize && initialize(fieldValues);
       }
 
       changeValues = (fieldValues)=>{
-          const {changeValues} = this.props;
-          changeValues && changeValues(fieldValues);
+        const {changeValues} = this.props;
+        changeValues && changeValues(fieldValues);
       }
-
 
       render(){
 
@@ -84,17 +98,17 @@ module.exports =  function (initializeConfigs){
           handleSubmit,
           pristine,
           submitting,
-          FormModel:this.props.FormModel
-         };
+        };
 
-         const handles = {
-           $form:{
-             submit:this.submit,
-             reset:this.reset,
-             change:this.change,
-             changeValues:this.changeValues,
-           }
-         }
+        const handles = {
+          $form:{
+            submit:this.submit,
+            reset:this.reset,
+            change:this.change,
+            changeValues:this.changeValues,
+            initialize:this.initialize,
+          }
+        }
 
         return <WrapComponent {...props} {...handles}/>
       }
@@ -227,6 +241,11 @@ module.exports =  function (initializeConfigs){
         this.validate();
       }
 
+      initialize = (fieldValues)=>{
+        const {FormModel} = this.props;
+        FormModel.initialize(this.formName,fieldValues);
+      }
+
 
       render(){
 
@@ -253,7 +272,7 @@ module.exports =  function (initializeConfigs){
           register:this.register,
           getFormState:this.getFormState,
           changeValues:this.changeValues,
-          FormModel:this.props.FormModel,
+          initialize:this.initialize,
         }
         return <Form {...props} {...handles}/>
       }

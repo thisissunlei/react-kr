@@ -48,6 +48,14 @@ export default class Field extends React.Component{
     onBlur && onBlur(name);
   }
 
+
+  getFieldValue = ()=>{
+    const {name} = this.props;
+    var value = '';
+
+    return value;
+  }
+
   renderComponent = (component)=>{
 
     const {name} = this.props;

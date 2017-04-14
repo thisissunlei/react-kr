@@ -82,10 +82,7 @@ export default class Home  extends Component{
 	      <div className='static-tabWrap'>
 		   <Tabs
 		   		tabItemContainerStyle={{background:'#FFF'}}
-		   		inkBarStyle={{
-		   						background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
-		   						position:'absolute',top:0,height:3
-		   					}}
+		   		
 		   		style={{
 		   				background:'#fff',
 		   				position:'relative',
@@ -97,7 +94,7 @@ export default class Home  extends Component{
 						    var activeStyle={}
 							if(this.state.action==index){
 								activeStyle=activeTab;
-								var activeTabPanel=(<PanelComponents panels={item.templateList} groupId={this.state.groupId}/>)
+								var activeTabPanel=(<PanelComponents groupList = {groupList} panels={item.templateList} groupId={this.state.groupId}/>)
 							}else{
 								activeStyle=commenTab;
 							}
@@ -127,7 +124,7 @@ export default class Home  extends Component{
 		  <div className='static-section'>
 			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
 			    <div className='static-section-inner' style={{borderTop:'solid 1px #e8e9e9'}}>
-					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
+					<PanelComponents groupList = {groupList} panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>
 			</Section>
 		  </div>
