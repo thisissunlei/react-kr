@@ -130,10 +130,10 @@ class AddMoney extends React.Component {
 		Store.dispatch(change('addMoney', 'payAccount', ''));
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(change('addMoney', 'remark', ''));
-		// Store.dispatch(change('addMoney', 'dealTime', ''));
-		// Store.dispatch(change('addMoney', 'uploadFileIds', ''));
-		// Store.dispatch(change('addMoney', 'contractFileList', ''));
-		// console.log('this.refs.uploadFileIds',this.refs.uploadFileIds)
+		 Store.dispatch(change('addMoney', 'dealTime', ''));
+		Store.dispatch(change('addMoney', 'uploadFileIds', ''));
+		Store.dispatch(change('addMoney', 'contractFileList', ''));
+		//console.log('this.refs.uploadFileIds',this.refs.uploadFileIds)
 		this.refs.uploadFileIds.defaultValue=[];
 		this.setState({
 			customerId: form.id,
