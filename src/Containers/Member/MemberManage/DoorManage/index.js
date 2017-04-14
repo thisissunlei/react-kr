@@ -15,7 +15,7 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	
+
 	BraceWidth,
 	SelfAdaption,
 	LineText,
@@ -77,7 +77,7 @@ export default class List extends Component {
 			openEditDetail: !this.state.openEditDetail,
 		});
 	}
-	
+
 	// 关闭新建
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
@@ -93,7 +93,6 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-		// console.log("itemDetail",itemDetail);
 		if (type == 'impower') {
 			this.openImpoverList();
 		} else if (type == 'edit') {
@@ -130,13 +129,13 @@ export default class List extends Component {
 				}
 			})
 		}).catch(function(err){
-			
+
 			Message.error(err.message);
 		});
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		
+
 		let _this = this;
 		Store.dispatch(Actions.callAPI('newCreateOrEditImpower',{},values)).then(function(response){
 			Message.success("操作成功");
@@ -149,11 +148,11 @@ export default class List extends Component {
 				}
 			})
 		}).catch(function(err){
-			
+
 			Message.error(err.message);
 		});
 	}
-		
+
 	// 打开确认删除
 	confirmDelete=()=>{
 		let _this = this;
@@ -194,7 +193,7 @@ export default class List extends Component {
 			}
 		})
 		}
-		
+
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
@@ -230,7 +229,7 @@ export default class List extends Component {
 								<Title value="门禁授权"/>
 								<Section title={`入驻团队门禁授权`} description="" >
 										<Button label="新增授权"  onTouchTap={this.openNewCreateDialog} />
-										
+
 										<SearchDetailForm onChange={this.onChangeCommunity}/>
 										<SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit} style={{float:"right"}}/>
 
@@ -255,7 +254,7 @@ export default class List extends Component {
 											<TableHeaderColumn>授权开始时间</TableHeaderColumn>
 											<TableHeaderColumn>授权结束时间</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
-											
+
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
@@ -274,11 +273,11 @@ export default class List extends Component {
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
 
-											
-											
-											
+
+
+
 											<TableRowColumn name="beginDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
-											
+
 											<TableRowColumn name="endDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="编辑"  type="operation" operation="edit"/>
@@ -340,12 +339,12 @@ export default class List extends Component {
 						                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
 						                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteDialog} />
 						                      </ListGroupItem>
-						                    </ListGroup>          
+						                    </ListGroup>
 						                  </Row>
 						                </Grid>
 						          </div>
 						        </Dialog>
-							
+
 				</div>
 		);
 
@@ -355,15 +354,14 @@ export default class List extends Component {
 const validate = values => {
 
 	const errors = {}
-	
+
 	if (!values.companyId) {
 		errors.companyId = '请输入客户名称';
 	}
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
-	 
-	
+
+
 	return errors
 }
-

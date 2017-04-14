@@ -26,6 +26,9 @@ import {
 
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
+import MerchantsData from './MerchantsData';
+import dateFormat from 'dateformat';
+
 
 //import PanelsDic from './PanelsDic';
 
@@ -54,15 +57,10 @@ export default class PanelComponents  extends Component{
 
 				let {panels,groupId}=this.props;
 
-				var  dateT=new Date();
-				var dateYear=dateT.getFullYear();
-				var dateMonth=dateT.getMonth()+1;
-				var dateDay=dateT.getDate();
-						if(dateDay<10){
-							dateDay='0'+dateDay
-						}
-		var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
-
+				var  yesterday = new Date(new Date().getTime() - 86400000);
+						 yesterday = dateFormat(yesterday,"yyyy-mm-dd");
+				var today = new Date();
+						today = dateFormat(today,"yyyy-mm-dd");
 				var renderComponent = [];
 				var props = {
 						groupId:groupId,
@@ -71,9 +69,10 @@ export default class PanelComponents  extends Component{
 
 				var _this = this;
 				panels.map(function(item,index){
-					console.log('item',item);
 						props.key = index;
-						props.todayDate=todayDate;
+						props.yesterday=yesterday;
+						props.today=today;
+
 						renderComponent.push(_this.createPanelComponent(item.id,props));
 				});
 
@@ -81,7 +80,8 @@ export default class PanelComponents  extends Component{
 	}
 
 	createPanelComponent = (value,props)=>{
-
+			let {groupList} = this.props;
+			props.groupList = groupList;
 			var component = null;
 			switch (value) {
 				case 1:{
@@ -90,6 +90,10 @@ export default class PanelComponents  extends Component{
 				}
 				case 2:{
 					component = <NotOpenPanel {...props}/>
+					break;
+				}
+				case 3:{
+					component = <MerchantsData {...props}/>
 					break;
 				}
 				default:{

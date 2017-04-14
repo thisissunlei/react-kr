@@ -1272,6 +1272,47 @@ const APIS = {
         url: '/api/krspace-finance-web/finaVerify/data/get-mainbill-id?customerId={customerId}&mainBillTypeName={mainBillTypeName}',
         method: 'get'
     },
+    //凭证管理--凭证列表--获取社区列表下拉框
+  'findCommunityVoucher':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/findCommunity',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--待处理凭证列表
+  'wait-voucher-find-page':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/find-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&status={status}&stopDate={stopDate}',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--待处理凭证查看
+  'findPaymentEvidence':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/findPaymentEvidence?id={id}',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--删除
+  'deleteEvidence':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/deleteEvidence?id={id}',
+     method: 'delete'
+  },
+  //凭证管理--凭证列表--已删除凭证列表
+  'voucher-find-deleted-page':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--已审核凭证列表--查看回款详情
+  'findReceiptDetail':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/findReceiptDetail?id={id}',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--带处理凭证--添加回款数据
+  'findReceiptData':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/findReceiptData?id={id}',
+     method: 'get'
+  },
+  //凭证管理--凭证列表--带处理凭证--添加回款保存
+  'add-receipt':{
+     url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
+     method: 'post'
+  },
+
 
       //活动列表及筛选
    'activityList':{
@@ -1323,26 +1364,7 @@ const APIS = {
       url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}&id={id}',
       method: 'get'
    },
-   //设备列表
-   'equipment-list':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/device/list?name={name}&page={page}&pageSize={pageSize}',
-      method: 'get'
-   },
-   //新建设备
-   'equipment-submit':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/edit?id={id}&name={name}',
-      method: 'post'
-   },
-   //删除设备
-   'equipment-delete':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/delete?id={id}',
-      method: 'delete'
-   },
-   //商圈列表
-   'business-list':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&&name={name}&&no={no}',
-      method: 'get'
-   },
+   
    
 
    

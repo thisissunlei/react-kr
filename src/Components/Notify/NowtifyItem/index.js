@@ -1,6 +1,6 @@
 /**
- * React-Nowtify 
- * Notification Item 
+ * React-Nowtify
+ * Notification Item
  */
 import React from 'react';
 
@@ -33,8 +33,8 @@ class NowtifyItem extends React.Component {
    * @param  int displayTimeout during of display
    */
   show(displayTimeout){
-    this.props.playSound();  
-    
+    this.props.playSound();
+
     return setTimeout(function(){
       let newItemClass = this.state.cssClass;
        if (!this.props.data.hideOnClose) {
@@ -46,7 +46,7 @@ class NowtifyItem extends React.Component {
       });
     }.bind(this), displayTimeout);
   }
-  
+
   /**
    * Hide notification
    * @param boolean noTimeout timeout to hide
@@ -72,7 +72,7 @@ class NowtifyItem extends React.Component {
    */
   itemCssClass(){
     let cssClass = {
-      itemClass: this.state.cssClass.join(' ') 
+      itemClass: this.state.cssClass.join(' ')
         + ' ' + this.props.data.className
         + ' ' + this.props.data.dismissible ? 'nowtify-box__notification-item_dismissible' : '',
       iconClass: 'nowtify-box__notification-item__icon_' + this.props.data.type,
@@ -86,7 +86,7 @@ class NowtifyItem extends React.Component {
 
   /**
    * Convert a type/icon to a Font-Awesome icon
-   * @param  string icon 
+   * @param  string icon
    * @return string      Font-Awesome formated icon
    */
   iconCssClass(icon){
@@ -98,14 +98,15 @@ class NowtifyItem extends React.Component {
 
 
   /**
-   * Hide notification on click 
+   * Hide notification on click
    */
   handleCloseClick(){
     return this.hide();
   }
 
   render() {
-    let closeButton = this.props.data.dismissible ? <div className="nowtify-box__notification-item__close" 
+    
+    let closeButton = this.props.data.dismissible ? <div className="nowtify-box__notification-item__close"
                             aria-label="Close"
                             onClick={() => this.hide(true)}>
                             <i className="fa fa-times" aria-hidden="true"></i>

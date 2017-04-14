@@ -33,7 +33,6 @@ export default class OrganizationChart extends Component {
 		}
 	}
   onLoaded=(response)=>{
-		// console.log("this.props.params",this.props.params);
 		let list = response;
     // console.log(list,"组织架构list");
 		this.setState({
