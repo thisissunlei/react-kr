@@ -9,7 +9,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Dialog,
+	Drawer,
 	Section,
 	Grid,
 	Row,
@@ -28,6 +28,7 @@ import {
 } from 'mobx-react';
 import State from './State';
 import './index.less';
+import NewAddCode from './NewAddCode';
 @observer
 class  CodeClassification extends React.Component{
 
@@ -35,8 +36,20 @@ class  CodeClassification extends React.Component{
 		super(props, context);
 	}
 
+	//查看相关操作
 	onOperation=(type,itemDetail)=>{
    Debug.log('[[[==]]]',type,itemDetail);
+	}
+
+ //打开关闭新建代码弹窗
+	openAddCode=()=>{
+		Debug.log('[[----000]]');
+		State.addCodeOpen();
+	}
+
+	//新建代码提交
+	codeSubmit=(params)=>{
+    Debug.log('kkkk',params);
 	}
 
 	render(){
@@ -64,7 +77,7 @@ class  CodeClassification extends React.Component{
 									<Button
 											label="新建代码"
 											type='button'
-											onTouchTap={this.openAddCommunity}
+											onTouchTap={this.openAddCode}
 									/>
 					  </Col>
 
@@ -120,14 +133,19 @@ class  CodeClassification extends React.Component{
        </Section>
 
 								 {/*新建代码*/}
-								 <Dialog
+								 <Drawer
 										title="新建代码分类"
-										onClose={this.openSearchUpperDialog}
-										open={State.openSearchUpper}
-										contentStyle ={{ width: '666px'}}
+										open={State.openCode}
+										width={750}
+						        onClose={this.whiteClose}
+						        openSecondary={true}
+						        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 										>
-										
-					       </Dialog>
+                  <NewAddCode
+									  onCancel={this.openAddCode}
+										onSubmit={this.codeSubmit}
+									/>
+					       </Drawer>
 	 </div>
 		);
 	}

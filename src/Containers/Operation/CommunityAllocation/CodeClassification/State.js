@@ -14,9 +14,10 @@ let State = observable({
 			page:1,
 			pageSize:15,
 		},
+  openCode:false
 });
 //参数修改
-State.setSearchParams = action(function(params) {
-	this.searchParams=params;
+State.addCodeOpen = action(function(params) {
+	this.openCode=!this.openCode;
 });
 module.exports = State;
