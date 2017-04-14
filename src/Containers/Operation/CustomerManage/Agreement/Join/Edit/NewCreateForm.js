@@ -143,7 +143,8 @@ class NewCreateForm extends Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
-				stationVos
+				stationVos,
+				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
 			});
@@ -192,6 +193,7 @@ class NewCreateForm extends Component {
 	}
 
 	onChangeSearchPersonel(personel) {
+		Store.dispatch(change('joinEditForm', 'lessorContactName', personel.lastname));
 		Store.dispatch(change('joinEditForm', 'lessorContacttel', personel.mobile));
 	}
 
@@ -239,7 +241,7 @@ class NewCreateForm extends Component {
 		} = this.state;
 		let allRent = 0;
 		let _this = this;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				item.unitprice = value;
@@ -247,10 +249,9 @@ class NewCreateForm extends Component {
 			return item;
 		});
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allRent += _this.getSingleRent(item);
-		// })
-		// allRent = parseFloat(allRent).toFixed(2)*1;
+		
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
+
 		this.setState({
 			stationVos,
 			allRent
@@ -266,7 +267,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			delStationVos
 		} = this.state;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
@@ -276,10 +277,10 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		// stationVos.map((item)=>{
-		// 	allRent += _this.getSingleRent(item);
-		// })
-		// allRent = parseFloat(allRent).toFixed(2)*1;
+		
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(delStationVos));
+
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -297,20 +298,31 @@ class NewCreateForm extends Component {
 			selectedStation
 		})
 	}
+	// onBlur=(item)=>{
+	// 	let {stationVos} = this.state;
+	// 	let {initialValues} = this.props;
+	// 	let allMoney = 0;
+	// 	// console.log('stationVos',stationVos);
+	// 	stationVos.map((item)=>{
+	// 		if(item.unitprice){
+	// 			allMoney += this.getSingleRent(item);
+	// 		}
+			
+	// 	})
+	// 	console.log('======>',stationVos);
+	// 	localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
+	// 	allMoney = parseFloat(allMoney).toFixed(2)*1;
+	// 	this.setState({
+	// 		allRent,
+	// 	})
+		
+	// }
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		// console.log('stationVos',stationVos);
-		stationVos.map((item)=>{
-			if(item.unitprice){
-				allMoney += this.getSingleRent(item);
-			}
-			
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
-		this.setState({
-			allRent
-		})
+		let {initialValues} = this.props;
+		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
 		
 	}
 	getSingleRent=(item)=>{
@@ -515,7 +527,8 @@ class NewCreateForm extends Component {
 		let {delStationVos} = this.state;
 		var _this = this;
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		var stationVos = [];
@@ -543,6 +556,9 @@ class NewCreateForm extends Component {
 		} catch (err) {
 			// console.log('billList 租赁明细工位列表为空');
 		}
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(billList));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(delStationVos));
+
 
 		this.setState({
 			stationVos,
@@ -580,6 +596,7 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {initialValues} = this.props;
 		list = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
@@ -587,6 +604,8 @@ class NewCreateForm extends Component {
 			return item;
 		})
 		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTERedittotalrent', JSON.stringify(response));
+			
 			_this.setState({
 				allRent:response
 			})
@@ -597,13 +616,7 @@ class NewCreateForm extends Component {
 			}]);
 		});
 	}
-	onBlur=(item)=>{
-		let {stationVos} = this.state;
-		let allMoney = 0;
-		this.setAllRent(stationVos);
-		// console.log('stationVos',this.setAllRent(stationVos));
-		
-	}
+	
 	dealRentName=(allRent)=>{
 		let name = '';
 		var nzhcn = nzh.cn;
@@ -653,6 +666,7 @@ class NewCreateForm extends Component {
 			HeightAuto,
 			allRent
 		} = this.state;
+		console.log('totalrent',initialValues.totalrent);
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		let  allRentName = this.dealRentName(allRent);
 
@@ -778,7 +792,9 @@ class NewCreateForm extends Component {
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 					<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					Store.dispatch(change('joinEditForm','contractFileList',files));
+				}} />
 
 				<Grid style={{paddingBottom:50}}>
 						<Row >
@@ -815,6 +831,7 @@ class NewCreateForm extends Component {
 const validate = values => {
 
 	const errors = {}
+	console.log('dasdasd',values);
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -897,6 +914,16 @@ const validate = values => {
 
 	if (!values.stationnum && !values.boardroomnum) {
 		errors.stationnum = '租赁项目必须填写一项';
+	}
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}
+	    };
 	}
 
 	return errors
