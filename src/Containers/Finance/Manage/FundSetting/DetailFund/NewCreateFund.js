@@ -80,8 +80,8 @@ class NewCreateFund extends Component {
                     <KrField name="status" grid={1 / 2} label="关闭" type="radio" value="DISENABLE"/>
                 </KrField>
                 <KrField grid={1 / 2} name="twinsFlag" component="group" label="生成收入" requireLabel={true}>
-                    <KrField name="twinsFlag" grid={1 / 2} label="启用" type="radio" value="CREATEINCOME"/>
-                    <KrField name="twinsFlag" grid={1 / 2} label="关闭" type="radio" value="NOINCOME"/>
+                    <KrField name="twinsFlag" grid={1 / 2} label="是" type="radio" value="CREATEINCOME"/>
+                    <KrField name="twinsFlag" grid={1 / 2} label="否" type="radio" value="NOINCOME"/>
                 </KrField>
 
                 <KrField label="备注" style={style} name="remark" component="textarea" placeholder='请输入备注,输入字数不能超过100字' maxSize={100} />

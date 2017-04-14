@@ -1,12 +1,7 @@
 import React from 'react';
-
-import {
-	ClassNames
-} from 'kr/Utils';
-
+import { ClassNames } from 'kr/Utils'; 
 
 import './index.less';
-
 export default  class Textarea extends React.Component {
 
 	static displayName = 'Textarea';

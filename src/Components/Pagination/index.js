@@ -28,32 +28,13 @@ export default class Pagination extends Component {
 	constructor(props) {
 		super(props);
 
-		this.onPrev = this.onPrev.bind(this);
-		this.onNext = this.onNext.bind(this);
-		this.onFirst = this.onFirst.bind(this);
-		this.onLast = this.onLast.bind(this);
-		this.onPageChange = this.onPageChange.bind(this);
-		this.onJumpPage = this.onJumpPage.bind(this);
-		this.onFirst = this.onFirst.bind(this);
-
-		this.renderPrev = this.renderPrev.bind(this);
-		this.renderFirst = this.renderFirst.bind(this);
-		this.renderLast = this.renderLast.bind(this);
-		this.renderBody = this.renderBody.bind(this);
-		this.createOther = this.createOther.bind(this);
-		this.renderJump = this.renderJump.bind(this);
-		this.onJump = this.onJump.bind(this);
-		this.renderTotalCount = this.renderTotalCount.bind(this);
-		this.renderNext = this.renderNext.bind(this);
-
 		this.state = {
 			jumpPageValue: ''
 		}
 
-
 	}
 
-	onJump() {
+	onJump = ()=> {
 
 		let {
 			jumpPageValue
@@ -76,7 +57,7 @@ export default class Pagination extends Component {
 		this.onPageChange(jumpPageValue);
 	}
 
-	onPrev() {
+	onPrev =()=> {
 
 		var {
 			page
@@ -92,10 +73,11 @@ export default class Pagination extends Component {
 		this.onPageChange(page);
 	}
 
-	onFirst() {
+	onFirst = ()=> {
 		this.onPageChange(1);
 	}
-	onLast() {
+
+	onLast =()=> {
 
 		let {
 			pageSize,
@@ -105,22 +87,16 @@ export default class Pagination extends Component {
 		this.onPageChange(page);
 	}
 
-	onNext() {
-
+	onNext = ()=> {
 		let {
 			page,
 			pageSize,
 			totalCount
 		} = this.props;
 
-
-
-
 		if (page == Math.ceil(totalCount / pageSize)) {
 			return;
 		}
-        
-
 
 		if (page > 0 && page < Math.ceil(totalCount / pageSize)) {
 			page++;
@@ -128,11 +104,11 @@ export default class Pagination extends Component {
 		this.onPageChange(page);
 	}
 
-	onJumpPage(event) {
+	onJumpPage = (event)=> {
 		this.onPageChange(event.target.getAttribute('data-page'));
 	}
 
-	onPageChange(page) {
+	onPageChange = (page)=> {
 
 		const {
 			onPageChange
@@ -140,11 +116,7 @@ export default class Pagination extends Component {
 		onPageChange && onPageChange(page);
 	}
 
-	onFirst() {
-		this.onPageChange(1);
-	}
-
-	renderFirst() {
+	renderFirst = ()=> {
 		let {
 			page,
 			pageSize,
@@ -165,7 +137,7 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderPrev() {
+	renderPrev = ()=> {
    
 		let {
 			page,
@@ -182,7 +154,7 @@ export default class Pagination extends Component {
 
 	}
 
-	createOther(i) {
+	createOther = (i)=> {
 
 		let props = {
 			className: 'item',
@@ -200,7 +172,7 @@ export default class Pagination extends Component {
 
 	}
 
-	renderBody() {
+	renderBody = ()=> {
 
 		let {
 			page,
@@ -260,7 +232,7 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderLast() {
+	renderLast = ()=> {
 
 		let {
 			page,
@@ -291,7 +263,7 @@ export default class Pagination extends Component {
 
 	}
 
-	renderNext() {
+	renderNext = ()=> {
 
 		let {
 			page,
@@ -356,7 +328,7 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderJump() {
+	renderJump = ()=> {
 		let {
 			page,
 			pageSize,
@@ -371,7 +343,7 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderTotalCount() {
+	renderTotalCount = ()=> {
 
 		let {
 			totalCount

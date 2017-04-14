@@ -180,7 +180,6 @@ export default class FinishUploadImgForm extends Component{
 			// 将每个IDpush进selectedId  办理yuan sh
 
 			for(var i=0;i<item.deviceList.length;i++){
-				// console.log("item.deviceList[i]",item.deviceList[i]);
 				item.deviceList[i].checked = false;
 				// 需要去除的
 				newArrEmpty.push(item.deviceList[i].id);
@@ -188,10 +187,8 @@ export default class FinishUploadImgForm extends Component{
 
 			let OriginArr = this.state.selectedIds;
 			var EmptyArr = [];
-			// console.log("OriginArr",OriginArr,'newArrEmpty',newArrEmpty);
 			for(var i =0;i<OriginArr.length;i++){
 				for(var j=0;j<newArrEmpty.length;j++){
-					// console.log("i",OriginArr[i],"j",newArrEmpty[j]);
 					if(OriginArr[i] ==newArrEmpty[j] ){
 
 						EmptyArr.push(i);
