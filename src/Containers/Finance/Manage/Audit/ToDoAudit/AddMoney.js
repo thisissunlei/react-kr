@@ -178,15 +178,15 @@ class AddMoney extends React.Component {
 		var name = input.name.split('-')[3];
 		var deposit = 1;//押金
 		var totalrent = 2;//定金
-		if (name == deposit && item.nDeposit >= 0 && value > item.nDeposit) {
+		if (name == deposit  && value > item.nDeposit) {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (name == totalrent && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
+		if (name == totalrent && item  && value > item.nTotalrent) {
 			Message.error('金额不能大于未回款额');
 			return
 		}
-		if (name == deposit && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
+		if (name == deposit && item  && value > item.nFrontmoney) {
 			Message.error('金额不能大于未回款额');
 			return
 		}
