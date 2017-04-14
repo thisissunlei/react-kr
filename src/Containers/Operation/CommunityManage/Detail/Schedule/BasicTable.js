@@ -107,6 +107,7 @@ class SearchForm extends Component {
 	}
 	selectCommunity(personel) {
 		let id = 0;
+		console.log('item',personel);
 		if (!personel) {
 			this.setState({
 				communityids: 0
@@ -159,7 +160,7 @@ class SearchForm extends Component {
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} onFilter={this.onFilter}/>
-				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="community"  grid={1/5} component="searchCommunityManage" label="社区"  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
 
 
