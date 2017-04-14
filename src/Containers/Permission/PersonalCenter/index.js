@@ -102,7 +102,6 @@ export default class PersonalCenter extends Component{
 				pwdStrength: response.pwdStrength,
 			});
 		}).catch(function(err) {
-       //    			console.log(err);
 		});
 	}
 	componentDidMount() {
@@ -110,8 +109,6 @@ export default class PersonalCenter extends Component{
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 	componentWillReceiveProps(){
-		//console.log(this.state.isLegal);
-		//console.log("111",document.getElementsByClassName("code")[0].value);
 	}
 	mobileTitleClick =()=>{
 		this.setState({
@@ -219,7 +216,6 @@ export default class PersonalCenter extends Component{
 				//_this.togetMobiletest()
 				if(err.code<0){
 					Message.error(err.message)
-		//        			console.log(err)
 				}
 				_this.setState({
 					gettingMobile:false,
@@ -242,7 +238,6 @@ export default class PersonalCenter extends Component{
 			time()
 		})
 		function time() {
-		//	            console.log(_this.state.timeminMobile)
         if (_this.state.timeminMobile == 0) {
             _this.setState({
 							regettestMobileState:true,
@@ -276,7 +271,6 @@ export default class PersonalCenter extends Component{
 			}).catch(function(err) {
 				if(err.code<0){
 					Message.error(err.message)
-					//                 console.log(err)
 				}
 				_this.setState({
 					gettingMail:false,
@@ -322,7 +316,6 @@ export default class PersonalCenter extends Component{
 	submitIdByMobile=()=>{
 
 		if(this.refs.MobileCode.value){
-			//console.log("111",document.getElementsByClassName("code")[0].value);
 			this.submitVerifyIDbyMobile()
 		}else{
 			Message.error("请填写验证码")
@@ -339,7 +332,6 @@ export default class PersonalCenter extends Component{
 	//手机身份验证点击确定
 	submitVerifyIDbyMobile =()=>{
 			var _this = this;
-			//console.log("1",this.state.regettestMobileState);
 				Store.dispatch(Actions.callAPI('PersonalCenterVerifyIdByMobile', {
 					verifyCode:_this.refs.MobileCode.value,
 				})).then(function(response) {
@@ -348,7 +340,6 @@ export default class PersonalCenter extends Component{
 						//timeminMobile:"",//
 						//timeminMail:"",//
 					},function(){
-					//	console.log("2",this.state.regettestMobileState);
 						if(_this.state.PwdOrMobile=="pwd"){
 							_this.setState({
 								openPwdRevise:true,
@@ -366,13 +357,10 @@ export default class PersonalCenter extends Component{
 								regettestNewMobileState:false,
 							})
 						}
-						//console.log("3",this.state.regettestMobileState);
 					})
 				}).catch(function(err) {
 					if(err.code<0){
 						Message.error(err.message)
-					//           	console.log(err)
-				//          	console.log(err);
 					}
 				});
 	}
@@ -408,7 +396,6 @@ export default class PersonalCenter extends Component{
 				}).catch(function(err) {
 					if(err.code<0){
 						Message.error(err.message)
-					//           	console.log(err)
 
 					}
 				});
@@ -432,7 +419,6 @@ export default class PersonalCenter extends Component{
 					//本地测试	_this.reviseMobileGetVerify()
 					if(err.code<0){
 						Message.error(err.message)
-					//            	console.log(err)
 					}
 					_this.setState({
 						gettingNewMobile:false,
@@ -458,7 +444,6 @@ export default class PersonalCenter extends Component{
 				time()
 		})
 		function time() {
-			//console.log(_this.state.timeminMobile)
         if (_this.state.timeminMobile == 0) {
             _this.setState({
 							regettestNewMobileState:true,
@@ -488,12 +473,10 @@ export default class PersonalCenter extends Component{
 	//验证修改手机号api
 	submitReviseMobile =()=>{
 		var _this = this;
-			//      console.log(document.getElementById("reviseMobile_code").value)
 			Store.dispatch(Actions.callAPI('PersonalCenterVerifyReviseMobileVerificationCode', {},{
 				mobile:_this.refs.newMobile.value,
 				verifyCode:_this.refs.reviseMobileCode.value,
 			})).then(function(response) {
-			//	console.log(response)
 				Message.success("修改成功")
 				_this.setState({
 					openMobileRevise:false,
@@ -504,7 +487,6 @@ export default class PersonalCenter extends Component{
 			}).catch(function(err) {
 				if(err.code<0){
 					Message.error(err.message)
-				//        	console.log(err)
 				}
 			});
 	}

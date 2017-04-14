@@ -269,7 +269,6 @@ class NewCreateForm  extends Component{
 
 
 		var _this = this;
-	console.log('form',form);
 
 		form.stationVos = stationVos;
 		const {onSubmit} = this.props;
@@ -326,7 +325,6 @@ class NewCreateForm  extends Component{
 
 		this.openStationDialog();
 
-		console.log('data',billList);
 
 		if(!billList){
 			return ;
@@ -349,7 +347,6 @@ class NewCreateForm  extends Component{
 					item.whereFloor =  item.wherefloor;
 			});
 		}catch(err){
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 		this.setState({stationVos:billList},function(){

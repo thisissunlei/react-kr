@@ -206,7 +206,6 @@ export default class EditCreate extends Component {
       optionValues,
       stationVos
     } = this.state;
-    console.log('stationVos', stationVos)
     return (
 
       <div style={{marginLeft:22}}>

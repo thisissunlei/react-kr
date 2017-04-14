@@ -126,7 +126,6 @@ class NewCreateForm extends Component {
 			HeightAuto: false,
 			allRent:'-1'
 		}
-		console.log('===>',this.props);
 	}
 
 	componentDidMount() {
@@ -261,7 +260,6 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		console.log('onStationUnitPrice',stationVos);
 		this.setAllRent(stationVos);
 
 
@@ -402,7 +400,6 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		console.log('form',form);
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -516,7 +513,6 @@ class NewCreateForm extends Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 		this.setState({
 			stationVos,
@@ -534,7 +530,6 @@ class NewCreateForm extends Component {
 		onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}
@@ -560,7 +555,6 @@ class NewCreateForm extends Component {
 	getSingleRent=(item)=>{
 		//年月日
 		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		console.log(dateFormat(item.leaseBeginDate, "yyyy-mm-dd"),dateFormat(item.leaseEndDate, "yyyy-mm-dd"));
 		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
 		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
 		let rentDay = 0;
@@ -570,7 +564,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -583,14 +576,12 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 	dealRentName=(allRent)=>{

@@ -78,7 +78,6 @@ export default class JoinOrderList extends Component {
 	}
 
 	confirmCreateAgreementSubmit(values){
-		console.log('----',values);
 
 		this.openCreateAgreementDialog();
 

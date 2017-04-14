@@ -89,7 +89,6 @@ class NewCreateForm extends Component {
 		super(props, context);
 
 
-		console.log("----thisconte", this.context);
 
 
 
@@ -152,7 +151,6 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -192,7 +190,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -205,13 +202,11 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -232,7 +227,6 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos

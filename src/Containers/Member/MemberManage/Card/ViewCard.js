@@ -40,19 +40,16 @@ class ImportCard extends Component{
 	}
 	getDetailData=()=>{
 		let {detail} = this.props;
-		console.log(detail);
 		let params = {
 			id:detail.id
 		}
 		let _this = this;
 		Store.dispatch(Actions.callAPI('memberCardView', params)).then(function(response) {
-			console.log('response',response);
 			_this.setState({
 				bindInfo:true,
 				infoData:response
 			})
 		}).catch(function(err) {
-			console.log('err',err);
 			if(err.code == '-1'){
 				_this.setState({
 					bindInfo:false
@@ -66,7 +63,6 @@ class ImportCard extends Component{
 		onCancel && onCancel();
 	}
 	 onSubmit=(values)=>{
-		console.log(values);
 		 // const {onSubmit} = this.props;
 		 // onSubmit && onSubmit(values);
 	 }

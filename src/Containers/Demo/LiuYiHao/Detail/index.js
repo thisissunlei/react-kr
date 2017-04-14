@@ -422,7 +422,6 @@ export default class OrderDetail extends React.Component {
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
-		console.log('target',target);
 		if(target.className == 'icon-more'){
 			return ;
 		}

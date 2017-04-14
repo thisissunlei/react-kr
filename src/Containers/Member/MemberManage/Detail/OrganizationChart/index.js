@@ -34,7 +34,6 @@ export default class OrganizationChart extends Component {
 	}
   onLoaded=(response)=>{
 		let list = response;
-    // console.log(list,"组织架构list");
 		this.setState({
 			list
 		})

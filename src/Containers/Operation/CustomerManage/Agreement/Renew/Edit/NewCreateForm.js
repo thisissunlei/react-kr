@@ -201,7 +201,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -214,13 +213,11 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -271,7 +268,6 @@ class NewCreateForm extends Component {
 		let {
 			initialValues
 		} = this.props;
-		console.log('=====>',this.props.initialValues);
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
 	}
 
@@ -289,7 +285,6 @@ class NewCreateForm extends Component {
 	}
 
 	onSubmit(form) {
-		console.log('fffff');
 
 		form = Object.assign({}, form);
 
@@ -340,7 +335,6 @@ class NewCreateForm extends Component {
 		}
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		console.log('contractmark',form);
 		const {
 			onSubmit
 		} = this.props;

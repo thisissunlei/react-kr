@@ -149,7 +149,6 @@ class NewCreateForm extends Component {
 			}
 		});
 
-		console.log('--->>', stationnum, boardroomnum);
 
 		Store.dispatch(change('joinCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('joinCreateForm', 'boardroomnum', boardroomnum));
@@ -249,7 +248,6 @@ class NewCreateForm extends Component {
 		// 	allRent += _this.getSingleRent(item);
 		// })
 		// allRent = parseFloat(allRent).toFixed(2)*1;
-		console.log('onStationUnitPrice',allRent);
 
 
 
@@ -468,7 +466,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}
@@ -503,7 +500,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -512,19 +508,16 @@ class NewCreateForm extends Component {
 				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
 					rentDay = mounth[mounthIndex]+2+a;
 				}
-				console.log('mounthIndex',mounth[mounthIndex]);
 				rentDay = mounth[mounthIndex]+1+a;
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',typeof allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -532,7 +525,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('--->>选择的工位', billList);
 
 		if (!billList) {
 			return;
@@ -559,7 +551,6 @@ class NewCreateForm extends Component {
 				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 
@@ -901,7 +892,6 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	console.log('进来了')
 
 	return errors
 }

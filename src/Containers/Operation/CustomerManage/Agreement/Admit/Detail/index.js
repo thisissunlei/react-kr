@@ -186,7 +186,6 @@ export default class AdmitDetail extends Component {
 
 												{
 													basic.stationVos && basic.stationVos.map((item,index)=>{
-													console.log(basic.stationVos);
 													return (
 														 <TableRow key={index}>
 														<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

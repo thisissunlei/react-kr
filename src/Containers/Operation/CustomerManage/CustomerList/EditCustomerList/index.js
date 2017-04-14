@@ -71,7 +71,6 @@ import {
 
 
 	onSubmit = (values) => {
-		console.log("rrrrrrrrrr");
 		let {operType}=this.props;
 		let _this=this;
 		if(!values.company){

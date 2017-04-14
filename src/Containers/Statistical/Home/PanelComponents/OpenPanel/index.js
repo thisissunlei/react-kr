@@ -79,7 +79,6 @@ export default class OpenPanel  extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
 
 			});
 

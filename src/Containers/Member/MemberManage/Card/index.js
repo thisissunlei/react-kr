@@ -38,7 +38,6 @@ export default class Card extends Component {
 	    this.setState({
 	    	searchParams:params
 	    })
-    	console.log('value',value);
     }
     openImportCardDialog=()=>{
     	this.setState({

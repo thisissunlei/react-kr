@@ -148,7 +148,6 @@ class NewCreateForm extends Component {
 	}
 
 	onStationSubmit(stationVos) {
-		console.log('stationVos',stationVos);
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
@@ -189,7 +188,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -202,13 +200,11 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 

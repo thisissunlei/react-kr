@@ -202,7 +202,6 @@ import State from '../State';
 
 
     //if(State.detailData.)
-    console.log(';;;----',State.detailData.photoVOs);
    
          
     let {openDown,openUp}=this.state;

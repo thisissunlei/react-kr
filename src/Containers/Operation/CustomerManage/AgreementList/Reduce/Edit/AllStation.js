@@ -275,7 +275,6 @@ class SelectStationForm extends Component {
 			}]);
 			return false;
 		}
-		console.log('---->>>>', selectedStationVos)
 
 		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
 

@@ -62,7 +62,6 @@ class NewCreateForm extends React.Component{
 		this.foreignCodeBlur(values.foreignCode);
 		let {onsubmit,onSubmitCode} = this.state;
 		if(onsubmit && onSubmitCode){
-			// 	console.log('values',values);
 			const {onSubmit} = this.props;
 			onSubmit && onSubmit(values);
 		}

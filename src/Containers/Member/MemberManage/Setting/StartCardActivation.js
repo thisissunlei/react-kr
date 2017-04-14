@@ -206,7 +206,6 @@ import './index.less';
 			})
 	}
 	cardChange=(value)=>{
-			console.log("999")
 
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
 		var reg=/^[0-9a-fA-F]{8}$/;
@@ -271,7 +270,6 @@ const validate = values =>{
 		
 		const errors = {}
 		var reg=/^[0-9a-fA-F]{8}$/;
-		console.log("1233")
 		if (!reg.test(values.interCode)) {
 			errors.interCode='内码为8位16进制数';
 		}
