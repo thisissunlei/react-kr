@@ -164,6 +164,7 @@ export default class MapComponentNew extends Component {
 	             		pointLng : results.getPoi(0).point.lng,
 						pointLat : results.getPoi(0).point.lat
 	             	},function(){
+	             		_this.onChange();
 	             		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);    
 						var marker = new BMap.Marker(point); // 创建标注
 						_this.map.centerAndZoom(point, 15);
@@ -203,12 +204,14 @@ export default class MapComponentNew extends Component {
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
 			// 初始化
+			console.log("this.state",this.state);
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			if(_this.refs.mapInput.value){
 				_this.map.centerAndZoom(point, 15);
 			}else{
 				_this.map.centerAndZoom(point, 11);
 			}
+
 			
 			// 添加标注
 			var marker = new BMap.Marker(point);        // 创建标注    
@@ -223,6 +226,7 @@ export default class MapComponentNew extends Component {
 					pointLat : e.point.lat,
 					changePosition:true
 			 	},function(){
+			 		console.log("this.state",this.state);
 			 		_this.onChange();
 			 	});
 			});
@@ -238,6 +242,7 @@ export default class MapComponentNew extends Component {
 		},function(){
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
+
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			if(this.refs.mapInput.value){
