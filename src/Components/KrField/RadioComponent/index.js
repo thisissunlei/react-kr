@@ -9,12 +9,11 @@ export default class RadioComponent  extends React.Component{
 			value:this.props.value
 		}
 	}
-	
+
 	onClick = (event)=>{
 		let {input}=this.props;
 		let {onClick} = this.props;
 		onClick && onClick(input);
-		input.onChange(this.state.value);
 	}
 
 	render(){
@@ -24,9 +23,17 @@ export default class RadioComponent  extends React.Component{
 			paddingRight:10,
 		});
 
+		var inputProps = {
+				...input,
+				placeholder:placeholder||label,
+				type,
+				disabled,
+				onClick:this.onClick,
+		}
+
 		return (
 			<span style={Styles}>
-					<input name={input.name} placeholder={placeholder|| label} type={type} disabled={disabled} onClick={this.onClick}/>
+					<input {...inputProps}/>
 					<span style={{paddingLeft:5}}>{label}</span>
 			</span>
 		)

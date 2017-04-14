@@ -33,8 +33,6 @@ export default class Field extends React.Component{
   onChange = (value)=>{
     const {onChange} = this.context;
     const {name} = this.props;
-
-    Debug.log('value----<><>',value);
     onChange && onChange(name,value);
   }
 
