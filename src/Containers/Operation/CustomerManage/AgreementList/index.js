@@ -474,7 +474,11 @@ class Merchants extends Component{
 
  contractChange=(params)=>{
    let {searchParams}=this.state;
-	 searchParams.contractType=params.value;
+	 if(!params.value){
+		 searchParams.contractType='';
+	 }else{
+		 searchParams.contractType=params.value;
+	 }
 	 State.ajaxListData(searchParams);
  }
 
