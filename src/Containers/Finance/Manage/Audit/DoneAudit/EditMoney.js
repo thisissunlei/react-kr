@@ -240,7 +240,7 @@ class EditMoney extends Component {
 		if (name == 1) {
 				var str=new String(item.nDeposit);
 						nDeposit=str.replace(/,/gi,'');
-				if(nDeposit >= 0 && value*100 > nDeposit*100){
+				if(value*100 > nDeposit*100){
 						Message.error('金额不能大于未回款额');
 						return
 				}
@@ -249,7 +249,7 @@ class EditMoney extends Component {
 		if (name == 2) {
 				var str=new String(item.nTotalrent);
 						nTotalrent=str.replace(/,/gi,'');
-				if(item && nTotalrent >= 0 && value*100 > nTotalrent*100){
+				if(item && value*100 > nTotalrent*100){
 					Message.error('金额不能大于未回款额');
 					return
 				}
@@ -257,7 +257,7 @@ class EditMoney extends Component {
 		if (name == 1) {
 			var str=new String(item.nFrontmoney)
 				nFrontmoney=str.replace(/,/gi,'');
-				if(item && nFrontmoney >= 0 && value*100 > nFrontmoney*100){
+				if(item && value*100 > nFrontmoney*100){
 					Message.error('金额不能大于未回款额');
 					return
 				}
