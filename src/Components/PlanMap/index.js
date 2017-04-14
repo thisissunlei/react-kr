@@ -52,7 +52,6 @@ export default  class PlanMapComponent extends React.Component {
 	}
 	//交换工位员工信息
 	swapStationStaff = (originStation,targetStation)=>{
-		console.log('---<<',originStation,targetStation);
 	}
 
 	drawCanvas = ()=>{

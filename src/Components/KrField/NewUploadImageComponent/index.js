@@ -65,17 +65,14 @@ export default class UploadImageComponent extends Component {
 
 
 	}
+
 	onTokenError() {
-		// this.setState({
-		// 	operateImg:
-		// })
 		Notify.show([{
 			message: '初始化上传文件失败,请重新上传',
 			type: 'danger',
 		}]);
 	}
 	operationImg=()=>{
-		// console.log("this.state.imgUpload)",this.state.imgUpload);
 		if(this.state.imgUpload){
 			this.setState({
 				operateImg :true
@@ -107,6 +104,10 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
+		let {formfile} = this.props;
+		if(!formfile){
+			formfile ='upfile'
+		}
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 
@@ -171,7 +172,7 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		var form = new FormData();
-		form.append('upfile', file);
+		form.append(formfile, file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -193,6 +194,7 @@ export default class UploadImageComponent extends Component {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
+									console.log("fileResponse",fileResponse);
 									_this.onError(fileResponse.msg);
 									return;
 								}
@@ -225,11 +227,6 @@ export default class UploadImageComponent extends Component {
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
-		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
-		// _this.setState({
-		// 	imgUpload: true,
-		// 	operateImg : false
-		// });
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
@@ -241,7 +238,6 @@ export default class UploadImageComponent extends Component {
                  //读取图片数据
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                 	// console.log("e",e);
                     var data = e.target.result;
                      //加载图片获取图片真实宽度和高度
                     var image = new Image();
@@ -300,12 +296,13 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
+		
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
-			<div className="ui-new-uploadimg-box">
+			<div className={center==center?"ui-new-uploadimg-box-center":"ui-new-uploadimg-box"}>
 
 					<div className='ui-uploadimg-outbox' style={innerstyle}>
 						<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>

@@ -152,7 +152,6 @@ export default class DoneAudit extends Component {
   }
   sureToDel = (itemDetail) => {
     var _this = this;
-    //console.log(itemDetail);
     Store.dispatch(Actions.callAPI('del-fina-returned-record', {}, {
       finaVerifyId: this.state.itemDetail.id
     })).then(function(response) {

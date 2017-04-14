@@ -80,7 +80,7 @@ export default class SelectComponent extends React.Component {
 	}
 
 	handleChange(value) {
-
+		Debug.log("value",value);
 		let {
 			input
 		} = this.props;

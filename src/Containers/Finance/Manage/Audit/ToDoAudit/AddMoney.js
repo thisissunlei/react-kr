@@ -121,7 +121,7 @@ class AddMoney extends React.Component {
 			finaflowInfo: {}
 		})
 		this.receivedBtnFormChangeValues = {};
-		if (!form.id) {
+		if (form.id==0) {
 			this.openCreateCustomer();
 			return;
 		}
@@ -155,7 +155,7 @@ class AddMoney extends React.Component {
 		options.map((item) => {
 			name.push(`fix-${item.detailid}-${item.depositId}`);
 			name.push(`fix-${item.detailid}-${item.totalrentId}`);
-			if (!item.checked) {
+			if (options[len].checked != false && item.checked == false) {
 				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.depositId}-1`, ''));
 				Store.dispatch(change('addMoney', `fix-${item.detailid}-${item.totalrentId}-2`, ''));
 				_this.getCount(input, name);
@@ -247,7 +247,7 @@ class AddMoney extends React.Component {
 	}
 	getMainbillInfo = (form) => {
 		var _this = this;
-		if (!form.id) {
+		if (form.id==0) {
 			this.openCreateMainbill(form.id);
 		}
 		Store.dispatch(Actions.callAPI('get-mainbill-info', {
