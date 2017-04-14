@@ -91,7 +91,6 @@ class FieldRevert extends React.Component {
 			component: React.PropTypes.string,
 			disabled: React.PropTypes.bool,
 			grid: React.PropTypes.number,
-			// value: React.PropTypes.string,
 			inline: React.PropTypes.bool,
 			search: React.PropTypes.bool,
 			left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
@@ -188,14 +187,11 @@ class FieldRevert extends React.Component {
 				);
 			}
 
-
-
 			if (component === 'uploadImageList') {
 				return (
 					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-
 
 			if (component === 'searchPayment') {
 				return (
@@ -222,7 +218,6 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
 				)
 			}
-
 
 			if (component === 'searchPersonel') {
 				return (
@@ -298,7 +293,6 @@ class FieldRevert extends React.Component {
 				);
 			}
 
-
 			if (component === 'companyName') {
 				return (
 					<FieldRevert {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
@@ -364,7 +358,6 @@ class FieldRevert extends React.Component {
 			}
 
 			if (!component || component === 'input') {
-
 				return (
 					<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 				);

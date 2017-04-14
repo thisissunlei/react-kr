@@ -160,7 +160,6 @@ export default class UploadImageComponent extends Component {
 			}
 		}
 
-		// console.log("pictureMemory",pictureMemory);
 		if(imgSize>pictureMemory){
 			this.refs.inputImg.value ="";
 			this.refs.inputImgNew.value ="";
@@ -298,7 +297,7 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
-		
+
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
