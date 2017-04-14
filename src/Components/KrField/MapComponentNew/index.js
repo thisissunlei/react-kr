@@ -51,6 +51,8 @@ export default class MapComponentNew extends Component {
 			this.setState({
 				pointLng : defaultPoint[0],
 				pointLat : defaultPoint[1],
+			},function(){
+				_this.onChange();
 			})
 		}
 	}
@@ -97,6 +99,8 @@ export default class MapComponentNew extends Component {
 			this.setState({
 				pointLng : defaultPoint[0],
 				pointLat : defaultPoint[1],
+			},function(){
+				_this.onChange();
 			})
 		}
 		// 百度地图API功能
@@ -146,7 +150,7 @@ export default class MapComponentNew extends Component {
 		let _this =this;
 		_this.map.clearOverlays();
 		_this.setState({
-			searchText : searchValue
+			detailSearch : searchValue
 		},function(){
 			_this.onChange();
 		})
