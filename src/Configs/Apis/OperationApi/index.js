@@ -315,8 +315,16 @@ module.exports = {
    },
    //商圈列表
    'business-list':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&&name={name}&&no={no}',
+      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&name={name}&no={no}',
       method: 'get'
    },
-   
+
+   //商圈列表-新建商圈
+   'business-new':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/edit?districtId={districtId}&enable={enable}&name={name}&no={no}&sort={sort}&id={id}',
+      method: 'post'
+   },
+
+
+
 }

@@ -29,7 +29,7 @@ import './index.less';
 
 	constructor(props){
 		super(props);
-		
+		this.state={
 			orderList:[],
 			distinctId:'',
 		}
@@ -38,25 +38,26 @@ import './index.less';
 	componentDidMount(){
 	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
-
-
+		const {$form} = this.props;
+		$form.change('enable',"ENABLE");
 
 	}
 	onCancel = () => {
-		const {onCloset} = this.props;
-		onCloset && onCloset();
-		console.log(onCloset,">>>>")
+		const {onCancel} = this.props;
+		onCancel && onCancel();
+
 	}
 
   //确定按钮
   onSubmit = (values) =>{
+		console.log(values,"??????");
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(value);
   }
 	//将区县id绑定到from上
 	cityValue=(value)=>{
 			const {$form} = this.props;
-			$form.change('companyId',value);
+			$form.change('distinctId',value);
 	}
 	render(){
 		const { handleSubmit} = this.props;
@@ -77,7 +78,7 @@ import './index.less';
 
 						<KrField grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='input'  label="客户名称" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态" requireLabel={false}>
-							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
+							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
 							 <KrField name="enable" label="否" type="radio" value="DISABLE" />
 						</KrField>
 
@@ -100,4 +101,4 @@ const validate = values =>{
 
 	return errors;
 }
-export default reduxForm({ form: 'EditBusiness',validate})(NewBusiness);
+export default reduxForm({ form: 'EditBusiness',validate})(EditBusiness);
