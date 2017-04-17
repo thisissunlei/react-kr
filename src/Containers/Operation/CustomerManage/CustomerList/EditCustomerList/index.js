@@ -26,6 +26,7 @@ import {
 } from 'mobx-react';
 
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
  class EditCustomerList extends Component{
 
@@ -93,7 +94,7 @@ import {
 		         }
 			}
          	if(operType=="PERSON"){
-         		personal.searchParams={
+         	_this.props.NewIndentModel.searchParams={
 		         	page:1,
 					pageSize:15,
 					time:+new Date()
@@ -109,7 +110,7 @@ import {
          	_this.props.CommunityDetailModel.lookListId(_this.props.listId,operType);
          	// flushData.lookListId(_this.props.listId,operType);
 		    merchants.openDialog=false;
-		    personal.openPersonDialog=false;
+		    _this.props.NewIndentModel.openPersonDialog=false;
 		    signedClient.openPersonDialog=false;
          	_this.onCancel();
 		}).catch(function(err) {
@@ -263,7 +264,7 @@ const validate = values =>{
 
 		const errors = {};
 		let phone1=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
-		
+
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 		if(!values.sourceId){
@@ -277,7 +278,7 @@ const validate = values =>{
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
 		}
-		
+
 		if(!values.recommendName){
 			errors.recommendName='请填写介绍人姓名'
 		}
@@ -303,7 +304,7 @@ const validate = values =>{
 			errors.name = "请填写联系人姓名"
 		}
 
-		
+
 
 		if(!email.test(values.customerMail)){
 			errors.customerMail = '联系人邮箱格式错误';
