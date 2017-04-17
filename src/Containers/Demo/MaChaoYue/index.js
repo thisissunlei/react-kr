@@ -19,7 +19,7 @@ import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import AdvancedQuery from './AdvancedQuery';
 
-export default class List extends React.Component {
+export default class MaChaoYue extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
