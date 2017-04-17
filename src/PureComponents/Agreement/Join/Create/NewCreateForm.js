@@ -534,7 +534,6 @@ class NewCreateForm extends Component {
 				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 
@@ -588,7 +587,6 @@ class NewCreateForm extends Component {
 			changeValues,
 			optionValues
 		} = this.props;
-		console.log("initialValues",initialValues);
 		let {
 			fnaCorporationList
 		} = optionValues;

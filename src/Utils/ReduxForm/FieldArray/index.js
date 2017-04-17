@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default class Field extends React.Component{
+export default class FieldArray extends React.Component{
 
-  static displayName = 'Field';
+  static displayName = 'FieldArray';
 
   static propTypes = {
      name:React.PropTypes.string,
@@ -28,17 +28,6 @@ export default class Field extends React.Component{
     const {registerField} = this.context;
     const {name} = this.props;
     registerField && registerField(name,'field');
-  }
-
-  componentWillReceiveProps(nextProps){
-	  if(this.name !== nextProps.name){
-		  this.context.unRegisterField(this.name);
-		  this.context.registerField(nextProps.name);
-	  }
-  }
-
-  get name(){
-	  return this.props.name;
   }
 
   onChange = (event)=>{
@@ -126,3 +115,5 @@ export default class Field extends React.Component{
 	}
 
 }
+
+
