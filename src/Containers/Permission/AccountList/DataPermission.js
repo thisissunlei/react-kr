@@ -103,19 +103,19 @@ export default class DataPermission extends React.Component{
   //      })
   //   })
 	// }
-	checked=(item,itemC,index)=>{
+	checked = (item,itemC) =>{
 		var _this = this;
-		let {cityList} = this.state;
-		const {detail} = this.props;
-		var checked = [];
+		//let {cityList} = this.state;
+		//const {detail} = this.props;
+		//var checked = [];
+		// console.log("item",itemC.ownFlag);
 
-		if(itemC.ownFlag==0){
-			itemC.ownFlag=1;
-		}else{
-			itemC.ownFlag=0;
-		}
+		// if(itemC.ownFlag==0){
+		// 	itemC.ownFlag=1;
+		// }else{
+		// 	itemC.ownFlag=0;
+		// }
 		console.log("dasfs",itemC);
-		this.id = item.id;
 		// item.communities.map((itemA, index) => {
 		// 	checked.push(itemA.ownFlag);
 		// })
@@ -163,17 +163,16 @@ export default class DataPermission extends React.Component{
 					 		onClick={this.checked.bind(this,item,index)}
 					>
 						{item.name}
-						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.ownFlag==1?true:false} onCheck={this.allSelect.bind(this,item)}/>
-						{item.communities.map((itemC,index)=>{return (
-								<div style={{display:'inline-block',lineHeight:'32px'}} key={index}>
+						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item)}/>
+						{item.communities.map((itemC,indexC)=>{return (
+								<div style={{display:'inline-block',lineHeight:'32px'}} key={indexC}>
 									<Checkbox
 											style={{display:'inline-block',color:'#333'}}
 											label={itemC.communityName}
 											checked={itemC.ownFlag==1?true:false}
-											onCheck={this.checked.bind(this,item,itemC,index)}
+											onCheck={this.checked.bind(this,item,itemC)}
 									/>
 								</div>
-
 							)
 						 })
 						}
