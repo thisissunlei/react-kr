@@ -255,7 +255,7 @@ class SignedClient extends React.Component{
 
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  State.searchParams.company='';
+	   State.searchParams.company='';
       State.searchParams.cityId='';
       State.searchParams.communityId='';
       State.searchParams.signEndDate='';

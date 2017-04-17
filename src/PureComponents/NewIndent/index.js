@@ -60,6 +60,7 @@ import {
 			 }
     	_this.onCancel();
 			_this.props.NewIndentModel.openContract=false;
+			Message.success('新建成功');
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
