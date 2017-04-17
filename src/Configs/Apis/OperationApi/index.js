@@ -308,4 +308,9 @@ module.exports = {
         url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/codeCategory/action/edit',
         method: 'post'
     },
+    //运营平台－社区列表-城市
+    'type-city-community': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/community/list/type/city?name={name}&type={type}',
+        method: 'get'
+    },
 }
