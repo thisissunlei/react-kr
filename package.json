@@ -151,7 +151,6 @@
     "polyfills": "2.1.1",
     "qrcode.react": "0.6.1",
     "react": "0.14.6",
-    "react-": "^1.0.3",
     "react-art": "0.15.1",
     "react-dom": "0.14.6",
     "react-form": "0.0.2",
