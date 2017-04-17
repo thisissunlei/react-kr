@@ -199,11 +199,11 @@ onExport = () =>{
 
 
 		return(
-			<div className="m-equipment-list" style={{paddingTop:25,minHeight:'910'}}>
+			<div className="m-equipment-list m-business-list" style={{paddingTop:25,minHeight:'910'}}>
 				<Title value="商圈列表"/>
       		<Section title="商圈列表"  style={{marginBottom:-5,minHeight:910}}>
 
-		        <Row style={{marginBottom:21}}>
+		        <Row style={{marginBottom:21,zIndex:100,position:"relative"}}>
 				          <Col
 						     align="left"
 						     style={{float:'left'}}

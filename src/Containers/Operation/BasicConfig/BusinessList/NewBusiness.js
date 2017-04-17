@@ -40,6 +40,7 @@ import './index.less';
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		const {$form} = this.props;
 		$form.change('enable',"ENABLE");
+		
 
 	}
 	onCancel = () => {
