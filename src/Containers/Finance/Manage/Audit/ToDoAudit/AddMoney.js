@@ -178,18 +178,36 @@ class AddMoney extends React.Component {
 		var name = input.name.split('-')[3];
 		var deposit = 1;//押金
 		var totalrent = 2;//定金
-		if (name == deposit  && value > item.nDeposit) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == totalrent && item  && value > item.nTotalrent) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == deposit && item  && value > item.nFrontmoney) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
+			val=val.replace(/,/gi,'');
+		var nDeposit,nTotalrent,nFrontmoney;
+			if (name == deposit) {
+					var str=new String(item.nDeposit);
+							nDeposit=str.replace(/,/gi,'');
+					if(value*100 > nDeposit*100){
+							Message.error('金额不能大于未回款额');
+							return
+					}
+
+			}
+			if (name == totalrent) {
+					var str=new String(item.nTotalrent);
+							nTotalrent=str.replace(/,/gi,'');
+					if(item  && value*100 > nTotalrent*100){
+						Message.error('金额不能大于未回款额');
+						return
+					}
+			}
+			if (name == deposit) {
+				var str=new String(item.nFrontmoney)
+					nFrontmoney=str.replace(/,/gi,'');
+					if(item  && value*100 > nFrontmoney*100){
+						Message.error('金额不能大于未回款额');
+						return
+					}
+
+			}
+
+
 		if (/[^0-9]+.[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
 			return;
