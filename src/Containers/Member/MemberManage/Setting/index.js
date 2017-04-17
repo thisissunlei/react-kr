@@ -7,7 +7,6 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
