@@ -168,7 +168,6 @@ export default class JoinDetail extends Component {
 															<TableBody>
 
 																{basic.stationVos.length && basic.stationVos.map((item,index)=>{
-																	console.log('item',item);
 																	return (
 																		 <TableRow key={index}>
 																		<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

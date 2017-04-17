@@ -310,7 +310,6 @@ class ReceivedBtnForm extends Component {
     }
 
     argreementChecked = (options) => {
-        console.log('checked----', options)
         var name,
             input = {
                 value: 0
@@ -383,7 +382,6 @@ class ReceivedBtnForm extends Component {
             contractReceive,
             accountDetail
         } = this.props;
-        console.log(optionList);
         let heightStyle = {
             width: '546',
             height: '72'

@@ -36,8 +36,7 @@ import './index.less';
 	}
 
 	componentDidMount(){
-	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
-		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+	 	 
 		const {$form} = this.props;
 		$form.change('enable',"ENABLE");
 		
@@ -51,7 +50,6 @@ import './index.less';
 
   //确定按钮
   onSubmit = (values) =>{
-		console.log(values,"??????");
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(value);
   }

@@ -60,10 +60,7 @@ import imgLine from './images/line.png'
 	 	this.EmailonBlur(values.email);
 	 	this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onsubmitCode} = this.state;
-		// 	console.log(onsubmit,onsubmitCode);
-		console.log('values',values);
 	 	if(onsubmit && onsubmitCode){
-			// 	console.log('values',values);
 			values.companyId = parseInt(this.params.companyId);
 			values.communityId = parseInt(this.params.communityId);
 	 		const {onSubmit} = this.props;
@@ -116,7 +113,6 @@ import imgLine from './images/line.png'
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
-					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
@@ -155,7 +151,6 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 		 if(phoneSame && email == params.email){
-			// 	console.log('phoneSame');
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -171,7 +166,6 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -187,14 +181,12 @@ import imgLine from './images/line.png'
 						communityName = item.communityname;
 					}
 				})
-				console.log('getCummityName',communityName);
 				_this.setState({
 					communityName
 				})
 
 		 }).catch(function(err){
 		 	//会员卡号未注册
-			// 	console.log(ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
 			})
@@ -230,7 +222,6 @@ import imgLine from './images/line.png'
 
 			 }).catch(function(err){
 			 	//会员卡号未注册
-				// 	console.log('ddddd',err.message);
 			 	_this.setState({
 					onsubmitCode:true
 				})

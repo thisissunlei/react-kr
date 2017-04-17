@@ -43,7 +43,6 @@ export default class JoinPrint extends Component {
 
 	}
 	renderContent=()=>{
-		console.log(State.baseInfo.agreement);
 		if(State.baseInfo.hasOwnProperty('agreement')){
 			var str = State.baseInfo.agreement;
 			if(str.length>45){

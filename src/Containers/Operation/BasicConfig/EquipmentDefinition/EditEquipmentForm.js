@@ -69,7 +69,6 @@ class EditEquipmentForm extends Component{
 		});
 		Store.dispatch(Actions.callAPI('getFloorByComunity',{communityId:detail.communityId}))
 	    	.then(function(response){
-	    		// console.log("getFloorByComunity response",response);
 	    		var arrNew = []
 	    		for (var i=0;i<response.whereFloors.length;i++){
 	    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
@@ -342,21 +341,17 @@ class EditEquipmentForm extends Component{
 		}
 		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',deviceCodeParams)).
 		then(function(response){
-			console.log("门编号不存在")
 			Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdParams)).
 			then(function(response){
 
-				console.log("硬件ID不存在")
 				const  {onSubmit} = _this.props;
 				onSubmit && onSubmit(EditParams);
  
 			}).catch(function(err){
-				console.log("硬件ID存在")
 		 		let {hardwareIdHas} = _this.props;
 		 		 hardwareIdHas &&  hardwareIdHas();
 			});
 		}).catch(function(err){
-			console.log("门编号存在")
 	 		let {isDoorNumHas} = _this.props;
 	 		isDoorNumHas && isDoorNumHas();
 		});	

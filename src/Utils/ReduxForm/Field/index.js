@@ -31,6 +31,7 @@ export default class Field extends React.Component{
   }
 
   onChange = (event)=>{
+
     const {onChange} = this.context;
     const {name} = this.props;
 
@@ -43,16 +44,19 @@ export default class Field extends React.Component{
         value = target.value;
     }
 
+    Debug.log('value',value,event)
+
     onChange && onChange(name,value);
+
   }
 
-  onFocus = ()=>{
+  onFocus = (event)=>{
     const {onFocus} = this.context;
     const {name} = this.props;
     onFocus && onFocus(name);
   }
 
-  onBlur = ()=>{
+  onBlur = (event)=>{
     const {onBlur} = this.context;
     const {name} = this.props;
     onBlur && onBlur(name);

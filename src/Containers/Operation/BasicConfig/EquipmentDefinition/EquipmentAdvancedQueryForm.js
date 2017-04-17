@@ -33,7 +33,6 @@ class EquipmentAdvancedQueryForm extends Component{
 	}
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values",values);
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
 		if (!searchForm){
@@ -43,14 +42,12 @@ class EquipmentAdvancedQueryForm extends Component{
 		if(!values.type){
 			values.type = filter;
 		}
-		// console.log("values",values);
 		const {onSubmit} =this.props;
 		onSubmit && onSubmit(values);
 	}
 	// 重置
 	onReset=()=>{
 		Store.dispatch(reset('EquipmentAdvancedQueryForm',''));
-		// console.log("this.refs.IndexsearchForm.refs.componentSearchInput",this.refs.IndexsearchForm.refs.componentSearchInput)
 		this.refs.IndexsearchForm.refs.componentSearchInput.value = "";
 		Store.dispatch(change('EquipmentAdvancedQueryForm','type',"deviceCode"));
 		const {onReset} = this.props;
@@ -59,7 +56,6 @@ class EquipmentAdvancedQueryForm extends Component{
 	}
 	// 过滤器失去焦点执行
 	onFilter=(search)=>{
-		console.log("search",search);
 		this.setState({searchForm:true});
 		if(search.content){
 			Store.dispatch(change('EquipmentAdvancedQueryForm','type',search.value));

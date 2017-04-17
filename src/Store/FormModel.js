@@ -404,7 +404,10 @@ State.stopSubmit = action(function(formName,errors) {
 		registeredFields[fieldName] = Object.assign({},{name:fieldName},{type});
 
 		var values = Object.assign({},form.values);
-		values[fieldName] = '';
+
+		if(!values.hasOwnProperty(fieldName)){
+			values[fieldName] = '';
+		}
 
 		var fields = Object.assign({},form.fields);
 		fields[fieldName] = Object.assign({},{touched:false,visited:false});

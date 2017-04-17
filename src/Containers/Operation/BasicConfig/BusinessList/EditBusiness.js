@@ -1,9 +1,7 @@
 
 import React, {Component, PropTypes} from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
-import {
-	observer
-} from 'mobx-react';
+
 
 import {
 	KrField,
@@ -17,6 +15,12 @@ import {
 } from 'kr-ui';
 import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 import './index.less';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+// @inject("FormModel")
+// @observer
 
  class EditBusiness extends Component{
 
@@ -38,8 +42,12 @@ import './index.less';
 	componentDidMount(){
 	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
-		const {$form} = this.props;
-		$form.change('enable',"ENABLE");
+		// const {$form} = this.props;
+		// $form.change('enable',"ENABLE");
+		// const {FormModel} = this.props;
+
+		// FormModel.initialize('EditBusiness',{});
+		// console.log("44")
 
 	}
 	onCancel = () => {
@@ -69,7 +77,7 @@ import './index.less';
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 
-
+						
 
 						<KrField grid={1/2} name="no" style={{width:262,marginLeft:28}} component='input'  label="商圈代码" inline={false}  placeholder='请输入代码名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="商圈名称" inline={false}  placeholder='请输入商圈名称' requireLabel={true}/>

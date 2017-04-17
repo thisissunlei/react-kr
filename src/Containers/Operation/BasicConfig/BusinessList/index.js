@@ -6,9 +6,7 @@ import {
   arrayPush,
   initialize
 } from 'redux-form';
-import {
-	observer
-} from 'mobx-react';
+
 import {
   Actions,
   Store
@@ -38,9 +36,16 @@ import {
 } from 'kr-ui';
 import  "./index.less";
 
+
 import NewBusiness from "./NewBusiness";
 import EditBusiness from "./EditBusiness";
 import BusinessSearchForm from "./BusinessSearchForm";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("FormModel")
+@observer
 
 class BusinessList  extends React.Component{
 
@@ -76,8 +81,8 @@ class BusinessList  extends React.Component{
 
    	this.setState({
       searchParams:{
-				  name:value,
-				  page: searchParams.page,
+				name:value,
+				page: searchParams.page,
      			pageSize: searchParams.pageSize,
      			districtId:searchParams.districtId,
      			enable:searchParams.enable,
@@ -148,12 +153,16 @@ class BusinessList  extends React.Component{
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
+
+
+	const {FormModel} = this.props;
     console.log(itemDetail,">>>>>>>")
 		if(type === "edit"){
-      this.setState({
-          id:itemDetail.id,
-     			openEditBusiness:true,
-     	})
+	      this.setState({
+	        id:itemDetail.id,
+	     	openEditBusiness:true,
+	      })
+		  FormModel.initialize('EditBusiness',{no:"12",name:"12",distinctId:"12",companyId:"12",enable:"否"});
 		}
 	}
   //全部关闭
@@ -166,7 +175,7 @@ class BusinessList  extends React.Component{
   //刷新列表
   refreshList = () =>{
     let {searchParams} = this.state;
-	  let date = new Date();
+	let date = new Date();
 
    	this.setState({
       searchParams:{

@@ -79,12 +79,10 @@ export default class ExitDetail extends Component {
 	}
 
 	  onCancel = () => {
-	  	console.log(">>>>>>>>");
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	  }
 	   onCancel1 = () => {
-	  	console.log(">>>>>>>>");
 		
 	  }
 

@@ -200,7 +200,6 @@ export default class AttributeSetting extends Component {
     }
 
     refresh() {
-        //console.log('00000')
         var _this = this;
         this.setState({
             isInitLoading: true
@@ -261,7 +260,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -289,7 +287,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -306,7 +303,6 @@ export default class AttributeSetting extends Component {
                 openSwitchBtn: !this.state.openSwitchBtn
             });
             this.getMoneyALLTrue();
-            //console.log('2222',fiItem.id);
             Store.dispatch(Actions.callAPI('findContractListById', {mainbillId: _this.props.params.orderId})).then(function(response) {
                 var receivedList = [];
                 response.map(function(item, index) {
@@ -328,7 +324,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -417,7 +412,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -1188,7 +1182,6 @@ export default class AttributeSetting extends Component {
             shiftData,
             stationPayment
         } = this.state;
-        console.log(this.state.params.childType);
         if (isInitLoading) {
             return <Loading/>
         }

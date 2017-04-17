@@ -54,7 +54,6 @@ class EditDetail extends Component {
 
 	onSubmit(values) {
 		var oldInterCode=this.props.detail.interCode;
-		console.log("99",oldInterCode)
 
 		if (navigator.onLine)
 		{ //正常工作

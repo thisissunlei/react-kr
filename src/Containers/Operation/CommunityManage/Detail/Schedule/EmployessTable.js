@@ -295,7 +295,6 @@ export default class EmployessTable extends Component {
 			Message.success('成功');
 			
 			form.memberId = response;
-			console.log('onDistributionSubmit',response);
 			_this.onDistributionSubmit(form);
 
 			_this.onClose();

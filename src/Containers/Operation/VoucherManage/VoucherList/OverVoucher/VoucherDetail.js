@@ -49,7 +49,6 @@ export default class VoucherDetail extends React.Component {
             id: id
         }, {}).then(function(response) {
             _this.setState({infoList: response})
-            console.log(response);
         }).catch(function(err) {});
 
 	}

@@ -69,7 +69,6 @@ export default class ReduceDetail extends Component {
 		}
 
 		var _this = this;
-		console.log(this.props.params);
 		Store.dispatch(Actions.callAPI('showFnaContractRentController', {
 			id: this.props.params.id,
 			communityId: this.props.params.orderId,
@@ -135,7 +134,6 @@ export default class ReduceDetail extends Component {
 				paddingBottom: 10
 			}
 
-			console.log('basic', basic)
 			return (
 				<div className="content" style={content}>
 				  	<PaperBack label="减租协议书详情页"/>

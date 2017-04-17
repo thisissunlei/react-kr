@@ -35,7 +35,6 @@ class ImportCard extends Component{
 		onCancel && onCancel();
 	}
 	checkName=(person)=>{
-		console.log(person);
 		let {oldUser} = this.state;
 		if(oldUser && person.value && person.value==oldUser){
 	    	Message.warntimeout('原领用人和领用人不能为同一人','error');
@@ -44,14 +43,12 @@ class ImportCard extends Component{
 	}
 		
 	onSubmit = (values) => {
-		console.log('values',values);
 	    let params = {
 	    	fromId:values.originUser,
 	    	toId:values.nowUser
 	    }
 	    if(values.nowUser && values.originUser && values.nowUser==values.originUser){
 	    	Message.warntimeout('原领用人和领用人不能为同一人','error');
-	    	console.log('原领用人和领用人不能为同一人');
 	    	return;
 	    }
 
@@ -69,7 +66,6 @@ class ImportCard extends Component{
 	    
 	}
 	changeName=(values)=>{
-		console.log(values);
 	}
 	selectOldUser=(value)=>{
 		let _this = this;

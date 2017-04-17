@@ -740,8 +740,6 @@ export default class Table extends React.Component {
 			return this.renderLoading();
 		}
 		if (ajax && !listData.length) {
-		console.log(listData,">>>>>>>>>>>>")
-
 			return this.renderNotListData();
 		}
 

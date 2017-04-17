@@ -422,7 +422,6 @@ export default class SettingList extends Component {
 
 
   confirmSubmit(values) {
-    console.log('添加子项', values)
     Store.dispatch(Actions.callAPI('addSysDicPayment', {}, values)).then(function(response) {
       Notify.show([{
         message: '创建成功!',
@@ -433,7 +432,6 @@ export default class SettingList extends Component {
         message: err.message,
         type: 'danger',
       }]);
-      console.log(err.message)
     })
     this.openCreateDialog();
 

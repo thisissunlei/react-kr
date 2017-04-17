@@ -190,7 +190,6 @@ export default class D3Content extends Component {
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
 						finaRedPointVoList.splice(index, 1);
-						//console.log('finaRedPointVoList-----', finaRedPointVoList)
 
 
 
@@ -321,7 +320,6 @@ export default class D3Content extends Component {
 
 
 	    }).catch(function(err) {
-	    	console.log(err,err);
 	    });
 	}
 	renderRedInfo=(itemData)=>{
@@ -371,7 +369,6 @@ export default class D3Content extends Component {
 
 
 	    }).catch(function(err) {
-	    	console.log(err,err);
 	    });
 	}
 	renderBlueInfo=()=>{

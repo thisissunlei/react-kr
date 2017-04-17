@@ -150,7 +150,6 @@ export default class CreateMemberForm extends Component {
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -188,7 +187,6 @@ export default class CreateMemberForm extends Component {
 
 			 }).catch(function(err){
 			 	//会员卡号未注册
-				// 	console.log('ddddd',err.message);
 			 	_this.setState({
 					onsubmitCode:true
 				})

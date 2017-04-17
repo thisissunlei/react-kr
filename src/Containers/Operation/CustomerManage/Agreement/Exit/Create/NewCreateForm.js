@@ -177,7 +177,6 @@ class NewCreateForm extends Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		console.log('personel', personel)
 		Store.dispatch(change('exitCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname));
 	}
