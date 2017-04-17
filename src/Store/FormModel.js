@@ -404,7 +404,10 @@ State.stopSubmit = action(function(formName,errors) {
 		registeredFields[fieldName] = Object.assign({},{name:fieldName},{type});
 
 		var values = Object.assign({},form.values);
-		values[fieldName] = '';
+
+		if(!values.hasOwnProperty(fieldName)){
+			values[fieldName] = '';
+		}
 
 		var fields = Object.assign({},form.fields);
 		fields[fieldName] = Object.assign({},{touched:false,visited:false});
@@ -425,16 +428,16 @@ State.stopSubmit = action(function(formName,errors) {
 
 	});
 
-	State.unregisterField = action(function(formName,fieldName) {
+State.unregisterField = action(function(formName,fieldName) {
 
-	});
+		});
 
-	State.reset = action(function(formName) {
+State.reset = action(function(formName) {
 		var form = this.getForm(formName);
 		var initializeValues = form.initializeValues;
 
 		this.changeValues(formName,initializeValues);
-	});
+		});
 
 
-	module.exports = State;
+module.exports = State;
