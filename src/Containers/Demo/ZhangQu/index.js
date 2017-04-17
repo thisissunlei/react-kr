@@ -1,31 +1,15 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
 import TreeAll from './TreeAll.json';
 
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
 	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
-	ListGroup,
-	ListGroupItem,
-	Dialog
 } from 'kr-ui';
-
-import {
-  observer,
-  inject
-} from 'mobx-react';
+import {reduxForm}  from 'kr/Utils/ReduxForm';
 
 
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
-
-
- class Demo extends Component{
+ class ZhangQu extends React.Component{
 
 	constructor(props){
 		super(props);
@@ -209,4 +193,4 @@ const validate = (values)=>{
 export default reduxForm({
 form:'dForm',
 validate,
-})(Demo);
+})(ZhangQu);
