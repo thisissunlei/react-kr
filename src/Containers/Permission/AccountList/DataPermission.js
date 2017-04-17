@@ -63,19 +63,23 @@ export default class DataPermission extends React.Component{
     var _this = this;
     let {cityList}=this.state;
     var list;
+		list = cityList;
 		if (item.flag) {
-			item.communities.map((item,index) => {
-				item.ownFlag = 1;
-				return item;
+			item.flag = 0;
+			item.communities.map((itemC,index) => {
+				itemC.ownFlag = 0;
 			})
 		}else {
-			item.communities.map((item,index) => {
-				item.ownFlag = 0;
-				return item;
+			item.flag = 1;
+			item.communities.map((itemC,index) => {
+				itemC.ownFlag = 1;
 			})
 		}
-
-
+		list[index] = item;
+		console.log(list[index]);
+		_this.setState({
+			cityList:list,
+		})
 	}
 	//社区点击全选
 	// allSelectC = () => {
@@ -103,27 +107,36 @@ export default class DataPermission extends React.Component{
   //      })
   //   })
 	// }
-	checked = (item,itemC) =>{
+	checked = (item,itemC,index,indexC) =>{
 		var _this = this;
-		//let {cityList} = this.state;
+		let {cityList} = this.state;
+		var list = cityList;
 		//const {detail} = this.props;
-		//var checked = [];
+		var checked = [];
 		// console.log("item",itemC.ownFlag);
 
-		// if(itemC.ownFlag==0){
-		// 	itemC.ownFlag=1;
-		// }else{
-		// 	itemC.ownFlag=0;
-		// }
-		console.log("dasfs",itemC);
-		// item.communities.map((itemA, index) => {
-		// 	checked.push(itemA.ownFlag);
-		// })
-		// if (checked.indexOf(0) == -1) {
-		// 	item.flag = 1;
-		// } else {
-		// 	item.flag = 0;
-		// }
+		if(itemC.ownFlag==0){
+			itemC.ownFlag=1;
+
+		}else{
+			itemC.ownFlag=0;
+		}
+
+		list[index].communities[indexC] = itemC;
+
+		item.communities.map((itemA, index) => {
+			checked.push(itemA.ownFlag);
+		})
+		if (checked.indexOf(0) == -1) {
+			item.flag = 1;
+		} else {
+			item.flag = 0;
+		}
+		list[index] = item;
+		_this.setState({
+			cityList:list,
+		})
+
 		// Store.dispatch(Actions.callAPI('findCommunityList',{
 		// 	userId:detail.id,
 		// 	cityId:this.id
@@ -159,18 +172,16 @@ export default class DataPermission extends React.Component{
 	renderData=(item,index)=>{
 		return (
 			<div key={index}>
-				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
-					 		onClick={this.checked.bind(this,item,index)}
-					>
+				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}>
 						{item.name}
-						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item)}/>
+						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
 						{item.communities.map((itemC,indexC)=>{return (
 								<div style={{display:'inline-block',lineHeight:'32px'}} key={indexC}>
 									<Checkbox
 											style={{display:'inline-block',color:'#333'}}
 											label={itemC.communityName}
 											checked={itemC.ownFlag==1?true:false}
-											onCheck={this.checked.bind(this,item,itemC)}
+											onCheck={this.checked.bind(this,item,itemC,index,indexC)}
 									/>
 								</div>
 							)
@@ -209,19 +220,13 @@ export default class DataPermission extends React.Component{
 	  } = this.props;
 	  onCancel && onCancel()
 	}
-	allSelect=()=>{
-	  console.log(111);
-	  this.setState({
-	    citySelect:!this.state.citySelect,
-	  })
-	}
+
 
 	render(){
 		let {cityList} = this.state;
 		return(
 			<div className="g-DataPermission">
           <div className="leftSec">
-            <Checkbox label="全选" style={{color:'#333',display:'block'}} checked={this.state.allCheck} onCheck={this.allSelect}/>
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>
 				{/*

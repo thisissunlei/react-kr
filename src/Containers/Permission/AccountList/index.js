@@ -312,7 +312,7 @@ class AccountList extends React.Component {
                     <EditAccount detail={this.state.itemDetail} onCancel={this.openNewCreate}/>
                 </Dialog>
                 <Dialog title="编辑数据权限" modal={true} open={this.state.openDataPermission} onClose={this.openDataPermission} contentStyle={{
-                    width: 500,
+                    width: 600,
                 }}>
                     <DataPermission detail={itemDetail} onCancel={this.openDataPermission}/>
                 </Dialog>
