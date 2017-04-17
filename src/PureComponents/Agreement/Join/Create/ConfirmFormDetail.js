@@ -47,7 +47,6 @@ export default class ConfirmFormDetail extends Component {
 
 	onSubmit(form) {
 
-		console.log(form.stationVos);
 
 		form = Object.assign({}, form);
 		const {
