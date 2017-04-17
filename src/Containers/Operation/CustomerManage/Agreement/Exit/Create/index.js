@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -28,7 +27,7 @@ import {
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -72,6 +71,7 @@ export default class JoinCreate extends Component {
 		} = this.props;
 		var _this = this;
 		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
@@ -91,8 +91,25 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
+		this.removeLocalStorage()
 		window.history.back();
 	}
+
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+'QUITRENTcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -117,6 +134,7 @@ export default class JoinCreate extends Component {
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
@@ -144,6 +162,29 @@ export default class JoinCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
+			//获取localStorage数据
+			let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			console.log('--->localStorage',mainbillId,customerId);
+			if(mainbillId && customerId){
+
+				initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate');
+				initialValues.depositamount = parseInt(localStorage.getItem(keyWord+'depositamount')) || 0;
+				initialValues.totalreturn = parseInt(localStorage.getItem(keyWord+'totalreturn')) || 0;
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+			}
 
 
 			optionValues.floorList = response.customer.floor;

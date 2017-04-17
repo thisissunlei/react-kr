@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -13,7 +12,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {DateFormat} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -28,7 +27,7 @@ import ConfirmFormDetail from './ConfirmFormDetail';
 import allState from "../../State";
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 	static childContextTypes = {
         params: React.PropTypes.object.isRequired
      }
@@ -55,6 +54,7 @@ export default class JoinCreate extends Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
+			stationVos:[],
 			openConfirmCreate: false
 		}
 			this.isConfirmSubmiting = false;
@@ -91,6 +91,7 @@ export default class JoinCreate extends Component {
 		var _this = this;
 
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
@@ -112,11 +113,28 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
+		this.removeLocalStorage();
 		//window.history.back();
 		// allState.openTowAgreement=false;
 		// allState.openOneAgreement=false;
 		allState.openTowAgreement=false;
 		allState.openOneAgreement=false;
+	}
+
+
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId+'ADDRENTcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
 	}
 
 	openConfirmCreateDialog() {
@@ -142,11 +160,12 @@ export default class JoinCreate extends Component {
 		})).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			initialValues.signdate = +new Date();
-			initialValues.firstpaydate = +new Date();
+			initialValues.signdate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
+			initialValues.firstpaydate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
 
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
@@ -183,9 +202,41 @@ export default class JoinCreate extends Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
+
+			//获取localStorage数据
+			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ADDRENTcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			if(mainbillId && customerId){
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
+				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+
+			}
+			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVos);
+
 			_this.setState({
 				initialValues,
-				optionValues
+				optionValues,
+				stationVos
 			});
 
 		}).catch(function(err) {
@@ -202,7 +253,8 @@ export default class JoinCreate extends Component {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			stationVos
 		} = this.state;
 
 		return (
@@ -211,7 +263,7 @@ export default class JoinCreate extends Component {
 				<Title value="创建增租协议书_财务管理"/>
 		 		<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
 				<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 				</div>
 
 				<Dialog

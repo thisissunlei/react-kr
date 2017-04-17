@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -67,7 +66,7 @@ import {
 import './index.less';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 
 	static contextTypes = {
@@ -227,6 +226,7 @@ class NewCreateForm extends Component {
 			selectedStation
 		} = this.state;
 		let _this = this;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -234,6 +234,8 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -250,6 +252,7 @@ class NewCreateForm extends Component {
 			selectedStation,
 			stationVos
 		} = this.state;
+		let {initialValues} = this.ptops;
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
@@ -262,6 +265,8 @@ class NewCreateForm extends Component {
 		stationVos.map((item)=>{
 			allMoney += _this.getSingleRent(item);
 		})
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 		allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setState({
 			stationVos,
@@ -326,6 +331,7 @@ class NewCreateForm extends Component {
 		});
 	}
 
+
 	componentDidMount() {
 		let {
 			initialValues
@@ -334,7 +340,16 @@ class NewCreateForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-
+		if (!this.isInit && nextProps.stationVos.length) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			}, function() {
+				this.calcStationNum();
+				this.setAllRent(nextProps.stationVos);
+			});
+			this.isInit = true;
+		}
 	}
 
 	onSubmit(form) {
@@ -465,6 +480,7 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 		let stationVos = [];
+		let {initialValues} = this.props;
 
 		try {
 			billList && billList.map(function(item, index) {
@@ -480,6 +496,9 @@ class NewCreateForm extends Component {
 			});
 		} catch (err) {
 		}
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 
 		this.setState({
 			stationVos
@@ -503,6 +522,9 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 		
 	}
@@ -697,7 +719,7 @@ class NewCreateForm extends Component {
 
 					<KrField  name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
 					<div className="lessor-address"><KrField  style={{width:262,marginLeft:25}}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
-					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
+					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
 					<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  
 
 					requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -764,7 +786,7 @@ class NewCreateForm extends Component {
 
 
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
-					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={[]} onChange={(files)=>{
+					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 						Store.dispatch(change('increaseCreateForm','contractFileList',files));
 					}} />
 
@@ -888,6 +910,20 @@ const validate = values => {
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
 	}
+
+	console.log('==increase===>')
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+			}
+
+	    };
+	}
+
 
 
 	return errors

@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -66,7 +65,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -141,7 +140,8 @@ class NewCreateForm extends Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
-				stationVos
+				stationVos,
+				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
 			});
@@ -155,6 +155,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		var stationnum = 0;
 		var boardroomnum = 0;
@@ -166,6 +167,7 @@ class NewCreateForm extends Component {
 				boardroomnum++;
 			}
 		});
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 
 		Store.dispatch(change('joinCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('joinCreateForm', 'boardroomnum', boardroomnum));
@@ -254,6 +256,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} = this.props;
 		let _this = this;
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -261,7 +264,8 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		console.log('onStationUnitPrice',stationVos);
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 
@@ -281,6 +285,7 @@ class NewCreateForm extends Component {
 			delStationVos
 		} = this.state;
 
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
@@ -290,15 +295,17 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allMoney = 0;
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		// stationVos.map((item)=>{
+		// 	allMoney += _this.getSingleRent(item);
+		// })
+		// allMoney = parseFloat(allMoney).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
 
 		this.setState({
 			stationVos,
 			delStationVos,
-			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});
@@ -534,12 +541,15 @@ class NewCreateForm extends Component {
 		onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 		
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
@@ -547,6 +557,8 @@ class NewCreateForm extends Component {
 			return item;
 		})
 		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTedittotalrent', response);
+			
 			_this.setState({
 				allRent:response
 			})
@@ -557,42 +569,42 @@ class NewCreateForm extends Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		console.log(dateFormat(item.leaseBeginDate, "yyyy-mm-dd"),dateFormat(item.leaseEndDate, "yyyy-mm-dd"));
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
-			if(a>=0){
-				rentDay = a+1;
+	// getSingleRent=(item)=>{
+	// 	//年月日
+	// 	let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
+	// 	console.log(dateFormat(item.leaseBeginDate, "yyyy-mm-dd"),dateFormat(item.leaseEndDate, "yyyy-mm-dd"));
+	// 	let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+	// 	let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+	// 	let rentDay = 0;
+	// 	let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
+	// 	let years = rentEnd[0];
+	// 	if(rentBegin[2]-rentEnd[2] == 1){
+	// 		rentDay = 0;
+	// 	}else{
+	// 		let a =rentEnd[2]-rentBegin[2];
+	// 		console.log('a',a);
+	// 		if(a>=0){
+	// 			rentDay = a+1;
 
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		console.log('day',rentMounth,rentDay);
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
-		return allRent;
-	}
+	// 		}else{
+	// 			let mounthIndex = rentEnd[1]-1;
+	// 			if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
+	// 				rentDay = mounth[mounthIndex]+2+a;
+	// 			}
+	// 			rentDay = mounth[mounthIndex]+1+a;
+	// 			rentMounth = rentMounth-1;
+	// 		}
+	// 	}
+	// 	console.log('day',rentMounth,rentDay);
+	// 	//计算日单价
+	// 	// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
+	// 	let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
+	// 	//工位总价钱
+	// 	let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+	// 	allRent = allRent.toFixed(2)*1;
+	// 	console.log('allRent',allRent,rentPriceByDay);
+	// 	return allRent;
+	// }
 	dealRentName=(allRent)=>{
 		let name = '';
 		var nzhcn = nzh.cn;
@@ -764,7 +776,9 @@ class NewCreateForm extends Component {
 				<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 					
 				 </CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					Store.dispatch(change('joinCreateForm','contractFileList',files));
+				}}/>
 					<Grid style={{padding:"10px 0 50px"}}>
 						<Row >
 						<ListGroup>
@@ -871,6 +885,16 @@ const validate = values => {
 
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
+	}
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}
+	    };
 	}
 
 

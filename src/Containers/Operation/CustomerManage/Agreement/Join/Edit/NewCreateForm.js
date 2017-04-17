@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -66,7 +65,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -298,25 +297,6 @@ class NewCreateForm extends Component {
 			selectedStation
 		})
 	}
-	// onBlur=(item)=>{
-	// 	let {stationVos} = this.state;
-	// 	let {initialValues} = this.props;
-	// 	let allMoney = 0;
-	// 	// console.log('stationVos',stationVos);
-	// 	stationVos.map((item)=>{
-	// 		if(item.unitprice){
-	// 			allMoney += this.getSingleRent(item);
-	// 		}
-			
-	// 	})
-	// 	console.log('======>',stationVos);
-	// 	localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
-	// 	allMoney = parseFloat(allMoney).toFixed(2)*1;
-	// 	this.setState({
-	// 		allRent,
-	// 	})
-		
-	// }
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
@@ -325,42 +305,6 @@ class NewCreateForm extends Component {
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
 		
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			// console.log('a',a);
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		// console.log('day',rentMounth,rentDay);
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		// console.log('allRent',allRent,rentPriceByDay);
-		return allRent;
-	}
-
 	openStationDialog() {
 
 		this.getStationUrl();

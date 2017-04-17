@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -42,7 +41,7 @@ import {
 	KrDate,
 } from 'kr-ui';
 
-class SelectStationForm extends Component {
+class SelectStationForm extends React.Component {
 
 	static PropTypes = {
 		searchParams: React.PropTypes.object,
