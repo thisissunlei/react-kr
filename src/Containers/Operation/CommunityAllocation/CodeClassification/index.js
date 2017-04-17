@@ -78,6 +78,7 @@ class  CodeClassification extends React.Component{
 
 	//导出
 onExport=(values)=> {
+Debug.log('bug',values);
  let {searchParams} = State;
  let defaultParams = {
 	 noOrName:'',
@@ -158,7 +159,6 @@ lastGoTo=()=>{
 			    style={{marginTop:8}}
               ajax={true}
               onOperation={this.onOperation}
-							onLoaded={this.onLoaded}
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			        onExport={this.onExport}
