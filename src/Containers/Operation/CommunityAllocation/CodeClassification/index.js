@@ -29,6 +29,7 @@ import {
 import State from './State';
 import './index.less';
 import NewAddCode from './NewAddCode';
+import EditAddCode from './EditAddCode';
 @observer
 class  CodeClassification extends React.Component{
 
@@ -38,32 +39,97 @@ class  CodeClassification extends React.Component{
 
 	//查看相关操作
 	onOperation=(type,itemDetail)=>{
-   Debug.log('[[[==]]]',type,itemDetail);
+		let {searchParams}=State;
+		State.oldPid=searchParams.pid;
+		if(type=='edit'){
+      State.editCodeOpen();
+			State.editData=itemDetail;
+		}else if(type=='next'){
+			State.searchParams={
+				 pid:itemDetail.pid,
+				 time:+new Date()
+			}
+			State.lastFlag=true;
+			State.parentName=itemDetail.pname;
+		}
+	}
+  //编辑取消
+	cancelAddCode=()=>{
+    State.editCodeOpen();
 	}
 
  //打开关闭新建代码弹窗
 	openAddCode=()=>{
-		Debug.log('[[----000]]');
 		State.addCodeOpen();
 	}
 
 	//新建代码提交
 	codeSubmit=(params)=>{
-    Debug.log('kkkk',params);
+    State.addCodeSubmit(params);
 	}
+
+	//数据加载完
+	onLoaded=(params)=>{
+	 if(params.items.length>=1){
+		 State.searchParams={
+			 pid:params.items[0].pid
+		 }
+	 }
+	}
+
+ //全关
+	whiteClose=()=>{
+		State.openCode=false;
+		State.openCodeEdit=false;
+	}
+
+
+	//导出
+onExport=(values)=> {
+ let {searchParams} = State;
+ let defaultParams = {
+	 noOrName:'',
+	 pid:''
+ }
+ searchParams = Object.assign({},defaultParams,searchParams);
+
+	 let ids = [];
+	 if (values.length != 0) {
+		 values.map((item, value) => {
+			 ids.push(item.id)
+		 });
+	 }
+	 var where=[];
+	 for(var item in searchParams){
+		 if(searchParams.hasOwnProperty(item)){
+				where.push(`${item}=${searchParams[item]}`);
+		 }
+	 }
+	 where.push(`ids=${ids}`);
+	 var url = `/api/krspace-finance-web/cmt/codeCategory/action/export?${where.join('&')}`
+	 window.location.href = url;
+}
+
+//搜索
+onSearchSubmit=(params)=>{
+	let {searchParams}=State;
+	State.searchParams={
+		noOrName:params.content,
+		pid:searchParams.pid
+	}
+}
+
+//上一级
+lastGoTo=()=>{
+ State.searchParams={
+	 pid:State.oldPid,
+	 time:+new Date()
+ }
+}
+
 
 	render(){
 
-		let searchFilter=[
-            {
-            	label:'代码名称',
-            	value:'codeName'
-            },
-            {
-            	label:'代码编码',
-            	value:'codeNo'
-            },
-		]
 
 		return(
        <div className='m-code-list'>
@@ -74,16 +140,21 @@ class  CodeClassification extends React.Component{
 			          <Col
 					     style={{float:'left'}}
 					   >
-									<Button
+									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="新建代码"
 											type='button'
 											onTouchTap={this.openAddCode}
-									/>
+									/></div>
+									{State.lastFlag&&<Button
+											label="上一级"
+											type='button'
+											onTouchTap={this.lastGoTo}
+									/>}
 					  </Col>
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入关键字'  searchFilter={searchFilter} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='代码编码/名称'  onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
 
@@ -93,6 +164,7 @@ class  CodeClassification extends React.Component{
 			    style={{marginTop:8}}
               ajax={true}
               onOperation={this.onOperation}
+							onLoaded={this.onLoaded}
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			        onExport={this.onExport}
@@ -115,7 +187,10 @@ class  CodeClassification extends React.Component{
 			              <TableRow>
 			                <TableRowColumn name="codeNo"></TableRowColumn>
                       <TableRowColumn name="codeName"></TableRowColumn>
-			                <TableRowColumn name="pname"></TableRowColumn>
+			                <TableRowColumn name="pname" component={(value,oldValue)=>{
+                                State.parentName=value;
+																return (<div>{value}</div>)
+													 }}></TableRowColumn>
                       <TableRowColumn name="sort"></TableRowColumn>
 			                <TableRowColumn name="createName"></TableRowColumn>
 			                <TableRowColumn name="createDate"  component={(value,oldValue)=>{
@@ -134,7 +209,6 @@ class  CodeClassification extends React.Component{
 
 								 {/*新建代码*/}
 								 <Drawer
-										title="新建代码分类"
 										open={State.openCode}
 										width={750}
 						        onClose={this.whiteClose}
@@ -144,6 +218,21 @@ class  CodeClassification extends React.Component{
                   <NewAddCode
 									  onCancel={this.openAddCode}
 										onSubmit={this.codeSubmit}
+									/>
+					       </Drawer>
+
+								 {/*编辑代码*/}
+								 <Drawer
+										open={State.openCodeEdit}
+										width={750}
+						        onClose={this.whiteClose}
+						        openSecondary={true}
+						        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+										>
+                  <EditAddCode
+									  onCancel={this.cancelAddCode}
+										onSubmit={this.codeSubmit}
+										editData={State.editData}
 									/>
 					       </Drawer>
 	 </div>

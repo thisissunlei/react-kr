@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {reduxForm,change} from 'redux-form';
+import {reduxForm}  from 'kr/Utils/ReduxForm';
 import {
 	KrField,
 	Button,
@@ -10,20 +10,25 @@ import {
   ButtonGroup
 } from 'kr-ui';
 import State from './State';
-class NewAddCode  extends React.Component{
+class EditAddCode  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 	}
 
-
-	componentDidMount(){
-    Store.dispatch(change('NewAddCode','enable','ENABLE'));
-	}
+  componentDidMount(){
+    let {editData,$form}=this.props;
+    var values = {
+        sort:editData.sort,
+        id:editData.id,
+        pid:editData.pid,
+        codeNo:editData.codeNo,
+        codeName:editData.codeName,
+    }
+    $form.changeValues(values);
+  }
 
   onSubmit=(values)=> {
-		values.id='';
-		values.pid=State.searchParams.pid;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -37,37 +42,33 @@ class NewAddCode  extends React.Component{
 		onCancel && onCancel();
 	}
 
-	onEnable=(params)=>{
-		Debug.log('==ll',params);
-    Store.dispatch(change('NewAddCode','enable','ENABLE'));
-	}
-
-	onDisenable=(params)=>{
-   Store.dispatch(change('NewAddCode','enable','ENABLE'));
-	}
 
 	render(){
 
-    const {handleSubmit}=this.props;
+    const {handleSubmit,editData}=this.props;
+
 
 		return(
 
 	  <div className='m-newMerchants'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
-              <div><span className="new-icon"></span><label className="title-text">新增代码分类</label></div>
+              <div><span className="new-icon"></span><label className="title-text">修改代码分类</label></div>
               <div className="customer-close" onClick={this.onCancel}></div>
            </div>
             <KrField type='hidden' name="id"/>
-						<KrField type='hidden' name="pid"/>
+            <KrField type='hidden' name="pid"/>
             <KrField grid={1/2} style={{marginTop:1,width:262}} name="pname" component="labelText"  label="父分类"
             inline={false} value={State.parentName}/>
-            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="codeNo" component="input" label="代码编码" requireLabel={true}/>
-            <KrField grid={1/2} style={{width:262}}  name="codeName" component="input" label="代码名称" requireLabel={true}/>
-            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="sort" component="input" label="排序号"  requireLabel={true}/>
+            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="codeNo" component="input" label="代码编码"
+             requireLabel={true}/>
+            <KrField grid={1/2} style={{width:262}}  name="codeName" component="input" label="代码名称"
+              requireLabel={true}/>
+            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="sort" component="input" label="排序号"
+              requireLabel={true}/>
             <KrField grid={1/2} name="enable" component="group" label="状态" >
-                <KrField name="enable" grid={1/2} label="启用" type="radio" value="ENABLE"  onChange={this.onEnable}/>
-                <KrField name="enable" grid={1/2} label="未启用" type="radio" value="DISENABLE"  onChange={this.onDisenable}/>
+                <KrField name="enable" grid={1 / 2} label="启用" type="radio" value="ENABLE" />
+                <KrField name="enable" grid={1 / 2} label="未启用" type="radio" value="DISENABLE" />
             </KrField>
 
             <Grid style={{marginTop:7,marginBottom:5,marginLeft:-24}}>
@@ -109,4 +110,4 @@ const validate = values =>{
 
 		return errors
 }
-export default reduxForm({ form: 'NewAddCode',validate})(NewAddCode);
+export default reduxForm({ form: 'EditAddCode',validate})(EditAddCode);
