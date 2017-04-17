@@ -24,6 +24,7 @@ class EditAddCode  extends React.Component{
         pid:editData.pid,
         codeNo:editData.codeNo,
         codeName:editData.codeName,
+				enable:editData.enable
     }
     $form.changeValues(values);
   }
