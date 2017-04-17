@@ -1,21 +1,11 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
+import React from 'react';
 
 import {
-	Section,
 	PlanMap,
 	Dialog,
-	Button,
 } from 'kr-ui';
 
-export default class ZhangQu extends Component {
+export default class DongFanAi extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
