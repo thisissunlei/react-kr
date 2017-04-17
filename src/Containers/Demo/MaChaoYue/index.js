@@ -1,10 +1,6 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
-	DatePicker,
-	Form,
 	KrField,
 	Table,
 	TableBody,
@@ -15,21 +11,15 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
 	SearchForms,
 	Dialog,
 	Message,
-	Notify,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import AdvancedQuery from './AdvancedQuery';
 
-export default class List extends Component {
+export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
