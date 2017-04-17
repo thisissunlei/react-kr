@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {reduxForm,change} from 'redux-form';
+import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 import {
 	KrField,
 	Button,
@@ -18,7 +18,11 @@ class NewAddCode  extends React.Component{
 
 
 	componentDidMount(){
-    Store.dispatch(change('NewAddCode','enable','ENABLE'));
+		const {$form} = this.props;
+		var values = {
+					enable:'ENABLE',
+		}
+		$form.initialize(values);
 	}
 
   onSubmit=(values)=> {
@@ -37,14 +41,6 @@ class NewAddCode  extends React.Component{
 		onCancel && onCancel();
 	}
 
-	onEnable=(params)=>{
-		Debug.log('==ll',params);
-    Store.dispatch(change('NewAddCode','enable','ENABLE'));
-	}
-
-	onDisenable=(params)=>{
-   Store.dispatch(change('NewAddCode','enable','ENABLE'));
-	}
 
 	render(){
 
@@ -66,8 +62,8 @@ class NewAddCode  extends React.Component{
             <KrField grid={1/2} style={{width:262}}  name="codeName" component="input" label="代码名称" requireLabel={true}/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="sort" component="input" label="排序号"  requireLabel={true}/>
             <KrField grid={1/2} name="enable" component="group" label="状态" >
-                <KrField name="enable" grid={1/2} label="启用" type="radio" value="ENABLE"  onChange={this.onEnable}/>
-                <KrField name="enable" grid={1/2} label="未启用" type="radio" value="DISENABLE"  onChange={this.onDisenable}/>
+                <KrField name="enable" grid={1/2} label="启用" type="radio" value="ENABLE" />
+                <KrField name="enable" grid={1/2} label="未启用" type="radio" value="DISENABLE"/>
             </KrField>
 
             <Grid style={{marginTop:7,marginBottom:5,marginLeft:-24}}>
