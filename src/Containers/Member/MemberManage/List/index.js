@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import {
 	Title,
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,11 +12,6 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
 	SearchForms,
 	Dialog,
 	Message,
@@ -35,12 +29,9 @@ export default class List extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
-		// this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
-		// this.onExport = this.onExport.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
 		this.state = {
@@ -200,9 +191,7 @@ export default class List extends Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-			// searchParams:{
-			// 	pageSize:'15'
-			// }
+			
 		});
 	}
 	// 高级查询
