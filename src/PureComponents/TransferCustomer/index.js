@@ -134,12 +134,10 @@ export default class AppointmentVisit extends Component {
 		Http.request("setInfoReaded", {
 				id: value.id
 		}).then(function(response) {
-			console.log(response.page)
 			_this.renovateList();
 			renovateRedDrop();
 			_this.tabNum();
 		}).catch(function(err) {
-				console.log(err);
 		});
 	}
 

@@ -85,7 +85,6 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 		$form.change('city',value);
 	}
 	chooseYes=(value)=>{
-		Debug.log("value------>",value)
 			const {$form} = this.props;
 		$form.change('radio',value);
 	}
@@ -188,7 +187,6 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 const validate = (values)=>{
 	const errors = {};
-	Debug.log("values校验",values);
 
 	// if(!values.input){
 	// 	errors.input = '请输入input'

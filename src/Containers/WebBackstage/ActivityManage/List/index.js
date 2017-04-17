@@ -142,7 +142,6 @@ export default class List extends Component {
 	openItemDetail=(itemData)=>{
 		State.openDetail = true;
 		State.itemDetail = itemData;
-		Debug.log("-------------->");
 	}
 
 	render() {

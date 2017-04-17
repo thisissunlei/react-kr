@@ -345,7 +345,6 @@ class NewCreateForm extends Component {
 		} = this.state;
 		let _this = this;
 		let allMoney = 0;
-		console.log("44444",stationVos);
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -494,7 +493,6 @@ class NewCreateForm extends Component {
 
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 
@@ -556,7 +554,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -611,7 +608,6 @@ class NewCreateForm extends Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
-		console.log("6666666");
 
 		return (
 
