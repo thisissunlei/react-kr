@@ -68,14 +68,6 @@ class  CodeClassification extends React.Component{
     State.addCodeSubmit(params);
 	}
 
-	//数据加载完
-	onLoaded=(params)=>{
-	 if(params.items.length>=1){
-		 State.searchParams={
-			 pid:params.items[0].pid
-		 }
-	 }
-	}
 
  //全关
 	whiteClose=()=>{
@@ -106,7 +98,7 @@ onExport=(values)=> {
 		 }
 	 }
 	 where.push(`ids=${ids}`);
-	 var url = `/api/krspace-finance-web/cmt/codeCategory/action/export?${where.join('&')}`
+	 var url = `http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/codeCategory/action/export?${where.join('&')}`
 	 window.location.href = url;
 }
 
@@ -132,7 +124,6 @@ lastGoTo=()=>{
 
 
 	render(){
-
 
 		return(
        <div className='m-code-list'>

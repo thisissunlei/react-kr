@@ -15,7 +15,7 @@ let State = observable({
 			page:1,
 			pageSize:15,
 			//pid
-			pid:'',
+			pid:0,
 			noOrName:''
 		},
 	//新建代码
