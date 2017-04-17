@@ -96,7 +96,7 @@ module.exports = [
 					{
 						primaryText: '代码分类',
 						menuCode: 'codeCategoryList',
-						originUrl: '/krspace_operate_web/codecategory/toCodeCategoryList?mid=85'
+						originUrl: '/operation/communityAllocation/codeClassification'
 					},
 
 					{
