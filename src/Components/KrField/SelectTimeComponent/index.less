@@ -1,9 +1,24 @@
 
 
 .ui-select-time{
+	background:#fff;
+	padding-right:10px;
+	border: solid 1px #ccc;
+	border-radius : 4px;
+	height:34px;
+	input{
+		background-color: #fff;
+		background: url(./images/arrow3.svg) no-repeat;
+		background-size: 9px 9px;
+      	background-position: 100% center;  
+	}
+	input:focus{
+		box-shadow:none!important;
+	}
 	.ui-time-select-all{
 		position: absolute;
 		width:225px;
+		z-index:10;
 	}
 	.ui-hour-style,.ui-minute-style{
 		margin:0;
@@ -34,12 +49,6 @@
 		font-size: 20px;
 		cursor: pointer;
 	}
-	input{
-		background-color: #fff;
-		background: url(./images/arrow3.svg) no-repeat;
-		background-size: 9px 9px;
 
-      	background-position: 90% center;   
-
-	}
+	
 }

@@ -144,12 +144,17 @@ export default class SelectTimeComponent extends React.Component{
 
 		let {allOpen,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
 		let {label,style,requireLabel,inline,search,inputStyle}=this.props;
+		var inputDetailStyle = {inputStyle};
+		inputDetailStyle.border = '0 none';
+		inputDetailStyle.height = '34px';
+		inputDetailStyle.outline = 'none';
+
 		var inputProps={
 			type:"text",
 			onClick:this.inputClick,
 			value:timeNum||this.props.timeNum,
 			onChange:this.inputChange.bind(this,hourNum,minuteNum),
-			style:inputStyle
+			style:inputDetailStyle
 		}
         
 		return (
