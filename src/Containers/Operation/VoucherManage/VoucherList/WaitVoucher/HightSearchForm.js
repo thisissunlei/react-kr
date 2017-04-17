@@ -73,19 +73,20 @@ class HightSearchForm extends React.Component {
 		onCancel && onCancel();
 	}
 	getCommunity = () => {
-		var communityList;
 		var _this = this;
 		Http.request('findCommunityVoucher').then(function(response) {
-			communityList = response.map((item, index) => {
+			response.communityList.map((item, index) => {
 				item.label = item.communityname;
 				item.value = item.id;
 				return item;
 			})
+
 			_this.setState({
-				communityList: communityList
+				communityList: response.communityList
 			})
 
-		}).catch(function(err) {});
+		}).catch(function(err) {
+		});
 	}
 	// getMain = () => {
 	// 	var mainList;

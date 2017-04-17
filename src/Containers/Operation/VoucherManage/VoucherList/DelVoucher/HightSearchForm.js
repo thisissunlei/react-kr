@@ -44,8 +44,6 @@ class HightSearchForm extends React.Component {
 				label: 'POS机支付',
 				value: 'POS'
 			}],
-			payType: [],
-			mainList: []
 		}
 		 this.getCommunity();
 		// this.getMain();
@@ -73,19 +71,20 @@ class HightSearchForm extends React.Component {
 		onCancel && onCancel();
 	}
 	getCommunity = () => {
-		var communityList;
 		var _this = this;
 		Http.request('findCommunityVoucher').then(function(response) {
-			communityList = response.map((item, index) => {
+			response.communityList.map((item, index) => {
 				item.label = item.communityname;
 				item.value = item.id;
 				return item;
 			})
+
 			_this.setState({
-				communityList: communityList
+				communityList: response.communityList
 			})
 
-		}).catch(function(err) {});
+		}).catch(function(err) {
+		});
 	}
 	// getMain = () => {
 	// 	var mainList;
@@ -109,14 +108,11 @@ class HightSearchForm extends React.Component {
 		const {
 			error,
 			handleSubmit,
-			pristine,
 			reset
 		} = this.props;
 		let {
 			communityList,
 			payment,
-			payType,
-			mainList
 		} = this.state;
 		return (
 			<div>
