@@ -49,16 +49,13 @@ export default class DataPermission extends React.Component{
 	getInfo=()=>{
 			var _this = this;
 			const {detail} = this.props;
-			console.log(detail);
 			Store.dispatch(Actions.callAPI('findCommunities',{
 				userId:_this.props.detail.id,
 			})).then(function(response){
-				console.log(this);
 			  _this.setState({
 					cityList: response.cities,
 				});
 			}).catch(function(err){
-				console.log("err",err,this);
 			})
 	}
 	//点击全选
@@ -66,17 +63,18 @@ export default class DataPermission extends React.Component{
     var _this = this;
     let {cityList}=this.state;
     var list;
-		if (item.quanxuan) {
-			item.ddd.map((item,index) => {
+		if (item.flag) {
+			item.communities.map((item,index) => {
 				item.ownFlag = 1;
 				return item;
 			})
 		}else {
-			item.ddd.map((item,index) => {
+			item.communities.map((item,index) => {
 				item.ownFlag = 0;
 				return item;
 			})
 		}
+
 
 	}
 	//社区点击全选
@@ -105,21 +103,27 @@ export default class DataPermission extends React.Component{
   //      })
   //   })
 	// }
-	checked=(item,index)=>{
+	checked=(item,itemC,index)=>{
 		var _this = this;
 		let {cityList} = this.state;
 		const {detail} = this.props;
 		var checked = [];
-		if(item.ownFlag==0){
-			item.ownFlag=1;
+
+		if(itemC.ownFlag==0){
+			itemC.ownFlag=1;
 		}else{
-			item.ownFlag=0;
+			itemC.ownFlag=0;
 		}
+		console.log("dasfs",itemC);
 		this.id = item.id;
-		cityList.map((item, index) => {
-			checked.push(item.ownFlag);
-		})
-		console.log(detail.id,this.id);
+		// item.communities.map((itemA, index) => {
+		// 	checked.push(itemA.ownFlag);
+		// })
+		// if (checked.indexOf(0) == -1) {
+		// 	item.flag = 1;
+		// } else {
+		// 	item.flag = 0;
+		// }
 		// Store.dispatch(Actions.callAPI('findCommunityList',{
 		// 	userId:detail.id,
 		// 	cityId:this.id
@@ -160,13 +164,13 @@ export default class DataPermission extends React.Component{
 					>
 						{item.name}
 						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.ownFlag==1?true:false} onCheck={this.allSelect.bind(this,item)}/>
-						{item.communities.map((item,index)=>{return (
+						{item.communities.map((itemC,index)=>{return (
 								<div style={{display:'inline-block',lineHeight:'32px'}} key={index}>
 									<Checkbox
 											style={{display:'inline-block',color:'#333'}}
-											label={item.communityName}
-											checked={item.ownFlag==1?true:false}
-											onCheck={this.checked.bind(this,item,index)}
+											label={itemC.communityName}
+											checked={itemC.ownFlag==1?true:false}
+											onCheck={this.checked.bind(this,item,itemC,index)}
 									/>
 								</div>
 
