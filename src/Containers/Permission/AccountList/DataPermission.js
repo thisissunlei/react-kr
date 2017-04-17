@@ -34,77 +34,77 @@ export default class DataPermission extends React.Component{
 	constructor(props,context){
 		super(props, context);
     this.state = {
-			allCheck:false,
-			allCheckC:false,
 			idList:[],
 			cityList:[],
-			comList:[],
     };
 		this.onCancel = this.onCancel.bind(this);
 	}
   componentDidMount() {
-			this.getInfo();
+		var _this = this;
+		window.setTimeout(function(){
+			_this.getInfo();
+		},800)
+
   }
 	getInfo=()=>{
 			var _this = this;
-			Store.dispatch(Actions.callAPI('findCityList',{})).then(function(response){
+			const {detail} = this.props;
+			console.log(detail);
+			Store.dispatch(Actions.callAPI('findCommunities',{
+				userId:_this.props.detail.id,
+			})).then(function(response){
+				console.log(this);
 			  _this.setState({
-					cityList: response.cityList,
+					cityList: response.cities,
 				});
+			}).catch(function(err){
+				console.log("err",err,this);
 			})
 	}
 	//点击全选
-	allSelect = () => {
+	allSelect = (item,index) => {
     var _this = this;
-    var id = [];
     let {cityList}=this.state;
     var list;
-    _this.setState({
-      allCheck:!_this.state.allCheck,
-    },function(){
-      console.log("trueOrfalse",_this.state.allCheck);
-      if (_this.state.allCheck) {
-        list=cityList.map((item, index) => {
-              item.ownFlag = 1;
-              return item;
-          })
-        } else {
-          list=cityList.map((item, index) => {
-                item.ownFlag = 0;
-                return item;
-          })
-       }
-       this.setState({
-         cityList:list
-       })
-    })
+		if (item.quanxuan) {
+			item.ddd.map((item,index) => {
+				item.ownFlag = 1;
+				return item;
+			})
+		}else {
+			item.ddd.map((item,index) => {
+				item.ownFlag = 0;
+				return item;
+			})
+		}
+
 	}
 	//社区点击全选
-	allSelectC = () => {
-    var _this = this;
-    var id = [];
-    let {comList}=this.state;
-    var list;
-    _this.setState({
-      allCheckC:!_this.state.allCheckC,
-    },function(){
-      console.log("trueOrfalse",_this.state.allCheckC);
-      if (_this.state.allCheckC) {
-        list=comList.map((item, index) => {
-              item.ownFlag = 1;
-              return item;
-          })
-        } else {
-          list=comList.map((item, index) => {
-                item.ownFlag = 0;
-                return item;
-          })
-       }
-       this.setState({
-         comList:list
-       })
-    })
-	}
+	// allSelectC = () => {
+  //   var _this = this;
+  //   var id = [];
+  //   let {comList}=this.state;
+  //   var list;
+  //   _this.setState({
+  //     allCheckC:!_this.state.allCheckC,
+  //   },function(){
+  //     console.log("trueOrfalse",_this.state.allCheckC);
+  //     if (_this.state.allCheckC) {
+  //       list=comList.map((item, index) => {
+  //             item.ownFlag = 1;
+  //             return item;
+  //         })
+  //       } else {
+  //         list=comList.map((item, index) => {
+  //               item.ownFlag = 0;
+  //               return item;
+  //         })
+  //      }
+  //      this.setState({
+  //        comList:list
+  //      })
+  //   })
+	// }
 	checked=(item,index)=>{
 		var _this = this;
 		let {cityList} = this.state;
@@ -119,69 +119,61 @@ export default class DataPermission extends React.Component{
 		cityList.map((item, index) => {
 			checked.push(item.ownFlag);
 		})
-		if (checked.indexOf(0) == -1) {
-			this.setState({
-				allCheck:true,
-			})
-		} else {
-			this.setState({
-				allCheck:false,
-			})
-		}
 		console.log(detail.id,this.id);
-		Store.dispatch(Actions.callAPI('findCommunityList',{
-			userId:detail.id,
-			cityId:this.id
-		})).then(function(response){
-			_this.setState({
-				comList: response.communityList,
-			});
-		})
+		// Store.dispatch(Actions.callAPI('findCommunityList',{
+		// 	userId:detail.id,
+		// 	cityId:this.id
+		// })).then(function(response){
+		// 	_this.setState({
+		// 		comList: response.communityList,
+		// 	});
+		// })
 	}
-//该做社区全选功能了
-	checkedC=(item,index)=>{
-		let {comList} = this.state;
-		var checked = [];
-		if(item.ownFlag==0){
-			item.ownFlag=1;
-		}else{
-			item.ownFlag=0;
-		}
-		console.log(this.state.comList);
-		comList.map((item, index) => {
-			checked.push(item.ownFlag);
-		})
-		if (checked.indexOf(0) == -1) {
-			this.setState({
-				allCheckC:true,
-			})
-		} else {
-			this.setState({
-				allCheckC:false,
-			})
-		}
-	}
+// //该做社区全选功能了
+// 	checkedC=(item,index)=>{
+// 		let {comList} = this.state;
+// 		var checked = [];
+// 		if(item.ownFlag==0){
+// 			item.ownFlag=1;
+// 		}else{
+// 			item.ownFlag=0;
+// 		}
+// 		console.log(this.state.comList);
+// 		comList.map((item, index) => {
+// 			checked.push(item.ownFlag);
+// 		})
+// 		if (checked.indexOf(0) == -1) {
+// 			this.setState({
+// 				allCheckC:true,
+// 			})
+// 		} else {
+// 			this.setState({
+// 				allCheckC:false,
+// 			})
+// 		}
+// 	}
 	renderData=(item,index)=>{
 		return (
 			<div key={index}>
-				<Checkbox
-						style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
-						label={item.name}
-						onCheck={this.checked.bind(this,item,index)}
-				/>
-			</div>
-		);
-	}
-	renderDataC=(item,index)=>{
-		console.log(item);
-		return (
-			<div key={index}>
-				<Checkbox
-						style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
-						label={item.communityName}
-						checked={item.ownFlag==1?true:false}
-						onCheck={this.checkedC.bind(this,item,index)}
-				/>
+				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
+					 		onClick={this.checked.bind(this,item,index)}
+					>
+						{item.name}
+						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.ownFlag==1?true:false} onCheck={this.allSelect.bind(this,item)}/>
+						{item.communities.map((item,index)=>{return (
+								<div style={{display:'inline-block',lineHeight:'32px'}} key={index}>
+									<Checkbox
+											style={{display:'inline-block',color:'#333'}}
+											label={item.communityName}
+											checked={item.ownFlag==1?true:false}
+											onCheck={this.checked.bind(this,item,index)}
+									/>
+								</div>
+
+							)
+						 })
+						}
+				</div>
 			</div>
 		);
 	}
@@ -223,17 +215,18 @@ export default class DataPermission extends React.Component{
 
 	render(){
 		let {cityList} = this.state;
-		let {comList} = this.state;
 		return(
 			<div className="g-DataPermission">
           <div className="leftSec">
-            <Checkbox label="全选" style={{color:'#333'}} checked={this.state.allCheck} onCheck={this.allSelect}/>
+            <Checkbox label="全选" style={{color:'#333',display:'block'}} checked={this.state.allCheck} onCheck={this.allSelect}/>
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>
-					<div className="rightSec">
-						<Checkbox label="全选" style={{color:'#333'}} checked={this.state.allCheckC} onCheck={this.allSelectC}/>
-						{comList.map((item,index)=>{return this.renderDataC(item,index)})}
-					</div>
+				{/*
+					<div>
+							<Checkbox label="全选" style={{color:'#333'}} checked={this.state.allCheckC} onCheck={this.allSelectC}/>
+							{comList.map((item,index)=>{return this.renderDataC(item,index)})}
+						</div>
+				*/}
 					<ListGroup>
                 <ListGroupItem style={{
                     paddingLeft: 110,
