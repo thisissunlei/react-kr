@@ -121,6 +121,9 @@ onSearchSubmit=(params)=>{
 
 //上一级
 lastGoTo=()=>{
+ if(State.oldPid==0){
+   State.lastFlag=false;
+ }
  State.searchParams={
 	 pid:State.oldPid,
 	 time:+new Date()
