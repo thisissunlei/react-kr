@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Button,
@@ -24,6 +24,14 @@ export default class  SelectCity extends React.Component{
 	}
 
 
+ componentDidMount(){
+		 Http.request('codeCategoryEdit').then(function(response) {
+	 	  
+	 	}).catch(function(err) {
+	     Message.error(err.message);
+	 	});
+ }
+
 
 	render(){
 
@@ -39,8 +47,9 @@ export default class  SelectCity extends React.Component{
 											<ListGroupItem><SearchForms placeholder='请输入您要查询的内容 ' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 										</ListGroup>
 									</Col>
-
 							</Row>
+
+
 					</Section>
 			</div>
 		);
