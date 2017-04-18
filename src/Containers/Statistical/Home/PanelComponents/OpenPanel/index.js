@@ -1,10 +1,6 @@
 import React  from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
 import  {DateFormat} from "kr/Utils";
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,18 +9,11 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	Dialog,
-	ListGroup,
-	ListGroupItem,
 	Message,
 	Tooltip,
-	Form,
-
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import './index.less';
@@ -83,7 +72,7 @@ export default class OpenPanel  extends React.Component{
 			});
 
 
-        })
+		})
 
     }
     onEndChange=(endD)=>{

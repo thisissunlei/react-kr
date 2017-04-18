@@ -4,10 +4,6 @@ import { reduxForm } from 'redux-form';
 
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

@@ -1,13 +1,8 @@
 import React  from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-
-import {Actions,Store} from 'kr/Redux';
+import {change} from 'redux-form';
 import {DateFormat} from "kr/Utils";
 
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -16,14 +11,9 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Dialog,
-	Tabs,
-	Tab,
-	Title,
 	Message,
 	Loading,
 	Tooltip
@@ -347,8 +337,8 @@ class MerchantsData  extends React.Component{
     nothingData = () =>{
     	return (<div className = "merchants-data-nothing">
     				<div className = "ui-nothing" >
-    					<div className="icon" ></div> 
-    					
+    					<div className="icon" ></div>
+
     					<p className="tip" >暂时还没有数据呦~</p>
     				</div>
     			</div>)
@@ -359,7 +349,7 @@ class MerchantsData  extends React.Component{
 		let {data,loading,moveStyle,tabLoading} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
-		let {groupList} = this.props; 
+		let {groupList} = this.props;
 		let right = groupList.length == 1 ? 40 :20;
 		let top = groupList.length == 1 ? 208 :133;
 		let width = groupList.length == 1 ?"5.9%" : "6%";
@@ -385,7 +375,7 @@ class MerchantsData  extends React.Component{
 		if(loading){
 			return <Loading />
 		}
-		
+
 
 		if(unopenList.length == 0 && openList.length == 0){
 			nothingData = true;
