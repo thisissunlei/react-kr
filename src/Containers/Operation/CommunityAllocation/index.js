@@ -7,8 +7,12 @@ import {
 import {
 	default as CodeClassification
 } from './CodeClassification';
+import {
+	default as CommunityStationDetail
+} from './CommunityStationDetail';
 module.exports = {
 	CommunityList,
 	CommunityMeetingRoom,
-	CodeClassification
+	CodeClassification,
+	CommunityStationDetail
 }

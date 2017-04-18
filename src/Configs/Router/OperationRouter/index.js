@@ -26,8 +26,10 @@ module.exports =()=>{
 			<Route path="communityAllocation" component={Basic}>
 			    {/*社区列表*/}
 				<Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
-                {/*会议室*/}
+         {/*会议室*/}
 				<Route path="communityMeetingRoom" component={Operation.CommunityAllocation.CommunityMeetingRoom}/>
+				{/*工位列表*/}
+			 <Route path="communityStationDetail" component={Operation.CommunityAllocation.CommunityStationDetail}/>
 				{/*代码分类*/}
 				<Route path="codeClassification" component={Operation.CommunityAllocation.CodeClassification}/>
 			</Route>
@@ -41,7 +43,7 @@ module.exports =()=>{
 					{/*凭证列表*/}
 						<Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
 			</Route>
-			
+
 			{/*客户管理*/}
 			<Route path="customerManage" component={Basic}>
 				<Route path="customerList" component={Operation.CustomerManage.CustomerList} />

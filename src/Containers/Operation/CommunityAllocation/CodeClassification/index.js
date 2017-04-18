@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {Actions,Store} from 'kr/Redux';
 import {
 	Table,
@@ -99,7 +98,7 @@ Debug.log('bug',values);
 		 }
 	 }
 	 where.push(`ids=${ids}`);
-	 var url = `http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/codeCategory/action/export?${where.join('&')}`
+	 var url = `/api/krspace-finance-web/cmt/codeCategory/action/export?${where.join('&')}`
 	 window.location.href = url;
 }
 

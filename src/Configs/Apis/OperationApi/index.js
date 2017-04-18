@@ -300,17 +300,22 @@ module.exports = {
     },
     //运营平台－代码分类列表
     'codeCategoryList': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/codeCategory/action/list?noOrName={noOrName}&pid={pid}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/cmt/codeCategory/action/list?noOrName={noOrName}&pid={pid}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营平台－代码分类新增或编辑
     'codeCategoryEdit': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/codeCategory/action/edit',
+        url: '/api/krspace-finance-web/cmt/codeCategory/action/edit',
         method: 'post'
     },
     //运营平台－社区列表-城市
     'type-city-community': {
         url: '/mockjsdata/31/krspace-finance-web/cmt/community/list/type/city?name={name}&type={type}',
+        method: 'get'
+    },
+    //运营平台－工位列表
+    'station-list': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}',
         method: 'get'
     },
 }
