@@ -31,6 +31,7 @@ import State from './State';
 import NewAddStation from './NewAddStation';
 import EditStation from './EditStation';
 import DeleteStation from './DeleteStation';
+import SearchUpperForm from './SearchUpperForm';
 @observer
 class  CommunityStationDetail extends React.Component{
 
@@ -105,6 +106,22 @@ searchParams = Object.assign({},defaultParams,searchParams);
    State.stationSubmit(params);
  }
 
+ //高级查询
+openSearchUpperDialog=()=>{
+		var params={
+		  code:'',
+			stationType:'',
+			enable:'',
+			belongSpace:'',
+			spaceId:'',
+		}
+   State.searchParams= Object.assign({},params,State.searchParams);
+	 State.searchUpperCustomer();
+}
+//高级查询取消
+cancelSearchUpperDialog=()=>{
+	State.searchUpperCustomer();
+}
 
 	render(){
 		return(
@@ -223,6 +240,19 @@ searchParams = Object.assign({},defaultParams,searchParams);
 						 onSubmit={this.deleteSubmit}
 					/>
 			</Dialog>
+
+			{/*高级查询*/}
+			<Dialog
+				title="高级查询"
+				onClose={this.cancelSearchUpperDialog}
+				open={State.openSearchUpper}
+				contentStyle ={{ width: '666px',height:'382px'}}
+				>
+				<SearchUpperForm
+					onCancel={this.cancelSearchUpperDialog}
+					onSubmit={this.onSearchUpperSubmit}
+				/>
+				</Dialog>
 
 
 	 </div>

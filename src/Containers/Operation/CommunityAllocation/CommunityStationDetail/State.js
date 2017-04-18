@@ -28,8 +28,9 @@ let State = observable({
 		openDelete:false,
 		//删除的id
 		deleteId:'',
-		//编辑信息获取
-		editData:{}
+		//高级查询
+		openSearchUpper:false
+
 });
 //删除
 State.deleteStation = action(function() {
@@ -90,4 +91,10 @@ State.deleteSubmitFunc=action(function(params){
 		Message.error(err.message);
  });
 })
+//高级查询的开关
+State.searchUpperCustomer = action(function() {
+	this.openSearchUpper=!this.openSearchUpper;
+});
+//工位列表数据准备
+
 module.exports = State;
