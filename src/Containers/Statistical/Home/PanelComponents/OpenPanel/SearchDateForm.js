@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -27,7 +26,7 @@ import {
 
 import './index.less';
 
-class SearchDateForm extends Component {
+class SearchDateForm extends React.Component {
 
 	static defaultProps = {
 			todayDate:'2017-1-1'

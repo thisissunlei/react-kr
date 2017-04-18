@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -32,7 +32,7 @@ import dateFormat from 'dateformat';
 
 //import PanelsDic from './PanelsDic';
 
-export default class PanelComponents  extends Component{
+export default class PanelComponents  extends React.Component{
 
 	static displayName = 'PanelComponents';
 	static defaultProps = {

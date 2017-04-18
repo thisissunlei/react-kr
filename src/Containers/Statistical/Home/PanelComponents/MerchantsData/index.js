@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -32,7 +32,7 @@ import './index.less'
 import {Http} from "kr/Utils";
 import SearchDateForm from './SearchDateForm';
 
-class MerchantsData  extends Component{
+class MerchantsData  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
