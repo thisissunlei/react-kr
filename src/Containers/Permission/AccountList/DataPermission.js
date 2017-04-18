@@ -193,23 +193,26 @@ export default class DataPermission extends React.Component{
 	}
 	//ing
 	onSubmit = () => {
-		let {comList} = this.state;
+		let {cityList} = this.state;
 		const {detail} = this.props;
 		var idList = [];
-		comList.map((item, index) => {
-			if(item.ownFlag==1){
-				idList.push(item.id);
-			}
+		cityList.map((item, index) => {
+			item.communities.map((itemC,indexC)=>{
+				if(itemC.ownFlag==1){
+					idList.push(itemC.communityId);
+				}
+			})
 		})
 		console.log("idList",idList);
-		Store.dispatch(Actions.callAPI('editUserRole', {}, {
+		console.log(detail.id);
+		Store.dispatch(Actions.callAPI('editUserCommunity',{},{
 			id:detail.id,
-			roleIds:idList
+			communityIds:idList
 		})).then(function(response) {
 				Message.success('修改成功')
-				window.setTimeout(function(){
-					window.location.reload();
-				},800)
+				// window.setTimeout(function(){
+				// 	window.location.reload();
+				// },800)
 		}).catch(function(err) {
 				Message.error(err.message);
 		});

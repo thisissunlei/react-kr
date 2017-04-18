@@ -128,6 +128,11 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/ssoUser/findCommunities?userId={userId}',
       method: 'get'
     },
+    //权限--数据--编辑保存社区权限
+    'editUserCommunity': {
+      url: '/api/krspace-sso-web/sso/ssoUser/editUserCommunity',
+      method: 'post'
+    },
     //权限--操作项--删除
     'delResources': {
       url: '/api/krspace-sso-web/sso/resource/delResources?id={id}',
