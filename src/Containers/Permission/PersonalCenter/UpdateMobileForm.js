@@ -1,41 +1,17 @@
-import React, {
-	PropTypes
-} from 'react';
-
+import React from 'react';
 import {
-	connect,
-	Actions,
-	Store
+	connect
 } from 'kr/Redux';
-
-
-
 import {
 	reduxForm,
-	formValueSelector,
-	change
 } from 'redux-form';
-
-
-
 import {
-
-
-
-	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
-	IframeContent,
-	Date,
-	Paper,
-	DotTitle,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
-	KrDate
 } from 'kr-ui';
 
 
