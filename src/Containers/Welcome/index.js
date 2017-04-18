@@ -2,30 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
-import Section from 'kr-ui/Section';
-import Calendar from 'kr-ui/Calendar';
-
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-
-import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Divider,
-	FontIcon,
-	Slider
-} from 'material-ui';
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-
-import {List, ListItem} from 'material-ui/List';
-
 import './index.less';
 
 class Help extends React.Component{
@@ -70,7 +47,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Help);
-
-
-
-
