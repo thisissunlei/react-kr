@@ -1,20 +1,10 @@
 import React from 'react';
-import {
-	connect
-} from 'react-redux';
+
 import {
 	reduxForm,
-	submitForm,
-	change,
-	reset
 } from 'redux-form';
-import {
-	bindActionCreators
-} from 'redux';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+
+
 import {DateFormat} from 'kr/Utils';
 import {
 	Table,
@@ -24,7 +14,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Button,
 	KrField,
 	ListGroup,
 	ListGroupItem,
