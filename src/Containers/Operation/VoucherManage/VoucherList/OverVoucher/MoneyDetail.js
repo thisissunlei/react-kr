@@ -7,6 +7,9 @@ import {
 	KrDate,
 	CircleStyleTwo
 } from 'kr-ui';
+import {
+	DateFormat
+} from 'kr/Utils';
 import './index.less';
 
 
@@ -61,10 +64,10 @@ export default class VoucherDetail extends React.Component {
 				if (item.contactType == 1) {
 					type = "承租意向书"
 				} else if (item.contactType == 2) {
-					type = "入驻协议书"  
+					type = "入驻协议书"
 
 				} else if (item.contactType == 3) {
-					
+
 					type = "增租协议书"
 				} else if (item.contactType == 4) {
 					type = "续租协议书"
@@ -132,6 +135,7 @@ export default class VoucherDetail extends React.Component {
 	render() {
     let {infoList} = this.state;
 		let items = [];
+		let date = DateFormat(infoList.dealTime, "yyyy-mm-dd");
 	if(infoList.urls){
 			items = infoList.urls.map((item,value) => {
 				return(
@@ -203,10 +207,11 @@ export default class VoucherDetail extends React.Component {
 							<KrField
 											grid = {1 / 2}
 											component="labelText"
-											label="收款日期"
 											inline={false}
-											value={infoList.dealTime}
+											value={date}
+											label="收款日期"
 							/>
+
 							<KrField
 											grid = {1}
 											component="labelText"
