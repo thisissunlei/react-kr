@@ -1,18 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm, formValueSelector} from 'redux-form';
-
+import React, {PropTypes} from 'react';
 import {
     KrField,
-    Grid,
-    Row,
-    Col,
-    Button,
     KrDate
 } from 'kr-ui';
 
-export default class ItemDetail extends Component {
+export default class ItemDetail extends React.Component {
 
     static PropTypes = {
         detail: React.PropTypes.object,
