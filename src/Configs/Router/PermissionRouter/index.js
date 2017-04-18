@@ -27,7 +27,11 @@ module.exports =()=>{
 	<Route path="order" component={Permission.Order}/>
 
 */}
+		<Route path="user" component={Permission.User}/>
 		<Route path="accountList" component={Permission.AccountList}/>
+		<Route path="userlist/:userId" component={Permission.UserList}>
+			<Redirect from="permission" to="permission/userlist"/>
+		</Route>
 		<Route path="personalCenter" component={Permission.PersonalCenter}/>
 		<Redirect from="permission" to="permission/personalCenter" />
 	</Route>

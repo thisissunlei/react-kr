@@ -19,6 +19,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	Message,
 	Dialog,
   ListGroup,
   ListGroupItem
@@ -43,7 +44,7 @@ export default class DataPermission extends React.Component{
 		var _this = this;
 		window.setTimeout(function(){
 			_this.getInfo();
-		},800)
+		},1)
 
   }
 	getInfo=()=>{
@@ -81,49 +82,17 @@ export default class DataPermission extends React.Component{
 			cityList:list,
 		})
 	}
-	//社区点击全选
-	// allSelectC = () => {
-  //   var _this = this;
-  //   var id = [];
-  //   let {comList}=this.state;
-  //   var list;
-  //   _this.setState({
-  //     allCheckC:!_this.state.allCheckC,
-  //   },function(){
-  //     console.log("trueOrfalse",_this.state.allCheckC);
-  //     if (_this.state.allCheckC) {
-  //       list=comList.map((item, index) => {
-  //             item.ownFlag = 1;
-  //             return item;
-  //         })
-  //       } else {
-  //         list=comList.map((item, index) => {
-  //               item.ownFlag = 0;
-  //               return item;
-  //         })
-  //      }
-  //      this.setState({
-  //        comList:list
-  //      })
-  //   })
-	// }
 	checked = (item,itemC,index,indexC) =>{
 		var _this = this;
 		let {cityList} = this.state;
 		var list = cityList;
-		//const {detail} = this.props;
 		var checked = [];
-		// console.log("item",itemC.ownFlag);
-
 		if(itemC.ownFlag==0){
 			itemC.ownFlag=1;
-
 		}else{
 			itemC.ownFlag=0;
 		}
-
 		list[index].communities[indexC] = itemC;
-
 		item.communities.map((itemA, index) => {
 			checked.push(itemA.ownFlag);
 		})
@@ -136,39 +105,7 @@ export default class DataPermission extends React.Component{
 		_this.setState({
 			cityList:list,
 		})
-
-		// Store.dispatch(Actions.callAPI('findCommunityList',{
-		// 	userId:detail.id,
-		// 	cityId:this.id
-		// })).then(function(response){
-		// 	_this.setState({
-		// 		comList: response.communityList,
-		// 	});
-		// })
 	}
-// //该做社区全选功能了
-// 	checkedC=(item,index)=>{
-// 		let {comList} = this.state;
-// 		var checked = [];
-// 		if(item.ownFlag==0){
-// 			item.ownFlag=1;
-// 		}else{
-// 			item.ownFlag=0;
-// 		}
-// 		console.log(this.state.comList);
-// 		comList.map((item, index) => {
-// 			checked.push(item.ownFlag);
-// 		})
-// 		if (checked.indexOf(0) == -1) {
-// 			this.setState({
-// 				allCheckC:true,
-// 			})
-// 		} else {
-// 			this.setState({
-// 				allCheckC:false,
-// 			})
-// 		}
-// 	}
 	renderData=(item,index)=>{
 		return (
 			<div key={index}>
@@ -191,7 +128,6 @@ export default class DataPermission extends React.Component{
 			</div>
 		);
 	}
-	//ing
 	onSubmit = () => {
 		let {cityList} = this.state;
 		const {detail} = this.props;
@@ -210,9 +146,9 @@ export default class DataPermission extends React.Component{
 			communityIds:idList
 		})).then(function(response) {
 				Message.success('修改成功')
-				// window.setTimeout(function(){
-				// 	window.location.reload();
-				// },800)
+				window.setTimeout(function(){
+					window.location.reload();
+				},800)
 		}).catch(function(err) {
 				Message.error(err.message);
 		});
@@ -232,12 +168,6 @@ export default class DataPermission extends React.Component{
           <div className="leftSec">
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>
-				{/*
-					<div>
-							<Checkbox label="全选" style={{color:'#333'}} checked={this.state.allCheckC} onCheck={this.allSelectC}/>
-							{comList.map((item,index)=>{return this.renderDataC(item,index)})}
-						</div>
-				*/}
 					<ListGroup>
                 <ListGroupItem style={{
                     paddingLeft: 110,

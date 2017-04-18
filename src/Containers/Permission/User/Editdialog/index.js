@@ -145,16 +145,16 @@ class Editdialog extends Component {
 			})
 		}
 	}
-	renderChildren = (child) => {
+	renderChildren = (child,index) => {
 		var _this = this;
 		var childlist, resources;
 		if (child.length > 0) {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
 					return (
-						<div className="u-operation-list" id={items.id} key={indexs}>
-								{items.name}
-								{_this.renderChildren(items.cModuleVo)}
+						<div className="u-operation-list" style={{left:`${indexs*10}px`}} id={items.id} key={indexs}>
+								{items.name}→
+								{_this.renderChildren(items.cModuleVo,indexs)}
 						</div>
 					)
 				} else {
@@ -164,8 +164,8 @@ class Editdialog extends Component {
 								{
 									items.resources.map((item, index) => {
 										return (
-											<div className="u-operation-lists"  key={index}>
-													<input type="checkbox" checked={item.ownFlag==1?'checked':''} value={items.id} onChange={this.getValue.bind(this,item)}/>{item.name}
+											<div className="u-operation-lists" style={{left:`${index*10}px`}} key={index}>
+													<input type="checkbox" checked={item.ownFlag==1?'checked':''} value={items.id} onChange={this.getValue.bind(this,item,index)}/>{item.name}
 											</div>
 										)
 									})
@@ -187,7 +187,7 @@ class Editdialog extends Component {
 				if (item.cModuleVo.length > 0) {
 					return (
 						<div className="u-operation-list" id={item.id} key={index}>
-								{item.name}
+								{item.name}→
 								{_this.renderChildren(item.cModuleVo)}
 						</div>
 					)
@@ -226,18 +226,18 @@ class Editdialog extends Component {
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="name" type="text" 
-							component="input" label="姓名："  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="name" type="text"
+							component="input" label="姓名："
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'姓名为必填项'}}
 							inline={true}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="code" type="text" 
-							component="input" label="编号："  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="code" type="text"
+							component="input" label="编号："
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'编码为必填项'}}
@@ -251,8 +251,8 @@ class Editdialog extends Component {
 							{this.renderOperation(moduleDetail)}
 							{errorTip?<div className="u-error-tip">请选择操作项</div>:''}
 						</div>
-						
-						<KrField 
+
+						<KrField
 								 type="hidden"
 								 name="resourceIds"
 								 values={resourceIds}
@@ -261,7 +261,7 @@ class Editdialog extends Component {
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>
-				
+
 			</div>
 		);
 	}

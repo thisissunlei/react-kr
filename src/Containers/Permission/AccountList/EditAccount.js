@@ -31,7 +31,6 @@ class EditAccount extends React.Component {
         detail: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
         onCancel: React.PropTypes.func,
-        detailFuc: React.PropTypes.func
     }
     constructor(props, context) {
         super(props, context);
@@ -49,7 +48,6 @@ class EditAccount extends React.Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        const {detailFuc} = this.props;
         var _this = this;
         console.log("form", form);
         let {detail} = this.props;
@@ -60,13 +58,13 @@ class EditAccount extends React.Component {
             realName: form.realName,
             mobilePhone: form.mobilePhone
         })).then(function(response) {
-            Message.success('修改成功')
-            detailFuc();
-            //  _this.onCancel();
+            Message.success('修改成功');
+            window.setTimeout(function(){
+    					window.location.reload();
+    				},800)
         }).catch(function(err) {
             Message.error(err.message);
         });
-        console.log("adfasdfsd");
     }
     render() {
 
@@ -74,7 +72,6 @@ class EditAccount extends React.Component {
         console.log(detail,"detail");
         const {handleSubmit} = this.props;
         return (
-
             <div>
                 <form style={{
                     width: '100%',
