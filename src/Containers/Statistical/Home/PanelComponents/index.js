@@ -27,7 +27,7 @@ import {
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
 import MerchantsData from './MerchantsData';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 
 //import PanelsDic from './PanelsDic';

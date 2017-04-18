@@ -2,7 +2,7 @@ import React  from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	KrField,
 	Table,
