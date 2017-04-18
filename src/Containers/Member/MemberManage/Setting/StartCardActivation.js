@@ -1,7 +1,6 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector,initialize,change,submit} from 'redux-form';
+import React, {PropTypes} from 'react';
+import {reduxForm,formValueSelector,initialize,submit} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,14 +8,12 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
-	SnackTip,
 	Message
 } from 'kr-ui';
 import './index.less';
 
- class StartCardActivation extends Component{
+ class StartCardActivation extends React.Component{
 
 	 static defaultProps = {
 	 		stage:'importNum'

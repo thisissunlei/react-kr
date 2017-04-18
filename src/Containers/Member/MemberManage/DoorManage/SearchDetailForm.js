@@ -5,41 +5,12 @@ import React, {
 
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	change
 } from 'redux-form';
 
 import {
-	Actions,
-	Store,
-	connect
-} from 'kr/Redux';
-
-
-import {
-	Section,
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Message,
-	Notify,
-	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
-	ListGroup,
-	ListGroupItem,
-	Field,
-	KrForm
 } from 'kr-ui';
 import './index.less';
-import {ShallowEqual} from 'kr/Utils';
 
 export default class SearchDetailForm extends Component {
 

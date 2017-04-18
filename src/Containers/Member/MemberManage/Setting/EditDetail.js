@@ -2,9 +2,6 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
 
 import {
 	reduxForm,
@@ -12,7 +9,6 @@ import {
 	initialize
 } from 'redux-form';
 import {
-	Actions,
 	Store
 } from 'kr/Redux';
 import {
@@ -22,8 +18,6 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
-	ListGroup,
-	ListGroupItem,
 	Message
 } from 'kr-ui';
 
