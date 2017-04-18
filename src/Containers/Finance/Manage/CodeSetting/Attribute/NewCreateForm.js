@@ -1,8 +1,7 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React, {PropTypes} from 'react';
 
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {reduxForm,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -10,12 +9,11 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 } from 'kr-ui';
 
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
@@ -45,7 +43,7 @@ import {
 	 }
 
 	render(){
-		
+
 		let style={
        	 marginTop:3
        }
@@ -61,7 +59,7 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:35,marginLeft:35}}>
 
-				<KrField grid={1/2} name="propcode" component="input" right={41} style={{marginRight:-10}} label="属性编码" requireLabel={true}/> 
+				<KrField grid={1/2} name="propcode" component="input" right={41} style={{marginRight:-10}} label="属性编码" requireLabel={true}/>
 				<KrField grid={1/2} name="propname" component="input" right={41} label="属性名称" requireLabel={true}/>
 				<KrField grid={1/2} name="proptype" component="select" right={41} style={{marginRight:-10,marginTop:4}} label="属性类别" options={[
 						{value:'PAYMENT',label:'回款'},

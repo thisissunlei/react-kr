@@ -1,32 +1,23 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import React from 'react';
 
 import {
   Form,
   Table,
-  TableBody, 
-  TableHeader, 
-  TableHeaderColumn, 
-  TableRow, 
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
   TableRowColumn,
   TableFooter,
   Button,
   Section,
-  Grid,
-  Row,
-  Col,
   Dialog,
   BreadCrumbs,
   KrField,
-  Notify
 } from 'kr-ui';
 
 
-class SearchForm extends Component{
+class SearchForm extends React.Component{
 
     constructor(props){
       super(props);
@@ -46,13 +37,13 @@ class SearchForm extends Component{
                  <Button label="搜索"  type="submit" joinEditForm/>
 
           </Form>
-        
+
       );
     }
-} 
+}
 
- 
-class EditDetailForm extends Component{
+
+class EditDetailForm extends React.Component{
 
     constructor(props){
       super(props);
@@ -81,11 +72,11 @@ class EditDetailForm extends Component{
                    <Button label="取消"  type="button" joinEditForm/>
 
           </Form>
-        
+
       );
     }
-} 
-class ItemDetail extends Component{
+}
+class ItemDetail extends React.Component{
 
     constructor(props){
       super(props);
@@ -105,14 +96,14 @@ class ItemDetail extends Component{
                  <Button label="搜索"  type="submit" joinEditForm/>
 
           </Form>
-        
+
       );
     }
-} 
+}
 
 
 
-export default class AttributeSetting  extends Component{
+export default class AttributeSetting  extends React.Component{
 
   constructor(props,context){
     super(props, context);
@@ -159,7 +150,7 @@ export default class AttributeSetting  extends Component{
       openEditDetail:!this.state.openEditDetail
     });
   }
-  
+
   //查看
   openViewDialog(){
     this.setState({
@@ -174,18 +165,18 @@ export default class AttributeSetting  extends Component{
   }
 
   render(){
-   
+
    let initialValues = {
       lessorContacttel:'haa',
       age:1,
     }
-    
+
     return(
 
       <div>
       <BreadCrumbs children={['系统运营','财务管理','开票列表']}/>
           <Section title="开票列表" description="" >
-             <div> 
+             <div>
                   <SearchForm onSubmit={this.searchParams}/>
             </div>
             <Table style={{marginTop:10}} ajax={true}  ajaxUrlName='getFnaInvoiceModelListByAjax' ajaxParams={this.state.Params} ajaxFieldListName="fnaInvoiceModelVOList" onOperation={this.onOperation} >
@@ -216,7 +207,7 @@ export default class AttributeSetting  extends Component{
             </Table>
 
          </Section>
-      
+
 
 
           <Dialog
@@ -235,11 +226,10 @@ export default class AttributeSetting  extends Component{
             {/*<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />*/}
           </Dialog>
 
-      </div>    
+      </div>
 
     );
 
   }
 
 }
-

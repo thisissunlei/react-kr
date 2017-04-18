@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
-import {connect, Actions, Store} from 'kr/Redux';
-import {bindActionCreators} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
+import { Actions, Store} from 'kr/Redux';
 import {
-    KrField,
     Title,
     Table,
     TableBody,
@@ -17,7 +14,6 @@ import {
     ListGroupItem,
     SearchForms,
     Section,
-    Grid,
     Tooltip,
     KrDate,
     Row,
@@ -26,12 +22,11 @@ import {
     Message
 } from 'kr-ui';
 
-import {reduxForm, formValueSelector, change} from 'redux-form';
 import './index.less';
 import NewCreateFund from './NewCreateFund';
 import ItemDetail from './ItemDetail';
 import EditDetailForm from './EditDetailForm';
-export default class TotalFund extends Component {
+export default class TotalFund extends React.Component {
 
     constructor(props, context) {
         super(props, context);

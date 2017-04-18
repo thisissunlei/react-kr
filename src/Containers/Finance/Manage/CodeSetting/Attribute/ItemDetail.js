@@ -1,18 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm,formValueSelector} from 'redux-form';
+import React, { PropTypes} from 'react';
 
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
 } from 'kr-ui';
 
 
-export default  class ItemDetail extends Component{
+export default  class ItemDetail extends React.Component{
 
 	 static PropTypes = {
 		 detail:React.PropTypes.object,
@@ -53,8 +46,8 @@ export default  class ItemDetail extends Component{
                <KrField component="labelText" grid={1/2} label="排序号" value={detail.ordernum} inline={false}/>
                <KrField component="labelText" grid={1/2} label="属性名称" value={detail.propname} inline={false}/>
                 <KrField component="labelText" grid={1/2} label="是否启用"  value={detail.flag} inline={false}/>
-               <KrField component="labelText" grid={1} label="属性类别" value={detail.type} inline={false}/>    
-              
+               <KrField component="labelText" grid={1} label="属性类别" value={detail.type} inline={false}/>
+
                <KrField component="labelText" grid={1} label="描述" value={detail.propdesc} inline={false}/>
 			</div>
 
