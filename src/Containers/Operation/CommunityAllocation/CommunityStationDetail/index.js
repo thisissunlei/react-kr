@@ -115,12 +115,18 @@ openSearchUpperDialog=()=>{
 			belongSpace:'',
 			spaceId:'',
 		}
-   State.searchParams= Object.assign({},params,State.searchParams);
+   State.searchParams=params;
 	 State.searchUpperCustomer();
 }
 //高级查询取消
 cancelSearchUpperDialog=()=>{
 	State.searchUpperCustomer();
+}
+//高级查询提交
+onSearchUpperSubmit=(params)=>{
+ State.searchParams= Object.assign({},State.searchParams,params);
+ State.searchParams.time=+new Date();
+ State.searchUpperCustomer();
 }
 
 	render(){
