@@ -109,13 +109,13 @@ export default class DataPermission extends React.Component{
 	renderData=(item,index)=>{
 		return (
 			<div key={index}>
-				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}>
-						{item.name}
-						<Checkbox label="全选" style={{color:'#333',display:'block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
+				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333',marginBottom:8}}>
+						<div style={{color:'#333',fontWeight:500,fontSize:14}}>{item.name}</div>
+						<Checkbox label="全选" style={{color:'#333',display:'inline-block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
 						{item.communities.map((itemC,indexC)=>{return (
 								<div style={{display:'inline-block',lineHeight:'32px'}} key={indexC}>
 									<Checkbox
-											style={{display:'inline-block',color:'#333'}}
+											style={{display:'inline-block',color:'#666'}}
 											label={itemC.communityName}
 											checked={itemC.ownFlag==1?true:false}
 											onCheck={this.checked.bind(this,item,itemC,index,indexC)}
@@ -170,7 +170,7 @@ export default class DataPermission extends React.Component{
           </div>
 					<ListGroup>
                 <ListGroupItem style={{
-                    paddingLeft: 110,
+                    paddingLeft: 165,
                     paddingRight: 40,
                     paddingTop: 20,
                     paddingBottom: 6

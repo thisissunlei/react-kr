@@ -65,7 +65,7 @@ export default class SetPermission extends React.Component {
     renderData=(item,index)=>{
       console.log("sdfa",item);
     	return (
-    		<div key={index} style={{textAlign:'left',display:'inline-block'}}>
+    		<div key={index} style={{textAlign:'left',display:'inline-block',marginLeft:20}}>
     			<Checkbox
     					style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
     					label={item.name}
@@ -149,8 +149,8 @@ export default class SetPermission extends React.Component {
       let {roleList}=this.state;
       return(
         <div className="g-SetPermission">
-            <div style={{textAlign:'center',marginTop:20}}>
-              <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect} checked={this.state.allCheck}/>
+            <div style={{textAlign:'left',marginTop:20}}>
+              <Checkbox label="全选" style={{display:'block',color:'#333'}} onCheck={this.allSelect} checked={this.state.allCheck}/>
               {roleList.map((item,index)=>{return this.renderData(item,index)})}
             </div>
             <ListGroup>

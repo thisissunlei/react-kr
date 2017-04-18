@@ -272,11 +272,10 @@ class AccountList extends React.Component {
                                         value: 'LOCKED'
                                     }
                                 ]} component={(value, oldValue) => {
-                                    if (value == 'NOTLOCK') {
+                                    if (value == '未锁定') {
                                         logFlag = false;
                                     }
-                                    if (value == 'LOCKED') {
-                                        console.log('[[[[]]]]');
+                                    if (value == '锁定') {
                                         logFlag = true;
                                     }
                                     return (

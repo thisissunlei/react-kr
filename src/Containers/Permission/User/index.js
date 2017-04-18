@@ -173,7 +173,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="角色列表" >
-					<SearchForm onSubmit={this.onSearch} onCreate={this.openCreateDialog}/> 
+					<SearchForm onSubmit={this.onSearch} onCreate={this.openCreateDialog}/>
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -233,12 +233,12 @@ class Operations extends Component {
 						modal={true}
 						onClose={this.openEditDialog}
 						open={this.state.openEditDialog}
-						contentStyle={{width:460,height:500}}
+						contentStyle={{width:660,height:500}}
 						>
 						<Editdialog  detail={itemDetail}  moduleDetail={moduleDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 					</Dialog>
 				</Section>
-					
+
 			</div>
 		);
 	}

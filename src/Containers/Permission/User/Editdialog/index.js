@@ -152,7 +152,7 @@ class Editdialog extends Component {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
 					return (
-						<div className="u-operation-list" style={{left:`${indexs*10}px`}} id={items.id} key={indexs}>
+						<div className="u-operation-list" style={{left:`${(index+1)*200}px`}} id={items.id} key={indexs}>
 								{items.name}→
 								{_this.renderChildren(items.cModuleVo,indexs)}
 						</div>
@@ -164,7 +164,7 @@ class Editdialog extends Component {
 								{
 									items.resources.map((item, index) => {
 										return (
-											<div className="u-operation-lists" style={{left:`${index*10}px`}} key={index}>
+											<div className="u-operation-lists" key={index}>
 													<input type="checkbox" checked={item.ownFlag==1?'checked':''} value={items.id} onChange={this.getValue.bind(this,item,index)}/>{item.name}
 											</div>
 										)
