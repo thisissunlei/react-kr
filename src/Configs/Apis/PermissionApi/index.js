@@ -123,6 +123,11 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',
       method: 'get'
     },
+    //权限--操作项列表--获取操作项列表
+    'RosfindPage': {
+      url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',
+      method: 'get'
+    },
     //权限--数据--获取社区列表
     'findCommunities': {
       url: '/api/krspace-sso-web/sso/ssoUser/findCommunities?userId={userId}',

@@ -92,10 +92,10 @@ class SearchForm extends Component {
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
 				<Button label="新建"  onTouchTap={this.openCreateDialog} />
-				<SearchForms 
-						onSubmit={this.onSubmit} 
-						searchFilter={options} 
-						style={{marginTop:5}} 
+				<SearchForms
+						onSubmit={this.onSubmit}
+						searchFilter={options}
+						style={{marginTop:5}}
 						onFilter={this.onFilter}
 				/>
 			</form>
@@ -224,13 +224,13 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="操作项" >
-					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} /> 
+					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} />
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='findPage'
+							ajaxUrlName='RosfindPage'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							  >
@@ -249,8 +249,8 @@ class Operations extends Component {
 						<TableRow>
 							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
 							<TableRowColumn name="name" ></TableRowColumn>
-							<TableRowColumn 
-									name="type" 
+							<TableRowColumn
+									name="type"
 									options={[
 										{label:'菜单',value:'MENU'},
 										{label:'操作',value:'OPERATION'}
@@ -280,7 +280,7 @@ class Operations extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
-						
+
 					 </Dialog>
 					 <Dialog
 						title="新建"
@@ -290,7 +290,7 @@ class Operations extends Component {
 						contentStyle={{width:900}}
 						>
 						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
-						
+
 					 </Dialog>
 					 <Dialog
 						title="编辑"
@@ -300,10 +300,10 @@ class Operations extends Component {
 						contentStyle={{width:900}}
 						>
 						<Editdialog  detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
-						
+
 					 </Dialog>
 				</Section>
-					
+
 			</div>
 		);
 	}
