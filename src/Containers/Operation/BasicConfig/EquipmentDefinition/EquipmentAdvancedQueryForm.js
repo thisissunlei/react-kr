@@ -1,7 +1,6 @@
 
-import React, {PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React from 'react';
+import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,12 +8,10 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
-  	ListGroup,
-  	ListGroupItem,
+	ListGroup,
+	ListGroupItem,
 	SearchForm,
-	Message,
 } from 'kr-ui';
 class EquipmentAdvancedQueryForm extends React.Component{
 	constructor(props){
@@ -129,46 +126,46 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 				<ListGroup >
 					<ListGroupItem style={{marginBottom:5}}>
-						<SearchForm 
-							searchFilter={options} 
-							style={{width:252,marginBottom:10}} 
-							defaultFilter={filter} 
-							defaultContent={content} 
+						<SearchForm
+							searchFilter={options}
+							style={{width:252,marginBottom:10}}
+							defaultFilter={filter}
+							defaultContent={content}
 							onSubmit={this.onFilter}
 							ref ="IndexsearchForm"
 						/>
 					</ListGroupItem>
 				</ListGroup>
-				<KrField name="communityId" 
-					component="searchCommunity" 
+				<KrField name="communityId"
+					component="searchCommunity"
 					onChange = {this.onChangeSearchCommunity}
-					label="社区名称"    
+					label="社区名称"
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 					onChange = {this.onSearchFloor}
 				/>
-				<KrField name="floor" 
-					component="select" 
-					label="楼层" 
+				<KrField name="floor"
+					component="select"
+					label="楼层"
 					options = {floorsOptions}
-					errors={{requiredValue:'社区为必填项'}} 
+					errors={{requiredValue:'社区为必填项'}}
 					style={{width:'252px'}}
 				/>
-				<KrField name="typeId" 
-					component="select" 
-					label="类型" 
+				<KrField name="typeId"
+					component="select"
+					label="类型"
 					onChange = {this.onchooseType}
-					options={typeOptions} 
+					options={typeOptions}
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 				/>
-				<KrField name="propertyId" 
-					component="select" 
+				<KrField name="propertyId"
+					component="select"
 					label="属性"
 					onChange = {this.onchooseProperty}
-					options={propertyOption}  
+					options={propertyOption}
 					style={{width:'252px'}}
 				/>
-				<KrField name="functionId" 
-					component="select" 
+				<KrField name="functionId"
+					component="select"
 					options={correspondingFunction}
 					label="对应功能"
 					onChange = {this.onchooseCorrespondingFunction}
