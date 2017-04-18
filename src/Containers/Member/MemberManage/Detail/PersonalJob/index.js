@@ -1,20 +1,8 @@
 import React from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+
 import './index.less';
 import {
-	Grid,
 	KrField,
-	LabelText,
 } from 'kr-ui';
 export default class BasicInfo extends React.Component {
 	static contextTypes = {
