@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -29,7 +29,7 @@ import {
 } from 'kr-ui';
 
 
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 
 import {
@@ -38,7 +38,7 @@ import {
 } from 'kr/Redux';
 
 
-export default class AdmitDetail extends Component {
+export default class AdmitDetail extends React.Component {
 
 
 	constructor(props, context) {

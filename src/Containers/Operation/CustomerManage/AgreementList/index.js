@@ -6,7 +6,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	KrField,
 	Table,

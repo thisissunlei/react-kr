@@ -1,9 +1,9 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 import {
 	KrField,
@@ -36,7 +36,7 @@ import {
 } from 'kr/Redux';
 
 
-export default class JoinDetail extends Component {
+export default class JoinDetail extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);

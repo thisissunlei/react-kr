@@ -1,8 +1,8 @@
-import React,{Component} from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	KrField,
 	Table,
@@ -31,7 +31,7 @@ import {Http} from "kr/Utils";
 import SearchNotDateForm from './SearchNotDateForm';
 
 
-export default class NotOpenPanel  extends Component{
+export default class NotOpenPanel  extends React.Component{
 		static displayName = 'NotOpenPanel';
 		static defaultProps = {
 				todayDate:'2017-1-1'

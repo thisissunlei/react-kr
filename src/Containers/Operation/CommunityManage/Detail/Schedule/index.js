@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -29,7 +28,7 @@ import {
 
 import BasicTable from './BasicTable';
 
-export default class Schedule extends Component {
+export default class Schedule extends React.Component {
 	static defaultProps = {
 		tab: '',
 	}

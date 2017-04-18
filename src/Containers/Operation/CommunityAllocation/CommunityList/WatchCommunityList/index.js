@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -25,7 +25,7 @@ import {
 import './index.less';
 import State from '../State';
 @observer
- class WatchCommunityList extends Component{
+ class WatchCommunityList extends  React.Component{
 
 	static PropTypes = {
 		

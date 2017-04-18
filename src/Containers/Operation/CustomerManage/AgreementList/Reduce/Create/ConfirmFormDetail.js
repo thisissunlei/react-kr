@@ -1,7 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 import {
 	Table,
@@ -23,7 +23,7 @@ import {
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail  extends Component{
+export default class ConfirmFormDetail  extends React.Component{
 
 
 	static PropTypes = {

@@ -1,4 +1,4 @@
-import React,{Component,PropTypes} from 'react';
+import React,{PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { browserHistory } from 'react-router';
@@ -31,7 +31,7 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class MemoManage extends Component{
+class MemoManage extends React.Component{
 
     static contextTypes = {
         router: PropTypes.object.isRequired

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import './index.less';
 import {
 	Dialog,
@@ -24,7 +24,7 @@ import {
 
 import UpdatePasswordForm from './UpdatePasswordForm';
 
-export default class PersonalCenter extends Component{
+export default class PersonalCenter extends React.Component{
 	static displayName = 'PersonalCenter';
   constructor(props, context){
     super(props,context)

@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -8,7 +8,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,
@@ -42,7 +42,7 @@ import {
 	KrDate,
 } from 'kr-ui';
 
-class SelectStationForm extends Component {
+class SelectStationForm extends React.Component {
 
 	static PropTypes = {
 		searchParams: React.PropTypes.object,

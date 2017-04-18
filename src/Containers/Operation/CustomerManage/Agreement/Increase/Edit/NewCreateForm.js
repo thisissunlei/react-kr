@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -13,7 +12,7 @@ import {
 	Binder
 } from 'react-binding';
 import ReactMixin from "react-mixin";
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import nzh from 'nzh';
 import {
@@ -66,7 +65,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -31,7 +31,7 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class SNSActivityManage extends Component{
+class SNSActivityManage extends React.Component{
 
 	constructor(props,context){
 

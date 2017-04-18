@@ -1,8 +1,8 @@
-import React,{Component} from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	KrField,
 	Table,
@@ -30,7 +30,7 @@ import {Http} from "kr/Utils";
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-export default class OpenPanel  extends Component{
+export default class OpenPanel  extends React.Component{
 
 		static displayName = 'OpenPanel';
 		static defaultProps = {

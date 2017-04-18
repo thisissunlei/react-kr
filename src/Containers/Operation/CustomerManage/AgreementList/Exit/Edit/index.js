@@ -1,5 +1,5 @@
 import React, {
-  Component,
+   
   PropTypes
 } from 'react';
 import {
@@ -27,7 +27,7 @@ import NewCreateForm from './NewCreateForm';
 import allState from "../../State";
 
 
-export default class EditCreate extends Component {
+export default class EditCreate extends React.Component {
 
   constructor(props, context) {
     super(props, context);

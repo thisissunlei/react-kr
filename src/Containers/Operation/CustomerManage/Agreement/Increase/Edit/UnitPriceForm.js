@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 
@@ -17,7 +17,7 @@ import {
 	ListGroupItem
 } from 'kr-ui';
 
-class UnitPriceForm  extends Component{
+class UnitPriceForm  extends React.Component{
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,

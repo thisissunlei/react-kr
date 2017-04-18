@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -40,7 +39,7 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 
-export default class CreateMemberForm extends Component {
+export default class CreateMemberForm extends React.Component {
 
 
 	constructor(props, context) {

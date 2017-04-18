@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
 
 import {
@@ -23,7 +21,7 @@ import {
 } from 'kr-ui';
 
 
-export default class Home extends Component {
+export default class Home extends React.Component {
 
 
 	constructor(props, context) {

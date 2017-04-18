@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -11,7 +10,7 @@ import {
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	Dialog,
 	Section,
@@ -38,7 +37,7 @@ import {
 } from 'redux-form';
 
 
-export default class FloorPlan extends Component {
+export default class FloorPlan extends React.Component {
 	// static contextTypes = {
 	// 	onSetCommunity: React.PropTypes.func.isRequired,
 	// 	communityId: React.PropTypes.string.isRequired,

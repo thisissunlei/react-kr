@@ -1,5 +1,5 @@
 
-import React,{Component} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
@@ -58,7 +58,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 //import Loading from '../../../Components/Loading';
 
-class Home extends Component{
+class Home extends React.Component{
 
 	constructor(props,context){
 		super(props, context);

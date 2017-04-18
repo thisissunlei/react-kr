@@ -5,7 +5,7 @@
  */
 
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -18,7 +18,7 @@ import {
 	DotTitle,
 	PaperBack
 } from 'kr-ui';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 import {
 	KrField,
@@ -53,7 +53,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 
-export default class ReduceDetail extends Component {
+export default class ReduceDetail extends React.Component {
 
 
 	constructor(props, context) {

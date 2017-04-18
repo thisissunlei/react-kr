@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Table,
 	TableBody,
@@ -11,9 +9,9 @@ import {
 	TableFooter,
   Message,
 } from 'kr-ui';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import SearchUpdateLog from './SearchUpdateLog';
-export default class UpdateLog extends Component {
+export default class UpdateLog extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

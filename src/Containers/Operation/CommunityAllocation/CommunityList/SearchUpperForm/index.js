@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -38,7 +37,7 @@ import {
 import State from '../State';
 import './index.less';
 @observer
-class SearchUpperForm extends Component {
+class SearchUpperForm extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

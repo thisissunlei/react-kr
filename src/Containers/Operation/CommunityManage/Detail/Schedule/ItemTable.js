@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
@@ -14,9 +14,9 @@ import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
-export default class ItemTable extends Component {
+export default class ItemTable extends React.Component {
 
 
   static PropTypes = {

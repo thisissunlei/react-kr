@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+
+
+import React from 'react';
 import {Actions,Store} from 'kr/Redux';
 import ImportCard from './ImportCard';
 import UsingCard from './UsingCard';
@@ -6,7 +8,8 @@ import DeleteCard from './DeleteCard';
 import ViewCard from './ViewCard';
 import ChangeCard from './ChangeCard';
 import { Title,Message,Dialog, Section,Grid,Row,Col, ListGroup,ListGroupItem,Form, KrField, Table,SearchForms, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, } from 'kr-ui';
-export default class Card extends Component {
+
+export default class Card extends React.Component {
 
     constructor(props, context) {
         super(props, context);

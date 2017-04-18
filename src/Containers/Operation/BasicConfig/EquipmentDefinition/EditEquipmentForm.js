@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -14,7 +14,7 @@ import {
 	Notify,
 	err
 } from 'kr-ui';
-class EditEquipmentForm extends Component{
+class EditEquipmentForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.detail = this.props.detail;

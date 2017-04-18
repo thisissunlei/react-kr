@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -26,7 +25,7 @@ import {
 } from 'kr-ui';
 
 
-class SearchDateForm extends Component {
+class SearchDateForm extends React.Component {
 
 	static defaultProps = {
 			todayDate:'2017-1-1'

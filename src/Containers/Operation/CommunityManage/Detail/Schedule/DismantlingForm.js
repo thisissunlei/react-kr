@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -21,7 +20,7 @@ import {
 import {
 	findDOMNode
 } from 'react-dom'
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
 import {
 	Menu,
@@ -48,7 +47,7 @@ import {
 } from 'kr-ui';
 
 
-class DismantlingForm extends Component {
+class DismantlingForm extends React.Component {
 	static defaultProps = {
 		mainBillId: 290,
 	}

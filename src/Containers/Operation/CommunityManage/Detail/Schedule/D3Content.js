@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, Section, Grid, Row, Col, Dialog, Tooltips, Tooltip, BreadCrumbs } from 'kr-ui';
 import { findDOMNode } from 'react-dom'
 import ReactTooltip from 'react-tooltip'
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import $ from 'jquery';
 
-export default class D3Content extends Component {
+export default class D3Content extends React.Component {
 
 
 	static defaultProps = {

@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -77,7 +77,7 @@ import {
 } from 'kr/Redux';
 import ReactTooltip from 'react-tooltip'
 
-class NewCreatForm extends Component {
+class NewCreatForm extends React.Component {
 	static PropTypes = {
 		contractStatusCount: React.PropTypes.object,
 		params: React.PropTypes.object,
@@ -137,7 +137,7 @@ class NewCreatForm extends Component {
 }
 
 
-class StaionInfo extends Component {
+class StaionInfo extends React.Component{
 	static PropTypes = {
 		detail: React.PropTypes.object,
 

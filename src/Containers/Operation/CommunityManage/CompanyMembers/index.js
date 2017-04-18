@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -52,7 +51,7 @@ import SetLeader from './SetLeader';
 import EditMember from './EditMember';
 import ImportData from './ImportData';
 import BatchDelet from './BatchDelet';
-export default class CompanyMembers extends Component {
+export default class CompanyMembers extends React.Component {
 
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
