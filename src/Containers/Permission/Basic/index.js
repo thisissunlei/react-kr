@@ -1,5 +1,4 @@
-import React, { PropTypes} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 export default class Basic extends React.Component {
 
@@ -21,12 +20,3 @@ export default class Basic extends React.Component {
     );
   }
 }
-
-
-
-
-
-
-
-
-

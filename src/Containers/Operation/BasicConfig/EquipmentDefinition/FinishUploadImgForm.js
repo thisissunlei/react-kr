@@ -1,7 +1,4 @@
-
-import React, {PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React from 'react';
 import {Actions,Store} from 'kr/Redux';
 import isRight from "./images/isRight.svg";
 import happy from "./images/happy.svg";
@@ -9,16 +6,13 @@ import sad from "./images/sad.svg";
 import './index.less';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {
-	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
 	Notify,
-	ButtonGroup,
   	ListGroup,
   	ListGroupItem,
-	SearchForm,
 	Message,
 	Table,
 	TableHeader,
@@ -96,12 +90,12 @@ export default class FinishUploadImgForm extends React.Component{
 					<div className="upload-img-body">
 						<Tabs
 					        failed={this.state.failed}
-					        
+
 					        inkBarStyle = {{background:"#499ef1"}}
 					    >
 					        <Tab className="upload-img-tab" label={`成功设备（ ${sucNum} ）`} value="a" style={{fontSize:14,fontWeight: "normal",color:leftfontColor?"#499ef1":"#333333",background:"#fff"}} onActive={this.onActive}>
 					          	<div style={{height:328,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-						            <div  style={{height:328,overflow:"scroll",}}>	
+						            <div  style={{height:328,overflow:"scroll",}}>
 							            <Table
 							            	onProcessData={(state)=>{
 		              							return state;
@@ -115,7 +109,7 @@ export default class FinishUploadImgForm extends React.Component{
 												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
 											</TableHeader>
-											<TableBody style={{position:'inherit'}} 
+											<TableBody style={{position:'inherit'}}
 							            	>
 												{
 													success && success.map((item,index)=>{
@@ -124,16 +118,16 @@ export default class FinishUploadImgForm extends React.Component{
 
 																	<TableRowColumn><span>{item.communityName}</span></TableRowColumn>
 																	<TableRowColumn><span>{item.deviceCode}</span></TableRowColumn>
-																	<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>	
-																	
+																	<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>
+
 															</TableRow>
 															)
 													})
-												}	
+												}
 											</TableBody>
 											<TableFooter></TableFooter>
 										</Table>
-										<div 
+										<div
 											style={{display:this.state.successZero?"block":"none",textAlign:"center",height:137,paddingTop:120,}}
 										>
 
@@ -142,11 +136,11 @@ export default class FinishUploadImgForm extends React.Component{
 										</div>
 						          	</div>
 
-						          	
+
 									<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
 
 								</div>
-					          	
+
 					          	<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
@@ -156,15 +150,15 @@ export default class FinishUploadImgForm extends React.Component{
 											<ListGroupItem style={{width:'171px',textAlign:'left',padding:0,paddingLeft:15}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeUploadImg} />
 											</ListGroupItem>
-										</ListGroup>					
+										</ListGroup>
 									</Row>
 								</Grid>
-								
+
 					        </Tab>
 					        <Tab label={`失败设备（ ${errNum} ）`} value="b" style={{fontSize:14,fontWeight: "normal",color:rightfontColor?"#499ef1":"#333333",background:"#fff"}} onActive={this.onActive}>
 					          	<div style={{height:334,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-						            <div style={{height:334,overflow:"scroll"}}> 
-							          	<Table 
+						            <div style={{height:334,overflow:"scroll"}}>
+							          	<Table
 							          	exportSwitch={true}
 						            	pagination = {false}
 						            	displayCheckbox = {false}
@@ -176,7 +170,7 @@ export default class FinishUploadImgForm extends React.Component{
 												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
 											</TableHeader>
 											<TableBody style={{position:'inherit'}}>
-												
+
 												{
 													failed && failed.map((item,index)=>{
 														return(
@@ -184,7 +178,7 @@ export default class FinishUploadImgForm extends React.Component{
 																	<TableRowColumn><span>{item.communityName}</span></TableRowColumn>
 																	<TableRowColumn><span>{item.deviceCode}</span></TableRowColumn>
 																	<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>
-																	
+
 															</TableRow>
 															)
 													})
@@ -192,19 +186,19 @@ export default class FinishUploadImgForm extends React.Component{
 											</TableBody>
 											<TableFooter></TableFooter>
 										</Table>
-										<div 
+										<div
 											style={{display:this.state.failedZero?"block":"none",textAlign:"center",height:137,paddingTop:120,}}
 										>
 											<img className="upload-img-right" src={happy} style={{width:20,verticalAlign:"top"}}/>
 											<span style={{color:"#333"}}>恭喜您，所有照片都上传成功了</span>
 										</div>
 									</div>
-									
-										
+
+
 									<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
 
 						        </div>
-						        
+
 					          	<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
@@ -214,7 +208,7 @@ export default class FinishUploadImgForm extends React.Component{
 											<ListGroupItem style={{width:'171px',textAlign:'left',padding:0,paddingLeft:15}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeUploadImg} />
 											</ListGroupItem>
-										</ListGroup>					
+										</ListGroup>
 									</Row>
 								</Grid>
 					        </Tab>
@@ -226,4 +220,3 @@ export default class FinishUploadImgForm extends React.Component{
 		);
 	}
 }
-

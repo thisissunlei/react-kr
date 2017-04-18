@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Title,
-  KrField,
   Table,
   TableBody,
   TableHeader,
@@ -41,7 +40,7 @@ export default class EquipmentDefinition extends React.Component {
       onLineOpen:false,
       openOffline :false,
       openSingleUpload: false,
-      
+
       singleRequestURI :'',
       filter: 'deviceCode',
       content: '',
@@ -272,7 +271,7 @@ export default class EquipmentDefinition extends React.Component {
       })
     },3000)
   }
-  //  并没有选择社区 
+  //  并没有选择社区
   seleletZero=()=>{
     let _this = this;
     _this.setState({
@@ -287,7 +286,7 @@ export default class EquipmentDefinition extends React.Component {
   }
   // 提交---->新建
   onSubmitNewCreateEquipment=(values)=>{
-    
+
     if(!values.locationId){
       values.locationId=0;
     }
@@ -375,12 +374,12 @@ export default class EquipmentDefinition extends React.Component {
             timer : new Date()
           },
         })
-        
-        
+
+
      });
 
-      
-    
+
+
   }
   // 最终确定下线
   confirmOffline=()=>{
@@ -415,7 +414,7 @@ export default class EquipmentDefinition extends React.Component {
           },
         })
      });
-    
+
   }
   render() {
     let {list,itemDetail,seleced,openTipWarn,tipText} = this.state;
@@ -443,18 +442,18 @@ export default class EquipmentDefinition extends React.Component {
                   </ListGroupItem>
                   <ListGroupItem style={{float:'right'}}>
                     {/*高级查询*/}
-                    <Button type='search' searchClick={this.openEquipmentAdvancedQueryDialog} 
+                    <Button type='search' searchClick={this.openEquipmentAdvancedQueryDialog}
                         searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}
                     />
-                  <SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter" 
-                    style={{marginTop:5,zIndex:10000}} 
-                    content={this.state.content} 
+                  <SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter"
+                    style={{marginTop:5,zIndex:10000}}
+                    content={this.state.content}
                     searchFilter={options}
                   />
                   </ListGroupItem>
                 </ListGroup>
               </Row>
-            </Grid>   
+            </Grid>
           </form>
           <Table
             className="member-list-table"
@@ -492,7 +491,7 @@ export default class EquipmentDefinition extends React.Component {
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              
+
 
 
 
@@ -508,7 +507,7 @@ export default class EquipmentDefinition extends React.Component {
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
               }} ></TableRowColumn>
 
-              
+
 
 
               <TableRowColumn name="deviceCode" style={{overflow:"hidden"}}
@@ -522,7 +521,7 @@ export default class EquipmentDefinition extends React.Component {
 
 
 
-            
+
               <TableRowColumn style={{width:160,overflow:"visible"}} name="hardwareId" component={(value,oldValue)=>{
                             var TooltipStyle=""
                             if(value.length==""){
@@ -538,7 +537,7 @@ export default class EquipmentDefinition extends React.Component {
 
 
 
-            
+
               <TableRowColumn name="typeName"
               component={(value,oldValue)=>{
                 if(value==""){
@@ -562,7 +561,7 @@ export default class EquipmentDefinition extends React.Component {
               ></TableRowColumn>
               <TableRowColumn name="enable"
               component={(value,oldValue)=>{
-                var spanColorOnline=""; 
+                var spanColorOnline="";
                 if(value=="OFFLINE"){
                   value="未上线";
                   spanColorOnline = "#ff6868";
@@ -580,8 +579,8 @@ export default class EquipmentDefinition extends React.Component {
                   value="已连接";
                 }
                 return (<span style={{color:spanColor}}>{value}</span>)}}></TableRowColumn>
-              <TableRowColumn type="operation" name="enable" options={[{label:'已上线',value:'ONLINE'},{label:'未上线',value:'OFFLINE'}]} 
-             
+              <TableRowColumn type="operation" name="enable" options={[{label:'已上线',value:'ONLINE'},{label:'未上线',value:'OFFLINE'}]}
+
               component={(value,oldValue,itemData)=>{
                   if(value=="未上线"){
                     return (
@@ -600,7 +599,7 @@ export default class EquipmentDefinition extends React.Component {
                       </span>
                     )
                   }
-              }}>    
+              }}>
               </TableRowColumn>
              </TableRow>
           </TableBody>
@@ -613,14 +612,14 @@ export default class EquipmentDefinition extends React.Component {
           onClose={this.openNewCreateDefinitionDialog}
           contentStyle={{width:687}}
         >
-          <NewCreateDefinitionForm  
-            onCancel={this.openNewCreateDefinitionDialog} 
+          <NewCreateDefinitionForm
+            onCancel={this.openNewCreateDefinitionDialog}
             style ={{paddingTop:'35px'}}
             onSubmit = {this.onSubmitNewCreateEquipment}
             isDoorNumHas= {this.isDoorNumHas}
             hardwareIdHas ={this.hardwareIdHas}
             saveAndNewCreate= {this.saveAndNewCreate}
-          /> 
+          />
         </Dialog>
         <Dialog
           title="编辑设备"
@@ -628,7 +627,7 @@ export default class EquipmentDefinition extends React.Component {
           onClose={this.openEditEquipmentDialog}
           contentStyle={{width:687}}
         >
-          <EditEquipmentForm 
+          <EditEquipmentForm
             detail={itemDetail}
             onSubmit = {this.onSubmitNewCreateEquipment}
             isDoorNumHas= {this.isDoorNumHas}
@@ -643,14 +642,14 @@ export default class EquipmentDefinition extends React.Component {
           onClose={this.openEquipmentAdvancedQueryDialog}
           contentStyle={{width:687}}
         >
-          <EquipmentAdvanceQueryForm 
-            onSubmit={this.onEquipmentAdvanceSearchSubmit} 
+          <EquipmentAdvanceQueryForm
+            onSubmit={this.onEquipmentAdvanceSearchSubmit}
             onReset = {this.onEquipmentAdvanceSearchReset}
-            params={this.params} 
-            onCancel={this.openEquipmentAdvancedQueryDialog} 
+            params={this.params}
+            onCancel={this.openEquipmentAdvancedQueryDialog}
             onFilterState = {this.onFilterState}
-            style={{marginTop:37}} 
-            content={this.state.content} 
+            style={{marginTop:37}}
+            content={this.state.content}
             filter={this.state.filter}
           />
         </Dialog>
@@ -660,7 +659,7 @@ export default class EquipmentDefinition extends React.Component {
           onClose={this.openBatchUploadDialog}
           contentStyle={{width:687}}
         >
-          <BatchUploadImageForm 
+          <BatchUploadImageForm
             tipCommunityOpen = {this.tipCommunityOpen}
             tipOpen = {this.tipOpen}
             onCancel= {this.openBatchUploadDialog}
@@ -677,7 +676,7 @@ export default class EquipmentDefinition extends React.Component {
           onClose={this.openFinishUploadDialog}
           contentStyle={{width:687}}
         >
-          <FinishUploadImgForm 
+          <FinishUploadImgForm
             closeUploadImg = {this.openFinishUploadDialog}
             onCancel= {this.openFinishUploadDialog}
           />
@@ -699,7 +698,7 @@ export default class EquipmentDefinition extends React.Component {
                       <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
                         <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openOnLineDialog} />
                       </ListGroupItem>
-                    </ListGroup>          
+                    </ListGroup>
                   </Row>
                 </Grid>
           </div>
@@ -721,7 +720,7 @@ export default class EquipmentDefinition extends React.Component {
                       <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
                         <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openOffLineDialog} />
                       </ListGroupItem>
-                    </ListGroup>          
+                    </ListGroup>
                   </Row>
                 </Grid>
           </div>
@@ -732,9 +731,9 @@ export default class EquipmentDefinition extends React.Component {
           onClose={this.openSingleUploadDialog}
           contentStyle={{width:443}}
         >
-          <SingleUploadImgForm 
+          <SingleUploadImgForm
             tipOpen={this.tipOpen}
-            detail={itemDetail} 
+            detail={itemDetail}
             onCancel = {this.openSingleUploadDialog}
             openSingleUploadDialog ={this.openSingleUploadDialog}
           />
@@ -745,4 +744,3 @@ export default class EquipmentDefinition extends React.Component {
   }
 
 }
-
