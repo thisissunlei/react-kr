@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -91,8 +91,8 @@ export default class ConfirmFormDetail extends React.Component {
 			}
 		})
 
-		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
-		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
+		detail.firstpaydate = DateFormat(detail.firstpaydate, "yyyy-mm-dd ");
+		detail.signdate = DateFormat(detail.signdate, "yyyy-mm-dd ");
 
 		return (
 

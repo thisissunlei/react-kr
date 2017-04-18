@@ -14,7 +14,7 @@ import {
   change
 } from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import {
   Actions,
   Store

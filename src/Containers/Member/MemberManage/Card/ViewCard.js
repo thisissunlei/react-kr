@@ -16,7 +16,7 @@ import {
 	SearchForm,
 	Message,
 } from 'kr-ui';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import $ from 'jquery'
 class ImportCard extends React.Component{
 	constructor(props){
@@ -82,7 +82,7 @@ class ImportCard extends React.Component{
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginBottom:25}}>
 					<KrField name="person"  grid={1/1} component="labelText" label="绑定人：" value={infoData.memberName}/>
 					<KrField name="phone"  grid={1/1} component="labelText" label="手机号：" value={infoData.boundTel}/>
-					<KrField name="bindTime"  grid={1/1} component="labelText" label="绑定时间：" value={dateFormat(infoData.boundTime, "yyyy-mm-dd HH:MM:ss")}/>
+					<KrField name="bindTime"  grid={1/1} component="labelText" label="绑定时间：" value={DateFormat(infoData.boundTime, "yyyy-mm-dd HH:MM:ss")}/>
 			  </form>
 			);
 		}

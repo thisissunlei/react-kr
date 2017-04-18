@@ -16,7 +16,6 @@ import {
 	SearchForm,
 	Message,
 } from 'kr-ui';
-import dateFormat from 'kr/Utils';
 import $ from 'jquery'
 class ImportCard extends React.Component{
 	constructor(props){

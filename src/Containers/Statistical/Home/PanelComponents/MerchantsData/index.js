@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from "kr/Utils";
 
 import {
 	KrField,

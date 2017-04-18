@@ -6,7 +6,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Table,
@@ -34,7 +34,6 @@ import {
 	FontIcon,
 	Pagination
 } from 'kr-ui';
-import DateFormat from "kr/Utils";
 import State from './State';
 import SearchForm from "./SearchForm";
 import OneNewAgreement from "./OneNewAgreement";

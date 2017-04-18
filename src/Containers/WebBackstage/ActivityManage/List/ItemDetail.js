@@ -35,7 +35,7 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 import State from './State';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 @observer
 
 
@@ -94,16 +94,16 @@ import dateFormat from 'kr/Utils';
 		switch(same)
 		{
 		case 'year':
-		  time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'mm/dd HH:MM:ss');
+		  time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'mm/dd HH:MM:ss');
 		  break;
 		case 'mouth':
-			time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'mm/dd HH:MM:ss');
+			time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'mm/dd HH:MM:ss');
 		  break;
 		case 'day':
-			time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'HH:MM:ss');
+			time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'HH:MM:ss');
 		  break;
 		default:
-			time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'yyyy/mm/dd HH:MM:ss');
+			time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'yyyy/mm/dd HH:MM:ss');
 		}
 		return time;
 	}

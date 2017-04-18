@@ -10,7 +10,7 @@ import {
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import {
 	Dialog,
 	Section,
@@ -62,8 +62,8 @@ export default class FloorPlan extends React.Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend: dateFormat(new Date(), "yyyy-mm-dd"),
-			date: dateFormat(new Date(), "yyyy-mm-dd")
+			dateend: DateFormat(new Date(), "yyyy-mm-dd"),
+			date: DateFormat(new Date(), "yyyy-mm-dd")
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -71,8 +71,8 @@ export default class FloorPlan extends React.Component {
 		this.getcommunity();
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
 		this.selectFloors = this.selectFloors.bind(this);
-		Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
-		Store.dispatch(change('FloorPlan', 'end', dateFormat(new Date(), "yyyy-mm-dd")));
+		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
+		Store.dispatch(change('FloorPlan', 'end', DateFormat(new Date(), "yyyy-mm-dd")));
 
 
 	}
@@ -149,8 +149,8 @@ export default class FloorPlan extends React.Component {
 			var params = {
 				communityId: community,
 				wherefloor: floors,
-				date: dateFormat(form.start, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
-				dateend: dateFormat(form.end, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
+				date: DateFormat(form.start, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
+				dateend: DateFormat(form.end, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
 			};
 			if (form.start && form.end) {
 				var datastart = Date.parse(form.start),
@@ -163,8 +163,8 @@ export default class FloorPlan extends React.Component {
 
 				} else {
 					this.setState({
-						date: dateFormat(form.start, "yyyy-mm-dd"),
-						dateend: dateFormat(form.end, "yyyy-mm-dd"),
+						date: DateFormat(form.start, "yyyy-mm-dd"),
+						dateend: DateFormat(form.end, "yyyy-mm-dd"),
 						url: this.getStationUrl(params)
 					})
 				}
@@ -273,7 +273,7 @@ export default class FloorPlan extends React.Component {
 	}
 	firstDate = (personel) => {
 
-		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		// Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
 		let firstDate = new Date(personel);
 		let {date} = this.state;
 		if (this.state.dateend) {
@@ -289,7 +289,7 @@ export default class FloorPlan extends React.Component {
 					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
-				Store.dispatch(change('FloorPlan', 'start', dateFormat(date, "yyyy-mm-dd")));
+				Store.dispatch(change('FloorPlan', 'start', DateFormat(date, "yyyy-mm-dd")));
 			}
 		} else {
 			this.setState({
@@ -315,7 +315,7 @@ export default class FloorPlan extends React.Component {
 					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
-				Store.dispatch(change('FloorPlan', 'end', dateFormat(dateend, "yyyy-mm-dd")));
+				Store.dispatch(change('FloorPlan', 'end', DateFormat(dateend, "yyyy-mm-dd")));
 			}
 		} else {
 			this.setState({

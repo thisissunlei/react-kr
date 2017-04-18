@@ -2,7 +2,7 @@ import React, {
 	PropTypes
 } from 'react';
 
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	KrField,
@@ -113,14 +113,14 @@ export default class JoinDetail extends React.Component {
 					<KrField component="labelText" grid={1/2} label="合同编号：" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式：" value={basic.payType && basic.payType.dicName} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} label="租赁期限：" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="租赁期限：" value={`${DateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${DateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="无" requireBlue={true}/>
 
 
 					<KrField component="labelText" grid={1/2} label="首付款时间：" type="date" value={basic.firstpaydate} requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="付款方式："  value={basic.payment.dicName} defaultValue="无" requireBlue={true}/>
 				<KrField component="labelText" grid={1/2}  label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} label="签署日期：" value={dateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="签署日期：" value={DateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" label="租赁工位：" grid={1/2}  value={basic.stationnum} requireBlue={true} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" label="租赁办公室：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0" requireBlue={true}/>
 

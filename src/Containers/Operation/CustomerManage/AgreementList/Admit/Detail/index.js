@@ -29,7 +29,7 @@ import {
 } from 'kr-ui';
 
 
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 
 import {
@@ -275,7 +275,7 @@ export default class AdmitDetail extends React.Component {
 
 				<KrField label="租赁工位："   grid={1/2} component="labelText" value={basic.stationnum} defaultValue="0" requireBlue={true} toolTrue='true'/>
 					<KrField label="租赁会议室："  left={60} grid={1/2} component="labelText" value={basic.boardroomnum} defaultValue="0" requireBlue={true} toolTrue='true'/>
-					<KrField label="租赁期限："   grid={1/2}  component="labelText" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="0" requireBlue={true}/>
+					<KrField label="租赁期限："   grid={1/2}  component="labelText" value={`${DateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${DateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="0" requireBlue={true}/>
 
 <KrField label="保留天数："   grid={1/2} component="labelText" left={60} value={basic.templockday} defaultValue="0" requireBlue={true} toolTrue='true'/>
 

@@ -18,7 +18,7 @@ import {
 	DotTitle,
 	PaperBack
 } from 'kr-ui';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	KrField,

@@ -1,7 +1,7 @@
 import React, {  PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -71,7 +71,7 @@ export default class ConfirmFormDetail  extends React.Component{
         	}
         })
 
-	    detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+	    detail.signdate=DateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 
