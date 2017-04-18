@@ -1,28 +1,18 @@
 import React,{PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
-import { Link } from 'react-router';
-
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import Section from 'kr-ui/Section';
-import Calendar from 'kr-ui/Calendar';
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionSpeakerNotes from 'material-ui/svg-icons/action/speaker-notes';
 
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import {red500} from 'material-ui/styles/colors';
 
 import {
 	Menu,
 	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Divider,
-	FontIcon,
 	Avatar,
 } from 'material-ui';
 

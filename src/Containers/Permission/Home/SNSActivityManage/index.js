@@ -6,24 +6,17 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
 import Section from 'kr-ui/Section';
-import Calendar from 'kr-ui/Calendar';
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 
 import ActionStars from 'material-ui/svg-icons/action/stars';
 
-import {indigo500,blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import {indigo500} from 'material-ui/styles/colors';
 
 import {
 	Menu,
 	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Divider,
-	FontIcon,
 	Avatar,
 } from 'material-ui';
 
