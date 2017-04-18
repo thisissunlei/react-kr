@@ -27,7 +27,7 @@ import {
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import State from './State';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	observer
 } from 'mobx-react';
@@ -234,7 +234,7 @@ export default class List extends React.Component {
 
 											<TableRowColumn name="beginDate" style={{width:250}} type="date"
 											component={(value,oldValue,itemData)=>{
-												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}至{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
+												return (<span>{DateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}至{DateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
 												></TableRowColumn>
 											<TableRowColumn name="createName"
 											component={(value,oldValue)=>{

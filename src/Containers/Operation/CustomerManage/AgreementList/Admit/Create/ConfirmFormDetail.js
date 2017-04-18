@@ -21,7 +21,7 @@ import {
 	DotTitle
 } from 'kr-ui';
 
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 export default class ConfirmFormDetail  extends React.Component{
 
 
@@ -69,9 +69,9 @@ export default class ConfirmFormDetail  extends React.Component{
         		return payment = item.label;
         	}
         })
-         	detail.leaseBegindate=dateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
-	        detail.leaseEnddate=dateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
-	        detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+         	detail.leaseBegindate=DateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
+	        detail.leaseEnddate=DateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
+	        detail.signdate=DateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 

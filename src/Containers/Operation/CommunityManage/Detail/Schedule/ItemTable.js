@@ -14,7 +14,7 @@ import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 export default class ItemTable extends React.Component {
 
@@ -115,7 +115,7 @@ export default class ItemTable extends React.Component {
                   return (
                         <li key={index} className="company-order-zero" key={index}>
                          <p className="name">{order.name}</p>
-                         <p className="zero-circle">{dateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{dateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
+                         <p className="zero-circle">{DateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{DateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
                          <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                         </li>
                       
@@ -124,7 +124,7 @@ export default class ItemTable extends React.Component {
                   return (
                       <li key={index} className="company-order" key={index}>
                         <p className="name">{order.name}</p>
-                        <p className="zero-circle">{dateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{dateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
+                        <p className="zero-circle">{DateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{DateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
                         <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                       </li>
                   )

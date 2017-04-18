@@ -9,7 +9,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import {dateFormat} from 'kr/Utils';
 import PersonalData from './PersonalData';
 import PersonalJob from './PersonalJob';
 import PersonalCompanyInfo from './PersonalCompanyInfo';

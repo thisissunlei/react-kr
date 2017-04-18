@@ -6,7 +6,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import {
 	Table,
 	TableBody,
@@ -91,10 +91,10 @@ export default class ConfirmFormDetail extends React.Component {
 			}
 
 		})
-		detail.leaseBegindate = dateFormat(detail.leaseBegindate, "yyyy-mm-dd ");
-		detail.leaseEnddate = dateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
-		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
-		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
+		detail.leaseBegindate = DateFormat(detail.leaseBegindate, "yyyy-mm-dd ");
+		detail.leaseEnddate = DateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
+		detail.firstpaydate = DateFormat(detail.firstpaydate, "yyyy-mm-dd ");
+		detail.signdate = DateFormat(detail.signdate, "yyyy-mm-dd ");
 
 
 		return (

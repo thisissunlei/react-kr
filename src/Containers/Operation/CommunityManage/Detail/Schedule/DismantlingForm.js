@@ -4,9 +4,6 @@ import React, {
 import {
 	connect
 } from 'kr/Redux';
-import {
-	DateFormat
-} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -20,7 +17,7 @@ import {
 import {
 	findDOMNode
 } from 'react-dom'
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
 import {
 	Menu,
@@ -140,7 +137,7 @@ class DismantlingForm extends React.Component {
 
 			<form className="DismantlingForm" onSubmit={handleSubmit(this.onSubmit)}> 
 			<div style={{textAlign:'center',marginBottom:'14px',paddingTop:'20px',color:'#333333',fontSize:'14px'}}>{detail.companyName}</div>
-			<div style={{textAlign:'center',marginBottom:'14px',color:'#333333',fontSize:'14px',fontSize:'14px'}}>合同到期时间为：{dateFormat(detail.endTime,"yyyy.mm.dd")}</div>
+			<div style={{textAlign:'center',marginBottom:'14px',color:'#333333',fontSize:'14px',fontSize:'14px'}}>合同到期时间为：{DateFormat(detail.endTime,"yyyy.mm.dd")}</div>
 			{detail.editFlag?<KrField name="actualLeaveDate"component="date"  label="实际撤场时间：" value="" inline={true}/>:<KrField component="labelText"  label="实际的撤场时间为：" value={time} />}
 			{detail.editFlag?<Grid>
 				<Row style={{marginTop:30,marginBottom:15}}>

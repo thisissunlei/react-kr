@@ -353,7 +353,7 @@ Searching 460 files for "Component" (case sensitive)
     2  import { connect } from 'kr/Redux';
     3  import { reduxForm, submitForm, change, reset } from 'redux-form';
     .
-   17  import dateFormat from 'kr/Utils';
+   17  import {DateFormat} from 'kr/Utils';
    18  
    19: export default class ItemTable extends React.Component {
    20  
@@ -365,7 +365,7 @@ Searching 460 files for "Component" (case sensitive)
     3  import {Actions,Store} from 'kr/Redux';
     .
    23  
-   24  import dateFormat from 'kr/Utils';
+   24  import {DateFormat} from 'kr/Utils';
    25: export default class ConfirmFormDetail  extends React.Component{
    26  
    27  
@@ -1311,7 +1311,7 @@ Searching 460 files for "Component" (case sensitive)
     3  import {Actions,Store} from 'kr/Redux';
     .
    23  
-   24  import dateFormat from 'kr/Utils';
+   24  import {DateFormat} from 'kr/Utils';
    25: export default class ConfirmFormDetail  extends React.Component{
    26  
    27  

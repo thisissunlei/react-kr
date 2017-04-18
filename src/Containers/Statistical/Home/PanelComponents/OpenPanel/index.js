@@ -2,7 +2,7 @@ import React  from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'kr/Utils';
+import  {DateFormat} from "kr/Utils";
 import {
 	KrField,
 	Table,
@@ -61,10 +61,10 @@ export default class OpenPanel  extends React.Component{
     onStartChange=(startD)=>{
 
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
 
 
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        let end=Date.parse(DateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         this.setState({
         	startValue:startD
 
@@ -88,8 +88,8 @@ export default class OpenPanel  extends React.Component{
     }
     onEndChange=(endD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(DateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
 

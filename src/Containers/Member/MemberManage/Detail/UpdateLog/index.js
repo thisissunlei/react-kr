@@ -9,7 +9,7 @@ import {
 	TableFooter,
   Message,
 } from 'kr-ui';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import SearchUpdateLog from './SearchUpdateLog';
 export default class UpdateLog extends React.Component {
 	static contextTypes = {
@@ -42,8 +42,8 @@ export default class UpdateLog extends React.Component {
 	}
   onStartChange=(startTime)=>{
     let {searchParams}=this.state;
-    let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
-    let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
+    let start=Date.parse(DateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
+    let end=Date.parse(DateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
     if(searchParams.endTime && start>end ){
       Message.error("结束时间要小于开始时间");
       return ;
@@ -55,8 +55,8 @@ export default class UpdateLog extends React.Component {
   }
   onEndChange=(endTime)=>{
     let {searchParams}=this.state;
-    let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
-    let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
+    let start=Date.parse(DateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
+    let end=Date.parse(DateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
     if(searchParams.startTime && start>end){
       Message.error("结束时间要小于开始时间");
 			return ;

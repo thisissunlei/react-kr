@@ -31,7 +31,7 @@ import {
 	Row,
 	Col
 } from 'kr-ui/Grid';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,

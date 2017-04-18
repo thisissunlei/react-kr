@@ -5,7 +5,7 @@ import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
@@ -100,7 +100,7 @@ class NewCreateForm  extends Component{
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value){
 
-		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value,"yyyy-mm-dd hh:MM:ss");
 
 		let {stationVos} = this.state;
 
@@ -115,7 +115,7 @@ class NewCreateForm  extends Component{
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value){
-		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value,"yyyy-mm-dd hh:MM:ss");
 		let {stationVos} = this.state;
 
 		if(!stationVos.length){
@@ -262,10 +262,10 @@ class NewCreateForm  extends Component{
 		};
         form.lessorAddress = changeValues.lessorAddress;
 
-		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
 
 
 		var _this = this;
@@ -303,8 +303,8 @@ class NewCreateForm  extends Component{
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
-			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
-			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
+			startDate:DateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:DateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 
 		};
 

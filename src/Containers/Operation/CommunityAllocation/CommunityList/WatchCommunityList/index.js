@@ -3,7 +3,7 @@ import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
-import dateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -125,9 +125,9 @@ import State from '../State';
     var endTime='';
     var inforStyle='';
     var hereWatch='';
-    openTime=dateFormat(toJS(State.detailData.openDate),"yyyy-mm-dd");
-    startTime=dateFormat(toJS(State.detailData.signStartDate),"yyyy-mm-dd");
-    endTime=dateFormat(toJS(State.detailData.signEndDate),"yyyy-mm-dd");
+    openTime=DateFormat(toJS(State.detailData.openDate),"yyyy-mm-dd");
+    startTime=DateFormat(toJS(State.detailData.signStartDate),"yyyy-mm-dd");
+    endTime=DateFormat(toJS(State.detailData.signEndDate),"yyyy-mm-dd");
     
     if(toJS(State.detailData.opened)==true){
       inforStyle='已开业';

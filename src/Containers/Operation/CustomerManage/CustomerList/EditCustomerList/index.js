@@ -15,7 +15,7 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
-import dateFormat from "dateformat";
+import {DateFormat} from "dateformat";
 import './index.less'
 import merchants from "../Merchants/State";
 import personal from '../Personal/State';
