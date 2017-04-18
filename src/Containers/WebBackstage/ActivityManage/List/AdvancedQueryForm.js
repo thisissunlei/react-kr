@@ -16,7 +16,7 @@ import {
 	SearchForm,
 	Message,
 } from 'kr-ui';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import $ from 'jquery';
 import {
 	observer
