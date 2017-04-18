@@ -50,6 +50,8 @@ import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
 
+import SearchOrderCommunity from './SearchOrderCommunity';
+
 
 class FieldRevert extends React.Component {
 
@@ -280,6 +282,13 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchSignCompanyName}  style={WrapStyles} {...other}/>
 			);
 		}
+
+			if (component === 'searchOrder') {
+			 return (
+
+				 <Field {...this.props} component={SearchOrderCommunity}  style={WrapStyles} {...other}/>
+			 );
+			}
 
 
 

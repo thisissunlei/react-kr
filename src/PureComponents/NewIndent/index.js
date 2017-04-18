@@ -132,8 +132,8 @@ import {
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
-					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}}
-							options={this.props.NewIndentModel.community}
+					<KrField grid={1/2} label="所在社区" name="communityid" component="searchOrder" style={{width:262,marginLeft:30}}
+							//options={this.props.NewIndentModel.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>

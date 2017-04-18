@@ -25,7 +25,7 @@ import {
 @observer
  class EditIndent extends Component{
 
-		
+
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -87,7 +87,7 @@ import {
 			}
 			State.orderReady(nextProps.orderReady)
 	}
-	communityChange=(value)=>{ 
+	communityChange=(value)=>{
 		if(!value){
 			return;
 		}
@@ -105,7 +105,7 @@ import {
 		State.orderName=this.props.customerName+value.label+this.props.orderCount;
 
 	}
-	
+
 
 	render(){
 		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityNameIndent} = this.props;
@@ -118,23 +118,23 @@ import {
 						<div><span className="order-new-icon"></span><label className="title-text">{companyName}</label></div>
 						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
-				
-				<div className="kk" style={{marginTop:30,paddingLeft:20}}>		
-					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select" 
+
+				<div className="kk" style={{marginTop:30,paddingLeft:20}}>
+					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select"
 							options={State.orderFound}
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
-					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}} 
-							options={State.community}
+					<KrField grid={1/2} label="所在社区" name="communityid" component="searchOrder" style={{width:262,marginLeft:30}}
+							//options={State.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
-					
+
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={citys} inline={false}/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:mainbillname} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
-				</div>		
+				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
@@ -145,8 +145,8 @@ import {
 						</Col>
 					</Row>
 				</Grid>
-						
-						    
+
+
 				</form>
 		);
 	}
@@ -154,7 +154,7 @@ import {
 const validate = values =>{
 
 		const errors = {};
-		
+
 		if(!values.mainbilltype){
 			errors.mainbilltype = '请选择订单类型';
 		}
