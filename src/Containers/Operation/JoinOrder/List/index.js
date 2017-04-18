@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import { connect } from 'react-redux';
 
 import Section from 'kr-ui/Section';
 
@@ -7,11 +6,8 @@ import {reduxForm } from 'redux-form';
 import {KrField} from 'kr-ui';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {GridList, GridTile} from 'material-ui/GridList';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import {RaisedButton,Dialog,FlatButton} from 'material-ui';
 
 

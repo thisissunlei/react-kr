@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import { connect } from 'react-redux';
 
 import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
