@@ -18,6 +18,22 @@ module.exports = [
 					menuCode: 'contractList',
 				},]
 			},
+			{
+				primaryText: "权限管理",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: 'permission/user',
+				menuCode: 'coustomerInfoList',
+				menuItems: [{
+					primaryText: '角色列表',
+					router: 'permission/user',
+					menuCode: 'contractList',
+				},{
+					primaryText: '操作项',
+					router: 'permission/operations',
+					menuCode: 'contractList',
+				},]
+			}
 		]
 	}
 

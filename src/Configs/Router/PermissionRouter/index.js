@@ -28,6 +28,7 @@ module.exports =()=>{
 
 */}
 		<Route path="user" component={Permission.User}/>
+		<Route path="operations" component={Permission.Operations}/>
 		<Route path="accountList" component={Permission.AccountList}/>
 		<Route path="userlist/:userId" component={Permission.UserList}>
 			<Redirect from="permission" to="permission/userlist"/>
