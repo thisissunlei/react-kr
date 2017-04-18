@@ -1,21 +1,9 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-
+import React from 'react';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
 	Table,
 	TableBody,
@@ -37,14 +25,13 @@ import {
 	Title,
 } from 'kr-ui';
 
-
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
 import ItemDetail from './ItemDetail';
 import EditDetailForm from './EditDetailForm';
 
 
-export default class AttributeSetting extends Component {
+export default class AttributeSetting extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
