@@ -1,7 +1,5 @@
-
 import React, { PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import {reduxForm,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,11 +7,8 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
-	ButtonGroup,
   ListGroup,
   ListGroupItem,
-	SearchForm,
 	Message,
 } from 'kr-ui';
 import {DateFormat} from 'kr/Utils';
@@ -77,7 +72,7 @@ class NewCreateForm extends React.Component{
 		}
 	}
 	componentDidMount() {
-		
+
 	}
 	 onSubmit=(values)=>{
 		let {content,filter} = this.props;
@@ -117,7 +112,7 @@ class NewCreateForm extends React.Component{
 				 Message.error("结束时间不可小于开始时间");
 				 return ;
 		 }
-		 Store.dispatch(change('AdvancedQueryForm','endDate',endTime));			 
+		 Store.dispatch(change('AdvancedQueryForm','endDate',endTime));
 		 searchParams = Object.assign({}, searchParams, {endTime});
 		 this.setState({
 				 searchParams
