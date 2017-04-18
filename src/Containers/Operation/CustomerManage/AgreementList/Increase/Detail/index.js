@@ -3,7 +3,7 @@ import React, {
 	PropTypes
 } from 'react';
 
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 import {
 	KrField,

@@ -20,7 +20,7 @@ import {
 import {
 	findDOMNode
 } from 'react-dom'
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
 import {
 	Menu,

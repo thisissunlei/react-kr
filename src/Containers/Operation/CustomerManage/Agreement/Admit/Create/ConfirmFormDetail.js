@@ -21,7 +21,7 @@ import {
 	DotTitle
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 export default class ConfirmFormDetail  extends React.Component{
 
 

@@ -3,7 +3,7 @@ import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {

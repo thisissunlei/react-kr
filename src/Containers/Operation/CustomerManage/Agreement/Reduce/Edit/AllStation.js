@@ -8,7 +8,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,

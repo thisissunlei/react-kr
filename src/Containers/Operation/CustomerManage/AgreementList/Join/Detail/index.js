@@ -23,7 +23,7 @@ import {
 
 
 import RaisedButton from 'material-ui/RaisedButton';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 import {
 	Actions,

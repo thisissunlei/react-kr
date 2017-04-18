@@ -8,7 +8,7 @@ Searching 462 files for "ConfirmFormDetail" (case sensitive)
   364      2  
   ...
   367     23  
-  368     24  import dateFormat from 'dateformat';
+  368     24  import dateFormat from 'kr/Utils';
   369:    25: export default class ConfirmFormDetail  extends React.Component{
   370     26  
   371     27  
@@ -140,7 +140,7 @@ Searching 462 files for "ConfirmFormDetail" (case sensitive)
  1310      2  
  ....
  1313     23  
- 1314     24  import dateFormat from 'dateformat';
+ 1314     24  import dateFormat from 'kr/Utils';
  1315:    25: export default class ConfirmFormDetail  extends React.Component{
  1316     26  
  1317     27  
@@ -261,7 +261,7 @@ Searching 462 files for "ConfirmFormDetail" (case sensitive)
 
 /Users/tanlinlin/kr-dev/Code/kr-admin-new/src/Containers/Operation/CustomerManage/Agreement/Admit/Create/ConfirmFormDetail.js:
    23  
-   24  import dateFormat from 'dateformat';
+   24  import dateFormat from 'kr/Utils';
    25: export default class ConfirmFormDetail  extends React.Component{
    26  
    27  
@@ -442,7 +442,7 @@ Searching 462 files for "ConfirmFormDetail" (case sensitive)
 
 /Users/tanlinlin/kr-dev/Code/kr-admin-new/src/Containers/Operation/CustomerManage/AgreementList/Admit/Create/ConfirmFormDetail.js:
    23  
-   24  import dateFormat from 'dateformat';
+   24  import dateFormat from 'kr/Utils';
    25: export default class ConfirmFormDetail  extends React.Component{
    26  
    27  

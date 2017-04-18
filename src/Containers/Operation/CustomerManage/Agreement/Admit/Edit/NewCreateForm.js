@@ -14,7 +14,7 @@ import {
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,

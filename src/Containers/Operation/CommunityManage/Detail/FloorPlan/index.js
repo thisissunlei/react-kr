@@ -10,7 +10,7 @@ import {
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	Dialog,
 	Section,

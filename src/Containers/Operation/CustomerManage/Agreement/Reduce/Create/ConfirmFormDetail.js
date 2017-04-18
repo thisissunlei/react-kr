@@ -1,7 +1,7 @@
 import React, {  PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 import {
 	Table,

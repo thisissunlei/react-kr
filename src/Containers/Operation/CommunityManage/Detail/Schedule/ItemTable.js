@@ -14,7 +14,7 @@ import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 
 export default class ItemTable extends React.Component {
 
