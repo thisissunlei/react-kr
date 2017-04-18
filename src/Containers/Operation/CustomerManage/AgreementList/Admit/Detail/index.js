@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -38,7 +38,7 @@ import {
 } from 'kr/Redux';
 
 
-export default class AdmitDetail extends Component {
+export default class AdmitDetail extends React.Component {
 
 
 	constructor(props, context) {

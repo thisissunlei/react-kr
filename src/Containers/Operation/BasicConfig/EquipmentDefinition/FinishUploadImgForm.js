@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -28,7 +28,7 @@ import {
 	TableRow,
 	TableRowColumn,
 } from 'kr-ui';
-export default class FinishUploadImgForm extends Component{
+export default class FinishUploadImgForm extends React.Component{
 	constructor(props) {
 	    super(props);
 	    this.state = {

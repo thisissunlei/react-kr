@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -12,7 +11,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-export default class SearchDetailForm extends Component {
+export default class SearchDetailForm extends React.Component {
 
 
 	constructor(props, context) {

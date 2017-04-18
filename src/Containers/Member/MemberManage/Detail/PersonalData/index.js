@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'react-redux';
@@ -26,7 +24,7 @@ import {
 	KrDate,
 	Notify,
 } from 'kr-ui';
-export default class BasicInfo extends Component {
+export default class BasicInfo extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

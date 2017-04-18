@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -42,7 +41,7 @@ import CreateMemberForm from './CreateMemberForm';
 import ChangeStation from './ChangeStation';
 import Distribution from './Distribution';
 
-export default class EmployessTable extends Component {
+export default class EmployessTable extends React.Component {
 
 	static defaultProps = {
 		activity: false,

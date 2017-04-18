@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react';
+import React from 'react';
 import {
   Title,
   KrField,
@@ -31,7 +29,7 @@ import SingleUploadImgForm from "./SingleUploadImgForm";
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import error2 from "./images/error2.png"
-export default class EquipmentDefinition extends Component {
+export default class EquipmentDefinition extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {

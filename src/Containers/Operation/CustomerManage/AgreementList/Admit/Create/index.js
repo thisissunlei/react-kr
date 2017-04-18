@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -29,7 +29,7 @@ import ConfirmFormDetail from './ConfirmFormDetail';
 import allState from "../../State";
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 	 
       static childContextTypes = {
         par: React.PropTypes.object.isRequired

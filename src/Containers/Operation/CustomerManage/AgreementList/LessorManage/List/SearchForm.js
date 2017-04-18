@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -27,7 +27,7 @@ import {
 } from 'kr-ui';
 
 
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

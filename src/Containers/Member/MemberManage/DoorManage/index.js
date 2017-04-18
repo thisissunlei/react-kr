@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
 	Table,
@@ -28,7 +26,7 @@ import ImpowerList from './ImpowerList';
 import SearchDetailForm from './SearchDetailForm';
 
 import './index.less';
-export default class List extends Component {
+export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

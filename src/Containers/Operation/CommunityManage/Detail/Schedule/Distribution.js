@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -42,7 +41,7 @@ import CreateMemberForm from './CreateMemberForm';
 
 
 
-export default class Distribution extends Component {
+export default class Distribution extends React.Component {
 	static PropTypes = {
 		detail: React.PropTypes.object,
 	}

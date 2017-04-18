@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -19,7 +18,7 @@ import {
 } from 'kr-ui';
 
 
-class NewActivation extends Component {
+class NewActivation extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

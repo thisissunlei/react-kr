@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -27,7 +27,7 @@ import {
 
 @inject("CommunityDetailModel")
 @observer
- class EditCustomerList extends Component{
+ class EditCustomerList extends React.Component{
 
 
 

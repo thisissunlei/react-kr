@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -28,7 +28,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-export default class ConfirmFormDetail extends Component {
+export default class ConfirmFormDetail extends React.Component {
 
 
 	static propTypes = {

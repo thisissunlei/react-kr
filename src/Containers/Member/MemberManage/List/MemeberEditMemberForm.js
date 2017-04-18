@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {
 	reduxForm,
@@ -21,15 +18,13 @@ import {
 	Message,
 	Notify,
 	Button,
-	KrDate,
-	DotTitle,
 	ListGroup,
 	ListGroupItem,
 } from 'kr-ui';
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 
-export default class MemeberEditMemberForm extends Component {
+export default class MemeberEditMemberForm extends React.Component {
 
 
 	constructor(props, context) {

@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
 import {
 	reduxForm,
@@ -20,7 +18,7 @@ import {
 import './index.less';
 import {ShallowEqual,DateFormat} from 'kr/Utils';
 
-export default class ImpowerEditMemberForm extends Component {
+export default class ImpowerEditMemberForm extends React.Component {
 
 
 	constructor(props, context) {

@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -43,7 +42,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 
-export default class ExitDetail extends Component {
+export default class ExitDetail extends React.Component {
 
 
 	constructor(props, context) {

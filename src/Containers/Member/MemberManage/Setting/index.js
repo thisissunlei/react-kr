@@ -1,7 +1,5 @@
 
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
@@ -36,7 +34,7 @@ import StartCardActivation from "./StartCardActivation"
 
 import './index.less';
 
-export default class List extends Component {
+export default class List extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);

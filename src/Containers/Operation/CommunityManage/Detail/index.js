@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -35,7 +34,7 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
-class CommunityManage extends Component {
+class CommunityManage extends React.Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,

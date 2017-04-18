@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -46,7 +46,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 // import './index.less';
-export default class JoinDetail extends Component {
+export default class JoinDetail extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired

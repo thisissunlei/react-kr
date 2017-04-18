@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -36,7 +35,7 @@ import {
 
 } from 'kr-ui';
 
-export default class CancleLeader extends Component {
+export default class CancleLeader extends React.Component {
 	static propTypes = {
 		initialValues:React.PropTypes.object,
 		communityOptions:React.PropTypes.array,

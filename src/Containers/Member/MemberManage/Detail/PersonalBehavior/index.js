@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'react-redux';
@@ -17,7 +15,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	Table,
 	TableBody,
@@ -32,7 +30,7 @@ import {
 	ListGroupItem,
 	Message,
 } from 'kr-ui';
-class SearchDateForm extends Component{
+class SearchDateForm extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -56,7 +54,7 @@ class SearchDateForm extends Component{
 SearchDateForm = reduxForm({
 	form: 'searchDateForm'
 })(SearchDateForm);
-export default class PersonalBehavior extends Component {
+export default class PersonalBehavior extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

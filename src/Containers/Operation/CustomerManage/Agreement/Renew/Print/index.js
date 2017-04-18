@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -23,7 +23,7 @@ import State from './State';
 import './index.less';
 
 @observer
-export default class RenewPrint extends Component {
+export default class RenewPrint extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

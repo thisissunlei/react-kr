@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -43,7 +42,7 @@ import CreateMemberForm from './CreateMemberForm';
 
 
 //变更
-export default class ChangeStation extends Component {
+export default class ChangeStation extends React.Component {
 	static PropTypes = {
 		detail: React.PropTypes.object,
 	}

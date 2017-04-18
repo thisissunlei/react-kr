@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -22,7 +22,7 @@ import {
 } from 'kr-ui';
 
 import dateFormat from 'dateformat';
-export default class ConfirmFormDetail  extends Component{
+export default class ConfirmFormDetail  extends React.Component{
 
 
 	static PropTypes = {

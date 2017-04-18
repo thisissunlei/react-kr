@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -18,7 +18,7 @@ import {
 import $ from 'jquery'
 import imgLine from './images/line.png'
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
 	constructor(props){
 		super(props);

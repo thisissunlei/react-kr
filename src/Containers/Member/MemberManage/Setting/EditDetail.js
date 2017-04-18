@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -22,7 +21,7 @@ import {
 } from 'kr-ui';
 
 
-class EditDetail extends Component {
+class EditDetail extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

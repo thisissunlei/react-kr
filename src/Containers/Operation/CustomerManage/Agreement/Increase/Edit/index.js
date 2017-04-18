@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -27,7 +26,7 @@ import './index.less';
 import NewCreateForm from './NewCreateForm';
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired

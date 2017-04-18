@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -41,7 +40,7 @@ import {
 	TableRowColumn,
 } from 'kr-ui';
 
-export default class ValidateMember extends Component {
+export default class ValidateMember extends React.Component {
 	static propTypes = {
 		initialValues:React.PropTypes.object,
 		communityOptions:React.PropTypes.array,

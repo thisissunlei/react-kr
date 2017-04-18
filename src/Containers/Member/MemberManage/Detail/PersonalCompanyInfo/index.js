@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'react-redux';
@@ -25,7 +23,7 @@ import {
 	LabelText,
 	KrDate,
 } from 'kr-ui';
-export default class  CompanyInfo extends Component {
+export default class  CompanyInfo extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -34,7 +33,7 @@ import {
 	ListGroupItem
 } from 'kr-ui';
 
-class UnitPriceForm extends Component {
+class UnitPriceForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,

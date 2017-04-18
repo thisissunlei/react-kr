@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -48,7 +47,7 @@ import {
 } from 'kr-ui';
 
 
-class DismantlingForm extends Component {
+class DismantlingForm extends React.Component {
 	static defaultProps = {
 		mainBillId: 290,
 	}

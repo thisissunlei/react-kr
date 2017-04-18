@@ -1,5 +1,5 @@
 import React, {
-  Component,
+   
   PropTypes
 } from 'react';
 import {
@@ -348,7 +348,7 @@ SettingAddForm = reduxForm({
 
 
 
-export default class SettingList extends Component {
+export default class SettingList extends React.Component {
 
   constructor(props, context) {
     super(props, context);

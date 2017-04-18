@@ -5,7 +5,7 @@
  */
 
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -53,7 +53,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 
-export default class ReduceDetail extends Component {
+export default class ReduceDetail extends React.Component {
 
 
 	constructor(props, context) {

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {
 	toJS
@@ -25,7 +25,7 @@ import {
 import './index.less';
 import State from '../State';
 @observer
- class WatchCommunityList extends Component{
+ class WatchCommunityList extends  React.Component{
 
 	static PropTypes = {
 		
