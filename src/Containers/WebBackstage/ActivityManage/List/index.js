@@ -27,7 +27,7 @@ import {
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import State from './State';
-import dateFormat from 'dateformat';
+import dateFormat from 'kr/Utils';
 import {
 	observer
 } from 'mobx-react';
