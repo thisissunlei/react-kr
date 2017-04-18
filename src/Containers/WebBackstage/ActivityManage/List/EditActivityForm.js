@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -22,7 +22,7 @@ import './index.less';
 import State from './State';
 import {ShallowEqual,DateFormat} from 'kr/Utils';
 @observer
-class EditActivityForm extends Component{
+class EditActivityForm extends React.Component{
 	constructor(props){
 		super(props);
 		// Store.dispatch(reset('EditActivityForm'));

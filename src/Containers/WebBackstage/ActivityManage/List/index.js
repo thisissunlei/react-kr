@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
 	DatePicker,
@@ -42,7 +40,7 @@ import cityDataState from "../../../../Components/KrField/CityComponent/State";
 
 
 @observer
-export default class List extends Component {
+export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

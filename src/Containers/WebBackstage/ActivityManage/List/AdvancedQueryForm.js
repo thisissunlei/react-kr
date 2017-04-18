@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -23,7 +23,7 @@ import {
 } from 'mobx-react';
 import State from './State';
 @observer
-class AdvanceSearchDateForm extends Component{
+class AdvanceSearchDateForm extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -47,7 +47,7 @@ class AdvanceSearchDateForm extends Component{
 AdvanceSearchDateForm = reduxForm({
 	form: 'advanceSearchDateForm'
 })(AdvanceSearchDateForm);
-class NewCreateForm extends Component{
+class NewCreateForm extends React.Component{
 	static DefaultPropTypes = {
 		initialValues: {
 			customerName: '',
