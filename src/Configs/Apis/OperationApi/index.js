@@ -315,7 +315,28 @@ module.exports = {
     },
     //运营平台－工位列表
     'station-list': {
-        url: '/mockjsdata/31/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}',
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}',
         method: 'get'
     },
+    //运营平台－工位新增或编辑
+    'station-edit': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/actions/edit',
+        method: 'post'
+    },
+    //运营平台－校验工位编码
+    'station-check-code': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/check/code?code={code}&id={id}',
+        method: 'get'
+    },
+    //运营平台－工位删除接口
+    'station-delete': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/actions/delete?id={id}',
+        method: 'delete'
+    },
+    //运营平台－获取工位编辑信息
+    'station-get-edit': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/info/type/edit?id={id}',
+        method: 'get'
+    },
+
 }

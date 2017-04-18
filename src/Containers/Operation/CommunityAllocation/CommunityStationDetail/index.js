@@ -28,6 +28,9 @@ import {
 } from 'mobx-react';
 import './index.less';
 import State from './State';
+import NewAddStation from './NewAddStation';
+import EditStation from './EditStation';
+import DeleteStation from './DeleteStation';
 @observer
 class  CommunityStationDetail extends React.Component{
 
@@ -36,10 +39,74 @@ class  CommunityStationDetail extends React.Component{
 
 	}
 
+ //新建工位打开
+	openAddStation=()=>{
+		State.addStation();
+	}
+	//新建工位取消
+	cancelAddCode=()=>{
+		State.addStation();
+	}
+	//编辑工位取消
+	cancelEditCode=()=>{
+		State.editStation();
+	}
+ //查看相关操作
+ onOperation=(type,itemDetail)=>{
+   if(type=='edit'){
+		 State.editStation();
+		 State.deleteId=itemDetail.id;
+	 }else if(type=='delete'){
+		 State.deleteId=itemDetail.id;
+     State.deleteStation();
+	 }
+ }
+
+ //删除取消
+ cancelDelete=()=>{
+	 State.deleteStation();
+ }
+ //删除提交
+ deleteSubmit=()=>{
+	 State.deleteSubmitFunc(State.deleteId);
+ }
+
+ //导出
+onExport=(values)=> {
+let {searchParams} = State;
+let defaultParams = {
+	belongSpace:'',
+	code:'',
+	communityId:'',
+	enable:'',
+	spaceId:'',
+	stationType:''
+}
+searchParams = Object.assign({},defaultParams,searchParams);
+	let ids = [];
+	if (values.length != 0) {
+		values.map((item, value) => {
+			ids.push(item.id)
+		});
+	}
+	var where=[];
+	for(var item in searchParams){
+		if(searchParams.hasOwnProperty(item)){
+			 where.push(`${item}=${searchParams[item]}`);
+		}
+	}
+	where.push(`ids=${ids}`);
+	var url = `/api/krspace-finance-web/cmt/station/export?${where.join('&')}`
+	window.location.href = url;
+}
+
+ //新建提交
+ stationAddSubmit=(params)=>{
+   State.stationSubmit(params);
+ }
 
 
 	render(){
-
 		return(
 
 			<div className='community-list'>
@@ -53,7 +120,7 @@ class  CommunityStationDetail extends React.Component{
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="新建"
 											type='button'
-											onTouchTap={this.openAddCommunity}
+											onTouchTap={this.openAddStation}
 									/></div>
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="选择社区"
@@ -113,9 +180,50 @@ class  CommunityStationDetail extends React.Component{
 			        </TableBody>
 			        <TableFooter></TableFooter>
             </Table>
-
-
        </Section>
+
+			 {/*新建工位*/}
+			 <Drawer
+					open={State.openStation}
+					width={750}
+					onClose={this.whiteClose}
+					openSecondary={true}
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+					>
+				<NewAddStation
+					onCancel={this.cancelAddCode}
+					onSubmit={this.stationAddSubmit}
+				/>
+			 </Drawer>
+
+			 {/*编辑工位*/}
+			 <Drawer
+					open={State.openStationEdit}
+					width={750}
+					onClose={this.whiteClose}
+					openSecondary={true}
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+					>
+				<EditStation
+					onCancel={this.cancelEditCode}
+					onSubmit={this.stationAddSubmit}
+					id={State.deleteId}
+				/>
+			 </Drawer>
+
+			 {/*删除*/}
+			 <Dialog
+					title="提示"
+					onClose={this.cancelDelete}
+					open={State.openDelete}
+					contentStyle ={{ width: '440px',height:'240px'}}
+					>
+					<DeleteStation
+						 onCancel={this.cancelDelete}
+						 onSubmit={this.deleteSubmit}
+					/>
+			</Dialog>
+
 
 	 </div>
 	 );

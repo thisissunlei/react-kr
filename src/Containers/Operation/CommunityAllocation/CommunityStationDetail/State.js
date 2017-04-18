@@ -9,11 +9,85 @@ import {
     Message
 } from 'kr-ui';
 
+import {Http} from 'kr/Utils';
+
 let State = observable({
 		searchParams:{
 			page:1,
 			pageSize:15,
 		},
+		//工位
+		openStation:false,
+		//编辑
+		openStationEdit:false,
+		//属于与不属于
+		isBelong:false,
+		//实时校验工位编号
+		isCode:false,
+		//删除
+		openDelete:false,
+		//删除的id
+		deleteId:'',
+		//编辑信息获取
+		editData:{}
 });
-
+//删除
+State.deleteStation = action(function() {
+	this.openDelete=!this.openDelete;
+});
+//新建工位
+State.addStation = action(function() {
+	this.openStation=!this.openStation;
+});
+//编辑工位
+State.editStation = action(function() {
+	this.openStationEdit=!this.openStationEdit;
+});
+//校验
+State.codeStationCompare= action(function(params) {
+	var _this=this;
+  let data={};
+ data.id="";
+ data.code=params;
+ Http.request('station-check-code',data).then(function(response) {
+		 _this.isCode=false;
+ }).catch(function(err) {
+	 if(err.message.indexOf("该编号已存在")!=-1){
+			_this.isCode=true;
+	 }else{
+		 _this.isCode=false;
+	 }
+ });
+});
+//新建编辑提交
+State.stationSubmit=action(function(params){
+	var _this=this;
+	Http.request('station-edit',{},params).then(function(response) {
+	 _this.openStationEdit=false;
+	 _this.openStation=false;
+	 _this.searchParams={
+			time:+new Date(),
+			page:1,
+			pageSize:15
+	 }
+ }).catch(function(err) {
+		Message.error(err.message);
+ });
+})
+//删除
+State.deleteSubmitFunc=action(function(params){
+	var data={};
+	data.id=params;
+	var _this=this;
+	Http.request('station-delete',data).then(function(response) {
+	 _this.openDelete=false;
+	 _this.searchParams={
+			time:+new Date(),
+			page:1,
+			pageSize:15
+	 }
+ }).catch(function(err) {
+		Message.error(err.message);
+ });
+})
 module.exports = State;
