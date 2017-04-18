@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -26,7 +26,7 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class Help extends Component{
+class Help extends React.Component{
 
 	constructor(props,context){
 		super(props, context);

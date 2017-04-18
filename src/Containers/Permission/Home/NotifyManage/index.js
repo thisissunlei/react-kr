@@ -1,4 +1,4 @@
-import React,{Component,PropTypes} from 'react';
+import React,{PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -30,7 +30,7 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class PlanManage extends Component{
+class PlanManage extends React.Component{
 
 
     static contextTypes = {

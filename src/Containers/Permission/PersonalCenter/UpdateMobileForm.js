@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -40,7 +39,7 @@ import {
 } from 'kr-ui';
 
 
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 
 	constructor(props, context) {
