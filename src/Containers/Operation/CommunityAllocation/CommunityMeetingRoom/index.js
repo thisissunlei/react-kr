@@ -29,7 +29,7 @@ class  CommunityMeetingRoom extends React.Component{
 		return(
 
 			<div>
-				<SelectCity />
+				<SelectCity type='SPACE'/>
 			</div>
 		);
 	}

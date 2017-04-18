@@ -15,30 +15,71 @@ import {
 import {
 	observer,
 } from 'mobx-react';
+import './index.less';
 @observer
 export default class  SelectCity extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 
+		this.state={
+			 cityData:[],
+			 type:''
+		}
+
 	}
 
-
- componentDidMount(){
-		 Http.request('codeCategoryEdit').then(function(response) {
-	 	  
-	 	}).catch(function(err) {
-	     Message.error(err.message);
-	 	});
+//ajax数据
+ ajaxDataHttp=(name)=>{
+	 let {type}=this.props;
+	 let searchParams={};
+	 searchParams.type=type;
+	 searchParams.name=name;
+	 var _this=this;
+		Http.request('type-city-community',searchParams).then(function(response) {
+			_this.setState({
+				cityData:response.cityCommunitys,
+        type:response.type
+			})
+	 }).catch(function(err) {
+			Message.error(err.message);
+	 });
  }
 
+//搜索
+ onSearchSubmit=(params)=>{
+	this.ajaxDataHttp(params.content);
+ }
+
+ //跳转社区
+ switchGoDetail=(communityId,communityName)=>{
+	 let {type}=this.state;
+   Debug.log('id',communityId,type,communityName);
+ }
+
+ componentDidMount(){
+   this.ajaxDataHttp('');
+ }
 
 	render(){
 
+		let {cityData}=this.state;
+		let {type}=this.props;
+		var title='';
+		if(type=='SPACE'){
+			title="会议室配置"
+		}
+		if(type=='STATION'){
+			title="工位配置"
+		}
+		if(type=='GRAPH'){
+			title="工位平面图配置"
+		}
+
 		return(
 
-			<div>
-					<Section title="会议室配置" description="" style={{marginBottom:-5,minHeight:910}}>
+			<div className='m-commonCity'>
+					<Section title={title} description="" style={{marginBottom:-5,minHeight:910}}>
 					    <Row style={{paddingBottom:21,position:'relative',zIndex:5,borderBottom:'solid 1px #b1d8ff'}}>
 
 
@@ -49,7 +90,21 @@ export default class  SelectCity extends React.Component{
 									</Col>
 							</Row>
 
-
+		         <div style={{marginTop:'20px',paddingBottom:20}}>
+							 {cityData.map((item)=>{
+								 return (
+								 <div>
+									 <div className='city-name'>{item.name}</div>
+									 <ul>
+									   {item.communitys.map((items)=>{
+		                   return (<li className='community-name' onClick={this.switchGoDetail.bind(this,items.id,items.name)}>{items.name}</li>)
+										 })}
+									 </ul>
+		             </div>
+								 )
+							 })
+						 }
+           </div>
 					</Section>
 			</div>
 		);
