@@ -1,26 +1,13 @@
-import React, {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
-import {
-    bindActionCreators
-} from 'redux';
+import React from 'react';
 import {
     Actions,
     Store
 } from 'kr/Redux';
 import {
     reduxForm,
-    formValueSelector,
     initialize,
     change,
-    arrayPush,
-    arrayInsert,
-    FieldArray,
     reset,
-    destroy
 } from 'redux-form';
 
 import {
@@ -33,7 +20,7 @@ import {
     ButtonGroup
 } from 'kr-ui';
 
-class ReceivedBtnForm extends Component {
+class ReceivedBtnForm extends React.Component {
     static contextTypes = {
         params: React.PropTypes.object.isRequired
     }
