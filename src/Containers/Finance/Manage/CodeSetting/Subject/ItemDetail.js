@@ -1,18 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm,formValueSelector} from 'redux-form';
-
+import React, {PropTypes} from 'react';
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
 } from 'kr-ui';
 
 
-export default  class ItemDetail extends Component{
+export default  class ItemDetail extends React.Component{
 
 	 static PropTypes = {
 		 detail:React.PropTypes.object,
@@ -44,13 +36,11 @@ export default  class ItemDetail extends Component{
             enableflag:1
          }
         */
-        console.log('detail.enableflag',detail.enableflag)
          if(detail.enableflag == "ENABLE"){
          	detail.flag="启用"
          }else if(detail.enableflag == "DISENABLE"){
          	detail.flag="不启用"
          }
-         console.log('detail.accounttype',detail.accounttype)
          if(detail.accounttype=="INCOME"){
          	detail.type="收入"
          }else if(detail.accounttype=="PAYMENT"){

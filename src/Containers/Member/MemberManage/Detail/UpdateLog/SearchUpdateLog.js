@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -24,7 +23,7 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
-class SearchDateForm extends Component {
+class SearchDateForm extends React.Component {
 
 	static PropTypes = {
 		onStartChange: React.PropTypes.func,

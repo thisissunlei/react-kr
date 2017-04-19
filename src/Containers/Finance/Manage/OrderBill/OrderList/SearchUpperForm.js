@@ -1,14 +1,8 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
-import {
 	reduxForm,
-	formValueSelector,
 	change
 } from 'redux-form';
 import {
@@ -28,7 +22,7 @@ import {
 
 import './index.less';
 
-class SearchUpperForm extends Component {
+class SearchUpperForm extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

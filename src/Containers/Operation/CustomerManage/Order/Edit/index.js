@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -28,7 +28,7 @@ import {
 import OrderEditForm from './OrderEditForm';
 
 
-export default class OrderCreate extends Component {
+export default class OrderCreate extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired,

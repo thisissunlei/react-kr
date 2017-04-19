@@ -297,9 +297,6 @@ export default class UpLoadList extends React.Component {
 							}
 						}
 					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
-					};
 
 					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
@@ -310,9 +307,6 @@ export default class UpLoadList extends React.Component {
 			}
 		};
 
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);

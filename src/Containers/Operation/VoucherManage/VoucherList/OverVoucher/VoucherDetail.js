@@ -1,31 +1,9 @@
 import React from 'react';
-
-
 import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
 import {Http} from 'kr/Utils';
-
 import {
-	reduxForm,
-	formValueSelector,
-	initialize
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
-	KrDate,
-	ListGroupItem,
-	SearchForms,
-	ButtonGroup,
+	KrField
 } from 'kr-ui';
 import './index.less';
 
@@ -49,7 +27,6 @@ export default class VoucherDetail extends React.Component {
             id: id
         }, {}).then(function(response) {
             _this.setState({infoList: response})
-            console.log(response);
         }).catch(function(err) {});
 
 	}

@@ -1,13 +1,13 @@
 
-import React, { Component, PropTypes } from 'react';
+import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
-import { reduxForm, formValueSelector, change, initialize, arrayPush, arrayInsert, FieldArray, reset } from 'redux-form';
+import { reduxForm, formValueSelector, initialize, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
-import { KrField, Grid, Row, Col, Button, ButtonGroup, Message, SnackTip, ListGroup, ListGroupItem } from 'kr-ui';
+import { KrField, Grid, Row, Button, Message,  ListGroup, ListGroupItem } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
 	constructor(props){
 		super(props);
@@ -49,10 +49,7 @@ import imgLine from './images/line.png'
 	 	this.EmailonBlur(values.email);
 	 	values.foreignCode && this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onsubmitCode} = this.state;
-		// 	console.log(onsubmit,onsubmitCode);
-		console.log('values',values);
 	 	if(onsubmit && onsubmitCode){
-			// 	console.log('values',values);
 			values.companyId = parseInt(this.params.companyId);
 			values.communityId = parseInt(this.params.communityId);
 	 		const {onSubmit} = this.props;
@@ -87,7 +84,6 @@ import imgLine from './images/line.png'
 				selectOption:response.jobList
 			})
 		 }).catch(function(err){
-		 	console.log('ddddd');
 		 });
 	 }
 	//  输入手机号查看该手机号是否绑定
@@ -105,7 +101,6 @@ import imgLine from './images/line.png'
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
-					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
@@ -144,7 +139,6 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 		 if(phoneSame && email == params.email){
-			// 	console.log('phoneSame');
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -160,7 +154,6 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -170,21 +163,18 @@ import imgLine from './images/line.png'
 	 	let _this = this;
 	 	let communityName = '';
 	 	//this.params.communityId
-	 	console.log('getCummityNamegetCummityName');
 	 	Store.dispatch(Actions.callAPI('searchCommunityByCommunityText')).then(function(response){
 				response.forEach((item)=>{
 					if(item.id == _this.params.communityId){
 						communityName = item.communityname;
 					}
 				})
-				console.log('getCummityName',communityName);
 				_this.setState({
 					communityName
 				})
 
 		 }).catch(function(err){
 		 	//会员卡号未注册
-			// 	console.log(ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
 			})
@@ -227,7 +217,6 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
 			})
@@ -238,7 +227,6 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption,communityName} =this.state;
-		console.log('ffffff',this.props.detail);
 
 
 		return (

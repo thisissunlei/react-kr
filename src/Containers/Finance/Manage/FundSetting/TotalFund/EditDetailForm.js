@@ -1,15 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {
     reduxForm,
-    formValueSelector,
     change,
     initialize,
-    arrayPush,
-    arrayInsert,
-    FieldArray,
-    reset
 } from 'redux-form';
-import {Actions, Store, connect} from 'kr/Redux';
+import {Actions, Store} from 'kr/Redux';
 
 import {
     KrField,
@@ -17,11 +12,10 @@ import {
     Row,
     Col,
     Button,
-    Notify,
     ButtonGroup
 } from 'kr-ui';
 
-class NewCreateFund extends Component {
+class NewCreateFund extends React.Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,
@@ -47,7 +41,6 @@ class NewCreateFund extends Component {
         initialValues.sortNum = detail.sortNum;
         initialValues.status = detail.status;
 
-        console.log(initialValues);
         Store.dispatch(initialize('NewCreateFund', initialValues));
         // if (detail.status=="ENABLE") {
         //   Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));

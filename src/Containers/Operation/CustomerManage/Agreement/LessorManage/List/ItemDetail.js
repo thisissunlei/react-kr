@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -13,14 +13,10 @@ import {
 
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
 } from 'kr-ui';
 
 
-export default class ItemDetail extends Component {
+export default class ItemDetail extends React.Component {
 
 	static propTypes = {
 		detail: React.PropTypes.object,
@@ -43,7 +39,6 @@ export default class ItemDetail extends Component {
 	render() {
 
 		let detail = this.props.detail;
-		console.log('detail', detail)
 
 		if (detail.enableflag == 'ENABLE') {
 			detail.flag = "启用"

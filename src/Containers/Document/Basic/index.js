@@ -1,15 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-export default class Basic extends Component {
+export default class Basic extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
 	}
 
-  componentWillMount() {
-
-  }
 
   render() {
 
@@ -21,12 +17,3 @@ export default class Basic extends Component {
     );
   }
 }
-
-
-
-
-
-
-
-
-

@@ -46,7 +46,6 @@ export default class JoinCreate extends Component {
 
 
 		getChildContext() {
-			// console.log(this.props.params,)
 	    return {
 	        par: this.props.params
 	      }
