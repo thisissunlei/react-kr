@@ -52,13 +52,11 @@ class ImportData extends React.Component{
 		 })
 	 }
 
-	 onSubmit=(params)=>{
+	 onSubmit=()=>{
 		 let _this = this;
 		 var form = new FormData();
 		 form.append('spaceData', this.state.file);
-		 if(params.sourceId){
-			 form.append('communityId', params.communityId);
-		 }
+		 form.append('communityId',State.searchParams.communityId);
 		 if(!this.state.file.name){
 			 Message.error('请选择上传文件');
 			 return false;

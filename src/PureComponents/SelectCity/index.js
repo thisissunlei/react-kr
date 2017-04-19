@@ -52,9 +52,12 @@ export default class  SelectCity extends React.Component{
  }
 
  //跳转社区
- switchGoDetail=(communityId,communityName)=>{
+ switchGoDetail=(communityId)=>{
 	 let {type}=this.state;
-   Debug.log('id',communityId,type,communityName);
+	 if(type=='STATION'){
+		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityStationDetail`;
+	 }
+
  }
 
  componentDidMount(){
@@ -97,7 +100,7 @@ export default class  SelectCity extends React.Component{
 									 <div className='city-name'>{item.name}</div>
 									 <ul>
 									   {item.communitys.map((items)=>{
-		                   return (<li className='community-name' onClick={this.switchGoDetail.bind(this,items.id,items.name)}>{items.name}</li>)
+		                   return (<li className='community-name' onClick={this.switchGoDetail.bind(this,items.id)}>{items.name}</li>)
 										 })}
 									 </ul>
 		             </div>

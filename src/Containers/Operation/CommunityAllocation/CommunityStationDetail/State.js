@@ -15,6 +15,7 @@ let State = observable({
 		searchParams:{
 			page:1,
 			pageSize:15,
+			communityId:''
 		},
 		//工位
 		openStation:false,
@@ -22,11 +23,13 @@ let State = observable({
 		openStationEdit:false,
 		//属于与不属于
 		isBelong:false,
+		//属于不属于编辑
+		isBelongEdit:false,
 		//实时校验工位编号
 		isCode:false,
 		//删除
 		openDelete:false,
-		//删除的id
+		//删除和编辑的id
 		deleteId:'',
 		//高级查询
 		openSearchUpper:false,
@@ -35,7 +38,9 @@ let State = observable({
 		//社区名称
 		communityName:'',
 		//会议室名称数据准备
-		stationName:[]
+		stationName:[],
+		//楼层数据准备
+		floorData:[]
 
 });
 //删除
@@ -109,6 +114,7 @@ State.stationDataReady = action(function(params) {
 	Http.request('station-param-data',data).then(function(response) {
 		_this.communityName=response.communityName;
 		_this.stationName=response.spaces;
+		_this.floorData=response.floors;
  }).catch(function(err) {
 		Message.error(err.message);
  });

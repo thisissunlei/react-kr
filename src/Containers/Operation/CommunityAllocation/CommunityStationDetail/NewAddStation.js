@@ -22,7 +22,7 @@ class NewAddStation  extends React.Component{
 
   onSubmit=(values)=> {
 		values.id='';
-		values.communityId=1;
+		values.communityId=State.searchParams.communityId;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -79,7 +79,8 @@ class NewAddStation  extends React.Component{
 						<KrField type='hidden' name="communityId"/>
             <KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号" requireLabel={true}
              onChange={this.codeCompare}/>
-            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层" requireLabel={true}/>
+            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
+						 requireLabel={true} options={State.floorData}/>
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
 						<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
 						requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>

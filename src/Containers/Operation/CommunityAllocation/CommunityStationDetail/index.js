@@ -36,13 +36,17 @@ import ImportData from './ImportData';
 @observer
 class  CommunityStationDetail extends React.Component{
 
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
+
 	constructor(props,context){
 		super(props, context);
-
 	}
 
 	componentDidMount(){
-		State.stationDataReady();
+		State.stationDataReady(this.context.router.params.communityId);
+    State.searchParams.communityId=this.context.router.params.communityId;
 	}
 
  //新建工位打开
@@ -111,6 +115,15 @@ searchParams = Object.assign({},defaultParams,searchParams);
    State.stationSubmit(params);
  }
 
+ //搜索
+ onSearchSubmit=(params)=>{
+	 let data={
+		 code:params.content
+	 }
+	 State.searchParams= Object.assign({},State.searchParams,data);
+	 State.searchParams.time=+new Date();
+ }
+
  //高级查询
 openSearchUpperDialog=()=>{
 		var params={
@@ -152,6 +165,7 @@ whiteClose=()=>{
 }
 
 	render(){
+
 		let title=`工位列表(${State.communityName})`;
 		return(
 			<div className='community-list'>
