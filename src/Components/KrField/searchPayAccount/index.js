@@ -99,7 +99,8 @@ export default class SearchPayAccount extends React.Component {
 					onChange={this.onChange}
 					onInputChange={this.onInputChange}
 					noResultsText=""
-					placeholder={placeholder}/>
+					placeholder={placeholder}
+					/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
 		);

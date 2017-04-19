@@ -55,7 +55,8 @@ class AddMoney extends React.Component {
 			finaflowInfo: {},
 			customerId: " ",
 			billInfo: " ",
-			corporationId: ""
+			corporationId: "",
+			oldData:[],
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -105,24 +106,18 @@ class AddMoney extends React.Component {
 		}
 
 	}
-	getOldData=()=>{
+	getOldData=(e)=>{
 		var _this = this;
-	    Http.request('deleteEvidence', {
-	      id: this.state.itemDetail.id
+		var val=e || "";
+	    Http.request('get-payment-account', {
+	      account: val
 	    }).then(function(response) {
-	      Message.success("删除成功");
-	      _this.setState({
-	        delVoucher: false,
-	      }, function() {
-	        window.setTimeout(function() {
-	          window.location.reload();
-	        }, 800);
-	      });
+	    	console.log('response---1111',response)
+	     	_this.setState({
+	     		oldData:response
+	     	})
 	    }).catch(function(err) {
 	      Message.error(err.message);
-	      _this.setState({
-	        delVoucher: false,
-	      });
 	    });
 	}
 
@@ -740,6 +735,7 @@ class AddMoney extends React.Component {
 				showName,
 				customerId,
 				flowAmount,
+				oldData
 			} = this.state;
 			return (
 				<div className="u-audit-add  u-audit-edit">
@@ -817,7 +813,6 @@ class AddMoney extends React.Component {
 								label="付款账户"
 								onFocus={this.getOldData}
 								onChange={this.getOldData}
-								options=""
 								requireLabel={true}
 						/>
 						<KrField
