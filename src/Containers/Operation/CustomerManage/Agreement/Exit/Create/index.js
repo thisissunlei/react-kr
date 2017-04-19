@@ -136,6 +136,8 @@ export default class JoinCreate extends React.Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 
+			initialValues.setLocalStorageDate = +new Date();
+
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
 			initialValues.agreement = '无';

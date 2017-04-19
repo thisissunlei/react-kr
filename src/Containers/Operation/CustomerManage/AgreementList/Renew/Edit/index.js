@@ -13,7 +13,7 @@ import {
   Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {DateFormat} from 'kr/Utils';
 import {
   Dialog,
   Section,
@@ -54,6 +54,7 @@ export default class JoinCreate extends Component {
       initialValues: {},
       optionValues: {},
       formValues: {},
+      delStationVos:[],
       openConfirmCreate: false
     }
 
@@ -65,9 +66,10 @@ export default class JoinCreate extends Component {
     let {
       params
     } = this.props;
-    console.log('dasdasdasd');
+   let _this = this;
 
     Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
+      _this.removeLocalStorage();
       Notify.show([{
         message: '更新成功',
         type: 'success',
@@ -86,11 +88,27 @@ export default class JoinCreate extends Component {
   }
 
   onCancel() {
+    this.removeLocalStorage();
     let {
       params
     } = this.context;
     allState.openEditAgreement=false;
     // window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+  }
+
+   removeLocalStorage=()=>{
+    let {params} = this.props;
+    let keyWord = params.orderId+''+params.customerId+'RENEWedit';
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+         removeList.push(itemName);
+       }
+     }
+     removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
   }
 
   openConfirmCreateDialog() {
@@ -108,6 +126,7 @@ export default class JoinCreate extends Component {
     let initialValues = {};
     let optionValues = {};
     let stationVos = [];
+    let delStationVos = [];
 
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
@@ -118,10 +137,7 @@ export default class JoinCreate extends Component {
 
       initialValues.contractstate = 'UNSTART';
       initialValues.mainbillid = params.orderId;
-
-      initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
-
-
+      initialValues.customerId = params.customerId;
       initialValues.contractcode = response.contractCode;
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
@@ -156,30 +172,30 @@ export default class JoinCreate extends Component {
       })).then(function(response) {
 
 
-        optionValues.lessorContactName = response.lessorContactName;
+        //获取localStorage数据s
+        let keyWord = params.orderId+''+ params.customerId+'RENEWedit';
+        let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+        let customerId = localStorage.getItem(keyWord +'customerId');
 
-        optionValues.contractFileList = response.contractFileList;
-        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-          initialValues.agreement = '无';
-        }else{
-          initialValues.agreement = response.agreement;
-        }
+        optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName') ||response.lessorContactName;
+
+        optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) ||response.contractFileList;
+
         initialValues.id = response.id;
-        initialValues.leaseId = response.leaseId;
+        initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId')) || response.leaseId;
         initialValues.contractcode = response.contractcode;
-        initialValues.leaseAddress = response.leaseAddress;
-        initialValues.lessorContactName = response.lessorContactName;
-        initialValues.leaseContact = response.leaseContact;
-        initialValues.leaseContacttel = response.leaseContacttel;
-        initialValues.lessorContactid = response.lessorContactid;
-        initialValues.firstpaydate = response.firstpaydate;
-        initialValues.payType = response.payType.id
-        initialValues.paymodel = response.payment.id;
-        initialValues.totaldeposit = response.totaldeposit;
-        initialValues.paytype = response.payType.id;
-        initialValues.rentaluse = response.rentaluse;
-        initialValues.contractmark = response.contractmark;
-        initialValues.totalrent = response.totalrent;
+        initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') ||response.leaseAddress;
+        initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName') ||response.lessorContactName;
+        initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact') ||response.leaseContact;
+        initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel') ||response.leaseContacttel;
+        initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid') ||response.lessorContactid;
+        initialValues.payType = parseInt(localStorage.getItem(keyWord+'payType')) ||response.payType.id
+        initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel')) ||response.payment.id;
+        initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') ||response.totaldeposit;
+        initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype')) ||response.payType.id;
+        initialValues.rentaluse = localStorage.getItem(keyWord+'rentaluse') ||response.rentaluse;
+        initialValues.contractmark = localStorage.getItem(keyWord+'contractmark') ||response.contractmark;
+        initialValues.totalrent = localStorage.getItem(keyWord+'totalrent') ||response.totalrent;
         initialValues.contractVersionType = response.contractVersion;
         if (response.rentamount) {
           rentamount = response.rentamount;
@@ -188,24 +204,33 @@ export default class JoinCreate extends Component {
           });
 
         }
-        initialValues.lessorContacttel = response.lessorContacttel;
+        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+          initialValues.agreement = localStorage.getItem(keyWord+'agreement') ||'无';
+        }else{
+          initialValues.agreement = localStorage.getItem(keyWord+'agreement') ||response.agreement;
+        }
+        initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel') ||response.lessorContacttel;
 
         //时间
-        initialValues.firstpaydate = new Date(response.firstpaydate);
-        initialValues.signdate = new Date(response.signdate);
-        initialValues.leaseBegindate = new Date(response.leaseBegindate);
-        initialValues.leaseEnddate = new Date(response.leaseEnddate);
+        initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate')||DateFormat(response.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.signdate = localStorage.getItem(keyWord+'signdate')||DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate')||DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate')||DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+        delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 
+        console.log('时间', initialValues);
 
 
         //处理stationvos
-        stationVos = response.stationVos;
+        stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
 
+        console.log(JSON.parse(localStorage.getItem(keyWord+'stationVos')), '---->>>>', response);
 
         _this.setState({
           initialValues,
           optionValues,
           stationVos,
+          delStationVos
         });
 
       }).catch(function(err) {
@@ -232,7 +257,8 @@ export default class JoinCreate extends Component {
     let {
       initialValues,
       optionValues,
-      stationVos
+      stationVos,
+      delStationVos
     } = this.state;
 
     return (
@@ -241,7 +267,7 @@ export default class JoinCreate extends Component {
         	<Title value="编辑续租协议书_财务管理"/>
       <BreadCrumbs children={['系统运营','客户管理','续租协议']}/>
       <div style={{marginTop:10}}>
-          <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
+          <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos}/>
       </div>
 
       <Dialog

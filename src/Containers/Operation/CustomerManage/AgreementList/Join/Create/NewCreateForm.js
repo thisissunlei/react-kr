@@ -162,13 +162,19 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
+		}else{
+			stationVos = []
 		}
 
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+
+
 		this.setState({
-			stationVos: [],
+			stationVos,
 			allRent:0
 		});
 
@@ -180,10 +186,13 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
 		}
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+
 
 		this.setState({
 			stationVos: [],
@@ -364,8 +373,6 @@ class NewCreateForm extends React.Component {
 
 	onSubmit(form) {
 
-
-
 		let {
 			stationVos
 		} = this.state;
@@ -378,6 +385,7 @@ class NewCreateForm extends React.Component {
 		let {
 			changeValues
 		} = this.props;
+
 		if (!stationVos.length) {
 			Notify.show([{
 				message: "请选择工位",
@@ -392,7 +400,7 @@ class NewCreateForm extends React.Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
-		form.totalrent = (this.state.allRent).toFixed(2);
+		form.totalrent = this.state.allRent;
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -487,38 +495,6 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
 
 	onIframeClose(billList) {
 
@@ -607,7 +583,6 @@ class NewCreateForm extends React.Component {
 			changeValues,
 			optionValues
 		} = this.props;
-		console.log("initialValues",initialValues);
 		let {
 			fnaCorporationList
 		} = optionValues;
@@ -820,7 +795,11 @@ class NewCreateForm extends React.Component {
 
 const validate = values => {
 
-	const errors = {}
+	const errors = {};
+
+
+	console.log('======join======values=======');
+
 
 	if (!values.leaseId) {
 		errors.leaseId = '请输入出租方';
@@ -896,16 +875,17 @@ const validate = values => {
 	if (!values.leaseEnddate) {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
-	console.log('==join===>')
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
-			}
+	if(values.setlocalStorage === 'enter'){
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}
 
-	    };
+		    };
+		}
 	}
 
 

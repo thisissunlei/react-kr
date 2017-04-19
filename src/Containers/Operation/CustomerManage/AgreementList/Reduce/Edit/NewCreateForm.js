@@ -166,6 +166,7 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
@@ -173,6 +174,7 @@ class NewCreateForm extends Component {
 			return item;
 		})
 		Store.dispatch(Actions.callAPI('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'LESSRENTeditrentamount', response);
 			_this.setState({
 				allRent:response
 			})
@@ -234,6 +236,7 @@ class NewCreateForm extends Component {
 		let allRent = 0;
 		this.setAllRent(stationVos);
 		let stationVosList = this.state.stationVos;
+		let {initialValues } = this.props;
 		console.log('delStationVos',stationVosList,stationVos);
 		stationVosList.forEach((item,index)=>{
 			stationVos.map((value)=>{
@@ -243,6 +246,9 @@ class NewCreateForm extends Component {
 			})
 		})
 		console.log('index',stationVosList);
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'LESSRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'LESSRENTeditdelStationVos', JSON.stringify(stationVosList));
 
 		this.setState({
 			stationVos,
@@ -263,6 +269,7 @@ class NewCreateForm extends Component {
 		let {
 			leaseEnddate
 		} = this.props.optionValues;
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
@@ -273,6 +280,10 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'LESSRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'LESSRENTeditdelStationVos', JSON.stringify(delStationVos));
+
 		let _this = this;
 		let allRent = 0;
 		console.log('stationVos',stationVos);
@@ -347,7 +358,8 @@ class NewCreateForm extends Component {
 			this.setState({
 				stationVos,
 				originStationVos,
-				oldBasicStationVos:stationVos
+				oldBasicStationVos:stationVos,
+				delStationVos:nextProps.delStationVos
 			},function(){
 				   let {stationVos,oldBasicStationVos,openAdd}=_this.state;
 			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
@@ -384,7 +396,9 @@ class NewCreateForm extends Component {
 
 		} = this.state;
 
-		delStationVos = originStationVos.filter(function(origin){
+		let delStationVo =[];
+
+		delStationVo = originStationVos.filter(function(origin){
 				var isOk = true;
 				stationVos.map(function(station){
 						if(station.id == origin.id){
@@ -393,6 +407,7 @@ class NewCreateForm extends Component {
 				});
 				return isOk;
 		});
+		delStationVos = delStationVos.concat(delStationVo);
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
@@ -650,6 +665,16 @@ const validate = values => {
 
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';
+	}
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}
+	    };
 	}
 
 

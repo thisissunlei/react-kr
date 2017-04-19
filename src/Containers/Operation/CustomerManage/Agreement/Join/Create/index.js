@@ -150,6 +150,8 @@ export default class JoinCreate extends Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 
+			initialValues.setLocalStorageDate = +new Date();
+
 			initialValues.agreement = '无';
 
 			initialValues.leaseContact = response.customer.customerMember;

@@ -13,7 +13,7 @@ import {
   Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {DateFormat} from 'kr/Utils';
 import {
   Dialog,
   Section,
@@ -48,7 +48,9 @@ export default class EditCreate extends Component {
 
   onCreateSubmit(formValues) {
     const {params} = this.props;
+    let _this = this;
     Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+    _this.removeLocalStorage();
       Notify.show([{
         message: '编辑成功',
         type: 'success',
@@ -67,8 +69,23 @@ export default class EditCreate extends Component {
   }
 
   onCancel() {
+    this.removeLocalStorage();
     //window.history.back();
     allState.openEditAgreement=false;
+  }
+  removeLocalStorage=()=>{
+    let {params} = this.props;
+    let keyWord = params.orderId+''+params.customerId+'QUITRENTedit';
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+         removeList.push(itemName);
+       }
+     }
+     removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
   }
 
   componentDidMount() {
@@ -90,6 +107,7 @@ export default class EditCreate extends Component {
       //initialValues.ContractStateType = 'EXECUTE';
 
       initialValues.mainbillid = params.orderId;
+      initialValues.customerId = params.customerId;
 
       initialValues.leaseBegindate = new Date;
       initialValues.leaseEnddate = new Date;
@@ -128,47 +146,52 @@ export default class EditCreate extends Component {
         id: params.id
       })).then(function(response) {
 
-        optionValues.contractFileList = response.contractFileList;
-        optionValues.lessorContactName = response.lessorContactName;
+         //获取localStorage数据s
+        let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';
+        let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+        let customerId = localStorage.getItem(keyWord +'customerId');
+
+        optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'))||response.contractFileList;
+        optionValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName')||response.lessorContactName;
 
         initialValues.id = response.id;
         initialValues.contractstate = response.contractstate;
-        initialValues.leaseId = response.leaseId;
+        initialValues.leaseId =  parseInt(localStorage.getItem(keyWord+'leaseId'))||response.leaseId;
         initialValues.contractcode = response.contractcode;
-        initialValues.leaseAddress = response.leaseAddress;
-        initialValues.lessorContactName = response.lessorContactName;
-        initialValues.leaseContact = response.leaseContact;
-        initialValues.lessorContacttel = response.lessorContacttel;
-        initialValues.leaseContacttel = response.leaseContacttel;
-        initialValues.contractVersionType = response.contractVersion;
+        initialValues.leaseAddress =  localStorage.getItem(keyWord+'leaseAddress')||response.leaseAddress;
+        initialValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName')||response.lessorContactName;
+        initialValues.leaseContact =  localStorage.getItem(keyWord+'leaseContact')||response.leaseContact;
+        initialValues.lessorContacttel =  localStorage.getItem(keyWord+'lessorContacttel')||response.lessorContacttel;
+        initialValues.leaseContacttel =  localStorage.getItem(keyWord+'leaseContacttel')||response.leaseContacttel;
+        initialValues.contractVersionType =  localStorage.getItem(keyWord+'contractVersionType')||response.contractVersion;
         if (response.payType) {
-          initialValues.paytype = response.payType.id;
+          initialValues.paytype =  parseInt(localStorage.getItem(keyWord+'paytype'))||response.payType.id;
 
         }
         if (response.payment) {
-          initialValues.paymodel = response.payment.id;
+          initialValues.paymodel =  parseInt(localStorage.getItem(keyWord+'paymodel'))||response.payment.id;
 
         }
-        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-          initialValues.agreement = '无';
+        if(!response.hasOwnProperty('agreement')  || !!!response.agreement){
+          initialValues.agreement =  localStorage.getItem(keyWord+'agreement')||'无';
         }else{
-          initialValues.agreement = response.agreement;
+          initialValues.agreement =  localStorage.getItem(keyWord+'agreement')||response.agreement;
         }
-        initialValues.stationnum = response.stationnum;
-        initialValues.wherefloor = response.wherefloor;
-        initialValues.rentaluse = response.rentaluse;
-        initialValues.contractmark = response.contractmark;
-        initialValues.totalrent = response.totalrent;
-        initialValues.totaldeposit = response.totaldeposit;
-        initialValues.lessorContactid = response.lessorContactid;
-        initialValues.depositamount = response.depositamount;
-        initialValues.totalreturn = response.totalreturn;
+        initialValues.stationnum =  localStorage.getItem(keyWord+'stationnum')||response.stationnum;
+        initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor')|| response.wherefloor;
+        initialValues.rentaluse =  localStorage.getItem(keyWord+'rentaluse')||response.rentaluse;
+        initialValues.contractmark =  localStorage.getItem(keyWord+'contractmark')||response.contractmark;
+        initialValues.totalrent =  localStorage.getItem(keyWord+'totalrent')||response.totalrent;
+        initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')|| response.totaldeposit;
+        initialValues.lessorContactid =  localStorage.getItem(keyWord+'lessorContactid')||response.lessorContactid;
+        initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount')||response.depositamount || 0;
+        initialValues.totalreturn =  localStorage.getItem(keyWord+'totalreturn')||response.totalreturn || 0;
         //时间
 
-        initialValues.signdate = new Date(response.signdate);
-        initialValues.leaseBegindate = new Date(response.leaseBegindate);
-        initialValues.leaseEnddate = new Date(response.leaseEnddate);
-        initialValues.withdrawdate = response.withdrawdate;
+        initialValues.signdate = localStorage.getItem(keyWord+'signdate')|| DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.leaseBegindate =DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate')||DateFormat(response.withdrawdate , "yyyy-mm-dd hh:MM:ss");
 
 
         //处理stationvos

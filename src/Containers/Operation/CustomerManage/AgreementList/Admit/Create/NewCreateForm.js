@@ -773,6 +773,10 @@ const validate = values => {
 
 	const errors = {}
 
+
+	console.log('=======admit====values======');
+
+
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
@@ -844,16 +848,18 @@ const validate = values => {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
 
-	console.log('==admit===>')
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
-			}
+	
+	if(values.setlocalStorage === 'admit'){
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}
 
-	    };
+		    };
+		}
 	}
 
 	return errors

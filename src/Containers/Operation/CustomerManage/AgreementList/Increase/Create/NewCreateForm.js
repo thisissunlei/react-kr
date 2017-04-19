@@ -252,7 +252,8 @@ class NewCreateForm extends React.Component {
 			selectedStation,
 			stationVos
 		} = this.state;
-		let {initialValues} = this.ptops;
+
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
@@ -261,16 +262,16 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 		let _this = this;
-		let allMoney = 0;
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
+		// let allMoney = 0;
+		this.setAllRent(stationVos);
+		// stationVos.map((item)=>{
+		// 	allMoney += _this.getSingleRent(item);
+		// })
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
 
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		// allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setState({
 			stationVos,
-			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});
@@ -334,16 +335,17 @@ class NewCreateForm extends React.Component {
 
 	componentDidMount() {
 		let {
-			initialValues
+			initialValues,
 		} = this.props;
 		Store.dispatch(initialize('increaseCreateForm', initialValues));
+
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
-				stationVos
+				stationVos,
 			}, function() {
 				this.calcStationNum();
 				this.setAllRent(nextProps.stationVos);
@@ -547,38 +549,6 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
 	dealRentName=()=>{
 		let {allRent} = this.state;
 		let name = '';
@@ -612,7 +582,7 @@ class NewCreateForm extends React.Component {
 			submitting,
 			initialValues,
 			changeValues,
-			optionValues
+			optionValues,
 		} = this.props;
 
 		let {
@@ -632,6 +602,8 @@ class NewCreateForm extends React.Component {
 			allRent,
 		} = this.state;
 		let allRentName = this.dealRentName();
+
+
 		
 
 		return (
@@ -911,19 +883,20 @@ const validate = values => {
 		errors.wherefloor = '请填写所属楼层';
 	}
 
-	console.log('==increase===>')
+	console.log('-------values----->',values);
+	if(values.setlocalStorage === 'increase' && values.mainbillid && values.customerId){
 
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
-			}
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}
 
-	    };
+		    };
+		}
 	}
-
 
 
 	return errors

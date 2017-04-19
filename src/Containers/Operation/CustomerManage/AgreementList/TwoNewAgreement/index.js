@@ -51,6 +51,11 @@ class LookCustomerList extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
+	onActive=(type)=>{
+		console.log('=====>',type);
+		allState.active = type;
+	}
 	
 	
 
@@ -58,29 +63,56 @@ class LookCustomerList extends Component{
 		
 	}
 	componentDidMount(){
+		let obj = this.renderTab();
+		let defaultActive = obj.showTab[0].props.label;
+		switch (defaultActive){
+			case '入驻协议书' : 
+				this.onActive('enter')
+				break;
+			case '增租协议书' :
+				this.onActive('increase')
+				break;
+			case '续租协议书' :
+				this.onActive('relet')
+				break;
+			case '减租协议书' :
+				this.onActive('reduce')
+				break;
+			case '退租协议书' :
+				this.onActive('returnRent')
+				break;
+			case '承租意向书' :
+				this.onActive('admit')
+				break;
+		}
 		
 	}
-	render(){
+
+	renderTab=()=>{
 		let num="";
 		let text="";
         
         let dialogDiv=[];
         let showTab=[];
         let noneTab=[];
-        
+        let obj = {
+        	showTab:[],
+        	noneTab:[],
+        	dialogDiv:[]
+        }
 		if(!allState.enter){
 			num=50+(5-noneTab.length)*109.16;
 			text="入驻协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
-				<Tab label="入驻协议书">
-					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')}>
+					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="入驻协议书">
-					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')}>
+					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			);
 		}
@@ -93,14 +125,14 @@ class LookCustomerList extends Component{
 			text="增租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
-				<Tab label="增租协议书" >
-					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')} >
+					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="增租协议书" >
-					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')}>
+					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			);
 		}	
@@ -113,15 +145,15 @@ class LookCustomerList extends Component{
 			text="续租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
-				<Tab label="续租协议书" >
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')}>
+					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			)
 
 		}else{
 			showTab.push(
-				<Tab label="续租协议书" >
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')}>
+					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			);
 
@@ -134,14 +166,14 @@ class LookCustomerList extends Component{
 			text="减租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
-				<Tab label="减租协议书" >
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')}>
+					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="减租协议书" >
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')} >
+					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			);
 		}
@@ -153,14 +185,14 @@ class LookCustomerList extends Component{
 			text="退租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
-				<Tab label="退租协议书" >
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')}>
+					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="退租协议书" >
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')}>
+					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			);
 
@@ -173,19 +205,28 @@ class LookCustomerList extends Component{
 			text="承租意向书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
-				<Tab label="承租意向书" >
-					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')}>
+					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
-				<Tab label="承租意向书" >
-					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')}>
+					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active}/>
 				</Tab>
 			);
 
-		}	         
+		}	
+		obj.noneTab = noneTab;
+		obj.showTab = showTab;
+		obj.dialogDiv = dialogDiv;
 
+		return obj;        
+
+	}
+	render(){
+		let obj = this.renderTab();
+		
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
@@ -198,13 +239,13 @@ class LookCustomerList extends Component{
 			 		 tabTemplateStyle={{color:"#333"}}
 			 		 style={{width:100}}
 				>
-				{showTab}
-				{noneTab}
+				{obj.showTab}
+				{obj.noneTab}
 					
 				
 			</Tabs>
-			<div className="m-noneClick" style={{width:noneTab.length*109.16}}>
-			 {dialogDiv}
+			<div className="m-noneClick" style={{width:obj.noneTab.length*109.16}}>
+			 {obj.dialogDiv}
 			</div>		        
 		    </div>
 				

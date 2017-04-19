@@ -136,6 +136,8 @@ export default class JoinCreate extends React.Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 
+			initialValues.setLocalStorageDate = +new Date();
+
 			initialValues.signdate = DateFormat(new Date(),'yyyy-mm-dd hh:MM:ss');
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.leaseContact = response.customer.customerMember;

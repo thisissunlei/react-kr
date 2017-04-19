@@ -36,7 +36,6 @@ export default class JoinCreate extends React.Component {
 
 
 		getChildContext() {
-			console.log(this.props.params,)
 	    return {
 	        params: this.props.params
 	      }
@@ -56,7 +55,8 @@ export default class JoinCreate extends React.Component {
 			optionValues: {},
 			formValues: {},
 			stationVos:[],
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			setlocalStorage:''
 		}
 		Store.dispatch(reset('joinCreateForm'));
 
@@ -151,7 +151,8 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 		const {
-			params
+			params,
+			active
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
@@ -251,14 +252,36 @@ export default class JoinCreate extends React.Component {
 		});
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.active && !!nextProps.active) {
+			this.setState({
+				setlocalStorage:nextProps.active
+			});
+
+		}
+	}
+
+
+	shouldComponentUpdate(nextProps){
+		if (!this.state.setlocalStorage) {
+			this.setState({
+				setlocalStorage:nextProps.active
+			});
+		}
+		return true;
+	}
+
 
 	render() {
 
 		let {
 			initialValues,
 			optionValues,
-			stationVos
+			stationVos,
+			setlocalStorage
 		} = this.state;
+
+		initialValues.setlocalStorage = setlocalStorage;
 
 
 		return (

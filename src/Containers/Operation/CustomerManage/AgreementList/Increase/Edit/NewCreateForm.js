@@ -141,7 +141,8 @@ class NewCreateForm extends Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
-				stationVos
+				stationVos,
+				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
 			});
@@ -177,14 +178,24 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
+		let delStationVos;
 
 		if (!stationVos.length) {
 			return;
+		}else{
+			delStationVos= stationVos;
+			stationVos=[];
+
 		}
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
+
+		this.setAllRent([])
 
 		this.setState({
-			stationVos: [],
-			delStationVos: stationVos,
+			stationVos,
+			delStationVos,
 			allRent:0
 		}, function() {
 			this.getStationUrl();
@@ -197,14 +208,26 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
+		let delStationVos;
 
 		if (!stationVos.length) {
 			return;
+		}else{
+			delStationVos= stationVos;
+			stationVos=[];
+			
 		}
+		this.setAllRent([])
+
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
+
 
 		this.setState({
-			stationVos: [],
-			delStationVos: stationVos,
+			stationVos,
+			delStationVos,
 			allRent:0
 		}, function() {
 			this.getStationUrl();
@@ -258,6 +281,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} = this.props;
 		let _this = this;
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -265,7 +289,8 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		console.log('onStationUnitPrice',stationVos);
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 
@@ -284,6 +309,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			delStationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -293,18 +319,16 @@ class NewCreateForm extends Component {
 			return true;
 		});
 		let _this = this;
-		let allMoney = 0;
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
 		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
 
 		this.setState({
 			stationVos,
 			delStationVos,
-			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
+			this.setAllRent(stationVos)
 		});
 
 	}
@@ -483,6 +507,7 @@ class NewCreateForm extends Component {
 		}
 		var _this = this;
 		let {delStationVos} = this.state;
+		let {initialValues} = this.props;
 		let {
 			changeValues
 		} = this.props;
@@ -513,6 +538,10 @@ class NewCreateForm extends Component {
 		} catch (err) {
 			console.log('billList 租赁明细工位列表为空');
 		}
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
+
 		this.setState({
 			stationVos,
 			delStationVos
@@ -528,13 +557,15 @@ class NewCreateForm extends Component {
 	}
 		onBlur=(item)=>{
 		let {stationVos} = this.state;
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
@@ -542,6 +573,7 @@ class NewCreateForm extends Component {
 			return item;
 		})
 		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTedittotalrent', JSON.stringify(response));
 			_this.setState({
 				allRent:response
 			})
@@ -869,6 +901,17 @@ const validate = values => {
 
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
+	}
+
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}
+	    };
 	}
 
 

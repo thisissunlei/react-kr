@@ -104,6 +104,8 @@ export default class EditCreate extends React.Component {
       initialValues.mainbillid = params.orderId;
       initialValues.customerId = params.customerId;
 
+      initialValues.setLocalStorageDate = +new Date();
+
       initialValues.leaseBegindate = DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
       initialValues.leaseEnddate =  DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
 

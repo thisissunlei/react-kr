@@ -156,6 +156,7 @@ export default class JoinCreate extends Component {
 
 
 			initialValues.contractcode = response.contractCode;
+			initialValues.setLocalStorageDate = +new Date();
 			
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
@@ -206,7 +207,6 @@ export default class JoinCreate extends Component {
 				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
 				optionValues.totalrent = parseInt(localStorage.getItem(keyWord+'totalrent'));
 				initialValues.totaldeposit = parseInt(localStorage.getItem(keyWord+'totaldeposit'));
-				console.log('=======>>>>',initialValues.totalrent);
 
 			}
 			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';

@@ -27,17 +27,17 @@ import ConfirmFormDetail from './ConfirmFormDetail';
 import allState from "../../State";
 
 
-export default class JoinCreate extends React.Component {
+export default class increaseCreate extends React.Component {
 	static childContextTypes = {
-        params: React.PropTypes.object.isRequired
+        params: React.PropTypes.object.isRequired,
+        active: React.PropTypes.string.isRequired,
      }
 
 
 
 		getChildContext() {
-			console.log(this.props.params,)
 	    return {
-	        params: this.props.params
+	        params: this.props.params,
 	      }
 
 	    }
@@ -55,7 +55,8 @@ export default class JoinCreate extends React.Component {
 			optionValues: {},
 			formValues: {},
 			stationVos:[],
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			setlocalStorage:''
 		}
 			this.isConfirmSubmiting = false;
 		Store.dispatch(reset('increaseCreateForm'));
@@ -147,10 +148,12 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 		const {
-			params
+			params,
+			active
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		let stationVos = [];
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
@@ -216,6 +219,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
 				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+				initialValues.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
 
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
@@ -231,12 +235,12 @@ export default class JoinCreate extends React.Component {
 
 			}
 			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVos);
+			stationVos = JSON.parse(initialValues.stationVos);
 
 			_this.setState({
 				initialValues,
 				optionValues,
-				stationVos
+				stationVos,
 			});
 
 		}).catch(function(err) {
@@ -247,6 +251,29 @@ export default class JoinCreate extends React.Component {
 			}]);
 		});
 	}
+	componentWillReceiveProps(nextProps) {
+
+		
+		if (nextProps.active) {
+			this.setState({
+				setlocalStorage:nextProps.active
+			});
+
+		}
+	}
+
+
+	shouldComponentUpdate(nextProps){
+		if (!this.state.setlocalStorage) {
+			this.setState({
+				setlocalStorage:nextProps.active
+			});
+		}
+		return true;
+	}
+
+
+
 
 
 	render() {
@@ -254,8 +281,11 @@ export default class JoinCreate extends React.Component {
 		let {
 			initialValues,
 			optionValues,
-			stationVos
+			stationVos,
+			setlocalStorage
 		} = this.state;
+		console.log('====increase=====>>>',initialValues);
+		initialValues.setlocalStorage = setlocalStorage;
 
 		return (
 

@@ -62,6 +62,7 @@ let State = observable({
 
 		//权限
 		editRight:'',
+		active:''
 
 });
 State.hasOfficeChange=action(function(params){
