@@ -6,12 +6,8 @@ import React, {
 import {
 	BreadCrumbs,
 	Loading,
-	Notify,
-	Section,
 	SplitLine,
 	KrField,
-	LabelText,
-	PaperBack,
 	Title
 } from 'kr-ui';
 
@@ -33,15 +29,6 @@ import {
 } from 'kr-ui/Grid';
 import {DateFormat} from 'kr/Utils';
 
-import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter
-} from 'kr-ui/Table';
 
 export default class ExitDetail extends React.Component {
 

@@ -20,8 +20,6 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
-	ButtonGroup,
 	Message
 } from 'kr-ui';
 import './index.less';

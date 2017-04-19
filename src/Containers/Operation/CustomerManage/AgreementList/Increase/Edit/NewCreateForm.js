@@ -34,12 +34,7 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -47,7 +42,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -60,9 +54,6 @@ import {
 	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
-	Paper,
-	CircleStyle
-
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)

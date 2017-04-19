@@ -15,7 +15,6 @@ import {
 
 import {
 	KrField,
-	LabelText,
 	KrDate,
 	Button,
 	Grid,
