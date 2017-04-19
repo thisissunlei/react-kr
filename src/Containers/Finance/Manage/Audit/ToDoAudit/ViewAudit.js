@@ -288,6 +288,14 @@ export default class ViewAudit extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
+								component="labelText"
+								inline={false}
+								label="社区名称"
+								defaultValue="-"
+								value={infoList.communityName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="payName"
 								inline={false}
 								component="labelText"
@@ -295,7 +303,7 @@ export default class ViewAudit extends React.Component {
 								value={infoList.payName}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountNum"
 								component="labelText"
 								inline={false}
@@ -303,7 +311,7 @@ export default class ViewAudit extends React.Component {
 								value={infoList.accountNum}
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								inline={false}
 								type="text"
@@ -312,7 +320,7 @@ export default class ViewAudit extends React.Component {
 								value={infoList.payAccount}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								inline={false}
 								component="labelText"
