@@ -290,8 +290,15 @@ class EditMoney extends Component {
 								label="公司主体"
 								value={infoList.corporationName} 
 						/>
+						 <KrField
+	                            style={{width:260}}
+	                            component="labelText"
+	                            inline={false}
+	                            label="社区名称"
+	                            value={infoList.communityName}
+                    	/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payWay" 
 								component="labelText" 
 								label="收款方式"
@@ -300,7 +307,7 @@ class EditMoney extends Component {
 								
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountId" 
 								component="labelText"
 								inline={false} 
@@ -308,7 +315,7 @@ class EditMoney extends Component {
 								label="我司账户" 
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount" 
 								type="text" 
 								component="labelText"
@@ -317,7 +324,7 @@ class EditMoney extends Component {
 								value={infoList.payAccount} 
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime" 
 								component="labelText" 
 								inline={false} 
