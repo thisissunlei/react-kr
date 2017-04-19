@@ -116,7 +116,6 @@ export default  class CommunityManage extends Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			{this.props.changeValues && <div className="hidden-div" onClick={this.hiddenRight}></div>}
 			<Title value="销控表_社区经营"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
