@@ -142,7 +142,10 @@ export default class WaitVoucher extends React.Component {
   }
 
   onAddSubmit=()=>{
-    window.location.reload();
+    Message.success("添加成功");
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 800);
   }
   searchParams = (form) => {
     var _this = this;
