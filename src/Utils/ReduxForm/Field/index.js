@@ -54,8 +54,6 @@ export default class Field extends React.Component{
     }else{
         value = event;
     }
-
-
     onChange && onChange(name,value);
 
   }

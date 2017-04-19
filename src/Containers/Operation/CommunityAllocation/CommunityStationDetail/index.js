@@ -35,21 +35,18 @@ import EditStation from './EditStation';
 import DeleteStation from './DeleteStation';
 import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
-//@inject("FormModel")
+@inject("FormModel")
+@inject("SelectCommunityId")
 @observer
 class  CommunityStationDetail extends React.Component{
-
-	static contextTypes = {
-		router: React.PropTypes.object.isRequired
-	}
 
 	constructor(props,context){
 		super(props, context);
 	}
 
 	componentDidMount(){
-		State.stationDataReady(this.context.router.params.communityId);
-    State.searchParams.communityId=this.context.router.params.communityId;
+		State.stationDataReady(this.props.SelectCommunityId.communityId);
+    State.searchParams.communityId=this.props.SelectCommunityId.communityId;
 	}
 
  //新建工位打开

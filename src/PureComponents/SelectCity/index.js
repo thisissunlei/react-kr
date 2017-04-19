@@ -14,8 +14,10 @@ import {
 } from 'kr-ui';
 import {
 	observer,
+	inject
 } from 'mobx-react';
 import './index.less';
+@inject("SelectCommunityId")
 @observer
 export default class  SelectCity extends React.Component{
 
@@ -55,7 +57,8 @@ export default class  SelectCity extends React.Component{
  switchGoDetail=(communityId)=>{
 	 let {type}=this.state;
 	 if(type=='STATION'){
-		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityStationDetail`;
+		 this.props.SelectCommunityId.communityId=communityId;
+		 window.location.href=`./#/operation/communityAllocation/communityStationDetail`;
 	 }
 
  }

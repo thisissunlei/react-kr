@@ -18,10 +18,9 @@ class NewAddStation  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-	}
-
-
-	componentDidMount(){
+		this.state={
+			isBelongSpace:false
+		}
 	}
 
   onSubmit=(values)=> {
@@ -42,11 +41,15 @@ class NewAddStation  extends React.Component{
 
 	//属于会议室
 	belongSpace=(params)=>{
-	 if(params.value=='true'){
-		 State.isBelong=true;
-	 }else if(params.value=='false'){
-		 State.isBelong=false;
-	 }
+		if(params.belongSpace==true){
+ 		 _this.setState({
+ 			 isBelongSpace:true
+ 		 })
+ 	 }else if(params.belongSpace==false){
+ 		 _this.setState({
+ 			isBelongSpace:false
+ 		})
+ 	 }
 	}
 
  //校验工位编号
@@ -58,6 +61,7 @@ class NewAddStation  extends React.Component{
 	render(){
 
     const {handleSubmit}=this.props;
+		let {isBelongSpace}=this.state;
 
 		var style={};
 		if(State.isBelong){
@@ -89,11 +93,11 @@ class NewAddStation  extends React.Component{
 						<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
 						requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
 						<KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于会议室"
-						requireLabel={true} options={[{value:true,label:'属于'},{value:false,label:'不属于'}]} onChange={this.belongSpace}/>
-						{State.isBelong&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
+						requireLabel={true} options={[{value:1,label:'属于'},{value:0,label:'不属于'}]} onChange={this.belongSpace}/>
+						{isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
 						requireLabel={true} options={State.stationName}/>}
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
-						requireLabel={true} options={[{value:true,label:'启用'},{value:false,label:'未启用'}]}/>
+						requireLabel={true} options={[{value:1,label:'启用'},{value:0,label:'未启用'}]}/>
 
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
