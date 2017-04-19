@@ -11,10 +11,6 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
-	// static contextTypes = {
-	// 	onSetCommunity: React.PropTypes.func.isRequired,
-	// 	communityId: React.PropTypes.string.isRequired,
-	// }
 	static defaultProps = {
 		tab: '',
 		Ids: React.PropTypes.string,
@@ -229,6 +225,10 @@ export default class BasicTable extends Component {
 	componentDidMount() {
 		this.getRate();
 		this.getInstallmentplan();
+		let {tab}= this.props;
+		if (tab === 'table') {
+			$(window).bind('scroll.table', this.scrollLoading());
+		}
 	}
 
 
@@ -241,6 +241,8 @@ export default class BasicTable extends Component {
 			this.getInstallmentplan();
 		}
 	}
+
+	
 
 	scrollLoading() {
 		var _this = this;
@@ -761,13 +763,6 @@ export default class BasicTable extends Component {
 		let {
 			tab
 		} = this.props;
-		if (tab === 'table') {
-
-			$(window).bind('scroll.table', this.scrollLoading());
-
-		} else {
-			$(window).off('scroll.table', this.scrollLoading());
-		}
 		let showNone;
 		if (Installmentplan.length) {
 			showNone = true;

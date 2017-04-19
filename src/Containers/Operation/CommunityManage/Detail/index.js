@@ -50,8 +50,6 @@ export default  class CommunityManage extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.planTable = this.planTable.bind(this);
-		this.Floorplan = this.Floorplan.bind(this);
 		this.state = {
 			tab: 'table',
 			communityId: ''
@@ -69,25 +67,20 @@ export default  class CommunityManage extends Component {
 		});
 	}
 
-	Floorplan() {
-		let {
-			tab
-		} = this.state;
-		tab = 'floorplan';
+	Floorplan =()=> {
 		this.setState({
-			tab
+			tab:'floorplan'
 		});
 	}
 
-	planTable() {
-		let {
-			tab
-		} = this.state;
-
-		tab = 'table';
+	planTable=()=> {
 		this.setState({
-			tab
+			tab:'table'
 		});
+	}
+
+	componentWillUnmount(){
+		console.log('========componentWillUnmount==========');
 	}
 
 	render() {
