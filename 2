@@ -35,10 +35,10 @@ const FormFactory = function(formName){
 			console.log('--<<<',this.name);
 		});
 
-	form.getFieldError = action(function(fieldName){
+	form.getFieldError = action(function(fieldName)=>{
 			var errors = this.getErrors();
 			return errors[fieldName];
-	});
+		});
 
 
 	form.getFormState = action(function() {
@@ -72,11 +72,6 @@ form.stopSubmit = action(function(errors) {
 			this.submitFailed = true;
 		}
 	});
-
-	form.getValues = action(function() {
-		return mobx.toJS(this.values);
-	});
-
 
 	form.validate = action(function() {
 		var values = this.getValues();
@@ -193,6 +188,10 @@ form.setSubmitCallback = action(function(submitHandle) {
 		return mobx.toJS(this.initializeValues);
 	});
 
+	form.getValues = action(function() {
+		return mobx.toJS(this.values);
+	});
+
 	form.change = action(function(fieldName,fieldValue) {
 		var values = mobx.toJS(this.values);
 		values[fieldName] = fieldValue;
@@ -206,6 +205,7 @@ form.setSubmitCallback = action(function(submitHandle) {
 				this.change(field,values[field]);
 			}
 		}
+		console.log('--->>',this.getValues())
 	});
 
 

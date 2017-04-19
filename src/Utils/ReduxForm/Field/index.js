@@ -92,10 +92,12 @@ export default class Field extends React.Component{
       onBlur:this.onBlur,
     };
 
-    let field = Object.assign({ visited:false, touched:false,
-    pristine:false,
-    invalid:false,
-    valid:false,
+    let field = Object.assign({
+		visited:false,
+		touched:false,
+		pristine:false,
+		invalid:false,
+		valid:false,
     },getField(name));
 
     const meta = {
