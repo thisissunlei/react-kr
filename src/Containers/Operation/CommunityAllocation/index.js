@@ -2,8 +2,8 @@ import {
 	default as CommunityList
 } from './CommunityList';
 import {
-	default as CommunityMeetingRoom
-} from './CommunityMeetingRoom';
+	default as CommunityStation
+} from './CommunityStation';
 import {
 	default as CodeClassification
 } from './CodeClassification';
@@ -12,7 +12,7 @@ import {
 } from './CommunityStationDetail';
 module.exports = {
 	CommunityList,
-	CommunityMeetingRoom,
+	CommunityStation,
 	CodeClassification,
 	CommunityStationDetail
 }

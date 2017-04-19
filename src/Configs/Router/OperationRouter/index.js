@@ -26,8 +26,8 @@ module.exports =()=>{
 			<Route path="communityAllocation" component={Basic}>
 			    {/*社区列表*/}
 				<Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
-         {/*会议室*/}
-				<Route path="communityMeetingRoom" component={Operation.CommunityAllocation.CommunityMeetingRoom}/>
+         {/*工位列表选择社区*/}
+				<Route path="communityStation" component={Operation.CommunityAllocation.CommunityStation}/>
 				{/*工位列表*/}
 			 <Route path=":communityId/communityStationDetail" component={Operation.CommunityAllocation.CommunityStationDetail}/>
 				{/*代码分类*/}

@@ -164,6 +164,11 @@ whiteClose=()=>{
 	State.openStationEdit=false;
 }
 
+//选择社区
+SelectCommunity=()=>{
+	window.location.href=`./#/operation/communityAllocation/communityMeetingRoom`;
+}
+
 	render(){
 
 		let title=`工位列表(${State.communityName})`;
@@ -184,7 +189,7 @@ whiteClose=()=>{
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="选择社区"
 											type='button'
-											onTouchTap={this.openAddCommunity}
+											onTouchTap={this.SelectCommunity}
 									/></div>
 									<Button
 											label="导入"

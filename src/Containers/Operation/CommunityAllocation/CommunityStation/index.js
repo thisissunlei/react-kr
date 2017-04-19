@@ -16,7 +16,7 @@ import {
 	observer,
 } from 'mobx-react';
 @observer
-class  CommunityMeetingRoom extends React.Component{
+class  CommunityStation extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -35,4 +35,4 @@ class  CommunityMeetingRoom extends React.Component{
 	}
 
 }
-export default CommunityMeetingRoom;
+export default CommunityStation;
