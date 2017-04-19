@@ -227,7 +227,7 @@ export default class BasicTable extends Component {
 		this.getInstallmentplan();
 		let {tab}= this.props;
 		if (tab === 'table') {
-			$(window).bind('scroll.table', this.scrollLoading());
+			$(window).bind('scroll.table', this.scrollLoading);
 		}
 	}
 
@@ -242,11 +242,10 @@ export default class BasicTable extends Component {
 		}
 	}
 
-	
+
 
 	scrollLoading() {
 		var _this = this;
-		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
 			var num = $(document).height() - $(window).height();
@@ -328,7 +327,6 @@ export default class BasicTable extends Component {
 					}
 				}
 			}
-		})
 	}
 
 
