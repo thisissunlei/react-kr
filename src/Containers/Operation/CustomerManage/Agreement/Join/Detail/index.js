@@ -1,11 +1,8 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
 import {
-	Menu,
-	MenuItem,
 	BreadCrumbs,
 	Loading,
 	Notify,
@@ -14,7 +11,6 @@ import {
 	SplitLine,
 	DotTitle,
 	KrField,
-	LabelText,
 	PaperBack,
 	KrDate,
 	Title,
@@ -23,7 +19,7 @@ import {
 
 
 import RaisedButton from 'material-ui/RaisedButton';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Actions,
@@ -46,7 +42,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 // import './index.less';
-export default class JoinDetail extends Component {
+export default class JoinDetail extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -133,11 +129,11 @@ export default class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} left={60} label="合同编号：" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式：" value={basic.payType && basic.payType.dicName} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="租赁期限：" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} label="首付款时间：" value={ dateFormat(basic.firstpaydate,"yyyy-mm-dd")} defaultValue="0" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="租赁期限：" value={`${DateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${DateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="首付款时间：" value={ DateFormat(basic.firstpaydate,"yyyy-mm-dd")} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} left={60} label="付款方式：" value={basic.payment && basic.payment.dicName} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="labelText" grid={1/2} label="签署日期：" value={dateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="0" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="签署日期：" value={DateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="0" requireBlue={true}/>
 
 					<KrField component="labelText" left={60} label="租赁工位：" grid={1/2}  value={basic.stationnum} requireBlue={true} defaultValue="0"/>
 					<KrField component="labelText" label="租赁办公室：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0"/>

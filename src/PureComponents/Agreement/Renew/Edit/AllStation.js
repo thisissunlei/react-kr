@@ -95,19 +95,16 @@ class SelectStationForm extends Component {
 			pagesize: 100,
 			contractId: params.id
 		})).then(function(response) {
-			console.log('response',response);
 			response.items = response.items.map((item)=>{
 				if(item.show){
 					item.rentBeginDate = item.lastEditDate;
 				}
 				return item;
 			})
-			console.log('response.items',response.items);
 			_this.setState({
 				stationVos: response.items
 			});
 		}).catch(function(err) {
-			console.log(err);
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -222,7 +219,6 @@ class SelectStationForm extends Component {
 			item.leaseBeginDate = DateFormat(tmpDate, 'yyyy-mm-dd')
 		});
 
-		console.log('selectedStationVos', selectedStationVos);
 
 		const {
 			onSubmit

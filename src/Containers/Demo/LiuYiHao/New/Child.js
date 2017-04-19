@@ -1,40 +1,11 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-
-import {
-	Section,
-	PlanMap,
-	Dialog,
-	Button,
-} from 'kr-ui';
+import React from 'react';
 import Grandson from "./Grandson.js";
 
-export default class New extends Component {
+export default class Child extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-
-		this.state = {
-			open:true,
-			checkedStations:[],
-		}
-
 	}
-
-	ff = () => {
-		
-		console.log("ffffff");
-	}
-
-	componentDidMount() {}
-
 	render() {
 		return (
 			<div>

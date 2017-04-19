@@ -1,10 +1,6 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import React  from 'react';
+import  {DateFormat} from "kr/Utils";
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,24 +9,17 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	Dialog,
-	ListGroup,
-	ListGroupItem,
 	Message,
 	Tooltip,
-	Form,
-
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-export default class OpenPanel  extends Component{
+export default class OpenPanel  extends React.Component{
 
 		static displayName = 'OpenPanel';
 		static defaultProps = {
@@ -61,10 +50,10 @@ export default class OpenPanel  extends Component{
     onStartChange=(startD)=>{
 
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
 
 
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        let end=Date.parse(DateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         this.setState({
         	startValue:startD
 
@@ -79,18 +68,17 @@ export default class OpenPanel  extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
 
 			});
 
 
-        })
+		})
 
     }
     onEndChange=(endD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(DateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
 

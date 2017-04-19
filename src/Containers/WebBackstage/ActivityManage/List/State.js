@@ -1,12 +1,8 @@
 import mobx, {
 	observable,
 	action,
-	extendObservable
 } from 'mobx';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
@@ -140,7 +136,7 @@ State.activityGetList = action(function(id) {
 	}).then(function(response) {
 		_this.actField = response;
 	}).catch(function(err) {
-		
+
 	});
 });
 State.activityDetail = action(function(id) {
@@ -150,7 +146,7 @@ State.activityDetail = action(function(id) {
 	}).then(function(response) {
 		_this.detailContent = response.summary;
 	}).catch(function(err) {
-		
+
 	});
 
 });

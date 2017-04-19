@@ -403,7 +403,6 @@ class NewCreateForm extends Component {
 	getStationUrl() {
 
 		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-		// console.log(this.context.par.orderId,"???????????")
 		let {
 			changeValues,
 			initialValues,
@@ -480,7 +479,6 @@ class NewCreateForm extends Component {
 				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 		this.setState({
@@ -532,7 +530,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			// console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -545,14 +542,12 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		// console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		// console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 	render() {

@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -7,8 +7,6 @@ import {
 } from 'mobx-react';
 
 import {
-	Menu,
-	MenuItem,
 	Title,
 } from 'kr-ui';
 import {
@@ -23,7 +21,7 @@ import State from './State';
 import './index.less';
 
 @observer
-export default class JoinPrint extends Component {
+export default class JoinPrint extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
@@ -43,7 +41,6 @@ export default class JoinPrint extends Component {
 
 	}
 	renderContent=()=>{
-		console.log(State.baseInfo.agreement);
 		if(State.baseInfo.hasOwnProperty('agreement')){
 			var str = State.baseInfo.agreement;
 			if(str.length>45){

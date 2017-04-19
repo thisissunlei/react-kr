@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -15,7 +15,7 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
-import dateFormat from "dateformat";
+import {DateFormat} from "dateformat";
 import './index.less'
 import merchants from "../Merchants/State";
 import personal from '../Personal/State';
@@ -27,7 +27,7 @@ import {
 
 @inject("CommunityDetailModel")
 @observer
- class EditCustomerList extends Component{
+ class EditCustomerList extends React.Component{
 
 
 
@@ -71,7 +71,6 @@ import {
 
 
 	onSubmit = (values) => {
-		console.log("rrrrrrrrrr");
 		let {operType}=this.props;
 		let _this=this;
 		if(!values.company){

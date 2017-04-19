@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -18,20 +17,13 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 
 import {
-	Tabs,
 	Tab,
 	Dialog,
 	Section,
 	Grid,
 	Message,
 	Button,
-	KrField,
-	Form,
-	BreadCrumbs,
-	Title,
 	Row,
-	Col,
-	ButtonGroup,
 	Table,
 	TableBody,
 	TableHeader,
@@ -40,7 +32,6 @@ import {
 	TableRowColumn,
 	TableFooter,
 	ListGroup,
-	SnackTip,
 	ListGroupItem
 } from 'kr-ui';
 
@@ -52,7 +43,7 @@ import SetLeader from './SetLeader';
 import EditMember from './EditMember';
 import ImportData from './ImportData';
 import BatchDelet from './BatchDelet';
-export default class CompanyMembers extends Component {
+export default class CompanyMembers extends React.Component {
 
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
@@ -114,7 +105,6 @@ export default class CompanyMembers extends Component {
 
 	}
 	onSelect=(values)=>{
-		// console.log('onSelect',values);
 		let {allData} = this.state;
 		let seleced = [];
 		allData.items.map((value,index)=>{
@@ -129,7 +119,6 @@ export default class CompanyMembers extends Component {
 			selecedList:values
 		})
 
-		// console.log('onSelect',seleced);
 	}
 	batchDelet=()=>{
 		let {seleced} = this.state;
@@ -151,7 +140,6 @@ export default class CompanyMembers extends Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
-		// console.log('selecedList',selecedList);
 		Store.dispatch(Actions.callAPI('validMember',{memberIds:String(selecedList),companyId:_this.companyId} )).then(function(response) {
 			_this.validateMember();
 			// Message.show([{
@@ -196,7 +184,6 @@ export default class CompanyMembers extends Component {
 	}
 	validateMember=()=>{
 		let {seleced} = this.state;
-		// console.log(seleced);
 		let list = [];
 		seleced.map((item)=>{
 			if(!item.checkStatus){
@@ -207,7 +194,6 @@ export default class CompanyMembers extends Component {
 			seleced:list,
 			name:'未验证'
 		})
-		console.log(list);
 		if(!list.length && !this.state.validateMember){
 			this.onSubmits();
 			return;
@@ -285,7 +271,6 @@ export default class CompanyMembers extends Component {
 	editMemberForm=(value)=>{
 		let _this = this;
 		let params = value;
-		// console.log('edit',value);
 		Store.dispatch(Actions.callAPI('membersChange',{}, params)).then(function(response) {
 			_this.editMembers()
 			// Notify.show([{
@@ -324,7 +309,6 @@ export default class CompanyMembers extends Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
-		// console.log(String(selecedList));
 		let companyId = this.companyId;
 		let url = `/api/krspace-finance-web/member/member-company-excel?ids=${String(selecedList)}&companyId=${companyId}`;
 		window.location.href = url;
@@ -402,7 +386,6 @@ export default class CompanyMembers extends Component {
  		// 	 message: '成功',
  		// 	 type: 'success',
 			//  	}]);
-			// console.log('newMember');
 			Message.success('成功');
 			_this.setState({
 				leader:!_this.state.leader,
@@ -416,7 +399,6 @@ export default class CompanyMembers extends Component {
 			})
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){
-			// console.log(err);
 			// Notify.show([{
 			// 	message: err.message,
 			// 	type: 'danger',

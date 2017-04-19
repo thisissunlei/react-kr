@@ -29,7 +29,6 @@ function getUrl(path, params = {},mode = false) {
     try {
       server += APIS[path].url;
     } catch(err) {
-      console.error(`${path} not defined in apis.js`);
       return false;
     }
 
@@ -78,7 +77,7 @@ function getUrl(path, params = {},mode = false) {
     if (res.code ===-4011) {
       window.location.href = '/';
     } else if (res.code ===-4033) {
-        Notify.error('啊哦，对不起，您没有该权限!');
+        Notify.error('您没有操作权限，请联系管理员!');
     }
     return res;
   }

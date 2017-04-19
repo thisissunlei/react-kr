@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -36,7 +36,7 @@ import {
 	ListGroupItem
 } from 'kr-ui';
 
-class OrderEditForm extends Component {
+class OrderEditForm extends React.Component {
 	static propTypes = {
 		initialValues: React.PropTypes.object,
 		communityOptions: React.PropTypes.array,

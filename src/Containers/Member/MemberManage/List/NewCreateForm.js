@@ -6,11 +6,8 @@ import {
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	ButtonGroup,
 	Message,
-	SnackTip,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
@@ -62,7 +59,6 @@ class NewCreateForm extends React.Component{
 		this.foreignCodeBlur(values.foreignCode);
 		let {onsubmit,onSubmitCode} = this.state;
 		if(onsubmit && onSubmitCode){
-			// 	console.log('values',values);
 			const {onSubmit} = this.props;
 			onSubmit && onSubmit(values);
 		}

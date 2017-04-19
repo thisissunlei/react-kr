@@ -1,14 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'kr/Redux';
-import { reduxForm, submitForm, change, reset } from 'redux-form';
+import React, {PropTypes } from 'react';
+import { reduxForm, submitForm, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, Section, Grid, Row, Col, Dialog, Tooltips, Tooltip, BreadCrumbs } from 'kr-ui';
+import { 
+ 	    Tooltips, 
+ 	    Tooltip, 
+	 	} from 'kr-ui';
 import { findDOMNode } from 'react-dom'
 import ReactTooltip from 'react-tooltip'
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import $ from 'jquery';
 
-export default class D3Content extends Component {
+export default class D3Content extends React.Component {
 
 
 	static defaultProps = {
@@ -119,8 +121,8 @@ export default class D3Content extends Component {
 			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
 				item.end = _this.countDays(item.enddate);
-				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
-				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
+				item.Begindate = DateFormat(item.begindate, "yyyy.mm.dd");
+				item.Enddate = DateFormat(item.enddate, "yyyy.mm.dd");
 				width = (item.end - item.start) / 365; //时间段的长度
 				item.width = (width * 100) / 100;
 				item.left = ((item.start * 10000 / 365) * 100) / 10000;
@@ -190,7 +192,6 @@ export default class D3Content extends Component {
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
 						finaRedPointVoList.splice(index, 1);
-						//console.log('finaRedPointVoList-----', finaRedPointVoList)
 
 
 
@@ -307,7 +308,7 @@ export default class D3Content extends Component {
 	getRedInfo(data){
 		let _this =this;
 		let id = this.props.id;
-		let remindDate = dateFormat(data.pointDate,'yyyy-mm-dd HH:MM:ss');
+		let remindDate = DateFormat(data.pointDate,'yyyy-mm-dd HH:MM:ss');
 	    Store.dispatch(Actions.callAPI('getRedPoint',{billId:id,remindDate:remindDate})).then(function(response) {
 
 	      
@@ -321,7 +322,6 @@ export default class D3Content extends Component {
 
 
 	    }).catch(function(err) {
-	    	console.log(err,err);
 	    });
 	}
 	renderRedInfo=(itemData)=>{
@@ -341,8 +341,8 @@ export default class D3Content extends Component {
 				return(
 					<div key={i} className="react-tooltip-content">
 						<span>{value.contractName}分期催款</span>
-						<p style={{width:'310px'}}>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款&nbsp;({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-						<p>工位:<span className='red-content' style={{marginRight:5}}>{value.stationnum}</span>&nbsp;会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+						<p style={{width:'310px'}}>{DateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款&nbsp;({DateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{DateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+						<p>工位:<span className='red-content' style={{marginRight:5}}>{value.stationnum}</span>&nbsp;会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({DateFormat(value.billStartDate, "yyyy.mm.dd")}-{DateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 						<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 						<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 						<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
@@ -371,7 +371,6 @@ export default class D3Content extends Component {
 
 
 	    }).catch(function(err) {
-	    	console.log(err,err);
 	    });
 	}
 	renderBlueInfo=()=>{
@@ -382,7 +381,7 @@ export default class D3Content extends Component {
 			<Tooltips  place="top" type="dark" effect="solid" id={`${items.pointDate}${id}sameblue`} offsetTop={130}>
 					<div className="react-tooltip-content" style={{width:'250px'}}>
 						<span>工位变更</span>
-						<p>{items.finaName}({dateFormat(items.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(items.leaseEndDate, "yyyy.mm.dd")})</p>
+						<p>{items.finaName}({DateFormat(items.leaseBeginDate, "yyyy.mm.dd")}-{DateFormat(items.leaseEndDate, "yyyy.mm.dd")})</p>
 						<p>变更前工位：<span className='blue-content'>{items.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.oldBoardroomNum}</span></p>
 						<p>变更后工位：<span className='blue-content'>{items.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.newBoardroomNum}</span></p>
 					</div>						

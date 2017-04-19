@@ -1,7 +1,6 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React from 'react';
+import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,14 +8,12 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
-  	ListGroup,
-  	ListGroupItem,
+	ListGroup,
+	ListGroupItem,
 	SearchForm,
-	Message,
 } from 'kr-ui';
-class EquipmentAdvancedQueryForm extends Component{
+class EquipmentAdvancedQueryForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -33,7 +30,6 @@ class EquipmentAdvancedQueryForm extends Component{
 	}
 	// 提交
 	onSubmit=(values)=>{
-		// console.log("values",values);
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
 		if (!searchForm){
@@ -43,14 +39,12 @@ class EquipmentAdvancedQueryForm extends Component{
 		if(!values.type){
 			values.type = filter;
 		}
-		// console.log("values",values);
 		const {onSubmit} =this.props;
 		onSubmit && onSubmit(values);
 	}
 	// 重置
 	onReset=()=>{
 		Store.dispatch(reset('EquipmentAdvancedQueryForm',''));
-		// console.log("this.refs.IndexsearchForm.refs.componentSearchInput",this.refs.IndexsearchForm.refs.componentSearchInput)
 		this.refs.IndexsearchForm.refs.componentSearchInput.value = "";
 		Store.dispatch(change('EquipmentAdvancedQueryForm','type',"deviceCode"));
 		const {onReset} = this.props;
@@ -59,7 +53,6 @@ class EquipmentAdvancedQueryForm extends Component{
 	}
 	// 过滤器失去焦点执行
 	onFilter=(search)=>{
-		console.log("search",search);
 		this.setState({searchForm:true});
 		if(search.content){
 			Store.dispatch(change('EquipmentAdvancedQueryForm','type',search.value));
@@ -133,46 +126,46 @@ class EquipmentAdvancedQueryForm extends Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 				<ListGroup >
 					<ListGroupItem style={{marginBottom:5}}>
-						<SearchForm 
-							searchFilter={options} 
-							style={{width:252,marginBottom:10}} 
-							defaultFilter={filter} 
-							defaultContent={content} 
+						<SearchForm
+							searchFilter={options}
+							style={{width:252,marginBottom:10}}
+							defaultFilter={filter}
+							defaultContent={content}
 							onSubmit={this.onFilter}
 							ref ="IndexsearchForm"
 						/>
 					</ListGroupItem>
 				</ListGroup>
-				<KrField name="communityId" 
-					component="searchCommunity" 
+				<KrField name="communityId"
+					component="searchCommunity"
 					onChange = {this.onChangeSearchCommunity}
-					label="社区名称"    
+					label="社区名称"
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 					onChange = {this.onSearchFloor}
 				/>
-				<KrField name="floor" 
-					component="select" 
-					label="楼层" 
+				<KrField name="floor"
+					component="select"
+					label="楼层"
 					options = {floorsOptions}
-					errors={{requiredValue:'社区为必填项'}} 
+					errors={{requiredValue:'社区为必填项'}}
 					style={{width:'252px'}}
 				/>
-				<KrField name="typeId" 
-					component="select" 
-					label="类型" 
+				<KrField name="typeId"
+					component="select"
+					label="类型"
 					onChange = {this.onchooseType}
-					options={typeOptions} 
+					options={typeOptions}
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 				/>
-				<KrField name="propertyId" 
-					component="select" 
+				<KrField name="propertyId"
+					component="select"
 					label="属性"
 					onChange = {this.onchooseProperty}
-					options={propertyOption}  
+					options={propertyOption}
 					style={{width:'252px'}}
 				/>
-				<KrField name="functionId" 
-					component="select" 
+				<KrField name="functionId"
+					component="select"
 					options={correspondingFunction}
 					label="对应功能"
 					onChange = {this.onchooseCorrespondingFunction}

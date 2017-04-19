@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -17,7 +17,6 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -27,7 +26,7 @@ import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -47,7 +46,6 @@ export default class JoinCreate extends Component {
 	}
 
 	onCreateSubmit(formValues) {
-		console.log("-00000", formValues);
 		this.setState({
 			formValues
 		});

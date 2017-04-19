@@ -1,25 +1,8 @@
 import React from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
-import {
 	reduxForm,
-	formValueSelector
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
-	ListGroupItem,
 	SearchForms
 } from 'kr-ui';
 

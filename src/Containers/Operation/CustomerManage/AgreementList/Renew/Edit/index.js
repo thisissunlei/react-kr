@@ -1,5 +1,5 @@
 import React, {
-  Component,
+   
   PropTypes
 } from 'react';
 import {
@@ -27,7 +27,7 @@ import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
 import allState from "../../State";
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
   static contextTypes = {
     params: React.PropTypes.object.isRequired
@@ -65,7 +65,6 @@ export default class JoinCreate extends Component {
     let {
       params
     } = this.props;
-    console.log('dasdasdasd');
 
     Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
       Notify.show([{
@@ -209,7 +208,6 @@ export default class JoinCreate extends Component {
         });
 
       }).catch(function(err) {
-        console.log(err);
         Notify.show([{
           message: '后台出错请联系管理员',
           type: 'danger',
