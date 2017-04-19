@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -26,7 +26,7 @@ import allState from "../../State";
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
 	}
@@ -192,13 +192,11 @@ export default class JoinCreate extends Component {
 				// initialValues.leaseBegindate = new Date(response.leaseBegindate);
 				initialValues.rentamount = response.rentamount;
 
-				console.log('时间', initialValues);
 
 
 				//处理stationvos
 				stationVos = response.stationVos;
 
-				console.log(stationVos, '---->>>>', response);
 
 				_this.setState({
 					initialValues,
@@ -207,7 +205,6 @@ export default class JoinCreate extends Component {
 				});
 
 			}).catch(function(err) {
-				console.log(err);
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -216,7 +213,6 @@ export default class JoinCreate extends Component {
 
 
 		}).catch(function(err) {
-			console.log(err);
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',

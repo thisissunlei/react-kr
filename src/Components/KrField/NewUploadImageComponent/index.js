@@ -160,7 +160,6 @@ export default class UploadImageComponent extends Component {
 			}
 		}
 
-		// console.log("pictureMemory",pictureMemory);
 		if(imgSize>pictureMemory){
 			this.refs.inputImg.value ="";
 			this.refs.inputImgNew.value ="";
@@ -194,7 +193,6 @@ export default class UploadImageComponent extends Component {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
-									console.log("fileResponse",fileResponse);
 									_this.onError(fileResponse.msg);
 									return;
 								}
@@ -204,9 +202,6 @@ export default class UploadImageComponent extends Component {
 								_this.onError('后台报错请联系管理员！');
 							}
 						}
-					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
 					};
 					 xhrfile.open('POST', requestURI, true);
 					xhrfile.responseType = 'json';
@@ -221,9 +216,6 @@ export default class UploadImageComponent extends Component {
 			}
 		};
 
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
@@ -298,7 +290,7 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
-		
+
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 

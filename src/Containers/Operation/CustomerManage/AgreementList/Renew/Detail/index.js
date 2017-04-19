@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -39,7 +39,7 @@ import {
 } from 'kr/Redux';
 
 
-export default class JoinDetail extends Component {
+export default class JoinDetail extends React.Component {
 
 
 	constructor(props, context) {
@@ -212,7 +212,6 @@ export default class JoinDetail extends Component {
 															<TableBody>
 
 																{newBasicStationVos && newBasicStationVos.map((item,index)=>{
-																	console.log('item',item);
 																	return (
 																		 <TableRow key={index}>
 																		<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

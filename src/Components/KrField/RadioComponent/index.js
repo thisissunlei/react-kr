@@ -25,10 +25,17 @@ export default class RadioComponent  extends React.Component{
 
 		var inputProps = {
 				...input,
+				value:this.state.value,
 				placeholder:placeholder||label,
 				type,
 				disabled,
 				onClick:this.onClick,
+		}
+
+		if(input.value === this.state.value){
+			inputProps.checked = true;
+		}else{
+			inputProps.checked = false;
 		}
 
 		return (

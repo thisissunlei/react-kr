@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -10,19 +10,17 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	KrDate,
 	DotTitle
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
-export default class ConfirmFormDetail  extends Component{
+import {DateFormat} from 'kr/Utils';
+export default class ConfirmFormDetail  extends React.Component{
 
 
 	static PropTypes = {
@@ -56,7 +54,6 @@ export default class ConfirmFormDetail  extends Component{
 		let {detail, optionValues} = this.props;
 
 		detail = Object.assign({},detail);
-		console.log("detail",detail);
         var leasorName ;
           optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item)=>{
         	if(item.id === detail.leaseId){
@@ -69,9 +66,9 @@ export default class ConfirmFormDetail  extends Component{
         		return payment = item.label;
         	}
         })
-         	detail.leaseBegindate=dateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
-	        detail.leaseEnddate=dateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
-	        detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+         	detail.leaseBegindate=DateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
+	        detail.leaseEnddate=DateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
+	        detail.signdate=DateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 

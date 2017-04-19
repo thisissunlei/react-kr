@@ -1,11 +1,9 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
 	reduxForm,
 	submitForm,
-	change,
 	reset
 } from 'redux-form';
 import {
@@ -17,7 +15,6 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -27,7 +24,7 @@ import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -67,7 +64,6 @@ export default class JoinCreate extends Component {
 	}
 
 	onConfrimSubmit() {
-		console.log(this.props, this.props.params);
 
 		let params = this.props.params;
 		let {
@@ -210,7 +206,6 @@ export default class JoinCreate extends Component {
 				});
 
 			}).catch(function(err) {
-				console.log(err);
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',

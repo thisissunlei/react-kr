@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -20,12 +19,6 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Tabs,
 	Tab,
-	Dialog,
-	Section,
-	Grid,
-	Notify,
-	Button,
-	KrField,
 	Form,
 	BreadCrumbs,
 	Title
@@ -35,7 +28,8 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
-export default  class CommunityManage extends Component {
+
+export default class CommunityManage extends React.Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,

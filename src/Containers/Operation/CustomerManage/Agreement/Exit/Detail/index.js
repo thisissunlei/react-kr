@@ -1,16 +1,13 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
 import {
 	BreadCrumbs,
 	Loading,
-	Notify,
 	Section,
 	SplitLine,
 	KrField,
-	LabelText,
 	PaperBack,
 	Title
 } from 'kr-ui';
@@ -31,7 +28,7 @@ import {
 	Row,
 	Col
 } from 'kr-ui/Grid';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -43,7 +40,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 
-export default class ExitDetail extends Component {
+export default class ExitDetail extends React.Component {
 
 
 	constructor(props, context) {

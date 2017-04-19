@@ -1,24 +1,23 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React, {Component,PropTypes} from 'react';
+import {
+	reduxForm,
+	change
+} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
 	ButtonGroup,
   ListGroup,
   ListGroupItem,
-	SearchForm,
 	Message,
 } from 'kr-ui';
 import dateFormat from 'dateformat';
 import $ from 'jquery'
-class AdvanceSearchDateForm extends Component{
+class AdvanceSearchDateForm extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -155,7 +154,7 @@ class NewCreateForm extends Component{
 		 });
 	 }
 	render(){
-		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
+		const { error, handleSubmit, pristine,content,filter} = this.props;
 		let communityText = '';
 		let {selectOption,selectSourceOption} =this.state;
 		let options = [{

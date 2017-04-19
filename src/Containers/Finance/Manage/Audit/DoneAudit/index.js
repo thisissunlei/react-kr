@@ -1,13 +1,4 @@
-import React, {
-  Component
-} from 'react';
-import {
-  connect
-} from 'react-redux';
-import {
-  bindActionCreators
-} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 import {
   Actions,
   Store
@@ -15,7 +6,6 @@ import {
 
 
 import {
-  Form,
   Table,
   TableBody,
   TableHeader,
@@ -24,15 +14,7 @@ import {
   TableRowColumn,
   TableFooter,
   Button,
-  Section,
-  Grid,
-  Row,
-  Col,
   Dialog,
-  Tabs,
-  Tab,
-  KrField,
-  Title,
   KrDate,
   Message,
   Tooltip,
@@ -44,7 +26,7 @@ import HightSearchForm from './HightSearchForm';
 import './index.less';
 import ViewAudit from './ViewAudit';
 import EditMoney from './EditMoney';
-export default class DoneAudit extends Component {
+export default class DoneAudit extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -105,7 +87,6 @@ export default class DoneAudit extends Component {
     //导出
   onExport = (values) => {
       var searchParams = this.state.Params;
-      console.log(searchParams);
       let idList = [];
       values.map((item, index) => {
         idList.push(item.id)
@@ -216,7 +197,6 @@ export default class DoneAudit extends Component {
     let {
       itemDetail
     } = this.state;
-    console.log('')
     return (
 
       <div className="m-done-audit">

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -10,18 +10,16 @@ import {
 	TableRow, 
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	DotTitle
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail  extends Component{
+export default class ConfirmFormDetail  extends React.Component{
 
 
 	static PropTypes = {
@@ -112,7 +110,6 @@ export default class ConfirmFormDetail  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{console.log(detail.stationVos,"????????22")}
 
 										{detail && (Object.prototype.toString.call(detail.stationVos)==["objectArray"]) &&detail.stationVos && detail.stationVos.map((item,index)=>{
 											return (

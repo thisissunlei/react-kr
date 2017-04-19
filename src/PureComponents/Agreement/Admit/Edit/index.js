@@ -87,7 +87,6 @@ export default class JoinCreate extends Component {
 	}
 
 	onConfrimSubmit() {
-		console.log(this.props, this.props.params);
 
 		let params = this.props.params;
 		let {
@@ -233,7 +232,6 @@ export default class JoinCreate extends Component {
 				});
 
 			}).catch(function(err) {
-				console.log(err);
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',

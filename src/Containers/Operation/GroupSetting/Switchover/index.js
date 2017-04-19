@@ -35,7 +35,6 @@ export default class Switchover extends React.Component{
   }
   leftAdd(value){
     var arr=this.state.allData;
-    console.log(arr)
     arr.push(value);
     this.setState({allData:arr});
   }
@@ -84,7 +83,6 @@ class ZhuanHuan extends React.Component{
       return;
     }
      this.swapItems(this.state.mouldSort, index, index- 1);
-     console.log(React.SyntheticEvent);
 
 
   },

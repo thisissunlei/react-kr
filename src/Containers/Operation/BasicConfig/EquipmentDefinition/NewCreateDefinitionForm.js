@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -13,7 +13,7 @@ import {
 	Notify,
 	err
 } from 'kr-ui';
-class NewCreateDefinitionForm extends Component{
+class NewCreateDefinitionForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
@@ -230,7 +230,6 @@ class NewCreateDefinitionForm extends Component{
 	}
 	// 新增设备定义
 	onSubmit=(values)=>{
-		console.log("values",values);
 		let _this = this;
 		values.enable = _this.state.isOnlines?"ONLINE":"OFFLINE";
 		let deviceCodeParams = {

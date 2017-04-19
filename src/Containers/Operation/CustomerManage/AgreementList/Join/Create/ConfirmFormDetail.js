@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	Table,
 	TableBody,
@@ -28,7 +28,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-export default class ConfirmFormDetail extends Component {
+export default class ConfirmFormDetail extends React.Component {
 
 
 	static propTypes = {
@@ -47,7 +47,6 @@ export default class ConfirmFormDetail extends Component {
 
 	onSubmit(form) {
 
-		console.log(form.stationVos);
 
 		form = Object.assign({}, form);
 		const {
@@ -93,10 +92,10 @@ export default class ConfirmFormDetail extends Component {
 			}
 
 		})
-		detail.leaseBegindate = dateFormat(detail.leaseBegindate, "yyyy-mm-dd ");
-		detail.leaseEnddate = dateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
-		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
-		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
+		detail.leaseBegindate = DateFormat(detail.leaseBegindate, "yyyy-mm-dd ");
+		detail.leaseEnddate = DateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
+		detail.firstpaydate = DateFormat(detail.firstpaydate, "yyyy-mm-dd ");
+		detail.signdate = DateFormat(detail.signdate, "yyyy-mm-dd ");
 
 
 		return (

@@ -195,7 +195,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -208,13 +207,11 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -234,7 +231,6 @@ class NewCreateForm extends Component {
 		let allRent = 0;
 		this.setAllRent(stationVos);
 		let stationVosList = this.state.stationVos;
-		console.log('delStationVos',stationVosList,stationVos);
 		stationVosList.forEach((item,index)=>{
 			stationVos.map((value)=>{
 				if(item.stationId == value.stationId){
@@ -242,7 +238,6 @@ class NewCreateForm extends Component {
 				}
 			})
 		})
-		console.log('index',stationVosList);
 
 		this.setState({
 			stationVos,
@@ -275,7 +270,6 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
@@ -611,7 +605,6 @@ const validate = values => {
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
-	console.log('fffffffff');
 
 	if (!values.lessorContactid) {
 		errors.lessorContactid = '请填写出租方联系人';

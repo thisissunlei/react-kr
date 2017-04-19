@@ -30,19 +30,43 @@ export default class Field extends React.Component{
     registerField && registerField(name,'field');
   }
 
-  onChange = (value)=>{
-    const {onChange} = this.context;
-    const {name} = this.props;
-    onChange && onChange(name,value);
+  componentWillReceiveProps(nextProps){
+	  if(this.name !== nextProps.name){
+		  this.context.unRegisterField(this.name);
+		  this.context.registerField(nextProps.name);
+	  }
   }
 
-  onFocus = ()=>{
+  get name(){
+	  return this.props.name;
+  }
+
+  onChange = (event)=>{
+
+    const {onChange} = this.context;
+    const {name} = this.props;
+
+    var value = '';
+
+    if(typeof event === 'string'){
+        value = event;
+    }else if(typeof event === 'object' && event.target){
+        var target = event.target;
+        value = target.value;
+    }
+
+
+    onChange && onChange(name,value);
+
+  }
+
+  onFocus = (event)=>{
     const {onFocus} = this.context;
     const {name} = this.props;
     onFocus && onFocus(name);
   }
 
-  onBlur = ()=>{
+  onBlur = (event)=>{
     const {onBlur} = this.context;
     const {name} = this.props;
     onBlur && onBlur(name);

@@ -1,10 +1,6 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
 
 import {
 	reduxForm,
@@ -12,7 +8,6 @@ import {
 	initialize
 } from 'redux-form';
 import {
-	Actions,
 	Store
 } from 'kr/Redux';
 import {
@@ -22,13 +17,11 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
-	ListGroup,
-	ListGroupItem,
 	Message
 } from 'kr-ui';
 
 
-class EditDetail extends Component {
+class EditDetail extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,
@@ -54,7 +47,6 @@ class EditDetail extends Component {
 
 	onSubmit(values) {
 		var oldInterCode=this.props.detail.interCode;
-		console.log("99",oldInterCode)
 
 		if (navigator.onLine)
 		{ //正常工作

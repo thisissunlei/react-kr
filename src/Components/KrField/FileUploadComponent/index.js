@@ -265,9 +265,6 @@ export default class FileUploadComponent extends React.Component {
 							}
 						}
 					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
-					};
 
 					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
@@ -276,10 +273,6 @@ export default class FileUploadComponent extends React.Component {
 					_this.onTokenError();
 				}
 			}
-		};
-
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
 		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';

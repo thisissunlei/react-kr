@@ -21,7 +21,6 @@ function getUrl(path, params = {},mode = false) {
     try {
         server += APIS[path].url;
     } catch(err) {
-        console.error(`${path} not defined in apis.js`);
         return false;
     }
 

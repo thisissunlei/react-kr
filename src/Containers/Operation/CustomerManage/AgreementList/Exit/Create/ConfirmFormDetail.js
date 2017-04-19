@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -17,17 +17,15 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail extends Component {
+export default class ConfirmFormDetail extends React.Component {
 
 
 	static PropTypes = {
@@ -76,8 +74,8 @@ export default class ConfirmFormDetail extends Component {
 			}
 		});
 
-		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
-		detail.withdrawdate = dateFormat(detail.withdrawdate, "yyyy-mm-dd ");
+		detail.signdate = DateFormat(detail.signdate, "yyyy-mm-dd ");
+		detail.withdrawdate = DateFormat(detail.withdrawdate, "yyyy-mm-dd ");
 
 		return (
 

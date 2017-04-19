@@ -153,7 +153,6 @@ export default class AppointmentVisit extends Component {
 			_this.tabNum();
 
 		}).catch(function(err) {
-				console.log(err);
 		});
 	}
 

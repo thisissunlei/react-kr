@@ -80,7 +80,6 @@ export default class SelectComponent extends React.Component {
 	}
 
 	handleChange(value) {
-		Debug.log("value",value);
 		let {
 			input
 		} = this.props;
@@ -117,7 +116,6 @@ export default class SelectComponent extends React.Component {
 		})
 	}
 	selectList=(e)=>{
-		console.log(e.target.id,e.target.innerHTML);
 		let select = this.refs.input;
 		let nameId = e.target.id.split('-')[2];
 		select.value = e.target.innerHTML;
@@ -164,7 +162,6 @@ render() {
 
 		let {input, label, inline, search, type, meta: {touched, error}, children, disabled, style, requireLabel, multi, ...other} = this.props;
 		let {options,optionsList} = this.state;
-		console.log('options',optionsList);
 		let {showCity} = this.state;
 		let cityDiv = {};
 		cityDiv.display = showCity?'block':'none';
