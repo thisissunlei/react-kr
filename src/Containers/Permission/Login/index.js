@@ -217,6 +217,7 @@ class Login extends Component {
 			loginPwd:_this.refs.loginPwds.value,
 		})).then(function(response) {
 			//跳转？
+			window.location.href = '/';
 		}).catch(function(err) {
 			 if(err.code==-1){
 			 	Message.error(err.message)
