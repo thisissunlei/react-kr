@@ -69,9 +69,6 @@ export default class WaitVoucher extends React.Component {
     }
 
   }
-  componentDidMount(){
-    Message.error("asdfds")
-  }
   //操作相关
   onOperation = (type, itemDetail) => {
 
