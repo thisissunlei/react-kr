@@ -44,8 +44,8 @@ export default class D3Content extends React.Component {
 			finaRedPointVo:this.props.finaRedPointVo,
 			whiteBar:this.props.whiteBar,
 		}
-		this.NodeList = this.getSameTime();
-		this.sameNode = this.NodeList[0];
+		// this.NodeList = this.getSameTime();
+		// this.sameNode = this.NodeList[0];
 
 	}
 
@@ -62,22 +62,22 @@ export default class D3Content extends React.Component {
     }
     if (!_.isEqual(this.props.finaBluePointVo, nextProps.finaBluePointVo)) {
       this.setState({
-        detail: nextProps.finaBluePointVo
+        finaBluePointVo: nextProps.finaBluePointVo
       });
     }
     if (!_.isEqual(this.props.finaRedPointVo, nextProps.finaRedPointVo)) {
       this.setState({
-        detail: nextProps.finaRedPointVo
+        finaRedPointVo: nextProps.finaRedPointVo
       });
     }
     if (!_.isEqual(this.props.whiteBar, nextProps.whiteBar)) {
       this.setState({
-        detail: nextProps.whiteBar
+        whiteBar: nextProps.whiteBar
       });
     }
-    this.NodeList = this.getSameTime();
-	this.sameNode = this.NodeList[0];
-
+    
+ //    this.NodeList = this.getSameTime();
+	// this.sameNode = this.NodeList[0];
 
   }
 
@@ -236,7 +236,7 @@ export default class D3Content extends React.Component {
 
 		let {
 			finaBluePointVo
-		} = this.props;
+		} = this.state;
 
 		const that = this;
 		let finaBluePointVoList = finaBluePointVo.map((item,index) => {
@@ -252,7 +252,7 @@ export default class D3Content extends React.Component {
 
 		let {
 			finaRedPointVo
-		} = this.props;
+		} = this.state;
 		let finaRedPointVoList = finaRedPointVo;
 		var {
 				currentYear
@@ -398,6 +398,8 @@ export default class D3Content extends React.Component {
 			currentYear
 		} = this.props;
 		let that = this;
+		this.NodeList = this.getSameTime();
+		this.sameNode = this.NodeList[0];
 		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
