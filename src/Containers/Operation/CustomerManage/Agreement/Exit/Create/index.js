@@ -182,6 +182,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
 				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
 				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";

@@ -246,6 +246,7 @@ class NewCreateForm extends React.Component {
 
 	onSubmit(form) {
 
+		console.log('====onsubmit=====')
 		form = Object.assign({}, form);
 
 		let {
@@ -273,7 +274,7 @@ class NewCreateForm extends React.Component {
 
 
 		form.stationVos = stationVos;
-		form.rentamount = (this.state.allRent).toFixed(2);
+		form.rentamount = this.state.allRent;
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		if(!!!form.agreement){

@@ -150,6 +150,7 @@ class NewCreateForm extends React.Component {
 	onChangeLeaseBeginDate(value) {
 
 		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		let {initialValues} = this.props;
 
 		let {
 			stationVos
@@ -161,6 +162,9 @@ class NewCreateForm extends React.Component {
 
 		this.setState({
 			stationVos: []
+		},function(){
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
+
 		});
 	}
 
@@ -170,6 +174,8 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
+
 
 		if (!stationVos.length) {
 			return;
@@ -177,6 +183,9 @@ class NewCreateForm extends React.Component {
 
 		this.setState({
 			stationVos: []
+		},function(){
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
+
 		});
 
 	}
@@ -262,14 +271,9 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 		let _this = this;
-		// let allMoney = 0;
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allMoney += _this.getSingleRent(item);
-		// })
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
 
-		// allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setState({
 			stationVos,
 		}, function() {
@@ -538,7 +542,10 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
+		let {initialValues} = this.props;
 		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(stationList)})).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestotalrent', JSON.stringify(response));
+			
 			_this.setState({
 				allRent:response
 			})

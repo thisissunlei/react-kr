@@ -480,9 +480,12 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
 			}
 			return item;
 		})
@@ -663,8 +666,8 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-										<Button label="选择工位"  onTouchTap={this.openStationDialog}  />
 									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
+									    <Button label="选择工位"  onTouchTap={this.openStationDialog}  />
 										<Button label="删除" cancle={true} type="button" height={28} onTouchTap={this.onStationDelete} />
 
 								  </ButtonGroup>

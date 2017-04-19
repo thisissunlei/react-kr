@@ -540,9 +540,11 @@ class NewCreateForm extends React.Component {
 	setAllRent=(list)=>{
 		let _this = this;
 		let {initialValues} = this.props;
-		list = list.map((item)=>{
+		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
 			}
 			return item;
 		})

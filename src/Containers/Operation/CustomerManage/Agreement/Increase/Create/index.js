@@ -206,7 +206,8 @@ export default class JoinCreate extends Component {
 				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
 				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
 				optionValues.totalrent = parseInt(localStorage.getItem(keyWord+'totalrent'));
-				initialValues.totaldeposit = parseInt(localStorage.getItem(keyWord+'totaldeposit'));
+				initialValues.totalrent = parseInt(localStorage.getItem(keyWord+'totalrent')) || 0;
+				initialValues.totaldeposit = parseInt(localStorage.getItem(keyWord+'totaldeposit')) || 0;
 
 			}
 			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';

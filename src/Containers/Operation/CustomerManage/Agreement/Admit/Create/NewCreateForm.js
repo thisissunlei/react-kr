@@ -378,10 +378,13 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
 		}
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify([]));
+
 
 		this.setState({
 			stationVos: []
@@ -395,10 +398,13 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
 		}
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify([]));
+
 
 		this.setState({
 			stationVos: []
@@ -520,6 +526,15 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {initialValues} = this.props;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
+			}
+			return item;
+		})
 		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
 			_this.setState({
 				allRent:response

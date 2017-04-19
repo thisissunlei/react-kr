@@ -191,6 +191,7 @@ class NewCreateForm extends React.Component {
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
+			this.setAllRent([])
 		});
 	}
 
@@ -211,6 +212,7 @@ class NewCreateForm extends React.Component {
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
+			this.setAllRent([])
 		});
 	}
 
@@ -553,6 +555,8 @@ class NewCreateForm extends React.Component {
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
 			}
 			return item;
 		})

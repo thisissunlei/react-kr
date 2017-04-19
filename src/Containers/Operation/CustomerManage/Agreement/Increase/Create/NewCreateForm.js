@@ -176,6 +176,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
@@ -183,6 +184,9 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos: []
+		},function(){
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
+			this.setAllRent(this.state.stationVos);
 		});
 	}
 
@@ -192,6 +196,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
@@ -199,6 +204,9 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos: []
+		},function(){
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
+			this.setAllRent(this.state.stationVos);
 		});
 
 	}
@@ -279,14 +287,9 @@ class NewCreateForm extends Component {
 			return true;
 		});
 		let _this = this;
-		let allMoney = 0;
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
-			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});
@@ -528,8 +531,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let {initialValues} = this.props;
-		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
 
 		this.setAllRent(stationVos);
@@ -541,6 +542,8 @@ class NewCreateForm extends Component {
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
 			}
 			return item;
 		})
@@ -669,8 +672,9 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+										
 									    <Button label="批量录入单价"  width={100}  onTouchTap={this.openPreStationUnitPriceDialog} />
+									    <Button label="选择工位"  onTouchTap={this.openStationDialog} />
 										<Button label="删除" height={27} cancle={true} type="button" onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
 								</Col>
