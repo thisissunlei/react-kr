@@ -146,15 +146,16 @@ class Editdialog extends Component {
 		}
 	}
 	renderChildren = (child,index) => {
+		console.log(index);
 		var _this = this;
 		var childlist, resources;
 		if (child.length > 0) {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
 					return (
-						<div className="u-operation-list" style={{left:`${(index+1)*200}px`}} id={items.id} key={indexs}>
+						<div className="u-operation-list" style={{left:`${(index+1)*100}px`,top:`${((index)*20)}px`}} id={items.id} key={indexs}>
 								{items.name}→
-								{_this.renderChildren(items.cModuleVo,indexs)}
+								{_this.renderChildren(items.cModuleVo,index+1)}
 						</div>
 					)
 				} else {
@@ -186,9 +187,9 @@ class Editdialog extends Component {
 			List = list.map((item, index) => {
 				if (item.cModuleVo.length > 0) {
 					return (
-						<div className="u-operation-list" id={item.id} key={index}>
+						<div className="u-operation-list"  style={{top:`${(index*40)}px`}} id={item.id} key={index}>
 								{item.name}→
-								{_this.renderChildren(item.cModuleVo)}
+								{_this.renderChildren(item.cModuleVo,index)}
 						</div>
 					)
 				} else {
