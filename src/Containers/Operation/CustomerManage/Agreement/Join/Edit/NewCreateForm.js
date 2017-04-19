@@ -161,6 +161,9 @@ class NewCreateForm extends React.Component {
 		if (!stationVos.length) {
 			return;
 		}
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify([]));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(stationVos));
 		this.setState({
 			stationVos: [],
 			delStationVos: stationVos,
@@ -168,6 +171,7 @@ class NewCreateForm extends React.Component {
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
+			this.setAllRent([])
 		});
 	}
 
@@ -181,6 +185,10 @@ class NewCreateForm extends React.Component {
 			return;
 		}
 
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify([]));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(stationVos));
+
 		this.setState({
 			stationVos: [],
 			delStationVos: stationVos,
@@ -188,6 +196,7 @@ class NewCreateForm extends React.Component {
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
+			this.setAllRent([])
 		});
 	}
 
@@ -544,7 +553,7 @@ class NewCreateForm extends React.Component {
 			if(!item.unitprice){
 				item.unitprice = 0;
 			}else{
-				item.unitprice = item.unitprice.replace(/\s/g,'');
+				item.unitprice = (''+item.unitprice).replace(/\s/g,'');
 			}
 			return item;
 		})
@@ -637,8 +646,9 @@ class NewCreateForm extends React.Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+										
 									    <Button label="批量录入单价"  width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
+									    <Button label="选择工位"  onTouchTap={this.openStationDialog} />
 										<Button label="删除" cancle={true} type="button"  onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
 								</Col>
