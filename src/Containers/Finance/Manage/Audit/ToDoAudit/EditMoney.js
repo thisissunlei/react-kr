@@ -754,7 +754,6 @@ class EditMoney extends React.Component {
 				Loading,
 				topInfoList
 			} = this.state;
-			console.log('')
 			return (
 				<div className="u-audit-add u-audit-edit">
 			     <div className="u-audit-add-title">
