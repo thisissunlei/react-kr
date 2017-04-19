@@ -13,8 +13,6 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
-	Grid,
 	KrDate,
 	Row,
 	Col,

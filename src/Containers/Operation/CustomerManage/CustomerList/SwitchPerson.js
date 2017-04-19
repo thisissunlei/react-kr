@@ -6,7 +6,6 @@ import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,

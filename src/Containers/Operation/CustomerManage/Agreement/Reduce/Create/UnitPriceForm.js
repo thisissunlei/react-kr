@@ -11,7 +11,6 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 } from 'kr-ui';
 
 class UnitPriceForm  extends React.Component{

@@ -31,7 +31,6 @@ import UnitPriceForm from './UnitPriceForm';
 
 import {
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
