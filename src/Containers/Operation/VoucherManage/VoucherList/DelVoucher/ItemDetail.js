@@ -73,7 +73,7 @@ export default class ItemDetail extends React.Component {
 		return (
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
+			     	<span className="u-vouch-add-icon"></span>
 			     	<span>凭证详情</span>
 			     	<span className="u-audit-close" style={{
 								marginRight: 40

@@ -255,7 +255,7 @@ export default class WaitVoucher extends React.Component {
                       modal={true}
                       open={this.state.openSearch}
                       onClose={this.openSearch}
-                      contentStyle={{width:666}}
+                      contentStyle={{width:665}}
                     >
                       <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
                     </Dialog>
