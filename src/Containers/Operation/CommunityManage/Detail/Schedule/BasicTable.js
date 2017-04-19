@@ -40,9 +40,7 @@ class SearchForm extends React.Component {
 			istip: false,
 
 		};
-		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
-		this.getcommunity();
 
 
 	}
@@ -76,37 +74,9 @@ class SearchForm extends React.Component {
 
 
 	}
-	getcommunity() {
-		let _this = this;
-		let {communityIdList, page, pageSize, type} = this.state;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			communityIdList.unshift({
-				label: '请选择',
-				value: '0'
-			});
-
-			_this.setState({
-				communityIdList,
-			});
-
-
-		}).catch(function(err) {
-
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-	}
 	selectCommunity(personel) {
 		let id = 0;
+		console.log('item',personel);
 		if (!personel) {
 			this.setState({
 				communityids: 0
@@ -159,7 +129,7 @@ class SearchForm extends React.Component {
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} onFilter={this.onFilter}/>
-				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="community"  grid={1/5} component="searchCommunityManage" label="社区"  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
 
 
