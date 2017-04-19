@@ -1,25 +1,14 @@
 
 import React, { PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector} from 'redux-form';
 import $ from 'jquery';
 import {ReactHtmlParser} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
-	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
 	ListGroup,
 	ListGroupItem,
-	Notify,
-	DateComponent,
-	Checkbox,
-	Editor,
 	Table,
 	TableBody,
 	TableHeader,

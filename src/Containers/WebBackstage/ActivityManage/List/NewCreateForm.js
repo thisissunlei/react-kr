@@ -10,8 +10,6 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
-	DateComponent,
-	Editor
 } from 'kr-ui';
 
 import {
@@ -82,16 +80,16 @@ class NewCreateForm extends React.Component{
 		if(State.choseCompany){
 			enrollArr.push("COMPANY")
 		}
-		
+
 		if(State.choseAdd){
 			enrollArr.push("ADDRESS")
 		}
-		
+
 		if(State.chosePosition){
 			enrollArr.push("POSITION")
 		}
 
-		
+
 
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
@@ -107,7 +105,7 @@ class NewCreateForm extends React.Component{
 
 		Http.request('newCreateActivity',{},values).then(function(response){
 			State.openNewCreate = !State.openNewCreate;
-			Message.success('操作成功');			
+			Message.success('操作成功');
 			State.searchParams = searchParams;
 			Store.dispatch(reset('NewCreateForm'));
 		}).catch(function(err){
@@ -408,7 +406,7 @@ class NewCreateForm extends React.Component{
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
 								/>
-								<KrField 
+								<KrField
 									label="手机端轮播图"
 									name="appCoverPic"
 									component="newuploadImage"
@@ -416,7 +414,7 @@ class NewCreateForm extends React.Component{
 									photoSize={'750*520'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'300'}
-									
+
 									requestURI = {State.requestURI}
 									inline={false}
 									style={{display:State.isStick?"block":"none",marginBottom:9}}
@@ -466,7 +464,7 @@ class NewCreateForm extends React.Component{
 												<input type="checkbox"  onChange={this.choosePosition} style={{marginRight:10}}/>
 												<span style={{fontSize:14,color:"#333333"}} >职务</span>
 											</ListGroupItem>
-											
+
 										</ListGroup>
 									</Row>
 								</Grid>

@@ -2,12 +2,7 @@ import React, {
 	PropTypes
 } from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
-import {
 	reduxForm,
-	formValueSelector
 } from 'redux-form';
 import {
 	Actions,
@@ -15,11 +10,6 @@ import {
 } from 'kr/Redux';
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

@@ -1,7 +1,6 @@
 import React, { PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,change,initialize} from 'redux-form';
+import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import {
 	KrField,
@@ -11,16 +10,13 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
-	DateComponent,
-	Checkbox,
-	Editor
 } from 'kr-ui';
 import {
 	observer
 } from 'mobx-react';
 import './index.less';
 import State from './State';
-import {ShallowEqual,DateFormat} from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 @observer
 class EditActivityForm extends React.Component{
 	constructor(props){
@@ -55,7 +51,7 @@ class EditActivityForm extends React.Component{
 			State.defaultPoint =  EmptyArr;
 			State.mapDefaultValue = response.address;
 			State.initailPoint = response.countyName;
-			State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;			
+			State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
 			State.mapdefaultValue = response.address;
 			State.activityIntroduce = response.summary;
 			State.pcCoverPicDefaultValue = response.pcCoverPic || '';
@@ -143,7 +139,7 @@ class EditActivityForm extends React.Component{
 		if(State.chosePosition){
 			EArr.push("POSITION")
 		}
-		
+
 		if(values.mapField){
 			values.xPoint = values.mapField.pointLng;
 			values.yPoint = values.mapField.pointLat;
@@ -209,7 +205,7 @@ class EditActivityForm extends React.Component{
 	// 检验排序号是否重复
 	NumRepeat=(value)=>{
 
-		// 
+		//
 		let {detail} = this.props;
 		if(!value){
 			State.serialNumRepeat = false;
@@ -547,7 +543,7 @@ class EditActivityForm extends React.Component{
 												<span style={{fontSize:14,color:"#333333"}} >职务</span>
 
 											</ListGroupItem>
-											
+
 
 										</ListGroup>
 									</Row>
