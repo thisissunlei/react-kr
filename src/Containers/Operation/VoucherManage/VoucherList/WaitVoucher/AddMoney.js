@@ -633,27 +633,24 @@ class AddMoney extends React.Component {
 				error,
 				handleSubmit,
 				pristine,
-				reset
+				reset,
+				detail
 			} = this.props;
 			let {
 				accountList,
 				mainbillInfo,
 				flowAmount,
-        AddInfo,
-        mainBillList
+		        AddInfo,
+		        mainBillList
 			} = this.state;
         let items = [];
         if(AddInfo.urls){
           items = AddInfo.urls.map((item,value) => {
-            return(
-              {
-                src: item.src,
-                thumbnail: item.src,
-                w: 900,
-                h: 900,
-                title: value
-              }
-            )
+          	item.src=item.src;
+          	item.thumbnail=item.src;
+          	item.w= 900;
+            item.h= 900;
+            return item;
           });
         }
 
@@ -667,7 +664,7 @@ class AddMoney extends React.Component {
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
            <CircleStyleTwo num="1" info="付款凭证">
              <div style={{marginTop:28}}>
-               <PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+               <PhotoSwipeGallery items={items} options={{index:detail.id}}  thumbnailContent={this.getThumbnailContent}/>
              </div>
            </CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款信息" style={{marginTop:45}}>

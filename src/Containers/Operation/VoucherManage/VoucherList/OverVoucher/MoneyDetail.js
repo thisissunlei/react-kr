@@ -133,25 +133,26 @@ export default class VoucherDetail extends React.Component {
 		}
 	}
 	render() {
-    let {infoList} = this.state;
+    	let {infoList} = this.state;
 		let items = [];
+		let {detail}=this.props;
 		let date = DateFormat(infoList.dealTime, "yyyy-mm-dd");
-	if(infoList.urls){
-			items = infoList.urls.map((item,value) => {
-				return(
-					{
-						src: item.src,
-				    w: 900,
-				    h: 900,
-					}
-				)
-			});
-		}
+		if(infoList.urls){
+				items = infoList.urls.map((item,value) => {
+					return(
+						{
+							src: item.src,
+					    w: 900,
+					    h: 900,
+						}
+					)
+				});
+			}
 		return (
 			<div className="u-audit-detail">
 					 <CircleStyleTwo num="1" info="付款凭证">
 						 	<div style={{marginTop:-28,paddingBottom:15}}>
-								<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+								<PhotoSwipeGallery items={items} options={{index:detail.id}} thumbnailContent={this.getThumbnailContent}/>
 						 	</div>
 					 </CircleStyleTwo>
 					  <CircleStyleTwo num="2" info="付款信息" style={{marginTop:45}}>
