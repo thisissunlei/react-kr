@@ -26,39 +26,16 @@ class ImportData extends React.Component{
 		this.state={
 			file:{},
 			fileName:'',
-			customerName:''
 		}
 	};
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	};
-	importDataPost=(num)=>{
-		const {importDataPost} = this.props;
-		importDataPost && importDataPost(num);
-	}
 	onLoadDemo=()=>{
 		const {onLoadDemo} = this.props;
 		onLoadDemo && onLoadDemo();
 	}
-
-	onChangeAdd=(params)=>{
-		 this.setState({
-			 customerName:params.label
-		 })
-		 if(!params){
-			 Store.dispatch(change('ImportData','sourceName',''));
-			 Store.dispatch(change('ImportData','sourceId',''));
-			 return ;
-		 }
-		 if(params.label==params.value){
-			 Store.dispatch(change('ImportData','sourceName',params.label));
-			 Store.dispatch(change('ImportData','sourceId',''));
-		 }else{
-			 Store.dispatch(change('ImportData','sourceId',params.value));
-			 Store.dispatch(change('ImportData','sourceName',params.label));
-		 }
-	 }
 
 	 onChange=(event)=> {
 		 var _this = this;
@@ -76,32 +53,22 @@ class ImportData extends React.Component{
 	 }
 
 	 onSubmit=(params)=>{
-		 let {customerName}=this.state;
 		 let _this = this;
 		 var form = new FormData();
-		 form.append('marketData', this.state.file);
+		 form.append('spaceData', this.state.file);
 		 if(params.sourceId){
-			 form.append('sourceId', params.sourceId);
-		 }
-		 form.append('sourceName', params.sourceName);
-		 if(!customerName){
-			 Message.error('请输入客户来源');
-			 return false;
+			 form.append('communityId', params.communityId);
 		 }
 		 if(!this.state.file.name){
 			 Message.error('请选择上传文件');
 			 return false;
-		 }
-		 if(!params.sourceName){
-			 return ;
 		 }
 		 var xhr = new XMLHttpRequest();
 		 xhr.onreadystatechange = function() {
 			 if (xhr.readyState === 4) {
 				 if (xhr.status === 200) {
 					 if (xhr.response && xhr.response.code > 0) {
-						 State.importContent(xhr.response.data.batchId);
-						 _this.importDataPost(xhr.response.data.batchId);
+						 Message.warntimeout('图片上传成功', 'success');
 					 } else {
 						 Message.error(xhr.response.message);
 					 }
@@ -114,7 +81,7 @@ class ImportData extends React.Component{
 
 		 xhr.onerror = function(e) {
 		 };
-		 xhr.open('POST', '/api/krspace-finance-web/csr/market/import/actions/upload', true);
+		 xhr.open('POST', '/api/krspace-finance-web/cmt/station/import/actions/upload', true);
 		 xhr.responseType = 'json';
 		 xhr.send(form);
 
@@ -142,19 +109,19 @@ class ImportData extends React.Component{
 
 					 <div className='import-title-two'>
 					   <div style={{fontSize:'16px',color:'#555',fontWeight:'500'}}>社区工位信息</div>
-						 <div className='import-first'>1.下载模版文件，根据模版中的批注，填写社区工位</div>
-						 <span className='load-demo icon-template' onClick={this.onLoadDemo}>下载模板</span>
+						 <div className='import-first'>下载模版文件，根据模版中的批注，填写社区工位</div>
 					 </div>
 
 					 <KrField type='hidden' name='communityId'/>
-					 
+
 					 <div style={{marginTop:19}}>
 						 <span className='m-upload-file'>上传文件:</span>
 						 <span className='import-logo'><span className='import-pic'></span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
+             <span className='load-demo icon-template' onClick={this.onLoadDemo}>下载模板</span>
 						 {fileName?<span className='file-name'>{fileName}</span>:''}
 					 </div>
 
-					 <Grid style={{marginTop:30,marginBottom:6}}>
+					 <Grid style={{marginTop:30,marginBottom:6,marginLeft:-30}}>
 						 <Row>
 							 <Col md={12} align="center">
 								 <ButtonGroup>

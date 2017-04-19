@@ -41,6 +41,10 @@ class  CommunityStationDetail extends React.Component{
 
 	}
 
+	componentDidMount(){
+		State.stationDataReady();
+	}
+
  //新建工位打开
 	openAddStation=()=>{
 		State.addStation();
@@ -135,12 +139,24 @@ openImporData=()=>{
 	State.openImportData();
 }
 
-	render(){
-		return(
+//下载模版
+onLoadDemo=()=>{
+	let url = `/api/krspace-finance-web/cmt/station/import/actions/download-templete`;
+	window.location.href = url;
+}
 
+//点空白
+whiteClose=()=>{
+  State.openStation=false;
+	State.openStationEdit=false;
+}
+
+	render(){
+		let title=`工位列表(${State.communityName})`;
+		return(
 			<div className='community-list'>
 				<Title value="工位列表"/>
-				<Section title="工位列表" description="" style={{marginBottom:-5,minHeight:910}}>
+				<Section title={title} description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 
 			          <Col
@@ -271,11 +287,12 @@ openImporData=()=>{
 					title="导入工位"
 					onClose={this.openImporData}
 					open={State.openImport}
-					contentStyle ={{ width: '444px',height:'382px'}}
+					contentStyle ={{ width: '444px'}}
 					>
 					<ImportData
 						onCancel={this.openImporData}
 						onSubmit={this.onSearchUpperSubmit}
+						onLoadDemo={this.onLoadDemo}
 					/>
 					</Dialog>
 

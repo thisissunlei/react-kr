@@ -338,5 +338,10 @@ module.exports = {
         url: '/mockjsdata/31/krspace-finance-web/cmt/station/info/type/edit?id={id}',
         method: 'get'
     },
+    //运营平台－工位列表数据准备
+    'station-param-data': {
+        url: '/mockjsdata/31/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
+        method: 'get'
+    },
 
 }

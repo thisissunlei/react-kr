@@ -31,7 +31,11 @@ let State = observable({
 		//高级查询
 		openSearchUpper:false,
 		//导入
-		openImport:false
+		openImport:false,
+		//社区名称
+		communityName:'',
+		//会议室名称数据准备
+		stationName:[]
 
 });
 //删除
@@ -98,8 +102,17 @@ State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
 //工位列表数据准备
-
-
+State.stationDataReady = action(function(params) {
+	var data={};
+	data.communityId=params;
+	var _this=this;
+	Http.request('station-param-data',data).then(function(response) {
+		_this.communityName=response.communityName;
+		_this.stationName=response.spaces;
+ }).catch(function(err) {
+		Message.error(err.message);
+ });
+});
 //导入开关
 State.openImportData= action(function() {
 	this.openImport=!this.openImport;
