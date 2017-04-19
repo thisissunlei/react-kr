@@ -35,7 +35,7 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
-class CommunityManage extends Component {
+export default  class CommunityManage extends Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,
@@ -60,7 +60,6 @@ class CommunityManage extends Component {
 	}
 
 	componentDidMount() {
-		Store.dispatch(Actions.switchSidebarNav(true));
 
 	}
 
@@ -81,7 +80,6 @@ class CommunityManage extends Component {
 	}
 
 	planTable() {
-		// Store.dispatch(Actions.switchRightBar(false));
 		let {
 			tab
 		} = this.state;
@@ -91,11 +89,6 @@ class CommunityManage extends Component {
 			tab
 		});
 	}
-	hiddenRight=()=>{
-		Store.dispatch(Actions.switchRightBar(false));
-	}
-
-
 
 	render() {
 		let {
@@ -146,16 +139,3 @@ class CommunityManage extends Component {
 		);
 	}
 }
-export default connect((state) => {
-
-	let changeValues = {};
-
-	// changeValues.lessorId = selector(state, 'tab');
-	// changeValues.openRight = state.tab;
-	changeValues = state.right_bar.switch_value || false;
-
-	return {
-		changeValues
-	}
-
-})(CommunityManage);
