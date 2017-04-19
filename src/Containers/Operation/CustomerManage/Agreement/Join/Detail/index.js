@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 
 import {
-	Menu,
-	MenuItem,
 	BreadCrumbs,
 	Loading,
 	Notify,
@@ -13,7 +11,6 @@ import {
 	SplitLine,
 	DotTitle,
 	KrField,
-	LabelText,
 	PaperBack,
 	KrDate,
 	Title,

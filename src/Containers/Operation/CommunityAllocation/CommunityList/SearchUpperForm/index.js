@@ -14,13 +14,7 @@ import {
 import $ from 'jquery';
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	reset
 } from 'redux-form';
 
 import {

@@ -5,11 +5,9 @@ import React, {
 import {
 	BreadCrumbs,
 	Loading,
-	Notify,
 	Section,
 	SplitLine,
 	KrField,
-	LabelText,
 	PaperBack,
 	Title
 } from 'kr-ui';

@@ -20,9 +20,6 @@ import {
 	formValueSelector,
 	change,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -33,10 +30,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
 
 	Table,
@@ -46,7 +39,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,

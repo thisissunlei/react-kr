@@ -1,9 +1,7 @@
 import React, {
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
+
 import {
 	reduxForm,
 	submitForm,
@@ -24,18 +22,13 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
-	Grid,
 	Row,
 	Col,
 	Dialog,
-	BreadCrumbs,
 	Form,
-	KrField,
 	IframeContent,
 	Notify,
-	Message,
-	ButtonGroup
+	Message
 } from 'kr-ui';
 import CreateMemberForm from './CreateMemberForm';
 import ChangeStation from './ChangeStation';

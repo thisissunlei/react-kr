@@ -1,18 +1,14 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
 import {
 	KrField,
 	Grid,
-	Row,
-	Col,
 	Button,
-	Notify,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

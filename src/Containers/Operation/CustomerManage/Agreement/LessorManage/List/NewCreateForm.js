@@ -21,7 +21,6 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

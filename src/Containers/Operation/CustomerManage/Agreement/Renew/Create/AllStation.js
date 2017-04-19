@@ -1,5 +1,4 @@
 import React, {
-	 
 	PropTypes
 } from 'react';
 import {
@@ -11,12 +10,8 @@ import {
 import {DateFormat} from 'kr/Utils';
 import {
 	reduxForm,
-	formValueSelector,
 	change,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {

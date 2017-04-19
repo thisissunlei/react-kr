@@ -6,8 +6,6 @@ import {
 } from 'mobx-react';
 
 import {
-	Menu,
-	MenuItem,
 	Title,
 } from 'kr-ui';
 

@@ -2,7 +2,7 @@ import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
-import { Tabs, Tab, Dialog, Section, Grid, Button, Notify, BreadCrumbs, KrField, Form, Row, Col, SearchForms, Loading, } from 'kr-ui';
+import { Tab, Dialog, Notify,  KrField, Form,SearchForms, Loading, } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
 import ReactDOM from 'react-dom';

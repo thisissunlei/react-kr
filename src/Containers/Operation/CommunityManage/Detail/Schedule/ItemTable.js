@@ -3,7 +3,7 @@ import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
 
-import { Tabs, Tab, Dialog, Section, Grid, Button, Notify, BreadCrumbs, Tooltip } from 'kr-ui';
+import { Tab, Dialog, Notify,Tooltip } from 'kr-ui';
 
 import './index.less';
 import _ from 'lodash';

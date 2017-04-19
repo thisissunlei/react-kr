@@ -34,12 +34,7 @@ import "./index.less";
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -47,7 +42,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -57,11 +51,9 @@ import {
 	IframeContent,
 	DotTitle,
 	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	KrDate,
-	CircleStyle
+	KrDate
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)

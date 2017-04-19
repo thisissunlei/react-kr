@@ -6,7 +6,6 @@ import {DateFormat} from 'kr/Utils';
 
 import {
 	KrField,
-	LabelText,
 	Button,
 	Grid,
 	Row,

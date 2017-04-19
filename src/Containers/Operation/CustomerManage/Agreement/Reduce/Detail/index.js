@@ -12,7 +12,6 @@ import React, {
 import {
 	BreadCrumbs,
 	Loading,
-	Notify,
 	Section,
 	SplitLine,
 	DotTitle,
@@ -22,7 +21,6 @@ import {DateFormat} from 'kr/Utils';
 
 import {
 	KrField,
-	LabelText,
 	KrDate,
 	Title,
 } from 'kr-ui';

@@ -10,11 +10,7 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -25,10 +21,7 @@ import {
 import {
 	KrField,
 	Grid,
-	Row,
-	Col,
 	Button,
-	Notify,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

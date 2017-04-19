@@ -4,35 +4,15 @@ import React, {
 
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	change
 } from 'redux-form';
 
-import {
-	Actions,
-	Store,
-	connect
-} from 'kr/Redux';
-import $ from 'jquery';
 
 import {
-	Section,
-	KrField,
 	Grid,
 	Row,
-	Col,
 	Message,
 	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
 	ListGroup,
-	Notify,
 	ListGroupItem
 } from 'kr-ui';
 

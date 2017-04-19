@@ -15,7 +15,6 @@ import {
 
 import {
 	KrField,
-	LabelText,
 	KrDate,
 	Button,
 	Grid,
@@ -29,7 +28,6 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Title,
-
 } from 'kr-ui';
 
 

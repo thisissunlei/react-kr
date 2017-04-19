@@ -9,7 +9,6 @@ import {
 	Section,
 	Button,
 	KrField,
-	LabelText,
 	KrDate,
 	Table,
 	TableBody,

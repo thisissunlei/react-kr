@@ -25,10 +25,7 @@ import {
 	reduxForm,
 	formValueSelector,
 	change,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray
+	initialize
 } from 'redux-form';
 
 import {
@@ -39,12 +36,7 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -52,7 +44,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
