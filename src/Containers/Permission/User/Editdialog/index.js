@@ -148,22 +148,17 @@ class Editdialog extends Component {
 	renderChildren = (child,index) => {
 		console.log(index);
 		var _this = this;
-		var temp = "";
 		var childlist, resources;
 		if (child.length > 0) {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
 					var abc = _this.renderChildren(items.cModuleVo,index+1)
-					//temp += items.name+_this.renderChildren(items.cModuleVo,index+1);
-					console.log(abc);
-
-					return temp;
-					// return (
-					// 	<div className="u-operation-list" style={{left:`${(index+1)*100}px`,top:`${((index)*20)}px`}} id={items.id} key={indexs}>
-					// 			{items.name}→
-					// 			{_this.renderChildren(items.cModuleVo,index+1)}
-					// 	</div>
-					// )
+					return (
+						<div className="u-operation-list" style={{left:`${(index+1)*100}px`,top:`${((index)*20)}px`}} id={items.id} key={indexs}>
+								{items.name}→
+								{_this.renderChildren(items.cModuleVo,index+1)}
+						</div>
+					)
 				} else {
 					return (
 						<div className="u-operation-list" id={items.id} key={indexs}>
