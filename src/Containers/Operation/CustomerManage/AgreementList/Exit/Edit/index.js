@@ -111,6 +111,7 @@ export default class EditCreate extends Component {
 
       initialValues.leaseBegindate = new Date;
       initialValues.leaseEnddate = new Date;
+      initialValues.setLocalStorageDate = +new Date();
 
        initialValues.contractcode = response.contractCode;
        

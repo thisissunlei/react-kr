@@ -133,6 +133,7 @@ export default class JoinCreate extends Component {
 			initialValues.customerId = params.customerId;
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
+			initialValues.setLocalStorageDate = +new Date();
 			// initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 			
 			initialValues.contractcode = response.contractCode;

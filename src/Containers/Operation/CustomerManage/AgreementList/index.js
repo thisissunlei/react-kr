@@ -350,10 +350,40 @@ class Merchants extends Component{
 
     }
 
+    getLocalStorageDate=()=>{
+		let date = [];
+		let delList = [];
+		let now = +new Date();
+		let clearDate = 60*60*1000*1;
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
+			 	let time = now - parseInt(localStorage.getItem(itemName));
+				console.log('====',i,'=====',typeof time,typeof clearDate ,time/clearDate);
+				if((time/clearDate)>1){
+					//10小时
+					date.push(itemName.replace('setLocalStorageDate',''));
+				}
+			 }
+		 }
+		 date.map((item)=>{
+		 	for (var i = 0; i < localStorage.length; i++) {
+				if(localStorage.key(i).indexOf(item)!='-1'){
+					delList.push(localStorage.key(i));
+				}
+			}
+		 })
+		 delList.map((item)=>{
+		 	localStorage.removeItem(item);
+		 })
+		 
+	}
+
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
       	let _this=this;
 		let bodyElem=document.getElementById("m-agreement-list");
+		this.getLocalStorageDate();
 		bodyElem.addEventListener("click", function(){
 		   event = event || window.event;
 			var target = event.target;
