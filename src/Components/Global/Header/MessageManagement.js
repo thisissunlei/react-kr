@@ -220,7 +220,6 @@ class MessageManagement extends Component{
 
 		let {redNum} = this.state;
 
-		console.log(redNum,"?????")
 		let arr = redNum.map(function(item,index){
 			let moveHintClass="m-lookCustomerList-num";
 			if(item.num > 9 && item.num < 100){

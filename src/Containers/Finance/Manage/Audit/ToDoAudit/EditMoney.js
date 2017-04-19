@@ -84,7 +84,7 @@ class EditMoney extends React.Component {
 				response.dealTime = DateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
-					flowAmount: response.flowAmount,
+					flowAmount: response.flowAmount.replace(/,/gi,''),
 					corporationId: response.corporationId
 				})
 				var form = {
@@ -116,25 +116,28 @@ class EditMoney extends React.Component {
 				item.label = item.contactName;
 				item.value = item.detailid;
 				if(item.depositId){
-					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, item.deposit));
-					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = item.deposit * 100;
+					var deposit=item.deposit.replace(/,/gi,'')
+					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.depositId}-1`, deposit));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.depositId}-1`] = deposit * 100;
 				}
-				
+
 				if(item.frontId){
-					console.log('item.nFrontmoney',item.nFrontmoney)
-					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.frontId}-1`, item.frontmoney));
-					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = item.frontmoney * 100;
+					var frontmoney=item.frontmoney.replace(/,/gi,'')
+					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.frontId}-1`, frontmoney));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.frontId}-1`] = frontmoney * 100;
 				}
 				if(item.totalrentId){
-					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, item.totalrent));
-					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = item.totalrent * 100;
+					var totalrent=item.totalrent.replace(/,/gi,'')
+					Store.dispatch(change('editMoneys', `fix-${item.detailid}-${item.totalrentId}-2`, totalrent));
+					_this.receivedBtnFormChangeValues[`fix-${item.detailid}-${item.totalrentId}-2`] = totalrent * 100;
 				}
-				
-				
+
+
 				return item;
 			})
 
 			response.scvList && response.scvList.map((item, index) => {
+				item.propamount=item.propamount.replace(/,/gi,'');
 				Store.dispatch(change('editMoneys', `no-${item.id}`, item.propamount));
 				_this.receivedBtnFormChangeValues[`no-${item.id}`] = item.propamount * 100;
 			})
@@ -214,6 +217,8 @@ class EditMoney extends React.Component {
 		var val = this.trim(value);
 		var deposit = 1;//押金
 		var totalrent = 2;//定金
+		var nDeposit,nTotalrent,nFrontmoney;
+		val=val.replace(/,/gi,'');
 		if (/[^0-9]+.[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
 			return;
@@ -222,19 +227,33 @@ class EditMoney extends React.Component {
 			Message.error('最多到小数点后两位');
 			return;
 		}
-		if (name == deposit && item.nDeposit >= 0 && value > item.nDeposit) {
-			Message.error('金额不能大于未回款额');
-			return
+		if (name == deposit) {
+				var str=new String(item.nDeposit);
+						nDeposit=str.replace(/,/gi,'');
+				if(value*100 > nDeposit*100){
+						Message.error('金额不能大于未回款额');
+						return
+				}
+
 		}
-		if (name == totalrent && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
-			Message.error('金额不能大于未回款额');
-			return
+		if (name == totalrent) {
+				var str=new String(item.nTotalrent);
+						nTotalrent=str.replace(/,/gi,'');
+				if(item  && value*100 > nTotalrent*100){
+					Message.error('金额不能大于未回款额');
+					return
+				}
 		}
-		if (name == deposit && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
-			Message.error('金额不能大于未回款额');
-			return
+		if (name == deposit) {
+			var str=new String(item.nFrontmoney)
+				nFrontmoney=str.replace(/,/gi,'');
+				if(item  && value*100 > nFrontmoney*100){
+					Message.error('金额不能大于未回款额');
+					return
+				}
+
 		}
-		
+
 		let {
 			changeValues,
 		} = this.props;
@@ -243,7 +262,6 @@ class EditMoney extends React.Component {
 	}
 
 	getCount = (input, name, nameList) => {
-		console.log('item.receivedBtnFormChangeValues',this.receivedBtnFormChangeValues)
 		input.value = Math.round((input.value * 100));
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
@@ -264,7 +282,6 @@ class EditMoney extends React.Component {
 
 		}
 		for (var item in receivedBtnFormChangeValues) {
-
 			if (receivedBtnFormChangeValues.hasOwnProperty(item)) {
 				liveMoneyValue += receivedBtnFormChangeValues[item] * 1;
 			}
