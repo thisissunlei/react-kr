@@ -112,7 +112,8 @@ export default class JoinCreate extends Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+params.customerId+'ENTERedit';
+		let keyWord = params.orderId+''+params.customerId+'ENTERedit';
+		console.log('=======removeLocalStorage=======',keyWord);
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);

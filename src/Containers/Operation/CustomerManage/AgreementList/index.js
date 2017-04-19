@@ -118,6 +118,7 @@ class Merchants extends Component{
 	}
 	//关闭第二新建页面
 	closeTwoAgreement = () => {
+		console.log('===========closeTwoAgreement==============',State.listId,State.mainBillId);
 		State.openTowAgreement=false;
 	}
 

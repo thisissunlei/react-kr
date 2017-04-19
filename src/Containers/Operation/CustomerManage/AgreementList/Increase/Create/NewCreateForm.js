@@ -163,6 +163,7 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos: []
 		},function(){
+			this.setAllRent([]);
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
 
 		});
@@ -184,6 +185,7 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos: []
 		},function(){
+			this.setAllRent([])
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
 
 		});
