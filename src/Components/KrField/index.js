@@ -47,6 +47,7 @@ import SearchCommunitys from './SearchCommunitys';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
+import SearchPayAccount from './SearchPayAccount';
 
 
 class FieldRevert extends React.Component {
@@ -188,7 +189,12 @@ export default class KrField extends React.Component {
 				<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
 			);
 		}
-
+		
+		if (component === 'searchPayAccount') {
+			return (
+				<FieldRevert {...this.props} component={SearchPayAccount}  style={WrapStyles} {...other}/>
+			)
+		}
 
 		if (component === 'searchPayment') {
 			return (

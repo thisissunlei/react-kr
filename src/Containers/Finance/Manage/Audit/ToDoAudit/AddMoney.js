@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -105,6 +105,27 @@ class AddMoney extends React.Component {
 		}
 
 	}
+	getOldData=()=>{
+		var _this = this;
+	    Http.request('deleteEvidence', {
+	      id: this.state.itemDetail.id
+	    }).then(function(response) {
+	      Message.success("删除成功");
+	      _this.setState({
+	        delVoucher: false,
+	      }, function() {
+	        window.setTimeout(function() {
+	          window.location.reload();
+	        }, 800);
+	      });
+	    }).catch(function(err) {
+	      Message.error(err.message);
+	      _this.setState({
+	        delVoucher: false,
+	      });
+	    });
+	}
+
 	trim = (str) => {
 		return str.replace(/\s+/g, "");
 	}
@@ -721,11 +742,11 @@ class AddMoney extends React.Component {
 				flowAmount,
 			} = this.state;
 			return (
-				<div className="u-audit-add">
+				<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>添加回款</span>
-			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
+			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">
@@ -765,6 +786,14 @@ class AddMoney extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
+								component="labelText"
+								inline={false}
+								label="社区名称"
+								defaultValue="-"
+								value={mainbillInfo.communityName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="payWay"
 								component="select"
 								label="收款方式"
@@ -773,7 +802,7 @@ class AddMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountId"
 								component="select"
 								label="我司账户"
@@ -781,16 +810,18 @@ class AddMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
-								component="input"
+								component="searchPayAccount"
 								label="付款账户"
+								onFocus={this.getOldData}
+								onChange={this.getOldData}
 								options=""
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								component="date"
 								label="收款日期"
