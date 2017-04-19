@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -11,7 +11,7 @@ import ContentInbox from 'material-ui/svg-icons/content/inbox';
 
 import ActionDateRange from 'material-ui/svg-icons/action/date-range';
 
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import { yellow600,purple500} from 'material-ui/styles/colors';
 
 import HardwarekeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
@@ -25,17 +25,9 @@ import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
 import {
 	Menu,
 	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
 	Divider,
-	FontIcon,
 	Dialog,
 	FlatButton,
-	TextField,
-	TimePicker,
-	SelectField,
 	Paper,
 	Avatar,
 	Subheader,
@@ -45,7 +37,7 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class PlanManage extends Component{
+class PlanManage extends React.Component{
 
 
 	constructor(props,context){

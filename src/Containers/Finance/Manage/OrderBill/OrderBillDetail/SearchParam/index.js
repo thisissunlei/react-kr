@@ -1,34 +1,14 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import React from 'react';
 import {Actions, Store} from 'kr/Redux';
 import './index.less';
 import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-    TableFooter,
-    Button,
-    Section,
-    Grid,
-    Row,
-    Col,
-    Notify,
-    List,
-    ListItem,
-    LabelText,
     LineText,
     ListGroup,
     Message,
     ListGroupItem
 } from 'kr-ui';
 
-export default class SearchParam extends Component {
+export default class SearchParam extends React.Component {
 
     static defaultProps = {}
 

@@ -1,22 +1,8 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-
-import {
-	Section,
-	PlanMap,
-	Dialog,
-	Button,
-} from 'kr-ui';
+import React from 'react';
 import Child from "./Child.js";
 
-export default class New extends Component {
+export default class New extends React.Component {
+
 	static childContextTypes = {
 	  color: React.PropTypes.string,
 	  fun: React.PropTypes.func
@@ -35,10 +21,10 @@ export default class New extends Component {
 	    return {color: "purple",fun:this.nn};
 	}
 	nn = () =>{
-		  this.refs.cc.ff();
+		
 	}
 
-	
+
 
 	componentDidMount() {}
 

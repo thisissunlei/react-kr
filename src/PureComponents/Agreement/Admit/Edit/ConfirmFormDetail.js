@@ -112,7 +112,6 @@ export default class ConfirmFormDetail  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{console.log(detail.stationVos,"????????22")}
 
 										{detail && (Object.prototype.toString.call(detail.stationVos)==["objectArray"]) &&detail.stationVos && detail.stationVos.map((item,index)=>{
 											return (

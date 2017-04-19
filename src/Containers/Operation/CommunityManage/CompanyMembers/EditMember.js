@@ -1,46 +1,32 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
 import {
 	reduxForm,
-	formValueSelector,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
 	change
 } from 'redux-form';
 
 import {
 	Actions,
 	Store,
-	connect
 } from 'kr/Redux';
 
 
 import {
-	Section,
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Message,
 	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	Field,
-	KrForm
 } from 'kr-ui';
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 
-export default class CreateMemberForm extends Component {
+export default class CreateMemberForm extends React.Component {
 
 
 	constructor(props, context) {

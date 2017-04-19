@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import { connect } from 'react-redux';
 
 import Section from 'kr-ui/Section';
@@ -60,7 +60,7 @@ SubmitValidationForm = reduxForm({
 
 
 
-export default class JoinOrderList extends Component {
+export default class JoinOrderList extends React.Component {
 
 	constructor(props,context){
 		super(props, context);

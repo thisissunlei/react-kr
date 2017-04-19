@@ -1,11 +1,9 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
 	reduxForm,
 	submitForm,
-	change,
 	reset
 } from 'redux-form';
 import {
@@ -17,7 +15,6 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -26,7 +23,7 @@ import './index.less';
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);

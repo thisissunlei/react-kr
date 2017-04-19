@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
 
-import { Tabs, Tab, Dialog, Section, Grid, Button, Notify, BreadCrumbs, Tooltip } from 'kr-ui';
+import { Tab, Dialog, Notify,Tooltip } from 'kr-ui';
 
 import './index.less';
 import _ from 'lodash';
@@ -14,9 +14,9 @@ import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
-export default class ItemTable extends Component {
+export default class ItemTable extends React.Component {
 
 
   static PropTypes = {
@@ -115,7 +115,7 @@ export default class ItemTable extends Component {
                   return (
                         <li key={index} className="company-order-zero" key={index}>
                          <p className="name">{order.name}</p>
-                         <p className="zero-circle">{dateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{dateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
+                         <p className="zero-circle">{DateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{DateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
                          <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                         </li>
                       
@@ -124,7 +124,7 @@ export default class ItemTable extends Component {
                   return (
                       <li key={index} className="company-order" key={index}>
                         <p className="name">{order.name}</p>
-                        <p className="zero-circle">{dateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{dateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
+                        <p className="zero-circle">{DateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{DateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
                         <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                       </li>
                   )

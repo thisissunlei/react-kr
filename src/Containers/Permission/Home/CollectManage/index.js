@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -6,7 +6,6 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import Section from 'kr-ui/Section';
 import Calendar from 'kr-ui/Calendar';
-
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors';
 import ImageAssistantPhoto from 'material-ui/svg-icons/image/assistant-photo';
@@ -19,21 +18,12 @@ import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/co
 import {
 	Menu,
 	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Divider,
-	FontIcon,
 	Paper,
 	Avatar,
 } from 'material-ui';
-
-import {List, ListItem} from 'material-ui/List';
-
 import './index.less';
 
-class PlanManage extends Component{
+class PlanManage extends React.Component{
 
 	constructor(props,context){
 		super(props, context);

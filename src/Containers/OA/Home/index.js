@@ -1,7 +1,6 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-export default class Home extends Component {
+export default class Home extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
@@ -21,28 +20,3 @@ export default class Home extends Component {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

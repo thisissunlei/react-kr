@@ -1,31 +1,21 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
-import dateFormat from 'dateformat';
-import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {DateFormat} from 'kr/Utils';
+import {reduxForm,initialize} from 'redux-form';
 import {
 	observer,
 	mobx
 } from 'mobx-react';
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	Notify,
-	ButtonGroup,
-	Message,
-	ListGroup,
-	ListGroupItem
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
 @observer
- class WatchCommunityList extends Component{
+ class WatchCommunityList extends  React.Component{
 
 	static PropTypes = {
 		
@@ -125,9 +115,9 @@ import State from '../State';
     var endTime='';
     var inforStyle='';
     var hereWatch='';
-    openTime=dateFormat(toJS(State.detailData.openDate),"yyyy-mm-dd");
-    startTime=dateFormat(toJS(State.detailData.signStartDate),"yyyy-mm-dd");
-    endTime=dateFormat(toJS(State.detailData.signEndDate),"yyyy-mm-dd");
+    openTime=DateFormat(toJS(State.detailData.openDate),"yyyy-mm-dd");
+    startTime=DateFormat(toJS(State.detailData.signStartDate),"yyyy-mm-dd");
+    endTime=DateFormat(toJS(State.detailData.signEndDate),"yyyy-mm-dd");
     
     if(toJS(State.detailData.opened)==true){
       inforStyle='已开业';

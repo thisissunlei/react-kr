@@ -1,5 +1,5 @@
 import React, {
-  Component,
+   
   PropTypes
 } from 'react';
 import {
@@ -14,7 +14,7 @@ import {
   change
 } from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
   Actions,
   Store
@@ -22,7 +22,6 @@ import {
 
 import {
   Dialog,
-  Snackbar,
   Table,
   TableBody,
   TableHeader,
@@ -32,13 +31,11 @@ import {
   TableFooter,
   Section,
   KrField,
-  LabelText,
   Grid,
   Row,
   Col,
   Button,
   BreadCrumbs,
-  Loading,
   Notify,
   KrDate,
   ButtonGroup,
@@ -348,7 +345,7 @@ SettingAddForm = reduxForm({
 
 
 
-export default class SettingList extends Component {
+export default class SettingList extends React.Component {
 
   constructor(props, context) {
     super(props, context);

@@ -43,7 +43,6 @@ export default class JoinCreate extends Component {
 
 
 		getChildContext() {
-			console.log(this.props.params,)
 	    return {
 	        params: this.props.params
 	      }
@@ -160,7 +159,6 @@ export default class JoinCreate extends Component {
 			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
 				id: params.id
 			})).then(function(response) {
-				console.log('response',response);
 
 
 				optionValues.lessorContactName = response.lessorContactName;
@@ -199,7 +197,6 @@ export default class JoinCreate extends Component {
 				initialValues.leaseBegindate = new Date(response.leaseBegindate);
 				initialValues.leaseEnddate = new Date(response.leaseEnddate);
 
-				console.log('时间', initialValues);
 
 
 				//处理stationvos

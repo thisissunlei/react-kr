@@ -1,24 +1,17 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React, {PropTypes} from 'react';
+import {reduxForm,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
-	ButtonGroup,
   ListGroup,
   ListGroupItem,
-	SearchForm,
 	Message,
 } from 'kr-ui';
-import dateFormat from 'dateformat';
-import $ from 'jquery'
-class ImportCard extends Component{
+class ImportCard extends React.Component{
 	constructor(props){
 		super(props);
 

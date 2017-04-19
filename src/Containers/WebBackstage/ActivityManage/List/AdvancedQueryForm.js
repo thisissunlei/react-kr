@@ -1,7 +1,5 @@
-
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React, { PropTypes} from 'react';
+import {reduxForm,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,21 +7,18 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
-	ButtonGroup,
   ListGroup,
   ListGroupItem,
-	SearchForm,
 	Message,
 } from 'kr-ui';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import $ from 'jquery';
 import {
 	observer
 } from 'mobx-react';
 import State from './State';
 @observer
-class AdvanceSearchDateForm extends Component{
+class AdvanceSearchDateForm extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -47,7 +42,7 @@ class AdvanceSearchDateForm extends Component{
 AdvanceSearchDateForm = reduxForm({
 	form: 'advanceSearchDateForm'
 })(AdvanceSearchDateForm);
-class NewCreateForm extends Component{
+class NewCreateForm extends React.Component{
 	static DefaultPropTypes = {
 		initialValues: {
 			customerName: '',
@@ -77,7 +72,7 @@ class NewCreateForm extends Component{
 		}
 	}
 	componentDidMount() {
-		
+
 	}
 	 onSubmit=(values)=>{
 		let {content,filter} = this.props;
@@ -96,8 +91,8 @@ class NewCreateForm extends Component{
 	 }
 	 onStartChange=(startTime)=>{
 		 let {searchParams}=this.state;
-			 let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
-			 let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
+			 let start=Date.parse(DateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
+			 let end=Date.parse(DateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
 
 			 if(searchParams.endTime&&start>end){
 				 Message.error("结束时间不可小于开始时间");
@@ -111,13 +106,13 @@ class NewCreateForm extends Component{
 	 }
 	 onEndChange=(endTime)=>{
 		 let {searchParams}=this.state;
-		 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
-		 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
+		 let start=Date.parse(DateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
+		 let end=Date.parse(DateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
 		 if(searchParams.startTime&&start>end){
 				 Message.error("结束时间不可小于开始时间");
 				 return ;
 		 }
-		 Store.dispatch(change('AdvancedQueryForm','endDate',endTime));			 
+		 Store.dispatch(change('AdvancedQueryForm','endDate',endTime));
 		 searchParams = Object.assign({}, searchParams, {endTime});
 		 this.setState({
 				 searchParams

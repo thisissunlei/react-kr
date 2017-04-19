@@ -30,6 +30,17 @@ export default class Field extends React.Component{
     registerField && registerField(name,'field');
   }
 
+  componentWillReceiveProps(nextProps){
+	  if(this.name !== nextProps.name){
+		  this.context.unRegisterField(this.name);
+		  this.context.registerField(nextProps.name);
+	  }
+  }
+
+  get name(){
+	  return this.props.name;
+  }
+
   onChange = (event)=>{
 
     const {onChange} = this.context;
@@ -43,6 +54,7 @@ export default class Field extends React.Component{
     }else{
         value = event;
     }
+
 
     onChange && onChange(name,value);
 

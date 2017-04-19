@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import React, { PropTypes} from 'react';
+import {
+	reduxForm,
+	formValueSelector,
+	initialize
+} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,12 +11,10 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
-	ButtonGroup
 } from 'kr-ui';
 
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
@@ -46,7 +46,7 @@ import {
 	 }
 
 	render(){
-        
+
         let style={
        	 marginTop:3
        }

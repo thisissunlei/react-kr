@@ -193,7 +193,6 @@ export default class UploadImageComponent extends Component {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
-									console.log("fileResponse",fileResponse);
 									_this.onError(fileResponse.msg);
 									return;
 								}
@@ -203,9 +202,6 @@ export default class UploadImageComponent extends Component {
 								_this.onError('后台报错请联系管理员！');
 							}
 						}
-					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
 					};
 					 xhrfile.open('POST', requestURI, true);
 					xhrfile.responseType = 'json';
@@ -220,9 +216,6 @@ export default class UploadImageComponent extends Component {
 			}
 		};
 
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);

@@ -1,23 +1,18 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import {reduxForm} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 
 import './index.less';
 import {Tabs, Tab } from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import {
-	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
 	Notify,
-	ButtonGroup,
   	ListGroup,
   	ListGroupItem,
-	SearchForm,
 	Message,
 	Table,
 	TableHeader,
@@ -28,7 +23,7 @@ import {
 	TableRowColumn,
 	Tooltip,
 } from 'kr-ui';
-export default class FinishUploadImgForm extends Component{
+export default class FinishUploadImgForm extends React.Component{
 	constructor(props) {
 	    super(props);
 	    this.detail = this.props.detail;
