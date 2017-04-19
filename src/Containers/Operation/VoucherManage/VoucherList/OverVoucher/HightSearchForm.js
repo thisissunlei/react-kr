@@ -52,7 +52,7 @@ class HightSearchForm extends React.Component {
 	}
 
 	onSubmit = (form) => {
-		form.status = "0";
+		form.status = "1";
 		const {
 			onSubmit
 		} = this.props;
