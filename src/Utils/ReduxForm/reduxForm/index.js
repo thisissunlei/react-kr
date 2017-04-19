@@ -25,6 +25,7 @@ module.exports =  function (initializeConfigs){
         getField: React.PropTypes.func.isRequired,
         getFieldValue: React.PropTypes.func.isRequired,
         getFieldError: React.PropTypes.func.isRequired,
+		getValues:React.PropTypes.func.isRequired,
       }
 
       static childContextTypes = {
@@ -42,7 +43,7 @@ module.exports =  function (initializeConfigs){
 
       getChildContext() {
 
-        const {onChange,getFieldValue,registerField,unregisterField,getFieldError,getField,onBlur,reset,register,onFocus}  = this.props;
+        const {onChange,getFieldValue,registerField,unregisterField,getFieldError,getField,onBlur,reset,register,onFocus,getValues}  = this.props;
 
         return {
           getFieldValue,
@@ -95,6 +96,7 @@ module.exports =  function (initializeConfigs){
           handleSubmit,
           pristine,
           submitting,
+		  getValues,
           ...otherProps
         } = this.props;
 
@@ -103,26 +105,25 @@ module.exports =  function (initializeConfigs){
           handleSubmit,
           pristine,
           submitting,
-        };
-
-        const handles = {
           $form:{
+		  	values:getValues(),
             submit:this.submit,
             reset:this.reset,
             change:this.change,
             changeValues:this.changeValues,
             initialize:this.initialize,
           }
-        }
-        
-        return <WrapComponent {...props} {...handles} {...otherProps}/>
+
+        };
+
+        return <WrapComponent {...props}  {...otherProps}/>
       }
 
     }
 
     @inject("FormModel")
     @observer
-    class FormWrap extends React.Component {
+    class FormConnect extends React.Component {
 
       constructor(props){
         super(props);
@@ -138,9 +139,9 @@ module.exports =  function (initializeConfigs){
       }
 
       getFormState = ()=>{
-
+        const {FormModel} = this.props;
+        return FormModel.getFormState(this.formName);
       }
-
 
       setValidateCallback = (validate)=>{
         validate = validate || function(){return {}};
@@ -180,8 +181,7 @@ module.exports =  function (initializeConfigs){
 
       getFieldValue = (fieldName) =>{
         const {FormModel} = this.props;
-        var values = FormModel.getValues(this.formName);
-        return values[fieldName] || '';
+		return FormModel.getFieldValue(this.formName,fieldName);
       }
 
       registerField = (fieldName,type="field")=>{
@@ -194,29 +194,25 @@ module.exports =  function (initializeConfigs){
         FormModel.unregisterField(this.formName,fieldName,type);
       }
 
-      stopSubmit = ()=>{
-        const {FormModel} = this.props;
-        this.validate();
-      }
-
       handleSubmit = (onSubmit)=>{
+
         var _this = this;
+
         this.setSubmitCallback(onSubmit);
+
         return function(event){
           event.preventDefault();
           _this.submit();
         }
+
       }
 
       setSubmitCallback = (onSubmit) =>{
+
         onSubmit = onSubmit || function(){};
         const {FormModel} = this.props;
         FormModel.setSubmitCallback(this.formName,onSubmit);
-      }
 
-      startSubmit = ()=>{
-        const {FormModel} = this.props;
-        FormModel.startSubmit(this.formName);
       }
 
       submit = ()=>{
@@ -259,35 +255,33 @@ module.exports =  function (initializeConfigs){
         const {FormModel,...otherProps} = this.props;
 
         const props = {
-          values:this.getValues(),
-          errors:this.getErrors(),
-          form:FormModel[this.formName],
+          form:FormModel[this.formName]
         }
 
         const handles = {
-          getFieldValue:this.getFieldValue,
-          getFieldError:this.getFieldError,
-          getField:this.getField,
-          registerField:this.registerField,
-          unregisterField:this.unregisterField,
-          handleSubmit:this.handleSubmit,
-          reset:this.reset,
-          submit:this.submit,
-          onBlur:this.onBlur,
-          onFocus:this.onFocus,
-          onChange:this.onChange,
-          stopSubmit:this.stopSubmit,
-          getFormState:this.getFormState,
-          changeValues:this.changeValues,
-          initialize:this.initialize,
-        }
-        return <Form {...props} {...handles} {...otherProps}/>
-      }
+			getValues:this.getValues,
+		  getFieldValue:this.getFieldValue,
+		  getFieldError:this.getFieldError,
+		  getField:this.getField,
+		  registerField:this.registerField,
+		  unregisterField:this.unregisterField,
+		  handleSubmit:this.handleSubmit,
+		  reset:this.reset,
+		  submit:this.submit,
+		  onBlur:this.onBlur,
+		  onFocus:this.onFocus,
+		  onChange:this.onChange,
+		  getFormState:this.getFormState,
+		  changeValues:this.changeValues,
+		  initialize:this.initialize,
+		}
+		return <Form {...props} {...handles} {...otherProps}/>
+	  }
 
-    }
+	}
 
 
-    return FormWrap;
+	return FormConnect;
 
   }
 

@@ -209,6 +209,17 @@ State.stopSubmit = action(function(formName,errors) {
 		return fields[fieldName] || {};
 	});
 
+
+	State.getFormState = action(function(formName) {
+		var form = this.getForm(formName);
+		return mobx.toJS(form);
+	});
+
+	State.getFieldValue = action(function(formName,fieldName) {
+        var values = this.getValues(formName);
+        return values[fieldName] || '';
+	});
+
 	State.getValues = action(function(formName) {
 		var form = this.getForm(formName);
 		return form.values;
@@ -439,11 +450,12 @@ State.stopSubmit = action(function(formName,errors) {
 
 	});
 
-	State.reset = action(function(formName) {
-		var form = this.getForm(formName);
-		var initializeValues = form.initializeValues;
-		this.changeValues(formName,initializeValues);
-		});
+
+State.reset = action(function(formName) {
+	var form = this.getForm(formName);
+	var initializeValues = form.initializeValues;
+	this.changeValues(formName,initializeValues);
+});
 
 
 module.exports = State;

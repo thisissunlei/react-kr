@@ -188,15 +188,18 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 const validate = (values)=>{
 	const errors = {};
 
-	// if(!values.input){
-	// 	errors.input = '请输入input'
-	// }
-	// if(!values.textarea){
-	// 	errors.textarea = '请输入textarea'
-	// }
-	// if(!values.uploadImageList){
-	// 	errors.uploadImageList = '请输入uploadImageList'
-	// }
+	 if(!values.input){
+	 	errors.input = '请输入input'
+	 }
+
+	 if(!values.textarea){
+	 	errors.textarea = '请输入textarea'
+	 }
+
+	 if(!values.uploadImageList){
+	 	errors.uploadImageList = '请输入uploadImageList'
+	 }
+
 	// if(!values.searchCustomer){
 	// 	errors.searchCustomer = '请输入searchCustomer'
 	// }
