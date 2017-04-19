@@ -717,7 +717,7 @@ class EditMoney extends Component {
 				Loading
 			} = this.state;
 			return (
-				<div className="u-audit-add u-audit-edit">
+				<div className="u-audit-add">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>编辑回款</span>
