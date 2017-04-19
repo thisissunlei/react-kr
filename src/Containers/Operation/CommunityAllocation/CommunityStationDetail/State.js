@@ -29,7 +29,9 @@ let State = observable({
 		//删除的id
 		deleteId:'',
 		//高级查询
-		openSearchUpper:false
+		openSearchUpper:false,
+		//导入
+		openImport:false
 
 });
 //删除
@@ -97,4 +99,9 @@ State.searchUpperCustomer = action(function() {
 });
 //工位列表数据准备
 
+
+//导入开关
+State.openImportData= action(function() {
+	this.openImport=!this.openImport;
+});
 module.exports = State;

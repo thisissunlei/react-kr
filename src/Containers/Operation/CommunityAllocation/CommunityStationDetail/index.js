@@ -32,6 +32,7 @@ import NewAddStation from './NewAddStation';
 import EditStation from './EditStation';
 import DeleteStation from './DeleteStation';
 import SearchUpperForm from './SearchUpperForm';
+import ImportData from './ImportData';
 @observer
 class  CommunityStationDetail extends React.Component{
 
@@ -129,6 +130,11 @@ onSearchUpperSubmit=(params)=>{
  State.searchUpperCustomer();
 }
 
+//导入
+openImporData=()=>{
+	State.openImportData();
+}
+
 	render(){
 		return(
 
@@ -153,7 +159,7 @@ onSearchUpperSubmit=(params)=>{
 									<Button
 											label="导入"
 											type='button'
-											onTouchTap={this.openAddCommunity}
+											onTouchTap={this.openImporData}
 									/>
 					  </Col>
 
@@ -259,6 +265,20 @@ onSearchUpperSubmit=(params)=>{
 					onSubmit={this.onSearchUpperSubmit}
 				/>
 				</Dialog>
+
+				{/*导入*/}
+				<Dialog
+					title="导入工位"
+					onClose={this.openImporData}
+					open={State.openImport}
+					contentStyle ={{ width: '444px',height:'382px'}}
+					>
+					<ImportData
+						onCancel={this.openImporData}
+						onSubmit={this.onSearchUpperSubmit}
+					/>
+					</Dialog>
+
 
 
 	 </div>

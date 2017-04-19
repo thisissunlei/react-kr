@@ -99,6 +99,7 @@ render() {
 			multi,
 			...other
 		} = this.props;
+
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

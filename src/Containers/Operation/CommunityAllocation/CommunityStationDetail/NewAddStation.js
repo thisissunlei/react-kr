@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {reduxForm}  from 'kr/Utils/ReduxForm';
 import {
 	KrField,
 	Button,
