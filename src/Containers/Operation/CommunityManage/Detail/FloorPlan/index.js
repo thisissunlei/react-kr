@@ -99,6 +99,12 @@ export default class FloorPlan extends Component {
 		this.setState({
 			url: this.getStationUrl()
 		})
+		let {tab} = this.props;
+
+		if (tab === 'floorplan') {
+			$(window).bind('scroll.floorplan', this.scrollLoad);
+
+		} 
 
 
 	}
@@ -182,7 +188,6 @@ export default class FloorPlan extends Component {
 		// 监听滚动事件
 	scrollLoad() {
 		var that = this;
-		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0; //539滚出的距离
 			var height = $(window).height() || 0; //705浏览器高度
 			var num = $(document).height() - $(window).height(); //页面高-浏览器高度
@@ -193,7 +198,6 @@ export default class FloorPlan extends Component {
 				that.iframeWindow.pagequery();
 
 			}
-		})
 
 
 	}
@@ -327,6 +331,9 @@ export default class FloorPlan extends Component {
 
 
 	}
+	componentWillUnmount(){
+		$(window).bind('scroll.floorplan', this.scrollLoad);
+	}
 
 	render() {
 
@@ -346,12 +353,7 @@ export default class FloorPlan extends Component {
 			handleSubmit
 		} = this.props;
 
-		if (tab === 'floorplan') {
-			$(window).bind('scroll.floorplan', this.scrollLoad());
-
-		} else {
-			$(window).unbind('scroll.floorplan', this.scrollLoad());
-		}
+		
 
 		return (
 
