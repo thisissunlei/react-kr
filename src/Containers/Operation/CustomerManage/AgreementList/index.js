@@ -118,10 +118,22 @@ class Merchants extends Component{
 	}
 	//关闭第二新建页面
 	closeTwoAgreement = () => {
-		console.log('===========closeTwoAgreement==============',State.listId,State.mainBillId);
 		State.openTowAgreement=false;
 	}
-
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = State.mainBillId+''+State.listId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 	//打开第一新建页面
 	openOneAgreement = () => {
 		State.openOneAgreement=true;
@@ -136,6 +148,7 @@ class Merchants extends Component{
 	}
 	//关闭编辑页
 	closeEditAgreement = () =>{
+		this.removeLocalStorage();
 		State.openEditAgreement=false;
 	}
 	//新建订单打开
