@@ -166,7 +166,7 @@ whiteClose=()=>{
 
 //选择社区
 SelectCommunity=()=>{
-	window.location.href=`./#/operation/communityAllocation/communityMeetingRoom`;
+	window.location.href=`./#/operation/communityAllocation/communityStation`;
 }
 
 	render(){
