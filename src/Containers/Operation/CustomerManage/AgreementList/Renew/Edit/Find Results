@@ -1,0 +1,17 @@
+Searching 463 files for "export default class ConfirmFormDetail  extends Component" (case sensitive)
+
+/Users/tanlinlin/kr-dev/Code/kr-admin-new/src/Containers/Operation/CustomerManage/AgreementList/Reduce/Edit/ConfirmFormDetail.js:
+   22  
+   23  
+   24: export default class ConfirmFormDetail  extends Component{
+   25  
+   26  
+
+/Users/tanlinlin/kr-dev/Code/kr-admin-new/src/Containers/Operation/CustomerManage/AgreementList/Renew/Edit/ConfirmFormDetail.js:
+   22  
+   23  
+   24: export default class ConfirmFormDetail  extends Component{
+   25  
+   26  
+
+2 matches across 2 files

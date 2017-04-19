@@ -1,22 +1,19 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React from 'react';
+import {
+	reduxForm,
+	formValueSelector
+} from 'redux-form';
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
 	ListGroup,
 	ListGroupItem,
 } from 'kr-ui';
 import './index.less';
 
- class NewCreateForm extends Component{
+ class TanLinLin extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -33,7 +30,7 @@ import './index.less';
 	}
 	render(){
 		let {initailPoint} = this.state;
-		const { error, handleSubmit, pristine, reset,mapStyle} = this.props;
+		const { error, handleSubmit, pristine,mapStyle} = this.props;
 
 		return (
 			<div className="demo-tll">
@@ -77,7 +74,7 @@ const validate = values => {
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');
-export default NewCreateForm = reduxForm({
-	form: 'NewCreateForm',
+export default TanLinLin = reduxForm({
+	form: 'TanLinLin',
 	validate,
-})(NewCreateForm);
+})(TanLinLin);

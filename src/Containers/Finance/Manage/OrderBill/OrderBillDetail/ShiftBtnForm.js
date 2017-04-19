@@ -1,33 +1,17 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from 'react';
 import {Actions, Store} from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {reduxForm, formValueSelector, initialize, registerField} from 'redux-form';
+import {reduxForm, initialize} from 'redux-form';
 import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-    TableFooter,
     Button,
-    Section,
     Grid,
     Row,
     Col,
-    Notify,
-    List,
-    ListItem,
-    LabelText,
-    Dialog,
     KrField,
     Message,
     ButtonGroup
 } from 'kr-ui';
 
-class ShiftBtnForm extends Component {
+class ShiftBtnForm extends React.Component {
 
     static PropTypes = {
         shiftData: React.PropTypes.arr,

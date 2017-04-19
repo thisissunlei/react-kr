@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -44,7 +44,7 @@ import Personal from './Personal';
 //签约客户
 import SignedClient from './SignedClient';
 @observer
-class CustomerList extends Component {
+class CustomerList extends React.Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,

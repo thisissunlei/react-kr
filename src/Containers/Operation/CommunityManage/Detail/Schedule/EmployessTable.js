@@ -1,10 +1,7 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
+
 import {
 	reduxForm,
 	submitForm,
@@ -25,24 +22,19 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
-	Grid,
 	Row,
 	Col,
 	Dialog,
-	BreadCrumbs,
 	Form,
-	KrField,
 	IframeContent,
 	Notify,
-	Message,
-	ButtonGroup
+	Message
 } from 'kr-ui';
 import CreateMemberForm from './CreateMemberForm';
 import ChangeStation from './ChangeStation';
 import Distribution from './Distribution';
 
-export default class EmployessTable extends Component {
+export default class EmployessTable extends React.Component {
 
 	static defaultProps = {
 		activity: false,

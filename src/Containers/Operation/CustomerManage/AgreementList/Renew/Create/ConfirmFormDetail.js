@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -29,7 +29,7 @@ import {
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail extends Component {
+export default class ConfirmFormDetail extends React.Component {
 
 
 	static PropTypes = {
@@ -91,8 +91,8 @@ export default class ConfirmFormDetail extends Component {
 			}
 		})
 
-		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
-		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
+		detail.firstpaydate = DateFormat(detail.firstpaydate, "yyyy-mm-dd ");
+		detail.signdate = DateFormat(detail.signdate, "yyyy-mm-dd ");
 
 		return (
 

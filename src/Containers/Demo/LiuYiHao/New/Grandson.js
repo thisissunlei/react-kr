@@ -1,21 +1,6 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
+import React from 'react';
+export default class Grandson extends React.Component {
 
-import {
-	Section,
-	PlanMap,
-	Dialog,
-	Button,
-} from 'kr-ui';
-
-export default class New extends Component {
 	static contextTypes = {
 	  color: React.PropTypes.string,
 	  fun: React.PropTypes.func
@@ -23,15 +8,9 @@ export default class New extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-
-		this.state = {
-			open:true,
-			checkedStations:[],
-		}
-
 	}
 
-	
+
 
 	componentDidMount() {}
 

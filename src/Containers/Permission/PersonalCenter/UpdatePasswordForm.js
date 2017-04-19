@@ -1,57 +1,24 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-
-import {
-	connect,
-	Actions,
-	Store
-} from 'kr/Redux';
-
-
-
+import React from 'react';
 import {
 	reduxForm,
-	formValueSelector,
-	change
 } from 'redux-form';
-
-
-
 import {
-
-
-
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
-	IframeContent,
-	Date,
-	Paper,
-	DotTitle,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
-	KrDate
 } from 'kr-ui';
 
 
-class NewCreateForm extends Component {
-
-
-
-
+class NewCreateForm extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
 
 	}
-
-
 	onSubmit = (form)=>{
 
 
