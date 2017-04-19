@@ -800,7 +800,6 @@ class EditMoney extends React.Component {
 								component="labelText"
 								inline={false}
 								label="社区名称"
-								defaultValue="-"
 								value={infoList.communityName}
 						/>
 						<KrField
