@@ -9,7 +9,11 @@ import {
 	Col,
   ButtonGroup
 } from 'kr-ui';
+import {
+	observer,
+} from 'mobx-react';
 import State from './State';
+@observer
 class NewAddStation  extends React.Component{
 
 	constructor(props,context){

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Http} from 'kr/Utils';
+import {reduxForm}  from 'kr/Utils/ReduxForm';
 import {
 	Table,
 	TableBody,
@@ -25,6 +26,7 @@ import {
 } from 'kr-ui';
 import {
 	observer,
+	inject
 } from 'mobx-react';
 import './index.less';
 import State from './State';
@@ -33,6 +35,7 @@ import EditStation from './EditStation';
 import DeleteStation from './DeleteStation';
 import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
+//@inject("FormModel")
 @observer
 class  CommunityStationDetail extends React.Component{
 
@@ -51,6 +54,8 @@ class  CommunityStationDetail extends React.Component{
 
  //新建工位打开
 	openAddStation=()=>{
+		let {FormModel}=this.props;
+		FormModel.changeValues('NewAddStation',{code:''});
 		State.addStation();
 	}
 	//新建工位取消
