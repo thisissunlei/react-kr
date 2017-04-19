@@ -52,7 +52,8 @@ class  CommunityStationDetail extends React.Component{
  //新建工位打开
 	openAddStation=()=>{
 		let {FormModel}=this.props;
-		FormModel.changeValues('NewAddStation',{code:''});
+		FormModel.changeValues('NewAddStation',
+		 {code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		State.addStation();
 	}
 	//新建工位取消
