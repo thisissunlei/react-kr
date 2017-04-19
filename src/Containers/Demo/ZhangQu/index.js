@@ -45,6 +45,7 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 		const {$form} = this.props;
 
 		var values = {
+					input:'ddd',
 					username:'yyyyaa',
 					textarea:'bbbb',
 					enableflag:'yes',
@@ -194,10 +195,6 @@ const validate = (values)=>{
 
 	 if(!values.textarea){
 	 	errors.textarea = '请输入textarea'
-	 }
-
-	 if(!values.uploadImageList){
-	 	errors.uploadImageList = '请输入uploadImageList'
 	 }
 
 	// if(!values.searchCustomer){

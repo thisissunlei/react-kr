@@ -7,6 +7,23 @@ import mobx, {
   toJS
 } from 'mobx';
 
+
+const FormFactory = function(){
+
+	var form = {
+				values:{},
+				fields:{},
+				registeredFields:{},
+				syncErrors:{},
+				initializeValues:{},
+				submitFailed:false,
+				submitSucceeded:false,
+				submitting:false,
+		}
+
+	return form;
+}
+
 //全局store
 let State = observable({
   demoForm:{
@@ -52,6 +69,29 @@ let State = observable({
     }
   }
 });
+
+	State.setForm = action(function(formName,form){
+		var formObject = {};
+		formObject[formName] = form;
+		mobx.extendObservable(this,formObject);
+	});
+
+	State.getForm = action(function(formName) {
+
+		var state = mobx.toJS(this);
+		var form = {};
+
+		if(!state.hasOwnProperty(formName)){
+			form[formName] = FormFactory();
+			mobx.extendObservable(this,form);
+		}else{
+			form = state;
+		}
+
+		return form[formName];
+
+	});
+
 
 
 State.setSubmitCallback = action(function(formName,submitHandle) {
@@ -111,6 +151,7 @@ State.stopSubmit = action(function(formName,errors) {
 		this.touchAll(formName);
 
 		let form = this.getForm(formName);
+
 		if(form.submitSucceeded){
 			let values = this.getValues(formName);
 			this.submitCallback(values);
@@ -172,34 +213,6 @@ State.stopSubmit = action(function(formName,errors) {
 		form.fields = fields;
 
 		this.setForm(formName,form);
-
-	});
-
-	State.setForm = action(function(formName,form){
-		var formObject = {};
-		formObject[formName] = form;
-		mobx.extendObservable(this,formObject);
-	});
-
-	State.getForm = action(function(formName) {
-
-		var state = mobx.toJS(this);
-		var form = {};
-
-		if(!state.hasOwnProperty(formName)){
-			form[formName] = {
-				values:{},
-				fields:{},
-				registeredFields:{},
-				syncErrors:{},
-				initializeValues:{},
-			};
-			mobx.extendObservable(this,form);
-		}else{
-			form = state;
-		}
-
-		return form[formName];
 
 	});
 
@@ -286,9 +299,7 @@ State.stopSubmit = action(function(formName,errors) {
 		values[fieldName] = fieldValue;
 		form.values = values;
 
-		var formObject = {};
-		formObject[formName] = form;
-		mobx.extendObservable(this,formObject);
+		this.setForm(formName,form);
 
 	});
 

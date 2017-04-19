@@ -65,7 +65,11 @@ module.exports =  function (initializeConfigs){
 
       }
 
-      change = (fieldName,fieldValue)=>{
+	componentWillUnMount(){
+
+	}
+
+     change = (fieldName,fieldValue)=>{
         const {onChange} = this.props;
         onChange && onChange(fieldName,fieldValue);
       }
