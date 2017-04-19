@@ -331,6 +331,9 @@ export default class FloorPlan extends Component {
 
 
 	}
+	componentWillUnmount(){
+		$(window).bind('scroll.floorplan', this.scrollLoad);
+	}
 
 	render() {
 

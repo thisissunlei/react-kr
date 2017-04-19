@@ -242,6 +242,10 @@ export default class BasicTable extends Component {
 		}
 	}
 
+	componentWillUnmount(){
+		$(window).bind('scroll.table', this.scrollLoading);
+	}
+
 
 
 	scrollLoading() {

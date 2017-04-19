@@ -79,10 +79,7 @@ export default  class CommunityManage extends Component {
 		});
 	}
 
-	componentWillUnmount(){
-		console.log('========componentWillUnmount==========');
-		$(window).bind('scroll', false);
-	}
+	
 
 	render() {
 		let {
