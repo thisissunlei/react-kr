@@ -74,8 +74,16 @@ export default class SelectComponent extends React.Component {
 			input,
 			onChange
 		} = this.props;
+
 		var value = (item && item.value) || '';
+		if(!isNaN(value)){
+			value = ""+value;
+		}
+		console.log(typeof value,"<<<<<<<",value)
+
 		input.onChange(value);
+		
+
 		onChange && onChange(item);
 }
 

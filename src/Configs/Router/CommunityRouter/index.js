@@ -20,12 +20,15 @@ module.exports =()=>{
         {/*销控表*/}
         <Route path="communityManage" component={Basic}>
                 <Route path="detail" component={Operation.CommunityManage.Detail}/>
+                <Route path="visitorsToRecord" component={Operation.CommunityManage.VisitorsToRecord}/>
+
         </Route>
 				
         {/*公司成员*/}
         <Route path="companyMembers" component={Basic}>
                 <Route path=":companyId/list/:communityId" component={Operation.CommunityManage.CompanyMembers}/>
         </Route>
+
     </Route>
 	);
 };

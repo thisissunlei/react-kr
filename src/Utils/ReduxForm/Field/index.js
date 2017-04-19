@@ -37,14 +37,16 @@ export default class Field extends React.Component{
 
     var value = '';
 
-    if(typeof event === 'string'){
-        value = event;
-    }else if(typeof event === 'object' && event.target){
+
+    if(typeof event === 'object' && event.target){
         var target = event.target;
         value = target.value;
+    }else{
+        value = event;
     }
 
     Debug.log('value',value,event)
+    console.log(value,event,"MMMMMM")
 
     onChange && onChange(name,value);
 

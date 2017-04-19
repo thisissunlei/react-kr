@@ -60,7 +60,7 @@ import {
   onSubmit = (values) =>{
 		console.log(values,"??????");
   	let {onSubmit} = this.props;
-  	onSubmit && onSubmit(value);
+  	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
 	cityValue=(value)=>{
@@ -84,10 +84,10 @@ import {
 
 						<KrField grid={1/2} label="区县" name="distinctId"  style={{width:262,marginLeft:28}} component="city"  requireLabel={false} onSubmit={this.cityValue}/>
 
-						<KrField grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='input'  label="客户名称" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
+						<KrField grid={1/2}  name="sort" style={{width:262,marginLeft:28}} component='input'  label="排序" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态" requireLabel={false}>
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
-							 <KrField name="enable" label="否" type="radio" value="DISABLE" />
+							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
 						</KrField>
 
 						<Grid style={{marginTop:30}}>

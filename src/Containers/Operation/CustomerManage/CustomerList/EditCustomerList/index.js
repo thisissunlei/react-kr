@@ -203,7 +203,7 @@ import {
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 
-									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称' requireLabel={true}/>
+									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false}  placeholder='请输入社区名称' requireLabel={true}/>
 									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"/>
 									<div className="middle-round"></div>
@@ -262,7 +262,7 @@ const validate = values =>{
 
 		const errors = {};
 		let phone1=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
-		
+
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 		if(!values.sourceId){
@@ -276,7 +276,7 @@ const validate = values =>{
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
 		}
-		
+
 		if(!values.recommendName){
 			errors.recommendName='请填写介绍人姓名'
 		}
@@ -302,7 +302,7 @@ const validate = values =>{
 			errors.name = "请填写联系人姓名"
 		}
 
-		
+
 
 		if(!email.test(values.customerMail)){
 			errors.customerMail = '联系人邮箱格式错误';

@@ -36,6 +36,8 @@ import {
 	ListGroupItem,
 	Message
 } from 'kr-ui';
+import {Http} from "kr/Utils";
+
 import  "./index.less";
 import NewEquipment from "./NewEquipment";
 import EditEquipment from "./EditEquipment";
@@ -60,31 +62,45 @@ class EquipmentList  extends React.Component{
 	}
 
 	componentDidMount(){
-		
+
 
 	}
    //搜索列表
    onSearchSubmit = (value) =>{
    	let {searchParams} = this.state;
-	let date = new Date();
+	  let date = new Date();
 
    	this.setState({
    		searchParams:{
-   			name:searchParams.name,
+   		name:value.content,
 			page: searchParams.page,
 			pageSize: searchParams.pageSize,
 			date:date
    		},
-   		
+
    	})
    }
-   
+   //刷新列表
+   refreshList = () =>{
+     let {searchParams} = this.state;
+ 	  let date = new Date();
+
+    	this.setState({
+      	searchParams:{
+        	name:searchParams.name,
+     			page: searchParams.page,
+     			pageSize: searchParams.pageSize,
+     			date:date
+      	},
+
+    	})
+   }
+
    //新建设备
    openNewEquipment = () =>{
    		this.setState({
    			openNewEquipment:true,
    		});
-   		Store.dispatch(initialize('NewEquipment',{}));
 
    }
    //关闭新建设备
@@ -101,7 +117,7 @@ class EquipmentList  extends React.Component{
    		})
    }
 
-   // 打开编辑设备
+   // 关闭编辑设备
    closeEditEquipment = () =>{
 		this.setState({
    			openEditEquipment:false,
@@ -115,6 +131,7 @@ class EquipmentList  extends React.Component{
    }
    //确定删除
    onDelSubmit = () =>{
+      let _this = this;
    		let {id } = this.state;
    		Http.request('equipment-delete',{id:id}).then(function(response) {
 			_this.closeDelEquipment();
@@ -126,14 +143,12 @@ class EquipmentList  extends React.Component{
    }
    //提交新建
 	onSubmit = (params) =>{
-
 		let {id} = this.state;
 		let _this = this;
-		
 		params.id = id;
-
 		Http.request('equipment-submit',params).then(function(response) {
-			_this.closeNewEquipment();
+      _this.closeNewEquipment();
+			_this.closeEditEquipment();
 			_this.refreshList();
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -160,13 +175,13 @@ class EquipmentList  extends React.Component{
 	}
 	render(){
 		let {searchParams,openNewEquipment,openEditEquipment,openDelEquipment} = this.state;
-		
+
 
 		return(
 			<div className="m-equipment-list" style={{paddingTop:25,minHeight:'910'}}>
 				<Title value="设备列表"/>
       		<Section title="设备列表"  style={{marginBottom:-5,minHeight:910}}>
-	      		
+
 		        <Row style={{marginBottom:21}}>
 				          <Col
 						     align="left"
@@ -216,11 +231,21 @@ class EquipmentList  extends React.Component{
 				          <TableRow>
 			                <TableRowColumn name="id"></TableRowColumn>
 			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="createName"></TableRowColumn>
-			                <TableRowColumn name="createrDate"></TableRowColumn>
+			                <TableRowColumn name="createName" ></TableRowColumn>
+			                <TableRowColumn name="createDate"
+                          component={(value,oldValue)=>{
+                             return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                          }}
+											>
+                      </TableRowColumn>
 			                <TableRowColumn name="updateName"></TableRowColumn>
-			                <TableRowColumn name="updateDate"></TableRowColumn>
-			                
+			                <TableRowColumn name="updateDate"
+                          component={(value,oldValue)=>{
+														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                          }}
+                      >
+                      </TableRowColumn>
+
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
 			                    <Button label="删除"  type="operation"  operation="delete" />
@@ -267,12 +292,9 @@ class EquipmentList  extends React.Component{
 
 				</Dialog>
 	        </div>
-				
+
 		);
 	}
 }
 
 export default EquipmentList;
-
-
-

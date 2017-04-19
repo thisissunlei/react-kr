@@ -1,9 +1,8 @@
 
-
 //社区经营
 
 module.exports = {
-	
+
     //社区管理－校验社区名称
     'check-name': {
         url: '/api/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
@@ -30,5 +29,22 @@ module.exports = {
       url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
       method: 'get'
    },
+	 //社区管理－访客记录-列表
+ 'visit-record-list':{
+		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}',
+		method: 'get'
+ },
+ //社区管理－访客记录-准备数据
+  'visit-record-ready':{
+    url: '/api/krspace-finance-web/sys/visit-record/edit-param-data',
+    method: 'get'
+  },
+  //社区管理－访客记录-查看页面
+  'visit-record-detail':{
+    url: '/api/krspace-finance-web/sys/visit-record/info/type/view?id={id}',
+    method: 'get'
+  },
+
+ 
 
 }

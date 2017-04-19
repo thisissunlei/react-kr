@@ -14,7 +14,6 @@ import {
     Message
 
 } from 'kr-ui';
-import Http from "kr/Utils";
 
 class EditEquipment extends Component{
 
@@ -78,7 +77,9 @@ class EditEquipment extends Component{
 const validate = values =>{
 
 		const errors = {};
-
+		if(!values.name){
+			errors.name="设备名称不能为空！"
+		}
 		return errors
 	}
 export default reduxForm({ form: 'EditEquipment',validate})(EditEquipment);

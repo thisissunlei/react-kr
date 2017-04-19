@@ -14,7 +14,6 @@ import {
     Message
 
 } from 'kr-ui';
-import Http from "kr/Utils";
 
 class DelEquipment extends Component{
 

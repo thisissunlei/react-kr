@@ -258,6 +258,7 @@ State.stopSubmit = action(function(formName,errors) {
 	State.changeValues = action(function(formName,values){
 		for(var field in values){
 			if(values.hasOwnProperty(field)){
+				console.log(">>>>>,",field);
 				this.change(formName,field,values[field]);
 			}
 		}

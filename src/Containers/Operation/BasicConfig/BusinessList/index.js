@@ -35,8 +35,7 @@ import {
 	Message
 } from 'kr-ui';
 import  "./index.less";
-
-
+import {Http} from "kr/Utils";
 import NewBusiness from "./NewBusiness";
 import EditBusiness from "./EditBusiness";
 import BusinessSearchForm from "./BusinessSearchForm";
@@ -54,8 +53,8 @@ class BusinessList  extends React.Component{
 		let date = new Date();
 		this.state={
 			searchParams:{
-				  name:'',
-				  page: 1,
+				name:'',
+				page: 1,
      			pageSize: 15,
      			districtId:'',
      			enable:'',
@@ -74,32 +73,46 @@ class BusinessList  extends React.Component{
 
 
 	}
+	
    //搜索列表
    onSearchSubmit = (value) =>{
-   	let {searchParams} = this.state;
-	  let date = new Date();
+   // 	let name = "",no = "";
+   // 	if(value.filter == "CODING"){
+   // 		no = value.content;
+   // 	}else{
+   // 		name = value.content;
+   // 	}
+   	
+   // 	let {searchParams} = this.state;
+	  // let date = new Date();
 
-   	this.setState({
-      searchParams:{
-				name:value,
-				page: searchParams.page,
-     			pageSize: searchParams.pageSize,
-     			districtId:searchParams.districtId,
-     			enable:searchParams.enable,
-     			no:searchParams.no,
-     			date:date
-			}
-   	})
+   // 	this.setState({
+   //    searchParams:{
+			// 	name:name,
+			// 	page: searchParams.page,
+   //   			pageSize: searchParams.pageSize,
+   //   			districtId:"",
+   //   			enable:"",
+   //   			no:no,
+   //   			date:date
+			// }
+   // 	})
    }
 
    //新建商圈
    openNewBusiness = () =>{
+   	consle.log("dddd")
+   		const {FormModel} = this.props;
    		this.setState({
    			openNewBusiness:true,
    		});
+
+   		FormModel.changeValues('NewBusinessForm',{no:'eee'});
+
    }
    //关闭新建商圈
    closeNewBusiness = () =>{
+   	
      this.setState({
        openNewBusiness:false,
      });
@@ -120,9 +133,11 @@ class BusinessList  extends React.Component{
    }
    //打开高级查询
   openUpperForm = () =>{
+  	const {FormModel} = this.props;
     this.setState({
    		openUpperForm:true,
    	})
+   	// FormModel.initialize('BusinessSearchForm',{});
   }
    //关闭高级查询
    closeUpperForm = () =>{
@@ -132,20 +147,42 @@ class BusinessList  extends React.Component{
    }
 
    //高级查询确定
-   upperFormSubmit = () =>{
+   upperFormSubmit = (values) =>{
+	   	let name = "",no = "";
+	   	if(values.select == "CODING"){
+	   		no = values.content;
+	   	}else{
+	   		name = values.content;
+	   	}
+	   	
+	   	let {searchParams} = this.state;
+		let date = new Date();
 
+	   	this.setState({
+	      searchParams:{
+					name:name,
+					page: searchParams.page,
+	     			pageSize: searchParams.pageSize,
+	     			districtId:values.districtId,
+	     			enable:values.enable,
+	     			no:no,
+	     			date:date
+				}
+	   	})
+	   	this.closeUpperForm();
    }
    //提交新建
 	onSubmit = (params) =>{
-
 		let {id} = this.state;
 		let _this = this;
 
 		params.id = id;
 
+
 		Http.request('business-new',params).then(function(response) {
-			_this.closeNewEquipment();
 			_this.refreshList();
+			_this.closeNewBusiness();
+			_this.closeEditBusiness();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -155,48 +192,44 @@ class BusinessList  extends React.Component{
 	onOperation = (type, itemDetail) =>{
 
 
-	const {FormModel} = this.props;
-    console.log(itemDetail,">>>>>>>")
+		const {FormModel} = this.props;
 		if(type === "edit"){
 	      this.setState({
 	        id:itemDetail.id,
 	     	openEditBusiness:true,
 	      })
-		  FormModel.initialize('EditBusiness',{no:"12",name:"12",distinctId:"12",companyId:"12",enable:"否"});
+		  // FormModel.initialize('EditBusiness',{no:"12",name:"12",distinctId:"12",companyId:"12",enable:"否"});
+
+		  // FormModel.initialize('EditBusiness',{});
+
 		}
 	}
   //全部关闭
 	closeAll = () =>{
 		this.setState({
 			openNewBusiness:false,
+			openEditBusiness:false
 		})
 	}
 
   //刷新列表
   refreshList = () =>{
-    let {searchParams} = this.state;
-	let date = new Date();
+ //    let {searchParams} = this.state;
+	// let date = new Date();
 
-   	this.setState({
-      searchParams:{
-				  name:searchParams.name,
-				  page: searchParams.page,
-     			pageSize: searchParams.pageSize,
-     			districtId:searchParams.districtId,
-     			enable:searchParams.enable,
-     			no:searchParams.no,
-     			date:date
-			}
-   	})
+ //   	this.setState({
+ //      searchParams:{
+	// 		name:searchParams.name,
+	// 		page: searchParams.page,
+ // 			pageSize: searchParams.pageSize,
+ // 			districtId:searchParams.districtId,
+ // 			enable:searchParams.enable,
+ // 			no:searchParams.no,
+ // 			date:date
+	// 	}
+ //   	})
   }
-  //确定筛选
-  onSearchSubmit = () =>{
 
-  }
-  // 获取下拉值
-  onFilter = () =>{
-
-  }
 
 //导出表
 onExport = () =>{
@@ -275,8 +308,19 @@ onExport = () =>{
 			                <TableRowColumn name="name"></TableRowColumn>
 			                <TableRowColumn name="sort"></TableRowColumn>
 			                <TableRowColumn name="createName"></TableRowColumn>
-			                <TableRowColumn name="createDate"></TableRowColumn>
-			                <TableRowColumn name="enable"></TableRowColumn>
+			                <TableRowColumn name="createDate"
+			                	component={(value,oldValue)=>{
+		                             return (<KrDate value={value} format="yyyy-mm-dd"/>)
+		                          }}
+
+			                ></TableRowColumn>
+			                <TableRowColumn name="enable" 
+				                component={(value,oldValue)=>{
+
+	                             return (<div>{value == "ENABLE" ? "启用":"禁用"}</div>)
+	                          	}}
+
+			                ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
@@ -288,17 +332,17 @@ onExport = () =>{
 	           </Section>
 
 	        <Drawer
-    					modal={true}
-    					width={750}
-    					onClose={this.closeAll}
-    					open={openNewBusiness}
-    					containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
-    					>
-    						<NewBusiness onCancel= {this.closeNewBusiness} onSubmit = {this.onSubmit}/>
-				 </Drawer>
+    					
+				width={750}
+				onClose={this.closeAll}
+				open={openNewBusiness}
+				containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
+			>
+					<NewBusiness onCancel= {this.closeNewBusiness} />
+		 	</Drawer>
 
          <Drawer
-             modal={true}
+             
              width={750}
              onClose={this.closeAll}
              open={openEditBusiness}
@@ -310,20 +354,20 @@ onExport = () =>{
 
         {/*高级查询*/}
         <Dialog
-					title="高级查询"
-					operType="SHARE"
-					modal={true}
-					onClose={this.closeUpperForm}
-					open={openUpperForm}
-					contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
-				>
-					<BusinessSearchForm
-					    onCancel={this.closeUpperForm}
-					    onSubmit={this.upperFormSubmit}
-					    flag='招商'
-					    searchParams={searchParams}
-					/>
-			  </Dialog>
+				title="高级查询"
+				operType="SHARE"
+				modal={true}
+				onClose={this.closeUpperForm}
+				open={openUpperForm}
+				contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
+			>
+				<BusinessSearchForm
+				    onCancel={this.closeUpperForm}
+				    onSubmit={this.upperFormSubmit}
+				    flag='招商'
+				    searchParams={searchParams}
+				/>
+		  </Dialog>
 
 	     </div>
 

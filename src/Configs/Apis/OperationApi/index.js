@@ -300,28 +300,28 @@ module.exports = {
     },
     //设备列表
    'equipment-list':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/device/list?name={name}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-finance-web/cmt/device/list?name={name}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
    //新建设备
    'equipment-submit':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/edit?id={id}&name={name}',
+      url: '/api/krspace-finance-web/cmt/device/action/edit?id={id}&name={name}',
       method: 'post'
    },
    //删除设备
    'equipment-delete':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/device/action/delete?id={id}',
+      url: '/api/krspace-finance-web/cmt/device/action/delete?id={id}',
       method: 'delete'
    },
    //商圈列表
    'business-list':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&name={name}&no={no}',
+      url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&name={name}&no={no}',
       method: 'get'
    },
 
    //商圈列表-新建商圈
    'business-new':{
-      url: '/mockjsdata/31/krspace-finance-web/cmt/business/action/edit?districtId={districtId}&enable={enable}&name={name}&no={no}&sort={sort}&id={id}',
+      url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/business/action/edit?districtId={districtId}&enable={enable}&name={name}&no={no}&sort={sort}&id={id}',
       method: 'post'
    },
 

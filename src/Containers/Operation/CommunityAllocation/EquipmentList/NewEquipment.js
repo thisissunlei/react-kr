@@ -80,6 +80,9 @@ class NewEquipment extends Component{
 const validate = values =>{
 
 		const errors = {};
+		if(!values.name){
+			errors.name="设备名称不能为空！"
+		}
 
 		return errors
 	}
