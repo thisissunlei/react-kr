@@ -10,8 +10,8 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import {Statistical,Basic} from 'kr/Containers';
-
+import Statistical from 'kr/Containers/Statistical';
+import Basic from 'kr/Containers/Basic';
 
 module.exports =()=>{
 

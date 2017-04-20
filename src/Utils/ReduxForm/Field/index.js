@@ -43,7 +43,7 @@ export default class Field extends React.Component{
 
 		const {name} = this.props;
 		const {getFieldError,getFieldValue} = this.context;
-		
+
 		if(nextContext.getFieldError(name) !== getFieldError(name)){
 			return true;
 		}
@@ -120,7 +120,7 @@ export default class Field extends React.Component{
 		autofilled:false,
     },getField(name));
 
- 	 const meta = Object.assign({},field,{ error:getFieldError(name)}); 
+ 	 const meta = Object.assign({},field,{ error:getFieldError(name)});
 
     const props = Object.assign({},{ ref:name, input, meta },{...this.props});
 

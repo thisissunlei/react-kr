@@ -13,7 +13,8 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {Member,Basic} from 'kr/Containers';
+import Member from 'kr/Containers/Member';
+import Basic from 'kr/Containers/Basic';
 
 module.exports =()=>{
 	return (

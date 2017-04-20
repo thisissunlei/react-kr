@@ -8,7 +8,8 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import {WebBackstage,Basic} from 'kr/Containers';
+import WebBackstage from 'kr/Containers/WebBackstage';
+import Basic from 'kr/Containers/Basic';
 
 
 module.exports =()=>{

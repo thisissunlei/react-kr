@@ -5,15 +5,15 @@ export default class RadioComponent  extends React.Component{
 	constructor(props){
 		super(props)
 
-		this.state = {
-			value:this.props.value
-		}
 	}
 
 	onClick = (event)=>{
 		let {input}=this.props;
 		let {onClick} = this.props;
 		onClick && onClick(input);
+	}
+
+	componentDidMount(){
 	}
 
 	render(){
@@ -25,17 +25,10 @@ export default class RadioComponent  extends React.Component{
 
 		var inputProps = {
 				...input,
-				value:this.state.value,
 				placeholder:placeholder||label,
 				type,
 				disabled,
 				onClick:this.onClick,
-		}
-
-		if(input.value === this.state.value){
-			inputProps.checked = true;
-		}else{
-			inputProps.checked = false;
 		}
 
 		return (

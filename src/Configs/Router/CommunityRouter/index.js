@@ -8,7 +8,8 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import {Operation,Basic} from 'kr/Containers';
+import Operation from 'kr/Containers/Operation';
+import Basic from 'kr/Containers/Basic';
 
 module.exports =()=>{
 
@@ -21,7 +22,7 @@ module.exports =()=>{
         <Route path="communityManage" component={Basic}>
                 <Route path="detail" component={Operation.CommunityManage.Detail}/>
         </Route>
-				
+
         {/*公司成员*/}
         <Route path="companyMembers" component={Basic}>
                 <Route path=":companyId/list/:communityId" component={Operation.CommunityManage.CompanyMembers}/>

@@ -13,7 +13,9 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {Operation,Basic} from 'kr/Containers';
+import Operation from 'kr/Containers/Operation';
+import Basic from 'kr/Containers/Basic';
+
 module.exports =()=>{
 	return (
 
@@ -36,7 +38,7 @@ module.exports =()=>{
 					{/*凭证列表*/}
 						<Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
 			</Route>
-			
+
 			{/*客户管理*/}
 			<Route path="customerManage" component={Basic}>
 				<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
