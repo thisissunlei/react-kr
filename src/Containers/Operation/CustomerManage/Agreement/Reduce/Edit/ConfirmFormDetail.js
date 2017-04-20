@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -10,18 +10,16 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	DotTitle
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail  extends Component{
+export default class ConfirmFormDetail  extends React.Component{
 
 
 	static PropTypes = {

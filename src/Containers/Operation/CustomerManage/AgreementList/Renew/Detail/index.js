@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -15,7 +15,6 @@ import {
 
 import {
 	KrField,
-	LabelText,
 	KrDate,
 	Button,
 	Grid,
@@ -39,7 +38,7 @@ import {
 } from 'kr/Redux';
 
 
-export default class JoinDetail extends Component {
+export default class JoinDetail extends React.Component {
 
 
 	constructor(props, context) {

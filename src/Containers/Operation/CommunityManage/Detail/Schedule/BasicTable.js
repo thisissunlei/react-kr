@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
-import { Tabs, Tab, Dialog, Section, Grid, Button, Notify, BreadCrumbs, KrField, Form, Row, Col, SearchForms, Loading, } from 'kr-ui';
+import { Tab, Dialog, Notify,  KrField, Form,SearchForms, Loading, } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
 import ReactDOM from 'react-dom';
@@ -10,7 +10,7 @@ import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 	// static contextTypes = {
 	// 	onSetCommunity: React.PropTypes.func.isRequired,
 	// 	communityId: React.PropTypes.string.isRequired,
@@ -173,7 +173,7 @@ SearchForm = reduxForm({
 })(SearchForm);
 
 
-export default class BasicTable extends Component {
+export default class BasicTable extends React.Component {
 	// static contextTypes = {
 	// 	onSetCommunity: React.PropTypes.func.isRequired,
 	// 	communityId: React.PropTypes.string.isRequired,

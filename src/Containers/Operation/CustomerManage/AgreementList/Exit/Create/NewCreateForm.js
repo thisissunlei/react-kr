@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -14,16 +14,13 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -34,38 +31,17 @@ import './index.less';
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
 	KrField,
-	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
-	DotTitle,
-	IframeContent,
-	Date,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	Grid
 } from 'kr-ui';
 
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static defaultPropTypes = {
 		initialValues: {
@@ -111,9 +87,9 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		form.lessorAddress = changeValues.lessorAddress;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:sss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:sss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
 		if(!form.contractmark){
 			form.contractmark="";
@@ -215,7 +191,8 @@ class NewCreateForm extends Component {
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
-				
+			
+					
 				<KrField  name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />

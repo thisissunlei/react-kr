@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -15,9 +15,6 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 
 import {
-	Dialog,
-	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -28,7 +25,7 @@ import NewCreateForm from './NewCreateForm';
 import allState from "../../State";
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	static childContextTypes = {
         params: React.PropTypes.object.isRequired

@@ -1,26 +1,12 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
 import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
+	
 	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
 
 } from 'kr-ui';
 
-export default class Initialize  extends Component{
+export default class Initialize  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);

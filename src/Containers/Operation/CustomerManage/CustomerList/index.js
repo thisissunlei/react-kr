@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -23,15 +23,7 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Tabs,
 	Tab,
-	Dialog,
-	Section,
-	Grid,
-	Notify,
-	Button,
-	KrField,
 	Form,
-	Loading,
-	BreadCrumbs,
 	Title,
 	Message
 } from 'kr-ui';
@@ -44,7 +36,7 @@ import Personal from './Personal';
 //签约客户
 import SignedClient from './SignedClient';
 @observer
-class CustomerList extends Component {
+class CustomerList extends React.Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,

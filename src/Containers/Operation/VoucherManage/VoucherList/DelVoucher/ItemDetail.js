@@ -5,21 +5,7 @@ import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
 
 import {
-	reduxForm,
-	formValueSelector,
-	initialize
-} from 'redux-form';
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
-	KrDate,
-	ListGroupItem,
-	SearchForms,
-	ButtonGroup,
+	KrField
 } from 'kr-ui';
 import './index.less';
 

@@ -1,55 +1,27 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-
-import {
-	reduxForm
-} from 'redux-form';
-import Section from 'kr-ui/Section';
-
-
+import React from 'react';
+import {Section} from 'kr-ui';
 import DelAgreementNotify from './DelAgreementNotify';
-
 import {
-	KrField,
 	KrDate,
 	Button,
-	DotTitle,
 	Dialog,
 	Title,
 	UpLoadList
 } from 'kr-ui';
-
-
 import {
-	Grid,
 	Row,
 	Col
 } from 'kr-ui/Grid';
-
 import {
-	Snackbar
-} from 'material-ui';
-
-import {
-	BreadCrumbs,
 	Loading,
 	Notify,
 	NewCreatForm
 } from 'kr-ui';
-
 import Circle from './circle';
 import './active.less';
-
 import {
 	FontIcon,
-	Paper
 } from 'material-ui';
-
 import {
 	Table,
 	TableBody,
@@ -57,21 +29,11 @@ import {
 	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
-	TableFooter
 } from 'kr-ui/Table';
-
-
-import {
-	List,
-	ListItem
-} from 'material-ui/List';
-
-
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import ReactTooltip from 'react-tooltip'
 
 export default class OrderDetail extends React.Component {
 

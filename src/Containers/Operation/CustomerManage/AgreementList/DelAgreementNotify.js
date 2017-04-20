@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -9,27 +9,16 @@ import {
 } from 'kr/Redux';
 
 import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
-	KrField,
-	Grid,
 	Row,
 	Col,
 	Button,
 	Notify,
-	DotTitle,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 
 
-export default class DelAgreementNotify extends Component {
+export default class DelAgreementNotify extends React.Component {
 
 
 

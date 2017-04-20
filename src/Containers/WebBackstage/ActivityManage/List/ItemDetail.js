@@ -1,25 +1,14 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, { PropTypes} from 'react';
+import {reduxForm,formValueSelector} from 'redux-form';
 import $ from 'jquery';
 import {ReactHtmlParser} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
 	Row,
-	Col,
-	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
 	ListGroup,
 	ListGroupItem,
-	Notify,
-	DateComponent,
-	Checkbox,
-	Editor,
 	Table,
 	TableBody,
 	TableHeader,
@@ -35,11 +24,11 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 import State from './State';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 @observer
 
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.detail = this.props.detail;
@@ -94,16 +83,16 @@ import dateFormat from 'dateformat';
 		switch(same)
 		{
 		case 'year':
-		  time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'mm/dd HH:MM:ss');
+		  time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'mm/dd HH:MM:ss');
 		  break;
 		case 'mouth':
-			time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'mm/dd HH:MM:ss');
+			time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'mm/dd HH:MM:ss');
 		  break;
 		case 'day':
-			time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'HH:MM:ss');
+			time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'HH:MM:ss');
 		  break;
 		default:
-			time = dateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+dateFormat(value.endDate,'yyyy/mm/dd HH:MM:ss');
+			time = DateFormat(value.beginDate,'yyyy/mm/dd HH:MM:ss')+'-'+DateFormat(value.endDate,'yyyy/mm/dd HH:MM:ss');
 		}
 		return time;
 	}

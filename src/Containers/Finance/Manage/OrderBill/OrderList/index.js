@@ -1,21 +1,5 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -35,7 +19,6 @@ import {
 	Tooltip
 } from 'kr-ui';
 
-
 import './index.less'
 //高级查询
 import SearchUpperForm from './SearchUpperForm';
@@ -44,7 +27,7 @@ import SearchForm from './SearchForm';
 
 
 
-export default class AttributeSetting extends Component {
+export default class AttributeSetting extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);

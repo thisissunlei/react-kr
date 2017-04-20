@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -18,20 +17,13 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 
 import {
-	Tabs,
 	Tab,
 	Dialog,
 	Section,
 	Grid,
 	Message,
 	Button,
-	KrField,
-	Form,
-	BreadCrumbs,
-	Title,
 	Row,
-	Col,
-	ButtonGroup,
 	Table,
 	TableBody,
 	TableHeader,
@@ -40,7 +32,6 @@ import {
 	TableRowColumn,
 	TableFooter,
 	ListGroup,
-	SnackTip,
 	ListGroupItem
 } from 'kr-ui';
 
@@ -52,7 +43,7 @@ import SetLeader from './SetLeader';
 import EditMember from './EditMember';
 import ImportData from './ImportData';
 import BatchDelet from './BatchDelet';
-export default class CompanyMembers extends Component {
+export default class CompanyMembers extends React.Component {
 
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired

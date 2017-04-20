@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -13,7 +13,7 @@ import "./index.less";
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -30,12 +30,7 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -43,7 +38,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -51,17 +45,15 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Paper,
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
-	KrDate,
-	CircleStyle
+	KrDate
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 
 	static contextTypes = {
@@ -326,9 +318,9 @@ class NewCreateForm extends Component {
 		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -367,7 +359,7 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 
 		let {
 			stationVos
@@ -385,7 +377,7 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -428,8 +420,8 @@ class NewCreateForm extends Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
 
 		};
 
@@ -470,8 +462,8 @@ class NewCreateForm extends Component {
 
 		try {
 			billList && billList.map(function(item, index) {
-				item.leaseBeginDate = dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd");
-				item.leaseEndDate = dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd");
+				item.leaseBeginDate = DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd");
+				item.leaseEndDate = DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd");
 				item.stationId = item.id;
 				item.stationName = item.name;
 				item.stationType = item.type;
@@ -521,8 +513,8 @@ class NewCreateForm extends Component {
 	getSingleRent=(item)=>{
 		//年月日
 		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
 		let rentDay = 0;
 		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
 		let years = rentEnd[0];

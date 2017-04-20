@@ -5,26 +5,7 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
-	Drawer,
-	Tabs,
-	Tab
 
-} from 'kr-ui';
 import './index.less';
 import Admit from "../Admit/Edit";
 import Exit from "../Exit/Edit";

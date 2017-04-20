@@ -1,29 +1,7 @@
 import React from 'react';
-
 import {
-  bindActionCreators
-} from 'redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-
-import {
-  Form,
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-  TableFooter,
-  Button,
-  Section,
-  Grid,
-  Row,
-  Col,
-  Dialog,
   Tabs,
   Tab,
-  KrField,
-  Title
 } from 'kr-ui';
 
  import './index.less';

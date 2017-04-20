@@ -7,15 +7,15 @@ export default class DotTitle extends React.Component {
 		/**
 		 *标题
 		 */
-		title: React.PropTypes.title,
+		title: React.PropTypes.string,
 		/**
 		 *子代元素
 		 */
-		children: React.PropTypes.children,
+		children: React.PropTypes.any,
 		/**
 		 *样式
 		 */
-		style: React.PropTypes.style
+		style: React.PropTypes.object
 	}
 
 	render() {

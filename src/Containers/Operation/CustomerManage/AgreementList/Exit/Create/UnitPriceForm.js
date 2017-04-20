@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 
@@ -7,15 +7,13 @@ import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray}
 import {Actions,Store} from 'kr/Redux';
 
 import {
-	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 } from 'kr-ui';
 
-class UnitPriceForm  extends Component{
+class UnitPriceForm  extends React.Component{
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,

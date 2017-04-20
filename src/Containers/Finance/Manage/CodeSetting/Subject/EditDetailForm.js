@@ -1,20 +1,18 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React, { PropTypes} from 'react';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup
 } from 'kr-ui';
 
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
@@ -84,7 +82,7 @@ import {
 			  </KrField>
 
              <KrField label="描述" style={style} name="accountdesc" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
-				
+
 				<Grid style={{marginTop:-2,marginBottom:5,marginLeft:-30}}>
 					<Row>
 						<Col md={12} align="center">

@@ -6,21 +6,7 @@ import {
 	observer
 } from 'mobx-react';
 import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
-	Drawer,
+
 	Tabs,
 	Tab
 

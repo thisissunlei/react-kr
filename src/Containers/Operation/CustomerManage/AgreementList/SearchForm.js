@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -22,26 +22,13 @@ import {
 	observer
 } from 'mobx-react';
 import {
-	Section,
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
-	ListGroup,
-	ListGroupItem,
-	SearchDateForm,
 	SearchForms,
-	Message
 } from 'kr-ui';
 import './index.less';
 import State from './State';
 @observer
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 	
 
 	constructor(props) {

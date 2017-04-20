@@ -1,16 +1,11 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
 
 import {
-	Actions,
 	Store
 } from 'kr/Redux';
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {reduxForm,formValueSelector,initialize} from 'redux-form';
 
 import {
 	KrField,
@@ -19,13 +14,11 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
-	ListGroup,
-	ListGroupItem,
 	Message
 } from 'kr-ui';
 
 
-class NewActivation extends Component {
+class NewActivation extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

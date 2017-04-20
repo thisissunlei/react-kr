@@ -1,20 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm, formValueSelector, initialize, change} from 'redux-form';
-
+import React, {PropTypes} from 'react';
 import {Actions, Store} from 'kr/Redux';
 
 import {
     KrField,
-    Grid,
-    Row,
-    Col,
-    Button,
-    ListGroup,
-    ListGroupItem,
     SearchForms,
-    ButtonGroup,
     CircleStyleTwo,
     KrDate
 } from 'kr-ui';
@@ -22,7 +11,7 @@ import {
 import dateFormat from 'dateformat';
 import './index.less';
 
-export default class ViewAudit extends Component {
+export default class ViewAudit extends React.Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,

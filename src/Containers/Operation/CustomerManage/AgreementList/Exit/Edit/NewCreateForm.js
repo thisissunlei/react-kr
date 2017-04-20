@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -14,16 +14,13 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -35,36 +32,15 @@ import './index.less';
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
 	KrField,
-	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
-	IframeContent,
-	Date,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static DefaultPropTypes = {
 		initialValues: {
@@ -113,10 +89,10 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		form.lessorAddress = changeValues.lessorAddress;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		form.withdrawdate = dateFormat(form.withdrawdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.withdrawdate = DateFormat(form.withdrawdate, "yyyy-mm-dd hh:MM:ss");
 		if(!form.hasOwnProperty('agreement')){
 			form.agreement = '无';
 		}
