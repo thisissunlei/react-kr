@@ -3,6 +3,9 @@ import {Actions, Store} from 'kr/Redux';
 import {
     initialize
 } from 'redux-form';
+import {
+    Http
+} from "kr/Utils";
 import dateFormat from 'dateformat';
 import {
     KrField,
@@ -219,7 +222,7 @@ export default class AttributeSetting extends React.Component {
         this.receivedBtnFormChangeValues = {};
         Store.dispatch(initialize('receivedBtnForm', {}));
         var _this = this;
-        Store.dispatch(Actions.callAPI('getPaymentActData', {mainbillId: _this.props.params.orderId})).then(function(response) {
+        Http.request('getPaymentActData', {mainbillId: _this.props.params.orderId}).then(function(response) {
             var payWayList = [];
             var contractReceive = [];
             response.payWay.map(function(item, index) {
@@ -299,7 +302,7 @@ export default class AttributeSetting extends React.Component {
                 openSwitchBtn: !this.state.openSwitchBtn
             });
             this.getMoneyALLTrue();
-            Store.dispatch(Actions.callAPI('findContractListById', {mainbillId: _this.props.params.orderId})).then(function(response) {
+            Http.request('findContractListById', {mainbillId: _this.props.params.orderId}).then(function(response) {
                 var receivedList = [];
                 response.map(function(item, index) {
                     var list = {}
@@ -340,7 +343,7 @@ export default class AttributeSetting extends React.Component {
 
     getMoneyALLTrue = () => {
         var _this = this;
-        Store.dispatch(Actions.callAPI('getFlowRemainMoney', {flowId: fiItem.id})).then(function(response) {
+        Http.request('getFlowRemainMoney', {flowId: fiItem.id}).then(function(response) {
             _this.setState({fiMoney: response});
         }).catch(function(err) {
             Message.error(err.message);
@@ -350,7 +353,7 @@ export default class AttributeSetting extends React.Component {
 
     openAccountBtn() {
         var _this = this;
-        Store.dispatch(Actions.callAPI('getOnNewAccountData', {mainbillId: _this.props.params.orderId})).then(function(response) {
+        Http.request('getOnNewAccountData', {mainbillId: _this.props.params.orderId}).then(function(response) {
             var payWayList = [];
             var contractList = [];
             var stationPayment = {};
@@ -391,7 +394,7 @@ export default class AttributeSetting extends React.Component {
     openViewDialog(itemDetail) {
         var _this = this;
         let id = itemDetail.id
-        Store.dispatch(Actions.callAPI('getAccountFlowDetail', {id: id})).then(function(response) {
+        Http.request('getAccountFlowDetail', {id: id}).then(function(response) {
             _this.setState({itemDetail: response});
 
         }).catch(function(err) {
@@ -422,10 +425,10 @@ export default class AttributeSetting extends React.Component {
             this.setState({
                 openShift: !this.state.openShift
             });
-            Store.dispatch(Actions.callAPI('getTransferData', {
+            Http.request('getTransferData', {
                 flowId: fiItem.id,
                 mainbillId: _this.props.params.orderId
-            })).then(function(response) {
+            }).then(function(response) {
                 _this.setState({shiftData: response.propData, fiMoney: response.remainMoney})
             }).catch(function(err) {
                 Message.error(err.message);
@@ -656,7 +659,7 @@ export default class AttributeSetting extends React.Component {
         }
 
         var _this = this;
-        Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
+        Http.request('returnMoneyNew', {}, params).then(function(response) {
             _this.refresh();
             _this.setState({
                 openRight: !_this.state.openRight,
@@ -671,7 +674,7 @@ export default class AttributeSetting extends React.Component {
         var _this = this;
         params = Object.assign({}, params);
         params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
-        Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
+        Http.request('payBack', {}, params).then(function(response) {
             _this.refresh();
             _this.setState({
                 openQuitBtn: !_this.state.openQuitBtn,
@@ -685,7 +688,7 @@ export default class AttributeSetting extends React.Component {
     }
     onSwitchSubmit(params) {
         var _this = this;
-        Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
+        Http.request('transToDeposit', {}, params).then(function(response) {
             _this.refresh();
             _this.setState({
                 openSwitchBtn: !_this.state.openSwitchBtn,
@@ -699,7 +702,7 @@ export default class AttributeSetting extends React.Component {
     }
     onBusinessSubmit(params) {
         var _this = this;
-        Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
+        Http.request('transToOperateIncome', {}, params).then(function(response) {
             _this.refresh();
             _this.setState({
                 openBusinessBtn: !_this.state.openBusinessBtn,
@@ -734,7 +737,7 @@ export default class AttributeSetting extends React.Component {
 
         var _this = this;
         params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
-        Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
+        Http.request('onNewAccountg', {}, params).then(function() {
             _this.refresh();
             _this.setState({
                 openAddaccountBtn: !_this.state.openAddaccountBtn,
@@ -747,7 +750,7 @@ export default class AttributeSetting extends React.Component {
     }
     onSupplementSubmit() {
         var _this = this;
-        Store.dispatch(Actions.callAPI('addIncome', {mainbillid: _this.props.params.orderId})).then(function(response) {
+        Http.request('addIncome', {mainbillid: _this.props.params.orderId}).then(function(response) {
             _this.refresh();
             _this.setState({
                 openSupplementBtn: !_this.state.openSupplementBtn,
@@ -784,7 +787,7 @@ export default class AttributeSetting extends React.Component {
 
         var _this = this;
         params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
-        Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
+        Http.request('transferPayment', {}, params).then(function() {
             _this.refresh();
             _this.setState({
                 openShift: !_this.state.openShift,
@@ -801,7 +804,7 @@ export default class AttributeSetting extends React.Component {
     initBasicInfo() {
         var _this = this;
         let {params} = this.props;
-        Store.dispatch(Actions.callAPI('getAccountFlow', {mainbillid: params.orderId})).then(function(response) {
+        Http.request('getAccountFlow', {mainbillid: params.orderId}).then(function(response) {
             _this.setState({
                 basicInfo: response.topdata,
                 detailPayment: response.paymentdata,
@@ -829,7 +832,7 @@ export default class AttributeSetting extends React.Component {
         params.propertyId = '';
         params.accountId = '';
 
-        Store.dispatch(Actions.callAPI('findAccountAndPropList', {accountType: params.accountType})).then(function(response) {
+        Http.request('findAccountAndPropList', {accountType: params.accountType}).then(function(response) {
             var codeList = [];
             var typeList = [];
             response.payWay.map(function(item, index) {
@@ -858,7 +861,7 @@ export default class AttributeSetting extends React.Component {
             var _this = this;
             let {params} = this.props;
             _this.setState({isRunningIncome: 1});
-            Store.dispatch(Actions.callAPI('runStationIncome', {mainbillId: params.orderId})).then(function(response) {
+            Http.request('runStationIncome', {mainbillId: params.orderId}).then(function(response) {
                 setTimeout(function() {
                     _this.setState({isRunningIncome: 2, colorClassName: 'historyIncomeGray'});
                 }, 1000)
@@ -878,7 +881,7 @@ export default class AttributeSetting extends React.Component {
 
         var _this = this;
         let {params} = this.props;
-        Store.dispatch(Actions.callAPI('removeRunningTag', {}, {mainbillId: params.orderId})).then(function(response) {
+        Http.request('removeRunningTag', {}, {mainbillId: params.orderId}).then(function(response) {
             //_this.refresh();
             window.location.reload();
             _this.setState({isRunningIncome: 0, colorClassName: 'historyIncome'});

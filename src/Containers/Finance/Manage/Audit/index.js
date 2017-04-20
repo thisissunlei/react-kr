@@ -8,7 +8,9 @@ import {
   Tab,
   Title
 } from 'kr-ui';
-
+import {
+    Http
+} from "kr/Utils";
 import ToDoAudit from './ToDoAudit';
 import DoAudit from './DoAudit';
 import DoneAudit from './DoneAudit';
@@ -27,7 +29,7 @@ export default class AuditList extends React.Component {
   getCount = (form) => {
     var params = Object.assign({}, form);
     var _this = this;
-    Store.dispatch(Actions.callAPI('get-fina-flow-count', params, {})).then(function(response) {
+    Http.request('get-fina-flow-count', params, {}).then(function(response) {
       _this.setState({
         countList: response
       })

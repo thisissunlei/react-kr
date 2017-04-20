@@ -19,6 +19,9 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
+import {
+    Http
+} from "kr/Utils";
 
 import './index.less';
 
@@ -43,7 +46,7 @@ class SearchUpperForm extends React.Component {
 	componentDidMount() {
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getMainBillTypeList')).then(function(response) {
+		Http.request('getMainBillTypeList').then(function(response) {
 
 			const mainbilltypeList = response.mainbilltypeList
 
