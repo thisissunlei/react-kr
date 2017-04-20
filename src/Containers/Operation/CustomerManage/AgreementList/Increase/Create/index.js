@@ -30,7 +30,6 @@ import allState from "../../State";
 export default class increaseCreate extends React.Component {
 	static childContextTypes = {
         params: React.PropTypes.object.isRequired,
-        active: React.PropTypes.string.isRequired,
      }
 
 

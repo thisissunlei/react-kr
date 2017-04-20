@@ -122,7 +122,8 @@ class Merchants extends Component{
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = State.mainBillId+''+State.listId;
+		let keyWord = State.mainBillId+''+State.listId+ State.argumentType + 'edit';
+		console.log('=====removeLocalStorage=======',keyWord)
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -368,7 +369,8 @@ class Merchants extends Component{
 		let date = [];
 		let delList = [];
 		let now = +new Date();
-		let clearDate = 60*60*1000*1;
+		let clearDate = 60*60*1000*1;//1小时
+		// let clearDate = 60*60*1000*1*24*30;//30天
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
 			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
