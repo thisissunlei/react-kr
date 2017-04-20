@@ -800,10 +800,10 @@ class AddMoney extends React.Component {
 								name="payAccount"
 								type="text"
 								ref="payAccount"
-								component="searchPayAccount"
+								component="input"
 								label="付款账户"
 								requireLabel={true}
-								onChange={this.payAccount}
+								
 						/>
 						<KrField
 								style={{width:260}}

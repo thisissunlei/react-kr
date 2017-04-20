@@ -824,7 +824,7 @@ class EditMoney extends React.Component {
 								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
-								component="searchPayAccount"
+								component="input"
 								label="付款账户"
 								options=""
 								requireLabel={true}
