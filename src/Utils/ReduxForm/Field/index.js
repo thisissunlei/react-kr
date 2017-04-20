@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+
 export default class Field extends React.Component{
 
   static displayName = 'Field';
@@ -22,6 +24,8 @@ export default class Field extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
 	}
 
   componentDidMount(){
@@ -36,6 +40,7 @@ export default class Field extends React.Component{
 		  this.context.registerField(nextProps.name);
 	  }
   }
+
 
   get name(){
 	  return this.props.name;
@@ -99,6 +104,7 @@ export default class Field extends React.Component{
 		invalid:false,
 		valid:false,
     },getField(name));
+
 
     const meta = {
       dirty:false,

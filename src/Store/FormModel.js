@@ -35,9 +35,18 @@ const FormFactory = function(formName){
 			console.log('--<<<',this.name);
 		});
 
+	form.blur = action(function(fieldName,fieldValue) {
+
+	});
+
+	form.focus = action(function(fieldName) {
+
+	});
+
+
 	form.getFieldError = action(function(fieldName){
-			var errors = this.getErrors();
-			return errors[fieldName];
+		var errors = this.getErrors();
+		return errors[fieldName];
 	});
 
 
@@ -45,10 +54,10 @@ const FormFactory = function(formName){
 		return mobx.toJS(this);
 	});
 
-form.reset = action(function() {
-	var initializeValues = this.initializeValues;
-	this.changeValues(initializeValues);
-});
+	form.reset = action(function() {
+		var initializeValues = this.initializeValues;
+		this.changeValues(initializeValues);
+	});
 
 
 form.stopSubmit = action(function(errors) {
@@ -159,7 +168,6 @@ form.setSubmitCallback = action(function(submitHandle) {
 	});
 
 	form.touchAll = action(function(formName) {
-
 		var fields = mobx.toJS(this.fields);
 		for(var item in fields){
 			if(fields.hasOwnProperty(item)){
@@ -173,7 +181,7 @@ form.setSubmitCallback = action(function(submitHandle) {
 		var fields = mobx.toJS(this.fields);
 		var field = fields[fieldName];
 
-		field = Object.assign({},field,{touch:true});
+		field = Object.assign({},field,{touched:true});
 
 		fields[fieldName] = field;
 
@@ -189,6 +197,7 @@ form.setSubmitCallback = action(function(submitHandle) {
 	form.getErrors = action(function(formName) {
 		return mobx.toJS(this.syncErrors);
 	});
+
 	form.getInitializeValues = action(function() {
 		return mobx.toJS(this.initializeValues);
 	});
@@ -197,15 +206,38 @@ form.setSubmitCallback = action(function(submitHandle) {
 		var values = mobx.toJS(this.values);
 		values[fieldName] = fieldValue;
 		mobx.extendObservable(this,{values});
-
 	});
 
 	form.changeValues = action(function(values){
+
+		var isEmpty = function(obj){
+
+				for(var name in obj){
+					return false;
+				}
+
+				return true;
+
+		}
+
+		if(isEmpty(values)){
+
+			var fieldValues = this.getValues();
+
+			for(var field in fieldValues){
+				if(values.hasOwnProperty(field)){
+					this.change(field,'');
+				}
+			}
+			return ;
+		}
+
 		for(var field in values){
 			if(values.hasOwnProperty(field)){
 				this.change(field,values[field]);
 			}
 		}
+
 	});
 
 
@@ -451,6 +483,9 @@ State.reset = action(function(formName) {
 
 	});
 
+
+	/*
+
 	State.autofill = action(function(formName,fieldName) {
 
 	});
@@ -536,6 +571,7 @@ State.reset = action(function(formName) {
 	State.arrayRemoveAll = action(function(formName,fieldName) {
 
 	});
+	*/
 
 
 

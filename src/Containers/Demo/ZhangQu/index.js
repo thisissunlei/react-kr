@@ -64,7 +64,6 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 	change=(form)=>{
 		const {$form} = this.props;
-		Debug.log("form",form);
 		$form.change('editLabelText',form);
 	}
 

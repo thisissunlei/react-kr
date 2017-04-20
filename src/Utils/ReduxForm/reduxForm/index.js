@@ -48,13 +48,13 @@ module.exports =  function (initializeConfigs){
 
 	  getField = (fieldName)=>{
 		  const {$form} = this.props;
-		  $form.getField(fieldName);
+		  return $form.getField(fieldName);
 	 }
 
 
 	getFieldError = (fieldName)=>{
 		  const {$form} = this.props;
-		  $form.getFieldError(fieldName);
+		  return $form.getFieldError(fieldName);
 	}
 
 	  unregisterField = (fieldName)=>{
@@ -80,7 +80,6 @@ module.exports =  function (initializeConfigs){
       onChange =(fieldName,fieldValue)=>{
 		 const {$form} = this.props;
 		$form.change(fieldName,fieldValue);
-        this.touch(fieldName);
         this.validate();
       }
 
@@ -103,8 +102,8 @@ module.exports =  function (initializeConfigs){
 
       }
 
-      onFocus = ()=>{
-
+      onFocus = (fieldName)=>{
+		this.touch(fieldName);
       }
 
       touch = (fieldName)=>{
@@ -153,6 +152,7 @@ module.exports =  function (initializeConfigs){
       }
 
       render(){
+
 
         const {FormModel,...otherProps} = this.props;
 
