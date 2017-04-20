@@ -86,7 +86,7 @@ import './index.less';
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center" style={{marginLeft:"-27px"}}>
-										<div  className='ui-btn-center' style={{marginRight:20,display:"inline-block"}}><Button  label="确定" type="submit"/></div>
+										<div  className='ui-btn-center' ><Button  label="确定" type="submit"/></div>
 
 										<div style={{marginLeft:15,display:"inline-block"}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /></div>
 
