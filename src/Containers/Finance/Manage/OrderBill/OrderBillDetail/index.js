@@ -6,7 +6,7 @@ import {
 import {
     Http
 } from "kr/Utils";
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
     KrField,
     Table,
@@ -635,7 +635,7 @@ export default class AttributeSetting extends React.Component {
                 delete params[key];
             }
         });
-        params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+        params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         params.propJasonStr = JSON.stringify(params.propJasonStr);
         params.conJasonStr = JSON.stringify(params.conJasonStr);
 
@@ -673,7 +673,7 @@ export default class AttributeSetting extends React.Component {
     onQuitSubmit(params) {
         var _this = this;
         params = Object.assign({}, params);
-        params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+        params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         Http.request('payBack', {}, params).then(function(response) {
             _this.refresh();
             _this.setState({
@@ -736,7 +736,7 @@ export default class AttributeSetting extends React.Component {
         }
 
         var _this = this;
-        params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+        params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         Http.request('onNewAccountg', {}, params).then(function() {
             _this.refresh();
             _this.setState({
@@ -786,7 +786,7 @@ export default class AttributeSetting extends React.Component {
         }
 
         var _this = this;
-        params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+        params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         Http.request('transferPayment', {}, params).then(function() {
             _this.refresh();
             _this.setState({
