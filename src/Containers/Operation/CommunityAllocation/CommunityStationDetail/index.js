@@ -71,6 +71,7 @@ class  CommunityStationDetail extends React.Component{
    if(type=='edit'){
 		 State.editStation();
 		 State.deleteId=itemDetail.id;
+		 State.isCode=false;
 	 }else if(type=='delete'){
 		 State.deleteId=itemDetail.id;
      State.deleteStation();
@@ -111,7 +112,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 		}
 	}
 	where.push(`ids=${ids}`);
-	var url = `http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/export?${where.join('&')}`
+	var url = `/api/krspace-finance-web/cmt/station/export?${where.join('&')}`
 	window.location.href = url;
 }
 
@@ -159,7 +160,7 @@ openImporData=()=>{
 
 //下载模版
 onLoadDemo=()=>{
-	let url = `http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/import/actions/download-templete`;
+	let url = `/api/krspace-finance-web/cmt/station/import/actions/download-templete`;
 	window.location.href = url;
 }
 

@@ -38,7 +38,9 @@ let State = observable({
 		//社区名称
 		communityName:'',
 		//会议室名称数据准备
-		stationName:[],
+		stationName:{},
+		//新增编辑会议室民称下拉
+		slectNameCommunity:[],
 		//高级查询会议室名称
 		spacesName:[],
 		//楼层数据准备
@@ -65,6 +67,7 @@ State.codeStationCompare= action(function(params) {
   let data={};
  data.id="";
  data.code=params;
+ data.communityId=_this.communityId;
  Http.request('station-check-code',data).then(function(response) {
 		 _this.isCode=false;
  }).catch(function(err) {
@@ -77,7 +80,6 @@ State.codeStationCompare= action(function(params) {
 });
 //新建编辑提交
 State.stationSubmit=action(function(params){
-	console.log('ppp---pp',params);
 	var _this=this;
 	Http.request('station-edit',{},params).then(function(response) {
 	 _this.openStationEdit=false;
@@ -120,9 +122,9 @@ State.stationDataReady = action(function(params) {
 	var _this=this;
 	Http.request('station-param-data',data).then(function(response) {
 		_this.communityName=response.communityName;
-		//_this.stationName=response.floorSpaces;
+		_this.stationName=response.floorSpaces;
 		_this.floorData=response.floors;
-		//_this.spacesName=response.spaces;
+		_this.spacesName=response.spaces;
  }).catch(function(err) {
 		Message.error(err.message);
  });

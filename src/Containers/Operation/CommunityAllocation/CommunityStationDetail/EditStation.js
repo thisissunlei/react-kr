@@ -71,13 +71,11 @@ class EditStation  extends React.Component{
 
   //属于会议室
   belongSpace=(params)=>{
-		console.log('--0000params',params);
-		if(params.belongSpace=='true'){
-			 console.log('--0000');
+		if(params.value=='true'){
 			 this.setState({
 				isBelongSpace:true
 			})
-		}else if(params.belongSpace=='false'){
+		}else if(params.value=='false'){
 			 this.setState({
 			 isBelongSpace:false
 		 })
@@ -88,6 +86,12 @@ class EditStation  extends React.Component{
 	 codeCompare=(params)=>{
 		 State.codeStationCompare(params);
 	 }
+
+	 //楼层
+ 	floorChange=(params)=>{
+ 		var floor=params.label;
+ 		State.slectNameCommunity=State.stationName[floor];
+ 	}
 
 
   render(){
@@ -120,7 +124,7 @@ class EditStation  extends React.Component{
             <KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号" requireLabel={true}
              onChange={this.codeCompare}/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
-						 requireLabel={true} options={State.floorData}/>
+						 requireLabel={true} options={State.floorData} onChange={this.floorChange}/>
 						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该工位编号已存在</div>}
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
@@ -128,7 +132,7 @@ class EditStation  extends React.Component{
             <KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于会议室"
             requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
             {isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
-						requireLabel={true} options={State.stationName}/>}
+						requireLabel={true} options={State.slectNameCommunity}/>}
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
             requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 

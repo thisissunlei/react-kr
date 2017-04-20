@@ -310,37 +310,37 @@ module.exports = {
     },
     //运营平台－社区列表-城市
     'type-city-community': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/community/list/type/city?name={name}&type={type}',
+        url: '/api/krspace-finance-web/cmt/community/list/type/city?name={name}&type={type}',
         method: 'get'
     },
     //运营平台－工位列表
     'station-list': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}&belongSpace={belongSpace}',
+        url: '/api/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}&belongSpace={belongSpace}',
         method: 'get'
     },
     //运营平台－工位新增或编辑
     'station-edit': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/actions/edit',
+        url: '/api/krspace-finance-web/cmt/station/actions/edit',
         method: 'post'
     },
     //运营平台－校验工位编码
     'station-check-code': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/check/code?code={code}&id={id}',
+        url: '/api/krspace-finance-web/cmt/station/check/code?code={code}&id={id}&communityId={communityId}',
         method: 'get'
     },
     //运营平台－工位删除接口
     'station-delete': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/actions/delete?id={id}',
+        url: '/api/krspace-finance-web/cmt/station/actions/delete?id={id}',
         method: 'delete'
     },
     //运营平台－获取工位编辑信息
     'station-get-edit': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/info/type/edit?id={id}',
+        url: '/api/krspace-finance-web/cmt/station/info/type/edit?id={id}',
         method: 'get'
     },
     //运营平台－工位列表数据准备
     'station-param-data': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
+        url: '/api/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
         method: 'get'
     },
 
