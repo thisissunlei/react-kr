@@ -18,6 +18,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 export default class Section extends Component {
 
 	static propTypes = {
+		filterChildren:React.PropTypes.node,
 		children: React.PropTypes.node,
 		title:React.PropTypes.string.isRequired,
 		description: React.PropTypes.string,
@@ -34,7 +35,8 @@ export default class Section extends Component {
 		super(props);
 
 		this.state = {
-			openBody:true
+			openBody:true,
+			openFilter:false,
 		}
 
 	}
@@ -84,10 +86,13 @@ export default class Section extends Component {
 		);
 
 	}
+
 	touchHeaderTitle = ()=>{
-		// this.setState({
-		// 	openBody:!this.state.openBody
-		// });
+		/*
+		 this.setState({
+		 	openFilter:!this.state.openFilter
+		 });
+		 */
 	}
 
 	renderSectionTitle = ()=>{
@@ -115,6 +120,20 @@ export default class Section extends Component {
 
 				</div>
 		);
+	}
+
+	renderFilter(){
+
+		if(!this.state.openFilter){
+			return null;
+		}
+
+		return (
+				<div className="section-filter">
+					{this.props.filterChildren}
+				</div>
+		);
+
 	}
 
 	renderBody(){
@@ -174,12 +193,12 @@ export default class Section extends Component {
 		return (
 
 		  <div className="section" style={style}>
-
 			  <div className="section-header" style={headerStyle}>
-
 				  {this.renderSectionTitle()}
 				  {this.renderDescription()}
 			  </div>
+
+				  {this.renderFilter()}
 
 			  {this.renderBody()}
 
