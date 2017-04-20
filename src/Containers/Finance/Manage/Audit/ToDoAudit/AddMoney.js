@@ -106,20 +106,7 @@ class AddMoney extends React.Component {
 		}
 
 	}
-	getOldData=(e)=>{
-		var _this = this;
-		var val=e || "";
-	    Http.request('get-payment-account', {
-	      account: val
-	    }).then(function(response) {
-	    	console.log('response---1111',response)
-	     	_this.setState({
-	     		oldData:response
-	     	})
-	    }).catch(function(err) {
-	      Message.error(err.message);
-	    });
-	}
+	
 
 	trim = (str) => {
 		return str.replace(/\s+/g, "");
@@ -146,10 +133,9 @@ class AddMoney extends React.Component {
 		Store.dispatch(change('addMoney', 'payAccount', ''));
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(change('addMoney', 'remark', ''));
-		 Store.dispatch(change('addMoney', 'dealTime', ''));
+		Store.dispatch(change('addMoney', 'dealTime', ''));
 		Store.dispatch(change('addMoney', 'uploadFileIds', ''));
 		Store.dispatch(change('addMoney', 'contractFileList', ''));
-		//console.log('this.refs.uploadFileIds',this.refs.uploadFileIds)
 		this.refs.uploadFileIds.defaultValue=[];
 		this.setState({
 			customerId: form.id,
@@ -340,6 +326,10 @@ class AddMoney extends React.Component {
 			})
 
 		});
+	}
+	payAccount=(item)=>{
+		this.refs.payAccount.value=item;
+		console.log('item999999',item)
 	}
 
 	onSubmit = (form) => {
@@ -809,11 +799,11 @@ class AddMoney extends React.Component {
 								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
+								ref="payAccount"
 								component="searchPayAccount"
 								label="付款账户"
-								onFocus={this.getOldData}
-								onChange={this.getOldData}
 								requireLabel={true}
+								onChange={this.payAccount}
 						/>
 						<KrField
 								style={{width:260}}
@@ -891,6 +881,7 @@ class AddMoney extends React.Component {
 		if (!values.accountId) {
 			errors.accountId = '请选择我司账户';
 		}
+		console.log('values.payAccount',values.payAccount)
 		if (!values.payAccount) {
 			errors.payAccount = '请输入付款账户';
 		}
