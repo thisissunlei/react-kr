@@ -42,7 +42,9 @@ let State = observable({
 		//高级查询会议室名称
 		spacesName:[],
 		//楼层数据准备
-		floorData:[]
+		floorData:[],
+		//社区id
+		communityId:''
 
 });
 //删除
@@ -75,6 +77,7 @@ State.codeStationCompare= action(function(params) {
 });
 //新建编辑提交
 State.stationSubmit=action(function(params){
+	console.log('ppp---pp',params);
 	var _this=this;
 	Http.request('station-edit',{},params).then(function(response) {
 	 _this.openStationEdit=false;
@@ -82,7 +85,8 @@ State.stationSubmit=action(function(params){
 	 _this.searchParams={
 			time:+new Date(),
 			page:1,
-			pageSize:15
+			pageSize:15,
+			communityId:_this.communityId
 	 }
  }).catch(function(err) {
 		Message.error(err.message);
@@ -98,7 +102,8 @@ State.deleteSubmitFunc=action(function(params){
 	 _this.searchParams={
 			time:+new Date(),
 			page:1,
-			pageSize:15
+			pageSize:15,
+			communityId:_this.communityId
 	 }
  }).catch(function(err) {
 		Message.error(err.message);

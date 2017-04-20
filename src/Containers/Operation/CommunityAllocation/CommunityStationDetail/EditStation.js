@@ -31,16 +31,23 @@ class EditStation  extends React.Component{
 			data.id=id;
 			var _this=this;
 			Http.request('station-get-edit',data).then(function(response) {
-				$form.changeValues(response);
-				if(response.belongSpace==true){
+				if(response.enable){
+					 response.enable='true';
+				}else{
+           response.enable='false';
+				}
+				if(response.belongSpace){
 		      _this.setState({
 						isBelongSpace:true
 					})
-		    }else if(response.belongSpace==false){
+					response.belongSpace='true';
+		    }else{
 					_this.setState({
  					 isBelongSpace:false
  				 })
+				 response.belongSpace='false';
 		    }
+				$form.changeValues(response);
 		 }).catch(function(err) {
 				Message.error(err.message);
 		 });
@@ -48,7 +55,7 @@ class EditStation  extends React.Component{
 
   onSubmit=(values)=> {
 		values.id=State.deleteId;
-		values.communityId=State.searchParams.communityId;
+		values.communityId=State.communityId;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -64,12 +71,14 @@ class EditStation  extends React.Component{
 
   //属于会议室
   belongSpace=(params)=>{
-		if(params.belongSpace==true){
-			_this.setState({
+		console.log('--0000params',params);
+		if(params.belongSpace=='true'){
+			 console.log('--0000');
+			 this.setState({
 				isBelongSpace:true
 			})
-		}else if(params.belongSpace==false){
-			_this.setState({
+		}else if(params.belongSpace=='false'){
+			 this.setState({
 			 isBelongSpace:false
 		 })
 		}

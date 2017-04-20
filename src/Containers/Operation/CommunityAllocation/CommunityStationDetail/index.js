@@ -47,6 +47,7 @@ class  CommunityStationDetail extends React.Component{
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
 		State.stationDataReady(href);
     State.searchParams.communityId=href;
+		State.communityId=href;
 	}
 
  //新建工位打开
@@ -55,6 +56,7 @@ class  CommunityStationDetail extends React.Component{
 		FormModel.changeValues('NewAddStation',
 		 {code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		State.addStation();
+		State.isCode=false;
 	}
 	//新建工位取消
 	cancelAddCode=()=>{
@@ -235,7 +237,7 @@ SelectCommunity=()=>{
 			              <TableRow>
 			                <TableRowColumn name="code"></TableRowColumn>
                       <TableRowColumn name="floor"></TableRowColumn>
-			                <TableRowColumn name="stationType"></TableRowColumn>
+			                <TableRowColumn name="stationType" options={[{label:'开放',value:'OPEN'},{label:'半开放',value:'HALF_OPEN'},{label:'封闭',value:'CLOSED'}]}></TableRowColumn>
                       <TableRowColumn name="belongSpace"  options={[{label:'属于',value:'true'},{label:'不属于',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="spaceName"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>

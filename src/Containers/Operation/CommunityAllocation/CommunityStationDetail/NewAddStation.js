@@ -24,8 +24,9 @@ class NewAddStation  extends React.Component{
 	}
 
   onSubmit=(values)=> {
+		console.log(';;;;',State.communityId);
 		values.id='';
-		values.communityId=State.searchParams.communityId;
+		values.communityId=State.communityId;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -79,6 +80,8 @@ class NewAddStation  extends React.Component{
 				marginLeft:28
 			}
 		}
+
+    console.log(';;--',State.isCode);
 
 		return(
 
