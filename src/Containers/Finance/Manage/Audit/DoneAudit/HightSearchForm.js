@@ -10,11 +10,6 @@ import {
 	reduxForm,
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
 	KrField,
 	Grid,
 	Row,
@@ -82,7 +77,7 @@ class HightSearchForm extends Component {
 	getCommunity = () => {
 		var communityList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-mainbill-community', {}, {})).then(function(response) {
+		Http.request('get-mainbill-community', {}, {}).then(function(response) {
 			communityList = response.map((item, index) => {
 				item.label = item.communityname;
 				item.value = item.id;
@@ -98,7 +93,7 @@ class HightSearchForm extends Component {
 	getMain = () => {
 		var mainList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-corporation', {}, {})).then(function(response) {
+		Http.request('get-fina-corporation', {}, {}).then(function(response) {
 			mainList = response.map((item, index) => {
 				item.label = item.corporationName;
 				item.value = item.id;

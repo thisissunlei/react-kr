@@ -1,11 +1,7 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 import {
 	reduxForm,
 	formValueSelector,
@@ -36,7 +32,7 @@ import dateFormat from 'dateformat';
 import './index.less';
 
 
-class EditMoney extends Component {
+class EditMoney extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -77,9 +73,9 @@ class EditMoney extends Component {
 	getInfo = () => {
 			var _this = this;
 			var id = this.props.detail.id
-			Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+			Http.request('get-fina-flow-logs', {
 				finaVerifyId: id
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				_this.setState({
 					topInfoList: response
 				})
@@ -89,9 +85,9 @@ class EditMoney extends Component {
 	getPayInfo = () => {
 			var id = this.props.detail.id
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+			Http.request('get-flow-edit-info', {
 				finaVerifyId: id
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				_this.setState({
 					payInfoList: response
 				})
@@ -102,9 +98,9 @@ class EditMoney extends Component {
 	getDetailInfo = () => {
 		var id = this.props.detail.id
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-infos', {
+		Http.request('get-fina-infos', {
 			finaVerifyId: id
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 			Store.dispatch(initialize('editMoney', response));
 			_this.setState({
 				infoList: response
@@ -261,83 +257,83 @@ class EditMoney extends Component {
 						<KrField
 								style={{width:260}}
 								name="customerId"
-								inline={false}  
-								component="labelText" 
+								inline={false}
+								component="labelText"
 								label="客户名称"
 								value={infoList.company}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId" 
-								component="labelText" 
-								inline={false} 
+								name="mainBillId"
+								component="labelText"
+								inline={false}
 								label="所属订单"
 								value={infoList.mainBillName}
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								inline={false} 
+								inline={false}
 								label="订单起止"
 								value={ infoList.mainBillDate}
-								
-								
+
+
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								component="labelText" 
+								component="labelText"
 								inline={false}
 								label="公司主体"
-								value={infoList.corporationName} 
+								value={infoList.corporationName}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payWay" 
-								component="labelText" 
+								name="payWay"
+								component="labelText"
 								label="收款方式"
-								inline={false} 
-								value={infoList.payName} 
-								
+								inline={false}
+								value={infoList.payName}
+
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="accountId" 
+								name="accountId"
 								component="labelText"
-								inline={false} 
-								value={infoList.accountNum} 
-								label="我司账户" 
+								inline={false}
+								value={infoList.accountNum}
+								label="我司账户"
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount" 
-								type="text" 
+								name="payAccount"
+								type="text"
 								component="labelText"
-								inline={false} 
+								inline={false}
 								label="付款账户"
-								value={infoList.payAccount} 
+								value={infoList.payAccount}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="dealTime" 
-								component="labelText" 
-								inline={false} 
-								label="收款日期" 
+								name="dealTime"
+								component="labelText"
+								inline={false}
+								label="收款日期"
 								value={dateFormat(infoList.dealTime,"yyyy-mm-dd")}
 						/>
-						<KrField  
-								style={{width:548}}  
-								name="remark" 
-								component="textarea" 
+						<KrField
+								style={{width:548}}
+								name="remark"
+								component="textarea"
 								defaultValue={infoList.remark}
-								label="备注" 
+								label="备注"
 								maxSize={100}
-								
+
 						/>
-						<KrField  
-							style={{width:548}}  
-							name="uploadFileIds" 
-							component="file" 
-							label="上传附件" 
+						<KrField
+							style={{width:548}}
+							name="uploadFileIds"
+							component="file"
+							label="上传附件"
 							defaultValue={infoList.uploadFileIds}
 						/>
 					</CircleStyleTwo>

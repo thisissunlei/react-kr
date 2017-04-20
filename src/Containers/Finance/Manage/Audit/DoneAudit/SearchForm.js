@@ -6,11 +6,6 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
 	SearchForms
 } from 'kr-ui';
 import './index.less';

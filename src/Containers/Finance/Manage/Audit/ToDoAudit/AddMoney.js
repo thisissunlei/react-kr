@@ -7,7 +7,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
 import {
 	KrField,
 	Grid,
@@ -21,7 +20,9 @@ import {
 	CircleStyleTwo,
 	Message
 } from 'kr-ui';
-
+import {
+	Http
+} from "kr/Utils";
 import './index.less';
 
 
@@ -73,18 +74,18 @@ class AddMoney extends React.Component {
 		var _this = this;
 		if (nextProps.mainBill) {
 
-			Store.dispatch(Actions.callAPI('get-mainbill-info', {
+			Http.request('get-mainbill-info', {
 				mainBillId: nextProps.mainBillId
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 
 				_this.setState({
 					mainbillInfo: response
 				})
 
 			}).catch(function(err) {});
-			Store.dispatch(Actions.callAPI('get-finaflow-info', {
+			Http.request('get-finaflow-info', {
 				mainBillId: nextProps.mainBillId
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				var obj = {
 					label: "无合同",
 					contactType: '0',
@@ -268,9 +269,9 @@ class AddMoney extends React.Component {
 		if (form.id==0) {
 			this.openCreateMainbill(form.id);
 		}
-		Store.dispatch(Actions.callAPI('get-mainbill-info', {
+		Http.request('get-mainbill-info', {
 			mainBillId: form.value
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 
 			_this.setState({
 				mainbillInfo: response,
@@ -279,9 +280,9 @@ class AddMoney extends React.Component {
 
 		}).catch(function(err) {});
 
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
+		Http.request('get-finaflow-info', {
 			mainBillId: form.value
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
@@ -310,10 +311,10 @@ class AddMoney extends React.Component {
 		var _this = this;
 		var corporationId = this.state.corporationId || this.props.corporationId;
 		Store.dispatch(change('addMoney', 'accountId', ''));
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			accountType: form.value,
 			corporationId
-		})).then(function(response) {
+		}).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
