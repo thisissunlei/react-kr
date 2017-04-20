@@ -125,8 +125,19 @@ class AddMoney extends React.Component {
 			this.openCreateCustomer();
 			return;
 		}
+		Store.dispatch(change('addMoney', 'mainBillId', ''));
+		Store.dispatch(change('addMoney', 'payWay', ''));
+		Store.dispatch(change('addMoney', 'payAccount', ''));
+		Store.dispatch(change('addMoney', 'accountId', ''));
+		Store.dispatch(change('addMoney', 'remark', ''));
+		 Store.dispatch(change('addMoney', 'dealTime', ''));
+		Store.dispatch(change('addMoney', 'uploadFileIds', ''));
+		Store.dispatch(change('addMoney', 'contractFileList', ''));
+		//console.log('this.refs.uploadFileIds',this.refs.uploadFileIds)
+		this.refs.uploadFileIds.defaultValue=[];
 		this.setState({
-			customerId: form.id
+			customerId: form.id,
+			mainbillInfo:{}
 		})
 	}
 
@@ -167,18 +178,36 @@ class AddMoney extends React.Component {
 		var name = input.name.split('-')[3];
 		var deposit = 1;//押金
 		var totalrent = 2;//定金
-		if (name == deposit && item.nDeposit >= 0 && value > item.nDeposit) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == totalrent && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == deposit && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
+			val=val.replace(/,/gi,'');
+		var nDeposit,nTotalrent,nFrontmoney;
+			if (name == deposit) {
+					var str=new String(item.nDeposit);
+							nDeposit=str.replace(/,/gi,'');
+					if(value*100 > nDeposit*100){
+							Message.error('金额不能大于未回款额');
+							return
+					}
+
+			}
+			if (name == totalrent) {
+					var str=new String(item.nTotalrent);
+							nTotalrent=str.replace(/,/gi,'');
+					if(item  && value*100 > nTotalrent*100){
+						Message.error('金额不能大于未回款额');
+						return
+					}
+			}
+			if (name == deposit) {
+				var str=new String(item.nFrontmoney)
+					nFrontmoney=str.replace(/,/gi,'');
+					if(item  && value*100 > nFrontmoney*100){
+						Message.error('金额不能大于未回款额');
+						return
+					}
+
+			}
+
+
 		if (/[^0-9]+.[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
 			return;
@@ -785,6 +814,7 @@ class AddMoney extends React.Component {
 							name="uploadFileIds"
 							component="file"
 							label="上传附件"
+							ref="uploadFileIds"
 							defaultValue={[]}
 							onChange={(files)=>{
 								Store.dispatch(change('AddMoney','contractFileList',files));

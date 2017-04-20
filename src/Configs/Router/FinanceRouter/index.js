@@ -22,8 +22,6 @@ const Finance_Manage_OrderBill_OrderList = (location, callback) => {
   }, 'Finance_Manage_OrderBill_OrderList')
 }
 
-
-
 const Finance_Manage_OrderBill_OrderBillDetail = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Finance/Manage/OrderBill/OrderBillDetail').default)

@@ -57,9 +57,9 @@ export default class Schedule extends React.Component {
 
 		return (
 			<div style={{marginBottom:20,marginTop:0,minHeight:910}}>
-			<BasicTable detail={communityInfoList} tab={tab}/>
+				<BasicTable detail={communityInfoList} tab={tab}/>
 
-		</div>
+			</div>
 		);
 
 	}
