@@ -1,15 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {
     reduxForm,
-    formValueSelector,
     change,
-    initialize,
-    arrayPush,
-    arrayInsert,
-    FieldArray,
     reset
 } from 'redux-form';
-import {Actions, Store, connect} from 'kr/Redux';
+import {Actions, Store} from 'kr/Redux';
 
 import {
     KrField,
@@ -17,11 +12,10 @@ import {
     Row,
     Col,
     Button,
-    Notify,
     ButtonGroup
 } from 'kr-ui';
 
-class NewCreateFund extends Component {
+class NewCreateFund extends React.Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,

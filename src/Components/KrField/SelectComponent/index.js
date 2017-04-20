@@ -66,6 +66,7 @@ export default class SelectComponent extends React.Component {
 		this.setState({
 			value
 		});
+
 		input.onChange(value);
 	}
 
@@ -76,10 +77,6 @@ export default class SelectComponent extends React.Component {
 		} = this.props;
 
 		var value = (item && item.value) || '';
-		if(!isNaN(value)){
-			value = ""+value;
-		}
-		console.log(typeof value,"<<<<<<<",value)
 
 		input.onChange(value);
 		
@@ -107,6 +104,7 @@ render() {
 			multi,
 			...other
 		} = this.props;
+
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
@@ -130,6 +128,8 @@ render() {
 
 		}
 		if (options) {
+		
+
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

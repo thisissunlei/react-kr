@@ -1,30 +1,16 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
 import TreeAll from './TreeAll.json';
 
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
 	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
-	ListGroup,
-	ListGroupItem,
-	Dialog
 } from 'kr-ui';
 
-import {
-  observer,
-  inject
-} from 'mobx-react';
-
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {reduxForm}  from 'kr/Utils/ReduxForm';
 
 
- class Demo extends Component{
+ class ZhangQu extends React.Component{
 
 	constructor(props){
 		super(props);
@@ -84,7 +70,6 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 		$form.change('city',value);
 	}
 	chooseYes=(value)=>{
-		Debug.log("value------>",value)
 			const {$form} = this.props;
 		$form.change('radio',value);
 	}
@@ -187,7 +172,6 @@ import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 
 const validate = (values)=>{
 	const errors = {};
-	Debug.log("values校验",values);
 
 	// if(!values.input){
 	// 	errors.input = '请输入input'
@@ -210,4 +194,4 @@ const validate = (values)=>{
 export default reduxForm({
 form:'dForm',
 validate,
-})(Demo);
+})(ZhangQu);

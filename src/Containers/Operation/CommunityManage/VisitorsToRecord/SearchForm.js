@@ -39,6 +39,9 @@ import './index.less';
 	componentDidMount(){
 	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+     const {$form,searchContent} = this.props;
+    $form.change('searchType',searchContent.searchType);
+    $form.change('searchKey',searchContent.searchKey);
 
 
 	}

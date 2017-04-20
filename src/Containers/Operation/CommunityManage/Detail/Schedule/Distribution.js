@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -11,38 +10,23 @@ import {
 	change,
 	reset
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+
 
 import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Dialog,
-	BreadCrumbs,
 	Form,
 	KrField,
-	IframeContent,
 	Notify,
-	Message,
 	ButtonGroup
 } from 'kr-ui';
 import CreateMemberForm from './CreateMemberForm';
 
 
 
-export default class Distribution extends Component {
+export default class Distribution extends React.Component {
 	static PropTypes = {
 		detail: React.PropTypes.object,
 	}

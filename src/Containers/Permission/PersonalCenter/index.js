@@ -1,17 +1,11 @@
-import React,{Component} from 'react';
+import React from 'react';
 import './index.less';
 import {
 	Dialog,
 	Button,
-	ButtonGroup,
-	KrForm,
-	KrField,
 	Grid,
 	Row,
 	Col,
-	Input,
-	Field,
-	FieldControl,
 	ListGroup,
 	ListGroupItem,
 	Message,
@@ -24,7 +18,7 @@ import {
 
 import UpdatePasswordForm from './UpdatePasswordForm';
 
-export default class PersonalCenter extends Component{
+export default class PersonalCenter extends React.Component{
 	static displayName = 'PersonalCenter';
   constructor(props, context){
     super(props,context)

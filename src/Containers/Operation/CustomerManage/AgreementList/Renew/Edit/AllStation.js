@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {   PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { Binder } from 'react-binding';
 
@@ -10,7 +10,7 @@ import { Actions, Store } from 'kr/Redux';
 
 import { Form, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, KrField, Grid, Row, Col, Button, Notify, KrDate, } from 'kr-ui';
 
-class SelectStationForm extends Component {
+class SelectStationForm extends React.Component {
 
 	static PropTypes = {
 		searchParams: React.PropTypes.object,

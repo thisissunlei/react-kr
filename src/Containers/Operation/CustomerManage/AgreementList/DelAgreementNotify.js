@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -29,7 +29,7 @@ import {
 } from 'kr-ui';
 
 
-export default class DelAgreementNotify extends Component {
+export default class DelAgreementNotify extends React.Component {
 
 
 

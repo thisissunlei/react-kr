@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -27,7 +27,7 @@ import NewCreateForm from './NewCreateForm';
 import './index.less';
 import allState from "../../State";
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 
 	static childContextTypes = {

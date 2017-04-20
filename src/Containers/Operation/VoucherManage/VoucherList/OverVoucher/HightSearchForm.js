@@ -1,8 +1,6 @@
 import React from 'react';
-
 import {
-	reduxForm,
-	formValueSelector
+	reduxForm
 } from 'redux-form';
 import {Http} from 'kr/Utils';
 

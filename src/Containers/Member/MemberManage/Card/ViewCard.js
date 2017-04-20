@@ -1,24 +1,12 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React, {PropTypes} from 'react';
+import {reduxForm,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	Notify,
-	ButtonGroup,
-  ListGroup,
-  ListGroupItem,
-	SearchForm,
-	Message,
 } from 'kr-ui';
-import dateFormat from 'dateformat';
-import $ from 'jquery'
-class ImportCard extends Component{
+import {DateFormat} from 'kr/Utils';
+class ImportCard extends React.Component{
 	constructor(props){
 		super(props);
 
@@ -82,7 +70,7 @@ class ImportCard extends Component{
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginBottom:25}}>
 					<KrField name="person"  grid={1/1} component="labelText" label="绑定人：" value={infoData.memberName}/>
 					<KrField name="phone"  grid={1/1} component="labelText" label="手机号：" value={infoData.boundTel}/>
-					<KrField name="bindTime"  grid={1/1} component="labelText" label="绑定时间：" value={dateFormat(infoData.boundTime, "yyyy-mm-dd HH:MM:ss")}/>
+					<KrField name="bindTime"  grid={1/1} component="labelText" label="绑定时间：" value={DateFormat(infoData.boundTime, "yyyy-mm-dd HH:MM:ss")}/>
 			  </form>
 			);
 		}

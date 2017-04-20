@@ -24,6 +24,7 @@ export default class SearchForms extends Component{
 			num : 0,
 			value:'',
 			otherName:'',
+			valueType:'',
 		};
 		this.hasClass = this.hasClass.bind(this);
 		this.removeClass = this.removeClass.bind(this);
@@ -176,6 +177,7 @@ export default class SearchForms extends Component{
 				filterValue = item.value
 			}
 		})
+
 		let {onFilter} = this.props;
 		onFilter && onFilter(filterValue);
 	}
@@ -229,6 +231,14 @@ export default class SearchForms extends Component{
 
 		})
 	}
+
+	onChange = (event) =>{
+		let values = event.target.value;
+		
+		const {onChange} = this.props;
+		onChange && onChange(values)
+	}
+
 	renderFilter(){
 		let {searchFilter} = this.props;
 		let {value} = this.state;
@@ -276,7 +286,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name={inputName} id={inputName} ref="realInput"/>
+						<input type="text" autoComplete="off" onChange = {this.onChange} className="search-val" placeholder={placeholder}  name={inputName} id={inputName} ref="realInput"/>
 					</div>
 				</div>
 				<span className="icon-searching" onClick={this.click}></span>

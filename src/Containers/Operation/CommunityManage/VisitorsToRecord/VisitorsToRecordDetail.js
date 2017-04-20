@@ -16,7 +16,8 @@ import {
 	Message,
 	Loading
 } from 'kr-ui';
-import {Http} from "kr/Utils";
+
+import {Http,DateFormat} from "kr/Utils";
 import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 import './index.less';
 
@@ -100,7 +101,7 @@ import './index.less';
 			<div className="customer-close" onClick={this.onCancel}></div>
 		</div>
         <KrField component="labelText" grid={1/2} label="社区："  value = {detail.communityName} requireBlue={true}  inline={true}/>
-        <KrField component="labelText" grid={1/2} label="类型" value={detail.typeName} requireBlue={true} />
+        <KrField component="labelText" grid={1/2} label="类型:" value={detail.typeName} requireBlue={true} />
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试类型：" value={detail.interviewTypeName} defaultValue="无" requireBlue={true} />}
         {typeValue ==51 &&<KrField component="labelText" grid={1/2} label="活动类型：" value={detail.activityTypeName} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="姓名：" value={detail.name} defaultValue="无" requireBlue={true} />
@@ -110,7 +111,7 @@ import './index.less';
         <KrField component="labelText" grid={1/2} label="邮箱：" value={detail.email} defaultValue="无" requireBlue={true} />
         {typeValue ==52 &&<KrField component="labelText" grid={1/2} label="参观目的：" value={detail.purposeName} defaultValue="无" requireBlue={true} />}
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试轮次：" value={detail.interviewRoundName} defaultValue="无" requireBlue={true} />}
-        <KrField component="labelText" grid={1/2} label="拜访日期：" value={detail.vtime} defaultValue="无" requireBlue={true} />
+        <KrField component="labelText" grid={1/2} label="拜访日期：" value={DateFormat(detail.vtime,"yyyy-mm-dd")} defaultValue="无" requireBlue={true} />
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="被拜访人：" value={detail.meetedMan} defaultValue="无" requireBlue={true} />}
       </div>
 

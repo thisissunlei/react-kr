@@ -1,33 +1,19 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
-	connect
-} from 'kr/Redux';
+	reduxForm,
+} from 'redux-form';
 
 import {
-	reduxForm,
-	formValueSelector
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 
 import './index.less';
 
-class SearchDateForm extends Component {
+class SearchDateForm extends React.Component {
 
 	static defaultProps = {
 			todayDate:'2017-1-1'

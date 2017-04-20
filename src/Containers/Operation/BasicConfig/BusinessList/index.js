@@ -76,27 +76,27 @@ class BusinessList  extends React.Component{
 	
    //搜索列表
    onSearchSubmit = (value) =>{
-   // 	let name = "",no = "";
-   // 	if(value.filter == "CODING"){
-   // 		no = value.content;
-   // 	}else{
-   // 		name = value.content;
-   // 	}
+   	let name = "",no = "";
+   	if(value.filter == "CODING"){
+   		no = value.content;
+   	}else{
+   		name = value.content;
+   	}
    	
-   // 	let {searchParams} = this.state;
-	  // let date = new Date();
+   	let {searchParams} = this.state;
+	  let date = new Date();
 
-   // 	this.setState({
-   //    searchParams:{
-			// 	name:name,
-			// 	page: searchParams.page,
-   //   			pageSize: searchParams.pageSize,
-   //   			districtId:"",
-   //   			enable:"",
-   //   			no:no,
-   //   			date:date
-			// }
-   // 	})
+   	this.setState({
+      searchParams:{
+				name:name,
+				page: searchParams.page,
+     			pageSize: searchParams.pageSize,
+     			districtId:"",
+     			enable:"",
+     			no:no,
+     			date:date
+			}
+   	})
    }
 
    //新建商圈
@@ -107,7 +107,7 @@ class BusinessList  extends React.Component{
    			openNewBusiness:true,
    		});
 
-   		FormModel.changeValues('NewBusinessForm',{no:'eee'});
+   		FormModel.changeValues('NewBusinessForm',{});
 
    }
    //关闭新建商圈
@@ -214,20 +214,20 @@ class BusinessList  extends React.Component{
 
   //刷新列表
   refreshList = () =>{
- //    let {searchParams} = this.state;
-	// let date = new Date();
+    let {searchParams} = this.state;
+	let date = new Date();
 
- //   	this.setState({
- //      searchParams:{
-	// 		name:searchParams.name,
-	// 		page: searchParams.page,
- // 			pageSize: searchParams.pageSize,
- // 			districtId:searchParams.districtId,
- // 			enable:searchParams.enable,
- // 			no:searchParams.no,
- // 			date:date
-	// 	}
- //   	})
+   	this.setState({
+      searchParams:{
+			name:searchParams.name,
+			page: searchParams.page,
+ 			pageSize: searchParams.pageSize,
+ 			districtId:searchParams.districtId,
+ 			enable:searchParams.enable,
+ 			no:searchParams.no,
+ 			date:date
+		}
+   	})
   }
 
 

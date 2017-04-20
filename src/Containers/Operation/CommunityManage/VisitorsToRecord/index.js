@@ -41,6 +41,7 @@ import {
 	inject
 } from 'mobx-react';
 import NewVisitorsToRecord from "./NewVisitorsToRecord";
+import EditVisitorsToRecord from "./EditVisitorsToRecord";
 import VisitorsToRecordDetail from "./VisitorsToRecordDetail";
 import VisitorsSearchForm from "./SearchForm";
 @inject("FormModel")
@@ -54,6 +55,7 @@ class VisitorsToRecord  extends React.Component{
 		this.state={
 			searchParams:{
 				searchType:'',
+        id:"",
 				page: 1,
      			pageSize: 15,
      			visitType:'',
@@ -81,7 +83,15 @@ class VisitorsToRecord  extends React.Component{
 
       },
       detailData:{},
-      
+      editData:{},
+      searchContent:{
+        searchKey:'',
+        searchType:'NAME',
+      }
+
+
+
+
 
 
 		}
@@ -92,7 +102,7 @@ class VisitorsToRecord  extends React.Component{
 
 
 	}
-  //ready
+  //准备数据
   readyData = () =>{
     let _this = this;
 
@@ -104,6 +114,19 @@ class VisitorsToRecord  extends React.Component{
 			Message.error(err.message);
 		});
   }
+  getEidtData = (id) =>{
+    let _this= this;
+    const {FormModel} = this.props;
+
+
+    Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
+      editData.vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM:ss");
+      FormModel.changeValues('EditVisitorsToRecord',editData);
+
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
+  }
    //搜索列表
    onSearchSubmit = (value) =>{
    	let {searchParams} = this.state;
@@ -111,23 +134,41 @@ class VisitorsToRecord  extends React.Component{
 
    	this.setState({
       searchParams:{
-				name:value,
+				searchKey:value.content,
 				page: searchParams.page,
-     			pageSize: searchParams.pageSize,
-     			districtId:searchParams.districtId,
-     			enable:searchParams.enable,
-     			no:searchParams.no,
-     			date:date
-			}
+     		pageSize: searchParams.pageSize,
+     		searchType:value.filter,
+     		visitType:searchParams.visitType,
+     		date:date
+			},
+      searchContent:{
+        searchKey:value.content,
+        searchType:value.filter
+      }
 
    	})
    }
 
    //打开新增访客
    openNewVisitors = () =>{
+      const {FormModel} = this.props;
    		this.setState({
    			openNewVisitors:true,
    		});
+      FormModel.changeValues("NewVisitorsToRecord",{
+        communityId:"",
+        typeId:"",
+        interviewTypeId:"",
+        activityTypeId:"",
+        name:"",
+        tel:"",
+        wechat:"",
+        num:'',
+        email:"",
+        purposeId:'',
+        interviewRoundId:'',
+        vtime:'',
+      })
    }
    //关闭新增访客
    closeNewVisitors = () =>{
@@ -175,12 +216,38 @@ class VisitorsToRecord  extends React.Component{
    }
 
    //高级查询确定
-   upperFormSubmit = () =>{
+   upperFormSubmit = (values) =>{
+     let {searchParams} = this.state;
+ 	  let date = new Date();
+
+    	 this.setState({
+         searchParams:{
+ 				searchKey:values.searchKey,
+ 				page: searchParams.page,
+      		pageSize: searchParams.pageSize,
+      		searchType:values.searchType,
+      		visitType:values.visitType,
+      		date:date
+ 			},
+    })
+    this.closeUpperForm();
 
    }
    //提交新建
 	onSubmit = (params) =>{
-    console.log(params,"====>")
+
+    let {id} = this.state;
+    let _this = this;
+    params.id= !id ? "" : id;
+    Http.request("visit-record-edit",params).then(function(select){
+      _this.refreshList();
+      _this.closeNewVisitors();
+      _this.closeEditVisitors();
+
+    }).catch(function(err) {
+
+      Message.error(err.message);
+    });
 
 
 	}
@@ -190,8 +257,10 @@ class VisitorsToRecord  extends React.Component{
 		if(type === "edit"){
 	      this.setState({
 	     	   openEditVisitors:true,
+           id:itemDetail.id
 	      })
 
+        this.getEidtData(itemDetail.id);
 		}
     if(type === "detail"){
       this.setState({
@@ -212,28 +281,43 @@ class VisitorsToRecord  extends React.Component{
   refreshList = () =>{
     let {searchParams} = this.state;
 	  let date = new Date();
+    console.log(searchParams,">>>>>");
 
    	this.setState({
       searchParams:{
-				  name:searchParams.name,
-				  page: searchParams.page,
-     			pageSize: searchParams.pageSize,
-     			districtId:searchParams.districtId,
-     			enable:searchParams.enable,
-     			no:searchParams.no,
-     			date:date
+				searchKey:searchParams.content,
+        page: searchParams.page,
+        pageSize: searchParams.pageSize,
+        searchType:searchParams.filter,
+        visitType:searchParams.visitType,
+        date:date
 			}
    	})
-  }
-  //确定筛选
-  onSearchSubmit = () =>{
-
   }
   // 获取下拉值
   onFilter = () =>{
 
   }
+  searchChange = (values) =>{
+    const {searchContent} = this.state;
+    this.setState({
+      searchContent:{
+        searchType:searchContent.searchType,
+        searchKey:values
+      }
+    })
+  }
+  ToObtainType = (values) =>{
+    const {searchContent} = this.state;
 
+    this.setState({
+      searchContent:{
+        searchType:values,
+        searchKey:searchContent.searchKey
+      }
+    })
+
+  }
 
 
 	render(){
@@ -244,8 +328,8 @@ class VisitorsToRecord  extends React.Component{
           openVisitorsDetail,
           select,
           detailData,
-          openUpperForm
-         
+          openUpperForm,
+          searchContent
         } = this.state;
 
 		return(
@@ -253,7 +337,7 @@ class VisitorsToRecord  extends React.Component{
 				<Title value="访客记录"/>
       		<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
 
-		        <Row style={{marginBottom:21,zIndex:100,position:"relative"}}>
+		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>
 				          <Col
 						     align="left"
 						     style={{float:'left'}}
@@ -273,7 +357,7 @@ class VisitorsToRecord  extends React.Component{
 
                         <ListGroupItem>
 
-                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} onSubmit={this.onSearchSubmit} onFilter={this.onFilter}/>
+                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} onChange ={this.searchChange}  onSubmit={this.onSearchSubmit} onFilter = {this.ToObtainType} />
                         </ListGroupItem>
                         <ListGroupItem><Button searchClick={this.openUpperForm}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 					          </ListGroup>
@@ -309,7 +393,7 @@ class VisitorsToRecord  extends React.Component{
 
 				        <TableBody >
 				          <TableRow>
-			                <TableRowColumn name="typeName"></TableRowColumn>
+			                <TableRowColumn name="name"></TableRowColumn>
 			                <TableRowColumn name="tel"></TableRowColumn>
 			                <TableRowColumn name="typeId"
                         component={(value,oldValue)=>{
@@ -354,6 +438,17 @@ class VisitorsToRecord  extends React.Component{
        						<NewVisitorsToRecord select = {select} onCancel= {this.closeNewVisitors} onSubmit = {this.onSubmit}/>
    				   </Drawer>
 
+           {/*编辑访客*/}
+             <Drawer
+                modal={true}
+                width={750}
+                onClose={this.closeAll}
+                open={openEditVisitors}
+                containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
+                >
+                  <EditVisitorsToRecord select = {select} onCancel= {this.closeEditVisitors} onSubmit = {this.onSubmit}/>
+             </Drawer>
+
              {/*查看详情*/}
              <Drawer
        					modal={true}
@@ -378,6 +473,7 @@ class VisitorsToRecord  extends React.Component{
                   select = {select}
                   onCancel={this.closeUpperForm}
                   onSubmit={this.upperFormSubmit}
+                  searchContent = {searchContent}
               />
               </Dialog>
 

@@ -234,7 +234,6 @@ class SelectStationForm extends Component {
 			item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd')
 		});
 
-		console.log('selectedStationVos', selectedStationVos);
 
 		const {
 			onSubmit

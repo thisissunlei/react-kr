@@ -17,6 +17,7 @@ import {
 } from 'kr-ui';
 import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 import './index.less';
+import State from './State';
 
  class NewVisitorsToRecord extends Component{
 
@@ -48,6 +49,7 @@ import './index.less';
 
 	}
 	typeChange = (values) =>{
+		State.typeValue=values.value;
 		this.setState({
 			typeValue : values.value
 		})
@@ -82,7 +84,8 @@ import './index.less';
 						/>
 						<KrField grid={1/2}  name="typeId" style={{width:262,marginLeft:28}} component='select'  label="类型" inline={false}  
 							requireLabel={true}
-							options={[{label:"全部",value:1},{label:"启用",value:"ENABLE"},{label:"禁用",value:"DISENABLE"}]}
+							options={select.type}
+							onChange = {this.typeChange}
 							
 						/>
 
@@ -110,7 +113,7 @@ import './index.less';
             			{/*参观*/}
   						{typeValue ==52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false} 
 							requireLabel={true}
-							options={select.round}
+							options={select.purpose}
 						/>}
 
 						{/*面试*/}
@@ -140,7 +143,85 @@ import './index.less';
 	}
 }
 const validate = values =>{
+
 	const errors = {};
+	const phone=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
+
+	const email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+	// console.log(State.typeValue,">>>>>>>>");
+	const typeValue = State.typeValue;
+	if(!values.communityId){
+		errors.communityId = "社区不能为空"
+	}
+	if(!values.typeId){
+		errors.typeId = "访客类型不能为空"
+	}
+	//面试相关
+	if(typeValue == 50){
+		if(!values.interviewTypeId){
+			errors.interviewTypeId = "面试类型不能为空"
+		}	
+		if(!values.interviewRoundId){
+			errors.interviewRoundId = "面试轮次不能为空"
+		}
+		
+	}
+
+	//参加活动
+	if(typeValue == 51){
+		if(!values.activityTypeId){
+			errors.activityTypeId = "活动类型不能为空"
+		}
+	}
+	
+	//参观相关
+	if(typeValue ==52){
+		if(!values.purposeId){
+			errors.purposeId = "参观目的不能为空"
+		}
+		if(!values.wechat){
+			errors.wechat = "微信号不能为空"
+		}
+	}
+	//预约访客，官网预约
+	if(typeValue == 49 || typeValue == 732){
+		if(!values.num){
+			errors.num = "拜访人数不能为空"
+		}else if(isNaN(values.num)){
+			errors.num = "拜访人数只能位正整数"
+		}else if(values.num <= 0){
+			errors.num = "拜访人数只能位正整数"
+		}else if(values.num%1 != 0){
+			errors.num = "拜访人数只能位正整数"
+		}
+		if(!values.meetedMan){
+			errors.meetedMan = "被拜访人不能为空"
+		}
+	}
+	
+	if(!values.name){
+		errors.name = "姓名不能为空"
+	}
+	if(!values.tel){
+		errors.tel = "联系电话不能为空"
+	}else if(!phone.test(values.tel)){
+		errors.tel = "联系电话格式错误"
+	}
+	
+	
+	if(!values.email){
+		errors.email = "邮箱不能为空"
+	}else if(!email.test(values.email)){
+		errors.email = "邮箱的格式不正确"
+	}
+	
+	
+	if(!values.vtime){
+		errors.vtime = "拜访日期不能为空"
+	}
+	
+	
+	
 
 	return errors;
 }

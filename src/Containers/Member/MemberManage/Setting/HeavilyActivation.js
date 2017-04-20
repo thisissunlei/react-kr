@@ -1,21 +1,18 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React, {PropTypes} from 'react';
 
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector} from 'redux-form';
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message
 } from 'kr-ui';
 import './index.less';
 
- class HeavilyActivation extends Component{
+ class HeavilyActivation extends React.Component{
 
 	 static defaultProps = {
 	 		stage:'importNum'

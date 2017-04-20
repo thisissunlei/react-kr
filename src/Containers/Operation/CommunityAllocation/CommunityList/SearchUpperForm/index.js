@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -15,13 +14,7 @@ import {
 import $ from 'jquery';
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	reset
 } from 'redux-form';
 
 import {
@@ -38,7 +31,7 @@ import {
 import State from '../State';
 import './index.less';
 @observer
-class SearchUpperForm extends Component {
+class SearchUpperForm extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,
