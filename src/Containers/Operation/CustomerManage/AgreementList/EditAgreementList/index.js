@@ -5,10 +5,7 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
-import {
-	Row,
-	Col,
-} from 'kr-ui';
+
 import './index.less';
 import Admit from "../Admit/Edit";
 import Exit from "../Exit/Edit";

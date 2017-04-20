@@ -51,6 +51,8 @@ import './index.less';
   //确定按钮
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
+		console.log("kkkkk");
+		
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
@@ -97,7 +99,15 @@ import './index.less';
 }
 const validate = values =>{
 	const errors = {};
-
+	const integer = /^\+?[1-9][0-9]*$/;
+	if(!values.sort){
+		errors.sort = "排序不能为空";
+	}else if(!integer.test(values.sort)){
+		errors.sort = "排序只能为正整数";
+	}
+	if(!values.no){
+		
+	}
 	return errors;
 }
 export default reduxForm({ form: 'NewBusinessForm',validate})(NewBusiness);

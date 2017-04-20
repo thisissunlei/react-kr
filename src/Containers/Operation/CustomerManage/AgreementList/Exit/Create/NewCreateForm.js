@@ -21,9 +21,6 @@ import {
 	formValueSelector,
 	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -34,33 +31,12 @@ import './index.less';
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
 	KrField,
-	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
-	DotTitle,
-	IframeContent,
-	Date,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	Grid
 } from 'kr-ui';
 
 
@@ -215,7 +191,8 @@ class NewCreateForm extends React.Component {
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
-				
+			
+					
 				<KrField  name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />

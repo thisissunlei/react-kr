@@ -89,11 +89,6 @@ class VisitorsToRecord  extends React.Component{
         searchType:'NAME',
       }
 
-
-
-
-
-
 		}
     this.readyData();
 	}
@@ -141,10 +136,7 @@ class VisitorsToRecord  extends React.Component{
      		visitType:searchParams.visitType,
      		date:date
 			},
-      searchContent:{
-        searchKey:value.content,
-        searchType:value.filter
-      }
+    
 
    	})
    }
@@ -169,6 +161,7 @@ class VisitorsToRecord  extends React.Component{
         interviewRoundId:'',
         vtime:'',
       })
+      FormModel.changeValues("NewVisitorsToRecord",{});
    }
    //关闭新增访客
    closeNewVisitors = () =>{
@@ -192,9 +185,11 @@ class VisitorsToRecord  extends React.Component{
    }
    //打开高级查询
   openUpperForm = () =>{
+    let {FormModel} = this.props;
     this.setState({
    		openUpperForm:true,
    	})
+    FormModel.changeValues("VisitorsSearchForm",{visitType:''})
   }
    //关闭高级查询
    closeUpperForm = () =>{
@@ -281,14 +276,14 @@ class VisitorsToRecord  extends React.Component{
   refreshList = () =>{
     let {searchParams} = this.state;
 	  let date = new Date();
-    console.log(searchParams,">>>>>");
+
 
    	this.setState({
       searchParams:{
-				searchKey:searchParams.content,
+				searchKey:searchParams.searchKey,
         page: searchParams.page,
         pageSize: searchParams.pageSize,
-        searchType:searchParams.filter,
+        searchType:searchParams.searchType,
         visitType:searchParams.visitType,
         date:date
 			}
@@ -467,7 +462,7 @@ class VisitorsToRecord  extends React.Component{
                 modal={true}
                 onClose={this.closeUpperForm}
                 open={openUpperForm}
-                contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
+                contentStyle ={{ width: '666',overflow:'visible'}}
               >
                <VisitorsSearchForm
                   select = {select}

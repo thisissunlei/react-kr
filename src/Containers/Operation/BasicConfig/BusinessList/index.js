@@ -66,6 +66,10 @@ class BusinessList  extends React.Component{
 			openEditBusiness:false,
 			openUpperForm:false,
 			id : '',
+			searchContent:{
+	          searchType:"CODING",
+	          searchKey:""
+	        }
 		}
 	}
 
@@ -73,7 +77,7 @@ class BusinessList  extends React.Component{
 
 
 	}
-	
+
    //搜索列表
    onSearchSubmit = (value) =>{
    	let name = "",no = "";
@@ -82,7 +86,7 @@ class BusinessList  extends React.Component{
    	}else{
    		name = value.content;
    	}
-   	
+
    	let {searchParams} = this.state;
 	  let date = new Date();
 
@@ -101,18 +105,17 @@ class BusinessList  extends React.Component{
 
    //新建商圈
    openNewBusiness = () =>{
-   	consle.log("dddd")
    		const {FormModel} = this.props;
    		this.setState({
    			openNewBusiness:true,
    		});
 
-   		FormModel.changeValues('NewBusinessForm',{});
+   		FormModel.changeValues('NewBusinessForm',{no:'',name:'',districtId:'',sort:'',enable:''});
 
    }
    //关闭新建商圈
    closeNewBusiness = () =>{
-   	
+
      this.setState({
        openNewBusiness:false,
      });
@@ -138,6 +141,7 @@ class BusinessList  extends React.Component{
    		openUpperForm:true,
    	})
    	// FormModel.initialize('BusinessSearchForm',{});
+   	FormModel.changeValues('BusinessSearchForm',{districtId:'',enable:''});
   }
    //关闭高级查询
    closeUpperForm = () =>{
@@ -148,13 +152,14 @@ class BusinessList  extends React.Component{
 
    //高级查询确定
    upperFormSubmit = (values) =>{
+   		console.log(">>>>>",values)
 	   	let name = "",no = "";
-	   	if(values.select == "CODING"){
-	   		no = values.content;
+	   	if(values.searchType == "CODING"){
+	   		no = values.searchKey;
 	   	}else{
-	   		name = values.content;
+	   		name = values.searchKey;
 	   	}
-	   	
+
 	   	let {searchParams} = this.state;
 		let date = new Date();
 
@@ -173,6 +178,7 @@ class BusinessList  extends React.Component{
    }
    //提交新建
 	onSubmit = (params) =>{
+    console.log("eeeee");
 		let {id} = this.state;
 		let _this = this;
 
@@ -199,7 +205,7 @@ class BusinessList  extends React.Component{
 	     	openEditBusiness:true,
 	      })
 		  // FormModel.initialize('EditBusiness',{no:"12",name:"12",distinctId:"12",companyId:"12",enable:"否"});
-
+      FormModel.changeValues('EditBusiness',itemDetail);
 		  // FormModel.initialize('EditBusiness',{});
 
 		}
@@ -216,6 +222,7 @@ class BusinessList  extends React.Component{
   refreshList = () =>{
     let {searchParams} = this.state;
 	let date = new Date();
+	console.log(searchParams,"刷新")
 
    	this.setState({
       searchParams:{
@@ -236,8 +243,35 @@ onExport = () =>{
 
 }
 
+searchChange = (values) =>{
+    const {searchContent} = this.state;
+    this.setState({
+      searchContent:{
+        searchType:searchContent.searchType,
+        searchKey:values
+      }
+    })
+  }
+  ToObtainType = (values) =>{
+    const {searchContent} = this.state;
+
+    this.setState({
+      searchContent:{
+        searchType:values,
+        searchKey:searchContent.searchKey
+      }
+    })
+
+  }
+
 	render(){
-		let {searchParams,openNewBusiness,openEditBusiness,openUpperForm} = this.state;
+		let {
+				searchParams,
+				openNewBusiness,
+				openEditBusiness,
+				openUpperForm,
+				searchContent
+			} = this.state;
 
 
 		return(
@@ -265,7 +299,7 @@ onExport = () =>{
 
                         <ListGroupItem>
 
-                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"商圈编码",value:"CODING"},{label:"商圈名称",value:"NAME"}]} onSubmit={this.onSearchSubmit} onFilter={this.onFilter}/>
+                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"商圈编码",value:"CODING"},{label:"商圈名称",value:"NAME"}]} onChange ={this.searchChange} onSubmit={this.onSearchSubmit} onFilter={this.ToObtainType}/>
                         </ListGroupItem>
                         <ListGroupItem><Button searchClick={this.openUpperForm}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 					          </ListGroup>
@@ -314,7 +348,7 @@ onExport = () =>{
 		                          }}
 
 			                ></TableRowColumn>
-			                <TableRowColumn name="enable" 
+			                <TableRowColumn name="enable"
 				                component={(value,oldValue)=>{
 
 	                             return (<div>{value == "ENABLE" ? "启用":"禁用"}</div>)
@@ -331,18 +365,18 @@ onExport = () =>{
 	           </Table>
 	           </Section>
 
-	        <Drawer
-    					
+	   <Drawer
+
 				width={750}
 				onClose={this.closeAll}
 				open={openNewBusiness}
 				containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
 			>
-					<NewBusiness onCancel= {this.closeNewBusiness} />
+					<NewBusiness onCancel= {this.closeNewBusiness} onSubmit = {this.onSubmit}/>
 		 	</Drawer>
 
          <Drawer
-             
+
              width={750}
              onClose={this.closeAll}
              open={openEditBusiness}
@@ -366,6 +400,7 @@ onExport = () =>{
 				    onSubmit={this.upperFormSubmit}
 				    flag='招商'
 				    searchParams={searchParams}
+				    searchContent = {searchContent}
 				/>
 		  </Dialog>
 

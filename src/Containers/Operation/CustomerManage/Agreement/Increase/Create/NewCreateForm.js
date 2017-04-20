@@ -34,7 +34,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
 	Dialog,
 	Table,
 	TableBody,

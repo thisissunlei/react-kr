@@ -33,12 +33,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -46,15 +40,11 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
-	DotTitle,
-	IframeContent,
 	Date,
 	Paper,
 	ListGroup,

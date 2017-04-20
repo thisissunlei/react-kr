@@ -39,6 +39,9 @@ import './index.less';
 	componentDidMount(){
 	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+    const {$form,searchContent} = this.props;
+    $form.change('searchType',searchContent.searchType);
+    $form.change('searchKey',searchContent.searchKey);
 
 
 	}
@@ -93,19 +96,19 @@ import './index.less';
 			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
         <div style = {{display:"inline-block",width:295,marginTop:17}}>
           <div className="KKKK" style = {{display:"inline-block",width:100}}>
-            <KrField name="select" type="select"  label=""
+            <KrField name="searchType" type="select"  label=""
                 options={[{label:"商圈编码",value:"CODING"},{label:"商圈名称",value:"NAME"}]}
                 onChange = {this.typeChange}
             />
           </div>
           <div className="KKKK" style = {{display:"inline-block",width:160}}>
-            <KrField name="intentionCommunityId" component='input' inline={false} onChange = {this.keyWorldChange} placeholder='请输入关键字'/>
+            <KrField name="searchKey" component='input' inline={false} onChange = {this.keyWorldChange} placeholder='请输入关键字'/>
           </div>
 
         </div>
           <KrField grid={1/2} right={34} label="区县" name="districtId"  style={{marginTop:4}} component="city"  requireLabel={false} onSubmit={this.cityValue}/>
           <KrField  grid={1/2} right={34} style={{marginTop:4}}  name="enable" type="select"  label="客户分类"
-  				    options={[{label:"全部",value:"-1"},{label:"启用",value:"ENABLE"},{label:"禁用",value:"DISENABLE"}]}
+  				    options={[{label:"全部",value:" "},{label:"启用",value:"ENABLE"},{label:"禁用",value:"DISENABLE"}]}
   				/>
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
             <Row>
