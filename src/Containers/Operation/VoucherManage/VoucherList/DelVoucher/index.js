@@ -15,7 +15,6 @@ import {
   Tooltip,
   Drawer,
 } from 'kr-ui';
-
 import './index.less';
 import  ItemDetail from './ItemDetail';
 import SearchsForm from './SearchForm';
@@ -83,7 +82,7 @@ export default class DelVoucher extends React.Component {
   // getInfo = (form) => {
   //   var params = Object.assign({}, form);
   //   var _this = this;
-  //   Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
+  //   Http.request('get-fina-flow-category', params, {}).then(function(response) {
   //     _this.setState({
   //       infoList: response
   //     })
