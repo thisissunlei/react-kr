@@ -28,7 +28,7 @@ import {
 	Message
 } from 'kr-ui';
 import $ from 'jquery';
-import DateFormat from "kr/Utils";
+import {DateFormat} from "kr/Utils";
 import State from './State';
 import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';

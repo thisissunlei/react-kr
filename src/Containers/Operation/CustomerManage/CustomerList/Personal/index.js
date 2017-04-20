@@ -27,7 +27,7 @@ import {
 	Message,
 	Tooltip
 } from 'kr-ui';
-import DateFormat from "kr/Utils";
+import {DateFormat} from "kr/Utils";
 import editsourceCustomer from "../EditCustomerList/State";
 import {
 	LookCustomerList,
@@ -241,6 +241,7 @@ class Personal extends Component{
     //领取浮框的关闭
     merClose=()=>{
        this.props.NewIndentModel.openPersonDialog=false;
+
     }
 
 	//搜索
@@ -305,6 +306,7 @@ class Personal extends Component{
 	//导出
 	onExport=(value)=>{
 	    this.props.NewIndentModel.exportData(value);
+
 	}
 
 	closeAllMerchants=()=>{
