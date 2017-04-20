@@ -33,13 +33,6 @@ export default class Section extends Component {
 	constructor(props){
 		super(props);
 
-		this.renderSectionTitle = this.renderSectionTitle.bind(this);
-		this.renderHeaderLeftIcon = this.renderHeaderLeftIcon.bind(this);
-		this.renderDescription = this.renderDescription.bind(this);
-
-		this.touchHeaderTitle = this.touchHeaderTitle.bind(this);
-		this.renderRightElement  = this.renderRightElement.bind(this);
-
 		this.state = {
 			openBody:true
 		}
@@ -47,7 +40,7 @@ export default class Section extends Component {
 	}
 
 
-	renderRightElement(){
+	renderRightElement = ()=>{
 
 		if(!this.props.rightElement){
 			return null;
@@ -58,9 +51,8 @@ export default class Section extends Component {
 					{this.props.rightMenu}
 			</div>
 		);
-
 	}
-	renderRightMenu(){
+	renderRightMenu = ()=>{
 
 		if(!this.props.rightMenu){
 			return null;
@@ -79,7 +71,7 @@ export default class Section extends Component {
 		);
 	}
 
-	renderHeaderLeftIcon(){
+	renderHeaderLeftIcon = ()=>{
 
 		if(!this.props.leftIcon){
 			return null;
@@ -92,13 +84,13 @@ export default class Section extends Component {
 		);
 
 	}
-	touchHeaderTitle(){
+	touchHeaderTitle = ()=>{
 		// this.setState({
 		// 	openBody:!this.state.openBody
 		// });
 	}
 
-	renderSectionTitle(){
+	renderSectionTitle = ()=>{
 
 		if(!this.props.title){
 			return null;
@@ -154,7 +146,7 @@ export default class Section extends Component {
 
 	}
 
-	renderDescription(){
+	renderDescription = ()=>{
 
 		return(
 			<div className="section-description">
@@ -176,7 +168,7 @@ export default class Section extends Component {
 				  </div>
 			  );
 		  }
-		
+
 
 
 		return (
@@ -197,7 +189,3 @@ export default class Section extends Component {
 	  }
 
 }
-
-
-
-
