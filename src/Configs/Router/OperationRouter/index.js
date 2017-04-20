@@ -23,7 +23,7 @@ const Operation_Home = (location, callback) => {
 
 const Operation_GroupSetting = (location, callback) => {
 	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/Home').default)
+		callback(null, require('kr/Containers/Operation/GroupSetting').default)
 	}, 'Operation_GroupSetting')
 }
 
@@ -65,129 +65,129 @@ const Operation_CustomerManage_CustomerHighSea = (location, callback) => {
 
 
 const Operation_CustomerManage_List = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/List').default)
-}, 'Operation_CustomerManage_List')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/List').default)
+	}, 'Operation_CustomerManage_List')
 }
 
 const Operation_CustomerManage_Order_Create = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Order/Create').default)
-}, 'Operation_CustomerManage_Order_Create')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Order/Create').default)
+	}, 'Operation_CustomerManage_Order_Create')
 }
 
 const Operation_CustomerManage_Order_Detail = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Order/Detail').default)
-}, 'Operation_CustomerManage_Order_Detail')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Order/Detail').default)
+	}, 'Operation_CustomerManage_Order_Detail')
 }
 
 const Operation_CustomerManage_Order_Edit = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Order/Edit').default)
-}, 'Operation_CustomerManage_Order_Edit')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Order/Edit').default)
+	}, 'Operation_CustomerManage_Order_Edit')
 }
 
 const Operation_CustomerManage_Agreement_Join_Edit = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Edit').default)
-}, 'Operation_CustomerManage_Agreement_Join_Edit')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Edit').default)
+	}, 'Operation_CustomerManage_Agreement_Join_Edit')
 }
 
 const Operation_CustomerManage_Agreement_Join_Detail = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Detail').default)
-}, 'Operation_CustomerManage_Agreement_Join_Detail')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Join_Detail')
 }
 
 const Operation_CustomerManage_Agreement_Join_Create = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Create').default)
-}, 'Operation_CustomerManage_Agreement_Join_Create')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Create').default)
+	}, 'Operation_CustomerManage_Agreement_Join_Create')
 }
 
 const Operation_CustomerManage_Agreement_Join_Print = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Print').default)
-}, 'Operation_CustomerManage_Agreement_Join_Print')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Print').default)
+	}, 'Operation_CustomerManage_Agreement_Join_Print')
 }
 
 const Operation_CustomerManage_Agreement_Admit_Create = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Create').default)
-}, 'Operation_CustomerManage_Agreement_Admit_Create')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Create').default)
+	}, 'Operation_CustomerManage_Agreement_Admit_Create')
 }
 
 const Operation_CustomerManage_Agreement_Admit_Edit = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Edit').default)
-}, 'Operation_CustomerManage_Agreement_Admit_Edit')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Edit').default)
+	}, 'Operation_CustomerManage_Agreement_Admit_Edit')
 }
 
 const Operation_CustomerManage_Agreement_Admit_Detail = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Detail').default)
-}, 'Operation_CustomerManage_Agreement_Admit_Detail')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Admit_Detail')
 }
 
 const Operation_CustomerManage_Agreement_Admit_Print = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Print').default)
-}, 'Operation_CustomerManage_Agreement_Admit_Print')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Print').default)
+	}, 'Operation_CustomerManage_Agreement_Admit_Print')
 }
 
 const Operation_CustomerManage_Agreement_Increase_Create = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Create').default)
-}, 'Operation_CustomerManage_Agreement_Increase_Create')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Create').default)
+	}, 'Operation_CustomerManage_Agreement_Increase_Create')
 }
 
 const Operation_CustomerManage_Agreement_Increase_Edit = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Edit').default)
-}, 'Operation_CustomerManage_Agreement_Increase_Edit')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Edit').default)
+	}, 'Operation_CustomerManage_Agreement_Increase_Edit')
 }
 
 const Operation_CustomerManage_Agreement_Increase_Detail = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Detail').default)
-}, 'Operation_CustomerManage_Agreement_Increase_Detail')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Increase_Detail')
 }
 
 const Operation_CustomerManage_Agreement_Increase_Print = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Print').default)
-}, 'Operation_CustomerManage_Agreement_Increase_Print')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Print').default)
+	}, 'Operation_CustomerManage_Agreement_Increase_Print')
 }
 
 const Operation_CustomerManage_Agreement_Renew_Create = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Create').default)
-}, 'Operation_CustomerManage_Agreement_Renew_Create')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Create').default)
+	}, 'Operation_CustomerManage_Agreement_Renew_Create')
 }
 
 const Operation_CustomerManage_Agreement_Renew_Edit = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Edit').default)
-}, 'Operation_CustomerManage_Agreement_Renew_Edit')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Edit').default)
+	}, 'Operation_CustomerManage_Agreement_Renew_Edit')
 }
 
 const Operation_CustomerManage_Agreement_Renew_Detail = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Detail').default)
-}, 'Operation_CustomerManage_Agreement_Renew_Detail')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Renew_Detail')
 }
 
 const Operation_CustomerManage_Agreement_Renew_Print = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Print').default)
-}, 'Operation_CustomerManage_Agreement_Renew_Print')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Print').default)
+	}, 'Operation_CustomerManage_Agreement_Renew_Print')
 }
 
 const Operation_CustomerManage_Agreement_Reduce_Create = (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Reduce/Create').default)
-}, 'Operation_CustomerManage_Agreement_Reduce_Create')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Reduce/Create').default)
+	}, 'Operation_CustomerManage_Agreement_Reduce_Create')
 }
 
 const Operation_CustomerManage_Agreement_Reduce_Edit = (location, callback) => {
@@ -216,27 +216,27 @@ const Operation_CustomerManage_Agreement_Exit_Create= (location, callback) => {
 }
 
 const Operation_CustomerManage_Agreement_Exit_Edit= (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Edit').default)
-}, 'Operation_CustomerManage_Agreement_Exit_Edit')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Edit').default)
+	}, 'Operation_CustomerManage_Agreement_Exit_Edit')
 }
 
 const Operation_CustomerManage_Agreement_Exit_Detail= (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Detail').default)
-}, 'Operation_CustomerManage_Agreement_Exit_Detail')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Exit_Detail')
 }
 
 const Operation_CustomerManage_Agreement_LessorManage_List= (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/LessorManage/List').default)
-}, 'Operation_CustomerManage_Agreement_LessorManage_List')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/LessorManage/List').default)
+	}, 'Operation_CustomerManage_Agreement_LessorManage_List')
 }
 
 const Operation_CustomerManage_Agreement_Setting_List= (location, callback) => {
-require.ensure([], require => {
-callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Setting/List').default)
-}, 'Operation_CustomerManage_Agreement_Setting_List')
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Setting/List').default)
+	}, 'Operation_CustomerManage_Agreement_Setting_List')
 }
 
 const Operation_JoinOrder_List= (location, callback) => {
@@ -320,7 +320,7 @@ module.exports =()=>{
 			</Route>
 
 			{/*增租协议书*/}
-			<Route path="increase" getComponent={Basic}>
+			<Route path="increase" component={Basic}>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Increase_Create}/>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Increase_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Increase_Detail}/>
