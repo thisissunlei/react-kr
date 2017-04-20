@@ -6,10 +6,10 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import DateFormat from 'kr/Utils';
+import {DateFormat} from 'kr/Utils';
 
 import {
-	
+
 	KrField,
 	Grid,
 	Row,
