@@ -31,16 +31,6 @@ class EditStation  extends React.Component{
 			data.id=id;
 			var _this=this;
 			Http.request('station-get-edit',data).then(function(response) {
-				if(response.enable){
-					 response.enable=1;
-				}else{
-					 response.enable=0;
-				}
-				if(response.belongSpace){
-					 response.belongSpace=1;
-				}else{
-					 response.belongSpace=0;
-				}
 				$form.changeValues(response);
 				if(response.belongSpace==true){
 		      _this.setState({
