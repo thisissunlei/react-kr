@@ -204,7 +204,7 @@ form.setSubmitCallback = action(function(submitHandle) {
 	});
 
 	form.change = action(function(fieldName,fieldValue) {
-		var values = mobx.toJS(this.values);
+		var values = this.getValues();
 		values[fieldName] = fieldValue;
 		mobx.extendObservable(this,{values});
 	});
@@ -216,18 +216,15 @@ form.setSubmitCallback = action(function(submitHandle) {
 				for(var name in obj){
 					return false;
 				}
-
 				return true;
-
 		}
 
 		if(isEmpty(values)){
 
 			var fieldValues = this.getValues();
-
-			for(var field in fieldValues){
-				if(values.hasOwnProperty(field)){
-					this.change(field,'');
+			for(var fieldName in fieldValues){
+				if(fieldValues.hasOwnProperty(fieldName)){
+					this.change(fieldName,'');
 				}
 			}
 			return ;
@@ -261,7 +258,7 @@ form.setSubmitCallback = action(function(submitHandle) {
 
 		if(registeredFields.hasOwnProperty(fieldName)){
 			let reField = registeredFields[fieldName];
-			let count = reField.count + 1; 
+			let count = reField.count + 1;
 			registeredFields[fieldName] = Object.assign({},{name:fieldName},{type},{count});
 		}else{
 			registeredFields[fieldName] = Object.assign({},{name:fieldName},{type},{count:0});
