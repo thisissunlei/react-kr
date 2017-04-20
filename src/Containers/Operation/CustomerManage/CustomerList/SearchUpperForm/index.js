@@ -170,7 +170,6 @@ class SearchUpperForm extends React.Component {
 	   // }else{
 	   // 	dateBoxStyle.width="auto";
 	   // }
-	   // console.log(dateBoxDevelop,">>>>>>")
 
 
 		return(

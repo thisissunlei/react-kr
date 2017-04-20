@@ -1,33 +1,17 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
-import {
-	connect
-} from 'kr/Redux';
 
 import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
-	ListGroupItem,
 	SearchForms
 } from 'kr-ui';
 
 
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,

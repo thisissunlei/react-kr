@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {
 	reduxForm,
@@ -41,7 +38,7 @@ import {
 import './index.less';
 import State from './State';
 @observer
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 
 
 	constructor(props) {

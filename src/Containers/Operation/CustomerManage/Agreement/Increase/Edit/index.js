@@ -1,11 +1,9 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
 	reduxForm,
 	submitForm,
-	change,
 	reset
 } from 'redux-form';
 import {
@@ -15,9 +13,7 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 
 import {
-	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -27,7 +23,7 @@ import './index.less';
 import NewCreateForm from './NewCreateForm';
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -134,7 +130,6 @@ export default class JoinCreate extends Component {
 			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
 				id: params.id
 			})).then(function(response) {
-				console.log('response',response);
 
 
 				optionValues.lessorContactName = response.lessorContactName;
@@ -173,7 +168,6 @@ export default class JoinCreate extends Component {
 				initialValues.leaseBegindate = new Date(response.leaseBegindate);
 				initialValues.leaseEnddate = new Date(response.leaseEnddate);
 
-				console.log('时间', initialValues);
 
 
 				//处理stationvos

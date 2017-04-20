@@ -31,7 +31,6 @@ export default class  SearchBelongCommunity extends React.Component {
 	}
 
 	onChange(item){
-
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -23,7 +23,7 @@ import {
 } from 'mobx-react';
 @inject("NewIndentModel")
 @observer
- class NewCustomerList extends Component{
+ class NewCustomerList extends React.Component{
 
 
 

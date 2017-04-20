@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -31,7 +31,7 @@ import NewIndent from "../NewIndent";
 import newIndentState from "../NewIndent/State";
 
 @observer
- class OneNewAgreement extends Component{
+ class OneNewAgreement extends React.Component{
 
 
 

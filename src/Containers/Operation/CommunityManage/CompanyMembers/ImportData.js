@@ -1,43 +1,22 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	change
 } from 'redux-form';
 
-import {
-	Actions,
-	Store,
-	connect
-} from 'kr/Redux';
-import $ from 'jquery';
 
 import {
-	Section,
-	KrField,
 	Grid,
 	Row,
-	Col,
 	Message,
 	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
 	ListGroup,
-	Notify,
 	ListGroupItem
 } from 'kr-ui';
 
-export default class CancleLeader extends Component {
+export default class CancleLeader extends React.Component {
 	static propTypes = {
 		initialValues:React.PropTypes.object,
 		communityOptions:React.PropTypes.array,
@@ -76,7 +55,6 @@ export default class CancleLeader extends Component {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					console.log('ss',xhr.response);
 					if(xhr.response.code=='-1'){
 						Message.error(xhr.response.message);
 					}else{
@@ -94,7 +72,6 @@ export default class CancleLeader extends Component {
 		};
 
 		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
 		};
 		xhr.open('POST', 'http://op.krspace.cn/api/krspace-finance-web/member/member-excel', true);
 		xhr.responseType = 'json';
@@ -115,7 +92,6 @@ export default class CancleLeader extends Component {
 		onLoadDemo && onLoadDemo();
 	}
 	importFile=()=>{
-		// console.log('importFile');
 	}
 	onTokenSuccess=(form)=> {
 		this.setState({

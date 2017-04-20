@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import { connect } from 'kr/Redux';
 import {reduxForm,formValueSelector} from 'redux-form';
 
@@ -60,7 +60,7 @@ let OrderCreateForm = function(props){
 }
 
 
-class OrderCreate extends Component {
+class OrderCreate extends React.Component {
 
 	constructor(props,context){
 		super(props, context);

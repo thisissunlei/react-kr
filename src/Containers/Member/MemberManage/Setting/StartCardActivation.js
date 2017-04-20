@@ -1,7 +1,6 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector,initialize,change,submit} from 'redux-form';
+import React, {PropTypes} from 'react';
+import {reduxForm,formValueSelector,initialize,submit} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -9,14 +8,12 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
-	SnackTip,
 	Message
 } from 'kr-ui';
 import './index.less';
 
- class StartCardActivation extends Component{
+ class StartCardActivation extends React.Component{
 
 	 static defaultProps = {
 	 		stage:'importNum'
@@ -206,7 +203,6 @@ import './index.less';
 			})
 	}
 	cardChange=(value)=>{
-			console.log("999")
 
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
 		var reg=/^[0-9a-fA-F]{8}$/;
@@ -271,7 +267,6 @@ const validate = values =>{
 		
 		const errors = {}
 		var reg=/^[0-9a-fA-F]{8}$/;
-		console.log("1233")
 		if (!reg.test(values.interCode)) {
 			errors.interCode='内码为8位16进制数';
 		}

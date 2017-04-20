@@ -17,7 +17,6 @@ export function companys(state = [],action){
 	}
 
 	case 'LOAD_COMPANYS_SUCCESS':{
-		console.log('------response',action.response);
 		return {...state,...action.response};
 	}
 

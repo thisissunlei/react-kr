@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {LabelText} from 'kr-ui';
 import {Actions, Store} from 'kr/Redux';
+import {
+    initialize
+} from 'redux-form';
 import dateFormat from 'dateformat';
 import {
     KrField,
@@ -15,12 +15,9 @@ import {
     TableFooter,
     Button,
     Section,
-    Grid,
     Row,
     Col,
-    Notify,
     Dialog,
-    KrDate,
     DotTitle,
     ButtonGroup,
     Loading,
@@ -30,7 +27,6 @@ import {
     Message,
     Drawer
 } from 'kr-ui';
-import {reduxForm, reset, initialize} from 'redux-form';
 
 import {browserHistory} from 'react-router'
 import BasicInfo from './BasicInfo';
@@ -50,7 +46,7 @@ import './index.less';
 var fiMoney = '';
 //得到单条数据
 var fiItem = {};
-class ViewForm extends Component {
+class ViewForm extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -82,7 +78,7 @@ class ViewForm extends Component {
         );
     }
 }
-export default class AttributeSetting extends Component {
+export default class AttributeSetting extends React.Component {
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired
@@ -200,7 +196,6 @@ export default class AttributeSetting extends Component {
     }
 
     refresh() {
-        //console.log('00000')
         var _this = this;
         this.setState({
             isInitLoading: true
@@ -261,7 +256,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -289,7 +283,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -306,7 +299,6 @@ export default class AttributeSetting extends Component {
                 openSwitchBtn: !this.state.openSwitchBtn
             });
             this.getMoneyALLTrue();
-            //console.log('2222',fiItem.id);
             Store.dispatch(Actions.callAPI('findContractListById', {mainbillId: _this.props.params.orderId})).then(function(response) {
                 var receivedList = [];
                 response.map(function(item, index) {
@@ -328,7 +320,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -417,7 +408,6 @@ export default class AttributeSetting extends Component {
             if(item.finaflowAmount){
               var finaF = item.finaflowAmount;
               parseFloat(finaF.replace(/[^\d\.-]/g, ""));
-              console.log(finaF);
               fiMoney = finaF;
               fiItem = item;
             }
@@ -1188,7 +1178,6 @@ export default class AttributeSetting extends Component {
             shiftData,
             stationPayment
         } = this.state;
-        console.log(this.state.params.childType);
         if (isInitLoading) {
             return <Loading/>
         }

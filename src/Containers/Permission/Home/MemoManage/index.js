@@ -1,37 +1,26 @@
-import React,{Component,PropTypes} from 'react';
+import React,{PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { browserHistory } from 'react-router';
-
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
 import Section from 'kr-ui/Section';
-import Calendar from 'kr-ui/Calendar';
-
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import { yellow600} from 'material-ui/styles/colors';
 
 
 import {
 	Menu,
 	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
 	Avatar,
-	Divider,
-	FontIcon,
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class MemoManage extends Component{
+class MemoManage extends React.Component{
 
     static contextTypes = {
         router: PropTypes.object.isRequired

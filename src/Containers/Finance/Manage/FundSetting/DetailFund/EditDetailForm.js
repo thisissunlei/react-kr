@@ -1,15 +1,11 @@
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes} from 'react';
 import {
     reduxForm,
-    formValueSelector,
     change,
     initialize,
-    arrayPush,
-    arrayInsert,
-    FieldArray,
     reset
 } from 'redux-form';
-import {Actions, Store, connect} from 'kr/Redux';
+import {Actions, Store} from 'kr/Redux';
 
 import {
     KrField,
@@ -17,11 +13,10 @@ import {
     Row,
     Col,
     Button,
-    Notify,
     ButtonGroup
 } from 'kr-ui';
 
-class NewCreateFund extends Component {
+class NewCreateFund extends React.Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,
@@ -40,7 +35,6 @@ class NewCreateFund extends Component {
     componentDidMount() {
 
         const {detail} = this.props;
-        console.log("ddd",detail);
         let initialValues = {};
         initialValues.id = detail.id;
         initialValues.categoryCode = detail.categoryCode;
@@ -50,7 +44,6 @@ class NewCreateFund extends Component {
         initialValues.sortNum = detail.sortNum;
         initialValues.status = detail.status;
         initialValues.twinsFlag = detail.twinsFlag;
-        console.log(initialValues);
         Store.dispatch(initialize('NewCreateFund', initialValues));
         // Store.dispatch(change('NewCreateFund', 'status', 'ENABLE'));
         // Store.dispatch(change('NewCreateFund', 'twinsFlag', 'CREATEINCOME'));
@@ -67,7 +60,6 @@ class NewCreateFund extends Component {
         onCancel && onCancel();
     }
     changeP=(item)=>{
-      console.log(item);
       this.setState({
         stateP:item.value,
       })
@@ -75,8 +67,6 @@ class NewCreateFund extends Component {
     renderCre=()=>{
       const {detail} = this.props;
       var a = this.state.stateP || detail.position;
-      console.log(a);
-      console.log(detail);
       if (a=='PAYMENT') {
         Store.dispatch(change('NewCreateFund', 'twinsFlag', 'NOINCOME'))
         return (

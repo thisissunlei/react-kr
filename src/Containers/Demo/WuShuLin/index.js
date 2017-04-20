@@ -1,30 +1,10 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
+import {reduxForm} from 'redux-form';
 import {
-	connect
-} from 'react-redux';
-import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
-import {
-	bindActionCreators
-} from 'redux';
-
-import {
-	Section,
-	PlanMap,
-	Dialog,
-	Button,
 	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-
 } from 'kr-ui';
 import './index.less';
-class ZhangQu extends Component {
+class WuShuLin extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -32,13 +12,13 @@ class ZhangQu extends Component {
 			open:false,
 	    }
 
-	
+
     }
 
-	
+
 
 	componentDidMount() {
-		
+
 	}
 
 	liOver=()=>{
@@ -49,9 +29,9 @@ class ZhangQu extends Component {
 	liOut=()=>{
 	  this.setState({
       	 open:false
-      })	
+      })
 	}
-    
+
 
 
 
@@ -59,28 +39,28 @@ class ZhangQu extends Component {
 
 		let {open,widthState}=this.state;
 
-        
+
         var hour=[];
         var minute=['00','10','20','30','40','50'];
         for(var i=0;i<25;i++){
            if(i<10){
              i='0'+i;
            }
-          hour.push(i); 
+          hour.push(i);
         }
-        
+
        var progress='20';
-       
-        
+
+
 		return (
 			<div>
                <form>
-			       <KrField component="selectTime" />
+			       <KrField name="aa" component="selectTime" />
 			       	<h1>sdfsdf</h1>
 
-			       <KrField component="file" />	
+			       <KrField name="bb" component="file" />
 
-			       
+
 			   </form>
 
               <li className="loading-progress" style={{position:'relative'}}>
@@ -94,4 +74,4 @@ class ZhangQu extends Component {
 	}
 }
 
-export default reduxForm({ form: 'ZhangQu'})(ZhangQu);
+export default reduxForm({ form: 'WuShuLin'})(WuShuLin);

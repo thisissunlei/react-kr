@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -11,34 +10,22 @@ import {
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
-	Dialog,
-	Section,
-	Grid,
-	Form,
 	Notify,
 	KrField,
-	BreadCrumbs,
 	IframeContent,
 	Button,
-	Row,
-	Col,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
 	change
 } from 'redux-form';
 
 
-export default class FloorPlan extends Component {
+export default class FloorPlan extends React.Component {
 	// static contextTypes = {
 	// 	onSetCommunity: React.PropTypes.func.isRequired,
 	// 	communityId: React.PropTypes.string.isRequired,
@@ -63,8 +50,8 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend: dateFormat(new Date(), "yyyy-mm-dd"),
-			date: dateFormat(new Date(), "yyyy-mm-dd")
+			dateend: DateFormat(new Date(), "yyyy-mm-dd"),
+			date: DateFormat(new Date(), "yyyy-mm-dd")
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -72,8 +59,8 @@ export default class FloorPlan extends Component {
 		this.getcommunity();
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
 		this.selectFloors = this.selectFloors.bind(this);
-		Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
-		Store.dispatch(change('FloorPlan', 'end', dateFormat(new Date(), "yyyy-mm-dd")));
+		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
+		Store.dispatch(change('FloorPlan', 'end', DateFormat(new Date(), "yyyy-mm-dd")));
 
 
 	}
@@ -99,6 +86,12 @@ export default class FloorPlan extends Component {
 		this.setState({
 			url: this.getStationUrl()
 		})
+		let {tab} = this.props;
+
+		if (tab === 'floorplan') {
+			$(window).bind('scroll.floorplan', this.scrollLoad);
+
+		} 
 
 
 	}
@@ -150,8 +143,8 @@ export default class FloorPlan extends Component {
 			var params = {
 				communityId: community,
 				wherefloor: floors,
-				date: dateFormat(form.start, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
-				dateend: dateFormat(form.end, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
+				date: DateFormat(form.start, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
+				dateend: DateFormat(form.end, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
 			};
 			if (form.start && form.end) {
 				var datastart = Date.parse(form.start),
@@ -164,8 +157,8 @@ export default class FloorPlan extends Component {
 
 				} else {
 					this.setState({
-						date: dateFormat(form.start, "yyyy-mm-dd"),
-						dateend: dateFormat(form.end, "yyyy-mm-dd"),
+						date: DateFormat(form.start, "yyyy-mm-dd"),
+						dateend: DateFormat(form.end, "yyyy-mm-dd"),
 						url: this.getStationUrl(params)
 					})
 				}
@@ -182,7 +175,6 @@ export default class FloorPlan extends Component {
 		// 监听滚动事件
 	scrollLoad() {
 		var that = this;
-		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0; //539滚出的距离
 			var height = $(window).height() || 0; //705浏览器高度
 			var num = $(document).height() - $(window).height(); //页面高-浏览器高度
@@ -193,7 +185,6 @@ export default class FloorPlan extends Component {
 				that.iframeWindow.pagequery();
 
 			}
-		})
 
 
 	}
@@ -274,7 +265,7 @@ export default class FloorPlan extends Component {
 	}
 	firstDate = (personel) => {
 
-		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		// Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
 		let firstDate = new Date(personel);
 		let {date} = this.state;
 		if (this.state.dateend) {
@@ -290,7 +281,7 @@ export default class FloorPlan extends Component {
 					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
-				Store.dispatch(change('FloorPlan', 'start', dateFormat(date, "yyyy-mm-dd")));
+				Store.dispatch(change('FloorPlan', 'start', DateFormat(date, "yyyy-mm-dd")));
 			}
 		} else {
 			this.setState({
@@ -316,7 +307,7 @@ export default class FloorPlan extends Component {
 					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
-				Store.dispatch(change('FloorPlan', 'end', dateFormat(dateend, "yyyy-mm-dd")));
+				Store.dispatch(change('FloorPlan', 'end', DateFormat(dateend, "yyyy-mm-dd")));
 			}
 		} else {
 			this.setState({
@@ -326,6 +317,9 @@ export default class FloorPlan extends Component {
 
 
 
+	}
+	componentWillUnmount(){
+		$(window).bind('scroll.floorplan', this.scrollLoad);
 	}
 
 	render() {
@@ -346,12 +340,7 @@ export default class FloorPlan extends Component {
 			handleSubmit
 		} = this.props;
 
-		if (tab === 'floorplan') {
-			$(window).bind('scroll.floorplan', this.scrollLoad());
-
-		} else {
-			$(window).unbind('scroll.floorplan', this.scrollLoad());
-		}
+		
 
 		return (
 

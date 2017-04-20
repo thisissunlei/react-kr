@@ -188,9 +188,6 @@ export default class UploadImageListComponent extends Component {
 							}
 						}
 					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
-					};
 					xhrfile.open('POST', '/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
@@ -200,9 +197,6 @@ export default class UploadImageListComponent extends Component {
 			}
 		};
 
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
@@ -265,7 +259,6 @@ export default class UploadImageListComponent extends Component {
 
     changeImages=(images)=>{
        const {input,onChange}=this.props;
-       console.log("images",images);
        input.onChange(images);
 		this.setState({
 			images

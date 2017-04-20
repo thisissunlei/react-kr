@@ -1,9 +1,4 @@
-import React, {
-  Component
-} from 'react';
-import {
-  connect
-} from 'react-redux';
+import React from 'react';
 import {
   bindActionCreators
 } from 'redux';
@@ -43,7 +38,7 @@ import HightSearchForm from './HightSearchForm';
 import EditMoney from './EditMoney';
 import ViewAudit from './ViewAudit';
 import './index.less';
-export default class DoAudit extends Component {
+export default class DoAudit extends React.Component {
 
   constructor(props, context) {
     super(props, context);
