@@ -57,6 +57,11 @@ class NewAddStation  extends React.Component{
     State.codeStationCompare(params);
 	}
 
+	//楼层
+	floorChange=(params)=>{
+    console.log('///;;;',params);
+	}
+
 
 	render(){
 
@@ -88,7 +93,7 @@ class NewAddStation  extends React.Component{
             <KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号" requireLabel={true}
              onChange={this.codeCompare}/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
-						 requireLabel={true} options={State.floorData}/>
+						 requireLabel={true} options={State.floorData} onChange={this.floorChange}/>
 						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该工位编号已存在</div>}
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
 						<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"

@@ -43,7 +43,7 @@ class  CommunityStationDetail extends React.Component{
 		super(props, context);
 	}
 
-	componentDidMount(){
+	componentWillMount(){
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
 		State.stationDataReady(href);
     State.searchParams.communityId=href;
@@ -136,7 +136,7 @@ openSearchUpperDialog=()=>{
 			belongSpace:'',
 			spaceId:'',
 		}
-   State.searchParams=params;
+   State.searchParams=Object.assign({},State.searchParams,params);;
 	 State.searchUpperCustomer();
 }
 //高级查询取消

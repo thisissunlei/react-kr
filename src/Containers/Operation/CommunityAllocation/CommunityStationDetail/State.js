@@ -113,6 +113,7 @@ State.stationDataReady = action(function(params) {
 	var _this=this;
 	Http.request('station-param-data',data).then(function(response) {
 		_this.communityName=response.communityName;
+		console.log('////',response.spaces,response);
 		_this.stationName=response.spaces;
 		_this.floorData=response.floors;
  }).catch(function(err) {

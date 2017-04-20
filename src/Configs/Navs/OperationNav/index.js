@@ -59,7 +59,7 @@ module.exports = [
 					{
 						primaryText: '工位列表',
 						menuCode: 'communityStationList',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
+						originUrl: '/operation/communityAllocation/communityStation'
 					},
 					{
 						primaryText: '平面图配置',
