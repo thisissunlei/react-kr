@@ -315,7 +315,7 @@ module.exports = {
     },
     //运营平台－工位列表
     'station-list': {
-        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}',
+        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}&belongSpace={belongSpace}',
         method: 'get'
     },
     //运营平台－工位新增或编辑
@@ -340,7 +340,7 @@ module.exports = {
     },
     //运营平台－工位列表数据准备
     'station-param-data': {
-        url: '/mockjsdata/31/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
+        url: 'http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
         method: 'get'
     },
 

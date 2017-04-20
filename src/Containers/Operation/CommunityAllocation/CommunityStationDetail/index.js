@@ -109,7 +109,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 		}
 	}
 	where.push(`ids=${ids}`);
-	var url = `/api/krspace-finance-web/cmt/station/export?${where.join('&')}`
+	var url = `http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/export?${where.join('&')}`
 	window.location.href = url;
 }
 
@@ -157,7 +157,7 @@ openImporData=()=>{
 
 //下载模版
 onLoadDemo=()=>{
-	let url = `/api/krspace-finance-web/cmt/station/import/actions/download-templete`;
+	let url = `http://shang.krspace.cn:8082/api/krspace-finance-web/cmt/station/import/actions/download-templete`;
 	window.location.href = url;
 }
 
@@ -313,7 +313,6 @@ SelectCommunity=()=>{
 					>
 					<ImportData
 						onCancel={this.openImporData}
-						onSubmit={this.onSearchUpperSubmit}
 						onLoadDemo={this.onLoadDemo}
 					/>
 					</Dialog>

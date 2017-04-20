@@ -39,6 +39,8 @@ let State = observable({
 		communityName:'',
 		//会议室名称数据准备
 		stationName:[],
+		//高级查询会议室名称
+		spacesName:[],
 		//楼层数据准备
 		floorData:[]
 
@@ -64,7 +66,7 @@ State.codeStationCompare= action(function(params) {
  Http.request('station-check-code',data).then(function(response) {
 		 _this.isCode=false;
  }).catch(function(err) {
-	 if(err.message.indexOf("该编号已存在")!=-1){
+	 if(err.message.indexOf("该编码已存在")!=-1){
 			_this.isCode=true;
 	 }else{
 		 _this.isCode=false;
@@ -113,9 +115,9 @@ State.stationDataReady = action(function(params) {
 	var _this=this;
 	Http.request('station-param-data',data).then(function(response) {
 		_this.communityName=response.communityName;
-		console.log('////',response.spaces,response);
-		_this.stationName=response.spaces;
+		//_this.stationName=response.floorSpaces;
 		_this.floorData=response.floors;
+		//_this.spacesName=response.spaces;
  }).catch(function(err) {
 		Message.error(err.message);
  });

@@ -50,10 +50,6 @@ class SearchUpperForm extends React.Component {
 
 	render() {
 
-		console.log('option',State.stationName);
-		State.stationName.map((item)=>{
-      console.log('==000',item);
-		})
 
 	   let {handleSubmit}=this.props;
 		 let {dateBoxStyle}=this.state;
@@ -62,15 +58,15 @@ class SearchUpperForm extends React.Component {
 			<div  style={dateBoxStyle} className='customer-searchUpper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 						<KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号"
-						 onChange={this.codeCompare}/>
+						 />
 					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
 					  options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
 					 <KrField grid={1/2} style={{width:262}}  name="enable" component="select" label="工位状态"
 					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="belongSpace" component="select" label="是否属于会议室"
-					  options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
+					  options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]}/>
 					<KrField grid={1/2} style={{width:262}}  name="spaceId" component="select" label="会议室名称"
-					 //options={State.stationName}
+					 options={State.spacesName}
 					 />
 
 
