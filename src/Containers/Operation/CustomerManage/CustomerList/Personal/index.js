@@ -110,10 +110,11 @@ class Personal extends Component{
 				State.hasOfficeChange(false);
 			}
 			State.editprojectName=response.projectCategoryName;
+			State.switchEditCustomerList();
 		}).catch(function(err) {
 
 		});
-		State.switchEditCustomerList();
+		
 	}
 	//客户编辑页面开关
 	switchEditCustomerList=() => {

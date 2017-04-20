@@ -136,6 +136,7 @@ import {
 		onCancel && onCancel();
 	}
 	cityValue=(value)=>{
+	  console.log(value,">>>>>")
       Store.dispatch(change('EditCustomerList','distinctId',value));
     }
 	hasOfficeClick = (params) =>{

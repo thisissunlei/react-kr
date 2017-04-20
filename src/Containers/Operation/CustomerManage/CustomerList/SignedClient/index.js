@@ -141,11 +141,12 @@ class SignedClient extends React.Component{
 			}else{
 				State.hasOfficeChange(false);
 			}
+			State.switchEditCustomerList();
+
 			State.editprojectName=response.projectCategoryName;
 		}).catch(function(err) {
 
 		});
-		State.switchEditCustomerList();
 	}
 	//编辑订单页面的开关
 	switchEditIndent=()=>{

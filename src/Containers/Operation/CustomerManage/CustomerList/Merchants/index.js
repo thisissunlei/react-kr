@@ -106,11 +106,12 @@ class Merchants extends Component{
 			}else{
 				State.hasOfficeChange(false);
 			}
+			State.switchEditCustomerList();
 
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-		State.switchEditCustomerList();
+		
 	}
 
 
