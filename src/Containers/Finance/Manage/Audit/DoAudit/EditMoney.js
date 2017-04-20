@@ -28,7 +28,7 @@ import {
 	KrDate
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import './index.less';
 
 
@@ -318,7 +318,7 @@ class EditMoney extends React.Component {
 								component="labelText"
 								inline={false}
 								label="收款日期"
-								value={dateFormat(infoList.dealTime,"yyyy-mm-dd")}
+								value={DateFormat(infoList.dealTime,"yyyy-mm-dd")}
 						/>
 						<KrField
 								style={{width:548}}
