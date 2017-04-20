@@ -19,13 +19,10 @@ export default class Field extends React.Component{
       onChange: React.PropTypes.func,
       onBlur: React.PropTypes.func,
       onFocus: React.PropTypes.func,
-      reset: React.PropTypes.func,
   }
 
 	constructor(props,context){
 		super(props, context);
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-
 	}
 
   componentDidMount(){
@@ -35,16 +32,32 @@ export default class Field extends React.Component{
   }
 
   componentWillReceiveProps(nextProps){
-	  if(this.name !== nextProps.name){
-		  this.context.unRegisterField(this.name);
+	  if(this.props.name !== nextProps.name){
+		  this.context.unRegisterField(this.props.name);
 		  this.context.registerField(nextProps.name);
 	  }
   }
 
+		/*
+	shouldComponentUpdate(nextProps,nextState,nextContext){
 
-  get name(){
-	  return this.props.name;
-  }
+		const {name} = this.props;
+		const {getFieldError,getFieldValue} = this.context;
+
+		if(nextContext.getFieldError(name) !== getFieldError(name)){
+			return true;
+		}
+
+		if(nextContext.getFieldValue(name) !== getFieldValue(name)){
+			return true;
+		}
+
+		return false;
+
+	}
+
+		*/
+
 
   onChange = (event)=>{
 
@@ -110,32 +123,23 @@ export default class Field extends React.Component{
 		pristine:false,
 		invalid:false,
 		valid:false,
+		dirty:false,
+		autofilled:false,
     },getField(name));
 
+ 	 const meta = Object.assign({},field,{ error:getFieldError(name)});
 
-    const meta = {
-      dirty:false,
-      autofilled:false,
-      error:getFieldError(name),
-      warning:'',
-      pristine:false,
-      invalid:false,
-      valid:false,
-      visited:field.visited,
-      touched:field.touched
-    };
+    const props = Object.assign({},{ ref:name, input, meta },{...this.props});
 
-    const props = Object.assign({},{ ref:name, input, meta, },{...this.props});
-      return React.createElement(component,{ ...props});
+    return React.createElement(component,{ ...props});
+
   }
 
 	render(){
-    const {name,component} = this.props;
-	  return (
-      <span>
-       {this.renderComponent(component)}
-      </span>
-	 );
+
+    	const {name,component} = this.props;
+	  	return this.renderComponent(component);
+
 	}
 
 }

@@ -68,7 +68,7 @@ import {
 			$form.change('distinctId',value);
 	}
 	render(){
-		const { handleSubmit} = this.props;
+		const { handleSubmit,cityName} = this.props;
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
@@ -82,7 +82,7 @@ import {
 						<KrField grid={1/2} name="no" style={{width:262,marginLeft:28}} component='input'  label="商圈代码" inline={false}  placeholder='请输入代码名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="商圈名称" inline={false}  placeholder='请输入商圈名称' requireLabel={true}/>
 
-						<KrField grid={1/2} label="区县" name="distinctId"  style={{width:262,marginLeft:28}} component="city"  requireLabel={false} onSubmit={this.cityValue}/>
+						<KrField grid={1/2} label="区县" name="distinctId"  style={{width:262,marginLeft:28}} component="city"  requireLabel={false} onSubmit={this.cityValue} cityName = {cityName}/>
 
 						<KrField grid={1/2}  name="sort" style={{width:262,marginLeft:28}} component='input'  label="排序" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态" requireLabel={false}>

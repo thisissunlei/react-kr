@@ -15,14 +15,13 @@ import {
 } from 'kr/Redux';
 
 
-import {
-    Welcome,
-    Help,
-    Undefined,
-    Basic,
-    Initialize,
-    Demo,
-} from 'kr/Containers';
+import Welcome from 'kr/Containers/Welcome';
+import Help from 'kr/Containers/Help';
+import Undefined from 'kr/Containers/Undefined';
+import Basic from 'kr/Containers/Basic';
+import Initialize from 'kr/Containers/Initialize';
+import Demo from 'kr/Containers/Demo';
+
 
 import Master from 'kr/master';
 

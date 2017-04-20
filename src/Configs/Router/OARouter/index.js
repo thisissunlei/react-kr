@@ -13,7 +13,9 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {OA,Basic} from 'kr/Containers';
+import OA from 'kr/Containers/OA';
+import Basic from 'kr/Containers/Basic';
+
 module.exports =()=>{
 	return (
         <Route path="oa" component={Basic}>

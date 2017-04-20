@@ -54,7 +54,7 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 
 	onReset = ()=>{
 		const {$form} = this.props;
-		$form.reset();
+		$form.changeValues({});
 	}
 
 	selectOldUser=(value)=>{

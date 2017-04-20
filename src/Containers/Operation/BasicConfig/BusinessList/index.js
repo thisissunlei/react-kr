@@ -69,7 +69,8 @@ class BusinessList  extends React.Component{
 			searchContent:{
 	          searchType:"CODING",
 	          searchKey:""
-	        }
+	        },
+     cityName : ""
 		}
 	}
 
@@ -152,7 +153,7 @@ class BusinessList  extends React.Component{
 
    //高级查询确定
    upperFormSubmit = (values) =>{
-   		console.log(">>>>>",values)
+
 	   	let name = "",no = "";
 	   	if(values.searchType == "CODING"){
 	   		no = values.searchKey;
@@ -200,12 +201,18 @@ class BusinessList  extends React.Component{
 
 		const {FormModel} = this.props;
 		if(type === "edit"){
-	      this.setState({
+	      
+        console.log(itemDetail,"?????")
+        let provinceName = !itemDetail.provinceName ? "" : itemDetail.provinceName;
+        let cityName = !itemDetail.cityName ? "" : "/" + itemDetail.cityName;
+        let districtName = !itemDetail.districtName ? "" : "/" + itemDetail.districtName;
+        this.setState({
 	        id:itemDetail.id,
 	     	openEditBusiness:true,
-	      })
+	     	cityName : provinceName+cityName+districtName
+	    })
 		  // FormModel.initialize('EditBusiness',{no:"12",name:"12",distinctId:"12",companyId:"12",enable:"否"});
-      FormModel.changeValues('EditBusiness',itemDetail);
+      		 FormModel.changeValues('EditBusiness',itemDetail);
 		  // FormModel.initialize('EditBusiness',{});
 
 		}
@@ -222,7 +229,6 @@ class BusinessList  extends React.Component{
   refreshList = () =>{
     let {searchParams} = this.state;
 	let date = new Date();
-	console.log(searchParams,"刷新")
 
    	this.setState({
       searchParams:{
@@ -270,7 +276,8 @@ searchChange = (values) =>{
 				openNewBusiness,
 				openEditBusiness,
 				openUpperForm,
-				searchContent
+				searchContent,
+				cityName
 			} = this.state;
 
 
@@ -279,7 +286,7 @@ searchChange = (values) =>{
 				<Title value="商圈列表"/>
       		<Section title="商圈列表"  style={{marginBottom:-5,minHeight:910}}>
 
-		        <Row style={{marginBottom:21,zIndex:100,position:"relative"}}>
+		        <Row style={{marginBottom:21,zIndex:5,position:"relative"}}>
 				          <Col
 						     align="left"
 						     style={{float:'left'}}
@@ -350,7 +357,6 @@ searchChange = (values) =>{
 			                ></TableRowColumn>
 			                <TableRowColumn name="enable"
 				                component={(value,oldValue)=>{
-
 	                             return (<div>{value == "ENABLE" ? "启用":"禁用"}</div>)
 	                          	}}
 
@@ -382,7 +388,7 @@ searchChange = (values) =>{
              open={openEditBusiness}
              containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
              >
-               <EditBusiness onCancel= {this.closeEditBusiness} onSubmit = {this.onSubmit}/>
+               <EditBusiness onCancel= {this.closeEditBusiness} onSubmit = {this.onSubmit} cityName = {cityName}/>
         </Drawer>
 
 

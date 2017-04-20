@@ -8,7 +8,8 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import {Demo,Basic} from 'kr/Containers';
+import Demo from 'kr/Containers/Demo';
+import Basic from 'kr/Containers/Basic';
 
 module.exports =()=>{
 	return (

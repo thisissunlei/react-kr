@@ -80,6 +80,7 @@ form.stopSubmit = action(function(errors) {
 			this.submitting = false;
 			this.submitFailed = true;
 		}
+
 	});
 
 	form.getValues = action(function() {
@@ -203,7 +204,7 @@ form.setSubmitCallback = action(function(submitHandle) {
 	});
 
 	form.change = action(function(fieldName,fieldValue) {
-		var values = mobx.toJS(this.values);
+		var values = this.getValues();
 		values[fieldName] = fieldValue;
 		mobx.extendObservable(this,{values});
 	});
@@ -215,18 +216,15 @@ form.setSubmitCallback = action(function(submitHandle) {
 				for(var name in obj){
 					return false;
 				}
-
 				return true;
-
 		}
 
 		if(isEmpty(values)){
 
 			var fieldValues = this.getValues();
-
-			for(var field in fieldValues){
-				if(values.hasOwnProperty(field)){
-					this.change(field,'');
+			for(var fieldName in fieldValues){
+				if(fieldValues.hasOwnProperty(fieldName)){
+					this.change(fieldName,'');
 				}
 			}
 			return ;

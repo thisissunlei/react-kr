@@ -13,7 +13,8 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {Retail,Basic} from 'kr/Containers';
+import Retail from 'kr/Containers/Retail';
+import Basic from 'kr/Containers/Basic';
 
 module.exports =()=>{
 	return (

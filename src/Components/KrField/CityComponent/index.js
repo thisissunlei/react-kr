@@ -33,6 +33,8 @@ export default class CityComponent extends React.Component {
 
 	constructor(props) {
 		super(props)
+		let {cityName} = this.props;
+
 
 
 		this.isInit = false;
@@ -48,27 +50,19 @@ export default class CityComponent extends React.Component {
 			firstName:'',
 			secondName:'',
 			thirdName:'',
-			city:'请选择',
+			city:cityName||'请选择',
 		}
-
+		State.city = cityName;
 
 	}
 
 	componentDidMount() {
-		let {cityName} = this.props;
-		if(cityName){
-			State.city=cityName;
-		}else{
-			State.city = "";
-		}
+		
 
 	}
 
 	componentWillReceiveProps(nextProps) {
-		let cityName = nextProps.cityName;
-		if(cityName){
-			State.city=cityName;
-		}
+		
 
 	}
 

@@ -52,7 +52,7 @@ import './index.less';
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
 		console.log("kkkkk");
-		
+
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
@@ -99,14 +99,18 @@ import './index.less';
 }
 const validate = values =>{
 	const errors = {};
-	const integer = /^\+?[1-9][0-9]*$/;
+	const integer =  /^[0-9a-zA-Z]*$/;
 	if(!values.sort){
 		errors.sort = "排序不能为空";
 	}else if(!integer.test(values.sort)){
 		errors.sort = "排序只能为正整数";
 	}
 	if(!values.no){
-		
+		errors.no = "商圈代码不可为空";
+	}else if(values.no.length >20){
+		errors.no = "商圈代码长度在20是字符以内";
+	}else if(integer.test(values.no)){
+		errors.no = "商圈代码由字母与数字组成";
 	}
 	return errors;
 }
