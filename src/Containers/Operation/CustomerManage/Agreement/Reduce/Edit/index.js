@@ -16,7 +16,6 @@ import {DateFormat} from 'kr/Utils';
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 } from 'kr-ui';
@@ -198,11 +197,10 @@ export default class JoinCreate extends React.Component {
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate')||DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 
 
+
 				//处理stationvos
 				stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos'))||response.stationVos;
 				delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos'))|| [];
-
-				console.log(stationVos, '---->>>>', response,delStationVos);
 
 				_this.setState({
 					initialValues,
@@ -212,7 +210,6 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
-				console.log(err);
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -221,7 +218,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-			console.log(err);
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',

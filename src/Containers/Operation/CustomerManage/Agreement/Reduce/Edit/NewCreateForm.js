@@ -13,15 +13,12 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
 	change
 } from 'redux-form';
 
@@ -33,12 +30,7 @@ import {
 import AllStation from './AllStation';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -46,7 +38,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -60,7 +51,6 @@ import {
 	ListGroup,
 	ListGroupItem,
 	CircleStyle,
-
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -179,8 +169,8 @@ class NewCreateForm extends React.Component {
 	getSingleRent=(item)=>{
 		//年月日
 		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
 		let rentDay = 0;
 		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
 		let years = rentEnd[0];
@@ -188,7 +178,6 @@ class NewCreateForm extends React.Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -201,13 +190,11 @@ class NewCreateForm extends React.Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -229,7 +216,6 @@ class NewCreateForm extends React.Component {
 		this.setAllRent(stationVos);
 		let {initialValues} = this.props;
 		let stationVosList = this.state.stationVos;
-		console.log('delStationVos',stationVosList,stationVos);
 		stationVosList.forEach((item,index)=>{
 			stationVos.map((value)=>{
 				if(item.stationId == value.stationId){
@@ -237,10 +223,8 @@ class NewCreateForm extends React.Component {
 				}
 			})
 		})
-		console.log('index',stationVosList);
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'LESSRENTeditstationVos', JSON.stringify(stationVos));
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'LESSRENTeditdelStationVos', JSON.stringify(stationVosList));
-
 
 		this.setState({
 			stationVos,
@@ -273,8 +257,7 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 		let _this = this;
-		let allRent = 0;
-		console.log('stationVos',stationVos);
+
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'LESSRENTeditstationVos', JSON.stringify(stationVos));
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'LESSRENTeditdelStationVos', JSON.stringify(delStationVos));
 
@@ -349,11 +332,11 @@ class NewCreateForm extends React.Component {
 		});
 		delStationVos = delStationVos.concat(delStationVo);
 
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		var _this = this;
@@ -571,7 +554,6 @@ const validate = values => {
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
-	console.log('fffffffff');
 
 	if (!values.lessorContactid) {
 		errors.lessorContactid = '请填写出租方联系人';

@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Table,
 	TableBody,
@@ -10,7 +8,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 } from 'kr-ui';
-export default class OrganizationChart extends Component {
+export default class OrganizationChart extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
@@ -33,9 +31,7 @@ export default class OrganizationChart extends Component {
 		}
 	}
   onLoaded=(response)=>{
-		// console.log("this.props.params",this.props.params);
 		let list = response;
-    // console.log(list,"组织架构list");
 		this.setState({
 			list
 		})

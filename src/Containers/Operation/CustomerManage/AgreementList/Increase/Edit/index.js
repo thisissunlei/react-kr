@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -28,7 +28,7 @@ import NewCreateForm from './NewCreateForm';
 import allState from "../../State";
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	static childContextTypes = {
         params: React.PropTypes.object.isRequired
@@ -37,7 +37,6 @@ export default class JoinCreate extends Component {
 
 
 		getChildContext() {
-			console.log(this.props.params,)
 	    return {
 	        params: this.props.params
 	      }
@@ -177,12 +176,8 @@ export default class JoinCreate extends Component {
 				id: params.id
 			})).then(function(response) {
 				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
-
-
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
-
 				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'))|| response.contractFileList;
-
 				initialValues.id = response.id;
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'lessorContactName'))|| response.leaseId;
 				initialValues.contractcode = response.contractcode;
@@ -219,6 +214,7 @@ export default class JoinCreate extends Component {
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
+
 				//处理stationvos
 
 				_this.setState({

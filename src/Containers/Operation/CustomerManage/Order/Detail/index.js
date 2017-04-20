@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -77,7 +77,7 @@ import {
 } from 'kr/Redux';
 import ReactTooltip from 'react-tooltip'
 
-class NewCreatForm extends Component {
+class NewCreatForm extends React.Component {
 	static PropTypes = {
 		contractStatusCount: React.PropTypes.object,
 		params: React.PropTypes.object,
@@ -137,7 +137,7 @@ class NewCreatForm extends Component {
 }
 
 
-class StaionInfo extends Component {
+class StaionInfo extends React.Component{
 	static PropTypes = {
 		detail: React.PropTypes.object,
 
@@ -288,7 +288,6 @@ export default class OrderDetail extends React.Component {
 				window.location.reload();
 			}, 100)
 		}).catch(function(err) {
-			console.log(err.message);
 		});
 
 
@@ -575,7 +574,6 @@ export default class OrderDetail extends React.Component {
 		this.onClose();
 	}
 	onChange=(files)=>{
-		console.log('onChange',files);
 	}
 	showMoreOpretion(id){
 		let {opretionId,opretionOpen} = this.state;
@@ -593,7 +591,6 @@ export default class OrderDetail extends React.Component {
 			})
 		}
 		if(!opretionOpen){
-			console.log('dddddddd');
 			document.addEventListener('click', this.docClick)
 		}
 
@@ -601,7 +598,6 @@ export default class OrderDetail extends React.Component {
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
-		console.log('target',target);
 		if(target.className == 'icon-more'){
 			return ;
 		}

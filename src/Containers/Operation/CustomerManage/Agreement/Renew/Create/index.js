@@ -16,7 +16,6 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -47,7 +46,6 @@ export default class JoinCreate extends React.Component {
 	}
 
 	onCreateSubmit(formValues) {
-		console.log("-00000", formValues);
 		this.setState({
 			formValues
 		});

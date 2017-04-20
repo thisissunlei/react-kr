@@ -10,17 +10,13 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
 	formValueSelector,
 	change,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-
 } from 'redux-form';
 
 import {
@@ -31,10 +27,6 @@ import {
 import AllStation from './AllStation';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
 
 	Table,
@@ -44,7 +36,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -88,7 +79,6 @@ class NewCreateForm extends React.Component {
 		super(props, context);
 
 
-		console.log("----thisconte", this.context);
 
 
 
@@ -152,7 +142,6 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		let {initialValues} = this.props;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'LESSRENTcreatestationVos', JSON.stringify(stationVos));
 
@@ -186,6 +175,7 @@ class NewCreateForm extends React.Component {
 	}
 
 
+
 	//删除工位
 	onStationDelete() {
 
@@ -205,7 +195,6 @@ class NewCreateForm extends React.Component {
 
 		let _this = this;
 		let allRent = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos
@@ -266,11 +255,11 @@ class NewCreateForm extends React.Component {
 		}
 
 		form.list = stationVos;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
 
 		form.stationVos = stationVos;

@@ -13,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
@@ -33,12 +33,7 @@ import {
 import AllStation from './AllStation';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -46,7 +41,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -197,6 +191,7 @@ class NewCreateForm extends React.Component {
 		});
 	}
 
+
 	//删除工位
 	onStationDelete() {
 
@@ -259,10 +254,10 @@ class NewCreateForm extends React.Component {
 		form.stationVosList = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.contractVersionType = 'NEW';

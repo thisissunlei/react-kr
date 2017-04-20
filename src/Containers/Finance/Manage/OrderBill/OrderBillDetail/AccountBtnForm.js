@@ -1,47 +1,23 @@
-import React, {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
-import {
-    bindActionCreators
-} from 'redux';
+import React from 'react';
 import {
     reduxForm,
-    formValueSelector,
     initialize
 } from 'redux-form';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {
     Actions,
     Store
 } from 'kr/Redux';
 import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-    TableFooter,
     Button,
-    Section,
     Grid,
     Row,
     Col,
-    Notify,
-    List,
-    ListItem,
-    LabelText,
-    Form,
-    Dialog,
     KrField,
     Message,
     ButtonGroup
 } from 'kr-ui';
 
-class AccountBtnForm extends Component {
+class AccountBtnForm extends React.Component {
     static contextTypes = {
         params: React.PropTypes.object.isRequired
     }

@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -17,9 +16,7 @@ import http from 'kr/Redux/Utils/fetch';
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
-	BreadCrumbs,
 	Title,
 } from 'kr-ui';
 import {DateFormat} from 'kr/Utils';
@@ -27,7 +24,7 @@ import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -50,7 +47,6 @@ export default class JoinCreate extends Component {
 	}
 
 	onCreateSubmit(formValues) {
-		console.log('--first--formValues',formValues)
 		this.setState({
 			formValues
 		}, function() {
@@ -73,7 +69,6 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-			console.log('-to',formValues)
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		var _this = this;

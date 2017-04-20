@@ -13,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -110,9 +110,9 @@ class NewCreateForm extends React.Component {
 		form = Object.assign({}, form);
 
 		form.lessorAddress = changeValues.lessorAddress;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:sss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:sss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
 		if(!!!form.agreement){
 			form.agreement = '无';
@@ -176,7 +176,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		console.log('personel', personel)
 		Store.dispatch(change('exitCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname));
 	}

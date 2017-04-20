@@ -4,7 +4,6 @@ import React, {
 import {
 	reduxForm,
 	submitForm,
-	change,
 	reset
 } from 'redux-form';
 import {
@@ -14,9 +13,7 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 import {DateFormat} from 'kr/Utils';
 import {
-	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -154,7 +151,6 @@ export default class JoinCreate extends React.Component {
 			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
 				id: params.id
 			})).then(function(response) {
-				console.log('response',response);
 				let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
 
 
@@ -198,6 +194,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
+
 				//处理stationvos
 
 				_this.setState({

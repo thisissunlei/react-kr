@@ -1,11 +1,9 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
 	reduxForm,
 	submitForm,
-	change,
 	reset
 } from 'redux-form';
 import {
@@ -18,7 +16,6 @@ import {DateFormat} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
-	Grid,
 	Notify,
 	BreadCrumbs,
 	Title,
@@ -27,7 +24,7 @@ import './index.less';
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -137,7 +134,6 @@ export default class JoinCreate extends Component {
 			communityId: 1,
 			type :0,
 		})).then(function(response) {
-			console.log(response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
@@ -228,7 +224,6 @@ export default class JoinCreate extends Component {
 			});
 
 		}).catch(function(err) {
-			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',

@@ -1,35 +1,19 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import React  from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
 
 import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
 	Title
 } from 'kr-ui';
 
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
+import MerchantsData from './MerchantsData';
+import {DateFormat} from "kr/Utils";
+
 
 //import PanelsDic from './PanelsDic';
 
-export default class PanelComponents  extends Component{
+export default class PanelComponents  extends React.Component{
 
 	static displayName = 'PanelComponents';
 	static defaultProps = {
@@ -54,15 +38,10 @@ export default class PanelComponents  extends Component{
 
 				let {panels,groupId}=this.props;
 
-				var  dateT=new Date();
-				var dateYear=dateT.getFullYear();
-				var dateMonth=dateT.getMonth()+1;
-				var dateDay=dateT.getDate();
-						if(dateDay<10){
-							dateDay='0'+dateDay
-						}
-		var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
-
+				var  yesterday = new Date(new Date().getTime() - 86400000);
+						 yesterday = DateFormat(yesterday,"yyyy-mm-dd");
+				var today = new Date();
+						today = DateFormat(today,"yyyy-mm-dd");
 				var renderComponent = [];
 				var props = {
 						groupId:groupId,
@@ -71,9 +50,10 @@ export default class PanelComponents  extends Component{
 
 				var _this = this;
 				panels.map(function(item,index){
-					console.log('item',item);
 						props.key = index;
-						props.todayDate=todayDate;
+						props.yesterday=yesterday;
+						props.today=today;
+
 						renderComponent.push(_this.createPanelComponent(item.id,props));
 				});
 
@@ -81,7 +61,8 @@ export default class PanelComponents  extends Component{
 	}
 
 	createPanelComponent = (value,props)=>{
-
+			let {groupList} = this.props;
+			props.groupList = groupList;
 			var component = null;
 			switch (value) {
 				case 1:{
@@ -90,6 +71,10 @@ export default class PanelComponents  extends Component{
 				}
 				case 2:{
 					component = <NotOpenPanel {...props}/>
+					break;
+				}
+				case 3:{
+					component = <MerchantsData {...props}/>
 					break;
 				}
 				default:{

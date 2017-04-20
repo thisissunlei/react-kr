@@ -12,17 +12,14 @@ import {
 	Binder
 } from 'react-binding';
 import ReactMixin from "react-mixin";
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import nzh from 'nzh';
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
-	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
+	change
 } from 'redux-form';
 
 import {
@@ -34,11 +31,7 @@ import UnitPriceForm from './UnitPriceForm';
 
 import {
 	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -46,7 +39,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -125,7 +117,6 @@ class NewCreateForm extends React.Component {
 			HeightAuto: false,
 			allRent:'-1'
 		}
-		console.log('===>',this.props);
 	}
 
 	componentDidMount() {
@@ -267,7 +258,6 @@ class NewCreateForm extends React.Component {
 			return item;
 		});
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
-
 		this.setAllRent(stationVos);
 
 
@@ -407,11 +397,10 @@ class NewCreateForm extends React.Component {
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		console.log('form',form);
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -470,8 +459,8 @@ class NewCreateForm extends React.Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
 
 		};
 
@@ -525,7 +514,6 @@ class NewCreateForm extends React.Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 		this.setState({
 			stationVos,
@@ -542,10 +530,8 @@ class NewCreateForm extends React.Component {
 	}
 		onBlur=(item)=>{
 		let {stationVos} = this.state;
-		let allMoney = 0;
 		let {initialValues} = this.props;
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
-
 		this.setAllRent(stationVos);
 		
 	}
@@ -573,42 +559,7 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	// getSingleRent=(item)=>{
-	// 	//年月日
-	// 	let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-	// 	console.log(dateFormat(item.leaseBeginDate, "yyyy-mm-dd"),dateFormat(item.leaseEndDate, "yyyy-mm-dd"));
-	// 	let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-	// 	let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-	// 	let rentDay = 0;
-	// 	let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-	// 	let years = rentEnd[0];
-	// 	if(rentBegin[2]-rentEnd[2] == 1){
-	// 		rentDay = 0;
-	// 	}else{
-	// 		let a =rentEnd[2]-rentBegin[2];
-	// 		console.log('a',a);
-	// 		if(a>=0){
-	// 			rentDay = a+1;
 
-	// 		}else{
-	// 			let mounthIndex = rentEnd[1]-1;
-	// 			if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-	// 				rentDay = mounth[mounthIndex]+2+a;
-	// 			}
-	// 			rentDay = mounth[mounthIndex]+1+a;
-	// 			rentMounth = rentMounth-1;
-	// 		}
-	// 	}
-	// 	console.log('day',rentMounth,rentDay);
-	// 	//计算日单价
-	// 	// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-	// 	let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-	// 	//工位总价钱
-	// 	let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-	// 	allRent = allRent.toFixed(2)*1;
-	// 	console.log('allRent',allRent,rentPriceByDay);
-	// 	return allRent;
-	// }
 	dealRentName=(allRent)=>{
 		let name = '';
 		var nzhcn = nzh.cn;

@@ -153,7 +153,6 @@ export default class AppointmentVisit extends Component {
 			_this.tabNum();
 
 		}).catch(function(err) {
-				console.log(err);
 		});
 	}
 
@@ -245,7 +244,13 @@ export default class AppointmentVisit extends Component {
 												color="#333333";
 												costomerColor="#499DF1";
 											}
-											detail = eval(detail);
+											
+											try{
+												detail = eval(detail);
+											}catch(err){
+													detail = [];
+											}
+
 											let htmlAgreement = detail.map(function(item,index){
 
 												return (<span key = {index} className="customer" onClick = {_this.agreementClick.bind(this,item)} style={{color:costomerColor}}>{agreementType[item.contractType]+","}</span>)

@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -18,18 +17,12 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 
 
-import {
-	Dialog,
-	Section,
-	Grid,
-	Notify,
-	BreadCrumbs,
-} from 'kr-ui';
+
 
 
 import BasicTable from './BasicTable';
 
-export default class Schedule extends Component {
+export default class Schedule extends React.Component {
 	static defaultProps = {
 		tab: '',
 	}
@@ -64,9 +57,9 @@ export default class Schedule extends Component {
 
 		return (
 			<div style={{marginBottom:20,marginTop:0,minHeight:910}}>
-			<BasicTable detail={communityInfoList} tab={tab}/>
+				<BasicTable detail={communityInfoList} tab={tab}/>
 
-		</div>
+			</div>
 		);
 
 	}

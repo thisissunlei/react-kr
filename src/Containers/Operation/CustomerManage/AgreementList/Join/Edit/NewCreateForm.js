@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -13,7 +13,7 @@ import {
 	Binder
 } from 'react-binding';
 import ReactMixin from "react-mixin";
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import Immutable from 'immutable';
 import nzh from 'nzh';
@@ -66,7 +66,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -138,6 +138,7 @@ class NewCreateForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
@@ -326,7 +327,6 @@ class NewCreateForm extends Component {
 		
 	}
 
-
 	openStationDialog() {
 
 		this.getStationUrl();
@@ -400,10 +400,10 @@ class NewCreateForm extends Component {
 		form.delStationVos = JSON.stringify(delStationVos);
 		form.stationVos = JSON.stringify(stationVos);
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 		form.totalrent = (form.totalrent).toFixed(2);
 		if(!!!form.agreement){
@@ -434,7 +434,6 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		console.log('=-->>.', stationVos);
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
@@ -453,8 +452,8 @@ class NewCreateForm extends Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
 
 		};
 
@@ -486,7 +485,6 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 		var stationVos = [];
-		console.log(billList,data);
 		
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
@@ -508,7 +506,6 @@ class NewCreateForm extends Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(billList));
@@ -574,7 +571,6 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
-		console.log('stationVos',this.setAllRent(stationVos));
 		
 	}
 	dealRentName=(allRent)=>{

@@ -1,10 +1,6 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import React  from 'react';
+import  {DateFormat} from "kr/Utils";
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,22 +9,17 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	Dialog,
-	ListGroup,
-	ListGroupItem,
 	Message,
 	Tooltip,
-	Form,
 } from 'kr-ui';
+import {Http} from "kr/Utils";
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-export default class OpenPanel  extends Component{
+export default class OpenPanel  extends React.Component{
 
 		static displayName = 'OpenPanel';
 		static defaultProps = {
@@ -46,11 +37,11 @@ export default class OpenPanel  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
+				startDate:this.props.yesterday,
+				endDate:this.props.yesterday
 			},
-			startValue:'',
-			endValue:''
+			startValue:this.props.yesterday,
+			endValue:this.props.yesterday
 		}
 	}
 
@@ -59,10 +50,10 @@ export default class OpenPanel  extends Component{
     onStartChange=(startD)=>{
 
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
 
 
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        let end=Date.parse(DateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         this.setState({
         	startValue:startD
 
@@ -77,18 +68,17 @@ export default class OpenPanel  extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
 
 			});
 
 
-        })
+		})
 
     }
     onEndChange=(endD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(DateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
 
@@ -112,22 +102,25 @@ export default class OpenPanel  extends Component{
 
 
 
-    componentWillReceiveProps(nextProps){
-		 this.setState({
-		 	searchParams:{
-               groupId:nextProps.groupId,
-               startDate:this.props.todayDate,
-			   endDate:this.props.todayDate
-		    }
-		})
-	 }
 
+	openExprot = () =>{
+		let {groupId} = this.props;
+  	let {endValue,startValue}=this.state;
+		if(startValue>endValue){
+			Message.error('开始时间不能大于结束时间');
+			 return ;
+		}
+		var url = `/api/krspace-finance-web/stat/merchant/open/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+		window.location.href = url;
+	}
     render(){
     	let {searchParams}=this.state;
+			let {yesterday,today} = this.props;
 
 
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
+
 						 <div className='ui-open-info'>
 							 <Grid style={{height:'76'}}>
 								<Row>
@@ -137,7 +130,7 @@ export default class OpenPanel  extends Component{
 									 <span  className='static-upload'>实时更新</span>
 									</Col>
 									<Col align="right" md={8}>
-								    <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>	
+								    <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} yesterday = {yesterday} today = {today}  todayEndDate={searchParams.endDate}/>
 									</Col>
 								</Row>
 							</Grid>
@@ -146,7 +139,8 @@ export default class OpenPanel  extends Component{
 									 <Table style={{marginTop:0}}
 		 								 displayCheckbox={false}
 		 								 ajax={true}
-		 								 ajaxUrlName='openCompanyData'
+										 ajaxUrlName='openCompanyData'
+
 		 								 ajaxFieldListName="list"
 		 								 ajaxParams={this.state.searchParams}
 		 									 >
@@ -177,7 +171,7 @@ export default class OpenPanel  extends Component{
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,6)+"...";
 		 										}
-		 																	return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
 		 								 <TableRowColumn name="totalStation"></TableRowColumn>
 		 								 <TableRowColumn name="unUsedStation" ></TableRowColumn>
@@ -193,10 +187,15 @@ export default class OpenPanel  extends Component{
 		 								 <TableRowColumn name="averagePrice"></TableRowColumn>
 		 								</TableRow>
 		 						 </TableBody>
-		 						 </Table>
-				 						</div>
+
+						 		 </Table>
+								 <div style={{position:'relative',marginTop:20,left:0,textAlign:"left"}}  >
+										 <Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+								 </div>
+				 				</div>
 
 				 		</div>
+
 		 </div>
 		);
 	}

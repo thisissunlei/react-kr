@@ -20,7 +20,6 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('intentletter-print-info', {
 		contractId: params.id
 	})).then(function(response) {
-		console.log(response)
 
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;

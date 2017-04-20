@@ -1,35 +1,17 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
 	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
 	Tabs,
 	Tab,
-	Title,
 	Message
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';
 import './index.less';
 
-export default class Home  extends Component{
+export default class Home  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -82,10 +64,7 @@ export default class Home  extends Component{
 	      <div className='static-tabWrap'>
 		   <Tabs
 		   		tabItemContainerStyle={{background:'#FFF'}}
-		   		inkBarStyle={{
-		   						background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
-		   						position:'absolute',top:0,height:3
-		   					}}
+
 		   		style={{
 		   				background:'#fff',
 		   				position:'relative',
@@ -97,7 +76,7 @@ export default class Home  extends Component{
 						    var activeStyle={}
 							if(this.state.action==index){
 								activeStyle=activeTab;
-								var activeTabPanel=(<PanelComponents panels={item.templateList} groupId={this.state.groupId}/>)
+								var activeTabPanel=(<PanelComponents groupList = {groupList} panels={item.templateList} groupId={this.state.groupId}/>)
 							}else{
 								activeStyle=commenTab;
 							}
@@ -127,7 +106,7 @@ export default class Home  extends Component{
 		  <div className='static-section'>
 			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
 			    <div className='static-section-inner' style={{borderTop:'solid 1px #e8e9e9'}}>
-					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
+					<PanelComponents groupList = {groupList} panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>
 			</Section>
 		  </div>

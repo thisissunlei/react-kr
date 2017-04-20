@@ -6,7 +6,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Table,
@@ -34,7 +34,6 @@ import {
 	FontIcon,
 	Pagination
 } from 'kr-ui';
-import DateFormat from "kr/Utils";
 import State from './State';
 import SearchForm from "./SearchForm";
 import OneNewAgreement from "./OneNewAgreement";
@@ -210,7 +209,6 @@ class Merchants extends Component{
     }    
     //查看关闭
 	cancelAgreementDetail=(event)=>{
-		// console.log("ppppp");
 		State.agreementDetail();
 		// event.stopPropagation();
 
@@ -256,7 +254,6 @@ class Merchants extends Component{
 	showMoreOpretion = (id) => {
 		let {opretionId,opretionOpen} = this.state;
 		if(opretionId == id){
-			console.log("11111")
 			this.setState({
 				opretionId:id,
 				openMenu:false,
@@ -264,7 +261,6 @@ class Merchants extends Component{
 				
 			})
 		}else{
-			console.log("2222")
 
 			this.setState({
 				opretionId:id,
@@ -279,7 +275,6 @@ class Merchants extends Component{
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
-		console.log('target',target);
 		if(target.className == 'icon-more'){
 			return ;
 		}

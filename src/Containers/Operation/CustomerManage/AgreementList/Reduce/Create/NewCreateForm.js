@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -11,7 +11,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
@@ -62,7 +62,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static DefaultPropTypes = {
 		initialValues: {
@@ -193,8 +193,8 @@ class NewCreateForm extends Component {
 	getSingleRent=(item)=>{
 		//年月日
 		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
 		let rentDay = 0;
 		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
 		let years = rentEnd[0];
@@ -298,11 +298,11 @@ class NewCreateForm extends Component {
 		}
 
 		form.list = stationVos;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
 
 		form.stationVos = stationVos;

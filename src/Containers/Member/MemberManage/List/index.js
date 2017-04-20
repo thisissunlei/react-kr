@@ -1,9 +1,6 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,11 +10,6 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
 	SearchForms,
 	Dialog,
 	Message,
@@ -29,18 +21,15 @@ import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import './index.less';
 
-export default class List extends Component {
+export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
 	constructor(props, context) {
 		super(props, context);
-		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
-		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
-		// this.onExport = this.onExport.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
 		this.state = {
@@ -76,7 +65,7 @@ export default class List extends Component {
 		});
 	}
 	// 编辑详情的Dialog
-	openEditDetailDialog(){
+	openEditDetailDialog=()=>{
 		this.setState({
 			openEditDetail: !this.state.openEditDetail,
 		});
@@ -104,7 +93,6 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-		// console.log("itemDetail",itemDetail);
 		if (type == 'view') {
 			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
@@ -149,7 +137,6 @@ export default class List extends Component {
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		// console.log("value",values);
 		let params = {
 			email:values.email
 		}
@@ -202,14 +189,11 @@ export default class List extends Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-			// searchParams:{
-			// 	pageSize:'15'
-			// }
+			
 		});
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
 		let _this = this;
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
@@ -231,7 +215,6 @@ export default class List extends Component {
 		let {
 			list,itemDetail,seleced
 		} = this.state;
-		// console.log("list",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}

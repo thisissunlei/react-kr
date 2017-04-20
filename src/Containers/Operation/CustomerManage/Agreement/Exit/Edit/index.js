@@ -4,7 +4,6 @@ import React, {
 import {
   reduxForm,
   submitForm,
-  change,
   reset
 } from 'redux-form';
 import {
@@ -14,9 +13,7 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 import {DateFormat} from 'kr/Utils';
 import {
-  Dialog,
   Section,
-  Grid,
   Notify,
   BreadCrumbs,
   Title,
@@ -224,7 +221,6 @@ export default class EditCreate extends React.Component {
       optionValues,
       stationVos
     } = this.state;
-    console.log('stationVos', stationVos)
     return (
 
       <div>

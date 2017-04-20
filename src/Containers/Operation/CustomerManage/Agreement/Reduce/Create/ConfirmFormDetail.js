@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
-
 import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -11,13 +10,11 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	KrDate,
 	DotTitle
 } from 'kr-ui';
@@ -71,7 +68,7 @@ export default class ConfirmFormDetail  extends React.Component{
         	}
         })
 
-	    detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+	    detail.signdate=DateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 

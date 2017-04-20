@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
-
 import {Actions,Store} from 'kr/Redux';
-
 import {
 	Table,
 	TableBody,
@@ -10,13 +8,11 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	DotTitle
 } from 'kr-ui';
 

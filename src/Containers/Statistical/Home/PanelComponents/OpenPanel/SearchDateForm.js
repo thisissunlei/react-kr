@@ -1,33 +1,19 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
-	connect
-} from 'kr/Redux';
+	reduxForm,
+} from 'redux-form';
 
 import {
-	reduxForm,
-	formValueSelector
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 
 import './index.less';
 
-class SearchDateForm extends Component {
+class SearchDateForm extends React.Component {
 
 	static defaultProps = {
 			todayDate:'2017-1-1'
@@ -76,7 +62,8 @@ class SearchDateForm extends Component {
 			pristine,
 			reset,
 			date_2,
-			todayDate,
+			yesterday,
+			today,
 			todayEndDate
 		} = this.props;
 
@@ -91,9 +78,9 @@ class SearchDateForm extends Component {
 					<ListGroup>
 							<span className='statis-date-title'>时间：</span>
 
-					<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange}  dateNoSecond='true' placeholder={todayDate}/></div></ListGroupItem>
+					<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange}  dateNoSecond='true' placeholder={yesterday}/></div></ListGroupItem>
 					<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-					<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={todayEndDate} dateNoSecond='true' /></div></ListGroupItem>
+					<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={yesterday} dateNoSecond='true' /></div></ListGroupItem>
 				</ListGroup>
 
 				</div>

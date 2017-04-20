@@ -31,6 +31,7 @@ export default  class Radio extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+
 		if(nextProps.value != this.props.value){
 			 this.setState({
 				 value:nextProps.value
@@ -49,6 +50,7 @@ export default  class Radio extends React.Component {
 
 			onChange && onChange(value);
 	}
+
 	render() {
 
 		let {children,className,style,name,label,...other} = this.props;

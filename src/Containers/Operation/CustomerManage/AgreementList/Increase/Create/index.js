@@ -28,6 +28,7 @@ import allState from "../../State";
 
 
 export default class increaseCreate extends React.Component {
+
 	static childContextTypes = {
         params: React.PropTypes.object.isRequired,
      }
@@ -244,7 +245,6 @@ export default class increaseCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
-			console.log(err)
 			Notify.show([{
 				message: "222",
 				type: 'danger',

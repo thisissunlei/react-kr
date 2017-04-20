@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -15,7 +15,7 @@ import {
 	Message,
 } from 'kr-ui';
 import "./index.less";
-class SingleUploadImgDefinitionForm extends Component{
+class SingleUploadImgDefinitionForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.detail = this.props.detail;
@@ -30,7 +30,7 @@ class SingleUploadImgDefinitionForm extends Component{
 			uploadedNum:0,
 			totalNum:0,
 			submitValuesParams:{},
-			requestURI:"postEquipmentImg",
+			requestURI:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
 			itemDetail:''
 			
 		}
@@ -60,7 +60,6 @@ class SingleUploadImgDefinitionForm extends Component{
 			deviceId : this.detail.hardwareId,
 			picUrl : values.uploadImage
 		}
-		// console.log("valuesParams",valuesParams);
 		// 向指定社区推送图片
 		Store.dispatch(Actions.callAPI('uploadImgToEquipmentSingle',{},valuesParams))
 	      .then(function(response){
@@ -98,13 +97,18 @@ class SingleUploadImgDefinitionForm extends Component{
 		return(
 			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField name="uploadImage" 
-						component="uploadImage" 
-						style={{marginTop:10}} 
-						photoSize={'212*136'} 
-						pictureFormat={'JPG'} 
-						pictureMemory={'32K'}
+					<KrField
+	              		label=""
+	              		name="uploadImage"
+						component="newuploadImage"
+						innerstyle={{width:248,height:167,padding:10}}
+						photoSize={'212*136'}
+						pictureFormat={'JPG'}
+						pictureMemory={'32'}
 						requestURI = {this.state.requestURI}
+						inline={false}
+						formfile='file'
+						center='center'
 					/>
 					<Grid style={{marginTop:25,marginBottom:'4px'}}>
 						<Row>

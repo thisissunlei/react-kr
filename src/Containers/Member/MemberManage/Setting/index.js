@@ -1,13 +1,10 @@
 
-import React, {
-	Component
-} from 'react';
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import React from 'react';
+import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -24,11 +21,8 @@ import {
 	SearchForms,
 	ListGroup,
 	ListGroupItem,
-	Notify,
-	Tooltip,
 	Message,
 	Title,
-	KrDate,
 	SnackTip
 
 } from 'kr-ui';
@@ -40,7 +34,7 @@ import StartCardActivation from "./StartCardActivation"
 
 import './index.less';
 
-export default class List extends Component {
+export default class List extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -132,7 +126,6 @@ export default class List extends Component {
 	}
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
-		// console.log("values",values);
 		var _this=this;
 		const params={};
 		params.foreignCode=values.foreignCode;
@@ -178,7 +171,6 @@ export default class List extends Component {
 	onEditDetail=(values)=>{
 		var _this=this;
 		const params={};
-		console.log(this.state.itemDetail.interCode,"ll",values.interCode)
 		if(values.interCode==this.state.itemDetail.interCode){
 			
 			this.openEditDetailDialog();

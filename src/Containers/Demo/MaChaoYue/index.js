@@ -1,10 +1,6 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
-	DatePicker,
-	Form,
 	KrField,
 	Table,
 	TableBody,
@@ -15,21 +11,15 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
 	SearchForms,
 	Dialog,
 	Message,
-	Notify,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import AdvancedQuery from './AdvancedQuery';
 
-export default class List extends Component {
+export default class MaChaoYue extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
@@ -104,7 +94,6 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-		// console.log("itemDetail",itemDetail);
 		if (type == 'view') {
 			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
@@ -149,7 +138,6 @@ export default class List extends Component {
 	}
 	// 提交新建
 	onNewCreateSubmit=(values)=>{
-		// console.log("value",values);
 		let params = {
 			email:values.email
 		}
@@ -224,7 +212,6 @@ export default class List extends Component {
 		})
 	}
 	renderOpration=(oldValue)=>{
-		console.log('=====>',oldValue);
 		return (
 			<div>
 				<Button label="编辑"  type="operation" operation="edit"/>
@@ -238,7 +225,6 @@ export default class List extends Component {
 		let {
 			list,itemDetail,seleced
 		} = this.state;
-		// console.log("list",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}

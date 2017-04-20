@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -22,13 +22,12 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 
 
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -98,7 +97,6 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 
-		console.log('detail', detail);
 
 
 		return (

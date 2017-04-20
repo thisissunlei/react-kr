@@ -63,7 +63,6 @@ State.importContent=action(function(ids,status){
 	 						 _this.openSureTip();
 	 					 }
 						 if(_this.statusCode==-1){
-							 console.log('---fail异常')
 	 						 _this.openImportFun();
 	 					 }
 			 }

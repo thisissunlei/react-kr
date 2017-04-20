@@ -1,13 +1,9 @@
-import React, {
-	Component
-} from 'react';
-import {
-	Tabs,
-	Tab
-} from 'material-ui';
+import React from 'react';
+
+import { Tabs, Tab } from 'material-ui';
 
 import './index.less'
-export default class TabsComponent extends Component {
+export default class TabsComponent extends React.Component {
 
 
 	static PropTypes = {

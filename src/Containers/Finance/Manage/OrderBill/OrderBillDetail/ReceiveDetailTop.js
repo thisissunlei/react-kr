@@ -1,33 +1,11 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
-	connect
-} from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Dialog,
-
 } from 'kr-ui';
 
-export default class ReceiveDetailTop extends Component {
+export default class ReceiveDetailTop extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -62,7 +40,6 @@ export default class ReceiveDetailTop extends Component {
 			liveMoneyValue,
 		} = this.props;
 
-		//console.log('4444wwww',contractTopReceive)
 		var _this = this;
 
 		return (
@@ -96,7 +73,7 @@ export default class ReceiveDetailTop extends Component {
                                       <li>操作</li>
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
-    
+
                                         if(item.contactType=='1'){
                                         	return (
                                           <ul className='admin-ul' key={index}>
@@ -104,7 +81,7 @@ export default class ReceiveDetailTop extends Component {
                                              <li>定金</li>
                                              <li>{item.frontmoney}</li>
                                              <li>{item.nFrontmoney}</li>
-                                             <li className='receiveTopContract' onClick={_this.contractContinue.bind(this,item.contactType,item.detailid)}>合同</li> 
+                                             <li className='receiveTopContract' onClick={_this.contractContinue.bind(this,item.contactType,item.detailid)}>合同</li>
                                           </ul>
                                         	)
                                         }

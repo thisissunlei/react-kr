@@ -1,23 +1,11 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
+import React from 'react';
+
 import {
 	reduxForm,
-	submitForm,
-	change,
-	reset
 } from 'redux-form';
-import {
-	bindActionCreators
-} from 'redux';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import dateFormat from 'dateformat';
+
+
+import {DateFormat} from 'kr/Utils';
 import {
 	Table,
 	TableBody,
@@ -26,13 +14,12 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Button,
 	KrField,
 	ListGroup,
 	ListGroupItem,
 	Message,
 } from 'kr-ui';
-class SearchDateForm extends Component{
+class SearchDateForm extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -56,7 +43,7 @@ class SearchDateForm extends Component{
 SearchDateForm = reduxForm({
 	form: 'searchDateForm'
 })(SearchDateForm);
-export default class PersonalBehavior extends Component {
+export default class PersonalBehavior extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
@@ -78,8 +65,8 @@ export default class PersonalBehavior extends Component {
 	}
 	onStartChange=(startTime)=>{
 		let {searchParams}=this.state;
-			let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
-			let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
+			let start=Date.parse(DateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
+			let end=Date.parse(DateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
 			if(searchParams.endTime&&start>end){
 				Message.error("结束时间要小于开始时间");
 				return ;
@@ -91,8 +78,8 @@ export default class PersonalBehavior extends Component {
 	}
 	onEndChange=(endTime)=>{
 		let {searchParams}=this.state;
-			let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
-			let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
+			let start=Date.parse(DateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
+			let end=Date.parse(DateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
 			if(searchParams.startTime&&start>end){
 				Message.error("结束时间要小于开始时间");
 				return ;
@@ -103,7 +90,6 @@ export default class PersonalBehavior extends Component {
 			});
 	}
 	onLoaded(response) {
-		// console.log(response,"response");
 		let list = response;
 		this.setState({
 			list

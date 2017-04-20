@@ -7,15 +7,11 @@ import {
 import {
 	Binder
 } from 'react-binding';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	reduxForm,
-	formValueSelector,
 	change,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -87,7 +83,7 @@ class SelectStationForm extends React.Component {
 			return;
 		}
 
-		value = dateFormat(value, 'yyyy-mm-dd');
+		value = DateFormat(value, 'yyyy-mm-dd');
 		stationVos = [].concat(stationVos);
 		stationVos.map(function(item, index) {
 			if (selected.indexOf(index) !== -1) {
@@ -180,8 +176,8 @@ class SelectStationForm extends React.Component {
 		//工位结束时间相同
 		var some = true;
 		selectedStationVos.sort(function(pre, next) {
-			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			var preDate = DateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
+			var nextDate = DateFormat(next.leaseEndDate, 'yyyy-mm-dd');
 			if (preDate != nextDate) {
 				some = false;
 			}
@@ -206,7 +202,7 @@ class SelectStationForm extends React.Component {
 			obj.stationName = item.stationName;
 			obj.whereFloor = item.whereFloor;
 			obj.unitprice = item.unitprice;
-			obj.leaseBeginDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.leaseBeginDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
 			obj.leaseEndDate = item.rentBeginDate;
 			resultStationVos.push(obj);
 		});
@@ -230,10 +226,9 @@ class SelectStationForm extends React.Component {
 			var tmpDate = new Date();
 			tmpDate.setTime(Date.parse(item.leaseBeginDate));
 			tmpDate.setDate(tmpDate.getDate() + 1);
-			item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd')
+			item.leaseBeginDate = DateFormat(tmpDate, 'yyyy-mm-dd')
 		});
 
-		console.log('selectedStationVos', selectedStationVos);
 
 		const {
 			onSubmit
@@ -292,7 +287,7 @@ class SelectStationForm extends React.Component {
           <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
-				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
+				{item.rentBeginDate&& DateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>
          </TableRow>
         );

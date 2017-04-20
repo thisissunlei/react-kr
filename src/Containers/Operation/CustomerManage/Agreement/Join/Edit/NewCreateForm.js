@@ -12,7 +12,7 @@ import {
 	Binder
 } from 'react-binding';
 import ReactMixin from "react-mixin";
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import Immutable from 'immutable';
 import nzh from 'nzh';
@@ -20,10 +20,7 @@ import {
 	reduxForm,
 	formValueSelector,
 	initialize,
-	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
+	change
 } from 'redux-form';
 
 import {
@@ -34,12 +31,7 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -47,7 +39,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -137,7 +128,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// console.log('nextProps', nextProps);
 
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
@@ -308,12 +298,12 @@ class NewCreateForm extends React.Component {
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
-		let allMoney = 0;
 		let {initialValues} = this.props;
 		this.setAllRent(stationVos);
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
 		
 	}
+
 	openStationDialog() {
 
 		this.getStationUrl();
@@ -387,10 +377,10 @@ class NewCreateForm extends React.Component {
 		form.delStationVos = JSON.stringify(delStationVos);
 		form.stationVos = JSON.stringify(stationVos);
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 		form.totalrent = form.totalrent;
 		if(!!!form.agreement){
@@ -432,7 +422,6 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
-		// console.log('=-->>.', stationVos);
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
@@ -451,8 +440,8 @@ class NewCreateForm extends React.Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
 
 		};
 
@@ -484,7 +473,6 @@ class NewCreateForm extends React.Component {
 		} = this.props;
 
 		var stationVos = [];
-		// console.log(billList,data);
 		// delStationVos = delStationVos.concat(data.deleteData);
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
@@ -506,7 +494,6 @@ class NewCreateForm extends React.Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			// console.log('billList 租赁明细工位列表为空');
 		}
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(billList));
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(delStationVos));
@@ -570,7 +557,6 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	
 	dealRentName=(allRent)=>{
 		let name = '';
 		var nzhcn = nzh.cn;
@@ -624,7 +610,6 @@ class NewCreateForm extends React.Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		let  allRentName = this.dealRentName(allRent);
 
-		// console.log("initialValues",initialValues);
 		return (
 
 

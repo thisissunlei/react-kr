@@ -31,7 +31,7 @@ class NowtifyBox extends React.Component {
         notificationSound: new Audio(defaultNotificationSound)
       };
     }
-    
+
     componentWillMount(){
       this.handleNewNotifications(this.props.notifications);
     }
@@ -39,7 +39,7 @@ class NowtifyBox extends React.Component {
     componentWillUpdate(props){
       this.handleNewNotifications(props.notifications);
     }
-    
+
     /**
      * Dispatch notifications
      * @param  [] notifications Array of formatted notifications (JSON)
@@ -70,7 +70,7 @@ class NowtifyBox extends React.Component {
       // TODO
       // HINT: ajouter les notifications avec un systeme key:value ou (key est un timestamp)
       /*
-      
+
        if(!this.state.keepHistory){
       }*/
       return true;
@@ -90,21 +90,21 @@ class NowtifyBox extends React.Component {
     render() {
       let notificationNodes = _notifications.map(function(notification, index){
         return (
-          <NowtifyItem 
-            key={index} 
-            data={notification} 
-            position={index} 
+          <NowtifyItem
+            key={index}
+            data={notification}
+            position={index}
             displayTimeout={this.props.config.displayTimeout}
             onRemove={(id) => this.removeNotification(id)}
-            playSound={() => this.playNotificationSound(notification.sound)} 
+            playSound={() => this.playNotificationSound(notification.sound)}
           />
       );
     }.bind(this));
       return (
-        <div className="nowtify-box">       
+        <div className="nowtify-box">
           <div className="nowtify-box__notification-list">
             {notificationNodes}
-          </div>             
+          </div>
         </div>
       );
     }
@@ -126,6 +126,42 @@ function init(config){
  * @return {[type]}               [description]
  */
 function show(notifications){
+  ReactDOM.render(
+    <NowtifyBox config={_config} notifications={notifications}/>,
+    document.getElementById(_config.containerID)
+  );
+};
+
+/**
+ * Show an array of notifications
+ * @param  [] message string of formated notifications.
+ * @return {[type]}               [description]
+ */
+function success(message){
+
+  const notifications = [{
+    message: err.message,
+  	type: 'success',
+  }];
+
+  ReactDOM.render(
+    <NowtifyBox config={_config} notifications={notifications}/>,
+    document.getElementById(_config.containerID)
+  );
+};
+
+/**
+ * Show an array of notifications
+ * @param  [] message string of formated notifications.
+ * @return {[type]}               [description]
+ */
+function error(message){
+
+  const notifications = [{
+    message: message,
+  	type: 'danger',
+  }];
+
   ReactDOM.render(
     <NowtifyBox config={_config} notifications={notifications}/>,
     document.getElementById(_config.containerID)
@@ -158,9 +194,11 @@ function getConfig(){
   return _config;
 }
 
-module.exports =  { 
-  init, 
-  getConfig, 
+module.exports =  {
+  init,
+  getConfig,
   setConfig,
-  show 
+  show,
+  success,
+  error,
 };

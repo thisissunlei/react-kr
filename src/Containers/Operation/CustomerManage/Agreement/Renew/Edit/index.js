@@ -16,7 +16,6 @@ import {DateFormat} from 'kr/Utils';
 import {
   Dialog,
   Section,
-  Grid,
   Notify,
   BreadCrumbs,
   Title,
@@ -56,11 +55,10 @@ export default class JoinCreate extends React.Component {
     let {
       params
     } = this.props;
-    console.log('dasdasdasd');
     let _this = this;
     Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
-      _this.removeLocalStorage()
-;      Notify.show([{
+      _this.removeLocalStorage();      
+      Notify.show([{
         message: '更新成功',
         type: 'success',
       }]);
@@ -209,13 +207,12 @@ export default class JoinCreate extends React.Component {
         initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate')||DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
         delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 
-        console.log('时间', initialValues);
 
 
         //处理stationvos
         stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
 
-        console.log(JSON.parse(localStorage.getItem(keyWord+'stationVos')), '---->>>>', response);
+
 
         _this.setState({
           initialValues,
@@ -225,7 +222,6 @@ export default class JoinCreate extends React.Component {
         });
 
       }).catch(function(err) {
-        console.log(err);
         Notify.show([{
           message: '后台出错请联系管理员',
           type: 'danger',
@@ -234,7 +230,6 @@ export default class JoinCreate extends React.Component {
 
 
     }).catch(function(err) {
-      console.log('------', err);
       Notify.show([{
         message: '后台出错请联系管理员',
         type: 'danger',

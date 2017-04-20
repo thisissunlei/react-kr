@@ -125,7 +125,6 @@ class SelectStationForm extends Component {
 			page: 1,
 			pagesize: 100
 		})).then(function(response) {
-			console.log('response', response)
 
 			_this.setState({
 				stationVos: response.items

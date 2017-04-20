@@ -1,10 +1,7 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React  from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from "kr/Utils";
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,23 +10,19 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	Dialog,
-	ListGroup,
-	ListGroupItem,
 	Message,
 	Tooltip,
-	Form
 } from 'kr-ui';
 import './index.less';
+import {Http} from "kr/Utils";
+
 import SearchNotDateForm from './SearchNotDateForm';
 
 
-export default class NotOpenPanel  extends Component{
+export default class NotOpenPanel  extends React.Component{
 		static displayName = 'NotOpenPanel';
 		static defaultProps = {
 				todayDate:'2017-1-1'
@@ -46,22 +39,31 @@ export default class NotOpenPanel  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
+				startDate:this.props.yesterday,
+				endDate:this.props.yesterday
 			},
-			startValue:'',
-			endValue:''
+			startValue:this.props.yesterday,
+			endValue:this.props.yesterday
 
 		}
 
 	}
 
 
-
+	openExprot = () =>{
+		let {groupId} = this.props;
+    let {endValue,startValue}=this.state;
+		if(startValue>endValue){
+			Message.error('开始时间不能大于结束时间');
+			 return ;
+		}
+		var url = `/api/krspace-finance-web/stat/merchant/notopen/export?groupId=${groupId}&endDate=${endValue}&startDate=${startValue}`;
+		window.location.href = url;
+	}
     onStartNotChange=(startD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        let start=Date.parse(DateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(DateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         this.setState({
         	startValue:startD
 
@@ -84,8 +86,8 @@ export default class NotOpenPanel  extends Component{
     }
     onEndNotChange=(endD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(DateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(DateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
         },function () {
@@ -108,8 +110,8 @@ export default class NotOpenPanel  extends Component{
 		 this.setState({
 		 	searchParams:{
                groupId:nextProps.groupId,
-               startDate:this.props.todayDate,
-			   endDate:this.props.todayDate
+               startDate:this.props.yesterday,
+			   endDate:this.props.yesterday
 		    }
 		})
 	 }
@@ -117,6 +119,7 @@ export default class NotOpenPanel  extends Component{
     render(){
 
     	let {searchParams}=this.state;
+			let {yesterday, today} = this.props;
 		return(
           <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-in'>
@@ -128,7 +131,7 @@ export default class NotOpenPanel  extends Component{
 							 <span  className='static-upload'>实时更新</span>
 							</Col>
 							<Col align="right" md={8}>
-							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} yesterday={yesterday} today = {today} todayEndDate={searchParams.endDate}/>
 							</Col>
 						</Row>
 					</Grid>
@@ -176,6 +179,9 @@ export default class NotOpenPanel  extends Component{
 					 </TableRow>
 				</TableBody>
 				</Table>
+				<div style={{position:'relative',marginTop:20,left:0,textAlign:"left"}}  >
+					<Button  label="导出" type="button" onTouchTap = {this.openExprot}/>
+				</div>
               </div>
             </div>
 		  </div>

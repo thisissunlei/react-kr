@@ -18,7 +18,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 
 import {
@@ -157,7 +157,7 @@ class NewCreateForm extends React.Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 
 		let {
 			stationVos
@@ -182,7 +182,7 @@ class NewCreateForm extends React.Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -395,10 +395,10 @@ class NewCreateForm extends React.Component {
 		};
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
 		form.totalrent = this.state.allRent;
 		if(!!!form.agreement){
@@ -449,8 +449,8 @@ class NewCreateForm extends React.Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
 			unitprice:0
 
 		};
@@ -496,6 +496,7 @@ class NewCreateForm extends React.Component {
 		});
 	}
 
+
 	onIframeClose(billList) {
 
 		this.openStationDialog();
@@ -527,7 +528,6 @@ class NewCreateForm extends React.Component {
 				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(billList));
 

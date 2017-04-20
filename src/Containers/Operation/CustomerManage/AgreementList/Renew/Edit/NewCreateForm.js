@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -14,7 +14,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
@@ -65,7 +65,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static DefaultPropTypes = {
 		initialValues: {
@@ -204,6 +204,7 @@ class NewCreateForm extends Component {
 		});
 	}
 
+
 	//删除工位
 	onStationDelete() {
 		let {
@@ -313,11 +314,11 @@ class NewCreateForm extends Component {
 			form.contractmark = '';
 		}
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 

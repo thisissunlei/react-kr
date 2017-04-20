@@ -79,7 +79,6 @@ export default class UploadImageListComponent extends Component {
 		}]);
 	}
 	operationImg=()=>{
-		// console.log("this.state.imgUpload)",this.state.imgUpload);
 		if(this.state.imgUpload){
 			this.setState({
 				operateImg :true
@@ -111,7 +110,7 @@ export default class UploadImageListComponent extends Component {
 		});
 	}
 	updateImage=(event)=>{
-        
+
         let {images}=this.state;
 
 		this.setState({
@@ -156,7 +155,6 @@ export default class UploadImageListComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					//console.log("response",xhr.response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -175,10 +173,10 @@ export default class UploadImageListComponent extends Component {
                                      images.push({
 										photoId:item.id,
 										src:item.ossHref,
-									 }); 
-									})				
+									 });
+									})
 									_this.changeImages(images);
-									Message.warntimeout('图片上传成功', 'success');								
+									Message.warntimeout('图片上传成功', 'success');
 								} else {
 									_this.onError(fileResponse.msg);
 									return;
@@ -190,9 +188,6 @@ export default class UploadImageListComponent extends Component {
 							}
 						}
 					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
-					};
 					xhrfile.open('POST', '/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
@@ -202,9 +197,6 @@ export default class UploadImageListComponent extends Component {
 			}
 		};
 
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
@@ -227,7 +219,7 @@ export default class UploadImageListComponent extends Component {
 			images.unshift(indexPicSrc);
 		}
 		this.changeImages(images);
-		Message.warntimeout('图片设为首图成功', 'success');	
+		Message.warntimeout('图片设为首图成功', 'success');
 		this.cancelFirst();
 	}
 
@@ -236,7 +228,7 @@ export default class UploadImageListComponent extends Component {
 		let {images,deleteIndex}=this.state;
 		images.splice(deleteIndex,1);
 		this.changeImages(images);
-		Message.warntimeout('图片删除成功', 'success');	
+		Message.warntimeout('图片删除成功', 'success');
 		this.cancelDelete();
 	}
 
@@ -251,18 +243,18 @@ export default class UploadImageListComponent extends Component {
 	  this.setState({
       	openFirst:true,
         firstIndex:index
-      }) 	 
+      })
 	}
 	cancelDelete=()=>{
 	 this.setState({
       	openDelete:false,
-      })	
+      })
 	}
 
 	cancelFirst=()=>{
 	  this.setState({
       	openFirst:false,
-      })	
+      })
 	}
 
     changeImages=(images)=>{
@@ -271,25 +263,24 @@ export default class UploadImageListComponent extends Component {
 		this.setState({
 			images
 		},function(){
-			console.log('changeImages:',this.state.images);
 			onChange && onChange(images);
 		});
 
     }
 
-    
+
 	render() {
 
 		let {children,imgFlag,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
-        
+
         var imgStyle='';
         if(imgFlag){
           imgStyle='listImg'
         }else{
-          imgStyle='detailImg' 	
+          imgStyle='detailImg'
         }
-        
+
 
 		return(
 			<div className="ui-uploadimgList-box" style={style}>
@@ -324,7 +315,7 @@ export default class UploadImageListComponent extends Component {
 			</div>
 
 
-			
+
 
                     {/*提示*/}
                     <Dialog

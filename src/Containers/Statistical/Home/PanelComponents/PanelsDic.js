@@ -1,8 +1,11 @@
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
-import React,{Component} from 'react';
+import MerchantsData from './MerchantsData';
+import React  from 'react';
+
 
 module.exports ={
+	'3':<MerchantsData/>,
 	'2':<NotOpenPanel/>,
-	'1':<OpenPanel/>
+	'1':<OpenPanel/>,
 }

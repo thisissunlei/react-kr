@@ -36,17 +36,17 @@ export default class SearchForms extends Component{
 	}
 	componentDidMount() {
 		let _this = this;
-		 $('.search-val').bind('keypress',function(event){  
-  
-            if(event.keyCode == "13")      
-  
-            {  
+		 $('.search-val').bind('keypress',function(event){
+
+            if(event.keyCode == "13")
+
+            {
             	event.preventDefault ? event.preventDefault() : event.returnValue = false;
   				_this.click();
-                // alert('你输入的内容为：' + $('.search-val').val());  
-  
-            }  
-  
+                // alert('你输入的内容为：' + $('.search-val').val());
+
+            }
+
         });
 	}
 	componentWillReceiveProps(nextProps){
@@ -100,9 +100,9 @@ export default class SearchForms extends Component{
 				}else{
 		       		searchForm.className = searchForm.className+" show-form";
 				}
-					
 
-				
+
+
 
 			}
 			_this.setState({
@@ -182,16 +182,11 @@ export default class SearchForms extends Component{
 	bodyEvent(event){
 		let _this = this;
 		let targetName = event.target.className;
-		console.log(event.target.className,'event');
 		if(targetName == icon-searching){
-			console.log('icon-searching');
 			_this.click();
-		}else{
-			console.log('icon-searching');
 		}
 		let targetList = ['icon-searching', 'search-val', 'search-name','filter-container','icon-searching click'];
 		$('.icon-searching').click(function(event){
-			console.log('pppp',event);
 			// const form = ReactDOM.findDOMNode(_this.form);
 
 			// let searchName = '';
@@ -238,10 +233,10 @@ export default class SearchForms extends Component{
 		let {searchFilter} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
-		
+
 
 		if(searchFilter){
-			
+
 			return(
 				<div className="search-filter" ref={div=>{this.selectList = div}}>
 					<span className="filter-container" onMouseOver={this.selectShow} onMouseOut={this.selectHidden}>
@@ -270,11 +265,11 @@ export default class SearchForms extends Component{
 
 		let {style,inputName,searchFilter} = this.props;
 		let {otherName}=this.state;
-		
+
 		if(!inputName){
 			inputName='keywords';
 		}
-		
+
 		return (
 			<div className={`search-form ${otherName}`} ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >

@@ -1,18 +1,15 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 
 import './index.less';
-
-export default class ListGroup extends Component {
+export default class ListGroup extends React.Component {
 
 
 	static displayName = 'ListGroup';
-	
+
 	static defaultProps = {
 		inline:true
 	}
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		inline: React.PropTypes.bool,
@@ -23,7 +20,6 @@ export default class ListGroup extends Component {
 
 	}
 
-
 	render() {
 
 		let {children,inline} = this.props;
@@ -33,7 +29,6 @@ export default class ListGroup extends Component {
 		if(inline){
 			className+=' inline';
 		}
-
 
 		return (
 			<div className={className}>

@@ -66,6 +66,12 @@ export default class FileUploadComponent extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
+		
+		if(!nextProps.input.value){
+			this.setState({
+				files:[]
+			})
+		}
 		this.setInitValue(nextProps.defaultValue);
 	}
 
@@ -268,9 +274,6 @@ export default class FileUploadComponent extends React.Component {
 							}
 						}
 					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
-					};
 
 					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
@@ -280,13 +283,26 @@ export default class FileUploadComponent extends React.Component {
 				}
 			}
 		};
-
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
+	}
+	renderFiles=(files)=>{
+		var list;
+		if(files){
+			return list=files.map((item,index)=>{
+					return (
+						<li key={index}>
+							<a href={item.fileUrl} target="_blank">{item.fileName}</a>
+							<span className="del" onTouchTap={this.onFileDelete.bind(this,index)}>删除</span>
+						</li>
+					);
+				})
+		}else {
+			return (
+				<li></li>
+			)
+		}
 	}
 	render() {
 
@@ -309,7 +325,6 @@ export default class FileUploadComponent extends React.Component {
 			progress,
 			isUploading
 		} = this.state;
-
 		let fileBgStyles = {};
 		// let showList = (files.length>=6)?'hidden':'visible';
 		let showList = (files.length>=6)?'none':'block';
@@ -325,14 +340,7 @@ export default class FileUploadComponent extends React.Component {
 					</div>
 				</div>
 				<ul className="file-list">
-					{files && files.map((item,index)=>{
-						return (
-							<li key={index}>
-								<a href={item.fileUrl} target="_blank">{item.fileName}</a>
-								<span className="del" onTouchTap={this.onFileDelete.bind(this,index)}>删除</span>
-							</li>
-						);
-					})}
+					{this.renderFiles(files)}
 				</ul>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 				</WrapComponent>

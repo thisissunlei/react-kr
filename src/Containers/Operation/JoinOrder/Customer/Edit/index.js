@@ -1,5 +1,4 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes} from 'react';
 
 import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
@@ -124,7 +123,7 @@ SubmitValidationForm = reduxForm({
 })(SubmitValidationForm);
 
 
-export default class JoinEdit extends Component {
+export default class JoinEdit extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
@@ -142,11 +141,9 @@ export default class JoinEdit extends Component {
 	}
 
 	confirmJoinSubmit(values){
-		console.log('---',values);
 	}
 
 	confirmSubmit(values){
-		console.log('---',values);
 		this.setState({open: false});
 	}
 	handleOpen(){
@@ -154,7 +151,6 @@ export default class JoinEdit extends Component {
 	}
 
 	handleClose(values){
-		console.log('---',values);
 		this.setState({open: false});
 	}
 

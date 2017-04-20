@@ -1,29 +1,11 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Actions,Store} from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import React from 'react';
+import {reduxForm} from 'redux-form';
 import {
-	Table,
- 	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	List,
- 	ListItem,
-	LabelText,
-	Dialog,
 	KrField,
-	Form,
 	ListGroup,
 	ListGroupItem,
 	ButtonGroup,
@@ -31,9 +13,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-
-
-class SearchForm extends Component{
+class SearchForm extends React.Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
@@ -59,7 +39,7 @@ class SearchForm extends Component{
 		onSubmit && onSubmit(forms);
 	}
 
-	
+
 
 	render(){
 

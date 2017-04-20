@@ -1,42 +1,21 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	change
 } from 'redux-form';
 
 import {
-	Actions,
-	Store,
-	connect
-} from 'kr/Redux';
-
-
-import {
-	Section,
-	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
 
 } from 'kr-ui';
 
-export default class CancleLeader extends Component {
+export default class CancleLeader extends React.Component {
 	static propTypes = {
 		initialValues:React.PropTypes.object,
 		communityOptions:React.PropTypes.array,

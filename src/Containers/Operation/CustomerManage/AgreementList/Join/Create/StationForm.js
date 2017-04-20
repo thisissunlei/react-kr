@@ -56,7 +56,6 @@ class StationForm  extends React.Component{
 			}
 			return true;
 		});
-		console.log('---->>>>>aaaa>',billList);
 		this.setState({
 			billList
 		});

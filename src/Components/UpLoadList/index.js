@@ -1,20 +1,11 @@
-import React, {
-	Component
-} from 'react';
-
-import $ from 'jquery';
-import {
-	FontIcon,
-} from 'kr-ui';
-import Notify from '../Notify';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
+import Notify from '../Notify';
+import { Actions, Store } from 'kr/Redux';
 import {ShallowEqual} from 'kr/Utils';
-export default class UpLoadList extends Component {
+
+import './index.less';
+export default class UpLoadList extends React.Component {
 
 	static defaultProps = {
 		backgroundColor:"#fff",
@@ -76,7 +67,6 @@ export default class UpLoadList extends Component {
 		}
 	}
 	componentWillUnmount(){
-		console.log('componentWillUnmount');
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		node.style.visibility = 'hidden';
 	}
@@ -307,9 +297,6 @@ export default class UpLoadList extends Component {
 							}
 						}
 					};
-					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
-					};
 
 					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
@@ -320,9 +307,6 @@ export default class UpLoadList extends Component {
 			}
 		};
 
-		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
-		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);

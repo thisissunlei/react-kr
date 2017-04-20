@@ -1,6 +1,5 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React from 'react';
+import {reduxForm} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	UploadImage,
@@ -14,7 +13,7 @@ import {
 	Notify
 } from 'kr-ui';
 import "./index.less";
-class BatchUploadImageForm extends Component{
+class BatchUploadImageForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
@@ -28,7 +27,7 @@ class BatchUploadImageForm extends Component{
 			uploadedNum:0,
 			totalNum:0,
 			submitValuesParams:{},
-			requestURI:"postEquipmentImg",
+			requestURI:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
 			communitys: []
 		}
 	}
@@ -47,7 +46,7 @@ class BatchUploadImageForm extends Component{
 		const {openFinishTable}=this.props;
 		openFinishTable && openFinishTable();
 	}
-	
+
 	// 提交(获取总共上传社区个数)
 	onSubmit=(values)=>{
 		let _this =this;
@@ -95,7 +94,7 @@ class BatchUploadImageForm extends Component{
 	          type: 'danger',
 	        }])
 	    });
-	    
+
 	}
 	// 是否打开确定上传窗口
 	openBatchUploadNum=()=>{
@@ -146,7 +145,7 @@ class BatchUploadImageForm extends Component{
 					_this.setState({
 						openSchedule : false
 					});
-					
+
 					window.clearInterval(timer);
 					timer = null;
 					if(timer == null){
@@ -162,19 +161,32 @@ class BatchUploadImageForm extends Component{
 		let {communitys}=this.state;
 		const {handleSubmit,detail}=this.props;
 		return(
-			
+
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField name="uploadImage" 
-						component="uploadImage" 
-						style={{marginTop:10}} 
-						photoSize={'212*136'} 
-						pictureFormat={'JPG'} 
+					{/*<KrField name="uploadImage"
+						component="uploadImage"
+						style={{marginTop:10}}
+						photoSize={'212*136'}
+						pictureFormat={'JPG'}
 						pictureMemory={'32K'}
 						requestURI = {this.state.requestURI}
+					/>*/}
+					<KrField
+	              		label=""
+	              		name="uploadImage"
+						component="newuploadImage"
+						innerstyle={{width:248,height:167,padding:10}}
+						photoSize={'212*136'}
+						pictureFormat={'JPG'}
+						pictureMemory={'32'}
+						requestURI = {this.state.requestURI}
+						inline={false}
+						formfile='file'
+						center='center'
 					/>
-					<KrField name="communitys" 
-						options={communitys} 
-						component="doorCard" 
+					<KrField name="communitys"
+						options={communitys}
+						component="doorCard"
 						defaultValue={communitys}
 						getList={this.getList}
 					/>
@@ -187,7 +199,7 @@ class BatchUploadImageForm extends Component{
 								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}>
 									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 								</ListGroupItem>
-							</ListGroup>					
+							</ListGroup>
 						</Row>
 					</Grid>
 					<Dialog
@@ -207,7 +219,7 @@ class BatchUploadImageForm extends Component{
 										<ListGroupItem style={{width:'171px',textAlign:'left',padding:0,paddingLeft:15}}>
 											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.openBatchUploadNum} />
 										</ListGroupItem>
-									</ListGroup>					
+									</ListGroup>
 								</Row>
 							</Grid>
 			        	</div>
@@ -221,7 +233,7 @@ class BatchUploadImageForm extends Component{
 			        	</div>
 			        </div>
 				</form>
-			
+
 		);
 	}
 }
@@ -229,6 +241,3 @@ export default BatchUploadImageForm = reduxForm({
 	form: 'BatchUploadImageForm',
 	// validate,
 })(BatchUploadImageForm);
-
-
-

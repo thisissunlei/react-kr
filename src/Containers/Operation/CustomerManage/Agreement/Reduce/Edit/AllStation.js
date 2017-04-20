@@ -7,7 +7,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,
@@ -74,7 +74,7 @@ class SelectStationForm extends React.Component {
 
 
 	onChangeRentBeginDate(value) {
-		value = dateFormat(value, 'yyyy-mm-dd') + ' 00:00:00';
+		value = DateFormat(value, 'yyyy-mm-dd') + ' 00:00:00';
 		let {
 			stationVos,
 			selected
@@ -86,7 +86,7 @@ class SelectStationForm extends React.Component {
 		} = this.props.changeValues;
 		//判断选择的时间是否大于租赁起始时间
 		let endDate = leaseEnddate;
-		let rentBeginDate = Date.parse(dateFormat(value, 'yyyy-mm-dd') + ' 00:00:00');
+		let rentBeginDate = Date.parse(DateFormat(value, 'yyyy-mm-dd') + ' 00:00:00');
 
 		// if (endDate < rentBeginDate) {
 		// 	Notify.show([{
@@ -107,7 +107,7 @@ class SelectStationForm extends React.Component {
 		//比较减租开始日期不能小于工位起始日期
 		let isOK = true;
 		stationVos.map(function(item, index) {
-			let stationStartDate = Date.parse(dateFormat(item.leaseBeginDate, 'yyyy-mm-dd'));
+			let stationStartDate = Date.parse(DateFormat(item.leaseBeginDate, 'yyyy-mm-dd'));
 			if (rentBeginDate < stationStartDate) {
 				isOK = false;
 			}
@@ -218,8 +218,8 @@ class SelectStationForm extends React.Component {
 		//工位结束时间相同
 		var some = true;
 		selectedStationVos.sort(function(pre, next) {
-			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			var preDate = DateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
+			var nextDate = DateFormat(next.leaseEndDate, 'yyyy-mm-dd');
 			if (preDate != nextDate) {
 				some = false;
 			}
@@ -243,12 +243,12 @@ class SelectStationForm extends React.Component {
 			obj.stationName = item.stationName;
 			obj.unitprice = item.unitprice;
 			obj.stationType = item.stationType;
-			obj.stationBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
-			obj.stationEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.stationBeginDate = DateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
+			obj.stationEndDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
 
-			obj.leaseBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
-			obj.leaseEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
-			obj.rentBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
+			obj.leaseBeginDate = DateFormat(item.rentBeginDate, 'yyyy-mm-dd');
+			obj.leaseEndDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.rentBeginDate = DateFormat(item.rentBeginDate, 'yyyy-mm-dd');
 
 			resultStationVos.push(obj);
 		});
@@ -258,9 +258,9 @@ class SelectStationForm extends React.Component {
 		//选择的减租开始日期必须要在工位的起始日期和结束日期范围内
 		var isOK = 1;
 		selectedStationVos.map(function(item, index) {
-			var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
-			var stationEndDate = Date.parse(dateFormat(item.stationEndDate, 'yyyy-mm-dd') + ' 00:00:00');
-			var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var stationBeginDate = Date.parse(DateFormat(item.stationBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var stationEndDate = Date.parse(DateFormat(item.stationEndDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var rentBeginDate = Date.parse(DateFormat(item.rentBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
 
 			if (stationBeginDate >= rentBeginDate || rentBeginDate >= stationEndDate) {
 				isOK = 0;
@@ -274,7 +274,6 @@ class SelectStationForm extends React.Component {
 			}]);
 			return false;
 		}
-		console.log('---->>>>', selectedStationVos)
 
 		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
 
@@ -338,7 +337,7 @@ class SelectStationForm extends React.Component {
           <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
-				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
+				{item.rentBeginDate&& DateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>
          </TableRow>
         );

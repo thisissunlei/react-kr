@@ -1,23 +1,18 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, { PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import {reduxForm} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 
 import './index.less';
 import {Tabs, Tab } from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import {
-	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
 	Notify,
-	ButtonGroup,
   	ListGroup,
   	ListGroupItem,
-	SearchForm,
 	Message,
 	Table,
 	TableHeader,
@@ -28,7 +23,7 @@ import {
 	TableRowColumn,
 	Tooltip,
 } from 'kr-ui';
-export default class FinishUploadImgForm extends Component{
+export default class FinishUploadImgForm extends React.Component{
 	constructor(props) {
 	    super(props);
 	    this.detail = this.props.detail;
@@ -180,7 +175,6 @@ export default class FinishUploadImgForm extends Component{
 			// 将每个IDpush进selectedId  办理yuan sh
 
 			for(var i=0;i<item.deviceList.length;i++){
-				// console.log("item.deviceList[i]",item.deviceList[i]);
 				item.deviceList[i].checked = false;
 				// 需要去除的
 				newArrEmpty.push(item.deviceList[i].id);
@@ -188,10 +182,8 @@ export default class FinishUploadImgForm extends Component{
 
 			let OriginArr = this.state.selectedIds;
 			var EmptyArr = [];
-			// console.log("OriginArr",OriginArr,'newArrEmpty',newArrEmpty);
 			for(var i =0;i<OriginArr.length;i++){
 				for(var j=0;j<newArrEmpty.length;j++){
-					// console.log("i",OriginArr[i],"j",newArrEmpty[j]);
 					if(OriginArr[i] ==newArrEmpty[j] ){
 
 						EmptyArr.push(i);

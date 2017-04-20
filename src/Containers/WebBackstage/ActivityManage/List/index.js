@@ -1,11 +1,6 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
-	DatePicker,
-	Form,
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -15,21 +10,13 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
 	SearchForms,
 	Dialog,
-	Message,
-	Notify,
 	Tooltip,
 	Drawer,
 } from 'kr-ui';
-import {Actions,Store} from 'kr/Redux';
 import State from './State';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	observer
 } from 'mobx-react';
@@ -42,7 +29,7 @@ import cityDataState from "../../../../Components/KrField/CityComponent/State";
 
 
 @observer
-export default class List extends Component {
+export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
@@ -231,12 +218,12 @@ export default class List extends Component {
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{itemData.cityName}{itemData.countyName}</span>
 														 	<Tooltip offsetTop={5} place='top'>{itemData.cityName}{itemData.countyName}</Tooltip></div>)
-													 }} 
+													 }}
 											></TableRowColumn>
 
 											<TableRowColumn name="beginDate" style={{width:250}} type="date"
 											component={(value,oldValue,itemData)=>{
-												return (<span>{dateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}至{dateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
+												return (<span>{DateFormat(itemData.beginDate,'yyyy.mm.dd HH:MM')}至{DateFormat(itemData.endDate,'yyyy.mm.dd HH:MM')}</span>)}}
 												></TableRowColumn>
 											<TableRowColumn name="createName"
 											component={(value,oldValue)=>{

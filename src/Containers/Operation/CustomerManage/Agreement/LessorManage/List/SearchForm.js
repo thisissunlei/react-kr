@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -16,18 +16,11 @@ import {
 } from 'kr/Redux';
 
 import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
-	ListGroupItem,
 	SearchForms
 } from 'kr-ui';
 
 
-class SearchForm extends Component {
+class SearchForm extends React.Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,

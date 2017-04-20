@@ -1,47 +1,30 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {
 	reduxForm,
-	formValueSelector,
 	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	change
 } from 'redux-form';
 
 import {
 	Actions,
-	Store,
-	connect
+	Store
 } from 'kr/Redux';
 
 
 import {
-	Section,
 	KrField,
 	Grid,
 	Row,
-	Col,
 	Message,
 	Notify,
 	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	Field,
-	KrForm
 } from 'kr-ui';
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 
-export default class MemeberEditMemberForm extends Component {
+export default class MemeberEditMemberForm extends React.Component {
 
 
 	constructor(props, context) {
@@ -102,7 +85,6 @@ export default class MemeberEditMemberForm extends Component {
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			console.log("response.memberInfoVO",response.memberInfoVO);
 			Store.dispatch(initialize('memeberEditMemberForm', response.memberInfoVO));
 
 			_this.setState({

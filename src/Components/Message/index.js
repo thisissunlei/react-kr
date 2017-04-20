@@ -1,19 +1,16 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
+
 import ReactDOM from 'react-dom';
 import './index.less';
-
-import Dialog from '../Dialog';
-
 
 let containerDOM = '';
 let shadowDOM = '';
 let containerWarnDOM = '';
 
-class Message extends Component {
+class Message extends React.Component {
 
 	static displayName = 'Message';
+
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -22,6 +19,7 @@ class Message extends Component {
 	}
 
 	onClose = () => {
+
 		this.setState({
 			isClassName: !this.state.isClassName
 		})
@@ -41,17 +39,17 @@ class Message extends Component {
 		} = this.state;
 		return (
 			<div className="shadow">
-        <div className={`ui-message message_box ${isClassName?'exit':''}`}>
+				<div className={`ui-message message_box ${isClassName?'exit':''}`}>
 					<span onTouchTap={this.onClose}></span>
 					<p className={className}>
 						<span>{messages}</span>
 					</p>
-        </div>
+				</div>
 			</div>
 		);
 	}
 }
-class Warn extends Component {
+class Warn extends React.Component {
 
 	static displayName = 'Message';
 	constructor(props) {
@@ -81,11 +79,11 @@ class Warn extends Component {
 		} = this.state;
 		return (
 			<div className={`shadows ${className}`}><div className="container-warn">
-        	<div className={`ui-messages message_box_warn ${className} ${isClassName?'exit':''}`}>
-				<span className={className} onTouchTap={this.onClose}></span>
-			<span>{messages}</span></div>
-        	</div>
-		</div>
+					<div className={`ui-messages message_box_warn ${className} ${isClassName?'exit':''}`}>
+						<span className={className} onTouchTap={this.onClose}></span>
+						<span>{messages}</span></div>
+				</div>
+			</div>
 		);
 	}
 }
