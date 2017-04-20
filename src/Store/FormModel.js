@@ -80,6 +80,7 @@ form.stopSubmit = action(function(errors) {
 			this.submitting = false;
 			this.submitFailed = true;
 		}
+
 	});
 
 	form.getValues = action(function() {
