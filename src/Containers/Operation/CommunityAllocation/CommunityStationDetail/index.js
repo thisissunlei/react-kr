@@ -36,7 +36,6 @@ import DeleteStation from './DeleteStation';
 import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
 @inject("FormModel")
-@inject("SelectCommunityId")
 @observer
 class  CommunityStationDetail extends React.Component{
 
@@ -45,8 +44,9 @@ class  CommunityStationDetail extends React.Component{
 	}
 
 	componentDidMount(){
-		State.stationDataReady(this.props.SelectCommunityId.communityId);
-    State.searchParams.communityId=this.props.SelectCommunityId.communityId;
+		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+		State.stationDataReady(href);
+    State.searchParams.communityId=href;
 	}
 
  //新建工位打开

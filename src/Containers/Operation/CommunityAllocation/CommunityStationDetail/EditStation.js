@@ -112,15 +112,16 @@ class EditStation  extends React.Component{
              onChange={this.codeCompare}/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
 						 requireLabel={true} options={State.floorData}/>
+						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该工位编号已存在</div>}
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
             requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
             <KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于会议室"
-            requireLabel={true} options={[{value:1,label:'属于'},{value:0,label:'不属于'}]} onChange={this.belongSpace}/>
+            requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
             {isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
 						requireLabel={true} options={State.stationName}/>}
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
-            requireLabel={true} options={[{value:1,label:'启用'},{value:0,label:'未启用'}]}/>
+            requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
@@ -156,9 +157,12 @@ const validate = values =>{
     if(!values.stationType){
       errors.stationType='请输入工位性质';
     }
-   if(!values.belongSpace){
-     errors.belongSpace='请输入是否属于会议室';
-   }
+
+		if(values.belongSpace=='true'){
+ 		 if(!values.spaceId){
+ 		   errors.spaceId='请输入会议室名称';
+ 		   }
+ 	 }
 
 	 if(!values.spaceId){
      errors.spaceId='请输入会议室名称';
