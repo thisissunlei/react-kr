@@ -1,10 +1,7 @@
 import React from 'react';
-
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 import {
 	KrField,
 	Grid,
@@ -66,9 +63,9 @@ export default class ViewAudit extends React.Component {
 	getInfo = () => {
 			var id = this.props.detail.id
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-fina-infos', {
+			Http.request('get-fina-infos', {
 				finaVerifyId: id
-			})).then(function(response) {
+			}).then(function(response) {
 				_this.setState({
 					infoList: response
 				},function(){
@@ -90,9 +87,9 @@ export default class ViewAudit extends React.Component {
 	getPayInfo = () => {
 			var finaVerifyId = this.props.detail.id;
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+			Http.request('get-flow-edit-info', {
 					finaVerifyId
-			})).then(function(response) {
+			}).then(function(response) {
 					_this.setState({payInfoList: response})
 
 			});
@@ -189,7 +186,7 @@ export default class ViewAudit extends React.Component {
 		});
 	}
 	render() {
-		
+
 		let {
 			totalCountMoney,
 			payment,

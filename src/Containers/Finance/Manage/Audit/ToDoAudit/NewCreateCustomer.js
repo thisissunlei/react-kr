@@ -3,10 +3,7 @@ import React from 'react';
 import {
 	reduxForm,
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+
 import {
 	KrField,
 	Grid,
@@ -60,33 +57,33 @@ class NewCreateCustomer extends React.Component {
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
-					<KrField  
+					<KrField
 							grid={1/2}
 				    		left={50}
 				    		right={10}
-							name="company" 
-							type="text" 
-							component="input" 
+							name="company"
+							type="text"
+							component="input"
 							label="客户名称"
 							requireLabel={true}
 					 />
-					 <KrField  
+					 <KrField
 							grid={1/2}
 				    		right={50}
 				    		left={10}
-							name="name" 
-							type="text" 
-							component="input" 
-							label="联系人" 
+							name="name"
+							type="text"
+							component="input"
+							label="联系人"
 					 />
-					 <KrField  
+					 <KrField
 							grid={1/2}
 				    		left={50}
 				    		right={10}
-							name="tel" 
-							type="text" 
-							component="input" 
-							label="联系电话" 
+							name="tel"
+							type="text"
+							component="input"
+							label="联系电话"
 					 />
 				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
 					<Row>
@@ -95,17 +92,17 @@ class NewCreateCustomer extends React.Component {
 								<div  className='ui-btn-center'>
 									<Button  label="下一步" type="submit" />
 								</div>
-								<Button  
-										label="取消" 
-										type="button" 
-										cancle={true} 
-										onTouchTap={this.onCancel} 
+								<Button
+										label="取消"
+										type="button"
+										cancle={true}
+										onTouchTap={this.onCancel}
 								/>
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
-				</form>  
+				</form>
 			</div>
 
 

@@ -4,6 +4,9 @@ import {
   Store
 } from 'kr/Redux';
 import {
+	Http
+} from "kr/Utils";
+import {
   reduxForm,
   change
 } from 'redux-form';
@@ -74,7 +77,7 @@ export default class ToDoAudit extends React.Component {
   componentDidMount() {
     var _this = this;
 
-    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {}, {})).then(function(response) {
+    Http.request('getSelfMenuInfo', {}, {}).then(function(response) {
       var someBtn = response.navcodes.finance;
       for (var i = 0; i < someBtn.length; i++) {
         if (someBtn[i] == "verify_wait_del") {
@@ -142,7 +145,7 @@ export default class ToDoAudit extends React.Component {
           break;
         }
       }
-      
+
     }
     //打开查看回款
   openView = () => {
@@ -172,9 +175,9 @@ export default class ToDoAudit extends React.Component {
   }
   sureToDel = (itemDetail) => {
       var _this = this;
-      Store.dispatch(Actions.callAPI('del-fina-unchecked-record', {}, {
+      Http.request('del-fina-unchecked-record', {}, {
         finaVerifyId: this.state.itemDetail.id
-      })).then(function(response) {
+      }).then(function(response) {
         Message.success("删除成功");
         _this.setState({
           delAudit: false,
@@ -193,10 +196,10 @@ export default class ToDoAudit extends React.Component {
     //新建客户订单
   onSubmitMainbill = (form) => {
       var _this = this;
-      Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
+      Http.request('save-customer', form, {}).then(function(response) {
         Message.success('新建成功');
         _this.openCreateMainbill();
-        
+
         _this.setState({
            showName: !_this.state.showName,
           mainBill: true,
@@ -218,8 +221,8 @@ export default class ToDoAudit extends React.Component {
     form=Object.assign({},form);
     form.company = '';
     form.customerId = customerId;
-    
-    Store.dispatch(Actions.callAPI('save-main-bill', {}, form)).then(function(response) {
+
+    Http.request('save-main-bill', {}, form).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
       _this.setState({
@@ -321,7 +324,7 @@ export default class ToDoAudit extends React.Component {
         this.getParentCount(form);
         this.openSearch();
       });
-      
+
     }
     //打开添加回款
   openAddCreate = () => {
@@ -335,7 +338,7 @@ export default class ToDoAudit extends React.Component {
       if (!form.mainBillId) {
         return;
       }
-      Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
+      Http.request('save-flow-verify', {}, form).then(function(response) {
           Message.success('新建成功');
           _this.openAddCreate();
           window.location.reload();
@@ -351,7 +354,7 @@ export default class ToDoAudit extends React.Component {
       if (!form.mainBillId) {
         return;
       }
-      Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
+      Http.request('edit-flow-unchecked-verify', {}, form).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
           window.location.reload();
@@ -365,11 +368,11 @@ export default class ToDoAudit extends React.Component {
     if (!this.AuditNum) {
       this.noneSomeAudit();
       return;
-    } 
+    }
       this.setState({
         openSomeAudit: !this.state.openSomeAudit
       })
-   
+
   }
   onSelect = (values, list) => {
       var AuditList = [];
@@ -381,9 +384,9 @@ export default class ToDoAudit extends React.Component {
     }
     //批量审核
   AuditSome = () => {
-    Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
+    Http.request('batch-edit-verify-status', {}, {
       finaVerifyIds: this.AuditList,
-    })).then(function(response) {
+    }).then(function(response) {
       Message.success("审核成功");
       window.setTimeout(function() {
         window.location.reload();
@@ -580,9 +583,9 @@ export default class ToDoAudit extends React.Component {
               onClose={this.openSearch}
               contentStyle={{width:666}}
             >
-              <HightSearchForm   
-                    onSubmit={this.onSearchSubmit} 
-                    onCancel={this.openSearch} 
+              <HightSearchForm
+                    onSubmit={this.onSearchSubmit}
+                    onCancel={this.openSearch}
               />
             </Dialog>
             <Drawer
@@ -593,16 +596,16 @@ export default class ToDoAudit extends React.Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <AddMoney 
-                    corporationId={corporationId} 
-                    customerId={customerId} 
-                    mainBill={mainBill} 
-                    mainBillId={mainBillId} 
-                    openCreateMainbill={this.openCreateMainbill} 
-                    showName={this.state.showName} 
-                    onSubmit={this.AddOnSubmit} 
-                    onCancel={this.openAddCreate} 
-                    openCreateCustomer={this.openCreateCustomer} 
+              <AddMoney
+                    corporationId={corporationId}
+                    customerId={customerId}
+                    mainBill={mainBill}
+                    mainBillId={mainBillId}
+                    openCreateMainbill={this.openCreateMainbill}
+                    showName={this.state.showName}
+                    onSubmit={this.AddOnSubmit}
+                    onCancel={this.openAddCreate}
+                    openCreateCustomer={this.openCreateCustomer}
               />
             </Drawer>
             <Drawer
@@ -613,11 +616,11 @@ export default class ToDoAudit extends React.Component {
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
-              <EditMoney  
-                    detail={itemDetail} 
-                    onSubmit={this.onEditSubmit} 
-                    onCancel={this.openEditCreate} 
-                    openCreateCustomer={this.openCreateCustomer} 
+              <EditMoney
+                    detail={itemDetail}
+                    onSubmit={this.onEditSubmit}
+                    onCancel={this.openEditCreate}
+                    openCreateCustomer={this.openCreateCustomer}
               />
             </Drawer>
             <Drawer

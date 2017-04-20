@@ -4,10 +4,8 @@ import {
 } from 'redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
-  Actions,
-  Store
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 
 import {
   Form,
@@ -82,7 +80,7 @@ export default class DoAudit extends React.Component {
   }
   componentDidMount() {
       var _this = this;
-      Store.dispatch(Actions.callAPI('getSelfMenuInfo', {}, {})).then(function(response) {
+      Http.request('getSelfMenuInfo', {}, {}).then(function(response) {
         var someBtn = response.navcodes.finance;
         for (var i = 0; i < someBtn.length; i++) {
           if (someBtn[i] == "verify_over_edit") {
@@ -130,7 +128,7 @@ export default class DoAudit extends React.Component {
   EditAuditSubmit = (form) => {
       var _this = this;
       var params = Object.assign({}, form);
-      Store.dispatch(Actions.callAPI('edit-verify-checked', {}, params)).then(function(response) {
+      Http.request('edit-verify-checked', {}, params).then(function(response) {
         Message.success('修改成功');
         _this.setState({
           Params: {
@@ -161,7 +159,7 @@ export default class DoAudit extends React.Component {
   getInfo = (form) => {
     var params = Object.assign({}, form);
     var _this = this;
-    Store.dispatch(Actions.callAPI('get-fina-flow-category', params, {})).then(function(response) {
+    Http.request('get-fina-flow-category', params, {}).then(function(response) {
       _this.setState({
         infoList: response
       })
