@@ -23,7 +23,6 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-
 export default class ItemDetail extends React.Component {
 
 	static PropTypes = {
@@ -93,7 +92,7 @@ export default class ItemDetail extends React.Component {
 						 <KrField grid = {1}  component="labelText" inline={false} label="添加凭证" />
 
 						 	<div style={{marginLeft:19,marginTop:-28}}>
-								<PhotoSwipeGallery items={items}  options={{index:detail.id}} thumbnailContent={this.getThumbnailContent}/>
+								<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false}} thumbnailContent={this.getThumbnailContent}/>
 							</div>
 					 </div>
 			</div>
