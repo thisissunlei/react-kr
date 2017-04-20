@@ -25,7 +25,7 @@ import {
 	Message,
 	Tooltip
 } from 'kr-ui';
-import DateFormat from "kr/Utils";
+import {DateFormat} from "kr/Utils";
 import editsourceCustomer from "../EditCustomerList/State";
 import {
 	LookCustomerList
@@ -56,7 +56,7 @@ class Personal extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={		
+		this.state={
 			//选中的数量
 			dialogNum:0,
 			//加载后的数据
@@ -72,7 +72,7 @@ class Personal extends Component{
           Store.dispatch(change('NewCustomerList',item,''));
 		})
 		State.switchNewCustomerList();
-		
+
 		treeData.listValue="请选择项目类型"
 		cityData.city="请选择";
 	}
@@ -109,7 +109,7 @@ class Personal extends Component{
 			}
 			State.editprojectName=response.projectCategoryName;
 		}).catch(function(err) {
-			
+
 		});
 		State.switchEditCustomerList();
 	}
@@ -156,7 +156,7 @@ class Personal extends Component{
 		editIndentState.orderName="";
 		editIndentState.cityLable="";
 		data.mainBillId=editIndentId;
-		
+
 		var _this=this;
 		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
 			for(var i=0;i<orderReady.communityCity.length;i++){
@@ -188,7 +188,7 @@ class Personal extends Component{
 	switchEditIndent=(data)=>{
 		State.switchEditIndent();
 	}
-	
+
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
@@ -220,7 +220,7 @@ class Personal extends Component{
         this.setState({
          dialogNum:value.length,
          arrItem
-        })	
+        })
       }else{
         State.openPersonDialog=false;
       }
@@ -236,7 +236,7 @@ class Personal extends Component{
 
     //领取浮框的关闭
     merClose=()=>{
-       State.openPersonDialog=false; 	
+       State.openPersonDialog=false;
     }
 
 	//搜索
@@ -266,7 +266,7 @@ class Personal extends Component{
        }
        let switchData={};
        switchData.receiveId=params.receiveId;
-       switchData.ids=arrItem; 
+       switchData.ids=arrItem;
        switchData.operType='PERSON';
        State.switchSureSubmit(switchData);
     }
@@ -300,7 +300,7 @@ class Personal extends Component{
      }
 	//导出
 	onExport=(value)=>{
-	    State.exportData(value);	
+	    State.exportData(value);
 	}
 
 	closeAllMerchants=()=>{
@@ -544,7 +544,7 @@ class Personal extends Component{
 			                 isOpenIndent={State.orderName}
 						/>
 					</Drawer>
-					
+
 
 					{/*编辑订单*/}
 					<Drawer
@@ -599,7 +599,7 @@ class Personal extends Component{
 						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 
 					>
-						<SearchUpperForm  
+						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
 						    onSubmit={this.onSearchUpperSubmit}
 						    flag='个人'
@@ -615,7 +615,7 @@ class Personal extends Component{
 						open={State.openSwitch}
 						contentStyle ={{ width: '444',height:'284',overflow:'visible'}}
 					>
-						<SwitchPerson 
+						<SwitchPerson
 						  onSubmit={this.switchPersonSubmit}
 						  onCancel={this.openSwitchDialog}
 						  customerIds={this.state.dialogNum}
@@ -630,8 +630,8 @@ class Personal extends Component{
 						open={State.openQuit}
 						contentStyle ={{ width: '445',height:'230'}}
 					>
-						<QuitContinue 
-						  onSubmit={this.quitContinueSubmit} 
+						<QuitContinue
+						  onSubmit={this.quitContinueSubmit}
 						  onCancel={this.openQuitDialog}
 						  />
 				    </Dialog>
@@ -644,7 +644,7 @@ class Personal extends Component{
 						open={State.openDelete}
 						contentStyle ={{ width: '445',height:'230'}}
 					>
-						<OrderDelete 
+						<OrderDelete
 						   onCancel={this.openDeleteDialog}
 						   orderId={deleteId}
 				           operType="PERSON"
