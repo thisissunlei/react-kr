@@ -38,7 +38,8 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			openLocalStorages:false
 		}
 			this.isConfirmSubmiting = false;
 		Store.dispatch(reset('increaseCreateForm'));
@@ -112,6 +113,21 @@ export default class JoinCreate extends React.Component {
  		})
 	}
 
+		getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
+		for (var i = 0; i < localStorage.length; i++) {
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				_this.setState({
+					openLocalStorages:true
+				})
+			 }
+		 }
+	}
+
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -127,6 +143,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		this.getlocalSign();
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
@@ -173,41 +190,7 @@ export default class JoinCreate extends React.Component {
 				return item;
 			});
 
-			//获取localStorage数据
-			let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
-			if(mainbillId && customerId){
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-				initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate');
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
-				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
-				optionValues.totalrent = parseInt(localStorage.getItem(keyWord+'totalrent'));
-				initialValues.totalrent = parseInt(localStorage.getItem(keyWord+'totalrent')) || 0;
-				initialValues.totaldeposit = parseInt(localStorage.getItem(keyWord+'totaldeposit')) || 0;
-
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVos);
+			
 
 
 			optionValues.floorList = response.customer.floor;
@@ -216,14 +199,14 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
-			optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+			
 			_this.setState({
 				initialValues,
 				optionValues,
-				stationVos
 			});
 
 		}).catch(function(err) {
+			console.log(err);
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -237,7 +220,8 @@ export default class JoinCreate extends React.Component {
 		let {
 			initialValues,
 			optionValues,
-			stationVos
+			stationVos,
+			openLocalStorages
 		} = this.state;
 
 		return (
@@ -246,7 +230,7 @@ export default class JoinCreate extends React.Component {
 				<Title value="创建增租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
 			<Section title="增租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} openLocalStorage={openLocalStorages} params={this.props.params}/>
 			</Section>
 
 			<Dialog

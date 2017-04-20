@@ -81,6 +81,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitEditForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('exitEditForm', 'lessorContactName', personel.lastname));
 	}
 
 	onSubmit(form) {

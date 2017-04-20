@@ -18,6 +18,12 @@ import {
 	Section,
 	Notify,
 	BreadCrumbs,
+	Title,
+	Grid,
+	Row,
+	ListGroup,
+	ListGroupItem,
+	Button
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
@@ -40,7 +46,8 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			delStationVos:[],
 			optionValues: {},
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			openLocalStorages:false
 		}
 
 		Store.dispatch(reset('reduceCreateForm'));
@@ -93,6 +100,26 @@ export default class JoinCreate extends React.Component {
        localStorage.removeItem(item);
     })
   }
+  getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let sign = false;
+		let keyWord = params.orderId+ params.customerId+'LESSRENTedit';
+		for (var i = 0; i < localStorage.length; i++) {
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				_this.setState({
+					openLocalStorages:true
+				})
+				sign = true;
+
+			 }
+		 }
+		 if(!sign){
+		 	this.getBasicData()
+		 }
+	}
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -101,6 +128,134 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		this.getlocalSign();
+	}
+	getBasicData=()=>{
+
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let initialValues = {};
+		let optionValues = {};
+		let stationVos = [];
+		let delStationVos = [];
+		let rentamount = 0;
+
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1,
+			type :1,
+
+		})).then(function(response) {
+
+			initialValues.contractstate = 'UNSTART';
+			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
+
+			initialValues.setLocalStorageDate = +new Date();
+
+
+      		// optionValues.contractCode = response.contractCode;
+			
+			optionValues.communityAddress = response.customer.communityAddress;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+			initialValues.contracttype = 'LESSRENT';
+
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+			optionValues.paymentList = response.payment.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+			optionValues.payTypeList = response.payType.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
+			optionValues.floorList = response.customer.floor;
+			optionValues.customerName = response.customer.customerName;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			optionValues.communityName = response.customer.communityName;
+			optionValues.communityId = response.customer.communityid;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+
+			Store.dispatch(Actions.callAPI('showFnaContractRentController', {
+				id: params.id
+			})).then(function(response) {
+				 //获取localStorage数据s
+                let keyWord = params.orderId+ params.customerId+'LESSRENTedit';
+                let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+                let customerId = localStorage.getItem(keyWord +'customerId');
+
+
+				optionValues.lessorContactName = response.lessorContactName;
+				optionValues.contractFileList =response.contractFileList;
+				optionValues.leaseEnddate = response.leaseEnddate;
+				optionValues.leaseBegindate = response.leaseBegindate;
+
+
+				initialValues.leaseEnddate = response.leaseEnddate;
+
+				initialValues.id = response.id;
+				initialValues.leaseId = response.leaseId;
+				initialValues.contractcode = response.contractcode;
+				initialValues.leaseAddress =response.leaseAddress;
+				initialValues.lessorContactName = response.lessorContactName;
+				initialValues.leaseContact = response.leaseContact;
+				initialValues.leaseContacttel = response.leaseContacttel;
+        		initialValues.contractVersionType = response.contractVersion;
+				initialValues.lessorContactid = response.lessorContactid;
+				initialValues.contractmark = response.contractmark;
+				// if (response.rentamount) {contractmark
+					initialValues.rentamount = response.rentamount|| 0;
+				// }
+				initialValues.lessorContacttel = response.lessorContacttel;
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement ='无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
+
+				initialValues.signdate = DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+
+
+
+				//处理stationvos
+				stationVos = response.stationVos;
+				delStationVos =  [];
+
+				_this.setState({
+					initialValues,
+					optionValues,
+					stationVos,
+					delStationVos
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: '后台出错请联系管理员',
+					type: 'danger',
+				}]);
+			});
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: '后台出错请联系管理员',
+				type: 'danger',
+			}]);
+		});
+
+	}
+	getLocalStorageSata=()=>{
 
 		var _this = this;
 		const {
@@ -226,6 +381,23 @@ export default class JoinCreate extends React.Component {
 
 	}
 
+	onCancelStorage=()=>{
+		let {initialValues} = this.state;
+		this.setState({
+			openLocalStorages:false,
+
+		})	
+		this.getBasicData();
+	}
+	getLocalStorage=()=>{
+		this.setState({
+			openLocalStorages:false,
+		})
+		
+		this.getLocalStorageSata();
+		console.log('getLocalStorage')
+	}
+
 
 	render() {
 
@@ -243,6 +415,27 @@ export default class JoinCreate extends React.Component {
 			<Section title="减租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} params={this.props.params} delStationVos={delStationVos}/>
 			</Section>
+			<Dialog
+				title="提示"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.openConfirmCreateDialog}
+				open={this.state.openLocalStorages} 
+				contentStyle={{width:'400px'}}>
+					<div>
+						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
+						<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+					</div>
+
+			  </Dialog>
 		</div>
 		);
 	}

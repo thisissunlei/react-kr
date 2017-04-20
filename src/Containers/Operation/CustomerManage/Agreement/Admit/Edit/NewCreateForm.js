@@ -112,6 +112,9 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:'-1',
+			openLocalStorage:this.props.openLocalStorage,
+			initialValues:this.props.initialValues,
+			optionValues:this.props.optionValues,
 		}
 	}
 	calcStationNum() {
@@ -134,8 +137,8 @@ class NewCreateForm extends React.Component {
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
 
 
-		Store.dispatch(change('admitCreateForm', 'stationnum', stationnum));
-		Store.dispatch(change('admitCreateForm', 'boardroomnum', boardroomnum));
+		Store.dispatch(change('admitEditForm', 'stationnum', stationnum));
+		Store.dispatch(change('admitEditForm', 'boardroomnum', boardroomnum));
 	}
 
 	onStationVosChange(index, value) {
@@ -289,10 +292,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
-		let {
-			initialValues
-		} = this.props;
-		Store.dispatch(initialize('admitCreateForm', initialValues));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -305,6 +304,15 @@ class NewCreateForm extends React.Component {
 				this.calcStationNum();
 			});
 			this.isInit = true;
+		}
+		this.setState({
+			initialValues:nextProps.initialValues,
+			optionValues:nextProps.optionValues,
+		})
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+			openLocalStorage:nextProps.openLocalStorage
+		})
 		}
 	}
 	openPreStationUnitPriceDialog=()=> {
@@ -504,9 +512,9 @@ class NewCreateForm extends React.Component {
 
 	}
 	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('admitEditForm', 'lessorContactName', personel.lastname));
 
-		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('admitEditForm', 'lessorContacttel', personel.mobile));
 
 
 
@@ -539,38 +547,9 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
 
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
+
+	
 
 
 	render() {
@@ -581,10 +560,15 @@ class NewCreateForm extends React.Component {
 			pristine,
 			reset,
 			submitting,
-			initialValues,
 			changeValues,
-			optionValues
 		} = this.props;
+			let {
+			stationVos,
+			HeightAuto,
+			allRent,
+			initialValues,
+			optionValues
+		} = this.state;
 
 		let {
 			fnaCorporationList
@@ -597,11 +581,7 @@ class NewCreateForm extends React.Component {
 		});
 
 
-		let {
-			stationVos,
-			HeightAuto,
-			allRent
-		} = this.state;
+	
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
@@ -725,7 +705,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:830,marginLeft:70}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
-					Store.dispatch(change('admitCreateForm','contractFileList',files));
+					Store.dispatch(change('admitEditForm','contractFileList',files));
 				}} />
 
 
@@ -756,6 +736,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
+			
 
 
 			</div>);
@@ -763,7 +744,7 @@ class NewCreateForm extends React.Component {
 }
 
 
-const selector = formValueSelector('admitCreateForm');
+const selector = formValueSelector('admitEditForm');
 
 const validate = values => {
 	console.log('----->--->',values);
@@ -856,7 +837,7 @@ const validate = values => {
 }
 
 NewCreateForm = reduxForm({
-	form: 'admitCreateForm',
+	form: 'admitEditForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true

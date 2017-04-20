@@ -39,7 +39,8 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			openLocalStorages:false
 		}
 		this.isConfirmSubmiting = false;
 		Store.dispatch(reset('exitCreateForm'));
@@ -108,6 +109,21 @@ export default class JoinCreate extends React.Component {
  		})
 	}
 
+	getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
+		for (var i = 0; i < localStorage.length; i++) {
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				_this.setState({
+					openLocalStorages:true
+				})
+			 }
+		 }
+	}
+
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -123,6 +139,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		this.getlocalSign();
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
@@ -163,29 +180,29 @@ export default class JoinCreate extends React.Component {
 				return item;
 			});
 			//获取localStorage数据
-			let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
-			if(mainbillId && customerId){
+			// let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
+			// let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			// let customerId = localStorage.getItem(keyWord +'customerId');
+			// console.log('--->localStorage',mainbillId,customerId);
+			// if(mainbillId && customerId){
 
-				initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate');
-				initialValues.depositamount = parseInt(localStorage.getItem(keyWord+'depositamount')) || 0;
-				initialValues.totalreturn = parseInt(localStorage.getItem(keyWord+'totalreturn')) || 0;
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-			}
+			// 	initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate');
+			// 	initialValues.depositamount = parseInt(localStorage.getItem(keyWord+'depositamount')) || 0;
+			// 	initialValues.totalreturn = parseInt(localStorage.getItem(keyWord+'totalreturn')) || 0;
+			// 	initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+			// 	initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+			// 	initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+			// 	initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+			// 	initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+			// 	initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+			// 	initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+			// 	optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+			// 	initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+			// 	initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+			// 	initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+			// 	initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+			// 	optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+			// }
 
 
 			optionValues.floorList = response.customer.floor;
@@ -215,7 +232,8 @@ export default class JoinCreate extends React.Component {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			openLocalStorages
 		} = this.state;
 
 		return (
@@ -225,7 +243,7 @@ export default class JoinCreate extends React.Component {
 			 <Title value="创建退租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
 		<Section title="退租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} openLocalStorage={openLocalStorages} params={this.props.params}/>
 			</Section>
 
 			<Dialog

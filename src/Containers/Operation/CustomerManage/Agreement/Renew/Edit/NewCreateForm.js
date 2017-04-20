@@ -271,9 +271,9 @@ class NewCreateForm extends React.Component {
 			delStationVos,
 			originStationVos
 		} = this.state;
+		let delStationVo =[];
 
-
-		delStationVos = originStationVos.filter(function(origin){
+		delStationVo = originStationVos.filter(function(origin){
 				var isOk = true;
 				stationVos.map(function(station){
 						if(station.id == origin.id){
@@ -282,6 +282,7 @@ class NewCreateForm extends React.Component {
 				});
 				return isOk;
 		});
+		delStationVos = delStationVos.concat(delStationVo);
 		// form.contractmark = '';
 		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';

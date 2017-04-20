@@ -18,6 +18,11 @@ import {
 	Notify,
 	BreadCrumbs,
 	Title,
+	Grid,
+	Row,
+	ListGroup,
+	ListGroupItem,
+	Button
 } from 'kr-ui';
 import {DateFormat} from 'kr/Utils'
 import NewCreateForm from './NewCreateForm';
@@ -44,7 +49,8 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			openLocalStorages:false,
 		}
 
 		Store.dispatch(reset('admitCreateForm'));
@@ -78,7 +84,26 @@ export default class JoinCreate extends React.Component {
  			 localStorage.removeItem(item);
  		})
 	}
+	getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let sign = false;
+		let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
+		for (var i = 0; i < localStorage.length; i++) {
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				_this.setState({
+					openLocalStorages:true
+				})
+				sign = true;
 
+			 }
+		 }
+		 if(!sign){
+		 	this.getBasicData()
+		 }
+	}
 	onConfrimSubmit() {
 		let _this = this;
 		let params = this.props.params;
@@ -119,7 +144,131 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		this.getlocalSign();
+	}
+	getBasicData=()=>{
+		var _this = this;
+		console.log('getBasicData');
+		const {
+			params
+		} = this.props
+		let initialValues = {};
+		let optionValues = {};
+		let stationVos = [];
+		let delStationVos = [];
 
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			type :1,
+		})).then(function(response) {
+			initialValues.contractstate = 'UNSTART';
+			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
+			initialValues.setLocalStorageDate = +new Date();
+			optionValues.communityAddress = response.customer.communityAddress;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+			initialValues.contracttype = 'INTENTION';
+
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+			optionValues.paymentList = response.payment.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+			optionValues.payTypeList = response.payType.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
+			optionValues.floorList = response.customer.floor;
+			optionValues.customerName = response.customer.customerName;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			optionValues.communityName = response.customer.communityName;
+			optionValues.communityId = response.customer.communityid;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+
+			Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+				id: params.id
+			})).then(function(response) {
+
+				initialValues.id = response.id;
+				initialValues.leaseId = response.leaseId;
+				initialValues.contractcode =response.contractcode;
+				initialValues.lessorContactid = response.lessorContactid;
+				initialValues.templockday = response.templockday;
+				optionValues.contractFileList =  response.contractFileList;
+				// initialValues.lessorContactid = response.lessorContactid;
+				initialValues.leaseAddress = response.leaseAddress;
+				initialValues.lessorContactName =  response.lessorContactName;
+				initialValues.leaseContact =response.leaseContact;
+				initialValues.leaseContacttel = response.leaseContacttel;
+				initialValues.contractVersionType = response.contractVersion;
+				if (response.payType) {
+					initialValues.paytype = response.payType.id;
+
+				}
+				if (response.payment) {
+					optionValues.payment = response.payment;
+					initialValues.paymentId =response.payment.id;
+
+				}
+				if (response.boardroomnum) {
+					initialValues.boardroomnum =response.boardroomnum;
+				}
+				initialValues.stationnum = response.stationnum;
+				initialValues.wherefloor = response.wherefloor;
+				initialValues.contractmark = response.contractmark || '';
+				optionValues.lessorContactName = response.lessorContactName;
+				initialValues.lessorContacttel = response.lessorContacttel;
+				initialValues.totaldownpayment = response.totaldownpayment;
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
+
+				//时间
+				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+				initialValues.signdate = DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+				initialValues.stationVos = response.stationVos;
+				initialValues.delStationVos =[];
+				//处理stationvos
+				stationVos = initialValues.stationVos;
+				delStationVos = initialValues.delStationVos;
+				_this.setState({
+					initialValues,
+					optionValues,
+					stationVos,
+					delStationVos
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: '后台出错请联系管理员',
+					type: 'danger',
+				}]);
+			});
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: '后台出错请联系管理员',
+				type: 'danger',
+			}]);
+		});
+
+	}
+
+
+	getLocalStorageSata=()=>{
 		var _this = this;
 		const {
 			params
@@ -180,7 +329,7 @@ export default class JoinCreate extends React.Component {
 				let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
 
 				initialValues.id = response.id;
-				initialValues.leaseId = localStorage.getItem(keyWord+'leaseId')|| response.leaseId;
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'))|| response.leaseId;
 				initialValues.contractcode =response.contractcode;
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')|| response.lessorContactid;
 				initialValues.templockday = localStorage.getItem(keyWord+'templockday')|| response.templockday;
@@ -247,7 +396,22 @@ export default class JoinCreate extends React.Component {
 				type: 'danger',
 			}]);
 		});
+	}
+	onCancelStorage=()=>{
+		let {initialValues} = this.state;
+		this.setState({
+			openLocalStorages:false,
 
+		})	
+		this.getBasicData();
+	}
+	getLocalStorage=()=>{
+		this.setState({
+			openLocalStorages:false,
+		})
+		
+		this.getLocalStorageSata();
+		console.log('getLocalStorage')
 	}
 
 
@@ -257,8 +421,11 @@ export default class JoinCreate extends React.Component {
 			initialValues,
 			optionValues,
 			stationVos,
-			delStationVos
+			delStationVos,
+			openLocalStorages
 		} = this.state;
+		let {params} = this.props;
+
 
 		return (
 
@@ -266,7 +433,7 @@ export default class JoinCreate extends React.Component {
 			<Title value="编辑承租意向书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租意向书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos} params={params}/>
 			</Section>
 
 			<Dialog
@@ -276,6 +443,27 @@ export default class JoinCreate extends React.Component {
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
+			  </Dialog>
+			<Dialog
+				title="提示"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.openConfirmCreateDialog}
+				open={this.state.openLocalStorages} 
+				contentStyle={{width:'400px'}}>
+					<div>
+						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
+						<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+					</div>
+
 			  </Dialog>
 		</div>
 		);

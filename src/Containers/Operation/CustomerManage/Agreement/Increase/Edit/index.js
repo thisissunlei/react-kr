@@ -13,10 +13,16 @@ import {
 import http from 'kr/Redux/Utils/fetch';
 import {DateFormat} from 'kr/Utils';
 import {
+	Dialog,
 	Section,
 	Notify,
 	BreadCrumbs,
 	Title,
+	Grid,
+	Row,
+	ListGroup,
+	ListGroupItem,
+	Button
 } from 'kr-ui';
 
 import './index.less';
@@ -40,6 +46,7 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
+			openLocalStorages:false
 		}
 
 		Store.dispatch(reset('increaseCreateForm'));
@@ -89,8 +96,164 @@ export default class JoinCreate extends React.Component {
  		})
 	}
 
-	componentDidMount() {
 
+	getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let sign = false;
+		let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
+		for (var i = 0; i < localStorage.length; i++) {
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				_this.setState({
+					openLocalStorages:true
+				})
+				sign = true;
+
+			 }
+		 }
+		 if(!sign){
+		 	this.getBasicData()
+		 }
+	}
+
+	componentDidMount() {
+		this.getlocalSign()
+	}
+	getBasicData=()=>{
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let initialValues = {};
+		let optionValues = {};
+		let stationVos = [];
+		let delStationVos = [];
+
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1,
+			type :1,
+
+		})).then(function(response) {
+
+			initialValues.contractstate = 'UNSTART';
+			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
+			initialValues.setLocalStorageDate = +new Date();
+
+			initialValues.leaseContact = response.customer.customerMember;
+			initialValues.leaseContacttel = response.customer.customerPhone;
+			// initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
+
+			// optionValues.contractCode = response.contractCode;
+			
+			optionValues.communityAddress = response.customer.communityAddress;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+			initialValues.contracttype = 'ADDRENT';
+
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+			optionValues.paymentList = response.payment.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+			optionValues.payTypeList = response.payType.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
+			optionValues.floorList = response.customer.floor;
+			optionValues.customerName = response.customer.customerName;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			optionValues.communityName = response.customer.communityName;
+			optionValues.communityId = response.customer.communityid;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+
+
+			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+				id: params.id
+			})).then(function(response) {
+				let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
+
+
+				optionValues.lessorContactName =  response.lessorContactName;
+
+				optionValues.contractFileList = response.contractFileList;
+
+				initialValues.id = response.id;
+				initialValues.leaseId = response.leaseId;
+				initialValues.contractcode = response.contractcode;
+				initialValues.contractVersionType = response.contractVersion;
+
+				initialValues.lessorContactid = response.lessorContactid;
+				initialValues.lessorContactName = response.lessorContactName;
+
+				initialValues.leaseId = response.leaseId;
+				initialValues.leaseAddress = response.leaseAddress;
+				initialValues.leaseContact =  response.leaseContact;
+				initialValues.leaseContacttel =  response.leaseContacttel;
+				initialValues.paytype =  response.payType.id;
+				initialValues.paymodel =  response.payment.id;
+				initialValues.stationnum =  response.stationnum;
+				initialValues.wherefloor = response.wherefloor;
+				initialValues.rentaluse =  response.rentaluse;
+				initialValues.contractmark = response.contractmark || '';
+				initialValues.totalrent = response.totalrent;
+				initialValues.totaldeposit =  response.totaldeposit;
+				initialValues.lessorContacttel =  response.lessorContacttel;
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
+				}else{
+					initialValues.agreement =  response.agreement;
+				}
+				//时间
+				initialValues.firstpaydate = DateFormat(response.firstpaydate,'yyyy-mm-dd hh:MM:ss');
+				initialValues.signdate =DateFormat(response.signdate,'yyyy-mm-dd hh:MM:ss');
+				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate,'yyyy-mm-dd hh:MM:ss');
+				initialValues.leaseEnddate =  DateFormat(response.leaseEnddate,'yyyy-mm-dd hh:MM:ss');
+
+				initialValues.stationVos = response.stationVos;
+				initialValues.delStationVos =  [];
+				stationVos = initialValues.stationVos;
+				delStationVos = initialValues.delStationVos;
+
+				//处理stationvos
+
+				_this.setState({
+					initialValues,
+					optionValues,
+					stationVos,
+					delStationVos
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: '后台出错请联系管理员',
+					type: 'danger',
+				}]);
+			});
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: '后台出错请联系管理员',
+				type: 'danger',
+			}]);
+		});
+
+	}
+
+
+	getLocalStorageSata=()=>{
 		var _this = this;
 		const {
 			params
@@ -161,7 +324,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.id = response.id;
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'lessorContactName'))|| response.leaseId;
 				initialValues.contractcode = response.contractcode;
-				initialValues.contractVersionType = localStorage.getItem(keyWord+'lessorContactName')|| response.contractVersion;
+				initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType')|| response.contractVersion;
 
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')|| response.lessorContactid;
 				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
@@ -221,6 +384,23 @@ export default class JoinCreate extends React.Component {
 
 	}
 
+	onCancelStorage=()=>{
+		let {initialValues} = this.state;
+		this.setState({
+			openLocalStorages:false,
+
+		})	
+		this.getBasicData();
+	}
+	getLocalStorage=()=>{
+		this.setState({
+			openLocalStorages:false,
+		})
+		
+		this.getLocalStorageSata();
+		console.log('getLocalStorage')
+	}
+
 
 	render() {
 
@@ -239,7 +419,27 @@ export default class JoinCreate extends React.Component {
 			<Section title="增租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos}/>
 			</Section>
+			<Dialog
+				title="提示"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.openConfirmCreateDialog}
+				open={this.state.openLocalStorages} 
+				contentStyle={{width:'400px'}}>
+					<div>
+						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
+						<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+					</div>
 
+			  </Dialog>
 		</div>
 		);
 	}

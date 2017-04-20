@@ -407,7 +407,7 @@ class NewCreateForm extends React.Component {
 		if(!form.contractmark){
 			form.contractmark="";
 		}
-		form.totalrent = (form.totalrent).toFixed(2);
+		form.totalrent = form.totalrent;
 		if(form.totalrent == 0){
 			Notify.show([{
 				message: '服务费不能为零',
@@ -542,7 +542,7 @@ class NewCreateForm extends React.Component {
 			if(!item.unitprice){
 				item.unitprice = 0;
 			}else{
-				item.unitprice = item.unitprice.replace(/\s/g,'');
+				item.unitprice = String(item.unitprice).replace(/\s/g,'');
 			}
 			return item;
 		})
