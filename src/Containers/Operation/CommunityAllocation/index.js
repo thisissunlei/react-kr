@@ -10,9 +10,17 @@ import {
 import {
 	default as CommunityStationDetail
 } from './CommunityStationDetail';
+import {
+	default as CommunityMeetingRoom
+} from './CommunityMeetingRoom';
+import {
+	default as CommunityMeetingRoomDetail
+} from './CommunityMeetingRoomDetail';
 module.exports = {
 	CommunityList,
 	CommunityStation,
 	CodeClassification,
-	CommunityStationDetail
+	CommunityStationDetail,
+	CommunityMeetingRoom,
+	CommunityMeetingRoomDetail
 }

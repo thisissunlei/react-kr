@@ -37,7 +37,7 @@ import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
 @inject("FormModel")
 @observer
-class  CommunityStationDetail extends React.Component{
+class  CommunityMeetingRoomDetail extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -172,15 +172,15 @@ whiteClose=()=>{
 
 //选择社区
 SelectCommunity=()=>{
-	window.location.href=`./#/operation/communityAllocation/communityMeetingRoom`;
+	window.location.href=`./#/operation/communityAllocation/communityStation`;
 }
 
 	render(){
 
-		let title=`工位列表(${State.communityName})`;
+		let title=`会议室列表(${State.communityName})`;
 		return(
 			<div className='community-list'>
-				<Title value="工位列表"/>
+				<Title value="会议室列表"/>
 				<Section title={title} description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 
@@ -327,4 +327,4 @@ SelectCommunity=()=>{
 	}
 
 }
-export default CommunityStationDetail;
+export default CommunityMeetingRoomDetail;
