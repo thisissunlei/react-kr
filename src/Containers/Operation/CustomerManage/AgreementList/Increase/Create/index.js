@@ -56,7 +56,7 @@ export default class increaseCreate extends React.Component {
 			formValues: {},
 			stationVos:[],
 			openConfirmCreate: false,
-			setlocalStorage:''
+			setlocalStorage:this.props.active,
 		}
 			this.isConfirmSubmiting = false;
 		Store.dispatch(reset('increaseCreateForm'));
@@ -253,8 +253,8 @@ export default class increaseCreate extends React.Component {
 	}
 	componentWillReceiveProps(nextProps) {
 
-		
-		if (nextProps.active) {
+		console.log('componentWillReceiveProps')
+		if (nextProps.active && this.props.active) {
 			this.setState({
 				setlocalStorage:nextProps.active
 			});
@@ -263,14 +263,14 @@ export default class increaseCreate extends React.Component {
 	}
 
 
-	shouldComponentUpdate(nextProps){
-		if (!this.state.setlocalStorage) {
-			this.setState({
-				setlocalStorage:nextProps.active
-			});
-		}
-		return true;
-	}
+	// shouldComponentUpdate(nextProps){
+	// 	// if (!this.state.setlocalStorage) {
+	// 	// 	this.setState({
+	// 	// 		setlocalStorage:nextProps.active
+	// 	// 	});
+	// 	// }
+	// 	return true;
+	// }
 
 
 

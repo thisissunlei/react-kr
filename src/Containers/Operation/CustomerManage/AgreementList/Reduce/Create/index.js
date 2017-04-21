@@ -53,6 +53,7 @@ export default class JoinCreate extends React.Component {
 			optionValues: {},
 			formValues: {},
 			stationVos:[],
+			setlocalStorage:this.props.active,
 			openConfirmCreate: false
 		}
 		this.isConfirmSubmiting = false;
@@ -248,7 +249,7 @@ export default class JoinCreate extends React.Component {
 	componentWillReceiveProps(nextProps) {
 
 		
-		if (nextProps.active) {
+		if (nextProps.active && this.props.active != nextProps.active) {
 			this.setState({
 				setlocalStorage:nextProps.active
 			});
@@ -257,14 +258,14 @@ export default class JoinCreate extends React.Component {
 	}
 
 
-	shouldComponentUpdate(nextProps){
-		if (!this.state.setlocalStorage) {
-			this.setState({
-				setlocalStorage:nextProps.active
-			});
-		}
-		return true;
-	}
+	// shouldComponentUpdate(nextProps){
+	// 	if (!this.state.setlocalStorage) {
+	// 		this.setState({
+	// 			setlocalStorage:nextProps.active
+	// 		});
+	// 	}
+	// 	return true;
+	// }
 
 
 

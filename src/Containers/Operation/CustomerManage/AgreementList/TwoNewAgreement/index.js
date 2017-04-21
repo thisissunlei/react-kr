@@ -100,6 +100,9 @@ class LookCustomerList extends Component{
         	noneTab:[],
         	dialogDiv:[]
         }
+
+
+        console.log('------render------',allState.active)
 		if(!allState.enter){
 			num=50+(5-noneTab.length)*109.16;
 			text="入驻协议书"
@@ -226,6 +229,8 @@ class LookCustomerList extends Component{
 	}
 	render(){
 		let obj = this.renderTab();
+
+		console.log('=========<>>>>>>',allState.active)
 		
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
