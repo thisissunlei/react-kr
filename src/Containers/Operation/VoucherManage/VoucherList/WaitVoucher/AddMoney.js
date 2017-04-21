@@ -178,9 +178,9 @@ class AddMoney extends React.Component {
       _this.getAccount(form);
     })
 
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
+		Http.request('get-finaflow-info', {
 			mainBillId: form.value
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
@@ -208,10 +208,10 @@ class AddMoney extends React.Component {
 		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			accountType: form.payWay,
 			corporationId:form.corporationId
-		})).then(function(response) {
+		}).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;

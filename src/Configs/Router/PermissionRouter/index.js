@@ -13,8 +13,13 @@ import {
 	Store
 } from 'kr/Redux';
 
-import Permission from 'kr/Containers/Permission';
 import Basic from 'kr/Containers/Basic';
+
+const Permission_PersonalCenter = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/PersonalCenter').default)
+  }, 'Permission_PersonalCenter')
+}
 
 module.exports =()=>{
 
@@ -29,7 +34,7 @@ module.exports =()=>{
 
 */}
 
-		<Route path="personalCenter" component={Permission.PersonalCenter}/>
+		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
 		<Redirect from="permission" to="permission/personalCenter" />
 	</Route>
 	);

@@ -9,7 +9,7 @@ import {
     KrDate
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import './index.less';
 
 export default class ViewAudit extends React.Component {
@@ -252,7 +252,7 @@ export default class ViewAudit extends React.Component {
                     <KrField style={{
                         width: 260,
                         marginLeft: 25
-                    }} name="dealTime" component="labelText" inline={false} label="收款日期" value={dateFormat(infoList.dealTime, "yyyy-mm-dd")}/>
+                    }} name="dealTime" component="labelText" inline={false} label="收款日期" value={DateFormat(infoList.dealTime, "yyyy-mm-dd")}/>
                     <KrField style={{
                         width: 548
                     }} name="remark" component="labelText" inline={false} defaultValue={infoList.remark} label="备注" maxSize={100}/>

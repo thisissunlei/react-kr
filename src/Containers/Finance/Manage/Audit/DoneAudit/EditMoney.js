@@ -12,7 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -147,7 +147,7 @@ class EditMoney extends React.Component {
 			Http.request('get-fina-infos', {
 				finaVerifyId: id
 			}, {}).then(function(response) {
-				response.dealTime = dateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
+				response.dealTime = DateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount.replace(/,/gi,''),
