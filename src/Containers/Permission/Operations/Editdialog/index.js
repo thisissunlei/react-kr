@@ -317,13 +317,32 @@ class Editdialog extends Component {
 			ControllerRender,
 			ControllerId
 		} = this.state;
-
+		if(!ControllerItem.controllerName){
+			return;
+		}
 		var controller = `${ControllerItem.controllerName} ${ControllerItem.methodName}`;
 		var item = {
 			controller: controller
 		}
 		var arr = ControllerRender;
-		arr.push(item)
+		var arr1 = [];
+		console.log(arr);
+		if(arr.length>0){
+			console.log(11111)
+			arr.map((items,index)=>{
+				arr1.push(items.controller);
+
+			})
+				if(arr1.indexOf(controller)==-1){
+					arr.push(item);
+				}
+
+		}else {
+			console.log()
+			arr.push(item);
+		}
+
+
 		this.setState({
 			ControllerRender: arr,
 			ControllerId: ControllerId
@@ -379,18 +398,18 @@ class Editdialog extends Component {
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="name" type="text" 
-							component="input" label="名称"  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="name" type="text"
+							component="input" label="名称"
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'名称为必填项'}}
 							inline={true}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="code" type="text" 
-							component="labelText" label="编号"  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="code" type="text"
+							component="labelText" label="编号"
 							requireLabel={true}
 							requiredValue={true}
 							inline={true}
@@ -407,7 +426,7 @@ class Editdialog extends Component {
 					</div>
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
-						<div className="u-method-content">
+						<div className="u-method-content u-method-contentE">
 							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label=""  options={ControllerList} inline={true}  onChange={this.onSelectController}/>
 							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
@@ -415,9 +434,9 @@ class Editdialog extends Component {
 							{this.renderController()}
 						</div>
 					</div>
-					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
+					<div style={{marginLeft:380,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>
-				
+
 			</div>
 		);
 	}
