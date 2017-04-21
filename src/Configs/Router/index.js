@@ -62,7 +62,7 @@ export default (
 
         {/*统计看板*/}
 
-		{StatisticalRouter()}
+		    {StatisticalRouter()}
 
         {/*社区经营*/}
         {CommunityRouter()}

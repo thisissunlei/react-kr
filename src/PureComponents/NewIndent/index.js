@@ -1,7 +1,5 @@
-
-import React, {  PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -12,9 +10,8 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+  Message
 } from 'kr-ui';
-import State from './State';
 import './index.less'
 import {
 	observer,
@@ -22,8 +19,9 @@ import {
 } from 'mobx-react';
 
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
- class EditIndent extends React.Component{
+ class NewIndent extends Component{
 
 
 
@@ -43,22 +41,26 @@ import {
 			stationTypeList:[],
 			visitTypeList:[]
 		};
-		let selectData=props.selectData||selectDatas;
-		State.selectDataInit(selectData);
+
 	}
-
-
-
 	onSubmit = (values) => {
 		delete values.cityid;
-		values.customerid=this.props.listId;
-		values.id=this.props.editIndentId;
-		values.mainbillname=State.orderName||this.props.mainbillname;
-		values.mainbillcode="";
+		let listId=this.props.listId;
 		let _this=this;
-		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response) {
+		if(!values.mainbilldesc){
+			values.mainbilldesc="";
+		}
+		values.customerid=listId;
+		values.mainbillname=_this.props.NewIndentModel.orderName;
+		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
-         	_this.onCancel();
+			_this.props.NewIndentModel.searchParams={
+				page:1,
+				time:+new Date()
+			 }
+    	_this.onCancel();
+			_this.props.NewIndentModel.openContract=false;
+			Message.success('新建成功');
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -71,46 +73,51 @@ import {
 
 	hasOfficeClick = (params) =>{
 		if(params.value=="HAS"){
-			State.showMatureTime();
+			this.props.NewIndentModel.showMatureTime();
 		}else if(params.value=="NOHAS"){
-			State.noShowMatureTime();
+			this.props.NewIndentModel.noShowMatureTime();
 
 		}
 	}
+
 	componentWillReceiveProps(nextProps){
 
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
-			if(State.isInit){
+			if(this.props.NewIndentModel.isInit){
 				return;
 			}
-			State.orderReady(nextProps.orderReady)
+			this.props.NewIndentModel.orderReady(nextProps.orderReady)
 	}
 	communityChange=(value)=>{
 		if(!value){
 			return;
 		}
-		var community=State.orderReady.communityCity
+		var community=this.props.NewIndentModel.orderReady.communityCity
 		for(var i=0;i<community.length;i++){
 			if(community[i].communityName==value.label){
-				Store.dispatch(change('EditIndent','cityid',community[i].cityId));
-				State.cityLableChange(community[i].cityName)
-
+				Store.dispatch(change('NewIndent','cityid',community[i].cityId));
+				this.props.NewIndentModel.cityLableChange(community[i].cityName)
 			}
 
 		}
 	}
 	mainbilltypeChange=(value)=>{
-		State.orderName=this.props.customerName+value.label+this.props.orderCount;
+		this.props.NewIndentModel.orderName=this.props.customerName+value.label+this.props.orderCount;
 
 	}
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityNameIndent} = this.props;
-		let citys=State.cityLable||cityNameIndent;
-			citys=!citys?"无":citys;
+		const { error, handleSubmit, pristine, reset,companyName,isOpenIndent,customerName,orderCount} = this.props;
+
+		let city=this.props.NewIndentModel.cityLable;
+			city=!city?"无":city;
+		// if(!isOpenIndent){
+		// 	city="无"
+		// }
+
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
@@ -121,26 +128,26 @@ import {
 
 				<div className="kk" style={{marginTop:30,paddingLeft:20}}>
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select"
-							options={State.orderFound}
+							options={this.props.NewIndentModel.orderFound}
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
 					<KrField grid={1/2} label="所在社区" name="communityid" component="searchOrder" style={{width:262,marginLeft:30}}
-							//options={State.community}
+							//options={this.props.NewIndentModel.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
 
-					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={citys} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:mainbillname} requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={this.props.NewIndentModel.orderName?this.props.NewIndentModel.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+							<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
+							<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>
@@ -161,6 +168,9 @@ const validate = values =>{
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
 		}
+
+
+
 		return errors
 	}
-export default reduxForm({ form: 'EditIndent',validate})(EditIndent);
+export default reduxForm({ form: 'NewIndent',validate})(NewIndent);

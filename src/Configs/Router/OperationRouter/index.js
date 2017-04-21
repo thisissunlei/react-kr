@@ -36,7 +36,7 @@ module.exports =()=>{
 					{/*凭证列表*/}
 						<Route path="voucherList" component={Operation.VoucherManage.VoucherList}/>
 			</Route>
-			
+
 			{/*客户管理*/}
 			<Route path="customerManage" component={Basic}>
 				<Route path="customerList" component={Operation.CustomerManage.CustomerList} />

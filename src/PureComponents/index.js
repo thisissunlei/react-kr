@@ -1,4 +1,5 @@
 import Agreement from './Agreement';
+import NewIndent from './NewIndent';
 import AppointmentVisit from './AppointmentVisit';
 import TransferCustomer from './TransferCustomer';
 import LookCustomerList from './LookCustomerList';
@@ -11,6 +12,6 @@ module.exports = {
 	TransferCustomer,
 	LookCustomerList,
 	InfoList,
-	UrgeMoney
-
+	UrgeMoney,
+	NewIndent
 }

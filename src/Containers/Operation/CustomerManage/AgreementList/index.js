@@ -83,21 +83,21 @@ class Merchants extends Component{
 				antecedent: [],
 			},
 			staionsList: [],
-           
+
             //日期查询
 		    todayDate:'',
 		    startValue:'',
 		    endValue:'',
 
 		    searchParams:{
-			   page:1,	
+			   page:1,
 			   pageSize:15,
 			   createDateBegin:'',
 			   createDateEnd:'',
 		     },
 		    agreementListAnnex:false,
 		    agreementListOther:false,
-           
+
 		}
 		 this.allOrderReady();
 	}
@@ -169,17 +169,17 @@ class Merchants extends Component{
         }
 
       if(value.length>0){
-      	State.openDialog=true;	
+      	State.openDialog=true;
         this.setState({
          dialogNum:value.length,
          arrItem
-        })	
+        })
       }else{
-      	State.openDialog=false;	
+      	State.openDialog=false;
       }
     }
-  
-   
+
+
     //查看相关操作
     lookClick=(values)=>{
     	State.listId=values.customerid;
@@ -191,23 +191,23 @@ class Merchants extends Component{
 
     componentWillMount(){
     	State.createContract();
-    }    
+    }
     //查看关闭
 	cancelAgreementDetail=(event)=>{
 		State.agreementDetail();
 		// event.stopPropagation();
 
 	}
-    
+
 	//新建提交按钮
 	onNewMerchants=(params)=>{
 		switchNewMerchants(params);
 	}
-	
-	
 
-	componentWillReceiveProps(nextProps){	
-			
+
+
+	componentWillReceiveProps(nextProps){
+
 	}
 
 
@@ -216,7 +216,7 @@ class Merchants extends Component{
 	uploadFile = (id) => {
 		let fileId = this.state.openId;
 		if(fileId == id){
-			
+
 			this.setState({
 				openMenu:!this.state.openMenu,
 				openId:id,
@@ -224,7 +224,7 @@ class Merchants extends Component{
 
 			})
 		}else{
-			
+
 			this.setState({
 				openMenu:true,
 				openId:id,
@@ -243,7 +243,7 @@ class Merchants extends Component{
 				opretionId:id,
 				openMenu:false,
 				opretionOpen:!this.state.opretionOpen,
-				
+
 			})
 		}else{
 
@@ -251,7 +251,7 @@ class Merchants extends Component{
 				opretionId:id,
 				openMenu:false,
 				opretionOpen:true,
-				
+
 			})
 		}
 	}
@@ -309,7 +309,7 @@ class Merchants extends Component{
 	}
 
 	print=(item)=>{
-		
+
 		var typeList = [{
 			name: 'INTENTION',
 			value: 'admit'
@@ -340,7 +340,7 @@ class Merchants extends Component{
 		var newWindow = window.open(url);
 
 	}
- 
+
     ajaxRebd=()=>{
 
     }
@@ -353,7 +353,7 @@ class Merchants extends Component{
 		   event = event || window.event;
 			var target = event.target;
 			while (target) {
-				
+
 				if (target && target.className && target.className.indexOf('agreement-list-annex') !== -1 ||
 					target && target.className && target.className.indexOf('agreement-list-other') !== -1
 					) {
@@ -363,20 +363,20 @@ class Merchants extends Component{
 			}
 
 			_this.setState({
-				
+
 				openMenu:false,
 				opretionOpen:false,
-				
+
 
 			})
 		},false);
 
-		
+
 
 	}
      //日期开始
 	 onStartChange=(startD)=>{
-    	let {searchParams}=this.state;   	
+    	let {searchParams}=this.state;
         let start=startD;
         let end=searchParams.createDateEnd;
         this.setState({
@@ -393,7 +393,7 @@ class Merchants extends Component{
 			},function(){
 			    State.ajaxListData(searchParams);
 			});
-            
+
         })
     }
 
@@ -416,7 +416,7 @@ class Merchants extends Component{
 			},function(){
                 State.ajaxListData(searchParams);
 			});
-			
+
         })
 
     }
@@ -466,7 +466,17 @@ class Merchants extends Component{
      }
    }
 
-	
+
+ contractChange=(params)=>{
+   let {searchParams}=this.state;
+	 if(!params.value){
+		 searchParams.contractType='';
+	 }else{
+		 searchParams.contractType=params.value;
+	 }
+	 State.ajaxListData(searchParams);
+ }
+
 	everyTd=(value)=>{
 		var show=false;
 		if(!value){
@@ -507,24 +517,24 @@ class Merchants extends Component{
 
 
 	contractRender=()=>{
-					
+
 		         let contractSelect='';
 			      if(State.argumentType=='INTENTION'){
-                            contractSelect=<Agreement.Admit.Detail 
+                            contractSelect=<Agreement.Admit.Detail
 						    params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                             onCancel={this.cancelAgreementDetail}
 						  />
 			           	 }
-                         
+
                          if(State.argumentType=='ENTER'){
-                            contractSelect=<Agreement.Join.Detail 
+                            contractSelect=<Agreement.Join.Detail
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 			           	 }
 
 			           	  if(State.argumentType=='ADDRENT'){
-                            contractSelect=<Agreement.Increase.Detail 
+                            contractSelect=<Agreement.Increase.Detail
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
@@ -532,7 +542,7 @@ class Merchants extends Component{
 
 
 			           	 if(State.argumentType=='LESSRENT'){
-                            contractSelect=<Agreement.Reduce.Detail 
+                            contractSelect=<Agreement.Reduce.Detail
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
@@ -540,17 +550,17 @@ class Merchants extends Component{
 
 
 			           	 if(State.argumentType=='QUITRENT'){
-                            contractSelect=<Agreement.Exit.Detail 
+                            contractSelect=<Agreement.Exit.Detail
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 			           	 }
 
                           if(State.argumentType=='RENEW'){
-                            contractSelect=<Agreement.Renew.Detail 
+                            contractSelect=<Agreement.Renew.Detail
 						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
                          onCancel={this.cancelAgreementDetail}
-						/>		
+						/>
 			           	 }
 
 			     return contractSelect
@@ -568,12 +578,12 @@ class Merchants extends Component{
 				</div>
           }else{
           	render=<div style={{display:'none'}}></div>
-          }	
+          }
         return render
     }
 
 
-	render(){     
+	render(){
 
       	let {contractList}=State;
       	var blockStyle={};
@@ -583,8 +593,8 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
-         
-         
+
+
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
         let rowStyle={};
         let rowLineStyle={};
@@ -601,7 +611,7 @@ class Merchants extends Component{
 	    	}
 	    }else{
 	    	rowStyle={
-	    		display:'none',	    		
+	    		display:'none',
 	    	}
 	    	rowLineStyle={
 	    		marginTop:8
@@ -614,7 +624,7 @@ class Merchants extends Component{
       <div id="m-agreement-list" className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	        <Row style={{marginBottom:18,marginTop:-4,zIndex:6,position:'relative'}}>
+	        <Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
@@ -628,18 +638,18 @@ class Merchants extends Component{
 			  	 <Col
 			  		style={{float:'right',width:"90%"}}
 			  	 >
-
-			  		<SearchForm  
-			  		  onStartChange={this.onStartChange} 
-			  		  onEndChange={this.onEndChange} 
+			  		<SearchForm
+			  		  onStartChange={this.onStartChange}
+			  		  onEndChange={this.onEndChange}
 			  		  todayDate={todayDate}
-                      onSearchSubmit={this.onSearchSubmit}
+              onSearchSubmit={this.onSearchSubmit}
+							contractChange={this.contractChange}
 			  		 />
-			 		
+
 			  	</Col>
-			          
+
 	        </Row>
-       
+
 
             <Table
 			    style={rowStyle}
@@ -668,8 +678,8 @@ class Merchants extends Component{
 					</TableRow>
 				</TableBody>
 			</Table>
-           
-            
+
+
             <Table
 			    style={rowLineStyle}
 	            displayCheckbox={true}
@@ -717,9 +727,9 @@ class Merchants extends Component{
 			        		if((!State.editRight || !item.editFlag) && item.contracttype == 'QUITRENT' && (!State.editRight || !item.editFlag)){
 								border='0px solid #dfdfdf';
 								otherBootom=false;
-								
+
 			        		}
-							
+
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 
 			        		return (
@@ -750,18 +760,18 @@ class Merchants extends Component{
 												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 												{State.editRight && item.editFlag && item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
-							
+
 											</div>
 										</div>
-					                    
+
 					                </TableRowColumn>
 					            </TableRow>
 					          	);
 			        	})}
-			              
+
 			        </TableBody>
-			  
-			       
+
+
            </Table>
 
            <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
@@ -776,7 +786,7 @@ class Merchants extends Component{
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
-						
+
 			       	 	<OneNewAgreement onCancel={this.closeOneAgreement}/>
 		           	</Drawer>
 
@@ -789,7 +799,7 @@ class Merchants extends Component{
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
-						
+
 			       	 	<TwoNewAgreement onCancel={this.closeTwoAgreement}/>
 		           	</Drawer>
 
@@ -802,8 +812,8 @@ class Merchants extends Component{
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
-						
-			      	
+
+
 			      	<EditAgreementList onCancel={this.closeEditAgreement}/>
 		           </Drawer>
 
@@ -815,7 +825,7 @@ class Merchants extends Component{
 							onClose={this.closeNewIndent}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-							
+
 					 >
 						{State.openNewIndent&&
 							<NewIndent
@@ -827,7 +837,7 @@ class Merchants extends Component{
 				                orderCount={State.orderCount}
 						/>}
 					</Drawer>
-				  
+
                    {/*查看*/}
 		            <Drawer
 				        open={State.openAgreementDetail}
@@ -837,8 +847,8 @@ class Merchants extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			        >
                         {this.contractRender()}
-			           
-		           </Drawer>	
+
+		           </Drawer>
 		           <Dialog
 					title="删除合同"
 					modal={true}

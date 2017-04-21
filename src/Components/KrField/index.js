@@ -21,6 +21,8 @@ import SearchSignCommunity from './SearchSignCommunity';
 import SearchBelongCityComponent from './SearchBelongCityComponent';
 import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
 import SearchSourceAddComponent from './SearchSourceAddComponent';
+import SearchSignBillTypeComponent from './SearchSignBillTypeComponent';
+import SearchSignCompanyName from './SearchSignCompanyName';
 
 import SearchBelongCommunity from './SearchBelongCommunity';
 import SearchCompanyName from "./SearchCompanyName";
@@ -48,6 +50,8 @@ import searchCommunityManage from './SearchCommunity';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
+
+import SearchOrderCommunity from './SearchOrderCommunity';
 
 
 class FieldRevert extends React.Component {
@@ -271,10 +275,34 @@ class FieldRevert extends React.Component {
 
 			if (component === 'searchSign') {
 				return (
-
 					<FieldRevert {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
-				);
+	 		 );
+	 	 }
+
+       if (component === 'searchSignBill') {
+			return (
+
+				<Field {...this.props} component={SearchSignBillTypeComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+         if (component === 'searchSignCompany') {
+			return (
+
+				<Field {...this.props} component={SearchSignCompanyName}  style={WrapStyles} {...other}/>
+			);
+		}
+
+			if (component === 'searchOrder') {
+			 return (
+
+				 <Field {...this.props} component={SearchOrderCommunity}  style={WrapStyles} {...other}/>
+			 );
 			}
+
+
+
+
 
 
 
