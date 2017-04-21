@@ -15,6 +15,12 @@ import {
 
 import Basic from 'kr/Containers/Basic';
 
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
+
 const Permission_PersonalCenter = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/PersonalCenter').default)
@@ -24,7 +30,7 @@ const Permission_PersonalCenter = (location, callback) => {
 module.exports =()=>{
 
 	return (
-		<Route path="permission" component={Basic}>
+		<Route path="permission" getComponent={Basic}>
 			{/*
 	<Route path="index" component={Permission.Home}/>
 	<Route path="notify" component={Permission.Notify}/>
