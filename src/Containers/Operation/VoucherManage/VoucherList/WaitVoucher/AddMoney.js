@@ -309,10 +309,10 @@ class AddMoney extends React.Component {
 			conJasonStr: JSON.stringify(childrenList) || '',
 			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount,
-      id:id
+      		id:id
 		}
       Http.request('add-receipt',{},params).then(function(response) {
-        onSubmit && onSubmit();
+		onSubmit && onSubmit();
       })
 
 

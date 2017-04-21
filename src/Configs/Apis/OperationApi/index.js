@@ -333,5 +333,10 @@ module.exports = {
          url: '/api/krspace-finance-web/finance/paymentEvidence/findReceiptData?id={id}',
          method: 'get'
       },
+        //凭证管理--凭证列表--带处理凭证--添加回款保存
+      'add-receipt':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
+         method: 'post'
+      },
 
 }
