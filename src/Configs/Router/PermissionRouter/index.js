@@ -13,7 +13,6 @@ import {
 	Store
 } from 'kr/Redux';
 
-import Basic from 'kr/Containers/Basic';
 
 const Basic = (location, callback) => {
   require.ensure([], require => {
