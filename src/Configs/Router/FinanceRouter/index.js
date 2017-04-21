@@ -8,7 +8,11 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import Basic from 'kr/Containers/Basic';
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
 
 const Finance_Manage_OrderBill_ReceiptList = (location, callback) => {
   require.ensure([], require => {
@@ -69,32 +73,32 @@ const Finance_Manage_Audit = (location, callback) => {
 
 module.exports =()=>{
 	return (
-		<Route path="finance" component={Basic}>
+		<Route path="finance" getComponent={Basic}>
             <IndexRedirect to="manage/audit/auditlist"/>
-            <Route path="manage" component={Basic}>
-                <Route path="orderbill" component={Basic}>
+            <Route path="manage" getComponent={Basic}>
+                <Route path="orderbill" getComponent={Basic}>
                     <Route path="receiptList" getComponent={Finance_Manage_OrderBill_ReceiptList}/> {/*订单账单*/}
                     <Route path="orderList" getComponent={Finance_Manage_OrderBill_OrderList}/> {/*订单账单明细*/}
                     <Route path=":orderId/detail" getComponent={Finance_Manage_OrderBill_OrderBillDetail}/>
                 </Route>
 
-                <Route path="fundSetting" component={Basic}>
+                <Route path="fundSetting" getComponent={Basic}>
                     <Route path="totalFund" getComponent={Finance_Manage_FundSetting_TotalFund}/>
                     <Route path=":fundId/detailFund" getComponent={Finance_Manage_FundSetting_DetailFund}/>
                 </Route>
 
                 {/*开票列表*/}
-                <Route path="invoice" component={Basic}>
+                <Route path="invoice" getComponent={Basic}>
                     <Route path="list" getComponent={Finance_Manage_Invoice}/>
                 </Route>
 
                 {/*代码配置*/}
-                <Route path="codeSetting" component={Basic}>
+                <Route path="codeSetting" getComponent={Basic}>
                     <Route path="attribute" getComponent={Finance_Manage_CodeSetting_Attribute}/>
                     <Route path="subject" getComponent={Finance_Manage_CodeSetting_Subject}/>
                 </Route>
                 {/*审核列表*/}
-                <Route path="audit" component={Basic}>
+                <Route path="audit" getComponent={Basic}>
                     <Route path="auditlist" getComponent={Finance_Manage_Audit}/>
                 </Route>
             </Route>
