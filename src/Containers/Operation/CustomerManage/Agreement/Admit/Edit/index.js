@@ -48,6 +48,10 @@ export default class JoinCreate extends React.Component {
 			delStationVos:[],
 			initialValues: {},
 			optionValues: {},
+			stationVo: [],
+			delStationVo:[],
+			initialValue: {},
+			optionValue: {},
 			formValues: {},
 			openConfirmCreate: false,
 			openLocalStorages:false,
@@ -91,15 +95,13 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
-		for (var i = 0; i < localStorage.length; i++) {
-			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
-				_this.setState({
+			 if(localStorage.getItem(keyWord+'num')>3){
+			 	_this.setState({
 					openLocalStorages:true
 				})
 				sign = true;
 
 			 }
-		 }
 		 if(!sign){
 		 	this.getBasicData()
 		 }
@@ -144,11 +146,13 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getlocalSign();
-	}
-	getBasicData=()=>{
+		console.log('=componentDidMount=');
+	// 	this.getBasicData();
+	// 	this.getLocalStorageSata();
+	// }
+	// //获取基础数据
+	// getBasicData=()=>{
 		var _this = this;
-		console.log('getBasicData');
 		const {
 			params
 		} = this.props
@@ -156,15 +160,18 @@ export default class JoinCreate extends React.Component {
 		let optionValues = {};
 		let stationVos = [];
 		let delStationVos = [];
-
 		Store.dispatch(Actions.callAPI('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			type :1,
 		})).then(function(response) {
+
+			let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
+
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
+			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 			initialValues.setLocalStorageDate = +new Date();
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -198,12 +205,14 @@ export default class JoinCreate extends React.Component {
 				id: params.id
 			})).then(function(response) {
 
+
 				initialValues.id = response.id;
 				initialValues.leaseId = response.leaseId;
 				initialValues.contractcode =response.contractcode;
 				initialValues.lessorContactid = response.lessorContactid;
 				initialValues.templockday = response.templockday;
 				optionValues.contractFileList =  response.contractFileList;
+				initialValues.contractFileList =  response.contractFileList;
 				// initialValues.lessorContactid = response.lessorContactid;
 				initialValues.leaseAddress = response.leaseAddress;
 				initialValues.lessorContactName =  response.lessorContactName;
@@ -265,9 +274,11 @@ export default class JoinCreate extends React.Component {
 			}]);
 		});
 
+		this.getlocalSign();
+
 	}
 
-
+	//获取缓存数据
 	getLocalStorageSata=()=>{
 		var _this = this;
 		const {
@@ -289,11 +300,6 @@ export default class JoinCreate extends React.Component {
 
 
 			initialValues.setLocalStorageDate = +new Date();
-
-
-			// initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
-
-			// optionValues.contractCode = response.contractCode;
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -376,10 +382,10 @@ export default class JoinCreate extends React.Component {
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
 				_this.setState({
-					initialValues,
-					optionValues,
-					stationVos,
-					delStationVos
+					initialValue:initialValues,
+					optionValue:optionValues,
+					stationVo:stationVos,
+					delStationVo:delStationVos
 				});
 
 			}).catch(function(err) {
@@ -398,20 +404,15 @@ export default class JoinCreate extends React.Component {
 		});
 	}
 	onCancelStorage=()=>{
-		let {initialValues} = this.state;
 		this.setState({
 			openLocalStorages:false,
 
 		})	
-		this.getBasicData();
-	}
+	} 
 	getLocalStorage=()=>{
 		this.setState({
 			openLocalStorages:false,
 		})
-		
-		this.getLocalStorageSata();
-		console.log('getLocalStorage')
 	}
 
 
@@ -425,6 +426,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages
 		} = this.state;
 		let {params} = this.props;
+		console.log('getBasicData',optionValues);
 
 
 		return (

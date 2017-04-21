@@ -705,7 +705,9 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:830,marginLeft:70}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
-					Store.dispatch(change('admitEditForm','contractFileList',files));
+					if(files.length){
+						Store.dispatch(change('admitEditForm','contractFileList',files));
+					}
 				}} />
 
 
@@ -747,9 +749,10 @@ class NewCreateForm extends React.Component {
 const selector = formValueSelector('admitEditForm');
 
 const validate = values => {
-	console.log('----->--->',values);
 
 	const errors = {}
+
+	++values.num;
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';

@@ -105,6 +105,7 @@ class NewCreateForm extends React.Component {
 
 		this.state = {
 			stationVos: this.props.stationVos || [],
+			stationVoList: this.props.stationVoList || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -113,6 +114,8 @@ class NewCreateForm extends React.Component {
 			openLocalStorage:this.props.openLocalStorage,
 			initialValues:this.props.initialValues,
 			optionValues:this.props.optionValues,
+			useLocal:false,
+
 		}
 	}
 	componentDidMount() {
@@ -128,19 +131,14 @@ class NewCreateForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		console.log('componentWillReceiveProps',nextProps.initialValues);
-		if (!this.isInit && nextProps.stationVos.length) {
-			let stationVos = nextProps.stationVos;
+		if (!this.isInit && nextProps.stationVoList.length ) {
+			let stationVoList = nextProps.stationVoList;
 			this.setState({
-				stationVos
-			}, function() {
-				this.calcStationNum();
+				stationVoList
 			});
 			this.isInit = true;
 		}
-		this.setState({
-			initialValues:nextProps.initialValues,
-			optionValues:nextProps.optionValues,
-		})
+
 		if(this.props.openLocalStorage != nextProps.openLocalStorage){
 			this.setState({
 			openLocalStorage:nextProps.openLocalStorage
@@ -556,64 +554,24 @@ class NewCreateForm extends React.Component {
 	}
 
 
-	getLocalStorageSata=()=>{
-		var _this = this;
-		const {
-			params
-		} = this.props;
-		let {initialValues} = this.state;
-		let {optionValues} = this.state;
-			//获取localStorage数据
-			let keyWord = params.orderId+ params.customerId+'INTENTIONcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVos);
-
-			Store.dispatch(initialize('admitCreateForm', initialValues));
-
-			_this.setState({
-				initialValues,
-				optionValues,
-				stationVos
-			});
-	}
+	
 	onCancelStorage=()=>{
 		this.setState({
 			openLocalStorage:false,
 
 		})
-		console.log('onCancelStorage')	
 	}
 	getLocalStorage=()=>{
+		let {initialValue,initialValues} = this.props;
+		let {stationVoList} = this.state;
+		console.log(stationVoList)
 		this.setState({
 			openLocalStorage:false,
+			useLocal:true,
+			stationVos:stationVoList
 		})
-		this.getLocalStorageSata();
-		console.log('getLocalStorage')
+		// this.calcStationNum();
+			Store.dispatch(initialize('admitCreateForm', initialValue));
 	}
 
 
@@ -626,15 +584,18 @@ class NewCreateForm extends React.Component {
 			reset,
 			submitting,
 			changeValues,
+			optionValue,
+			initialValues,
+			optionValues,
 		} = this.props;
 
 		let {
-			initialValues,
-			optionValues,
 			billList,
 			stationVos,
 			HeightAuto,
-			allRent
+			allRent,
+			openLocalStorage,
+			useLocal
 		} = this.state;
 		let {
 			fnaCorporationList
@@ -645,8 +606,7 @@ class NewCreateForm extends React.Component {
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
-		console.log('=========>>>>>',optionValues,this.state.openLocalStorage);
-
+		console.log('stationVos',stationVos);
 		
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
@@ -728,7 +688,8 @@ class NewCreateForm extends React.Component {
 								 <KrField style={{width:370,marginLeft:70}} name="leaseId" component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField style={{width:370,marginLeft:90}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
-								 <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>
+								 {useLocal && <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>}
+								 {!useLocal && <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />}
 
 								 <KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -773,9 +734,21 @@ class NewCreateForm extends React.Component {
 							<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 </CircleStyle>
-							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
-								Store.dispatch(change('admitCreateForm','contractFileList',files));
-							}} />
+							
+							{useLocal && <KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
+								console.log('true',optionValues.contractFileList)
+								if(files.length){
+									Store.dispatch(change('admitCreateForm','contractFileList',files));
+
+								}
+							}} />}
+							{!useLocal && <KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+								console.log('false',optionValues.contractFileList)
+								if(files.length){
+									Store.dispatch(change('admitCreateForm','contractFileList',files));
+
+								}
+							}} />}
 
 
 
@@ -839,6 +812,8 @@ const validate = values => {
 
 	const errors = {}
 
+	++values.num;
+
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
@@ -860,10 +835,6 @@ const validate = values => {
 
 	if (!values.leaseContacttel) {
 		errors.leaseContacttel = '请填写承租方电话';
-	}
-
-	if (!values.leaseAddress) {
-		errors.leaseAddress = '请填写承租方地址';
 	}
 
 	if (values.leaseAddress && !isNaN(values.leaseAddress)) {
