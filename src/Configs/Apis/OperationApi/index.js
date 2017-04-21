@@ -324,7 +324,56 @@ module.exports = {
       url: '/api/krspace-finance-web/cmt/business/action/edit?districtId={districtId}&enable={enable}&name={name}&no={no}&sort={sort}&id={id}',
       method: 'post'
    },
-
+    //运营平台－代码分类列表
+    'codeCategoryList': {
+        url: '/api/krspace-finance-web/cmt/codeCategory/action/list?noOrName={noOrName}&pid={pid}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营平台－代码分类新增或编辑
+    'codeCategoryEdit': {
+        url: '/api/krspace-finance-web/cmt/codeCategory/action/edit',
+        method: 'post'
+    },
+    //运营平台－社区列表-城市
+    'type-city-community': {
+        url: '/api/krspace-finance-web/cmt/community/list/type/city?name={name}&type={type}',
+        method: 'get'
+    },
+    //运营平台－工位列表
+    'station-list': {
+        url: '/api/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}&belongSpace={belongSpace}',
+        method: 'get'
+    },
+    //运营平台－工位新增或编辑
+    'station-edit': {
+        url: '/api/krspace-finance-web/cmt/station/actions/edit',
+        method: 'post'
+    },
+    //运营平台－校验工位编码
+    'station-check-code': {
+        url: '/api/krspace-finance-web/cmt/station/check/code?code={code}&id={id}&communityId={communityId}',
+        method: 'get'
+    },
+    //运营平台－工位删除接口
+    'station-delete': {
+        url: '/api/krspace-finance-web/cmt/station/actions/delete?id={id}',
+        method: 'delete'
+    },
+    //运营平台－获取工位编辑信息
+    'station-get-edit': {
+        url: '/api/krspace-finance-web/cmt/station/info/type/edit?id={id}',
+        method: 'get'
+    },
+    //运营平台－工位列表数据准备
+    'station-param-data': {
+        url: '/api/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
+        method: 'get'
+    },
+    //运营平台-会议室列表-列表接口
+    'meeting-room-list': {
+        url: '/api/krspace-finance-web/cmt/space/list?capacityBegin={capacityBegin}&capacityEnd={capacityEnd}&communityId={communityId}&deviceIds={deviceIds}&enable={enable}&page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}',
+        method: 'get'
+    }
 
 
 }

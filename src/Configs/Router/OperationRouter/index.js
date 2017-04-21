@@ -26,10 +26,20 @@ module.exports =()=>{
 
 			{/*社区配置*/}
 			<Route path="communityAllocation" component={Basic}>
+			    {/*社区列表*/}
 				<Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
 				{/*设备列表*/}
                 <Route path="equipmentList" component={Operation.CommunityAllocation.EquipmentList}/>
-       
+         {/*工位列表选择社区*/}
+				<Route path="communityStation" component={Operation.CommunityAllocation.CommunityStation}/>
+				{/*工位列表*/}
+			 <Route path=":communityId/communityStationDetail" component={Operation.CommunityAllocation.CommunityStationDetail}/>
+			 {/*会议室列表选择社区*/}
+			<Route path="communityMeetingRoom" component={Operation.CommunityAllocation.CommunityMeetingRoom}/>
+			{/*会议室列表*/}
+		 <Route path=":communityId/communityMeetingRoomDetail" component={Operation.CommunityAllocation.CommunityMeetingRoomDetail}/>
+				{/*代码分类*/}
+				<Route path="codeClassification" component={Operation.CommunityAllocation.CodeClassification}/>
 			</Route>
 			{/*基础配置*/}
 			<Route path="basicConfig" component={Basic}>

@@ -75,11 +75,9 @@ export default class SelectComponent extends React.Component {
 			input,
 			onChange
 		} = this.props;
-
 		var value = (item && item.value) || '';
-
 		input.onChange(value);
-		
+
 
 		onChange && onChange(item);
 }
@@ -128,7 +126,7 @@ render() {
 
 		}
 		if (options) {
-		
+
 
 			return (
 

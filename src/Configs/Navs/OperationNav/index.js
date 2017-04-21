@@ -48,7 +48,7 @@ module.exports = [
 					{
 						primaryText: '会议室列表',
 						menuCode: 'communityBoardroomList',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
+						router: '/operation/communityAllocation/CommunityMeetingRoom'
 					},
 					{
 						primaryText: '设备列表',
@@ -58,7 +58,7 @@ module.exports = [
 					{
 						primaryText: '工位列表',
 						menuCode: 'communityStationList',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
+						router: '/operation/communityAllocation/communityStation'
 					},
 					{
 						primaryText: '平面图配置',
@@ -95,7 +95,7 @@ module.exports = [
 					{
 						primaryText: '代码分类',
 						menuCode: 'codeCategoryList',
-						originUrl: '/krspace_operate_web/codecategory/toCodeCategoryList?mid=85'
+						originUrl: '/operation/communityAllocation/codeClassification'
 					},
 
 					{

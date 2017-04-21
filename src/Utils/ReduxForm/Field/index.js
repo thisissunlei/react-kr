@@ -67,7 +67,7 @@ export default class Field extends React.Component{
     var value = '';
 
 
-	if(typeof event === 'object' && event.target){
+    if(typeof event === 'object' && event.target){
 
         var target = event.target;
         value = target.value;
@@ -75,11 +75,6 @@ export default class Field extends React.Component{
         value = event;
 
     }
-
-
-    Debug.log('value',value,event)
-
-
     onChange && onChange(name,value);
 
   }
