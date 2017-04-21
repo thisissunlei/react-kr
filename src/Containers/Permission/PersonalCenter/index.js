@@ -12,10 +12,9 @@ import {
 	Section,
 } from 'kr-ui';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
+import { Actions, Store } from 'kr/Redux';
 import UpdatePasswordForm from './UpdatePasswordForm';
 
 export default class PersonalCenter extends React.Component{
@@ -68,8 +67,8 @@ export default class PersonalCenter extends React.Component{
 		_this.setState({
 			isLegal:false
 		})
-		Store.dispatch(Actions.callAPI('PersonalCenterData', {
-		})).then(function(response) {
+		Http.request('PersonalCenterData', {
+		}).then(function(response) {
 			if (response.pwdStrength<3) {
 				_this.setState({
 					pwdStrengthClass:'low',
@@ -203,8 +202,8 @@ export default class PersonalCenter extends React.Component{
 			togetMobiletest:false,
 		},function(){
 			var _this = this;
-			Store.dispatch(Actions.callAPI('PersonalCenterGetMobileVerificationCode', {
-			})).then(function(response) {
+			Http.request('PersonalCenterGetMobileVerificationCode', {
+			}).then(function(response) {
 				_this.togetMobiletest()
 			}).catch(function(err) {
 				//_this.togetMobiletest()
@@ -259,8 +258,8 @@ export default class PersonalCenter extends React.Component{
 			togetMailtest:false,
 		},function(){
 			var _this = this;
-			Store.dispatch(Actions.callAPI('PersonalCenterGetMailVerificationCode', {
-			})).then(function(response) {
+			Http.request('PersonalCenterGetMailVerificationCode', {
+			}).then(function(response) {
 				_this.togetMailtest()
 			}).catch(function(err) {
 				if(err.code<0){
@@ -326,9 +325,9 @@ export default class PersonalCenter extends React.Component{
 	//手机身份验证点击确定
 	submitVerifyIDbyMobile =()=>{
 			var _this = this;
-				Store.dispatch(Actions.callAPI('PersonalCenterVerifyIdByMobile', {
+				Http.request('PersonalCenterVerifyIdByMobile', {
 					verifyCode:_this.refs.MobileCode.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.setState({
 						isLegal:true,
 						//timeminMobile:"",//
@@ -361,9 +360,9 @@ export default class PersonalCenter extends React.Component{
 	//邮箱身份验证点击确定
 	submitVerifyIDbyMail =()=>{
 			var _this = this;
-				Store.dispatch(Actions.callAPI('PersonalCenterVerifyIdByMail', {
+				Http.request('PersonalCenterVerifyIdByMail', {
 					verifyCode:_this.refs.MailCode.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.setState({
 						isLegal:true,
 						//timeminMobile:"",//
@@ -405,9 +404,9 @@ export default class PersonalCenter extends React.Component{
 				regettestNewMobileState:false,
 				togetNewMobiletest:false,
 			},function(){
-				Store.dispatch(Actions.callAPI('PersonalCenterGetNewMobileVerificationCode', {
+				Http.request('PersonalCenterGetNewMobileVerificationCode', {
 					mobile:_this.refs.newMobile.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.reviseMobileGetVerify()
 				}).catch(function(err) {
 					//本地测试	_this.reviseMobileGetVerify()
@@ -467,10 +466,10 @@ export default class PersonalCenter extends React.Component{
 	//验证修改手机号api
 	submitReviseMobile =()=>{
 		var _this = this;
-			Store.dispatch(Actions.callAPI('PersonalCenterVerifyReviseMobileVerificationCode', {},{
+			Http.request('PersonalCenterVerifyReviseMobileVerificationCode', {},{
 				mobile:_this.refs.newMobile.value,
 				verifyCode:_this.refs.reviseMobileCode.value,
-			})).then(function(response) {
+			}).then(function(response) {
 				Message.success("修改成功")
 				_this.setState({
 					openMobileRevise:false,
@@ -488,11 +487,11 @@ export default class PersonalCenter extends React.Component{
 	//修改密码点击确定后的函数ing
 	submitPwd =(values)=>{
 			var _this = this;
-			Store.dispatch(Actions.callAPI('PersonalCenterVerifyRevisePwd', {},{
+			Http.request('PersonalCenterVerifyRevisePwd', {},{
 				newPwd:values.new,
 				newPwds:values.newagain,
 				oldPwd:values.old,
-			})).then(function(response) {
+			}).then(function(response) {
 				Message.success("修改成功")
 				window.setTimeout(function(){
 					window.location.href="/login/login"

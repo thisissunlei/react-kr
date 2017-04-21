@@ -8,7 +8,11 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import Basic from 'kr/Containers/Basic';
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
 
 const Operation_CommunityManage_Detail = (location, callback) => {
   require.ensure([], require => {
@@ -30,17 +34,17 @@ module.exports =()=>{
 
 
 	return (
-    <Route path="community" component={Basic}>
+    <Route path="community" getComponent={Basic}>
          <IndexRedirect to="communityManage/detail" />
 
         {/*销控表*/}
-        <Route path="communityManage" component={Basic}>
+        <Route path="communityManage" getComponent={Basic}>
                 <Route path="detail" getComponent={Operation_CommunityManage_Detail}/>
                 <Route path="visitorsToRecord" getComponent={Operation_CommunityManage_VisitorsToRecord}/>
         </Route>
 
         {/*公司成员*/}
-        <Route path="companyMembers" component={Basic}>
+        <Route path="companyMembers" getComponent={Basic}>
                 <Route path=":companyId/list/:communityId" getComponent={Operation_CommunityManage_CompanyMembers}/>
         </Route>
 

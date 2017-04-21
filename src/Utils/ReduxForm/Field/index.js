@@ -23,6 +23,15 @@ export default class Field extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+
+
+    const {name,value,type} = this.props;
+
+    this.name = name;
+    this._value = value;
+    this.type = type;
+
+
 	}
 
   componentDidMount(){
@@ -37,26 +46,6 @@ export default class Field extends React.Component{
 		  this.context.registerField(nextProps.name);
 	  }
   }
-
-		/*
-	shouldComponentUpdate(nextProps,nextState,nextContext){
-
-		const {name} = this.props;
-		const {getFieldError,getFieldValue} = this.context;
-
-		if(nextContext.getFieldError(name) !== getFieldError(name)){
-			return true;
-		}
-
-		if(nextContext.getFieldValue(name) !== getFieldValue(name)){
-			return true;
-		}
-
-		return false;
-
-	}
-
-		*/
 
 
   onChange = (event)=>{
@@ -75,8 +64,8 @@ export default class Field extends React.Component{
         value = event;
 
     }
-    onChange && onChange(name,value);
 
+    onChange && onChange(name,value);
   }
 
   onFocus = (event)=>{
@@ -92,24 +81,62 @@ export default class Field extends React.Component{
   }
 
 
-  getFieldValue = ()=>{
-    const {name} = this.props;
-    var value = '';
+  getField = ()=>{
+    const {getField} = this.context;
+    const fieldName = this.name;
+    return getField(fieldName);
+  }
 
-    return value;
+  getFieldType = ()=>{
+      return this.type;
+  }
+
+  getFieldValue = ()=>{
+
+    const {getFieldValue} = this.context;
+    var fieldName = this.name;
+    var fieldValue = getFieldValue(fieldName);
+    var fieldType = this.getFieldType();
+
+    if(fieldType === 'radio'){
+      fieldValue = this._value;
+    }
+    return fieldValue;
+  }
+
+  getFieldChecked = ()=>{
+
+    const {getFieldValue} = this.context;
+    var fieldName = this.name;
+    var fieldValue = getFieldValue(fieldName);
+    var _value = this._value;
+
+    if(fieldValue === _value){
+      return true;
+    }
+
+    return false;
+  }
+
+  getFieldError = ()=>{
+      const {getFieldError} = this.context;
+      const fieldName = this.name;
+      return getFieldError(fieldName);
+  }
+
+  getName = ()=>{
+    return this.name;
   }
 
   renderComponent = (component)=>{
 
-    const {name} = this.props;
-    const {getField,getFieldValue,getFieldError} = this.context;
-
     const input = {
-      name,
-      value:getFieldValue(name),
+      name:this.getName(),
+      value:this.getFieldValue(),
       onFocus:this.onFocus,
       onChange:this.onChange,
       onBlur:this.onBlur,
+      checked:this.getFieldChecked(),
     };
 
     let field = Object.assign({
@@ -120,18 +147,15 @@ export default class Field extends React.Component{
 		valid:false,
 		dirty:false,
 		autofilled:false,
-    },getField(name));
+  },this.getField());
 
- 	 const meta = Object.assign({},field,{ error:getFieldError(name)});
-
-    const props = Object.assign({},{ ref:name, input, meta },{...this.props});
-
-    return React.createElement(component,{ ...props});
+ 	 const meta = Object.assign({},field,{ error:this.getFieldError()});
+  const componentProps = Object.assign({},{input, meta },{...this.props});
+  return React.createElement(component,{ ...componentProps});
 
   }
 
 	render(){
-
     	const {name,component} = this.props;
 	  	return this.renderComponent(component);
 

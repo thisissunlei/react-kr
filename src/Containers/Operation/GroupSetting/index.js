@@ -29,7 +29,7 @@ import NewCreateForm from './CreateForm';
 import NewEditDetail from './EditForm';
 import SearchUpperForm from './SearchUpperFrom'
 import './index.less';
-
+import {Http} from "kr/Utils"
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
