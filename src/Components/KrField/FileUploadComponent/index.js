@@ -67,15 +67,21 @@ export default class FileUploadComponent extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		
+
+		/*
 		if(!nextProps.input.value){
 			this.setState({
 				files:[]
 			})
 		}
+		*/
+	
 		this.setInitValue(nextProps.defaultValue);
 	}
 
 	setInitValue(defaultValue) {
+
+
 		let {
 			files,
 			isInit

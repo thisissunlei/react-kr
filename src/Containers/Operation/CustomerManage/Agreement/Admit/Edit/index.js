@@ -147,11 +147,12 @@ export default class JoinCreate extends React.Component {
 
 	componentDidMount() {
 		console.log('=componentDidMount=');
+		this.getlocalSign();
 	// 	this.getBasicData();
 	// 	this.getLocalStorageSata();
-	// }
-	// //获取基础数据
-	// getBasicData=()=>{
+	}
+	//获取基础数据
+	getBasicData=()=>{
 		var _this = this;
 		const {
 			params
@@ -274,8 +275,6 @@ export default class JoinCreate extends React.Component {
 			}]);
 		});
 
-		this.getlocalSign();
-
 	}
 
 	//获取缓存数据
@@ -382,10 +381,10 @@ export default class JoinCreate extends React.Component {
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
 				_this.setState({
-					initialValue:initialValues,
-					optionValue:optionValues,
-					stationVo:stationVos,
-					delStationVo:delStationVos
+					initialValues,
+					optionValues,
+					stationVos,
+					delStationVos
 				});
 
 			}).catch(function(err) {
@@ -407,11 +406,15 @@ export default class JoinCreate extends React.Component {
 		this.setState({
 			openLocalStorages:false,
 
+		},function(){
+			this.getBasicData()
 		})	
 	} 
 	getLocalStorage=()=>{
 		this.setState({
 			openLocalStorages:false,
+		},function(){
+			this.getLocalStorageSata();
 		})
 	}
 

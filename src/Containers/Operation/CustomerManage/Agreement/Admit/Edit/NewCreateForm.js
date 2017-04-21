@@ -292,6 +292,12 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
+		console.log('componentDidMount')
+
+		let {
+			initialValues,optionValues,params
+		} = this.props;
+		Store.dispatch(initialize('admitEditForm', initialValues));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -300,8 +306,6 @@ class NewCreateForm extends React.Component {
 			this.setState({
 				stationVos,
 				delStationVos:nextProps.delStationVos
-			}, function() {
-				this.calcStationNum();
 			});
 			this.isInit = true;
 		}
@@ -309,11 +313,11 @@ class NewCreateForm extends React.Component {
 			initialValues:nextProps.initialValues,
 			optionValues:nextProps.optionValues,
 		})
-		if(this.props.openLocalStorage != nextProps.openLocalStorage){
-			this.setState({
-			openLocalStorage:nextProps.openLocalStorage
-		})
-		}
+		// if(this.props.openLocalStorage != nextProps.openLocalStorage){
+		// 	this.setState({
+		// 	openLocalStorage:nextProps.openLocalStorage
+		// })
+		// }
 	}
 	openPreStationUnitPriceDialog=()=> {
 		let {
@@ -705,6 +709,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:830,marginLeft:70}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					console.log(optionValues.contractFileList);
 					if(files.length){
 						Store.dispatch(change('admitEditForm','contractFileList',files));
 					}
