@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -44,7 +44,7 @@ import Personal from './Personal';
 //签约客户
 import SignedClient from './SignedClient';
 @observer
-class CustomerList extends Component {
+class CustomerList extends React.Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,
@@ -95,7 +95,7 @@ class CustomerList extends Component {
 	searchPerson=()=>{
 		var _this=this;
        Store.dispatch(Actions.callAPI('search-conditions')).then(function(response) {
-		     State.searchParams=response;	
+		     State.searchParams=response;
 			 }).catch(function(err){
 				 Message.error(err.message);
 			});
@@ -104,7 +104,7 @@ class CustomerList extends Component {
 	searchSign=()=>{
 		var _this=this;
        Store.dispatch(Actions.callAPI('sign-search-conditions')).then(function(response) {
-		      State.searchSignParams=response;	
+		      State.searchSignParams=response;
 			 }).catch(function(err){
 				 Message.error(err.message);
 			});
@@ -116,7 +116,7 @@ class CustomerList extends Component {
 		});
 	}
 
-	merchants = () => {     
+	merchants = () => {
 		let {
 			tab,
 			initSearch
@@ -161,7 +161,7 @@ class CustomerList extends Component {
 			initSearch
 		} = this.state;
 
-		
+
 		const activeTab = {
 			color: '#2b8dcd',
 			borderBottom: "1px solid #eee",
@@ -172,12 +172,12 @@ class CustomerList extends Component {
 			borderBottom: "1px solid #eee",
             fontSize:'16px'
 		}
-		
+
 
 		let merchantsStyle = (tab == 'merchants'||tab=='table') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
 		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
-		
+
 		const inkBarStyle = {
 			background: '＃499df1',
 			position: 'absolute',
@@ -188,19 +188,19 @@ class CustomerList extends Component {
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 			<Title value="客户列表"/>
-		 	
+
 			<Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
-						
-							<Merchants 
-								dataReady={State.dataReady} 
+
+							<Merchants
+								dataReady={State.dataReady}
 								searchParams={State.searchParams}
 								initSearch={initSearch}
 							/>
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
-						
-							<Personal 
+
+							<Personal
 								dataReady={State.dataReady}
 								searchParams={State.searchParams}
 								orderReady={State.orderReady}
@@ -208,7 +208,7 @@ class CustomerList extends Component {
 							/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-							<SignedClient 
+							<SignedClient
 									dataReady={State.dataReady}
 									searchSignParams={State.searchSignParams}
 									orderReady={State.orderReady}

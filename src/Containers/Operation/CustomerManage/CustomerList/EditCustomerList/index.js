@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -15,7 +15,7 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
-import dateFormat from "dateformat";
+import {DateFormat} from "dateformat";
 import './index.less'
 import merchants from "../Merchants/State";
 import personal from '../Personal/State';
@@ -26,8 +26,9 @@ import {
 } from 'mobx-react';
 
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
- class EditCustomerList extends Component{
+ class EditCustomerList extends React.Component{
 
 
 
@@ -71,7 +72,6 @@ import {
 
 
 	onSubmit = (values) => {
-		console.log("rrrrrrrrrr");
 		let {operType}=this.props;
 		let _this=this;
 		if(!values.company){
@@ -93,7 +93,7 @@ import {
 		         }
 			}
          	if(operType=="PERSON"){
-         		personal.searchParams={
+         	_this.props.NewIndentModel.searchParams={
 		         	page:1,
 					pageSize:15,
 					time:+new Date()
@@ -109,7 +109,7 @@ import {
          	_this.props.CommunityDetailModel.lookListId(_this.props.listId,operType);
          	// flushData.lookListId(_this.props.listId,operType);
 		    merchants.openDialog=false;
-		    personal.openPersonDialog=false;
+		    _this.props.NewIndentModel.openPersonDialog=false;
 		    signedClient.openPersonDialog=false;
          	_this.onCancel();
 		}).catch(function(err) {
@@ -136,6 +136,7 @@ import {
 		onCancel && onCancel();
 	}
 	cityValue=(value)=>{
+	  console.log(value,">>>>>")
       Store.dispatch(change('EditCustomerList','distinctId',value));
     }
 	hasOfficeClick = (params) =>{
@@ -263,7 +264,7 @@ const validate = values =>{
 
 		const errors = {};
 		let phone1=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
-		
+
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 		if(!values.sourceId){
@@ -277,7 +278,7 @@ const validate = values =>{
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
 		}
-		
+
 		if(!values.recommendName){
 			errors.recommendName='请填写介绍人姓名'
 		}
@@ -303,7 +304,7 @@ const validate = values =>{
 			errors.name = "请填写联系人姓名"
 		}
 
-		
+
 
 		if(!email.test(values.customerMail)){
 			errors.customerMail = '联系人邮箱格式错误';

@@ -5,9 +5,6 @@ export default class RadioComponent  extends React.Component{
 	constructor(props){
 		super(props)
 
-		this.state = {
-			value:this.props.value
-		}
 	}
 
 	onClick = (event)=>{
@@ -30,6 +27,7 @@ export default class RadioComponent  extends React.Component{
 				disabled,
 				onClick:this.onClick,
 		}
+
 
 		return (
 			<span style={Styles}>

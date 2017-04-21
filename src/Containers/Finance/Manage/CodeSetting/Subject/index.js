@@ -1,16 +1,5 @@
-import React, {
-	Component
-} from 'react';
-import {
-	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
+import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-
 import {
 	Actions,
 	Store
@@ -32,7 +21,6 @@ import {
 	Dialog,
 	Notify,
 	BreadCrumbs,
-	ListGroup,
 	Title,
 } from 'kr-ui';
 
@@ -43,7 +31,7 @@ import ItemDetail from './ItemDetail';
 import EditDetailForm from './EditDetailForm';
 
 
-export default class AttributeSetting extends Component {
+export default class AttributeSetting extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);

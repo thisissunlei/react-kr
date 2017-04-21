@@ -1,4 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+
+import React, {  PropTypes} from 'react';
+import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store,connect} from 'kr/Redux';
@@ -15,7 +17,7 @@ import {
 
 import './index.less';
 
-class Switchover extends Component{
+class Switchover extends React.Component{
 	constructor(props) {
 		super(props);
     this.state={
@@ -239,7 +241,7 @@ class ZhuanHuan extends React.Component{
   * 模板条组件
   * @return {[type]} [description]
   */
-  class KrMould extends Component{
+  class KrMould extends React.Component{
     render(){
       var upShow,downShow,className="ui-KrMould";
 
@@ -300,7 +302,7 @@ class ZhuanHuan extends React.Component{
 
 
 
- class NewCreateForm extends Component{
+ class NewCreateForm extends React.Component{
 
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,

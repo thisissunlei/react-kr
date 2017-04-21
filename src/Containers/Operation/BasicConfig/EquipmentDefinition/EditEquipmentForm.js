@@ -1,7 +1,6 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
+import React from 'react';
+import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {ShallowEqual} from 'kr/Utils';
 import {
@@ -11,10 +10,8 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Button,
-	Notify,
-	err
 } from 'kr-ui';
-class EditEquipmentForm extends Component{
+class EditEquipmentForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.detail = this.props.detail;
@@ -69,7 +66,6 @@ class EditEquipmentForm extends Component{
 		});
 		Store.dispatch(Actions.callAPI('getFloorByComunity',{communityId:detail.communityId}))
 	    	.then(function(response){
-	    		// console.log("getFloorByComunity response",response);
 	    		var arrNew = []
 	    		for (var i=0;i<response.whereFloors.length;i++){
 	    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
@@ -86,7 +82,7 @@ class EditEquipmentForm extends Component{
 		_this.setState({
 			id : detail.id,
 		})
-		
+
 		if(detail.propertyId && detail.propertyId!==1  ){
 			_this.setState({
 				locationOpen : !_this.state.locationOpen
@@ -180,7 +176,7 @@ class EditEquipmentForm extends Component{
 	    		_this.setState({
 	    			locationOptions : locationArr
 	    		})
-			});	
+			});
   		}else{
   			_this.setState({
   				locationOpen : false,
@@ -203,7 +199,7 @@ class EditEquipmentForm extends Component{
 		this.setState({
 			functionId : functionId.value
 		})
-		
+
     	Store.dispatch(change('EditEquipmentForm','functionId',functionId.value));
 	}
 	// 选择对应位置
@@ -261,7 +257,7 @@ class EditEquipmentForm extends Component{
 	 			doorNumHas:true,
 	 			doorNumHasStatus : true,
 	 		})
-		});	
+		});
 	}
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
@@ -283,14 +279,14 @@ class EditEquipmentForm extends Component{
 	 		_this.setState({
 	 			hardwareidHasStatus : false,
 	 			defaultChecked : true
-	 		})	
+	 		})
 		}).catch(function(err){
 	 		let {hardwareIdHas} = _this.props;
 	 		hardwareIdHas && hardwareIdHas();
 	 		_this.setState({
 	 			hardwareidHasStatus: true,
 	 			defaultChecked : true
-	 		})	
+	 		})
 		});
 	}
 	// 是否上线
@@ -342,30 +338,26 @@ class EditEquipmentForm extends Component{
 		}
 		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',deviceCodeParams)).
 		then(function(response){
-			console.log("门编号不存在")
 			Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdParams)).
 			then(function(response){
 
-				console.log("硬件ID不存在")
 				const  {onSubmit} = _this.props;
 				onSubmit && onSubmit(EditParams);
- 
+
 			}).catch(function(err){
-				console.log("硬件ID存在")
 		 		let {hardwareIdHas} = _this.props;
 		 		 hardwareIdHas &&  hardwareIdHas();
 			});
 		}).catch(function(err){
-			console.log("门编号存在")
 	 		let {isDoorNumHas} = _this.props;
 	 		isDoorNumHas && isDoorNumHas();
-		});	
-		
+		});
+
 	}
 	// 关闭编辑窗口
 	closeEditEquipment =()=>{
 		const {closeEditEquipment} = this.props;
-		closeEditEquipment && closeEditEquipment(); 
+		closeEditEquipment && closeEditEquipment();
 	}
 	render(){
 		let {floorsOptions,propertyOption,propertyId,locationOptions,defaultChecked} =this.state;
@@ -389,83 +381,83 @@ class EditEquipmentForm extends Component{
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField name="communityId" 
-						component="searchCommunity" 
+					<KrField name="communityId"
+						component="searchCommunity"
 						onChange = {this.onChangeSearchCommunity}
-						label="社区名称"  
-						requireLabel={true} 
+						label="社区名称"
+						requireLabel={true}
 						style={{width:252,margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="floor" 
-						component="select" 
-						label="楼层" 
+					<KrField name="floor"
+						component="select"
+						label="楼层"
 						options = {floorsOptions}
-						requireLabel={true}  
+						requireLabel={true}
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
 					<KrField grid={1/2} name="showTitle"
 						component = "input"
-						ref = "showTitleInput" 
-						type="text" 
-						label="展示标题" 
-						requireLabel={true} 
+						ref = "showTitleInput"
+						type="text"
+						label="展示标题"
+						requireLabel={true}
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.onChangeTitle}
 					/>
-					<KrField grid={1/2} name="deviceCode" 
+					<KrField grid={1/2} name="deviceCode"
 						component = "input"
-						type="text" 
-						label="门编号" 
-						requireLabel={true} 
+						type="text"
+						label="门编号"
+						requireLabel={true}
 						style={{width:'252px'}}
 						onBlur = {this.doorNumHasFun}
 					/>
 					<KrField grid={1/2} name="hardwareId"
-						component = "input" 
-						type="text" 
-						label="智能硬件ID" 
-						requireLabel={true}  
+						component = "input"
+						type="text"
+						label="智能硬件ID"
+						requireLabel={true}
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.hardwareIdHasFun}
 					/>
-					<KrField name="typeId" 
-						component="select" 
-						label="类型" 
+					<KrField name="typeId"
+						component="select"
+						label="类型"
 						onChange = {this.onchooseType}
-						options={typeOptions} 
-						requireLabel={true}  
+						options={typeOptions}
+						requireLabel={true}
 						style={{width:'252px'}}
 					/>
-					<KrField name="propertyId" 
-						component="select" 
+					<KrField name="propertyId"
+						component="select"
 						label="属性"
 						onChange = {this.onchooseProperty}
-						options={propertyOption}  
-						requireLabel={true} 
+						options={propertyOption}
+						requireLabel={true}
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="functionId" 
-						component="select" 
+					<KrField name="functionId"
+						component="select"
 						options={correspondingFunction}
 						label="对应功能"
-						onChange = {this.onchooseCorrespondingFunction}  
-						requireLabel={true} 
+						onChange = {this.onchooseCorrespondingFunction}
+						requireLabel={true}
 						style={{width:'252px'}}
 						ref= "loacationKrfield"
 					/>
-					<KrField name="locationId" 
-						component="select" 
+					<KrField name="locationId"
+						component="select"
 						options={locationOptions}
 						label="对应位置"
-						onChange = {this.onchooseCorrespondingLocation}  
+						onChange = {this.onchooseCorrespondingLocation}
 						style={{width:'252px',display:this.state.locationOpen?'block':'none'}}
 					/>
 					<div style={{marginLeft:6}}>
-						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/> 
+						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/>
 						<span style={{fontSize:14,color:"#333333"}} >保存后自动上线</span>
 					</div>
-					
+
 					<Grid style={{marginTop:19,marginBottom:'4px'}}>
 						<Row style={{textAlign:'center'}}>
 							<ListGroup >
@@ -475,7 +467,7 @@ class EditEquipmentForm extends Component{
 								<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
 									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeEditEquipment} />
 								</ListGroupItem>
-							</ListGroup>					
+							</ListGroup>
 						</Row>
 					</Grid>
 				</form>

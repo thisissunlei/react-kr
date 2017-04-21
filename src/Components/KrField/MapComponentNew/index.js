@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import WrapComponent from '../WrapComponent';
-
+import {ShallowEqual} from 'kr/Utils';
 import './index.less';
 export default class MapComponentNew extends Component {
 	static propTypes = {
@@ -42,46 +42,27 @@ export default class MapComponentNew extends Component {
 
 		//回填具体地址
 		if(this.props.defaultValue){
-			Debug.log("this.props.defaultValue",this.props.defaultValue);
 			this.refs.mapInput.defaultValue = nextProps.defaultValue;
 		}
 		//经纬度
+
 		var {defaultPoint} = nextProps;
 		if(Array.isArray(defaultPoint)){
-			this.setState({
-				pointLng : defaultPoint[0],
-				pointLat : defaultPoint[1],
-			})
-		}
-	}
-
-	onClickOther = (event)=>{
-
-	  	event = event || window.event;
-		var target = event.target;
-		
-		while (target) {
-			if (target && target.className && target.className.indexOf('ui-map-component') !== -1) {
-				return;
+			if(!ShallowEqual(this.state.initializeValues,nextProps.defaultPoint)){
+				this.state.initializeValues=nextProps.defaultPoint;
+				this.setState({
+					pointLng : defaultPoint[0],
+					pointLat : defaultPoint[1],
+				},function(){
+					_this.onChange();
+				})
 			}
-			target = target.parentNode;
+			
 		}
-        this.setState({
-          	showMap:false
-        });
-    }
-
-
- 
-    componentWillUnmount(){
-		
-
-		document.body.removeEventListener("click",this.onClickOther.bind(this)); 	
 	}
-
 
 	componentDidMount() {
-		
+
 
 		document.body.addEventListener("click",this.onClickOther.bind(this));
 
@@ -97,6 +78,8 @@ export default class MapComponentNew extends Component {
 			this.setState({
 				pointLng : defaultPoint[0],
 				pointLat : defaultPoint[1],
+			},function(){
+				_this.onChange();
 			})
 		}
 		// 百度地图API功能
@@ -119,6 +102,35 @@ export default class MapComponentNew extends Component {
 		 	});
 		});
 	}
+
+
+    componentWillUnmount(){
+		
+
+		document.body.removeEventListener("click",this.onClickOther.bind(this)); 	
+	}
+
+
+	onClickOther = (event)=>{
+
+	  	event = event || window.event;
+		var target = event.target;
+		
+		while (target) {
+			if (target && target.className && target.className.indexOf('ui-map-component') !== -1) {
+				return;
+			}
+			target = target.parentNode;
+		}
+        this.setState({
+          	showMap:false
+        });
+    }
+
+
+ 
+
+
 	// 输入文字
 	inputLocation=()=>{
 		this.showMap();
@@ -146,7 +158,7 @@ export default class MapComponentNew extends Component {
 		let _this =this;
 		_this.map.clearOverlays();
 		_this.setState({
-			searchText : searchValue
+			detailSearch : searchValue
 		},function(){
 			_this.onChange();
 		})
@@ -155,11 +167,11 @@ export default class MapComponentNew extends Component {
 				_this.map.clearOverlays();  
 
 	          	if (local.getStatus() == BMAP_STATUS_SUCCESS){ 
-
 	             	_this.setState({
 	             		pointLng : results.getPoi(0).point.lng,
 						pointLat : results.getPoi(0).point.lat
 	             	},function(){
+	             		_this.onChange();
 	             		var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);    
 						var marker = new BMap.Marker(point); // 创建标注
 						_this.map.centerAndZoom(point, 15);
@@ -205,6 +217,7 @@ export default class MapComponentNew extends Component {
 			}else{
 				_this.map.centerAndZoom(point, 11);
 			}
+
 			
 			// 添加标注
 			var marker = new BMap.Marker(point);        // 创建标注    
@@ -234,6 +247,7 @@ export default class MapComponentNew extends Component {
 		},function(){
 			// 百度地图API功能
 			_this.map = new BMap.Map(this.mapId,{enableMapClick: false}); 
+
 			// 初始化
 			var point = new BMap.Point(_this.state.pointLng, _this.state.pointLat);	
 			if(this.refs.mapInput.value){

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import Param from 'jquery-param';
 import { Fields } from 'redux-form';
@@ -56,7 +56,6 @@ class StationForm  extends Component{
 			}
 			return true;
 		});
-		console.log('---->>>>>aaaa>',billList);
 		this.setState({
 			billList
 		});

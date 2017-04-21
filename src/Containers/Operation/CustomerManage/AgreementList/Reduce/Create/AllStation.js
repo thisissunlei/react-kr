@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -8,7 +8,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,
@@ -42,7 +42,7 @@ import {
 	KrDate,
 } from 'kr-ui';
 
-class SelectStationForm extends Component {
+class SelectStationForm extends React.Component {
 
 	static PropTypes = {
 		searchParams: React.PropTypes.object,
@@ -89,7 +89,7 @@ class SelectStationForm extends Component {
 			return;
 		}
 
-		value = dateFormat(value, 'yyyy-mm-dd');
+		value = DateFormat(value, 'yyyy-mm-dd');
 
 		if (!selected.length) {
 			Notify.show([{
@@ -125,7 +125,6 @@ class SelectStationForm extends Component {
 			page: 1,
 			pagesize: 100
 		})).then(function(response) {
-			console.log('response', response)
 
 			_this.setState({
 				stationVos: response.items
@@ -190,8 +189,8 @@ class SelectStationForm extends Component {
 		//工位结束时间相同
 		var some = true;
 		selectedStationVos.sort(function(pre, next) {
-			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			var preDate = DateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
+			var nextDate = DateFormat(next.leaseEndDate, 'yyyy-mm-dd');
 			if (preDate != nextDate) {
 				some = false;
 			}
@@ -217,12 +216,12 @@ class SelectStationForm extends Component {
 			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.stationType;
 
-			obj.stationBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
-			obj.stationEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.stationBeginDate = DateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
+			obj.stationEndDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
 
-			obj.leaseBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
-			obj.leaseEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
-			obj.rentBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
+			obj.leaseBeginDate = DateFormat(item.rentBeginDate, 'yyyy-mm-dd');
+			obj.leaseEndDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.rentBeginDate = DateFormat(item.rentBeginDate, 'yyyy-mm-dd');
 
 
 
@@ -235,9 +234,9 @@ class SelectStationForm extends Component {
 		//选择的减租开始日期必须要在工位的起始日期和结束日期范围内
 		var isOK = 1;
 		selectedStationVos.map(function(item, index) {
-			var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
-			var stationEndDate = Date.parse(dateFormat(item.stationEndDate, 'yyyy-mm-dd') + ' 00:00:00');
-			var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var stationBeginDate = Date.parse(DateFormat(item.stationBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var stationEndDate = Date.parse(DateFormat(item.stationEndDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var rentBeginDate = Date.parse(DateFormat(item.rentBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
 
 			if (stationBeginDate >= rentBeginDate || rentBeginDate >= stationEndDate) {
 				isOK = 0;
@@ -311,7 +310,7 @@ class SelectStationForm extends Component {
 	          <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
 	          <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
 	          <TableRowColumn>
-					{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
+					{item.rentBeginDate&& DateFormat(item.rentBeginDate,'yyyy-mm-dd')}
 	          </TableRowColumn>
          </TableRow>
         );

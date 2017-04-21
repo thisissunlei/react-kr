@@ -4,7 +4,6 @@ import {PhotoSwipeGallery} from 'react-photoswipe';
 import {Http} from 'kr/Utils';
 import {
 	KrField,
-	KrDate,
 	CircleStyleTwo
 } from 'kr-ui';
 import './index.less';
@@ -38,7 +37,6 @@ export default class VoucherDetail extends React.Component {
 					}
 						this.fileList=fileList;
 				})
-				console.log(response);
 		})
 
 	}

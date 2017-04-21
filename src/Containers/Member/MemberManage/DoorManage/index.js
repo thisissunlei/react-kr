@@ -1,11 +1,6 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	Title,
-	DatePicker,
-	Form,
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -15,11 +10,6 @@ import {
 	TableFooter,
 	Button,
 	Section,
-
-	BraceWidth,
-	SelfAdaption,
-	LineText,
-	SplitLine,
 	SearchForms,
 	Dialog,
 	Message,
@@ -29,8 +19,6 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
-import {connect} from 'kr/Redux';
-import { reduxForm } from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
 import ImpowerEditMemberForm from './ImpowerEditMemberForm';
@@ -38,7 +26,7 @@ import ImpowerList from './ImpowerList';
 import SearchDetailForm from './SearchDetailForm';
 
 import './index.less';
-export default class List extends Component {
+export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 import {
@@ -29,7 +29,7 @@ import './index.less';
 import allState from "../../State";
 
 
-export default class JoinCreate extends Component {
+export default class JoinCreate extends React.Component {
 	 static childContextTypes = {
         params: React.PropTypes.object.isRequired
      }
@@ -37,7 +37,6 @@ export default class JoinCreate extends Component {
 
 
 		getChildContext() {
-			console.log(this.props.params,)
 	    return {
 	        params: this.props.params
 	      }

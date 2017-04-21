@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
@@ -14,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import nzh from 'nzh';
 
 import {
@@ -36,11 +35,7 @@ import UnitPriceForm from './UnitPriceForm';
 
 import {
 	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -48,7 +43,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -66,7 +60,7 @@ import {
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 
 	static contextTypes = {
@@ -134,7 +128,6 @@ class NewCreateForm extends Component {
 
 		var stationnum = 0;
 		var boardroomnum = 0;
-		console.log('calcStationNum',stationVos);
 
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
@@ -150,7 +143,7 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 
 		let {
 			stationVos
@@ -167,7 +160,7 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -188,7 +181,6 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 		stationVos[index].unitprice = value;
-		console.log('onStationVosChange',index,value);
 		this.setState({
 			stationVos
 		});
@@ -374,10 +366,10 @@ class NewCreateForm extends Component {
 
 		form.lessorAddress = changeValues.lessorAddress;
 		form.list = stationVos;
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
 		form.stationVos = stationVos;
@@ -438,8 +430,8 @@ class NewCreateForm extends Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
 
 		};
 
@@ -460,7 +452,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('data', billList);
 
 		if (!billList) {
 			return;
@@ -487,7 +478,6 @@ class NewCreateForm extends Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 		this.setState({
@@ -512,7 +502,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}
@@ -538,8 +527,8 @@ class NewCreateForm extends Component {
 	getSingleRent=(item)=>{
 		//年月日
 		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
 		let rentDay = 0;
 		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
 		let years = rentEnd[0];
@@ -547,7 +536,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -560,14 +548,12 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 	dealRentName=()=>{

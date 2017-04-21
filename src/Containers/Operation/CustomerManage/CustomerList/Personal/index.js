@@ -27,24 +27,23 @@ import {
 	Message,
 	Tooltip
 } from 'kr-ui';
-import DateFormat from "kr/Utils";
+import {DateFormat} from "kr/Utils";
 import editsourceCustomer from "../EditCustomerList/State";
 import {
-	LookCustomerList
+	LookCustomerList,
+	NewIndent
 } from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
-import NewIndent from "../NewIndent";
 import EditIndent from "../EditIndent";
 import NewVisitIndent from '../NewVisitIndent';
 import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
 import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
-import newIndentState from "../NewIndent/State";
 import './index.less';
 import treeData from "../../../../../Components/KrField/TreeComponent/State";
 import cityData from "../../../../../Components/KrField/CityComponent/State";
@@ -53,12 +52,13 @@ import {
 	inject
 } from 'mobx-react';
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
 class Personal extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={		
+		this.state={
 			//选中的数量
 			dialogNum:0,
 			//加载后的数据
@@ -74,7 +74,7 @@ class Personal extends Component{
           Store.dispatch(change('NewCustomerList',item,''));
 		})
 		State.switchNewCustomerList();
-		
+
 		treeData.listValue="请选择项目类型"
 		cityData.city="请选择";
 	}
@@ -110,10 +110,11 @@ class Personal extends Component{
 				State.hasOfficeChange(false);
 			}
 			State.editprojectName=response.projectCategoryName;
+			State.switchEditCustomerList();
 		}).catch(function(err) {
-			
+
 		});
-		State.switchEditCustomerList();
+		
 	}
 	//客户编辑页面开关
 	switchEditCustomerList=() => {
@@ -142,7 +143,8 @@ class Personal extends Component{
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 		State.isOpenIndent=true;
-		newIndentState.cityLable="";
+		this.props.NewIndentModel.cityLable="";
+		this.props.NewIndentModel.orderName="";
 
 	}
 	//新建订单页面的开关
@@ -158,7 +160,7 @@ class Personal extends Component{
 		editIndentState.orderName="";
 		editIndentState.cityLable="";
 		data.mainBillId=editIndentId;
-		
+
 		var _this=this;
 		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
 			for(var i=0;i<orderReady.communityCity.length;i++){
@@ -190,7 +192,7 @@ class Personal extends Component{
 	switchEditIndent=(data)=>{
 		State.switchEditIndent();
 	}
-	
+
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
@@ -218,13 +220,13 @@ class Personal extends Component{
         	arrItem.push(loadData[allId].id)
         }
       if(value.length>0){
-      	State.openPersonDialog=true;
+      	this.props.NewIndentModel.openPersonDialog=true;
         this.setState({
          dialogNum:value.length,
          arrItem
-        })	
+        })
       }else{
-        State.openPersonDialog=false;
+        this.props.NewIndentModel.openPersonDialog=false;
       }
     }
 
@@ -238,7 +240,8 @@ class Personal extends Component{
 
     //领取浮框的关闭
     merClose=()=>{
-       State.openPersonDialog=false; 	
+       this.props.NewIndentModel.openPersonDialog=false;
+
     }
 
 	//搜索
@@ -246,13 +249,13 @@ class Personal extends Component{
         let obj = {
 			company: params.content,
 		}
-		State.searchParams=obj
+		this.props.NewIndentModel.searchParams=obj
 	}
 
 	componentWillReceiveProps(nextProps){
-		State.openPersonDialog=false;
+		this.props.NewIndentModel.openPersonDialog=false;
 		if(nextProps.initSearch=='p'){
-			State.searchParams={
+			this.props.NewIndentModel.searchParams={
 			  time:+new Date(),
 			  company:'',
 			  page:1,
@@ -268,24 +271,24 @@ class Personal extends Component{
        }
        let switchData={};
        switchData.receiveId=params.receiveId;
-       switchData.ids=arrItem; 
+       switchData.ids=arrItem;
        switchData.operType='PERSON';
-       State.switchSureSubmit(switchData);
+       this.props.NewIndentModel.switchSureSubmit(switchData);
     }
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  State.searchParams.company='';
-      State.searchParams.createEndDate='';
-      State.searchParams.createStartDate='';
-      State.searchParams.intentionCityId='';
-      State.searchParams.intentionCommunityId='';
-      State.searchParams.levelId='';
-      State.searchParams.sourceId='';
+	    this.props.NewIndentModel.searchParams.company='';
+      this.props.NewIndentModel.searchParams.createEndDate='';
+      this.props.NewIndentModel.searchParams.createStartDate='';
+      this.props.NewIndentModel.searchParams.intentionCityId='';
+      this.props.NewIndentModel.searchParams.intentionCommunityId='';
+      this.props.NewIndentModel.searchParams.levelId='';
+      this.props.NewIndentModel.searchParams.sourceId='';
       State.searchUpperCustomer();
 	}
 	//高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
-     	searchParams = Object.assign({}, State.searchParams, searchParams);
+     	searchParams = Object.assign({}, this.props.NewIndentModel.searchParams, searchParams);
       	searchParams.time=+new Date();
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate!=''&&searchParams.createEndDate<searchParams.createStartDate){
 			 Message.error('开始时间不能大于结束时间');
@@ -297,12 +300,13 @@ class Personal extends Component{
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate==''){
 			searchParams.createEndDate=searchParams.createStartDate
 		}
-      	State.searchParams=searchParams;
+      	this.props.NewIndentModel.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
 	//导出
 	onExport=(value)=>{
-	    State.exportData(value);	
+	    this.props.NewIndentModel.exportData(value);
+
 	}
 
 	closeAllMerchants=()=>{
@@ -311,16 +315,16 @@ class Personal extends Component{
 
 	//转移客户
 	openSwitchDialog=()=>{
-		State.openSwitchGoDialog();
+		this.props.NewIndentModel.openSwitchGoDialog();
 	}
 	//取消客户跟进
 	openQuitDialog=()=>{
-        State.openQuitContinue();
+      this.props.NewIndentModel.openQuitContinue();
 	}
 	//取消跟进确定
 	quitContinueSubmit=()=>{
 		let {arrItem}=this.state;
-		State.quitSubmit(arrItem);
+		this.props.NewIndentModel.quitSubmit(arrItem);
 	}
 	//订单删除
      openDeleteDialog=()=>{
@@ -330,7 +334,7 @@ class Personal extends Component{
 		let {dataReady,searchParams,orderReady}=this.props;
 		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
        var blockStyle={};
-      if(State.openPersonDialog==true){
+      if(this.props.NewIndentModel.openPersonDialog==true){
         blockStyle={
         	display:'inline-block'
         }
@@ -379,7 +383,7 @@ class Personal extends Component{
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
-	            ajaxParams={State.searchParams}
+	            ajaxParams={this.props.NewIndentModel.searchParams}
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="items"
 					  >
@@ -546,7 +550,7 @@ class Personal extends Component{
 			                 isOpenIndent={State.orderName}
 						/>
 					</Drawer>
-					
+
 
 					{/*编辑订单*/}
 					<Drawer
@@ -601,7 +605,7 @@ class Personal extends Component{
 						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 
 					>
-						<SearchUpperForm  
+						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
 						    onSubmit={this.onSearchUpperSubmit}
 						    flag='个人'
@@ -614,10 +618,10 @@ class Personal extends Component{
 						title="转移客户"
 						modal={true}
 						onClose={this.openSwitchDialog}
-						open={State.openSwitch}
+						open={this.props.NewIndentModel.openSwitch}
 						contentStyle ={{ width: '444',height:'284',overflow:'visible'}}
 					>
-						<SwitchPerson 
+						<SwitchPerson
 						  onSubmit={this.switchPersonSubmit}
 						  onCancel={this.openSwitchDialog}
 						  customerIds={this.state.dialogNum}
@@ -629,11 +633,11 @@ class Personal extends Component{
 						title="取消客户跟进"
 						modal={true}
 						onClose={this.openQuitDialog}
-						open={State.openQuit}
+						open={this.props.NewIndentModel.openQuit}
 						contentStyle ={{ width: '445',height:'230'}}
 					>
-						<QuitContinue 
-						  onSubmit={this.quitContinueSubmit} 
+						<QuitContinue
+						  onSubmit={this.quitContinueSubmit}
 						  onCancel={this.openQuitDialog}
 						  />
 				    </Dialog>
@@ -646,7 +650,7 @@ class Personal extends Component{
 						open={State.openDelete}
 						contentStyle ={{ width: '445',height:'230'}}
 					>
-						<OrderDelete 
+						<OrderDelete
 						   onCancel={this.openDeleteDialog}
 						   orderId={deleteId}
 				           operType="PERSON"

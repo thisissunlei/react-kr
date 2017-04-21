@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -31,7 +31,7 @@ import NewIndent from "../NewIndent";
 import newIndentState from "../NewIndent/State";
 
 @observer
- class OneNewAgreement extends Component{
+ class OneNewAgreement extends React.Component{
 
 
 
@@ -46,7 +46,7 @@ import newIndentState from "../NewIndent/State";
 			orderList:[],
 		}
 	}
-	
+
 	componentDidMount(){
 	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
@@ -54,13 +54,13 @@ import newIndentState from "../NewIndent/State";
 	}
 	//下一步被点击
 	onSubmit = () => {
-			
+
 	    var _this = this;
-	    
+
 		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
 		//承租意向
 		allState.admit=response.intention;
-		//入驻合同是否可创建	
+		//入驻合同是否可创建
 
 		// allState.enter=true;
 		allState.enter=response.enter;
@@ -71,7 +71,7 @@ import newIndentState from "../NewIndent/State";
 		// allState.reduce=true;
 		//续租合同是否可创建
 		allState.relet=response.relet;
-		
+
 		//allState.relet=true;
 		//退组合同是否可创建
 		allState.returnRent=response.returnRent;
@@ -83,7 +83,7 @@ import newIndentState from "../NewIndent/State";
         	Message.error('没有合同可以创建');
         	return ;
         }
-        allState.openTowAgreement=true;	
+        allState.openTowAgreement=true;
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -112,7 +112,7 @@ import newIndentState from "../NewIndent/State";
 	orderNameInit = (value) => {
 		var _this=this;
 		let data={};
-		
+
 		data.customerId=value;
 
 		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
@@ -120,7 +120,7 @@ import newIndentState from "../NewIndent/State";
 			allState.orderCount=response.orderCount;
 		}).catch(function(err) {
 			 Message.error(err.message);
-		});		
+		});
 	}
 	//
     orderListChange = (data) =>{
@@ -130,7 +130,7 @@ import newIndentState from "../NewIndent/State";
 
     	}else{
           allState.mainBillId=data.value;
-          
+
     	}
     }
     //打开新建订单
@@ -146,7 +146,7 @@ import newIndentState from "../NewIndent/State";
 			newIndentState.orderName="";
 		}).catch(function(err) {
 			 Message.error(err.message);
-		});		
+		});
 	}
     //下一步被点击
     nextClick = () =>{
@@ -176,7 +176,7 @@ import newIndentState from "../NewIndent/State";
 							<Row>
 								<Col md={12} align="center" style={{marginLeft:"-27px"}}>
 										<div  className='ui-btn-center' style={{marginRight:20,display:"inline-block"}}><Button  label="下一步" type="submit"/></div>
-									
+
 										<div style={{marginLeft:15,display:"inline-block"}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /></div>
 
 								</Col>

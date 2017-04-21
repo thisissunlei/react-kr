@@ -1,5 +1,4 @@
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 
@@ -21,16 +20,10 @@ import {
 
 
 import {
-	Section,
-	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
 	Table,
@@ -41,7 +34,7 @@ import {
 	TableRowColumn,
 } from 'kr-ui';
 
-export default class ValidateMember extends Component {
+export default class ValidateMember extends React.Component {
 	static propTypes = {
 		initialValues:React.PropTypes.object,
 		communityOptions:React.PropTypes.array,
@@ -66,7 +59,6 @@ export default class ValidateMember extends Component {
 
 
 	render() {
-		// console.log('seleced',this.props.seleced);
 		let {seleced} = this.props;
 		// seleced.forEach((item,index)=>{
 		// 	if(item.checkStatus){

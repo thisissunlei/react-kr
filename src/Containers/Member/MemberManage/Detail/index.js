@@ -1,24 +1,21 @@
-import React,{Component} from 'react';
+import React from 'react';
 import{
   Tabs,
   Tab,
-  Section,
   DotTitle,
-  Paper,
   Notify
 }from 'kr-ui';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
 import PersonalData from './PersonalData';
 import PersonalJob from './PersonalJob';
 import PersonalCompanyInfo from './PersonalCompanyInfo';
 import PersonalBehavior from './PersonalBehavior';
 import OrganizationChart from './OrganizationChart';
 import UpdateLog from './UpdateLog';
-export default class memberListDetail extends Component{
+export default class memberListDetail extends React.Component{
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -55,7 +52,6 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id: params.memberId,
 		})).then(function(response) {
-      // console.log("response",response);
       _this.setState({
         workInfo:response.workInfo,
         companyInfo:response.companyInfo,

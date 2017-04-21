@@ -5,24 +5,22 @@
  */
 
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
 import {
 	BreadCrumbs,
 	Loading,
-	Notify,
 	Section,
 	SplitLine,
 	DotTitle,
 	PaperBack
 } from 'kr-ui';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	KrField,
-	LabelText,
 	KrDate,
 	Title,
 } from 'kr-ui';
@@ -53,7 +51,7 @@ import {
 	TableFooter
 } from 'kr-ui/Table';
 
-export default class ReduceDetail extends Component {
+export default class ReduceDetail extends React.Component {
 
 
 	constructor(props, context) {
@@ -69,7 +67,6 @@ export default class ReduceDetail extends Component {
 		}
 
 		var _this = this;
-		console.log(this.props.params);
 		Store.dispatch(Actions.callAPI('showFnaContractRentController', {
 			id: this.props.params.id,
 			communityId: this.props.params.orderId,
@@ -135,7 +132,6 @@ export default class ReduceDetail extends Component {
 				paddingBottom: 10
 			}
 
-			console.log('basic', basic)
 			return (
 				<div className="content" style={content}>
 				  	<PaperBack label="减租协议书详情页"/>

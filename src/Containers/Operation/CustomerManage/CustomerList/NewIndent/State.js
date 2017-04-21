@@ -30,9 +30,6 @@ let State = observable({
 		isInit:false,
 		orderName:"",
 		submitState:true,
-
-
-
 });
 // submit不可提交
 State. ChangeSubmitState = action(function() {
@@ -94,12 +91,11 @@ State.orderReady = action(function(params) {
 		orderFoundOb.value=params.sysDicPayments[i].id;
 		orderFoundOb.label=params.sysDicPayments[i].dicName;
 		this.orderFound.push(orderFoundOb);
-		
+
 	}
 	this.orderReady=params;
-	console.log(params,"??????")
 	this.isInit=true;
-	
+
 });
 
 
