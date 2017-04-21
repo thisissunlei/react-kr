@@ -1,7 +1,5 @@
 
-import React, {  PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
+import React, {PropTypes} from 'react';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store,connect} from 'kr/Redux';
 import {
