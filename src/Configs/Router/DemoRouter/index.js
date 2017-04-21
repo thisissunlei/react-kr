@@ -68,8 +68,8 @@ module.exports =()=>{
 				<Route path="machaoyue" getComponent={Demo_MaChaoYue}/>
 				<Route path="dongfanai" getComponent={Demo_DongFanAi}/>
 				<Route path="liuyihao" component={Basic}>
-						<Route path="new" getComponent={Demo_LiuYiHao_New}/>
-						<Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
+					<Route path="new" getComponent={Demo_LiuYiHao_New}/>
+					<Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
 				</Route>
 				<Route path="zhangchi" getComponent={Demo_ZhangChi}/>
 				<Route path="tanlinlin" getComponent={Demo_TanLinLin}/>
