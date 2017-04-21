@@ -8,8 +8,11 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-import Basic from 'kr/Containers/Basic';
-
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
 
 const Demo_ZhangQu = (location, callback) => {
   require.ensure([], require => {
@@ -63,13 +66,13 @@ const Demo_WuShuLin = (location, callback) => {
 
 module.exports =()=>{
 	return (
-		<Route path="demo" component={Basic}>
+		<Route path="demo" getComponent={Basic}>
 				<Route path="zhangqu" getComponent={Demo_ZhangQu}/>
 				<Route path="machaoyue" getComponent={Demo_MaChaoYue}/>
 				<Route path="dongfanai" getComponent={Demo_DongFanAi}/>
-				<Route path="liuyihao" component={Basic}>
-						<Route path="new" getComponent={Demo_LiuYiHao_New}/>
-						<Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
+				<Route path="liuyihao" getComponent={Basic}>
+					<Route path="new" getComponent={Demo_LiuYiHao_New}/>
+					<Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
 				</Route>
 				<Route path="zhangchi" getComponent={Demo_ZhangChi}/>
 				<Route path="tanlinlin" getComponent={Demo_TanLinLin}/>

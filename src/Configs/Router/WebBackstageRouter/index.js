@@ -8,8 +8,12 @@ import {
 	IndexRedirect
 } from 'react-router';
 
-// import WebBackstage from 'kr/Containers/WebBackstage';
-import Basic from 'kr/Containers/Basic';
+
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
 
 const WebBackstage_ActivityManage_List = (location, callback) => {
   require.ensure([], require => {
@@ -21,9 +25,9 @@ module.exports =()=>{
 
 
 	return (
-		<Route path="WebBackstage" component={Basic}>
+		<Route path="WebBackstage" getComponent={Basic}>
 			{/*活动列表*/}
-			<Route path="activity" component={Basic}>
+			<Route path="activity" getComponent={Basic}>
 				<Route path="list" getComponent={WebBackstage_ActivityManage_List}/>
 			</Route>
 		</Route>
