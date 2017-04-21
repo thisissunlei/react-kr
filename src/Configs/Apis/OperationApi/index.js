@@ -343,5 +343,11 @@ module.exports = {
         url: '/api/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
         method: 'get'
     },
+    //运营平台-会议室列表-列表接口
+    'meeting-room-list': {
+        url: '/api/krspace-finance-web/cmt/space/list?capacityBegin={capacityBegin}&capacityEnd={capacityEnd}&communityId={communityId}&deviceIds={deviceIds}&enable={enable}&page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}',
+        method: 'get'
+    }
+
 
 }

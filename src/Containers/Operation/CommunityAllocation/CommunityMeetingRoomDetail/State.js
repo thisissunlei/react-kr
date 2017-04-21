@@ -15,7 +15,14 @@ let State = observable({
 		searchParams:{
 			page:1,
 			pageSize:15,
-			communityId:''
+			communityId:'',
+			capacityBegin:'',
+			capacityEnd:'',
+			deviceIds:'',
+			enable:'',
+			searchKey:'',
+			searchType:'',
+
 		},
 		//工位
 		openStation:false,

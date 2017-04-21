@@ -221,15 +221,16 @@ SelectCommunity=()=>{
 	            exportSwitch={true}
 			        onExport={this.onExport}
 	            ajaxParams={State.searchParams}
-	            ajaxUrlName='station-list'
+	            ajaxUrlName='meeting-room-list'
 	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
-		              <TableHeaderColumn>工位编号</TableHeaderColumn>
+		              <TableHeaderColumn>空间类型</TableHeaderColumn>
+		              <TableHeaderColumn>空间编码</TableHeaderColumn>
+                  <TableHeaderColumn>空间名称</TableHeaderColumn>
+		              <TableHeaderColumn>可容纳人数</TableHeaderColumn>
+									<TableHeaderColumn>面积（㎡）</TableHeaderColumn>
 		              <TableHeaderColumn>所在楼层</TableHeaderColumn>
-                  <TableHeaderColumn>工位性质</TableHeaderColumn>
-		              <TableHeaderColumn>是否属于会议室</TableHeaderColumn>
-		              <TableHeaderColumn>会议室名称</TableHeaderColumn>
 		              <TableHeaderColumn>状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
@@ -237,10 +238,11 @@ SelectCommunity=()=>{
 			        <TableBody >
 			              <TableRow>
 			                <TableRowColumn name="code"></TableRowColumn>
-                      <TableRowColumn name="floor"></TableRowColumn>
-			                <TableRowColumn name="stationType" options={[{label:'开放',value:'OPEN'},{label:'半开放',value:'HALF_OPEN'},{label:'封闭',value:'CLOSED'}]}></TableRowColumn>
-                      <TableRowColumn name="belongSpace"  options={[{label:'属于',value:'true'},{label:'不属于',value:'false'}]}></TableRowColumn>
-			                <TableRowColumn name="spaceName"></TableRowColumn>
+											<TableRowColumn name="code"></TableRowColumn>
+                      <TableRowColumn name="name"></TableRowColumn>
+			                <TableRowColumn name="capacity"></TableRowColumn>
+                      <TableRowColumn name="area"></TableRowColumn>
+			                <TableRowColumn name="floor"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
