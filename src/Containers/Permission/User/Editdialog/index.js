@@ -152,6 +152,7 @@ class Editdialog extends Component {
 		if (child.length > 0) {
 			return childlist = child.map((items, indexs) => {
 				if (items.cModuleVo.length > 0) {
+					var abc = _this.renderChildren(items.cModuleVo,index+1)
 					return (
 						<div className="u-operation-list" style={{left:`${(index+1)*100}px`,top:`${((index)*20)}px`}} id={items.id} key={indexs}>
 								{items.name}→
