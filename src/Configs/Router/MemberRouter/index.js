@@ -13,7 +13,11 @@ import {
 	Store
 } from 'kr/Redux';
 
-import Basic from 'kr/Containers/Basic';
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
 
 const Member_MemberManage_List = (location, callback) => {
   require.ensure([], require => {
@@ -47,9 +51,9 @@ const Member_MemberManage_DoorManage = (location, callback) => {
 
 module.exports =()=>{
 	return (
-    <Route path="member" component={Basic}>
+    <Route path="member" getComponent={Basic}>
          <IndexRedirect to="memberManage/list" />
-        <Route path="memberManage" component={Basic}>
+        <Route path="memberManage" getComponent={Basic}>
             <Route path="list"  getComponent={Member_MemberManage_List}/>
             <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>
             <Route path="setting"  getComponent={Member_MemberManage_Setting}/>

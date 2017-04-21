@@ -13,7 +13,12 @@ Actions,
 Store
 } from 'kr/Redux';
 
-import Basic from 'kr/Containers/Basic';
+
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
 
 const Operation_Home = (location, callback) => {
 	require.ensure([], require => {
@@ -263,48 +268,48 @@ const Operation_JoinOrder_Customer_Detail= (location, callback) => {
 module.exports =()=>{
 	return (
 
-	<Route path="operation" component={Basic}>
+	<Route path="operation" getComponent={Basic}>
 		<Route path="index" getComponent={Operation_Home}/>
 		{/*分组模版管理*/}
 		<Route path="groupSetting" getComponent={Operation_GroupSetting}/>
 
 		{/*社区配置*/}
-		<Route path="communityAllocation" component={Basic}>
+		<Route path="communityAllocation" getComponent={Basic}>
 			<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
 			</Route>
 		{/*基础配置*/}
-		<Route path="basicConfig" component={Basic}>
+		<Route path="basicConfig" getComponent={Basic}>
 			<Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
 		</Route>
 
 		{/*凭证管理*/}
-		<Route path="voucherManage" component={Basic} >
+		<Route path="voucherManage" getComponent={Basic} >
 		{/*凭证列表*/}
 			<Route path="voucherList" getComponent={Operation_VoucherManage_VoucherList}/>
 		</Route>
 
 		{/*客户管理*/}
-		<Route path="customerManage" component={Basic}>
+		<Route path="customerManage" getComponent={Basic}>
 			<Route path="customerList" getComponent={Operation_CustomerManage_CustomerList} />
 			<Route path="agreementList" getComponent={Operation_CustomerManage_AgreementList} />
 			{/*客户公海*/}
 			<Route path="customerHighSea" getComponent={Operation_CustomerManage_CustomerHighSea}/>
 			<Route path="list" getComponent={Operation_CustomerManage_List} />
 
-		<Route path=":customerId/" component={Basic} >
+		<Route path=":customerId/" getComponent={Basic} >
 
 		{/*订单*/}
-		<Route path="order" component={Basic}>
+		<Route path="order" getComponent={Basic}>
 			<Route path="create" getComponent = {Operation_CustomerManage_Order_Create} name="customerManage_order_create"/>
 			<Route path=":orderId/detail" getComponent = {Operation_CustomerManage_Order_Detail} name="customerManage_order_detail"/>
 			<Route path=":orderId/Edit" getComponent = {Operation_CustomerManage_Order_Edit} name="customerManage_order_edit"/>
 
 
 		{/*合同信息*/}
-		<Route path=":orderId/agreement" component={Basic}>
+		<Route path=":orderId/agreement" getComponent={Basic}>
 
 			{/*入驻协议书*/}
-			<Route path="join" component={Basic}>
+			<Route path="join" getComponent={Basic}>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Join_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Join_Detail}/>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Join_Create}/>
@@ -312,7 +317,7 @@ module.exports =()=>{
 			</Route>
 
 			{/*承租意向书*/}
-			<Route path="admit" component={Basic}>
+			<Route path="admit" getComponent={Basic}>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Admit_Create}/>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Admit_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Admit_Detail}/>
@@ -320,7 +325,7 @@ module.exports =()=>{
 			</Route>
 
 			{/*增租协议书*/}
-			<Route path="increase" component={Basic}>
+			<Route path="increase" getComponent={Basic}>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Increase_Create}/>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Increase_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Increase_Detail}/>
@@ -328,7 +333,7 @@ module.exports =()=>{
 			</Route>
 
 			{/*续租协议书*/}
-			<Route path="renew" component={Basic}>
+			<Route path="renew" getComponent={Basic}>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Renew_Create}/>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Renew_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Renew_Detail}/>
@@ -336,7 +341,7 @@ module.exports =()=>{
 			</Route>
 
 			{/*减租协议书*/}
-			<Route path="reduce" component={Basic}>
+			<Route path="reduce" getComponent={Basic}>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Reduce_Create}/>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Reduce_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Reduce_Detail}/>
@@ -345,7 +350,7 @@ module.exports =()=>{
 			</Route>
 
 			{/*退租协议书*/}
-			<Route path="exit" component={Basic}>
+			<Route path="exit" getComponent={Basic}>
 				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Exit_Create}/>
 				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Exit_Edit}/>
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Exit_Detail}/>
@@ -357,15 +362,15 @@ module.exports =()=>{
 	</Route>
 
 		{/*合同配置*/}
-		<Route path="agreement" component={Basic} >
+		<Route path="agreement" getComponent={Basic} >
 
 		{/*出租方管理*/}
-			<Route path="lessorManage" component={Basic}>
+			<Route path="lessorManage" getComponent={Basic}>
 				<Route path="list" getComponent={Operation_CustomerManage_Agreement_LessorManage_List}/>
 			</Route>
 
 		{/*基础配置*/}
-			<Route path="setting" component={Basic}>
+			<Route path="setting" getComponent={Basic}>
 				<Route path="list" getComponent={Operation_CustomerManage_Agreement_Setting_List}/>
 			</Route>
 		</Route>
@@ -375,9 +380,9 @@ module.exports =()=>{
 	</Route>
 
 	{/*入驻订单*/}
-		<Route path="joinOrder" component={Basic}>
+		<Route path="joinOrder" getComponent={Basic}>
 			<Route path="list" getComponent={Operation_JoinOrder_List}/>
-			<Route path="customer" component={Basic}>
+			<Route path="customer" getComponent={Basic}>
 			<Route path="edit" getComponent = {Operation_JoinOrder_Customer_Edit}/>
 			<Route path="detail" getComponent = {Operation_JoinOrder_Customer_Detail}/>
 		</Route>
