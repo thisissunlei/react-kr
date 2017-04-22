@@ -843,6 +843,8 @@ const validate = values => {
 		errors.wherefloor = '请填写所属楼层';
 	}
 
+	++values.num;
+
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 			if(i === 'contractFileList'){

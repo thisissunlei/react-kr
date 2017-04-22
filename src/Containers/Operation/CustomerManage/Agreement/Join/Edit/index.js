@@ -48,7 +48,7 @@ export default class JoinCreate extends React.Component {
 			optionValues: {},
 			formValues: {},
 			openConfirmCreate: false,
-			openLocalStorages:false
+			openLocalStorages:false,
 		}
 
 		this.isConfirmSubmiting = false;
@@ -118,6 +118,24 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+'ENTERedit';
+			 if(localStorage.getItem(keyWord+'num')>3){
+			 	_this.setState({
+					openLocalStorages:true
+				})
+				sign = true;
+
+			 }
+		 if(!sign){
+		 	this.getBasicData()
+		 }
+	}
+	getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let sign = false;
+		let keyWord = params.orderId+ params.customerId+'ENTERedit';
 		for (var i = 0; i < localStorage.length; i++) {
 			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
 				_this.setState({
@@ -155,7 +173,9 @@ export default class JoinCreate extends React.Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
+			let keyWord = params.orderId+''+ params.customerId+'ENTERedit';
 			// optionValues.contractCode = response.contractCode;
+			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 			initialValues.setLocalStorageDate = +new Date();
 
 			optionValues.communityAddress = response.customer.communityAddress;

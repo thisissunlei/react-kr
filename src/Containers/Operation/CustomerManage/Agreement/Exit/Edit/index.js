@@ -94,15 +94,13 @@ export default class EditCreate extends React.Component {
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
-    for (var i = 0; i < localStorage.length; i++) {
-       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+       if(localStorage.getItem(keyWord+'num')>3){
         _this.setState({
           openLocalStorages:true
         })
         sign = true;
 
        }
-     }
      if(!sign){
       this.getBasicData()
      }
@@ -131,6 +129,9 @@ export default class EditCreate extends React.Component {
     })).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
+      //
+      let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
+      initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 
       initialValues.mainbillid = params.orderId;
       initialValues.customerId = params.customerId;
