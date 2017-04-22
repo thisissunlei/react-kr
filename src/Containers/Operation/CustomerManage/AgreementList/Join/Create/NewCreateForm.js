@@ -70,7 +70,7 @@ import {
 	Tooltip
 } from 'kr-ui';
 
-@ReactMixin.decorate(LinkedStateMixin)
+// @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends React.Component {
 
 	static contextTypes = {
@@ -129,6 +129,8 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			initialValues:this.props.initialValues,
+			optionValues:this.props.optionValues
 
 		}
 	}
@@ -356,9 +358,23 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('joinCreateForm', initialValues));
+		console.log('=join==componentDidMount====')
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('=join==componentWillReceiveProps====')
+		if(this.props.initialValues != nextProps.initialValues){
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
+
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
@@ -572,6 +588,9 @@ class NewCreateForm extends React.Component {
 	}
 
 	render() {
+
+
+		console.log('=====new=======')
 		var _this = this;
 		let {
 			error,
