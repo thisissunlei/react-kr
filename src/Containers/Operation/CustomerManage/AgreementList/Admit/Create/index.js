@@ -207,40 +207,11 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			//获取localStorage数据
-			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'INTENTIONcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVos);
-
 			_this.setState({
 				initialValues,
 				optionValues,
-				stationVos
+			},function(){
+				_this.getLocalStorageSata();
 			});
 
 		}).catch(function(err) {
