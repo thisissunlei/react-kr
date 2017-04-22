@@ -108,13 +108,11 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 		let keyWord = params.orderId+ params.customerId+'RENEWcreate';
-		for (var i = 0; i < localStorage.length; i++) {
-			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+			 if(localStorage.getItem(keyWord+'num')>2){
 				_this.setState({
 					openLocalStorages:true
 				})
 			 }
-		 }
 	}
 
 	openConfirmCreateDialog() {
@@ -147,6 +145,9 @@ export default class JoinCreate extends React.Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 			initialValues.setLocalStorageDate = +new Date();
+
+			let keyWord = params.orderId+ params.customerId+'RENEWcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.contractcode = response.contractCode;
 			

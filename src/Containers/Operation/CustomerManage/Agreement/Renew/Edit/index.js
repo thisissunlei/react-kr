@@ -108,7 +108,7 @@ export default class JoinCreate extends React.Component {
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+ params.customerId+'RENEWedit';
-       if(localStorage.getItem(keyWord_'num')>3){
+       if(localStorage.getItem(keyWord+'num')>3){
         _this.setState({
           openLocalStorages:true
         })

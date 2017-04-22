@@ -1003,6 +1003,9 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
+
+	++values.num;
+
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 			if(i === 'contractFileList'){

@@ -119,13 +119,11 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 		let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
-		for (var i = 0; i < localStorage.length; i++) {
-			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+			 if(localStorage.getItem(keyWord+'num')>2){
 				_this.setState({
 					openLocalStorages:true
 				})
 			 }
-		 }
 	}
 
 
@@ -154,6 +152,10 @@ export default class JoinCreate extends React.Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
+
+
+			let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
