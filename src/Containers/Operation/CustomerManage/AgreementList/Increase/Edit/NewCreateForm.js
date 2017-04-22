@@ -788,7 +788,9 @@ class NewCreateForm extends React.Component {
 						<div className="end-round"></div>
 					</div>
 				</div>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}  onChange={(files)=>{
+					Store.dispatch(change('joinCreateForm','contractFileList',files));
+				}} />
 					<Grid style={{paddingBottom:50,textAlign:"center"}}>
 						<Row >
 						<ListGroup>
@@ -896,6 +898,9 @@ const validate = values => {
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
 	}
+
+
+	++values.num;
 
 
 	for(var i in values){

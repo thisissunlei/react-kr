@@ -323,6 +323,8 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
+	++values.num;
+
 
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性

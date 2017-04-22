@@ -532,7 +532,9 @@ class NewCreateForm extends React.Component {
 				<div className="end-round"></div>
 		</div>
 	</div>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}  onChange={(files)=>{
+					Store.dispatch(change('renewEditForm','contractFileList',files));
+				}} />
 				<Grid style={{paddingBottom:50,textAlign:"center"}}>
 						<Row >
 						<ListGroup>
@@ -617,6 +619,8 @@ const validate = values => {
 	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
+
+	++values.num;
 
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性

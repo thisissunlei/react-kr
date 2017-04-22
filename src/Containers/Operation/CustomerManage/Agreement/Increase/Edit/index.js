@@ -184,7 +184,6 @@ export default class JoinCreate extends React.Component {
 			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
 				id: params.id
 			})).then(function(response) {
-				let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
 
 
 				optionValues.lessorContactName =  response.lessorContactName;

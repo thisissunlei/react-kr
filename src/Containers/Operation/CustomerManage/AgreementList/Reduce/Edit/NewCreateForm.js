@@ -582,7 +582,9 @@ class NewCreateForm extends React.Component {
 				<div className="end-round"></div>
 				</div>
 			</div>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}  onChange={(files)=>{
+					Store.dispatch(change('reduceCreateForm','contractFileList',files));
+				}} />
 
 
 
@@ -659,6 +661,8 @@ const validate = values => {
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';
 	}
+
+	++values.num;
 
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性

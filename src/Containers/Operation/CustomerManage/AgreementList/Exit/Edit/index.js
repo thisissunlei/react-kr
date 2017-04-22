@@ -17,10 +17,14 @@ import {DateFormat} from 'kr/Utils';
 import {
   Dialog,
   Section,
-  Grid,
   Notify,
   BreadCrumbs,
   Title,
+  Grid,
+  Row,
+  ListGroup,
+  ListGroupItem,
+  Button
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
@@ -89,6 +93,145 @@ export default class EditCreate extends React.Component {
   }
 
   componentDidMount() {
+      this.getlocalSign()
+  }
+
+  getBasicData=()=>{
+
+    var _this = this;
+    const {
+      params
+    } = this.props;
+    let initialValues = {};
+    let optionValues = {};
+    let stationVos = [];
+
+    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+      customerId: params.customerId,
+      mainBillId: params.orderId,
+      type : 1,
+    })).then(function(response) {
+
+      //initialValues.ContractStateType = 'EXECUTE';
+
+      initialValues.mainbillid = params.orderId;
+      initialValues.customerId = params.customerId;
+
+      initialValues.leaseBegindate = new Date;
+      initialValues.leaseEnddate = new Date;
+      initialValues.setLocalStorageDate = +new Date();
+
+       initialValues.contractcode = response.contractCode;
+       
+      optionValues.communityAddress = response.customer.communityAddress;
+      optionValues.leaseAddress = response.customer.customerAddress;
+      //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+      initialValues.contracttype = 'QUITRENT';
+
+      optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
+        item.value = item.id;
+        item.label = item.corporationName;
+        return item;
+      });
+      optionValues.paymentList = response.payment.map(function(item, index) {
+        item.value = item.id;
+        item.label = item.dicName;
+        return item;
+      });
+      optionValues.payTypeList = response.payType.map(function(item, index) {
+        item.value = item.id;
+        item.label = item.dicName;
+        return item;
+      });
+
+      optionValues.floorList = response.customer.floor;
+      optionValues.customerName = response.customer.customerName;
+      optionValues.leaseAddress = response.customer.customerAddress;
+      optionValues.communityName = response.customer.communityName;
+      optionValues.communityId = response.customer.communityid;
+      optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+
+      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+        id: params.id
+      })).then(function(response) {
+
+         //获取localStorage数据s
+        let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';
+        let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+        let customerId = localStorage.getItem(keyWord +'customerId');
+
+        initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+
+        optionValues.contractFileList = response.contractFileList;
+        optionValues.lessorContactName =  response.lessorContactName;
+
+        initialValues.id = response.id;
+        initialValues.contractstate = response.contractstate;
+        initialValues.leaseId =response.leaseId;
+        initialValues.contractcode = response.contractcode;
+        initialValues.leaseAddress = response.leaseAddress;
+        initialValues.lessorContactName =response.lessorContactName;
+        initialValues.leaseContact = response.leaseContact;
+        initialValues.lessorContacttel =response.lessorContacttel;
+        initialValues.leaseContacttel = response.leaseContacttel;
+        initialValues.contractVersionType = response.contractVersion;
+        if (response.payType) {
+          initialValues.paytype = response.payType.id;
+
+        }
+        if (response.payment) {
+          initialValues.paymodel =response.payment.id;
+
+        }
+        if(!response.hasOwnProperty('agreement')  || !!!response.agreement){
+          initialValues.agreement = '无';
+        }else{
+          initialValues.agreement = response.agreement;
+        }
+        initialValues.stationnum =response.stationnum;
+        initialValues.wherefloor = response.wherefloor;
+        initialValues.rentaluse =  response.rentaluse;
+        initialValues.contractmark = response.contractmark;
+        initialValues.totalrent =  response.totalrent;
+        initialValues.totaldeposit = response.totaldeposit;
+        initialValues.lessorContactid = response.lessorContactid;
+        initialValues.depositamount = response.depositamount || 0;
+        initialValues.totalreturn = response.totalreturn || 0;
+        //时间
+
+        initialValues.signdate =DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.leaseBegindate =DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.withdrawdate =DateFormat(response.withdrawdate , "yyyy-mm-dd hh:MM:ss");
+
+
+        //处理stationvos
+        stationVos = response.stationVos;
+
+
+        _this.setState({
+          initialValues,
+          optionValues,
+          stationVos
+        });
+
+      }).catch(function(err) {
+        Notify.show([{
+          message: '后台出错请联系管理员',
+          type: 'danger',
+        }]);
+      });
+
+
+    }).catch(function(err) {
+      Notify.show([{
+        message: '后台出错请联系管理员',
+        type: 'danger',
+      }]);
+    });
+
+  }
+  getLocalStorageSata=()=>{
 
     var _this = this;
     const {
@@ -222,6 +365,41 @@ export default class EditCreate extends React.Component {
 
   }
 
+  getlocalSign=()=>{
+    let {
+      params
+    } = this.props;
+    let _this = this;
+    let sign = false;
+    let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';
+       if(localStorage.getItem(keyWord+'num')>3){
+        _this.setState({
+          openLocalStorages:true
+        })
+        sign = true;
+
+       }
+     if(!sign){
+      this.getBasicData()
+     }
+  }
+
+  onCancelStorage=()=>{
+    this.setState({
+      openLocalStorages:false,
+
+    },function(){
+      this.getBasicData()
+    })  
+  } 
+  getLocalStorage=()=>{
+    this.setState({
+      openLocalStorages:false,
+    },function(){
+      this.getLocalStorageSata();
+    })
+  }
+
 
   render() {
 
@@ -238,6 +416,27 @@ export default class EditCreate extends React.Component {
      <div style={{marginTop:10}}>
           <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
       </div>
+      <Dialog
+        title="提示"
+        modal={true}
+        autoScrollBodyContent={true}
+        autoDetectWindowHeight={true}
+        onClose={this.openConfirmCreateDialog}
+        open={this.state.openLocalStorages} 
+        contentStyle={{width:'400px'}}>
+          <div>
+            <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
+            <Grid>
+            <Row>
+            <ListGroup>
+              <ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+              <ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+            </ListGroup>
+            </Row>
+            </Grid>
+          </div>
+
+        </Dialog>
     </div>
     );
   }

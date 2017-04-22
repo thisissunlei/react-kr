@@ -192,12 +192,6 @@ export default class JoinCreate extends React.Component {
 			Store.dispatch(Actions.callAPI('showFnaContractRentController', {
 				id: params.id
 			})).then(function(response) {
-				 //获取localStorage数据s
-                let keyWord = params.orderId+ params.customerId+'LESSRENTedit';
-                let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-                let customerId = localStorage.getItem(keyWord +'customerId');
-
-
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList =response.contractFileList;
 				optionValues.leaseEnddate = response.leaseEnddate;

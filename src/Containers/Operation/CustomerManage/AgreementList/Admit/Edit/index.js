@@ -165,7 +165,6 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('=componentDidMount=');
 		this.getlocalSign();
 	// 	this.getBasicData();
 	// 	this.getLocalStorageSata();
