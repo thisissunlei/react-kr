@@ -57,6 +57,11 @@ export default class increaseCreate extends React.Component {
 			stationVos:[],
 			openConfirmCreate: false,
 			setlocalStorage:this.props.active,
+			openLocalStorage:false,
+			initialValue:{},
+			optionValue:{},
+			local:[],
+			openLocalStorages:this.props.openLocalStorages
 		}
 			this.isConfirmSubmiting = false;
 		Store.dispatch(reset('increaseCreateForm'));
@@ -166,6 +171,9 @@ export default class increaseCreate extends React.Component {
 			initialValues.customerId = params.customerId;
 			initialValues.setLocalStorageDate = +new Date();
 
+			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ADDRENTcreate';
+			initialValue.num = localStorage.getItem(keyWord +'num') || 1;
+
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.signdate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
@@ -207,41 +215,14 @@ export default class increaseCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			//获取localStorage数据
-			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ADDRENTcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-				initialValues.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
-				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			stationVos = JSON.parse(initialValues.stationVos);
+			
 
 			_this.setState({
 				initialValues,
 				optionValues,
 				stationVos,
+			},function(){
+				_this.getLocalStorageSata();
 			});
 
 		}).catch(function(err) {
@@ -253,10 +234,15 @@ export default class increaseCreate extends React.Component {
 	}
 	componentWillReceiveProps(nextProps) {
 
-		console.log('componentWillReceiveProps')
-		if (nextProps.active && this.props.active) {
+		if (nextProps.active && this.props.active!= nextProps.active) {
 			this.setState({
 				setlocalStorage:nextProps.active
+			});
+
+		}
+		if (this.props.openLocalStorages!= nextProps.openLocalStorages) {
+			this.setState({
+				openLocalStorages:nextProps.openLocalStorages
 			});
 
 		}
@@ -271,7 +257,54 @@ export default class increaseCreate extends React.Component {
 	// 	// }
 	// 	return true;
 	// }
+	getLocalStorageSata=()=>{
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let {initialValues} = this.state;
+		let {optionValues} = this.state;
+		let initialValue ={};
+		let optionValue = {};
+			//获取localStorage数据
+			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ADDRENTcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			if(mainbillId && customerId){
+				initialValue.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValue.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValue.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValue.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValue.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValue.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+				initialValue.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
 
+				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValue.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
+				initialValue.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
+				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
+				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+
+			}
+			initialValue.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValue.stationVos);
+			optionValue = Object.assign({},optionValue,optionValues);
+			initialValue = Object.assign({},initialValue,initialValue);
+			_this.setState({
+				initialValue,
+				optionValue,
+				stationVos
+			});
+
+	}
 
 
 
@@ -281,8 +314,12 @@ export default class increaseCreate extends React.Component {
 		let {
 			initialValues,
 			optionValues,
+			initialValue,
+			optionValue,
 			stationVos,
-			setlocalStorage
+			setlocalStorage,
+			openLocalStorage,
+			openLocalStorages
 		} = this.state;
 		console.log('====increase=====>>>',initialValues);
 		initialValues.setlocalStorage = setlocalStorage;
@@ -292,9 +329,12 @@ export default class increaseCreate extends React.Component {
 			<div>
 				<Title value="创建增租协议书_财务管理"/>
 		 		<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
-				<div style={{marginTop:10}}>
+				{!openLocalStorages&&<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
-				</div>
+				</div>}
+				{openLocalStorages&&<div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+				</div>}
 
 				<Dialog
 					title="增租协议书"

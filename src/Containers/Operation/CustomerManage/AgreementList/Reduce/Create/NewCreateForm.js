@@ -554,6 +554,8 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
+	++values.num;
+
 
 	if(values.setlocalStorage === 'reduce' && values.mainbillid && values.customerId){
 		for(var i in values){

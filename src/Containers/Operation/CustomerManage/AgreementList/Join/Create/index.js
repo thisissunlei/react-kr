@@ -61,7 +61,10 @@ export default class JoinCreate extends React.Component {
 			stationVos:[],
 			openConfirmCreate: false,
 			setlocalStorage:this.props.active,
-			openLocalStorage:false
+			openLocalStorage:false,
+			initialValue:{},
+			optionValue:{},
+			openLocalStorages:this.props.openLocalStorages
 		}
 		Store.dispatch(reset('joinCreateForm'));
 
@@ -146,19 +149,6 @@ export default class JoinCreate extends React.Component {
  		})
 	}
 
-	getlocalSign=()=>{
-		let {
-			params
-		} = this.props;
-		let _this = this;
-		let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
-		console.log(localStorage.getItem(keyWord+'num'))
-			 if(localStorage.getItem(keyWord+'num')>2){
-				_this.setState({
-					openLocalStorage:true
-				})
-			 }
-	}
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -167,8 +157,8 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
-		this.getlocalSign();
+		console.log('join---did------',this.props.openLocalStorages);
+		
 
 		var _this = this;
 		const {
@@ -189,6 +179,9 @@ export default class JoinCreate extends React.Component {
 			initialValues.customerId = params.customerId;
 			initialValues.agreement = '无';
 			initialValues.setLocalStorageDate = +new Date();
+
+			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -226,43 +219,12 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-			// //获取localStorage数据
-			// let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ENTERcreate';
-			// let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			// let customerId = localStorage.getItem(keyWord +'customerId');
-			// if(mainbillId && customerId){
-			// 	initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-			// 	initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-			// 	initialValues.templockday = localStorage.getItem(keyWord+'templockday');
-			// 	initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-			// 	initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate') || '日期';
-			// 	initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-			// 	initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-			// 	initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-			// 	initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-			// 	initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-			// 	initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-
-			// 	initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-			// 	optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-			// 	initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-			// 	initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
-			// 	initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
-			// 	initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-			// 	initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-			// 	initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-			// 	initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-			// 	initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
-			// 	optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-
-			// }
-			// initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			// let stationVos = JSON.parse(initialValues.stationVos);
-
 			_this.setState({
 				initialValues,
 				optionValues,
 				// stationVos
+			},function(){
+				_this.getLocalStorageSata();
 			});
 
 		}).catch(function(err) {
@@ -274,8 +236,8 @@ export default class JoinCreate extends React.Component {
 		});
 	}
 
+
 	componentWillReceiveProps(nextProps) {
-		nextProps.active == 'enter' && this.getlocalSign();
 
 		if (nextProps.active && this.props.active!= nextProps.active) {
 			this.setState({
@@ -283,27 +245,12 @@ export default class JoinCreate extends React.Component {
 			});
 
 		}
-	}
+		if (this.props.openLocalStorages!= nextProps.openLocalStorages) {
+			this.setState({
+				openLocalStorages:nextProps.openLocalStorages
+			});
 
-	onCancelStorage=()=>{
-		Store.dispatch(reset('joinCreateForm'));
-		this.setState({
-			openLocalStorage:false,
-
-		})
-	}
-	getLocalStorage=()=>{
-		// let {initialValue,initialValues} = this.props;
-		// let {stationVoList} = this.state;
-		// console.log(stationVoList)
-		this.setState({
-			openLocalStorage:false,
-			// useLocal:true,
-			// stationVos:stationVoList
-		})
-		this.getLocalStorageSata()
-		// this.calcStationNum();
-			// Store.dispatch(initialize('admitCreateForm', initialValue));
+		}
 	}
 
 
@@ -314,49 +261,51 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let {initialValues} = this.state;
 		let {optionValues} = this.state;
+		let initialValue ={};
+		let optionValue = {};
 			//获取localStorage数据
 			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
 			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
 			let customerId = localStorage.getItem(keyWord +'customerId');
 			if(mainbillId && customerId){
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				optionValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+				initialValue.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValue.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
+				initialValue.templockday = localStorage.getItem(keyWord+'templockday');
+				initialValue.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValue.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValue.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValue.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				optionValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValue.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
-				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
-				initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
-				initialValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				initialValue.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
+				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
+				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
+				initialValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
 
-				// optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
 			}
-			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVoList = JSON.parse(initialValues.stationVoList) || [];
-			// optionValues = Object.assign(optionValue,optionValues)
-			// initialValues =  Object.assign(initialValue,initialValues)
+			optionValue = Object.assign({},optionValue,optionValues);
+			initialValue = Object.assign({},initialValue,initialValue);
 
-			// Store.dispatch(initialize('admitCreateForm', initialValues));
-			console.log('----local----',initialValues,optionValues)
+
+			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVoList) || [];
 			_this.setState({
-				initialValues,
-				optionValues,
-				stationVoList
+				initialValue,
+				optionValue,
+				stationVos
 			});
+
 	}
 
 
@@ -365,12 +314,16 @@ export default class JoinCreate extends React.Component {
 		let {
 			initialValues,
 			optionValues,
+			initialValue,
+			optionValue,
 			stationVos,
-			setlocalStorage
+			setlocalStorage,
+			openLocalStorage,
+			openLocalStorages
 		} = this.state;
 
 		initialValues.setlocalStorage = setlocalStorage;
-		console.log('=====join=======',initialValues,optionValues)
+		console.log('=======join========',initialValue,initialValues,this.props.openLocalStorages);
 
 
 		return (
@@ -379,9 +332,12 @@ export default class JoinCreate extends React.Component {
 
 				<Title value="创建入驻协议书_财务管理"/>
 
-			<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
-			</div>
+			{!openLocalStorages && <div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+			</div>}
+			{openLocalStorages && <div style={{marginTop:10}}>
+				<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+			</div>}
 
 			<Dialog
 				title="入驻协议书"
@@ -392,27 +348,7 @@ export default class JoinCreate extends React.Component {
 				onClose={this.openConfirmCreateDialog} >
 						<ConfirmFormDetail detail={Object.assign({},this.state.formValues)} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
-			<Dialog
-				title="提示"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorage} 
-				contentStyle={{width:'400px'}}>
-					<div>
-						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-						<Grid>
-						<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-						</ListGroup>
-						</Row>
-						</Grid>
-					</div>
-
-			  </Dialog>
+			
 		</div>
 		);
 	}

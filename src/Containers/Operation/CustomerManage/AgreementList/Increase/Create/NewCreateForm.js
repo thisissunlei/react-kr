@@ -357,6 +357,18 @@ class NewCreateForm extends React.Component {
 			});
 			this.isInit = true;
 		}
+
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
 	}
 
 	onSubmit(form) {
@@ -892,7 +904,7 @@ const validate = values => {
 		errors.wherefloor = '请填写所属楼层';
 	}
 
-	console.log('-------values----->',values);
+	++values.num;
 	if(values.setlocalStorage === 'increase' && values.mainbillid && values.customerId){
 
 		for(var i in values){

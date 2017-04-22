@@ -110,6 +110,8 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			local:this.props.local || [],
+			openLocalStorage:this.props.openLocalStorage || false
 		}
 	}
 
@@ -231,15 +233,25 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(initialize('admitCreateForm', initialValues));
 	}
 
+
+
 	componentWillReceiveProps(nextProps) {
-		if (!this.isInit && nextProps.stationVos.length) {
-			let stationVos = nextProps.stationVos;
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
 			this.setState({
-				stationVos
-			}, function() {
-				this.calcStationNum();
-			});
-			this.isInit = true;
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
+
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+				openLocalStorage:nextProps.openLocalStorage
+			})
 		}
 	}
 	openPreStationUnitPriceDialog=()=> {
@@ -557,6 +569,8 @@ class NewCreateForm extends React.Component {
 		allRent = allRent.toFixed(2)*1;
 		return allRent;
 	}
+
+
 	render() {
 		let {
 			error,
@@ -751,6 +765,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
+					
 
 			</div>);
 	}
@@ -835,6 +850,8 @@ const validate = values => {
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
+
+	++values.num;
 
 	
 	if(values.setlocalStorage === 'admit'){

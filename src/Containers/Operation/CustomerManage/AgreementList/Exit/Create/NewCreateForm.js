@@ -101,6 +101,26 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(initialize('exitCreateForm', initialValues));
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
+
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+				openLocalStorage:nextProps.openLocalStorage
+			})
+		}
+	}
+
 
 	onSubmit(form) {
 
@@ -344,6 +364,7 @@ const validate = values => {
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
+	++values.num;
 
 
 	if(values.setlocalStorage === 'returnRent' && values.mainbillid && values.customerId){

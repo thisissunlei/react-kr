@@ -130,7 +130,9 @@ class NewCreateForm extends React.Component {
 			HeightAuto: false,
 			allRent:0,
 			initialValues:this.props.initialValues,
-			optionValues:this.props.optionValues
+			optionValues:this.props.optionValues,
+			openLocalStorage:this.props.openLocalStorage || false,
+			local:this.props.local || []
 
 		}
 	}
@@ -358,16 +360,14 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('joinCreateForm', initialValues));
-		console.log('=join==componentDidMount====')
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('=join==componentWillReceiveProps====')
 		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues
 			})
-			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
 		}
 		if(this.props.optionValues != nextProps.optionValues){
 			this.setState({
@@ -375,15 +375,10 @@ class NewCreateForm extends React.Component {
 			})
 		}
 
-		if (!this.isInit && nextProps.stationVos.length) {
-			let stationVos = nextProps.stationVos;
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
 			this.setState({
-				stationVos
-			}, function() {
-				this.calcStationNum();
-				this.setAllRent(nextProps.stationVos);
-			});
-			this.isInit = true;
+				openLocalStorage:nextProps.openLocalStorage
+			})
 		}
 	}
 
@@ -587,10 +582,28 @@ class NewCreateForm extends React.Component {
 		return name;
 	}
 
+	// onCancelStorage=()=>{
+	// 	this.setState({
+	// 		openLocalStorage:false,
+
+	// 	})
+	// }
+	// getLocalStorage=()=>{
+	// 	let {local} = this.state;
+	// 	this.setState({
+	// 		openLocalStorage:false,
+	// 		initialValues:local[1],
+	// 		optionValues:local[0],
+	// 		stationVos:local[2]
+	// 	},function(){
+	// 		Store.dispatch(initialize('joinCreateForm', local[1]));
+	// 	})
+	// }
+
 	render() {
 
 
-		console.log('=====new=======')
+		console.log('=====new=======',this.optionValues)
 		var _this = this;
 		let {
 			error,
@@ -600,8 +613,8 @@ class NewCreateForm extends React.Component {
 			submitting,
 			initialValues,
 			changeValues,
-			optionValues
 		} = this.props;
+		let {optionValues} = this.props;
 		let {
 			fnaCorporationList
 		} = optionValues;
@@ -808,6 +821,8 @@ class NewCreateForm extends React.Component {
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
+			
+
 			</div>);
 	}
 }
@@ -894,6 +909,7 @@ const validate = values => {
 	if (!values.leaseEnddate) {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
+	++values.num;
 	if(values.setlocalStorage === 'enter'){
 		for(var i in values){
 		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
