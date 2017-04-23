@@ -274,7 +274,7 @@ export default class JoinCreate extends React.Component {
 
 			}
 			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValue);
+			initialValue = Object.assign({},initialValue,initialValues);
 
 
 			initialValue.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
@@ -303,6 +303,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages
 		} = this.state;
 			initialValues.setlocalStorage = setlocalStorage;
+			initialValue.setlocalStorage = setlocalStorage;
 
 			console.log('======renew=======>>>>>',setlocalStorage);
 

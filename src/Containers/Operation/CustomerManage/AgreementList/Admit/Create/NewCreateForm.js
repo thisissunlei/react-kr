@@ -237,7 +237,7 @@ class NewCreateForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if(this.props.initialValues != nextProps.initialValues){
-			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues
 			})
@@ -248,11 +248,7 @@ class NewCreateForm extends React.Component {
 			})
 		}
 
-		if(this.props.openLocalStorage != nextProps.openLocalStorage){
-			this.setState({
-				openLocalStorage:nextProps.openLocalStorage
-			})
-		}
+		
 	}
 	openPreStationUnitPriceDialog=()=> {
 		let {
@@ -777,7 +773,7 @@ const validate = values => {
 	const errors = {}
 
 
-	console.log('=======admit====values======');
+	console.log('=======admit====values======',values.mainbillid,values.customerId);
 
 
 	if (!values.leaseId) {

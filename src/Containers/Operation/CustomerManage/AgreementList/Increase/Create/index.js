@@ -172,7 +172,7 @@ export default class increaseCreate extends React.Component {
 			initialValues.setLocalStorageDate = +new Date();
 
 			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ADDRENTcreate';
-			initialValue.num = localStorage.getItem(keyWord +'num') || 1;
+			initialValues.num = localStorage.getItem(keyWord +'num') || 1;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -226,6 +226,7 @@ export default class increaseCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: "222",
 				type: 'danger',
@@ -297,7 +298,7 @@ export default class increaseCreate extends React.Component {
 			initialValue.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
 			let stationVos = JSON.parse(initialValue.stationVos);
 			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValue);
+			initialValue = Object.assign({},initialValue,initialValues);
 			_this.setState({
 				initialValue,
 				optionValue,
@@ -323,6 +324,7 @@ export default class increaseCreate extends React.Component {
 		} = this.state;
 		console.log('====increase=====>>>',initialValues);
 		initialValues.setlocalStorage = setlocalStorage;
+		initialValue.setlocalStorage = setlocalStorage;
 
 		return (
 

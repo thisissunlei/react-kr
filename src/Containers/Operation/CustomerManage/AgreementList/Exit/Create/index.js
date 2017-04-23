@@ -147,7 +147,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'QUITRENTcreate';
-			initialValue.num = localStorage.getItem(keyWord +'num') || 1;
+			initialValues.num = localStorage.getItem(keyWord +'num') || 1;
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
@@ -192,6 +192,7 @@ export default class JoinCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
+
 			Notify.show([{
 				message: '后台出错请联系管理员2',
 				type: 'danger',
@@ -231,7 +232,7 @@ export default class JoinCreate extends React.Component {
 
 			}
 			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValue);
+			initialValue = Object.assign({},initialValue,initialValues);
 
 
 			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
@@ -281,9 +282,11 @@ export default class JoinCreate extends React.Component {
 			setlocalStorage,
 			initialValue,
 				optionValue,
+				openLocalStorages
 
 		} = this.state;
 		initialValues.setlocalStorage =setlocalStorage;
+		initialValue.setlocalStorage =setlocalStorage;
 
 		return (
 

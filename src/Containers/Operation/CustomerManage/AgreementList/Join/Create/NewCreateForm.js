@@ -832,7 +832,7 @@ const validate = values => {
 	const errors = {};
 
 
-	console.log('======join======values=======');
+	console.log('======join======values=======',values);
 
 
 	if (!values.leaseId) {
@@ -911,6 +911,7 @@ const validate = values => {
 	}
 	++values.num;
 	if(values.setlocalStorage === 'enter'){
+		console.log('ggggggggggg')
 		for(var i in values){
 		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 				if(i === 'contractFileList'){

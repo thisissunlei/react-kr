@@ -55,16 +55,14 @@ export default class JoinCreate extends React.Component {
 			setlocalStorage:this.props.active,
 			openConfirmCreate: false,
 			local:[],
-			openLocalStorage:false,
+			openLocalStorages:this.props.openLocalStorages,
 			initialValue:{},
 				optionValue:{},
 		}
 		this.isConfirmSubmiting = false;
 		Store.dispatch(reset('admitCreateForm'));
 	}
-	componentWillUnmount() {
-		Store.dispatch(reset('admitCreateForm'));
-	}
+
 
 	onCreateSubmit(formValues) {
 		this.setState({
@@ -144,8 +142,6 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getlocalSign();
-		this.getLocalStorageSata();
 
 		var _this = this;
 		const {
@@ -232,9 +228,9 @@ export default class JoinCreate extends React.Component {
 
 		}
 		
-		if (nextProps.active && this.props.active != nextProps.active) {
+		if (this.props.openLocalStorages!= nextProps.openLocalStorages) {
 			this.setState({
-				setlocalStorage:nextProps.active
+				openLocalStorages:nextProps.openLocalStorages
 			});
 
 		}
@@ -283,7 +279,7 @@ export default class JoinCreate extends React.Component {
 
 			}
 			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValue);
+			initialValue = Object.assign({},initialValue,initialValues);
 
 
 			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
@@ -320,7 +316,8 @@ export default class JoinCreate extends React.Component {
 				optionValue,
 		} = this.state;
 		initialValues.setlocalStorage = setlocalStorage;
-		console.log('====admin===',setlocalStorage)
+		initialValue.setlocalStorage = setlocalStorage;
+		console.log('====admin===',initialValue)
 
 		return (
 

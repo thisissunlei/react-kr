@@ -277,6 +277,23 @@ class NewCreateForm extends React.Component {
 			});
 			this.isInit = true;
 		}
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('reduceCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
+
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+				openLocalStorage:nextProps.openLocalStorage
+			})
+		}
 	}
 	onSubmit(form) {
 		form = Object.assign({}, form);

@@ -103,7 +103,7 @@ class NewCreateForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if(this.props.initialValues != nextProps.initialValues){
-			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+			Store.dispatch(initialize('exitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues
 			})

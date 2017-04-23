@@ -281,9 +281,9 @@ export default class JoinCreate extends React.Component {
 
 			}
 			initialValue.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			stationVos = JSON.parse(initialValue.stationVos);
+			let stationVos = JSON.parse(initialValue.stationVos);
 			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValue);
+			initialValue = Object.assign({},initialValue,initialValues);
 
 
 			_this.setState({
@@ -309,6 +309,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages
 		} = this.state;
 		initialValues.setlocalStorage = setlocalStorage;
+		initialValue.setlocalStorage = setlocalStorage;
 
 		return (
 
