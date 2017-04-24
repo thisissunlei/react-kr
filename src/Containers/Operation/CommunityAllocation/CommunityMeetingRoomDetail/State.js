@@ -24,15 +24,11 @@ let State = observable({
 			searchType:'',
 
 		},
-		//工位
+		//新建
 		openStation:false,
 		//编辑
 		openStationEdit:false,
-		//属于与不属于
-		isBelong:false,
-		//属于不属于编辑
-		isBelongEdit:false,
-		//实时校验工位编号
+		//实时校验空间名称
 		isCode:false,
 		//删除
 		openDelete:false,
@@ -44,42 +40,39 @@ let State = observable({
 		openImport:false,
 		//社区名称
 		communityName:'',
-		//会议室名称数据准备
-		stationName:{},
-		//新增编辑会议室民称下拉
-		slectNameCommunity:[],
-		//高级查询会议室名称
-		spacesName:[],
+		//空间类型
+		sapceTypes:{},
+		//空间设备
+		spaceDevices:[],
 		//楼层数据准备
 		floorData:[],
 		//社区id
-		communityId:''
-
+		communityId:'',
 });
 //删除
 State.deleteStation = action(function() {
 	this.openDelete=!this.openDelete;
 });
-//新建工位
+//新建空间
 State.addStation = action(function() {
 	this.openStation=!this.openStation;
 });
-//编辑工位
+//编辑空间
 State.editStation = action(function() {
 	this.openStationEdit=!this.openStationEdit;
 });
 //校验
 State.codeStationCompare= action(function(params) {
-	var _this=this;
-  let data={};
+ var _this=this;
+ let data={};
  data.id="";
- data.code=params;
+ data.name=params;
  data.communityId=_this.communityId;
- Http.request('station-check-code',data).then(function(response) {
+ Http.request('meeting-check-name',data).then(function(response) {
 		 _this.isCode=false;
  }).catch(function(err) {
-	 if(err.message.indexOf("该编码已存在")!=-1){
-			_this.isCode=true;
+	 if(err.message.indexOf("该名称已存在")!=-1){
+		 _this.isCode=true;
 	 }else{
 		 _this.isCode=false;
 	 }
@@ -88,7 +81,7 @@ State.codeStationCompare= action(function(params) {
 //新建编辑提交
 State.stationSubmit=action(function(params){
 	var _this=this;
-	Http.request('station-edit',{},params).then(function(response) {
+	Http.request('meeting-edit-submit',{},params).then(function(response) {
 	 _this.openStationEdit=false;
 	 _this.openStation=false;
 	 _this.searchParams={
@@ -106,7 +99,7 @@ State.deleteSubmitFunc=action(function(params){
 	var data={};
 	data.id=params;
 	var _this=this;
-	Http.request('station-delete',data).then(function(response) {
+	Http.request('meeting-delete',data).then(function(response) {
 	 _this.openDelete=false;
 	 _this.searchParams={
 			time:+new Date(),
@@ -122,16 +115,16 @@ State.deleteSubmitFunc=action(function(params){
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
-//工位列表数据准备
+//空间列表数据准备
 State.stationDataReady = action(function(params) {
 	var data={};
 	data.communityId=params;
 	var _this=this;
-	Http.request('station-param-data',data).then(function(response) {
+	Http.request('meeting-param-data',data).then(function(response) {
 		_this.communityName=response.communityName;
-		_this.stationName=response.floorSpaces;
+		_this.sapceTypes=response.sapceTypes;
 		_this.floorData=response.floors;
-		_this.spacesName=response.spaces;
+		_this.spaceDevices=response.spaceDevices;
  }).catch(function(err) {
 		Message.error(err.message);
  });

@@ -45,11 +45,11 @@ class  CommunityMeetingRoomDetail extends React.Component{
 	componentWillMount(){
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
 		State.stationDataReady(href);
-    State.searchParams.communityId=href;
+        State.searchParams.communityId=href;
 		State.communityId=href;
 	}
 
- //新建工位打开
+    //新建会议室打开
 	openAddStation=()=>{
 		const {FormModel} = this.props;
 		FormModel.getForm("NewAddStation")
@@ -57,11 +57,11 @@ class  CommunityMeetingRoomDetail extends React.Component{
 		State.addStation();
 		State.isCode=false;
 	}
-	//新建工位取消
+	//新建会议室取消
 	cancelAddCode=()=>{
 		State.addStation();
 	}
-	//编辑工位取消
+	//编辑会议室取消
 	cancelEditCode=()=>{
 		State.editStation();
 	}
@@ -73,7 +73,7 @@ class  CommunityMeetingRoomDetail extends React.Component{
 		 State.isCode=false;
 	 }else if(type=='delete'){
 		 State.deleteId=itemDetail.id;
-     State.deleteStation();
+         State.deleteStation();
 	 }
  }
 
