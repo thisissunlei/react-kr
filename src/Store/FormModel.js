@@ -22,10 +22,15 @@ const FormFactory = function(formName){
 				]
 			},
 		},
+
 	});
 
 	form.getName = action(function(){
 		return this.name;
+	});
+
+	form.getState = action(function(){
+		return mobx.toJS(this);
 	});
 
 	form.blur = action(function(fieldName,fieldValue) {
@@ -50,7 +55,6 @@ const FormFactory = function(formName){
 		var initializeValues = this.initializeValues;
 		this.changeValues(initializeValues);
 	});
-
 
 	form.stopSubmit = action(function(errors) {
 
@@ -78,7 +82,6 @@ const FormFactory = function(formName){
 	form.getValues = action(function() {
 		return mobx.toJS(this.values);
 	});
-
 
 	form.validate = action(function() {
 		var values = this.getValues();
@@ -176,8 +179,8 @@ const FormFactory = function(formName){
 		field = Object.assign({},field,{touched:true});
 
 		fields[fieldName] = field;
-
 		mobx.extendObservable(this,{fields});
+
 	});
 
 
@@ -288,7 +291,6 @@ let State = mobx.observable({ });
 
 State.getForm = action(function(formName) {
 	var form = this;
-
 	if(!form.hasOwnProperty(formName)){
 		form[formName] = FormFactory(formName);
 	}
