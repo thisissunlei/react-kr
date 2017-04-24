@@ -380,6 +380,15 @@ class NewCreateForm extends React.Component {
 				openLocalStorage:nextProps.openLocalStorage
 			})
 		}
+		if (!this.isInit && nextProps.stationVos ) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			}, function() {
+				this.setAllRent(nextProps.stationVos);
+			});
+			this.isInit = true;
+		}
 	}
 
 	onSubmit(form) {

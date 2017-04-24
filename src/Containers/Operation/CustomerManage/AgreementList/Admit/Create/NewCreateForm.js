@@ -248,6 +248,14 @@ class NewCreateForm extends React.Component {
 			})
 		}
 
+		if (!this.isInit && nextProps.stationVos ) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			});
+			this.isInit = true;
+		}
+
 		
 	}
 	openPreStationUnitPriceDialog=()=> {
