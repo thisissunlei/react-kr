@@ -125,7 +125,7 @@ class NewCreateForm extends React.Component {
 		var stationnum = 0;
 		var boardroomnum = 0;
 
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
 
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
@@ -215,8 +215,8 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
 
 
 		this.setState({
@@ -363,7 +363,7 @@ class NewCreateForm extends React.Component {
 			allRent:allMoney
 		});
 
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
 
 
 		this.openStationUnitPriceDialog();
@@ -499,8 +499,8 @@ class NewCreateForm extends React.Component {
 		} catch (err) {
 		}
 
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
 
 
 
@@ -529,7 +529,7 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		let {initialValues} =this.props;
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+""+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
 
 		this.setAllRent(stationVos);
 		
