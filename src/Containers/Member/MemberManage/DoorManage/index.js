@@ -19,6 +19,8 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
+
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
 import ImpowerEditMemberForm from './ImpowerEditMemberForm';
@@ -105,7 +107,7 @@ export default class List extends React.Component {
 	onEditSubmit=(values)=>{
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('newCreateOrEditImpower',{},values)).then(function(response){
+		Http.requst('newCreateOrEditImpower',{},values).then(function(response){
 			Message.success("操作成功");
 			_this.setState({
 				openEditDetail : !_this.state.openEditDetail,
@@ -125,7 +127,7 @@ export default class List extends React.Component {
 	onNewCreateSubmit=(values)=>{
 
 		let _this = this;
-		Store.dispatch(Actions.callAPI('newCreateOrEditImpower',{},values)).then(function(response){
+		Http.request('newCreateOrEditImpower',{},values).then(function(response){
 			Message.success("操作成功");
 			_this.setState({
 				openNewCreate : !_this.state.openNewCreate,
@@ -145,7 +147,7 @@ export default class List extends React.Component {
 	confirmDelete=()=>{
 		let _this = this;
 		let {itemDetail} = this.state;
-		Store.dispatch(Actions.callAPI('doorCustomerDelete',{id:itemDetail.id})).then(function(response){
+		Http.request('doorCustomerDelete',{id:itemDetail.id}).then(function(response){
 			Message.success("操作成功");
 			_this.setState({
 				openDeleteDialog : !_this.state.openDeleteDialog,
