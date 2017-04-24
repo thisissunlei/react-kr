@@ -5,10 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
     Message
 } from 'kr-ui';
@@ -106,7 +103,7 @@ State.orderNameInit= action(function(value) {
 	
 	data.customerId=value;
 
-	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+	Http.request('get-customName-orderName',data).then(function(response) {
 		_this.customerName=response.customerName;
 		_this.orderCount=response.orderCount;
 	}).catch(function(err) {
@@ -158,7 +155,7 @@ State.exportData = action(function(value) {
 //转移提交
 State.switchSureSubmit= action(function(value) {
 	var _this=this;
-	Store.dispatch(Actions.callAPI('customerTransfer',{},value)).then(function(response) {
+	Http.request('customerTransfer',{},value).then(function(response) {
 		 _this.openSwitch=false;
          Message.success('转移成功');
          _this.openPersonDialog=false;
@@ -174,7 +171,7 @@ State.switchSureSubmit= action(function(value) {
 State.quitSubmit= action(function(arrItem) {
 	var ids=arrItem;
 	var _this=this;
-	Store.dispatch(Actions.callAPI('customerGiveBack',{},{ids})).then(function(response) {
+	Http.request('customerGiveBack',{},{ids}).then(function(response) {
 		 _this.openQuit=false;
          Message.success('取消成功');
          _this.openPersonDialog=false;

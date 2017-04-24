@@ -3,6 +3,7 @@ import CommunityDetailModel from './CommunityDetailModel';
 import FormModel from './FormModel';
 import CommunityAgreementList from './CommunityAgreementList';
 import NotifyModel from './NotifyModel';
+import NavModel from './NavModel';
 
 module.exports = {
 	CommonModel,
@@ -10,4 +11,5 @@ module.exports = {
 	FormModel,
 	NotifyModel,
 	CommunityAgreementList,
+	NavModel,
 }

@@ -13,7 +13,7 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
 import {
 	observer,
@@ -77,7 +77,7 @@ import {
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 
-						
+
 						<div style={{marginLeft:20}}>
 						<KrField grid={1/2} name="no" style={{width:262,marginLeft:28}} component='input'  label="商圈代码" inline={false}  placeholder='请输入代码名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="商圈名称" inline={false}  placeholder='请输入商圈名称' requireLabel={true}/>
@@ -109,4 +109,4 @@ const validate = values =>{
 
 	return errors;
 }
-export default reduxForm({ form: 'EditBusiness',validate})(EditBusiness);
+export default mobxForm({ form: 'EditBusiness',validate})(EditBusiness);

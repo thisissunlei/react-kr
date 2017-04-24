@@ -106,12 +106,12 @@ class BusinessList  extends React.Component{
 
    //新建商圈
    openNewBusiness = () =>{
-   		const {FormModel} = this.props;
    		this.setState({
    			openNewBusiness:true,
    		});
-
-   		FormModel.changeValues('NewBusinessForm',{no:'',name:'',districtId:'',sort:'',enable:''});
+      const {FormModel} = this.props;
+  		FormModel.getForm("NewBusinessForm")
+  		.changeValues({no:'',name:'',districtId:'',sort:'',enable:''});
 
    }
    //关闭新建商圈
@@ -137,12 +137,12 @@ class BusinessList  extends React.Component{
    }
    //打开高级查询
   openUpperForm = () =>{
-  	const {FormModel} = this.props;
     this.setState({
    		openUpperForm:true,
    	})
-   	// FormModel.initialize('BusinessSearchForm',{});
-   	FormModel.changeValues('BusinessSearchForm',{districtId:'',enable:''});
+    const {FormModel} = this.props;
+    FormModel.getForm("BusinessSearchForm")
+    .changeValues({districtId:'',enable:''});
   }
    //关闭高级查询
    closeUpperForm = () =>{
@@ -211,10 +211,7 @@ class BusinessList  extends React.Component{
 	     	openEditBusiness:true,
 	     	cityName : provinceName+cityName+districtName
 	    })
-		  // FormModel.initialize('EditBusiness',{no:"12",name:"12",distinctId:"12",companyId:"12",enable:"否"});
-      		 FormModel.changeValues('EditBusiness',itemDetail);
-		  // FormModel.initialize('EditBusiness',{});
-
+      FormModel.getForm("EditBusiness").changeValues(itemDetail);
 		}
 	}
   //全部关闭

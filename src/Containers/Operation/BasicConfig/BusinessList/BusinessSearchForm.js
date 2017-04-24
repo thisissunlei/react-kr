@@ -15,7 +15,7 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
 
  class BusinessSearchForm extends Component{
@@ -129,4 +129,4 @@ const validate = values =>{
 
 	return errors;
 }
-export default reduxForm({ form: 'BusinessSearchForm',validate})(BusinessSearchForm);
+export default mobxForm({ form: 'BusinessSearchForm',validate})(BusinessSearchForm);

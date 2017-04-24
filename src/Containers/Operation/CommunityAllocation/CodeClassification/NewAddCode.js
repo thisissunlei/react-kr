@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import {
 	KrField,
 	Button,
@@ -105,4 +105,4 @@ const validate = values =>{
 
 		return errors
 }
-export default reduxForm({ form: 'NewAddCode',validate})(NewAddCode);
+export default mobxForm({ form: 'NewAddCode',validate})(NewAddCode);

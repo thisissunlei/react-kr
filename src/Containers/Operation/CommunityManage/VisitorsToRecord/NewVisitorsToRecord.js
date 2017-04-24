@@ -15,9 +15,9 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
 import './index.less';
 import State from './State';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 
  class NewVisitorsToRecord extends Component{
 
@@ -78,15 +78,15 @@ import State from './State';
 
 
 
-						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='select'  label="社区" inline={false} 
+						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='select'  label="社区" inline={false}
 							requireLabel={true}
 							options={select.communitys}
 						/>
-						<KrField grid={1/2}  name="typeId" style={{width:262,marginLeft:28}} component='select'  label="类型" inline={false}  
+						<KrField grid={1/2}  name="typeId" style={{width:262,marginLeft:28}} component='select'  label="类型" inline={false}
 							requireLabel={true}
 							options={select.type}
 							onChange = {this.typeChange}
-							
+
 						/>
 
 
@@ -111,13 +111,13 @@ import State from './State';
             			<KrField grid={1/2}  name="email" style={{width:262,marginLeft:28}} component='input'  label="邮箱" inline={false}  placeholder='请输入邮箱' requireLabel={true}/>
 
             			{/*参观*/}
-  						{typeValue ==52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false} 
+  						{typeValue ==52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false}
 							requireLabel={true}
 							options={select.purpose}
 						/>}
 
 						{/*面试*/}
-						{typeValue ==50 &&<KrField grid={1/2}  name="interviewRoundId" style={{width:262,marginLeft:28}} component='select'  label="面试轮次" inline={false}  
+						{typeValue ==50 &&<KrField grid={1/2}  name="interviewRoundId" style={{width:262,marginLeft:28}} component='select'  label="面试轮次" inline={false}
 							requireLabel={true}
 							options={select.round}
 						/>}
@@ -160,11 +160,11 @@ const validate = values =>{
 	if(typeValue == 50){
 		if(!values.interviewTypeId){
 			errors.interviewTypeId = "面试类型不能为空"
-		}	
+		}
 		if(!values.interviewRoundId){
 			errors.interviewRoundId = "面试轮次不能为空"
 		}
-		
+
 	}
 
 	//参加活动
@@ -173,7 +173,7 @@ const validate = values =>{
 			errors.activityTypeId = "活动类型不能为空"
 		}
 	}
-	
+
 	//参观相关
 	if(typeValue ==52){
 		if(!values.purposeId){
@@ -198,7 +198,7 @@ const validate = values =>{
 			errors.meetedMan = "被拜访人不能为空"
 		}
 	}
-	
+
 	if(!values.name){
 		errors.name = "姓名不能为空"
 	}
@@ -207,22 +207,22 @@ const validate = values =>{
 	}else if(!phone.test(values.tel)){
 		errors.tel = "联系电话格式错误"
 	}
-	
-	
+
+
 	if(!values.email){
 		errors.email = "邮箱不能为空"
 	}else if(!email.test(values.email)){
 		errors.email = "邮箱的格式不正确"
 	}
-	
-	
+
+
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	
-	
-	
+
+
+
 
 	return errors;
 }
-export default reduxForm({ form: 'NewVisitorsToRecord',validate})(NewVisitorsToRecord);
+export default mobxForm({ form: 'NewVisitorsToRecord',validate})(NewVisitorsToRecord);

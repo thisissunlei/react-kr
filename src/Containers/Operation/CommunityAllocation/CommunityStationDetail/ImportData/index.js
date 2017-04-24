@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import {
 	Button,
 	Grid,
@@ -137,4 +137,4 @@ class ImportData extends React.Component{
 	 }
  }
 
- export default reduxForm({form:'ImportData',enableReinitialize:true,keepDirtyOnReinitialize:true})(ImportData);
+ export default mobxForm({form:'ImportData',enableReinitialize:true,keepDirtyOnReinitialize:true})(ImportData);

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Http} from 'kr/Utils';
-import {reduxForm}  from 'kr/Utils/ReduxForm';
 import {
 	Table,
 	TableBody,
@@ -52,9 +51,9 @@ class  CommunityMeetingRoomDetail extends React.Component{
 
  //新建工位打开
 	openAddStation=()=>{
-		let {FormModel}=this.props;
-		FormModel.changeValues('NewAddStation',
-		 {code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
+		const {FormModel} = this.props;
+		FormModel.getForm("NewAddStation")
+		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		State.addStation();
 		State.isCode=false;
 	}
