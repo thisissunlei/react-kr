@@ -122,7 +122,6 @@ class Merchants extends Component{
 	removeLocalStorage=()=>{
 		let {params} = this.props;
 		let keyWord = State.mainBillId+''+State.listId+ State.argumentType + 'edit';
-		console.log('=====removeLocalStorage=======',keyWord)
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -148,7 +147,7 @@ class Merchants extends Component{
 	}
 	//关闭编辑页
 	closeEditAgreement = () =>{
-		this.removeLocalStorage();
+		// this.removeLocalStorage();
 		State.openEditAgreement=false;
 	}
 	//新建订单打开
@@ -364,13 +363,12 @@ class Merchants extends Component{
 		let date = [];
 		let delList = [];
 		let now = +new Date();
-		let clearDate = 60*60*1000*1;//1小时
-		// let clearDate = 60*60*1000*1*24*30;//30天
+		// let clearDate = 60*60*1000*1;//1小时
+		let clearDate = 60*60*1000*1*24*30;//30天
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
 			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
 			 	let time = now - parseInt(localStorage.getItem(itemName));
-				console.log('====',i,'=====',typeof time,typeof clearDate ,time/clearDate);
 				if((time/clearDate)>1){
 					//10小时
 					date.push(itemName.replace('setLocalStorageDate',''));
@@ -794,7 +792,6 @@ class Merchants extends Component{
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
 												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
-												{/*<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> */}
 												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 												{State.editRight && item.editFlag && item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 							

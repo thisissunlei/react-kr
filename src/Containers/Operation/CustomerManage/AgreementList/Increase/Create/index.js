@@ -297,8 +297,8 @@ export default class increaseCreate extends React.Component {
 			}
 			initialValue.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
 			let stationVos = JSON.parse(initialValue.stationVos);
-			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValues);
+			optionValue = Object.assign({},optionValues,optionValue);
+			initialValue = Object.assign({},initialValues,initialValue);
 			_this.setState({
 				initialValue,
 				optionValue,

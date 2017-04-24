@@ -273,8 +273,8 @@ export default class JoinCreate extends React.Component {
 				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent');
 
 			}
-			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValues);
+			optionValue = Object.assign({},optionValues,optionValue);
+			initialValue = Object.assign({},initialValues,initialValue);
 
 
 			initialValue.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';

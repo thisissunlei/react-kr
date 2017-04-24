@@ -302,8 +302,8 @@ export default class JoinCreate extends React.Component {
 				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
 			}
-			optionValue = Object.assign({},optionValue,optionValues);
-			initialValue = Object.assign({},initialValue,initialValues);
+			optionValue = Object.assign({},optionValues,optionValue);
+			initialValue = Object.assign({},initialValues,initialValue);
 
 
 			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
