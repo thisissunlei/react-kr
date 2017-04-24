@@ -13,7 +13,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	Dialog,
   Section,
@@ -78,7 +78,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
@@ -144,12 +144,12 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -187,9 +187,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 				let keyWord = params.orderId+''+params.customerId+'ENTERedit';
 
@@ -270,12 +270,12 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -313,9 +313,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 				let keyWord = params.orderId+''+params.customerId+'ENTERedit';
 

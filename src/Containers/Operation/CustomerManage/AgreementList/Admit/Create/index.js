@@ -13,7 +13,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils';
 import {
 	Dialog,
 	Notify,
@@ -87,7 +87,7 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 			var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaContractIntentletter', {}, formValues)).then(function(response) {
+		Http.request('addFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 		    _this.removeLocalStorage();
 
@@ -151,12 +151,12 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -274,7 +274,9 @@ export default class JoinCreate extends React.Component {
 				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
 				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
 				initialValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
 				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
 
 
 				// optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];

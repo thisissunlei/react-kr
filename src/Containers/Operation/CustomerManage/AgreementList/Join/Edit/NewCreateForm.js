@@ -13,7 +13,7 @@ import {
 	Binder
 } from 'react-binding';
 import ReactMixin from "react-mixin";
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import Immutable from 'immutable';
 import nzh from 'nzh';
@@ -318,14 +318,14 @@ class NewCreateForm extends React.Component {
 			selectedStation
 		})
 	}
-	onBlur=(item)=>{
-		let {stationVos} = this.state;
-		let allMoney = 0;
-		let {initialValues} = this.props;
-		this.setAllRent(stationVos);
-		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(stationVos));
+	// onBlur=(item)=>{
+	// 	let {stationVos} = this.state;
+	// 	console.log('=======',item);
+	// 	let allMoney = 0;
+	// 	let {initialValues} = this.props;
+	// 	this.setAllRent(stationVos);
 		
-	}
+	// }
 
 	openStationDialog() {
 
@@ -405,7 +405,7 @@ class NewCreateForm extends React.Component {
 		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
-		form.totalrent = (form.totalrent).toFixed(2);
+		form.totalrent = form.totalrent;
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -555,8 +555,9 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERedittotalrent', JSON.stringify(response));
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(list));
 			_this.setState({
 				allRent:response
 			})

@@ -29,6 +29,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import allState from "../../State";
+import {Http} from 'kr/Utils';
 
 
 export default class EditCreate extends React.Component {
@@ -53,7 +54,7 @@ export default class EditCreate extends React.Component {
   onCreateSubmit(formValues) {
     const {params} = this.props;
     let _this = this;
-    Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+    Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
     _this.removeLocalStorage();
       Notify.show([{
         message: '编辑成功',
@@ -106,11 +107,11 @@ export default class EditCreate extends React.Component {
     let optionValues = {};
     let stationVos = [];
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type : 1,
-    })).then(function(response) {
+    }).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
 
@@ -151,9 +152,9 @@ export default class EditCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+     Http.request('getFnaContractWithdrawalById', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
 
          //获取localStorage数据s
         let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';
@@ -241,11 +242,11 @@ export default class EditCreate extends React.Component {
     let optionValues = {};
     let stationVos = [];
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type : 1,
-    })).then(function(response) {
+    }).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
 
@@ -286,9 +287,9 @@ export default class EditCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+     Http.request('getFnaContractWithdrawalById', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
 
          //获取localStorage数据s
         let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';

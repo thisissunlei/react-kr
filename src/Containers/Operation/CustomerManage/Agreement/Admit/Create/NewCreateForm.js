@@ -735,21 +735,12 @@ class NewCreateForm extends React.Component {
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 </CircleStyle>
 							
-							{useLocal && <KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
-								console.log('true',optionValues.contractFileList)
+							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 								if(files.length){
 									Store.dispatch(change('admitCreateForm','contractFileList',files));
 
 								}
-							}} />}
-							{!useLocal && <KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
-								console.log('false',optionValues.contractFileList)
-								if(files.length){
-									Store.dispatch(change('admitCreateForm','contractFileList',files));
-
-								}
-							}} />}
-
+							}} />
 
 
 						<Grid style={{paddingBottom:50}}>

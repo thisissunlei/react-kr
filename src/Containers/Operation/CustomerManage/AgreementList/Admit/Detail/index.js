@@ -26,7 +26,7 @@ import {
 } from 'kr-ui';
 
 
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 
 import {
@@ -82,9 +82,9 @@ export default class AdmitDetail extends React.Component {
     
     componentDidMount() {
     	var _this = this;
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+		Http.request('showFinaContractIntentletter', {
 			id: this.props.params.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				basic: response,
 				isLoading: false,

@@ -32,6 +32,8 @@ import {
 
 } from 'kr-ui';
 
+import {Http} from 'kr/Utils';
+
 
 import {
 	Actions,
@@ -62,9 +64,9 @@ export default class JoinDetail extends React.Component {
 
 	componentDidMount() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+		Http.request('show-checkin-agreement', {
 				id: this.props.params.id
-			}))
+			})
 			.then(function(response) {
 				_this.setState({
 					basic: response,

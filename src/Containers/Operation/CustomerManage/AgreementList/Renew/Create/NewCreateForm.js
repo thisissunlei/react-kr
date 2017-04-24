@@ -14,7 +14,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
@@ -182,7 +182,7 @@ class NewCreateForm extends React.Component {
 		})
 		let {initialValues} = this.props;
 
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'RENEWcreatetotalrent', JSON.stringify(response));
 			_this.setState({
 				allRent:response

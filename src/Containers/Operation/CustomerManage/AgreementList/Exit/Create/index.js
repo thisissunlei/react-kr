@@ -21,6 +21,7 @@ import {
 	Title,
 
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 
 import NewCreateForm from './NewCreateForm';
@@ -74,7 +75,7 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+		Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			_this.removeLocalStorage();
 			Notify.show([{
@@ -137,12 +138,12 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;

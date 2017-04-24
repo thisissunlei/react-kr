@@ -12,6 +12,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
+import {Http} from 'kr/Utils';
 
 import {
 	Dialog,
@@ -97,7 +98,7 @@ export default class JoinCreate extends React.Component {
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 		    _this.removeLocalStorage();
 
 			_this.setState({baiscInf:response});
@@ -171,12 +172,12 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
@@ -298,6 +299,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
 				initialValue.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
 				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
 
 				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
@@ -342,7 +344,7 @@ export default class JoinCreate extends React.Component {
 				<Title value="创建入驻协议书_财务管理"/>
 
 			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
 			</div>}
 			{openLocalStorages && <div style={{marginTop:10}}>
 				<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>

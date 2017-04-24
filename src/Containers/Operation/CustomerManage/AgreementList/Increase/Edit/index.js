@@ -13,7 +13,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	Dialog,
   Section,
@@ -70,7 +70,7 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			Notify.show([{
 				message: '更新成功',
@@ -128,12 +128,12 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -180,9 +180,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
 				initialValues.num = localStorage.getItem(keyWord+'num')||1;
 				optionValues.lessorContactName = response.lessorContactName;
@@ -262,12 +262,12 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -314,9 +314,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
 				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'))|| response.contractFileList;

@@ -12,7 +12,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils'
+import {DateFormat,Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -96,7 +96,7 @@ export default class increaseCreate extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
@@ -160,12 +160,12 @@ export default class increaseCreate extends React.Component {
 		let optionValues = {};
 		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
@@ -332,7 +332,7 @@ export default class increaseCreate extends React.Component {
 				<Title value="创建增租协议书_财务管理"/>
 		 		<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
 				{!openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
 				</div>}
 				{openLocalStorages&&<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>

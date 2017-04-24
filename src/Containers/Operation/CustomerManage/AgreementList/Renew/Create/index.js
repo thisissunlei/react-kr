@@ -12,7 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
+import {Http} from 'kr/Utils/';
 
 import {
 	Dialog,
@@ -22,6 +22,7 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
+import http from 'kr/Redux/Utils/fetch';
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
@@ -88,7 +89,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 
-		Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			Notify.show([{
 				message: '创建成功',
@@ -148,12 +149,12 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let initialValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -314,7 +315,7 @@ export default class JoinCreate extends React.Component {
 					<Title value="创建续租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建续租协议书']}/>
 			{!openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
 			</div>}
 			{openLocalStorages&&<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>

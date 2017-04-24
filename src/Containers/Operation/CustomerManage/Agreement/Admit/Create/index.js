@@ -252,6 +252,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
 				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
 				initialValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
 
 				// optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
