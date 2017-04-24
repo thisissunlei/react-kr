@@ -12,7 +12,7 @@ import {
   Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
   Dialog,
   Section,
@@ -62,7 +62,7 @@ export default class JoinCreate extends React.Component {
       params
     } = this.props;
     let _this = this;
-    Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
+    Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
       _this.removeLocalStorage();      
       Notify.show([{
         message: '更新成功',
@@ -141,13 +141,13 @@ export default class JoinCreate extends React.Component {
     let stationVos = [];
     let delStationVos =[];
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       communityId: 1,
       type :1,
 
-    })).then(function(response) {
+    }).then(function(response) {
 
 
       let keyWord = params.orderId+ params.customerId+'RENEWedit';
@@ -191,9 +191,9 @@ export default class JoinCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('renewshow', {
+      Http.request('renewshow', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
 
         optionValues.lessorContactName =response.lessorContactName;
 
@@ -278,13 +278,13 @@ export default class JoinCreate extends React.Component {
     let stationVos = [];
     let delStationVos =[];
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       communityId: 1,
       type :1,
 
-    })).then(function(response) {
+    }).then(function(response) {
 
       initialValues.contractstate = 'UNSTART';
       initialValues.mainbillid = params.orderId;
@@ -324,9 +324,9 @@ export default class JoinCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('renewshow', {
+      Http.request('renewshow', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
         //获取localStorage数据s
         let keyWord = params.orderId+ params.customerId+'RENEWedit';
         let mainbillId = localStorage.getItem(keyWord +'mainbillid');

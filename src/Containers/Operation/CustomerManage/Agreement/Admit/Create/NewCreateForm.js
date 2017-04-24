@@ -11,7 +11,7 @@ import {
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -130,7 +130,7 @@ class NewCreateForm extends React.Component {
 	
 
 	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps',nextProps.initialValues);
+		let {initialValues,initialValue} = this.props;
 		if (!this.isInit && nextProps.stationVoList.length ) {
 			let stationVoList = nextProps.stationVoList;
 			this.setState({
@@ -138,6 +138,12 @@ class NewCreateForm extends React.Component {
 			});
 			this.isInit = true;
 		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+			optionValues:nextProps.optionValues
+		})
+		}
+
 
 		if(this.props.openLocalStorage != nextProps.openLocalStorage){
 			this.setState({
@@ -203,6 +209,7 @@ class NewCreateForm extends React.Component {
 			leaseBegindate,
 			leaseEnddate
 		} = changeValues;
+		console.log(changeValues);
 
 		if (!wherefloor) {
 			Notify.show([{
@@ -541,7 +548,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -554,24 +561,68 @@ class NewCreateForm extends React.Component {
 	}
 
 
-	
 	onCancelStorage=()=>{
 		this.setState({
 			openLocalStorage:false,
 
-		})
+		})	
 	}
 	getLocalStorage=()=>{
-		let {initialValue,initialValues} = this.props;
-		let {stationVoList} = this.state;
-		console.log(stationVoList)
 		this.setState({
 			openLocalStorage:false,
-			useLocal:true,
-			stationVos:stationVoList
 		})
-		// this.calcStationNum();
-			Store.dispatch(initialize('admitCreateForm', initialValue));
+		this.getLocalStorageSata();
+	}
+
+	getLocalStorageSata=()=>{
+		var _this = this;
+		let {initialValues} = this.props;
+		let {optionValues} = this.props;
+		
+			//获取localStorage数据
+			let keyWord = initialValues.mainbillid+ initialValues.customerId+'INTENTIONcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			if(mainbillId && customerId){
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
+				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				optionValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
+				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
+				initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
+				initialValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+
+				// optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+
+			}
+			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVoList) || [];
+
+			Store.dispatch(initialize('admitCreateForm', initialValues));
+
+			_this.setState({
+				initialValues,
+				optionValues,
+				stationVos,
+			},function(){
+				this.calcStationNum();
+			});
 	}
 
 
@@ -584,9 +635,7 @@ class NewCreateForm extends React.Component {
 			reset,
 			submitting,
 			changeValues,
-			optionValue,
 			initialValues,
-			optionValues,
 		} = this.props;
 
 		let {
@@ -595,7 +644,8 @@ class NewCreateForm extends React.Component {
 			HeightAuto,
 			allRent,
 			openLocalStorage,
-			useLocal
+			useLocal,
+			optionValues
 		} = this.state;
 		let {
 			fnaCorporationList
@@ -606,7 +656,6 @@ class NewCreateForm extends React.Component {
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
-		console.log('stationVos',stationVos);
 		
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));

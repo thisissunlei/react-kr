@@ -24,6 +24,7 @@ import {
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
+import {Http} from 'kr/Utils';
 
 export default class JoinCreate extends React.Component {
 
@@ -65,7 +66,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 
-		Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			Notify.show([{
 				message: '创建成功',
@@ -133,13 +134,13 @@ export default class JoinCreate extends React.Component {
 
 		this.getlocalSign();
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
 			
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;

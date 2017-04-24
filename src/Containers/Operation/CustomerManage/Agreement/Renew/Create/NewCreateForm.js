@@ -13,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
@@ -183,7 +183,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			Store.dispatch(change('reduceCreateForm','totalrent',response));
 			_this.setState({
 				allRent:response
@@ -336,6 +336,7 @@ class NewCreateForm extends React.Component {
 				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');

@@ -11,7 +11,7 @@ import {
   Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
   Dialog,
   Section,
@@ -51,7 +51,7 @@ export default class EditCreate extends React.Component {
   onCreateSubmit(formValues) {
     const {params} = this.props;
     let _this = this;
-    Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+    Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
       
      _this.removeLocalStorage();
       Notify.show([{
@@ -122,11 +122,11 @@ export default class EditCreate extends React.Component {
 
 
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type :1,
-    })).then(function(response) {
+    }).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
       //
@@ -170,9 +170,9 @@ export default class EditCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+      Http.request('getFnaContractWithdrawalById', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
          //获取localStorage数据s
         let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
         let mainbillId = localStorage.getItem(keyWord +'mainbillid');
@@ -262,11 +262,11 @@ export default class EditCreate extends React.Component {
 
 
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type :1,
-    })).then(function(response) {
+    }).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
 
@@ -307,9 +307,9 @@ export default class EditCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+      Http.request('getFnaContractWithdrawalById', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
 
         optionValues.contractFileList = response.contractFileList;
         optionValues.lessorContactName = response.lessorContactName;

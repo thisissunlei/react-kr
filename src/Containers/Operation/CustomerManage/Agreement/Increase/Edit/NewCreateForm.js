@@ -12,7 +12,7 @@ import {
 	Binder
 } from 'react-binding';
 import ReactMixin from "react-mixin";
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import nzh from 'nzh';
 import {
@@ -546,7 +546,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTedittotalrent', response);
 			
 			_this.setState({

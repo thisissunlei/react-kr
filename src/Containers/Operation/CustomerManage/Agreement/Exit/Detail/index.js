@@ -28,7 +28,7 @@ import {
 	Row,
 	Col
 } from 'kr-ui/Grid';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	Table,
@@ -57,9 +57,9 @@ export default class ExitDetail extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+		Http.request('getFnaContractWithdrawalById', {
 			id: this.props.params.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				basic: response
 			});

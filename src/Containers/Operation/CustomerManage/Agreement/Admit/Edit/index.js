@@ -24,7 +24,7 @@ import {
 	ListGroupItem,
 	Button
 } from 'kr-ui';
-import {DateFormat} from 'kr/Utils'
+import {DateFormat,Http} from 'kr/Utils'
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
@@ -113,7 +113,7 @@ export default class JoinCreate extends React.Component {
 			formValues
 		} = this.state;
 
-		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter', {}, formValues)).then(function(response) {
+		Http.request('updateFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			Notify.show([{
 				message: '更新成功',
@@ -161,11 +161,11 @@ export default class JoinCreate extends React.Component {
 		let optionValues = {};
 		let stationVos = [];
 		let delStationVos = [];
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			type :1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
 
@@ -202,9 +202,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-			Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+			Http.request('showFinaContractIntentletter', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 
 				initialValues.id = response.id;
@@ -288,11 +288,11 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			type :1,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
@@ -328,9 +328,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-			Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+			Http.request('showFinaContractIntentletter', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 				let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
 
 				initialValues.id = response.id;

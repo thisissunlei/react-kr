@@ -12,7 +12,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	Dialog,
 	Section,
@@ -72,7 +72,7 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getFnaContractRentController', {}, formValues)).then(function(response) {
+		Http.request('getFnaContractRentController', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			_this.removeLocalStorage();
 			Notify.show([{
@@ -137,13 +137,13 @@ export default class JoinCreate extends React.Component {
 		let optionValues = {};
 		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
 			
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;

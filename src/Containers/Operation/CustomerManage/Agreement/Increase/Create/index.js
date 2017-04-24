@@ -11,7 +11,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-import {DateFormat} from 'kr/Utils'
+import {DateFormat,Http} from 'kr/Utils'
 
 import {
 	Dialog,
@@ -74,7 +74,7 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
 			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
@@ -143,12 +143,12 @@ export default class JoinCreate extends React.Component {
 		let optionValues = {};
 		this.getlocalSign();
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
@@ -159,8 +159,8 @@ export default class JoinCreate extends React.Component {
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			initialValues.signdate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
-			initialValues.firstpaydate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
+			// initialValues.signdate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
+			// initialValues.firstpaydate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
 			initialValues.agreement = '无';
 
 			initialValues.leaseAddress = response.customer.customerAddress;

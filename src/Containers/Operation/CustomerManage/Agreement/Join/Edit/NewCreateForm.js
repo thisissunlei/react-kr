@@ -54,6 +54,7 @@ import {
 	Paper,
 	CircleStyle
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends React.Component {
@@ -544,7 +545,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTERedittotalrent', JSON.stringify(response));
 			
 			_this.setState({
