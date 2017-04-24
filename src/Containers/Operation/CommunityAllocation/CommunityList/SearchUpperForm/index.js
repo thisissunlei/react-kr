@@ -146,7 +146,7 @@ class SearchUpperForm extends React.Component {
 
 
 		return(
-			<div style={dateBoxStyle} className='customer-searchUpper' onclick={this.customerClick}>
+			<div style={dateBoxStyle} className='customer-searchUpper list-community-supper' onclick={this.customerClick}>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
                 <SearchForm placeholder='请输入关键字' searchFilter={searchFilter} style={{width:262,marginTop:57,marginLeft:-1,marginBottom:15}} onSubmit={this.onSearchSubmit} defaultFilter='NAME'/>
                 <KrField right={34} grid={1/2} style={{marginTop:1}} name={cityCountId} component="city" onSubmit={this.cityValue} label="所属地区" openCity  
@@ -161,7 +161,7 @@ class SearchUpperForm extends React.Component {
 				  options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}
 				></KrField>
 				<KrField grid={1/1}  component="group" label="开业时间" style={{marginTop:3}}>
-				<div className='ui-listDate'>
+				<div className='list-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="openDateBegin" component="date" /></div></ListGroupItem>
 							<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
@@ -174,7 +174,7 @@ class SearchUpperForm extends React.Component {
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+								<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
