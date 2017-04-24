@@ -162,6 +162,7 @@ export default class EditCreate extends React.Component {
         let customerId = localStorage.getItem(keyWord +'customerId');
 
         initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+        initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
 
         optionValues.contractFileList = response.contractFileList;
         optionValues.lessorContactName =  response.lessorContactName;
@@ -373,7 +374,7 @@ export default class EditCreate extends React.Component {
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';
-       if(localStorage.getItem(keyWord+'num')>3){
+       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
         _this.setState({
           openLocalStorages:true
         })
@@ -391,6 +392,7 @@ export default class EditCreate extends React.Component {
 
     },function(){
       this.getBasicData()
+      this.removeLocalStorage()
     })  
   } 
   getLocalStorage=()=>{

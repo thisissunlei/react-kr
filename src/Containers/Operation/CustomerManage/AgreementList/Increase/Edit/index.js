@@ -185,6 +185,7 @@ export default class JoinCreate extends React.Component {
 			}).then(function(response) {
 				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
 				initialValues.num = localStorage.getItem(keyWord+'num')||1;
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
 				initialValues.id = response.id;
@@ -395,7 +396,7 @@ getlocalSign=()=>{
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+''+ params.customerId+'ADDRENTedit';
-       if(localStorage.getItem(keyWord+'num')>3){
+       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
         _this.setState({
           openLocalStorages:true
         })
@@ -413,6 +414,7 @@ getlocalSign=()=>{
 
     },function(){
       this.getBasicData()
+      this.removeLocalStorage()
     })  
   } 
   getLocalStorage=()=>{
