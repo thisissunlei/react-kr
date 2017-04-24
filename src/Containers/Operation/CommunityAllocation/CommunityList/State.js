@@ -5,10 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
@@ -52,7 +49,7 @@ State.switchNewCommunityList = action(function() {
 //新建社区的提交
 State.onNewCommunitySubmit= action(function(data) {	
 	 var _this=this;
-	 Store.dispatch(Actions.callAPI('actions-edit',{},data)).then(function(response) {
+	 Http.request('actions-edit',{},data).then(function(response) {
 		_this.openNewCommunity=false;	
 		_this.openEditCommunity=false;
 		_this.searchParams={
@@ -77,7 +74,7 @@ State.closeAllDialog = action(function() {
 //社区列表数据准备
 State.searchDataHere = action(function() {
 	 var _this=this;
-	 Store.dispatch(Actions.callAPI('list-param-data')).then(function(response) {
+	 Http.request('list-param-data').then(function(response) {
 		_this.searchData=response.businessAreas;
 		_this.isFlag=response.showEdit;
 	}).catch(function(err) {
@@ -96,7 +93,7 @@ State.switchWatchList = action(function() {
 //获取详情信息
 State.getEditList = action(function(id) {
 	var _this=this;
-	 Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
+	 Http.request('communityGetEdit',{id:id}).then(function(response) {
 	    _this.detailData=response;
 	}).catch(function(err) {
 		 Message.error(err.message);
@@ -109,7 +106,7 @@ State.communityName = action(function(params,id) {
 	 let data={};
 	 data.id=id;
 	 data.name=params;
-	 Store.dispatch(Actions.callAPI('check-name',data)).then(function(response) {
+	 Http.request('check-name',data).then(function(response) {
 	    _this.isCorpName=false;
 	}).catch(function(err) {
 		if(err.message.indexOf("该名称已存在")!=-1){
@@ -125,7 +122,7 @@ State.communityCode = action(function(params,id) {
 	 let data={};
 	 data.id=id;
 	 data.code=params;
-	 Store.dispatch(Actions.callAPI('check-code',data)).then(function(response) {
+	 Http.request('check-code',data).then(function(response) {
 	   _this.isCorpCode=false;
 	}).catch(function(err) {
 		 if(err.message.indexOf("该编码已存在")!=-1){
@@ -143,7 +140,7 @@ State.communityRank = action(function(params,id,communityId) {
 	 data.cityId=id;
 	 data.orderNum=params;
 	 data.id=communityId;
-	 Store.dispatch(Actions.callAPI('check-rank',data)).then(function(response) {
+	 Http.request('check-rank',data).then(function(response) {
 	     _this.isCorpRank=false;
 	}).catch(function(err) {
 		 if(err.message.indexOf("该序号已存在")!=-1){
