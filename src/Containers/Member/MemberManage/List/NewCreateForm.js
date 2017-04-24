@@ -1,6 +1,8 @@
 import React from 'react';
 import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 
 import {
 	KrField,
@@ -74,7 +76,7 @@ class NewCreateForm extends React.Component{
 			communityId:'',
 			companyId:'',
 		}
-		Store.dispatch(Actions.callAPI('getMemberBasicData',params)).then(function(response){
+		Http.request('getMemberBasicData',params).then(function(response){
 			response.jobList.forEach(function(item,index){
 				item.value = item.id;
 				item.label = item.jobName;
@@ -104,7 +106,7 @@ class NewCreateForm extends React.Component{
 			phone
 		});
 		let _this = this;
-		Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
+		Http.request('isPhoneRegistered',params).then(function(response){
 			//  检验response是不是空对象
 			if(!$.isEmptyObject(response)){
 				response.sendMsg = '1';
@@ -149,7 +151,7 @@ class NewCreateForm extends React.Component{
 			})
 			return;
 		}else{
-			Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+			Http.request('isEmailRegistered',params).then(function(response){
 				//邮箱已注册
 				Message.warntimeout('该邮箱已被绑定','error');
 				_this.setState({
@@ -180,7 +182,7 @@ class NewCreateForm extends React.Component{
 		}
 
 		if(params.code !== undefined){
-			Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+			Http.request('membersByForeignCode',params).then(function(response){
 				//会员卡号已注册
 				if(response.phone !='-1' && response.id){
 					Message.warntimeout('该会员卡号已被绑定','error');
