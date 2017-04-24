@@ -116,6 +116,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
+
    State.stationSubmit(params);
  }
 

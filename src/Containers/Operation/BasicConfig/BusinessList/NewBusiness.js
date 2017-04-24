@@ -100,17 +100,18 @@ import './index.less';
 }
 const validate = values =>{
 	const errors = {};
+	const num = /^[0-9]*[1-9][0-9]*$/;
 	const integer =  /^[0-9a-zA-Z]*$/;
 	if(!values.sort){
 		errors.sort = "排序不能为空";
-	}else if(!integer.test(values.sort)){
+	}else if(!num.test(values.sort)){
 		errors.sort = "排序只能为正整数";
 	}
 	if(!values.no){
 		errors.no = "商圈代码不可为空";
 	}else if(values.no.length >20){
 		errors.no = "商圈代码长度在20是字符以内";
-	}else if(integer.test(values.no)){
+	}else if(!integer.test(values.no)){
 		errors.no = "商圈代码由字母与数字组成";
 	}
 	return errors;
