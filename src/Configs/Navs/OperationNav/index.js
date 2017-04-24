@@ -129,11 +129,11 @@ module.exports = [
 	          iconName: 'icon-wendang',
 	          iconColor: '#79859a',
 	          router: 'voucherManage',
-	          menuCode: 'communityStationList',
+	          menuCode: 'evidenceAdmin',
 	          menuItems: [{
 	            primaryText: '凭证列表',
 	            router: '/operation/voucherManage/voucherList',
-	            menuCode: 'coustomerInfoList',
+	            menuCode: 'evidenceList',
 	          }]
 			},
 		]
