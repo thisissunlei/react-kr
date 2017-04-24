@@ -117,7 +117,7 @@ class ImportData extends React.Component{
 					 <div style={{marginTop:19}}>
 						 <span className='m-upload-file'>上传文件:</span>
 						 <span className='import-logo'><span className='import-pic'></span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
-             <span className='load-demo icon-template' onClick={this.onLoadDemo}>下载模板</span>
+                         <span className='load-demo icon-template' onClick={this.onLoadDemo}>下载模板</span>
 						 {fileName?<span className='file-name'>{fileName}</span>:''}
 					 </div>
 
