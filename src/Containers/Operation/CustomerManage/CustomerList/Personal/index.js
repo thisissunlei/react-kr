@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Table,
@@ -83,7 +84,7 @@ class Personal extends Component{
 	}
 	openEditCustomerList=()=>{
 		let listId=State.listId;
-		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
+		Http.request('get-edit-info',{id:listId}).then(function(response) {
 
 			Store.dispatch(initialize('EditCustomerList',response));
 			if(!response.countyName){
@@ -158,7 +159,7 @@ class Personal extends Component{
 		data.mainBillId=editIndentId;
 
 		var _this=this;
-		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
+		Http.request('get-simple-order',data).then(function(response) {
 			for(var i=0;i<orderReady.communityCity.length;i++){
 				if(orderReady.communityCity[i].communityId==response.communityid){
 					response.cityid=orderReady.communityCity[i].cityId;

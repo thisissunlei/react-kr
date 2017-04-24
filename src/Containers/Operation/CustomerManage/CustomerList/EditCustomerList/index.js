@@ -2,7 +2,8 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -82,7 +83,7 @@ import {
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
-		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+		Http.request('customerDataEdit',{},values).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,

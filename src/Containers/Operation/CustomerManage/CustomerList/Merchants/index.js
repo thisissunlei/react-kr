@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	KrField,
@@ -80,7 +81,7 @@ class Merchants extends Component{
 	openEditCustomerList=()=>{
 		let listId=State.listId;
 
-		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
+		Http.request('get-edit-info',{id:listId}).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
 			if(!response.countyName){
 				State.editCity=`${response.provinceName}/${response.cityName}`

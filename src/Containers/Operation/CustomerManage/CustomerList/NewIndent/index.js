@@ -2,7 +2,8 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -55,7 +56,7 @@ import {
 		State.ChangeSubmitState();
 		values.customerid=listId;
 		values.mainbillname=State.orderName;
-		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
+		Http.request('enter-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
          	setTimeout(function(){
