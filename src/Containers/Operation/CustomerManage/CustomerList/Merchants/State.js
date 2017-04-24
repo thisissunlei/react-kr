@@ -5,10 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
@@ -58,7 +55,7 @@ State.catchSubmit= action(function(arrItem){
 	var ids=arrItem;
     var _this=this;
     
-	Store.dispatch(Actions.callAPI('receive-customer',{},{ids})).then(function(response) {
+	Http.request('receive-customer',{},{ids}).then(function(response) {
 		 _this.openCatch=!_this.openCatch;
          Message.success('领取成功');
          _this.openDialog=false;

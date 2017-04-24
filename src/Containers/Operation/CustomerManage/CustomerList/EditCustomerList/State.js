@@ -5,10 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 let State = observable({
 		matureTime:"",
 		detail:{},
@@ -47,7 +44,7 @@ State.noShowMatureTime = action(function() {
 State.editListId= action(function(params) {
 
 	var _this=this;
-	Store.dispatch(Actions.callAPI('get-edit-info',{id:params})).then(function(response) {
+	Http.request('get-edit-info',{id:params}).then(function(response) {
 		_this.detail=response;
 	}).catch(function(err) {
 		
@@ -60,7 +57,7 @@ State.corpNameCheck = action(function(params){
 	let data={};
 	data.id="";
 	data.companyName=params;
-	Store.dispatch(Actions.callAPI('corpNameCheck',data)).then(function(response) {
+	Http.request('corpNameCheck',data).then(function(response) {
 		 _this.isCorpName=false;
 	}).catch(function(err) {
 		if(err.message.indexOf("该名称已存在")!=-1){
@@ -76,7 +73,7 @@ State.corpNameCheck = action(function(params){
 //获取树状图的数据
 State.treeAllData = action(function(){
 	var _this=this;
-	Store.dispatch(Actions.callAPI('get-project-types')).then(function(response) {
+	Http.request('get-project-types').then(function(response) {
 		 _this.treeAll=response.items;
 	}).catch(function(err) {
 		

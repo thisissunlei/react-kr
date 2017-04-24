@@ -2,7 +2,8 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -44,7 +45,7 @@ import {
 	onSubmit = (values) => {
 		  let {listId,operType}=this.props;
 		 var _this=this;
-	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {	       	
+	       Http.request('customerVisitRecord',{},values).then(function(response) {	       	
 				_this.props.CommunityDetailModel.lookListId(listId,operType);
 				// flushData.lookListId(listId,operType);
 				if(operType=="SHARE"){
