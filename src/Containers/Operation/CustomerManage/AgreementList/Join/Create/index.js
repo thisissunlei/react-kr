@@ -136,12 +136,15 @@ export default class JoinCreate extends React.Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId+'ENTERcreate';
+		let keyWord = params.orderId+''+params.customerId + 'ENTERcreate';
+		let keyWord2 = params.orderId+''+params.customerId + 'INTENTIONcreate';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
 			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
 				 removeList.push(itemName);
+			 }else if(localStorage.key(i).indexOf(keyWord2)!= '-1'){
+			 	removeList.push(itemName);
 			 }
 		 }
 		 removeList.map((item)=>{
@@ -293,6 +296,8 @@ export default class JoinCreate extends React.Component {
 				initialValue.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
 				initialValue.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
 				initialValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				initialValue.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
+				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
 
 				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
