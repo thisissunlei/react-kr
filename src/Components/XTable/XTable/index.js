@@ -2,27 +2,35 @@ import React from 'react';
 
 import {Http} from 'kr/Utils';
 
+import Loading from '../../Loading';
 
 
 const Table = ({children})=>{
-    return <table>{children}</table>
+    return <table className="ui-table">{children}</table>
 }
 
 const TableHeader = ({children})=>{
     return <thead>{children}</thead>
 }
+
+const TableHeaderColumn = ({...props})=>{
+  return <th {...props} />
+}
+
 const TableBody = ({children})=>{
   return <tbody>{children}</tbody>
 }
-const TableColumn = ({children,value,component,itemData})=>{
 
-    if(component && typeof component === 'function'){
-        return <td>{component(itemData)}</td>
-    }
-    return <td>{value}</td>
+const TableColumn = ({...props})=>{
+    return <td {...props}></td>
 }
-const TableRow = ({children}) =>{
-  return <tr>{children}</tr>
+
+const TableRow = ({...props}) =>{
+  return <tr {...props}></tr>
+}
+
+const TableCheckBox = ({...props})=>{
+  return <input type="checkbox" {...props}/>
 }
 
 
@@ -48,16 +56,34 @@ export default class XTable extends React.Component {
 
   constructor(props,context){
     super(props,context);
+
     this.options = [];
 
     this.state = {
+      isLoading:false,
       response:{},
       listData:[],
+      checkedAll:false,
+      checkedRows:{},
     }
+
   }
 
   componentWillMount(){
     this.initialize();
+  }
+
+
+  onRowClick = (rowNumber)=>{
+    const {checkedRows} = this.state;
+
+    if(checkedRows.hasOwnProperty(rowNumber)){
+          delete checkedRows[rowNumber]
+    }else{
+         checkedRows[rowNumber] = true;
+    }
+    this.setState({checkedRows});
+
   }
 
   initialize = ()=>{
@@ -81,8 +107,14 @@ export default class XTable extends React.Component {
     ajaxParams = Object.assign({},ajaxParams);
 
     var _this = this;
+
+    this.setState({isLoading:true});
+
 		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
+
+
       _this.setState({
+        isLoading:false,
         response,
         listData:response[ajaxFieldListName]
       });
@@ -119,54 +151,111 @@ export default class XTable extends React.Component {
 
   }
 
+
+  onCheckedAll = ()=>{
+    var {checkedAll,checkedRows} = this.state;
+    checkedAll = !checkedAll;
+
+    if(!checkedAll){
+      checkedRows = {};
+    }
+    this.setState({checkedAll,checkedRows});
+  }
+
   renderHeader = ()=>{
     const options = this.options;
     var thRows = [];
+    var _this = this;
+
+    const checkboxProps = {
+      onChange:this.onCheckedAll,
+      checked:this.state.checkedAll
+    }
+
+
     options.map(function(child,key){
-      const {label,name} = child.props;
-      thRows.push(React.createElement('th',{key,name},label));
+      const {label,name,type} = child.props;
+
+      if(type === 'checkbox'){
+          thRows.push(<TableHeaderColumn key={key}><TableCheckBox {...checkboxProps} /></TableHeaderColumn>);
+      }else{
+        thRows.push(<TableHeaderColumn key={key} name={name}>{label}</TableHeaderColumn>);
+      }
     });
-    return React.createElement('tr',{},thRows);
+
+    return <TableRow> {thRows}</TableRow>
+  }
+
+
+  getRowChecked = (rowNumber)=>{
+
+    const {checkedAll,checkedRows} = this.state;
+    var checked = !!(Object.keys(checkedRows).indexOf(rowNumber.toString()) != -1);
+    if(checkedAll){
+      checked = true;
+    }
+    return checked;
+  }
+
+  createTableColumn = (child,itemData,key,rowNumber)=>{
+
+    var {name,component,type} = child.props;
+
+    var props = { itemData, key};
+
+    const checkboxProps = {
+      checked:this.getRowChecked(rowNumber)
+    };
+
+    if(name && itemData.hasOwnProperty(name)){
+      props.children = itemData[name];
+    }
+
+    if(typeof type ==='string' && type === 'checkbox'){
+      props.children = <TableCheckBox {...checkboxProps}/>;
+    }
+
+    if(component && typeof component === 'function'){
+      props.children = component(itemData);
+    }
+
+    return <TableColumn {...props}></TableColumn>
+
   }
 
   renderBody = ()=>{
+
     const {listData} = this.state;
     const options = this.options;
 
     var bodyRows = [];
     var columns = [];
+    var _this = this;
 
-    listData.forEach(function(itemData,rowKey){
-        columns = [];
-        options.forEach(function(child,columnKey){
-            var value = '';
-            var {name,component} = child.props;
-            var columnProps = {
-                itemData,
-                value:'',
-                key:columnKey,
-            };
-            if(itemData.hasOwnProperty(name)){
-                columnProps.value = itemData[name];
-            }
-            if(component && typeof component ==='function'){
-              columnProps.component = component;
-            }
-            columns.push(<TableColumn {...columnProps} ></TableColumn>);
-        });
-        bodyRows.push(<TableRow key={rowKey}>{columns}</TableRow>);
-    });
-    return bodyRows;
-  }
+    return listData.map(function(itemData,rowKey){
+      columns = [];
+      options.map(function(child,columnKey){
+        columns.push(_this.createTableColumn(child,itemData,columnKey,rowKey));
+      });
+      return <TableRow key={rowKey} onClick={_this.onRowClick.bind(_this,rowKey)}>{columns}</TableRow>;
+      });
 
-  render(){
+    }
 
-    return (
-      <div>
+    render(){
+
+      const {isLoading} = this.state;
+
+      if(isLoading){
+        //return <Loading/>
+      }
+
+      return (
+        <div>
           {this.renderTable()}
-      </div>
-    );
+        </div>
+      );
+
+    }
 
   }
-
-}

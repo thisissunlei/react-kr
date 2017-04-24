@@ -4,7 +4,8 @@ import {
 	Dialog,
 	Button,
 	XTable,
-	XTableRow
+	XTableRow,
+	Section,
 } from 'kr-ui';
 
 export default class ZhangChi extends React.Component {
@@ -17,11 +18,10 @@ export default class ZhangChi extends React.Component {
 				name:'ddsdfs'
 			}
 		}
+
 	}
 
 	onClick = ()=>{
-
-		console.log('clidddck');
 
 		var searchParams = {
 			name:Date.now()
@@ -35,17 +35,18 @@ export default class ZhangChi extends React.Component {
 	render() {
 
 		const {searchParams} = this.state;
-		console.log('===',searchParams);
+
 		return (
-			<div>
+			<Section title="demo">
 					<XTable ajaxUrlName="signCustomers" ajaxParams={this.state.searchParams}>
+								<XTableRow label="全选" type="checkbox" name="all"/>
 								<XTableRow label="公司名称" name="signCityName"/>
 								<XTableRow label="创建时间" name="company"/>
 								<XTableRow label="操作" component={(scope)=>{
-										return <span onClick={this.onClick}>{scope.signCityName}</span>;
+										return <Button onClick={this.onClick} label={scope.signCityName} type="button"/>;
 									}} />
 					</XTable>
-			</div>
+			</Section>
 
 		);
 	}
