@@ -3,6 +3,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -59,7 +61,7 @@ class NewCreateDefinitionForm extends React.Component{
 			communityId :community.id
 		})
     	Store.dispatch(change('NewCreateDefinitionForm', 'communityId', community.communityId));
-    	Store.dispatch(Actions.callAPI('getFloorByComunity',CommunityId))
+    	Http.request('getFloorByComunity',CommunityId)
     	.then(function(response){
     		var arrNew = []
     		for (var i=0;i<response.whereFloors.length;i++){
@@ -96,7 +98,7 @@ class NewCreateDefinitionForm extends React.Component{
   			})
   			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floorNum}
   			
-  			Store.dispatch(Actions.callAPI('getLocationByProperty',SearchLocationParams)).
+  			Http.request('getLocationByProperty',SearchLocationParams).
 			then(function(response){
 				var locationArr = []
 	    		for (var i=0;i<response.length;i++){
@@ -176,7 +178,7 @@ class NewCreateDefinitionForm extends React.Component{
 			type :"deviceCode",
 			id : ''
 		}
-		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',params)).
+		Http.request('doorNumberAndHardwareId',params).
 		then(function(response){
 			_this.setState({
 	 			doorNumHasStatus : false
@@ -205,7 +207,7 @@ class NewCreateDefinitionForm extends React.Component{
 			type :"hardwareid",
 			id : ''
 		}
-		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdparams))
+		Http.request('doorNumberAndHardwareId',hardwareIdparams)
 		.then(function(response){
 	 		_this.setState({
 	 			hardwareidHasStatus : false,
@@ -243,9 +245,9 @@ class NewCreateDefinitionForm extends React.Component{
 			id :''
 		}
 // 此处判断门编号是否存在
-		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',deviceCodeParams)).
+		Http.request('doorNumberAndHardwareId',deviceCodeParams).
 		then(function(response){
-			Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdParams)).
+			Http.request('doorNumberAndHardwareId',hardwareIdParams).
 			then(function(response){
 				const  {onSubmit} = _this.props;
 				onSubmit && onSubmit(values);

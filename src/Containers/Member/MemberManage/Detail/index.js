@@ -9,6 +9,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import PersonalData from './PersonalData';
 import PersonalJob from './PersonalJob';
 import PersonalCompanyInfo from './PersonalCompanyInfo';
@@ -49,9 +50,9 @@ export default class memberListDetail extends React.Component{
     var _this = this;
     let params = this.context.router.params;
     // 获取会员详细信息
-		Store.dispatch(Actions.callAPI('getMemberDetailData', {
+		Http.request('getMemberDetailData', {
 			id: params.memberId,
-		})).then(function(response) {
+		}).then(function(response) {
       _this.setState({
         workInfo:response.workInfo,
         companyInfo:response.companyInfo,

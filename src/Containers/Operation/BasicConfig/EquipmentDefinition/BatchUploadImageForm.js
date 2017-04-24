@@ -13,6 +13,8 @@ import {
 	Notify
 } from 'kr-ui';
 import "./index.less";
+import {Http} from 'kr/Utils';
+
 class BatchUploadImageForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
@@ -73,7 +75,7 @@ class BatchUploadImageForm extends React.Component{
 		let valuesParams = {
 			deviceId:values.communitys
 		}
-		Store.dispatch(Actions.callAPI('getEquipmentNum',{},valuesParams))
+		Http.request('getEquipmentNum',{},valuesParams)
 	      .then(function(response){
 	      	if(response.length == 0){
 	      		const {seleletZero} = _this.props;
@@ -122,7 +124,7 @@ class BatchUploadImageForm extends React.Component{
 			deviceId : _this.state.selectedCommunitys,
 			picUrl : _this.state.picUrl
 		}
-	    Store.dispatch(Actions.callAPI('oploadImgToEquipment',{},sendRealEquipment))
+	    Http.request('oploadImgToEquipment',{},sendRealEquipment)
 	      .then(function(response){
 	      }).catch(function(err){
 	        Notify.show([{
@@ -133,7 +135,7 @@ class BatchUploadImageForm extends React.Component{
 	    _this.openBatchUploadNum();
 	    _this.openScheduleDiv();
 		var timer = setInterval(function(){
-			Store.dispatch(Actions.callAPI('getPushImgRes',""))
+			Http.request('getPushImgRes',"")
 			.then(function(response){
 				response = response.split("|");
 				_this.setState({

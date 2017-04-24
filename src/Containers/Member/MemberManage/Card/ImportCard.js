@@ -3,6 +3,8 @@ import React, { PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -39,7 +41,7 @@ class ImportCard extends React.Component{
 	 		endForeignCode:values.end
 	 	};
 	 	const {onSubmit} = this.props;
-	 	Store.dispatch(Actions.callAPI('memberCardImport' , params)).then(function(response) {
+	 	Http.request('memberCardImport' , params).then(function(response) {
 		 	onSubmit && onSubmit(values);
 		}).catch(function(err) {
 		 	Message.error(err.message);

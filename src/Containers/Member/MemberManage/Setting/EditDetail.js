@@ -19,6 +19,7 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 
 class EditDetail extends React.Component {

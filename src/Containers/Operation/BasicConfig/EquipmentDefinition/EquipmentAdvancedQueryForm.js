@@ -2,6 +2,7 @@
 import React from 'react';
 import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -72,7 +73,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		let CommunityId = {
 			communityId : community.id
 		}
-    	Store.dispatch(Actions.callAPI('getFloorByComunity',CommunityId))
+    	Http.request('getFloorByComunity',CommunityId)
     	.then(function(response){
     		var arrNew = []
     		for (var i=0;i<response.whereFloors.length;i++){
