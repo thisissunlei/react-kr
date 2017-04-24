@@ -114,7 +114,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 		let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
-			 if(localStorage.getItem(keyWord+'num')>2){
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
 				_this.setState({
 					openLocalStorages:true
 				})
@@ -148,8 +148,11 @@ export default class JoinCreate extends React.Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 
-			let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
+			let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
+
+			console.log(localStorage.getItem(keyWord+'num'),localStorage.getItem(keyWord+'oldNum'))
 
 			initialValues.setLocalStorageDate = +new Date();
 
@@ -200,7 +203,6 @@ export default class JoinCreate extends React.Component {
 		});
 	}
 
-
 	render() {
 
 		let {
@@ -216,7 +218,7 @@ export default class JoinCreate extends React.Component {
 			 <Title value="创建退租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
 		<Section title="退租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} openLocalStorage={openLocalStorages} params={this.props.params}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} openLocalStorage={openLocalStorages} params={this.props.params} removeLocalStorage={this.removeLocalStorage}/>
 			</Section>
 
 			<Dialog

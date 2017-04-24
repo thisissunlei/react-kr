@@ -25,6 +25,7 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 
 class NewCreateForm extends React.Component {
@@ -47,7 +48,7 @@ class NewCreateForm extends React.Component {
 		values = Object.assign({}, values);
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addFnaCorporation', {}, values)).then(function(response) {
+		Http.request('addFnaCorporation', {}, values).then(function(response) {
 			Notify.show([{
 				message: '新建成功！',
 				type: 'success',

@@ -653,6 +653,8 @@ class NewCreateForm extends React.Component {
 			let stationVos = JSON.parse(initialValues.stationVos);
 
 			Store.dispatch(initialize('increaseCreateForm', initialValues));
+			Store.dispatch(change('increaseCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
+
 
 			_this.setState({
 				initialValues,
@@ -668,14 +670,14 @@ class NewCreateForm extends React.Component {
 			openLocalStorage:false,
 
 		})
-		console.log('onCancelStorage')	
+		let {removeLocalStorage} = this.props;
+		removeLocalStorage && removeLocalStorage();	
 	}
 	getLocalStorage=()=>{
 		this.setState({
 			openLocalStorage:false,
 		})
 		this.getLocalStorageSata();
-		console.log('getLocalStorage')
 	}
 
 
@@ -1000,7 +1002,6 @@ const validate = values => {
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
 	}
-
 	++values.num;
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性

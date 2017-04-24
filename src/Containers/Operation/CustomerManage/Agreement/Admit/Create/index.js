@@ -87,7 +87,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 		let keyWord = params.orderId+ params.customerId+'INTENTIONcreate';
-			 if(localStorage.getItem(keyWord+'num')>2){
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
 				_this.setState({
 					openLocalStorages:true
 				})
@@ -163,6 +163,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.customerId = params.customerId;
 			let keyWord = params.orderId+params.customerId+'INTENTIONcreate';
 			initialValues.num  = localStorage.getItem(keyWord+'num') ||1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.setLocalStorageDate = +new Date();
 			
@@ -240,7 +241,7 @@ export default class JoinCreate extends React.Component {
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租意向书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} initialValue={initialValue} onCancel={this.onCancel} stationVoList={stationVoList} openLocalStorage={openLocalStorages} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} initialValue={initialValue} onCancel={this.onCancel} stationVoList={stationVoList} openLocalStorage={openLocalStorages} optionValues={optionValues} removeLocalStorage={this.removeLocalStorage}/>
 			</Section>
 
 			<Dialog

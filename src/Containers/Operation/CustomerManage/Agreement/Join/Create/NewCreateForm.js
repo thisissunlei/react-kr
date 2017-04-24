@@ -657,6 +657,8 @@ class NewCreateForm extends React.Component {
 			stationVos = JSON.parse(initialValues.stationVos);
 
 			Store.dispatch(initialize('joinCreateForm', initialValues));
+			Store.dispatch(change('joinCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
+
 			
 
 			_this.setState({
@@ -673,14 +675,14 @@ class NewCreateForm extends React.Component {
 			openLocalStorage:false,
 
 		})
-		console.log('onCancelStorage')	
+		let {removeLocalStorage} = this.props;
+		removeLocalStorage && removeLocalStorage();	
 	}
 	getLocalStorage=()=>{
 		this.setState({
 			openLocalStorage:false,
 		})
 		this.getLocalStorageSata();
-		console.log('getLocalStorage')
 	}
 
 	render() {

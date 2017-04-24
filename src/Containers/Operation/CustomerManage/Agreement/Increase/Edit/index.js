@@ -104,7 +104,8 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
-			 if(localStorage.getItem(keyWord+'num')>3){
+		console.log(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum'))
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
 				_this.setState({
 					openLocalStorages:true
 				})
@@ -140,6 +141,7 @@ export default class JoinCreate extends React.Component {
 
 			let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -392,6 +394,7 @@ export default class JoinCreate extends React.Component {
 
 		})	
 		this.getBasicData();
+		this.removeLocalStorage();
 	}
 	getLocalStorage=()=>{
 		this.setState({
@@ -418,7 +421,7 @@ export default class JoinCreate extends React.Component {
 			<Title value="编辑增租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','增租协议书']}/>
 			<Section title="增租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos} />
 			</Section>
 			<Dialog
 				title="提示"

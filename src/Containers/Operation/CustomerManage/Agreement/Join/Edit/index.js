@@ -118,7 +118,7 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+'ENTERedit';
-			 if(localStorage.getItem(keyWord+'num')>3){
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
 			 	_this.setState({
 					openLocalStorages:true
 				})
@@ -176,6 +176,7 @@ export default class JoinCreate extends React.Component {
 			let keyWord = params.orderId+''+ params.customerId+'ENTERedit';
 			// optionValues.contractCode = response.contractCode;
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
 			initialValues.setLocalStorageDate = +new Date();
 
 			optionValues.communityAddress = response.customer.communityAddress;
@@ -415,6 +416,7 @@ export default class JoinCreate extends React.Component {
 
 		})	
 		this.getBasicData();
+		this.removeLocalStorage()
 	}
 	getLocalStorage=()=>{
 		this.setState({

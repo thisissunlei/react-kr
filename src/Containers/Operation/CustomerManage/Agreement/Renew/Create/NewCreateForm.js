@@ -362,6 +362,8 @@ class NewCreateForm extends React.Component {
 			let stationVos = JSON.parse(initialValues.stationVos);
 
 			Store.dispatch(initialize('reduceCreateForm', initialValues));
+			Store.dispatch(change('reduceCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
+
 
 			_this.setState({
 				initialValues,
@@ -375,7 +377,8 @@ class NewCreateForm extends React.Component {
 			openLocalStorage:false,
 
 		})
-		console.log('onCancelStorage')	
+		let {removeLocalStorage} = this.props;
+		removeLocalStorage && removeLocalStorage();
 	}
 	getLocalStorage=()=>{
 		this.setState({

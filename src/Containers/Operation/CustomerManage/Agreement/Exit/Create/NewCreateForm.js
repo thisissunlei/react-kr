@@ -229,6 +229,7 @@ class NewCreateForm extends React.Component {
 
 
 			Store.dispatch(initialize('exitCreateForm', initialValues));
+			Store.dispatch(change('exitCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
 
 			_this.setState({
 				initialValues,
@@ -240,14 +241,15 @@ class NewCreateForm extends React.Component {
 			openLocalStorage:false,
 
 		})
-		console.log('onCancelStorage')	
+		let {removeLocalStorage} = this.props;
+		removeLocalStorage && removeLocalStorage();
 	}
 	getLocalStorage=()=>{
 		this.setState({
 			openLocalStorage:false,
 		})
 		this.getLocalStorageSata();
-		console.log('getLocalStorage')
+
 	}
 
 
@@ -373,6 +375,7 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
+	console.log('dddddd',values);
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';

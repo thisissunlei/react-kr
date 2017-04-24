@@ -119,7 +119,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 		let keyWord = params.orderId+ params.customerId+'ENTERcreate';
-			 if(localStorage.getItem(keyWord+'num')>2){
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
 				_this.setState({
 					openLocalStorages:true
 				})
@@ -160,6 +160,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.customerId = params.customerId;
 
 			let keyWord = params.orderId+ params.customerId+'ENTERcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
 			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.setLocalStorageDate = +new Date();
@@ -233,7 +234,7 @@ export default class JoinCreate extends React.Component {
 				<Title value="创建入驻协议书_财务管理"/>
 
 			<Section title="入驻协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} openLocalStorage={openLocalStorages} params={this.props.params}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} openLocalStorage={openLocalStorages} params={this.props.params} removeLocalStorage={this.removeLocalStorage}/>
 			</Section>
 
 			<Dialog
