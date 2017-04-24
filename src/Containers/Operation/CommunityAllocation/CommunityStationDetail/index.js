@@ -49,13 +49,14 @@ class  CommunityStationDetail extends React.Component{
 		State.communityId=href;
 	}
 
- //新建工位打开
+    //新建工位打开
 	openAddStation=()=>{
 		let {FormModel} = this.props;
 		FormModel.getForm("NewAddStation")
 		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		State.addStation();
 		State.isCode=false;
+		//State.deleteId='';
 	}
 	//新建工位取消
 	cancelAddCode=()=>{

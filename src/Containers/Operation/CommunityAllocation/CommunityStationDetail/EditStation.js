@@ -34,7 +34,7 @@ class EditStation  extends React.Component{
 				if(response.enable){
 					 response.enable='true';
 				}else{
-           response.enable='false';
+                response.enable='false';
 				}
 				if(response.belongSpace){
 		      _this.setState({

@@ -14,7 +14,7 @@ import {
 } from 'mobx-react';
 import State from './State';
 @observer
-class NewAddStation  extends React.Component{
+class NewAddMeeting  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -169,4 +169,4 @@ const validate = values =>{
 
 		return errors
 }
-export default mobxForm({ form: 'NewAddStation',validate})(NewAddStation);
+export default mobxForm({ form: 'NewAddMeeting',validate})(NewAddMeeting);

@@ -54,7 +54,7 @@ class NewAddStation  extends React.Component{
 
  //校验工位编号
 	codeCompare=(params)=>{
-    State.codeStationCompare(params);
+     State.codeStationCompare(params);
 	}
 
 	//楼层

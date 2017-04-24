@@ -65,7 +65,7 @@ State.editStation = action(function() {
 State.codeStationCompare= action(function(params) {
 	var _this=this;
   let data={};
- data.id="";
+ data.id=_this.deleteId;
  data.code=params;
  data.communityId=_this.communityId;
  Http.request('station-check-code',data).then(function(response) {
