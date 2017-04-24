@@ -296,8 +296,8 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos,
 			delStationVos,
-			originStationVos
 		} = this.state;
+		let originStationVos = form.stationVos;
 
 
 		delStationVos = originStationVos.filter(function(origin){

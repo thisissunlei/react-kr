@@ -233,6 +233,7 @@ export default class JoinCreate extends React.Component {
 
 
         //处理stationvos
+        initialValues.stationVos =  response.stationVos;
         stationVos =  response.stationVos;
 
 
@@ -367,6 +368,8 @@ export default class JoinCreate extends React.Component {
 
 
         //处理stationvos
+        initialValues.stationVos =  response.stationVos;
+        
         stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
 
         console.log(JSON.parse(localStorage.getItem(keyWord+'stationVos')), '---->>>>', response);

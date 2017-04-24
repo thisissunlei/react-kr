@@ -386,9 +386,8 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos,
 			allRent,
-			originStationVos,
-
 		} = this.state;
+		let originStationVos = form.stationVos;
 
 		let delStationVo =[];
 
