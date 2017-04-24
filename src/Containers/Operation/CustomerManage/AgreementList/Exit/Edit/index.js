@@ -1,5 +1,5 @@
 import React, {
-   
+
   PropTypes
 } from 'react';
 import {
@@ -13,7 +13,7 @@ import {
   Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from "kr/Utils"
 import {
   Notify,
   BreadCrumbs,
@@ -45,14 +45,14 @@ export default class EditCreate extends React.Component {
 
   onCreateSubmit(formValues) {
     const {params} = this.props;
-    Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+    htt.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
       Notify.show([{
         message: '编辑成功',
         type: 'success',
       }]);
       allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
       allState.openEditAgreement=false;
-      
+
       //location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
     }).catch(function(err) {
@@ -78,11 +78,11 @@ export default class EditCreate extends React.Component {
     let optionValues = {};
     let stationVos = [];
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention', {
+    Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type : 1,
-    })).then(function(response) {
+    }).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
 
@@ -92,7 +92,7 @@ export default class EditCreate extends React.Component {
       initialValues.leaseEnddate = new Date;
 
        initialValues.contractcode = response.contractCode;
-       
+
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
@@ -121,9 +121,9 @@ export default class EditCreate extends React.Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+      Http.request('getFnaContractWithdrawalById', {
         id: params.id
-      })).then(function(response) {
+      }).then(function(response) {
 
         optionValues.contractFileList = response.contractFileList;
         optionValues.lessorContactName = response.lessorContactName;

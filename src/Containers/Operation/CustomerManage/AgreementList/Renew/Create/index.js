@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -20,14 +20,14 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-
+import {Http} from "kr/Utils"
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
 import allState from "../../State";
 export default class JoinCreate extends React.Component {
 
-	 
+
 
 
      static childContextTypes = {
@@ -42,7 +42,7 @@ export default class JoinCreate extends React.Component {
 	      }
 	    }
 
-  
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -79,7 +79,7 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 
-		Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -120,12 +120,12 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -139,7 +139,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.leaseAddress = response.customer.customerAddress;
 
 			initialValues.contractcode = response.contractCode;
-			
+
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -205,5 +205,3 @@ export default class JoinCreate extends React.Component {
 		);
 	}
 }
-
-

@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -23,7 +23,7 @@ import {
 	FieldArray,
 
 } from 'redux-form';
-
+import {Http} from "kr/Utils"
 import {
 	Actions,
 	Store
@@ -32,7 +32,7 @@ import {
 import AllStation from './AllStation';
 
 import {
-	
+
 	Dialog,
 	Table,
 	TableBody,
@@ -166,8 +166,8 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		
-		Store.dispatch(Actions.callAPI('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
+
+		Http.request('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -329,7 +329,7 @@ class NewCreateForm extends React.Component {
 		}
 		return name;
 	}
-	
+
 	render() {
 				let {
 					error,
@@ -365,7 +365,7 @@ class NewCreateForm extends React.Component {
 							<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 								<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 								<div className="small-cheek">
-									<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}} >	
+									<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}} >
 										<DotTitle title='租赁明细' tyle={{marginTop:53,marginBottom:25}}>
 									       <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 												<Row>
@@ -406,7 +406,7 @@ class NewCreateForm extends React.Component {
 											</div>
 
 				                       		{stationVos.length > 5 ? <div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
-					                     
+
 							            </DotTitle>
 							            <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
@@ -439,7 +439,7 @@ class NewCreateForm extends React.Component {
 										<KrField style={{width:262,marginLeft:25}} name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 										<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} toolTrue={true}/>
-										
+
 										<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 										<KrField style={{width:262,marginLeft:25}} name="rentamount" component="labelText" inline={false} type="text" requireLabel={true} label="减租金额" value={allRent} defaultValue="0"
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} />
@@ -456,7 +456,7 @@ class NewCreateForm extends React.Component {
 							<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件"  defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('reduceCreateForm','contractFileList',files));
 							}} />
-			              
+
 				         	<div style={{paddingBottom:50,textAlign:"center"}}>
 								<Grid >
 									<Row >

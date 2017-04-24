@@ -1,10 +1,10 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 
 import {DateFormat} from 'kr/Utils';
-
+import {Http} from "kr/Utils"
 import {
 	KrField,
 	Button,
@@ -75,9 +75,9 @@ export default class JoinDetail extends React.Component {
 	componentDidMount() {
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+		Http.request('show-checkin-agreement', {
 				id: this.props.params.id
-			}))
+			})
 			.then(function(response) {
 				_this.setState({
 					basic: response,
@@ -89,14 +89,14 @@ export default class JoinDetail extends React.Component {
 			            _this.setState({
 			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
-			        } 
+			            })
+			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		newBasicStationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	       	        
+			        }
 				});
 			}).catch(function(err) {
 				Notify.show([{
@@ -105,7 +105,7 @@ export default class JoinDetail extends React.Component {
 				}]);
 			});
 
-	  
+
 
 
 	}
@@ -124,16 +124,16 @@ export default class JoinDetail extends React.Component {
             this.setState({
             	newBasicStationVos:oldBasicStationVos.slice(0,5),
             	openAdd:true
-            })    	
+            })
         }
          if(oldBasicStationVos&&oldBasicStationVos.length<=5){
         	this.setState({
         		newBasicStationVos:oldBasicStationVos,
         		openAdd:false
         	})
-        }     		     
+        }
     }
-    
+
      addRender=()=>{
     	    var _this=this;
             let add='';
@@ -168,7 +168,7 @@ export default class JoinDetail extends React.Component {
 				<Title value="增租协议书详情页_财务管理"/>
 				  	<div className="customer-close" onMouseUp={this.onCancel}></div>
 				    <span className="content-title">增租协议书详情页</span>
-				   
+
 				   <DotTitle title='租赁明细'>
 
 						<Table displayCheckbox={false} >

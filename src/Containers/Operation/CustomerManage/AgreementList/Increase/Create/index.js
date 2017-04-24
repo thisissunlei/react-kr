@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -13,14 +13,14 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from "kr/Utils"
 import {
 	Dialog,
 	Notify,
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-import './index.less';	
+import './index.less';
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import allState from "../../State";
@@ -87,7 +87,7 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditIncreaseContract',formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
@@ -131,12 +131,12 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
@@ -153,7 +153,7 @@ export default class JoinCreate extends React.Component {
 
 			initialValues.contractcode = response.contractCode;
 
-			
+
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
 			initialValues.agreement = '无';
