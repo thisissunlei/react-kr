@@ -116,9 +116,9 @@ module.exports =  function (initializeConfigs){
 				this.validate();
 			}
 
-			shouldComponentUpdate(nextProps){
+				/*shouldComponentUpdate(nextProps){
 
-					if(!ShallowEqual(this.props.values,nextProps.values)){
+				if(!ShallowEqual(this.props.values,nextProps.values)){
 						return true;
 					}
 
@@ -127,7 +127,9 @@ module.exports =  function (initializeConfigs){
 					}
 
 				return false;
+
 			}
+			*/
 
 
 			render(){
@@ -166,15 +168,17 @@ module.exports =  function (initializeConfigs){
 				this.$form.setValidateCallback(initializeConfigs.validate);
 			}
 
-			shouldComponentUpdate(nextProps){
-
+			/*shouldComponentUpdate(nextProps){
+				
 				var {FormModel,...otherProps} = this.props;
 				var {FormModel,...otherNextProps} = nextProps;
 				if(!ShallowEqual(otherProps,otherNextProps)){
 					return true;
 				}
 				return false;
+				
 			}
+			*/
 
 			render(){
 
