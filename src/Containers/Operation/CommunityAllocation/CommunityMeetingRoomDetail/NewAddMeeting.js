@@ -14,7 +14,7 @@ import {
 } from 'mobx-react';
 import State from './State';
 @observer
-class NewAddStation  extends React.Component{
+class NewAddMeeting  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -23,7 +23,7 @@ class NewAddStation  extends React.Component{
 		}
 	}
 
-  onSubmit=(values)=> {
+    onSubmit=(values)=> {
 		values.id='';
 		values.communityId=State.communityId;
 	  const {
@@ -39,49 +39,17 @@ class NewAddStation  extends React.Component{
 		onCancel && onCancel();
 	}
 
-	//属于会议室
-	belongSpace=(params)=>{
-		if(params.value=='true'){
- 		  this.setState({
- 			 isBelongSpace:true
- 		 })
- 	 }else if(params.value=='false'){
- 		 this.setState({
- 			isBelongSpace:false
- 		})
- 	 }
-	}
-
- //校验工位编号
+	
+    //校验空间名称
 	codeCompare=(params)=>{
-    State.codeStationCompare(params);
-	}
-
-	//楼层
-	floorChange=(params)=>{
-		var floor=params.label;
-		State.slectNameCommunity=State.stationName[floor];
+      State.codeStationCompare(params);
 	}
 
 
 	render(){
 
-    const {handleSubmit}=this.props;
-		let {isBelongSpace}=this.state;
-
-		var style={};
-		if(isBelongSpace){
-			style={
-				width:262
-			}
-		}else{
-			style={
-				width:262,
-				marginLeft:28
-			}
-		}
-		let arr = [{label:"yizw",value:"G1"},{label:"yizi",label:"G2"}];
-
+        const {handleSubmit}=this.props;
+		
 		return(
 
 	  <div className='m-newMerchants'>
@@ -98,7 +66,7 @@ class NewAddStation  extends React.Component{
 								component="input"
 								label="空间名称"
 								requireLabel={true}
-	             	onChange={this.codeCompare}
+	             	             onChange={this.codeCompare}
 						/>
             <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
@@ -109,6 +77,7 @@ class NewAddStation  extends React.Component{
 							 	options={State.floorData}
 							 	onChange={this.floorChange}
 						 />
+						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
 						 <KrField grid={1/2}
 							 	style={{width:262}}
 								name="area"
@@ -123,20 +92,20 @@ class NewAddStation  extends React.Component{
 								label="可容纳人数"
 								requireLabel={true}
 						 />
-             <KrField grid={1/2}
+                         <KrField grid={1/2}
 							 	style={{width:262}}
 								name="location"
 								component="input"
 								label="空间位置"
 							/>
-						<KrField
+						{/*<KrField
 							label="对应合同"
 							name='contract'
 							style={{width:262,marginLeft:28}}
 							component="groupCheckbox"
-
+                            defaultValue={}
 							requireLabel={true}
-						/>
+						/>*/}
 
 						<KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
@@ -144,8 +113,7 @@ class NewAddStation  extends React.Component{
 								component="select"
 								label="空间类型"
 							 	requireLabel={true}
-								options={State.floorData}
-								onChange={this.floorChange}
+								options={State.sapceTypes}
 						/>
 						 <KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="启用状态" requireLabel={false}>
  							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
@@ -201,4 +169,4 @@ const validate = values =>{
 
 		return errors
 }
-export default mobxForm({ form: 'NewAddStation',validate})(NewAddStation);
+export default mobxForm({ form: 'NewAddMeeting',validate})(NewAddMeeting);

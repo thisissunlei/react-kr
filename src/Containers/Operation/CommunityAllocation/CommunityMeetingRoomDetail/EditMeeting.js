@@ -14,7 +14,7 @@ import {
 } from 'mobx-react';
 import State from './State';
 @observer
-class EditStation  extends React.Component{
+class EditMeeting  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -30,23 +30,12 @@ class EditStation  extends React.Component{
 			var data={};
 			data.id=id;
 			var _this=this;
-			Http.request('meeting-room-eidt',data).then(function(response) {
+			Http.request('meeting-room-eidData',data).then(function(response) {
 				if(response.enable){
 					 response.enable='true';
 				}else{
-           response.enable='false';
+                     response.enable='false';
 				}
-				if(response.belongSpace){
-		      _this.setState({
-						isBelongSpace:true
-					})
-					response.belongSpace='true';
-		    }else{
-					_this.setState({
- 					 isBelongSpace:false
- 				 })
-				 response.belongSpace='false';
-		    }
 				$form.changeValues(response);
 		 }).catch(function(err) {
 				Message.error(err.message);
@@ -223,4 +212,4 @@ const validate = values =>{
 
 		return errors
 }
-export default mobxForm({ form: 'EditStation',validate})(EditStation);
+export default mobxForm({ form: 'EditMeeting',validate})(EditMeeting);

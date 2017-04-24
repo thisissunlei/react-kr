@@ -9,7 +9,7 @@ import {
   ButtonGroup
 } from 'kr-ui';
 
-class DeleteStation  extends React.Component{
+class DeleteMeeting  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -52,4 +52,4 @@ class DeleteStation  extends React.Component{
 	}
 }
 
-export default DeleteStation
+export default DeleteMeeting

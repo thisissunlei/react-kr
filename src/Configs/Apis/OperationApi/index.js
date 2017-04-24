@@ -374,15 +374,29 @@ module.exports = {
         url: '/api/krspace-finance-web/cmt/space/list?capacityBegin={capacityBegin}&capacityEnd={capacityEnd}&communityId={communityId}&deviceIds={deviceIds}&enable={enable}&page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}',
         method: 'get'
     },
-    //运营平台-会议室列表-新增编辑
-    'meeting-room-eidt': {
+    //运营平台-会议室列表-获取空间编辑信息
+    'meeting-room-eidData': {
         url: '/api/krspace-finance-web/cmt/space/info/type/edit?id={id}',
         method: 'get'
     },
      //运营平台－校验空间名称
-    'station-check-code': {
-        url: '/api/krspace-finance-web/cmt/space/check/name?id={id}&name={name}',
+    'meeting-check-name': {
+        url: '/api/krspace-finance-web/cmt/space/check/name?id={id}&name={name}&communityId={communityId}',
         method: 'get'
     },
-
+     //运营平台－空间列表数据准备
+    'meeting-param-data': {
+        url: '/api/krspace-finance-web/cmt/space/list-param-data?communityId={communityId}',
+        method: 'get'
+    },
+    //运营平台－空间删除接口
+    'meeting-delete': {
+        url: '/api/krspace-finance-web/cmt/space/actions/delete?id={id}',
+        method: 'delete'
+    },
+    //运营平台－空间新增或编辑
+    'meeting-edit-submit': {
+        url: '/api/krspace-finance-web/cmt/space/actions/edit',
+        method: 'post'
+    },
 }

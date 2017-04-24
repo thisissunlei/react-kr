@@ -29,9 +29,9 @@ import {
 } from 'mobx-react';
 import './index.less';
 import State from './State';
-import NewAddStation from './NewAddStation';
-import EditStation from './EditStation';
-import DeleteStation from './DeleteStation';
+import NewAddMeeting from './NewAddMeeting';
+import EditMeeting from './EditMeeting';
+import DeleteMeeting from './DeleteMeeting';
 import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
 @inject("FormModel")
@@ -45,23 +45,23 @@ class  CommunityMeetingRoomDetail extends React.Component{
 	componentWillMount(){
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
 		State.stationDataReady(href);
-    State.searchParams.communityId=href;
+        State.searchParams.communityId=href;
 		State.communityId=href;
 	}
 
- //新建工位打开
+    //新建会议室打开
 	openAddStation=()=>{
 		const {FormModel} = this.props;
-		FormModel.getForm("NewAddStation")
+		FormModel.getForm("NewAddMeeting")
 		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		State.addStation();
 		State.isCode=false;
 	}
-	//新建工位取消
+	//新建会议室取消
 	cancelAddCode=()=>{
 		State.addStation();
 	}
-	//编辑工位取消
+	//编辑会议室取消
 	cancelEditCode=()=>{
 		State.editStation();
 	}
@@ -73,7 +73,7 @@ class  CommunityMeetingRoomDetail extends React.Component{
 		 State.isCode=false;
 	 }else if(type=='delete'){
 		 State.deleteId=itemDetail.id;
-     State.deleteStation();
+         State.deleteStation();
 	 }
  }
 
@@ -123,7 +123,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
  //搜索
  onSearchSubmit=(params)=>{
 	 let data={
-		 code:params.content
+		 searchKey:params.content,
+		 searchType:params.filter
 	 }
 	 State.searchParams= Object.assign({},State.searchParams,data);
 	 State.searchParams.time=+new Date();
@@ -132,7 +133,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
  //高级查询
 openSearchUpperDialog=()=>{
 		var params={
-		  code:'',
+		    code:'',
 			stationType:'',
 			enable:'',
 			belongSpace:'',
@@ -176,6 +177,11 @@ SelectCommunity=()=>{
 
 	render(){
 
+		let options=[
+         {label:'空间名称',value:'NAME'},
+         {label:'空间编码',value:'CODE'},
+		]
+
 		let title=`会议室列表(${State.communityName})`;
 		return(
 			<div className='community-list'>
@@ -205,7 +211,7 @@ SelectCommunity=()=>{
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入工位编号'  onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入工位编号' searchFilter={options} onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
@@ -226,9 +232,9 @@ SelectCommunity=()=>{
 		            <TableHeader>
 		              <TableHeaderColumn>空间类型</TableHeaderColumn>
 		              <TableHeaderColumn>空间编码</TableHeaderColumn>
-                  <TableHeaderColumn>空间名称</TableHeaderColumn>
+                     <TableHeaderColumn>空间名称</TableHeaderColumn>
 		              <TableHeaderColumn>可容纳人数</TableHeaderColumn>
-									<TableHeaderColumn>面积（㎡）</TableHeaderColumn>
+					 <TableHeaderColumn>面积（㎡）</TableHeaderColumn>
 		              <TableHeaderColumn>所在楼层</TableHeaderColumn>
 		              <TableHeaderColumn>状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -261,7 +267,7 @@ SelectCommunity=()=>{
 					openSecondary={true}
 					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 					>
-				<NewAddStation
+				<NewAddMeeting
 					onCancel={this.cancelAddCode}
 					onSubmit={this.stationAddSubmit}
 				/>
@@ -275,7 +281,7 @@ SelectCommunity=()=>{
 					openSecondary={true}
 					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 					>
-				<EditStation
+				<EditMeeting
 					onCancel={this.cancelEditCode}
 					onSubmit={this.stationAddSubmit}
 					id={State.deleteId}
@@ -289,7 +295,7 @@ SelectCommunity=()=>{
 					open={State.openDelete}
 					contentStyle ={{ width: '440px',height:'240px'}}
 					>
-					<DeleteStation
+					<DeleteMeeting
 						 onCancel={this.cancelDelete}
 						 onSubmit={this.deleteSubmit}
 					/>
