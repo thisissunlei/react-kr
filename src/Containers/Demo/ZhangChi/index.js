@@ -3,6 +3,8 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
+	XTable,
+	XTableRow
 } from 'kr-ui';
 
 export default class ZhangChi extends React.Component {
@@ -11,42 +13,38 @@ export default class ZhangChi extends React.Component {
 		super(props, context);
 
 		this.state = {
-			open:true,
-			checkedStations:[],
+			searchParams:{
+				name:'ddsdfs'
+			}
+		}
+	}
+
+	onClick = ()=>{
+
+		console.log('clidddck');
+
+		var searchParams = {
+			name:Date.now()
 		}
 
-	}
-
-	close = ()=>{
 		this.setState({
-			open:!this.state.open
-		})
-	}
-
-	confirm = ()=>{
-		this.close();
-	}
-
-	onCheckedStation =(clickStation,checkedStations)=>{
-		this.setState({
-			checkedStations
+			searchParams
 		});
 	}
 
-	componentDidMount() {}
-
 	render() {
+
+		const {searchParams} = this.state;
+		console.log('===',searchParams);
 		return (
 			<div>
-					<Dialog
-						title="平面图"
-						contentStyle={{width:1000}}
-						actions={<Button label="确定" onTouchTap={this.confirm}/>}
-						onClose={this.close}
-						bodyStyle={{paddingLeft:0,paddingRight:0}}
-						open={this.state.open} >
-								<PlanMap onCheckedStation={this.onCheckedStation} />
-				</Dialog>
+					<XTable ajaxUrlName="signCustomers" ajaxParams={this.state.searchParams}>
+								<XTableRow label="公司名称" name="signCityName"/>
+								<XTableRow label="创建时间" name="company"/>
+								<XTableRow label="操作" component={(scope)=>{
+										return <span onClick={this.onClick}>{scope.signCityName}</span>;
+									}} />
+					</XTable>
 			</div>
 
 		);
