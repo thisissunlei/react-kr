@@ -226,6 +226,7 @@ export default class JoinCreate extends React.Component {
 
 				//处理stationvos
 				stationVos = response.stationVos;
+				initialValues.oldStationVos = response.stationVos;
 				delStationVos =  [];
 
 				_this.setState({
@@ -348,7 +349,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate')||DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 
 
-
+				initialValues.oldStationVos = response.stationVos;
 				//处理stationvos
 				stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos'))||response.stationVos;
 				delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos'))|| [];

@@ -596,6 +596,10 @@ class NewCreateForm extends React.Component {
 				optionValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+
+
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
@@ -737,8 +741,7 @@ class NewCreateForm extends React.Component {
 								 <KrField style={{width:370,marginLeft:70}} name="leaseId" component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField style={{width:370,marginLeft:90}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
-								 {useLocal && <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>}
-								 {!useLocal && <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />}
+								 <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 								 <KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>

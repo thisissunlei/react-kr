@@ -248,10 +248,8 @@ class NewCreateForm extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
-			let originStationVos = [].concat(stationVos);
 			this.setState({
 				stationVos,
-				originStationVos,
 				delStationVos:nextProps.delStationVos
 			});
 			this.isInit = true;
@@ -269,8 +267,8 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos,
 			delStationVos,
-			originStationVos
 		} = this.state;
+		let originStationVos = form.oldStationVos;
 		let delStationVo =[];
 
 		delStationVo = originStationVos.filter(function(origin){

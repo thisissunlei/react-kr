@@ -215,6 +215,8 @@ export default class JoinCreate extends React.Component {
         initialValues.contractmark = response.contractmark;
         initialValues.totalrent = response.totalrent;
         initialValues.contractVersionType = response.contractVersion;
+        initialValues.oldStationVos = response.stationVos;
+        
         if (response.rentamount) {
           rentamount = response.rentamount;
           _this.setState({
@@ -377,7 +379,7 @@ export default class JoinCreate extends React.Component {
 
         //处理stationvos
         stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
-
+        initialValues.oldStationVos = response.stationVos;
 
 
         _this.setState({

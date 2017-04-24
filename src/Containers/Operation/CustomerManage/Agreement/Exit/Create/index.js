@@ -155,7 +155,6 @@ export default class JoinCreate extends React.Component {
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
-			initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
 
 			//initialValues.withdrawdate = +new Date();
 			//initialValues.signdate = +new Date();

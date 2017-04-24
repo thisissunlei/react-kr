@@ -137,6 +137,7 @@ class NewCreateForm extends React.Component {
 				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
+				this.setAllRent(nextProps.stationVos)
 			});
 			this.isInit = true;
 		}

@@ -164,7 +164,6 @@ export default class JoinCreate extends React.Component {
 
 			initialValues.setLocalStorageDate = +new Date();
 
-			initialValues.agreement = '无';
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;

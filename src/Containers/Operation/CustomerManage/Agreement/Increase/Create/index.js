@@ -161,7 +161,6 @@ export default class JoinCreate extends React.Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			// initialValues.signdate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
 			// initialValues.firstpaydate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
-			initialValues.agreement = '无';
 
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;

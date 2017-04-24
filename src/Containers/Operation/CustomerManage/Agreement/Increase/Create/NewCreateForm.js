@@ -634,6 +634,7 @@ class NewCreateForm extends React.Component {
 
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
 				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');

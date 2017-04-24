@@ -316,11 +316,10 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos,
 			allRent,
-			originStationVos,
 
 		} = this.state;
 		let delStationVo =[];
-
+		let originStationVos = initialValues.oldStationVos;
 		delStationVo = originStationVos.filter(function(origin){
 				var isOk = true;
 				stationVos.map(function(station){
@@ -331,7 +330,6 @@ class NewCreateForm extends React.Component {
 				return isOk;
 		});
 		delStationVos = delStationVos.concat(delStationVo);
-
 		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
@@ -340,9 +338,6 @@ class NewCreateForm extends React.Component {
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		var _this = this;
-		if(!!!form.agreement){
-			form.agreement = '无';
-		}
 		if(!form.contractmark){
 			form.contractmark="";
 		}
@@ -355,8 +350,6 @@ class NewCreateForm extends React.Component {
 		}
 
 		form.stationVos = stationVos;
-
-
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 		const {
