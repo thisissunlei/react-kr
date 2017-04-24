@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {reduxForm,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 } from 'kr-ui';
@@ -32,7 +33,7 @@ class ImportCard extends React.Component{
 			id:detail.id
 		}
 		let _this = this;
-		Store.dispatch(Actions.callAPI('memberCardView', params)).then(function(response) {
+		Http.request('memberCardView', params).then(function(response) {
 			_this.setState({
 				bindInfo:true,
 				infoData:response

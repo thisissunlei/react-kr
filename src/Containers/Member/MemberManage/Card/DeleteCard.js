@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {reduxForm,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {  Grid, Row,  Button,  ListGroup, ListGroupItem, Message, } from 'kr-ui';
 class ImportCard extends React.Component{
 	constructor(props){
@@ -30,7 +31,7 @@ class ImportCard extends React.Component{
 	        id: this.props.detail.id
 	    }
 	    let _this = this;
-	    Store.dispatch(Actions.callAPI('memberCardDelete', params)).then(function(response) {
+	    Http.request('memberCardDelete', params).then(function(response) {
 	        const {onSubmit} = _this.props;
 	    	onSubmit && onSubmit();
 	        

@@ -2,6 +2,8 @@
 import React, {PropTypes} from 'react';
 import {reduxForm,change,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import { KrField, Grid, Row, Button, ListGroup, ListGroupItem,Message, } from 'kr-ui';
 import {DateFormat} from 'kr/Utils';
 
@@ -54,7 +56,7 @@ class ImportCard extends React.Component{
 	    
 
 	    let _this = this;
-	    Store.dispatch(Actions.callAPI('transferMemberCard', params))
+	    Http.request('transferMemberCard', params)
 	    .then(function(response) {
 	        const {onSubmit} = _this.props;
 		    onSubmit && onSubmit(values);
@@ -69,7 +71,7 @@ class ImportCard extends React.Component{
 	selectOldUser=(value)=>{
 		let _this = this;
 		Store.dispatch(change('ImportCardForm', 'originUser', value));
-		Store.dispatch(Actions.callAPI('memberCardNum', {receiveId:value})).then(function(response) {
+		Http.request('memberCardNum', {receiveId:value}).then(function(response) {
 	       _this.setState({
 	       		count:response,
 	       		oldUser:value

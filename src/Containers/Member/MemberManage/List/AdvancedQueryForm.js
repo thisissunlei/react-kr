@@ -3,6 +3,8 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,change,reset} from 'redux-form';
+import {Http} from 'kr/Utils';
+
 
 import {
 	KrField,
@@ -107,7 +109,7 @@ class NewCreateForm extends React.Component{
 			memberId:''
 		}
 		let _this =this;
-		Store.dispatch(Actions.callAPI('getMemberBasicData',searchParamPosition)).then(function(response){
+		Http.request('getMemberBasicData',searchParamPosition).then(function(response){
 			response.jobList.forEach(function(item,index){
 				item.value = item.id;
 				item.label = item.jobName;
