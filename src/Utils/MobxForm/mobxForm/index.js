@@ -116,9 +116,22 @@ module.exports =  function (initializeConfigs){
 				this.validate();
 			}
 
+			shouldComponentUpdate(nextProps){
+
+					if(!ShallowEqual(this.props.values,nextProps.values)){
+						return true;
+					}
+
+					if(!ShallowEqual(this.props.syncErrors,nextProps.syncErrors)){
+						return true;
+					}
+
+				return false;
+			}
+
 
 			render(){
-
+				
 				const {
 					pristine,
 					submitting,
@@ -129,7 +142,6 @@ module.exports =  function (initializeConfigs){
 					values,
 					...otherProps
 				} = this.props;
-
 
 				const props = {
 					handleSubmit:this.handleSubmit,

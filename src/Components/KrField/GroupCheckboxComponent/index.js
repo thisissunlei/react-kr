@@ -18,51 +18,61 @@ export default class GroupCheckboxComponent extends React.Component {
 
   constructor(props) {
     super(props)
-
     this.state = {
-      defaultValue: [],
       options: [],
       checkedAll: false,
     }
-
+    this.isInit = false;
   }
 
   componentDidMount() {
-
-    this.setState({
-      defaultValue: this.props.defaultValue,
-      options: this.props.defaultValue,
-    }, function() {
-      this.valuationInputValue();
-    });
-
+    this.setInit(this.props.defaultValue);
   }
 
   componentWillReceiveProps(nextProps) {
+
     if (!ShallowEqual(this.props.defaultValue, nextProps.defaultValue)) {
+        this.setInit(nextProps.defaultValue);
+    }
+  }
+
+  setInit = (defaultValue)=>{
+
+      if(!defaultValue.length){
+        return ;
+      }
+
+      if(this.isInit){
+        return ;
+      }
+
       this.setState({
-        defaultValue: nextProps.defaultValue,
-        options: nextProps.defaultValue
+        options: [].concat(defaultValue)
       }, function() {
         this.valuationInputValue()
       });
 
-    }
+      this.isInit = true;
   }
 
   onChange = (checked, index) => {
+
     let {
       options
     } = this.state;
+
     options[index].checked = checked;
+
     this.setState({
       options
     }, function() {
       this.valuationInputValue();
     });
+
   }
 
   onSelectAll = (checkedAll) => {
+    
     let {
       options
     } = this.state;
@@ -156,7 +166,6 @@ export default class GroupCheckboxComponent extends React.Component {
       disabled,
       placeholder,
       style,
-      defaultValue,
       inline,
     } = this.props;
 
