@@ -56,7 +56,7 @@ class  CommunityStationDetail extends React.Component{
 		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		State.addStation();
 		State.isCode=false;
-		//State.deleteId='';
+		State.deleteId='';
 	}
 	//新建工位取消
 	cancelAddCode=()=>{

@@ -21,10 +21,6 @@ let State = observable({
 		openStation:false,
 		//编辑
 		openStationEdit:false,
-		//属于与不属于
-		isBelong:false,
-		//属于不属于编辑
-		isBelongEdit:false,
 		//实时校验工位编号
 		isCode:false,
 		//删除
