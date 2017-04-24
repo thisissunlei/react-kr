@@ -171,7 +171,7 @@ whiteClose=()=>{
 
 //选择社区
 SelectCommunity=()=>{
-	window.location.href=`./#/operation/communityAllocation/communityStation`;
+	window.location.href=`./#/operation/communityAllocation/communityMeetingRoom`;
 }
 
 	render(){
