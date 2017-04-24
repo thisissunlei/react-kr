@@ -55,12 +55,12 @@ export default class Field extends React.Component{
 
     var value = '';
 
-	if(typeof event === 'object' && event.target){
-        var target = event.target;
-        value = target.value;
+    if(typeof event === 'object' && event.target){
+      var target = event.target;
+      value = target.value;
     }else{
-        value = event;
-	   }
+      value = event;
+    }
     onChange && onChange(name,value);
   }
 
@@ -84,7 +84,7 @@ export default class Field extends React.Component{
   }
 
   getFieldType = ()=>{
-      return this.type;
+    return this.type;
   }
 
   getFieldValue = ()=>{
@@ -115,9 +115,9 @@ export default class Field extends React.Component{
   }
 
   getFieldError = ()=>{
-      const {getFieldError} = this.context;
-      const fieldName = this.name;
-      return getFieldError(fieldName);
+    const {getFieldError} = this.context;
+    const fieldName = this.name;
+    return getFieldError(fieldName);
   }
 
   getName = ()=>{
@@ -136,25 +136,25 @@ export default class Field extends React.Component{
     };
 
     let field = Object.assign({
-		visited:false,
-		touched:false,
-		pristine:false,
-		invalid:false,
-		valid:false,
-		dirty:false,
-		autofilled:false,
-  },this.getField());
+      visited:false,
+      touched:false,
+      pristine:false,
+      invalid:false,
+      valid:false,
+      dirty:false,
+      autofilled:false,
+    },this.getField());
 
- 	 const meta = Object.assign({},field,{ error:this.getFieldError()});
-  const componentProps = Object.assign({},{input, meta },{...this.props});
-  return React.createElement(component,{ ...componentProps});
+    const meta = Object.assign({},field,{ error:this.getFieldError()});
+    const componentProps = Object.assign({},{input, meta },{...this.props});
+    return React.createElement(component,{ ...componentProps});
 
   }
 
-	render(){
-    	const {name,component} = this.props;
-	  	return this.renderComponent(component);
+  render(){
+    const {name,component} = this.props;
+    return this.renderComponent(component);
 
-	}
+  }
 
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import ShallowEqual from '../../ShallowEqual';
 import {
 	observer,
 	inject
@@ -115,16 +116,32 @@ module.exports =  function (initializeConfigs){
 				this.validate();
 			}
 
+			shouldComponentUpdate(nextProps){
+
+					if(!ShallowEqual(this.props.values,nextProps.values)){
+						return true;
+					}
+
+					if(!ShallowEqual(this.props.syncErrors,nextProps.syncErrors)){
+						return true;
+					}
+
+				return false;
+			}
+
 
 			render(){
-
+				
 				const {
 					pristine,
 					submitting,
 					$form,
+					syncErrors,
+					registeredFields,
+					fields,
+					values,
 					...otherProps
 				} = this.props;
-
 
 				const props = {
 					handleSubmit:this.handleSubmit,
@@ -140,26 +157,32 @@ module.exports =  function (initializeConfigs){
 
 		@inject("FormModel")
 		@observer
-
 		class FormConnect extends React.Component {
 
 			constructor(props){
 				super(props);
+
 				this.$form = props.FormModel.getForm(initializeConfigs.form);
 				this.$form.setValidateCallback(initializeConfigs.validate);
 			}
 
+			shouldComponentUpdate(nextProps){
+
+				var {FormModel,...otherProps} = this.props;
+				var {FormModel,...otherNextProps} = nextProps;
+				if(!ShallowEqual(otherProps,otherNextProps)){
+					return true;
+				}
+				return false;
+			}
+
 			render(){
 
-				const {...otherProps} = this.props;
-
+				const {FormModel,...otherProps} = this.props;
 				const $form = this.$form;
 
 				const formProps = {
 					values:$form.values,
-					fields:$form.fields,
-					registeredFields:$form.registeredFields,
-					syncErrors:$form.syncErrors,
 					$form,
 				}
 
