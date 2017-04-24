@@ -66,6 +66,12 @@ export default class FileUploadComponent extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
+		
+		if(!nextProps.input.value){
+			this.setState({
+				files:[]
+			})
+		}
 		this.setInitValue(nextProps.defaultValue);
 	}
 
@@ -159,7 +165,7 @@ export default class FileUploadComponent extends React.Component {
 		} = this.state;
 
 		files.unshift(response);
-        
+
 		this.setState({
 			files,
 			progress: 0,
@@ -272,6 +278,23 @@ export default class FileUploadComponent extends React.Component {
 		xhr.responseType = 'json';
 		xhr.send(null);
 	}
+	renderFiles=(files)=>{
+		var list;
+		if(files){
+			return list=files.map((item,index)=>{
+					return (
+						<li key={index}>
+							<a href={item.fileUrl} target="_blank">{item.fileName}</a>
+							<span className="del" onTouchTap={this.onFileDelete.bind(this,index)}>删除</span>
+						</li>
+					);
+				})
+		}else {
+			return (
+				<li></li>
+			)
+		}
+	}
 	render() {
 
 		let {
@@ -293,7 +316,6 @@ export default class FileUploadComponent extends React.Component {
 			progress,
 			isUploading
 		} = this.state;
-
 		let fileBgStyles = {};
 		// let showList = (files.length>=6)?'hidden':'visible';
 		let showList = (files.length>=6)?'none':'block';
@@ -309,14 +331,7 @@ export default class FileUploadComponent extends React.Component {
 					</div>
 				</div>
 				<ul className="file-list">
-					{files && files.map((item,index)=>{
-						return (
-							<li key={index}>
-								<a href={item.fileUrl} target="_blank">{item.fileName}</a>
-								<span className="del" onTouchTap={this.onFileDelete.bind(this,index)}>删除</span>
-							</li>
-						);
-					})}
+					{this.renderFiles(files)}
 				</ul>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 				</WrapComponent>

@@ -8,7 +8,6 @@ import {
 	observer
 } from 'mobx-react';
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -18,7 +17,6 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	Grid,
 	Row,
 	Col,
 	Dialog,

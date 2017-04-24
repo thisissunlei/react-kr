@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field} from 'redux-form';
-import MobxForm from 'kr/Utils/ReduxForm';
+import MobxForm from 'kr/Utils/MobxForm';
 
 import Notify from '../Notify';
 
@@ -44,6 +44,7 @@ import UploadImageListComponent from './UploadImageListComponent';
 import SelectTimeComponent from './SelectTimeComponent';
 import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
+import searchCommunityManage from './SearchCommunity';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
@@ -242,6 +243,14 @@ class FieldRevert extends React.Component {
 
 					<FieldRevert {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 				);
+			}
+
+
+
+			if (component === 'searchCommunityManage') {
+				return (
+					<Field {...this.props} component={searchCommunityManage}  style={WrapStyles} {...other}/>
+				)
 			}
 
 

@@ -3,6 +3,9 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {
+	Http
+} from "kr/Utils";
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
 	Table,
@@ -91,10 +94,8 @@ export default class AttributeSetting extends React.Component {
 	}
 
 	onEditSubmit(form) {
-
 		form = Object.assign({}, form);
-
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty', {}, form)).then(function(response) {
+		Http.request('addFinaFinaflowProperty', {}, form).then(function(response) {
 			Notify.show([{
 				message: '更新成功！',
 				type: 'success',
@@ -156,7 +157,7 @@ export default class AttributeSetting extends React.Component {
 
 		this.openNewCreateDialog();
 
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty', {}, values)).then(function(response) {
+		Http.request('addFinaFinaflowProperty', {}, values).then(function(response) {
 			Notify.show([{
 				message: '新建成功！',
 				type: 'success',

@@ -5,11 +5,9 @@ import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	KrField,
 	ButtonGroup,
 } from 'kr-ui';
 

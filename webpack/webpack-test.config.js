@@ -30,6 +30,7 @@ const config = {
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].[chunkhash].js',
+		chunkFilename: 'scripts/[name].[chunkhash:5].js',
 		publicPath:"./"
 	},
 	plugins: [

@@ -4,7 +4,9 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {
+	Http
+} from "kr/Utils";
 import {
 	Table,
 	TableBody,
@@ -99,7 +101,7 @@ export default class AttributeSetting extends React.Component {
 
 		this.openEditDetailDialog();
 
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel', {}, form)).then(function(response) {
+		Http.request('saveFinaFinaflowAccountModel', {}, form).then(function(response) {
 			Notify.show([{
 				message: '编辑成功！',
 				type: 'success',
@@ -147,7 +149,7 @@ export default class AttributeSetting extends React.Component {
 
 	onNewCreateSubmit(values) {
 
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel', {}, values)).then(function(response) {
+		Http.request('saveFinaFinaflowAccountModel', {}, values).then(function(response) {
 			Notify.show([{
 				message: '新建成功！',
 				type: 'success',

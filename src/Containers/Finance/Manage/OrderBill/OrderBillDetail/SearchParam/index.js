@@ -7,7 +7,9 @@ import {
     Message,
     ListGroupItem
 } from 'kr-ui';
-
+import {
+    Http
+} from "kr/Utils";
 export default class SearchParam extends React.Component {
 
     static defaultProps = {}
@@ -105,11 +107,11 @@ export default class SearchParam extends React.Component {
         }
         this.setState({detailPaymentS: m})
         if (id) {
-            Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+            Http.request('getSubCategoryFlow', {
                 mainbillid: params.orderId,
                 firstCategoryId: id,
                 flowType: type
-            })).then(function(response) {
+            }).then(function(response) {
                 if (response.subCategories.length > 0) {
                     _this.setState({
                         testArr: response.subCategories
@@ -183,11 +185,11 @@ export default class SearchParam extends React.Component {
 
         this.setState({detailIncomeS: m});
         if (id) {
-            Store.dispatch(Actions.callAPI('getSubCategoryFlow', {
+            Http.request('getSubCategoryFlow', {
                 mainbillid: params.orderId,
                 firstCategoryId: id,
                 flowType: type
-            })).then(function(response) {
+            }).then(function(response) {
                 if (response.subCategories.length > 0) {
                     _this.setState({
                         testArr: response.subCategories

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Actions, Store} from 'kr/Redux';
+import {
+	Http
+} from "kr/Utils";
 import {
     KrField,
     Title,
@@ -83,7 +85,7 @@ export default class TotalFund extends React.Component {
 
         this.openEditDetailDialog();
 
-        Store.dispatch(Actions.callAPI('editFirstCategory', {}, form)).then(function(response) {
+        Http.request('editFirstCategory', {}, form).then(function(response) {
             Message.success("编辑成功");
             window.setTimeout(function() {
                 window.location.reload();
@@ -100,7 +102,7 @@ export default class TotalFund extends React.Component {
     }
 
     onNewCreateSubmit = (values) => {
-        Store.dispatch(Actions.callAPI('createFirstCategory', {}, values)).then(function(response) {
+        Http.request('createFirstCategory', {}, values).then(function(response) {
             Message.success("创建成功");
             window.setTimeout(function() {
                 window.location.reload();

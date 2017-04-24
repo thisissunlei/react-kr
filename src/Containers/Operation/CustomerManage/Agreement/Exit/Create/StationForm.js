@@ -10,9 +10,7 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	Menu,
 	MenuItem,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,

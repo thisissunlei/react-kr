@@ -6,7 +6,7 @@ import {
 	KrField,
 	Button,
 } from 'kr-ui';
-import {reduxForm}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 
 
  class ZhangQu extends React.Component{
@@ -29,6 +29,7 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 		const {$form} = this.props;
 
 		var values = {
+					input:'ddd',
 					username:'yyyyaa',
 					textarea:'bbbb',
 					enableflag:'yes',
@@ -47,13 +48,12 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 
 	change=(form)=>{
 		const {$form} = this.props;
-		Debug.log("form",form);
 		$form.change('editLabelText',form);
 	}
 
 	onReset = ()=>{
 		const {$form} = this.props;
-		$form.reset();
+		$form.changeValues({});
 	}
 
 	selectOldUser=(value)=>{
@@ -172,15 +172,14 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 const validate = (values)=>{
 	const errors = {};
 
-	// if(!values.input){
-	// 	errors.input = '请输入input'
-	// }
-	// if(!values.textarea){
-	// 	errors.textarea = '请输入textarea'
-	// }
-	// if(!values.uploadImageList){
-	// 	errors.uploadImageList = '请输入uploadImageList'
-	// }
+	 if(!values.input){
+	 	errors.input = '请输入input'
+	 }
+
+	 if(!values.textarea){
+	 	errors.textarea = '请输入textarea'
+	 }
+
 	// if(!values.searchCustomer){
 	// 	errors.searchCustomer = '请输入searchCustomer'
 	// }
@@ -190,7 +189,7 @@ const validate = (values)=>{
 
 }
 
-export default reduxForm({
+export default mobxForm({
 form:'dForm',
 validate,
 })(ZhangQu);

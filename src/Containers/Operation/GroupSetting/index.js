@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -24,7 +23,6 @@ import {
 	Tooltip,
 	Message,
 	Title,
-	KrDate
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';

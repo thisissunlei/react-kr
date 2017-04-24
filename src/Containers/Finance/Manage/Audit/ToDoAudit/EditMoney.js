@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 import {
 	reduxForm,
 	formValueSelector,
@@ -78,9 +77,9 @@ class EditMoney extends React.Component {
 	getInfo = () => {
 			var _this = this;
 			var finaVerifyId = this.props.detail.id
-			Store.dispatch(Actions.callAPI('get-fina-infos', {
+			Http.request('get-fina-infos', {
 				finaVerifyId
-			})).then(function(response) {
+			}).then(function(response) {
 				response.dealTime = DateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
@@ -101,9 +100,9 @@ class EditMoney extends React.Component {
 	getDetailInfo = () => {
 		var finaVerifyId = this.props.detail.id
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+		Http.request('get-flow-edit-info', {
 			finaVerifyId
-		})).then(function(response) {
+		}).then(function(response) {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
@@ -156,10 +155,10 @@ class EditMoney extends React.Component {
 		var accountList;
 		var _this = this;
 		Store.dispatch(change('editMoneys', 'accountId', ''));
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			corporationId: this.state.corporationId,
 			accountType: form.value
-		})).then(function(response) {
+		}).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -230,7 +229,7 @@ class EditMoney extends React.Component {
 		if (name == deposit) {
 				var str=new String(item.nDeposit);
 						nDeposit=str.replace(/,/gi,'');
-				if(nDeposit >= 0 && value*100 > nDeposit*100){
+				if(value*100 > nDeposit*100){
 						Message.error('金额不能大于未回款额');
 						return
 				}
@@ -239,7 +238,7 @@ class EditMoney extends React.Component {
 		if (name == totalrent) {
 				var str=new String(item.nTotalrent);
 						nTotalrent=str.replace(/,/gi,'');
-				if(item && nTotalrent >= 0 && value*100 > nTotalrent*100){
+				if(item  && value*100 > nTotalrent*100){
 					Message.error('金额不能大于未回款额');
 					return
 				}
@@ -247,7 +246,7 @@ class EditMoney extends React.Component {
 		if (name == deposit) {
 			var str=new String(item.nFrontmoney)
 				nFrontmoney=str.replace(/,/gi,'');
-				if(item && nFrontmoney >= 0 && value*100 > nFrontmoney*100){
+				if(item  && value*100 > nFrontmoney*100){
 					Message.error('金额不能大于未回款额');
 					return
 				}

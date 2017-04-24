@@ -12,10 +12,8 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
     Message
-
 } from 'kr-ui';
 import State from './State';
 import allState from '../State';

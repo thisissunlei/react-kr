@@ -1,10 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
+import React from 'react';
 import {reduxForm, formValueSelector, initialize, change} from 'redux-form';
-
-import {Actions, Store} from 'kr/Redux';
-
+import {
+	Http
+} from "kr/Utils";
 import {
     KrField,
     Grid,
@@ -19,10 +17,10 @@ import {
     KrDate
 } from 'kr-ui';
 
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import './index.less';
 
-export default class ViewAudit extends Component {
+export default class ViewAudit extends React.Component {
 
     static PropTypes = {
         onSubmit: React.PropTypes.func,
@@ -64,9 +62,9 @@ export default class ViewAudit extends Component {
     getInfo = () => {
         var _this = this;
         var id = this.props.detail.id
-        Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+      Http.request('get-fina-flow-logs', {
             finaVerifyId: id
-        }, {})).then(function(response) {
+        }, {}).then(function(response) {
             _this.setState({topInfoList: response})
         }).catch(function(err) {});
     }
@@ -74,9 +72,9 @@ export default class ViewAudit extends Component {
     getPayInfo = () => {
         var id = this.props.detail.id
         var _this = this;
-        Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+        Http.request('get-flow-edit-info', {
             finaVerifyId: id
-        }, {})).then(function(response) {
+        }, {}).then(function(response) {
             _this.setState({payInfoList: response})
 
         }).catch(function(err) {});
@@ -85,9 +83,9 @@ export default class ViewAudit extends Component {
     getDetailInfo = () => {
         var id = this.props.detail.id
         var _this = this;
-        Store.dispatch(Actions.callAPI('get-fina-infos', {
+        Http.request('get-fina-infos', {
             finaVerifyId: id
-        }, {})).then(function(response) {
+        }, {}).then(function(response) {
             _this.setState({infoList: response},function(){
               var fileList=[];
               if(this.state.infoList.uploadFileIds.length>0){
@@ -262,7 +260,7 @@ export default class ViewAudit extends Component {
                     <KrField style={{
                         width: 260,
                         marginLeft: 25
-                    }} name="dealTime" component="labelText" inline={false} label="收款日期" value={dateFormat(infoList.dealTime, "yyyy-mm-dd")}/>
+                    }} name="dealTime" component="labelText" inline={false} label="收款日期" value={DateFormat(infoList.dealTime, "yyyy-mm-dd")}/>
                     <KrField style={{
                         width: 548
                     }} name="remark" component="labelText" inline={false} value={infoList.remark} label="备注" />

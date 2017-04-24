@@ -13,11 +13,22 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {OA,Basic} from 'kr/Containers';
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
+
+const OA_Home = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/Home').default)
+  }, 'OA_Home')
+}
+
 module.exports =()=>{
 	return (
-        <Route path="oa" component={Basic}>
-            <Route path="index" component={OA.Home}/>
+        <Route path="oa" getComponent={Basic}>
+            <Route path="index" getComponent={OA_Home}/>
         </Route>
 	);
 };

@@ -1,10 +1,7 @@
 import React from 'react';
 import {
-  Actions,
-  Store
-} from 'kr/Redux';
-
-
+	Http
+} from "kr/Utils";
 import {
   Table,
   TableBody,
@@ -46,7 +43,7 @@ export default class DoneAudit extends React.Component {
   }
   componentDidMount() {
     var _this = this;
-    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {},{})).then(function(response) {
+    Http.request('getSelfMenuInfo', {},{}).then(function(response) {
       var someBtn = response.navcodes.finance;
       for(var i = 0;i<someBtn.length;i++){
         if(someBtn[i]=="verify_back_edit"){
@@ -133,9 +130,9 @@ export default class DoneAudit extends React.Component {
   }
   sureToDel = (itemDetail) => {
     var _this = this;
-    Store.dispatch(Actions.callAPI('del-fina-returned-record', {}, {
+    Http.request('del-fina-returned-record', {}, {
       finaVerifyId: this.state.itemDetail.id
-    })).then(function(response) {
+    }).then(function(response) {
       Message.success("删除成功");
       _this.setState({
         delAudit: false,
@@ -183,7 +180,7 @@ export default class DoneAudit extends React.Component {
   EditAuditSubmit = (form) => {
     var _this = this;
     if (form.mainBillId != "") {
-      Store.dispatch(Actions.callAPI('edit-flow-returned-verify', {}, form)).then(function(response) {
+      Http.request('edit-flow-returned-verify', {}, form).then(function(response) {
         Message.success('修改成功');
         _this.openEditCreate();
         window.location.reload();

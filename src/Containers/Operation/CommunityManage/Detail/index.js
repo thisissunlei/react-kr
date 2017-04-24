@@ -28,7 +28,8 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
-class CommunityManage extends React.Component {
+
+export default class CommunityManage extends React.Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,
@@ -43,8 +44,6 @@ class CommunityManage extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.planTable = this.planTable.bind(this);
-		this.Floorplan = this.Floorplan.bind(this);
 		this.state = {
 			tab: 'table',
 			communityId: ''
@@ -53,7 +52,6 @@ class CommunityManage extends React.Component {
 	}
 
 	componentDidMount() {
-		Store.dispatch(Actions.switchSidebarNav(true));
 
 	}
 
@@ -63,32 +61,19 @@ class CommunityManage extends React.Component {
 		});
 	}
 
-	Floorplan() {
-		let {
-			tab
-		} = this.state;
-		tab = 'floorplan';
+	Floorplan =()=> {
 		this.setState({
-			tab
+			tab:'floorplan'
 		});
 	}
 
-	planTable() {
-		// Store.dispatch(Actions.switchRightBar(false));
-		let {
-			tab
-		} = this.state;
-
-		tab = 'table';
+	planTable=()=> {
 		this.setState({
-			tab
+			tab:'table'
 		});
 	}
-	hiddenRight=()=>{
-		Store.dispatch(Actions.switchRightBar(false));
-	}
 
-
+	
 
 	render() {
 		let {
@@ -116,7 +101,6 @@ class CommunityManage extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			{this.props.changeValues && <div className="hidden-div" onClick={this.hiddenRight}></div>}
 			<Title value="销控表_社区经营"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
@@ -139,16 +123,3 @@ class CommunityManage extends React.Component {
 		);
 	}
 }
-export default connect((state) => {
-
-	let changeValues = {};
-
-	// changeValues.lessorId = selector(state, 'tab');
-	// changeValues.openRight = state.tab;
-	changeValues = state.right_bar.switch_value || false;
-
-	return {
-		changeValues
-	}
-
-})(CommunityManage);

@@ -4,7 +4,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -13,8 +12,6 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
-	Grid,
 	Row,
 	Col,
 	Dialog,

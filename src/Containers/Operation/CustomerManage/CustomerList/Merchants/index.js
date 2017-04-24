@@ -13,8 +13,6 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Section,
-	Grid,
 	KrDate,
 	Row,
 	Col,
@@ -28,7 +26,7 @@ import {
 	Message
 } from 'kr-ui';
 import $ from 'jquery';
-import DateFormat from "kr/Utils";
+import {DateFormat} from "kr/Utils";
 import State from './State';
 import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';
@@ -217,7 +215,7 @@ class Merchants extends Component{
 
 	}
 	openDeleteDialog = () => {
-		
+
 	}
 
 
@@ -450,7 +448,7 @@ class Merchants extends Component{
 				                 newIndentSwitch={this.openNewIndent}
 				                 editIndentSwitch={this.openEditIndent}
 				                 DeleteSwitch={this.openDeleteDialog}
-				                 
+
 
 							/>
 					</Drawer>

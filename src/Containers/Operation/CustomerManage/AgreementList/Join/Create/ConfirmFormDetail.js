@@ -16,13 +16,11 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	KrDate,
 	DotTitle
 } from 'kr-ui';

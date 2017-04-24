@@ -30,7 +30,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
 	KrField,
 	Grid,
 	Row,
