@@ -5,7 +5,7 @@ import * as IsPhoneNumber from './IsPhoneNumber';
 import Http from './Http';
 import ReactHtmlParser from './ReactHtmlParser';
 import Debug from './Debug';
-import ReduxForm from './ReduxForm';
+import MobxForm from './MobxForm';
 
 module.exports = {
 	...DateFormat,
@@ -15,5 +15,5 @@ module.exports = {
 	Http,
 	Debug,
 	ReactHtmlParser,
-	ReduxForm,
+	MobxForm
 }

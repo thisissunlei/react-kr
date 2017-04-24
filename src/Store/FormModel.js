@@ -1,39 +1,32 @@
-import mobx, {
-	observable,
-	action,
-	asMap,
-	computed,
-	extendObservable,
-  toJS
-} from 'mobx';
-
+import mobx, { action} from 'mobx';
 
 const FormFactory = function(formName){
 
-		var form = mobx.observable({
-				name:'',
-				values:{},
-				fields:{},
-				registeredFields:{},
-				syncErrors:{},
-				initializeValues:{},
-				submitFailed:false,
-				submitSucceeded:false,
-				submitting:false,
-				isInitSubmitCallback:false,
+	var form = mobx.observable({
 
-	fieldArrays:{
-		fields:{
-			members:[
-				{lastname:'',userName:''}
-			]
+		name:formName,
+		values:{},
+		fields:{},
+		registeredFields:{},
+		syncErrors:{},
+		initializeValues:{},
+		submitFailed:false,
+		submitSucceeded:false,
+		submitting:false,
+		isInitSubmitCallback:false,
+
+		fieldArrays:{
+			fields:{
+				members:[
+					{lastname:'',userName:''}
+				]
+			},
 		},
-	},
-			});
+	});
 
-		form.getName = action(function(){
-			console.log('--<<<',this.name);
-		});
+	form.getName = action(function(){
+		return this.name;
+	});
 
 	form.blur = action(function(fieldName,fieldValue) {
 
@@ -42,7 +35,6 @@ const FormFactory = function(formName){
 	form.focus = action(function(fieldName) {
 
 	});
-
 
 	form.getFieldError = action(function(fieldName){
 		var errors = this.getErrors();
@@ -60,7 +52,7 @@ const FormFactory = function(formName){
 	});
 
 
-form.stopSubmit = action(function(errors) {
+	form.stopSubmit = action(function(errors) {
 
 		this.setErrors(errors);
 
@@ -92,13 +84,12 @@ form.stopSubmit = action(function(errors) {
 		var values = this.getValues();
 		var validate = this.getValidateCallback();
 		var errors = validate(values);
-
 		this.startSubmit();
 		this.stopSubmit(errors);
 
 	});
 
-form.submit = action(function() {
+	form.submit = action(function() {
 
 		this.validate(formName);
 		this.touchAll(formName);
@@ -112,22 +103,22 @@ form.submit = action(function() {
 
 	});
 
-form.startSubmit = action(function() {
+	form.startSubmit = action(function() {
 		this.submitting = true;
 		this.submitSucceeded = false;
 		this.submitFailed = false;
-});
+	});
 
-form.setSubmitCallback = action(function(submitHandle) {
+	form.setSubmitCallback = action(function(submitHandle) {
 
-	submitHandle = submitHandle || function(){};
-	if(this.isInitSubmitCallback){
-		return ;
-	}
-	this.submitCallback = submitHandle;
-	this.isInitSubmitCallback = true;
+		submitHandle = submitHandle || function(){};
+		if(this.isInitSubmitCallback){
+			return ;
+		}
+		this.submitCallback = submitHandle;
+		this.isInitSubmitCallback = true;
 
-});
+	});
 	form.getValidateCallback = action(function() {
 		return this.validateCallback;
 	});
@@ -138,8 +129,8 @@ form.setSubmitCallback = action(function(submitHandle) {
 	});
 
 	form.getFieldValue = action(function(fieldName) {
-        var values = this.getValues();
-        return values[fieldName] || '';
+		var values = this.getValues();
+		return values[fieldName] || '';
 	});
 
 	form.initialize = action(function(fieldValues){
@@ -213,10 +204,10 @@ form.setSubmitCallback = action(function(submitHandle) {
 
 		var isEmpty = function(obj){
 
-				for(var name in obj){
-					return false;
-				}
-				return true;
+			for(var name in obj){
+				return false;
+			}
+			return true;
 		}
 
 		if(isEmpty(values)){
@@ -252,7 +243,8 @@ form.setSubmitCallback = action(function(submitHandle) {
 		mobx.extendObservable(this,{registeredFields,values});
 
 	});
-		form.registerField = action(function(fieldName,type){
+
+	form.registerField = action(function(fieldName,type){
 
 		var registeredFields = mobx.toJS(this.registeredFields);
 
@@ -285,205 +277,35 @@ form.setSubmitCallback = action(function(submitHandle) {
 		this.initializeValues = initializeValues;
 
 
-		});
+	});
 
-		return form;
+	return form;
 
 }
 
 //全局store
-let State = observable({
-  demoForm:{
-		submitFailed:false,
-		submitSucceeded:false,
-		submitting:false,
-    syncErrors:{
-      email:'邮箱填写错误'
-    },
-    registeredFields:{
-      email:{
-          name:"email",
-          type:"Field",
-		  count:1,
-      }
-    },
-    fields:{
-        email:{
-			chekced:false,
-            visited:true,
-            touched:true
-        }
-    },
-  }
+let State = mobx.observable({ });
+
+State.getForm = action(function(formName) {
+	var form = this;
+
+	if(!form.hasOwnProperty(formName)){
+		form[formName] = FormFactory(formName);
+	}
+	return form[formName];
 });
-
-	State.setForm = action(function(formName,form){
-		var formObject = {};
-		formObject[formName] = form;
-		mobx.extendObservable(this,formObject);
-	});
-
-
-	State.createForm = action(function(config) {
-
-
-	});
-
-
-	State.getForm = action(function(formName) {
-
-		var form = this;
-
-		if(!form.hasOwnProperty(formName)){
-			form[formName] = FormFactory(formName);
-		}
-
-		return form[formName];
-
-	});
-
-
-
-State.setSubmitCallback = action(function(formName,submitHandle) {
-	var form = this.getForm(formName);
-	form.setSubmitCallback(submitHandle);
-});
-
-
-State.startSubmit = action(function(formName) {
-	  var form = this.getForm(formName);
-	  form.startSubmit();
-});
-
-State.stopSubmit = action(function(formName,errors) {
-	var form = this.getForm(formName);
-	form.stopSubmit(errors);
-});
-
-State.submit = action(function(formName) {
-	var form = this.getForm(formName);
-	form.submit();
-});
-
-	State.setValidateCallback = action(function(formName,validate) {
-		var form = this.getForm(formName);
-		form.setValidateCallback(validate);
-	});
-
-	State.getValidateCallback = action(function(formName,validate) {
-		var form = this.getForm(formName);
-		return form.getValidateCallback();
-	});
-
-	State.initialize = action(function(formName,fieldValues){
-		var form = this.getForm(formName);
-		form.initialize(fieldValues);
-	});
-
-	State.validate = action(function(formName) {
-		var form = this.getForm(formName);
-		form.validate();
-	});
-
-
-	State.getField = action(function(formName,fieldName) {
-		var form = this.getForm(formName);
-		return form.getField(fieldName);
-	});
-
-	State.getFormState = action(function(formName) {
-		var form = this.getForm(formName);
-		return form.getFormState();
-	});
-
-	State.getFieldValue = action(function(formName,fieldName) {
-		var form = this.getForm(formName);
-		return form.getFieldValue(fieldName);
-	});
-
-	State.getInitializeValues = action(function(formName) {
-		var form = this.getForm(formName);
-		return form.getInitializeValues();
-	});
-
-
-	State.getValues = action(function(formName) {
-		var form = this.getForm(formName);
-		return form.getValues();
-	});
-
-	State.getErrors = action(function(formName) {
-		var form = this.getForm(formName);
-		return form.getErrors();
-	});
-
-	State.setErrors = action(function(formName,errors) {
-		var form = this.getForm(formName);
-		form.setErrors(errors);
-	});
-
-	State.touch = action(function(formName,fieldName) {
-		var form = this.getForm(formName);
-		form.touch(fieldName);
-	});
-
-	State.untouch = action(function(formName,fieldName) {
-
-	});
-
-	State.touchAll = action(function(formName) {
-		var form = this.getForm(formName);
-		form.touchAll();
-	});
-
-
-	State.changeValues = action(function(formName,values){
-
-		var form = this.getForm(formName);
-		form.changeValues(values);
-	});
-
-	State.change = action(function(formName,fieldName,fieldValue) {
-		var form = this.getForm(formName);
-		form.change(fieldName,fieldValue);
-	});
-	State.destroy = action(function(formName) {
-		this.setForm(formName,{});
-	});
-
-
-	State.registerField = action(function(formName,fieldName,type) {
-		var form = this.getForm(formName);
-		form.registerField(fieldName,type);
-
-	});
-
-	State.unregisterField = action(function(formName,fieldName) {
-
-		var form = this.getForm(formName);
-		form.unregisterField(fieldName);
-
-	});
-
-
-State.reset = action(function(formName) {
-	var form = this.getForm(formName);
-	form.reset();
-});
-
-
 //TODO
 
-	State.blur = action(function(formName,fieldName,fieldValue) {
-
-	});
-
-	State.focus = action(function(formName,fieldName) {
-
-	});
+/*
 
 
-	/*
+State.blur = action(function(formName,fieldName,fieldValue) {
+
+});
+
+State.focus = action(function(formName,fieldName) {
+
+});
 
 	State.autofill = action(function(formName,fieldName) {
 
@@ -570,9 +392,7 @@ State.reset = action(function(formName) {
 	State.arrayRemoveAll = action(function(formName,fieldName) {
 
 	});
-	*/
-
-
+*/
 
 
 module.exports = State;

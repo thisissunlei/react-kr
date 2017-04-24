@@ -7,7 +7,8 @@ import {
 	Button,
 } from 'kr-ui';
 
-import {reduxForm}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
+
 
 
  class ZhangQu extends React.Component{
@@ -190,7 +191,7 @@ const validate = (values)=>{
 
 }
 
-export default reduxForm({
+export default mobxForm({
 form:'dForm',
 validate,
 })(ZhangQu);

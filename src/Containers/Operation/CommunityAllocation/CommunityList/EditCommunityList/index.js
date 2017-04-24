@@ -2,9 +2,9 @@ import React from 'react';
 import {
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {reduxForm,initialize,change,FieldArray} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
@@ -381,7 +381,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     componentWillMount(){
         let {id}=this.props;
         var _this=this;
-				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
+				Http.request('communityGetEdit',{id:id}).then(function(response) {
 
           response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
           response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
