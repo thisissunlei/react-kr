@@ -4,34 +4,12 @@ import './index.less';
 
 export default class Undefined extends React.Component {
 
-	static defaultProps = {
-		page: 1,
-	}
-
-	static PropTypes = {
-		className: React.PropTypes.string,
-		children: React.PropTypes.node,
-	}
-
 	constructor(props, context) {
 		super(props, context);
-
-		this.onSubmit = this.onSubmit.bind(this);
-	}
-
-	componentDidMount() {
-
-	}
-
-	onSubmit(values) {
 
 	}
 
 	render() {
-
-		let initialValues = {
-			age: ''
-		}
 
 		return (
 			<div className="ui-Undefined">

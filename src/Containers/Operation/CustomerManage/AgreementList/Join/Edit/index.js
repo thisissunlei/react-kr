@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -22,6 +22,7 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
+import {Http} from "kr/Utils"
 
 import NewCreateForm from './NewCreateForm';
 import './index.less';
@@ -73,7 +74,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
@@ -83,7 +84,7 @@ export default class JoinCreate extends React.Component {
 
 			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			allState.openEditAgreement=false;
-			
+
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			// }, 0);
@@ -117,12 +118,12 @@ export default class JoinCreate extends React.Component {
 		let optionValues = {};
 		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -158,9 +159,9 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
