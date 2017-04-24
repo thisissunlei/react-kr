@@ -462,7 +462,7 @@ class VisitorsToRecord  extends React.Component{
                 modal={true}
                 onClose={this.closeUpperForm}
                 open={openUpperForm}
-                contentStyle ={{ width: '666',height:220,overflow:'visible'}}
+                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
               >
                <VisitorsSearchForm
                   select = {select}

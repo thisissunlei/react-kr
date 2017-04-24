@@ -203,7 +203,7 @@ import {
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+										<div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>
@@ -250,15 +250,6 @@ const validate = values =>{
 		}else if(values.name.length>20){
 			errors.name = '最多输入20个字符';
 		}
-
-
-
-
-
-
-
-
-
 		if (!values.tel) {
 			errors.tel = '请填写联系人电话';
 		}else if(!phone1.test(values.tel)){

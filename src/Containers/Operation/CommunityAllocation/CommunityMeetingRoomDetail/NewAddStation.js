@@ -80,8 +80,7 @@ class NewAddStation  extends React.Component{
 				marginLeft:28
 			}
 		}
-
-    console.log(';;--',State.isCode);
+		let arr = [{label:"yizw",value:"G1"},{label:"yizi",label:"G2"}];
 
 		return(
 
@@ -130,6 +129,14 @@ class NewAddStation  extends React.Component{
 								component="input"
 								label="空间位置"
 							/>
+						<KrField
+							label="对应合同"
+							name='contract'
+							style={{width:262,marginLeft:28}}
+							component="groupCheckbox"
+							
+							requireLabel={true}
+						/>
 
 						<KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
@@ -148,7 +155,7 @@ class NewAddStation  extends React.Component{
               <Row>
                 <Col md={12} align="center">
                   <ButtonGroup>
-                    <div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+                    <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
                     <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
                   </ButtonGroup>
                 </Col>

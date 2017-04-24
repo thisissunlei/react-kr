@@ -97,7 +97,7 @@ import './index.less';
 		return (
       <div className = "m-newMerchants m-visitors-to-record-detail">
         <div className="title" style={{marginBottom:"30px"}}>
-			<div><span className="new-icon"></span><label className="title-text">访客登录</label></div>
+			<div><span className="new-icon"></span><label className="title-text">查看访客</label></div>
 			<div className="customer-close" onClick={this.onCancel}></div>
 		</div>
         <KrField component="labelText" grid={1/2} label="社区："  value = {detail.communityName} requireBlue={true}  inline={true}/>

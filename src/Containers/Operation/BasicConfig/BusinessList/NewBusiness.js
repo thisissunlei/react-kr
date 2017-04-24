@@ -71,7 +71,7 @@ import './index.less';
 				</div>
 
 
-
+						<div style = {{marginLeft:20}}>
 						<KrField grid={1/2} name="no" style={{width:262,marginLeft:28}} component='input'  label="商圈代码" inline={false}  placeholder='请输入代码名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="商圈名称" inline={false}  placeholder='请输入商圈名称' requireLabel={true}/>
 
@@ -82,6 +82,7 @@ import './index.less';
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
 							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
 						</KrField>
+						</div>
 
 						<Grid style={{marginTop:30}}>
 							<Row>

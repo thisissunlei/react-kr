@@ -30,7 +30,7 @@ class EditStation  extends React.Component{
 			var data={};
 			data.id=id;
 			var _this=this;
-			Http.request('station-get-edit',data).then(function(response) {
+			Http.request('meeting-room-eidt',data).then(function(response) {
 				if(response.enable){
 					 response.enable='true';
 				}else{
@@ -119,28 +119,64 @@ class EditStation  extends React.Component{
               <div><span className="new-icon"></span><label className="title-text">工位信息编辑</label></div>
               <div className="customer-close" onClick={this.onCancel}></div>
            </div>
-            <KrField type='hidden' name="id"/>
-            <KrField type='hidden' name="communityId"/>
-            <KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号" requireLabel={true}
-             onChange={this.codeCompare}/>
-            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
-						 requireLabel={true} options={State.floorData} onChange={this.floorChange}/>
-						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该工位编号已存在</div>}
-            <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
-            <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
-            requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
-            <KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于会议室"
-            requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
-            {isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
-						requireLabel={true} options={State.slectNameCommunity}/>}
-            <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
-            requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
+					 <KrField type='hidden' name="id"/>
+	 				<KrField type='hidden' name="communityId"/>
+	 				<KrField grid={1/2}
+	 						style={{marginTop:1,width:262}}
+	 						name="name"
+	 						component="input"
+	 						label="空间名称"
+	 						requireLabel={true}
+	 						onChange={this.codeCompare}
+	 				/>
+	 				<KrField grid={1/2}
+	 						style={{width:262,marginLeft:28}}
+	 						name="floor"
+	 						component="select"
+	 						label="所在楼层"
+	 						requireLabel={true}
+	 						options={State.floorData}
+	 						onChange={this.floorChange}
+	 				 />
+				<KrField grid={1/2}
+					 style={{width:262}}
+					 name="area"
+					 component="input"
+					 label="面积（㎡）"
+					 requireLabel={true}
+				 />
+				<KrField grid={1/2}
+					 style={{width:262,marginLeft:28}}
+					 name="capacity"
+					 component="input"
+					 label="可容纳人数"
+					 requireLabel={true}
+				/>
+				<KrField grid={1/2}
+					 style={{width:262}}
+					 name="location"
+					 component="input"
+					 label="空间位置"
+				 />
 
+			 <KrField grid={1/2}
+					 style={{width:262,marginLeft:28}}
+					 name="spaceType"
+					 component="select"
+					 label="空间类型"
+					 requireLabel={true}
+					 options={State.floorData}
+					 onChange={this.floorChange}
+			 />
+				<KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="启用状态" requireLabel={false}>
+					<KrField name="enable" label="是" type="radio" value="ENABLE" />
+					<KrField name="enable" label="否" type="radio" value="DISENABLE" />
+			 </KrField>
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">
                   <ButtonGroup>
-                    <div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+                    <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
                     <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
                   </ButtonGroup>
                 </Col>

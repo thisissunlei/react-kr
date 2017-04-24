@@ -95,7 +95,7 @@ module.exports = [
 					{
 						primaryText: '代码分类',
 						menuCode: 'codeCategoryList',
-						originUrl: '/operation/communityAllocation/codeClassification'
+						router: '/operation/communityAllocation/codeClassification'
 					},
 
 					{
