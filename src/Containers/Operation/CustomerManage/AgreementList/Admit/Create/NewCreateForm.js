@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 
@@ -9,7 +9,7 @@ import {
 	Store
 } from 'kr/Redux';
 import "./index.less";
-
+import {Http} from "kr/Utils"
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -118,7 +118,7 @@ class NewCreateForm extends React.Component {
 			stationVos
 		} = this.state;
 
-		
+
 		if(!value || isNaN(value)){
 			stationVos[index].unitprice ="";
 		}else{
@@ -410,7 +410,7 @@ class NewCreateForm extends React.Component {
 			obj.type = item.stationType;
 			return obj;
 		});
-		
+
 		let params = {
 			mainBillId: this.context.par.orderId,
 			communityId: optionValues.mainbillCommunityId,
@@ -491,15 +491,15 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
 	}
 	onBlur=(item)=>{
-		
+
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
-		
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -641,12 +641,12 @@ class NewCreateForm extends React.Component {
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                			</DotTitle>
                      <div style={{marginTop:'-20px',marginBottom:60,display:'none'}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
-							
+
                			</div>
 
 						<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同文本信息</label></div>
 							<div className="small-cheek" style={{paddingBottom:0}}>
-					
+
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
@@ -670,7 +670,7 @@ class NewCreateForm extends React.Component {
 								<KrField style={{width:262,marginLeft:25}} component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/>
 
 
-								 
+
 
 
 								<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
@@ -685,14 +685,14 @@ class NewCreateForm extends React.Component {
 																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 								<KrField style={{width:262,marginLeft:25}} name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-								
+
 
 	                            <KrField  name="templockday" style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
 																 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 
 								<KrField style={{width:545,marginLeft:25}}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200}/>
 							    <KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
-								
+
 								<KrField style={{width:545,marginLeft:25}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 								<KrField style={{width:262,marginLeft:25}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 								<KrField style={{width:262,marginLeft:25}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
@@ -704,9 +704,9 @@ class NewCreateForm extends React.Component {
 							<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
-							 
 
-							
+
+
 						<Grid style={{paddingBottom:50,textAlign:"center"}}>
 							<Row>
 								<ListGroup>

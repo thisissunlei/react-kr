@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -8,6 +8,7 @@ import {
 	change,
 	reset
 } from 'redux-form';
+import {Http} from "kr/Utils"
 import {
 	Actions,
 	Store
@@ -26,7 +27,7 @@ import allState from "../../State";
 
 
 export default class JoinCreate extends React.Component {
-	 
+
       static childContextTypes = {
         par: React.PropTypes.object.isRequired
      }
@@ -83,7 +84,7 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 			var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaContractIntentletter', {}, formValues)).then(function(response) {
+		Http.request('addFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
@@ -129,12 +130,12 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -144,7 +145,7 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseAddress = response.customer.customerAddress;
-			
+
 			initialValues.contractcode= response.contractCode;
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
