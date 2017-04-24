@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {reduxForm}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import {
 	KrField,
 	Button,
@@ -134,7 +134,7 @@ class NewAddStation  extends React.Component{
 							name='contract'
 							style={{width:262,marginLeft:28}}
 							component="groupCheckbox"
-							
+
 							requireLabel={true}
 						/>
 
@@ -201,4 +201,4 @@ const validate = values =>{
 
 		return errors
 }
-export default reduxForm({ form: 'NewAddStation',validate})(NewAddStation);
+export default mobxForm({ form: 'NewAddStation',validate})(NewAddStation);

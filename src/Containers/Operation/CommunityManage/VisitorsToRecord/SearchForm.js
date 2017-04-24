@@ -15,7 +15,7 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
 
  class VisitorsSearchForm extends Component{
@@ -107,11 +107,11 @@ import './index.less';
           </div>
 
         </div>
-          <KrField grid={1/2} right={34} label="访客类型" name="visitType"  style={{marginTop:4}} component="select"  requireLabel={false} 
+          <KrField grid={1/2} right={34} label="访客类型" name="visitType"  style={{marginTop:4}} component="select"  requireLabel={false}
             onSubmit={this.cityValue}
             options={select.type}
           />
-          
+
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
             <Row>
               <Col md={12} align="center">
@@ -131,4 +131,4 @@ const validate = values =>{
 
 	return errors;
 }
-export default reduxForm({ form: 'VisitorsSearchForm',validate})(VisitorsSearchForm);
+export default mobxForm({ form: 'VisitorsSearchForm',validate})(VisitorsSearchForm);

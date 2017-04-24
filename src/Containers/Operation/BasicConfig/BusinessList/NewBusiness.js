@@ -15,7 +15,7 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import {reduxForm}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
 
  class NewBusiness extends Component{
@@ -115,4 +115,4 @@ const validate = values =>{
 	}
 	return errors;
 }
-export default reduxForm({ form: 'NewBusinessForm',validate})(NewBusiness);
+export default mobxForm({ form: 'NewBusinessForm',validate})(NewBusiness);

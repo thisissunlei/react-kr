@@ -18,7 +18,7 @@ import {
 } from 'kr-ui';
 
 import {Http,DateFormat} from "kr/Utils";
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
 
  class VisitorsToRecordDetail extends Component{
@@ -70,7 +70,7 @@ import './index.less';
 
 	 // 	})
 	 // 	return label;
-	 	
+
 	 // }
 
 	componentDidMount(){
@@ -84,7 +84,7 @@ import './index.less';
 	}
 	generateDetail = () =>{
 	   let {detailData} = this.props;
-	    
+
 	}
 	render(){
 		const {detailData,select,} = this.props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm,Field}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 import {Http} from 'kr/Utils';
 import {
 	KrField,
@@ -187,4 +187,4 @@ const validate = values =>{
 
 		return errors
 }
-export default reduxForm({ form: 'EditStation',validate})(EditStation);
+export default mobxForm({ form: 'EditStation',validate})(EditStation);

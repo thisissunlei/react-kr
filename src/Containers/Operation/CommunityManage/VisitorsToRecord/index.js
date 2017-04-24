@@ -116,7 +116,8 @@ class VisitorsToRecord  extends React.Component{
 
     Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
       editData.vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM:ss");
-      FormModel.changeValues('EditVisitorsToRecord',editData);
+      FormModel.getForm("EditVisitorsToRecord")
+  		         .changeValues(editData);
 
     }).catch(function(err) {
       Message.error(err.message);
@@ -136,7 +137,7 @@ class VisitorsToRecord  extends React.Component{
      		visitType:searchParams.visitType,
      		date:date
 			},
-    
+
 
    	})
    }
@@ -147,7 +148,8 @@ class VisitorsToRecord  extends React.Component{
    		this.setState({
    			openNewVisitors:true,
    		});
-      FormModel.changeValues("NewVisitorsToRecord",{
+      FormModel.getForm("NewVisitorsToRecord")
+  		.changeValues({
         communityId:"",
         typeId:"",
         interviewTypeId:"",
@@ -161,7 +163,7 @@ class VisitorsToRecord  extends React.Component{
         interviewRoundId:'',
         vtime:'',
       })
-      FormModel.changeValues("NewVisitorsToRecord",{});
+
    }
    //关闭新增访客
    closeNewVisitors = () =>{
@@ -189,7 +191,8 @@ class VisitorsToRecord  extends React.Component{
     this.setState({
    		openUpperForm:true,
    	})
-    FormModel.changeValues("VisitorsSearchForm",{visitType:''})
+    FormModel.getForm("VisitorsSearchForm")
+             .changeValues({visitType:''})
   }
    //关闭高级查询
    closeUpperForm = () =>{
