@@ -10,11 +10,11 @@ import {
 	ButtonGroup,
 } from 'kr-ui';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
-import State from '../State';
 import './index.less';
-
+@inject("CommunityStationModel")
 @observer
 class ImportData extends React.Component{
 
@@ -56,7 +56,7 @@ class ImportData extends React.Component{
 		 let _this = this;
 		 var form = new FormData();
 		 form.append('spaceData', this.state.file);
-		 form.append('communityId',State.communityId);
+		 form.append('communityId',this.props.CommunityStationModel.communityId);
 		 if(!this.state.file.name){
 			 Message.error('请选择上传文件');
 			 return false;

@@ -187,6 +187,7 @@ module.exports =  function (initializeConfigs){
 
 				const formProps = {
 					values:$form.values,
+					syncErrors:$form.syncErrors,
 					$form,
 				}
 

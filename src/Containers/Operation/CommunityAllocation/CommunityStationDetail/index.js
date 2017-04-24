@@ -28,13 +28,13 @@ import {
 	inject
 } from 'mobx-react';
 import './index.less';
-import State from './State';
 import NewAddStation from './NewAddStation';
 import EditStation from './EditStation';
 import DeleteStation from './DeleteStation';
 import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
 @inject("FormModel")
+@inject("CommunityStationModel")
 @observer
 class  CommunityStationDetail extends React.Component{
 
@@ -44,9 +44,9 @@ class  CommunityStationDetail extends React.Component{
 
 	componentWillMount(){
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-		State.stationDataReady(href);
-        State.searchParams.communityId=href;
-		State.communityId=href;
+		this.props.CommunityStationModel.stationDataReady(href);
+        this.props.CommunityStationModel.searchParams.communityId=href;
+		this.props.CommunityStationModel.communityId=href;
 	}
 
     //新建工位打开
@@ -54,42 +54,42 @@ class  CommunityStationDetail extends React.Component{
 		let {FormModel} = this.props;
 		FormModel.getForm("NewAddStation")
 		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
-		State.addStation();
-		State.isCode=false;
-		State.deleteId='';
+		this.props.CommunityStationModel.addStation();
+		this.props.CommunityStationModel.isCode=false;
+		this.props.CommunityStationModel.deleteId='';
 	}
 	//新建工位取消
 	cancelAddCode=()=>{
-		State.addStation();
+		this.props.CommunityStationModel.addStation();
 	}
 	//编辑工位取消
 	cancelEditCode=()=>{
-		State.editStation();
+		this.props.CommunityStationModel.editStation();
 	}
  //查看相关操作
  onOperation=(type,itemDetail)=>{
    if(type=='edit'){
-		 State.editStation();
-		 State.deleteId=itemDetail.id;
-		 State.isCode=false;
+		 this.props.CommunityStationModel.editStation();
+		 this.props.CommunityStationModel.deleteId=itemDetail.id;
+		 this.props.CommunityStationModel.isCode=false;
 	 }else if(type=='delete'){
-		 State.deleteId=itemDetail.id;
-     State.deleteStation();
+		 this.props.CommunityStationModel.deleteId=itemDetail.id;
+         this.props.CommunityStationModel.deleteStation();
 	 }
  }
 
  //删除取消
  cancelDelete=()=>{
-	 State.deleteStation();
+	 this.props.CommunityStationModel.deleteStation();
  }
  //删除提交
  deleteSubmit=()=>{
-	 State.deleteSubmitFunc(State.deleteId);
+	 this.props.CommunityStationModel.deleteSubmitFunc(this.props.CommunityStationModel.deleteId);
  }
 
  //导出
 onExport=(values)=> {
-let {searchParams} = State;
+let {searchParams} = this.props.CommunityStationModel;
 let defaultParams = {
 	belongSpace:'',
 	code:'',
@@ -117,7 +117,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
-   State.stationSubmit(params);
+   this.props.CommunityStationModel.stationSubmit(params);
  }
 
  //搜索
@@ -125,8 +125,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 	 let data={
 		 code:params.content
 	 }
-	 State.searchParams= Object.assign({},State.searchParams,data);
-	 State.searchParams.time=+new Date();
+	 this.props.CommunityStationModel.searchParams= Object.assign({},this.props.CommunityStationModel.searchParams,data);
+	 this.props.CommunityStationModel.searchParams.time=+new Date();
  }
 
  //高级查询
@@ -138,23 +138,23 @@ openSearchUpperDialog=()=>{
 			belongSpace:'',
 			spaceId:'',
 		}
-   State.searchParams=Object.assign({},State.searchParams,params);;
-	 State.searchUpperCustomer();
+   this.props.CommunityStationModel.searchParams=Object.assign({},this.props.CommunityStationModel.searchParams,params);;
+	 this.props.CommunityStationModel.searchUpperCustomer();
 }
 //高级查询取消
 cancelSearchUpperDialog=()=>{
-	State.searchUpperCustomer();
+	this.props.CommunityStationModel.searchUpperCustomer();
 }
 //高级查询提交
 onSearchUpperSubmit=(params)=>{
- State.searchParams= Object.assign({},State.searchParams,params);
- State.searchParams.time=+new Date();
- State.searchUpperCustomer();
+ this.props.CommunityStationModel.searchParams= Object.assign({},this.props.CommunityStationModel.searchParams,params);
+ this.props.CommunityStationModel.searchParams.time=+new Date();
+ this.props.CommunityStationModel.searchUpperCustomer();
 }
 
 //导入
 openImporData=()=>{
-	State.openImportData();
+	this.props.CommunityStationModel.openImportData();
 }
 
 //下载模版
@@ -165,8 +165,8 @@ onLoadDemo=()=>{
 
 //点空白
 whiteClose=()=>{
-  State.openStation=false;
-	State.openStationEdit=false;
+  this.props.CommunityStationModel.openStation=false;
+	this.props.CommunityStationModel.openStationEdit=false;
 }
 
 //选择社区
@@ -176,7 +176,7 @@ SelectCommunity=()=>{
 
 	render(){
 
-		let title=`工位列表(${State.communityName})`;
+		let title=`工位列表(${this.props.CommunityStationModel.communityName})`;
 		return(
 			<div className='community-list'>
 				<Title value="工位列表"/>
@@ -219,7 +219,7 @@ SelectCommunity=()=>{
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			        onExport={this.onExport}
-	            ajaxParams={State.searchParams}
+	            ajaxParams={this.props.CommunityStationModel.searchParams}
 	            ajaxUrlName='station-list'
 	            ajaxFieldListName="items"
 					  >
@@ -253,7 +253,7 @@ SelectCommunity=()=>{
 
 			 {/*新建工位*/}
 			 <Drawer
-					open={State.openStation}
+					open={this.props.CommunityStationModel.openStation}
 					width={750}
 					onClose={this.whiteClose}
 					openSecondary={true}
@@ -267,7 +267,7 @@ SelectCommunity=()=>{
 
 			 {/*编辑工位*/}
 			 <Drawer
-					open={State.openStationEdit}
+					open={this.props.CommunityStationModel.openStationEdit}
 					width={750}
 					onClose={this.whiteClose}
 					openSecondary={true}
@@ -276,7 +276,7 @@ SelectCommunity=()=>{
 				<EditStation
 					onCancel={this.cancelEditCode}
 					onSubmit={this.stationAddSubmit}
-					id={State.deleteId}
+					id={this.props.CommunityStationModel.deleteId}
 				/>
 			 </Drawer>
 
@@ -284,7 +284,7 @@ SelectCommunity=()=>{
 			 <Dialog
 					title="提示"
 					onClose={this.cancelDelete}
-					open={State.openDelete}
+					open={this.props.CommunityStationModel.openDelete}
 					contentStyle ={{ width: '440px',height:'240px'}}
 					>
 					<DeleteStation
@@ -297,7 +297,7 @@ SelectCommunity=()=>{
 			<Dialog
 				title="高级查询"
 				onClose={this.cancelSearchUpperDialog}
-				open={State.openSearchUpper}
+				open={this.props.CommunityStationModel.openSearchUpper}
 				contentStyle ={{ width: '666px',height:'382px'}}
 				>
 				<SearchUpperForm
@@ -310,7 +310,7 @@ SelectCommunity=()=>{
 				<Dialog
 					title="导入工位"
 					onClose={this.openImporData}
-					open={State.openImport}
+					open={this.props.CommunityStationModel.openImport}
 					contentStyle ={{ width: '444px'}}
 					>
 					<ImportData
