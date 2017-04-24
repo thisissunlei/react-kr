@@ -1,7 +1,7 @@
 //日期格式工具
 import shallowequal from 'shallowequal';
 
-export function ShallowEqual(props,nextProps){
+function ShallowEqual(props,nextProps){
 
     var isOk = true;
 
@@ -24,3 +24,5 @@ export function ShallowEqual(props,nextProps){
     return isOk;
 
 }
+
+module.exports = ShallowEqual;

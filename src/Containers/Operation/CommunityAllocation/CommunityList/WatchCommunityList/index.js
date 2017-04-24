@@ -338,10 +338,10 @@ import State from '../State';
 						        
                     <div style={{marginTop:'-4px',marginBottom:'20px'}}>
                       <span className='pic-first'>首页图片</span>
-                      <div style={{marginLeft:15}}>{
+                      <div style={{marginLeft:30}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='THEFIRST'){
-                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block'}}></div>
+                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
                            }                  
                         })
                       } 
@@ -350,10 +350,10 @@ import State from '../State';
 
                     <div style={{marginTop:'16px',marginBottom:'20px'}}>
                       <span className='pic-first'>社区列表页图片</span>
-                      <div style={{marginLeft:15}}>{
+                      <div style={{marginLeft:30}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='LIST'){
-                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block'}}></div>
+                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
                            }
                         })
                       } 
@@ -363,10 +363,10 @@ import State from '../State';
 
                     <div style={{marginTop:'16px',marginBottom:'20px'}}>
                       <span className='pic-first'>详情页图片</span>
-                      <div style={{marginLeft:15}}>{
+                      <div style={{marginLeft:30}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='DETAILS'){
-                             return <div style={{width:225,height:70,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block'}}></div>
+                             return <div style={{width:225,height:70,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
                            }
                         })
                       } 
