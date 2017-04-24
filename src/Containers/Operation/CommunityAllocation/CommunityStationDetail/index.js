@@ -46,7 +46,7 @@ class  CommunityStationDetail extends React.Component{
 	componentWillMount(){
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
 		State.stationDataReady(href);
-    State.searchParams.communityId=href;
+        State.searchParams.communityId=href;
 		State.communityId=href;
 	}
 
@@ -93,7 +93,6 @@ let {searchParams} = State;
 let defaultParams = {
 	belongSpace:'',
 	code:'',
-	communityId:'',
 	enable:'',
 	spaceId:'',
 	stationType:''

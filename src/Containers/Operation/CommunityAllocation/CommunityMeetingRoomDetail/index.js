@@ -91,12 +91,12 @@ class  CommunityMeetingRoomDetail extends React.Component{
 onExport=(values)=> {
 let {searchParams} = State;
 let defaultParams = {
-	belongSpace:'',
-	code:'',
-	communityId:'',
+	capacityBegin:'',
+	capacityEnd:'',
+	deviceIds:[],
 	enable:'',
-	spaceId:'',
-	stationType:''
+	searchKey:'',
+	searchType:''
 }
 searchParams = Object.assign({},defaultParams,searchParams);
 	let ids = [];
@@ -112,7 +112,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 		}
 	}
 	where.push(`ids=${ids}`);
-	var url = `/api/krspace-finance-web/cmt/station/export?${where.join('&')}`
+	var url = `/api/krspace-finance-web/cmt/space/export?${where.join('&')}`
 	window.location.href = url;
 }
 
@@ -160,7 +160,7 @@ openImporData=()=>{
 
 //下载模版
 onLoadDemo=()=>{
-	let url = `/api/krspace-finance-web/cmt/station/import/actions/download-templete`;
+	let url = `/api/krspace-finance-web/cmt/space/import/actions/download-templete`;
 	window.location.href = url;
 }
 

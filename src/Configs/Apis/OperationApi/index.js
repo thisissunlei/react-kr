@@ -374,12 +374,15 @@ module.exports = {
         url: '/api/krspace-finance-web/cmt/space/list?capacityBegin={capacityBegin}&capacityEnd={capacityEnd}&communityId={communityId}&deviceIds={deviceIds}&enable={enable}&page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}',
         method: 'get'
     },
-    //运营平台-会议室列表-列表接口
+    //运营平台-会议室列表-新增编辑
     'meeting-room-eidt': {
         url: '/api/krspace-finance-web/cmt/space/info/type/edit?id={id}',
         method: 'get'
-    }
-
-
+    },
+     //运营平台－校验空间名称
+    'station-check-code': {
+        url: '/api/krspace-finance-web/cmt/space/check/name?id={id}&name={name}',
+        method: 'get'
+    },
 
 }

@@ -79,10 +79,10 @@ class ImportData extends React.Component{
 
 		 xhr.onerror = function(e) {
 		 };
-		 xhr.open('POST', 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/station/import/actions/upload', true);
+		 xhr.open('POST', '/api/krspace-finance-web/cmt/space/import/actions/upload', true);
 		 xhr.responseType = 'json';
 		 //原生cookie带不上的解决方法
-		 xhr.withCredentials = true;
+		 //xhr.withCredentials = true;
 		 xhr.send(form);
 
 	 }
