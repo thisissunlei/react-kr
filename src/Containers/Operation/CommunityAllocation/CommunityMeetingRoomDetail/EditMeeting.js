@@ -1,5 +1,6 @@
 import React from 'react';
-import {mobxForm}  from 'kr/Utils/MobxForm';
+//import {mobxForm}  from 'kr/Utils/MobxForm';
+import {reduxForm}  from 'redux-form';
 import {Http} from 'kr/Utils';
 import {
 	KrField,
@@ -11,8 +12,9 @@ import {
 } from 'kr-ui';
 import {
 	observer,
+	inject
 } from 'mobx-react';
-import State from './State';
+@inject("CommunityMeetingModel")
 @observer
 class EditMeeting  extends React.Component{
 
@@ -43,8 +45,8 @@ class EditMeeting  extends React.Component{
 	}
 
   onSubmit=(values)=> {
-		values.id=State.deleteId;
-		values.communityId=State.communityId;
+		values.id=this.props.CommunityMeetingModel.deleteId;
+		values.communityId=this.props.CommunityMeetingModel.communityId;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -73,13 +75,13 @@ class EditMeeting  extends React.Component{
 
 	//校验工位编号
 	 codeCompare=(params)=>{
-		 State.codeStationCompare(params);
+		 this.props.CommunityMeetingModel.codeStationCompare(params);
 	 }
 
 	 //楼层
  	floorChange=(params)=>{
  		var floor=params.label;
- 		State.slectNameCommunity=State.stationName[floor];
+ 		this.props.CommunityMeetingModel.slectNameCommunity=this.props.CommunityMeetingModel.stationName[floor];
  	}
 
 
@@ -124,7 +126,7 @@ class EditMeeting  extends React.Component{
 	 						component="select"
 	 						label="所在楼层"
 	 						requireLabel={true}
-	 						options={State.floorData}
+	 						options={this.props.CommunityMeetingModel.floorData}
 	 						onChange={this.floorChange}
 	 				 />
 				<KrField grid={1/2}
@@ -154,7 +156,7 @@ class EditMeeting  extends React.Component{
 					 component="select"
 					 label="空间类型"
 					 requireLabel={true}
-					 options={State.floorData}
+					 options={this.props.CommunityMeetingModel.floorData}
 					 onChange={this.floorChange}
 			 />
 				<KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="启用状态" requireLabel={false}>
@@ -212,4 +214,4 @@ const validate = values =>{
 
 		return errors
 }
-export default mobxForm({ form: 'EditMeeting',validate})(EditMeeting);
+export default reduxForm({ form: 'EditMeeting',validate})(EditMeeting);

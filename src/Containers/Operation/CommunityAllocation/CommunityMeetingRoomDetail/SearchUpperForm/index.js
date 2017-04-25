@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
 import {
 	reduxForm,
@@ -16,8 +17,8 @@ import {
 	SearchForm,
 	ListGroupItem
 } from 'kr-ui';
-import State from '../State';
 import './index.less';
+@inject("CommunityMeetingModel")
 @observer
 class SearchUpperForm extends React.Component {
 
@@ -66,7 +67,7 @@ class SearchUpperForm extends React.Component {
 					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="belongSpace" component="select" label="是否属于会议室"
 					  options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]}/>
 					<KrField grid={1/2} style={{width:262}}  name="spaceId" component="select" label="会议室名称"
-					 options={State.spacesName}
+					 options={this.props.CommunityMeetingModel.spacesName}
 					 />
 
 

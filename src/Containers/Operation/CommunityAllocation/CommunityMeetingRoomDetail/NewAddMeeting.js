@@ -1,6 +1,7 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {mobxForm}  from 'kr/Utils/MobxForm';
+//import {mobxForm}  from 'kr/Utils/MobxForm';
+import {reduxForm}  from 'redux-form';
 import {
 	KrField,
 	Button,
@@ -11,8 +12,9 @@ import {
 } from 'kr-ui';
 import {
 	observer,
+	inject
 } from 'mobx-react';
-import State from './State';
+@inject("CommunityMeetingModel")
 @observer
 class NewAddMeeting  extends React.Component{
 
@@ -25,7 +27,7 @@ class NewAddMeeting  extends React.Component{
 
     onSubmit=(values)=> {
 		values.id='';
-		values.communityId=State.communityId;
+		values.communityId=this.props.CommunityMeetingModel.communityId;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -42,11 +44,19 @@ class NewAddMeeting  extends React.Component{
 	
     //校验空间名称
 	codeCompare=(params)=>{
-      State.codeStationCompare(params);
+      this.props.CommunityMeetingModel.codeStationCompare(params);
 	}
 
 
 	render(){
+
+		let deviceSpace=[];
+		this.props.CommunityMeetingModel.spaceDevices.map((item)=>{
+           let list={};
+           list.label=item.label;
+           list.value=item.value;
+           deviceSpace.push(list); 
+		})
 
         const {handleSubmit}=this.props;
 		
@@ -74,10 +84,10 @@ class NewAddMeeting  extends React.Component{
 								component="select"
 								label="所在楼层"
 							 	requireLabel={true}
-							 	options={State.floorData}
+							 	options={this.props.CommunityMeetingModel.floorData}
 							 	onChange={this.floorChange}
 						 />
-						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
+						 {this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
 						 <KrField grid={1/2}
 							 	style={{width:262}}
 								name="area"
@@ -98,14 +108,13 @@ class NewAddMeeting  extends React.Component{
 								component="input"
 								label="空间位置"
 							/>
-						{/*<KrField
-							label="对应合同"
-							name='contract'
+						<KrField
+							label="设备情况"
+							name='deviceIds'
 							style={{width:262,marginLeft:28}}
 							component="groupCheckbox"
-                            defaultValue={}
-							requireLabel={true}
-						/>*/}
+                            defaultValue={deviceSpace}
+						/>
 
 						<KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
@@ -113,9 +122,9 @@ class NewAddMeeting  extends React.Component{
 								component="select"
 								label="空间类型"
 							 	requireLabel={true}
-								options={State.sapceTypes}
+								options={this.props.CommunityMeetingModel.sapceTypes}
 						/>
-						 <KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="启用状态" requireLabel={false}>
+						 <KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="状态" requireLabel={false}>
  							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
  							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
  						</KrField>
@@ -169,4 +178,4 @@ const validate = values =>{
 
 		return errors
 }
-export default mobxForm({ form: 'NewAddMeeting',validate})(NewAddMeeting);
+export default reduxForm({ form: 'NewAddMeeting',validate})(NewAddMeeting);

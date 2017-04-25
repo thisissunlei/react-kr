@@ -28,13 +28,13 @@ import {
 	inject
 } from 'mobx-react';
 import './index.less';
-import State from './State';
 import NewAddMeeting from './NewAddMeeting';
 import EditMeeting from './EditMeeting';
 import DeleteMeeting from './DeleteMeeting';
 import SearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
 @inject("FormModel")
+@inject("CommunityMeetingModel")
 @observer
 class  CommunityMeetingRoomDetail extends React.Component{
 
@@ -44,9 +44,9 @@ class  CommunityMeetingRoomDetail extends React.Component{
 
 	componentWillMount(){
 		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-		State.stationDataReady(href);
-        State.searchParams.communityId=href;
-		State.communityId=href;
+		this.props.CommunityMeetingModel.stationDataReady(href);
+        this.props.CommunityMeetingModel.searchParams.communityId=href;
+		this.props.CommunityMeetingModel.communityId=href;
 	}
 
     //新建会议室打开
@@ -54,36 +54,36 @@ class  CommunityMeetingRoomDetail extends React.Component{
 		const {FormModel} = this.props;
 		FormModel.getForm("NewAddMeeting")
 		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
-		State.addStation();
-		State.isCode=false;
+		this.props.CommunityMeetingModel.addStation();
+		this.props.CommunityMeetingModel.isCode=false;
 	}
 	//新建会议室取消
 	cancelAddCode=()=>{
-		State.addStation();
+		this.props.CommunityMeetingModel.addStation();
 	}
 	//编辑会议室取消
 	cancelEditCode=()=>{
-		State.editStation();
+		this.props.CommunityMeetingModel.editStation();
 	}
  //查看相关操作
  onOperation=(type,itemDetail)=>{
    if(type=='edit'){
-		 State.editStation();
-		 State.deleteId=itemDetail.id;
-		 State.isCode=false;
+		 this.props.CommunityMeetingModel.editStation();
+		 this.props.CommunityMeetingModel.deleteId=itemDetail.id;
+		 this.props.CommunityMeetingModel.isCode=false;
 	 }else if(type=='delete'){
-		 State.deleteId=itemDetail.id;
-         State.deleteStation();
+		 this.props.CommunityMeetingModel.deleteId=itemDetail.id;
+         this.props.CommunityMeetingModel.deleteStation();
 	 }
  }
 
  //删除取消
  cancelDelete=()=>{
-	 State.deleteStation();
+	 this.props.CommunityMeetingModel.deleteStation();
  }
  //删除提交
  deleteSubmit=()=>{
-	 State.deleteSubmitFunc(State.deleteId);
+	 this.props.CommunityMeetingModel.deleteSubmitFunc(this.props.CommunityMeetingModel.deleteId);
  }
 
  //导出
@@ -117,7 +117,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
-   State.stationSubmit(params);
+   this.props.CommunityMeetingModel.stationSubmit(params);
  }
 
  //搜索
@@ -126,8 +126,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 		 searchKey:params.content,
 		 searchType:params.filter
 	 }
-	 State.searchParams= Object.assign({},State.searchParams,data);
-	 State.searchParams.time=+new Date();
+	 this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,data);
+	 this.props.CommunityMeetingModel.searchParams.time=+new Date();
  }
 
  //高级查询
@@ -139,23 +139,23 @@ openSearchUpperDialog=()=>{
 			belongSpace:'',
 			spaceId:'',
 		}
-   State.searchParams=Object.assign({},State.searchParams,params);;
-	 State.searchUpperCustomer();
+   this.props.CommunityMeetingModel.searchParams=Object.assign({},this.props.CommunityMeetingModel.searchParams,params);;
+	 this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 //高级查询取消
 cancelSearchUpperDialog=()=>{
-	State.searchUpperCustomer();
+	this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 //高级查询提交
 onSearchUpperSubmit=(params)=>{
- State.searchParams= Object.assign({},State.searchParams,params);
- State.searchParams.time=+new Date();
- State.searchUpperCustomer();
+ this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,params);
+ this.props.CommunityMeetingModel.searchParams.time=+new Date();
+ this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 
 //导入
 openImporData=()=>{
-	State.openImportData();
+	this.props.CommunityMeetingModel.openImportData();
 }
 
 //下载模版
@@ -166,8 +166,8 @@ onLoadDemo=()=>{
 
 //点空白
 whiteClose=()=>{
-  State.openStation=false;
-	State.openStationEdit=false;
+  this.props.CommunityMeetingModel.openStation=false;
+	this.props.CommunityMeetingModel.openStationEdit=false;
 }
 
 //选择社区
@@ -182,7 +182,7 @@ SelectCommunity=()=>{
          {label:'空间编码',value:'CODE'},
 		]
 
-		let title=`会议室列表(${State.communityName})`;
+		let title=`会议室列表(${this.props.CommunityMeetingModel.communityName})`;
 		return(
 			<div className='community-list'>
 				<Title value="会议室列表"/>
@@ -225,7 +225,7 @@ SelectCommunity=()=>{
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			        onExport={this.onExport}
-	            ajaxParams={State.searchParams}
+	            ajaxParams={this.props.CommunityMeetingModel.searchParams}
 	            ajaxUrlName='meeting-room-list'
 	            ajaxFieldListName="items"
 					  >
@@ -261,7 +261,7 @@ SelectCommunity=()=>{
 
 			 {/*新建工位*/}
 			 <Drawer
-					open={State.openStation}
+					open={this.props.CommunityMeetingModel.openStation}
 					width={750}
 					onClose={this.whiteClose}
 					openSecondary={true}
@@ -275,7 +275,7 @@ SelectCommunity=()=>{
 
 			 {/*编辑工位*/}
 			 <Drawer
-					open={State.openStationEdit}
+					open={this.props.CommunityMeetingModel.openStationEdit}
 					width={750}
 					onClose={this.whiteClose}
 					openSecondary={true}
@@ -284,7 +284,7 @@ SelectCommunity=()=>{
 				<EditMeeting
 					onCancel={this.cancelEditCode}
 					onSubmit={this.stationAddSubmit}
-					id={State.deleteId}
+					id={this.props.CommunityMeetingModel.deleteId}
 				/>
 			 </Drawer>
 
@@ -292,7 +292,7 @@ SelectCommunity=()=>{
 			 <Dialog
 					title="提示"
 					onClose={this.cancelDelete}
-					open={State.openDelete}
+					open={this.props.CommunityMeetingModel.openDelete}
 					contentStyle ={{ width: '440px',height:'240px'}}
 					>
 					<DeleteMeeting
@@ -305,7 +305,7 @@ SelectCommunity=()=>{
 			<Dialog
 				title="高级查询"
 				onClose={this.cancelSearchUpperDialog}
-				open={State.openSearchUpper}
+				open={this.props.CommunityMeetingModel.openSearchUpper}
 				contentStyle ={{ width: '666px',height:'382px'}}
 				>
 				<SearchUpperForm
@@ -318,7 +318,7 @@ SelectCommunity=()=>{
 				<Dialog
 					title="导入工位"
 					onClose={this.openImporData}
-					open={State.openImport}
+					open={this.props.CommunityMeetingModel.openImport}
 					contentStyle ={{ width: '444px'}}
 					>
 					<ImportData
