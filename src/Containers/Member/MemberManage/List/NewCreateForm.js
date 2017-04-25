@@ -249,7 +249,7 @@ class NewCreateForm extends React.Component{
 					</KrField>
 					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px'}} />
 
-					<Grid style={{marginTop:19,marginBottom:'4px'}}>
+					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
