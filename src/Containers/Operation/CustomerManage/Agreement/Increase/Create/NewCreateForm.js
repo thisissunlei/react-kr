@@ -617,7 +617,6 @@ class NewCreateForm extends React.Component {
 			let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
 			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
 			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
 			if(mainbillId && customerId){
 				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
 				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
@@ -630,7 +629,8 @@ class NewCreateForm extends React.Component {
 				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 				initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate');
-
+				initialValues.paymodelName = localStorage.getItem(keyWord+'paymodelName');
+				initialValues.paytypeName = localStorage.getItem(keyWord+'paytypeName');
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
 				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
