@@ -365,7 +365,6 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	console.log('dddddd',values);
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';

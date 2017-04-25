@@ -240,7 +240,6 @@ class NewCreateForm extends React.Component {
 
 	onSubmit(form) {
 
-		console.log('====onsubmit=====')
 		form = Object.assign({}, form);
 
 		let {
@@ -329,7 +328,6 @@ class NewCreateForm extends React.Component {
 			let keyWord = params.orderId+ params.customerId+'LESSRENTcreate';
 			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
 			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
 			if(mainbillId && customerId){
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
 				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');

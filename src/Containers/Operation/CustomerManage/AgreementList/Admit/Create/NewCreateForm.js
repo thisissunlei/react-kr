@@ -778,10 +778,6 @@ const validate = values => {
 
 	const errors = {}
 
-
-	console.log('=======admit====values======',values.mainbillid,values.customerId);
-
-
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}

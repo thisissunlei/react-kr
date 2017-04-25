@@ -249,10 +249,24 @@ class LookCustomerList extends Component{
 		     
 
 	}
+	removeLocalStorage=()=>{
+		let keyWord = allState.mainBillId+''+allState.listId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(itemName.indexOf(keyWord)!='-1' && itemName.indexOf('create')!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 
 	onCancelStorage=()=>{
 		allState.openLocalStorage=false;
 		allState.openLocalStorages=false;
+		this.removeLocalStorage();
 		allState.local = [];
 	}
 	getLocalStorage=()=>{

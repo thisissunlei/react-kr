@@ -397,7 +397,6 @@ export default class EditCreate extends React.Component {
     })
     
     this.getLocalStorageSata();
-    console.log('getLocalStorage')
   }
 
 

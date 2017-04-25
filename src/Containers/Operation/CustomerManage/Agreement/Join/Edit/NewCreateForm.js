@@ -608,7 +608,6 @@ class NewCreateForm extends React.Component {
 			HeightAuto,
 			allRent
 		} = this.state;
-		console.log('totalrent',initialValues.totalrent);
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		let  allRentName = this.dealRentName(allRent);
 
@@ -773,7 +772,6 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	console.log('dasdasd',values);
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';

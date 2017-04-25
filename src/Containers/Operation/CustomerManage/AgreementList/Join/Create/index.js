@@ -137,7 +137,6 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
-		 console.log(removeList,keyWord);
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -168,7 +167,6 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('join---did------',this.props.openLocalStorages);
 		
 
 		var _this = this;
@@ -192,7 +190,6 @@ export default class JoinCreate extends React.Component {
 			initialValues.setLocalStorageDate = +new Date();
 
 			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
-			console.log(localStorage.getItem(keyWord+'num'),localStorage.getItem(keyWord+'oldNum'));
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 			
 			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
@@ -244,7 +241,6 @@ export default class JoinCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
-			console.log('err',err);
 			Notify.show([{
 				message: '后台出错请联系管理员4',
 				type: 'danger',

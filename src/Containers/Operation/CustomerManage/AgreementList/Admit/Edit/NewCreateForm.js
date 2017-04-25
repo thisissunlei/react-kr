@@ -788,7 +788,6 @@ const selector = formValueSelector('admitCreateForm');
 const validate = values => {
 
 	const errors = {}
-	console.log('=====admit======');
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
