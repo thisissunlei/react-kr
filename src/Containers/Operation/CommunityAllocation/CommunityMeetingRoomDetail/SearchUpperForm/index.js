@@ -30,6 +30,10 @@ class SearchUpperForm extends React.Component {
 		super(props);
 		this.state={
 			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
+			capacityBegin:'',
+			capacityEnd:'',
+			searchKey:'',
+			searchType:'',
 		}
 	}
 
@@ -38,6 +42,17 @@ class SearchUpperForm extends React.Component {
 	  const {
 		   onSubmit
 		} = this.props;
+	  const {
+	  	capacityBegin,
+	  	capacityEnd,
+	  	searchType,
+	  	searchKey
+	  } = this.state;
+	  values.capacityBegin = capacityBegin;
+	  values.capacityEnd = capacityEnd;
+	  values.searchType = searchType;
+	  values.searchKey = searchKey;
+	  values.deviceIds = values.deviceIds.split(",");
 	  onSubmit && onSubmit(values);
 	}
 
@@ -47,33 +62,65 @@ class SearchUpperForm extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-	onSearchChange = () =>{
-
+	capacityBegin = (value) => {
+		this.setState({
+			capacityBegin:value.target.value
+		})
 	}
+	capacityEnd = (value) =>{
+		this.setState({
+			capacityEnd:value.target.value
+		})
+	}
+	onSearchChange = (data) =>{
 
+		this.setState({
+			searchType:data.content,
+			searchKey:data.value,
+
+		})
+	}
 	render() {
 
 
 	   let {handleSubmit}=this.props;
 	   let {dateBoxStyle}=this.state;
+		 let deviceSpace=[];
+	 		this.props.CommunityMeetingModel.spaceDevices.map((item)=>{
+	            let list={};
+	            list.label=item.label;
+	            list.value=item.value;
+	            deviceSpace.push(list);
+	 		})
 
 	  	return(
 			<div  style={dateBoxStyle} className='customer-searchUpper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-					
-					<SearchForm placeholder='请输入关键字' 
-			            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} 
-			            style={{width:262,marginTop:29,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}} 
+			    
+					<SearchForm placeholder='请输入关键字'
+			            searchFilter={[{label:"名称查询",value:"NAME"},{label:"编码查询",value:"CODE"}]}
+			            style={{width:262,marginTop:29,marginLeft:28,display:"inline-block",marginBottom:15,marginRight:25}}
 			            defaultFilter='NAME'
 			            onChange = {this.onSearchChange}
-          			/>
-          			<div><span>容纳人数</span><input type="text" /><span>——</span><input type="text" /></div>
-					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="空间类型"
+    				/>
+    			
+    			<div className="accommodate-number"><span className="label">容纳人数</span><input type="text" onChange={this.capacityBegin}/><span className="horizontal-line">——</span><input type="text" onChange={this.capacityEnd}/></div>
+    			<div className='meeting-device'>
+					<KrField
+						label="设备情况"
+						name='deviceIds'
+						style={{width:"auto",marginLeft:28,marginRight:42}}
+						component="groupCheckbox"
+						defaultValue={deviceSpace}
+						
+					/>
+				</div>
+					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="sapceTypes" component="select" label="空间类型"
 					  options={this.props.CommunityMeetingModel.sapceTypes}/>
 					 <KrField grid={1/2} style={{width:262}}  name="enable" component="select" label="工位状态"
 					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}
 					 />
-					 
+
 
 
 						<Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
