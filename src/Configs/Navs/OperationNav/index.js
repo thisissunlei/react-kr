@@ -124,16 +124,16 @@ module.exports = [
 				]
 			},
 			{
-				primaryText: "凭证管理",
-				iconName: 'icon-wendang',
-				iconColor: '#79859a',
-				router: 'voucherManage',
-				menuCode: 'fff',
-				menuItems: [{
-					primaryText: '凭证列表',
-					router: '/operation/voucherManage/voucherList',
-					menuCode: 'fff',
-				}]
+			  primaryText: "凭证管理",
+	          iconName: 'icon-wendang',
+	          iconColor: '#79859a',
+	          router: 'voucherManage',
+	          menuCode: 'evidenceAdmin',
+	          menuItems: [{
+	            primaryText: '凭证列表',
+	            router: '/operation/voucherManage/voucherList',
+	            menuCode: 'evidenceList',
+	          }]
 			},
 		]
 	}

@@ -235,7 +235,7 @@ module.exports = {
     },
     //运营平台－客户管理－签约客户列表
     'signCustomers': {
-        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}',
+        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}&mainBillType={mainBillType}',
         method: 'get'
     },
     //运营平台－客户管理－签约客户列表－导出
@@ -399,4 +399,45 @@ module.exports = {
         url: '/api/krspace-finance-web/cmt/space/actions/edit',
         method: 'post'
     },
+      //凭证管理--凭证列表--获取社区列表下拉框
+      'findCommunityVoucher':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/findCommunity',
+         method: 'get'
+      },
+      //凭证管理--凭证列表--待处理凭证列表
+      'wait-voucher-find-page':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/find-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&status={status}&stopDate={stopDate}',
+         method: 'get'
+      },
+      //凭证管理--凭证列表--待处理凭证查看
+      'findPaymentEvidence':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/findPaymentEvidence?id={id}',
+         method: 'get'
+      },
+      //凭证管理--凭证列表--删除
+      'deleteEvidence':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/deleteEvidence?id={id}',
+         method: 'delete'
+      },
+      //凭证管理--凭证列表--已删除凭证列表
+      'voucher-find-deleted-page':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
+         method: 'get'
+      },
+      //凭证管理--凭证列表--已审核凭证列表--查看回款详情
+      'findReceiptDetail':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/findReceiptDetail?id={id}',
+         method: 'get'
+      },
+      //凭证管理--凭证列表--带处理凭证--添加回款数据
+      'findReceiptData':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/findReceiptData?id={id}',
+         method: 'get'
+      },
+        //凭证管理--凭证列表--带处理凭证--添加回款保存
+      'add-receipt':{
+         url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
+         method: 'post'
+      },
+
 }

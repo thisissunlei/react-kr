@@ -286,6 +286,13 @@ class EditMoney extends React.Component {
 								label="公司主体"
 								value={infoList.corporationName}
 						/>
+						 <KrField
+	                            style={{width:260}}
+	                            component="labelText"
+	                            inline={false}
+	                            label="社区名称"
+	                            value={infoList.communityName}
+                    	/>
 						<KrField
 								style={{width:260}}
 								name="payWay"

@@ -5,6 +5,8 @@ import happy from "./images/happy.svg";
 import sad from "./images/sad.svg";
 import './index.less';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import {Http} from 'kr/Utils';
+
 import {
 	Grid,
 	Row,
@@ -39,7 +41,7 @@ export default class FinishUploadImgForm extends React.Component{
 	}
 	componentDidMount(){
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getSuccedOrErrData',""))
+		Http.request('getSuccedOrErrData',"")
 	      .then(function(response){
 	      	if(response.success.length<1){
 	      		_this.setState({

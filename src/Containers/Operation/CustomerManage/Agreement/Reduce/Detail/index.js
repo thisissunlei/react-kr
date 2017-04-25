@@ -17,7 +17,7 @@ import {
 	DotTitle,
 	PaperBack
 } from 'kr-ui';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -67,11 +67,11 @@ export default class ReduceDetail extends React.Component {
 		}
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('showFnaContractRentController', {
+		Http.request('showFnaContractRentController', {
 			id: this.props.params.id,
 			communityId: this.props.params.orderId,
 			customerId: this.props.params.customerId
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				basic: response
 			});

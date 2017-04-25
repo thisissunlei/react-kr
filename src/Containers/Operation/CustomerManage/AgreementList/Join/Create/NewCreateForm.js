@@ -1,7 +1,4 @@
-import React, {
-
-	PropTypes
-} from 'react';
+import React  from 'react';
 
 import {
 	connect,
@@ -13,14 +10,14 @@ import nzh from 'nzh';
 import {
 	Fields
 } from 'redux-form';
-import {Http} from "kr/Utils"
+
 import {
 	Binder
 } from 'react-binding';
+
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
-
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -63,7 +60,7 @@ import {
 	ListGroupItem,
 } from 'kr-ui';
 
-@ReactMixin.decorate(LinkedStateMixin)
+// @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends React.Component {
 
 	static contextTypes = {
@@ -122,6 +119,10 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			initialValues:this.props.initialValues,
+			optionValues:this.props.optionValues,
+			openLocalStorage:this.props.openLocalStorage || false,
+			local:this.props.local || []
 
 		}
 	}
@@ -155,13 +156,19 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
+		}else{
+			stationVos = []
 		}
 
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+
+
 		this.setState({
-			stationVos: [],
+			stationVos,
 			allRent:0
 		});
 
@@ -173,10 +180,13 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
 		}
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+
 
 		this.setState({
 			stationVos: [],
@@ -233,13 +243,15 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let allRent = 0;
 		let _this = this;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				item.unitprice = value;
 			}
 			return item;
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
@@ -257,6 +269,7 @@ class NewCreateForm extends React.Component {
 			selectedStation,
 			stationVos
 		} = this.state;
+		let {initialValues} =this.props;
 		let allRent = 0;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -264,6 +277,8 @@ class NewCreateForm extends React.Component {
 			}
 			return true;
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -338,12 +353,35 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
 
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+				openLocalStorage:nextProps.openLocalStorage
+			})
+		}
+		if (!this.isInit && nextProps.stationVos ) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			}, function() {
+				this.setAllRent(nextProps.stationVos);
+			});
+			this.isInit = true;
+		}
 	}
 
 	onSubmit(form) {
-
-
 
 		let {
 			stationVos
@@ -357,6 +395,7 @@ class NewCreateForm extends React.Component {
 		let {
 			changeValues
 		} = this.props;
+
 		if (!stationVos.length) {
 			Notify.show([{
 				message: "请选择工位",
@@ -371,7 +410,7 @@ class NewCreateForm extends React.Component {
 		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
-		form.totalrent = (this.state.allRent).toFixed(2);
+		form.totalrent = this.state.allRent;
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -440,7 +479,10 @@ class NewCreateForm extends React.Component {
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
+		let {initialValues} = this.props;
 		// let allMoney = 0;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
+		
 		this.setAllRent(stationVos);
 
 	}
@@ -463,38 +505,7 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
 
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
 
 	onIframeClose(billList) {
 
@@ -508,7 +519,8 @@ class NewCreateForm extends React.Component {
 		var _this = this;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		let {
@@ -527,6 +539,8 @@ class NewCreateForm extends React.Component {
 			});
 		} catch (err) {
 		}
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(billList));
+
 
 
 		this.setState({
@@ -567,7 +581,27 @@ class NewCreateForm extends React.Component {
 		return name;
 	}
 
+	// onCancelStorage=()=>{
+	// 	this.setState({
+	// 		openLocalStorage:false,
+
+	// 	})
+	// }
+	// getLocalStorage=()=>{
+	// 	let {local} = this.state;
+	// 	this.setState({
+	// 		openLocalStorage:false,
+	// 		initialValues:local[1],
+	// 		optionValues:local[0],
+	// 		stationVos:local[2]
+	// 	},function(){
+	// 		Store.dispatch(initialize('joinCreateForm', local[1]));
+	// 	})
+	// }
+
 	render() {
+
+
 		var _this = this;
 		let {
 			error,
@@ -577,8 +611,8 @@ class NewCreateForm extends React.Component {
 			submitting,
 			initialValues,
 			changeValues,
-			optionValues
 		} = this.props;
+		let {optionValues} = this.props;
 		let {
 			fnaCorporationList
 		} = optionValues;
@@ -693,7 +727,7 @@ class NewCreateForm extends React.Component {
 					<div className="lessor-address" ><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 
 
-					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
+					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}   placeholder={optionValues.lessorContactName || '请选择...'}/>
 					<KrField  style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 					   requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
@@ -746,7 +780,7 @@ class NewCreateForm extends React.Component {
 	</div>
 
 				<KrField  style={{width:545,marginLeft:25,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+				<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
@@ -785,13 +819,15 @@ class NewCreateForm extends React.Component {
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
+			
+
 			</div>);
 	}
 }
 
 const validate = values => {
 
-	const errors = {}
+	const errors = {};
 
 	if (!values.leaseId) {
 		errors.leaseId = '请输入出租方';
@@ -867,6 +903,23 @@ const validate = values => {
 	if (!values.leaseEnddate) {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
+
+	++values.num;
+
+	if(values.setlocalStorage === 'enter'){
+		console.log('ggggggggggg')
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}
+
+		    };
+		}
+	}
+
 
 
 	return errors

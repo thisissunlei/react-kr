@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -48,7 +50,7 @@ export default class  SearchCustomerSourceComponent extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('highSeaDataReday',{searchKey:searchKey })).then(function(response){
+			Http.request('highSeaDataReday',{searchKey:searchKey }).then(function(response){
 				resolve({options:response.sources});
 			}).catch(function(err){
 				reject(err);

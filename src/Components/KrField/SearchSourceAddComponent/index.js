@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/AsyncCreatable';
 
@@ -37,7 +39,7 @@ export default class  SearchSourceAddComponent extends React.Component {
 
 	onNewOptionClick=(params)=>{
       let {input,onChange} = this.props;
-			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:params.value})).then(function(response){
+			Http.request('highSourceName',{sourceName:params.value}).then(function(response){
 			  input.onChange(params.value);
 			  onChange && onChange(params);
 			}).catch(function(err){
@@ -62,7 +64,7 @@ export default class  SearchSourceAddComponent extends React.Component {
 
 	getOptions = (searchKey) =>{
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('highSourceName',{sourceName:searchKey})).then(function(response){
+			Http.request('highSourceName',{sourceName:searchKey}).then(function(response){
 				resolve({options:response.sources});
 			}).catch(function(err){
 				reject(err);

@@ -23,6 +23,8 @@ import {
 	TableRowColumn,
 	Tooltip,
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
+
 export default class FinishUploadImgForm extends React.Component{
 	constructor(props) {
 	    super(props);
@@ -46,7 +48,7 @@ export default class FinishUploadImgForm extends React.Component{
 			id : _this.detail.id,
 			communityId : _this.detail.communityId
 		}
-		Store.dispatch(Actions.callAPI('doorCustomerDevice',listParams))
+		Http.request('doorCustomerDevice',listParams)
 	      .then(function(response){
 	      	var totleNum =0;
 	      	var componentSelected =[];
@@ -225,7 +227,7 @@ export default class FinishUploadImgForm extends React.Component{
 				return(
 				<Tab className="upload-img-tab" label={`${item.floorNum}楼(${item.deviceCount})`} key={index} value="a" style={{fontSize:14,fontWeight: "normal",color:"#333333",background:"#fff"}} >
 						<div style={{height:328,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-						            <div  style={{height:328,overflow:"scroll",}}>
+						            <div  style={{height:328,overflow:"scroll",}} className="impower-list">
 							            <Table
 							            	onProcessData={(state)=>{
 		              							return state;
@@ -329,7 +331,7 @@ export default class FinishUploadImgForm extends React.Component{
 		}
 
 		let ids = {deviceIds:n,id:this.detail.id}
-		Store.dispatch(Actions.callAPI('doorCustomerGrant',{},ids))
+		Http.request('doorCustomerGrant',{},ids)
 	    .then(function(response){
 		      	_this.closeImpoerList();
 		      	Message.success("操作成功");
@@ -368,7 +370,7 @@ export default class FinishUploadImgForm extends React.Component{
 						<Grid style={{marginTop:31,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
-											<ListGroupItem style={{width:171,textAlign:'right',padding:0,paddingRight:15}}>
+											<ListGroupItem style={{width:304,textAlign:'right',padding:0,paddingRight:15}}>
 												{
 													this.state.totleNum==0?<div className="button-myself">授权</div>:<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
 

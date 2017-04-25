@@ -1,4 +1,4 @@
-import React, {  PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -26,6 +26,7 @@ import {
 } from 'mobx-react';
 
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
  class EditCustomerList extends React.Component{
 
@@ -92,7 +93,7 @@ import {
 		         }
 			}
          	if(operType=="PERSON"){
-         		personal.searchParams={
+         	_this.props.NewIndentModel.searchParams={
 		         	page:1,
 					pageSize:15,
 					time:+new Date()
@@ -108,7 +109,7 @@ import {
          	_this.props.CommunityDetailModel.lookListId(_this.props.listId,operType);
          	// flushData.lookListId(_this.props.listId,operType);
 		    merchants.openDialog=false;
-		    personal.openPersonDialog=false;
+		    _this.props.NewIndentModel.openPersonDialog=false;
 		    signedClient.openPersonDialog=false;
          	_this.onCancel();
 		}).catch(function(err) {

@@ -1,10 +1,6 @@
-import React, {
+import React from 'react'; 
+import {DateFormat,Http} from 'kr/Utils';
 
-	PropTypes
-} from 'react';
-
-import {DateFormat} from 'kr/Utils';
-import {Http} from "kr/Utils"
 import {
 	KrField,
 	Button,

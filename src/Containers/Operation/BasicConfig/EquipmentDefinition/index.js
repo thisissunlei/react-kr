@@ -26,6 +26,8 @@ import EditEquipmentForm from "./EditEquipmentForm";
 import FinishUploadImgForm from "./FinishUploadImgForm";
 import SingleUploadImgForm from "./SingleUploadImgForm";
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import './index.less';
 import error2 from "./images/error2.png"
 export default class EquipmentDefinition extends React.Component {
@@ -291,7 +293,7 @@ export default class EquipmentDefinition extends React.Component {
       values.locationId=0;
     }
     let _this = this;
-    Store.dispatch(Actions.callAPI('equipmentNewCreateOrEdit',{},values))
+    Http.request('equipmentNewCreateOrEdit',{},values)
       .then(function(response){
         if(values.id){
           Message.success("编辑设备成功");
@@ -347,7 +349,7 @@ export default class EquipmentDefinition extends React.Component {
   confirmOnline=()=>{
     let _this = this;
     let onlineOfflineParams = this.state.onlineOfflineParams
-    Store.dispatch(Actions.callAPI('onlineOrOffline',{},onlineOfflineParams))
+    Http.request('onlineOrOffline',{},onlineOfflineParams)
       .then(function(response){
         Message.success("上线成功");
         _this.setState({
@@ -386,7 +388,7 @@ export default class EquipmentDefinition extends React.Component {
     let _this = this;
 
     let onlineOfflineParams = this.state.onlineOfflineParams
-    Store.dispatch(Actions.callAPI('onlineOrOffline',{},onlineOfflineParams))
+    Http.request('onlineOrOffline',{},onlineOfflineParams)
       .then(function(response){
         Message.success("下线成功");
         _this.setState({

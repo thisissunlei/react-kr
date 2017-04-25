@@ -1,25 +1,21 @@
-import React, {
-	 
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React, { PropTypes } from 'react'; 
+import { connect } from 'kr/Redux';
+
 import {
 	reduxForm,
 	submitForm,
 	change,
 	reset
 } from 'redux-form';
-import {
-	observer
-} from 'mobx-react';
+
+import { observer } from 'mobx-react';
+
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
+
 import {Http} from 'kr/Utils';
-import http from 'kr/Redux/Utils/fetch';
 
 import {
 	Tabs,
@@ -109,7 +105,7 @@ class CustomerList extends React.Component {
 		});
 	}
 
-	merchants = () => {     
+	merchants = () => {
 		let {
 			tab,
 			initSearch
@@ -154,7 +150,7 @@ class CustomerList extends React.Component {
 			initSearch
 		} = this.state;
 
-		
+
 		const activeTab = {
 			color: '#2b8dcd',
 			borderBottom: "1px solid #eee",
@@ -165,12 +161,12 @@ class CustomerList extends React.Component {
 			borderBottom: "1px solid #eee",
             fontSize:'16px'
 		}
-		
+
 
 		let merchantsStyle = (tab == 'merchants'||tab=='table') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
 		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
-		
+
 		const inkBarStyle = {
 			background: '＃499df1',
 			position: 'absolute',
@@ -181,19 +177,19 @@ class CustomerList extends React.Component {
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 			<Title value="客户列表"/>
-		 	
+
 			<Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
-						
-							<Merchants 
-								dataReady={State.dataReady} 
+
+							<Merchants
+								dataReady={State.dataReady}
 								searchParams={State.searchParams}
 								initSearch={initSearch}
 							/>
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
-						
-							<Personal 
+
+							<Personal
 								dataReady={State.dataReady}
 								searchParams={State.searchParams}
 								orderReady={State.orderReady}
@@ -201,7 +197,7 @@ class CustomerList extends React.Component {
 							/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-							<SignedClient 
+							<SignedClient
 									dataReady={State.dataReady}
 									searchSignParams={State.searchSignParams}
 									orderReady={State.orderReady}

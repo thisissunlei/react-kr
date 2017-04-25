@@ -363,5 +363,10 @@ module.exports = {
         url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
         method: 'post'
     },
+    //财务系统－审核列表-获得付款账户显示
+    'get-payment-account': {
+        url: '/api/krspace-finance-web/finaVerify/data/get-payment-account',
+        method: 'get'
+    },
 
 }

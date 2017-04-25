@@ -3,3 +3,39 @@
     position:inherit!important;
   }
 }
+.edit-form {
+    padding: 10px 40px;
+}
+.edit-form .person-info {
+    padding-left: 15px;
+    margin: 20px 0;
+}
+.person-status,.person-status-not{
+		font-size: 12px;
+		padding: 2px 8px;
+		background: #ff6868;
+		border-radius: 4px;
+		margin: 0 15px;
+		color: #fff;
+		position: relative;
+		padding-right: 20px;
+		&:after{
+			content: '';
+			width: 12px;
+			height: 12px;
+			background: url('./images/all.png') no-repeat;
+			display: inline-block;
+			background-size:cover;
+			margin-left: 4px;
+			position: absolute;
+			top: 4px;
+		}
+	}
+	.person-status:after{
+			background: url('./images/1.png') no-repeat;
+			background-size:cover;
+
+	}
+	.person-status-not{
+		background: #499df1;
+	}

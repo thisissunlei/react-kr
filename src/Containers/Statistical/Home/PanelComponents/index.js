@@ -8,7 +8,9 @@ import {
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
 import MerchantsData from './MerchantsData';
+
 import {DateFormat} from "kr/Utils";
+
 
 
 //import PanelsDic from './PanelsDic';
@@ -39,9 +41,11 @@ export default class PanelComponents  extends React.Component{
 				let {panels,groupId}=this.props;
 
 				var  yesterday = new Date(new Date().getTime() - 86400000);
+
 						 yesterday = DateFormat(yesterday,"yyyy-mm-dd");
 				var today = new Date();
 						today = DateFormat(today,"yyyy-mm-dd");
+
 				var renderComponent = [];
 				var props = {
 						groupId:groupId,

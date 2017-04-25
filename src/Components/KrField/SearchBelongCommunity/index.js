@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -39,7 +41,7 @@ export default class  SearchBelongCommunity extends React.Component {
 
 	getOptions(communityName){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getCommunityListByParams',{communityName:communityName})).then(function(response){
+			Http.request('getCommunityListByParams',{communityName:communityName}).then(function(response){
 				response.forEach(function(item,index){
 					item.value = item.id;
 					item.label = item.communityname;

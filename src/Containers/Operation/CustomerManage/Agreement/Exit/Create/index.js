@@ -20,6 +20,7 @@ import {
 	Title,
 
 } from 'kr-ui';
+import {Http} from 'kr/Utils'
 
 
 import NewCreateForm from './NewCreateForm';
@@ -39,7 +40,8 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			openLocalStorages:false
 		}
 		this.isConfirmSubmiting = false;
 		Store.dispatch(reset('exitCreateForm'));
@@ -50,8 +52,6 @@ export default class JoinCreate extends React.Component {
 		this.setState({
 			formValues
 		});
-
-		// this.onConfrimSubmit(formValues);
 		this.openConfirmCreateDialog();
 	}
 
@@ -68,7 +68,8 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
+		Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
+			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
@@ -88,8 +89,38 @@ export default class JoinCreate extends React.Component {
 	}
 
 	onCancel() {
+		this.removeLocalStorage()
 		window.history.back();
 	}
+
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+'QUITRENTcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
+				_this.setState({
+					openLocalStorages:true
+				})
+			 }
+	}
+
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -105,19 +136,28 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		this.getlocalSign();
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
+
+			let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
+
+			console.log(localStorage.getItem(keyWord+'num'),localStorage.getItem(keyWord+'oldNum'))
+
+			initialValues.setLocalStorageDate = +new Date();
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
-			initialValues.agreement = '无';
 
 			//initialValues.withdrawdate = +new Date();
 			//initialValues.signdate = +new Date();
@@ -141,8 +181,6 @@ export default class JoinCreate extends React.Component {
 				item.label = item.corporationName;
 				return item;
 			});
-
-
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -165,12 +203,12 @@ export default class JoinCreate extends React.Component {
 		});
 	}
 
-
 	render() {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			openLocalStorages
 		} = this.state;
 
 		return (
@@ -180,7 +218,7 @@ export default class JoinCreate extends React.Component {
 			 <Title value="创建退租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
 		<Section title="退租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} openLocalStorage={openLocalStorages} params={this.props.params} removeLocalStorage={this.removeLocalStorage}/>
 			</Section>
 
 			<Dialog

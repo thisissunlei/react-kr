@@ -19,7 +19,13 @@ import {
 	Notify,
 	BreadCrumbs,
 	Title,
+	Grid,
+	Row,
+	ListGroup,
+	ListGroupItem,
+	Button
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
@@ -38,8 +44,12 @@ export default class JoinCreate extends React.Component {
 		this.state = {
 			initialValues: {},
 			optionValues: {},
+			initialValue: {},
+			optionValue: {},
 			formValues: {},
-			openConfirmCreate: false
+			stationVoList:[],
+			openConfirmCreate: false,
+			openLocalStorages:false
 		}
 		this.isConfirmSubmiting = false;
 		Store.dispatch(reset('admitCreateForm'));
@@ -57,6 +67,32 @@ export default class JoinCreate extends React.Component {
 
 		this.openConfirmCreateDialog();
 	}
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+'INTENTIONcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+	getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let keyWord = params.orderId+ params.customerId+'INTENTIONcreate';
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
+				_this.setState({
+					openLocalStorages:true
+				})
+			 }
+	}
 
 	onConfrimSubmit() {
 
@@ -72,8 +108,9 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 			var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaContractIntentletter', {}, formValues)).then(function(response) {
+		Http.request('addFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
+			_this.removeLocalStorage();
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -90,12 +127,13 @@ export default class JoinCreate extends React.Component {
 				type: 'danger',
 			}]);
 		});
-
-		//this.openConfirmCreateDialog();
 	}
 
 	onCancel() {
-		window.history.back();
+		this.removeLocalStorage();
+
+			window.history.back();
+
 	}
 
 	openConfirmCreateDialog() {
@@ -105,34 +143,39 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
 		var _this = this;
 		const {
 			params
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
-
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		this.getlocalSign();
+		
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
+			let keyWord = params.orderId+params.customerId+'INTENTIONcreate';
+			initialValues.num  = localStorage.getItem(keyWord+'num') ||1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
+			initialValues.setLocalStorageDate = +new Date();
+			
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
-			initialValues.leaseAddress = response.customer.customerAddress;
+			initialValues.leaseAddress = response.customer.customerAddress || null;
 			initialValues.contractcode = response.contractCode;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
-			initialValues.agreement = '无';
-
+			// initialValues.agreement = '无';
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -149,34 +192,45 @@ export default class JoinCreate extends React.Component {
 				item.label = item.dicName;
 				return item;
 			});
-
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
-			optionValues.leaseAddress = response.customer.customerAddress;
+			// optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+			optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+			initialValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+			optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+
 
 			_this.setState({
 				initialValues,
-				optionValues
+				optionValues,
+				// stationVoList
 			});
 
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
 			}]);
 		});
 	}
-
+	
+	
 
 	render() {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			initialValue,
+			optionValue,
+			 stationVoList,
+			 openLocalStorages
 		} = this.state;
+		console.log('index',initialValues,optionValues,openLocalStorages );
 
 		return (
 
@@ -187,7 +241,7 @@ export default class JoinCreate extends React.Component {
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租意向书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} initialValue={initialValue} onCancel={this.onCancel} stationVoList={stationVoList} openLocalStorage={openLocalStorages} optionValues={optionValues} removeLocalStorage={this.removeLocalStorage}/>
 			</Section>
 
 			<Dialog
