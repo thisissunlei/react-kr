@@ -26,15 +26,14 @@ import imgLine from './images/line.png'
 			onsubmit:true,
 			communityName:'',
 			onsubmitCode:true
-
-
 		}
-		this.getBasicData();
 		this.params = this.props.params;
+	}
 
+
+	componentDidMount(){
+		this.getBasicData();
 		this.getCummityName();
-
-
 	}
 	componentWillMount() {
 		this.params = this.props.params;

@@ -258,15 +258,17 @@ span{
 	border-top:none;
 	font-size:14px;
 	position: relative;
+	display:flex;
+	display:-webkit-flex;
+	justify-content:center;
+	align-items: center;
 	&>div{
 		float:left;
 		
 	}
-		display:flex;
-		display:-webkit-flex;
-	   justify-content:center;
-	   align-items: center;
+		
 	.type{
+		width:299px !important;
 		min-height:38px;
 
 	}
@@ -284,7 +286,7 @@ span{
 		span{
 			margin-right:auto;
 			margin-left:auto;
-			margin-top:15px;
+			margin-top:13px;
 
 		}
 	}
@@ -301,13 +303,17 @@ span{
 			line-height:38px;
 			border-bottom:1px solid #eeeeee;
 			border-left:1px solid #eeeeee;
-			
+			overflow:hidden;
 			&:last-child{
 				border-bottom:none !important;
 			}
 			div{
 				width:125px;
 				border-right:1px solid #eeeeee;
+				float:left;
+				&:nth-child(3){
+					width:124px;
+				}
 			}
 		}
 		&:last-child{
