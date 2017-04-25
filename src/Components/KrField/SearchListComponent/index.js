@@ -7,6 +7,9 @@ import WrapComponent from '../WrapComponent';
 import './index.less';
 import $ from 'jquery';
 import {ShallowEqual} from 'kr/Utils';
+import {
+	Http
+} from "kr/Utils";
 //import 'react-select/dist/react-select.css';
 
 export default class SelectComponent extends React.Component {
@@ -47,7 +50,7 @@ export default class SelectComponent extends React.Component {
 	}
 	getMenberList=()=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('memberRecvList'))
+		Http.request('memberRecvList')
 		.then(function(response){
 			let option = [];
 			option = response.map((item)=>{
