@@ -10,7 +10,6 @@ import {
 	KrField,
 	Title
 } from 'kr-ui';
-import {Http} from "kr/Utils"
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 

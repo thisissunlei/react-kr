@@ -14,8 +14,6 @@ import {
 	KrDate,
 	Title,
 } from 'kr-ui';
-import {Http} from "kr/Utils"
-
 
 import RaisedButton from 'material-ui/RaisedButton';
 import {DateFormat,Http} from 'kr/Utils';

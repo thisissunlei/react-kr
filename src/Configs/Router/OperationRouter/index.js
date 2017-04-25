@@ -383,6 +383,7 @@ module.exports =()=>{
 			<Route path="customer" getComponent={Basic}>
 			<Route path="edit" getComponent = {Operation_JoinOrder_Customer_Edit}/>
 			<Route path="detail" getComponent = {Operation_JoinOrder_Customer_Detail}/>
+      </Route>
 		</Route>
 	</Route>
 	</Route>

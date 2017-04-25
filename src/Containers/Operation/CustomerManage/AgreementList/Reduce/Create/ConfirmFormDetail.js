@@ -20,7 +20,6 @@ import {
 	DotTitle
 } from 'kr-ui';
 
-import {Http} from "kr/Utils"
 export default class ConfirmFormDetail  extends React.Component{
 
 

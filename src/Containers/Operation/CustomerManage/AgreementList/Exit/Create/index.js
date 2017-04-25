@@ -12,7 +12,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
 import {Http} from "kr/Utils"
 import {
 	Dialog,
@@ -21,7 +20,6 @@ import {
 	Title,
 
 } from 'kr-ui';
-import {Http} from 'kr/Utils';
 
 
 import NewCreateForm from './NewCreateForm';
@@ -183,7 +181,7 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-			
+
 
 			_this.setState({
 				initialValues,
@@ -249,7 +247,7 @@ export default class JoinCreate extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 
-		
+
 		if (nextProps.active && this.props.active!= nextProps.active) {
 			this.setState({
 				setlocalStorage:nextProps.active

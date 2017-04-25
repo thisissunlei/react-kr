@@ -9,7 +9,6 @@ import {
   Actions,
   Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
 import {DateFormat,Http} from 'kr/Utils';
 import {
   Dialog,
@@ -22,8 +21,6 @@ import {
   ListGroupItem,
   Button
 } from 'kr-ui';
-
-import {Http} from "kr/Utils"
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';

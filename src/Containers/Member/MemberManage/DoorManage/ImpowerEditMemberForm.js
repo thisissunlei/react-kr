@@ -5,8 +5,6 @@ import {
 	initialize,
 } from 'redux-form';
 
-import {Actions,Store} from 'kr/Redux';
-
 import {
 	KrField,
 	Grid,

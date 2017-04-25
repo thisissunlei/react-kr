@@ -8,12 +8,11 @@ import {
 	change,
 	reset
 } from 'redux-form';
-import {Http} from "kr/Utils"
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
+
 import {Http} from 'kr/Utils';
 import {
 	Dialog,

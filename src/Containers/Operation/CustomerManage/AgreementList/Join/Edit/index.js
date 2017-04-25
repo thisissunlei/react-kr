@@ -1,19 +1,15 @@
-import React, {
-
-	PropTypes
-} from 'react';
+import React  from 'react';
 import {
 	reduxForm,
 	submitForm,
 	change,
 	reset
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
+
+import { Store } from 'kr/Redux';
+
 import {DateFormat,Http} from 'kr/Utils';
+
 import {
 	Dialog,
   Section,
@@ -26,12 +22,11 @@ import {
   ListGroupItem,
   Button
 } from 'kr-ui';
-import {Http} from "kr/Utils"
 
 import NewCreateForm from './NewCreateForm';
-import './index.less';
 import allState from "../../State";
 
+import './index.less';
 export default class JoinCreate extends React.Component {
 
 

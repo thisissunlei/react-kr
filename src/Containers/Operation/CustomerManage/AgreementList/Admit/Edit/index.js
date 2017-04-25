@@ -12,7 +12,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
 import {DateFormat,Http} from 'kr/Utils';
 import {
 	Dialog,
@@ -26,7 +25,6 @@ import {
 	ListGroupItem,
 	Button
 } from 'kr-ui';
-import {Http} from "kr/Utils"
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import allState from "../../State";
@@ -427,8 +425,8 @@ export default class JoinCreate extends React.Component {
 		},function(){
 			this.getBasicData()
 			this.removeLocalStorage()
-		})	
-	} 
+		})
+	}
 	getLocalStorage=()=>{
 		this.setState({
 			openLocalStorages:false,
@@ -470,7 +468,7 @@ export default class JoinCreate extends React.Component {
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorages} 
+				open={this.state.openLocalStorages}
 				contentStyle={{width:'400px'}}>
 					<div>
 						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>

@@ -2,7 +2,6 @@ import React, {
 
 	PropTypes
 } from 'react';
-import {Http} from "kr/Utils"
 import {
 	BreadCrumbs,
 	Loading,

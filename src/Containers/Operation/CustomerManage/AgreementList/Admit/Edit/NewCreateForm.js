@@ -12,7 +12,6 @@ import {
 import {
 	Binder
 } from 'react-binding';
-import {Http} from "kr/Utils"
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
