@@ -105,7 +105,7 @@ class MeetingsearchUpperForm extends React.Component {
 			            onChange = {this.onSearchChange}
     				/>
 
-    			<div className="accommodate-number"><span className="label">容纳人数</span><input type="text" onChange={this.capacityBegin}/><span className="horizontal-line">——</span><input type="text" onChange={this.capacityEnd}/></div>
+    			<div className="accommodate-number"><span className="label">容纳人数</span><input type="text" onChange={this.capacityBegin}/><span className="horizontal-line">-</span><input type="text" onChange={this.capacityEnd}/></div>
     			<div className='meeting-device'>
 					<KrField
 						label="设备情况"

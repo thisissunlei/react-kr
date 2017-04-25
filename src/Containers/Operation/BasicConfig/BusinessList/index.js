@@ -315,12 +315,12 @@ searchChange = (values) =>{
 							}
 						}
 					onOperation={this.onOperation}
-		            displayCheckbox={true}
+		            displayCheckbox={false}
 		            ajaxParams={searchParams}
 		            ajaxUrlName='business-list'
 		            ajaxFieldListName="items"
                 onExport={this.onExport}
-                exportSwitch={true}
+                exportSwitch={false}
 				>
 			            <TableHeader>
 			              <TableHeaderColumn>所属区县</TableHeaderColumn>
