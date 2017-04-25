@@ -38,9 +38,6 @@ import {
 
 export default class JoinCreate extends Component {
 
-	static childContextTypes = {
-        params: React.PropTypes.object.isRequired
-     }
 
 	getChildContext() {
     	return {
@@ -55,6 +52,11 @@ export default class JoinCreate extends Component {
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+
+		this.constructor.childContextTypes = {
+	        params: React.PropTypes.object.isRequired
+	     }
+
 
 		this.state = {
 			initialValues: {},

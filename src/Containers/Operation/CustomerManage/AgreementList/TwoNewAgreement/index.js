@@ -56,23 +56,23 @@ class LookCustomerList extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
-	
+
+
 
 	componentWillReceiveProps(nextProps){
-		
+
 	}
 	componentDidMount(){
-		
+
 	}
 	render(){
 		let num="";
 		let text="";
-        
+
         let dialogDiv=[];
         let showTab=[];
         let noneTab=[];
-        
+
 		if(!allState.enter){
 			num=50+(5-noneTab.length)*109.16;
 			text="入驻协议书"
@@ -94,7 +94,7 @@ class LookCustomerList extends Component{
 		if(!allState.increase){
 
 			num=50+(5-noneTab.length)*109.16;
-			
+
 			text="增租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
@@ -108,13 +108,13 @@ class LookCustomerList extends Component{
 					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
-		}	
+		}
 
-		
+
 
 		if(!allState.relet){
 			num=50+(5-noneTab.length)*109.16;
-			
+
 			text="续租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
@@ -135,7 +135,7 @@ class LookCustomerList extends Component{
 
 		if(!allState.reduce){
 			num=50+(5-noneTab.length)*109.16;
-			
+
 			text="减租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
@@ -154,7 +154,7 @@ class LookCustomerList extends Component{
 
 		if(!allState.returnRent){
 			num=50+(5-noneTab.length)*109.16;
-			
+
 			text="退租协议书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
@@ -169,12 +169,12 @@ class LookCustomerList extends Component{
 				</Tab>
 			);
 
-		}	
+		}
 
 		if(!allState.admit){
-			
+
 			num=50+(5-noneTab.length)*109.16;
-			
+
 			text="承租意向书"
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
@@ -189,7 +189,7 @@ class LookCustomerList extends Component{
 				</Tab>
 			);
 
-		}	         
+		}
 
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
@@ -205,14 +205,14 @@ class LookCustomerList extends Component{
 				>
 				{showTab}
 				{noneTab}
-					
-				
+
+
 			</Tabs>
 			<div className="m-noneClick" style={{width:noneTab.length*109.16}}>
 			 {dialogDiv}
-			</div>		        
+			</div>
 		    </div>
-				
+
 
 		);
 	}
