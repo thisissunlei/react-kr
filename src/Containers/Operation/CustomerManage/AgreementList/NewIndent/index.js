@@ -118,7 +118,6 @@ import {Http} from "kr/Utils"
 
 	render(){
 		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount} = this.props;
-
 		let city=State.cityLable;
 			city=!city?"无":city;
 		// if(!isOpenIndent){
@@ -145,7 +144,7 @@ import {Http} from "kr/Utils"
 					/>
 
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:customerName} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
