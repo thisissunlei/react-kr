@@ -39,7 +39,7 @@ import OperationRouter from './OperationRouter';
 
 const Master = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Master').default)
+    callback(null, require('kr/master').default)
   }, 'Master')
 }
 
