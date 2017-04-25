@@ -190,7 +190,7 @@ SelectCommunity=()=>{
 
 		let title=`会议室列表(${this.props.CommunityMeetingModel.communityName})`;
 		return(
-			<div className='community-list'>
+			<div className='meeting-list'>
 				<Title value="会议室列表"/>
 				<Section title={title} description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
