@@ -36,27 +36,27 @@ class EditMeeting  extends React.Component{
 			data.id=id;
 			var _this=this;
 			Http.request('meeting-room-eidData',data).then(function(response) {
-				//$form.changeValues(response);
-				     let deviceSpace=[];
-				  _this.props.CommunityMeetingModel.spaceDevices.map((items)=>{
-					  response.deviceIds.map((item)=>{
-		              if(item==items.value){
-		              	console.log('00ppp');
-		              	items.checked=true;
-		               }else{
-		               	items.checked=false;
-		               }
-					  })
-		           let list={};
-		           list.label=items.label;
-		           list.value=items.value;
-		           list.checked=items.checked;
-		           console.log('000kkkk',items.checked);
-		           deviceSpace.push(list); 
+				   //$form.changeValues(response);
+				   let deviceSpace=[];
+				   _this.props.CommunityMeetingModel.spaceDevices.map((items,index)=>{
+			        let list={};
+			        list.label=items.label;
+			        list.value=items.value;
+			        response.deviceIds.map((item)=>{
+			           if(item==items.value){
+			           	 list.checked=true;
+			           	 console.log('pp---',item,items.value)
+			           }else{
+			           	 list.checked=false;
+			           }
+			        })
+			        deviceSpace.push(list); 
+			        console.log('[===',deviceSpace);
 				 })
-				    _this.setState({
-					 	listDevice:deviceSpace
-					})
+				   _this.setState({
+				   	 listDevice:deviceSpace
+				   })
+
 				   Store.dispatch(initialize('EditMeeting',response));
 			    }).catch(function(err) {
 					Message.error(err.message);
@@ -96,9 +96,10 @@ class EditMeeting  extends React.Component{
 
   render(){
     
-    const {handleSubmit}=this.props;
-    let {listDevice}=this.state;
-		
+     const {handleSubmit}=this.props;
+     let {listDevice}=this.state;
+     
+     console.log(';;;',listDevice);
 
     return(
 

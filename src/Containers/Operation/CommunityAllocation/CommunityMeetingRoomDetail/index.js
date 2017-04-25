@@ -66,8 +66,8 @@ class  CommunityMeetingRoomDetail extends React.Component{
 	cancelEditCode=()=>{
 		this.props.CommunityMeetingModel.editStation();
 	}
- //查看相关操作
- onOperation=(type,itemDetail)=>{
+   //查看相关操作
+   onOperation=(type,itemDetail)=>{
    if(type=='edit'){
 		 this.props.CommunityMeetingModel.editStation();
 		 this.props.CommunityMeetingModel.deleteId=itemDetail.id;
@@ -89,7 +89,7 @@ class  CommunityMeetingRoomDetail extends React.Component{
 
  //导出
 onExport=(values)=> {
-let {searchParams} = State;
+let {searchParams} = this.props.CommunityMeetingModel;
 let defaultParams = {
 	capacityBegin:'',
 	capacityEnd:'',
@@ -134,17 +134,18 @@ searchParams = Object.assign({},defaultParams,searchParams);
 	 this.props.CommunityMeetingModel.searchParams.time=+new Date();
  }
 
- //高级查询
-openSearchUpperDialog=()=>{
+    //高级查询
+   openSearchUpperDialog=()=>{
 		var params={
-		    code:'',
-			stationType:'',
+		    capacityBegin:'',
+			capacityEnd:'',
+			deviceIds:[],
 			enable:'',
-			belongSpace:'',
-			spaceId:'',
+			searchKey:'',
+			searchType:''
 		}
    this.props.CommunityMeetingModel.searchParams=Object.assign({},this.props.CommunityMeetingModel.searchParams,params);;
-	 this.props.CommunityMeetingModel.searchUpperCustomer();
+   this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 //高级查询取消
 cancelSearchUpperDialog=()=>{
@@ -152,6 +153,7 @@ cancelSearchUpperDialog=()=>{
 }
 //高级查询提交
 onSearchUpperSubmit=(params)=>{
+ console.log('[[[[');
  this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,params);
  this.props.CommunityMeetingModel.searchParams.time=+new Date();
  this.props.CommunityMeetingModel.searchUpperCustomer();
