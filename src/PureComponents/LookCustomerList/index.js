@@ -107,11 +107,11 @@ class LookCustomerList extends Component{
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
-					<div><span className="look-new-icon"></span><label className="title-text">{companyName}</label></div>
-					<div className="look-close" onClick={this.onCancel}></div>
-				</div>
-				<div style={{height:5}}></div>
-					{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType)}
+  					  <div><span className="look-new-icon"></span><label className="title-text">{companyName}</label></div>
+  					  <div className="look-close" onClick={this.onCancel}></div>
+				    </div>
+    				<div style={{height:5}}></div>
+    					{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,operType)}
 		      </div>
 
 		);
