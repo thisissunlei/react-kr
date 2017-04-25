@@ -5,6 +5,9 @@ import plus from "../images/plus.svg";
 import toright from "../images/toright.svg";
 import Input from "../../../Input"
 import LeftItem from './LeftItem';
+import {
+	Http
+} from "kr/Utils";
 export default class Left extends React.Component{
 	static dispalyName = 'Left';
 	static propTypes = {
@@ -40,7 +43,7 @@ export default class Left extends React.Component{
 	// 首次加载获取社区列表
 	componentDidMount(){
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
+		Http.request('getCommunityEquipment',"")
 	      .then(function(response){
 	      	_this.setState({
 	      		communitys : response.items

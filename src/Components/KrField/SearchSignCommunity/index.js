@@ -1,6 +1,8 @@
 import React from 'react';
 
-
+import {
+	Http
+} from "kr/Utils";
 import ReactSelectAsync from '../../Select/Async';
 
 import {Actions,Store} from 'kr/Redux';
@@ -44,7 +46,7 @@ export default class  SearchSignCommunity extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('sign-search-conditions',{searchKey:searchKey })).then(function(response){
+			Http.request('sign-search-conditions',{searchKey:searchKey }).then(function(response){
 				resolve({options:response.communities});
 			}).catch(function(err){
 				reject(err);

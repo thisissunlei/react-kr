@@ -3,10 +3,7 @@ import React from 'react';
 
 import ReactSelectAsync from '../../Select/Async';
 
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 
 import WrapComponent from '../WrapComponent';
@@ -52,9 +49,9 @@ export default class SearchCommunitys extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-mainbill-community', {
+			Http.request('get-mainbill-community', {
 				communityName: lastname
-			})).then(function(response) {
+			}).then(function(response) {
 				var list = response.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.communityname;

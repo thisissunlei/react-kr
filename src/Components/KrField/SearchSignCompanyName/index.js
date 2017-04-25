@@ -1,6 +1,8 @@
 import React from 'react';
 
-
+import {
+	Http
+} from "kr/Utils";
 import ReactSelectAsync from '../../Select/Async';
 
 import {Actions,Store} from 'kr/Redux';
@@ -44,7 +46,7 @@ export default class  SearchSignCompanyName extends React.Component {
 
 	getOptions(company){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('sign-customers-names',{company:company })).then(function(response){
+			Http.request('sign-customers-names',{company:company }).then(function(response){
 				response.items.forEach(function(item,index){
 					item.value = item.id;
 					item.label = item.company;

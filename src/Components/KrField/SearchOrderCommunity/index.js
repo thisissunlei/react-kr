@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -44,7 +46,7 @@ export default class  SearchOrderCommunity extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('community-city-selected',{searchKey:searchKey })).then(function(response){
+			Http.request('community-city-selected',{searchKey:searchKey }).then(function(response){
 				response.communityCity.forEach(function(item,index){
 					item.value = item.communityId;
 					item.label = item.communityName;

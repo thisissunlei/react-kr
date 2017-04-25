@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -44,7 +46,7 @@ export default class  SearchSignBillTypeComponent extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('sign-search-conditions',{searchKey:searchKey })).then(function(response){
+			Http.request('sign-search-conditions',{searchKey:searchKey }).then(function(response){
 				response.billTypes.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.dicName;

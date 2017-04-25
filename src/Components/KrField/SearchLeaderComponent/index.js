@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -44,7 +46,7 @@ export default class  SearchLeaderComponent extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-receive-list',{searchKey:searchKey })).then(function(response){
+			Http.request('get-receive-list',{searchKey:searchKey }).then(function(response){
 				resolve({options:response});
 			}).catch(function(err){
 				reject(err);
