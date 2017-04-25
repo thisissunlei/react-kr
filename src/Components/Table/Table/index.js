@@ -281,6 +281,7 @@ export default class Table extends React.Component {
 		ajaxParams.page = page;
 
 		var _this = this;
+
 		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
 			_this.onInitial({
@@ -303,10 +304,10 @@ export default class Table extends React.Component {
 				allRowsSelected: false
 			});
 
-			Notify.show([{
-				message: err.message,
-				type: 'error',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'error',
+			// }]);
 
 		});
 
@@ -450,7 +451,6 @@ export default class Table extends React.Component {
 	}
 
 	onSelect = () =>{
-
 
 		let {
 			selectedRows,

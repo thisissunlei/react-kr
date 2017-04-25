@@ -71,19 +71,20 @@ class HightSearchForm extends React.Component {
 		onCancel && onCancel();
 	}
 	getCommunity = () => {
-		var communityList;
 		var _this = this;
 		Http.request('findCommunityVoucher').then(function(response) {
-			communityList = response.map((item, index) => {
+			response.communityList.map((item, index) => {
 				item.label = item.communityname;
 				item.value = item.id;
 				return item;
 			})
+
 			_this.setState({
-				communityList: communityList
+				communityList: response.communityList
 			})
 
-		}).catch(function(err) {});
+		}).catch(function(err) {
+		});
 	}
 
 	render() {
@@ -105,8 +106,8 @@ class HightSearchForm extends React.Component {
 			    <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:30}}>
           <KrField
                 grid={1/2}
-                left={50}
-  							right={10}
+                left={35}
+  							right={15}
                 name="payWay"
                 type="select"
                 style={{marginTop:4}}
@@ -115,8 +116,8 @@ class HightSearchForm extends React.Component {
           />
 					<KrField
 				    		grid={1/2}
-								right={50}
-				    		left={10}
+								right={47}
+				    		left={5}
 				    		name="communityId"
 				    		type="select"
 				    		style={{marginTop:4}}
@@ -125,8 +126,8 @@ class HightSearchForm extends React.Component {
 					/>
           <KrField
               grid={1/2}
-              left={50}
-              right={10}
+              left={35}
+              right={15}
               name="paymentAccount"
               type="text"
               component="input"
@@ -134,8 +135,8 @@ class HightSearchForm extends React.Component {
            />
            <KrField
                grid={1/2}
-               right={50}
-               left={10}
+               right={47}
+               left={5}
                name="customerName"
                type="text"
                component="input"
@@ -145,23 +146,24 @@ class HightSearchForm extends React.Component {
 							grid={1/1}
 							component="group"
 							label="创建日期"
-							left={50}
+							left={35}
+							right={15}
 							style={{marginTop:3}}
 					>
 						<div className='ui-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
-									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="stopDate" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-start'><KrField  style={{width:255,marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
+									<div style={{display:'inline-block',marginTop:25,marginRight:3,marginLeft:-20}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+								<ListGroupItem><div className='ui-date-end' sty><KrField name="stopDate" style={{width:255,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
-		                </div>
+		        </div>
 					</KrField>
 
-				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
+				<Grid style={{marginTop:10,marginBottom:5,marginLeft:6}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'>
+								<div  className='ui-btn-center' style={{marginRight:35}}>
 									<Button  label="确定" type="submit" />
 								</div>
 								<Button

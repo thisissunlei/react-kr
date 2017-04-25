@@ -50,6 +50,7 @@ import searchCommunityManage from './SearchCommunity';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
+import SearchPayAccount from './SearchPayAccount';
 
 import SearchOrderCommunity from './SearchOrderCommunity';
 
@@ -192,6 +193,7 @@ class FieldRevert extends React.Component {
 				);
 			}
 
+
 			if (component === 'uploadImageList') {
 				return (
 					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
@@ -223,6 +225,7 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
 				)
 			}
+
 
 			if (component === 'searchPersonel') {
 				return (

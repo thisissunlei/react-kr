@@ -26,7 +26,8 @@ import {
 	ButtonGroup,
 	CircleStyleTwo,
 	Message,
-	LoadingTwo
+	LoadingTwo,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 
@@ -59,10 +60,12 @@ class EditMoney extends React.Component {
 			infoList: {},
 			finaflowInfo: {},
 			corporationId: '',
-			Loading: false
+			Loading: false,
+			topInfoList:[],
 		}
 		this.getDetailInfo();
 		this.getInfo();
+		this.getTableInfo();
 		this.receivedBtnFormChangeValues = {};
 
 	}
@@ -73,6 +76,18 @@ class EditMoney extends React.Component {
 		}, 0)
 	}
 
+	//table
+	getTableInfo = () => {
+			var _this = this;
+				var finaVerifyId = this.props.detail.id
+			Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+				finaVerifyId: finaVerifyId
+			}, {})).then(function(response) {
+				_this.setState({
+					topInfoList: response
+				})
+			}).catch(function(err) {});
+		}
 
 	//付款信息
 	getInfo = () => {
@@ -692,6 +707,38 @@ class EditMoney extends React.Component {
 			} < /div>)
 
 		}
+		renderTable=(topInfoList)=>{
+			return(
+				<div className="u-table-list">
+					<table className="u-table">
+					 <thead>
+					 <tr>
+						 <th>序号</th>
+						 <th width={100}>审核时间</th>
+						 <th width={100}>审核人</th>
+						 <th width={100}>审核状态</th>
+						 <th width={270}>备注</th>
+					 </tr>
+					 </thead>
+					 <tbody>
+					 {topInfoList && topInfoList.map((item,index)=>{
+					 return(
+						 <tr key={index}>
+								 <td>{topInfoList.length-index}</td>
+								 <td><KrDate value={item.operateTime} /></td>
+								 <td>{item.operateUserName}</td>
+								 <td>{item.targetStatus=='CHECKED'?<span className="u-font-green">{item.verifyName}</span>:<span className="u-font-red">{item.verifyName}</span>}</td>
+								 <td>{item.operateRemark}</td>
+							 </tr>
+					 )
+					 })}
+					 </tbody>
+				</table>
+			</div>
+
+
+			)
+		}
 
 
 		render() {
@@ -704,15 +751,17 @@ class EditMoney extends React.Component {
 				payment,
 				accountList,
 				infoList,
-				Loading
+				Loading,
+				topInfoList
 			} = this.state;
 			return (
-				<div className="u-audit-add">
+				<div className="u-audit-add u-audit-edit">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>编辑回款</span>
-			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
+			     	<span className="u-audit-close" style={{marginRight:40}} onTouchTap={this.onCancel}></span>
 			     </div>
+					 {topInfoList.length>0?this.renderTable(topInfoList):''}
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
@@ -748,6 +797,13 @@ class EditMoney extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
+								component="labelText"
+								inline={false}
+								label="社区名称"
+								value={infoList.communityName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="payWay"
 								component="select"
 								label="收款方式"
@@ -756,7 +812,7 @@ class EditMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountId"
 								component="select"
 								label="我司账户"
@@ -765,7 +821,7 @@ class EditMoney extends React.Component {
 
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
 								component="input"
@@ -774,7 +830,7 @@ class EditMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								component="date"
 								label="收款日期"

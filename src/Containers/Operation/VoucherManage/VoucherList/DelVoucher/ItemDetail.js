@@ -43,6 +43,7 @@ export default class ItemDetail extends React.Component {
 	}
 	render() {
 		let {infoList} = this.state;
+		let {detail}=this.props;
 		let items = [];
 		if(infoList.urls){
 			items = infoList.urls.map((item,value) => {
@@ -59,7 +60,7 @@ export default class ItemDetail extends React.Component {
 		return (
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
+			     	<span className="u-vouch-add-icon"></span>
 			     	<span>凭证详情</span>
 			     	<span className="u-audit-close" style={{
 								marginRight: 40
@@ -74,7 +75,7 @@ export default class ItemDetail extends React.Component {
 						 <KrField grid = {1}  component="labelText" inline={false} defaultValue={infoList.remark} label="备注说明" />
 						 <KrField grid = {1}  component="labelText" inline={false} label="添加凭证" />
 						 	<div style={{marginLeft:19,marginTop:-28}}>
-								<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+								<PhotoSwipeGallery items={items}  options={{index:detail.id}}   thumbnailContent={this.getThumbnailContent}/>
 						 	</div>
 					 </div>
 			</div>
