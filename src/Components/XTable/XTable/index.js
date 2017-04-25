@@ -134,12 +134,14 @@ export default class XTable extends React.Component {
       });
 		}).catch(function(err) {
       Notify.error(err.message);
+      _this.setState({
+        isLoading:false
+      });
 		});
 
 	}
 
   renderTable =  ()=>{
-
     return (
       <Table>
           <TableHeader> {this.renderHeader()} </TableHeader>
@@ -222,6 +224,7 @@ export default class XTable extends React.Component {
   }
 
   onPageChange = (page)=>{
+    console.log('ddd');
     this.onLoadData(page);
   }
 
@@ -250,6 +253,9 @@ export default class XTable extends React.Component {
     }
 
     renderLoading = ()=>{
+
+      return <Loading />;
+
       return <Table>
                 <TableHeader>{this.renderHeader()}</TableHeader>
                 <TableBody> <TableRow><TableColumn><Loading/></TableColumn></TableRow></TableBody>
