@@ -13,7 +13,7 @@ import {
 	Store,
 } from 'kr/Redux';
 
-
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -85,7 +85,7 @@ export default class CreateMemberForm extends React.Component {
 			memberId:memberId.id || ''
 		}
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
+		Http.request('getMemberBasicData', params).then(function(response) {
 			response.jobList.forEach((item)=>{
 				item.value = item.id;
 				item.label = item.jobName;
@@ -118,7 +118,7 @@ export default class CreateMemberForm extends React.Component {
 		 let {detail} = this.props;
 		 let _this = this;
 
-		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+		 Http.request('isEmailRegistered',params).then(function(response){
 				//邮箱已注册
 				if(detail.phone == response.phone){
 					_this.setState({
@@ -151,7 +151,7 @@ export default class CreateMemberForm extends React.Component {
 	 	})
 		 let {detail} = this.props;
 		 if(params.code !== undefined){
-			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+			Http.request('membersByForeignCode',params).then(function(response){
 					//会员卡号已注册
 					if(detail.phone == response.phone){
 						_this.setState({
