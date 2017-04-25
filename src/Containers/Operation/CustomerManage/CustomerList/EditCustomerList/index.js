@@ -1,4 +1,4 @@
-import React, {  PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
@@ -136,7 +136,6 @@ import {
 		onCancel && onCancel();
 	}
 	cityValue=(value)=>{
-	  console.log(value,">>>>>")
       Store.dispatch(change('EditCustomerList','distinctId',value));
     }
 	hasOfficeClick = (params) =>{

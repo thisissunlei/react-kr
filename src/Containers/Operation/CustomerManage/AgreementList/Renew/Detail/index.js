@@ -31,6 +31,8 @@ import {
 
 } from 'kr-ui';
 
+import {Http} from 'kr/Utils';
+
 
 import {
 	Actions,

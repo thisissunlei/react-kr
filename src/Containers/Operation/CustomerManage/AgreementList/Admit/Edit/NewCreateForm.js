@@ -16,7 +16,7 @@ import {Http} from "kr/Utils"
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,
@@ -121,9 +121,12 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		var stationnum = 0;
 		var boardroomnum = 0;
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
 
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
@@ -204,7 +207,7 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
@@ -212,6 +215,10 @@ class NewCreateForm extends React.Component {
 			}
 			return true;
 		});
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
+
 
 		this.setState({
 			stationVos,
@@ -336,6 +343,7 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} =this.props;
 		let _this = this;
 		let allMoney = 0;
 
@@ -355,6 +363,9 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			allRent:allMoney
 		});
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+
 
 		this.openStationUnitPriceDialog();
 	}
@@ -464,7 +475,8 @@ class NewCreateForm extends React.Component {
 		let {delStationVos} = this.state;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
         data.deleteData && data.deleteData.map((item)=>{
                 var obj = {};
@@ -487,6 +499,9 @@ class NewCreateForm extends React.Component {
 			});
 		} catch (err) {
 		}
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONeditdelStationVos', JSON.stringify(delStationVos));
 
 
 
@@ -514,6 +529,9 @@ class NewCreateForm extends React.Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} =this.props;
+		localStorage.setItem(initialValues.mainbillid+""+initialValues.customerId+'INTENTIONeditstationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 	}
@@ -771,6 +789,7 @@ const selector = formValueSelector('admitCreateForm');
 const validate = values => {
 
 	const errors = {}
+	console.log('=====admit======');
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -838,6 +857,19 @@ const validate = values => {
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				console.log('contractFileList',values[i])
+				localStorage.setItem(values.mainbillid+""+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}
+
+	    };
+	}
 
 
 
@@ -846,7 +878,7 @@ const validate = values => {
 
 NewCreateForm = reduxForm({
 	form: 'admitCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

@@ -1,7 +1,4 @@
-import React, {
-
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'kr/Redux';
@@ -15,7 +12,7 @@ import {
 import {Http} from "kr/Utils"
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import nzh from 'nzh';
 
 import {
@@ -142,7 +139,7 @@ class NewCreateForm extends React.Component {
 
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
-
+		let {initialValues} = this.props;
 		value = DateFormat(value, "yyyy-mm-dd hh:MM:ss");
 
 		let {
@@ -155,6 +152,10 @@ class NewCreateForm extends React.Component {
 
 		this.setState({
 			stationVos: []
+		},function(){
+			this.setAllRent([]);
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
+
 		});
 	}
 
@@ -164,6 +165,8 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
+
 
 		if (!stationVos.length) {
 			return;
@@ -171,6 +174,10 @@ class NewCreateForm extends React.Component {
 
 		this.setState({
 			stationVos: []
+		},function(){
+			this.setAllRent([])
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(this.state.stationVos));
+
 		});
 
 	}
@@ -220,6 +227,7 @@ class NewCreateForm extends React.Component {
 			selectedStation
 		} = this.state;
 		let _this = this;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -227,6 +235,8 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -243,6 +253,8 @@ class NewCreateForm extends React.Component {
 			selectedStation,
 			stationVos
 		} = this.state;
+
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
@@ -251,14 +263,11 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 		let _this = this;
-		let allMoney = 0;
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 		this.setState({
 			stationVos,
-			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});
@@ -319,15 +328,38 @@ class NewCreateForm extends React.Component {
 		});
 	}
 
+
 	componentDidMount() {
 		let {
-			initialValues
+			initialValues,
 		} = this.props;
 		Store.dispatch(initialize('increaseCreateForm', initialValues));
+
 	}
 
 	componentWillReceiveProps(nextProps) {
+		if (!this.isInit && nextProps.stationVos.length) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos,
+			}, function() {
+				this.calcStationNum();
+				this.setAllRent(nextProps.stationVos);
+			});
+			this.isInit = true;
+		}
 
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('increaseCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
 	}
 
 	onSubmit(form) {
@@ -458,6 +490,7 @@ class NewCreateForm extends React.Component {
 		} = this.props;
 
 		let stationVos = [];
+		let {initialValues} = this.props;
 
 		try {
 			billList && billList.map(function(item, index) {
@@ -473,6 +506,9 @@ class NewCreateForm extends React.Component {
 			});
 		} catch (err) {
 		}
+
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 
 		this.setState({
 			stationVos
@@ -496,6 +532,9 @@ class NewCreateForm extends React.Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
 
 	}
@@ -507,10 +546,14 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
+		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(stationList)}).then(function(response) {
+
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ADDRENTcreatestotalrent', JSON.stringify(response));
 			_this.setState({
 				allRent:response
 			})
+
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -518,38 +561,7 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
 
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
 	dealRentName=()=>{
 		let {allRent} = this.state;
 		let name = '';
@@ -583,7 +595,7 @@ class NewCreateForm extends React.Component {
 			submitting,
 			initialValues,
 			changeValues,
-			optionValues
+			optionValues,
 		} = this.props;
 
 		let {
@@ -690,8 +702,8 @@ class NewCreateForm extends React.Component {
 
 					<KrField  name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
 					<div className="lessor-address"><KrField  style={{width:262,marginLeft:25}}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
-					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
-					<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
+					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
+					<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  
 
 					requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
@@ -757,7 +769,7 @@ class NewCreateForm extends React.Component {
 
 
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
-					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={[]} onChange={(files)=>{
+					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 						Store.dispatch(change('increaseCreateForm','contractFileList',files));
 					}} />
 
@@ -880,6 +892,21 @@ const validate = values => {
 
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
+	}
+
+	++values.num;
+	if(values.setlocalStorage === 'increase' && values.mainbillid && values.customerId){
+
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}
+
+		    };
+		}
 	}
 
 

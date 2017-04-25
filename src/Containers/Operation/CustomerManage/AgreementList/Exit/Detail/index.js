@@ -27,7 +27,7 @@ import {
 	Row,
 	Col
 } from 'kr-ui/Grid';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 
 export default class ExitDetail extends React.Component {
