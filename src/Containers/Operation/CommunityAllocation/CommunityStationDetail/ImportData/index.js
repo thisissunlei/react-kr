@@ -66,7 +66,8 @@ class ImportData extends React.Component{
 			 if (xhr.readyState === 4) {
 				 if (xhr.status === 200) {
 					 if (xhr.response && xhr.response.code > 0) {
-						 Message.warntimeout('图片上传成功', 'success');
+						 Message.warntimeout('文件上传成功', 'success');
+						 _this.onCancel();
 					 } else {
 						 Message.error(xhr.response.message);
 					 }
