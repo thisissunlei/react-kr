@@ -125,6 +125,7 @@ State.stationDataReady = action(function(params) {
 		_this.sapceTypes=response.sapceTypes;
 		_this.floorData=response.floors;
 		_this.spaceDevices=response.spaceDevices;
+		
  }).catch(function(err) {
 		Message.error(err.message);
  });

@@ -154,24 +154,19 @@ class BusinessList  extends React.Component{
    //高级查询确定
    upperFormSubmit = (values) =>{
 
-	   	let name = "",no = "";
-	   	if(values.searchType == "CODING"){
-	   		no = values.searchKey;
-	   	}else{
-	   		name = values.searchKey;
-	   	}
+	   	
 
 	   	let {searchParams} = this.state;
 		let date = new Date();
 
 	   	this.setState({
 	      searchParams:{
-					name:name,
+					name:values.name,
 					page: searchParams.page,
 	     			pageSize: searchParams.pageSize,
 	     			districtId:values.districtId,
 	     			enable:values.enable,
-	     			no:no,
+	     			no:values.no,
 	     			date:date
 				}
 	   	})
@@ -401,9 +396,7 @@ searchChange = (values) =>{
 				<BusinessSearchForm
 				    onCancel={this.closeUpperForm}
 				    onSubmit={this.upperFormSubmit}
-				    flag='招商'
-				    searchParams={searchParams}
-				    searchContent = {searchContent}
+				    
 				/>
 		  </Dialog>
 

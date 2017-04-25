@@ -54,6 +54,7 @@ class SearchUpperForm extends React.Component {
 	
 
 	onSubmit(values) {
+	  
 	  let {searchKey,searchType}=this.state;
 	  values.searchKey=searchKey;
 	  values.searchType=searchType;

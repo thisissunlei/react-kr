@@ -13,7 +13,8 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+	Message,
+  SearchForm
 } from 'kr-ui';
 import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
@@ -31,17 +32,13 @@ import './index.less';
 		super(props);
 		this.state={
 			searchType:"",
-      name:"",
-      no:"",
+      searchKey:"",
+      
 		}
 	}
 
 	componentDidMount(){
-	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
-		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
-     const {$form,searchContent} = this.props;
-    $form.change('searchType',searchContent.searchType);
-    $form.change('searchKey',searchContent.searchKey);
+	 	 
 
 
 	}
@@ -51,37 +48,13 @@ import './index.less';
 
 	}
 
-  keyWorldChange = (value) => {
-    let {type} = this.state;
-    if(type == "CODING"){
-      this.setState({
-        name:"",
-        no:value,
-      })
-
-    }
-    if(type == "NAME"){
-      this.setState({
-        name:value,
-        no:"",
-      })
-    }
-  }
-
-  typeChange = (value) =>{
-    let {type} = this.state;
-    type = value.value == "CODING" ? "CODING":"NAME";
-    this.setState({
-      type:type
-    })
-  }
-
+  
   //确定按钮
   onSubmit = (values) =>{
-     console.log(values,"????????")
-    let {name,no} = this.state;
-    values.name = name;
-    values.no = no;
+    let {searchType,searchKey} = this.state;
+    values.searchType=searchType;
+    values.searchKey=searchKey;
+    
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(values);
   }
@@ -90,23 +63,28 @@ import './index.less';
 			const {$form} = this.props;
 			$form.change('districtId',value);
 	}
+
+  onSearchSubmit = (values) =>{
+    console.log(values,"KKKKK");
+    this.setState({
+      searchType:values.value,
+      searchKey:values.content,
+    })
+  }
+
 	render(){
 		const { handleSubmit,select} = this.props;
 		return (
 
 			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
-        <div style = {{display:"inline-block",width:295,marginTop:17}}>
-          <div style = {{display:"inline-block",width:100}}>
-            <KrField name="searchType" type="select"  label=""
-                options={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]}
-                onChange = {this.typeChange}
-            />
-          </div>
-          <div style = {{display:"inline-block",width:160}}>
-            <KrField name="searchKey" component='input' inline={false} onChange = {this.keyWorldChange} placeholder='请输入关键字'/>
-          </div>
+        
 
-        </div>
+          <SearchForm placeholder='请输入关键字' 
+            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} 
+            style={{width:262,marginTop:29,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}} 
+            defaultFilter='NAME'
+            onChange = {this.onSearchSubmit}
+          />
           <KrField grid={1/2} right={34} label="访客类型" name="visitType"  style={{marginTop:4}} component="select"  requireLabel={false}
             onSubmit={this.cityValue}
             options={select.type}

@@ -82,7 +82,6 @@ class NewAddStation  extends React.Component{
 			}
 		}
 
-
 		return(
 
 	  <div className='m-newMerchants'>
