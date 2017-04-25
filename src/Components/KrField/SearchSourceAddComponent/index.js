@@ -64,7 +64,7 @@ export default class  SearchSourceAddComponent extends React.Component {
 
 	getOptions = (searchKey) =>{
 		return new Promise((resolve, reject) => {
-			Http.request('highSourceName',{sourceName:searchKey})).then(function(response){
+			Http.request('highSourceName',{sourceName:searchKey}).then(function(response){
 				resolve({options:response.sources});
 			}).catch(function(err){
 				reject(err);
