@@ -185,7 +185,7 @@ export default class MemeberEditMemberForm extends React.Component {
 		return (
 			<div className="edit-form" style={{paddingBottom:"3"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-					<div className="person-info">
+					<div className="person-info" style={{padding:"19px 0 20px 0"}}>
 						<span className="person-name">{detail.name}</span>
 						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>}
 						<span className="person-id">（员工UserID：{detail.id}）</span>
