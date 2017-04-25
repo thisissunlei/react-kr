@@ -31,7 +31,7 @@ import './index.less';
 import NewAddMeeting from './NewAddMeeting';
 import EditMeeting from './EditMeeting';
 import DeleteMeeting from './DeleteMeeting';
-import SearchUpperForm from './SearchUpperForm';
+import MeetingsearchUpperForm from './SearchUpperForm';
 import ImportData from './ImportData';
 @inject("FormModel")
 @inject("CommunityMeetingModel")
@@ -153,7 +153,6 @@ cancelSearchUpperDialog=()=>{
 }
 //高级查询提交
 onSearchUpperSubmit=(params)=>{
- console.log('[[[[');
  this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,params);
  this.props.CommunityMeetingModel.searchParams.time=+new Date();
  this.props.CommunityMeetingModel.searchUpperCustomer();
@@ -314,7 +313,7 @@ SelectCommunity=()=>{
 				open={this.props.CommunityMeetingModel.openSearchUpper}
 				contentStyle ={{ width: '666px',height:'382px'}}
 				>
-				<SearchUpperForm
+				<MeetingsearchUpperForm
 					onCancel={this.cancelSearchUpperDialog}
 					onSubmit={this.onSearchUpperSubmit}
 				/>

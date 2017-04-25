@@ -104,10 +104,11 @@ Debug.log('bug',values);
 
 //搜索
 onSearchSubmit=(params)=>{
+	console.log(">>>>>")
 	let {searchParams}=State;
 	State.searchParams={
 		noOrName:params.content,
-		pid:searchParams.pid
+		pid:searchParams.pid||"",
 	}
 }
 
