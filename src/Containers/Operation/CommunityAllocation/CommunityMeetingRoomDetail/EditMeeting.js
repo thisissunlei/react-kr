@@ -23,28 +23,45 @@ class EditMeeting  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			isBelongSpace:false
+			isBelongSpace:false,
+			listDevice:[]
 		}
 	}
 
 
 	componentWillMount(){
-		let {$form,id}=this.props;
-		 //获取编辑信息
+		   let {$form,id}=this.props;
+		   //获取编辑信息
 			var data={};
 			data.id=id;
 			var _this=this;
 			Http.request('meeting-room-eidData',data).then(function(response) {
 				//$form.changeValues(response);
-				console.log('ppp---',response);
-				response.deviceIds.map((item,index)=>{
-                   item.checked = true;
-				})
-				Store.dispatch(initialize('EditMeeting',response));
-		 }).catch(function(err) {
-				Message.error(err.message);
-		 });
-	}
+				     let deviceSpace=[];
+				  _this.props.CommunityMeetingModel.spaceDevices.map((items)=>{
+					  response.deviceIds.map((item)=>{
+		              if(item==items.value){
+		              	console.log('00ppp');
+		              	items.checked=true;
+		               }else{
+		               	items.checked=false;
+		               }
+					  })
+		           let list={};
+		           list.label=items.label;
+		           list.value=items.value;
+		           list.checked=items.checked;
+		           console.log('000kkkk',items.checked);
+		           deviceSpace.push(list); 
+				 })
+				    _this.setState({
+					 	listDevice:deviceSpace
+					})
+				   Store.dispatch(initialize('EditMeeting',response));
+			    }).catch(function(err) {
+					Message.error(err.message);
+			    });
+	  }
 
     onSubmit=(values)=> {
 		values.id=this.props.CommunityMeetingModel.deleteId;
@@ -79,14 +96,8 @@ class EditMeeting  extends React.Component{
 
   render(){
     
-    let deviceSpace=[];
-		this.props.CommunityMeetingModel.spaceDevices.map((item)=>{
-           let list={};
-           list.label=item.label;
-           list.value=item.value;
-           deviceSpace.push(list); 
-		})
     const {handleSubmit}=this.props;
+    let {listDevice}=this.state;
 		
 
     return(
@@ -94,7 +105,7 @@ class EditMeeting  extends React.Component{
     <div className='m-newMerchants'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
-              <div><span className="new-icon"></span><label className="title-text">工位信息编辑</label></div>
+              <div><span className="new-icon"></span><label className="title-text">编辑社区空间</label></div>
               <div className="customer-close" onClick={this.onCancel}></div>
            </div>
 					 <KrField type='hidden' name="id"/>
@@ -141,7 +152,7 @@ class EditMeeting  extends React.Component{
 							name='deviceIds'
 							style={{width:262,marginLeft:28}}
 							component="groupCheckbox"
-                            defaultValue={deviceSpace}
+                            defaultValue={listDevice}
                             onChange={this.deviceChange}
 						/></div>
 
@@ -156,7 +167,7 @@ class EditMeeting  extends React.Component{
 				<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态">
 					<KrField name="enable" label="是" type="radio" value="true" />
 					<KrField name="enable" label="否" type="radio" value="false" />
-			 </KrField>
+			   </KrField>
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">
