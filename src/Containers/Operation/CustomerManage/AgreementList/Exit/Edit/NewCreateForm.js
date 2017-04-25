@@ -310,7 +310,7 @@ const validate = values => {
 				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editagreement','');
 
 			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId++values.contracttype+'editcontractmark','');
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editcontractmark','');
 
 			}
 	    };
