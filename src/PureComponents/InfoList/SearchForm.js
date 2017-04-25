@@ -38,6 +38,7 @@ import {
 	SearchForms,
 	Message
 } from 'kr-ui';
+import {Http} from "kr/Utils";
 import "./index.less";
 class SearchForm extends Component {
 
@@ -76,7 +77,7 @@ class SearchForm extends Component {
 	 getcommunity = () => {
 		let _this = this;
 		let {communityIdList} = this.state;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+		Http.request('getCommunity').then(function(response) {
 
 			communityIdList = response.communityInfoList.map(function(item, index) {
 

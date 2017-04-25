@@ -12,8 +12,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
 import {
 	Dialog,
 	Section,
@@ -22,7 +20,7 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-
+import {Http} from 'kr/Utils'
 import NewCreateForm from './NewCreateForm';
 import './index.less';
 import allState from "../../State";
@@ -73,7 +71,7 @@ export default class JoinCreate extends Component {
 		} = this.props;
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract', formValues).then(function(response) {
 
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
@@ -83,7 +81,7 @@ export default class JoinCreate extends Component {
 
 			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			allState.openEditAgreement=false;
-			
+
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			// }, 0);
@@ -117,12 +115,12 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -158,9 +156,9 @@ export default class JoinCreate extends Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
