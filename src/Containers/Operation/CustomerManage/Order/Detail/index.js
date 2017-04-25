@@ -302,7 +302,6 @@ export default class OrderDetail extends React.Component {
 			let itemName = localStorage.key(i);
 			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
 			 	let time = now - parseInt(localStorage.getItem(itemName));
-				console.log('====',i,'=====',typeof time,typeof clearDate ,time/clearDate);
 				if((time/clearDate)>1){
 					//10小时
 					date.push(itemName.replace('setLocalStorageDate',''));
