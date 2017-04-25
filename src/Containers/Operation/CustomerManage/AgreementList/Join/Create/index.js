@@ -91,7 +91,7 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
-		    _this.removeLocalStorage();
+		    _this.removeLocalStorages();
 
 			_this.setState({baiscInf:response});
 
@@ -128,6 +128,21 @@ export default class JoinCreate extends React.Component {
 	}
 
 	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId + 'ENTERcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 console.log(removeList,keyWord);
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+	removeLocalStorages=()=>{
 		let {params} = this.props;
 		let keyWord = params.orderId+''+params.customerId + 'ENTERcreate';
 		let keyWord2 = params.orderId+''+params.customerId + 'INTENTIONcreate';
@@ -177,7 +192,12 @@ export default class JoinCreate extends React.Component {
 			initialValues.setLocalStorageDate = +new Date();
 
 			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
+			console.log(localStorage.getItem(keyWord+'num'),localStorage.getItem(keyWord+'oldNum'));
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+			
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			}
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;

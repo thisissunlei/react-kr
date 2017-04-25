@@ -147,6 +147,9 @@ export default class JoinCreate extends React.Component {
 			initialValues.customerId = params.customerId;
 			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'QUITRENTcreate';
 			initialValues.num = localStorage.getItem(keyWord +'num') || 1;
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			}
 
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;

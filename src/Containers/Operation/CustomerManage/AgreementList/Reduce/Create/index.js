@@ -157,6 +157,9 @@ export default class JoinCreate extends React.Component {
 			initialValues.setLocalStorageDate = +new Date();
 			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'LESSRENTcreate';
 			initialValues.num = localStorage.getItem(keyWord +'num') ||1;
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			}
 
 			initialValues.signdate = DateFormat(+new Date((new Date()).getTime() - 24 * 60 * 60 * 1000),'yyyy-mm-dd hh:MM:ss');
 			initialValues.leaseContacttel = response.customer.customerPhone;

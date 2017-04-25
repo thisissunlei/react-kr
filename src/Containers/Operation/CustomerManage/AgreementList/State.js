@@ -65,7 +65,14 @@ let State = observable({
 		editRight:'',
 		active:'',
 		openLocalStorage:false,
-		openLocalStorages:false
+		openLocalStorages:false,
+		obj:{
+			noneTab :[],
+			showTab :[],
+			dialogDiv :[]
+
+		},
+		local:[]
 
 });
 State.hasOfficeChange=action(function(params){
