@@ -55,6 +55,9 @@ const FormFactory = function(formName){
 		var initializeValues = this.initializeValues;
 		this.changeValues(initializeValues);
 	});
+	form.destory = action(function() {
+		this.isInitSubmitCallback = false;
+	});
 
 	form.stopSubmit = action(function(errors) {
 

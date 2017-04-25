@@ -176,6 +176,10 @@ module.exports =  function (initializeConfigs){
 				return false;
 			}
 
+			componentWillUnmount(){
+				this.$form.destory();
+			}
+
 			render(){
 
 				const {FormModel,...otherProps} = this.props;

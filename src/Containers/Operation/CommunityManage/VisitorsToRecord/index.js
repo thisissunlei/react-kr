@@ -471,7 +471,7 @@ class VisitorsToRecord  extends React.Component{
                   select = {select}
                   onCancel={this.closeUpperForm}
                   onSubmit={this.upperFormSubmit}
-                  searchContent = {searchContent}
+                  
               />
               </Dialog>
 

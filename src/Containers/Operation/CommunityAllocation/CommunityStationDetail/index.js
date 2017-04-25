@@ -187,16 +187,20 @@ SelectCommunity=()=>{
 			          <Col
 					     style={{float:'left'}}
 					   >
-									<div style={{display:'inline-block',marginRight:20}}><Button
+									<div style={{display:'inline-block',marginRight:20}}>
+										<Button
 											label="新建"
 											type='button'
 											onTouchTap={this.openAddStation}
-									/></div>
-									<div style={{display:'inline-block',marginRight:20}}><Button
+										/>
+									</div>
+									<div style={{display:'inline-block',marginRight:20}}>
+										<Button
 											label="选择社区"
 											type='button'
 											onTouchTap={this.SelectCommunity}
-									/></div>
+										/>
+									</div>
 									<Button
 											label="导入"
 											type='button'
@@ -254,7 +258,8 @@ SelectCommunity=()=>{
 
 			 {/*新建工位*/}
 			 <Drawer
-					open={State.openStation}
+			 		open={State.openStation}
+					// open={true}
 					width={750}
 					onClose={this.whiteClose}
 					openSecondary={true}

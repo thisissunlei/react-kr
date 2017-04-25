@@ -18,7 +18,7 @@ export default class SearchForm extends React.Component{
 		this.state = {
 			num : 0,
 			value:'',
-			content:''
+			content:"",
 		};
 	}
 
@@ -179,6 +179,26 @@ export default class SearchForm extends React.Component{
 		}
 	}
 
+	onChange = (data) =>{
+		const {value,content}=this.state;
+		let text="";
+		const {onChange,defaultFilter,searchFilter} = this.props;
+		
+		if(value){
+			for(var i=0;i<searchFilter.length;i++){
+				if(value == searchFilter[i].label){
+					text = searchFilter[i].value;
+					break;
+				}
+			}
+		}
+		let all={
+			value:text||defaultFilter,
+			content:data.target.value||'',
+		}
+		onChange && onChange(all);
+	}
+
 	render(){
 
 		let {
@@ -202,7 +222,7 @@ export default class SearchForm extends React.Component{
 				<div className="search-status" >
 					{this.renderFilter()}
 					<div className="search-content">
-						<input type="text" defaultValue={defaultContent} className="search-val" placeholder="请输入查找内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off" ref="componentSearchInput"/>
+						<input type="text" defaultValue={defaultContent} onChange = {this.onChange} className="search-val" placeholder="请输入查找内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off" ref="componentSearchInput"/>
 					</div>
 				</div>
 
