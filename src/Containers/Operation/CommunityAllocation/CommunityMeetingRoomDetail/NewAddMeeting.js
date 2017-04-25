@@ -1,7 +1,7 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
 //import {mobxForm}  from 'kr/Utils/MobxForm';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
 import {
 	KrField,
 	Button,
@@ -28,7 +28,7 @@ class NewAddMeeting  extends React.Component{
     onSubmit=(values)=> {
 		values.id='';
 		values.communityId=this.props.CommunityMeetingModel.communityId;
-	  const {
+	    const {
 		   onSubmit
 		} = this.props;
 		onSubmit && onSubmit(values);
@@ -45,6 +45,13 @@ class NewAddMeeting  extends React.Component{
     //校验空间名称
 	codeCompare=(params)=>{
       this.props.CommunityMeetingModel.codeStationCompare(params);
+	}
+    
+    //设备
+	deviceChange=(params,item)=>{
+	  let list=[];
+	  list=item.split(',');
+	  Store.dispatch(change('NewAddMeeting', 'deviceIds',list));
 	}
 
 
@@ -65,7 +72,7 @@ class NewAddMeeting  extends React.Component{
 	  <div className='m-newMerchants'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
-              <div><span className="new-icon"></span><label className="title-text">工位信息录入</label></div>
+              <div><span className="new-icon"></span><label className="title-text">新增社区空间</label></div>
               <div className="customer-close" onClick={this.onCancel}></div>
            </div>
             <KrField type='hidden' name="id"/>
@@ -85,7 +92,6 @@ class NewAddMeeting  extends React.Component{
 								label="所在楼层"
 							 	requireLabel={true}
 							 	options={this.props.CommunityMeetingModel.floorData}
-							 	onChange={this.floorChange}
 						 />
 						 {this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
 						 <KrField grid={1/2}
@@ -108,23 +114,24 @@ class NewAddMeeting  extends React.Component{
 								component="input"
 								label="空间位置"
 							/>
-						<KrField
+						<div className='meeting-device'><KrField
 							label="设备情况"
 							name='deviceIds'
 							style={{width:262,marginLeft:28}}
 							component="groupCheckbox"
                             defaultValue={deviceSpace}
-						/>
+                            onChange={this.deviceChange}
+						/></div>
 
 						<KrField grid={1/2}
-								style={{width:262,marginLeft:28}}
+								style={{width:262}}
 								name="spaceType"
 								component="select"
 								label="空间类型"
 							 	requireLabel={true}
 								options={this.props.CommunityMeetingModel.sapceTypes}
 						/>
-						 <KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="状态" requireLabel={false}>
+						 <KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="状态" requireLabel={false}>
  							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
  							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
  						</KrField>
@@ -146,35 +153,32 @@ class NewAddMeeting  extends React.Component{
 
 const validate = values =>{
 		const errors = {};
+		 //正整数
+		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
 
-		if(!values.code){
-      errors.code='请输入工位编号';
+    if(!values.name){
+      errors.name='请输入空间名称';
     }
 
     if(!values.floor){
       errors.floor='请输入所在楼层';
     }
 
-		if(values.area&&isNaN(values.area)){
-			errors.area='工位面积为数字'
-		}
+    if(!values.area){
+		errors.area='请输入面积'
+	}
 
-    if(!values.stationType){
-      errors.stationType='请输入工位性质';
-    }
-   if(!values.belongSpace){
-     errors.belongSpace='请输入是否属于会议室';
-   }
+	if(values.area&&!numberNotZero.test(values.area.toString().trim())){
+		errors.area='面积为正整数'
+	}
+    
+    if(!values.capacity){
+		errors.capacity='请输入可容纳人数'
+	}
 
-	 if(values.belongSpace=='true'){
-		 if(!values.spaceId){
-		   errors.spaceId='请输入会议室名称';
-		   }
-	 }
-
-	 if(!values.enable){
-     errors.enable='请输入启用标识';
-   }
+	if(values.capacity&&!numberNotZero.test(values.capacity.toString().trim())){
+		errors.capacity='可容纳人数为正整数'
+	}
 
 		return errors
 }
