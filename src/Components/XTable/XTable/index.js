@@ -3,6 +3,8 @@ import React from 'react';
 import {Http} from 'kr/Utils';
 
 import Loading from '../../Loading';
+import Pagination from '../../Pagination';
+import Notify from '../../Notify';
 
 
 const Table = ({children})=>{
@@ -31,6 +33,10 @@ const TableRow = ({...props}) =>{
 
 const TableCheckBox = ({...props})=>{
   return <input type="checkbox" {...props}/>
+}
+
+const TableFooter = ({...props}) => {
+    return <tfoot {...props}></tfoot>
 }
 
 
@@ -65,6 +71,7 @@ export default class XTable extends React.Component {
       listData:[],
       checkedAll:false,
       checkedRows:{},
+      rows:[{checked:false,rowNumber:0},{}],
     }
 
   }
@@ -76,12 +83,7 @@ export default class XTable extends React.Component {
 
   onRowClick = (rowNumber)=>{
     const {checkedRows} = this.state;
-
-    if(checkedRows.hasOwnProperty(rowNumber)){
-          delete checkedRows[rowNumber]
-    }else{
-         checkedRows[rowNumber] = true;
-    }
+     checkedRows[rowNumber] = Number(!!!checkedRows[rowNumber]);
     this.setState({checkedRows});
 
   }
@@ -97,14 +99,19 @@ export default class XTable extends React.Component {
         options.push(child);
       }
     });
+
     this.options = options;
     this.onLoadData();
   }
 
-  onLoadData = ()=> {
+  onLoadData = (page)=> {
 
 		var { ajaxUrlName,ajaxParams,ajaxFieldListName} = this.props;
     ajaxParams = Object.assign({},ajaxParams);
+
+    if(page){
+      ajaxParams.page = page;
+    }
 
     var _this = this;
 
@@ -113,32 +120,23 @@ export default class XTable extends React.Component {
 		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
 
+      var listData = response[ajaxFieldListName];
+      var checkedRows = new Array(listData.length).join(0).split('');
+
       _this.setState({
         isLoading:false,
         response,
-        listData:response[ajaxFieldListName]
-      });
-
-/*
-			_this.onInitial({
-				response: response,
-				listData: response[_this.props.ajaxFieldListName],
+        listData,
+        checkedRows,
 				page: response.page,
 				pageSize: response.pageSize,
 				totalCount: response.totalCount,
-				isLoaded: true,
-				loading: false,
-				allRowsSelected: false
-			});
-  */
-
-
+      });
 		}).catch(function(err) {
-
+      Notify.error(err.message);
 		});
 
 	}
-
 
   renderTable =  ()=>{
 
@@ -146,19 +144,25 @@ export default class XTable extends React.Component {
       <Table>
           <TableHeader> {this.renderHeader()} </TableHeader>
           <TableBody>{this.renderBody()}</TableBody>
+          <TableFooter>{this.renderTableFooter()}</TableFooter>
       </Table>
     );
 
   }
 
+  renderTableFooter = ()=>{
+
+    return <TableRow>
+      <TableColumn></TableColumn>
+      <TableColumn>{this.renderPagination()}</TableColumn>
+    </TableRow>
+
+  }
 
   onCheckedAll = ()=>{
     var {checkedAll,checkedRows} = this.state;
     checkedAll = !checkedAll;
-
-    if(!checkedAll){
-      checkedRows = {};
-    }
+    checkedRows = new Array(checkedRows.length+1).join(Number(checkedAll)).split('');
     this.setState({checkedAll,checkedRows});
   }
 
@@ -175,7 +179,6 @@ export default class XTable extends React.Component {
 
     options.map(function(child,key){
       const {label,name,type} = child.props;
-
       if(type === 'checkbox'){
           thRows.push(<TableHeaderColumn key={key}><TableCheckBox {...checkboxProps} /></TableHeaderColumn>);
       }else{
@@ -188,13 +191,8 @@ export default class XTable extends React.Component {
 
 
   getRowChecked = (rowNumber)=>{
-
     const {checkedAll,checkedRows} = this.state;
-    var checked = !!(Object.keys(checkedRows).indexOf(rowNumber.toString()) != -1);
-    if(checkedAll){
-      checked = true;
-    }
-    return checked;
+    return !!Number(checkedRows[rowNumber]);
   }
 
   createTableColumn = (child,itemData,key,rowNumber)=>{
@@ -223,6 +221,15 @@ export default class XTable extends React.Component {
 
   }
 
+  onPageChange = (page)=>{
+    this.onLoadData(page);
+  }
+
+  renderPagination = ()=>{
+    const {page,pageSize,totalCount} = this.state;
+    return <Pagination page={page} pageSize={pageSize} totalCount={totalCount} onPageChange={this.onPageChange}/>
+  }
+
   renderBody = ()=>{
 
     const {listData} = this.state;
@@ -242,12 +249,19 @@ export default class XTable extends React.Component {
 
     }
 
+    renderLoading = ()=>{
+      return <Table>
+                <TableHeader>{this.renderHeader()}</TableHeader>
+                <TableBody> <TableRow><TableColumn><Loading/></TableColumn></TableRow></TableBody>
+              </Table>
+    }
+
     render(){
 
       const {isLoading} = this.state;
 
       if(isLoading){
-        //return <Loading/>
+        return this.renderLoading();
       }
 
       return (
