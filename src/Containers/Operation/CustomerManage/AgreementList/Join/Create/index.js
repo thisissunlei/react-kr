@@ -347,7 +347,6 @@ export default class JoinCreate extends React.Component {
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
 
-
 		return (
 
 			<div>
