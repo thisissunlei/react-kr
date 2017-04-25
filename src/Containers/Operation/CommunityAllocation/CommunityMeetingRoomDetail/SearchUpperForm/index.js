@@ -20,7 +20,7 @@ import {
 import './index.less';
 @inject("CommunityMeetingModel")
 @observer
-class SearchUpperForm extends React.Component {
+class MeetingsearchUpperForm extends React.Component {
 
 	static propTypes = {
 
@@ -48,11 +48,12 @@ class SearchUpperForm extends React.Component {
 	  	searchType,
 	  	searchKey
 	  } = this.state;
+
 	  values.capacityBegin = capacityBegin;
 	  values.capacityEnd = capacityEnd;
 	  values.searchType = searchType;
 	  values.searchKey = searchKey;
-	  values.deviceIds = values.deviceIds.split(",");
+	  values.deviceIds = (values.deviceIds && values.deviceIds.split(",")) || "";
 	  onSubmit && onSubmit(values);
 	}
 
@@ -75,8 +76,8 @@ class SearchUpperForm extends React.Component {
 	onSearchChange = (data) =>{
 
 		this.setState({
-			searchType:data.content,
-			searchKey:data.value,
+			searchType:data.value,
+			searchKey:data.content,
 
 		})
 	}
@@ -96,14 +97,14 @@ class SearchUpperForm extends React.Component {
 	  	return(
 			<div  style={dateBoxStyle} className='customer-searchUpper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-			    
+
 					<SearchForm placeholder='请输入关键字'
 			            searchFilter={[{label:"名称查询",value:"NAME"},{label:"编码查询",value:"CODE"}]}
 			            style={{width:262,marginTop:29,marginLeft:28,display:"inline-block",marginBottom:15,marginRight:25}}
 			            defaultFilter='NAME'
 			            onChange = {this.onSearchChange}
     				/>
-    			
+
     			<div className="accommodate-number"><span className="label">容纳人数</span><input type="text" onChange={this.capacityBegin}/><span className="horizontal-line">——</span><input type="text" onChange={this.capacityEnd}/></div>
     			<div className='meeting-device'>
 					<KrField
@@ -112,7 +113,7 @@ class SearchUpperForm extends React.Component {
 						style={{width:"auto",marginLeft:28,marginRight:42}}
 						component="groupCheckbox"
 						defaultValue={deviceSpace}
-						
+
 					/>
 				</div>
 					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="sapceTypes" component="select" label="空间类型"
@@ -140,4 +141,4 @@ class SearchUpperForm extends React.Component {
 }
 
 
-export default reduxForm({form:'searchUpperForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(SearchUpperForm);
+export default reduxForm({form:'MeetingsearchUpperForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(MeetingsearchUpperForm);
