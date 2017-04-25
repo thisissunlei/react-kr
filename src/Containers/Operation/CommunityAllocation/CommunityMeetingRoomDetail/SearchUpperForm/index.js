@@ -47,28 +47,33 @@ class SearchUpperForm extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
+	onSearchChange = () =>{
 
+	}
 
 	render() {
 
 
 	   let {handleSubmit}=this.props;
-		 let {dateBoxStyle}=this.state;
+	   let {dateBoxStyle}=this.state;
 
 	  	return(
 			<div  style={dateBoxStyle} className='customer-searchUpper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-						<KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号"
-						 />
-					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
-					  options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
+					
+					<SearchForm placeholder='请输入关键字' 
+			            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} 
+			            style={{width:262,marginTop:29,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}} 
+			            defaultFilter='NAME'
+			            onChange = {this.onSearchChange}
+          			/>
+          			<div><span>容纳人数</span><input type="text" /><span>——</span><input type="text" /></div>
+					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="空间类型"
+					  options={this.props.CommunityMeetingModel.sapceTypes}/>
 					 <KrField grid={1/2} style={{width:262}}  name="enable" component="select" label="工位状态"
-					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
-					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="belongSpace" component="select" label="是否属于会议室"
-					  options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]}/>
-					<KrField grid={1/2} style={{width:262}}  name="spaceId" component="select" label="会议室名称"
-					 options={this.props.CommunityMeetingModel.spacesName}
+					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}
 					 />
+					 
 
 
 						<Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>

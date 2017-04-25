@@ -117,12 +117,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
-<<<<<<< HEAD
 
-   State.stationSubmit(params);
-=======
    this.props.CommunityStationModel.stationSubmit(params);
->>>>>>> 6923289d8a63962afbd82286cedea7dbfa25402f
  }
 
  //搜索
