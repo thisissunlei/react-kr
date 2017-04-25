@@ -22,7 +22,7 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-import './index.less';	
+import './index.less';
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 // import allState from "../../State";
@@ -35,18 +35,13 @@ import {
 @inject("CommunityAgreementList")
 @observer
 export default class JoinCreate extends Component {
-	static childContextTypes = {
-        params: React.PropTypes.object.isRequired
-     }
-
 
 
 		getChildContext() {
 	    return {
 	        params: this.props.params
 	      }
-
-	    }
+	   }
 
 	constructor(props, context) {
 		super(props, context);
@@ -55,6 +50,10 @@ export default class JoinCreate extends Component {
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+
+		this.constructor. childContextTypes = {
+	        params: React.PropTypes.object.isRequired
+	     }
 
 		this.state = {
 			initialValues: {},
@@ -161,7 +160,7 @@ export default class JoinCreate extends Component {
 
 			initialValues.contractcode = response.contractCode;
 
-			
+
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
 			initialValues.agreement = '无';
