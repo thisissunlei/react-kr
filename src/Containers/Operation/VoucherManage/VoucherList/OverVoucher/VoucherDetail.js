@@ -49,6 +49,7 @@ export default class VoucherDetail extends React.Component {
 	}
 	render() {
 		let {infoList} = this.state;
+		let {detail}=this.props;
 		let items = [];
 		if(infoList.urls){
 			items = infoList.urls.map((item,value) => {
@@ -61,36 +62,7 @@ export default class VoucherDetail extends React.Component {
 				)
 			});
 		}
-// 		let items = [
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/1',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 1'
-//   },
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/2',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 2'
-//   },
-// 	{
-//     src: 'http://lorempixel.com/1200/900/sports/1',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/1',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 1'
-//   },
-//   {
-//     src: 'http://lorempixel.com/1200/900/sports/2',
-//     thumbnail: 'http://lorempixel.com/120/90/sports/2',
-//     w: 900,
-//     h: 900,
-//     title: 'Image 2'
-//   },
-// ];
+
 		return (
 			<div >
 					 <div style={{marginTop:30}}>
@@ -101,7 +73,7 @@ export default class VoucherDetail extends React.Component {
 						 <KrField grid = {1}  component="labelText" inline={false} defaultValue={infoList.remark} label="备注说明" />
 						 <KrField grid = {1}  component="labelText" inline={false} label="添加凭证" />
 						 	<div style={{marginLeft:19,marginTop:-28}}>
-								<PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+								<PhotoSwipeGallery items={items} options={{index:detail.id}} thumbnailContent={this.getThumbnailContent}/>
 						 	</div>
 					 </div>
 			</div>

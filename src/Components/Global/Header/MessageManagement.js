@@ -229,7 +229,7 @@ class MessageManagement extends Component{
 				moveHintClass="m-lookCustomerList-num-max";
 			}
 			if(item.num && item.permission && item.num !=0){
-				return (<div className = {moveHintClass} style={{left:32+(index+1)*108}}>
+				return (<div key = {index} className = {moveHintClass} style={{left:32+(index+1)*108}}>
 							{item.num > 99 ? 99 : item.num}<label>+</label>
 						</div>)
 			}

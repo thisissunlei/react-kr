@@ -36,14 +36,6 @@ import {
 @observer
 export default class JoinCreate extends Component {
 
-	 
-
-
-     static childContextTypes = {
-        params: React.PropTypes.object.isRequired
-     }
-
-
 
 		getChildContext() {
 	    return {
@@ -51,7 +43,7 @@ export default class JoinCreate extends Component {
 	      }
 	    }
 
-  
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -60,6 +52,10 @@ export default class JoinCreate extends Component {
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+
+		this.constructor.childContextTypes = {
+			 params: React.PropTypes.object.isRequired
+		}
 
 		this.state = {
 			initialValues: {},
@@ -148,7 +144,7 @@ export default class JoinCreate extends Component {
 			initialValues.leaseAddress = response.customer.customerAddress;
 
 			initialValues.contractcode = response.contractCode;
-			
+
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -214,5 +210,3 @@ export default class JoinCreate extends Component {
 		);
 	}
 }
-
-

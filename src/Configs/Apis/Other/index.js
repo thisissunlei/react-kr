@@ -718,7 +718,7 @@ const APIS = {
     },
     //客户管理－签约客户列表
     'signCustomers': {
-        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}',
+        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}&mainBillType={mainBillType}',
         method: 'get'
     },
     //客户管理－签约客户列表－导出
@@ -848,7 +848,7 @@ const APIS = {
  },
  //合同列表-列表接口
    'contract-list':{
-   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}',
    method:'get'
    },
  //合同列表-客户订单下拉接口

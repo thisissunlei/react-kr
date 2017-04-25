@@ -356,7 +356,6 @@ module.exports =()=>{
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Exit_Detail}/>
 			</Route>
 
-		</Route>
 	</Route>
 
 	</Route>
@@ -374,7 +373,6 @@ module.exports =()=>{
 				<Route path="list" getComponent={Operation_CustomerManage_Agreement_Setting_List}/>
 			</Route>
 		</Route>
-
 
 
 	</Route>

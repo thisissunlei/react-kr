@@ -18,7 +18,12 @@ import Join from "../Join/Create";
 import Reduce from "../Reduce/Create";
 import Renew from "../Renew/Create";
 import allState from "../State";
+import {
 
+	Agreement
+
+
+} from 'kr/PureComponents';
 @observer
 class LookCustomerList extends Component{
 
@@ -58,13 +63,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="入驻协议书">
-					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="入驻协议书">
-					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
 		}
@@ -78,13 +83,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="增租协议书" >
-					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="增租协议书" >
-					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
 		}
@@ -98,14 +103,14 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="续租协议书" >
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 
 		}else{
 			showTab.push(
 				<Tab label="续租协议书" >
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
 
@@ -119,13 +124,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="减租协议书" >
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="减租协议书" >
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
 		}
@@ -138,13 +143,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="退租协议书" >
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="退租协议书" >
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			);
 
@@ -158,7 +163,7 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="承租意向书" >
-					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
 			)
 		}else{

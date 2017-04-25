@@ -93,30 +93,30 @@ export default (
 
         {/*统计看板*/}
 
-		{StatisticalRouter()}
+            {StatisticalRouter()}
 
         {/*社区经营*/}
         {CommunityRouter()}
 
         {/*OA办公*/}
-		{OARouter()}
+        {OARouter()}
         {/*商品零售*/}
-		{RetailRouter()}
+        {RetailRouter()}
 
-		{/*运营管理*/}
-		{OperationRouter()}
+        {/*运营管理*/}
+        {OperationRouter()}
 
-		{/*财务管理*/}
-		{FinanceRouter()}
+        {/*财务管理*/}
+        {FinanceRouter()}
 
-		{/*后台管理*/}
-		{WebBackstageRouter()}
+        {/*后台管理*/}
+        {WebBackstageRouter()}
 
-		{/*权限管理*/}
-		{PermissionRouter()}
+        {/*权限管理*/}
+        {PermissionRouter()}
 
-		{/*文档管理*/}
-		{DocumentRouter()}
+        {/*文档管理*/}
+        {DocumentRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>
@@ -127,6 +127,6 @@ export default (
 		<Route path="undefined" getComponent={Undefined}/>
 		<Route path="*" getComponent={Undefined}/>
 
-	</Route>
+    </Route>
 
 );

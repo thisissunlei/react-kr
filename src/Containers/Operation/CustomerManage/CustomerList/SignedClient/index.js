@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Store} from 'kr/Redux';
@@ -22,33 +22,36 @@ import {
     ListGroupItem,
     SearchForms,
 	Drawer,
+	KrDate,
 	Message
 } from 'kr-ui';
 import {
-	LookCustomerList
+	LookCustomerList,
+	NewIndent
 } from 'kr/PureComponents';
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
-import NewIndent from "../NewIndent";
 import EditIndent from "../EditIndent";
 import NewVisitIndent from '../NewVisitIndent';
 import editsourceCustomer from "../EditCustomerList/State";
 import SwitchPerson from '../SwitchPerson';
 import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
-import newIndentState from "../NewIndent/State";
 
-import './index.less'
+//新建订单第一级
+import CustomerNameNext from '../CustomerNameNext';
+import './index.less';
 import {
 	observer,
 	inject
 } from 'mobx-react';
 @inject("CommunityDetailModel")
+@inject("NewIndentModel")
 @observer
-class SignedClient extends Component{
+class SignedClient extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -103,7 +106,8 @@ class SignedClient extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
-		newIndentState.cityLable="";
+		this.props.NewIndentModel.cityLable="";
+		this.props.NewIndentModel.orderName="";
 	}
 
 	//新建订单页面的开关
@@ -135,11 +139,12 @@ class SignedClient extends Component{
 			}else{
 				State.hasOfficeChange(false);
 			}
+			State.switchEditCustomerList();
+
 			State.editprojectName=response.projectCategoryName;
 		}).catch(function(err) {
 
 		});
-		State.switchEditCustomerList();
 	}
 	//编辑订单页面的开关
 	switchEditIndent=()=>{
@@ -249,11 +254,12 @@ class SignedClient extends Component{
 
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  State.searchParams.company='';
+	   State.searchParams.company='';
       State.searchParams.cityId='';
       State.searchParams.communityId='';
       State.searchParams.signEndDate='';
       State.searchParams.signStartDate='';
+      State.searchParams.mainBillType='';
       State.searchUpperCustomer();
 	}
 
@@ -274,7 +280,7 @@ class SignedClient extends Component{
       	  State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
-     //转移客户
+  //转移客户
 	openSwitchDialog=()=>{
 		State.openSwitchGoDialog();
 	}
@@ -301,6 +307,29 @@ class SignedClient extends Component{
 		State.closeAllMerchants();
 	}
 
+	//新建订单第一层
+	openContractFirst=()=>{
+	  this.props.NewIndentModel.openFirstContract();
+	}
+	//新建订单第一层关闭
+	cancelCustomerNameNext=()=>{
+	  this.props.NewIndentModel.openFirstContract();
+	}
+
+	//新建第一层提交
+	firstSubmitOrder=(value)=>{
+		Store.dispatch(initialize('NewIndent',{}));
+	  State.orderNameInit(value.companyId);
+	  State.listId=value.companyId;
+	  this.props.NewIndentModel.cityLable="";
+		State.switchNewIndent();
+	}
+
+	closeAllDraw=()=>{
+		 State.openNewIndent=false;
+		 this.props.NewIndentModel.openContract=false;
+	}
+
 	render(){
 
 
@@ -317,6 +346,7 @@ class SignedClient extends Component{
         }
       }
 
+
 		return(
       <div className="m-signed" style={{paddingTop:25}}>
       		<Title value="客户列表"/>
@@ -326,6 +356,17 @@ class SignedClient extends Component{
       		  <span className='mer-close' onClick={this.merClose}></span>
       		</div>
 	        <Row style={{marginBottom:21}}>
+
+	                  <Col
+					     align="left"
+					     style={{float:'left'}}
+					   >
+									<Button
+											label="新建订单"
+											type='button'
+											onTouchTap={this.openContractFirst}
+									/>
+					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
@@ -354,6 +395,8 @@ class SignedClient extends Component{
 		              <TableHeaderColumn>订单总额</TableHeaderColumn>
 		              <TableHeaderColumn>已回款额</TableHeaderColumn>
 		              <TableHeaderColumn>未回款额</TableHeaderColumn>
+		              <TableHeaderColumn>客户创建时间</TableHeaderColumn>
+		              <TableHeaderColumn>订单创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -385,6 +428,14 @@ class SignedClient extends Component{
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
 			                <TableRowColumn name="unBackamount"></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
+
+														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+													 }}></TableRowColumn>
+			                <TableRowColumn name="billCreateDate" type='date' component={(value,oldValue)=>{
+
+														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
@@ -438,25 +489,7 @@ class SignedClient extends Component{
 						/>
 					</Drawer>
 
-					{/*新建订单*/}
-					<Drawer
-							open={State.openNewIndent}
-							width={750}
-							openSecondary={true}
-							className='m-finance-drawer'
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-					 >
-						<NewIndent
-							 companyName={State.companyName}
-							 onCancel={this.switchNewIndent}
-			                 orderReady={orderReady}
-			                 listId={State.listId}
-			                 customerName={State.customerName}
-			                 orderCount={State.orderCount}
-			                 isOpenIndent={State.orderName}
 
-						/>
-					</Drawer>
 
 					{/*新增拜访记录*/}
 					<Drawer
@@ -494,13 +527,13 @@ class SignedClient extends Component{
 			                 customerName={State.customerName}
 			                 orderCount={State.orderCount}
 			                 mainbillname={State.mainbillname}
-			                 cityName={State.editCity}
+			                 cityNameIndent={State.editIndentState}
 			                 listValue={State.editprojectName}
 						/>
 					</Drawer>
 
-                    {/*高级查询*/}
-                    <Dialog
+        {/*高级查询*/}
+          <Dialog
 						title="高级查询"
 						modal={true}
 						onClose={this.openSearchUpperDialog}
@@ -547,6 +580,41 @@ class SignedClient extends Component{
 						  customerIds={this.state.dialogNum}
 						/>
 				    </Dialog>
+
+				     {/*打开新建订单第一层*/}
+				     <Drawer
+							open={this.props.NewIndentModel.openContract}
+							width={750}
+							openSecondary={true}
+							onClose={this.closeAllDraw}
+							containerStyle={{top:60,paddingBottom:228}}
+					 >
+						<CustomerNameNext
+			               onSubmit={this.firstSubmitOrder}
+						         onCancel={this.cancelCustomerNameNext}
+						/>
+					</Drawer>
+
+					{/*新建订单*/}
+					<Drawer
+							open={State.openNewIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							onClose={this.closeAllDraw}
+							containerStyle={{top:60,paddingBottom:228}}
+					 >
+						<NewIndent
+							        companyName={State.companyName}
+							         onCancel={this.switchNewIndent}
+			                 orderReady={orderReady}
+			                 listId={State.listId}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 //isOpenIndent={State.orderName}
+
+						/>
+					</Drawer>
 
 
 					{

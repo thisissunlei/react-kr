@@ -463,6 +463,16 @@ class Merchants extends Component{
    }
 
 
+ contractChange=(params)=>{
+   let {searchParams}=this.state;
+	 if(!params.value){
+		 searchParams.contractType='';
+	 }else{
+		 searchParams.contractType=params.value;
+	 }
+	 State.ajaxListData(searchParams);
+ }
+
 	everyTd=(value)=>{
 		var show=false;
 		if(!value){
@@ -574,11 +584,11 @@ class Merchants extends Component{
       	let {contractList}=State;
       	var blockStyle={};
        	const {
-					orderBaseInfo,
-					earnest,
-					installmentPlan,
-					contractStatusCount,
-				} = this.state.response;
+			orderBaseInfo,
+			earnest,
+			installmentPlan,
+			contractStatusCount,
+		} = this.state.response;
 
 
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
@@ -611,7 +621,7 @@ class Merchants extends Component{
       <div id="m-agreement-list" className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	        <Row style={{marginBottom:18,marginTop:-4,zIndex:6,position:'relative'}}>
+	        <Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
@@ -625,13 +635,13 @@ class Merchants extends Component{
 			  	 <Col
 			  		style={{float:'right',width:"90%"}}
 			  	 >
-
 			  		<SearchForm
 			  		  onStartChange={this.onStartChange}
 			  		  onEndChange={this.onEndChange}
 			  		  todayDate={todayDate}
               onSearchSubmit={this.onSearchSubmit}
-			  		/>
+							contractChange={this.contractChange}
+			  		 />
 
 			  	</Col>
 
