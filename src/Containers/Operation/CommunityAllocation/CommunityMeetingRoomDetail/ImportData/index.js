@@ -101,15 +101,14 @@ class ImportData extends React.Component{
 					 <div className='import-title'>
 					   <div style={{fontSize:'16px',color:'#555',fontWeight:'500'}}>导入说明</div>
 						 <ul className='import-detail'>
-						  <li>1.工位编号为必填，且不能重复</li>
+						  <li>1.所有字段必填，且不能重复</li>
 							<li>2.表格首行为字段名，不能删除</li>
-							<li>3.若工位为会议室，则必填会议室ID</li>
 						 </ul>
 					 </div>
 
 					 <div className='import-title-two'>
-					   <div style={{fontSize:'16px',color:'#555',fontWeight:'500'}}>社区工位信息</div>
-						 <div className='import-first'>下载模版文件，根据模版中的批注，填写社区工位</div>
+					   <div style={{fontSize:'16px',color:'#555',fontWeight:'500'}}>空间信息</div>
+						 <div className='import-first'>下载模板文件，根据模板中的批注，填写空间信息</div>
 					 </div>
 
 					 <KrField type='hidden' name='communityId'/>

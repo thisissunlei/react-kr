@@ -142,7 +142,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 			deviceIds:[],
 			enable:'',
 			searchKey:'',
-			searchType:''
+			searchType:'',
+			spaceType:''
 		}
    this.props.CommunityMeetingModel.searchParams=Object.assign({},this.props.CommunityMeetingModel.searchParams,params);;
    this.props.CommunityMeetingModel.searchUpperCustomer();
@@ -321,7 +322,7 @@ SelectCommunity=()=>{
 
 				{/*导入*/}
 				<Dialog
-					title="导入工位"
+					title="导入空间"
 					onClose={this.openImporData}
 					open={this.props.CommunityMeetingModel.openImport}
 					contentStyle ={{ width: '444px'}}
