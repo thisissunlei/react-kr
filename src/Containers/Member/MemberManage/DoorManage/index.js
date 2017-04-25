@@ -107,7 +107,7 @@ export default class List extends React.Component {
 	onEditSubmit=(values)=>{
 
 		var _this = this;
-		Http.requst('newCreateOrEditImpower',{},values).then(function(response){
+		Http.request('newCreateOrEditImpower',{},values).then(function(response){
 			Message.success("操作成功");
 			_this.setState({
 				openEditDetail : !_this.state.openEditDetail,
