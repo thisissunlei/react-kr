@@ -145,12 +145,6 @@ export default class JoinCreate extends React.Component {
 		});
 	}
 
-	componentDidMount() {
-		console.log('=componentDidMount=');
-		this.getlocalSign();
-	// 	this.getBasicData();
-	// 	this.getLocalStorageSata();
-	}
 	//获取基础数据
 	getBasicData=()=>{
 		var _this = this;
@@ -370,10 +364,8 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate')|| DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate') ||  DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.signdate =  localStorage.getItem(keyWord+'signdate') ||  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
-				console.log('stationVos',localStorage.getItem(keyWord+'stationVos'));
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
-				console.log('delStationVos',localStorage.getItem(keyWord+'delStationVos'));
 				//处理stationvos
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
@@ -427,7 +419,6 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages
 		} = this.state;
 		let {params} = this.props;
-		console.log('getBasicData',optionValues);
 
 
 		return (

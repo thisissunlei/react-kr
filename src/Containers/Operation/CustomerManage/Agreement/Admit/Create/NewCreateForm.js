@@ -208,7 +208,6 @@ class NewCreateForm extends React.Component {
 			leaseBegindate,
 			leaseEnddate
 		} = changeValues;
-		console.log(changeValues);
 
 		if (!wherefloor) {
 			Notify.show([{

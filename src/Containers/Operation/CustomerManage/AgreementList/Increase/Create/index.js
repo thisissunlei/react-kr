@@ -283,6 +283,8 @@ export default class increaseCreate extends React.Component {
 				initialValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValue.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 				initialValue.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
+				initialValues.paymodelName = localStorage.getItem(keyWord+'paymodelName');
+				initialValues.paytypeName = localStorage.getItem(keyWord+'paytypeName');
 
 				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')

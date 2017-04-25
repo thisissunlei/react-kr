@@ -133,7 +133,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps',nextProps.initialValues);
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
@@ -623,7 +622,6 @@ class NewCreateForm extends React.Component {
 			let keyWord = params.orderId+ params.customerId+'ENTERcreate';
 			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
 			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
 			if(mainbillId && customerId){
 				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
 				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
