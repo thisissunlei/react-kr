@@ -17,7 +17,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {ShallowEqual,DateFormat} from 'kr/Utils';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
 
 
 export default class ImpowerEditMemberForm extends React.Component {

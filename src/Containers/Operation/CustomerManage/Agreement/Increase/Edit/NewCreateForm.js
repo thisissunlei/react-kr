@@ -157,7 +157,7 @@ class NewCreateForm extends React.Component {
 				boardroomnum++;
 			}
 		});
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 
 		Store.dispatch(change('joinCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('joinCreateForm', 'boardroomnum', boardroomnum));
@@ -256,7 +256,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		});
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 		this.setAllRent(stationVos);
 
 
@@ -291,8 +291,8 @@ class NewCreateForm extends React.Component {
 		// })
 		// allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setAllRent(stationVos);
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
 
 		this.setState({
 			stationVos,
@@ -530,7 +530,7 @@ class NewCreateForm extends React.Component {
 		onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let {initialValues} = this.props;
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 		this.setAllRent(stationVos);
 		
 	}
@@ -546,7 +546,7 @@ class NewCreateForm extends React.Component {
 			return item;
 		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
-			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ADDRENTedittotalrent', response);
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'ADDRENTedittotalrent', response);
 			
 			_this.setState({
 				allRent:response
@@ -847,9 +847,9 @@ const validate = values => {
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
 			}
 	    };
 	}

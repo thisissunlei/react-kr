@@ -156,6 +156,9 @@ export default class JoinCreate extends React.Component {
 
 			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'RENEWcreate';
 			initialValues.num = localStorage.getItem(keyWord +'num')||1;
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			}
 
 			initialValues.agreement = '无';
 			optionValues.communityAddress = response.customer.communityAddress;

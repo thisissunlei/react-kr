@@ -9,8 +9,12 @@ import {
 import {
 	Tabs,
 	Tab,
+	Dialog,
+	Grid,
+	Row,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Button
 } from 'kr-ui';
 
 import $ from 'jquery';
@@ -50,8 +54,8 @@ class LookCustomerList extends Component{
 
 	}
 	componentDidMount(){
-		let obj = this.renderTab();
 		this.getlocalSign();
+		let obj = this.renderTab();
 		let defaultActive = obj.showTab[0].props.label;
 		switch (defaultActive){
 			case '入驻协议书' : 
@@ -76,13 +80,16 @@ class LookCustomerList extends Component{
 		
 	}
 	getlocalSign=()=>{
-		let keyWord = allState.mainBillId+''+ allState.listId;
-		for (var i = 0; i < localStorage.length; i++) {
-			let itemName = localStorage.key(i);
-			 if(localStorage.key(i).indexOf(keyWord)!='-1' && localStorage.key(i).indexOf('createnum')!= '-1'){
+		let type = ['ENTER','INTENTION','ADDRENT','RENEW','LESSRENT','QUITRENT'];
+		let keyWord = allState.mainBillId+''+ allState.listId  ;
+		let local = [];
+		type.map((item)=>{
+			if(localStorage.getItem(keyWord + item+'createnum')-localStorage.getItem(keyWord+item+'createoldNum')>1){
 				allState.openLocalStorage = true;
-			 }
-		 }
+				local.push(item)
+			}
+		})
+		allState.local = local;
 	}
 
 	renderTab=()=>{
@@ -97,6 +104,8 @@ class LookCustomerList extends Component{
         	noneTab:[],
         	dialogDiv:[]
         }
+        
+        let local = allState.local;
 
 		if(!allState.enter){
 			num=50+(5-noneTab.length)*109.16;
@@ -109,7 +118,7 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')}>
+				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')} type="ENTER">
 					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
 				</Tab>
 			);
@@ -129,7 +138,7 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')}>
+				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')} type="ADDRENT">
 					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
 				</Tab>
 			);
@@ -150,7 +159,7 @@ class LookCustomerList extends Component{
 
 		}else{
 			showTab.push(
-				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')}>
+				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')} type="RENEW">
 					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
 				</Tab>
 			);
@@ -170,7 +179,7 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')} >
+				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')} type="LESSRENT">
 					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
 				</Tab>
 			);
@@ -189,7 +198,7 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')}>
+				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')} type="QUITRENT">
 					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
 				</Tab>
 			);
@@ -209,7 +218,7 @@ class LookCustomerList extends Component{
 			)
 		}else{
 			showTab.push(
-				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')}>
+				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')} type='INTENTION'>
 					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
 				</Tab>
 			);
@@ -217,16 +226,33 @@ class LookCustomerList extends Component{
 		}	
 
 		obj.noneTab = noneTab;
-		obj.showTab = showTab;
+		
 		obj.dialogDiv = dialogDiv;
+		let localArr = [];
+		showTab.map((item,index)=>{
+			local.map(value=>{
+				console.log(item.props.type == value,index)
+				if(item.props.type == value){
+					localArr.push(item);
+					showTab.splice(index,1)
+				}
+			})
+		})
+		localArr = localArr.reverse();
+		showTab = localArr.concat(showTab);
 
-		return obj;        
+		obj.showTab = showTab;
+
+	
+		return obj;   
+		     
 
 	}
 
 	onCancelStorage=()=>{
 		allState.openLocalStorage=false;
 		allState.openLocalStorages=false;
+		allState.local = [];
 	}
 	getLocalStorage=()=>{
 		allState.openLocalStorage=false

@@ -172,6 +172,9 @@ export default class increaseCreate extends React.Component {
 
 			let keyWord = JSON.stringify(params.orderId)+ JSON.stringify(params.customerId)+'ADDRENTcreate';
 			initialValues.num = localStorage.getItem(keyWord +'num') || 1;
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			}
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
