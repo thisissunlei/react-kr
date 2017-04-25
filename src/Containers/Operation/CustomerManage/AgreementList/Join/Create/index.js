@@ -188,7 +188,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
-			initialValues.agreement = '无';
+			// initialValues.agreement = '无';
 			initialValues.setLocalStorageDate = +new Date();
 
 			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';

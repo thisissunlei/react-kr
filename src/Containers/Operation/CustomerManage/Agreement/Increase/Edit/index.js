@@ -101,9 +101,10 @@ export default class JoinCreate extends React.Component {
 		let {
 			params
 		} = this.props;
+		console.log('=============',params);
 		let _this = this;
 		let sign = false;
-		let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
+		let keyWord = params.orderId+ params.customerId+params.id+'ADDRENTedit';
 		console.log(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum'))
 			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
 				_this.setState({
@@ -139,7 +140,7 @@ export default class JoinCreate extends React.Component {
 		}).then(function(response) {
 
 
-			let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
+			let keyWord = params.orderId+ params.customerId+params.id+'ADDRENTedit';
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 			initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
 
@@ -317,7 +318,7 @@ export default class JoinCreate extends React.Component {
 			Http.request('show-checkin-agreement', {
 				id: params.id
 			}).then(function(response) {
-				let keyWord = params.orderId+ params.customerId+'ADDRENTedit';
+				let keyWord = params.orderId+ params.customerId+params.id+'ADDRENTedit';
 
 
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
