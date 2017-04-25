@@ -29,7 +29,7 @@ let State = observable({
 	//上一级
 	lastFlag:false,
 	//上一级的pid
-	oldPid:''
+	//oldPid:''
 });
 //新建代码开关
 State.addCodeOpen = action(function(params) {

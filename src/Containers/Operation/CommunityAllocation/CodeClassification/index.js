@@ -34,19 +34,23 @@ class  CodeClassification extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			pidArr:[]
+		}
 	}
 
 	//查看相关操作
 	onOperation=(type,itemDetail)=>{
 		let {searchParams}=State;
-		State.oldPid=searchParams.pid;
+		let {pidArr}=this.state;
+        pidArr.push(searchParams.pid);
 		if(type=='edit'){
-      State.editCodeOpen();
+            State.editCodeOpen();
 			State.editData=itemDetail;
 		}else if(type=='next'){
 			State.searchParams={
-				 pid:itemDetail.pid,
-				 time:+new Date()
+			pid:itemDetail.id,
+		    time:+new Date()
 			}
 			State.lastFlag=true;
 			State.parentName=itemDetail.pname;
@@ -75,7 +79,7 @@ class  CodeClassification extends React.Component{
 	}
 
 
-	//导出
+//导出
 onExport=(values)=> {
 Debug.log('bug',values);
  let {searchParams} = State;
@@ -114,12 +118,14 @@ onSearchSubmit=(params)=>{
 
 //上一级
 lastGoTo=()=>{
- if(State.oldPid==0){
+ let {pidArr}=this.state;
+ if(pidArr[pidArr.length-1]==0){
    State.lastFlag=false;
  }
  State.searchParams={
-	 pid:State.oldPid,
-	 time:+new Date()
+	 pid:pidArr[pidArr.length-1],
+	 time:+new Date(),
+	 pidArr:pidArr.pop()
  }
 }
 
@@ -183,8 +189,8 @@ lastGoTo=()=>{
                       <TableRowColumn name="codeName"></TableRowColumn>
 			                <TableRowColumn name="pname" component={(value,oldValue)=>{
                                 State.parentName=value;
-																return (<div>{value}</div>)
-													 }}></TableRowColumn>
+								return (<div>{value}</div>)
+							}}></TableRowColumn>
                       <TableRowColumn name="sort"></TableRowColumn>
 			                <TableRowColumn name="createName"></TableRowColumn>
 			                <TableRowColumn name="createDate"  component={(value,oldValue)=>{

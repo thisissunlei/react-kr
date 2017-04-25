@@ -25,6 +25,10 @@ class NewAddMeeting  extends React.Component{
 		}
 	}
 
+	componentDidMount(){
+	  Store.dispatch(change('NewAddMeeting','enable','1'));	
+	}
+
     onSubmit=(values)=> {
 		values.id='';
 		values.communityId=this.props.CommunityMeetingModel.communityId;
@@ -132,8 +136,8 @@ class NewAddMeeting  extends React.Component{
 								options={this.props.CommunityMeetingModel.sapceTypes}
 						/>
 						 <KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="状态" requireLabel={false}>
- 							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
- 							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
+ 							 <KrField name="enable" label="是" type="radio" value='1' />
+ 							 <KrField name="enable" label="否" type="radio" value='0' />
  						</KrField>
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
