@@ -56,6 +56,7 @@ class  CommunityMeetingRoomDetail extends React.Component{
 		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
 		this.props.CommunityMeetingModel.addStation();
 		this.props.CommunityMeetingModel.isCode=false;
+		this.props.CommunityMeetingModel.deleteId='';
 	}
 	//新建会议室取消
 	cancelAddCode=()=>{
@@ -122,6 +123,9 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //搜索
  onSearchSubmit=(params)=>{
+ 	 if(!params.content){
+ 	 	params.filter='';
+ 	 }
 	 let data={
 		 searchKey:params.content,
 		 searchType:params.filter
