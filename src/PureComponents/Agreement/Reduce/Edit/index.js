@@ -12,8 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -62,14 +61,14 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-		Store.dispatch(Actions.callAPI('getFnaContractRentController', {}, formValues)).then(function(response) {
+		Http.request('getFnaContractRentController', formValues).then(function(response) {
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
 			}]);
 			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			allState.openEditAgreement=false;
-			
+
 			//location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/reduce/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
@@ -107,12 +106,12 @@ export default class JoinCreate extends Component {
 		let stationVos = [];
 		let rentamount = 0;
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -147,9 +146,9 @@ export default class JoinCreate extends Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-			Store.dispatch(Actions.callAPI('showFnaContractRentController', {
+			Http.request('showFnaContractRentController', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 
 				optionValues.lessorContactName = response.lessorContactName;

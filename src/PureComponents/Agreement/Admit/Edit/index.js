@@ -12,8 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -93,14 +92,14 @@ export default class JoinCreate extends Component {
 			formValues
 		} = this.state;
 
-		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter', {}, formValues)).then(function(response) {
+		Http.request('updateFinaContractIntentletter', formValues).then(function(response) {
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
 			}]);
 			this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			this.props.CommunityAgreementList.openEditAgreement=false;
-		
+
 
 			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 
@@ -119,7 +118,7 @@ export default class JoinCreate extends Component {
 			params
 		} = this.context;
 		this.props.CommunityAgreementList.openEditAgreement=false;
-		
+
 		// window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
@@ -139,11 +138,11 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
@@ -181,9 +180,9 @@ export default class JoinCreate extends Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
-			Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+			Http.request('showFinaContractIntentletter', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 				initialValues.id = response.id;
 				initialValues.leaseId = response.leaseId;
