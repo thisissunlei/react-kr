@@ -1,8 +1,8 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
-
+import {Http} from "kr/Utils"
 import {
 	BreadCrumbs,
 	Loading,
@@ -54,7 +54,7 @@ export default class AdmitDetail extends React.Component {
 			newBasicStationVos:[]
 		}
 
-		
+
 
 	}
 
@@ -79,12 +79,12 @@ export default class AdmitDetail extends React.Component {
 	componentWillMount() {
 
 	}
-    
+
     componentDidMount() {
     	var _this = this;
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+		Http.request('showFinaContractIntentletter', {
 			id: this.props.params.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				basic: response,
 				isLoading: false,
@@ -95,14 +95,14 @@ export default class AdmitDetail extends React.Component {
 			            _this.setState({
 			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
+			            })
 			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		newBasicStationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	        
+			        }
 			});
 		}).catch(function(err) {
 			Notify.show([{
@@ -130,16 +130,16 @@ export default class AdmitDetail extends React.Component {
             this.setState({
             	newBasicStationVos:oldBasicStationVos.slice(0,5),
             	openAdd:true
-            })    	
+            })
         }
         if(oldBasicStationVos&&oldBasicStationVos.length<=5){
         	this.setState({
         		newBasicStationVos:oldBasicStationVos,
         		openAdd:false
         	})
-        }     	     
+        }
     }
-    
+
      addRender=()=>{
     	    var _this=this;
             let add='';
@@ -287,7 +287,7 @@ export default class AdmitDetail extends React.Component {
 			  		</KrField>
 
                       </div>
-							
+
 					</div>
 				  </div>
 			);

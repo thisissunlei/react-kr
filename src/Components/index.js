@@ -51,6 +51,7 @@ import Dictionary from './Dictionary';
 import Editor from './Editor';
 import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
+import XTable from './XTable';
 
 
 import {
@@ -121,6 +122,7 @@ module.exports = {
 	InputDate,
 	SnackTip,
 	Editor,
+	...XTable,
 
 	//materal-ui
 	Menu,
@@ -142,5 +144,5 @@ module.exports = {
 	Tooltips,
 	Tooltip,
 	CircleStyleTwo,
-	LoadingTwo
+	LoadingTwo,
 }

@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -12,6 +12,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
+import {Http} from "kr/Utils"
 import ReactMixin from "react-mixin";
 import {DateFormat} from 'kr/Utils';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -465,7 +466,7 @@ class NewCreateForm extends React.Component {
 	}
 
 	onIframeClose(billList,data) {
-		
+
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -518,7 +519,7 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
-		
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
@@ -528,7 +529,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -688,9 +689,9 @@ class NewCreateForm extends React.Component {
 						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
 					 </DotTitle>
                      <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
-					
+
 					 </div>
-					 
+
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同基本信息</label></div>
 					<div className="small-cheek" style={{paddingBottom:0}}>
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
@@ -729,7 +730,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/>
 
-				
+
 
 				<KrField style={{width:262,marginLeft:25}}  name="totalrent" type="text" component="labelText" inline={false} label="租金总额" placeholder="" value={allRent} defaultValue={initialValues.totalrent} requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
@@ -739,7 +740,7 @@ class NewCreateForm extends React.Component {
 				<KrField style={{width:262,marginLeft:25}}  name="boardroomnum" type="text" component="labelText"  label="会议室" value={changeValues.boardroomnum} inline={false} defaultValue="0"/>
 				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
-				
+
 				</div>
 
 						<div className="end-round"></div>

@@ -1,5 +1,5 @@
 import React, {
-   
+
   PropTypes
 } from 'react';
 import {
@@ -19,6 +19,7 @@ import {
   Actions,
   Store
 } from 'kr/Redux';
+import {Http} from "kr/Utils"
 
 import {
   Dialog,
@@ -391,11 +392,11 @@ export default class SettingList extends React.Component {
 
     var _this = this;
 
-    Store.dispatch(Actions.callAPI('sysDicPaymentList', {
+    Http.request('sysDicPaymentList', {
       page: _this.state.page,
       pageSize: _this.state.pageSize,
       totalCount: _this.state.totalCount
-    })).then(function(response) {
+    }).then(function(response) {
       _this.setState({
         items: response
       });
@@ -419,7 +420,7 @@ export default class SettingList extends React.Component {
 
 
   confirmSubmit(values) {
-    Store.dispatch(Actions.callAPI('addSysDicPayment', {}, values)).then(function(response) {
+    Http.request('addSysDicPayment', {}, values).then(function(response) {
       Notify.show([{
         message: '创建成功!',
         type: 'success',
@@ -441,7 +442,7 @@ export default class SettingList extends React.Component {
 
   confirmUpdateSubmit(values) {
 
-    Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
+    Http.request('editSysDicPayment', {}, values).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
         type: 'success',
@@ -462,7 +463,7 @@ export default class SettingList extends React.Component {
   }
   confirmUpdateChildSubmit(values) {
 
-    Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
+      Http.request('editSysDicPayment', {}, values).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
         type: 'success',

@@ -1,5 +1,7 @@
 import React from 'react';
-import {mobxForm}  from 'kr/Utils/MobxForm';
+//import {mobxForm}  from 'kr/Utils/MobxForm';
+import {reduxForm,initialize,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import {
 	KrField,
@@ -9,10 +11,12 @@ import {
 	Col,
   ButtonGroup
 } from 'kr-ui';
+
 import {
 	observer,
+	inject
 } from 'mobx-react';
-import State from './State';
+@inject("CommunityStationModel")
 @observer
 class EditStation  extends React.Component{
 
@@ -25,7 +29,7 @@ class EditStation  extends React.Component{
 
 
 	componentWillMount(){
-		let {$form,id}=this.props;
+		let {id}=this.props;
 		 //获取编辑信息
 			var data={};
 			data.id=id;
@@ -34,11 +38,11 @@ class EditStation  extends React.Component{
 				if(response.enable){
 					 response.enable='true';
 				}else{
-                response.enable='false';
+                    response.enable='false';
 				}
 				if(response.belongSpace){
-		      _this.setState({
-						isBelongSpace:true
+		            _this.setState({
+			  			isBelongSpace:true
 					})
 					response.belongSpace='true';
 		    }else{
@@ -47,15 +51,16 @@ class EditStation  extends React.Component{
  				 })
 				 response.belongSpace='false';
 		    }
-				$form.changeValues(response);
+				//$form.changeValues(response);
+               Store.dispatch(initialize('EditStation',response));
 		 }).catch(function(err) {
 				Message.error(err.message);
 		 });
 	}
 
   onSubmit=(values)=> {
-		values.id=State.deleteId;
-		values.communityId=State.communityId;
+		values.id=this.props.CommunityStationModel.deleteId;
+		values.communityId=this.props.CommunityStationModel.communityId;
 	  const {
 		   onSubmit
 		} = this.props;
@@ -84,13 +89,13 @@ class EditStation  extends React.Component{
 
 	//校验工位编号
 	 codeCompare=(params)=>{
-		 State.codeStationCompare(params);
+		 this.props.CommunityStationModel.codeStationCompare(params);
 	 }
 
 	 //楼层
  	floorChange=(params)=>{
  		var floor=params.label;
- 		State.slectNameCommunity=State.stationName[floor];
+ 		this.props.CommunityStationModel.slectNameCommunity=this.props.CommunityStationModel.stationName[floor];
  	}
 
 
@@ -124,15 +129,15 @@ class EditStation  extends React.Component{
             <KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号" requireLabel={true}
              onChange={this.codeCompare}/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
-						 requireLabel={true} options={State.floorData} onChange={this.floorChange}/>
-						 {State.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该工位编号已存在</div>}
+						 requireLabel={true} options={this.props.CommunityStationModel.floorData} onChange={this.floorChange}/>
+						 {this.props.CommunityStationModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该工位编号已存在</div>}
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
             requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
             <KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于会议室"
             requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
             {isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
-						requireLabel={true} options={State.slectNameCommunity}/>}
+						requireLabel={true} options={this.props.CommunityStationModel.slectNameCommunity}/>}
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
             requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 
@@ -187,4 +192,4 @@ const validate = values =>{
 
 		return errors
 }
-export default mobxForm({ form: 'EditStation',validate})(EditStation);
+export default reduxForm({ form: 'EditStation',validate})(EditStation);

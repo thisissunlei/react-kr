@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 import * as Types from './types';
 
 
-
 export function navActive(menuCode){
 	return function(dispatch,getState){
 		var state = getState();
@@ -135,10 +134,6 @@ export function setCurrentNav(router){
 	router = router.split('?').shift();
 	let fatherRouter = router.substring(2).split('/').shift();
 	let childRouter = router.substring(2).split('/')[1];
-
-	// if(typeof childRouter !== 'undefined' && childRouter.indexOf('?') !==-1){
-	// 	childRouter = childRouter.split('?').shift();
-	// }
 
 	return function(dispatch){
 

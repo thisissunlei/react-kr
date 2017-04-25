@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -15,6 +15,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {Http} from "kr/Utils"
 import {
 	KrField,
 	Grid,
@@ -57,7 +58,7 @@ class NewCreateForm extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('editFnaCorporation', {}, values)).then(function(response) {
+		Http.request('editFnaCorporation', {}, values).then(function(response) {
 			Notify.show([{
 				message: '编辑成功！',
 				type: 'success',

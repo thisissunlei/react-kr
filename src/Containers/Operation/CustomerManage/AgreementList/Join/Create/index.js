@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -13,6 +13,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
+import {Http} from "kr/Utils"
 
 import {
 	Dialog,
@@ -85,7 +86,7 @@ export default class JoinCreate extends React.Component {
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 
 			_this.setState({baiscInf:response});
 

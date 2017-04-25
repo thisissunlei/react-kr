@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -12,6 +12,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
+import {Http} from "kr/Utils"
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -286,7 +287,7 @@ class NewCreateForm extends React.Component {
 		});
 	}
 
-	 
+
 
 
 
@@ -514,7 +515,7 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
-		
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
@@ -523,7 +524,7 @@ class NewCreateForm extends React.Component {
 				return;
 			}
 		}
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -631,7 +632,7 @@ class NewCreateForm extends React.Component {
 								</Col>
 							</Row>
 						</Grid>
-				
+
 				<div  className={HeightAuto?'auto':'stationList'} style={{marginTop:"-10px"}}>
 				<Table onSelect={this.onStationSelect}>
 				<TableHeader>
@@ -666,15 +667,15 @@ class NewCreateForm extends React.Component {
 						</Table>
 						 </div>
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
-                            
+
 
 					 </DotTitle>
             		 <div style={{marginTop:'-20px',marginBottom:60,display:"none"}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
-                    
+
 					 </div>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同文本信息</label></div>
 					<div className="small-cheek" style={{paddingBottom:0}}>
-							
+
 						<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 						<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 						<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -699,7 +700,7 @@ class NewCreateForm extends React.Component {
 
 						<KrField style={{width:262,marginLeft:25}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
 
-						
+
 		                <KrField style={{width:262,marginLeft:25}}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true}
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 						<KrField style={{width:262,marginLeft:25}} name="paymentId"  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
@@ -711,7 +712,7 @@ class NewCreateForm extends React.Component {
 
 						<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" label="签署日期"  />
 
-						
+
 						<KrField style={{width:545,marginLeft:25}} component="group" label="租赁项目" requireLabel={true}>
 										<KrField style={{width:262}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue={0} />
 										<KrField style={{width:240,marginLeft:25}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
@@ -720,7 +721,7 @@ class NewCreateForm extends React.Component {
 						requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 						<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
 						<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
-						
+
 					</div>
 
 					<div className="end-round"></div>
@@ -728,8 +729,8 @@ class NewCreateForm extends React.Component {
 			</div>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
-               
-               
+
+
 
 						<Grid style={{paddingBottom:50}}>
 						<Row >

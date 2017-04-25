@@ -9,7 +9,7 @@ import { reduxForm, formValueSelector, change, initialize, arrayPush, arrayInser
 import { Actions, Store } from 'kr/Redux';
 
 import { Form, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, KrField, Grid, Row, Col, Button, Notify, KrDate, } from 'kr-ui';
-
+import {Http} from "kr/Utils"
 class SelectStationForm extends React.Component {
 
 	static PropTypes = {
@@ -89,12 +89,12 @@ class SelectStationForm extends React.Component {
 		let {
 			params
 		} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList', {
+		Http.request('getStationOrSettingList', {
 			mainBillid: params.orderId,
 			page: 1,
 			pagesize: 100,
 			contractId: params.id
-		})).then(function(response) {
+		}).then(function(response) {
 			response.items = response.items.map((item)=>{
 				if(item.show){
 					item.rentBeginDate = item.lastEditDate;

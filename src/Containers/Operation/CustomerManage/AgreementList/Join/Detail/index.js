@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 
@@ -14,7 +14,7 @@ import {
 	KrDate,
 	Title,
 } from 'kr-ui';
-
+import {Http} from "kr/Utils"
 
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -88,9 +88,9 @@ export default class JoinDetail extends React.Component {
 	componentDidMount() {
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+		Http.request('show-checkin-agreement', {
 				id: this.props.params.id
-			}))
+			})
 			.then(function(response) {
 				_this.setState({
 					basic: response,
@@ -102,14 +102,14 @@ export default class JoinDetail extends React.Component {
 			            _this.setState({
 			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
+			            })
 			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		newBasicStationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	 	   
+			        }
 				});
 			}).catch(function(err) {
 				Notify.show([{
@@ -130,14 +130,14 @@ export default class JoinDetail extends React.Component {
             this.setState({
             	newBasicStationVos:oldBasicStationVos.slice(0,5),
             	openAdd:true
-            })    	
+            })
         }
         if(oldBasicStationVos&&oldBasicStationVos.length<=5){
         	this.setState({
         		newBasicStationVos:oldBasicStationVos,
         		openAdd:false
         	})
-        }     	 	     
+        }
     }
 
      addRender=()=>{
@@ -159,7 +159,7 @@ export default class JoinDetail extends React.Component {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	 }
-	 
+
 	getOrderUrl() {
 		const params = this.props.params;
 		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
@@ -182,7 +182,7 @@ export default class JoinDetail extends React.Component {
 					<Title value="入驻协议书详情页_财务管理"/>
 				  	<div className="customer-close" onMouseUp={this.onCancel}></div>
 				    <span className="content-title">入驻协议书详情页</span>
-                    
+
                     <DotTitle title='租赁明细'>
 						<Table displayCheckbox={false}>
 							<TableHeader>
@@ -235,7 +235,7 @@ export default class JoinDetail extends React.Component {
 
 					<KrField component="labelText" grid={1/2} label="联系人：" value={basic.leaseContact} defaultValue="无" requireBlue={true} toolTrue='true'/>
 					<KrField component="labelText" grid={1/2} left={60} label="电话：" value={basic.leaseContacttel} defaultValue="无" requireBlue={true} toolTrue='true'/>
-				</div>	
+				</div>
 					<SplitLine style={{display:'none'}}/>
 				<div className='detail-first'>
 					<KrField component="labelText" grid={1/2} label="所属社区：" value={basic.communityName} defaultValue="无" requireBlue={true} toolTrue='true'/>
@@ -256,20 +256,20 @@ export default class JoinDetail extends React.Component {
 
 					<KrField component="labelText" grid={1/2}  left={60} label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true} toolTrue='true'/>
 					<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true} toolTrue='true'/>
-					
+
 
 					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
 					<KrField   name="agreement" component="labelText" label="双方其他约定内容" value={basic.agreement} defaultValue="无" requireBlue={true} inline={false}/>
-					
+
 
 					<KrField component="group" label="上传附件：" requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
 								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
 							})}
 			  		</KrField>
-                      
+
                        </div>
-					
+
 					</div>
 			</div>
 		);
