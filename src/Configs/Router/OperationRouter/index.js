@@ -413,7 +413,6 @@ module.exports =()=>{
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Exit_Detail}/>
 			</Route>
 
-		</Route>
 	</Route>
 
 	</Route>
@@ -433,7 +432,6 @@ module.exports =()=>{
 		</Route>
 
 
-
 	</Route>
 
 	{/*入驻订单*/}
@@ -442,6 +440,7 @@ module.exports =()=>{
 			<Route path="customer" getComponent={Basic}>
 			<Route path="edit" getComponent = {Operation_JoinOrder_Customer_Edit}/>
 			<Route path="detail" getComponent = {Operation_JoinOrder_Customer_Detail}/>
+      </Route>
 		</Route>
 	</Route>
 	</Route>

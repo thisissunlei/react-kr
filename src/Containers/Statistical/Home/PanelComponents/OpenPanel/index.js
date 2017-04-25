@@ -14,6 +14,7 @@ import {
 	Col,
 	Message,
 	Tooltip,
+	Form,
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import './index.less';

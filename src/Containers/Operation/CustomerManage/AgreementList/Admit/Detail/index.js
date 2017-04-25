@@ -2,7 +2,6 @@ import React, {
 
 	PropTypes
 } from 'react';
-import {Http} from "kr/Utils"
 import {
 	BreadCrumbs,
 	Loading,
@@ -26,7 +25,7 @@ import {
 } from 'kr-ui';
 
 
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 
 import {

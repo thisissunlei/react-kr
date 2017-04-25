@@ -27,7 +27,6 @@ let State = observable({
 		listId:"",
 		deleteId:'',
 		companyName:'',
-		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
 		customerName:"",
@@ -38,10 +37,11 @@ let State = observable({
 		editprojectName:'',
 		ishasOffice:false,
 		editIndentState:"",
+
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
-})
+});
 //新建页的开关
 State.switchNewCustomerList = action(function() {
 	this.openNewMerchants=!this.openNewMerchants;
@@ -53,19 +53,19 @@ State.switchLookCustomerList = action(function() {
 //编辑页面的开关
 State.switchEditCustomerList = action(function() {
 	this.openEditCustomerList=!this.openEditCustomerList;
-})
+});
 //新增排放记录的开关
 State.switchCustomerIndent = action(function() {
 	this.openNewCustomerIndent=!this.openNewCustomerIndent;
-})
+});
 //新建订单的开关
 State.switchNewIndent = action(function() {
 	this.openNewIndent=!this.openNewIndent;
-})
+});
 //编辑订单的开关
 State.switchEditIndent=action(function() {
 	this.openEditIndent=!this.openEditIndent;
-})
+});
 //高级查询的开关
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
@@ -77,35 +77,34 @@ State.openSwitchGoDialog= action(function() {
 //删除订单
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
-})
+});
 //新建订单页得数据准备
 State.indentReady= action(function(params) {
 	this.indentReady=params;
-})
+});
 
 //编辑定点id
 State.editIndentIdChange=action(function(params){
 	this.editIndentId=params;
-})
+});
 //订单名称
 State.orderNameChange=action(function(params){
 	this.orderName=params;
-})
+});
 
 //获取订单名称
 State.orderNameInit= action(function(value) {
 	var _this=this;
 	let data={};
-	
+
 	data.customerId=value;
 
 	Http.request('get-customName-orderName',data).then(function(response) {
 		_this.customerName=response.customerName;
 		_this.orderCount=response.orderCount;
-
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});		
+	});
 });
 
 
@@ -118,42 +117,38 @@ State.switchSureSubmit= action(function(value) {
          _this.openPersonDialog=false;
          _this.searchParams={
          	page:1,
-			time:+new Date()
+			    time:+new Date()
          }
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});		
+	});
 });
 //导出
 State.exportData = action(function(value) {
-	    var search={};
-	    search.company= this.searchParams.company;
-	    search.cityId=this.searchParams.cityId;
-	    search.communityId=this.searchParams.communityId;
-	    search.signEndDate=this.searchParams.signEndDate;
-	    search.signStartDate=this.searchParams.signStartDate;
-	    if(!search.company){
-	    	search.company='';
-	    }
-	    if(!search.cityId){
-	    	search.cityId='';
-	    }
-	    if(!search.signStartDate){
-	    	search.signStartDate='';
-	    }
-	    if(!search.communityId){
-	    	search.communityId='';
-	    }
-	    if(!search.signEndDate){
-	    	search.signEndDate='';
-	    }
+	    let defaultParams = {
+	      company:'',
+	      cityId:'',
+	      communityId:'',
+	      signEndDate:'',
+	      signStartDate:'',
+	      mainBillType:''
+	    };
+	    var searchParam= Object.assign({},defaultParams,this.searchParams);
+
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&company=${search.company}&cityId=${search.cityId}&signStartDate=${search.signStartDate}&communityId=${search.communityId}&signEndDate=${search.signEndDate}`
+		var where=[];
+        for(var item in searchParam){
+        if(searchParam.hasOwnProperty(item)){
+           where.push(`${item}=${searchParam[item]}`);
+        }
+      }
+        where.push(`customerIds=${customerIds}`);
+		var url = `/api/krspace-finance-web/customer/sign-customers-export?${where.join('&')}`;
 		window.location.href = url;
 });
 //城市改变
@@ -171,6 +166,6 @@ State.closeAllMerchants = action(function() {
 });
 State.MerchantsListId = action(function(params) {
 	this.listId=params;
-	
+
 });
 module.exports = State;

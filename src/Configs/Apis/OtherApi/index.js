@@ -97,7 +97,7 @@ const APIS = {
         url: '/api/krspace-finance-web/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
         method: 'put'
     },
-    
+
     //指定公司下的会员数据导出－－－－－－－－－－－>这个接口居然没有用到
     'companyMemberExcel': {
         url: '/api/krspace-finance-web/member/member-company-excel?ids={ids}&companyId={companyId}',
@@ -123,14 +123,14 @@ const APIS = {
         url: '/api/krspace-finance-web/member/member-excel',
         method: 'post'
     },
-   
-    
+
+
     // 获取社区数据-------------------->searchForm组件和Operation共用
     'getCommunity': {
         url: '/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
         method: 'get'
     },
-    
+
     //权限管理-权限管理-数据模板管理数据－－－－－－－－－－－>这个接口居然没有用到
     'getDataGrouplis': {
         url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
@@ -161,15 +161,15 @@ const APIS = {
       url: '/api/krspace-finance-web/csr/market/list-param-data',
       method: 'get'
    },
-   
+
    //客户公海列表－客户公海导入数据准备-------组件接口
    'highSourceName':{
       url: '/api/krspace-finance-web/csr/market/upload-param-data?sourceName={sourceName}',
       method: 'get'
    },
 
-    
-    
+
+
 
 }
 

@@ -42,17 +42,15 @@ class EditMeeting  extends React.Component{
 			        let list={};
 			        list.label=items.label;
 			        list.value=items.value;
+			        items.checked=false;
 			        response.deviceIds.map((item)=>{
 			           if(item==items.value){
-			           	 list.checked=true;
-			           	 console.log('pp---',item,items.value)
-			           }else{
-			           	 list.checked=false;
+			           	 items.checked=true;
 			           }
 			        })
+			        list.checked=items.checked;
 			        deviceSpace.push(list); 
-			        console.log('[===',deviceSpace);
-				 })
+				  })
 				   _this.setState({
 				   	 listDevice:deviceSpace
 				   })
@@ -99,8 +97,6 @@ class EditMeeting  extends React.Component{
      const {handleSubmit}=this.props;
      let {listDevice}=this.state;
      
-     console.log(';;;',listDevice);
-
     return(
 
     <div className='m-newMerchants'>

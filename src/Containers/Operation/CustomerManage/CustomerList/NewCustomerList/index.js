@@ -16,13 +16,13 @@ import {
 } from 'kr-ui';
 import State from './State';
 import merchants from "../Merchants/State";
-import personal from "../Personal/State";
 import signedClient from "../SignedClient/State";
 import './index.less'
 import {
 	observer,
 	inject
 } from 'mobx-react';
+@inject("NewIndentModel")
 @observer
  class NewCustomerList extends React.Component{
 
@@ -57,22 +57,22 @@ import {
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
-					pageSize:15,
-					time:+new Date()
+					    pageSize:15,
+					    time:+new Date()
 		         }
 			}
          	if(operType=="PERSON"){
-         		personal.searchParams={
+         		 _this.props.NewIndentModel.searchParams={
 		         	page:1,
-					pageSize:15,
-					time:+new Date()
+					    pageSize:15,
+					    time:+new Date()
 		        }
          	}
          	if(operType=="SIGN"){
          		signedClient.searchParams={
 		         	page:1,
-					pageSize:15,
-					time:+new Date()
+					    pageSize:15,
+					    time:+new Date()
 		        }
          	}
          	_this.onCancel();

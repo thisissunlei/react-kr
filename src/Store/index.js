@@ -1,6 +1,7 @@
 import CommonModel from './CommonModel';
 import CommunityDetailModel from './CommunityDetailModel';
 import FormModel from './FormModel';
+import NewIndentModel from './NewIndentModel';
 import CommunityAgreementList from './CommunityAgreementList';
 import NotifyModel from './NotifyModel';
 import NavModel from './NavModel';
@@ -13,5 +14,6 @@ module.exports = {
 	NotifyModel,
 	CommunityAgreementList,
 	NavModel,
-	...OperationCommunity
+	...OperationCommunity,
+	NewIndentModel,
 }

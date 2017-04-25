@@ -116,8 +116,9 @@ class MeetingsearchUpperForm extends React.Component {
 
 					/>
 				</div>
-					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="sapceTypes" component="select" label="空间类型"
-					  options={this.props.CommunityMeetingModel.sapceTypes}/>
+					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceType" component="select" label="空间类型"
+					  options={this.props.CommunityMeetingModel.sapceTypes}
+					  />
 					 <KrField grid={1/2} style={{width:262}}  name="enable" component="select" label="工位状态"
 					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}
 					 />

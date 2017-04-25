@@ -1,7 +1,4 @@
-import React, {
-
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'kr/Redux';
@@ -33,7 +30,7 @@ import {
 
 class UnitPriceForm extends React.Component {
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func
 	}

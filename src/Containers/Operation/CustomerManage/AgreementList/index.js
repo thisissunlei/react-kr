@@ -115,7 +115,20 @@ class Merchants extends Component{
 	closeTwoAgreement = () => {
 		State.openTowAgreement=false;
 	}
-
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = State.mainBillId+''+State.listId+ State.argumentType + 'edit';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 	//打开第一新建页面
 	openOneAgreement = () => {
 		State.openOneAgreement=true;
@@ -130,6 +143,7 @@ class Merchants extends Component{
 	}
 	//关闭编辑页
 	closeEditAgreement = () =>{
+		// this.removeLocalStorage();
 		State.openEditAgreement=false;
 	}
 	//新建订单打开
@@ -341,10 +355,40 @@ class Merchants extends Component{
 
     }
 
+    getLocalStorageDate=()=>{
+		let date = [];
+		let delList = [];
+		let now = +new Date();
+		// let clearDate = 60*60*1000*1;//1小时
+		let clearDate = 60*60*1000*1*24*30;//30天
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
+			 	let time = now - parseInt(localStorage.getItem(itemName));
+				if((time/clearDate)>1){
+					//10小时
+					date.push(itemName.replace('setLocalStorageDate',''));
+				}
+			 }
+		 }
+		 date.map((item)=>{
+		 	for (var i = 0; i < localStorage.length; i++) {
+				if(localStorage.key(i).indexOf(item)!='-1'){
+					delList.push(localStorage.key(i));
+				}
+			}
+		 })
+		 delList.map((item)=>{
+		 	localStorage.removeItem(item);
+		 })
+		 
+	}
+
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
       	let _this=this;
 		let bodyElem=document.getElementById("m-agreement-list");
+		this.getLocalStorageDate();
 		bodyElem.addEventListener("click", function(){
 		   event = event || window.event;
 			var target = event.target;
@@ -463,6 +507,16 @@ class Merchants extends Component{
    }
 
 
+ contractChange=(params)=>{
+   let {searchParams}=this.state;
+	 if(!params.value){
+		 searchParams.contractType='';
+	 }else{
+		 searchParams.contractType=params.value;
+	 }
+	 State.ajaxListData(searchParams);
+ }
+
 	everyTd=(value)=>{
 		var show=false;
 		if(!value){
@@ -574,11 +628,11 @@ class Merchants extends Component{
       	let {contractList}=State;
       	var blockStyle={};
        	const {
-					orderBaseInfo,
-					earnest,
-					installmentPlan,
-					contractStatusCount,
-				} = this.state.response;
+			orderBaseInfo,
+			earnest,
+			installmentPlan,
+			contractStatusCount,
+		} = this.state.response;
 
 
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
@@ -611,7 +665,7 @@ class Merchants extends Component{
       <div id="m-agreement-list" className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	        <Row style={{marginBottom:18,marginTop:-4,zIndex:6,position:'relative'}}>
+	        <Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
@@ -625,13 +679,13 @@ class Merchants extends Component{
 			  	 <Col
 			  		style={{float:'right',width:"90%"}}
 			  	 >
-
 			  		<SearchForm
 			  		  onStartChange={this.onStartChange}
 			  		  onEndChange={this.onEndChange}
 			  		  todayDate={todayDate}
               onSearchSubmit={this.onSearchSubmit}
-			  		/>
+							contractChange={this.contractChange}
+			  		 />
 
 			  	</Col>
 

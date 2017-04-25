@@ -10,7 +10,6 @@ import {
 	KrField,
 	Title
 } from 'kr-ui';
-import {Http} from "kr/Utils"
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -27,7 +26,7 @@ import {
 	Row,
 	Col
 } from 'kr-ui/Grid';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 
 export default class ExitDetail extends React.Component {

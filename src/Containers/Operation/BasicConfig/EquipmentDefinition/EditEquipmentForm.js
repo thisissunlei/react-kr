@@ -11,6 +11,7 @@ import {
 	ListGroupItem,
 	Button,
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 class EditEquipmentForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
@@ -54,7 +55,7 @@ class EditEquipmentForm extends React.Component{
 	getBasicData=(detail)=>{
 		let _this = this;
 		let SearchLocationParams = {communityId:detail.communityId,whereFloor:detail.floor}
-		Store.dispatch(Actions.callAPI('getLocationByProperty',SearchLocationParams))
+		Http.request('getLocationByProperty',SearchLocationParams)
 		.then(function(response){
 			var locationArr = []
     		for (var i=0;i<response.length;i++){
@@ -64,7 +65,7 @@ class EditEquipmentForm extends React.Component{
     			locationOptions : locationArr
     		})
 		});
-		Store.dispatch(Actions.callAPI('getFloorByComunity',{communityId:detail.communityId}))
+		Http.request('getFloorByComunity',{communityId:detail.communityId})
 	    	.then(function(response){
 	    		var arrNew = []
 	    		for (var i=0;i<response.whereFloors.length;i++){
@@ -124,7 +125,7 @@ class EditEquipmentForm extends React.Component{
   	// 根据社区Id获取楼层
   	getFloorByComunityFun=(CommunityId)=>{
   		let _this = this;
-  		Store.dispatch(Actions.callAPI('getFloorByComunity',CommunityId))
+  		Http.request('getFloorByComunity',CommunityId)
     	.then(function(response){
     		var arrNew = []
     		for (var i=0;i<response.whereFloors.length;i++){
@@ -167,7 +168,7 @@ class EditEquipmentForm extends React.Component{
 
   			})
   			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floor}
-  			Store.dispatch(Actions.callAPI('getLocationByProperty',SearchLocationParams)).
+  			Http.request('getLocationByProperty',SearchLocationParams).
 			then(function(response){
 				var locationArr = []
 	    		for (var i=0;i<response.length;i++){
@@ -245,7 +246,7 @@ class EditEquipmentForm extends React.Component{
 			type :"deviceCode",
 			id : this.detail.id
 		}
-		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',params)).
+		Http.request('doorNumberAndHardwareId',params).
 		then(function(response){
 			_this.setState({
 	 			doorNumHasStatus : false
@@ -274,7 +275,7 @@ class EditEquipmentForm extends React.Component{
 			type :"hardwareid",
 			id : this.detail.id
 		}
-		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdparams))
+		Http.request('doorNumberAndHardwareId',hardwareIdparams)
 		.then(function(response){
 	 		_this.setState({
 	 			hardwareidHasStatus : false,
@@ -336,9 +337,9 @@ class EditEquipmentForm extends React.Component{
 			type :"hardwareid",
 			id :values.id
 		}
-		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',deviceCodeParams)).
+		Http.request('doorNumberAndHardwareId',deviceCodeParams).
 		then(function(response){
-			Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdParams)).
+			Http.request('doorNumberAndHardwareId',hardwareIdParams).
 			then(function(response){
 
 				const  {onSubmit} = _this.props;

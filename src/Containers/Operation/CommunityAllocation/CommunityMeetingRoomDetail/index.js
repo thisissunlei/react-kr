@@ -142,7 +142,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 			deviceIds:[],
 			enable:'',
 			searchKey:'',
-			searchType:''
+			searchType:'',
+			spaceType:''
 		}
    this.props.CommunityMeetingModel.searchParams=Object.assign({},this.props.CommunityMeetingModel.searchParams,params);;
    this.props.CommunityMeetingModel.searchUpperCustomer();
@@ -189,7 +190,7 @@ SelectCommunity=()=>{
 
 		let title=`会议室列表(${this.props.CommunityMeetingModel.communityName})`;
 		return(
-			<div className='community-list'>
+			<div className='meeting-list'>
 				<Title value="会议室列表"/>
 				<Section title={title} description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
@@ -321,7 +322,7 @@ SelectCommunity=()=>{
 
 				{/*导入*/}
 				<Dialog
-					title="导入工位"
+					title="导入空间"
 					onClose={this.openImporData}
 					open={this.props.CommunityMeetingModel.openImport}
 					contentStyle ={{ width: '444px'}}

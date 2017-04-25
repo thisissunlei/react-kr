@@ -11,10 +11,7 @@ export default class XTableRow extends React.Component {
   render(){
 
     return (
-      <div>
-        dsfdfsfs
-        dsddsdssd
-      </div>
+      <div> </div>
     );
 
   }

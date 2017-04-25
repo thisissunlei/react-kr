@@ -11,16 +11,10 @@ import {
 } from 'kr-ui';
 
 let State = observable({
-		searchParams:{
-			page:1,
-		},
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openSearchUpper:false,
 		openEditCustomerList:false,
-		openSwitch:false,
-		openQuit:false,
-		openPersonDialog:false,
 		openNewCustomerIndent:false,
 		openNewIndent:false,
 		openEditIndent:false,
@@ -74,14 +68,6 @@ State.switchEditIndent=action(function() {
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
-//转移开关
-State.openSwitchGoDialog= action(function() {
-	this.openSwitch=!this.openSwitch;
-});
-//取消客户跟进
-State.openQuitContinue= action(function() {
-	this.openQuit=!this.openQuit;
-});
 //删除订单
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
@@ -100,7 +86,7 @@ State.orderNameChange=action(function(params){
 State.orderNameInit= action(function(value) {
 	var _this=this;
 	let data={};
-	
+
 	data.customerId=value;
 
 	Http.request('get-customName-orderName',data).then(function(response) {
@@ -108,81 +94,9 @@ State.orderNameInit= action(function(value) {
 		_this.orderCount=response.orderCount;
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});		
+	});
 });
 
-//导出
-State.exportData = action(function(value) {
-	    var search={};
-	    search.company= this.searchParams.company;
-	    search.createEndDate=this.searchParams.createEndDate;
-	    search.createStartDate=this.searchParams.createStartDate;
-	    search.intentionCityId=this.searchParams.intentionCityId;
-	    search.intentionCommunityId=this.searchParams.intentionCommunityId;
-	    search.levelId=this.searchParams.levelId;
-	    search.sourceId=this.searchParams.sourceId;
-	    if(!search.company){
-	    	search.company='';
-	    }
-	    if(!search.createEndDate){
-	    	search.createEndDate='';
-	    }
-	    if(!search.createStartDate){
-	    	search.createStartDate='';
-	    }
-	    if(!search.intentionCityId){
-	    	search.intentionCityId='';
-	    }
-	    if(!search.intentionCommunityId){
-	    	search.intentionCommunityId='';
-	    }
-	    if(!search.levelId){
-	    	search.levelId='';
-	    }
-	    if(!search.sourceId){
-	    	search.sourceId='';
-	    }
-		let customerIds = [];
-		if (value.length != 0) {
-			value.map((item, value) => {
-				customerIds.push(item.id)
-			});
-		}
-		var url = `/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company=${search.company}&createEndDate=${search.createEndDate}&createStartDate=${search.createStartDate}&intentionCityId=${search.intentionCityId}&intentionCommunityId=${search.intentionCommunityId}&levelId=${search.levelId}&sourceId=${search.sourceId}`
-		window.location.href = url;
-});
-
-//转移提交
-State.switchSureSubmit= action(function(value) {
-	var _this=this;
-	Http.request('customerTransfer',{},value).then(function(response) {
-		 _this.openSwitch=false;
-         Message.success('转移成功');
-         _this.openPersonDialog=false;
-         _this.searchParams={
-         	page:1,
-			time:+new Date()
-         }
-	}).catch(function(err) {
-		 Message.error(err.message);
-	});		
-});
-//取消客户跟进提交
-State.quitSubmit= action(function(arrItem) {
-	var ids=arrItem;
-	var _this=this;
-	Http.request('customerGiveBack',{},{ids}).then(function(response) {
-		 _this.openQuit=false;
-         Message.success('取消成功');
-         _this.openPersonDialog=false;
-          _this.searchParams={
-         	page:1,
-			time:+new Date()
-         }
-	}).catch(function(err) {
-		 Message.error(err.message);
-	});		
-});
 //城市改变
 State.cityChange=action(function(params){
 	this.cityname=params;
@@ -200,6 +114,6 @@ State.closeAllMerchants = action(function() {
 });
 State.MerchantsListId = action(function(params) {
 	this.listId=params;
-	
+
 });
 module.exports = State;

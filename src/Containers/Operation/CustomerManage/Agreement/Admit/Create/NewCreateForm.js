@@ -11,7 +11,7 @@ import {
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -103,12 +103,51 @@ class NewCreateForm extends React.Component {
 		this.onCloseStation = this.onCloseStation.bind(this);
 
 		this.state = {
-			stationVos: [],
+			stationVos: this.props.stationVos || [],
+			stationVoList: this.props.stationVoList || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			openLocalStorage:this.props.openLocalStorage,
+			initialValues:this.props.initialValues,
+			optionValues:this.props.optionValues,
+			useLocal:false,
+
+		}
+	}
+	componentDidMount() {
+		
+		let {
+			initialValues,optionValues,params
+		} = this.props;
+		Store.dispatch(initialize('admitCreateForm', initialValues));
+
+
+	}
+	
+
+	componentWillReceiveProps(nextProps) {
+		let {initialValues,initialValue} = this.props;
+		if (!this.isInit && nextProps.stationVoList.length ) {
+			let stationVoList = nextProps.stationVoList;
+			this.setState({
+				stationVoList
+			});
+			this.isInit = true;
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+			optionValues:nextProps.optionValues
+		})
+		}
+
+
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+			openLocalStorage:nextProps.openLocalStorage
+		})
 		}
 	}
 
@@ -169,6 +208,7 @@ class NewCreateForm extends React.Component {
 			leaseBegindate,
 			leaseEnddate
 		} = changeValues;
+		console.log(changeValues);
 
 		if (!wherefloor) {
 			Notify.show([{
@@ -214,18 +254,10 @@ class NewCreateForm extends React.Component {
 		});
 	}
 
-	componentDidMount() {
-		let {
-			initialValues
-		} = this.props;
-		Store.dispatch(initialize('admitCreateForm', initialValues));
-	}
 
 
 
-	componentWillReceiveProps(nextProps) {
 
-	}
 	openPreStationUnitPriceDialog=()=> {
 		let {
 			selectedStation
@@ -257,6 +289,7 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let _this = this;
 		let allMoney = 0;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -265,10 +298,8 @@ class NewCreateForm extends React.Component {
 			return item;
 		});
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allMoney += _this.getSingleRent(item);
-		// })
-		// allMoney = parseFloat(allMoney).toFixed(2)*1;
+
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
 
 		this.setState({
 			stationVos,
@@ -308,19 +339,8 @@ class NewCreateForm extends React.Component {
 			}]);
 			return;
 		}
-
-		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
-
-		// form.totalrent = 0;
-		// if(form.totalrent == 0){
-		// 	Notify.show([{
-		// 		message: '服务费不能为零',
-		// 		type: 'danger',
-		// 	}]);
-		// 	return;
-		// }
 		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
@@ -336,9 +356,8 @@ class NewCreateForm extends React.Component {
 		onSubmit && onSubmit(form);
 	}
 	calcStationNum() {
-		let {
-			stationVos
-		} = this.state;
+		let {stationVos} = this.state;
+		let {initialValues} = this.props;
 
 		var stationnum = 0;
 		var boardroomnum = 0;
@@ -351,16 +370,18 @@ class NewCreateForm extends React.Component {
 			}
 		});
 
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
+
 		Store.dispatch(change('admitCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('admitCreateForm', 'boardroomnum', boardroomnum));
 	}
 
 	onCancel() {
-		const {
-			onCancel
-		} = this.props;
+		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
+
 
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
@@ -370,10 +391,13 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
 		}
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify([]));
+
 
 		this.setState({
 			stationVos: []
@@ -387,10 +411,13 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		if (!stationVos.length) {
 			return;
 		}
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify([]));
+
 
 		this.setState({
 			stationVos: []
@@ -459,7 +486,8 @@ class NewCreateForm extends React.Component {
 		var _this = this;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues,
 		} = this.props;
 
 		let {
@@ -484,6 +512,9 @@ class NewCreateForm extends React.Component {
 			stationVos: billList
 		}, function() {
 			this.calcStationNum();
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(billList));
+
+
 		});
 
 	}
@@ -500,12 +531,23 @@ class NewCreateForm extends React.Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} = this.props;
 		this.setAllRent(stationVos);
-		
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		let {initialValues} = this.props;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
+			}
+			return item;
+		})
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -516,38 +558,82 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
 
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
+
+	onCancelStorage=()=>{
+		this.setState({
+			openLocalStorage:false,
+
+		})	
+		let {removeLocalStorage} = this.props;
+		removeLocalStorage && removeLocalStorage();
 	}
+	getLocalStorage=()=>{
+		this.setState({
+			openLocalStorage:false,
+		})
+		this.getLocalStorageSata();
+	}
+
+	getLocalStorageSata=()=>{
+		var _this = this;
+		let {initialValues} = this.props;
+		let {optionValues} = this.props;
+		
+			//获取localStorage数据
+			let keyWord = initialValues.mainbillid+ initialValues.customerId+'INTENTIONcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			if(mainbillId && customerId){
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
+				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				optionValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+
+
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
+				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
+				initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
+				initialValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+
+				// optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+
+			}
+			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVoList) || [];
+
+			Store.dispatch(initialize('admitCreateForm', initialValues));
+			Store.dispatch(change('admitCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
+
+
+			_this.setState({
+				initialValues,
+				optionValues,
+				stationVos,
+			},function(){
+				this.calcStationNum();
+			});
+	}
+
+
+
 	render() {
 		let {
 			error,
@@ -555,11 +641,19 @@ class NewCreateForm extends React.Component {
 			pristine,
 			reset,
 			submitting,
-			initialValues,
 			changeValues,
-			optionValues
+			initialValues,
 		} = this.props;
 
+		let {
+			billList,
+			stationVos,
+			HeightAuto,
+			allRent,
+			openLocalStorage,
+			useLocal,
+			optionValues
+		} = this.state;
 		let {
 			fnaCorporationList
 		} = optionValues;
@@ -569,13 +663,7 @@ class NewCreateForm extends React.Component {
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
-
-		let {
-			billList,
-			stationVos,
-			HeightAuto,
-			allRent
-		} = this.state;
+		
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 		return (
@@ -588,7 +676,7 @@ class NewCreateForm extends React.Component {
 
 	<form onSubmit={handleSubmit(this.onSubmit)} >
 				<CircleStyle num="1" info="租赁明细">
-				
+
 					<KrField name="wherefloor" style={{width:370,marginLeft:70}}  component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 					 <KrField style={{width:370,marginLeft:90}} left={20} component="group" label="租赁期限" requireLabel={true}>
 										<ListGroup>
@@ -649,14 +737,14 @@ class NewCreateForm extends React.Component {
                			</div>
 					</CircleStyle>
 					<CircleStyle num="2" info="合同文本信息" circle="bottom">
-					
+
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
 								 <KrField style={{width:370,marginLeft:70}} name="leaseId" component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField style={{width:370,marginLeft:90}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
-								 <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+								 <KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 								 <KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -673,7 +761,7 @@ class NewCreateForm extends React.Component {
 								 <KrField style={{width:370,marginLeft:70}} component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/>
 
 
-								 
+
 
 
 								 <KrField style={{width:370,marginLeft:90}}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
@@ -689,7 +777,7 @@ class NewCreateForm extends React.Component {
 																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 								 <KrField style={{width:370,marginLeft:70}} name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-								
+
 
                                <KrField  name="templockday" style={{width:370,marginLeft:90}} component="input" type="text" label="保留天数" requireLabel={true}
 															 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
@@ -701,12 +789,15 @@ class NewCreateForm extends React.Component {
 							<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 </CircleStyle>
-							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
-								Store.dispatch(change('admitCreateForm','contractFileList',files));
-							}} />
-							 
-
 							
+							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
+								if(files.length){
+									Store.dispatch(change('admitCreateForm','contractFileList',files));
+
+								}
+							}} />
+
+
 						<Grid style={{paddingBottom:50}}>
 						<Row>
 						<ListGroup>
@@ -736,6 +827,27 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
+			<Dialog
+				title="提示"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.openConfirmCreateDialog}
+				open={this.state.openLocalStorage} 
+				contentStyle={{width:'400px'}}>
+					<div>
+						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
+						<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+					</div>
+
+			  </Dialog>
 
 			</div>);
 	}
@@ -745,6 +857,8 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -767,10 +881,6 @@ const validate = values => {
 
 	if (!values.leaseContacttel) {
 		errors.leaseContacttel = '请填写承租方电话';
-	}
-
-	if (!values.leaseAddress) {
-		errors.leaseAddress = '请填写承租方地址';
 	}
 
 	if (values.leaseAddress && !isNaN(values.leaseAddress)) {
@@ -816,7 +926,16 @@ const validate = values => {
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
+	for(var i in values){
+	        if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+						if(i === 'contractFileList'){
+							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+						}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+						}
 
+	        };
+	    }
 	return errors
 }
 
@@ -824,7 +943,7 @@ const selector = formValueSelector('admitCreateForm');
 
 NewCreateForm = reduxForm({
 	form: 'admitCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

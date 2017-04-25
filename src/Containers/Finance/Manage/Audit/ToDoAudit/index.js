@@ -340,8 +340,9 @@ export default class ToDoAudit extends React.Component {
       }
       Http.request('save-flow-verify', {}, form).then(function(response) {
           Message.success('新建成功');
-          _this.openAddCreate();
-          window.location.reload();
+          window.setTimeout(function(){
+            window.location.reload();
+          },800)
         }).catch(function(err) {
           Message.error(err.message);
         });
