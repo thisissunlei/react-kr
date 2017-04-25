@@ -347,18 +347,18 @@ export default class JoinCreate extends React.Component {
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
 
-
 		return (
 
 			<div>
 
 				<Title value="创建入驻协议书_财务管理"/>
 
-			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
-			</div>}
+			
 			{openLocalStorages && <div style={{marginTop:10}}>
 				<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+			</div>}
+			{!openLocalStorages && <div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
 			</div>}
 
 			<Dialog

@@ -99,7 +99,7 @@ export default class JoinCreate extends React.Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
+		let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -182,7 +182,7 @@ export default class JoinCreate extends React.Component {
 				id: params.id
 			}).then(function(response) {
 
-				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
+				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 				initialValues.num = localStorage.getItem(keyWord+'num')||1;
 				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
 				optionValues.lessorContactName = response.lessorContactName;
@@ -317,7 +317,7 @@ export default class JoinCreate extends React.Component {
 			Http.request('show-checkin-agreement', {
 				id: params.id
 			}).then(function(response) {
-				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
+				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
 				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'))|| response.contractFileList;
 				initialValues.id = response.id;
@@ -394,7 +394,7 @@ getlocalSign=()=>{
     } = this.props;
     let _this = this;
     let sign = false;
-    let keyWord = params.orderId+''+ params.customerId+'ADDRENTedit';
+    let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'ADDRENTedit';
        if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
         _this.setState({
           openLocalStorages:true

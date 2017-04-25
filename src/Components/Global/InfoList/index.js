@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Actions, Store } from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import { reduxForm, change } from 'redux-form';
 import Pagination from '../../Pagination';
 import KrField from '../../KrField';
@@ -100,7 +101,7 @@ export default class InfoList extends Component {
     }
     getDataList = (url, params) => {
     	let _this = this;
-        Store.dispatch(Actions.callAPI(url, params)).then(function(response) {
+        Http.request(url, params).then(function(response) {
             _this.setState({
             	infoList:response.items,
             	currentPage:parseInt(response.page),
@@ -113,9 +114,9 @@ export default class InfoList extends Component {
     readed(item) {
         let {readedUrl,url} = this.state;
         let _this = this;
-        Store.dispatch(Actions.callAPI(readedUrl, {
+        Http.request(readedUrl, {
             id: item.msgInfoId
-        })).then(function(response) {
+        }).then(function(response) {
 
         	if(item.msgStatu == 'UNREAD'){
         		_this.click();
