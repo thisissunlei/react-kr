@@ -14,7 +14,7 @@ import {
 	PaperBack,
 	Title
 } from 'kr-ui';
-
+import {Http} from 'kr/Utils'
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -48,8 +48,8 @@ export default class ExitDetail extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-        
-      
+
+
 
 
 		this.state = {
@@ -62,9 +62,9 @@ export default class ExitDetail extends Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+		Http.request('getFnaContractWithdrawalById', {
 			id: this.props.params.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				basic: response,
 				loading:false
@@ -78,7 +78,7 @@ export default class ExitDetail extends Component {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	  }
-	   
+
 
 	componentWillMount() {
 
@@ -128,7 +128,7 @@ export default class ExitDetail extends Component {
 			const info = {
 				paddingBottom:10
 			}
-			
+
 			return (
 				<div className="content agreement-detail" style={content}>
 					 <Title value="退租协议书详情页_财务管理"/>
@@ -148,7 +148,7 @@ export default class ExitDetail extends Component {
 
 								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.leaseContact} requireBlue={true} toolTrue='true'/>
 								<KrField component="labelText" grid={1/2} label="电话：" value={basic.leaseContacttel} requireBlue={true} toolTrue='true'/>
-							</div>	
+							</div>
 								<SplitLine style={{display:'none'}}/>
 							<div className='detail-second'>
 								<KrField component="labelText" grid={1/2} label="所属社区：" value={basic.communityName} requireBlue={true} toolTrue='true'/>
@@ -164,7 +164,7 @@ export default class ExitDetail extends Component {
 
 								<KrField component="labelText"  label="备注：" value={!basic.contractmark?"无":basic.contractmark} inline={false} requireBlue={true} defaultValue="无"/>
 							 	<KrField  name="agreement" component="labelText" label="双方其他约定内容" inline={false} requireBlue={true} defaultValue="无" value={basic.agreement}/>
-								
+
 
 					<KrField component="group" label="上传附件："  requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
@@ -181,7 +181,7 @@ export default class ExitDetail extends Component {
 
 			<div>
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
-				
+
 				<BasicRender/>
 			<Grid style={{marginTop:5,marginBottom:50}}>
 				 {showEdit &&  <Row>
@@ -189,7 +189,7 @@ export default class ExitDetail extends Component {
 					  <Col md={5} align="center"></Col>
 				  </Row>}
 			</Grid>
-				
+
 
 		  </div>
 

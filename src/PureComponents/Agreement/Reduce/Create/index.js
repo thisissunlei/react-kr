@@ -12,8 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -94,7 +93,7 @@ export default class JoinCreate extends Component {
 			params
 		} = this.props;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getFnaContractRentController', {}, formValues)).then(function(response) {
+		Http.request('getFnaContractRentController', formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
@@ -135,12 +134,12 @@ export default class JoinCreate extends Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;

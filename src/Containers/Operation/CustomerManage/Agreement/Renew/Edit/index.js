@@ -88,7 +88,7 @@ export default class JoinCreate extends React.Component {
 
   removeLocalStorage=()=>{
     let {params} = this.props;
-    let keyWord = params.orderId+params.customerId+'RENEWedit';
+    let keyWord = params.orderId+params.customerId+params.id+'RENEWedit';
     let removeList = [];
     for (var i = 0; i < localStorage.length; i++) {
       let itemName = localStorage.key(i);
@@ -107,7 +107,7 @@ export default class JoinCreate extends React.Component {
     } = this.props;
     let _this = this;
     let sign = false;
-    let keyWord = params.orderId+ params.customerId+'RENEWedit';
+    let keyWord = params.orderId+ params.customerId+params.id+'RENEWedit';
        if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
         _this.setState({
           openLocalStorages:true
@@ -150,7 +150,7 @@ export default class JoinCreate extends React.Component {
     }).then(function(response) {
 
 
-      let keyWord = params.orderId+ params.customerId+'RENEWedit';
+      let keyWord = params.orderId+ params.customerId+params.id+'RENEWedit';
       initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
       initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
 
@@ -331,7 +331,7 @@ export default class JoinCreate extends React.Component {
         id: params.id
       }).then(function(response) {
         //获取localStorage数据s
-        let keyWord = params.orderId+ params.customerId+'RENEWedit';
+        let keyWord = params.orderId+ params.customerId+params.id+'RENEWedit';
         let mainbillId = localStorage.getItem(keyWord +'mainbillid');
         let customerId = localStorage.getItem(keyWord +'customerId');
 

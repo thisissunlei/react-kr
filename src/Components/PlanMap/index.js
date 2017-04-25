@@ -3,10 +3,7 @@ import React from 'react';
 
 import PlanMap from './Lib/PlanMap';
 
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 export default  class PlanMapComponent extends React.Component {
 
@@ -79,7 +76,7 @@ export default  class PlanMapComponent extends React.Component {
 	getBasicInfo = ()=>{
 
 		var _this = this;
-	 	Store.dispatch(Actions.callAPI('planMap',Object.assign({},this.props))).then(function(response){
+	 	Http.request('planMap',Object.assign({},this.props)).then(function(response){
 	           var data  = response.shift();
 	          var stationsDataOrigin = data.figures;
 	          var stations = [];

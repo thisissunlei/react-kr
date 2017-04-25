@@ -12,8 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -70,14 +69,14 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditIncreaseContract', formValues).then(function(response) {
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
 			}]);
 			this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			this.props.CommunityAgreementList.openEditAgreement=false;
-			
+
 			//location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
@@ -106,19 +105,19 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
-			
+
 			initialValues.contractcode = response.contractCode;
 
 
@@ -156,9 +155,9 @@ export default class JoinCreate extends Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+			Http.request('show-checkin-agreement', {
 				id: params.id
-			})).then(function(response) {
+			}).then(function(response) {
 
 
 				optionValues.lessorContactName = response.lessorContactName;

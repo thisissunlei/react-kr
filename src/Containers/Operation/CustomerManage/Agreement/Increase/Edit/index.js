@@ -83,7 +83,7 @@ export default class JoinCreate extends React.Component {
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+params.customerId+'ADDRENTedit';
+		let keyWord = params.orderId+params.customerId+params.id+'ADDRENTedit';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -101,7 +101,6 @@ export default class JoinCreate extends React.Component {
 		let {
 			params
 		} = this.props;
-		console.log('=============',params);
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+params.id+'ADDRENTedit';

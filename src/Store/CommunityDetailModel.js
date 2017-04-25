@@ -8,6 +8,7 @@ import mobx, {
 import {
 	Message
 } from "kr-ui";
+import {Http} from "kr/Utils";
 import {Actions,Store} from 'kr/Redux';
 //全局store
 let State = observable({
@@ -34,7 +35,7 @@ State.orderList=action(function(params) {
 	}
     var _this=this;
     this.orderLeading = true;
-	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
+	Http.request('customerOrdersList',{customerId:params}).then(function(response) {
         _this.orderDetail = response;
         _this.orderLeading = false;
 	}).catch(function(err) {
@@ -61,7 +62,7 @@ State.lookListId=action(function(params,operType) {
     data.id=params;
     data.operType=operType;
     _this.loading=true;
-	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
+	Http.request('get-detail-info',data).then(function(response) {
          _this.detail=response;
          _this.loading=false;
 				 if(response.sourceName && response.sourceName.indexOf('推荐') != -1){

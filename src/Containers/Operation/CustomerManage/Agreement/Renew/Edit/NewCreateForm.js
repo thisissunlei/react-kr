@@ -168,7 +168,7 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos
 		});
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
 
 
 
@@ -178,7 +178,7 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
-			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'RENEWedittotalrent', JSON.stringify(response));
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
 			
 			_this.setState({
 				allRent:response
@@ -211,8 +211,8 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'RENEWeditstationVos', JSON.stringify(stationVos));
-		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'RENEWeditdelStationVos', JSON.stringify(delStationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditdelStationVos', JSON.stringify(delStationVos));
 
 
 
@@ -560,9 +560,9 @@ const validate = values => {
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
 			}
 	    };
 	}

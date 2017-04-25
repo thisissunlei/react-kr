@@ -98,7 +98,7 @@ export default class JoinCreate extends React.Component {
 
    removeLocalStorage=()=>{
     let {params} = this.props;
-    let keyWord = params.orderId+''+params.customerId+'RENEWedit';
+    let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'RENEWedit';
     let removeList = [];
     for (var i = 0; i < localStorage.length; i++) {
       let itemName = localStorage.key(i);
@@ -147,6 +147,7 @@ export default class JoinCreate extends React.Component {
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       initialValues.setLocalStorageDate = +new Date();
+     
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
       initialValues.contracttype = 'RENEW';
 
@@ -178,7 +179,7 @@ export default class JoinCreate extends React.Component {
       }).then(function(response) {
 
         //获取localStorage数据s
-        let keyWord = params.orderId+''+ params.customerId+'RENEWedit';
+        let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'RENEWedit';
         let mainbillId = localStorage.getItem(keyWord +'mainbillid');
         let customerId = localStorage.getItem(keyWord +'customerId');
 
@@ -311,7 +312,7 @@ export default class JoinCreate extends React.Component {
 
 
         //获取localStorage数据s
-        let keyWord = params.orderId+''+ params.customerId+'RENEWedit';
+        let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'RENEWedit';
         let mainbillId = localStorage.getItem(keyWord +'mainbillid');
         let customerId = localStorage.getItem(keyWord +'customerId');
 
@@ -392,7 +393,7 @@ export default class JoinCreate extends React.Component {
     } = this.props;
     let _this = this;
     let sign = false;
-    let keyWord = params.orderId+''+ params.customerId+'RENEWedit';
+    let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'RENEWedit';
        if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
         _this.setState({
           openLocalStorages:true
@@ -423,6 +424,7 @@ export default class JoinCreate extends React.Component {
 
 
   render() {
+
 
     let {
       initialValues,
