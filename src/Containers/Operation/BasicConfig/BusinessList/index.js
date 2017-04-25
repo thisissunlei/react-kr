@@ -154,7 +154,7 @@ class BusinessList  extends React.Component{
    //高级查询确定
    upperFormSubmit = (values) =>{
 
-	   	
+
 
 	   	let {searchParams} = this.state;
 		let date = new Date();
@@ -174,7 +174,6 @@ class BusinessList  extends React.Component{
    }
    //提交新建
 	onSubmit = (params) =>{
-    console.log("eeeee");
 		let {id} = this.state;
 		let _this = this;
 
@@ -396,7 +395,7 @@ searchChange = (values) =>{
 				<BusinessSearchForm
 				    onCancel={this.closeUpperForm}
 				    onSubmit={this.upperFormSubmit}
-				    
+
 				/>
 		  </Dialog>
 
