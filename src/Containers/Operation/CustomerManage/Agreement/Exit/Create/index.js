@@ -152,7 +152,6 @@ export default class JoinCreate extends React.Component {
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
-			console.log(localStorage.getItem(keyWord+'num'),localStorage.getItem(keyWord+'oldNum'))
 
 			initialValues.setLocalStorageDate = +new Date();
 
