@@ -2,6 +2,8 @@
 import React, {PropTypes} from 'react';
 import {reduxForm,formValueSelector,initialize,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -76,7 +78,7 @@ import imgLine from './images/line.png'
 			communityId:url.communityId,
 			companyId:url.companyId,
 		}
-		 Store.dispatch(Actions.callAPI('getMemberBasicData',params)).then(function(response){
+		Http.request('getMemberBasicData',params).then(function(response){
 			 response.jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
@@ -103,7 +105,7 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 
-		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
+		Http.request('isPhoneRegistered',params).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '1';
@@ -152,7 +154,7 @@ import imgLine from './images/line.png'
 		 	return;
 		 }
 
-		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+		Http.request('isEmailRegistered',params).then(function(response){
 				//邮箱已注册
 				Message.warn('该邮箱已被绑定','error');
 				_this.setState({
@@ -170,7 +172,7 @@ import imgLine from './images/line.png'
 	 	let _this = this;
 	 	let communityName = '';
 
-	 	Store.dispatch(Actions.callAPI('searchCommunityByCommunityText')).then(function(response){
+	 	Http.request('searchCommunityByCommunityText').then(function(response){
 				response.forEach((item)=>{
 					if(item.id == _this.params.communityId){
 						communityName = item.communityname;
@@ -203,7 +205,7 @@ import imgLine from './images/line.png'
 		 	return;
 		 }
 		 if(params.code !== undefined){
-			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+			Http.request('membersByForeignCode',params).then(function(response){
 					//会员卡号已注册
 					if(response.phone !='-1' && response.id){
 						Message.warn('此会员卡号已被绑定','error');
