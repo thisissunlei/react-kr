@@ -22,7 +22,8 @@ import {
 	KrDate,
 	DotTitle,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	KrField
 } from 'kr-ui';
 
 
