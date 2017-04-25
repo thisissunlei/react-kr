@@ -58,14 +58,14 @@ import {
 
   //确定按钮
   onSubmit = (values) =>{
-		console.log(values,"??????");
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
 	cityValue=(value)=>{
 			const {$form} = this.props;
-			$form.change('distinctId',value);
+			$form.change('districtId',value);
+
 	}
 	render(){
 		const { handleSubmit,cityName} = this.props;
@@ -82,7 +82,7 @@ import {
 						<KrField grid={1/2} name="no" style={{width:262,marginLeft:28}} component='input'  label="商圈代码" inline={false}  placeholder='请输入代码名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="商圈名称" inline={false}  placeholder='请输入商圈名称' requireLabel={true}/>
 
-						<KrField grid={1/2} label="区县" name="distinctId"  style={{width:262,marginLeft:28}} component="city"  requireLabel={false} onSubmit={this.cityValue} cityName = {cityName}/>
+						<KrField grid={1/2} label="区县" name="districtId"  style={{width:262,marginLeft:28}} component="city"  requireLabel={false} onSubmit={this.cityValue} cityName = {cityName}/>
 
 						<KrField grid={1/2}  name="sort" style={{width:262,marginLeft:28}} component='input'  label="排序" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态" requireLabel={false}>
