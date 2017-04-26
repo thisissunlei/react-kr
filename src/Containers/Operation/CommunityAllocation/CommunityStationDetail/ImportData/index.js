@@ -67,7 +67,8 @@ class ImportData extends React.Component{
 				 if (xhr.status === 200) {
 					 if (xhr.response && xhr.response.code > 0) {
 						 Message.warntimeout('文件上传成功', 'success');
-						 _this.onCancel();
+						 _this.props.CommunityStationModel.openImport=false;
+						 _this.props.CommunityStationModel.searchParams.time=+new Date();
 					 } else {
 						 Message.error(xhr.response.message);
 					 }
