@@ -39,7 +39,6 @@ import './index.less';
 		const {
 			onSubmit
 		} = this.props;
-		console.log('11')
 		onSubmit && onSubmit(form);
 
 	}
@@ -55,24 +54,19 @@ import './index.less';
 		return (
 			 <div>
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
-				    <KrField  
-				    		grid={1/2}
-							left={40}
-							right={10}
+				    <KrField 
 				    		name="company"
 				    		type="text"
-				    		style={{marginTop:4}}
+				    		style={{width:252,marginLeft:40,marginTop:4}}
 				    		label="被访公司" 
 				    		component="input" 
 				  			
 					/>
 					<KrField  
-				    		grid={1/2}
-				    		right={40}
-				    		left={10}
+				    		
 				    		name="name"
 				    		type="text"
-				    		style={{marginTop:4}}
+				    		style={{width:252,marginLeft:40,marginTop:4}}
 				    		label="被访人" 
 				    		component="input" 
 				  			
@@ -87,32 +81,28 @@ import './index.less';
 					>
 						<div className='ui-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="startTime" component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-start' style={{width:252}} ><KrField  style={{width:252,marginLeft:-10,marginTop:2}} name="startTime" component="date" /></div></ListGroupItem>
 									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="endTime" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-end'><KrField name="endTime" style={{width:252,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		                </div>
 					</KrField>
 					
 					<KrField  
-							grid={1/2}
-							left={40}
-							right={5}
+							style={{width:252,marginLeft:40,marginTop:4}}
 							name="communityId" 
 							type="select" 
 							component="input" 
 							label="社区名称" 
 					 />
 					 <KrField  
-							grid={1/2}
-							right={40}
-							left={5}
+							style={{width:252,marginLeft:40,marginTop:4}}
 							name="visitName" 
 							type="text" 
 							component="input" 
 							label="访客名称" 
 					 />
-				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
+				<Grid style={{marginTop:20,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
