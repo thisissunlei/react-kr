@@ -178,8 +178,8 @@ export default class increaseCreate extends React.Component {
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			initialValues.signdate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
-			initialValues.firstpaydate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
+			// initialValues.signdate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
+			// initialValues.firstpaydate = DateFormat(+new Date(),'yyyy-mm-dd hh:MM:ss');
 
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
@@ -192,7 +192,6 @@ export default class increaseCreate extends React.Component {
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
-			initialValues.agreement = '无';
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -283,6 +282,8 @@ export default class increaseCreate extends React.Component {
 				initialValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
 				initialValue.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 				initialValue.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
+				initialValues.paymodelName = localStorage.getItem(keyWord+'paymodelName');
+				initialValues.paytypeName = localStorage.getItem(keyWord+'paytypeName');
 
 				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
 				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
@@ -292,7 +293,7 @@ export default class increaseCreate extends React.Component {
 				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement');
 				initialValue.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
 				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
