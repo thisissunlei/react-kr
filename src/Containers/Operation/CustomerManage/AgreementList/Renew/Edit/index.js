@@ -358,7 +358,7 @@ export default class JoinCreate extends React.Component {
 
         }
           initialValues.agreement = localStorage.getItem(keyWord+'agreement');
-        initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel') ||response.lessorContacttel;
+        initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
 
         //时间
         initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate')||DateFormat(response.firstpaydate, "yyyy-mm-dd hh:MM:ss");
@@ -370,7 +370,7 @@ export default class JoinCreate extends React.Component {
         //处理stationvos
         initialValues.stationVos =  response.stationVos;
         
-        stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
+        stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 
         _this.setState({
           initialValues,

@@ -339,6 +339,7 @@ class NewCreateForm extends React.Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 
 			let stationVos = nextProps.stationVos;
+			let initialValues = nextProps.initialValues;
 
 			let originStationVos = [].concat(stationVos);
 
@@ -362,6 +363,8 @@ class NewCreateForm extends React.Component {
 			        	})
 			        }     	     
 			});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+''+initialValues.id+'LESSRENTeditstationVos', JSON.stringify(stationVos));
+
 			this.isInit = true;
 		};
 	}
