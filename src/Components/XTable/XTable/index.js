@@ -224,7 +224,6 @@ export default class XTable extends React.Component {
   }
 
   onPageChange = (page)=>{
-    console.log('ddd');
     this.onLoadData(page);
   }
 

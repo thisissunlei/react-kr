@@ -150,7 +150,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		});
-		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
 
 		this.setState({
 			stationVos
@@ -161,6 +161,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('renewEditForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('renewEditForm', 'lessorContactName', personel.lastname));
 	}
 
 	// station list
@@ -176,7 +177,7 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos
 		});
-		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
 
 		this.openStationDialog();
 	}
@@ -185,7 +186,7 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
-			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'RENEWedittotalrent', JSON.stringify(response));
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
 			_this.setState({
 				allRent:response
 			})
@@ -217,8 +218,8 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
-		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'RENEWeditstationVos', JSON.stringify(stationVos));
-		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'RENEWeditdelStationVos', JSON.stringify(delStationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditdelStationVos', JSON.stringify(delStationVos));
 
 
 		this.setState({
@@ -618,9 +619,15 @@ const validate = values => {
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editcontractmark','');
+
 			}
 	    };
 	}

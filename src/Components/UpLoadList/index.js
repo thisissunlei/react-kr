@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Notify from '../Notify';
-import { Actions, Store } from 'kr/Redux';
 import {ShallowEqual} from 'kr/Utils';
-
+import {Http} from 'kr/Utils';
 import './index.less';
 export default class UpLoadList extends React.Component {
 
@@ -112,9 +111,9 @@ export default class UpLoadList extends React.Component {
 		if(open[1] != id){
 			return ;
 		}
-		Store.dispatch(Actions.callAPI('getFileList', {
+		Http.request('getFileList', {
 			detailId: id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				files:response
 			})
@@ -126,10 +125,10 @@ export default class UpLoadList extends React.Component {
 	}
 	saveFileList=(id)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('saveFileList', {
+		Http.request('saveFileList', {
 			detailId: _this.props.detail.id,
 			fileId:id
-		})).then(function(response) {
+		}).then(function(response) {
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -141,10 +140,10 @@ export default class UpLoadList extends React.Component {
 
 	delete(id){
 		let _this = this;
-		Store.dispatch(Actions.callAPI('deleteFileList', {
+		Http.request('deleteFileList', {
 			detailId: _this.props.detail.id,
 			fileId:id.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.getFileList(_this.props.detail.id);
 		}).catch(function(err) {
 			Notify.show([{

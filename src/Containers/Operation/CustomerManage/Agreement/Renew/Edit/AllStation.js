@@ -2,7 +2,7 @@ import React, {   PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { Binder } from 'react-binding';
 
-import { DateFormat } from 'kr/Utils';
+import { DateFormat ,Http} from 'kr/Utils';
 
 import { reduxForm, formValueSelector, change, initialize, arrayPush, arrayInsert, FieldArray } from 'redux-form';
 
@@ -89,12 +89,12 @@ class SelectStationForm extends React.Component {
 		let {
 			params
 		} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList', {
+		Http.request('getStationOrSettingList', {
 			mainBillid: params.orderId,
 			page: 1,
 			pagesize: 100,
 			contractId: params.id
-		})).then(function(response) {
+		}).then(function(response) {
 			response.items = response.items.map((item)=>{
 				if(item.show){
 					item.rentBeginDate = item.lastEditDate;

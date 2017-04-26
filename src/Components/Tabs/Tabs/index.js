@@ -79,7 +79,6 @@ export default class TabsComponent extends React.Component {
 			}
 
 		}
-		console.log()
 			
 
 

@@ -16,6 +16,7 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 import nzh from 'nzh';
+import {Http} from 'kr/Utils'
 import {
 	reduxForm,
 	formValueSelector,
@@ -186,7 +187,7 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -295,14 +296,14 @@ class NewCreateForm extends Component {
 			            _this.setState({
 			            	stationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
+			            })
 			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		stationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	     	 
+			        }
 			});
 			this.isInit = true;
 		};
@@ -347,7 +348,7 @@ class NewCreateForm extends Component {
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		
+
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -363,7 +364,7 @@ class NewCreateForm extends Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-    
+
     addClick=()=>{
       let {oldBasicStationVos,stationVos,openMinus,openAdd}=this.state;
 	   this.setState({
@@ -496,7 +497,7 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 						</div>
-                        
+
                          {openAdd&&this.addRender()}
 			             {openMinus&&this.minusRender()}
 

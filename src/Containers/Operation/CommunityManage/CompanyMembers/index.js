@@ -15,6 +15,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
+import {Http} from 'kr/Utils';
 
 import {
 	Tab,
@@ -140,7 +141,7 @@ export default class CompanyMembers extends React.Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
-		Store.dispatch(Actions.callAPI('validMember',{memberIds:String(selecedList),companyId:_this.companyId} )).then(function(response) {
+		Http.request('validMember',{memberIds:String(selecedList),companyId:_this.companyId} ).then(function(response) {
 			_this.validateMember();
 			// Message.show([{
 			// 	message: '设置成功',
@@ -239,7 +240,7 @@ export default class CompanyMembers extends React.Component {
 			memberIds:itemDetail.id
 		}
 		let _this = this;
-		Store.dispatch(Actions.callAPI('setLeader', params)).then(function(response) {
+		Http.request('setLeader', params).then(function(response) {
 			if(value.isLeader){
 				_this.setLeaders();
 			}else{
@@ -271,7 +272,7 @@ export default class CompanyMembers extends React.Component {
 	editMemberForm=(value)=>{
 		let _this = this;
 		let params = value;
-		Store.dispatch(Actions.callAPI('membersChange',{}, params)).then(function(response) {
+		Http.request('membersChange',{}, params).then(function(response) {
 			_this.editMembers()
 			// Notify.show([{
 			// 	message: '设置成功',
@@ -327,7 +328,7 @@ export default class CompanyMembers extends React.Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
-		Store.dispatch(Actions.callAPI('deleteMembers',{memberIds:String(selecedList)} )).then(function(response) {
+		Http.request('deleteMembers',{memberIds:String(selecedList)} ).then(function(response) {
 			_this.batchDelet();
 			// Notify.show([{
 			// 	message: '设置成功',
@@ -380,7 +381,7 @@ export default class CompanyMembers extends React.Component {
 	}
 	onNewCreateSubmit=(values)=>{
 		var _this = this;
-			Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+			Http.request('membersChange',{},values).then(function(response){
 			_this.createMember();
 			// Notify.show([{
  		// 	 message: '成功',
@@ -419,7 +420,7 @@ export default class CompanyMembers extends React.Component {
 		let searchParam = {
 			registerSourceId :''
 		}
-		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
+		Http.request('membersList',searchParam).then(function(response){
 
 
 		}).catch(function(err){

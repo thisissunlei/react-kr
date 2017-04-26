@@ -90,7 +90,6 @@ export default class SearchCommunity extends React.Component {
 			requireLabel,
 			...other
 		} = this.props;
-		console.log('krfield',inline);
 		return (
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
 					<ReactSelectAsync

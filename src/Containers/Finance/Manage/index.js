@@ -1,7 +1,4 @@
 import {
-	default as CodeSetting
-} from './CodeSetting';
-import {
 	default as OrderBill
 } from './OrderBill';
 import {
@@ -16,7 +13,6 @@ import {
 
 module.exports = {
 	OrderBill,
-	CodeSetting,
 	Invoice,
 	FundSetting,
 	Audit

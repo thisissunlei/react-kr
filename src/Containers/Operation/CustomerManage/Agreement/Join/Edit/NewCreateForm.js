@@ -608,7 +608,6 @@ class NewCreateForm extends React.Component {
 			HeightAuto,
 			allRent
 		} = this.state;
-		console.log('totalrent',initialValues.totalrent);
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		let  allRentName = this.dealRentName(allRent);
 
@@ -773,7 +772,6 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	console.log('dasdasd',values);
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -866,6 +864,12 @@ const validate = values => {
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createcontractmark','');
+
 			}
 	    };
 	}

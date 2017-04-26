@@ -208,7 +208,6 @@ class NewCreateForm extends React.Component {
 			leaseBegindate,
 			leaseEnddate
 		} = changeValues;
-		console.log(changeValues);
 
 		if (!wherefloor) {
 			Notify.show([{
@@ -932,6 +931,12 @@ const validate = values => {
 							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
 						}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 							localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+						}else if(i =='agreement' && !!!values[i]){
+							localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createagreement','');
+
+						}else if(i =='contractmark' && !!!values[i]){
+							localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createcontractmark','');
+
 						}
 
 	        };

@@ -79,9 +79,9 @@ class EditMoney extends React.Component {
 	getTableInfo = () => {
 			var _this = this;
 				var finaVerifyId = this.props.detail.id
-			Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+			Http.request('get-fina-flow-logs', {
 				finaVerifyId: finaVerifyId
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				_this.setState({
 					topInfoList: response
 				})

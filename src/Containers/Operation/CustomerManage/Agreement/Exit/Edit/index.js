@@ -201,11 +201,7 @@ export default class EditCreate extends React.Component {
           initialValues.paymodel =  parseInt(localStorage.getItem(keyWord+'paymodel'))||response.payment.id;
 
         }
-        if(!response.hasOwnProperty('agreement')  || !!!response.agreement){
-          initialValues.agreement =  localStorage.getItem(keyWord+'agreement')||'无';
-        }else{
-          initialValues.agreement =  localStorage.getItem(keyWord+'agreement')||response.agreement;
-        }
+          initialValues.agreement =  localStorage.getItem(keyWord+'agreement');
         initialValues.stationnum =  localStorage.getItem(keyWord+'stationnum')||response.stationnum;
         initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor')|| response.wherefloor;
         initialValues.rentaluse =  localStorage.getItem(keyWord+'rentaluse')||response.rentaluse;
@@ -252,7 +248,7 @@ export default class EditCreate extends React.Component {
 
 
 
-  getBasic=()=>{
+  getBasicData=()=>{
      var _this = this;
     const {
       params
@@ -397,7 +393,6 @@ export default class EditCreate extends React.Component {
     })
     
     this.getLocalStorageSata();
-    console.log('getLocalStorage')
   }
 
 

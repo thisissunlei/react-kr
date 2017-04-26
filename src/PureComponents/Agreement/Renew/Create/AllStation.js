@@ -111,12 +111,12 @@ class SelectStationForm extends Component {
 		let {
 			params
 		} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList', {
+		Http.request('getStationOrSettingList', {
 			mainBillid: params.orderId,
 			page: 1,
 			pagesize: 100,
 			contractId: ''
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				stationVos: response.items
 			});

@@ -16,6 +16,7 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 import nzh from 'nzh';
+import {Http} from 'kr/Utils'
 import {
 	reduxForm,
 	formValueSelector,
@@ -172,7 +173,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
+		Http.request('reduceGetAllRent',{stationList:JSON.stringify(list),billId:_this.props.params.orderId}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -348,14 +349,14 @@ class NewCreateForm extends Component {
 			            _this.setState({
 			            	stationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
+			            })
 			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		stationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	     
+			        }
 			});
 			this.isInit = true;
 		};
@@ -515,7 +516,7 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 						</div>
-                        
+
                          {openAdd&&this.addRender()}
 			             {openMinus&&this.minusRender()}
 

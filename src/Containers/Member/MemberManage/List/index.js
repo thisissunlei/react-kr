@@ -233,7 +233,7 @@ export default class List extends React.Component {
 			value: 'NAME'
 		}];
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
