@@ -49,7 +49,8 @@ import {
 	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	CircleStyle,
+	Dialog
 } from 'kr-ui';
 
 
