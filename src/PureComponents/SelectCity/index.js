@@ -14,8 +14,11 @@ import {
 } from 'kr-ui';
 import {
 	observer,
+	inject
 } from 'mobx-react';
 import './index.less';
+@inject("CommunityMeetingModel")
+@inject("CommunityStationModel")
 @observer
 export default class  SelectCity extends React.Component{
 
@@ -55,9 +58,19 @@ export default class  SelectCity extends React.Component{
  switchGoDetail=(communityId)=>{
 	 let {type}=this.state;
 	 if(type=='STATION'){
+	 	 this.props.CommunityStationModel.searchParams={
+	 	 	page:1,
+	 	 	pageSize:15,
+	 	 	communityId:communityId
+	 	 }
 		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityStationDetail`;
 	 }
 	 if(type=='SPACE'){
+	 	 this.props.CommunityMeetingModel.searchParams={
+	 	 	page:1,
+	 	 	pageSize:15,
+	 	 	communityId:communityId
+	 	 }
 		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityMeetingRoomDetail`;
 	 }
 
