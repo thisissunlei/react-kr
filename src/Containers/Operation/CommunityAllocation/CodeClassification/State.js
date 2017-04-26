@@ -48,7 +48,8 @@ State.addCodeSubmit = action(function(params) {
    _this.searchParams={
 		 page:1,
 		 pageSize:15,
-		 time:+new Date()
+		 time:+new Date(),
+		 pid:_this.searchParams.pid
 	 }
 	}).catch(function(err) {
     Message.error(err.message);

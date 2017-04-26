@@ -56,23 +56,23 @@ class  CodeClassification extends React.Component{
 			State.parentName=itemDetail.pname;
 		}
 	}
-  //编辑取消
+    //编辑取消
 	cancelAddCode=()=>{
     State.editCodeOpen();
 	}
 
- //打开关闭新建代码弹窗
+    //打开关闭新建代码弹窗
 	openAddCode=()=>{
 		State.addCodeOpen();
 	}
 
 	//新建代码提交
 	codeSubmit=(params)=>{
-    State.addCodeSubmit(params);
+       State.addCodeSubmit(params);
 	}
 
 
- //全关
+    //全关
 	whiteClose=()=>{
 		State.openCode=false;
 		State.openCodeEdit=false;
@@ -108,7 +108,6 @@ Debug.log('bug',values);
 
 //搜索
 onSearchSubmit=(params)=>{
-	console.log(">>>>>")
 	let {searchParams}=State;
 	State.searchParams={
 		noOrName:params.content,
