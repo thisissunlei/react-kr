@@ -52,6 +52,14 @@ export default class Visitor extends React.Component{
 		})
 		this.openSearchDialog();
 	}
+	onSerchSubmit=(form)=>{
+		this.setState({
+			searchParams:{
+				company:form.content
+			}
+		})
+		
+	}
 
 	onExport=(values)=>{
 		let idList = [];
@@ -62,7 +70,7 @@ export default class Visitor extends React.Component{
 		}
 		console.log('idList----',idList)
 		
-		var url = `/api/krspace-finance-web/cmt/visit/export-excel?idList=${idList}`
+		var url = `./api/krspace-finance-web/cmt/visit/export-excel?idList=${idList}`
 		window.location.href = url;
 	}
 
@@ -75,7 +83,7 @@ export default class Visitor extends React.Component{
 								<Section title="访客列表" description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit=""  style={{marginTop:5,zIndex:10000}} />
+										<SearchForms onSubmit={this.onSerchSubmit} placeholder="请输入被访公司名称"  style={{marginTop:5,zIndex:10000}} />
 									</form>
 									<Table
 											style={{marginTop:10,position:'inherit'}}
