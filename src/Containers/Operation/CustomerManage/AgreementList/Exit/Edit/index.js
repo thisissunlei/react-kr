@@ -52,7 +52,7 @@ export default class EditCreate extends React.Component {
   onCreateSubmit(formValues) {
     const {params} = this.props;
     let _this = this;
-    Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
+    Http.request('addFnaContractWithdrawal',formValues).then(function(response) {
     _this.removeLocalStorage();
       Notify.show([{
         message: '编辑成功',
