@@ -37,6 +37,11 @@ class EditMeeting  extends React.Component{
 			var _this=this;
 			Http.request('meeting-room-eidData',data).then(function(response) {
 				   //$form.changeValues(response);
+				   if(response.enable==1){
+				   	 response.enable='1';
+				   }else if(response.enable==0){
+				   	 response.enable='0'; 
+				   }
 				   let deviceSpace=[];
 				   _this.props.CommunityMeetingModel.spaceDevices.map((items,index)=>{
 			        let list={};
