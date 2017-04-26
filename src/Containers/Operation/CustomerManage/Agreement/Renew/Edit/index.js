@@ -362,11 +362,7 @@ export default class JoinCreate extends React.Component {
           });
 
         }
-        if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-          initialValues.agreement = localStorage.getItem(keyWord+'agreement') ||'无';
-        }else{
-          initialValues.agreement = localStorage.getItem(keyWord+'agreement') ||response.agreement;
-        }
+          initialValues.agreement = localStorage.getItem(keyWord+'agreement');
         initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel') ||response.lessorContacttel;
 
         //时间

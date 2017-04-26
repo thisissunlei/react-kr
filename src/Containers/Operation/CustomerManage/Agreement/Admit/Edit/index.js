@@ -354,11 +354,7 @@ export default class JoinCreate extends React.Component {
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
 				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')|| response.lessorContacttel;
 				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment')|| response.totaldownpayment;
-				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
-				}else{
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| response.agreement;
-				}
+					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 
 				//时间
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate')|| DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
