@@ -252,7 +252,7 @@ export default class EditCreate extends React.Component {
 
 
 
-  getBasic=()=>{
+  getBasicData=()=>{
      var _this = this;
     const {
       params

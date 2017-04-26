@@ -337,15 +337,9 @@ export default class JoinCreate extends React.Component {
         		initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType')||response.contractVersion;
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')||response.lessorContactid;
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||response.contractmark;
-				// if (response.rentamount) {contractmark
-					initialValues.rentamount = localStorage.getItem(keyWord+'rentamount')||response.rentamount|| 0;
-				// }
+				initialValues.rentamount = localStorage.getItem(keyWord+'rentamount')||response.rentamount|| 0;
 				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')||response.lessorContacttel;
-				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')||'无';
-				}else{
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')||response.agreement;
-				}
+					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate')||DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.rentamount = response.rentamount;
