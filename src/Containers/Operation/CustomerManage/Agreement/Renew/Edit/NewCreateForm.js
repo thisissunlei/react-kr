@@ -170,6 +170,7 @@ class NewCreateForm extends React.Component {
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
 
 
+		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
 
 		this.openStationDialog();
 	}
@@ -178,6 +179,7 @@ class NewCreateForm extends React.Component {
 		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('reduceCreateForm', 'totalrent', response));
 			
 			_this.setState({
 				allRent:response
@@ -497,6 +499,22 @@ const validate = values => {
 
 	const errors = {}
 
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
+
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
@@ -554,23 +572,6 @@ const validate = values => {
 	}
 
 
-	++values.num;
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'editagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'editcontractmark','');
-
-			}
-	    };
-	}
 
 
 

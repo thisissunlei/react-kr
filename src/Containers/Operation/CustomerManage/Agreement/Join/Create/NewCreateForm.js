@@ -631,7 +631,7 @@ class NewCreateForm extends React.Component {
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
 				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
 				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress');
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
 
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
@@ -928,6 +928,21 @@ const validate = values => {
 
 	const errors = {}
 
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,'');
+
+			}
+	    };
+	}
+
 
 	if (!values.leaseId) {
 		errors.leaseId = '请输入出租方';
@@ -1005,23 +1020,7 @@ const validate = values => {
 	}
 
 
-	++values.num;
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createcontractmark','');
-
-			}
-	    };
-	}
+	
 
 	return errors
 }
