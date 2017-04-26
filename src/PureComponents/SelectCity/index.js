@@ -97,9 +97,9 @@ export default class  SelectCity extends React.Component{
 							</Row>
 
 		         <div style={{marginTop:'20px',paddingBottom:20}}>
-							 {cityData.map((item)=>{
+							 {cityData.map((item,index)=>{
 								 return (
-								 <div>
+								 <div key = {index}>
 									 <div className='city-name'>{item.name}</div>
 									 <ul>
 									   {item.communitys.map((items)=>{
