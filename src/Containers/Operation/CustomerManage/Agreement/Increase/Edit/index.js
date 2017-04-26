@@ -78,7 +78,7 @@ export default class JoinCreate extends React.Component {
 		let {
 			params
 		} = this.context;
-		this.removeLocalStorage();
+		this.cancelRemoveLocalStorage();
 		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 	removeLocalStorage=()=>{
@@ -95,7 +95,20 @@ export default class JoinCreate extends React.Component {
  			 localStorage.removeItem(item);
  		})
 	}
-
+	cancelRemoveLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+params.id+'ADDRENTedit';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 
 	getlocalSign=()=>{
 		let {

@@ -69,7 +69,7 @@ export default class EditCreate extends React.Component {
   }
 
   onCancel() {
-    this.removeLocalStorage();
+    this.cancelRmoveLocalStorage();
     window.history.back();
   }
   removeLocalStorage=()=>{
@@ -86,7 +86,20 @@ export default class EditCreate extends React.Component {
        localStorage.removeItem(item);
     })
   }
-
+  cancelRmoveLocalStorage=()=>{
+    let {params} = this.props;
+    let keyWord = params.orderId+params.customerId +'QUITRENTedit';
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+         removeList.push(itemName);
+       }
+     }
+     removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
+  }
   getlocalSign=()=>{
     let {
       params
