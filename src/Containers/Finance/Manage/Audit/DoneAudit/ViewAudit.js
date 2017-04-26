@@ -295,7 +295,7 @@ export default class ViewAudit extends React.Component {
                             component="labelText" 
                             inline={false} 
                             label="收款日期" 
-                            value={dateFormat(infoList.dealTime, "yyyy-mm-dd")}
+                            value={DateFormat(infoList.dealTime, "yyyy-mm-dd")}
                     />
                     <KrField 
                             style={{width: 548 }}
