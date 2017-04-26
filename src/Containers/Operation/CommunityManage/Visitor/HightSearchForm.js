@@ -28,9 +28,19 @@ import './index.less';
 	componentDidMount() {
 
 	}
+	onCancel = () => {
+		const {
+			onCancel
+		} = this.props;
+		onCancel && onCancel();
+	}
 	
 	onSubmit=(from)=>{
 		console.log('from-----',from)
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(form);
 	}
 
 	

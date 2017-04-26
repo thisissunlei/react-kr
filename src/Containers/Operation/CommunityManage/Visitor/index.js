@@ -16,9 +16,8 @@ import {
 	Message,
 	
 } from 'kr-ui';
-import './index.less';
 import HightSearchForm from "./HightSearchForm";
-
+import './index.less';
 
 export default class Visitor extends React.Component{
 
