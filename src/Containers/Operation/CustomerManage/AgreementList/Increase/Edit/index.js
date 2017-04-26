@@ -99,7 +99,7 @@ export default class JoinCreate extends React.Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
+		let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -182,7 +182,7 @@ export default class JoinCreate extends React.Component {
 				id: params.id
 			}).then(function(response) {
 
-				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
+				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 				initialValues.num = localStorage.getItem(keyWord+'num')||1;
 				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
 				optionValues.lessorContactName = response.lessorContactName;
@@ -234,7 +234,6 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
-				console.log('err',err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -317,7 +316,7 @@ export default class JoinCreate extends React.Component {
 			Http.request('show-checkin-agreement', {
 				id: params.id
 			}).then(function(response) {
-				let keyWord = params.orderId+''+params.customerId+'ADDRENTedit';
+				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
 				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'))|| response.contractFileList;
 				initialValues.id = response.id;
@@ -341,11 +340,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent')|| response.totalrent;
 				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')|| response.totaldeposit;
 				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')|| response.lessorContacttel;
-				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
-				}else{
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| response.agreement;
-				}
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement')
 				//时间
 				initialValues.firstpaydate =localStorage.getItem(keyWord+'firstpaydate')||  DateFormat(response.firstpaydate,'yyyy-mm-dd hh:MM:ss');
 				initialValues.signdate =localStorage.getItem(keyWord+'signdate')||  DateFormat(response.signdate,'yyyy-mm-dd hh:MM:ss');
@@ -394,7 +389,7 @@ getlocalSign=()=>{
     } = this.props;
     let _this = this;
     let sign = false;
-    let keyWord = params.orderId+''+ params.customerId+'ADDRENTedit';
+    let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'ADDRENTedit';
        if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
         _this.setState({
           openLocalStorages:true

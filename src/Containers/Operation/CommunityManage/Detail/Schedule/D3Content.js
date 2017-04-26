@@ -7,7 +7,7 @@ import {
 	 	} from 'kr-ui';
 import { findDOMNode } from 'react-dom'
 import ReactTooltip from 'react-tooltip'
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import $ from 'jquery';
 
 export default class D3Content extends React.Component {
@@ -309,7 +309,7 @@ export default class D3Content extends React.Component {
 		let _this =this;
 		let id = this.props.id;
 		let remindDate = DateFormat(data.pointDate,'yyyy-mm-dd HH:MM:ss');
-	    Store.dispatch(Actions.callAPI('getRedPoint',{billId:id,remindDate:remindDate})).then(function(response) {
+	    Http.request('getRedPoint',{billId:id,remindDate:remindDate}).then(function(response) {
 
 	      
 
@@ -358,7 +358,7 @@ export default class D3Content extends React.Component {
 	getBlueInfo(data){
 		let _this =this;
 		let id = this.props.id;
-	    Store.dispatch(Actions.callAPI('getBluePoint',{billId:id,detailId:data.detailId})).then(function(response) {
+	    Http.request('getBluePoint',{billId:id,detailId:data.detailId}).then(function(response) {
 
 	      
 

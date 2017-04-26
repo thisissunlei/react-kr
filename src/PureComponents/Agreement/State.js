@@ -13,6 +13,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
 } from 'kr-ui';
+import {Http} from "kr/Utils";
 
 let State = observable({
 	   	//第二次打开的新建
@@ -76,7 +77,7 @@ State.ajaxListData=action(function(ajaxData){
 	    //错误到了这一层要深究
 		ajaxData = Object.assign({},ajaxData);
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('contract-list', ajaxData)).then(function(response) {
+		Http.request('contract-list', ajaxData).then(function(response) {
 			_this.contractList=response.items;
 			_this.totalPaper=response.totalCount;
 			_this.page=response.page;
@@ -93,7 +94,7 @@ State.ajaxListData=action(function(ajaxData){
 //获取登录人是否有创建合同的权限
 State.createContract=action(function(){
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('edit-right')).then(function(response) {
+		Http.request('edit-right').then(function(response) {
 		  _this.editRight=response.hasEditRight
 		}).catch(function(err) {
 			Message.error(err.message);

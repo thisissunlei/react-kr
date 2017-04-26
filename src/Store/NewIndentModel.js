@@ -12,6 +12,7 @@ import {
 import {
 	Message
 } from 'kr-ui';
+import {Http} from "kr/Utils";
 let State = observable({
 		matureTime:false,
 		selectData:{
@@ -153,7 +154,7 @@ State.exportData = action(function(value) {
 //个人客户转移提交
 State.switchSureSubmit= action(function(value) {
 	var _this=this;
-	Store.dispatch(Actions.callAPI('customerTransfer',{},value)).then(function(response) {
+	Http.request('customerTransfer',{},value).then(function(response) {
 		     _this.openSwitch=false;
          Message.success('转移成功');
          _this.openPersonDialog=false;
@@ -174,7 +175,7 @@ State.switchSureSubmit= action(function(value) {
 	State.quitSubmit= action(function(arrItem) {
 		var ids=arrItem;
 		var _this=this;
-		Store.dispatch(Actions.callAPI('customerGiveBack',{},{ids})).then(function(response) {
+		Http.request('customerGiveBack',{},{ids}).then(function(response) {
 			 _this.openQuit=false;
 	         Message.success('取消成功');
 	         _this.openPersonDialog=false;

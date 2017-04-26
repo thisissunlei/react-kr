@@ -83,7 +83,7 @@ export default class JoinCreate extends React.Component {
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+params.customerId+'ADDRENTedit';
+		let keyWord = params.orderId+params.customerId+params.id+'ADDRENTedit';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -101,11 +101,9 @@ export default class JoinCreate extends React.Component {
 		let {
 			params
 		} = this.props;
-		console.log('=============',params);
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+params.id+'ADDRENTedit';
-		console.log(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum'))
 			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
 				_this.setState({
 					openLocalStorages:true
@@ -346,11 +344,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent')|| response.totalrent;
 				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')|| response.totaldeposit;
 				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')|| response.lessorContacttel;
-				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
-				}else{
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| response.agreement;
-				}
+					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 				//时间
 				initialValues.firstpaydate =localStorage.getItem(keyWord+'firstpaydate')||  DateFormat(response.firstpaydate,'yyyy-mm-dd hh:MM:ss');
 				initialValues.signdate =localStorage.getItem(keyWord+'signdate')||  DateFormat(response.signdate,'yyyy-mm-dd hh:MM:ss');
@@ -403,7 +397,6 @@ export default class JoinCreate extends React.Component {
 		})
 		
 		this.getLocalStorageSata();
-		console.log('getLocalStorage')
 	}
 
 

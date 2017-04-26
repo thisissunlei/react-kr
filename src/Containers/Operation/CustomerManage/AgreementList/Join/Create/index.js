@@ -137,7 +137,6 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
-		 console.log(removeList,keyWord);
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -168,7 +167,6 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('join---did------',this.props.openLocalStorages);
 		
 
 		var _this = this;
@@ -192,7 +190,6 @@ export default class JoinCreate extends React.Component {
 			initialValues.setLocalStorageDate = +new Date();
 
 			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
-			console.log(localStorage.getItem(keyWord+'num'),localStorage.getItem(keyWord+'oldNum'));
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
 			
 			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
@@ -244,7 +241,6 @@ export default class JoinCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
-			console.log('err',err);
 			Notify.show([{
 				message: '后台出错请联系管理员4',
 				type: 'danger',
@@ -301,7 +297,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement');
 				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
 				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
 				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
@@ -347,18 +343,18 @@ export default class JoinCreate extends React.Component {
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
 
-
 		return (
 
 			<div>
 
 				<Title value="创建入驻协议书_财务管理"/>
 
-			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
-			</div>}
+			
 			{openLocalStorages && <div style={{marginTop:10}}>
 				<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+			</div>}
+			{!openLocalStorages && <div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
 			</div>}
 
 			<Dialog

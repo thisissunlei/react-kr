@@ -330,7 +330,6 @@ class AddMoney extends React.Component {
 	}
 	payAccount=(item)=>{
 		this.refs.payAccount.value=item;
-		console.log('item999999',item)
 	}
 
 	onSubmit = (form) => {

@@ -3,8 +3,7 @@ import React from 'react';
 
 import ReactSelectAsync from '../../../Select/Async';
 
-import {Actions,Store} from 'kr/Redux';
-
+import {Http} from 'kr/Utils';
 
 import WrapComponent from '../WrapComponent';
 
@@ -40,7 +39,7 @@ export default class  SearchPersonelComponent extends React.Component {
 
 	getOptions(lastname){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
+			Http.request('getHrmResourceExtListByLastname',{ lastname:lastname }).then(function(response){
 				response.forEach(function(item,index){
 					item.value = item.sysloginid;
 					item.label = item.lastname;

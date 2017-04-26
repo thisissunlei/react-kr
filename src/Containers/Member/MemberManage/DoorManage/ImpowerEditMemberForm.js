@@ -155,9 +155,9 @@ export default class ImpowerEditMemberForm extends React.Component {
 		let {detail,handleSubmit} = this.props;
 		let {itemData,jobList} = this.state;
 		return (
-			<div className="edit-form" style={{paddingBottom:"3"}}>
+			<div className="edit-form" style={{paddingBottom:"3",margin:"0 20px"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-					<div className="person-info">
+					<div className="person-info" style={{margin:"20px 0"}}>
 						<span>客户姓名：&nbsp;</span>
 						<span style={{fontsize:14}}>{detail.customerName}</span>
 					</div>
@@ -171,7 +171,7 @@ export default class ImpowerEditMemberForm extends React.Component {
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>
-								<ListGroupItem style={{width:'270px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
+								<ListGroupItem style={{width:'240px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
 								<ListGroupItem style={{width:'240px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 							</ListGroup>
 						  </Row>

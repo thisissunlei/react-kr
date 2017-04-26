@@ -334,7 +334,6 @@ class NewCreateForm extends React.Component {
 			let keyWord = params.orderId+ params.customerId+'RENEWcreate';
 			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
 			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
 			if(mainbillId && customerId){
 				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
@@ -653,6 +652,12 @@ const validate = values => {
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createcontractmark','');
+
 			}
 	    };
 	}

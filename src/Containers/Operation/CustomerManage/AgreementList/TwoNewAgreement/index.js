@@ -55,6 +55,7 @@ class LookCustomerList extends Component{
 	}
 	componentDidMount(){
 		this.getlocalSign();
+		allState.openLocalStorages = false;
 		let obj = this.renderTab();
 		let defaultActive = obj.showTab[0].props.label;
 		switch (defaultActive){
@@ -231,7 +232,6 @@ class LookCustomerList extends Component{
 		let localArr = [];
 		showTab.map((item,index)=>{
 			local.map(value=>{
-				console.log(item.props.type == value,index)
 				if(item.props.type == value){
 					localArr.push(item);
 					showTab.splice(index,1)
@@ -248,10 +248,24 @@ class LookCustomerList extends Component{
 		     
 
 	}
+	removeLocalStorage=()=>{
+		let keyWord = allState.mainBillId+''+allState.listId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(itemName.indexOf(keyWord)!='-1' && itemName.indexOf('create')!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 
 	onCancelStorage=()=>{
 		allState.openLocalStorage=false;
 		allState.openLocalStorages=false;
+		this.removeLocalStorage();
 		allState.local = [];
 	}
 	getLocalStorage=()=>{

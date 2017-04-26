@@ -291,7 +291,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('componentDidMount')
 
 		let {
 			initialValues,optionValues,params
@@ -708,7 +707,6 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:830,marginLeft:70}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
-					console.log(optionValues.contractFileList);
 					if(files.length){
 						Store.dispatch(change('admitEditForm','contractFileList',files));
 					}
@@ -829,10 +827,15 @@ const validate = values => {
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
 			if(i === 'contractFileList'){
-				console.log('contractFileList',values[i])
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editcontractmark','');
+
 			}
 
 	    };

@@ -638,7 +638,7 @@ class NewCreateForm extends React.Component {
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
 				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
@@ -1004,10 +1004,16 @@ const validate = values => {
 	++values.num;
 	for(var i in values){
 	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
+			if(i === 'contractFileList'  ){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createcontractmark','');
+
 			}
 
 	    };

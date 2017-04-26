@@ -16,17 +16,7 @@ module.exports = [
 						primaryText: "账单列表",
 						router: '/finance/manage/orderbill/orderList',
 						menuCode: 'billList'
-					}, 
-					{
-						primaryText: "科目配置",
-						router: '/finance/manage/codeSetting/subject',
-						menuCode: 'finaflowAccount'
-					}, 
-					{
-						primaryText: "属性配置",
-						router: '/finance/manage/codeSetting/attribute',
-						menuCode: 'propManage'
-					}, 
+					},
 					{
 						primaryText: "款项配置",
 						router: '/finance/manage/fundSetting/totalFund',

@@ -52,18 +52,6 @@ const Finance_Manage_Invoice = (location, callback) => {
 }
 
 
-const Finance_Manage_CodeSetting_Attribute = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Finance/Manage/CodeSetting/Attribute').default)
-  }, 'Finance_Manage_CodeSetting_Attribute')
-}
-
-const Finance_Manage_CodeSetting_Subject = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Finance/Manage/CodeSetting/Subject').default)
-  }, 'Finance_Manage_CodeSetting_Subject')
-}
-
 const Finance_Manage_Audit = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Finance/Manage/Audit').default)
@@ -90,12 +78,6 @@ module.exports =()=>{
                 {/*开票列表*/}
                 <Route path="invoice" getComponent={Basic}>
                     <Route path="list" getComponent={Finance_Manage_Invoice}/>
-                </Route>
-
-                {/*代码配置*/}
-                <Route path="codeSetting" getComponent={Basic}>
-                    <Route path="attribute" getComponent={Finance_Manage_CodeSetting_Attribute}/>
-                    <Route path="subject" getComponent={Finance_Manage_CodeSetting_Subject}/>
                 </Route>
                 {/*审核列表*/}
                 <Route path="audit" getComponent={Basic}>
