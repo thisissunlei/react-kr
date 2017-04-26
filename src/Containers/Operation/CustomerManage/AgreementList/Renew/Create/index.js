@@ -59,7 +59,7 @@ export default class JoinCreate extends React.Component {
 			optionValue:{},
 			openLocalStorages:this.props.openLocalStorages
 		}
-		Store.dispatch(reset('reduceCreateForm'));
+
 	}
 
 	onCreateSubmit(formValues) {
@@ -131,7 +131,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(reset('reduceCreateForm'));
 		var _this = this;
 		const {
 			params
@@ -195,7 +195,7 @@ export default class JoinCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-		
+
 
 			_this.setState({
 				initialValues,

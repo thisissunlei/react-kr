@@ -63,7 +63,7 @@ export default class increaseCreate extends React.Component {
 			openLocalStorages:this.props.openLocalStorages
 		}
 			this.isConfirmSubmiting = false;
-		Store.dispatch(reset('increaseCreateForm'));
+
 	}
 
 	onCreateSubmit(formValues) {
@@ -149,7 +149,7 @@ export default class increaseCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(reset('increaseCreateForm'));
 		var _this = this;
 		const {
 			params,
@@ -216,7 +216,7 @@ export default class increaseCreate extends React.Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-			
+
 
 			_this.setState({
 				initialValues,
