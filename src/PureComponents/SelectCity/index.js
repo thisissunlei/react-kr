@@ -115,8 +115,8 @@ export default class  SelectCity extends React.Component{
 								 <div key = {index}>
 									 <div className='city-name'>{item.name}</div>
 									 <ul>
-									   {item.communitys.map((items)=>{
-		                   return (<li className='community-name' onClick={this.switchGoDetail.bind(this,items.id)}>{items.name}</li>)
+									   {item.communitys.map((items,index)=>{
+		                   return (<li key = {index} className='community-name' onClick={this.switchGoDetail.bind(this,items.id)}>{items.name}</li>)
 										 })}
 									 </ul>
 		             </div>
