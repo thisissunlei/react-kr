@@ -334,7 +334,6 @@ class NewCreateForm extends React.Component {
 			let keyWord = params.orderId+ params.customerId+'RENEWcreate';
 			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
 			let customerId = localStorage.getItem(keyWord +'customerId');
-			console.log('--->localStorage',mainbillId,customerId);
 			if(mainbillId && customerId){
 				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';

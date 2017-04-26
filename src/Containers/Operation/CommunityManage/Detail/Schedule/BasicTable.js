@@ -72,7 +72,6 @@ class SearchForm extends React.Component {
 	}
 	selectCommunity(personel) {
 		let id = 0;
-		console.log('item',personel);
 		if (!personel) {
 			this.setState({
 				communityids: 0

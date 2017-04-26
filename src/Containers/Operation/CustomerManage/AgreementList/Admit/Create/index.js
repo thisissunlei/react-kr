@@ -222,7 +222,6 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log( nextProps.active);
 
 		if (nextProps.active && this.props.active!= nextProps.active) {
 			this.setState({

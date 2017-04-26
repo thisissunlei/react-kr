@@ -150,7 +150,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		console.log('personel',personel);
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname));
 	}

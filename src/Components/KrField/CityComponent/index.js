@@ -66,7 +66,6 @@ export default class CityComponent extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// console.log(nextProps.cityName,"??????")
 		// let cityName = nextProps.cityName;
 		// if(cityName){
 		// 	State.city=cityName;

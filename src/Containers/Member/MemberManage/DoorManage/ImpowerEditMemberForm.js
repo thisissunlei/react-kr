@@ -65,7 +65,6 @@ export default class ImpowerEditMemberForm extends React.Component {
 	}
 
 	onSubmit=(values)=>{
-		console.log("values====>",values);
 		let _this = this;
 		var start = new Date(values.beginDate);
 		start = start.getTime();

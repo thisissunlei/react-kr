@@ -390,7 +390,6 @@ export default class JoinCreate extends React.Component {
 		})
 		
 		this.getLocalStorageSata();
-		console.log('getLocalStorage')
 	}
 
 

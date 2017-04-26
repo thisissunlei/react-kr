@@ -389,7 +389,6 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate')|| DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate') ||  DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.signdate =  localStorage.getItem(keyWord+'signdate') ||  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
-				console.log('stationVos',localStorage.getItem(keyWord+'stationVos'));
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				console.log('delStationVos',localStorage.getItem(keyWord+'delStationVos'));

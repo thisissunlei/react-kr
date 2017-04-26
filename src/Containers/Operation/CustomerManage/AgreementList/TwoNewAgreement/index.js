@@ -232,7 +232,6 @@ class LookCustomerList extends Component{
 		let localArr = [];
 		showTab.map((item,index)=>{
 			local.map(value=>{
-				console.log(item.props.type == value,index)
 				if(item.props.type == value){
 					localArr.push(item);
 					showTab.splice(index,1)
