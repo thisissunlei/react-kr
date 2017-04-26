@@ -254,7 +254,7 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="capacity"></TableRowColumn>
                       <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="floor"></TableRowColumn>
-			                <TableRowColumn name="enable" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
+			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'禁用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
 			                    <Button label="删除"  type="operation"  operation="delete" />

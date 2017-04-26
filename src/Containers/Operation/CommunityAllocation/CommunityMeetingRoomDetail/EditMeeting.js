@@ -37,6 +37,11 @@ class EditMeeting  extends React.Component{
 			var _this=this;
 			Http.request('meeting-room-eidData',data).then(function(response) {
 				   //$form.changeValues(response);
+				   if(response.enable==1){
+				   	 response.enable='1';
+				   }else if(response.enable==0){
+				   	 response.enable='0'; 
+				   }
 				   let deviceSpace=[];
 				   _this.props.CommunityMeetingModel.spaceDevices.map((items,index)=>{
 			        let list={};
@@ -162,8 +167,8 @@ class EditMeeting  extends React.Component{
 								options={this.props.CommunityMeetingModel.sapceTypes}
 						/>
 				<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态">
-					<KrField name="enable" label="是" type="radio" value='1' />
-					<KrField name="enable" label="否" type="radio" value='0' />
+					<KrField name="enable" label="启用" type="radio" value='1' />
+					<KrField name="enable" label="禁用" type="radio" value='0' />
 			   </KrField>
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>

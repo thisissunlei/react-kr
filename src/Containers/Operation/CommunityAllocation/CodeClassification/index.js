@@ -24,36 +24,40 @@ import {
 } from 'kr-ui';
 import {
 	observer,
+	inject
 } from 'mobx-react';
 import State from './State';
 import './index.less';
 import NewAddCode from './NewAddCode';
 import EditAddCode from './EditAddCode';
+@inject("FormModel")
 @observer
 class  CodeClassification extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			pidArr:[]
+			pidArr:[],
+			codeName:[]
 		}
 	}
 
 	//查看相关操作
 	onOperation=(type,itemDetail)=>{
-		let {searchParams}=State;
-		let {pidArr}=this.state;
+		let {searchParams,parentName}=State;
+		let {pidArr,codeName}=this.state;
 		if(type=='edit'){
             State.editCodeOpen();
 			State.editData=itemDetail;
 		}else if(type=='next'){
 			pidArr.push(searchParams.pid);
+			codeName.push(parentName);
 			State.searchParams={
 			pid:itemDetail.id,
 		    time:+new Date()
 			}
 			State.lastFlag=true;
-			State.parentName=itemDetail.pname;
+			State.parentName=itemDetail.codeName;
 		}
 	}
     //编辑取消
@@ -63,6 +67,9 @@ class  CodeClassification extends React.Component{
 
     //打开关闭新建代码弹窗
 	openAddCode=()=>{
+		const {FormModel} = this.props;
+		FormModel.getForm("NewAddCode")
+		.changeValues({codeName:'',codeNo:'',enable:'',sort:'',id:''});
 		State.addCodeOpen();
 	}
 
@@ -81,11 +88,9 @@ class  CodeClassification extends React.Component{
 
 //导出
 onExport=(values)=> {
-Debug.log('bug',values);
  let {searchParams} = State;
  let defaultParams = {
 	 noOrName:'',
-	 pid:''
  }
  searchParams = Object.assign({},defaultParams,searchParams);
 
@@ -111,21 +116,28 @@ onSearchSubmit=(params)=>{
 	let {searchParams}=State;
 	State.searchParams={
 		noOrName:params.content,
-		pid:searchParams.pid||"",
+		pid:searchParams.pid,
 	}
 }
 
 //上一级
 lastGoTo=()=>{
- let {pidArr}=this.state;
- if(pidArr[pidArr.length-1]==0){
-   State.lastFlag=false;
- }
+ let {pidArr,codeName}=this.state;
  State.searchParams={
 	 pid:pidArr[pidArr.length-1],
-	 time:+new Date(),
-	 pidArr:pidArr.pop()
+	 time:+new Date(), 
  }
+ State.parentName=codeName[codeName.length-1];
+ if(pidArr[pidArr.length-1]==0){
+   State.lastFlag=false;
+   State.parentName='根目录';
+ }
+ let pid=pidArr.splice(0,pidArr.length-1);
+ let name=codeName.splice(0,codeName.length-1);
+ this.setState({
+ 	pidArr:pid,
+ 	codeName:name
+ })
 }
 
 
@@ -162,11 +174,11 @@ lastGoTo=()=>{
 
 	         <Table
 			    style={{marginTop:8}}
-              ajax={true}
-              onOperation={this.onOperation}
+                ajax={true}
+                onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
-			        onExport={this.onExport}
+			    onExport={this.onExport}
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='codeCategoryList'
 	            ajaxFieldListName="items"
@@ -174,7 +186,7 @@ lastGoTo=()=>{
 		            <TableHeader>
 		              <TableHeaderColumn>代码编码</TableHeaderColumn>
 		              <TableHeaderColumn>代码名称</TableHeaderColumn>
-                  <TableHeaderColumn>父类名称</TableHeaderColumn>
+                      <TableHeaderColumn>父类名称</TableHeaderColumn>
 		              <TableHeaderColumn>排序号</TableHeaderColumn>
 		              <TableHeaderColumn>创建人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
@@ -186,10 +198,7 @@ lastGoTo=()=>{
 			              <TableRow>
 			                <TableRowColumn name="codeNo"></TableRowColumn>
                       <TableRowColumn name="codeName"></TableRowColumn>
-			                <TableRowColumn name="pname" component={(value,oldValue)=>{
-                                State.parentName=value;
-								return (<div>{value}</div>)
-							}}></TableRowColumn>
+			                <TableRowColumn name="pname"></TableRowColumn>
                       <TableRowColumn name="sort"></TableRowColumn>
 			                <TableRowColumn name="createName"></TableRowColumn>
 			                <TableRowColumn name="createDate"  component={(value,oldValue)=>{
