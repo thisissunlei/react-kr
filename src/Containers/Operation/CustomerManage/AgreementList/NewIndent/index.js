@@ -111,7 +111,12 @@ import {Http} from "kr/Utils"
 		}
 	}
 	mainbilltypeChange=(value)=>{
-		State.orderName=this.props.customerName+value.label+this.props.orderCount;
+		if(!value.label){
+			State.orderName=this.props.customerName
+		}else{
+			State.orderName=this.props.customerName+value.label+this.props.orderCount;
+
+		}
 
 	}
 
