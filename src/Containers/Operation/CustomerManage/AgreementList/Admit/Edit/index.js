@@ -66,7 +66,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages:false
 		}
 
-		Store.dispatch(reset('admitCreateForm'));
+
 
 	}
 
@@ -163,6 +163,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('admitCreateForm'));
 		this.getlocalSign();
 	// 	this.getBasicData();
 	// 	this.getLocalStorageSata();
