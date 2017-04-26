@@ -27,7 +27,7 @@ const Operation_CommunityManage_CompanyMembers = (location, callback) => {
 }
 const Operation_CommunityManage_Visitor = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Operation/CommunityManage/visitor').default)
+    callback(null, require('kr/Containers/Operation/CommunityManage/Visitor').default)
   }, 'Operation_CommunityManage_Visitor')
 }
 module.exports =()=>{

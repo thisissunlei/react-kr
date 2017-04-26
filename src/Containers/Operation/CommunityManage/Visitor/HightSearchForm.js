@@ -35,12 +35,13 @@ import './index.less';
 		onCancel && onCancel();
 	}
 	
-	onSubmit=(from)=>{
-		console.log('from-----',from)
+	onSubmit=(form)=>{
 		const {
 			onSubmit
 		} = this.props;
+		console.log('11')
 		onSubmit && onSubmit(form);
+
 	}
 
 	

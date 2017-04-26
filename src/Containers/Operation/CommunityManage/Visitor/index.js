@@ -13,7 +13,7 @@ import {
 	Section,
 	SearchForms,
 	Dialog,
-	Message,
+	KrDate,
 	
 } from 'kr-ui';
 import HightSearchForm from "./HightSearchForm";
@@ -46,6 +46,12 @@ export default class Visitor extends React.Component{
 			openSearchDialog:!this.state.openSearchDialog
 		})
 	}
+	onHightSubmit=(form)=>{
+		this.setState({
+			searchParams:form
+		})
+		this.openSearchDialog();
+	}
 
 	onExport=(values)=>{
 		let idList = [];
@@ -56,8 +62,8 @@ export default class Visitor extends React.Component{
 		}
 		console.log('idList----',idList)
 		
-		var url = `/api/krspace-op-web/cmt/visit/export-excel?idList=${idList}`
-		//window.location.href = url;
+		var url = `/api/krspace-finance-web/cmt/visit/export-excel?idList=${idList}`
+		window.location.href = url;
 	}
 
 
@@ -65,7 +71,7 @@ export default class Visitor extends React.Component{
 		
 		return (
 			 <div style={{minHeight:'910',backgroundColor:"#fff"}}>
-								<Title value="访客列表 "/>
+								<Title value="访客列表"/>
 								<Section title="访客列表" description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
@@ -95,7 +101,11 @@ export default class Visitor extends React.Component{
 											<TableRowColumn name="visitName"></TableRowColumn>
 											<TableRowColumn name="company"></TableRowColumn>
 											<TableRowColumn name="name"></TableRowColumn>
-											<TableRowColumn name="visitTime"></TableRowColumn>
+											<TableRowColumn 
+													name="visitTime" 
+													component={(value) => {
+						                          return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						                    }}></TableRowColumn>
 										 </TableRow>
 									</TableBody>
 									<TableFooter></TableFooter>
@@ -109,7 +119,7 @@ export default class Visitor extends React.Component{
 									contentStyle={{width:687}}
 								>
 									<HightSearchForm 
-											onSubmit=""
+											onSubmit={this.onHightSubmit}
 											onCancel={this.openSearchDialog}
 											detail="" 
 											style={{marginTop:37}} 
