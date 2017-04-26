@@ -13,6 +13,7 @@ import {
 	Store
 } from 'kr/Redux';
 
+import {Http} from 'kr/Utils';
 import {
 	Table,
 	TableBody,
@@ -93,7 +94,7 @@ export default class EmployessTable extends React.Component {
 		const formValues = {
 			customerId: itemDetail.customerId
 		}
-		Store.dispatch(Actions.callAPI('getmembers', formValues)).then(function(response) {
+		Http.request('getmembers', formValues).then(function(response) {
 
 			optionValues.members = response.map(function(item, index) {
 				item.value = item.id;
@@ -128,7 +129,7 @@ export default class EmployessTable extends React.Component {
 			customerId: itemDetail.customerId,
 		}
 
-		Store.dispatch(Actions.callAPI('getmembers', formValue)).then(function(response) {
+		Http.request('getmembers', formValue).then(function(response) {
 
 			optionValues.member = response.map(function(item, index) {
 				item.value = item.id;
@@ -174,7 +175,7 @@ export default class EmployessTable extends React.Component {
 			this.onChangeCancel();
 		} else {
 
-			Store.dispatch(Actions.callAPI('changeStation', {}, form)).then(function(response) {
+			Http.request('changeStation', {}, form).then(function(response) {
 				_this.onChangeCancel();
 				Notify.show([{
 					message: '操作成功！',
@@ -230,7 +231,7 @@ export default class EmployessTable extends React.Component {
 			});
 			this.onDistributionCancel()
 		} else {
-			Store.dispatch(Actions.callAPI('changeStation', {}, form)).then(function(response) {
+			Http.request('changeStation', {}, form).then(function(response) {
 				_this.onDistributionCancel()
 				Notify.show([{
 					message: '操作成功！',
@@ -282,7 +283,7 @@ export default class EmployessTable extends React.Component {
 		form.stationId = this.state.stationId;
 		form.customerId = this.state.customerId;
 		form.communityId = this.state.communityId;
-		Store.dispatch(Actions.callAPI('membersChange',{},values))
+		Http.request('membersChange',{},values)
 		.then(function(response){
 			Message.success('成功');
 			
