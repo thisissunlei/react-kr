@@ -106,7 +106,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let _this = this;
 		let sign = false;
-		let keyWord = params.orderId+ pasrams.customerId+params.id+'LESSRENTedit';
+		let keyWord = params.orderId+ params.customerId+params.id+'LESSRENTedit';
 			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
 				_this.setState({
 					openLocalStorages:true
