@@ -150,7 +150,7 @@ export default class JoinCreate extends React.Component {
 		let initialValues = {};
 		let optionValues = {};
 		this.getlocalSign();
-		
+
 		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
@@ -166,7 +166,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.setLocalStorageDate = +new Date();
-			
+
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress;
@@ -216,8 +216,8 @@ export default class JoinCreate extends React.Component {
 			}]);
 		});
 	}
-	
-	
+
+
 
 	render() {
 
@@ -229,7 +229,7 @@ export default class JoinCreate extends React.Component {
 			 stationVoList,
 			 openLocalStorages
 		} = this.state;
-		console.log('index',initialValues,optionValues,openLocalStorages );
+
 
 		return (
 
