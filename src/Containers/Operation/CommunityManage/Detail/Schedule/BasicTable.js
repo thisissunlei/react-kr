@@ -2,6 +2,7 @@ import React, {PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import { Tab, Dialog, Notify,  KrField, Form,SearchForms, Loading, } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
@@ -262,14 +263,14 @@ export default class BasicTable extends React.Component {
 							page: len,
 							isLoading: !_this.state.isLoading
 						})
-						Store.dispatch(Actions.callAPI('getInstallmentplan', {
+						Http.request('getInstallmentplan', {
 							communityids: communityids,
 							value: value,
 							type: type,
 							page: len,
 							pageSize: 15,
 							year: currentYear
-						})).then(function(response) {
+						}).then(function(response) {
 							if (response.vo) {
 								var list = Installmentplan.concat(response.vo.items);
 								// var list = $.extend(Installmentplan,response.vo.items);
@@ -342,14 +343,14 @@ export default class BasicTable extends React.Component {
 		var _this = this;
 		_this.getRate(id);
 
-		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+		Http.request('getInstallmentplan', {
 			communityids: id,
 			value: value,
 			type: type,
 			page: 1,
 			pageSize: pageSize,
 			year: currentYear
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
 				// rate: response.rate,
@@ -393,7 +394,7 @@ export default class BasicTable extends React.Component {
 			dataLoading: true,
 		})
 
-		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
+		Http.request('getInstallmentplan', formValues).then(function(response) {
 
 			var Installmentplan = response.vo.items;
 			Installmentplan.forEach(function(item, index) {
@@ -499,10 +500,10 @@ export default class BasicTable extends React.Component {
 		let _this = this;
 		var year = this.state.currentYear;
 
-		Store.dispatch(Actions.callAPI('getRate', {
+		Http.request('getRate', {
 			communityids: id ,
 			year: year,
-		})).then(function(response) {
+		}).then(function(response) {
 			if(!response.rate.length){
 				_this.setState({
 					rate: ['0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%']
@@ -548,14 +549,14 @@ export default class BasicTable extends React.Component {
 
 		var year = _this.state.currentYear;
 
-		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+		Http.request('getInstallmentplan', {
 			communityids: communityids,
 			value: value,
 			type: type,
 			page: page,
 			pageSize: 15,
 			year: year,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			_this.currentYear = response.year;
 

@@ -914,10 +914,10 @@ const validate = values => {
 				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
 				}else if(i =='agreement' && !!!values[i]){
-					localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createagreement','');
+					localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createagreement','');
 
 				}else if(i =='contractmark' && !!!values[i]){
-					localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'createcontractmark','');
+					localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createcontractmark','');
 
 				}
 

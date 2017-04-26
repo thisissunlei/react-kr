@@ -33,7 +33,7 @@ class OrderCreate extends React.Component {
   confirmSubmit(values){
     var {actions} = this.props;
 
-    actions.callAPI('enter-order',{},values).then(function(response){
+    Http.request('enter-order',{},values).then(function(response){
 
     }).catch(function(err){
 
