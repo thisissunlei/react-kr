@@ -43,11 +43,11 @@ class  CodeClassification extends React.Component{
 	onOperation=(type,itemDetail)=>{
 		let {searchParams}=State;
 		let {pidArr}=this.state;
-        pidArr.push(searchParams.pid);
 		if(type=='edit'){
             State.editCodeOpen();
 			State.editData=itemDetail;
 		}else if(type=='next'){
+			pidArr.push(searchParams.pid);
 			State.searchParams={
 			pid:itemDetail.id,
 		    time:+new Date()
