@@ -19,7 +19,12 @@ module.exports = [
 					primaryText: '访客记录',
 					menuCode: 'sysVisitRecord',
 					originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
-				}, 
+				},
+				{
+					primaryText: '访客列表',
+					menuCode: 'plan_table',
+					router: '/community/visitor/list'
+				},  
 			]
 		}, 
 		],
