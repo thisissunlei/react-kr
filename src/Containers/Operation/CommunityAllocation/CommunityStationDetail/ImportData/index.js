@@ -66,9 +66,15 @@ class ImportData extends React.Component{
 			 if (xhr.readyState === 4) {
 				 if (xhr.status === 200) {
 					 if (xhr.response && xhr.response.code > 0) {
-						 Message.warntimeout('文件上传成功', 'success');
+						 //Message.warntimeout('文件上传成功', 'success');
 						 _this.props.CommunityStationModel.openImport=false;
-						 _this.props.CommunityStationModel.searchParams.time=+new Date();
+	;					 Message.success('上传成功');
+						 _this.props.CommunityStationModel.searchParams={
+						   time:+new Date(),
+						   page:1,
+						   pageSize:15,
+						   communityId:_this.props.CommunityStationModel.communityId	
+						 }
 					 } else {
 						 Message.error(xhr.response.message);
 					 }
@@ -127,7 +133,7 @@ class ImportData extends React.Component{
 						 <Row>
 							 <Col md={12} align="center">
 								 <ButtonGroup>
-									 <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定导入" type="submit" width={90} height={34} onClick={this.onSubmit}/></div>
+									 <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定导入"  width={90} height={34} onClick={this.onSubmit}/></div>
 									 <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/>
 								 </ButtonGroup>
 							 </Col>
