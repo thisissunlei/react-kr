@@ -52,7 +52,7 @@ export default class EditCreate extends React.Component {
   onCreateSubmit(formValues) {
     const {params} = this.props;
     let _this = this;
-    Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
+    Http.request('addFnaContractWithdrawal',formValues).then(function(response) {
     _this.removeLocalStorage();
       Notify.show([{
         message: '编辑成功',
@@ -257,7 +257,7 @@ export default class EditCreate extends React.Component {
       initialValues.setLocalStorageDate = +new Date();
 
        initialValues.contractcode = response.contractCode;
-       
+
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
@@ -391,8 +391,8 @@ export default class EditCreate extends React.Component {
     },function(){
       this.getBasicData()
       this.removeLocalStorage()
-    })  
-  } 
+    })
+  }
   getLocalStorage=()=>{
     this.setState({
       openLocalStorages:false,
@@ -423,7 +423,7 @@ export default class EditCreate extends React.Component {
         autoScrollBodyContent={true}
         autoDetectWindowHeight={true}
         onClose={this.openConfirmCreateDialog}
-        open={this.state.openLocalStorages} 
+        open={this.state.openLocalStorages}
         contentStyle={{width:'400px'}}>
           <div>
             <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
