@@ -6,7 +6,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	Table,
 	TableBody,
@@ -29,7 +29,6 @@ import {
 	FontIcon,
 	Pagination
 } from 'kr-ui';
-import {Http} from "kr/Utils"
 import State from './State';
 import SearchForm from "./SearchForm";
 import OneNewAgreement from "./OneNewAgreement";
@@ -101,7 +100,7 @@ class Merchants extends Component{
 	//新建订单的数据准备
 	allOrderReady=()=>{
 		var _this=this;
-	    Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+	    Http.request('community-city-selected').then(function(response) {
          State.orderReady=response;
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -304,9 +303,9 @@ class Merchants extends Component{
 		let {
 			delAgreementId
 		} = this.state;
-		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+		Http.request('delete-enter-contract', {
 			contractId: delAgreementId
-		})).then(function(response) {
+		}).then(function(response) {
 			 Message.success('删除成功');
 			window.setTimeout(function() {
 				window.location.reload();
@@ -381,7 +380,7 @@ class Merchants extends Component{
 		 delList.map((item)=>{
 		 	localStorage.removeItem(item);
 		 })
-		 
+
 	}
 
 	componentDidMount() {
