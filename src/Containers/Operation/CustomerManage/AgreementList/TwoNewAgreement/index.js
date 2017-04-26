@@ -85,7 +85,7 @@ class LookCustomerList extends Component{
 		let keyWord = allState.mainBillId+''+ allState.listId  ;
 		let local = [];
 		type.map((item)=>{
-			if(localStorage.getItem(keyWord + item+'createnum')-localStorage.getItem(keyWord+item+'createoldNum')>1 && !allState.openLocalStorage){
+			if(localStorage.getItem(keyWord + item+'createnum')-localStorage.getItem(keyWord+item+'createoldNum')>1){
 				allState.openLocalStorage = true;
 				local.push(item)
 			}
