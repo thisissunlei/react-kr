@@ -243,16 +243,20 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
+
 	}
 
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let initialValues = nextProps.initialValues;
 			this.setState({
 				stationVos,
 				delStationVos:nextProps.delStationVos
 			});
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+			
 			this.isInit = true;
 		};
 	}
