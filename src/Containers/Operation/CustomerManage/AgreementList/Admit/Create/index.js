@@ -89,7 +89,7 @@ export default class JoinCreate extends React.Component {
 			var _this = this;
 		Http.request('addFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
-		    _this.removeLocalStorage();
+		    _this.removeAllLocalStorage();
 
 			Notify.show([{
 				message: '创建成功',
@@ -123,6 +123,21 @@ export default class JoinCreate extends React.Component {
 	removeLocalStorage=()=>{
 		let {params} = this.props;
 		let keyWord = params.orderId+''+params.customerId+'INTENTIONcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -286,6 +301,7 @@ export default class JoinCreate extends React.Component {
 			}
 			optionValue = Object.assign({},optionValues,optionValue);
 			initialValue = Object.assign({},initialValues,initialValue);
+			console.log('initialValue',initialValue);
 
 
 			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';

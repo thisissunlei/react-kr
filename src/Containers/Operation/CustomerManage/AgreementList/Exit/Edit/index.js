@@ -53,7 +53,7 @@ export default class EditCreate extends React.Component {
     const {params} = this.props;
     let _this = this;
     Http.request('addFnaContractWithdrawal',formValues).then(function(response) {
-    _this.removeLocalStorage();
+    _this.removeAllLocalStorage();
       Notify.show([{
         message: '编辑成功',
         type: 'success',
@@ -79,6 +79,20 @@ export default class EditCreate extends React.Component {
   removeLocalStorage=()=>{
     let {params} = this.props;
     let keyWord = params.orderId+''+params.customerId+'QUITRENTedit';
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+         removeList.push(itemName);
+       }
+     }
+     removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
+  }
+  removeAllLocalStorage=()=>{
+    let {params} = this.props;
+    let keyWord = params.orderId+''+params.customerId;
     let removeList = [];
     for (var i = 0; i < localStorage.length; i++) {
       let itemName = localStorage.key(i);
