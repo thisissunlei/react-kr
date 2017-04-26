@@ -596,10 +596,10 @@ const validate = values => {
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
 			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editagreement','');
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'editagreement','');
 
 			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editcontractmark','');
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'editcontractmark','');
 
 			}
 	    };
