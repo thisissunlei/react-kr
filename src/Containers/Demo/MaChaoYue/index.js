@@ -15,6 +15,7 @@ import {
 	Dialog,
 	Message,
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import AdvancedQuery from './AdvancedQuery';
@@ -115,7 +116,7 @@ export default class MaChaoYue extends React.Component {
     //提交编辑
 	onEditSubmit=(values)=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Http.request('membersChange',{},values).then(function(response){
 			_this.openEditDetailDialog();
 			Message.success("操作成功");
 			_this.setState({
@@ -145,7 +146,7 @@ export default class MaChaoYue extends React.Component {
 			foreignCode:values.cardId
 		}
 		let _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Http.request('membersChange',{},values).then(function(response){
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
 							_this.setState({

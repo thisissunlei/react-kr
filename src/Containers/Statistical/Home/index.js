@@ -7,6 +7,7 @@ import {
 	Tab,
 	Message
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 import PanelComponents from './PanelComponents';
 import './index.less';
@@ -115,7 +116,7 @@ export default class Home  extends React.Component{
 
 	componentDidMount() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
+		Http.request('get-my-groups').then(function(response) {
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id

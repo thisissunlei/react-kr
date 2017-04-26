@@ -73,6 +73,9 @@ export default class JoinCreate extends React.Component {
 		}, 0);
 		// this.openConfirmCreateDialog();
 	}
+	componentDidMount() {
+	    this.getlocalSign();
+	  }
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;

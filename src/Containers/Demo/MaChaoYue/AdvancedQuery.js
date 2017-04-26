@@ -16,6 +16,7 @@ import {
 	Message,
 } from 'kr-ui';
 import dateFormat from 'dateformat';
+import {Http} from 'kr/Utils';
 import $ from 'jquery'
 class AdvanceSearchDateForm extends React.Component{
 	constructor(props, context) {
@@ -100,7 +101,7 @@ class NewCreateForm extends Component{
 				memberId:''
 			}
 		 let _this =this;
-		 Store.dispatch(Actions.callAPI('getMemberBasicData',searchParamPosition)).then(function(response){
+		 Http.request('getMemberBasicData',searchParamPosition).then(function(response){
 			 response.jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
