@@ -99,7 +99,7 @@ export default class JoinCreate extends React.Component {
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+params.customerId+'LESSRENTcreate';
+		let keyWord = params.orderId+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -324,7 +324,6 @@ export default class JoinCreate extends React.Component {
 				initialValues,
 				optionValues,
 				stationVos,
-				allRent:optionValues.rentamount
 			});
 
 
@@ -340,6 +339,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorage:false,
 
 		})
+		this.getBasic();
 		this.removeLocalStorage();	
 	}
 	getLocalStorage=()=>{
@@ -365,7 +365,7 @@ export default class JoinCreate extends React.Component {
 			 	<Title value="创建减租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建减租协议书']}/>
 		<Section title="减租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} params={this.props.params} openLocalStorage={openLocalStorage} params={this.props.params} removeLocalStorage={this.removeLocalStorage}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} params={this.props.params}  params={this.props.params} stationVos={stationVos}/>
 			</Section>
 
 			<Dialog

@@ -105,7 +105,7 @@ export default class JoinCreate extends React.Component {
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+params.customerId+'ENTERcreate';
+		let keyWord = params.orderId+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -259,12 +259,10 @@ export default class JoinCreate extends React.Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 
 
-			initialValues.leaseAddress = response.customer.customerAddress;
 		
 			initialValues.contractcode = response.contractCode;
 
 			optionValues.communityAddress = response.customer.communityAddress;
-			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ENTER';
 
@@ -287,7 +285,6 @@ export default class JoinCreate extends React.Component {
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
-			optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;

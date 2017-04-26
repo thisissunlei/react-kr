@@ -100,7 +100,7 @@ export default class JoinCreate extends React.Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+params.customerId+'QUITRENTcreate';
+		let keyWord = params.orderId+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
