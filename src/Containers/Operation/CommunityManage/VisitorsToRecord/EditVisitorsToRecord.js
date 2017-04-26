@@ -31,8 +31,9 @@ import State from './State';
 	constructor(props){
 		super(props);
 		this.state={
-			typeValue:'',
+			typeValue:this.props.typeValue,
 		}
+		console.log(this.props.typeValue,">>>>>>>")
 
 	}
 

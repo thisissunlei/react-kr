@@ -87,7 +87,8 @@ class VisitorsToRecord  extends React.Component{
       searchContent:{
         searchKey:'',
         searchType:'NAME',
-      }
+      },
+      typeValue:"",
 
 		}
     this.readyData();
@@ -109,7 +110,7 @@ class VisitorsToRecord  extends React.Component{
 			Message.error(err.message);
 		});
   }
-  getEidtData = (id) =>{
+  getEidtData = (id,itemDetail) =>{
     let _this= this;
     const {FormModel} = this.props;
 
@@ -118,7 +119,11 @@ class VisitorsToRecord  extends React.Component{
       editData.vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM:ss");
       FormModel.getForm("EditVisitorsToRecord")
   		         .changeValues(editData);
-
+      _this.setState({
+        typeValue:editData.typeId,
+        openEditVisitors:true,
+        id:itemDetail.id
+      })
     }).catch(function(err) {
       Message.error(err.message);
     });
@@ -253,12 +258,8 @@ class VisitorsToRecord  extends React.Component{
 	onOperation = (type, itemDetail) =>{
 
 		if(type === "edit"){
-	      this.setState({
-	     	   openEditVisitors:true,
-           id:itemDetail.id
-	      })
 
-        this.getEidtData(itemDetail.id);
+        this.getEidtData(itemDetail.id,itemDetail);
 		}
     if(type === "detail"){
       this.setState({
@@ -272,6 +273,7 @@ class VisitorsToRecord  extends React.Component{
 		this.setState({
 			openNewVisitors:false,
       openVisitorsDetail:false,
+      openEditVisitors:false,
 		})
 	}
 
@@ -291,10 +293,6 @@ class VisitorsToRecord  extends React.Component{
         date:date
 			}
    	})
-  }
-  // 获取下拉值
-  onFilter = () =>{
-
   }
   searchChange = (values) =>{
     const {searchContent} = this.state;
@@ -327,7 +325,8 @@ class VisitorsToRecord  extends React.Component{
           select,
           detailData,
           openUpperForm,
-          searchContent
+          searchContent,
+          typeValue
         } = this.state;
 
 		return(
@@ -444,7 +443,12 @@ class VisitorsToRecord  extends React.Component{
                 open={openEditVisitors}
                 containerStyle={{minHeight:"100%",top:60,paddingBottom:228,zIndex:20}}
                 >
-                  <EditVisitorsToRecord select = {select} onCancel= {this.closeEditVisitors} onSubmit = {this.onSubmit}/>
+                  <EditVisitorsToRecord
+                    select = {select}
+                    onCancel= {this.closeEditVisitors}
+                    onSubmit = {this.onSubmit}
+                    typeValue = {typeValue}
+                    />
              </Drawer>
 
              {/*查看详情*/}
@@ -471,7 +475,7 @@ class VisitorsToRecord  extends React.Component{
                   select = {select}
                   onCancel={this.closeUpperForm}
                   onSubmit={this.upperFormSubmit}
-                  
+
               />
               </Dialog>
 
