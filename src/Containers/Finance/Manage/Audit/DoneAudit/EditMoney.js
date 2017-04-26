@@ -305,14 +305,6 @@ class EditMoney extends React.Component {
 		this.setState({
 			Loading: false
 		})
-
-		if (!form.contract) {
-			Message.error('请选择对应合同');
-			this.setState({
-				Loading: false
-			})
-			return;
-		}
 		if (this.state.flowAmount == 0) {
 			Message.error('回款金额不能为0');
 			this.setState({
@@ -320,6 +312,15 @@ class EditMoney extends React.Component {
 			})
 			return
 		}
+		
+		if (!form.contract) {
+			Message.error('请选择对应合同');
+			this.setState({
+				Loading: false
+			})
+			return;
+		}
+		
 		var _this = this;
 		var parentIdList = form.contract.split(',');
 		var childrenList = [];
