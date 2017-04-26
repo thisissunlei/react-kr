@@ -297,7 +297,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement');
 				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
 				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
 				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
