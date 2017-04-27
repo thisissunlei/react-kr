@@ -82,6 +82,7 @@ State.closeAllMerchants = action(function() {
 	this.openSearchUpper=false;
 	this.openEditCustomerList=false;
 	this.NewCustomerIndent=false;
+	this.openNewCustomerIndent=false;
 });
 State.MerchantsListId = action(function(params) {
 	this.listId=params;
