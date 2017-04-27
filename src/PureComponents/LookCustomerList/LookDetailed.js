@@ -104,14 +104,14 @@ class LookDetailed extends Component{
 			}else{
 				text="否";
 			}
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{everyTr.visitTypeName}</span>{this.everyTd(everyTr.visitTypeName)}</div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{DateFormat(everyTr.visitTime,"yyyy-mm-dd")}</span>{this.everyTd(DateFormat(everyTr.visitTime,"yyyy-mm-dd"))}</div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{everyTr.linkName}</span>{this.everyTd(everyTr.linkName)}</div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{everyTr.linkTel}</span>{this.everyTd(everyTr.linkTel)}</div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{everyTr.levelName}</span>{this.everyTd(everyTr.levelName)}</div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{everyTr.visitDetail}</span>{this.everyTd(everyTr.visitDetail)}</div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{text}</span></div>);
-			tds.push(<div key = {i} className="div-td"><span className="tableOver">{everyTr.reasonName}</span>{this.everyTd(everyTr.reasonName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitTypeName}</span>{this.everyTd(everyTr.visitTypeName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{DateFormat(everyTr.visitTime,"yyyy-mm-dd")}</span>{this.everyTd(DateFormat(everyTr.visitTime,"yyyy-mm-dd"))}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkName}</span>{this.everyTd(everyTr.linkName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkTel}</span>{this.everyTd(everyTr.linkTel)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.levelName}</span>{this.everyTd(everyTr.levelName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitDetail}</span>{this.everyTd(everyTr.visitDetail)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{text}</span></div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.reasonName}</span>{this.everyTd(everyTr.reasonName)}</div>);
 
 			tr.push(<div key = {i} className="tr-content">{tds}</div>);
 		}

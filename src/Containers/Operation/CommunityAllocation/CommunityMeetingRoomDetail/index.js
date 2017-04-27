@@ -188,10 +188,10 @@ SelectCommunity=()=>{
          {label:'空间编码',value:'CODE'},
 		]
 
-		let title=`会议室列表(${this.props.CommunityMeetingModel.communityName})`;
+		let title=`空间列表(${this.props.CommunityMeetingModel.communityName})`;
 		return(
 			<div className='meeting-list'>
-				<Title value="会议室列表"/>
+				<Title value="空间列表"/>
 				<Section title={title} description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 
@@ -248,7 +248,8 @@ SelectCommunity=()=>{
 
 			        <TableBody >
 			              <TableRow>
-			                <TableRowColumn name="code"></TableRowColumn>
+
+			                <TableRowColumn name="typeName" options={[{label:'独立办公区',value:'INDEPENDENT_OFFICE'},{label:'会议室',value:'BOARDROOM'},{label:'路演厅',value:'ROADSHOW_HALL'}]}></TableRowColumn>
 							<TableRowColumn name="code"></TableRowColumn>
                       <TableRowColumn name="name"></TableRowColumn>
 			                <TableRowColumn name="capacity"></TableRowColumn>
