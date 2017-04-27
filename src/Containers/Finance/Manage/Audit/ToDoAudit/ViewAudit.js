@@ -1,10 +1,7 @@
 import React from 'react';
-
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 import {
 	KrField,
 	Grid,
@@ -55,6 +52,7 @@ export default class ViewAudit extends React.Component {
 		}
 		this.getInfo();
 		this.getPayInfo();
+		this.getTableInfo();
 	}
 	componentDidMount() {
 		var _this = this;
@@ -62,13 +60,25 @@ export default class ViewAudit extends React.Component {
 			_this.getInfo();
 		}, 0)
 	}
+	//table
+	getTableInfo = () => {
+			var _this = this;
+				var finaVerifyId = this.props.detail.id
+			Http.request('get-fina-flow-logs', {
+				finaVerifyId: finaVerifyId
+			}, {}).then(function(response) {
+				_this.setState({
+					topInfoList: response
+				})
+			}).catch(function(err) {});
+		}
 		//付款信息
 	getInfo = () => {
 			var id = this.props.detail.id
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-fina-infos', {
+			Http.request('get-fina-infos', {
 				finaVerifyId: id
-			})).then(function(response) {
+			}).then(function(response) {
 				_this.setState({
 					infoList: response
 				},function(){
@@ -90,9 +100,9 @@ export default class ViewAudit extends React.Component {
 	getPayInfo = () => {
 			var finaVerifyId = this.props.detail.id;
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+			Http.request('get-flow-edit-info', {
 					finaVerifyId
-			})).then(function(response) {
+			}).then(function(response) {
 					_this.setState({payInfoList: response})
 
 			});
@@ -188,8 +198,41 @@ export default class ViewAudit extends React.Component {
 			)
 		});
 	}
+
+	renderTable=(topInfoList)=>{
+			return(
+				<div className="u-table-list">
+					<table className="u-table">
+					 <thead>
+					 <tr>
+						 <th>序号</th>
+						 <th width={100}>审核时间</th>
+						 <th width={100}>审核人</th>
+						 <th width={100}>审核状态</th>
+						 <th width={270}>备注</th>
+					 </tr>
+					 </thead>
+					 <tbody>
+					 {topInfoList && topInfoList.map((item,index)=>{
+					 return(
+						 <tr key={index}>
+								 <td>{topInfoList.length-index}</td>
+								 <td><KrDate value={item.operateTime} /></td>
+								 <td>{item.operateUserName}</td>
+								 <td>{item.targetStatus=='CHECKED'?<span className="u-font-green">{item.verifyName}</span>:<span className="u-font-red">{item.verifyName}</span>}</td>
+								 <td>{item.operateRemark}</td>
+							 </tr>
+					 )
+					 })}
+					 </tbody>
+				</table>
+			</div>
+
+
+			)
+		}
 	render() {
-		
+
 		let {
 			totalCountMoney,
 			payment,
@@ -197,10 +240,11 @@ export default class ViewAudit extends React.Component {
 			mainbillInfo,
 			showName,
 			customerId,
-			infoList
+			infoList,
+			topInfoList
 		} = this.state;
 		return (
-			<div className="u-audit-add">
+			<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>回款详情</span>
@@ -208,6 +252,7 @@ export default class ViewAudit extends React.Component {
 								marginRight: 40
 						}} onTouchTap={this.onCancel}></span>
 			     </div>
+			     {topInfoList.length>0?this.renderTable(topInfoList):''}
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
@@ -240,6 +285,13 @@ export default class ViewAudit extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
+								component="labelText"
+								inline={false}
+								label="社区名称"
+								value={infoList.communityName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="payName"
 								inline={false}
 								component="labelText"
@@ -247,7 +299,7 @@ export default class ViewAudit extends React.Component {
 								value={infoList.payName}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountNum"
 								component="labelText"
 								inline={false}
@@ -255,7 +307,7 @@ export default class ViewAudit extends React.Component {
 								value={infoList.accountNum}
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								inline={false}
 								type="text"
@@ -264,7 +316,7 @@ export default class ViewAudit extends React.Component {
 								value={infoList.payAccount}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								inline={false}
 								component="labelText"

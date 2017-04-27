@@ -20,10 +20,9 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
-	ButtonGroup,
 	Message
 } from 'kr-ui';
+import {Http} from "kr/Utils"
 import './index.less';
 import State from './State';
 import allState from '../State';
@@ -57,7 +56,7 @@ import newIndentState from "../NewIndent/State";
 
 	    var _this = this;
 
-		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
+		Http.request('contracts-creation', {mainBillId:allState.mainBillId}).then(function(response) {
 		//承租意向
 		allState.admit=response.intention;
 		//入驻合同是否可创建
@@ -115,7 +114,7 @@ import newIndentState from "../NewIndent/State";
 
 		data.customerId=value;
 
-		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+		Http.request('get-customName-orderName',data).then(function(response) {
 			allState.customerName=response.customerName;
 			allState.orderCount=response.orderCount;
 		}).catch(function(err) {
@@ -140,7 +139,7 @@ import newIndentState from "../NewIndent/State";
 		let data={};
 		data.customerId=allState.listId;
 
-		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+		Http.request('get-customName-orderName',data).then(function(response) {
 			allState.customerName=response.customerName;
 			allState.orderCount=response.orderCount;
 			newIndentState.orderName="";

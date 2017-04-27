@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 
@@ -9,11 +9,10 @@ import {
 	Store
 } from 'kr/Redux';
 import "./index.less";
-
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -30,7 +29,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
 	Dialog,
 	Table,
 	TableBody,
@@ -110,6 +108,8 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			local:this.props.local || [],
+			openLocalStorage:this.props.openLocalStorage || false
 		}
 	}
 
@@ -119,7 +119,7 @@ class NewCreateForm extends React.Component {
 			stationVos
 		} = this.state;
 
-		
+
 		if(!value || isNaN(value)){
 			stationVos[index].unitprice ="";
 		}else{
@@ -146,12 +146,15 @@ class NewCreateForm extends React.Component {
 			selectedStation,
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				return false;
 			}
 			return true;
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
+
 		this.setState({
 			stationVos,
 		}, function() {
@@ -220,6 +223,7 @@ class NewCreateForm extends React.Component {
 		});
 	}
 
+
 	componentDidMount() {
 		let {
 			initialValues
@@ -230,7 +234,27 @@ class NewCreateForm extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
 
+		if (!this.isInit && nextProps.stationVos ) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			});
+			this.isInit = true;
+		}
+
+		
 	}
 	openPreStationUnitPriceDialog=()=> {
 		let {
@@ -263,6 +287,7 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let _this = this;
 		let allMoney = 0;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -271,10 +296,7 @@ class NewCreateForm extends React.Component {
 			return item;
 		});
 		this.setAllRent(stationVos);
-		// stationVos.map((item)=>{
-		// 	allMoney += _this.getSingleRent(item);
-		// })
-		// allMoney = parseFloat(allMoney).toFixed(2)*1;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
 
 		this.setState({
 			stationVos,
@@ -411,7 +433,7 @@ class NewCreateForm extends React.Component {
 			obj.type = item.stationType;
 			return obj;
 		});
-		
+
 		let params = {
 			mainBillId: this.context.par.orderId,
 			communityId: optionValues.mainbillCommunityId,
@@ -453,7 +475,8 @@ class NewCreateForm extends React.Component {
 		var _this = this;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		let {
@@ -473,6 +496,8 @@ class NewCreateForm extends React.Component {
 			});
 		} catch (err) {
 		}
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(billList));
+
 
 		this.setState({
 			stationVos: billList
@@ -492,15 +517,18 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
 	}
 	onBlur=(item)=>{
-		
+
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} = this.props;
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'INTENTIONcreatestationVos', JSON.stringify(stationVos));
+
 		this.setAllRent(stationVos);
-		
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -543,6 +571,8 @@ class NewCreateForm extends React.Component {
 		allRent = allRent.toFixed(2)*1;
 		return allRent;
 	}
+
+
 	render() {
 		let {
 			error,
@@ -642,19 +672,19 @@ class NewCreateForm extends React.Component {
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                			</DotTitle>
                      <div style={{marginTop:'-20px',marginBottom:60,display:'none'}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
-							
+
                			</div>
 
 						<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同文本信息</label></div>
 							<div className="small-cheek" style={{paddingBottom:0}}>
-					
+
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
 								<KrField style={{width:262,marginLeft:25}} name="leaseId" component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" toolTrue={true}/></div>
-								<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+								<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}  placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 								<KrField style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -671,7 +701,7 @@ class NewCreateForm extends React.Component {
 								<KrField style={{width:262,marginLeft:25}} component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/>
 
 
-								 
+
 
 
 								<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
@@ -686,14 +716,14 @@ class NewCreateForm extends React.Component {
 																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 								<KrField style={{width:262,marginLeft:25}} name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-								
+
 
 	                            <KrField  name="templockday" style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
 																 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 
 								<KrField style={{width:545,marginLeft:25}}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200}/>
 							    <KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
-								
+
 								<KrField style={{width:545,marginLeft:25}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 								<KrField style={{width:262,marginLeft:25}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 								<KrField style={{width:262,marginLeft:25}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
@@ -702,12 +732,12 @@ class NewCreateForm extends React.Component {
 							<div className="end-round"></div>
 					</div>
 				</div>
-							<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+							<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={ optionValues.contractFileList || []} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
-							 
 
-							
+
+
 						<Grid style={{paddingBottom:50,textAlign:"center"}}>
 							<Row>
 								<ListGroup>
@@ -737,6 +767,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
+					
 
 			</div>);
 	}
@@ -818,6 +849,22 @@ const validate = values => {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
 
+	++values.num;
+
+	
+	if(values.setlocalStorage === 'admit'){
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}
+
+		    };
+		}
+	}
+
 	return errors
 }
 
@@ -825,7 +872,7 @@ const selector = formValueSelector('admitCreateForm');
 
 NewCreateForm = reduxForm({
 	form: 'admitCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

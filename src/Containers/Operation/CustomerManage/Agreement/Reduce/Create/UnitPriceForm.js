@@ -1,4 +1,4 @@
-import React, {  PropTypes} from 'react';
+import React, { PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 
@@ -11,7 +11,6 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 } from 'kr-ui';
 
 class UnitPriceForm  extends React.Component{

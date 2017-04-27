@@ -1,7 +1,7 @@
 import React  from 'react';
 import {change} from 'redux-form';
 import {DateFormat} from "kr/Utils";
-
+import {Store} from 'kr/Redux';
 import {
 	Table,
 	TableBody,
@@ -14,15 +14,17 @@ import {
 	Grid,
 	Row,
 	Col,
-	Message,
 	Loading,
-	Tooltip
+	Tooltip,
+	Message
 } from 'kr-ui';
 import './index.less'
 import {Http} from "kr/Utils";
 import SearchDateForm from './SearchDateForm';
 
+
 class MerchantsData  extends React.Component{
+
 
 	constructor(props,context){
 		super(props, context);
@@ -115,15 +117,14 @@ class MerchantsData  extends React.Component{
     	searchParams.startDate = startValue+" 00:00:00"
     	searchParams.endDate = endValue+" 00:00:00"
     	this.setState({
-
     		tabLoading:true,
     	})
 		Http.request('already-open',searchParams).then(function(response) {
-		_this.setState({
-			data:response,
-			loading:false,
-			tabLoading:false
-		})
+			_this.setState({
+				data:response,
+				loading:false,
+				tabLoading:false
+			})
 		}).catch(function(err) {
 
 		});
@@ -337,6 +338,7 @@ class MerchantsData  extends React.Component{
     nothingData = () =>{
     	return (<div className = "merchants-data-nothing">
     				<div className = "ui-nothing" >
+
     					<div className="icon" ></div>
 
     					<p className="tip" >暂时还没有数据呦~</p>
@@ -346,9 +348,11 @@ class MerchantsData  extends React.Component{
 
 
 	render(){
+
 		let {data,loading,moveStyle,tabLoading} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
+
 		let {groupList} = this.props;
 		let right = groupList.length == 1 ? 40 :20;
 		let top = groupList.length == 1 ? 208 :133;
@@ -357,12 +361,14 @@ class MerchantsData  extends React.Component{
 		let openShow = true;
 		let unopenShow = true;
 
+
 		if(!openList){
 			openList=[];
 		}
 		if(!unopenList){
 			unopenList=[];
 		}
+
 		if(unopenList.length == 0){
 			unopenShow = false;
 		}
@@ -372,6 +378,7 @@ class MerchantsData  extends React.Component{
 		if(unopenList.length == 0 || openList.length == 0){
 			showSolid = false;
 		}
+
 		if(loading){
 			return <Loading />
 		}
@@ -444,10 +451,12 @@ class MerchantsData  extends React.Component{
 							</Table>
 							</div>
 							{!tabLoading &&<div style= {{position:"absolute",top:0,width: "100%",textAlign: "center"}}>
+
 								{!nothingData && <div style={{display : !openShow ? "none":"block", paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
 								{!nothingData && <div style={{display : !unopenShow ? "none":"block",paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length),height:51*(unopenList.length),lineHeight: 51*(unopenList.length)+"px",}}>未开业</div>}
 								{!nothingData && <div style={{paddingRight: groupList.length == 1 ? 0 :4 ,position: "absolute",zIndex: 1,width: groupList.length == 1 ?"17.899%":"18.09%",border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
 								{showSolid && !nothingData && <div style={{marginRight:groupList.length == 1?40:0,position: "absolute",zIndex: 1,width: "auto",background: "#dfdfdf",top: top+51*(openList.length),height:2,left:0,right:40}}></div>}
+
 							</div>}
 							{nothingData && this.nothingData()}
 							{tabLoading && <Loading />}

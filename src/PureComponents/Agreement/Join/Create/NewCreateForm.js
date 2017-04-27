@@ -273,7 +273,7 @@ class NewCreateForm extends Component {
 			return true;
 		});
 		this.setAllRent(stationVos);
-		
+
 		this.setState({
 			stationVos,
 			allRent
@@ -450,7 +450,7 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		// let allMoney = 0;
 		this.setAllRent(stationVos);
-		
+
 	}
 	setAllRent=(list)=>{
 		let _this = this;
@@ -460,7 +460,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -672,7 +672,7 @@ class NewCreateForm extends Component {
 							})
 						}
 						</TableBody>
-						
+
 						</Table>
 					</div>
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
@@ -720,7 +720,7 @@ class NewCreateForm extends Component {
 
 
 					<KrField    style={{width:262,marginLeft:25,position:"relative"}}  name="communityAddress" component="labelText" toolTrue={true} label="地址" inline={false} value={optionValues.communityAddress}  />
-	
+
 
 					<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 

@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -9,21 +9,16 @@ import Param from 'jquery-param';
 import {
 	Fields
 } from 'redux-form';
-import {
-	Binder
-} from 'react-binding';
+
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -35,32 +30,11 @@ import './index.less';
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
 	KrField,
-	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
-	IframeContent,
-	Date,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -102,6 +76,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitEditForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('exitEditForm', 'lessorContactName', personel.lastname));
 	}
 
 	onSubmit(form) {
@@ -250,7 +225,9 @@ class NewCreateForm extends React.Component {
 				<div className="end-round"></div>
 				</div>
 			</div>
-			<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
+			<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					Store.dispatch(change('exitEditForm','contractFileList',files));
+				}}/>
 
 			<Grid style={{paddingBottom:50,textAlign:"center"}}>
 				<Row >
@@ -318,6 +295,25 @@ const validate = values => {
 
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
+	}
+
+	++values.num;
+
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editcontractmark','');
+
+			}
+	    };
 	}
 
 

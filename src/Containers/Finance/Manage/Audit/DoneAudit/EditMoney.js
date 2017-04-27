@@ -1,23 +1,18 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-
+import React from 'react';
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
 	change
 } from 'redux-form';
-
+import {
+	Http
+} from "kr/Utils";
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -37,7 +32,7 @@ import {
 import './index.less';
 
 
-class EditMoney extends Component {
+class EditMoney extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -89,9 +84,9 @@ class EditMoney extends Component {
 	getInfo = () => {
 			var _this = this;
 			var id = this.props.detail.id
-			Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+			Http.request('get-fina-flow-logs', {
 				finaVerifyId: id
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				_this.setState({
 					topInfoList: response
 				})
@@ -101,9 +96,9 @@ class EditMoney extends Component {
 	getPayInfo = () => {
 			var id = this.props.detail.id
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+			Http.request('get-flow-edit-info', {
 				finaVerifyId: id
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				var obj = {
 					label: "无合同",
 					contactType: '0',
@@ -149,10 +144,10 @@ class EditMoney extends Component {
 	getDetailInfo = () => {
 			var id = this.props.detail.id
 			var _this = this;
-			Store.dispatch(Actions.callAPI('get-fina-infos', {
+			Http.request('get-fina-infos', {
 				finaVerifyId: id
-			}, {})).then(function(response) {
-				response.dealTime = dateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
+			}, {}).then(function(response) {
+				response.dealTime = DateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount.replace(/,/gi,''),
@@ -171,10 +166,10 @@ class EditMoney extends Component {
 		var accountList;
 		var _this = this;
 		Store.dispatch(change('EditMoney', 'accountId', ''));
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			accountType: form.value,
 			corporationId: this.state.corporationId
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
@@ -717,7 +712,7 @@ class EditMoney extends Component {
 				Loading
 			} = this.state;
 			return (
-				<div className="u-audit-add u-audit-edit">
+				<div className="u-audit-add">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>编辑回款</span>
@@ -783,6 +778,13 @@ class EditMoney extends Component {
 						/>
 						<KrField
 								style={{width:260}}
+								component="labelText"
+								inline={false}
+								label="社区名称"
+								value={infoList.communityName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="payWay"
 								component="select"
 								label="收款方式"
@@ -791,7 +793,7 @@ class EditMoney extends Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountId"
 								component="select"
 								label="我司账户"
@@ -800,7 +802,7 @@ class EditMoney extends Component {
 
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
 								component="input"
@@ -809,7 +811,7 @@ class EditMoney extends Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								component="date"
 								label="收款日期"

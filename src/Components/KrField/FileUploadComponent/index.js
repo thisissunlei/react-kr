@@ -67,15 +67,21 @@ export default class FileUploadComponent extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		
+
+		/*
 		if(!nextProps.input.value){
 			this.setState({
 				files:[]
 			})
 		}
+		*/
+	
 		this.setInitValue(nextProps.defaultValue);
 	}
 
 	setInitValue(defaultValue) {
+
+
 		let {
 			files,
 			isInit
@@ -99,11 +105,13 @@ export default class FileUploadComponent extends React.Component {
 	}
 
 	onSetInputValue() {
+
 		let {
 			files
 		} = this.state;
 		let {
-			input
+			input,
+			onChange
 		} = this.props;
 
 		let fileIds = [];
@@ -111,9 +119,16 @@ export default class FileUploadComponent extends React.Component {
 			fileIds.push(item.id);
 		});
 		input.onChange(fileIds.toString());
+
+
+		onChange && onChange(files);
+
+
+
 	}
 
 	onFileDelete(index) {
+
 		let {
 			files
 		} = this.state;

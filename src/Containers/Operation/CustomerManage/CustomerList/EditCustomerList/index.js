@@ -1,8 +1,9 @@
-import React, {  PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -10,7 +11,6 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message
 } from 'kr-ui';
@@ -84,7 +84,7 @@ import {
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
-		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+		Http.request('customerDataEdit',{},values).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
@@ -136,7 +136,6 @@ import {
 		onCancel && onCancel();
 	}
 	cityValue=(value)=>{
-	  console.log(value,">>>>>")
       Store.dispatch(change('EditCustomerList','distinctId',value));
     }
 	hasOfficeClick = (params) =>{

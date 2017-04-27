@@ -5,13 +5,12 @@ import React, {
 } from 'react';
 
 import {
-	connect,
 	Actions,
 	Store
 } from 'kr/Redux';
-
-
-
+import {
+	Http
+} from "kr/Utils";
 import {
 	reduxForm,
 	formValueSelector,
@@ -73,9 +72,9 @@ class Operations extends Component {
 		if (type == 'delete') {
 			this.openDeleteDialog();
 		} else if (type == 'edit') {
-			Store.dispatch(Actions.callAPI('getRoleData', {
+			Http.request('getRoleData', {
 				id: itemDetail.id
-			})).then(function(response) {
+			}).then(function(response) {
 				_this.setState({
 					moduleDetail: response.moduleAndResources
 				})
@@ -103,9 +102,9 @@ class Operations extends Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('delRole', {
+		Http.request('delRole', {
 			id: itemDetail.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功')
 			window.location.reload();
@@ -136,7 +135,7 @@ class Operations extends Component {
 	}
 	onCreatSubmit = (form) => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('createRole', {}, form)).then(function(response) {
+		Http.request('createRole', {}, form).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
 			window.location.reload();
@@ -153,7 +152,7 @@ class Operations extends Component {
 	}
 	onEditSubmit = (form) => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('editRole', {}, form)).then(function(response) {
+		Http.request('editRole', {}, form).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('修改成功');
 			window.location.reload();

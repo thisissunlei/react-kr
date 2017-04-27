@@ -1,13 +1,11 @@
-import React, {
-	 
-	PropTypes
-} from 'react';
+import React from 'react';
 
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
 import {DateFormat} from 'kr/Utils';
+import {Http} from "kr/Utils"
 import {
 	Table,
 	TableBody,
@@ -16,13 +14,11 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	KrDate,
 	DotTitle
 } from 'kr-ui';
@@ -132,13 +128,13 @@ export default class ConfirmFormDetail extends React.Component {
 							 <KrField grid={1/2}  name="stationnum"  component="labelText" label="租赁工位" value={detail.stationnum} defaultValue="0" inline={false}/>
 							 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁会议室" value={detail.boardroomnum} defaultValue="0" inline={false}/>
 
-							 
+
 
 							 <KrField grid={1/2}  name="totalrent" component="labelText"  label="租金总额" placeholder="" value={detail.totalrent}  defaultValue="0" inline={false}/>
 							 <KrField grid={1/2}  name="totaldeposit"  component="labelText" label="押金总额" value={detail.totaldeposit} defaultValue="0" inline={false}/>
 							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="" inline={false}/>
 							 <KrField grid={1}  name="agreement" component="labelText" label="双方其他约定内容" value={detail.agreement} defaultValue="无" inline={false}/>
-							 
+
 
 							<KrField component="group" label="上传附件">
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{

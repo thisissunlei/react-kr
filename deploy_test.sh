@@ -2,7 +2,7 @@
 
 npm run dll
 
-npm run test 
+npm run  build 
 
 
 buildEnvDir=$1

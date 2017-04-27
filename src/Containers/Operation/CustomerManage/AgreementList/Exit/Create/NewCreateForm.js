@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -14,16 +14,13 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
 	formValueSelector,
 	initialize,
 	change,
-	arrayPush,
-	arrayInsert,
-	FieldArray
 } from 'redux-form';
 
 import {
@@ -34,33 +31,12 @@ import './index.less';
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
 	KrField,
-	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
-	DotTitle,
-	IframeContent,
-	Date,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	Grid
 } from 'kr-ui';
 
 
@@ -99,6 +75,26 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('exitCreateForm', initialValues));
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.props.initialValues != nextProps.initialValues){
+			Store.dispatch(initialize('exitCreateForm', nextProps.initialValues));
+			this.setState({
+				initialValues:nextProps.initialValues
+			})
+		}
+		if(this.props.optionValues != nextProps.optionValues){
+			this.setState({
+				optionValues:nextProps.optionValues
+			})
+		}
+
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+				openLocalStorage:nextProps.openLocalStorage
+			})
+		}
 	}
 
 
@@ -215,14 +211,15 @@ class NewCreateForm extends React.Component {
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
-				
+
+
 				<KrField  name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 
 				<KrField name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" toolTrue={true} /></div>
-				<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+				<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 				<KrField style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
@@ -244,10 +241,10 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} toolTrue={true}/>
 
-				
+
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
-				
-				
+
+
 
 
 				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额"
@@ -266,7 +263,7 @@ class NewCreateForm extends React.Component {
 				<div className="end-round"></div>
 				</div>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px",paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px",paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 					Store.dispatch(change('exitCreateForm','contractFileList',files));
 				}} />
 
@@ -343,6 +340,27 @@ const validate = values => {
 
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
+	}
+	++values.num;
+
+
+	if(values.setlocalStorage === 'returnRent' && values.mainbillid && values.customerId){
+		for(var i in values){
+		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+				if(i === 'contractFileList'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
+				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
+				}else if(i =='agreement' && !!!values[i]){
+					localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createagreement','');
+				}else if(i =='contractmark' && !!!values[i]){
+					localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createcontractmark','');
+
+				}
+				
+
+		    };
+		}
 	}
 
 	return errors

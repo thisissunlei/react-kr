@@ -12,8 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -36,14 +35,9 @@ import {
 @observer
 
 export default class JoinCreate extends Component {
-	 static childContextTypes = {
-        params: React.PropTypes.object.isRequired
-     }
-
-
 
 		getChildContext() {
-			
+
 	    return {
 	        params: this.props.params
 	      }
@@ -57,6 +51,10 @@ export default class JoinCreate extends Component {
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+
+		this.constructor.childContextTypes = {
+         params: React.PropTypes.object.isRequired
+      }
 
 		this.state = {
 			initialValues: {},
@@ -95,7 +93,7 @@ export default class JoinCreate extends Component {
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract',formValues).then(function(response) {
 
 			_this.setState({baiscInf:response});
 
@@ -145,12 +143,12 @@ export default class JoinCreate extends Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 			initialValues.agreement = '无';

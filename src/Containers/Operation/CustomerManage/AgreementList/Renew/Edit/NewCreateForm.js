@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -9,13 +9,13 @@ import Param from 'jquery-param';
 import {
 	Fields
 } from 'redux-form';
-import {
-	Binder
-} from 'react-binding';
+
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
+
 import nzh from 'nzh';
+
 import {
 	reduxForm,
 	formValueSelector,
@@ -34,10 +34,6 @@ import {
 import AllStation from './AllStation';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
 
 	Table,
@@ -47,7 +43,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -57,11 +52,8 @@ import {
 	KrDate,
 	DotTitle,
 	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
-
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -150,6 +142,7 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -157,6 +150,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
 
 		this.setState({
 			stationVos
@@ -166,7 +160,8 @@ class NewCreateForm extends React.Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('renewEditForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('renewEditForm', 'lessorContactName', personel.lastname));
 	}
 
 	// station list
@@ -177,16 +172,21 @@ class NewCreateForm extends React.Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
+		let {initialValues} = this.props;
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos
 		});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
 
 		this.openStationDialog();
 	}
 	setAllRent=(list)=>{
+
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		let {initialValues} = this.props;
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
 			_this.setState({
 				allRent:response
 			})
@@ -197,38 +197,6 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
-
 
 
 	//删除工位
@@ -238,6 +206,7 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -249,6 +218,8 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditdelStationVos', JSON.stringify(delStationVos));
 
 
 		this.setState({
@@ -276,7 +247,7 @@ class NewCreateForm extends React.Component {
 		let {
 			initialValues
 		} = this.props;
-		Store.dispatch(initialize('reduceCreateForm', initialValues));
+		Store.dispatch(initialize('renewEditForm', initialValues));
 	}
 
 
@@ -295,14 +266,14 @@ class NewCreateForm extends React.Component {
 			            _this.setState({
 			            	stationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
+			            })
 			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		stationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	     	 
+			        }
 			});
 			this.isInit = true;
 		};
@@ -319,8 +290,8 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos,
 			delStationVos,
-			originStationVos
 		} = this.state;
+		let originStationVos = form.stationVos;
 
 
 		delStationVos = originStationVos.filter(function(origin){
@@ -347,7 +318,7 @@ class NewCreateForm extends React.Component {
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		
+
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -363,7 +334,7 @@ class NewCreateForm extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-    
+
     addClick=()=>{
       let {oldBasicStationVos,stationVos,openMinus,openAdd}=this.state;
 	   this.setState({
@@ -496,7 +467,7 @@ class NewCreateForm extends React.Component {
 						</TableBody>
 						</Table>
 						</div>
-                        
+
                          {openAdd&&this.addRender()}
 			             {openMinus&&this.minusRender()}
 
@@ -555,7 +526,9 @@ class NewCreateForm extends React.Component {
 				<div className="end-round"></div>
 		</div>
 	</div>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}  onChange={(files)=>{
+					Store.dispatch(change('renewEditForm','contractFileList',files));
+				}} />
 				<Grid style={{paddingBottom:50,textAlign:"center"}}>
 						<Row >
 						<ListGroup>
@@ -580,7 +553,7 @@ class NewCreateForm extends React.Component {
 			</div>);
 	}
 }
-const selector = formValueSelector('reduceCreateForm');
+const selector = formValueSelector('renewEditForm');
 const validate = values => {
 
 	const errors = {}
@@ -641,13 +614,31 @@ const validate = values => {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if(i =='agreement' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editagreement','');
+
+			}else if(i =='contractmark' && !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editcontractmark','');
+
+			}
+	    };
+	}
+
 
 
 	return errors
 }
 
 NewCreateForm = reduxForm({
-	form: 'reduceCreateForm',
+	form: 'renewEditForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true

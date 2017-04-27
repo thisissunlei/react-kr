@@ -8,11 +8,10 @@ export default class Basic extends React.Component {
 
 	render() {
 
-
 		return (
 				<div style={{marginBottom:"50px"}}>
-				{this.props.children}
+					{this.props.children}
 				</div>
-			   );
+	   );
 	}
 }

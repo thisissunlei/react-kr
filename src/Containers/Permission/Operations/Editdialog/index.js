@@ -3,9 +3,10 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
 import {
-	connect,
+	Http
+} from "kr/Utils";
+import {
 	Actions,
 	Store
 } from 'kr/Redux';
@@ -71,9 +72,9 @@ class Editdialog extends Component {
 		var _this = this;
 		var renderMethod = this.state.ControllerRender;
 		var ControllerId = this.state.ControllerId;
-		Store.dispatch(Actions.callAPI('getResourcesData', {
+		Http.request('getResourcesData', {
 			id: detail.id
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 			var moduleVoList = response.resources.moduleVoList.map((item, index) => {
 				item.label = item.name;
 				item.value = item.id;
@@ -174,7 +175,7 @@ class Editdialog extends Component {
 	}
 	getAllController = () => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getAllController', {}, {})).then(function(response) {
+		Http.request('getAllController', {}, {}).then(function(response) {
 			var ControllerList = response.controllerList.map((item, index) => {
 				item.value = item.id;
 				item.label = item.name;
@@ -192,7 +193,7 @@ class Editdialog extends Component {
 			Params
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getModule', Params, {})).then(function(response) {
+		Http.request('getModule', Params, {}).then(function(response) {
 			var ModuleList = response.ssoModuleList.map((item, index) => {
 				item.value = item.id;
 				item.label = item.name;
@@ -237,7 +238,7 @@ class Editdialog extends Component {
 				parentId: item.id
 			}
 		}, function() {
-			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
+			Http.request('getModule', _this.state.Params, {}).then(function(response) {
 				if (response.ssoModuleList.length > 0) {
 					var ModuleList = response.ssoModuleList.map((item, index) => {
 						item.value = item.id;
@@ -268,7 +269,7 @@ class Editdialog extends Component {
 				parentId: item.id
 			}
 		}, function() {
-			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
+			Http.request('getModule', _this.state.Params, {}).then(function(response) {
 				if (response.ssoModuleList.length > 0) {
 					var ModuleList = response.ssoModuleList.map((item, index) => {
 						item.value = item.id;

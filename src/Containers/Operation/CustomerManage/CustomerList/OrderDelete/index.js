@@ -3,17 +3,12 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	KrField,
 	ButtonGroup,
 	Message
 } from 'kr-ui';
@@ -50,7 +45,7 @@ export default class OrderDelete extends Component{
 	onSubmit(){
 		var _this=this;
 		let {operType}=this.props;
-		Store.dispatch(Actions.callAPI('order-delete',{id:this.props.orderId})).then(function(response) {
+		Http.request('order-delete',{id:this.props.orderId}).then(function(response) {
 	         _this.onCancel();
 	         _this.props.CommunityDetailModel.orderList(_this.props.listId);
 	         Message.success('删除成功');

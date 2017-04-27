@@ -2,9 +2,9 @@ import React from 'react';
 import {
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {reduxForm,initialize,change,FieldArray} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
@@ -381,7 +381,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     componentWillMount(){
         let {id}=this.props;
         var _this=this;
-				Store.dispatch(Actions.callAPI('communityGetEdit',{id:id})).then(function(response) {
+				Http.request('communityGetEdit',{id:id}).then(function(response) {
 
           response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
           response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
@@ -586,9 +586,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<FieldArray name="wherefloors" component={renderMembers}/>
 
-								<KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin' timeNum={timeStart}/>
+                <div style={{display:'inline-block'}} className='community-list-time'>
+								<KrField component="selectTime" label='营业时间' style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin' timeNum={timeStart}/>
 								<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
-								<KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd' timeNum={timeEnd}/>
+								<KrField component="selectTime"  style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd' timeNum={timeEnd}/>
+                </div>
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:9}} component="input" requireLabel={true}/>
 
@@ -665,7 +667,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 								<Row>
 									<Col md={12} align="center">
 										<ButtonGroup>
-											<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+											<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
 											<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
 										</ButtonGroup>
 									</Col>

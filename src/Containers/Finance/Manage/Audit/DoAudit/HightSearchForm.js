@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'kr/Redux';
@@ -11,9 +8,8 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
+	Http
+} from "kr/Utils";
 
 import {
 	KrField,
@@ -29,7 +25,7 @@ import {
 import './index.less';
 
 
-class HightSearchForm extends Component {
+class HightSearchForm extends React.Component {
 
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
@@ -84,7 +80,7 @@ class HightSearchForm extends Component {
 	getCommunity = () => {
 		var communityList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-mainbill-community', {}, {})).then(function(response) {
+		Http.request('get-mainbill-community', {}, {}).then(function(response) {
 			communityList = response.map((item, index) => {
 				item.label = item.communityname;
 				item.value = item.id;
@@ -99,7 +95,7 @@ class HightSearchForm extends Component {
 	getMain = () => {
 		var mainList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-fina-corporation', {}, {})).then(function(response) {
+		Http.request('get-fina-corporation', {}, {}).then(function(response) {
 			mainList = response.map((item, index) => {
 				item.label = item.corporationName;
 				item.value = item.id;

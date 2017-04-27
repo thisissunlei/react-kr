@@ -14,7 +14,7 @@ import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 export default class ItemTable extends React.Component {
 
@@ -137,7 +137,7 @@ export default class ItemTable extends React.Component {
   }
   getShowData(billId){
     let _this =this;
-    Store.dispatch(Actions.callAPI('getBillContract',{billId:billId}))
+    Http.request('getBillContract',{billId:billId})
       .then(function(response) {
       _this.setState({
         contractTypeVo:response,

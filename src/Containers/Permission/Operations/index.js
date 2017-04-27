@@ -3,7 +3,9 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 import {
 	connect,
 	Actions,
@@ -148,9 +150,9 @@ class Operations extends Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('delResources', {
+		Http.request('delResources', {
 			id: itemDetail.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功')
 		}).catch(function(err) {
@@ -170,7 +172,7 @@ class Operations extends Component {
 	}
 	onCreatSubmit = (params) => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('createResources', {}, params)).then(function(response) {
+		Http.request('createResources', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
 			window.location.reload();
@@ -181,7 +183,7 @@ class Operations extends Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('editResources', {}, params)).then(function(response) {
+		Http.request('editResources', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			window.location.reload();

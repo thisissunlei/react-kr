@@ -1,5 +1,4 @@
 import React, {
-	 
 	PropTypes
 } from 'react';
 
@@ -17,17 +16,14 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
-	KrField,
 	Grid,
 	Row,
-	Col,
 	Button,
-	Notify,
 	KrDate,
 	DotTitle,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	KrField
 } from 'kr-ui';
 
 

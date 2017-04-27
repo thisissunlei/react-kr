@@ -33,12 +33,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -46,20 +40,17 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
-	DotTitle,
-	IframeContent,
 	Date,
 	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	CircleStyle,
+	Dialog
 } from 'kr-ui';
 
 
@@ -90,6 +81,11 @@ class NewCreateForm extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
 
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+		this.state= {
+			openLocalStorage:this.props.openLocalStorage,
+			initialValues:this.props.initialValues,
+			optionValues:this.props.optionValues,
+		}
 	}
 
 
@@ -98,6 +94,17 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('exitCreateForm', initialValues));
+	}
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			initialValues:nextProps.initialValues,
+			optionValues:nextProps.optionValues,
+		})
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+			openLocalStorage:nextProps.openLocalStorage
+		})
+		}
 	}
 
 
@@ -181,6 +188,62 @@ class NewCreateForm extends React.Component {
 	}
 
 
+	getLocalStorageSata=()=>{
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let {initialValues} = this.state;
+		let {optionValues} = this.state;
+			let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			if(mainbillId && customerId){
+
+				initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate');
+				initialValues.depositamount = parseInt(localStorage.getItem(keyWord+'depositamount')) || 0;
+				initialValues.totalreturn = parseInt(localStorage.getItem(keyWord+'totalreturn')) || 0;
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+			}
+
+
+			Store.dispatch(initialize('exitCreateForm', initialValues));
+			Store.dispatch(change('exitCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
+
+			_this.setState({
+				initialValues,
+				optionValues,
+			});
+	}
+	onCancelStorage=()=>{
+		this.setState({
+			openLocalStorage:false,
+
+		})
+		let {removeLocalStorage} = this.props;
+		removeLocalStorage && removeLocalStorage();
+	}
+	getLocalStorage=()=>{
+		this.setState({
+			openLocalStorage:false,
+		})
+		this.getLocalStorageSata();
+
+	}
+
+
 	render() {
 
 		let {
@@ -219,7 +282,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField style={{width:370,marginLeft:90}} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" />
-				<KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+				<KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 				<KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
@@ -258,7 +321,7 @@ class NewCreateForm extends React.Component {
 							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 					Store.dispatch(change('exitCreateForm','contractFileList',files));
 				}} />
 
@@ -274,12 +337,50 @@ class NewCreateForm extends React.Component {
 
 			</form>
 
+
+			<Dialog
+				title="提示"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.openConfirmCreateDialog}
+				open={this.state.openLocalStorage} 
+				contentStyle={{width:'400px'}}>
+					<div>
+						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
+						<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+					</div>
+
+			  </Dialog>
+
 			</Paper>);
 	}
 }
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
+
+			}
+	    };
+	}
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -336,7 +437,7 @@ const validate = values => {
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
-
+	
 	return errors
 }
 

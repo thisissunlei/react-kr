@@ -12,8 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
-
+import {Http} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -36,14 +35,6 @@ import {
 @observer
 export default class JoinCreate extends Component {
 
-	 
-
-
-     static childContextTypes = {
-        params: React.PropTypes.object.isRequired
-     }
-
-
 
 		getChildContext() {
 	    return {
@@ -51,7 +42,7 @@ export default class JoinCreate extends Component {
 	      }
 	    }
 
-  
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -60,6 +51,10 @@ export default class JoinCreate extends Component {
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+
+		this.constructor.childContextTypes = {
+			 params: React.PropTypes.object.isRequired
+		}
 
 		this.state = {
 			initialValues: {},
@@ -88,7 +83,7 @@ export default class JoinCreate extends Component {
 			params
 		} = this.props;
 
-		Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditContinueContract',formValues).then(function(response) {
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -129,12 +124,12 @@ export default class JoinCreate extends Component {
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -148,7 +143,7 @@ export default class JoinCreate extends Component {
 			initialValues.leaseAddress = response.customer.customerAddress;
 
 			initialValues.contractcode = response.contractCode;
-			
+
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -214,5 +209,3 @@ export default class JoinCreate extends Component {
 		);
 	}
 }
-
-

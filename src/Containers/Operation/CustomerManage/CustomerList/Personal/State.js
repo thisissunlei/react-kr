@@ -5,10 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
     Message
 } from 'kr-ui';
@@ -92,7 +89,7 @@ State.orderNameInit= action(function(value) {
 
 	data.customerId=value;
 
-	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+	Http.request('get-customName-orderName',data).then(function(response) {
 		_this.customerName=response.customerName;
 		_this.orderCount=response.orderCount;
 	}).catch(function(err) {

@@ -2,6 +2,8 @@
 import React, {PropTypes} from 'react';
 import {reduxForm,formValueSelector,initialize,submit} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -82,7 +84,7 @@ import './index.less';
 			return;
 		}
 
-		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
+		Http.request('CardActivation', {}, params).then(function(response) {
 					//  Message.success("成功");
 					 const detail={};
 					 detail.interCode="";

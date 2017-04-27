@@ -13,6 +13,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
 } from 'kr-ui';
+import {Http} from "kr/Utils"
 
 let State = observable({
 	   	//第二次打开的新建
@@ -45,9 +46,9 @@ let State = observable({
 		agreementId:'',
 		//承租意向书是否可创建
 		admit:true,
-		//入驻合同是否可创建	
+		//入驻合同是否可创建
 		enter:true,
-		//增租合同是否可创建	
+		//增租合同是否可创建
 		increase:true,
 		//减租合同是否可创建
 		reduce:true,
@@ -62,6 +63,16 @@ let State = observable({
 
 		//权限
 		editRight:'',
+		active:'',
+		openLocalStorage:false,
+		openLocalStorages:false,
+		obj:{
+			noneTab :[],
+			showTab :[],
+			dialogDiv :[]
+
+		},
+		local:[]
 
 });
 State.hasOfficeChange=action(function(params){
@@ -76,7 +87,7 @@ State.ajaxListData=action(function(ajaxData){
 	    //错误到了这一层要深究
 		ajaxData = Object.assign({},ajaxData);
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('contract-list', ajaxData)).then(function(response) {
+		Http.request('contract-list', ajaxData).then(function(response) {
 			_this.contractList=response.items;
 			_this.totalPaper=response.totalCount;
 			_this.page=response.page;
@@ -93,7 +104,7 @@ State.ajaxListData=action(function(ajaxData){
 //获取登录人是否有创建合同的权限
 State.createContract=action(function(){
 	    var _this = this;
-		Store.dispatch(Actions.callAPI('edit-right')).then(function(response) {
+		Http.request('edit-right').then(function(response) {
 		  _this.editRight=response.hasEditRight
 		}).catch(function(err) {
 			Message.error(err.message);

@@ -27,7 +27,7 @@ static/components
 *.DS_Store
 
 /dist/*
-!/dist/vendors
+# !/dist/vendors
 
 /.happypack
 

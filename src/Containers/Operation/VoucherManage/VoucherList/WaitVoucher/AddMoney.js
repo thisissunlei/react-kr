@@ -104,18 +104,35 @@ class AddMoney extends React.Component {
 		var name = input.name.split('-')[3];
 		var deposit = 1;//押金
 		var totalrent = 2;//定金
-		if (name == deposit && item.nDeposit >= 0 && value > item.nDeposit) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == totalrent && item && item.nTotalrent >= 0 && value > item.nTotalrent) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
-		if (name == deposit && item && item.nFrontmoney >= 0 && value > item.nFrontmoney) {
-			Message.error('金额不能大于未回款额');
-			return
-		}
+			val=val.replace(/,/gi,'');
+			var nDeposit,nTotalrent,nFrontmoney;
+				if (name == deposit) {
+						var str=new String(item.nDeposit);
+								nDeposit=str.replace(/,/gi,'');
+						if(value*100 > nDeposit*100){
+								Message.error('金额不能大于未回款额');
+								return
+						}
+
+				}
+				if (name == totalrent) {
+						var str=new String(item.nTotalrent);
+								nTotalrent=str.replace(/,/gi,'');
+						if(item  && value*100 > nTotalrent*100){
+							Message.error('金额不能大于未回款额');
+							return
+						}
+				}
+				if (name == deposit) {
+					var str=new String(item.nFrontmoney)
+						nFrontmoney=str.replace(/,/gi,'');
+						if(item  && value*100 > nFrontmoney*100){
+							Message.error('金额不能大于未回款额');
+							return
+						}
+
+				}
+
 		if (/[^0-9]+.[^0-9]+/.test(value)) {
 			Message.error('金额只能为数字');
 			return;
@@ -178,9 +195,9 @@ class AddMoney extends React.Component {
       _this.getAccount(form);
     })
 
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
+		Http.request('get-finaflow-info', {
 			mainBillId: form.value
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
@@ -208,10 +225,10 @@ class AddMoney extends React.Component {
 		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			accountType: form.payWay,
 			corporationId:form.corporationId
-		})).then(function(response) {
+		}).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -292,10 +309,10 @@ class AddMoney extends React.Component {
 			conJasonStr: JSON.stringify(childrenList) || '',
 			propJasonStr: JSON.stringify(noList),
 			flowAmount: this.state.flowAmount,
-      id:id
+      		id:id
 		}
       Http.request('add-receipt',{},params).then(function(response) {
-        onSubmit && onSubmit();
+		onSubmit && onSubmit();
       })
 
 
@@ -616,27 +633,24 @@ class AddMoney extends React.Component {
 				error,
 				handleSubmit,
 				pristine,
-				reset
+				reset,
+				detail
 			} = this.props;
 			let {
 				accountList,
 				mainbillInfo,
 				flowAmount,
-        AddInfo,
-        mainBillList
+		        AddInfo,
+		        mainBillList
 			} = this.state;
         let items = [];
         if(AddInfo.urls){
           items = AddInfo.urls.map((item,value) => {
-            return(
-              {
-                src: item.src,
-                thumbnail: item.src,
-                w: 900,
-                h: 900,
-                title: value
-              }
-            )
+          	item.src=item.src;
+          	item.thumbnail=item.src;
+          	item.w= 900;
+            item.h= 900;
+            return item;
           });
         }
 
@@ -650,7 +664,7 @@ class AddMoney extends React.Component {
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
            <CircleStyleTwo num="1" info="付款凭证">
              <div style={{marginTop:28}}>
-               <PhotoSwipeGallery items={items} thumbnailContent={this.getThumbnailContent}/>
+               <PhotoSwipeGallery items={items} options={{index:detail.id}}  thumbnailContent={this.getThumbnailContent}/>
              </div>
            </CircleStyleTwo>
 					<CircleStyleTwo num="2" info="付款信息" style={{marginTop:45}}>

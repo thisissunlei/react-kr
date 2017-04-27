@@ -3,7 +3,9 @@ import React from 'react';
 import {
 	reduxForm,
 } from 'redux-form';
-
+import {
+	Http
+} from "kr/Utils";
 import {
 	Actions,
 	Store
@@ -46,11 +48,11 @@ class GoAudit extends React.Component {
   onSubmit = (form) => {
   	form = Object.assign({},form);
     form.type = this.type;
-    Store.dispatch(Actions.callAPI('edit-verify-status', {}, {
+    Http.request('edit-verify-status', {}, {
     finaVerifyId:this.props.detail.id,
     operateRemark:form.operateRemark || " ",
     type:form.type
-    })).then(function(response) {
+    }).then(function(response) {
       Message.success("操作成功");
       window.setTimeout(function() {
           window.location.reload();

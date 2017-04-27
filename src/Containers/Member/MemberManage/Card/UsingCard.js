@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {reduxForm,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -40,7 +41,7 @@ class ImportCard extends React.Component{
 	 		communityId:values.community
 	 	}
 	 	const {onSubmit} = this.props;
-	 	Store.dispatch(Actions.callAPI('memberCardUse',{}, params)).then(function(response) {
+	 	Http.request('memberCardUse',{}, params).then(function(response) {
 			onSubmit && onSubmit(values);
 		}).catch(function(err) {
 		 	Message.error(err.message);

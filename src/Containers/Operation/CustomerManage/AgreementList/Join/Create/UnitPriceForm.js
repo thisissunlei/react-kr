@@ -1,7 +1,4 @@
-import React, {
-	 
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	connect
 } from 'kr/Redux';
@@ -17,7 +14,7 @@ import {
 	arrayInsert,
 	FieldArray
 } from 'redux-form';
-
+import {Http} from "kr/Utils"
 import {
 	Actions,
 	Store
@@ -26,17 +23,14 @@ import {
 import {
 	KrField,
 	Grid,
-	Row,
-	Col,
 	Button,
-	Notify,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
 
 class UnitPriceForm extends React.Component {
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func
 	}

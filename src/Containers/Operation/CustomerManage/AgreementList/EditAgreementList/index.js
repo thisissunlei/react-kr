@@ -5,10 +5,7 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
-import {
-	Row,
-	Col,
-} from 'kr-ui';
+import {Http} from "kr/Utils"
 import './index.less';
 import Admit from "../Admit/Edit";
 import Exit from "../Exit/Edit";
@@ -34,11 +31,11 @@ class EditAgreementList extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
-	
+
+
 
 	componentWillReceiveProps(nextProps){
-		
+
 	}
 	render(){
 		var content="";
@@ -61,8 +58,8 @@ class EditAgreementList extends Component{
 		if(allState.argumentType=="INTENTION"){
 			content=(<div><span className="content-title">承租意向书详情页</span><Admit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 
-		}                       
-		
+		}
+
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:0,marginLeft:10}}>
 		      	<div className="title" >

@@ -24,6 +24,7 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 import OrderEditForm from './OrderEditForm';
 
@@ -98,7 +99,7 @@ export default class OrderCreate extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('enter-order', {}, values)).then(function(response) {
+		Http.request('enter-order', {}, values).then(function(response) {
 
 			Notify.show([{
 				message: '保存成功',
@@ -135,7 +136,7 @@ export default class OrderCreate extends React.Component {
 		let initialValues = {};
 
 		let orderTypeOptions = [];
-		Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+		Http.request('community-city-selected').then(function(response) {
 			communityOptions = response.communityCity.map((item) => {
 				item.value = String(item.communityId);
 				item.label = item.communityName;
@@ -155,9 +156,9 @@ export default class OrderCreate extends React.Component {
 		}).catch(function(err) {});
 
 
-		Store.dispatch(Actions.callAPI('get-customName-orderName', {
+		Http.request('get-customName-orderName', {
 			customerId: this.props.params.customerId
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 
 			let initialValues = {};
 			initialValues = response;

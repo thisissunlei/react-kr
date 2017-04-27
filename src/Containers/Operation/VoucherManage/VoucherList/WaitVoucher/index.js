@@ -54,8 +54,8 @@ export default class WaitVoucher extends React.Component {
         }
       })
     }
-  }
 
+  }
   //操作相关
   onOperation = (type, itemDetail) => {
 
@@ -129,7 +129,10 @@ export default class WaitVoucher extends React.Component {
   }
 
   onAddSubmit=()=>{
-    window.location.reload();
+    Message.success("添加成功");
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 800);
   }
   searchParams = (form) => {
     var _this = this;
@@ -242,7 +245,7 @@ export default class WaitVoucher extends React.Component {
                       modal={true}
                       open={this.state.openSearch}
                       onClose={this.openSearch}
-                      contentStyle={{width:666}}
+                      contentStyle={{width:665}}
                     >
                       <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
                     </Dialog>

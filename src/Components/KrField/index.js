@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field} from 'redux-form';
-import MobxForm from 'kr/Utils/ReduxForm';
+import MobxForm from 'kr/Utils/MobxForm';
 
 import Notify from '../Notify';
 
@@ -51,6 +51,7 @@ import searchCommunityManage from './SearchCommunity';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
+import SearchPayAccount from './SearchPayAccount';
 
 import SearchOrderCommunity from './SearchOrderCommunity';
 
@@ -193,6 +194,7 @@ class FieldRevert extends React.Component {
 				);
 			}
 
+
 			if (component === 'uploadImageList') {
 				return (
 					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
@@ -224,6 +226,7 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchCorporation}  style={WrapStyles} {...other}/>
 				)
 			}
+
 
 			if (component === 'searchPersonel') {
 				return (
@@ -318,7 +321,13 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
 				);
 			}
+			if (component === 'searchMethod') {
 
+			return (
+
+				<Field {...this.props} component={SearchMethodComponent}  style={WrapStyles} {...other}/>
+				);
+			}
 			if (component === 'searchSource') {
 				return (
 					<FieldRevert {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>

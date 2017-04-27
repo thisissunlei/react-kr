@@ -11,6 +11,7 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
+import {DateFormat,Http} from 'kr/Utils'
 
 import {
 	Dialog,
@@ -37,7 +38,8 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-			openConfirmCreate: false
+			openConfirmCreate: false,
+			openLocalStorages:false
 		}
 			this.isConfirmSubmiting = false;
 		Store.dispatch(reset('increaseCreateForm'));
@@ -72,12 +74,14 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
+			_this.removeLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
 			}]);
+			
 			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
@@ -91,8 +95,37 @@ export default class JoinCreate extends React.Component {
 	}
 
 	onCancel() {
+		this.removeLocalStorage();
 		window.history.back();
 	}
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId+'ADDRENTcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+		getlocalSign=()=>{
+		let {
+			params
+		} = this.props;
+		let _this = this;
+		let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
+				_this.setState({
+					openLocalStorages:true
+				})
+			 }
+	}
+
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -108,21 +141,27 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		this.getlocalSign();
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
+
+
+			let keyWord = params.orderId+ params.customerId+'ADDRENTcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			initialValues.signdate = +new Date();
-			initialValues.firstpaydate = +new Date();
-			initialValues.agreement = '无';
+			// initialValues.signdate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
+			// initialValues.firstpaydate = DateFormat(+new Date(),"yyyy-mm-dd hh:MM:ss");
 
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
@@ -132,6 +171,7 @@ export default class JoinCreate extends React.Component {
 
 
 			initialValues.contractcode = response.contractCode;
+			initialValues.setLocalStorageDate = +new Date();
 			
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
@@ -152,16 +192,19 @@ export default class JoinCreate extends React.Component {
 				return item;
 			});
 
+			
+
+
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
-
+			
 			_this.setState({
 				initialValues,
-				optionValues
+				optionValues,
 			});
 
 		}).catch(function(err) {
@@ -177,7 +220,9 @@ export default class JoinCreate extends React.Component {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			stationVos,
+			openLocalStorages
 		} = this.state;
 
 		return (
@@ -186,7 +231,7 @@ export default class JoinCreate extends React.Component {
 				<Title value="创建增租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
 			<Section title="增租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} openLocalStorage={openLocalStorages} params={this.props.params} removeLocalStorage={this.removeLocalStorage}/>
 			</Section>
 
 			<Dialog

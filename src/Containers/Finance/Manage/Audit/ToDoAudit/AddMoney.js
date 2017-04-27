@@ -8,6 +8,8 @@ import {
 	Store
 } from 'kr/Redux';
 
+import {Http} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -21,7 +23,6 @@ import {
 	CircleStyleTwo,
 	Message
 } from 'kr-ui';
-
 import './index.less';
 
 
@@ -55,7 +56,8 @@ class AddMoney extends React.Component {
 			finaflowInfo: {},
 			customerId: " ",
 			billInfo: " ",
-			corporationId: ""
+			corporationId: "",
+			oldData:[],
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -73,18 +75,18 @@ class AddMoney extends React.Component {
 		var _this = this;
 		if (nextProps.mainBill) {
 
-			Store.dispatch(Actions.callAPI('get-mainbill-info', {
+			Http.request('get-mainbill-info', {
 				mainBillId: nextProps.mainBillId
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 
 				_this.setState({
 					mainbillInfo: response
 				})
 
 			}).catch(function(err) {});
-			Store.dispatch(Actions.callAPI('get-finaflow-info', {
+			Http.request('get-finaflow-info', {
 				mainBillId: nextProps.mainBillId
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				var obj = {
 					label: "无合同",
 					contactType: '0',
@@ -105,6 +107,8 @@ class AddMoney extends React.Component {
 		}
 
 	}
+	
+
 	trim = (str) => {
 		return str.replace(/\s+/g, "");
 	}
@@ -130,10 +134,9 @@ class AddMoney extends React.Component {
 		Store.dispatch(change('addMoney', 'payAccount', ''));
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Store.dispatch(change('addMoney', 'remark', ''));
-		 Store.dispatch(change('addMoney', 'dealTime', ''));
+		Store.dispatch(change('addMoney', 'dealTime', ''));
 		Store.dispatch(change('addMoney', 'uploadFileIds', ''));
 		Store.dispatch(change('addMoney', 'contractFileList', ''));
-		//console.log('this.refs.uploadFileIds',this.refs.uploadFileIds)
 		this.refs.uploadFileIds.defaultValue=[];
 		this.setState({
 			customerId: form.id,
@@ -268,9 +271,9 @@ class AddMoney extends React.Component {
 		if (form.id==0) {
 			this.openCreateMainbill(form.id);
 		}
-		Store.dispatch(Actions.callAPI('get-mainbill-info', {
+		Http.request('get-mainbill-info', {
 			mainBillId: form.value
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 
 			_this.setState({
 				mainbillInfo: response,
@@ -279,9 +282,9 @@ class AddMoney extends React.Component {
 
 		}).catch(function(err) {});
 
-		Store.dispatch(Actions.callAPI('get-finaflow-info', {
+		Http.request('get-finaflow-info', {
 			mainBillId: form.value
-		}, {})).then(function(response) {
+		}, {}).then(function(response) {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
@@ -310,10 +313,10 @@ class AddMoney extends React.Component {
 		var _this = this;
 		var corporationId = this.state.corporationId || this.props.corporationId;
 		Store.dispatch(change('addMoney', 'accountId', ''));
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			accountType: form.value,
 			corporationId
-		})).then(function(response) {
+		}).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -324,6 +327,9 @@ class AddMoney extends React.Component {
 			})
 
 		});
+	}
+	payAccount=(item)=>{
+		this.refs.payAccount.value=item;
 	}
 
 	onSubmit = (form) => {
@@ -719,13 +725,14 @@ class AddMoney extends React.Component {
 				showName,
 				customerId,
 				flowAmount,
+				oldData
 			} = this.state;
 			return (
-				<div className="u-audit-add">
+				<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
 			     	<span>添加回款</span>
-			     	<span className="u-audit-close" onTouchTap={this.onCancel}></span>
+			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">
@@ -765,6 +772,14 @@ class AddMoney extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
+								component="labelText"
+								inline={false}
+								label="社区名称"
+								defaultValue="-"
+								value={mainbillInfo.communityName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="payWay"
 								component="select"
 								label="收款方式"
@@ -773,7 +788,7 @@ class AddMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountId"
 								component="select"
 								label="我司账户"
@@ -781,16 +796,17 @@ class AddMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
+								ref="payAccount"
 								component="input"
 								label="付款账户"
-								options=""
 								requireLabel={true}
+								
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								component="date"
 								label="收款日期"
@@ -865,6 +881,7 @@ class AddMoney extends React.Component {
 		if (!values.accountId) {
 			errors.accountId = '请选择我司账户';
 		}
+		console.log('values.payAccount',values.payAccount)
 		if (!values.payAccount) {
 			errors.payAccount = '请输入付款账户';
 		}

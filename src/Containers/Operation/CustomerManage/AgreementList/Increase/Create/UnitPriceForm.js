@@ -1,5 +1,4 @@
 import React, {
-	 
 	PropTypes
 } from 'react';
 import {
@@ -26,10 +25,7 @@ import {
 import {
 	KrField,
 	Grid,
-	Row,
-	Col,
 	Button,
-	Notify,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

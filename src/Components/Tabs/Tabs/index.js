@@ -13,6 +13,7 @@ export default class TabsComponent extends React.Component {
 		 * 若Tab有onActive参数值，tabName为必带参数
 		 */
 		tabName:React.PropTypes.string,
+		onActive:React.PropTypes.func
 	}
 
 	constructor(props){
@@ -28,7 +29,8 @@ export default class TabsComponent extends React.Component {
 		let {
 			className,
 			children,
-			style
+			style,
+			onActive
 		} = this.props;
 
 		let tabs=[];
@@ -63,14 +65,26 @@ export default class TabsComponent extends React.Component {
 		if(!style){
 			style =(label == tabName ? active:commenTab);
 		}
+		let onActives;
 
 		if(!onActive){
-			onActive = function(){
+			onActives = function(){
 				_this.setState({tabName: label})
 			}
+		}else{
+			onActives = function(){
+				
+				_this.setState({tabName: label})
+				onActive && onActive();
+			}
+
 		}
+			
+
+
+
 			return (
-				<Tab label={label} style={style} key={i} onActive={onActive} className={label}>
+				<Tab label={label} style={style} key={i} onActive={onActives} className={label}>
 					<div className="ui-tabs-contents"> 
 						{children}
 					</div>

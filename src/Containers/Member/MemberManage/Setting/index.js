@@ -3,6 +3,7 @@ import React from 'react';
 import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 import {
 	Table,
@@ -130,7 +131,7 @@ export default class List extends React.Component {
 		const params={};
 		params.foreignCode=values.foreignCode;
 		params.interCode=values.interCode;
-		Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
+		Http.request('CardActivation', {}, params).then(function(response) {
 			_this.openNewActivationDialog();
 			_this.onFlush();
 			Message.success("激活成功！")
@@ -180,7 +181,7 @@ export default class List extends React.Component {
 		params.id=values.id;
 		params.foreignCode=values.foreignCode;
 		params.interCode=values.interCode;
-		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
+		Http.request('CardEdit', {}, params).then(function(response) {
 			_this.openEditDetailDialog();
 			_this.onFlush();
 			Message.success("编辑成功");

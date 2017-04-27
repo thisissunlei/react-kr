@@ -3,9 +3,10 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
 import {
-	connect,
+	Http
+} from "kr/Utils";
+import {
 	Actions,
 	Store
 } from 'kr/Redux';
@@ -75,7 +76,7 @@ class Createdialog extends Component {
 	}
 	getOperation = () => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getModuleData', {}, {})).then(function(response) {
+		Http.request('getModuleData', {}, {}).then(function(response) {
 			_this.setState({
 				ModuleList: response.moduleAndResources
 			})
@@ -188,18 +189,18 @@ class Createdialog extends Component {
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="name" type="text" 
-							component="input" label="姓名："  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="name" type="text"
+							component="input" label="姓名："
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'姓名为必填项'}}
 							inline={true}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="code" type="text" 
-							component="input" label="编号："  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="code" type="text"
+							component="input" label="编号："
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'编码为必填项'}}
@@ -213,8 +214,8 @@ class Createdialog extends Component {
 							{this.renderOperation(ModuleList)}
 							{errorTip?<div className="u-error-tip">请选择操作项</div>:''}
 						</div>
-						
-						<KrField 
+
+						<KrField
 								 type="hidden"
 								 name="resourceIds"
 								 values={resourceIds}
@@ -223,7 +224,7 @@ class Createdialog extends Component {
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>
-				
+
 			</div>
 		);
 	}

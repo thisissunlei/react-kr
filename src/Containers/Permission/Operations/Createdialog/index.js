@@ -3,9 +3,10 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
 import {
-	connect,
+	Http
+} from "kr/Utils";
+import {
 	Actions,
 	Store
 } from 'kr/Redux';
@@ -106,7 +107,7 @@ class Createdialog extends Component {
 	}
 	getAllController = () => {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getAllController', {}, {})).then(function(response) {
+		Http.request('getAllController', {}, {}).then(function(response) {
 			var ControllerList = response.controllerList.map((item, index) => {
 				item.value = item.id;
 				item.label = item.name;
@@ -124,7 +125,7 @@ class Createdialog extends Component {
 			Params
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getModule', Params, {})).then(function(response) {
+		Http.request('getModule', Params, {}).then(function(response) {
 			var ModuleList = response.ssoModuleList.map((item, index) => {
 				item.value = item.id;
 				item.label = item.name;
@@ -170,7 +171,7 @@ class Createdialog extends Component {
 				parentId: item.id
 			}
 		}, function() {
-			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
+			Http.request('getModule', _this.state.Params, {}).then(function(response) {
 				if (response.ssoModuleList.length > 0) {
 					ModuleList = response.ssoModuleList.map((item, index) => {
 						item.value = item.id;
@@ -205,7 +206,7 @@ class Createdialog extends Component {
 				parentId: item.id
 			}
 		}, function() {
-			Store.dispatch(Actions.callAPI('getModule', _this.state.Params, {})).then(function(response) {
+			Http.request('getModule', _this.state.Params, {}).then(function(response) {
 				if (response.ssoModuleList.length > 0) {
 					ModuleList = response.ssoModuleList.map((item, index) => {
 						item.value = item.id;
@@ -318,18 +319,18 @@ class Createdialog extends Component {
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="name" type="text" 
-							component="input" label="名称"  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="name" type="text"
+							component="input" label="名称"
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'名称为必填项'}}
 							inline={true}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}} 
-							name="code" type="text" 
-							component="input" label="编号"  
+							style={{width:300,marginLeft:40,marginBottom:16}}
+							name="code" type="text"
+							component="input" label="编号"
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'编码为必填项'}}
@@ -356,7 +357,7 @@ class Createdialog extends Component {
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>
-				
+
 			</div>
 		);
 	}

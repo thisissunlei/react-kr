@@ -44,6 +44,8 @@ import {
 import Circle from './circle';
 import './active.less';
 
+
+
 import {
 	Menu,
 	MenuItem,
@@ -75,6 +77,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
 
 class NewCreatForm extends React.Component {
@@ -277,9 +280,9 @@ export default class OrderDetail extends React.Component {
 		let {
 			delAgreementId
 		} = this.state;
-		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+		Http.request('delete-enter-contract', {
 			contractId: delAgreementId
-		})).then(function(response) {
+		}).then(function(response) {
 			Notify.show([{
 				message: '删除成功!',
 				type: 'success',
@@ -293,18 +296,47 @@ export default class OrderDetail extends React.Component {
 
 	}
 
+	getLocalStorageDate=()=>{
+		let date = [];
+		let delList = [];
+		let now = +new Date();
+		let clearDate = 60*60*1000*1;
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
+			 	let time = now - parseInt(localStorage.getItem(itemName));
+				if((time/clearDate)>1){
+					//10小时
+					date.push(itemName.replace('setLocalStorageDate',''));
+				}
+			 }
+		 }
+		 date.map((item)=>{
+		 	for (var i = 0; i < localStorage.length; i++) {
+				if(localStorage.key(i).indexOf(item)!='-1'){
+					delList.push(localStorage.key(i));
+				}
+			}
+		 })
+		 delList.map((item)=>{
+		 	localStorage.removeItem(item);
+		 })
+		 
+	}
+
 	componentDidMount() {
 		const closeAll = this.props.location.query.closeAll;
 		if (closeAll) {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
 		}
+		this.getLocalStorageDate()
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('get-order-detail', {
+		Http.request('get-order-detail', {
 			mainBillId: this.props.params.orderId
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				response: response
 			});
@@ -485,10 +517,10 @@ export default class OrderDetail extends React.Component {
 			return;
 		}
 		if (form && orderBaseInfo.id) {
-			Store.dispatch(Actions.callAPI('edit-order-name', {}, {
+			Http.request('edit-order-name', {}, {
 				mainbillName: form,
 				mainBillId: orderBaseInfo.id
-			})).then(function(response) {
+			}).then(function(response) {
 				Notify.show([{
 					message: '修改成功!',
 					type: 'success',
@@ -525,9 +557,9 @@ export default class OrderDetail extends React.Component {
 			View
 		} = this.state
 		if (!isShow) {
-			Store.dispatch(Actions.callAPI('get-order-station', {
+			Http.request('get-order-station', {
 				mainBillId: orderBaseInfo.id
-			})).then(function(response) {
+			}).then(function(response) {
 				_this.setState({
 					staionsList: response
 				})

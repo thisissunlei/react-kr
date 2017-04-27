@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
+
 import {
 	UploadImage,
 	KrField,
@@ -61,7 +63,7 @@ class SingleUploadImgDefinitionForm extends React.Component{
 			picUrl : values.uploadImage
 		}
 		// 向指定社区推送图片
-		Store.dispatch(Actions.callAPI('uploadImgToEquipmentSingle',{},valuesParams))
+		Http.request('uploadImgToEquipmentSingle',{},valuesParams)
 	      .then(function(response){
 	      	Message.success("推送图片成功");
 	      	const {openSingleUploadDialog} = _this.props;

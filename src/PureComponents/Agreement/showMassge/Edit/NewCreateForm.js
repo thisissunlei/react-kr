@@ -12,6 +12,7 @@ import {
 import {
 	Binder
 } from 'react-binding';
+import {Http} from 'kr/Utils';
 import ReactMixin from "react-mixin";
 import dateFormat from 'dateformat';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -306,13 +307,13 @@ class NewCreateForm extends Component {
 			if(item.unitprice){
 				allMoney += this.getSingleRent(item);
 			}
-			
+
 		})
 		allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setState({
 			allRent
 		})
-		
+
 	}
 	getSingleRent=(item)=>{
 		//年月日
@@ -504,7 +505,7 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 		var stationVos = [];
-		
+
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
 			obj.stationId = item.id;
@@ -569,7 +570,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -584,7 +585,7 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		this.setAllRent(stationVos);
-		
+
 	}
 	dealRentName=(allRent)=>{
 		let name = '';
@@ -707,7 +708,7 @@ class NewCreateForm extends Component {
 						 </div>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同基本信息</label></div>
 					<div className="small-cheek" style={{paddingBottom:0}}>
-					
+
 				<KrField  grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -759,7 +760,7 @@ class NewCreateForm extends Component {
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
-				
+
 				</div>
 
 				<div className="end-round"></div>

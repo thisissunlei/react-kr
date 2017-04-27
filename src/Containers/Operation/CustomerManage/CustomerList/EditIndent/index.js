@@ -3,14 +3,14 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message
 } from 'kr-ui';
@@ -56,7 +56,7 @@ import {
 		values.mainbillname=State.orderName||this.props.mainbillname;
 		values.mainbillcode="";
 		let _this=this;
-		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response) {
+		Http.request('edit-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
 		}).catch(function(err) {

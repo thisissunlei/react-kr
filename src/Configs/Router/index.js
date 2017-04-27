@@ -15,16 +15,15 @@ import {
 } from 'kr/Redux';
 
 
-import {
-    Welcome,
-    Help,
-    Undefined,
-    Basic,
-    Initialize,
-    Demo,
-} from 'kr/Containers';
+// import Welcome from 'kr/Containers/Welcome';
+// import Help from 'kr/Containers/Help';
+// import Undefined from 'kr/Containers/Undefined';
+import Basic from 'kr/Containers/Basic';
+// import Initialize from 'kr/Containers/Initialize';
+import Demo from 'kr/Containers/Demo';
 
-import Master from 'kr/master';
+
+// import Master from 'kr/master';
 
 import DemoRouter from './DemoRouter';
 import MemberRouter from './MemberRouter';
@@ -38,18 +37,50 @@ import OARouter from './OARouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
 
+const Master = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/master').default)
+  }, 'Master')
+}
+
+const Welcome = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Welcome').default)
+  }, 'Welcome')
+}
+
+const Help = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Help').default)
+  }, 'Help')
+}
+
+
+const Initialize = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Initialize').default)
+  }, 'Initialize')
+}
+
+const Undefined = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Undefined').default)
+  }, 'Undefined')
+}
+
+
 
 export default (
 
-    <Route path="/" component={Master}>
+    <Route path="/" getComponent={Master}>
 
-        <IndexRoute component={Welcome}  onEnter={({params}, replace) =>{
+        <IndexRoute getComponent={Welcome}  onEnter={({params}, replace) =>{
             Store.dispatch(Actions.switchSidebarNav(false));
         }} onLeave={({params},replace)=>{
             Store.dispatch(Actions.switchSidebarNav(true));
         }}/>
 
-        <Route path="index" component={Welcome}  onEnter={({params}, replace) =>{
+        <Route path="index" getComponent={Welcome}  onEnter={({params}, replace) =>{
             Store.dispatch(Actions.switchSidebarNav(false));
         }} onLeave={({params},replace)=>{
             Store.dispatch(Actions.switchSidebarNav(true));
@@ -62,40 +93,40 @@ export default (
 
         {/*统计看板*/}
 
-		    {StatisticalRouter()}
+            {StatisticalRouter()}
 
         {/*社区经营*/}
         {CommunityRouter()}
 
         {/*OA办公*/}
-		{OARouter()}
+        {OARouter()}
         {/*商品零售*/}
-		{RetailRouter()}
+        {RetailRouter()}
 
-		{/*运营管理*/}
-		{OperationRouter()}
+        {/*运营管理*/}
+        {OperationRouter()}
 
-		{/*财务管理*/}
-		{FinanceRouter()}
+        {/*财务管理*/}
+        {FinanceRouter()}
 
-		{/*后台管理*/}
-		{WebBackstageRouter()}
+        {/*后台管理*/}
+        {WebBackstageRouter()}
 
-		{/*权限管理*/}
-		{PermissionRouter()}
+        {/*权限管理*/}
+        {PermissionRouter()}
 
-		{/*文档管理*/}
-		{DocumentRouter()}
+        {/*文档管理*/}
+        {DocumentRouter()}
 
 		{/*帮助*/}
-		<Route path="help" component={Help}/>
+		<Route path="help" getComponent={Help}/>
 
-        <Route path="initialize" component={Initialize}/>
+        <Route path="initialize" getComponent={Initialize}/>
 
 		{/*404*/}
-		<Route path="undefined" component={Undefined}/>
-		<Route path="*" component={Undefined}/>
+		<Route path="undefined" getComponent={Undefined}/>
+		<Route path="*" getComponent={Undefined}/>
 
-	</Route>
+    </Route>
 
 );

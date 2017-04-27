@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -14,6 +14,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {Http} from "kr/Utils"
 import {
 	KrField,
 	Grid,
@@ -21,7 +22,6 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
@@ -47,7 +47,7 @@ class NewCreateForm extends React.Component {
 		values = Object.assign({}, values);
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addFnaCorporation', {}, values)).then(function(response) {
+		Http.request('addFnaCorporation', {}, values).then(function(response) {
 			Notify.show([{
 				message: '新建成功！',
 				type: 'success',

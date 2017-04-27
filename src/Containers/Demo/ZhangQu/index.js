@@ -6,7 +6,7 @@ import {
 	KrField,
 	Button,
 } from 'kr-ui';
-import {reduxForm}  from 'kr/Utils/ReduxForm';
+import {mobxForm}  from 'kr/Utils/MobxForm';
 
 
  class ZhangQu extends React.Component{
@@ -29,6 +29,7 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 		const {$form} = this.props;
 
 		var values = {
+					input:'ddd',
 					username:'yyyyaa',
 					textarea:'bbbb',
 					enableflag:'yes',
@@ -47,13 +48,12 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 
 	change=(form)=>{
 		const {$form} = this.props;
-		Debug.log("form",form);
 		$form.change('editLabelText',form);
 	}
 
 	onReset = ()=>{
 		const {$form} = this.props;
-		$form.reset();
+		$form.changeValues({});
 	}
 
 	selectOldUser=(value)=>{
@@ -84,13 +84,14 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 				<div>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 
+				<KrField label="input" component="groupCheckbox" name="in" defaultValue={[{label:'haha',value:1},{label:'ddd',value:2}]} />
+
 				<KrField label="input" type="input" component="input" name="input" mobx={true} />
 				<KrField label="用户名称" type="text" component="textarea" name="textarea" mobx={true} />
 				<KrField label="uploadImageList" component="uploadImageList" name="uploadImageList" mobx={true} />
 				<KrField label="searchCustomer" component="searchCustomer" name="searchCustomer" mobx={true} />
 				<KrField label="select"  component="select" name="select" options={[{label:'ddd',value:'yy'}]} mobx={true} />
 				<KrField label="editor"  component="editor"  name="editor" mobx={true}  />
-				{/*<KrField label="groupCheckbox" component="groupCheckbox"  name="groupCheckbox"  defaultValue=={[{label:'ddd',value:'yy'}]} />*/}
 				<KrField label="editLabelText"  component="editLabelText"  name="editLabelText" save={this.change} mobx={true}/>
 				<KrField label="file"  component="file"  name="file" mobx={true}/>
 				<KrField label="doorCard"  component="doorCard"  name="doorCard" mobx={true}/>
@@ -172,15 +173,14 @@ import {reduxForm}  from 'kr/Utils/ReduxForm';
 const validate = (values)=>{
 	const errors = {};
 
-	// if(!values.input){
-	// 	errors.input = '请输入input'
-	// }
-	// if(!values.textarea){
-	// 	errors.textarea = '请输入textarea'
-	// }
-	// if(!values.uploadImageList){
-	// 	errors.uploadImageList = '请输入uploadImageList'
-	// }
+	 if(!values.input){
+	 	errors.input = '请输入input'
+	 }
+
+	 if(!values.textarea){
+	 	errors.textarea = '请输入textarea'
+	 }
+
 	// if(!values.searchCustomer){
 	// 	errors.searchCustomer = '请输入searchCustomer'
 	// }
@@ -190,7 +190,7 @@ const validate = (values)=>{
 
 }
 
-export default reduxForm({
+export default mobxForm({
 form:'dForm',
 validate,
 })(ZhangQu);
