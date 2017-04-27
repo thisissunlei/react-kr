@@ -86,7 +86,7 @@ export default class  SelectCity extends React.Component{
 		let {type}=this.props;
 		var title='';
 		if(type=='SPACE'){
-			title="会议室配置"
+			title="空间配置"
 		}
 		if(type=='STATION'){
 			title="工位配置"

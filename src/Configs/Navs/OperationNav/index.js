@@ -46,7 +46,7 @@ module.exports = [
 						router: '/operation/communityAllocation/communityList'
 					},
 					{
-						primaryText: '会议室列表',
+						primaryText: '空间列表',
 						menuCode: 'communityBoardroomList',
 						router: '/operation/communityAllocation/CommunityMeetingRoom'
 					},
