@@ -275,6 +275,8 @@ class NewCreateForm extends React.Component {
 			        		openAdd:false
 			        	})
 			        }
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+			        
 			});
 			this.isInit = true;
 		};

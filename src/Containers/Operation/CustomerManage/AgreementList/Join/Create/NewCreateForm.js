@@ -414,6 +414,9 @@ class NewCreateForm extends React.Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
+		if(!!!form.contractmark){
+			form.contractmark = '';
+		}
 		var _this = this;
 
 		form.stationVos = stationVos;
