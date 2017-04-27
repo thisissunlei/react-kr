@@ -15,11 +15,6 @@ export default class KrAppBar extends React.Component {
 		title:React.PropTypes.string,
 	}
 
-
-
-
-	
-
 	render() {
 
 		let {children,className,style} = this.props;
