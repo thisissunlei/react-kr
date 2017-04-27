@@ -23,7 +23,6 @@ class Editdialog extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			ModuleList: [],
 			resourceIds: [],
 			errorTip: false,
 			moduleDetail:[],
@@ -176,45 +175,35 @@ class Editdialog extends React.Component {
 	
 	renderOperation = (moduleDetail) => {
 		var _this = this;
-	return	moduleDetail.map((item,index)=>{
-			if(item.resources.length>0){
-				return(
-				<div className="u-clearfix u-module"  key={index}>
-					<div className="u-module-list">{item.name}</div>
-						<div className="u-resources-list" key={index}>
-							<input 
-								  type="checkbox" 
-								  onChange={this.getAllValue.bind(this,item)}
-							/>全选
-						</div>
-					{this.renderResources(item.resources)}
-				</div>
-				)
-			}else{
-				return(
-					<div key={index}>
-						{item.name}
+		return	moduleDetail.map((item,index)=>{
+				if(item.resources.length>0){
+					return(
+					<div className="u-clearfix u-module"  key={index}>
+						<div className="u-module-list">{item.name}</div>
+							<div className="u-resources-list">
+								<input 
+									  type="checkbox" 
+									  onChange={this.getAllValue.bind(this,item)}
+								/>全选
+							</div>
+						{this.renderResources(item.resources)}
 					</div>
-				)	
-			}
-			
-			
-		})
-
-		
+					)
+				}else{
+					return(
+						<div key={index}>
+							{item.name}
+						</div>
+					)	
+				}
+				
+				
+			})
 		
 	}
 	render() {
 		let {
-			error,
-			handleSubmit,
-			pristine,
-			reset,
-			submitting,
-			initialValues,
-			changeValues,
-			optionValues,
-			
+			handleSubmit
 		} = this.props;
 		let {
 			resourceIds,
@@ -231,7 +220,6 @@ class Editdialog extends React.Component {
 							component="input" label="姓名："
 							requireLabel={true}
 							requiredValue={true}
-							errors={{requiredValue:'姓名为必填项'}}
 							inline={true}
 					/>
 					<KrField
@@ -240,7 +228,6 @@ class Editdialog extends React.Component {
 							component="input" label="编号："
 							requireLabel={true}
 							requiredValue={true}
-							errors={{requiredValue:'编码为必填项'}}
 							inline={true}
 					/>
 					<div className="u-operation">
