@@ -58,6 +58,10 @@ export default class DialogComponent extends React.Component {
 			}.bind(this));
 	}
 
+
+
+	
+
 	componentDidUpdate(){
 			var dialogContentEle = this.refs.dialogContent;
 			var height = dialogContentEle.getBoundingClientRect().height;
