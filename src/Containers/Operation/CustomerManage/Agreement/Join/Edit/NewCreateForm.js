@@ -783,7 +783,7 @@ const validate = values => {
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
 			}else if( !!!values[i]){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,'');
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,'');
 
 			}
 	    };

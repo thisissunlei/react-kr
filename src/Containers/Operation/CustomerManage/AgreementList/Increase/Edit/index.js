@@ -198,7 +198,10 @@ export default class JoinCreate extends React.Component {
 
 				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 				initialValues.num = localStorage.getItem(keyWord+'num')||1;
-				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=2){
+					initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				}
+				
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
 				initialValues.id = response.id;
@@ -365,6 +368,10 @@ export default class JoinCreate extends React.Component {
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
+
+
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				initialValues.num = 1+parseInt(localStorage.getItem(keyWord+'num'));
 
 				//处理stationvos
 

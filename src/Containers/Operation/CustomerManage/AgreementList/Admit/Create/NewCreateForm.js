@@ -110,8 +110,6 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
-			local:this.props.local || [],
-			openLocalStorage:this.props.openLocalStorage || false
 		}
 	}
 
@@ -237,9 +235,13 @@ class NewCreateForm extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
-		console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
+		// console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
+		// if(!allState.openLocalStorage && !allState.openLocalStorages){
+		// 	Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
+		// }else if(!allState.openLocalStorage && allState.openLocalStorages){
+		// 	Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
+		// }
 		if(this.props.initialValues != nextProps.initialValues){
-			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues
 			})

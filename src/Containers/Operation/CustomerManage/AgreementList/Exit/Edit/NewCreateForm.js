@@ -32,6 +32,7 @@ import UnitPriceForm from './UnitPriceForm';
 import {
 	KrField,
 	Row,
+	Grid,
 	Button,
 	ListGroup,
 	ListGroupItem,
@@ -73,6 +74,7 @@ class NewCreateForm extends React.Component {
 		} = this.props;
 		Store.dispatch(initialize('exitEditForm', initialValues));
 	}
+
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitEditForm', 'lessorContacttel', personel.mobile));
@@ -244,6 +246,21 @@ class NewCreateForm extends React.Component {
 	}
 }
 const validate = values => {
+	++values.num;
+
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
 
 	const errors = {}
 
@@ -297,24 +314,7 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
-	++values.num;
-
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'editcontractmark','');
-
-			}
-	    };
-	}
+	
 
 
 	return errors

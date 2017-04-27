@@ -187,6 +187,7 @@ class NewCreateForm extends React.Component {
 		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('renewEditForm', 'totalrent', response));
 			_this.setState({
 				allRent:response
 			})
@@ -253,6 +254,7 @@ class NewCreateForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		var _this=this;
+		let initialValues = nextProps.initialValues;
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			let originStationVos = [].concat(stationVos);
@@ -274,6 +276,8 @@ class NewCreateForm extends React.Component {
 			        		openAdd:false
 			        	})
 			        }
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+
 			});
 			this.isInit = true;
 		};
@@ -566,7 +570,7 @@ const validate = values => {
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
 			}else if( !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit','');
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,'');
 
 			}
 	    };

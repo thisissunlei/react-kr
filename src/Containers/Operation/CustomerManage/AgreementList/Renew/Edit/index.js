@@ -254,6 +254,7 @@ export default class JoinCreate extends React.Component {
         });
 
       }).catch(function(err) {
+        console.log(err)
         Notify.show([{
           message: '后台出错请联系管理员',
           type: 'danger',
@@ -262,6 +263,7 @@ export default class JoinCreate extends React.Component {
 
 
     }).catch(function(err) {
+        console.log(err)
       Notify.show([{
         message: '后台出错请联系管理员',
         type: 'danger',
@@ -372,6 +374,10 @@ export default class JoinCreate extends React.Component {
         
         stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 
+        initialValues.oldNum = localStorage.getItem(keyWord+'num') ||1;
+
+        initialValues.num = 1+parseInt(localStorage.getItem(keyWord+'num'));
+
         _this.setState({
           initialValues,
           optionValues,
@@ -404,7 +410,7 @@ export default class JoinCreate extends React.Component {
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'RENEWedit';
-       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
+       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
         _this.setState({
           openLocalStorages:true
         })
