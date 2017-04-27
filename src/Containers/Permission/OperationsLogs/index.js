@@ -39,10 +39,9 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from './Deletedialog';
 import SearchForm from './SearchForm';
 
-export default class UserList extends Component {
+export default class OperationsLogs extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -153,18 +152,8 @@ export default class UserList extends Component {
 					</TableBody>
 					<TableFooter></TableFooter>
 					</Table>
-					<Dialog
-						title="提示"
-						modal={true}
-						onClose={this.openDeleteDialog}
-						open={this.state.openDeleteDialog}
-						contentStyle={{width:460}}
-						>
-						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
-						
-					 </Dialog>
 				</Section>
-					
+
 			</div>
 		);
 	}
