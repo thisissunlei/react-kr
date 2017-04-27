@@ -145,8 +145,11 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
-		stationVos[index].unitprice = value;
-
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -538,6 +541,14 @@ class NewCreateForm extends React.Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let stationList = list.map((item)=>{
+		if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
+			}
+			return item;
+		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response

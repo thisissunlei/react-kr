@@ -349,7 +349,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.contractcode =response.contractcode;
 				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday')|| response.templockday;
+				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
 				optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
 				// initialValues.lessorContactid = response.lessorContactid;
 				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress');

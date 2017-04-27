@@ -530,9 +530,11 @@ class NewCreateForm extends React.Component {
 	setAllRent=(list)=>{
 		let _this = this;
 		let {initialValues} = this.props;
-		list = list.map((item)=>{
+		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = (''+item.unitprice).replace(/\s/g,'');
 			}
 			return item;
 		})
@@ -783,7 +785,7 @@ const validate = values => {
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,values[i]);
 			}else if( !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,'');
 
 			}
 	    };

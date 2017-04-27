@@ -151,13 +151,14 @@ class NewCreateForm extends React.Component {
 	}
 
 	onStationVosChange(index, value) {
-
 		let {
 			stationVos
 		} = this.state;
-
-		stationVos[index].unitprice = value;
-
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -538,7 +539,7 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
-			if(!item.unitprice){
+		if(!item.unitprice){
 				item.unitprice = 0;
 			}else{
 				item.unitprice = item.unitprice.replace(/\s/g,'');
