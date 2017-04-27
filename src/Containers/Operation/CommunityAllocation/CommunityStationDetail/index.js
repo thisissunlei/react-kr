@@ -40,11 +40,34 @@ class  CommunityStationDetail extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+		 //社区名称
+		communityName:'',
+		//会议室名称数据准备
+		stationName:{},
+		//高级查询会议室名称
+		spacesName:[],
+		//楼层数据准备
+		floorData:[],
+		}
 	}
 
 	componentWillMount(){
-		var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-		this.props.CommunityStationModel.stationDataReady(href);
+		  var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+		  //工位列表数据准备	
+			var data={};
+			data.communityId=href;
+			var _this=this;
+			Http.request('station-param-data',data).then(function(response) {
+				_this.setState({
+					communityName:response.communityName,
+					stationName:response.floorSpaces,
+					floorData:response.floors,
+					spacesName:response.spaces
+				})
+		 }).catch(function(err) {
+				Message.error(err.message);
+		 });
         this.props.CommunityStationModel.searchParams.communityId=href;
 		this.props.CommunityStationModel.communityId=href;
 	}
@@ -177,7 +200,9 @@ SelectCommunity=()=>{
 
 	render(){
 
-		let title=`工位列表(${this.props.CommunityStationModel.communityName})`;
+		let {communityName,stationName,spacesName,floorData}=this.state;
+
+		let title=`工位列表(${communityName})`;
 		return(
 			<div className='community-list'>
 				<Title value="工位列表"/>
@@ -268,6 +293,8 @@ SelectCommunity=()=>{
 				<NewAddStation
 					onCancel={this.cancelAddCode}
 					onSubmit={this.stationAddSubmit}
+					stationName={stationName}
+					floorData={floorData}
 				/>
 			 </Drawer>
 
@@ -283,6 +310,8 @@ SelectCommunity=()=>{
 					onCancel={this.cancelEditCode}
 					onSubmit={this.stationAddSubmit}
 					id={this.props.CommunityStationModel.deleteId}
+					stationName={stationName}
+					floorData={floorData}
 				/>
 			 </Drawer>
 
@@ -309,6 +338,7 @@ SelectCommunity=()=>{
 				<SearchUpperForm
 					onCancel={this.cancelSearchUpperDialog}
 					onSubmit={this.onSearchUpperSubmit}
+					spacesName={spacesName}
 				/>
 				</Dialog>
 

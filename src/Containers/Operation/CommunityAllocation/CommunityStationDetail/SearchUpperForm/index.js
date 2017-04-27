@@ -52,7 +52,7 @@ class SearchUpperForm extends React.Component {
 	render() {
 
 
-	   let {handleSubmit}=this.props;
+	   let {handleSubmit,spacesName}=this.props;
 		 let {dateBoxStyle}=this.state;
 
 	  	return(
@@ -67,7 +67,7 @@ class SearchUpperForm extends React.Component {
 					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="belongSpace" component="select" label="是否属于会议室"
 					  options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]}/>
 					<KrField grid={1/2} style={{width:262}}  name="spaceId" component="select" label="会议室名称"
-					 options={this.props.CommunityStationModel.spacesName}
+					 options={spacesName}
 					 />
 
 
