@@ -1,8 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	Http
 } from "kr/Utils";
@@ -38,7 +34,7 @@ import {
 import './index.less';
 
 
-class Createdialog extends Component {
+class Createdialog extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -355,7 +351,15 @@ class Createdialog extends Component {
 							{this.renderController()}
 						</div>
 					</div>
-					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
+					<Row style={{marginTop:30,marginBottom:15}}>
+					<Col md={12} align="center"> 
+						<ButtonGroup>
+							<div  className='ui-btn-center'><Button  label="确定" type="submit"   height={34} width={90}/></div>
+							<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
+						</ButtonGroup>
+						
+					 </Col>
+					 </Row>
 				</form>
 
 			</div>

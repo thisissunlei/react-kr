@@ -289,7 +289,7 @@ class Operations extends Component {
 						modal={true}
 						onClose={this.openCreateDialog}
 						open={this.state.openCreateDialog}
-						contentStyle={{width:900}}
+						contentStyle={{width:900,height:500}}
 						>
 						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 
@@ -299,7 +299,7 @@ class Operations extends Component {
 						modal={true}
 						onClose={this.openEditDialog}
 						open={this.state.openEditDialog}
-						contentStyle={{width:900}}
+						contentStyle={{width:900,height:500}}
 						>
 						<Editdialog  detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 
