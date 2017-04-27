@@ -39,7 +39,6 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from './Deletedialog';
 import SearchForm from './SearchForm';
 
 export default class UserList extends Component {
