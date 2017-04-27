@@ -51,6 +51,8 @@ import {
 	KrDate
 } from 'kr-ui';
 
+import allState from "../../State";
+
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends React.Component {
 
@@ -225,15 +227,17 @@ class NewCreateForm extends React.Component {
 
 
 	componentDidMount() {
+		console.log('-----componentDidMount-----',allState.openLocalStorage,allState.openLocalStorages);
 		let {
 			initialValues
 		} = this.props;
-		Store.dispatch(initialize('admitCreateForm', initialValues));
+		// Store.dispatch(initialize('admitCreateForm', initialValues));
 	}
 
 
 
 	componentWillReceiveProps(nextProps) {
+		console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
 		if(this.props.initialValues != nextProps.initialValues){
 			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
 			this.setState({
@@ -585,6 +589,8 @@ class NewCreateForm extends React.Component {
 			optionValues
 		} = this.props;
 
+		console.log('-----admin-----',allState.openLocalStorage,allState.openLocalStorages);
+
 		let {
 			fnaCorporationList
 		} = optionValues;
@@ -789,7 +795,7 @@ const validate = values => {
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
 				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
-				}else if(!!!valies[i]){
+				}else if(!!!values[i]){
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,'');
 				}
 
