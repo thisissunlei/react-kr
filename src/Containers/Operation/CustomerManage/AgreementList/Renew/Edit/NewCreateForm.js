@@ -187,6 +187,7 @@ class NewCreateForm extends React.Component {
 		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('renewEditForm', 'totalrent', response));
 			_this.setState({
 				allRent:response
 			})
