@@ -155,6 +155,7 @@ class NewCreateForm extends React.Component {
 		})
 		Http.request('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'LESSRENTeditrentamount', response);
+			Store.dispatch(change('reduceCreateForm', 'rentamount', response));
 			
 			_this.setState({
 				allRent:response
@@ -288,18 +289,22 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (!this.isInit && nextProps.stationVos.length) {
+		if (!this.int && nextProps.stationVos.length) {
 
 			let stationVos = nextProps.stationVos;
 
 			let originStationVos = [].concat(stationVos);
+			let initialValues = nextProps.initialValues;
 
 			this.setState({
 				stationVos,
 				originStationVos,
 				delStationVos:nextProps.delStationVos
 			});
-			this.isInit = true;
+			this.int = true;
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'LESSRENTeditstationVos', JSON.stringify(stationVos));
+
+			this.setAllRent(stationVos)
 		};
 	}
 
@@ -544,6 +549,21 @@ const validate = values => {
 
 	const errors = {}
 
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if( !!!values[i] && i !='rentamount'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
@@ -587,23 +607,7 @@ const validate = values => {
 	// 	errors.contractcode = '请填写合同编号';
 	// }
 
-	++values.num;
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'editagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'editcontractmark','');
-
-			}
-	    };
-	}
+	
 
 
 

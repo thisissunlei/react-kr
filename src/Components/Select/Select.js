@@ -1050,9 +1050,9 @@ const Select = React.createClass({
 		}
 
 		return (
-			<div ref={ref => this.menuContainer = ref} className="Select-menu-outer" style={{maxHeight:'134px'}}>
+			<div ref={ref => this.menuContainer = ref} className="Select-menu-outer" style={{maxHeight:'248px',zIndex:'100'}}>
 				<div ref={ref => this.menu = ref} role="listbox" className="Select-menu" id={this._instancePrefix + '-list'}
-						 style={{maxHeight:'132px',borderBottomLeftRadius:'4px',borderBottomRightRadius:'4px'}}
+						 style={{maxHeight:'244px',borderBottomLeftRadius:'4px',borderBottomRightRadius:'4px'}}
 						 onScroll={this.handleMenuScroll}
 						 onMouseDown={this.handleMouseDownOnMenu}>
 					{menu}

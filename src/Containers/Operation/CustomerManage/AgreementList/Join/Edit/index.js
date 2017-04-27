@@ -75,7 +75,7 @@ export default class JoinCreate extends React.Component {
 
 		var _this = this;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
-			_this.removeLocalStorage();
+			_this.removeAllLocalStorage();
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '更新成功',
@@ -112,6 +112,21 @@ export default class JoinCreate extends React.Component {
 	removeLocalStorage=()=>{
 		let {params} = this.props;
 		let keyWord = params.orderId+''+params.customerId+'ENTERedit';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);

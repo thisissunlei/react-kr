@@ -113,7 +113,7 @@ class LookDetailed extends Component{
 			tds.push(<div className="div-td"><span className="tableOver">{text}</span></div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.reasonName}</span>{this.everyTd(everyTr.reasonName)}</div>);
 
-			tr.push(<div className="tr-content">{tds}</div>);
+			tr.push(<div key = {i} className="tr-content">{tds}</div>);
 		}
 
 			return (
@@ -128,9 +128,6 @@ class LookDetailed extends Component{
 							<span>是否跟进</span>
 							<span>原因</span>
 						</div>
-
-
-						{tr}
 
 
 					</div>)

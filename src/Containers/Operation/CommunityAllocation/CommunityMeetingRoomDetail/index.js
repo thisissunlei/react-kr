@@ -248,6 +248,7 @@ SelectCommunity=()=>{
 
 			        <TableBody >
 			              <TableRow>
+
 			                <TableRowColumn name="typeName" options={[{label:'独立办公区',value:'INDEPENDENT_OFFICE'},{label:'会议室',value:'BOARDROOM'},{label:'路演厅',value:'ROADSHOW_HALL'}]}></TableRowColumn>
 							<TableRowColumn name="code"></TableRowColumn>
                       <TableRowColumn name="name"></TableRowColumn>

@@ -73,7 +73,7 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 
 		Http.request('getFnaContractRentController', {}, formValues).then(function(response) {
-			_this.removeLocalStorage();
+			_this.removeAllLocalStorage();
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
@@ -102,19 +102,33 @@ export default class JoinCreate extends React.Component {
 		//window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 	removeLocalStorage=()=>{
-    let {params} = this.props;
-    let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'LESSRENTedit';
-    let removeList = [];
-    for (var i = 0; i < localStorage.length; i++) {
-      let itemName = localStorage.key(i);
-       if(localStorage.key(i).indexOf(keyWord)!='-1'){
-         removeList.push(itemName);
-       }
-     }
-     removeList.map((item)=>{
-       localStorage.removeItem(item);
-    })
-  }
+	    let {params} = this.props;
+	    let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'LESSRENTedit';
+	    let removeList = [];
+	    for (var i = 0; i < localStorage.length; i++) {
+	      let itemName = localStorage.key(i);
+	       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+	         removeList.push(itemName);
+	       }
+	     }
+	     removeList.map((item)=>{
+	       localStorage.removeItem(item);
+	    })
+	  }
+	  removeAllLocalStorage=()=>{
+	    let {params} = this.props;
+	    let keyWord = params.orderId+''+params.customerId;
+	    let removeList = [];
+	    for (var i = 0; i < localStorage.length; i++) {
+	      let itemName = localStorage.key(i);
+	       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+	         removeList.push(itemName);
+	       }
+	     }
+	     removeList.map((item)=>{
+	       localStorage.removeItem(item);
+	    })
+	  }
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -320,8 +334,8 @@ export default class JoinCreate extends React.Component {
                 let customerId = localStorage.getItem(keyWord +'customerId');
 
 
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')||response.lessorContactName;
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'))||response.contractFileList;
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 				optionValues.leaseEnddate = response.leaseEnddate;
 				optionValues.leaseBegindate = response.leaseBegindate;
 
@@ -329,17 +343,17 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseEnddate = response.leaseEnddate;
 
 				initialValues.id = response.id;
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'))||response.leaseId;
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.contractcode = response.contractcode;
-				initialValues.leaseAddress =localStorage.getItem(keyWord+'leaseAddress')|| response.leaseAddress;
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')||response.lessorContactName;
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact')||response.leaseContact;
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel')||response.leaseContacttel;
-        		initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType')||response.contractVersion;
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')||response.lessorContactid;
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||response.contractmark;
+				initialValues.leaseAddress =localStorage.getItem(keyWord+'leaseAddress');
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+        		initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType');
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
 				initialValues.rentamount = localStorage.getItem(keyWord+'rentamount')||response.rentamount|| 0;
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')||response.lessorContacttel;
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
 					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 
 				initialValues.signdate = localStorage.getItem(keyWord+'signdate')||DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
@@ -348,7 +362,7 @@ export default class JoinCreate extends React.Component {
 
 				initialValues.stationVos = response.stationVos;
 				//处理stationvos
-				stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos'))||response.stationVos;
+				stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos'))||[];
 				delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos'))|| [];
 
 				_this.setState({
