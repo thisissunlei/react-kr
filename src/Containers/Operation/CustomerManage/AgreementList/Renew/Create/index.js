@@ -82,7 +82,7 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 
 		Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
-			_this.removeLocalStorage();
+			_this.removeAllLocalStorage();
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -112,6 +112,21 @@ export default class JoinCreate extends React.Component {
 	removeLocalStorage=()=>{
 		let {params} = this.props;
 		let keyWord = params.orderId+''+params.customerId+'RENEWcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);

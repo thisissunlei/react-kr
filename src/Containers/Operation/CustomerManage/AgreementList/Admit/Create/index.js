@@ -89,7 +89,7 @@ export default class JoinCreate extends React.Component {
 			var _this = this;
 		Http.request('addFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
-		    _this.removeLocalStorage();
+		    _this.removeAllLocalStorage();
 
 			Notify.show([{
 				message: '创建成功',
@@ -123,6 +123,21 @@ export default class JoinCreate extends React.Component {
 	removeLocalStorage=()=>{
 		let {params} = this.props;
 		let keyWord = params.orderId+''+params.customerId+'INTENTIONcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -286,6 +301,7 @@ export default class JoinCreate extends React.Component {
 			}
 			optionValue = Object.assign({},optionValues,optionValue);
 			initialValue = Object.assign({},initialValues,initialValue);
+			console.log('initialValue',initialValue);
 
 
 			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
@@ -330,12 +346,12 @@ export default class JoinCreate extends React.Component {
 			<div >
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} local={local}/>
-			</div>}
-			{openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue}  stationVos={stationVos} local={local}/>
-			</div>}
+			<div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} onCancel={this.onCancel}  initialValues={initialValues} optionValues={optionValues} stationVos={stationVos}/>
+			</div>
+			// {openLocalStorages && <div style={{marginTop:10}}>
+			// 		<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue}  stationVos={stationVos} local={local}/>
+			// </div>}
 
 			<Dialog
 				title="承租意向书"

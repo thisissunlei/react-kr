@@ -339,6 +339,7 @@ class NewCreateForm extends React.Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 
 			let stationVos = nextProps.stationVos;
+			let initialValues = nextProps.initialValues;
 
 			let originStationVos = [].concat(stationVos);
 
@@ -362,6 +363,8 @@ class NewCreateForm extends React.Component {
 			        	})
 			        }     	     
 			});
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+''+initialValues.id+'LESSRENTeditstationVos', JSON.stringify(stationVos));
+
 			this.isInit = true;
 		};
 	}
@@ -611,6 +614,21 @@ const validate = values => {
 
 	const errors = {}
 
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if( !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
+
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
@@ -654,23 +672,7 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
-	++values.num;
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editcontractmark','');
-
-			}
-	    };
-	}
+	
 
 
 	return errors

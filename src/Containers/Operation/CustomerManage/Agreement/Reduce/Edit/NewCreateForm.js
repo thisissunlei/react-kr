@@ -289,18 +289,22 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (!this.isInit && nextProps.stationVos.length) {
+		if (!this.int && nextProps.stationVos.length) {
 
 			let stationVos = nextProps.stationVos;
 
 			let originStationVos = [].concat(stationVos);
+			let initialValues = nextProps.initialValues;
 
 			this.setState({
 				stationVos,
 				originStationVos,
 				delStationVos:nextProps.delStationVos
 			});
-			this.isInit = true;
+			this.int = true;
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'LESSRENTeditstationVos', JSON.stringify(stationVos));
+
+			this.setAllRent(stationVos)
 		};
 	}
 
@@ -554,7 +558,7 @@ const validate = values => {
 				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
-			}else if( !!!values[i]){
+			}else if( !!!values[i] && i !='rentamount'){
 				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'edit'+i,'');
 
 			}

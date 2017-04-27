@@ -236,6 +236,15 @@ class NewCreateForm extends React.Component {
 			openLocalStorage:nextProps.openLocalStorage
 		})
 		}
+		if (!this.isInit && nextProps.stationVos.length) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos,
+			}, function() {
+				this.setAllRent(nextProps.stationVos);
+			});
+			this.isInit = true;
+		}
 	}
 
 
@@ -317,66 +326,6 @@ class NewCreateForm extends React.Component {
 		return name;
 	}
 
-	getLocalStorageSata=()=>{
-		var _this = this;
-		const {
-			params
-		} = this.props;
-		let {initialValues} = this.state;
-		let {optionValues} = this.state;
-		let stationVos = [];
-			//获取localStorage数据
-			let keyWord = params.orderId+ params.customerId+'LESSRENTcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
-				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
-				optionValues.rentamount = localStorage.getItem(keyWord+'rentamount');
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			stationVos = JSON.parse(initialValues.stationVos);
-
-			Store.dispatch(initialize('reduceCreateForm', initialValues));
-			Store.dispatch(change('reduceCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
-
-
-			_this.setState({
-				initialValues,
-				optionValues,
-				stationVos,
-				allRent:optionValues.rentamount
-			});
-	}
-	onCancelStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-
-		})
-		let {removeLocalStorage} = this.props;
-		removeLocalStorage && removeLocalStorage();	
-	}
-	getLocalStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-		})
-		this.getLocalStorageSata();
-	}
 
 	render() {
 
@@ -522,27 +471,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}    params= {this.props.params}/>
 					  </Dialog>
-				<Dialog
-				title="提示"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorage} 
-				contentStyle={{width:'400px'}}>
-					<div>
-						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-						<Grid>
-						<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-						</ListGroup>
-						</Row>
-						</Grid>
-					</div>
-
-			  </Dialog>
+				
 
 
 			</Paper>);
