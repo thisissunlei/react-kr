@@ -318,7 +318,7 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
-		('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			type :1,

@@ -186,7 +186,7 @@ export default class JoinCreate extends React.Component {
 
 			let keyWord = params.orderId+ params.customerId+'ENTERcreate';
 			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
-			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.setLocalStorageDate = +new Date();
 
@@ -264,7 +264,7 @@ export default class JoinCreate extends React.Component {
 
 			let keyWord = params.orderId+ params.customerId+'ENTERcreate';
 			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
-			initialValues.num = localStorage.getItem(keyWord+'num') || 1;
+			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.setLocalStorageDate = +new Date();
 
