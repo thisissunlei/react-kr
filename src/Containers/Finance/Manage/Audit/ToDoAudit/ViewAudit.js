@@ -324,7 +324,7 @@ export default class ViewAudit extends React.Component {
 								value={< KrDate style = {{marginTop:5}} value = {
                     infoList.dealTime
                 }
-                format = "yyyy-mm-dd HH:MM:ss" />}
+                format = "yyyy-mm-dd" />}
 						/>
 						<KrField
 								style={{width:548}}
