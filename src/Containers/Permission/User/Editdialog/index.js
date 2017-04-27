@@ -43,6 +43,7 @@ class Editdialog extends React.Component {
 				id: id
 			}).then(function(response) {
 				response.moduleAndResources.map((item)=>{
+					item.check=false;
 					if(item.resources.length>0){
 						item.resources.map((items)=>{
 							if(items.ownFlag==1){
@@ -130,6 +131,31 @@ class Editdialog extends React.Component {
 			})
 		}
 	}
+	getAllValue=(value)=>{
+		var idList = this.state.resourceIds;
+		if(!value.check){
+			value.check=true;
+			value.resources.map((item)=>{
+				item.ownFlag=1;
+				if(idList.indexOf(item.id)==-1){
+					idList.push(item.id)
+				}
+			})
+		}else{
+			value.check=false;
+			value.resources.map((item)=>{
+				item.ownFlag=0;
+				var index = idList.indexOf(item.id);
+				if(index>-1){
+					idList.splice(index, 1);
+				}
+			})
+		}
+		this.setState({
+				resourceIds: idList
+			})
+		
+	}
 	renderResources=(resources)=>{
 		return resources.map((item,index)=>{
 			return(
@@ -150,8 +176,14 @@ class Editdialog extends React.Component {
 	return	moduleDetail.map((item,index)=>{
 			if(item.resources.length>0){
 				return(
-				<div className="u-clearfix"  key={index}>
+				<div className="u-clearfix u-module"  key={index}>
 					<div className="u-module-list">{item.name}</div>
+						<div className="u-resources-list" key={index}>
+							<input 
+								  type="checkbox" 
+								  onChange={this.getAllValue.bind(this,item)}
+							/>全选
+						</div>
 					{this.renderResources(item.resources)}
 				</div>
 				)
