@@ -103,8 +103,7 @@ class NewCreateForm extends React.Component {
 		this.onCloseStation = this.onCloseStation.bind(this);
 
 		this.state = {
-			stationVos: this.props.stationVos || [],
-			stationVoList: this.props.stationVoList || [],
+			stationVos: this.props.stationVoList || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -133,7 +132,7 @@ class NewCreateForm extends React.Component {
 		if (!this.isInit && nextProps.stationVoList.length ) {
 			let stationVoList = nextProps.stationVoList;
 			this.setState({
-				stationVoList
+				stationVos:stationVoList
 			});
 			this.isInit = true;
 		}
