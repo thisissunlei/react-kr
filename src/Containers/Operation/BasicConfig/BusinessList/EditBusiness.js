@@ -86,8 +86,8 @@ import {
 
 						<KrField grid={1/2}  name="sort" style={{width:262,marginLeft:28}} component='input'  label="排序" inline={false}  placeholder='请输入客户名称' requireLabel={true}/>
 						<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态" requireLabel={false}>
-							 <KrField name="enable" label="是" type="radio" value="ENABLE" />
-							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
+							 <KrField name="enable" label="启用" type="radio" value="ENABLE" />
+							 <KrField name="enable" label="禁用" type="radio" value="DISENABLE" />
 						</KrField>
 						</div>
 						<Grid style={{marginTop:30}}>
