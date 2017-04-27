@@ -42,7 +42,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages:false
 		}
 			this.isConfirmSubmiting = false;
-		Store.dispatch(reset('increaseCreateForm'));
+
 	}
 
 	onCreateSubmit(formValues) {
@@ -81,7 +81,7 @@ export default class JoinCreate extends React.Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			
+
 			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
@@ -134,7 +134,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(reset('increaseCreateForm'));
 		var _this = this;
 		const {
 			params
@@ -172,7 +172,7 @@ export default class JoinCreate extends React.Component {
 
 			initialValues.contractcode = response.contractCode;
 			initialValues.setLocalStorageDate = +new Date();
-			
+
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
 
@@ -192,7 +192,7 @@ export default class JoinCreate extends React.Component {
 				return item;
 			});
 
-			
+
 
 
 			optionValues.floorList = response.customer.floor;
@@ -201,7 +201,7 @@ export default class JoinCreate extends React.Component {
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
-			
+
 			_this.setState({
 				initialValues,
 				optionValues,

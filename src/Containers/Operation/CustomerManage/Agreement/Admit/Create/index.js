@@ -51,8 +51,9 @@ export default class JoinCreate extends React.Component {
 			openConfirmCreate: false,
 			openLocalStorages:false
 		}
+
 		this.isConfirmSubmiting = false;
-		Store.dispatch(reset('admitCreateForm'));
+
 	}
 	componentWillUnmount() {
 		Store.dispatch(reset('admitCreateForm'));
@@ -143,6 +144,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('admitCreateForm'));
 		var _this = this;
 		const {
 			params
@@ -229,7 +231,6 @@ export default class JoinCreate extends React.Component {
 			 stationVoList,
 			 openLocalStorages
 		} = this.state;
-
 
 		return (
 

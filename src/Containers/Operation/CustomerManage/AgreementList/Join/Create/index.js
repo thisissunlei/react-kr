@@ -59,7 +59,7 @@ export default class JoinCreate extends React.Component {
 			optionValue:{},
 			openLocalStorages:this.props.openLocalStorages
 		}
-		Store.dispatch(reset('joinCreateForm'));
+
 
 		this.isConfirmSubmiting = false;
 	}
@@ -167,8 +167,8 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-		
 
+		Store.dispatch(reset('joinCreateForm'));
 		var _this = this;
 		const {
 			params,
@@ -191,7 +191,7 @@ export default class JoinCreate extends React.Component {
 
 			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
-			
+
 			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
 				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
 			}
@@ -349,7 +349,7 @@ export default class JoinCreate extends React.Component {
 
 				<Title value="创建入驻协议书_财务管理"/>
 
-			
+
 			{openLocalStorages && <div style={{marginTop:10}}>
 				<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
 			</div>}
@@ -366,7 +366,7 @@ export default class JoinCreate extends React.Component {
 				onClose={this.openConfirmCreateDialog} >
 						<ConfirmFormDetail detail={Object.assign({},this.state.formValues)} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
-			
+
 		</div>
 		);
 	}
