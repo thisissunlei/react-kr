@@ -47,7 +47,16 @@ class CommunityList  extends React.Component{
 	constructor(props,context){
 		super(props, context);
     this.state={
-      cityName:''
+      cityData:'',
+      timeStart:'',
+      timeEnd:'',
+      cityId:'',
+      photoF:[],
+      photoL:[],
+      photoD:[],
+      communityId:'',
+      communityName:'',
+
     }
 	}
 
@@ -216,7 +225,6 @@ class CommunityList  extends React.Component{
     //发送ajax请求函数
       ajaxSendData=(id)=>{
         var _this=this;
-        let {cityName}=this.state;
         Http.request('communityGetEdit',{id:id}).then(function(response) {
 
           response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
@@ -417,7 +425,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData}=this.state;
+    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName}=this.state;
 
 		return(
 
@@ -520,6 +528,14 @@ class CommunityList  extends React.Component{
 								onCancel={this.switchEditList}
 								open={State.openEditCommunity}
                 cityData={cityData}
+                timeStart={timeStart}
+                timeEnd={timeEnd}
+                cityId={cityId}
+                photoF={photoF}
+                photoL={photoL}
+                photoD={photoD}
+                communityId={communityId}
+                communityName={communityName}
 						/>
 
 		            </Drawer>

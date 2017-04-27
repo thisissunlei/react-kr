@@ -245,15 +245,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		this.state={
 			      openDown:true,
             openUp:false,
-            cityId:'',
-            communityName:'',
             codeName:'',
-            timeStart:'',
-            timeEnd:'',
-            photoF:[],
-            photoL:[],
-            photoD:[],
-            communityId:'',
 		}
 	}
 
@@ -399,7 +391,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {communityName,codeName,photoF,photoL,photoD,openDown,openUp,timeStart,timeEnd}=this.state;
+				let {codeName,openDown,openUp}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -412,7 +404,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				}
 
 
-				const { error, handleSubmit, pristine, reset,dataReady,open,cityData} = this.props;
+				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
 
 				return (
 					<div>
