@@ -61,6 +61,7 @@ class NewAddStation  extends React.Component{
 	//楼层
 	floorChange=(params)=>{
 		var floor=params.label;
+		console.log(';;ppp',this.props.CommunityStationModel.stationName[floor],floor);
 		this.props.CommunityStationModel.slectNameCommunity=this.props.CommunityStationModel.stationName[floor];
 	}
 
