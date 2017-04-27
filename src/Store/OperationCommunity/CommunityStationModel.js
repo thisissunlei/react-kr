@@ -31,16 +31,6 @@ let State = observable({
 		openSearchUpper:false,
 		//导入
 		openImport:false,
-		//社区名称
-		communityName:'',
-		//会议室名称数据准备
-		stationName:{},
-		//新增编辑会议室民称下拉
-		slectNameCommunity:[],
-		//高级查询会议室名称
-		spacesName:[],
-		//楼层数据准备
-		floorData:[],
 		//社区id
 		communityId:''
 
@@ -110,20 +100,6 @@ State.deleteSubmitFunc=action(function(params){
 //高级查询的开关
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
-});
-//工位列表数据准备
-State.stationDataReady = action(function(params) {
-	var data={};
-	data.communityId=params;
-	var _this=this;
-	Http.request('station-param-data',data).then(function(response) {
-		_this.communityName=response.communityName;
-		_this.stationName=response.floorSpaces;
-		_this.floorData=response.floors;
-		_this.spacesName=response.spaces;
- }).catch(function(err) {
-		Message.error(err.message);
- });
 });
 //导入开关
 State.openImportData= action(function() {

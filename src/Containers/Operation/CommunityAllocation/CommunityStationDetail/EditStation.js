@@ -23,13 +23,14 @@ class EditStation  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			isBelongSpace:false
+			isBelongSpace:false,
+			slectNameCommunity:[]
 		}
 	}
 
 
 	componentWillMount(){
-		let {id}=this.props;
+		let {id,stationName}=this.props;
 		 //获取编辑信息
 			var data={};
 			data.id=id;
@@ -51,7 +52,9 @@ class EditStation  extends React.Component{
  				 })
 				 response.belongSpace='false';
 		    }
-				//$form.changeValues(response);
+			      _this.setState({
+					 slectNameCommunity:stationName[response.floor]
+				  })
                Store.dispatch(initialize('EditStation',response));
 		 }).catch(function(err) {
 				Message.error(err.message);
@@ -94,15 +97,18 @@ class EditStation  extends React.Component{
 
 	 //楼层
  	floorChange=(params)=>{
- 		var floor=params.label;
- 		this.props.CommunityStationModel.slectNameCommunity=this.props.CommunityStationModel.stationName[floor];
+ 		let {stationName}=this.props;
+		var floor=params.label;
+		this.setState({
+			slectNameCommunity:stationName[floor]
+		})
  	}
 
 
   render(){
 
-    const {handleSubmit}=this.props;
-		let {isBelongSpace}=this.state;
+    const {handleSubmit,floorData}=this.props;
+	let {isBelongSpace,slectNameCommunity}=this.state;
 
     var style={};
     if(isBelongSpace){
@@ -129,7 +135,7 @@ class EditStation  extends React.Component{
             <KrField grid={1/2} style={{marginTop:1,width:262}} name="code" component="input"  label="工位编号" requireLabel={true}
              onChange={this.codeCompare}/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="floor" component="select" label="所在楼层"
-						 requireLabel={true} options={this.props.CommunityStationModel.floorData} onChange={this.floorChange}/>
+						 requireLabel={true} options={floorData} onChange={this.floorChange}/>
 						 {this.props.CommunityStationModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该工位编号已存在</div>}
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
             <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
@@ -137,7 +143,7 @@ class EditStation  extends React.Component{
             <KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于会议室"
             requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
             {isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="会议室名称"
-						requireLabel={true} options={this.props.CommunityStationModel.slectNameCommunity}/>}
+						requireLabel={true} options={slectNameCommunity}/>}
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
             requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 
