@@ -301,11 +301,9 @@ export default class JoinCreate extends React.Component {
 			}
 			optionValue = Object.assign({},optionValues,optionValue);
 			initialValue = Object.assign({},initialValues,initialValue);
-			console.log('initialValue',initialValue);
 
 
-			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVoList) || [];
+			let stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 			_this.setState({
 				initialValue,
 				optionValue,
@@ -347,11 +345,11 @@ export default class JoinCreate extends React.Component {
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
-			</div>}
-			{openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} />
-			</div>}
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+            </div>}
+            {openLocalStorages&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} />
+            </div>}
 
 			<Dialog
 				title="承租意向书"
