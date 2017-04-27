@@ -346,12 +346,12 @@ export default class JoinCreate extends React.Component {
 			<div >
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} onCancel={this.onCancel}  initialValues={initialValues} optionValues={optionValues} stationVos={stationVos}/>
-			</div>
-			// {openLocalStorages && <div style={{marginTop:10}}>
-			// 		<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue}  stationVos={stationVos} local={local}/>
-			// </div>}
+			{!openLocalStorages && <div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+			</div>}
+			{openLocalStorages&&<div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} />
+			</div>}
 
 			<Dialog
 				title="承租意向书"
