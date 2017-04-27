@@ -348,7 +348,7 @@ export default class JoinCreate extends React.Component {
 
 			}
 			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVoList) || [];
+			let stationVoList = JSON.parse(initialValues.stationVoList) || [];
 			initialValues.num = 1+parseInt(localStorage.getItem(keyWord+'num'));
 
 
