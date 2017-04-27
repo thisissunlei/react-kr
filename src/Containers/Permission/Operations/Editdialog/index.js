@@ -1,45 +1,26 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	Http
 } from "kr/Utils";
 import {
-	Actions,
 	Store
 } from 'kr/Redux';
 import {
 	reduxForm,
-	formValueSelector,
-	change,
 	initialize
 } from 'redux-form';
 import {
 	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	Button,
-	Section,
-	Grid,
 	Row,
 	Col,
-	ListGroupItem,
-	ListGroup,
-	Dialog,
-	SearchForms,
+	
 	ButtonGroup
 } from 'kr-ui';
 import './index.less';
 
 
-class Editdialog extends Component {
+class Editdialog extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -416,26 +397,76 @@ class Editdialog extends Component {
 							inline={true}
 							value={detail.code}
 					/>
-					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="type" component="group" label="类型" inline={true} requireLabel={true}>
-	                	<KrField name="type" label="菜单" type="radio" value="MENU" checked={true}/>
-	               		 <KrField name="type" label="操作" type="radio" value="OPERATION" />
+					<KrField 
+							style={{width:300,marginLeft:40,marginBottom:16}}  
+							name="type" 
+							component="group" 
+							label="类型" 
+							inline={true} 
+							requireLabel={true}
+					>
+	                	<KrField 
+	                			name="type" 
+	                			label="菜单" 
+	                			type="radio" 
+	                			value="MENU" 
+	                			checked={true}
+	                	/>
+	               		<KrField 
+	               				name="type" 
+	               				label="操作" 
+	               				type="radio" 
+	               				value="OPERATION" 
+	               		/>
 	              	</KrField>
 					<div className="u-operations">
-						<KrField name="module"  style={{width:220,marginLeft:40}}  component="select" label="模块"  options={ModuleList} inline={true}  requireLabel={true} onChange={this.onSelect}/>
+						<KrField 
+								name="module"  
+								style={{width:220,marginLeft:40}}  
+								component="select" 
+								label="模块"  
+								options={ModuleList} 
+								inline={true}  
+								requireLabel={true} 
+								onChange={this.onSelect}
+						/>
 						{childModule.length>0?this.renderModule():''}
 						{childModuleList.length>0?this.renderchildModule():''}
 					</div>
 					<div className="u-method">
-						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
+						<div className="u-method-title">
+							<span className="require-label">*</span>方法配置
+						</div>
 						<div className="u-method-content u-method-contentE">
-							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label=""  options={ControllerList} inline={true}  onChange={this.onSelectController}/>
-							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
+							<KrField 
+									name="controller"  
+									style={{width:600,marginLeft:70}}  
+									component="searchMethod" 
+									label=""  
+									options={ControllerList} 
+									inline={true}  
+									onChange={this.onSelectController}
+							/>
+							<Button 
+									label="Add" 
+									className="u-method-add" 
+									height={34} 
+									onTouchTap={this.controllerAdd}
+							/>
 						</div>
 						<div className="u-method-content-list">
 							{this.renderController()}
 						</div>
 					</div>
-					<div style={{marginLeft:380,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
+					<Row style={{marginTop:30,marginBottom:15}}>
+					<Col md={12} align="center"> 
+						<ButtonGroup>
+							<div  className='ui-btn-center'><Button  label="确定" type="submit"   height={34} width={90}/></div>
+							<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
+						</ButtonGroup>
+						
+					 </Col>
+					 </Row>
 				</form>
 
 			</div>
