@@ -213,4 +213,19 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/resource/editResources',
       method: 'post'
     },
+    //权限--操作日志--获取分页
+    'getOpLogs': {
+      url: '/api/krspace-sso-web/sso/log/find-page?endDate={endDate}&operaterName={operaterName}&page={page}&pageSize={pageSize}&sourceId={sourceId}&startDate={startDate}&systemType={systemType}',
+      method: 'get'
+    },
+    //权限--操作日志--高级查询获取
+    'getOpSer': {
+      url: '/api/krspace-sso-web/sso/log/find-searchData',
+      method: 'get'
+    },
+    //权限--操作日志--查看
+    'getOpDet': {
+      url: '/api/krspace-sso-web/sso/log/find-detail?id={id}',
+      method: 'get'
+    },
 }

@@ -27,6 +27,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
+	Tooltip,
 	Section,
 	Grid,
 	Row,
@@ -75,15 +76,14 @@ export default class OperationsLogs extends Component {
 			openView: !this.state.openView
 		})
 	}
-	onSearchSubmit = (name) => {
-		var roleId = this.props.params.userId
+	onSearchSubmit = (form) => {
 		this.setState({
 			searchParams: {
-				userName: name.searchParam,
-				roleId: roleId
+				sourceId: form.sourceId,
+				systemType: form.systemType
 			}
 		})
-
+		this.openHighSearch();
 	}
 
   openHighSearch = () => {
@@ -91,6 +91,17 @@ export default class OperationsLogs extends Component {
       openHighSearch: !this.state.openHighSearch
     })
   }
+//普通查询
+	searchParams = (form) => {
+		var _this = this;
+		this.setState({
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				operaterName: form.content
+			}
+		})
+	}
 	render() {
 
 
@@ -120,9 +131,10 @@ export default class OperationsLogs extends Component {
 						<TableHeaderColumn>操作批次</TableHeaderColumn>
 						<TableHeaderColumn>系统名称</TableHeaderColumn>
 						<TableHeaderColumn>业务名称</TableHeaderColumn>
-						<TableHeaderColumn>操作日志</TableHeaderColumn>
+						<TableHeaderColumn className="op-log">操作日志</TableHeaderColumn>
 						<TableHeaderColumn>操作人</TableHeaderColumn>
 						<TableHeaderColumn>操作时间</TableHeaderColumn>
+						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
@@ -130,7 +142,17 @@ export default class OperationsLogs extends Component {
 							<TableRowColumn name="batchNum"></TableRowColumn>
 							<TableRowColumn name="systemName" ></TableRowColumn>
 								<TableRowColumn name="sourceName"></TableRowColumn>
-								<TableRowColumn name="operateRecord" ></TableRowColumn>
+								<TableRowColumn name="operateRecord" component={(value,oldValue)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
+
+												}else{
+													TooltipStyle="block";
+												}
+												 return (<div style={{display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+													<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+											 }}></TableRowColumn>
 								<TableRowColumn name="operater" ></TableRowColumn>
 							 <TableRowColumn name="operateDate" type="date" component={(value)=>{
  								return (
@@ -166,7 +188,7 @@ export default class OperationsLogs extends Component {
 					onClose={this.openView}
 				>
 					<ViewLogs
-								onCancel={this.openView}
+								onCancel={this.openView} detail={this.state.itemDetail}
 					/>
 				</Dialog>
 			</div>

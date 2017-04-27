@@ -38,7 +38,6 @@ class HighSearchForm extends React.Component {
 	}
 	onSubmit = (form) => {
 		form = Object.assign({},form);
-		form.verifyStatus = "UNCHECKED";
 		const {
 			onSubmit
 		} = this.props;
@@ -67,7 +66,7 @@ class HighSearchForm extends React.Component {
 				item.value = item.id;
 				return item;
 			})
-			sourceList = response.systemList.map((item) => {
+			systemList = response.systemList.map((item) => {
 				item.label = item.systemDesc;
 				item.value = item.systemType;
 				return item;
@@ -99,7 +98,7 @@ class HighSearchForm extends React.Component {
 				    		grid={1/2}
 							left={42}
 							right={18}
-				    		name="sourceList"
+				    		name="sourceId"
 								type="select"
 				    		style={{marginTop:4}}
 				    		label="业务名称"
@@ -109,32 +108,12 @@ class HighSearchForm extends React.Component {
 				    		grid={1/2}
 				    		right={56}
 				    		left={4}
-				    		name="systemList"
+				    		name="systemType"
 				    		type="select"
 				    		style={{marginTop:4}}
-				    		label="收款方式"
+				    		label="系统名称"
 				  			options={systemList}
 					/>
-					<KrField
-				    		grid={1/2}
-				    		left={42}
-				    		right={18}
-				    		name="flowCategoryId"
-				    		style={{marginTop:4}}
-				    		label="收款类型"
-				  			component="searchPayment"
-					/>
-					<KrField
-				    		grid={1/2}
-				    		right={56}
-				    		left={4}
-				    		name="corporationId"
-				    		component="searchCorporation"
-				    		style={{marginTop:4}}
-				    		label="主体"
-				  			options={mainList}
-					/>
-
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
