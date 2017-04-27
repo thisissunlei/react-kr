@@ -258,7 +258,23 @@ class Createdialog extends React.Component {
 			controller: controller
 		}
 		var arr = ControllerRender;
-		arr.push(item)
+		var arr1 = [];
+		console.log(arr);
+		if(arr.length>0){
+			console.log(11111)
+			arr.map((items,index)=>{
+				arr1.push(items.controller);
+
+			})
+				if(arr1.indexOf(controller)==-1){
+					arr.push(item);
+				}
+
+		}else {
+			console.log()
+			arr.push(item);
+		}
+		//arr.push(item)
 		this.setState({
 			ControllerRender: arr,
 			ControllerId: ControllerId
