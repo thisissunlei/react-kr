@@ -35,8 +35,8 @@ import {
 	default as Login
 } from './Login';
 import {
-	default as AccountList
-} from './AccountList';
+	default as AccountManage
+} from './AccountManage';
 import {
 	default as Operations
 } from './Operations';
@@ -63,7 +63,7 @@ module.exports = {
 	Login,
 	Order,
 	PersonalCenter,
-	AccountList,
+	AccountManage,
 	Operations,
 	User,
 	UserList,
