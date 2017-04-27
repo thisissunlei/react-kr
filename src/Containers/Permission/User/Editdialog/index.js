@@ -1,59 +1,69 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-
+import React from 'react';
 import {
-	connect,
-	Actions,
+	Http
+} from "kr/Utils";
+import {
 	Store
 } from 'kr/Redux';
 import {
 	reduxForm,
-	formValueSelector,
-	change,
 	initialize
 } from 'redux-form';
 import {
 	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-	ListGroupItem,
-	ListGroup,
-	Dialog,
-	SearchForms,
-	ButtonGroup
 } from 'kr-ui';
 import './index.less';
 
 
-class Editdialog extends Component {
+class Editdialog extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
 			ModuleList: [],
 			resourceIds: [],
 			errorTip: false,
+			moduleDetail:[],
 		}
 
 	}
 	componentDidMount() {
 		let {
 			detail,
-			moduleDetail
 		} = this.props;
+		this.getInfo();
 		Store.dispatch(initialize('editdialog', detail));
+	}
+	getInfo=()=>{
+		let {detail}=this.props;
+		var id=detail.id;
+		var _this=this;
+		var idList=[];
+		Http.request('getRoleData', {
+				id: id
+			}).then(function(response) {
+				response.moduleAndResources.map((item)=>{
+					if(item.resources.length>0){
+						item.resources.map((items)=>{
+							if(items.ownFlag==1){
+								if(idList.indexOf(items.id)==-1){
+									idList.push(items.id)
+								}
+								
+							}
+						})
+					}
+				})
+				_this.setState({
+					moduleDetail: response.moduleAndResources,
+					resourceIds:idList
+				})
+				
+
+				
+			}).catch(function(err) {
+
+			});
 	}
 	onCancel = () => {
 		let {
@@ -81,42 +91,18 @@ class Editdialog extends Component {
 		}
 
 	}
-	getChildren = (moduleDetail) => {
-		var _this = this;
-		let {
-			resourceIds
-		} = this.state;
-		var id = resourceIds;
-		moduleDetail.map((item, index) => {
-			if (item.cModuleVo.length > 0) {
-				_this.getChildren(item.cModuleVo)
-			} else {
-				item.resources.map((item, index) => {
-					if (item.ownFlag == 1) {
-						var index = id.indexOf(item.id);
-						if (index == -1) {
-							id.push(item.id)
-						}
-					}
-					_this.setState({
-						resourceIds: id
-					})
-				})
-			}
-
-		})
-	}
+	
 
 	getValue = (item) => {
+
 		var check = item.ownFlag
 		var id = item.id;
 		var idList = this.state.resourceIds;
 		let {
 			moduleDetail
-		} = this.props;
+		} = this.state;
 		if (check == 1) {
-			item.ownFlag = 0
-			this.getChildren(moduleDetail)
+			item.ownFlag = 0;
 			var index = idList.indexOf(id);
 			if (index > -1) {
 				idList.splice(index, 1);
@@ -126,8 +112,7 @@ class Editdialog extends Component {
 			})
 
 		} else {
-			item.ownFlag = 1
-			this.getChildren(moduleDetail)
+			item.ownFlag = 1;
 			var index = idList.indexOf(id);
 			if (index == -1) {
 				idList.push(id);
@@ -138,73 +123,51 @@ class Editdialog extends Component {
 
 
 		}
-		console.log('idList', idList)
+		
 		if (this.state.resourceIds.length > 0) {
 			this.setState({
 				errorTip: false
 			})
 		}
 	}
-	renderChildren = (child,index) => {
-		console.log(index);
-		var _this = this;
-		var childlist, resources;
-		if (child.length > 0) {
-			return childlist = child.map((items, indexs) => {
-				if (items.cModuleVo.length > 0) {
-					var abc = _this.renderChildren(items.cModuleVo,index+1)
-					return (
-						<div className="u-operation-list" style={{left:`${(index+1)*100}px`,top:`${((index)*20)}px`}} id={items.id} key={indexs}>
-								{items.name}→
-								{_this.renderChildren(items.cModuleVo,index+1)}
-						</div>
-					)
-				} else {
-					return (
-						<div className="u-operation-list" id={items.id} key={indexs}>
-								{items.name}
-								{
-									items.resources.map((item, index) => {
-										return (
-											<div className="u-operation-lists" key={index}>
-													<input type="checkbox" checked={item.ownFlag==1?'checked':''} value={items.id} onChange={this.getValue.bind(this,item,index)}/>{item.name}
-											</div>
-										)
-									})
-								}
-						</div>
-					)
-
-				}
-
-			})
-		}
-
+	renderResources=(resources)=>{
+		return resources.map((item,index)=>{
+			return(
+				<div className="u-resources-list" key={index}>
+					<input 
+						  type="checkbox"  
+						  checked={item.ownFlag==1?'checked':''} 
+						  value={item.id} 
+						  onChange={this.getValue.bind(this,item)}
+					/>{item.name}
+				</div>
+				)
+		})
 	}
-	renderOperation = (list) => {
+	
+	renderOperation = (moduleDetail) => {
 		var _this = this;
-		var List;
-		if (list.length > 0) {
-			List = list.map((item, index) => {
-				if (item.cModuleVo.length > 0) {
-					return (
-						<div className="u-operation-list"  style={{top:`${(index*40)}px`}} id={item.id} key={index}>
-								{item.name}→
-								{_this.renderChildren(item.cModuleVo,index)}
-						</div>
-					)
-				} else {
-					return (
-						<div className="u-operation-list" id={item.id} key={index}>
-								<input type="checkbox" value={item.id}/>{item.name}
-						</div>
-					)
-				}
+	return	moduleDetail.map((item,index)=>{
+			if(item.resources.length>0){
+				return(
+				<div className="u-clearfix"  key={index}>
+					<div className="u-module-list">{item.name}</div>
+					{this.renderResources(item.resources)}
+				</div>
+				)
+			}else{
+				return(
+					<div key={index}>
+						{item.name}
+					</div>
+				)	
+			}
+			
+			
+		})
 
-			})
-		}
-		return List;
-
+		
+		
 	}
 	render() {
 		let {
@@ -216,12 +179,12 @@ class Editdialog extends Component {
 			initialValues,
 			changeValues,
 			optionValues,
-			moduleDetail
+			
 		} = this.props;
 		let {
-			ModuleList,
 			resourceIds,
-			errorTip
+			errorTip,
+			moduleDetail
 		} = this.state;
 
 		return (
