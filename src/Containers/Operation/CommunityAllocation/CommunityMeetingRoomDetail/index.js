@@ -313,7 +313,7 @@ SelectCommunity=()=>{
 				title="高级查询"
 				onClose={this.cancelSearchUpperDialog}
 				open={this.props.CommunityMeetingModel.openSearchUpper}
-				contentStyle ={{ width: '666px',height:'382px'}}
+				contentStyle ={{ width: '666px',height:'390px'}}
 				>
 				<MeetingsearchUpperForm
 					onCancel={this.cancelSearchUpperDialog}

@@ -29,7 +29,7 @@ class MeetingsearchUpperForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
+			dateBoxStyle:{marginTop:35,marginLeft:5,height:"auto"},
 			capacityBegin:'',
 			capacityEnd:'',
 			searchKey:'',
@@ -99,29 +99,30 @@ class MeetingsearchUpperForm extends React.Component {
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 
 					<SearchForm placeholder='请输入关键字'
-			            searchFilter={[{label:"名称查询",value:"NAME"},{label:"编码查询",value:"CODE"}]}
-			            style={{width:262,marginTop:29,marginLeft:28,display:"inline-block",marginBottom:15,marginRight:25}}
+			            searchFilter={[{label:'空间名称',value:'NAME'},{label:'空间编码',value:'CODE'}]}
+			            style={{width:262,marginLeft:28,display:"inline-block",marginBottom:15,marginRight:25}}
 			            defaultFilter='NAME'
 			            onChange = {this.onSearchChange}
     				/>
 
     			<div className="accommodate-number"><span className="label">容纳人数</span><input type="text" onChange={this.capacityBegin}/><span className="horizontal-line">-</span><input type="text" onChange={this.capacityEnd}/></div>
-    			<div className='meeting-device'>
-					<KrField
-						label="设备情况"
-						name='deviceIds'
-						style={{width:"auto",marginLeft:28,marginRight:42}}
-						component="groupCheckbox"
-						defaultValue={deviceSpace}
 
-					/>
-				</div>
 					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceType" component="select" label="空间类型"
 					  options={this.props.CommunityMeetingModel.sapceTypes}
 					  />
-					 <KrField grid={1/2} style={{width:262}}  name="enable" component="select" label="工位状态"
+					 <KrField grid={1/2} style={{width:262,marginLeft:16}}  name="enable" component="select" label="空间状态"
 					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}
 					 />
+					 <div className='meeting-device'>
+	 					<KrField
+	 						label="设备情况"
+	 						name='deviceIds'
+	 						style={{width:"auto",marginLeft:28,marginRight:42}}
+	 						component="groupCheckbox"
+	 						defaultValue={deviceSpace}
+
+	 					/>
+	 				</div>
 
 
 

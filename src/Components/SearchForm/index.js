@@ -40,20 +40,20 @@ export default class SearchForm extends React.Component{
 	onBlur=(event)=>{
 		let {onSubmit,searchFilter,defaultFilter} = this.props;
 		let {value} = this.state;
-		let type = '';	
+		let type = '';
 		if(!value){
 		 searchFilter.map((item)=>{
 			if(item.value == defaultFilter){
 				type = item.value;
 			}
-		 })		
+		 })
 		}else{
 		  searchFilter.map((item)=>{
 			if(item.label == value){
 				type = item.value;
 			}
-		  })	
-		}	
+		  })
+		}
 		this.setState({
 			content:event.target.value
 		})
@@ -152,7 +152,7 @@ export default class SearchForm extends React.Component{
 				}
 			})
 		}
-
+		console.log(select,"BBBBB")
 		if(searchFilter){
 
 			return(
@@ -183,7 +183,7 @@ export default class SearchForm extends React.Component{
 		const {value,content}=this.state;
 		let text="";
 		const {onChange,defaultFilter,searchFilter} = this.props;
-		
+
 		if(value){
 			for(var i=0;i<searchFilter.length;i++){
 				if(value == searchFilter[i].label){
@@ -196,6 +196,7 @@ export default class SearchForm extends React.Component{
 			value:text||defaultFilter,
 			content:data.target.value||'',
 		}
+		console.log(value,"LLLLLLL");
 		onChange && onChange(all);
 	}
 
