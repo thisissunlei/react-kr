@@ -245,7 +245,7 @@ class Editdialog extends React.Component {
 					/>
 					<div className="u-operation">
 						<div className="u-operation-label">
-							操作项：
+							<span className="u-require">*</span>操作项：
 						</div>
 						<div className="u-operation-content">
 							{this.renderOperation(moduleDetail)}
