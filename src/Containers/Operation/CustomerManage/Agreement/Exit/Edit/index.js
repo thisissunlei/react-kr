@@ -69,12 +69,12 @@ export default class EditCreate extends React.Component {
   }
 
   onCancel() {
-    this.removeLocalStorage();
+    this.cancelRmoveLocalStorage();
     window.history.back();
   }
   removeLocalStorage=()=>{
     let {params} = this.props;
-    let keyWord = params.orderId+params.customerId+'QUITRENTedit';
+    let keyWord = params.orderId+params.customerId;
     let removeList = [];
     for (var i = 0; i < localStorage.length; i++) {
       let itemName = localStorage.key(i);
@@ -86,7 +86,20 @@ export default class EditCreate extends React.Component {
        localStorage.removeItem(item);
     })
   }
-
+  cancelRmoveLocalStorage=()=>{
+    let {params} = this.props;
+    let keyWord = params.orderId+params.customerId +'QUITRENTedit';
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+         removeList.push(itemName);
+       }
+     }
+     removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
+  }
   getlocalSign=()=>{
     let {
       params
@@ -94,7 +107,7 @@ export default class EditCreate extends React.Component {
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
-       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
+       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
         _this.setState({
           openLocalStorages:true
         })
@@ -132,7 +145,9 @@ export default class EditCreate extends React.Component {
       //
       let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
       initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
-      initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+      if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+        initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+      }
 
       initialValues.mainbillid = params.orderId;
       initialValues.customerId = params.customerId;
@@ -264,6 +279,12 @@ export default class EditCreate extends React.Component {
       mainBillId: params.orderId,
       type :1,
     }).then(function(response) {
+
+       let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
+      initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+      if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+        initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+      }
 
       //initialValues.ContractStateType = 'EXECUTE';
 

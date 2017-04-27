@@ -249,7 +249,7 @@ SelectCommunity=()=>{
 			        <TableBody >
 			              <TableRow>
 			                <TableRowColumn name="code"></TableRowColumn>
-											<TableRowColumn name="code"></TableRowColumn>
+							<TableRowColumn name="code"></TableRowColumn>
                       <TableRowColumn name="name"></TableRowColumn>
 			                <TableRowColumn name="capacity"></TableRowColumn>
                       <TableRowColumn name="area"></TableRowColumn>

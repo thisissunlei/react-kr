@@ -165,6 +165,7 @@ class NewCreateForm extends React.Component {
 		
 		Http.request('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'LESSRENTcreaterentamount',response);
+		Store.dispatch(change('reduceCreateForm', 'rentamount', response));
 			
 			_this.setState({
 				allRent:response
@@ -234,6 +235,15 @@ class NewCreateForm extends React.Component {
 			this.setState({
 			openLocalStorage:nextProps.openLocalStorage
 		})
+		}
+		if (!this.isInit && nextProps.stationVos.length) {
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos,
+			}, function() {
+				this.setAllRent(nextProps.stationVos);
+			});
+			this.isInit = true;
 		}
 	}
 
@@ -316,66 +326,6 @@ class NewCreateForm extends React.Component {
 		return name;
 	}
 
-	getLocalStorageSata=()=>{
-		var _this = this;
-		const {
-			params
-		} = this.props;
-		let {initialValues} = this.state;
-		let {optionValues} = this.state;
-		let stationVos = [];
-			//获取localStorage数据
-			let keyWord = params.orderId+ params.customerId+'LESSRENTcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
-				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
-				optionValues.rentamount = localStorage.getItem(keyWord+'rentamount');
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			stationVos = JSON.parse(initialValues.stationVos);
-
-			Store.dispatch(initialize('reduceCreateForm', initialValues));
-			Store.dispatch(change('reduceCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
-
-
-			_this.setState({
-				initialValues,
-				optionValues,
-				stationVos,
-				allRent:optionValues.rentamount
-			});
-	}
-	onCancelStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-
-		})
-		let {removeLocalStorage} = this.props;
-		removeLocalStorage && removeLocalStorage();	
-	}
-	getLocalStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-		})
-		this.getLocalStorageSata();
-	}
 
 	render() {
 
@@ -521,27 +471,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}    params= {this.props.params}/>
 					  </Dialog>
-				<Dialog
-				title="提示"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorage} 
-				contentStyle={{width:'400px'}}>
-					<div>
-						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-						<Grid>
-						<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-						</ListGroup>
-						</Row>
-						</Grid>
-					</div>
-
-			  </Dialog>
+				
 
 
 			</Paper>);
@@ -551,6 +481,21 @@ const selector = formValueSelector('reduceCreateForm');
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
+
+			}
+	    };
+	}
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -595,23 +540,6 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
-	++values.num;
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'createcontractmark','');
-
-			}
-	    };
-	}
 
 
 
