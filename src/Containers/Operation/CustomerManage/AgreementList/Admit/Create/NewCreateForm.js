@@ -235,12 +235,12 @@ class NewCreateForm extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
-		console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
-		if(!allState.openLocalStorage && !allState.openLocalStorages){
-			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
-		}else if(!allState.openLocalStorage && allState.openLocalStorages){
-			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
-		}
+		// console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
+		// if(!allState.openLocalStorage && !allState.openLocalStorages){
+		// 	Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
+		// }else if(!allState.openLocalStorage && allState.openLocalStorages){
+		// 	Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
+		// }
 		if(this.props.initialValues != nextProps.initialValues){
 			this.setState({
 				initialValues:nextProps.initialValues
