@@ -194,7 +194,6 @@ export default class JoinCreate extends React.Component {
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
-			initialValues.agreement = '无';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
@@ -286,7 +285,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement');
 				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
 				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
 				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
