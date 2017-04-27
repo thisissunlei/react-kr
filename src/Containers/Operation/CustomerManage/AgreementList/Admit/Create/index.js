@@ -348,7 +348,7 @@ export default class JoinCreate extends React.Component {
                 <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
             </div>}
             {openLocalStorages&&<div style={{marginTop:10}}>
-                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} />
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
             </div>}
 
 			<Dialog
