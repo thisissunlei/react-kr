@@ -390,7 +390,7 @@ searchChange = (values) =>{
 				modal={true}
 				onClose={this.closeUpperForm}
 				open={openUpperForm}
-				contentStyle ={{ width: '666',overflow:'visible',height:295}}
+				contentStyle ={{ width: '666',overflow:'visible',height:296}}
 			>
 				<BusinessSearchForm
 				    onCancel={this.closeUpperForm}

@@ -417,6 +417,9 @@ module.exports =()=>{
 
 	</Route>
 
+
+	</Route>
+
 		{/*合同配置*/}
 		<Route path="agreement" getComponent={Basic} >
 
@@ -431,8 +434,6 @@ module.exports =()=>{
 			</Route>
 		</Route>
 
-
-	</Route>
 
 	{/*入驻订单*/}
 		<Route path="joinOrder" getComponent={Basic}>

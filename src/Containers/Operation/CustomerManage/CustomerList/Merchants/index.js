@@ -504,7 +504,7 @@ class Merchants extends Component{
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666',height:'475px',overflow:'visible'}}
+						contentStyle ={{ width: '666',height:'476px',overflow:'visible'}}
 					>
 						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}

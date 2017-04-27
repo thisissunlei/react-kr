@@ -601,7 +601,7 @@ class Personal extends Component{
 			            operType="PERSON"
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666',height:'475px',overflow:'visible'}}
+						contentStyle ={{ width: '666',height:'476px',overflow:'visible'}}
 
 					>
 						<SearchUpperForm

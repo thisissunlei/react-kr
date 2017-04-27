@@ -99,7 +99,7 @@ import './index.less';
             onChange = {this.onSearchSubmit}
           />
           <KrField grid={1/2} right={34} label="区县" name="districtId"  style={{marginTop:4}} component="city"  requireLabel={false} onSubmit={this.cityValue}/>
-          <KrField  grid={1/2} right={34} style={{marginTop:4}}  name="enable" type="select"  label="客户分类"
+          <KrField  grid={1/2} right={34} style={{marginTop:4}}  name="enable" type="select"  label="是否启用"
   				    options={[{label:"全部",value:" "},{label:"启用",value:"ENABLE"},{label:"禁用",value:"DISENABLE"}]}
   				/>
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
