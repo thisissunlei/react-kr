@@ -38,6 +38,14 @@ const Operation_CommunityAllocation_CommunityList = (location, callback) => {
 	}, 'Operation_CommunityAllocation_CommunityList')
 }
 
+const Operation_CommunityAllocation_MyAddress = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/MyAddress').default)
+	}, 'Operation_CommunityAllocation_MyAddress')
+}
+
+
+
 const Operation_BasicConfig_EquipmentDefinition = (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/BasicConfig/EquipmentDefinition').default)
@@ -276,7 +284,8 @@ module.exports =()=>{
 		{/*社区配置*/}
 		<Route path="communityAllocation" getComponent={Basic}>
 			<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
-			</Route>
+			<Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>
+		</Route>
 		{/*基础配置*/}
 		<Route path="basicConfig" getComponent={Basic}>
 			<Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
