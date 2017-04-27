@@ -187,9 +187,11 @@ class EditMeeting  extends React.Component{
  }
 
 const validate = values =>{
-		const errors = {};
-		 //正整数
-		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
+	const errors = {};
+	//正整数
+	let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
+	//整数
+	let zeroNum=/^-?\d+$/;　
 
     if(!values.name){
       errors.name='请输入空间名称';
@@ -203,16 +205,16 @@ const validate = values =>{
 		errors.area='请输入面积'
 	}
 
-	if(values.area&&!numberNotZero.test(values.area.toString().trim())){
-		errors.area='面积为正整数'
+	if(values.area&&isNaN(values.area)){
+		errors.area='面积为数字'
 	}
     
     if(!values.capacity){
 		errors.capacity='请输入可容纳人数'
 	}
 
-	if(values.capacity&&!numberNotZero.test(values.capacity.toString().trim())){
-		errors.capacity='可容纳人数为正整数'
+	if(values.capacity&&!zeroNum.test(values.capacity.toString().trim())){
+		errors.capacity='可容纳人数为整数'
 	}
 
 		return errors

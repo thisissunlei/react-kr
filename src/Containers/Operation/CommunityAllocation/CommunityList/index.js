@@ -335,7 +335,7 @@ class CommunityList  extends React.Component{
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={searchFilter} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入关键字' searchFilter={searchFilter} onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
