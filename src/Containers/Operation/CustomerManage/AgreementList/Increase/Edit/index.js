@@ -408,7 +408,7 @@ getlocalSign=()=>{
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+''+ params.customerId+''+allState.agreementId+'ADDRENTedit';
-       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
+       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
         _this.setState({
           openLocalStorages:true
         })

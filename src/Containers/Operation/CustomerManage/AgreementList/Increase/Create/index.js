@@ -240,6 +240,8 @@ export default class increaseCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
+			console.log(err)
+
 			Notify.show([{
 				message: "222",
 				type: 'danger',
@@ -340,18 +342,25 @@ export default class increaseCreate extends React.Component {
 
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
+		console.log('optionValues',optionValues)
 
 		return (
 
 			<div>
 				<Title value="创建增租协议书_财务管理"/>
 		 		<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
-				{!openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
-				</div>}
-				{openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
-				</div>}
+				{!allState.hasLocal && <div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+	            </div>}
+	            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos}/>
+	            </div>}
+	            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+	            </div>}
+	            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+	            </div>}
 
 				<Dialog
 					title="增租协议书"

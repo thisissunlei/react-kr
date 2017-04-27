@@ -110,7 +110,7 @@ class Merchants extends Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-		
+
 	}
 
 
@@ -488,7 +488,7 @@ class Merchants extends Component{
 						<NewVisitIndent
 			                 comeFrom="Merchant"
 			                 open={State.openNewCustomerIndent}
-							 onCancel={this.switchCustomerIndent}
+							 			 	 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 operType="SHARE"
 			                 selectDatas={dataReady}
@@ -504,7 +504,7 @@ class Merchants extends Component{
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
+						contentStyle ={{ width: '666',height:'476px',overflow:'visible'}}
 					>
 						<SearchUpperForm
 						    onCancel={this.openSearchUpperDialog}
