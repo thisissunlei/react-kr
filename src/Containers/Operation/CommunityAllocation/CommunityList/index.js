@@ -212,7 +212,7 @@ class CommunityList  extends React.Component{
    //查看
    onOperation=(type,itemDetail)=>{
       if(type=='watch'){
-      	 State.getEditList(id)
+      	 State.getEditList(itemDetail.id)
       	 State.switchWatchList();
          return ;
       }
