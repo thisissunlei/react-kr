@@ -36,10 +36,10 @@ const Permission_Operations = (location, callback) => {
     callback(null, require('kr/Containers/Permission/Operations').default)
   }, 'Permission_Operations')
 }
-const Permission_AccountList = (location, callback) => {
+const Permission_AccountManage_AccountList = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/AccountList').default)
-  }, 'Permission_AccountList')
+    callback(null, require('kr/Containers/Permission/AccountManage/AccountList').default)
+  }, 'Permission_AccountManage_AccountList')
 }
 const Permission_Login = (location, callback) => {
   require.ensure([], require => {
@@ -51,15 +51,16 @@ const Permission_UserList = (location, callback) => {
     callback(null, require('kr/Containers/Permission/UserList').default)
   }, 'Permission_UserList')
 }
-const Permission_OperationsLogs = (location, callback) => {
+const Permission_AccountManage_OperationsLogs = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/OperationsLogs').default)
-  }, 'Permission_OperationsLogs')
+    callback(null, require('kr/Containers/Permission/AccountManage/OperationsLogs').default)
+  }, 'Permission_AccountManage_OperationsLogs')
 }
 module.exports =()=>{
 
 	return (
 		<Route path="permission" getComponent={Basic}>
+      <IndexRedirect to="accountManage/accountList"/>
 		{/*
 		<Route path="index" component={Permission.Home}/>
 		<Route path="notify" component={Permission.Notify}/>
@@ -70,9 +71,11 @@ module.exports =()=>{
 		*/}
 		<Route path="user" getComponent={Permission_User}/>
 		<Route path="operations" getComponent={Permission_Operations}/>
-    <Route path="operationsLogs" getComponent={Permission_OperationsLogs}/>
-		<Route path="accountList" getComponent={Permission_AccountList}/>
 		<Route path="login" getComponent={Permission_Login}/>
+    <Route path="accountManage" getComponent={Basic}>
+  			<Route path="accountList" getComponent={Permission_AccountManage_AccountList}/>
+        <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>
+    </Route>
 		<Route path="userlist/:userId" getComponent={Permission_UserList}>
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>

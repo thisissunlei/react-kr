@@ -5,12 +5,12 @@ import React, {
 } from 'react';
 
 import {
-	connect,
 	Actions,
 	Store
 } from 'kr/Redux';
-
-
+import {
+	Http
+} from "kr/Utils";
 
 import {
 	reduxForm,
@@ -50,10 +50,8 @@ export default class OperationsLogs extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				roleId: roleId
 			},
 			itemDetail: '',
-			openDeleteDialog: false
 		}
 	}
 
@@ -65,34 +63,9 @@ export default class OperationsLogs extends Component {
 		});
 
 		if (type == 'delete') {
-			this.openDeleteDialog();
 		}
 	}
-	openDeleteDialog = () => {
-		this.setState({
-			openDeleteDialog: !this.state.openDeleteDialog
-		})
-	}
-	onDeleteSubmit = () => {
-		let {
-			itemDetail
-		} = this.state;
-		var _this = this;
-		var roleId = this.props.params.userId
-		console.log('itemDetail----', itemDetail)
-		Store.dispatch(Actions.callAPI('deleteUser', {
-			roleId: roleId,
-			userId: itemDetail.id
-		})).then(function(response) {
-			_this.openDeleteDialog();
-			Message.success('删除成功');
-			window.location.reload();
-		}).catch(function(err) {
-			_this.openDeleteDialog();
-			Message.error(err.message);
-			window.location.reload();
-		});
-	}
+
 	onSearchSubmit = (name) => {
 		var roleId = this.props.params.userId
 		this.setState({
