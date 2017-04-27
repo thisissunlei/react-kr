@@ -1,6 +1,6 @@
 .g-create{
-	width:300px;
-	height:400px;
+	width:600px;
+	height:450px;
 	.ui-form-controller{
 		width:220px;
 	}
@@ -17,34 +17,51 @@
 		color:#333333;
 		padding-left:40px;
 		margin-bottom:10px;
+		position:relative;
+		.u-require{
+			font-size: 14px;
+			color:red;
+			position: absolute;
+		    left: 26px;
+		    top: 3px
+		}
 	}
 	.u-operation-content{
-		margin-left:60px;
+		margin-left:120px;
 		position: relative;
 		width: 500px;
 	}
-	.u-operation-list{
-		position: absolute;
-		top: 0;
-		color:#666;
+	.u-module{
+		margin-bottom: 10px;
+	}
+	.u-module-list{
+		width:100%;
+		float:left;
+		margin-bottom: 5px;
 		font-size:14px;
-		width: 100px;
-		display: inline-block;
-		&>div{
-			position: absolute;
-			display: inline-block;
-			margin-left:14px;
-			width: 100px;
-		}
-		.u-operation-lists{
-			position: absolute;
+	}
+	.u-resources-list{
+		float:left;
+		margin-right:10px;
+		font-size:12px;
+		input{
+			margin-right:5px;
 		}
 	}
+	
 	.u-error-tip{
 		color:red;
 		font-size:14px;
 		margin-top:14px;
-		text-align: center;
+		text-align: left;
 	}
 
+}
+.u-clearfix { zoom:1; }
+.u-clearfix:after {
+  clear: both;
+  content: '.';
+  height: 0;
+  display: block;
+  visibility: hidden;
 }

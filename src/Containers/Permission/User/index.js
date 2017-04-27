@@ -1,23 +1,11 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import React from 'react';
 import {
 	Http
 } from "kr/Utils";
 import {
-	reduxForm,
-	formValueSelector,
-	change
+	reduxForm
 } from 'redux-form';
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -27,9 +15,6 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	Grid,
-	Row,
-	Col,
 	ListGroupItem,
 	ListGroup,
 	Dialog,
@@ -44,7 +29,7 @@ import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
 
 
-class Operations extends Component {
+class Operations extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -72,16 +57,8 @@ class Operations extends Component {
 		if (type == 'delete') {
 			this.openDeleteDialog();
 		} else if (type == 'edit') {
-			Http.request('getRoleData', {
-				id: itemDetail.id
-			}).then(function(response) {
-				_this.setState({
-					moduleDetail: response.moduleAndResources
-				})
-				_this.openEditDialog();
-			}).catch(function(err) {
-
-			});
+			this.openEditDialog();
+			
 
 		} else if (type == 'view') {
 			this.openView(itemDetail.id);
@@ -232,9 +209,9 @@ class Operations extends Component {
 						modal={true}
 						onClose={this.openEditDialog}
 						open={this.state.openEditDialog}
-						contentStyle={{width:660,height:500}}
+						contentStyle={{width:660,height:550}}
 						>
-						<Editdialog  detail={itemDetail}  moduleDetail={moduleDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
+						<Editdialog  detail={itemDetail}   onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 					</Dialog>
 				</Section>
 
