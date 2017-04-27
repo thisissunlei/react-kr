@@ -25,7 +25,11 @@ const Operation_CommunityManage_CompanyMembers = (location, callback) => {
     callback(null, require('kr/Containers/Operation/CommunityManage/CompanyMembers').default)
   }, 'Operation_CommunityManage_CompanyMembers')
 }
-
+const Operation_CommunityManage_Visitor = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/CommunityManage/Visitor').default)
+  }, 'Operation_CommunityManage_Visitor')
+}
 module.exports =()=>{
 
 
@@ -41,6 +45,10 @@ module.exports =()=>{
         {/*公司成员*/}
         <Route path="companyMembers" getComponent={Basic}>
                 <Route path=":companyId/list/:communityId" getComponent={Operation_CommunityManage_CompanyMembers}/>
+        </Route>
+        {/*访客列表*/}
+        <Route path="visitor" getComponent={Basic}>
+                <Route path="list" getComponent={Operation_CommunityManage_Visitor}/>
         </Route>
     </Route>
 	);
