@@ -32,6 +32,7 @@ import UnitPriceForm from './UnitPriceForm';
 import {
 	KrField,
 	Row,
+	Grid,
 	Button,
 	ListGroup,
 	ListGroupItem,
