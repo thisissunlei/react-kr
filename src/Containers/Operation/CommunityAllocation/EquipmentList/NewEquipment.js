@@ -18,7 +18,7 @@ import {
 
 class NewEquipment extends Component{
 
-		
+
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -27,8 +27,8 @@ class NewEquipment extends Component{
 
 	constructor(props){
 		super(props);
-		
-		
+
+
 	}
 	onSubmit = (values) => {
 
@@ -40,21 +40,21 @@ class NewEquipment extends Component{
 		const {onClose} = this.props;
 
 		onClose && onClose();
-		
+
 	}
 
-	
-	
+
+
 	componentWillReceiveProps(nextProps){
 
 	}
-	
+
 
 
 	render(){
-		
+
 		const { error, handleSubmit, pristine, reset} = this.props;
-		
+
 		return (
 
 			<form className="m-new-equipment" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
@@ -71,8 +71,8 @@ class NewEquipment extends Component{
 						</Col>
 					</Row>
 				</Grid>
-						
-						    
+
+
 			</form>
 		);
 	}
@@ -80,9 +80,15 @@ class NewEquipment extends Component{
 const validate = values =>{
 
 		const errors = {};
-		if(!values.name){
+		let name = values.name;
+		
+		if(!name){
 			errors.name="设备名称不能为空！"
 		}
+		if(name && name.length>=50){
+			errors.name="设备名称最长为50字符！"
+		}
+
 
 		return errors
 	}

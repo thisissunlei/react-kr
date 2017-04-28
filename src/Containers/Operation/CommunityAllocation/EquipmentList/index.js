@@ -34,6 +34,7 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
+  Tooltip,
 	Message
 } from 'kr-ui';
 import {Http} from "kr/Utils";
@@ -229,8 +230,19 @@ class EquipmentList  extends React.Component{
 
 				        <TableBody >
 				          <TableRow>
-			                <TableRowColumn name="id"></TableRowColumn>
-			                <TableRowColumn name="name"></TableRowColumn>
+			                <TableRowColumn name="id" ></TableRowColumn>
+			                <TableRowColumn name="name" component={(value,oldValue) =>{
+                          console.log(value,">>>>>>>")
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="createName" ></TableRowColumn>
 			                <TableRowColumn name="createDate"
                           component={(value,oldValue)=>{
