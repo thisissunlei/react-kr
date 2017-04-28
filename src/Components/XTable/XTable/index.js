@@ -3,12 +3,17 @@ import React from 'react';
 import {Http} from 'kr/Utils';
 
 import Loading from '../../Loading';
+import Button from '../../Button';
 import Pagination from '../../Pagination';
 import Notify from '../../Notify';
+import ListGroup from '../../ListGroup/ListGroup';
+import ListGroupItem from '../../ListGroup/ListGroupItem';
 
 
-const Table = ({children})=>{
-    return <table className="ui-table">{children}</table>
+import './index.less';
+
+const Table = ({...props})=>{
+    return <table className="ui-table" {...props}></table>
 }
 
 const TableHeader = ({children})=>{
@@ -143,11 +148,23 @@ export default class XTable extends React.Component {
 
   renderTable =  ()=>{
     return (
+      <div className="ui-table-wrap">
       <Table>
           <TableHeader> {this.renderHeader()} </TableHeader>
           <TableBody>{this.renderBody()}</TableBody>
-          <TableFooter>{this.renderTableFooter()}</TableFooter>
       </Table>
+
+      <div className="table-tools">
+        <ListGroup>
+          <ListGroupItem style={{float:'left'}}>
+            <Button label="导出"/>
+          </ListGroupItem>
+          <ListGroupItem style={{float:'right'}}>
+            {this.renderTableFooter()}
+          </ListGroupItem>
+        </ListGroup>
+      </div>
+      </div>
     );
 
   }
@@ -188,7 +205,7 @@ export default class XTable extends React.Component {
       }
     });
 
-    return <TableRow> {thRows}</TableRow>
+    return <TableRow>{thRows}</TableRow>
   }
 
 
@@ -199,7 +216,7 @@ export default class XTable extends React.Component {
 
   createTableColumn = (child,itemData,key,rowNumber)=>{
 
-    var {name,component,type} = child.props;
+    var {name,component,type,format,tooltips} = child.props;
 
     var props = { itemData, key};
 
@@ -213,6 +230,20 @@ export default class XTable extends React.Component {
 
     if(typeof type ==='string' && type === 'checkbox'){
       props.children = <TableCheckBox {...checkboxProps}/>;
+    }
+
+// todo:date format
+    if(typeof type === 'string' && type === 'date'){
+
+    }
+
+//todo:tooltips
+    if(tooltips && typeof tooltips === 'string'){
+
+    }
+
+    if(tooltips && typeof tooltips === 'function'){
+
     }
 
     if(component && typeof component === 'function'){
@@ -253,12 +284,12 @@ export default class XTable extends React.Component {
 
     renderLoading = ()=>{
 
-      return <Loading />;
-
-      return <Table>
-                <TableHeader>{this.renderHeader()}</TableHeader>
-                <TableBody> <TableRow><TableColumn><Loading/></TableColumn></TableRow></TableBody>
+      return <div className="ui-table-wrap">
+      <Table>
+           <TableHeader>{this.renderHeader()}</TableHeader>
               </Table>
+                <div className="not-table-data"><Loading/></div>
+              </div>
     }
 
     render(){
