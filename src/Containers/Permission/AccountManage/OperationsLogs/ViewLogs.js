@@ -60,87 +60,82 @@ export default class ViewLogs extends React.Component {
 		} = this.state;
 		return (
 			<div className="u-audit-add  u-audit-edit">
+				<KrField
+							style={{width:260}}
+							name="payAccount"
+							inline={false}
+							type="text"
+							component="labelText"
+							label="系统名称"
+							value={infoList.systemName}
+					/>
+				<KrField
+						style={{width:260,marginLeft:25}}
+						name="payName"
+						inline={false}
+						component="labelText"
+						label="业务名称"
+						value={infoList.sourceName}
+				/>
+				<KrField
+						style={{width:260}}
+						component="labelText"
+						inline={false}
+						label="操作类型"
+						value={infoList.operateType}
+
+				/>
+				<KrField
+						style={{width:260,marginLeft:25}}
+						component="labelText"
+						inline={false}
+						label="批次号"
+						value={infoList.batchNum}
+				/>
+				<KrField
+						style={{width:260}}
+						name="payAccount"
+						inline={false}
+						type="text"
+						component="labelText"
+						label="操作人"
+						value={infoList.operater}
+				/>
+					<KrField
+							style={{width:260,marginLeft:25}}
+							name="dealTime"
+							inline={false}
+							component="labelText"
+							label="操作时间"
+							value={< KrDate style = {{marginTop:5}} value = {
+									infoList.operateDate
+							}
+							format = "yyyy-mm-dd" />}
+					/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								label="主表id"
+								label="表主键"
 								inline={false}
 								value={infoList.entityId}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								component="labelText"
-								label="日志详情"
+								label="扩展字段"
 								inline={false}
 								value={infoList.extra}
 						/>
 						<KrField
-								style={{width:260}}
-								component="labelText"
-								inline={false}
-								label="操作类型"
-								value={infoList.OperateType}
-
-						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								component="labelText"
-								inline={false}
-								label="批次号"
-								value={infoList.batchNum}
-						/>
-						<KrField
-								style={{width:260}}
-								component="labelText"
-								inline={false}
-								label="日志id"
-								value={infoList.id}
-						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								name="payName"
-								inline={false}
-								component="labelText"
-								label="业务名称"
-								value={infoList.sourceName}
-						/>
-						<KrField
-								style={{width:260}}
+								style={{width:'100%'}}
 								name="accountNum"
 								component="labelText"
 								inline={false}
-								label="日志"
+								label="操作内容"
 								value={infoList.operateRecord}
 						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								name="payAccount"
-								inline={false}
-								type="text"
-								component="labelText"
-								label="操作人"
-								value={infoList.operater}
-						/>
-						<KrField
-								style={{width:260}}
-								name="payAccount"
-								inline={false}
-								type="text"
-								component="labelText"
-								label="系统名称"
-								value={infoList.systemName}
-						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								name="dealTime"
-								inline={false}
-								component="labelText"
-								label="操作时间"
-								value={< KrDate style = {{marginTop:5}} value = {
-                    infoList.operateDate
-                }
-                format = "yyyy-mm-dd" />}
-						/>
+
+
 			</div>
 
 
