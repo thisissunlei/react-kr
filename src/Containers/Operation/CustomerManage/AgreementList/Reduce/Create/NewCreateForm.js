@@ -486,7 +486,7 @@ class NewCreateForm extends React.Component {
 const selector = formValueSelector('reduceCreateForm');
 const validate = values => {
 
-	const errors = {}initialValues
+	const errors = {}
 	++values.num;
 
 
