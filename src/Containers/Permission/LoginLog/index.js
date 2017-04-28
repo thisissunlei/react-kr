@@ -4,12 +4,7 @@ import {
 } from "kr/Utils";
 
 import {
-	reduxForm,
-	formValueSelector,
-	change
-} from 'redux-form';
-import {
-	KrField,
+	
 	Table,
 	TableBody,
 	TableHeader,
@@ -80,7 +75,7 @@ export default class LoginLog extends React.Component {
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='findUserByRoleId'
+							ajaxUrlName='get-login-log'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							  >

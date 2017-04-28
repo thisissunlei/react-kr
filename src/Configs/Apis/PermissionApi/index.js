@@ -233,4 +233,9 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/log/find-detail?id={id}',
       method: 'get'
     },
+    //权限--登录日志--分页
+    'get-login-log': {
+      url: '/api/krspace-sso-web/sso/loginLog/find-page?loginAccount={loginAccount}&loginId={loginId}&successful={successful}&page={page}&pageSize={pageSize}',
+      method: 'get'
+    },
 }
