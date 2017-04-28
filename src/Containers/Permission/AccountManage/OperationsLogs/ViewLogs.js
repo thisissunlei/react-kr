@@ -27,15 +27,19 @@ export default class ViewLogs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			infoList:[]
 		}
 	}
+
 	componentDidMount() {
 		var _this = this;
-		setTimeout(function() {
-			_this.getInfo();
-		}, 0)
+		var id = this.props.detail.id
+		Http.request('getOpDet', {
+						id: id
+				}, {}).then(function(response) {
+						_this.setState({infoList: response})
+				}).catch(function(err) {});
 	}
-
 	onCancel = () => {
     let {onCancel} = this.props;
     onCancel && onCancel();
@@ -56,66 +60,57 @@ export default class ViewLogs extends React.Component {
 		} = this.state;
 		return (
 			<div className="u-audit-add  u-audit-edit">
-			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
-			     	<span>回款详情</span>
-			     	<span className="u-audit-close" style={{
-								marginRight: 40
-						}} onTouchTap={this.onCancel}></span>
-			     </div>
-			     {topInfoList.length>0?this.renderTable(topInfoList):''}
-					<CircleStyleTwo num="1" info="付款信息">
 						<KrField
 								style={{width:260}}
 								component="labelText"
-								label="客户名称"
+								label="主表id"
 								inline={false}
-								value={infoList.company}
+								value={infoList.entityId}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								component="labelText"
-								label="所属订单"
+								label="日志详情"
 								inline={false}
-								value={infoList.mainBillName}
+								value={infoList.extra}
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
 								inline={false}
-								label="订单起止"
-								value={infoList.mainBillDate}
+								label="操作类型"
+								value={infoList.OperateType}
 
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								component="labelText"
 								inline={false}
-								label="公司主体"
-								value={infoList.corporationName}
+								label="批次号"
+								value={infoList.batchNum}
 						/>
 						<KrField
 								style={{width:260}}
 								component="labelText"
 								inline={false}
-								label="社区名称"
-								value={infoList.communityName}
+								label="日志id"
+								value={infoList.id}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="payName"
 								inline={false}
 								component="labelText"
-								label="收款方式"
-								value={infoList.payName}
+								label="业务名称"
+								value={infoList.sourceName}
 						/>
 						<KrField
 								style={{width:260}}
 								name="accountNum"
 								component="labelText"
 								inline={false}
-								label="我司账户"
-								value={infoList.accountNum}
+								label="日志"
+								value={infoList.operateRecord}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -123,47 +118,29 @@ export default class ViewLogs extends React.Component {
 								inline={false}
 								type="text"
 								component="labelText"
-								label="付款账户"
-								value={infoList.payAccount}
+								label="操作人"
+								value={infoList.operater}
 						/>
 						<KrField
 								style={{width:260}}
+								name="payAccount"
+								inline={false}
+								type="text"
+								component="labelText"
+								label="系统名称"
+								value={infoList.systemName}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
 								name="dealTime"
 								inline={false}
 								component="labelText"
-								label="收款日期"
+								label="操作时间"
 								value={< KrDate style = {{marginTop:5}} value = {
-                    infoList.dealTime
+                    infoList.operateDate
                 }
-                format = "yyyy-mm-dd HH:MM:ss" />}
+                format = "yyyy-mm-dd" />}
 						/>
-						<KrField
-								style={{width:548}}
-								name="remark"
-								component="labelText"
-								label="备注"
-								value={infoList.remark}
-								inline={false}
-						/>
-						<KrField
-							style={{width:548}}
-							name="uploadFileIds"
-							component="labelText"
-							label="上传附件"
-							inline={false}
-							value={this.fileList}
-						/>
-					</CircleStyleTwo>
-					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
-						<div className="u-add-total-count">
-							<span className="u-add-total-icon"></span>
-							<span className="u-add-total-title">付款总金额：</span>
-							<span>{infoList.flowAmount}</span>
-						</div>
-						<div className="u-order-title">对应合同</div>
-						{this.renderPayList()}
-						{this.renderNullOrder()}
-					</CircleStyleTwo>
 			</div>
 
 

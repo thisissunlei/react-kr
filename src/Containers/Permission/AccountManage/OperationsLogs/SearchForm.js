@@ -27,29 +27,9 @@ class SearchForm extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state={
-			verify_add_money:false,
-			verify_pass:false,
+		this.state = {
+			onHover: false
 		}
-	}
-	componentDidMount() {
-		var _this = this;
-		Http.request('getSelfMenuInfo').then(function(response) {
-			var someBtn = response.navcodes.finance;
-			for(var i = 0;i<someBtn.length;i++){
-				if(someBtn[i]=="verify_add_money"){
-					_this.setState({
-						verify_add_money:true,
-					})
-				}
-				if(someBtn[i]=="verify_pass"){
-					_this.setState({
-						verify_pass:true,
-					})
-				}
-			}
-		});
-
 	}
 	onSubmit = (form) => {
 		form = Object.assign({},form);
@@ -71,7 +51,11 @@ class SearchForm extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-
+	onHover = () => {
+		this.setState({
+			onHover: !this.state.onHover
+		})
+	}
 	render() {
 		const {
 			error,
@@ -83,7 +67,7 @@ class SearchForm extends React.Component {
 		return (
 			<div>
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
-				<SearchForms onSubmit={this.onSubmit} placeholder="请输入日志名称" inputName="todo"/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入操作人" inputName="logs"/>
 			</div>
 		);
 	}
