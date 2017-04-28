@@ -55,7 +55,7 @@ export default class LoginLog extends React.Component {
 	onSerchSubmit = (form) => {
 		this.setState({
 			searchParams:{
-				loginAccount:form.content
+				loginAccount:form.content,
 			}
 		})
 	}

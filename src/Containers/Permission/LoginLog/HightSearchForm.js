@@ -30,6 +30,7 @@ class HightSearchForm extends React.Component {
 				label: '失败',
 				value: '0'
 			}],
+			errorTip:false,
 			
 		}
 		
@@ -37,6 +38,16 @@ class HightSearchForm extends React.Component {
 
 	onSubmit = (form) => {
 		form = Object.assign({},form);
+		if(form.loginId && !/^[0-9]*$/.test(form.loginId)){
+			this.setState({
+				errorTip:true
+			})
+			return;
+		}else{
+			this.setState({
+				errorTip:false
+			})
+		}
 		const {
 			onSubmit
 		} = this.props;
@@ -60,13 +71,14 @@ class HightSearchForm extends React.Component {
 		} = this.props;
 		let {
 			successful,
+			errorTip
 		} = this.state;
 		return (
 			<div>
-			    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
+			    <form className="u-hight-form" onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 				    <KrField
 				    		grid={1/2}
-							left={50}
+							left={45}
 							right={10}
 				    		name="loginAccount"
 				    		component="input"
@@ -76,7 +88,7 @@ class HightSearchForm extends React.Component {
 					/>
 					<KrField
 				    		grid={1/2}
-				    		right={50}
+				    		right={45}
 				    		left={10}
 				    		name="loginId"
 				    		style={{marginTop:4}}
@@ -85,7 +97,7 @@ class HightSearchForm extends React.Component {
 					/>
 					<KrField
 				    		grid={1/2}
-				    		left={50}
+				    		left={45}
 				    		right={10}
 				    		name="successful"
 				    		type="select"
@@ -93,6 +105,7 @@ class HightSearchForm extends React.Component {
 				    		label="登录结果"
 				  			options={successful}
 					/>
+					{errorTip?<div className="u-error-tip">登录ID只能为数字</div>:''}
 				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
