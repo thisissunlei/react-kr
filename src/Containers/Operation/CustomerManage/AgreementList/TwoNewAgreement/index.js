@@ -51,7 +51,8 @@ class LookCustomerList extends Component{
 	}
 	
 	componentWillReceiveProps(nextProps){
-		allState.hasLocal= false;
+		// allState.hasLocal= false;
+		// console.log('componentWillReceiveProps');
 
 	}
 	componentDidMount(){

@@ -151,6 +151,7 @@ export default class increaseCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})

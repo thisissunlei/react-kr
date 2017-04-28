@@ -151,6 +151,7 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
