@@ -212,7 +212,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname|| '请选择'));
 
 	}
 

@@ -193,7 +193,7 @@ class NewCreateForm extends React.Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('joinEditForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('joinEditForm', 'lessorContactName', personel.lastname  || '请选择'));
 		Store.dispatch(change('joinEditForm', 'lessorContacttel', personel.mobile));
 	}
 
