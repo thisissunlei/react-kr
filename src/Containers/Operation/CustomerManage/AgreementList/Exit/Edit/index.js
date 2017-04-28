@@ -342,7 +342,7 @@ export default class EditCreate extends React.Component {
         initialValues.totalrent =  localStorage.getItem(keyWord+'totalrent');
         initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
         initialValues.lessorContactid =  localStorage.getItem(keyWord+'lessorContactid');
-        initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount') 0;
+        initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount') ;
         initialValues.totalreturn =  localStorage.getItem(keyWord+'totalreturn')|| 0;
         //时间
 
