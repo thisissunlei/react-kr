@@ -416,10 +416,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 	render(){
 
-
-
-
-
        let {communityName,codeName}=this.state;
        var nameStyle={}
        if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
@@ -432,10 +428,18 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         }
        }
 
-
-
+     
 
     let {openDown,openUp}=this.state;
+    
+    let openStyle={};
+    if(openDown){
+     openStyle={
+      paddingBottom:0
+     }
+    }else{
+     openStyle={}; 
+    }
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -494,13 +498,15 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <div className="middle-round"></div>
 						</div>
 
+            
+
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
 								<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
-								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:32}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
-								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:32}} component="date" requireLabel={true}/>
                                 <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>
 
@@ -519,17 +525,42 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
 
                                 <FieldArray name="bright_bright" component={renderBrights}/>
-
-                                {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-                                <div className="end-round two-round"></div></div>}
-
-						        {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
-
+   
+                                
+                   <div className="middle-round"></div>
 						</div>
 
+          <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
+              <div className="small-cheek" style={openStyle}>
+              
+               
+                <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
+ 
+                <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
+                
+               <div className='communityList-pic-single'><KrField
+                    label=""
+                    name="photosStr_single"
+                    component="newuploadImage"
+                    innerstyle={{width:156,height:111,padding:16}}
+                    photoSize={'212*136'}
+                    pictureFormat={'JPG'}
+                    pictureMemory={'32'}
+                    //requestURI = {this.state.requestURI}
+                    inline={false}
+                    formfile='file'
+                    center='center'
+                  /></div>
 
-                      <div style={{display:openUp?'block':'none'}}>
-						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
+              {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
+                <div className="end-round two-round"></div></div>}
+               {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+              
+           </div>
+
+
+          <div style={{display:openUp?'block':'none'}}>
+						<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
@@ -578,7 +609,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 						</div>
 						<div className="end-round"></div>
-                     </div>
+          </div>
 
 
 				    </div>
@@ -757,6 +788,12 @@ const validate = values =>{
 
       if(!values.contract){
         errors.contract='请输入联系方式'
+      }
+      if(values.mobileStationNum&&!zeroNum.test(values.mobileStationNum.toString().trim())){
+        errors.mobileStationNum='工位数为整数'
+      }
+      if(values.mobileStationPrice&&!zeroNum.test(values.mobileStationPrice.toString().trim())){
+        errors.mobileStationPrice='工位单价为整数'
       }
 			/*
 			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){

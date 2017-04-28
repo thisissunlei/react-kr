@@ -196,6 +196,16 @@ import State from '../State';
          
     let {openDown,openUp}=this.state;
 
+     let openStyle={};
+      if(openDown){
+       openStyle={
+        paddingBottom:0
+       }
+      }else{
+       openStyle={}; 
+      }
+
+
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -278,17 +288,27 @@ import State from '../State';
                                      return  <KrField grid={1} label="社区亮点"  style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>   
                                   })	
                                 }
-						        
-                                {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-                                <div className="end-round two-round"></div></div>}
-
-						        {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}	
-						        
+						                     <div className="middle-round"></div>
+                               
 						</div>
+
+
+            <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
+            <div className="small-cheek" style={openStyle}>
+  
+                <KrField grid={1/2} label="社区状态"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={inforStyle?inforStyle:'无'}/>
+                <KrField grid={1/2} label="开业时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={openTime?openTime:'无'}/>
+               
+                {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
+                <div className="end-round two-round"></div></div>}
+
+                {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>} 
+                    
+            </div>
                         
                         
                       {openUp&&<div>
-						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
+						<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" component="labelText" style= {{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.orderNum)?toJS(State.detailData.orderNum):'－'}/>	
 							 <KrField grid={1/2} label="官网显示状态"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={hereWatch}>

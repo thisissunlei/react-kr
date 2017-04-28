@@ -404,6 +404,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				}
 
 
+          let openStyle={};
+          if(openDown){
+           openStyle={
+            paddingBottom:0
+           }
+          }else{
+           openStyle={}; 
+          }
+
+
 				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
 
 				return (
@@ -485,13 +495,38 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<FieldArray name="bright_bright" component={renderBrights}/>
 
-
-								{openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-							<div className="end-round two-round"></div></div>}
-
-								{openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+                <div className="middle-round"></div>
 
 							</div>
+
+
+              <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
+              <div className="small-cheek" style={openStyle}>
+              
+               
+                <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
+ 
+                <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
+                
+               <div className='communityList-pic-single'><KrField
+                    label=""
+                    name="photosStr_single"
+                    component="newuploadImage"
+                    innerstyle={{width:156,height:111,padding:16}}
+                    photoSize={'212*136'}
+                    pictureFormat={'JPG'}
+                    pictureMemory={'32'}
+                    //requestURI = {this.state.requestURI}
+                    inline={false}
+                    formfile='file'
+                    center='center'
+                  /></div>
+
+              {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
+                <div className="end-round two-round"></div></div>}
+               {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+              
+           </div>
 
 
 							<div style={{display:openUp?'block':'none'}}>
