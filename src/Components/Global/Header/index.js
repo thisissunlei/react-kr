@@ -42,8 +42,7 @@ import {
 
 @inject("NotifyModel")
 @observer
-
-class Header extends Component {
+class Header extends React.Component {
 
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
@@ -556,7 +555,7 @@ class Header extends Component {
 						}
 					}
 					/>
-					< /IconMenu ></div>
+					</IconMenu ></div>
 				}
 				/>
 			);
