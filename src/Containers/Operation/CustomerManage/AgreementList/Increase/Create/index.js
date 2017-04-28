@@ -241,8 +241,6 @@ export default class increaseCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
-			console.log(err)
-
 			Notify.show([{
 				message: "222",
 				type: 'danger',
@@ -343,7 +341,6 @@ export default class increaseCreate extends React.Component {
 
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
-		console.log('optionValues',optionValues)
 
 		return (
 

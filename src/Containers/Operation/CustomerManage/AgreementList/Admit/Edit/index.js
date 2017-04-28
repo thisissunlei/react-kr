@@ -405,7 +405,6 @@ export default class JoinCreate extends React.Component {
 				initialValues.signdate =  localStorage.getItem(keyWord+'signdate') ||  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
-				console.log('delStationVos',localStorage.getItem(keyWord+'delStationVos'));
 				//处理stationvos
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
