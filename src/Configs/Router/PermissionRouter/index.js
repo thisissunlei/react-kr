@@ -56,6 +56,11 @@ const Permission_AccountManage_OperationsLogs = (location, callback) => {
     callback(null, require('kr/Containers/Permission/AccountManage/OperationsLogs').default)
   }, 'Permission_AccountManage_OperationsLogs')
 }
+const Permission_LoginLog = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/LoginLog').default)
+  }, 'Permission_LoginLog')
+}
 module.exports =()=>{
 
 	return (
@@ -72,6 +77,7 @@ module.exports =()=>{
 		<Route path="user" getComponent={Permission_User}/>
 		<Route path="operations" getComponent={Permission_Operations}/>
 		<Route path="login" getComponent={Permission_Login}/>
+    <Route path="loginlog" getComponent={Permission_LoginLog}/>
     <Route path="accountManage" getComponent={Basic}>
   			<Route path="accountList" getComponent={Permission_AccountManage_AccountList}/>
         <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>

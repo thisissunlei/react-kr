@@ -19,7 +19,12 @@ module.exports = [
 					primaryText: '操作日志',
 					router: '/permission/accountManage/operationsLogs',
 					menuCode: 'contractList',
-				},]
+				},{
+					primaryText: '登录日志',
+					router: '/permission/loginlog',
+					menuCode: 'contractList',
+				}
+				]
 			},
 			{
 				primaryText: "权限管理",

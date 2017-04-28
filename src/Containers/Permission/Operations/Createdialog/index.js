@@ -258,6 +258,8 @@ class Createdialog extends React.Component {
 			controller: controller
 		}
 		var arr = ControllerRender;
+		Store.dispatch(change('createdialog', 'controller', ''));
+		
 		var arr1 = [];
 		console.log(arr);
 		if(arr.length>0){
@@ -349,19 +351,52 @@ class Createdialog extends React.Component {
 							inline={true}
 					/>
 					<KrField style={{width:360,marginLeft:40,marginBottom:16}}  name="type" component="group" label="类型" inline={true} requireLabel={true}>
-	                	<KrField name="type" label="菜单" type="radio" value="MENU" checked={true}/>
-	               		 <KrField name="type" label="操作" type="radio" value="OPERATION" />
+	                	<KrField 
+	                			name="type" 
+	                			label="菜单" 
+	                			type="radio" 
+	                			value="MENU" 
+	                			checked={true}
+	                	/>
+	               		 <KrField 
+	               		 		name="type" 
+	               		 		label="操作" 
+	               		 		type="radio" 
+	               		 		value="OPERATION" 
+	               		 />
 	              	</KrField>
 					<div className="u-operations">
-						<KrField name="module"  style={{width:220,marginLeft:40}}  component="select" label="模块" options={ModuleList} inline={true} requireLabel={true} onChange={this.onSelect}/>
+						<KrField 
+								name="module"  
+								style={{width:220,marginLeft:40}}  
+								component="select" 
+								label="模块" 
+								options={ModuleList} 
+								inline={true} 
+								requireLabel={true} 
+								onChange={this.onSelect}
+						/>
 						{this.renderModule()}
 						{this.renderchildModule()}
 					</div>
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
 						<div className="u-method-content u-method-contentE">
-							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
-							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
+							<KrField 
+									name="controller"  
+									style={{width:600,marginLeft:70}}  
+									component="searchMethod" 
+									label="" 
+									options={ControllerList} 
+									inline={true}  
+									onChange={this.onSelectController}
+							/>
+							<Button 
+									label="Add" 
+									className="u-method-add" 
+									height={34} 
+									onTouchTap={this.controllerAdd}
+							/>
 						</div>
 						<div className="u-method-content-list">
 							{this.renderController()}
@@ -370,8 +405,22 @@ class Createdialog extends React.Component {
 					<Row style={{marginTop:30,marginBottom:15}}>
 					<Col md={12} align="center"> 
 						<ButtonGroup>
-							<div  className='ui-btn-center'><Button  label="确定" type="submit"   height={34} width={90}/></div>
-							<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
+							<div  className='ui-btn-center'>
+								<Button  
+										label="确定" 
+										type="submit"   
+										height={34} 
+										width={90}
+								/>
+							</div>
+							<Button  
+									label="取消" 
+									type="button"  
+									onTouchTap={this.onCancel} 
+									cancle={true} 
+									height={33} 
+									width={90}
+							/>
 						</ButtonGroup>
 						
 					 </Col>

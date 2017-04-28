@@ -7,7 +7,8 @@ import {
 } from 'kr/Redux';
 import {
 	reduxForm,
-	initialize
+	initialize,
+	change
 } from 'redux-form';
 import {
 	KrField,
@@ -308,7 +309,7 @@ class Editdialog extends React.Component {
 		}
 		var arr = ControllerRender;
 		var arr1 = [];
-		console.log(arr);
+		Store.dispatch(change('editdialog', 'controller', ''));
 		if(arr.length>0){
 			console.log(11111)
 			arr.map((items,index)=>{
