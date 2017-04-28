@@ -12,6 +12,7 @@ export default class XTableRow extends React.Component {
     type:React.PropTypes.string,
     component:React.PropTypes.any,
     format:React.PropTypes.string,
+    defaultValue:React.PropTypes.string,
     width:React.PropTypes.arrayOf(React.PropTypes.number,React.PropTypes.string),
   }
 

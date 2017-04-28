@@ -246,7 +246,7 @@ export default class XTable extends React.Component {
 
   createTableColumn = (child,itemData,key,rowNumber)=>{
 
-    var {name,component,type,format,tooltip} = child.props;
+    var {name,component,type,format,tooltip,defaultValue} = child.props;
 
     var props = { itemData, key};
 
@@ -255,7 +255,7 @@ export default class XTable extends React.Component {
     };
 
     if(name && itemData.hasOwnProperty(name)){
-      props.children = itemData[name];
+      props.children = itemData[name] || defaultValue;
     }
 
     if(typeof type ==='string' && type === 'checkbox'){
@@ -265,7 +265,7 @@ export default class XTable extends React.Component {
 // todo:date format
     if(typeof type === 'string' && type === 'date'){
         if(!props.children){
-          props.children = '无';
+          props.children = defaultValue || '无';
         }else{
           props.children = DateFormat(props.children,format);
         }
