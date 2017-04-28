@@ -80,33 +80,19 @@ export default class LoginLog extends React.Component {
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>日志ID</TableHeaderColumn>
+						<TableHeaderColumn>ID</TableHeaderColumn>
+						<TableHeaderColumn>登录账号</TableHeaderColumn>
+						<TableHeaderColumn>登录结果</TableHeaderColumn>
+						<TableHeaderColumn>设备信息</TableHeaderColumn>
+						<TableHeaderColumn>备注</TableHeaderColumn>
 						<TableHeaderColumn>登录IP</TableHeaderColumn>
 						<TableHeaderColumn>登录时间</TableHeaderColumn>
-						<TableHeaderColumn>设备信息</TableHeaderColumn>
-						<TableHeaderColumn>登录账号</TableHeaderColumn>
-						<TableHeaderColumn>登录ID</TableHeaderColumn>
-						<TableHeaderColumn>备注</TableHeaderColumn>
-						<TableHeaderColumn>登录结果</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn name="id"></TableRowColumn>
-							<TableRowColumn name="clientIp"></TableRowColumn>
-							<TableRowColumn 
-									name="ctime" 
-									type="date"
-									component={(value)=>{
-										return (
-											<KrDate value={value} />
-										)
-									}}
-									></TableRowColumn>
-							<TableRowColumn name="deviceInfo"></TableRowColumn>
-							<TableRowColumn name="loginAccount"></TableRowColumn>
 							<TableRowColumn name="loginId"></TableRowColumn>
-							<TableRowColumn name="remark" ></TableRowColumn>
+							<TableRowColumn name="loginAccount"></TableRowColumn>
 							<TableRowColumn name="successful" component={(value)=>{
 								if(value==1){
 									return(
@@ -119,6 +105,20 @@ export default class LoginLog extends React.Component {
 								}
 								
 							}}></TableRowColumn>
+							<TableRowColumn name="deviceInfo"></TableRowColumn>
+							<TableRowColumn name="remark" ></TableRowColumn>
+							<TableRowColumn name="clientIp"></TableRowColumn>
+							<TableRowColumn 
+									name="ctime" 
+									type="date"
+									component={(value)=>{
+										return (
+											<KrDate value={value} />
+										)
+									}}
+									></TableRowColumn>
+							
+							
 							
 						 </TableRow>
 					</TableBody>
