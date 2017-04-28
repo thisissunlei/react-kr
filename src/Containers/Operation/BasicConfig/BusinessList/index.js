@@ -273,7 +273,7 @@ searchChange = (values) =>{
 
 
 		return(
-			<div className="m-equipment-list m-business-list" style={{paddingTop:25,minHeight:'910'}}>
+			<div className="m-equipment-list m-business-list" style={{minHeight:'910'}}>
 				<Title value="商圈列表"/>
       		<Section title="商圈列表"  style={{marginBottom:-5,minHeight:910}}>
 

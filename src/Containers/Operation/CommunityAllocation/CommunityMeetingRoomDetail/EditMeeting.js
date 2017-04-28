@@ -40,7 +40,7 @@ class EditMeeting  extends React.Component{
 				   if(response.enable==1){
 				   	 response.enable='1';
 				   }else if(response.enable==0){
-				   	 response.enable='0'; 
+				   	 response.enable='0';
 				   }
 				   let deviceSpace=[];
 				   _this.props.CommunityMeetingModel.spaceDevices.map((items,index)=>{
@@ -54,7 +54,7 @@ class EditMeeting  extends React.Component{
 			           }
 			        })
 			        list.checked=items.checked;
-			        deviceSpace.push(list); 
+			        deviceSpace.push(list);
 				  })
 				   _this.setState({
 				   	 listDevice:deviceSpace
@@ -88,7 +88,7 @@ class EditMeeting  extends React.Component{
 		 this.props.CommunityMeetingModel.codeStationCompare(params);
 	 }
 
-	
+
      //设备
 	deviceChange=(params,item)=>{
 	  let list=[];
@@ -98,10 +98,10 @@ class EditMeeting  extends React.Component{
 
 
   render(){
-    
+
      const {handleSubmit}=this.props;
      let {listDevice}=this.state;
-     
+
     return(
 
     <div className='m-newMerchants'>
@@ -149,27 +149,28 @@ class EditMeeting  extends React.Component{
 					 label="空间位置"
 				 />
 
-			    <div className='meeting-device'><KrField
-							label="设备情况"
-							name='deviceIds'
-							style={{width:262,marginLeft:28}}
-							component="groupCheckbox"
-                            defaultValue={listDevice}
-                            onChange={this.deviceChange}
-						/></div>
+
 
 						<KrField grid={1/2}
-								style={{width:262}}
+								style={{width:262,marginLeft:28}}
 								name="spaceType"
 								component="select"
 								label="空间类型"
 							 	requireLabel={true}
 								options={this.props.CommunityMeetingModel.sapceTypes}
 						/>
-				<KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="启用状态">
+				<KrField grid={1/2}  name="enable" style={{width:262}} component="group" label="启用状态">
 					<KrField name="enable" label="启用" type="radio" value='1' />
 					<KrField name="enable" label="禁用" type="radio" value='0' />
 			   </KrField>
+				 <div className='meeting-device'><KrField
+						 label="设备情况"
+						 name='deviceIds'
+						 
+						 component="groupCheckbox"
+													 defaultValue={listDevice}
+													 onChange={this.deviceChange}
+					 /></div>
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">

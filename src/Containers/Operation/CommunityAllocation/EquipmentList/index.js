@@ -178,7 +178,7 @@ class EquipmentList  extends React.Component{
 
 
 		return(
-			<div className="m-equipment-list" style={{paddingTop:25,minHeight:'910'}}>
+			<div className="m-equipment-list" style={{minHeight:'910'}}>
 				<Title value="设备列表"/>
       		<Section title="设备列表"  style={{marginBottom:-5,minHeight:910}}>
 
