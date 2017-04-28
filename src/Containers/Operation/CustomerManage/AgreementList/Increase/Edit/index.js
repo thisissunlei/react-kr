@@ -259,7 +259,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-				console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -383,7 +382,6 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
-				console.log('err',err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -392,7 +390,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-				console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',

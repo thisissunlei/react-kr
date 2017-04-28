@@ -285,7 +285,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -387,10 +386,8 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseEnddate =  localStorage.getItem(keyWord+'leaseEnddate')||DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 
 
-				console.log('stationVos',localStorage.getItem(keyWord+'stationVos'));
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
-				console.log('delStationVos',localStorage.getItem(keyWord+'delStationVos'));
 				//处理stationvos
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
@@ -404,7 +401,6 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
-				console.log(err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -413,7 +409,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -436,7 +431,6 @@ export default class JoinCreate extends React.Component {
 		})
 		
 		this.getLocalStorageSata();
-		console.log('getLocalStorage')
 	}
 
 

@@ -151,6 +151,7 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -339,8 +340,6 @@ export default class JoinCreate extends React.Component {
 
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
-
-		console.log(!allState.hasLocal,optionValues)
 		return (
 
 			<div>

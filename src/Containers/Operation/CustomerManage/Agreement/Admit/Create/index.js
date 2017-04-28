@@ -380,7 +380,6 @@ export default class JoinCreate extends React.Component {
 			 stationVoList,
 			 openLocalStorages
 		} = this.state;
-		console.log('index',initialValues,optionValues,openLocalStorages );
 
 		return (
 

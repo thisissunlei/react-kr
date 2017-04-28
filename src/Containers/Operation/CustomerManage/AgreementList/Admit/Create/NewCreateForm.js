@@ -225,7 +225,6 @@ class NewCreateForm extends React.Component {
 
 
 	componentDidMount() {
-		console.log('-----componentDidMount-----',allState.openLocalStorage,allState.openLocalStorages);
 		let {
 			initialValues
 		} = this.props;
@@ -235,12 +234,6 @@ class NewCreateForm extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
-		// console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
-		// if(!allState.openLocalStorage && !allState.openLocalStorages){
-		// 	Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
-		// }else if(!allState.openLocalStorage && allState.openLocalStorages){
-		// 	Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
-		// }
 		if(this.props.initialValues != nextProps.initialValues){
 			this.setState({
 				initialValues:nextProps.initialValues
@@ -520,7 +513,7 @@ class NewCreateForm extends React.Component {
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 	onBlur=(item)=>{
 

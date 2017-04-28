@@ -184,7 +184,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 
 
