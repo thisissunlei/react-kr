@@ -380,7 +380,7 @@ class Editdialog extends React.Component {
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
 							name="name" type="text"
 							component="input" label="名称"
 							requireLabel={true}
@@ -389,7 +389,7 @@ class Editdialog extends React.Component {
 							inline={true}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
 							name="code" type="text"
 							component="labelText" label="编号"
 							requireLabel={true}
@@ -398,7 +398,7 @@ class Editdialog extends React.Component {
 							value={detail.code}
 					/>
 					<KrField 
-							style={{width:300,marginLeft:40,marginBottom:16}}  
+							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}  
 							name="type" 
 							component="group" 
 							label="类型" 
