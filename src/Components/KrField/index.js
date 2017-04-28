@@ -52,7 +52,7 @@ import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
 import SearchPayAccount from './SearchPayAccount';
-
+import SearchSourceList from './SearchSourceList';
 import SearchOrderCommunity from './SearchOrderCommunity';
 
 
@@ -408,6 +408,11 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 				);
+			}
+			if (component === 'searchSourceList') {
+				return (
+					<FieldRevert {...this.props} component={SearchSourceList}  style={WrapStyles} {...other}/>
+				)
 			}
 
 			return (

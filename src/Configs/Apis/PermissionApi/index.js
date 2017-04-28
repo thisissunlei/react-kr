@@ -215,10 +215,15 @@ module.exports = {
     },
     //权限--操作日志--获取分页
     'getOpLogs': {
-      url: '/api/krspace-sso-web/sso/log/find-page?endDate={endDate}&operaterName={operaterName}&page={page}&pageSize={pageSize}&sourceId={sourceId}&startDate={startDate}&systemType={systemType}',
+      url: '/api/krspace-sso-web/sso/log/find-page?endDate={endDate}&operaterName={operaterName}&page={page}&pageSize={pageSize}&sourceId={sourceId}&startDate={startDate}&systemType={systemType}&operateRecord={operateRecord}&batchNum={batchNum}',
       method: 'get'
     },
     //权限--操作日志--高级查询获取
+    'getOpSource': {
+      url: '/api/krspace-sso-web/sso/log/find-sourceList?sourceName={sourceName}',
+      method: 'get'
+    },
+    //权限--操作日志--高级查询获取sourceList
     'getOpSer': {
       url: '/api/krspace-sso-web/sso/log/find-searchData',
       method: 'get'

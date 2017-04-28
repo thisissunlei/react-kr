@@ -28,7 +28,6 @@ class HighSearchForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			sourceList:[],
 			systemList:[]
 		}
 
@@ -57,22 +56,15 @@ class HighSearchForm extends React.Component {
 		onCancel && onCancel();
 	}
 	getMain = () => {
-		var sourceList;
 		var	systemList;
 		var _this = this;
 		Http.request('getOpSer').then(function(response) {
-			sourceList = response.sourceList.map((item) => {
-				item.label = item.sourceDesc;
-				item.value = item.id;
-				return item;
-			})
 			systemList = response.systemList.map((item) => {
 				item.label = item.systemDesc;
 				item.value = item.systemType;
 				return item;
 			})
 			_this.setState({
-				sourceList: sourceList,
 				systemList: systemList,
 			})
 
@@ -88,32 +80,65 @@ class HighSearchForm extends React.Component {
 			reset
 		} = this.props;
 		let {
-			sourceList,
 			systemList,
 		} = this.state;
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
-				    <KrField
-				    		grid={1/2}
+
+					<KrField
+			    		grid={1/2}
 							left={42}
-							right={18}
-				    		name="sourceId"
-								type="select"
-				    		style={{marginTop:4}}
-				    		label="业务名称"
-				  			options={sourceList}
+	  					right={18}
+			    		name="systemType"
+			    		type="select"
+			    		style={{marginTop:4}}
+			    		label="系统名称"
+			  			options={systemList}
 					/>
 					<KrField
-				    		grid={1/2}
-				    		right={56}
-				    		left={4}
-				    		name="systemType"
-				    		type="select"
-				    		style={{marginTop:4}}
-				    		label="系统名称"
-				  			options={systemList}
-					/>
+ 					 grid={1/2}
+					 right={56}
+					 left={4}
+ 					 name="sourceId"
+ 					 style={{marginTop:4}}
+ 					 label="业务名称"
+ 					 component="searchSourceList"
+ 			 		/>
+					<KrField
+              grid={1/2}
+							left={42}
+	  					right={18}
+              name="operaterName"
+              type="text"
+              component="input"
+              label="操作人"
+           />
+					 <KrField
+							 grid={1/2}
+							 right={56}
+							 left={4}
+							 name="batchNum"
+							 type="text"
+							 component="input"
+							 label="批次号"
+						/>
+						<KrField
+								grid={1/1}
+								left={42}
+		  					right={18}
+								component="group"
+								label="操作时间"
+								style={{marginTop:3}}
+						>
+							<div className='ui-listDate' style={{marginTop:-8}}>
+								<ListGroup>
+									<ListGroupItem><div className='ui-date-start' style={{width:248}} ><KrField  style={{width:248,marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
+										<div className='ui-line-down'  style={{marginTop:25,display:'inline-block'}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+									<ListGroupItem><div className='ui-date-end'><KrField name="endDate" style={{width:248,marginTop:2}} component="date" /></div></ListGroupItem>
+								</ListGroup>
+			                </div>
+						</KrField>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
