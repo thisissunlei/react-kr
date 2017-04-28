@@ -178,7 +178,7 @@ const validate = values =>{
 		errors.area='面积为数字'
 	}
     
-    if(!values.capacity){
+    if(!!!values.capacity ){
 		errors.capacity='请输入可容纳人数'
 	}
 
