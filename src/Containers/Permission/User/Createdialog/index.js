@@ -147,7 +147,7 @@ class Createdialog extends React.Component {
 		return	moduleDetail.map((item,index)=>{
 				if(item.resources.length>0){
 					return(
-						<div key={index} >
+						<div className="u-clearfix u-module" key={index} >
 							<div className="u-module-list">{item.name}</div>
 							<div className="u-resources-list">
 								<input 
@@ -220,7 +220,7 @@ class Createdialog extends React.Component {
 						/>
 
 					</div>
-					<Row style={{marginTop:30,marginBottom:15}}>
+					<Row style={{marginTop:10,marginBottom:15}}>
 					<Col md={12} align="center"> 
 						<ButtonGroup>
 							<div  className='ui-btn-center'><Button  label="确定" type="button"  type="submit"  height={34} width={90}/></div>

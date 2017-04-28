@@ -203,7 +203,8 @@ class Editdialog extends React.Component {
 	}
 	render() {
 		let {
-			handleSubmit
+			handleSubmit,
+			detail
 		} = this.props;
 		let {
 			resourceIds,
@@ -216,18 +217,19 @@ class Editdialog extends React.Component {
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
 							style={{width:300,marginLeft:40,marginBottom:16}}
-							name="name" type="text"
-							component="input" label="姓名："
+							name="name" 
+							type="text"
+							component="input" 
+							label="姓名"
 							requireLabel={true}
 							requiredValue={true}
 							inline={true}
 					/>
 					<KrField
 							style={{width:300,marginLeft:40,marginBottom:16}}
-							name="code" type="text"
-							component="input" label="编号："
-							requireLabel={true}
-							requiredValue={true}
+							component="labelText" 
+							label="编号"
+							value={detail.code}
 							inline={true}
 					/>
 					<div className="u-operation">
@@ -246,7 +248,7 @@ class Editdialog extends React.Component {
 						/>
 
 					</div>
-					<Row style={{marginTop:30,marginBottom:15}}>
+					<Row style={{marginTop:10,marginBottom:15}}>
 					<Col md={12} align="center"> 
 						<ButtonGroup>
 							<div  className='ui-btn-center'><Button  label="确定" type="button"  type="submit"  height={34} width={90}/></div>
