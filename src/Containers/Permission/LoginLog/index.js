@@ -25,8 +25,7 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less';
-//import SearchForm from './SearchForm';
-
+import HightSearchForm from "./HightSearchForm";
 export default class LoginLog extends React.Component {
 
 	constructor(props, context) {
@@ -37,21 +36,28 @@ export default class LoginLog extends React.Component {
 				page: 1,
 				pageSize: 15,
 			},
-			itemDetail: '',
+			openSearchDialog:false,
+			
 		}
 	}
 
-	
-
-	onSearchSubmit = (name) => {
-		var roleId = this.props.params.userId
+	openSearchDialog=()=>{
 		this.setState({
-			searchParams: {
-				userName: name.searchParam,
-				roleId: roleId
+			openSearchDialog:!this.state.openSearchDialog
+		})
+	}
+	onHightSubmit=(form)=>{
+		this.setState({
+			searchParams:form
+		})
+		this.openSearchDialog();
+	}
+	onSerchSubmit = (form) => {
+		this.setState({
+			searchParams:{
+				loginAccount:form.content
 			}
 		})
-
 	}
 
 	render() {
@@ -60,16 +66,10 @@ export default class LoginLog extends React.Component {
 		return (
 			<div className="g-loginlog">
 				<Section title="登录日志" >
-					<Grid style={{marginBottom:22,marginTop:2}}>
-						<Row>
-						<Col md={4} align="left" > </Col>
-						<Col md={8} align="right">
-						   <ListGroup>
-							 <ListGroupItem><SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-						   </ListGroup>
-						</Col>
-					  </Row>
-					</Grid>
+					<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
+						<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+						<SearchForms onSubmit={this.onSerchSubmit} placeholder="请输入登录账号"  style={{marginTop:5,zIndex:10000}} />
+					</form>
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -108,7 +108,15 @@ export default class LoginLog extends React.Component {
 							<TableRowColumn name="loginId"></TableRowColumn>
 							<TableRowColumn name="remark" ></TableRowColumn>
 							<TableRowColumn name="successful" component={(value)=>{
-								console.log('value',value)
+								if(value==1){
+									return(
+										<span>成功</span>
+									)
+								}else if(value==0){
+									return(
+										<span>失败</span>
+									)
+								}
 								
 							}}></TableRowColumn>
 							
@@ -117,6 +125,20 @@ export default class LoginLog extends React.Component {
 					<TableFooter></TableFooter>
 					</Table>
 				</Section>
+				<Dialog
+					title="高级查询"
+					modal={true}
+					open={this.state.openSearchDialog}
+					onClose={this.openSearchDialog}
+					contentStyle={{width:687}}
+				>
+					<HightSearchForm 
+							onSubmit={this.onHightSubmit}
+							onCancel={this.openSearchDialog}
+							detail="" 
+							style={{marginTop:37}} 
+					/>
+			  </Dialog>
 
 			</div>
 		);
