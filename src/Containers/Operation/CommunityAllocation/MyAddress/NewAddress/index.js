@@ -86,7 +86,10 @@ import State from '../State';
           <Tab label="社区指南">
             <div className="community-guide-box">
               <Button  label="添加指南" type="button"  onTouchTap={this.onCancel}/>
+              <div className="community-duide-list">
+              	
 
+              </div>
             </div>
           </Tab>
         </Tabs>
