@@ -29,7 +29,12 @@ export default class MaChaoYue extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state= {
-			stationVos:[{type:'负责人1',unitprice:''},{type:'负责人2',unitprice:''}]
+			stationVos:[{type:'负责人1',unitprice:''},{type:'负责人2',unitprice:''}],
+			position:{
+				name:'',
+				phone:'',
+				email:''
+			}
 		}
 
 	}
@@ -44,14 +49,39 @@ export default class MaChaoYue extends React.Component {
 			stationVos
 		});
 	}
+	positionChange=(index, value,type)=>{
+		console.log(index, value,type)
+
+	}
 	onBlur=(item)=>{
 		console.log('onblur',item)
 	}
+	onChange=()=>{
+		console.log('onChange');
+	}
+	onPositionChange=(type,value)=>{
+		let {position} = this.state;
+		position[type]= value;
+		this.setState({
+			position
+		})
+	}
 	
 	render() {
+		let _this = this;
 		let list = this.state.stationVos;
-
-
+		let typeLinkName = {
+			value: _this.state.position.name,
+			requestChange: _this.onPositionChange.bind(null,'name')
+		}
+		let typeLinkPhone = {
+			value: _this.state.position.phone,
+			requestChange: _this.onPositionChange.bind(null,'phone')
+		}
+		let typeLinkEmail = {
+			value: _this.state.position.email,
+			requestChange: _this.onPositionChange.bind(null,'email')
+		}
 
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
@@ -68,7 +98,15 @@ export default class MaChaoYue extends React.Component {
 			    		)
 			    	})}
 
+
 			    	<div className="info-box">
+			    		<AdvancedQuery />
+						<div className="info-list">
+							<span>社区负责任人</span>
+			    			<input type="text" name="name"  valueLink={typeLinkName}  placeholder='请输入姓名'/>
+			    			<input type="text" name="telephone"  valueLink={typeLinkPhone}  placeholder='请输入电话号码'/>
+			    			<input type="text" name="email"  valueLink={typeLinkEmail}  placeholder='请输入邮箱'/>
+						</div>
 			    	</div>
 				</div>
 		);
