@@ -46,10 +46,18 @@ export default class LoginLog extends React.Component {
 			openSearchDialog:!this.state.openSearchDialog
 		})
 	}
-
-	onSearchSubmit = (name) => {
-		
-
+	onHightSubmit=(form)=>{
+		this.setState({
+			searchParams:form
+		})
+		this.openSearchDialog();
+	}
+	onSerchSubmit = (form) => {
+		this.setState({
+			searchParams:{
+				loginAccount:form.content
+			}
+		})
 	}
 
 	render() {
@@ -60,7 +68,7 @@ export default class LoginLog extends React.Component {
 				<Section title="登录日志" >
 					<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 						<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-						<SearchForms onSubmit={this.onSerchSubmit} placeholder="请输入被访公司名称"  style={{marginTop:5,zIndex:10000}} />
+						<SearchForms onSubmit={this.onSerchSubmit} placeholder="请输入登录账号"  style={{marginTop:5,zIndex:10000}} />
 					</form>
 	        		<Table
 							style={{marginTop:10}}
@@ -100,7 +108,15 @@ export default class LoginLog extends React.Component {
 							<TableRowColumn name="loginId"></TableRowColumn>
 							<TableRowColumn name="remark" ></TableRowColumn>
 							<TableRowColumn name="successful" component={(value)=>{
-								console.log('value',value)
+								if(value==1){
+									return(
+										<span>成功</span>
+									)
+								}else if(value==0){
+									return(
+										<span>失败</span>
+									)
+								}
 								
 							}}></TableRowColumn>
 							

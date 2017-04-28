@@ -37,7 +37,6 @@ class HightSearchForm extends React.Component {
 
 	onSubmit = (form) => {
 		form = Object.assign({},form);
-		console.log('form-----',form)
 		const {
 			onSubmit
 		} = this.props;
