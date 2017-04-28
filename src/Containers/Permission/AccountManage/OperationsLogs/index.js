@@ -132,7 +132,7 @@ export default class OperationsLogs extends Component {
 						<TableHeader>
 						<TableHeaderColumn>系统名称</TableHeaderColumn>
 						<TableHeaderColumn>业务名称</TableHeaderColumn>
-						<TableHeaderColumn className="op-log">操作日志</TableHeaderColumn>
+						<TableHeaderColumn className="op-log">操作内容</TableHeaderColumn>
 						<TableHeaderColumn>操作人</TableHeaderColumn>
 						<TableHeaderColumn>操作时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
