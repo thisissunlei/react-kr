@@ -298,7 +298,7 @@ class EquipmentList  extends React.Component{
 						open={openDelEquipment}
 						onClose={this.closeDelEquipment}
 						bodyStyle={{paddingTop:34}}
-						contentStyle={{width:400}}
+						contentStyle={{width:446,height:236}}
 					>
 						<DelEquipment  onClose={this.closeDelEquipment} onSubmit = {this.onDelSubmit} />
 
