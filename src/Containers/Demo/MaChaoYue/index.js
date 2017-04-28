@@ -103,7 +103,7 @@ export default class MaChaoYue extends React.Component {
 			    	<div className="info-box">
 			    		
 						<div className="info-list">
-							<span>社区负责任人</span>
+							<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block'}}>社区负责任人</span>
 			    			<input type="text" name="name" className="info-input" valueLink={typeLinkName}  placeholder='请输入姓名'/>
 			    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhone}  placeholder='请输入电话号码'/>
 			    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmail}  placeholder='请输入邮箱'/>
