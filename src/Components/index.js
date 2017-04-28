@@ -62,14 +62,12 @@ import {
 
 
 //materal-ui
-import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Avatar,
-	Snackbar,
-} from 'material-ui';
+import  Menu from 'material-ui/Menu'; 
+import MenuItem  from 'material-ui/MenuItem'; 
+import  DropDownMenu  from 'material-ui/DropDownMenu'; 
+import  IconMenu  from 'material-ui/IconMenu'; 
+import  Avatar  from 'material-ui/Avatar'; 
+import Snackbar from 'material-ui/Snackbar'; 
 
 import {
 	Tab
