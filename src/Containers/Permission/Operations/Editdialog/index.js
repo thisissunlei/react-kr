@@ -378,7 +378,7 @@ class Editdialog extends React.Component {
 			childModuleList
 		} = this.state;
 		return (
-			<div className="g-create">
+			<div className="g-operations-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
 							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
