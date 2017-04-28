@@ -245,17 +245,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		this.state={
 			      openDown:true,
             openUp:false,
-            cityId:'',
-            communityName:'',
             codeName:'',
-            timeStart:'',
-            timeEnd:'',
-            photoF:[],
-            photoL:[],
-            photoD:[],
-            communityId:'',
 		}
-
 	}
 
 	onSubmit = (values) => {
@@ -378,107 +369,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('editCommunityList','longitude',yLocation));
     }
 
-    componentWillMount(){
-        let {id}=this.props;
-        var _this=this;
-				Http.request('communityGetEdit',{id:id}).then(function(response) {
 
-          response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
-          response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
-          response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
-
-          Store.dispatch(initialize('editCommunityList',response));
-
-
-          Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
-
-          State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
-					var bright_basic=[];
-					var bright_service=[];
-					var bright_special=[];
-					var bright_bright=[];
-
-					var photo_First=[];
-					var photo_List=[];
-					var photo_Detail=[];
-					response.photoVOs.map((item,index)=>{
-						if(item.type=='THEFIRST'){
-							item.src=item.photoUrl;
-							delete item.photoUrl;
-							photo_First.push(item);
-						}
-						if(item.type=='LIST'){
-							item.src=item.photoUrl;
-							delete item.photoUrl;
-							photo_List.push(item);
-						}
-						if(item.type=='DETAILS'){
-							item.src=item.photoUrl;
-							delete item.photoUrl;
-							photo_Detail.push(item);
-						}
-					})
-
-
-					_this.setState({
-						timeStart:response.businessBegin,
-						timeEnd:response.businessEnd,
-						cityId:response.cityId,
-						photoF:photo_First,
-						photoL:photo_List,
-						photoD:photo_Detail,
-            communityId:response.id,
-            communityName:response.name
-					})
-
-					response.brights.map((item,index)=>{
-						if(item.type=="BRIGHTPOINTS"){
-							bright_bright.push(item);
-						}
-						if(item.type=="INFRASTRUCTURE"){
-							bright_basic.push(item);
-						}
-						if(item.type=="SPECIALSERVICE"){
-							bright_special.push(item);
-						}
-						if(item.type=="BASICSERVICE"){
-							bright_service.push(item);
-						}
-						if(item.type=="TRANSPORTATION"){
-							Store.dispatch(change('editCommunityList','brightPorts.brightPoints',item.brightPoints));
-						}
-						if(item.type=="PERIMETER"){
-							Store.dispatch(change('editCommunityList','brightRound.brightPoints',item.brightPoints));
-						}
-					})
-
-          Store.dispatch(change('editCommunityList','porTypes',response.porTypes.length?response.porTypes:[{}]));
-					Store.dispatch(change('editCommunityList','bright_bright',bright_bright.length?bright_bright:[{type:'BRIGHTPOINTS'}]));
-					Store.dispatch(change('editCommunityList','bright_special',bright_special.length?bright_special:[{type:'SPECIALSERVICE'}]));
-					Store.dispatch(change('editCommunityList','bright_service',bright_service.length?bright_service:[{type:'INFRASTRUCTURE'}]));
-					Store.dispatch(change('editCommunityList','bright_basic',bright_basic.length?bright_basic:[{type:'BASICSERVICE'}]));
-
-					if(response.opened==true){
-						Store.dispatch(change('editCommunityList','opened','1'));
-					}
-					if(response.opened==false){
-						Store.dispatch(change('editCommunityList','opened','0'));
-					}
-
-
-					if(response.portalShow==true){
-						Store.dispatch(change('editCommunityList','portalShow','1'));
-					}
-					if(response.portalShow==false){
-						Store.dispatch(change('editCommunityList','portalShow','0'));
-					}
-
-				}).catch(function(err) {
-					Message.error(err.message);
-				});
-
-
-			}
+    
 
 			//展开
 			flagOpen=()=>{
@@ -499,7 +391,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {communityName,codeName,photoF,photoL,photoD,openDown,openUp,timeStart,timeEnd}=this.state;
+				let {codeName,openDown,openUp}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -512,10 +404,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				}
 
 
-
-
-
-				const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
+				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
 
 				return (
 					<div>
@@ -542,7 +431,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							options={toJS(State.searchData)}
 							/>
 
-						<KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={State.cityData}/>
+						<KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={cityData}/>
 
 						<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
@@ -573,7 +462,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
-							<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}/>
+							<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
 							<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>

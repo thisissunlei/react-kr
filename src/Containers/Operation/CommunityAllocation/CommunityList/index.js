@@ -1,7 +1,10 @@
 import React from 'react';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
+import {Store} from 'kr/Redux';
 import {
 	reduxForm,
+  initialize,
+  change
 } from 'redux-form';
 import {
 	observer
@@ -43,10 +46,18 @@ class CommunityList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			id:''
-		}
+    this.state={
+      cityData:'',
+      timeStart:'',
+      timeEnd:'',
+      cityId:'',
+      photoF:[],
+      photoL:[],
+      photoD:[],
+      communityId:'',
+      communityName:'',
 
+    }
 	}
 
 	componentDidMount(){
@@ -200,20 +211,118 @@ class CommunityList  extends React.Component{
 
    //查看
    onOperation=(type,itemDetail)=>{
-      var id=itemDetail.id;
       if(type=='watch'){
-      	 State.getEditList(id)
+      	 State.getEditList(itemDetail.id)
       	 State.switchWatchList();
          return ;
       }
        if(type=='edit'){
-      	 this.setState({
-      	 	id
-      	 });
       	  State.searchDataHere();
-          State.switchEditList();
+          this.ajaxSendData(itemDetail.id);    
       }
    }
+
+    //发送ajax请求函数
+      ajaxSendData=(id)=>{
+        var _this=this;
+        Http.request('communityGetEdit',{id:id}).then(function(response) {
+
+          response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
+          response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
+          response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
+
+          Store.dispatch(initialize('editCommunityList',response));
+
+
+          Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
+          
+          var bright_basic=[];
+          var bright_service=[];
+          var bright_special=[];
+          var bright_bright=[];
+
+          var photo_First=[];
+          var photo_List=[];
+          var photo_Detail=[];
+          response.photoVOs.map((item,index)=>{
+            if(item.type=='THEFIRST'){
+              item.src=item.photoUrl;
+              delete item.photoUrl;
+              photo_First.push(item);
+            }
+            if(item.type=='LIST'){
+              item.src=item.photoUrl;
+              delete item.photoUrl;
+              photo_List.push(item);
+            }
+            if(item.type=='DETAILS'){
+              item.src=item.photoUrl;
+              delete item.photoUrl;
+              photo_Detail.push(item);
+            }
+          })
+
+
+          _this.setState({
+            timeStart:response.businessBegin,
+            timeEnd:response.businessEnd,
+            cityId:response.cityId,
+            photoF:photo_First,
+            photoL:photo_List,
+            photoD:photo_Detail,
+            communityId:response.id,
+            communityName:response.name,
+            cityData:`${response.provinceName}/${response.cityName}/${response.countyName}`
+          })
+
+          response.brights.map((item,index)=>{
+            if(item.type=="BRIGHTPOINTS"){
+              bright_bright.push(item);
+            }
+            if(item.type=="INFRASTRUCTURE"){
+              bright_basic.push(item);
+            }
+            if(item.type=="SPECIALSERVICE"){
+              bright_special.push(item);
+            }
+            if(item.type=="BASICSERVICE"){
+              bright_service.push(item);
+            }
+            if(item.type=="TRANSPORTATION"){
+              Store.dispatch(change('editCommunityList','brightPorts.brightPoints',item.brightPoints));
+            }
+            if(item.type=="PERIMETER"){
+              Store.dispatch(change('editCommunityList','brightRound.brightPoints',item.brightPoints));
+            }
+          })
+
+          Store.dispatch(change('editCommunityList','porTypes',response.porTypes.length?response.porTypes:[{}]));
+          Store.dispatch(change('editCommunityList','bright_bright',bright_bright.length?bright_bright:[{type:'BRIGHTPOINTS'}]));
+          Store.dispatch(change('editCommunityList','bright_special',bright_special.length?bright_special:[{type:'SPECIALSERVICE'}]));
+          Store.dispatch(change('editCommunityList','bright_service',bright_service.length?bright_service:[{type:'INFRASTRUCTURE'}]));
+          Store.dispatch(change('editCommunityList','bright_basic',bright_basic.length?bright_basic:[{type:'BASICSERVICE'}]));
+
+          if(response.opened==true){
+            Store.dispatch(change('editCommunityList','opened','1'));
+          }
+          if(response.opened==false){
+            Store.dispatch(change('editCommunityList','opened','0'));
+          }
+
+
+          if(response.portalShow==true){
+            Store.dispatch(change('editCommunityList','portalShow','1'));
+          }
+          if(response.portalShow==false){
+            Store.dispatch(change('editCommunityList','portalShow','0'));
+          }
+
+          State.switchEditList(); 
+
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+      }
 
    //查看取消
    onSwitchCancelWatchList=()=>{
@@ -316,6 +425,8 @@ class CommunityList  extends React.Component{
 
 		]
 
+    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName}=this.state;
+
 		return(
 
 			<div className='community-list'>
@@ -344,11 +455,11 @@ class CommunityList  extends React.Component{
 
 	         <Table
 			    style={{marginTop:8}}
-                ajax={true}
-                onOperation={this.onOperation}
+              ajax={true}
+              onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
-			    onExport={this.onExport}
+			        onExport={this.onExport}
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='communitySearch'
 	            ajaxFieldListName="items"
@@ -416,7 +527,15 @@ class CommunityList  extends React.Component{
 								onSubmit={this.onNewCommunitySubmit}
 								onCancel={this.switchEditList}
 								open={State.openEditCommunity}
-								id={this.state.id}
+                cityData={cityData}
+                timeStart={timeStart}
+                timeEnd={timeEnd}
+                cityId={cityId}
+                photoF={photoF}
+                photoL={photoL}
+                photoD={photoD}
+                communityId={communityId}
+                communityName={communityName}
 						/>
 
 		            </Drawer>
