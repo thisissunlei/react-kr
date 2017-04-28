@@ -97,15 +97,16 @@ export default class MaChaoYue extends React.Component {
 			    			</div>	
 			    		)
 			    	})}
+			    	<AdvancedQuery />
 
 
 			    	<div className="info-box">
-			    		<AdvancedQuery />
+			    		
 						<div className="info-list">
 							<span>社区负责任人</span>
-			    			<input type="text" name="name"  valueLink={typeLinkName}  placeholder='请输入姓名'/>
-			    			<input type="text" name="telephone"  valueLink={typeLinkPhone}  placeholder='请输入电话号码'/>
-			    			<input type="text" name="email"  valueLink={typeLinkEmail}  placeholder='请输入邮箱'/>
+			    			<input type="text" name="name" className="info-input" valueLink={typeLinkName}  placeholder='请输入姓名'/>
+			    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhone}  placeholder='请输入电话号码'/>
+			    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmail}  placeholder='请输入邮箱'/>
 						</div>
 			    	</div>
 				</div>
