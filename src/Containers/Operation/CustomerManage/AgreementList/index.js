@@ -46,6 +46,8 @@ import IncreaseDetail from './Increase/Detail';
 import JoinDetail from './Join/Detail';
 import NewIndent from "./NewIndent";
 import DelAgreementNotify from './DelAgreementNotify';
+import './circle.less';
+import './active.less';
 import './index.less';
 import {
 
