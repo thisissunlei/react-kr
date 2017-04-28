@@ -211,11 +211,21 @@ class Login extends Component {
 				noneName:false,
 			})
 		}
+		var obj = {};
+		if (this.state.errThree) {
+			obj={
+				loginName:this.refs.loginName.value,
+				loginPwd:this.refs.loginPwds.value,
+				imgCode:this.refs.imgCode.value || '',
+			}
+		}else {
+			obj = {
+			loginName:this.refs.loginName.value,
+			loginPwd:this.refs.loginPwds.value,
+			}
+		}
 		var _this = this;
-		Store.dispatch(Actions.callAPI('loginSubmit', {},{
-			loginName:_this.refs.loginName.value,
-			loginPwd:_this.refs.loginPwds.value,
-		})).then(function(response) {
+		Store.dispatch(Actions.callAPI('loginSubmit', {},obj)).then(function(response) {
 			//跳转？
 			window.location.href = '/';
 		}).catch(function(err) {
@@ -223,8 +233,9 @@ class Login extends Component {
 			 	Message.error(err.message)
 			 }
 			 if(err.code==-2){
-			 	Message.error(err.message)
-
+				_this.setState({
+					errThree:true,
+				})
 			 }
 		});
 	}
@@ -571,9 +582,9 @@ class Login extends Component {
 											 { this.state.errThree &&
 												 <li className="clearfix">
 				                   <div className="input-verifycode">
-					                   <Input type="text" placeholder="请输入验证码"/>
+					                   <input ref="imgCode" type="text" placeholder="请输入验证码"/>
 				                   </div>
-				                   <div className="input-verifycode-img"></div>
+				                   <img className="input-verifycode-img" src={`http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}`}></img>
 			                 	</li>
 										 	 }
                        <li>

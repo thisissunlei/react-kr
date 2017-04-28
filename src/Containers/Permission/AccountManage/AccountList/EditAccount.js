@@ -73,7 +73,7 @@ class EditAccount extends React.Component {
         const {handleSubmit} = this.props;
         return (
             <div>
-                <form onSubmit={handleSubmit(this.onSubmit)} onCancel={this.onCancel}>
+                <form style={{width:480}} onSubmit={handleSubmit(this.onSubmit)} onCancel={this.onCancel}>
                     <KrField label="登录名：" style={{
                         marginLeft:88
                     }} requireLabel={true} heightStyle={{
