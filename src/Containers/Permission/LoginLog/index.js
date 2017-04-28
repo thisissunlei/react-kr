@@ -80,24 +80,38 @@ export default class LoginLog extends React.Component {
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>Id</TableHeaderColumn>
-						<TableHeaderColumn>姓名</TableHeaderColumn>
-						<TableHeaderColumn>创建时间</TableHeaderColumn>
-						<TableHeaderColumn>操作</TableHeaderColumn>
+						<TableHeaderColumn>日志ID</TableHeaderColumn>
+						<TableHeaderColumn>登录IP</TableHeaderColumn>
+						<TableHeaderColumn>登录时间</TableHeaderColumn>
+						<TableHeaderColumn>设备信息</TableHeaderColumn>
+						<TableHeaderColumn>登录账号</TableHeaderColumn>
+						<TableHeaderColumn>登录ID</TableHeaderColumn>
+						<TableHeaderColumn>备注</TableHeaderColumn>
+						<TableHeaderColumn>登录结果</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="id"></TableRowColumn>
-							<TableRowColumn name="realName" ></TableRowColumn>
-							<TableRowColumn name="createTime" type="date" component={(value)=>{
-								return (
-									<KrDate value={value} />
-								)
+							<TableRowColumn name="clientIp"></TableRowColumn>
+							<TableRowColumn 
+									name="ctime" 
+									type="date"
+									component={(value)=>{
+										return (
+											<KrDate value={value} />
+										)
+									}}
+									></TableRowColumn>
+							<TableRowColumn name="deviceInfo"></TableRowColumn>
+							<TableRowColumn name="loginAccount"></TableRowColumn>
+							<TableRowColumn name="loginId"></TableRowColumn>
+							<TableRowColumn name="remark" ></TableRowColumn>
+							<TableRowColumn name="successful" component={(value)=>{
+								console.log('value',value)
+								
 							}}></TableRowColumn>
-							<TableRowColumn>
-									<Button label="移除"  type="operation" operation="delete"/>
-							 </TableRowColumn>
+							
 						 </TableRow>
 					</TableBody>
 					<TableFooter></TableFooter>
