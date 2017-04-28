@@ -73,45 +73,40 @@ class EditAccount extends React.Component {
         const {handleSubmit} = this.props;
         return (
             <div>
-                <form style={{
-                    width: '100%',
-                    textAlign: 'center'
-                }} onSubmit={handleSubmit(this.onSubmit)} onCancel={this.onCancel}>
+                <form onSubmit={handleSubmit(this.onSubmit)} onCancel={this.onCancel}>
                     <KrField label="登录名：" style={{
-                        textAlign: 'center'
+                        marginLeft:88
                     }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: '17px',
-                        width: 222
                     }} name="accountName" component="input" inline={true} placeholder="请输入登录名" />
                     <KrField label="姓名：" style={{
-                        width: 320,
-                        marginTop: 20
+                        marginTop: 20,
+                        marginLeft:88
                     }} requireLabel={true} heightStyle={{
                         height: 42,
-                        marginLeft: 16,
-                        width: 222
+                        marginLeft: 30,
+                        width:188
                     }} name="realName" component="input" inline={true} placeholder="请输入姓名"/>
                     <KrField label="手机号：" style={{
-                        textAlign: 'center',
+                        marginLeft:88,
                         marginTop: 20
                     }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: '17px',
-                        width: 222
                     }} name="mobilePhone" component="input" inline={true} placeholder="请输入手机号"/>
                     <KrField label="邮箱：" style={{
-                        width: 320,
                         marginTop: 20,
-                        marginBottom: 20
+                        marginBottom: 20,
+                        marginLeft:88
                     }} requireLabel={true} heightStyle={{
                         height: 42,
-                        marginLeft: 16,
-                        width: 222
+                        marginLeft: 30,
+                        width:188
                     }} name="email" component="input" inline={true} placeholder="请输入电子邮箱"/>
                     <ListGroup>
                         <ListGroupItem style={{
-                            paddingLeft: 17,
+                            paddingLeft: 116,
                             paddingRight: 40,
                             paddingTop: 20,
                             paddingBottom: 6
