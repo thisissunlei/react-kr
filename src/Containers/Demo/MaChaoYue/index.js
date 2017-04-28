@@ -60,7 +60,6 @@ export default class MaChaoYue extends React.Component {
 			    			value: this.state.stationVos[index].unitprice,
 			    			requestChange: this.onStationVosChange.bind(null, index)
 			    		}	
-			    		console.log(item)
 			    		return (
 			    			<div>
 			    				<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)}/>
@@ -68,6 +67,9 @@ export default class MaChaoYue extends React.Component {
 			    			</div>	
 			    		)
 			    	})}
+
+			    	<div className="info-box">
+			    	</div>
 				</div>
 		);
 
