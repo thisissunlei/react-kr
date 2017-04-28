@@ -330,34 +330,34 @@ export default class JoinCreate extends React.Component {
 
 				let keyWord = params.orderId+''+params.customerId+'ENTERedit';
 
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
-				optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || response.contractFileList;
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'))|| [];
 
 				initialValues.id = response.id;
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'))|| response.leaseId;
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.contractcode = response.contractcode;
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress')|| response.leaseAddress;
-				initialValues.lessorContactid = parseInt(localStorage.getItem(keyWord+'lessorContactid'))|| response.lessorContactid;
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')|| response.lessorContacttel;
-				initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType')|| response.contractVersion;
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress');
+				initialValues.lessorContactid = parseInt(localStorage.getItem(keyWord+'lessorContactid'));
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType');
 
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact')|| response.leaseContact;
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel')|| response.leaseContacttel;
-				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'))|| response.payType.id;
-				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'))|| response.payment.id;
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
+				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
 
-				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum')|| response.stationnum;
-				initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum')|| response.boardroomnum;
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor')|| response.wherefloor;
-				initialValues.rentaluse = localStorage.getItem(keyWord+'rentaluse')|| response.rentaluse;
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')|| response.contractmark || '';
+				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum');
+				initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum');
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.rentaluse = localStorage.getItem(keyWord+'rentaluse');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||'';
 				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent')|| response.totalrent;
-				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')|| localStorage.getItem(keyWord+'leaseId')|| response.totaldeposit;
+				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')||response.totaldeposit;
 				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
 					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
 				}else{
-					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| response.agreement;
+					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 				}
 				//时间
 				initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate')|| DateFormat(response.firstpaydate, "yyyy-mm-dd hh:MM:ss");
@@ -366,11 +366,14 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseEnddate =  localStorage.getItem(keyWord+'leaseEnddate')||DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 
 
-				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
+				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos'));
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				//处理stationvos
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
+
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				initialValues.num = 1+parseInt(localStorage.getItem(keyWord+'num'));
 				//处理stationvos
 
 				_this.setState({
@@ -381,6 +384,7 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
+				console.log(err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -389,6 +393,7 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
+				console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -404,7 +409,7 @@ export default class JoinCreate extends React.Component {
     let _this = this;
     let sign = false;
     let keyWord = params.orderId+''+ params.customerId+'ENTERedit';
-       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
+       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
         _this.setState({
           openLocalStorages:true
         })

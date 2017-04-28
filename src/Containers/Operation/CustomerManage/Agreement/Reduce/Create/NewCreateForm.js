@@ -115,7 +115,11 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
-		stationVos[index].unitprice = value;
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -134,7 +138,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 
 	onStationCancel() {

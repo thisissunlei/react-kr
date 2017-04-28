@@ -417,10 +417,11 @@ module.exports =()=>{
 
 	</Route>
 
+		
+
 
 	</Route>
-
-		{/*合同配置*/}
+	{/*合同配置*/}
 		<Route path="agreement" getComponent={Basic} >
 
 		{/*出租方管理*/}

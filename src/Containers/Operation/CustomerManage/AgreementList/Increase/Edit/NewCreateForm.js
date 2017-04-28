@@ -230,6 +230,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
 	}
 
 
@@ -312,7 +313,6 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 		let _this = this;
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
 
@@ -426,7 +426,7 @@ class NewCreateForm extends React.Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-		form.totalrent = (form.totalrent).toFixed(2);
+		form.totalrent = form.totalrent;
 		const {
 			onSubmit
 		} = this.props;
@@ -561,11 +561,14 @@ class NewCreateForm extends React.Component {
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = (''+item.unitprice).replace(/\s/g,'');
 			}
 			return item;
 		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('joinCreateForm', 'totalrent', response));
 			_this.setState({
 				allRent:response
 			})

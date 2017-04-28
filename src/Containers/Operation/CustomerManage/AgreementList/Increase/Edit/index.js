@@ -199,7 +199,10 @@ export default class JoinCreate extends React.Component {
 
 				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
 				initialValues.num = localStorage.getItem(keyWord+'num')||1;
-				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=2){
+					initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				}
+				
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
 				initialValues.id = response.id;
@@ -257,7 +260,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-				console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -367,6 +369,10 @@ export default class JoinCreate extends React.Component {
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
 
+
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				initialValues.num = 1+parseInt(localStorage.getItem(keyWord+'num'));
+
 				//处理stationvos
 
 				_this.setState({
@@ -377,7 +383,6 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
-				console.log('err',err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -386,7 +391,6 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
-				console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',

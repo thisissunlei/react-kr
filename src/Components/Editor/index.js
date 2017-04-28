@@ -9,6 +9,7 @@ export default class Editor extends React.Component{
   static defaultProps = {
       configs:{
         toolbars:[[
+          'fullscreen',//全屏
           'source', //源代码
           '|',
           'undo', //撤销
