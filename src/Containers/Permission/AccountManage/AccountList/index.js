@@ -224,14 +224,8 @@ class AccountList extends React.Component {
                         zIndex: 5
                     }}>
 
-                        <Col md={8}>
+                        <Col md={10}>
                             <ListGroup>
-                                <ListGroupItem style={{
-                                    padding: '7px 50px 6px 17px'
-                                }}>
-
-                                    <SearchForms onSubmit={this.onSearchSubmit} placeholder='请输入关键字' searchFilter={options}/>
-                                </ListGroupItem>
                                 <ListGroupItem style={{
                                     paddingTop: 7,
                                     paddingBottom: 6
@@ -240,13 +234,21 @@ class AccountList extends React.Component {
                                 </ListGroupItem>
                             </ListGroup>
                         </Col>
+                        <Col align="right" md={2}>
+                          <ListGroupItem style={{
+                              padding: '7px 0px 6px 17px'
+                          }}>
+
+                              <SearchForms onSubmit={this.onSearchSubmit} placeholder='请输入关键字' searchFilter={options}/>
+                          </ListGroupItem>
+                        </Col>
                     </Row>
                     <Table style={{
                         marginTop: 10
                     }} displayCheckbox={false} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='getSsoUserList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} onExport={this.onExport}>
                         <TableHeader>
                             <TableHeaderColumn>ID</TableHeaderColumn>
-                            <TableHeaderColumn>登录名</TableHeaderColumn>
+                            <TableHeaderColumn style={{width:152}}>登录名</TableHeaderColumn>
                             <TableHeaderColumn>姓名</TableHeaderColumn>
                             <TableHeaderColumn>手机号</TableHeaderColumn>
                             <TableHeaderColumn>电子邮箱</TableHeaderColumn>
@@ -285,13 +287,13 @@ class AccountList extends React.Component {
 
                                 <TableRowColumn>
                                     <Button label="修改" onTouchTap={this.openEdit} type="operation" operation="edit"/>
-                                    <Button label="重置密码" type="operation" operation="reset"/>
+                                    <Button label="授予" type="operation" operation="set"/>
+                                    <Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
+                                    <Button label="重置" type="operation" operation="reset"/>
                                     <Button label={logFlag
                                         ? '解锁'
                                         : '加锁'} type="operation" operation="lock"/>
                                     <Button label="删除" type="operation" operation="dele"/>
-                                    <Button label="授予" type="operation" operation="set"/>
-                                    <Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
                                 </TableRowColumn>
                             </TableRow>
                         </TableBody>

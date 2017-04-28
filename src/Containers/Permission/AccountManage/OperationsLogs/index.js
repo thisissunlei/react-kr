@@ -61,13 +61,18 @@ export default class OperationsLogs extends Component {
 
 	//操作相关
 	onOperation = (type, itemDetail) => {
-
 		this.setState({
 			itemDetail
 		});
 
 		if (type == 'view') {
 			this.openView();
+		}else if (type == 'operate') {
+			this.setState({
+				searchParams: {
+					batchNum: itemDetail.batchNum,
+				}
+			})
 		}
 	}
 	//打开查看日志
@@ -78,10 +83,7 @@ export default class OperationsLogs extends Component {
 	}
 	onSearchSubmit = (form) => {
 		this.setState({
-			searchParams: {
-				sourceId: form.sourceId,
-				systemType: form.systemType
-			}
+			searchParams:form
 		})
 		this.openHighSearch();
 	}
@@ -98,7 +100,7 @@ export default class OperationsLogs extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				operaterName: form.content
+				operateRecord: form.content
 			}
 		})
 	}
@@ -128,7 +130,6 @@ export default class OperationsLogs extends Component {
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>操作批次</TableHeaderColumn>
 						<TableHeaderColumn>系统名称</TableHeaderColumn>
 						<TableHeaderColumn>业务名称</TableHeaderColumn>
 						<TableHeaderColumn className="op-log">操作日志</TableHeaderColumn>
@@ -139,7 +140,6 @@ export default class OperationsLogs extends Component {
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn name="batchNum"></TableRowColumn>
 							<TableRowColumn name="systemName" ></TableRowColumn>
 								<TableRowColumn name="sourceName"></TableRowColumn>
 								<TableRowColumn name="operateRecord" component={(value,oldValue)=>{
@@ -161,6 +161,7 @@ export default class OperationsLogs extends Component {
  							}}></TableRowColumn>
 							<TableRowColumn>
 									<Button label="查看"  type="operation" operation="view"/>
+									<Button label="相关操作"  type="operation" operation="operate"/>
 							</TableRowColumn>
 						 </TableRow>
 					</TableBody>
