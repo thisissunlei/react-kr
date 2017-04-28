@@ -331,7 +331,7 @@ class Createdialog extends React.Component {
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
 							name="name" type="text"
 							component="input" label="名称"
 							requireLabel={true}
@@ -340,7 +340,7 @@ class Createdialog extends React.Component {
 							inline={true}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
 							name="code" type="text"
 							component="input" label="编号"
 							requireLabel={true}
@@ -348,7 +348,7 @@ class Createdialog extends React.Component {
 							errors={{requiredValue:'编码为必填项'}}
 							inline={true}
 					/>
-					<KrField style={{width:300,marginLeft:40,marginBottom:16}}  name="type" component="group" label="类型" inline={true} requireLabel={true}>
+					<KrField style={{width:360,marginLeft:40,marginBottom:16}}  name="type" component="group" label="类型" inline={true} requireLabel={true}>
 	                	<KrField name="type" label="菜单" type="radio" value="MENU" checked={true}/>
 	               		 <KrField name="type" label="操作" type="radio" value="OPERATION" />
 	              	</KrField>
@@ -359,7 +359,7 @@ class Createdialog extends React.Component {
 					</div>
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label">*</span>方法配置</div>
-						<div className="u-method-content">
+						<div className="u-method-content u-method-contentE">
 							<KrField name="controller"  style={{width:600,marginLeft:70}}  component="searchMethod" label="" options={ControllerList} inline={true}  onChange={this.onSelectController}/>
 							<Button label="Add" className="u-method-add" height={34} onTouchTap={this.controllerAdd}/>
 						</div>
