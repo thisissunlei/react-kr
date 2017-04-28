@@ -7,21 +7,10 @@
 	.ui-form-label{
 		padding-right:20px;
 	}
-	.u-operations{
+	.u-operation{
 		width:100%;
-		min-height:40px;
-		position:relative;
-		.ui-form-item{
-			position:absolute;
-			left:0; top:0;
-			&:nth-child(2){
-				left:230px; top:0;
-			}
-			&:nth-child(3){
-				left:390px; top:0;
-			}
-		}
-
+		min-height:100px;
+		display:inline-block;
 	}
 	.u-operation-label{
 		font-size:14px;
@@ -38,7 +27,9 @@
 		}
 	}
 	.u-operation-content{
-		margin-left:60px;
+		margin-left:120px;
+		position: relative;
+		width: 500px;
 	}
 	.u-module{
 		margin-bottom: 10px;
@@ -57,13 +48,13 @@
 			margin-right:5px;
 		}
 	}
+	
 	.u-error-tip{
 		color:red;
 		font-size:14px;
 		margin-top:14px;
-		text-align: center;
+		text-align: left;
 	}
-	
 
 }
 .u-clearfix { zoom:1; }
@@ -74,3 +65,6 @@
   display: block;
   visibility: hidden;
 }
+
+
+
