@@ -1,11 +1,15 @@
 .info-box{
-	width: 442px;
-	height: 208px;
+	width: 402px;
+	height: 164px;
 	border: 1px dotted #DFDFDF;
 	border-radius: 4px;
+	padding:22px 20px;
+	.info-list{
+		display: inline-block;
+	}
 	.info-input{
-		width: 252px;
-		height: 36px;
+		width: 248px;
+		height: 32px;
 		display: block;
 		background: #FFFFFF;
 		border: 1px solid #DFDFDF;
@@ -13,5 +17,36 @@
 	}
 	.info-input+.info-input{
 		margin-bottom: 12px;
+	}
+}
+.ui-upload-header{
+	width: 130px;
+	height: 130px;
+	display: inline-block;
+	background: #FBFBFF;
+	border-radius: 65px;
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	margin-right: 20px;
+	.ui-uploadimg-inner{
+		width: 100%;
+		height: 100%;
+	}
+	.image{
+		width: 100%;
+		height: 100%;
+		border-radius: 65px;
+		float: left;
+	}
+	.upload-input{
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		border-radius: 65px;
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 }

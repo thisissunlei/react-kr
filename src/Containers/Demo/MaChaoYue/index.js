@@ -15,11 +15,17 @@ import {
 	Dialog,
 	Message,
 } from 'kr-ui';
+import {
+	observer
+} from 'mobx-react';
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import ReactMixin from "react-mixin";
 import AdvancedQuery from './AdvancedQuery';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import State from './State';
+
+@observer
 @ReactMixin.decorate(LinkedStateMixin)
 
 export default class MaChaoYue extends React.Component {
@@ -28,26 +34,13 @@ export default class MaChaoYue extends React.Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-		this.state= {
-			stationVos:[{type:'负责人1',unitprice:''},{type:'负责人2',unitprice:''}],
-			position:{
-				name:'',
-				phone:'',
-				email:''
-			}
-		}
 
 	}
 
-	onStationVosChange=(index, value)=>{
+	onStationVosChange=(index,type, value)=>{
 
-		let {
-			stationVos
-		} = this.state;
-		stationVos[index].unitprice = value;
-		this.setState({
-			stationVos
-		});
+		
+		State.stationVos[index][type] = value;
 	}
 	positionChange=(index, value,type)=>{
 		console.log(index, value,type)
@@ -60,50 +53,59 @@ export default class MaChaoYue extends React.Component {
 		console.log('onChange');
 	}
 	onPositionChange=(type,value)=>{
-		let {position} = this.state;
-		position[type]= value;
-		this.setState({
-			position
-		})
+		State.position[type]= value;
+		
+	}
+	addUrl=(result,index)=>{
+		console.log(result,index)
+	}
+	typeLink=(type)=>{
+		let typeLink = {
+			value: State.stationVos[index].type,
+			requestChange: this.onStationVosChange.bind(null, index,type)
+		}
+
+		return typeLink
 	}
 	
 	render() {
 		let _this = this;
-		let list = this.state.stationVos;
+		let list = State.stationVos;
 		let typeLinkName = {
-			value: _this.state.position.name,
+			value: State.position.name,
 			requestChange: _this.onPositionChange.bind(null,'name')
 		}
 		let typeLinkPhone = {
-			value: _this.state.position.phone,
+			value: State.position.phone,
 			requestChange: _this.onPositionChange.bind(null,'phone')
 		}
 		let typeLinkEmail = {
-			value: _this.state.position.email,
+			value: State.position.email,
 			requestChange: _this.onPositionChange.bind(null,'email')
 		}
+		let defaultUrl = "http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/Z/142000354_925.jpg";
+		console.log('内容',State.position)
 
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
-			    	{list && list.map((item,index)=>{
-			    		let typeLink = {
-			    			value: this.state.stationVos[index].unitprice,
-			    			requestChange: this.onStationVosChange.bind(null, index)
-			    		}	
+			    <div style={{background: '#fff'}}>
+			    	{list && list.map((item,index)=>{	
 			    		return (
 			    			<div>
-			    				<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)}/>
+			    				<input type="text" name="age"  valueLink={this.typeLink.bind(this,'name')} onBlur={this.onBlur.bind(this,item)}/>
+			    				<input type="text" name="age"  valueLink={this.typeLink.bind(this,'phone')} onBlur={this.onBlur.bind(this,item)}/>
+			    				<input type="text" name="age" valueLink={this.typeLink.bind(this,'email')} onBlur={this.onBlur.bind(this,item)}/>
 			    				{item.type}
 			    			</div>	
 			    		)
 			    	})}
-			    	<AdvancedQuery />
+			    	
 
 
 			    	<div className="info-box">
+			    		<AdvancedQuery defaultUrl={defaultUrl} onChange={this.addUrl} index={1}/>
 			    		
 						<div className="info-list">
-							<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block'}}>社区负责任人</span>
+							<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
 			    			<input type="text" name="name" className="info-input" valueLink={typeLinkName}  placeholder='请输入姓名'/>
 			    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhone}  placeholder='请输入电话号码'/>
 			    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmail}  placeholder='请输入邮箱'/>

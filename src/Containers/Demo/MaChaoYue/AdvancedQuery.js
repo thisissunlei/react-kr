@@ -5,10 +5,17 @@ import {
 	Field,
 	reduxForm
 } from 'redux-form';
+import {
+	observer
+} from 'mobx-react';
 import {Notify} from 'kr-ui';
 import ReactDOM from 'react-dom';
 import './index.less';
 import {Actions,Store} from 'kr/Redux';
+import upload from "./images/upload.png";
+import State from './State';
+
+@observer
 export default class AdvanceSearchDateForm extends Component {
 	static defaultProps = {
 
@@ -36,9 +43,11 @@ export default class AdvanceSearchDateForm extends Component {
 		});
 	}
 	componentDidMount() {
+		console.log(this.props.defaultUrl,upload)
 
 	}
 	componentWillReceiveProps(nextProps){
+		console.log(nextProps.defaultUrl)
 	}
 	onTokenError() {
 		Notify.show([{
@@ -118,6 +127,9 @@ export default class AdvanceSearchDateForm extends Component {
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
 									console.log('ddddd',fileResponse)
+									let uploadUrl = _this.props.onChange;
+									State.headerUrl = fileResponse.data;
+									uploadUrl && uploadUrl(fileResponse.data,_this.props.index)
 								} else {
 									_this.onError(fileResponse.msg);
 									return;
@@ -146,13 +158,15 @@ export default class AdvanceSearchDateForm extends Component {
 			imgUpload: true,
 			operateImg : false
 		});
+
+
 	}
 	render() {
 		return(
 			<div className="ui-upload-header">
 				<div className='ui-uploadimg-inner' >
-					<img className="image"  />
-					<input type='file' onChange={this.onChange} ref="inputImg"/>
+					<img className="image"  src={State.headerUrl?State.headerUrl:upload}/>
+					<input type='file' onChange={this.onChange} ref="inputImg" className="upload-input"/>
 				</div>
 			</div>
 		);
