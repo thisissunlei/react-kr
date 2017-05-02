@@ -1,7 +1,7 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
 //import {mobxForm}  from 'kr/Utils/MobxForm';
-import {reduxForm,change}  from 'redux-form';
+import {reduxForm,change,FieldArray}  from 'redux-form';
 import {
 	KrField,
 	Button,
@@ -14,6 +14,55 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
+
+
+const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label||placeholder}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+
+
+//标签
+const renderMask = ({ fields, meta: { touched, error }}) => {
+     var krStyle={};
+      krStyle={
+        width:228,
+        marginLeft:18,
+        marginRight:3,
+     }
+  return (
+      <ul style={{padding:0,margin:0}}>
+      {fields.map((brightsStr, index) =>
+      <li key={index} style={{width:600}}>
+        <KrField
+          style={krStyle}
+          grid={1/2}
+          name={`${brightsStr}.brightPoints`}
+          type="text"
+          component={renderField}
+          label={index?'':'标签'}
+          placeholder='标签'
+          />
+        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+        <span
+          className='minusBtn'
+          onClick={() => fields.remove(index)}/>
+      </li>
+    )}
+  </ul>
+
+ )
+}
+
+
+
+
+
 @inject("CommunityMeetingModel")
 @observer
 class NewAddMeeting  extends React.Component{
@@ -21,7 +70,11 @@ class NewAddMeeting  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			isBelongSpace:false
+			isBelongSpace:false,
+			//控制会议室
+			watchMeeting:false,
+			//控制路演厅
+			watchHouse:false
 		}
 	}
 
@@ -58,8 +111,35 @@ class NewAddMeeting  extends React.Component{
 	  Store.dispatch(change('NewAddMeeting', 'deviceIds',list));
 	}
 
+	spaceTypeChange=(params)=>{
+		 if(params.value=='BOARDROOM'){
+			 this.setState({
+				 watchMeeting:true,
+				 watchHouse:false
+			 })
+		 }
+
+		  if(params.value=='ROADSHOW_HALL'){
+			 this.setState({
+				 watchHouse:true,
+				 watchMeeting:false
+			 })
+		 }
+     
+		 if(params.value=='INDEPENDENT_OFFICE'){
+			 this.setState({
+				 watchHouse:false,
+				 watchMeeting:false
+			 })
+		 }
+
+		   
+	}
+
 
 	render(){
+
+		let {watchMeeting,watchHouse}=this.state;
 
 		let deviceSpace=[];
 		this.props.CommunityMeetingModel.spaceDevices.map((item)=>{
@@ -87,10 +167,21 @@ class NewAddMeeting  extends React.Component{
 								component="input"
 								label="空间名称"
 								requireLabel={true}
-	             	             onChange={this.codeCompare}
+	              onChange={this.codeCompare}
 						/>
-            <KrField grid={1/2}
+
+						<KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
+								name="spaceType"
+								component="select"
+								label="空间类型"
+							 	requireLabel={true}
+								options={this.props.CommunityMeetingModel.sapceTypes}
+								onChange={this.spaceTypeChange}
+						/>
+
+            <KrField grid={1/2}
+								style={{width:262}}
 								name="floor"
 								component="select"
 								label="所在楼层"
@@ -99,46 +190,116 @@ class NewAddMeeting  extends React.Component{
 						 />
 						 {this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
 						 <KrField grid={1/2}
-							 	style={{width:262}}
+							 	style={{width:262,marginLeft:28}}
 								name="area"
 								component="input"
 								label="面积（㎡）"
 								requireLabel={true}
 							/>
 						 <KrField grid={1/2}
-						  	style={{width:262,marginLeft:28}}
+						  	style={{width:262}}
 								name="capacity"
 								component="input"
 								label="可容纳人数"
 								requireLabel={true}
 						 />
-                         <KrField grid={1/2}
-							 	style={{width:262}}
+                <KrField grid={1/2}
+							 	style={{width:262,marginLeft:28}}
 								name="location"
 								component="input"
 								label="空间位置"
 							/>
+
+
+               {watchMeeting&&<div><div style={{display:'inline-block'}} className='community-list-time'>
+											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTime' requireLabel={true}/>
+											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
+											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTime'/>
+               </div> 
+               
+              <KrField
+                    label=""
+                    name="photosStr_single"
+                    component="newuploadImage"
+                    innerstyle={{width:156,height:111,padding:16}}
+                    photoSize={'212*136'}
+                    pictureFormat={'JPG'}
+                    pictureMemory={'32'}
+                    //requestURI = {this.state.requestURI}
+                    inline={false}
+                    formfile='file'
+                    center='center'
+                  /> 
+							  
+
+							 <KrField grid={1/2}
+						  	style={{width:262}}
+								name="capacity"
+								component="input"
+								label="单价(积分/0.5h)"
+								requireLabel={true}
+						 />
+
+						  <KrField grid={1/2}
+						  	style={{width:262,marginLeft:28}}
+								name="capacity"
+								component="input"
+								label="单价(积分/0.5h)"
+								requireLabel={true}
+						 /></div>}
+
+           
+
+					 
+
+            
+						{watchHouse&&<span><KrField
+                    label=""
+                    name="photosStr_single"
+                    component="newuploadImage"
+                    innerstyle={{width:156,height:111,padding:16}}
+                    photoSize={'212*136'}
+                    pictureFormat={'JPG'}
+                    pictureMemory={'32'}
+                    //requestURI = {this.state.requestURI}
+                    inline={false}
+                    formfile='file'
+                    center='center'
+                  />
+
+             
+					<FieldArray name="bright" component={renderMask}/>
+
+					<KrField
+          style={{width:550}}
+          grid={1}
+          name='remark'
+          heightStyle={{height:"78px",width:'541px'}}
+          component="textarea"
+          maxSize={500}
+          label='场地描述'
+          placeholder='场地描述'
+          /></span>}
+
+
+					 <KrField grid={1/2}  name="enable" component="group" label="状态" requireLabel={false}>
+ 							 <KrField name="enable" label="启用" type="radio" value='1' />
+ 							 <KrField name="enable" label="禁用" type="radio" value='0' />
+ 						</KrField> 
+
+   	 
+
+
 						<div className='meeting-device'><KrField
 							label="设备情况"
 							name='deviceIds'
-							style={{width:262,marginLeft:28}}
 							component="groupCheckbox"
                             defaultValue={deviceSpace}
                             onChange={this.deviceChange}
 						/></div>
 
-						<KrField grid={1/2}
-								style={{width:262}}
-								name="spaceType"
-								component="select"
-								label="空间类型"
-							 	requireLabel={true}
-								options={this.props.CommunityMeetingModel.sapceTypes}
-						/>
-						 <KrField grid={1/2}  name="enable" style={{width:262,marginLeft:28}} component="group" label="状态" requireLabel={false}>
- 							 <KrField name="enable" label="启用" type="radio" value='1' />
- 							 <KrField name="enable" label="禁用" type="radio" value='0' />
- 						</KrField>
+						
+						
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">

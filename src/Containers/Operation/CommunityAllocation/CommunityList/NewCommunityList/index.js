@@ -538,7 +538,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
  
                 <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
                 
-               <div className='communityList-pic-single'><KrField
+               <KrField
                     label=""
                     name="photosStr_single"
                     component="newuploadImage"
@@ -550,7 +550,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                     inline={false}
                     formfile='file'
                     center='center'
-                  /></div>
+                  />
 
               {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                 <div className="end-round two-round"></div></div>}
