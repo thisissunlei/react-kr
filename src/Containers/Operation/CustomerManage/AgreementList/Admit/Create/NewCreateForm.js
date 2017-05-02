@@ -51,6 +51,8 @@ import {
 	KrDate
 } from 'kr-ui';
 
+import allState from "../../State";
+
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends React.Component {
 
@@ -108,8 +110,6 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
-			local:this.props.local || [],
-			openLocalStorage:this.props.openLocalStorage || false
 		}
 	}
 
@@ -228,14 +228,13 @@ class NewCreateForm extends React.Component {
 		let {
 			initialValues
 		} = this.props;
-		Store.dispatch(initialize('admitCreateForm', initialValues));
+		// Store.dispatch(initialize('admitCreateForm', initialValues));
 	}
 
 
 
 	componentWillReceiveProps(nextProps) {
 		if(this.props.initialValues != nextProps.initialValues){
-			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues
 			})
@@ -514,7 +513,7 @@ class NewCreateForm extends React.Component {
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 	onBlur=(item)=>{
 
@@ -528,6 +527,14 @@ class NewCreateForm extends React.Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let stationList = list.map((item)=>{
+		if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
+			}
+			return item;
+		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
@@ -584,6 +591,8 @@ class NewCreateForm extends React.Component {
 			changeValues,
 			optionValues
 		} = this.props;
+
+		console.log('-----admin-----',allState.openLocalStorage,allState.openLocalStorages);
 
 		let {
 			fnaCorporationList
@@ -789,7 +798,7 @@ const validate = values => {
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
 				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
-				}else if(!!!valies[i]){
+				}else if(!!!values[i]){
 					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,'');
 				}
 
