@@ -387,8 +387,10 @@ export default class JoinCreate extends React.Component {
 				if (response.boardroomnum) {
 					initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum');
 				}
-				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum')|| response.stationnum;
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor')|| response.wherefloor;
+				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum');
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				optionValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||  '';
 				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
 				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
@@ -400,9 +402,9 @@ export default class JoinCreate extends React.Component {
 				}
 
 				//时间
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate')|| DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate') ||  DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-				initialValues.signdate =  localStorage.getItem(keyWord+'signdate') ||  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValues.signdate =  localStorage.getItem(keyWord+'signdate');
 				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				//处理stationvos
