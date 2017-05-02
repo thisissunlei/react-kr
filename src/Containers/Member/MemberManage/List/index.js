@@ -190,7 +190,7 @@ export default class List extends React.Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-			
+
 		});
 	}
 	// 高级查询
