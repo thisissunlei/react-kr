@@ -232,7 +232,7 @@ class EquipmentList  extends React.Component{
 				          <TableRow>
 			                <TableRowColumn name="id" ></TableRowColumn>
 			                <TableRowColumn name="name" component={(value,oldValue) =>{
-                          console.log(value,">>>>>>>")
+
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
