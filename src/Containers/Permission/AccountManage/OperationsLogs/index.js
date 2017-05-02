@@ -133,6 +133,7 @@ export default class OperationsLogs extends Component {
 						<TableHeaderColumn>系统名称</TableHeaderColumn>
 						<TableHeaderColumn>业务名称</TableHeaderColumn>
 						<TableHeaderColumn className="op-log">操作内容</TableHeaderColumn>
+						<TableHeaderColumn>表主键</TableHeaderColumn>
 						<TableHeaderColumn>操作人</TableHeaderColumn>
 						<TableHeaderColumn>操作时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
@@ -153,6 +154,7 @@ export default class OperationsLogs extends Component {
 												 return (<div style={{display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
 													<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 											 }}></TableRowColumn>
+								<TableRowColumn name="entityId" ></TableRowColumn>
 								<TableRowColumn name="operater" ></TableRowColumn>
 							 <TableRowColumn name="operateDate" type="date" component={(value)=>{
  								return (

@@ -139,6 +139,15 @@ class HighSearchForm extends React.Component {
 								</ListGroup>
 			                </div>
 						</KrField>
+						<KrField
+							 grid={1/2}
+							 left={42}
+	  						 right={18}
+							 name="entityId"
+							 type="text"
+							 component="input"
+							 label="表主键"
+						/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
