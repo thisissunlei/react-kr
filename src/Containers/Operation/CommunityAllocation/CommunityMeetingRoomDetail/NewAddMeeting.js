@@ -28,11 +28,14 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 
 //标签
 const renderMask = ({ fields, meta: { touched, error }}) => {
+	   if(!fields.length){
+      fields.push({})
+		 }
+		 if(fields.length>9){
+		 }
      var krStyle={};
       krStyle={
-        width:228,
-        marginLeft:18,
-        marginRight:3,
+        width:520
      }
   return (
       <ul style={{padding:0,margin:0}}>
