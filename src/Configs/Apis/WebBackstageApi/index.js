@@ -52,5 +52,19 @@ module.exports = {
       url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}&id={id}',
       method: 'get'
    },
-
+   //新闻列表--分页
+   'get-news-list':{
+      url: '/api/krspace-gateway-wap/news/get-news-list?createUser={createUser}&publishedStatus={publishedStatus}&stickStatus={stickStatus}&title={title}',
+      method: 'get'
+   },
+   //新闻列表--新建、编辑保存
+   'save-news':{
+      url: '/api/krspace-gateway-wap/news/save-news',
+      method: 'post'
+   },
+   //新闻列表--查看
+   'get-news-detail':{
+      url: '/api/krspace-gateway-wap/news/get-news-detail?id={id}',
+      method: 'get'
+   },
 }

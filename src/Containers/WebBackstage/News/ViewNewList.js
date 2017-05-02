@@ -18,7 +18,10 @@ export default class ViewNewList extends React.Component {
 		}
 		
 	}
-
+	onCancel=()=>{
+		let {onCancel}=this.props;
+		onCancel && onCancel();
+	}
 	
 
 
@@ -26,10 +29,19 @@ export default class ViewNewList extends React.Component {
 
 		
 		return (
-			<div>
-			    
+			<div className="g-new-list">
+				<div className="u-title-box">
+						<img className="u-title-img" src={require('./images/activity.svg')} />
+						<span className="u-title-text">查看新闻</span>
+						<span className="u-close-page" onClick={this.onCancel}>
+							<img 
+								src={require('./images/closeIMG.svg')} 
+								className="u-close-page-img"
+							 />
+						</span>
+					</div>
+			   
 			</div>
-
 
 		);
 	}

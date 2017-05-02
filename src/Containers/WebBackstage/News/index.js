@@ -36,6 +36,7 @@ export default class News extends React.Component {
 			openHightDialog:false,
 			openView:false,
 			openEdit:false,
+			Params:{}
 		}
 		
 	}
@@ -84,7 +85,7 @@ export default class News extends React.Component {
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-fince-info'
+		                  ajaxUrlName='get-news-list'
 		                  ajaxParams={this.state.Params}
 		                  onOperation={this.onOperation}
 		              >
