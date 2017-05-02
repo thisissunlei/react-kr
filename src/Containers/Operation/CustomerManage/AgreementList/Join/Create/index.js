@@ -200,7 +200,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.contractcode = response.contractCode;
 
 			initialValues.leaseAddress = response.customer.customerAddress;
-
+			initialValues.agreement = '无';
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
