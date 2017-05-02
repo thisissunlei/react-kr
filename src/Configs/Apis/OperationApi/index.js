@@ -376,7 +376,7 @@ module.exports = {
     },
     //运营平台-会议室列表-获取空间编辑信息
     'meeting-room-eidData': {
-        url: '/api/krspace-finance-web/cmt/space/info/type/edit?id={id}',
+        url: 'http://local.krspace.cn/api/krspace-finance-web/cmt/space/info/type/edit?id={id}',
         method: 'get'
     },
      //运营平台－校验空间名称
@@ -396,7 +396,7 @@ module.exports = {
     },
     //运营平台－空间新增或编辑
     'meeting-edit-submit': {
-        url: '/api/krspace-finance-web/cmt/space/actions/edit',
+        url: 'http://local.krspace.cn/api/krspace-finance-web/cmt/space/actions/edit',
         method: 'post'
     },
       //凭证管理--凭证列表--获取社区列表下拉框

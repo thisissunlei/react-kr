@@ -31,20 +31,23 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 
 //标签
 const renderMask = ({ fields, meta: { touched, error }}) => {
+
+			if(!fields.length){
+			 fields.push({})
+			}
+
      var krStyle={};
       krStyle={
-        width:228,
-        marginLeft:18,
-        marginRight:3,
+        width:520
      }
   return (
       <ul style={{padding:0,margin:0}}>
-      {fields.map((brightsStr, index) =>
+      {fields.map((maskStation, index) =>
       <li key={index} style={{width:600}}>
         <KrField
           style={krStyle}
           grid={1/2}
-          name={`${brightsStr}.brightPoints`}
+          name={`${maskStation}.list`}
           type="text"
           component={renderField}
           label={index?'':'标签'}
@@ -135,6 +138,9 @@ class EditMeeting  extends React.Component{
 
 
 				   Store.dispatch(initialize('EditMeeting',response));
+					 response.activeTypes.map((item,index)=>{
+            Store.dispatch(change('EditMeeting','maskStation['+index+'].list',item));
+					 })
 			    }).catch(function(err) {
 					Message.error(err.message);
 			    });
@@ -228,6 +234,8 @@ class EditMeeting  extends React.Component{
 							onChange={this.spaceTypeChange}
 					/>
 
+					{this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
+
 	 				<KrField grid={1/2}
 	 						style={{width:262}}
 	 						name="floor"
@@ -260,7 +268,7 @@ class EditMeeting  extends React.Component{
 
 				 {watchMeeting&&<div><div style={{display:'inline-block'}} className='community-list-time'>
 								<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTime' requireLabel={true}/>
-								<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
+								<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>~</span>
 								<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTime'/>
 				 </div>
 
@@ -317,7 +325,7 @@ class EditMeeting  extends React.Component{
 				/>
 
 
-			 <FieldArray name="bright" component={renderMask}/>
+			 <FieldArray name="maskStation" component={renderMask}/>
 
 				<KrField
 				style={{width:550}}
@@ -342,8 +350,8 @@ class EditMeeting  extends React.Component{
 							label="设备情况"
 							name='deviceIds'
 							component="groupCheckbox"
-                            defaultValue={listDevice}
-                            onChange={this.deviceChange}
+              defaultValue={listDevice}
+              onChange={this.deviceChange}
 						/></div>
 
 
@@ -394,6 +402,25 @@ const validate = values =>{
 	if(values.capacity&&!zeroNum.test(values.capacity.toString().trim())){
 		errors.capacity='可容纳人数为整数'
 	}
+
+
+	if(!values.idlePrice){
+	errors.idlePrice='请输入空闲时段单价'
+}
+
+if(values.idlePrice&&!zeroNum.test(values.idlePrice.toString().trim())){
+	errors.idlePrice='空闲时段单价为整数'
+}
+
+if(!values.busyPrice){
+errors.busyPrice='请输入高峰时段单价'
+}
+
+if(values.busyPrice&&!zeroNum.test(values.busyPrice.toString().trim())){
+errors.busyPrice='高峰时段单价为整数'
+}
+
+
 
 		return errors
 }
