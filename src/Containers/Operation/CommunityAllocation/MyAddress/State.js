@@ -21,9 +21,12 @@ let State = observable({
 		// 编辑
 		openEditAddress:false,
 		openDeleteDialog: false,
+		openAddGuide:false,
+		openEditGuide:false,
 		//详情
 		detailData:{},
-
+		addGuideList:[],
+		guideItem:{}
 
 
 });
@@ -56,6 +59,22 @@ State.confirmDelete= action(function() {
 	// 	 Message.error(err.message);
 	// });
 });
+
+State.switchOpenAddGuideFun =action(function() {	
+	State.openAddGuide = !State.openAddGuide;
+});
+// 是否打开编辑指南
+State.switchOpenEditGuideFun = action(function() {	
+	State.openEditGuide = !State.openEditGuide;
+});
+
+State.addGuideListFun=action(function(values) {	
+	State.addGuideList.push(values);
+	this.switchOpenAddGuideFun();
+});
+
+
+
 
 
 //新建提交

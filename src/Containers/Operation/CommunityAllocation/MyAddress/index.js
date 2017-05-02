@@ -36,7 +36,10 @@ import State from './State';
 import NewAddress from './NewAddress';
 import EditAddress from './EditAddress';
 import SearchUpperForm from './SearchUpperForm';
-import WatchCommunityList from './WatchCommunityList';
+import AddGuide from './AddGuide';
+import EditGuide from './EditGuide';
+
+
 //todo:城市组件值不清空，后期补上
 import cityDataState from "../../../../Components/KrField/CityComponent/State";
 @observer
@@ -206,7 +209,37 @@ class CommunityList  extends React.Component{
                 // id={this.state.id}
             />
 
-                </Drawer>
+          </Drawer>
+          {/*添加指南*/}
+          <Drawer
+                open={State.openAddGuide}
+                width={750}
+                // openSecondary={true}
+                onClose={this.whiteClose}
+                // containerStyle={{top:60,paddingBottom:48,zIndex:21}}
+              >
+            <AddGuide
+                // onSubmit={this.onNewCommunitySubmit}
+                // onCancel={this.switchEditList}
+                // open={State.openEditAddress}
+                // id={this.state.id}
+            />
+        </Drawer>
+        {/*添加指南*/}
+          <Drawer
+                open={State.openEditGuide}
+                width={750}
+                // openSecondary={true}
+                onClose={this.whiteClose}
+                // containerStyle={{top:60,paddingBottom:48,zIndex:21}}
+              >
+            <EditGuide
+                // onSubmit={this.onNewCommunitySubmit}
+                // onCancel={this.switchEditList}
+                // open={State.openEditAddress}
+                // id={this.state.id}
+            />
+        </Drawer>
 
         {/*高级查询*/}
           <Dialog

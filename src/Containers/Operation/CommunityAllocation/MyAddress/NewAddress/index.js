@@ -17,8 +17,9 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-  Tabs,
-  Tab,
+	ListGroup,
+	ListGroupItem
+ 
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
@@ -39,15 +40,15 @@ import State from '../State';
       codeName:''
 		}
 	}
-  componentDidMount(){
+  	componentDidMount(){
       
-  }
+ 	}
 
 	onSubmit = (values) => {
   
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
-  }
+  	}
 
 	onCancel = () => {
 		const {onCancel} = this.props;
@@ -68,32 +69,70 @@ import State from '../State';
 	}
 
 
+	onOpenAddGuide=()=>{
+		State.switchOpenAddGuideFun();
+	}
 
+	// 编辑指南
+	editGuide=(item,index)=>{
+		console.log("编辑指南item",item.communityGuideTitle);
+		console.log("编辑指南index",index);
+		State.switchOpenEditGuideFun();
+		State.guideItem =item;
+	}
+	// 删除指南
+	deleteGuide=(item)=>{
+		console.log("删除指南item",item);
+
+	}
 
 
 
 	render(){
-
+		console.log("State.addGuideList",State.addGuideList.length);
 		return (
-      <div className="new-my-address">
-        <div className="close-new-div">
-          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.closeNew}/>
-        </div>
-        <Tabs className="new-my-address-tabs" inkBarStyle={{background:"#499df1",top:0}} initialSelectedIndex={-1} tabTemplateStyle={{color:"#333"}} style={{width:100}}>
-          <Tab label="基本信息">
+	      <div className="new-my-address">
+	        <div className="close-new-div">
+	          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.closeNew}/>
+	        </div>
+	      
+	        <div className="community-guide-list-box">
+	        	<div style={{marginBottom:19}}>
+	        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
+	        	</div>
+	        	{
+	        		State.addGuideList.length>0?<div className="community-duide-list">
+	        		{
+	        			State.addGuideList.map((item,index)=>{
+	        				return(
+	        					<div className="guide-list-item" key={index}>
+	        						<span>{item.communityGuideTitle}</span>
+	        						<div className="operation-btn">
+	        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
+	        							<span onClick={this.deleteGuide.bind(this,item)}>删除</span>
+	        						</div>
+	        						
+	        					</div>
+	        					);
+	        			})
+	        		}
+	        	</div>:<div className="community-duide-list-no">
+	          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
+	        	</div>
+	        	}
+	        	<Grid style={{marginTop:18,marginBottom:'4px'}}>
+					<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'310px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+						</ListGroup>					
+					</Row>
+				</Grid>
 
-          </Tab>
-          <Tab label="社区指南">
-            <div className="community-guide-box">
-              <Button  label="添加指南" type="button"  onTouchTap={this.onCancel}/>
-              <div className="community-duide-list">
-              	
-
-              </div>
-            </div>
-          </Tab>
-        </Tabs>
-      </div>
+	        	
+	        </div>
+        
+      	</div>
 		);
 	}
 }

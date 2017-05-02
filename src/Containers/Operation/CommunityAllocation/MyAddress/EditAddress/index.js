@@ -17,8 +17,6 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-  Tabs,
-  Tab,
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
@@ -32,22 +30,20 @@ import State from '../State';
 	constructor(props){
 		super(props);
 		this.state={
-			cityId:'',
-			openDown:true,
-      openUp:false,
-      communityName:'',
-      codeName:''
+			
 		}
 	}
-  componentDidMount(){
-      
-  }
+  	componentDidMount(){
+
+  		console.log("guideItem发的时间阿凡达技术开发大赛里卡多方式离开");
+  		console.log("guideItem",State.guideItem);
+  	}
 
 	onSubmit = (values) => {
   
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
-  }
+  	}
 
 	onCancel = () => {
 		const {onCancel} = this.props;
