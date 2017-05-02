@@ -26,7 +26,6 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
   </div>
 )
 
-
 //标签
 const renderMask = ({ fields, meta: { touched, error }}) => {
      var krStyle={};
@@ -48,7 +47,7 @@ const renderMask = ({ fields, meta: { touched, error }}) => {
           label={index?'':'标签'}
           placeholder='标签'
           />
-        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+        <span onClick={() => fields.insert(index+1,{})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
@@ -79,7 +78,7 @@ class NewAddMeeting  extends React.Component{
 	}
 
 	componentDidMount(){
-	  Store.dispatch(change('NewAddMeeting','enable','1'));	
+	  Store.dispatch(change('NewAddMeeting','enable','1'));
 	}
 
     onSubmit=(values)=> {
@@ -98,12 +97,12 @@ class NewAddMeeting  extends React.Component{
 		onCancel && onCancel();
 	}
 
-	
+
     //校验空间名称
 	codeCompare=(params)=>{
       this.props.CommunityMeetingModel.codeStationCompare(params);
 	}
-    
+
     //设备
 	deviceChange=(params,item)=>{
 	  let list=[];
@@ -125,7 +124,7 @@ class NewAddMeeting  extends React.Component{
 				 watchMeeting:false
 			 })
 		 }
-     
+
 		 if(params.value=='INDEPENDENT_OFFICE'){
 			 this.setState({
 				 watchHouse:false,
@@ -133,7 +132,7 @@ class NewAddMeeting  extends React.Component{
 			 })
 		 }
 
-		   
+
 	}
 
 
@@ -146,14 +145,14 @@ class NewAddMeeting  extends React.Component{
            let list={};
            list.label=item.label;
            list.value=item.value;
-           deviceSpace.push(list); 
+           deviceSpace.push(list);
 		})
 
         const {handleSubmit}=this.props;
-		
+
 		return(
 
-	  <div className='m-newMerchants'>
+	  <div className='m-newMerchants meeting-list'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
               <div><span className="new-icon"></span><label className="title-text">新增社区空间</label></div>
@@ -215,26 +214,27 @@ class NewAddMeeting  extends React.Component{
 											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTime' requireLabel={true}/>
 											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
 											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTime'/>
-               </div> 
-               
-              <KrField
-                    label=""
-                    name="photosStr_single"
-                    component="newuploadImage"
-                    innerstyle={{width:156,height:111,padding:16}}
-                    photoSize={'212*136'}
-                    pictureFormat={'JPG'}
-                    pictureMemory={'32'}
-                    //requestURI = {this.state.requestURI}
-                    inline={false}
-                    formfile='file'
-                    center='center'
-                  /> 
-							  
+               </div>
+
+							 <KrField
+ 									 label=""
+ 									 name="picId"
+ 									 component="newuploadImage"
+ 									 innerstyle={{width:332,height:186,padding:16}}
+ 									 sizePhoto
+ 									 photoSize={'16:9'}
+ 									 pictureFormat={'JPG,PNG,GIF'}
+ 									 pictureMemory={'300'}
+ 									 requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
+ 									 inline={false}
+ 									 formfile=' '
+ 									 center='center'
+ 								 />
+
 
 							 <KrField grid={1/2}
 						  	style={{width:262}}
-								name="capacity"
+								name="idlePrice"
 								component="input"
 								label="单价(积分/0.5h)"
 								requireLabel={true}
@@ -242,52 +242,53 @@ class NewAddMeeting  extends React.Component{
 
 						  <KrField grid={1/2}
 						  	style={{width:262,marginLeft:28}}
-								name="capacity"
+								name="busyPrice"
 								component="input"
 								label="单价(积分/0.5h)"
 								requireLabel={true}
 						 /></div>}
 
-           
 
-					 
 
-            
+
+
+
 						{watchHouse&&<span><KrField
-                    label=""
-                    name="photosStr_single"
-                    component="newuploadImage"
-                    innerstyle={{width:156,height:111,padding:16}}
-                    photoSize={'212*136'}
-                    pictureFormat={'JPG'}
-                    pictureMemory={'32'}
-                    //requestURI = {this.state.requestURI}
-                    inline={false}
-                    formfile='file'
-                    center='center'
-                  />
+								label=""
+								name="picId"
+								component="newuploadImage"
+								innerstyle={{width:332,height:186,padding:16}}
+								sizePhoto
+								photoSize={'16:9'}
+								pictureFormat={'JPG,PNG,GIF'}
+								pictureMemory={'300'}
+								requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
+								inline={false}
+								formfile=' '
+								center='center'
+							/>
 
-             
-					<FieldArray name="bright" component={renderMask}/>
 
-					<KrField
-          style={{width:550}}
-          grid={1}
-          name='remark'
-          heightStyle={{height:"78px",width:'541px'}}
-          component="textarea"
-          maxSize={500}
-          label='场地描述'
-          placeholder='场地描述'
-          /></span>}
+					   <FieldArray name="bright" component={renderMask}/>
+
+							<KrField
+		          style={{width:550}}
+		          grid={1}
+		          name='remark'
+		          heightStyle={{height:"78px",width:'541px'}}
+		          component="textarea"
+		          maxSize={500}
+		          label='场地描述'
+		          placeholder='场地描述'
+		          /></span>}
 
 
 					 <KrField grid={1/2}  name="enable" component="group" label="状态" requireLabel={false}>
  							 <KrField name="enable" label="启用" type="radio" value='1' />
  							 <KrField name="enable" label="禁用" type="radio" value='0' />
- 						</KrField> 
+ 						</KrField>
 
-   	 
+
 
 
 						<div className='meeting-device'><KrField
@@ -298,8 +299,8 @@ class NewAddMeeting  extends React.Component{
                             onChange={this.deviceChange}
 						/></div>
 
-						
-						
+
+
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">
@@ -338,7 +339,7 @@ const validate = values =>{
 	if(values.area&&isNaN(values.area)){
 		errors.area='面积为数字'
 	}
-    
+
     if(!values.capacity){
 		errors.capacity='请输入可容纳人数'
 	}

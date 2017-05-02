@@ -370,7 +370,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
 
-    
+
 
 			//展开
 			flagOpen=()=>{
@@ -410,7 +410,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             paddingBottom:0
            }
           }else{
-           openStyle={}; 
+           openStyle={};
           }
 
 
@@ -502,30 +502,31 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
               <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
               <div className="small-cheek" style={openStyle}>
-              
-               
+
+
                 <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
- 
+
                 <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
-                
-               <div className='communityList-pic-single'><KrField
-                    label=""
-                    name="photosStr_single"
-                    component="newuploadImage"
-                    innerstyle={{width:156,height:111,padding:16}}
-                    photoSize={'212*136'}
-                    pictureFormat={'JPG'}
-                    pictureMemory={'32'}
-                    //requestURI = {this.state.requestURI}
-                    inline={false}
-                    formfile='file'
-                    center='center'
-                  /></div>
+
+								<KrField
+                     label=""
+                     name="photosStr_single"
+                     component="newuploadImage"
+                     innerstyle={{width:330,height:220,padding:16}}
+ 										 sizePhoto
+                     photoSize={'3:2'}
+                     pictureFormat={'JPG,PNG,GIF'}
+                     pictureMemory={'300'}
+                     requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
+                     inline={false}
+                     formfile=' '
+                     center='center'
+                   />
 
               {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                 <div className="end-round two-round"></div></div>}
                {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
-              
+
            </div>
 
 

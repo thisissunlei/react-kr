@@ -428,17 +428,17 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         }
        }
 
-     
+
 
     let {openDown,openUp}=this.state;
-    
+
     let openStyle={};
     if(openDown){
      openStyle={
       paddingBottom:0
      }
     }else{
-     openStyle={}; 
+     openStyle={};
     }
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
@@ -498,7 +498,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <div className="middle-round"></div>
 						</div>
 
-            
+
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
@@ -515,7 +515,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
-                                
+
                                 <div style={{display:'inline-block'}} className='community-list-time'>
                                  <KrField component="selectTime" label='营业时间'  style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
                                  <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
@@ -525,37 +525,38 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
 
                                 <FieldArray name="bright_bright" component={renderBrights}/>
-   
-                                
+
+
                    <div className="middle-round"></div>
 						</div>
 
           <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
               <div className="small-cheek" style={openStyle}>
-              
-               
+
+
                 <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
- 
+
                 <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
-                
+
                <KrField
                     label=""
                     name="photosStr_single"
                     component="newuploadImage"
-                    innerstyle={{width:156,height:111,padding:16}}
-                    photoSize={'212*136'}
-                    pictureFormat={'JPG'}
-                    pictureMemory={'32'}
-                    //requestURI = {this.state.requestURI}
+                    innerstyle={{width:330,height:220,padding:16}}
+										sizePhoto
+                    photoSize={'3:2'}
+                    pictureFormat={'JPG,PNG,GIF'}
+                    pictureMemory={'300'}
+                    requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
                     inline={false}
-                    formfile='file'
+                    formfile=' '
                     center='center'
                   />
 
               {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                 <div className="end-round two-round"></div></div>}
                {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
-              
+
            </div>
 
 
