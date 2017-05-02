@@ -377,7 +377,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')|| '';
 				initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '';
 				// initialValues.totalrent = localStorage.getItem(keyWord+'totalrent')|| response.totalrent;
-				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')|| localStorage.getItem(keyWord+'leaseId')|| response.totaldeposit;
+				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
 					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 				//时间
 				initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate')|| DateFormat(response.firstpaydate, "yyyy-mm-dd hh:MM:ss");
@@ -386,7 +386,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseEnddate =  localStorage.getItem(keyWord+'leaseEnddate')||DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 
 
-				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || response.stationVos;
+				initialValues.stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) ;
 				initialValues.delStationVos = JSON.parse(localStorage.getItem(keyWord+'delStationVos')) || [];
 				//处理stationvos
 				stationVos = initialValues.stationVos;
