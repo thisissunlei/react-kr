@@ -180,7 +180,7 @@ export default class XTable extends React.Component {
     return (
       <div className="ui-table-wrap">
       <Table>
-          <TableHeader> {this.renderHeader()} </TableHeader>
+          <TableHeader>{this.renderHeader()}</TableHeader>
           <TableBody>{this.renderBody()}</TableBody>
       </Table>
 
@@ -190,21 +190,12 @@ export default class XTable extends React.Component {
             <Button label="导出" onClick={this.onExport}/>
           </ListGroupItem>
           <ListGroupItem style={{float:'right'}}>
-            {this.renderTableFooter()}
+            {this.renderPagination()}
           </ListGroupItem>
         </ListGroup>
       </div>
       </div>
     );
-
-  }
-
-  renderTableFooter = ()=>{
-
-    return <TableRow>
-      <TableColumn></TableColumn>
-      <TableColumn>{this.renderPagination()}</TableColumn>
-    </TableRow>
 
   }
 
@@ -317,9 +308,7 @@ export default class XTable extends React.Component {
     renderLoading = ()=>{
 
       return <div className="ui-table-wrap">
-      <Table>
-           <TableHeader>{this.renderHeader()}</TableHeader>
-              </Table>
+      <Table><TableHeader>{this.renderHeader()}</TableHeader></Table>
                 <div className="not-table-data"><Loading/></div>
               </div>
     }
