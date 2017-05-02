@@ -6,6 +6,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {Http} from 'kr/Utils';
 
 let State = observable({
 	installmentPlans: [],
@@ -17,9 +18,9 @@ let State = observable({
 //action
 State.getBasicInfo = action(function(params) {
 	var _this = this;
-	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
+	Http.request('checkinagreement-print-info', {
 		contractId: params.id
-	})).then(function(response) {
+	}).then(function(response) {
 
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;

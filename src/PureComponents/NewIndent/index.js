@@ -17,7 +17,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
-
+import {Http} from "kr/Utils";
 @inject("CommunityDetailModel")
 @inject("NewIndentModel")
 @observer
@@ -52,7 +52,7 @@ import {
 		}
 		values.customerid=listId;
 		values.mainbillname=_this.props.NewIndentModel.orderName;
-		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
+		Http.request('enter-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
 			_this.props.NewIndentModel.searchParams={
 				page:1,

@@ -2,14 +2,14 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
     Message
 
@@ -26,7 +26,7 @@ import {
 @observer
  class NewIndent extends React.Component{
 
-		
+
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -44,7 +44,7 @@ import {
 			stationTypeList:[],
 			visitTypeList:[]
 		};
-		
+
 	}
 	onSubmit = (values) => {
 		delete values.cityid;
@@ -56,7 +56,7 @@ import {
 		State.ChangeSubmitState();
 		values.customerid=listId;
 		values.mainbillname=State.orderName;
-		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
+		Http.request('enter-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
          	setTimeout(function(){
@@ -80,9 +80,9 @@ import {
 
 		}
 	}
-	
+
 	componentWillReceiveProps(nextProps){
-		
+
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
@@ -91,7 +91,7 @@ import {
 			}
 			State.orderReady(nextProps.orderReady)
 	}
-	communityChange=(value)=>{ 
+	communityChange=(value)=>{
 		if(!value){
 			return;
 		}
@@ -112,7 +112,7 @@ import {
 
 	render(){
 		const { error, handleSubmit, pristine, reset,companyName,isOpenIndent,customerName,orderCount} = this.props;
-		
+
 		let city=State.cityLable;
 			city=!city?"无":city;
 		// if(!isOpenIndent){
@@ -125,35 +125,35 @@ import {
 						<div><span className="order-new-icon"></span><label className="title-text">{companyName}</label></div>
 						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
-				
-				<div className="kk" style={{marginTop:30,paddingLeft:20}}>		
-					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select" 
+
+				<div className="kk" style={{marginTop:30,paddingLeft:20}}>
+					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select"
 							options={State.orderFound}
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
-					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}} 
+					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}}
 							options={State.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
-					
+
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
-				</div>		
+				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定" type="button" /></div>}
+								{State.submitState?<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定" type="button" /></div>}
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
-						
-						    
+
+
 				</form>
 		);
 	}
@@ -168,9 +168,9 @@ const validate = values =>{
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
 		}
-		
 
-		
+
+
 		return errors
 	}
 export default reduxForm({ form: 'NewIndent',validate})(NewIndent);

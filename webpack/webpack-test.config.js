@@ -24,12 +24,13 @@ const config = {
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash'),
+			'lodash':path.join(node_modules_dir,'lodash')
 		},
 	},
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].[chunkhash].js',
+		chunkFilename: 'scripts/[name].[chunkhash:5].js',
 		publicPath:"./"
 	},
 	plugins: [

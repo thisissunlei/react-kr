@@ -1,5 +1,4 @@
-import React, {  PropTypes} from 'react';
-
+import React, {PropTypes} from 'react';
 import {Actions,Store} from 'kr/Redux';
 import {DateFormat} from 'kr/Utils';
 

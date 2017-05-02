@@ -51,6 +51,7 @@ import Dictionary from './Dictionary';
 import Editor from './Editor';
 import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
+import XTable from './XTable';
 
 
 import {
@@ -61,14 +62,12 @@ import {
 
 
 //materal-ui
-import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Avatar,
-	Snackbar,
-} from 'material-ui';
+import  Menu from 'material-ui/Menu'; 
+import MenuItem  from 'material-ui/MenuItem'; 
+import  DropDownMenu  from 'material-ui/DropDownMenu'; 
+import  IconMenu  from 'material-ui/IconMenu'; 
+import  Avatar  from 'material-ui/Avatar'; 
+import Snackbar from 'material-ui/Snackbar'; 
 
 import {
 	Tab
@@ -121,6 +120,7 @@ module.exports = {
 	InputDate,
 	SnackTip,
 	Editor,
+	...XTable,
 
 	//materal-ui
 	Menu,
@@ -142,5 +142,5 @@ module.exports = {
 	Tooltips,
 	Tooltip,
 	CircleStyleTwo,
-	LoadingTwo
+	LoadingTwo,
 }

@@ -3,14 +3,14 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message
 } from 'kr-ui';
@@ -56,7 +56,7 @@ import {
 		values.mainbillname=State.orderName||this.props.mainbillname;
 		values.mainbillcode="";
 		let _this=this;
-		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response) {
+		Http.request('edit-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
 		}).catch(function(err) {
@@ -139,7 +139,7 @@ import {
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+								<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit" joinEditForm /></div>
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>

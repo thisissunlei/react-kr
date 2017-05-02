@@ -9,21 +9,10 @@ import {
 } from 'kr/Redux';
 
 import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Section,
-	KrField,
-	Grid,
 	Row,
 	Col,
 	Button,
 	Notify,
-	DotTitle,
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';

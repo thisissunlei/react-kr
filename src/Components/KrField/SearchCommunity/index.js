@@ -1,6 +1,8 @@
 import React from 'react';
 
-
+import {
+	Http
+} from "kr/Utils";
 import ReactSelectAsync from '../../Select/Async';
 
 import {
@@ -53,9 +55,9 @@ export default class SearchCommunity extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getCommunity', {
+			Http.request('getCommunity', {
 				communityName: lastname
-			})).then(function(response) {
+			}).then(function(response) {
 				response.communityInfoList.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.name;
@@ -88,7 +90,6 @@ export default class SearchCommunity extends React.Component {
 			requireLabel,
 			...other
 		} = this.props;
-		console.log('krfield',inline);
 		return (
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
 					<ReactSelectAsync

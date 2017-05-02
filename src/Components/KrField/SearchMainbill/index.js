@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -63,10 +65,10 @@ export default class SearchMainbill extends React.Component {
 	getOptions = (lastname) => {
 
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-mainbill', {
+			Http.request('get-mainbill', {
 				mainBillName: lastname || "",
 				customerId: this.state.customerId
-			})).then(function(response) {
+			}).then(function(response) {
 				response.map(function(item, index) {
 					item.value = item.id;
 					item.label = item.mainBillName;

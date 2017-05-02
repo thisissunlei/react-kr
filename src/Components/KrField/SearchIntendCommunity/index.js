@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -44,7 +46,7 @@ export default class  SearchIntendCommunity extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('search-conditions',{searchKey:searchKey })).then(function(response){
+			Http.request('search-conditions',{searchKey:searchKey }).then(function(response){
 				resolve({options:response.intentionCommunities});
 			}).catch(function(err){
 				reject(err);

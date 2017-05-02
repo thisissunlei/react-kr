@@ -33,12 +33,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -46,20 +40,17 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
-	DotTitle,
-	IframeContent,
 	Date,
 	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	CircleStyle,
+	Dialog
 } from 'kr-ui';
 
 
@@ -90,6 +81,11 @@ class NewCreateForm extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
 
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+		this.state= {
+			openLocalStorage:this.props.openLocalStorage,
+			initialValues:this.props.initialValues,
+			optionValues:this.props.optionValues,
+		}
 	}
 
 
@@ -98,6 +94,17 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('exitCreateForm', initialValues));
+	}
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			initialValues:nextProps.initialValues,
+			optionValues:nextProps.optionValues,
+		})
+		if(this.props.openLocalStorage != nextProps.openLocalStorage){
+			this.setState({
+			openLocalStorage:nextProps.openLocalStorage
+		})
+		}
 	}
 
 
@@ -177,8 +184,11 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
+
+
+	
 
 
 	render() {
@@ -219,7 +229,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField style={{width:370,marginLeft:90}} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" />
-				<KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+				<KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
 
 				<KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
@@ -258,7 +268,7 @@ class NewCreateForm extends React.Component {
 							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 					Store.dispatch(change('exitCreateForm','contractFileList',files));
 				}} />
 
@@ -274,12 +284,28 @@ class NewCreateForm extends React.Component {
 
 			</form>
 
+
 			</Paper>);
 	}
 }
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
+
+			}
+	    };
+	}
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -336,7 +362,7 @@ const validate = values => {
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
-
+	
 	return errors
 }
 

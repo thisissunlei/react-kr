@@ -18,6 +18,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 export default class Section extends Component {
 
 	static propTypes = {
+		filterChildren:React.PropTypes.node,
 		children: React.PropTypes.node,
 		title:React.PropTypes.string.isRequired,
 		description: React.PropTypes.string,
@@ -33,21 +34,15 @@ export default class Section extends Component {
 	constructor(props){
 		super(props);
 
-		this.renderSectionTitle = this.renderSectionTitle.bind(this);
-		this.renderHeaderLeftIcon = this.renderHeaderLeftIcon.bind(this);
-		this.renderDescription = this.renderDescription.bind(this);
-
-		this.touchHeaderTitle = this.touchHeaderTitle.bind(this);
-		this.renderRightElement  = this.renderRightElement.bind(this);
-
 		this.state = {
-			openBody:true
+			openBody:true,
+			openFilter:false,
 		}
 
 	}
 
 
-	renderRightElement(){
+	renderRightElement = ()=>{
 
 		if(!this.props.rightElement){
 			return null;
@@ -58,9 +53,8 @@ export default class Section extends Component {
 					{this.props.rightMenu}
 			</div>
 		);
-
 	}
-	renderRightMenu(){
+	renderRightMenu = ()=>{
 
 		if(!this.props.rightMenu){
 			return null;
@@ -79,7 +73,7 @@ export default class Section extends Component {
 		);
 	}
 
-	renderHeaderLeftIcon(){
+	renderHeaderLeftIcon = ()=>{
 
 		if(!this.props.leftIcon){
 			return null;
@@ -92,13 +86,16 @@ export default class Section extends Component {
 		);
 
 	}
-	touchHeaderTitle(){
-		// this.setState({
-		// 	openBody:!this.state.openBody
-		// });
+
+	touchHeaderTitle = ()=>{
+		/*
+		 this.setState({
+		 	openFilter:!this.state.openFilter
+		 });
+		 */
 	}
 
-	renderSectionTitle(){
+	renderSectionTitle = ()=>{
 
 		if(!this.props.title){
 			return null;
@@ -123,6 +120,20 @@ export default class Section extends Component {
 
 				</div>
 		);
+	}
+
+	renderFilter(){
+
+		if(!this.state.openFilter){
+			return null;
+		}
+
+		return (
+				<div className="section-filter">
+					{this.props.filterChildren}
+				</div>
+		);
+
 	}
 
 	renderBody(){
@@ -154,7 +165,7 @@ export default class Section extends Component {
 
 	}
 
-	renderDescription(){
+	renderDescription = ()=>{
 
 		return(
 			<div className="section-description">
@@ -176,18 +187,18 @@ export default class Section extends Component {
 				  </div>
 			  );
 		  }
-		
+
 
 
 		return (
 
 		  <div className="section" style={style}>
-
 			  <div className="section-header" style={headerStyle}>
-
 				  {this.renderSectionTitle()}
 				  {this.renderDescription()}
 			  </div>
+
+				  {this.renderFilter()}
 
 			  {this.renderBody()}
 
@@ -197,7 +208,3 @@ export default class Section extends Component {
 	  }
 
 }
-
-
-
-

@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	Http
+} from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
 
@@ -70,9 +72,9 @@ export default class SearchPayAccount extends React.Component {
 	getOptions=(lastname)=> {
 		var _this=this;
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-payment-account', {
+			Http.request('get-payment-account', {
 				account: lastname
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				response.map((item, index) => {
 					item.label = item.account;
 					item.value = item.account;

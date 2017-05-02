@@ -441,7 +441,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 		return (
            <div>
-			<form className="m-newMerchants communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
+			<form className="communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
 				<div className="title">
 						<div><span className="new-icon list-icon"></span><label className="title-text">新建社区</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
@@ -509,11 +509,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
-
-                                 <KrField component="selectTime" label='营业时间' inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
+                                
+                                <div style={{display:'inline-block'}} className='community-list-time'>
+                                 <KrField component="selectTime" label='营业时间'  style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
                                  <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
-								                 <KrField component="selectTime" inputStyle={{width:110}} style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd'/>
-
+								                 <KrField component="selectTime"  style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd'/>
+                                </div>
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
 
@@ -585,7 +586,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+										<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
 									</ButtonGroup>
 								</Col>

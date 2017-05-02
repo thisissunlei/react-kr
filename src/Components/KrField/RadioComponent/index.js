@@ -15,7 +15,7 @@ export default class RadioComponent  extends React.Component{
 
 	render(){
 
-		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,checked} = this.props;
+		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style} = this.props;
 		const Styles = Object.assign(style,{
 			paddingRight:10,
 		});
@@ -27,7 +27,6 @@ export default class RadioComponent  extends React.Component{
 				disabled,
 				onClick:this.onClick,
 		}
-
 
 		return (
 			<span style={Styles}>

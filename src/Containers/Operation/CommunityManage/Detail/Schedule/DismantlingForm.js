@@ -13,7 +13,7 @@ import {
 import {
 	findDOMNode
 } from 'react-dom'
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
 import {
 	KrField,
@@ -52,7 +52,7 @@ class DismantlingForm extends React.Component {
 	}
 	getBasicData=()=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getLeaveDate',{billId:_this.billId})).then(function(response) {
+		Http.request('getLeaveDate',{billId:_this.billId}).then(function(response) {
 
 	      
 
@@ -74,7 +74,7 @@ class DismantlingForm extends React.Component {
 			mainBillId: this.props.detail.billId
 		}
 
-		Store.dispatch(Actions.callAPI('updateLeaveDate', {}, formValues)).then(function(response) {
+		Http.request('updateLeaveDate', {}, formValues).then(function(response) {
 			Notify.show([{
 				message: '修改成功',
 				type: 'success',

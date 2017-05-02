@@ -4,15 +4,7 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	Notify,
-	ButtonGroup
-} from 'kr-ui';
+
 
 /**
  * 左右框内内容调换组件

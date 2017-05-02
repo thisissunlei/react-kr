@@ -39,7 +39,7 @@ ReactDOM.render((
 			<MobxReact.Provider {...MobxStore}>
 			<Router
 				routes={routes}
-				history={useRouterHistory(createHashHistory)({queryKey: false})}
+				history={hashHistory}
 				onUpdate={() => {
 					window.scrollTo(0, 0)
 					store.dispatch(Actions.setCurrentNav(window.location.hash));

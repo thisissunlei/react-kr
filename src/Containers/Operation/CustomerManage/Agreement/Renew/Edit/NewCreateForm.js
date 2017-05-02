@@ -1,5 +1,4 @@
 import React, {
-	 
 	PropTypes
 } from 'react';
 import {
@@ -14,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import nzh from 'nzh';
 import {
 	reduxForm,
@@ -152,6 +151,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 
 	// station list
@@ -162,16 +162,25 @@ class NewCreateForm extends React.Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
+		let {initialValues} = this.props;
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos
 		});
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+
+
+		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
 
 		this.openStationDialog();
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+		let {initialValues} = this.props;
+		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('reduceCreateForm', 'totalrent', response));
+			
 			_this.setState({
 				allRent:response
 			})
@@ -181,37 +190,6 @@ class NewCreateForm extends React.Component {
 				type: 'danger',
 			}]);
 		});
-	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
 	}
 
 
@@ -223,7 +201,7 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
@@ -234,6 +212,9 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditdelStationVos', JSON.stringify(delStationVos));
+
 
 
 		this.setState({
@@ -262,17 +243,20 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
+
 	}
 
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
-			let originStationVos = [].concat(stationVos);
+			let initialValues = nextProps.initialValues;
 			this.setState({
 				stationVos,
-				originStationVos
+				delStationVos:nextProps.delStationVos
 			});
+		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+			
 			this.isInit = true;
 		};
 	}
@@ -288,11 +272,11 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos,
 			delStationVos,
-			originStationVos
 		} = this.state;
+		let originStationVos = form.oldStationVos;
+		let delStationVo =[];
 
-
-		delStationVos = originStationVos.filter(function(origin){
+		delStationVo = originStationVos.filter(function(origin){
 				var isOk = true;
 				stationVos.map(function(station){
 						if(station.id == origin.id){
@@ -301,6 +285,7 @@ class NewCreateForm extends React.Component {
 				});
 				return isOk;
 		});
+		delStationVos = delStationVos.concat(delStationVo);
 		// form.contractmark = '';
 		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';
@@ -486,7 +471,9 @@ class NewCreateForm extends React.Component {
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 					<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					Store.dispatch(change('reduceCreateForm','contractFileList',files));
+				}} />
 				<Grid style={{padding:'10px 0 50px'}}>
 						<Row >
 						<ListGroup>
@@ -515,6 +502,22 @@ const selector = formValueSelector('reduceCreateForm');
 const validate = values => {
 
 	const errors = {}
+
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.id+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -571,6 +574,8 @@ const validate = values => {
 	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
+
+
 
 
 

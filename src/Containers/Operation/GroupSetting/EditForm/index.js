@@ -9,11 +9,10 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-
+import {Http} from "kr/Utils";
 import './index.less';
 
 class Switchover extends React.Component{
@@ -285,7 +284,7 @@ class ZhuanHuan extends React.Component{
         right:"30px",
         visibility:downShow,
         transform:'translateX(20px)'
-        
+
       }
 
       return(
@@ -334,7 +333,7 @@ class ZhuanHuan extends React.Component{
     if(values){
 		 var _this=this;
 		 values=this.Trim(values);
-		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:this.props.detail.id})).then(function(data) {
+		 Http.request('groupNameCheck',{groupName:values,id:this.props.detail.id}).then(function(data) {
 
 		 }).catch(function(err) {
 			 Message.error(err.message)
@@ -348,7 +347,7 @@ class ZhuanHuan extends React.Component{
 		 if(+values>0&&values.length<=4){
 		 var _this=this;
 		 values=this.Trim(values);
-		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
+		 Http.request('sortCheck',{sort:values,id:this.props.detail.id}).then(function(data) {
 
 		 }).catch(function(err) {
 			 Message.error(err.message)
@@ -384,7 +383,7 @@ class ZhuanHuan extends React.Component{
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+								<div style={{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit" joinEditForm /></div>
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>

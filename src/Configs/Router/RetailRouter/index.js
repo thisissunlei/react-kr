@@ -13,12 +13,23 @@ import {
 	Store
 } from 'kr/Redux';
 
-import {Retail,Basic} from 'kr/Containers';
+
+const Basic = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Basic').default)
+  }, 'Basic')
+}
+
+const Retail_Home = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Retail/Home').default)
+  }, 'Retail_Home')
+}
 
 module.exports =()=>{
 	return (
-        <Route path="retail" component={Basic}>
-            <Route path="index" component={Retail.Home}/>
+        <Route path="retail" getComponent={Basic}>
+            <Route path="index" getComponent={Retail_Home}/>
         </Route>
 	);
 };

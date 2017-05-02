@@ -1,5 +1,5 @@
 import React, {
-	 
+
 	PropTypes
 } from 'react';
 import {
@@ -18,7 +18,7 @@ import {
 	arrayInsert,
 	FieldArray
 } from 'redux-form';
-
+import {Http} from "kr/Utils";
 import {
 	Actions,
 	Store
@@ -111,12 +111,12 @@ class SelectStationForm extends React.Component {
 		let {
 			params
 		} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList', {
+		Http.request('getStationOrSettingList', {
 			mainBillid: params.orderId,
 			page: 1,
 			pagesize: 100,
 			contractId: ''
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				stationVos: response.items
 			});

@@ -26,16 +26,14 @@ const config = {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src')
-			/*
+			'kr': path.join(process.cwd(), '/src'),
 			'redux':path.join(node_modules_dir,'redux'),
 			'react-redux':path.join(node_modules_dir,'react-redux'),
 			'mobx':path.join(node_modules_dir,'mobx'),
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash'),
-			*/
+			'lodash':path.join(node_modules_dir,'lodash')
 		},
 	},
 	devServer: {
@@ -53,6 +51,7 @@ const config = {
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].js',
+		chunkFilename: 'scripts/[name].[chunkhash:5].js',
 		publicPath:"/"
 	},
 	noParse:['/node_modules/'],

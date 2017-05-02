@@ -6,9 +6,8 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -18,15 +17,11 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	Grid,
 	KrDate,
 	Row,
 	Col,
 	Dialog,
     Title,
-    ListGroup,
-    ListGroupItem,
-    SearchForms,
 	Drawer,
 	Tooltip,
 	Message,
@@ -51,6 +46,8 @@ import IncreaseDetail from './Increase/Detail';
 import JoinDetail from './Join/Detail';
 import NewIndent from "./NewIndent";
 import DelAgreementNotify from './DelAgreementNotify';
+import './circle.less';
+import './active.less';
 import './index.less';
 import {
 
@@ -105,7 +102,7 @@ class Merchants extends Component{
 	//新建订单的数据准备
 	allOrderReady=()=>{
 		var _this=this;
-	    Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+	    Http.request('community-city-selected').then(function(response) {
          State.orderReady=response;
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -119,7 +116,20 @@ class Merchants extends Component{
 	closeTwoAgreement = () => {
 		State.openTowAgreement=false;
 	}
-
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = State.mainBillId+''+State.listId+ State.argumentType + 'edit';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
 	//打开第一新建页面
 	openOneAgreement = () => {
 		State.openOneAgreement=true;
@@ -134,6 +144,7 @@ class Merchants extends Component{
 	}
 	//关闭编辑页
 	closeEditAgreement = () =>{
+		// this.removeLocalStorage();
 		State.openEditAgreement=false;
 	}
 	//新建订单打开
@@ -294,9 +305,9 @@ class Merchants extends Component{
 		let {
 			delAgreementId
 		} = this.state;
-		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+		Http.request('delete-enter-contract', {
 			contractId: delAgreementId
-		})).then(function(response) {
+		}).then(function(response) {
 			 Message.success('删除成功');
 			window.setTimeout(function() {
 				window.location.reload();
@@ -345,10 +356,40 @@ class Merchants extends Component{
 
     }
 
+    getLocalStorageDate=()=>{
+		let date = [];
+		let delList = [];
+		let now = +new Date();
+		// let clearDate = 60*60*1000*1;//1小时
+		let clearDate = 60*60*1000*1*24*30;//30天
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf('setLocalStorageDate')!='-1'){
+			 	let time = now - parseInt(localStorage.getItem(itemName));
+				if((time/clearDate)>1){
+					//10小时
+					date.push(itemName.replace('setLocalStorageDate',''));
+				}
+			 }
+		 }
+		 date.map((item)=>{
+		 	for (var i = 0; i < localStorage.length; i++) {
+				if(localStorage.key(i).indexOf(item)!='-1'){
+					delList.push(localStorage.key(i));
+				}
+			}
+		 })
+		 delList.map((item)=>{
+		 	localStorage.removeItem(item);
+		 })
+		 
+	}
+
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
       	let _this=this;
 		let bodyElem=document.getElementById("m-agreement-list");
+		this.getLocalStorageDate();
 		bodyElem.addEventListener("click", function(){
 		   event = event || window.event;
 			var target = event.target;
@@ -596,9 +637,10 @@ class Merchants extends Component{
 
 
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
-        let rowStyle={};
-        let rowLineStyle={};
-        let rowFootStyle={};
+      let rowStyle={};
+      let rowLineStyle={};
+      let rowFootStyle={};
+
 	    if(contractList.length==0){
 	    	rowStyle={
 	    		marginTop:8

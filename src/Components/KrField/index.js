@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field} from 'redux-form';
-import MobxForm from 'kr/Utils/ReduxForm';
+import MobxForm from 'kr/Utils/MobxForm';
 
 import Notify from '../Notify';
 

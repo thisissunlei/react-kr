@@ -10,7 +10,7 @@ import {
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	Notify,
 	KrField,
@@ -193,7 +193,7 @@ export default class FloorPlan extends React.Component {
 		let {
 			communityIdList
 		} = this.state;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+		Http.request('getCommunity').then(function(response) {
 			communityIdList = response.communityInfoList.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.name;
@@ -237,7 +237,7 @@ export default class FloorPlan extends React.Component {
 		};
 		var communityInfoFloorList;
 		var that = this;
-		Store.dispatch(Actions.callAPI('getCommunityFloors', communityId)).then(function(response) {
+		Http.request('getCommunityFloors', communityId).then(function(response) {
 			communityInfoFloorList = response.floors.map(function(item, index) {
 				var obj = {};
 				obj.value = item;

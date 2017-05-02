@@ -1,7 +1,4 @@
-import React, {
-	 
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	reduxForm,
 	submitForm,
@@ -13,13 +10,12 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
+import {Http} from "kr/Utils"
+
 
 import {
 	Dialog,
-	Section,
-	Grid,
 	Notify,
-	BreadCrumbs,
 	Title,
 } from 'kr-ui';
 
@@ -55,7 +51,13 @@ export default class JoinCreate extends React.Component {
 			initialValues: {},
 			optionValues: {},
 			formValues: {},
-			openConfirmCreate: false
+			stationVos:[],
+			openConfirmCreate: false,
+			setlocalStorage:this.props.active,
+			openLocalStorage:false,
+			initialValue:{},
+			optionValue:{},
+			openLocalStorages:this.props.openLocalStorages
 		}
 		Store.dispatch(reset('joinCreateForm'));
 
@@ -88,7 +90,8 @@ export default class JoinCreate extends React.Component {
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
+		    _this.removeLocalStorages();
 
 			_this.setState({baiscInf:response});
 
@@ -118,10 +121,42 @@ export default class JoinCreate extends React.Component {
 	}
 
 	onCancel() {
+		this.removeLocalStorage();
 		//window.history.back();
 		allState.openTowAgreement=false;
 		allState.openOneAgreement=false;
 	}
+
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId + 'ENTERcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+	removeLocalStorages=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 allState.hasLocal= false;
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
 
 	openConfirmCreateDialog() {
 		this.setState({
@@ -130,23 +165,34 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		
 
 		var _this = this;
 		const {
-			params
+			params,
+			active
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 0,
-		})).then(function(response) {
+		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
-			initialValues.agreement = '无';
+			initialValues.customerId = params.customerId;
+			// initialValues.agreement = '无';
+			initialValues.setLocalStorageDate = +new Date();
+
+			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
+			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+			
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+				initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			}
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -154,7 +200,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.contractcode = response.contractCode;
 
 			initialValues.leaseAddress = response.customer.customerAddress;
-
+			initialValues.agreement = '无';
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -187,6 +233,9 @@ export default class JoinCreate extends React.Component {
 			_this.setState({
 				initialValues,
 				optionValues,
+				// stationVos
+			},function(){
+				_this.getLocalStorageSata();
 			});
 
 		}).catch(function(err) {
@@ -198,23 +247,118 @@ export default class JoinCreate extends React.Component {
 	}
 
 
+	componentWillReceiveProps(nextProps) {
+
+		if (nextProps.active && this.props.active!= nextProps.active) {
+			this.setState({
+				setlocalStorage:nextProps.active
+			});
+
+		}
+		if (this.props.openLocalStorages!= nextProps.openLocalStorages) {
+			this.setState({
+				openLocalStorages:nextProps.openLocalStorages
+			});
+
+		}
+	}
+
+
+	getLocalStorageSata=()=>{
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let {initialValues} = this.state;
+		let {optionValues} = this.state;
+		let initialValue ={};
+		let optionValue = {};
+			//获取localStorage数据
+			let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
+			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
+			let customerId = localStorage.getItem(keyWord +'customerId');
+			if(mainbillId && customerId){
+				initialValue.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValue.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
+				initialValue.templockday = localStorage.getItem(keyWord+'templockday');
+				initialValue.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
+				initialValue.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValue.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
+				initialValue.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				optionValue.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
+				initialValue.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
+
+				initialValue.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
+				initialValue.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
+				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement');
+				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
+				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
+				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
+				initialValue.paytype = parseInt(localStorage.getItem(keyWord+'paytype')) ;
+				initialValue.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
+				initialValue.totaldeposit = localStorage.getItem(keyWord+'totaldeposit') || 0;
+				initialValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
+				initialValue.firstpaydate = localStorage.getItem(keyWord + 'firstpaydate');
+				optionValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValue.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+
+				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
+
+			}
+			optionValue = Object.assign({},optionValues,optionValue);
+			initialValue = Object.assign({},initialValues,initialValue);
+
+
+			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
+			let stationVos = JSON.parse(initialValues.stationVoList) || [];
+			_this.setState({
+				initialValue,
+				optionValue,
+				stationVos
+			});
+
+	}
+
+
 	render() {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			initialValue,
+			optionValue,
+			stationVos,
+			setlocalStorage,
+			openLocalStorage,
+			openLocalStorages
 		} = this.state;
 
-
+		initialValues.setlocalStorage = setlocalStorage;
+		initialValue.setlocalStorage = setlocalStorage;
 		return (
 
 			<div>
 
 				<Title value="创建入驻协议书_财务管理"/>
 
-			<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
-			</div>
+			
+			{!allState.hasLocal && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+            </div>}
+            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+            </div>}
 
 			<Dialog
 				title="入驻协议书"
@@ -225,6 +369,7 @@ export default class JoinCreate extends React.Component {
 				onClose={this.openConfirmCreateDialog} >
 						<ConfirmFormDetail detail={Object.assign({},this.state.formValues)} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
+			
 		</div>
 		);
 	}

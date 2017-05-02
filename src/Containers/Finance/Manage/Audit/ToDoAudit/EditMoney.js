@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 import {
 	reduxForm,
 	formValueSelector,
@@ -80,9 +79,9 @@ class EditMoney extends React.Component {
 	getTableInfo = () => {
 			var _this = this;
 				var finaVerifyId = this.props.detail.id
-			Store.dispatch(Actions.callAPI('get-fina-flow-logs', {
+			Http.request('get-fina-flow-logs', {
 				finaVerifyId: finaVerifyId
-			}, {})).then(function(response) {
+			}, {}).then(function(response) {
 				_this.setState({
 					topInfoList: response
 				})
@@ -93,9 +92,9 @@ class EditMoney extends React.Component {
 	getInfo = () => {
 			var _this = this;
 			var finaVerifyId = this.props.detail.id
-			Store.dispatch(Actions.callAPI('get-fina-infos', {
+			Http.request('get-fina-infos', {
 				finaVerifyId
-			})).then(function(response) {
+			}).then(function(response) {
 				response.dealTime = DateFormat(response.dealTime, "yyyy-mm-dd hh:MM:ss");
 				_this.setState({
 					infoList: response,
@@ -116,9 +115,9 @@ class EditMoney extends React.Component {
 	getDetailInfo = () => {
 		var finaVerifyId = this.props.detail.id
 		var _this = this;
-		Store.dispatch(Actions.callAPI('get-flow-edit-info', {
+		Http.request('get-flow-edit-info', {
 			finaVerifyId
-		})).then(function(response) {
+		}).then(function(response) {
 			var obj = {
 				label: "无合同",
 				contactType: '0',
@@ -171,10 +170,10 @@ class EditMoney extends React.Component {
 		var accountList;
 		var _this = this;
 		Store.dispatch(change('editMoneys', 'accountId', ''));
-		Store.dispatch(Actions.callAPI('get-account-info', {
+		Http.request('get-account-info', {
 			corporationId: this.state.corporationId,
 			accountType: form.value
-		})).then(function(response) {
+		}).then(function(response) {
 			accountList = response.map((item, index) => {
 				item.label = item.accountNum;
 				item.value = item.accountId;
@@ -315,19 +314,20 @@ class EditMoney extends React.Component {
 		this.setState({
 			Loading: true
 		})
-		if (!form.contract) {
-			Message.error('请选择对应合同');
-			this.setState({
-				Loading: false
-			})
-			return;
-		}
 		if (this.state.flowAmount == 0) {
 			Message.error('回款金额不能为0');
 			this.setState({
 				Loading: false
 			})
 			return
+		}
+		
+		if (!form.contract) {
+			Message.error('请选择对应合同');
+			this.setState({
+				Loading: false
+			})
+			return;
 		}
 		var _this = this;
 		var parentIdList = form.contract.split(',');

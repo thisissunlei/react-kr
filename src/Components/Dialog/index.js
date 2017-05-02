@@ -52,21 +52,23 @@ export default class DialogComponent extends React.Component {
 	}
 
 	componentDidMount(){
-			// var elem=document.getElementById("dialog-content");
-			// this.setState({
-			// 	contentStyle:{"marginTop":-elem.innerHeight/2}
-			// })
 			this.initializeStyles();
 			window.addEventListener('resize',function(){
 				this.initializeStyles();
-				
 			}.bind(this));
-
-
 	}
 
 
-	componentWillReceiveProps() {
+
+	
+
+	componentDidUpdate(){
+			var dialogContentEle = this.refs.dialogContent;
+			var height = dialogContentEle.getBoundingClientRect().height;
+			if(!dialogContentEle){
+				return 
+			}
+			dialogContentEle.style.transform = `translateY(-${Math.floor(height/2)}px)`;
 	}
 
 
@@ -93,6 +95,7 @@ export default class DialogComponent extends React.Component {
 			}catch(err){
 				ele = null;
 			}
+
 			if(!ele){
 				return;
 			}
@@ -114,11 +117,11 @@ export default class DialogComponent extends React.Component {
 			ele.style.left = -position.left+'px';
 			ele.style.bottom = -position.bottom+'px';
 			ele.style.right = -0+'px';
+
 	}
 
 
 	onClose = ()=>{
-			//document.body.style.overflow = 'auto';
 			const {onClose} = this.props;
 			onClose && onClose();
 	}
@@ -142,15 +145,12 @@ export default class DialogComponent extends React.Component {
 		} = this.props;
 
 		let styles = {};
-		// let content=Object.assign(contentStyle,this.state.contentStyle);
         let closeStyle={};
 		if(open){
 				styles.display = 'block';
-			//document.body.style.overflow = 'hidden';
 		}else{
 				styles.display = 'none';
 		}
-
 		if(typeof onClose!='function'){
 		  closeStyle.display='none';
 		}
@@ -158,7 +158,7 @@ export default class DialogComponent extends React.Component {
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
 				<div className="dialog-modal"></div>
-				<div id="dialog-content" className="dialog-content" style={contentStyle}>
+				<div id="dialog-content" ref="dialogContent" className="dialog-content" style={contentStyle}>
 						<div className="dialog-header" style={dialogHeaderStyle}>
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose} style={closeStyle}></span>

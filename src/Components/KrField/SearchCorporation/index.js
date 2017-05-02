@@ -1,6 +1,8 @@
 import React from 'react';
 
-
+import {
+	Http
+} from "kr/Utils";
 import ReactSelectAsync from '../../Select/Async';
 
 import {
@@ -52,9 +54,9 @@ export default class SearchCorporation extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-fina-corporation', {
+			Http.request('get-fina-corporation', {
 				corporationName: lastname
-			})).then(function(response) {
+			}).then(function(response) {
 				response.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.corporationName;

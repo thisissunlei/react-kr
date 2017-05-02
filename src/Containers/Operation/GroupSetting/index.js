@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
-	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -24,14 +23,13 @@ import {
 	Tooltip,
 	Message,
 	Title,
-	KrDate
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
 import NewEditDetail from './EditForm';
 import SearchUpperForm from './SearchUpperFrom'
 import './index.less';
-
+import {Http} from "kr/Utils"
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
@@ -88,7 +86,7 @@ export default class GroupSetting  extends Component{
 			params.templateIdList=this.state.templateListIds;
 		}
 
-		Store.dispatch(Actions.callAPI('GroupNewAndEidt', {}, params)).then(function(response) {
+		Http.request('GroupNewAndEidt', {}, params).then(function(response) {
 			let obj = {
 				page: 1,
 				pageSize: 15,
@@ -142,7 +140,7 @@ export default class GroupSetting  extends Component{
 	//编辑
 	openEditDetailDialog=()=> {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
+		Http.request('MouldGroupDetails',{id:this.state.id}).then(function(data) {
 
 			_this.changeMudle(data.templateList)
 
@@ -213,7 +211,7 @@ export default class GroupSetting  extends Component{
 			enable:'ENABLE'
 		}));
 		var _this = this;
-		Store.dispatch(Actions.callAPI('GroupNewModule')).then(function(data) {
+		Http.request('GroupNewModule').then(function(data) {
 			_this.setState({
 					templateList:data.templateList,
 			},function(){

@@ -16,6 +16,7 @@ import {
 	Notify,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import NewCreateForm from './NewCreateForm';
 import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
@@ -114,7 +115,7 @@ export default class List extends React.Component {
     //提交编辑
 	onEditSubmit=(values)=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Http.request('membersChange',{},values).then(function(response){
 			_this.openEditDetailDialog();
 			Message.success("操作成功");
 			_this.setState({
@@ -144,7 +145,7 @@ export default class List extends React.Component {
 			foreignCode:values.cardId
 		}
 		let _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Http.request('membersChange',{},values).then(function(response){
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
 							_this.setState({
@@ -189,7 +190,7 @@ export default class List extends React.Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-			
+
 		});
 	}
 	// 高级查询
@@ -232,13 +233,13 @@ export default class List extends React.Component {
 			value: 'NAME'
 		}];
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
-										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+										<Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 									</form>
 									<Table

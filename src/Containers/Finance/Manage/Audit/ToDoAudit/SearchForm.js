@@ -3,10 +3,8 @@ import {
 	reduxForm,
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
+	Http
+} from "kr/Utils";
 import {
 	KrField,
 	Grid,
@@ -36,7 +34,7 @@ class SearchForm extends React.Component {
 	}
 	componentDidMount() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getSelfMenuInfo')).then(function(response) {
+		Http.request('getSelfMenuInfo').then(function(response) {
 			var someBtn = response.navcodes.finance;
 			for(var i = 0;i<someBtn.length;i++){
 				if(someBtn[i]=="verify_add_money"){

@@ -12,7 +12,7 @@ import './index.less';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
+import {Http} from "kr/Utils"
 import {
 	Table,
 	TableBody,

@@ -30,7 +30,6 @@ import {
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
 	KrField,
 	Grid,
 	Row,
@@ -81,6 +80,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitEditForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('exitEditForm', 'lessorContactName', personel.lastname || '请选择'));
 	}
 
 	onSubmit(form) {
@@ -231,7 +231,9 @@ class NewCreateForm extends React.Component {
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} onChange={(files)=>{
+					Store.dispatch(change('exitEditForm','contractFileList',files));
+				}} />
 
 						<Grid style={{paddingBottom:50}}>
 						<Row >
@@ -250,6 +252,23 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
+
+
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
+
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -300,6 +319,8 @@ const validate = values => {
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
+
+	
 
 
 	return errors

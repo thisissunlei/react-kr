@@ -4,6 +4,9 @@ import {
   Store
 } from 'kr/Redux';
 import {
+	Http
+} from "kr/Utils";
+import {
   reduxForm,
   change
 } from 'redux-form';
@@ -74,7 +77,7 @@ export default class ToDoAudit extends React.Component {
   componentDidMount() {
     var _this = this;
 
-    Store.dispatch(Actions.callAPI('getSelfMenuInfo', {}, {})).then(function(response) {
+    Http.request('getSelfMenuInfo', {}, {}).then(function(response) {
       var someBtn = response.navcodes.finance;
       for (var i = 0; i < someBtn.length; i++) {
         if (someBtn[i] == "verify_wait_del") {
@@ -172,9 +175,9 @@ export default class ToDoAudit extends React.Component {
   }
   sureToDel = (itemDetail) => {
       var _this = this;
-      Store.dispatch(Actions.callAPI('del-fina-unchecked-record', {}, {
+      Http.request('del-fina-unchecked-record', {}, {
         finaVerifyId: this.state.itemDetail.id
-      })).then(function(response) {
+      }).then(function(response) {
         Message.success("删除成功");
         _this.setState({
           delAudit: false,
@@ -193,7 +196,7 @@ export default class ToDoAudit extends React.Component {
     //新建客户订单
   onSubmitMainbill = (form) => {
       var _this = this;
-      Store.dispatch(Actions.callAPI('save-customer', form, {})).then(function(response) {
+      Http.request('save-customer', form, {}).then(function(response) {
         Message.success('新建成功');
         _this.openCreateMainbill();
 
@@ -219,7 +222,7 @@ export default class ToDoAudit extends React.Component {
     form.company = '';
     form.customerId = customerId;
 
-    Store.dispatch(Actions.callAPI('save-main-bill', {}, form)).then(function(response) {
+    Http.request('save-main-bill', {}, form).then(function(response) {
       Message.success('新建成功');
       _this.openCreateMainbill();
       _this.setState({
@@ -335,7 +338,7 @@ export default class ToDoAudit extends React.Component {
       if (!form.mainBillId) {
         return;
       }
-      Store.dispatch(Actions.callAPI('save-flow-verify', {}, form)).then(function(response) {
+      Http.request('save-flow-verify', {}, form).then(function(response) {
           Message.success('新建成功');
           window.setTimeout(function(){
             window.location.reload();
@@ -352,7 +355,7 @@ export default class ToDoAudit extends React.Component {
       if (!form.mainBillId) {
         return;
       }
-      Store.dispatch(Actions.callAPI('edit-flow-unchecked-verify', {}, form)).then(function(response) {
+      Http.request('edit-flow-unchecked-verify', {}, form).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
           window.location.reload();
@@ -382,9 +385,9 @@ export default class ToDoAudit extends React.Component {
     }
     //批量审核
   AuditSome = () => {
-    Store.dispatch(Actions.callAPI('batch-edit-verify-status', {}, {
+    Http.request('batch-edit-verify-status', {}, {
       finaVerifyIds: this.AuditList,
-    })).then(function(response) {
+    }).then(function(response) {
       Message.success("审核成功");
       window.setTimeout(function() {
         window.location.reload();

@@ -2,7 +2,8 @@ import React, {  PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -52,7 +53,7 @@ import {
 		if(!values.teamNum){
 			values.teamNum='';
 		}
-		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+		Http.request('customerDataEdit',{},values).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
@@ -203,7 +204,7 @@ import {
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
+										<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>

@@ -8,7 +8,7 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
+import {Http} from 'kr/Utils'
 import {
 	BreadCrumbs,
 	Loading,
@@ -73,7 +73,7 @@ export default class ReduceDetail extends Component {
 		}
 
 	}
-     
+
     addClick=()=>{
       let {oldBasicStationVos,newBasicStationVos,openMinus,openAdd}=this.state;
 	   this.setState({
@@ -92,13 +92,13 @@ export default class ReduceDetail extends Component {
 	    })
 	}
 
-	componentDidMount() {     
+	componentDidMount() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('showFnaContractRentController', {
+		Http.request('showFnaContractRentController', {
 			id: this.props.params.id,
 			communityId: this.props.params.orderId,
 			customerId: this.props.params.customerId
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.setState({
 				basic: response,
 				loading: false,
@@ -109,14 +109,14 @@ export default class ReduceDetail extends Component {
 			            _this.setState({
 			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
-			            })    	
+			            })
 			        }
 			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
 			        		newBasicStationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	  	   
+			        }
 			});
 		});
 	}
@@ -133,14 +133,14 @@ export default class ReduceDetail extends Component {
             this.setState({
             	newBasicStationVos:oldBasicStationVos.slice(0,5),
             	openAdd:true
-            })    	
+            })
         }
         if(oldBasicStationVos&&oldBasicStationVos.length<=5){
         	this.setState({
         		newBasicStationVos:oldBasicStationVos,
         		openAdd:false
         	})
-        }     			     
+        }
     }
 
      addRender=()=>{
@@ -215,7 +215,7 @@ export default class ReduceDetail extends Component {
 				<div className="content agreement-detail" style={content}>
 				  	<div className="customer-close" onMouseUp={this.onCancel}></div>
 				    <span className="content-title">减租协议书详情页</span>
-          
+
 			      <DotTitle title="租赁明细" >
 
 											<Table displayCheckbox={false}>
@@ -266,7 +266,7 @@ export default class ReduceDetail extends Component {
 
 								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.leaseContact} defaultValue="无" requireBlue={true} toolTrue='true'/>
 								<KrField component="labelText" grid={1/2} label="电话：" value={basic.leaseContacttel} defaultValue="无" requireBlue={true} toolTrue='true'/>
-							</div>	
+							</div>
 								<SplitLine style={{display:'none'}}/>
 							<div className='detail-first'>
 								<KrField component="labelText" grid={1/2} label="所属社区：" value={basic.communityName} defaultValue="无" requireBlue={true} toolTrue='true'/>
@@ -278,7 +278,7 @@ export default class ReduceDetail extends Component {
 								<KrField component="labelText"	 grid={1/1} label="签署日期：" value={basic.signdate} type="date" defaultValue="无" requireBlue={true}/>
 								<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
 								<KrField   name="agreement"  component="labelText" label="双方其他约定内容" value={basic.agreement} defaultValue="无" requireBlue={true} inline={false}/>
-								
+
 
 
 					<KrField component="group" label="上传附件：" requireBlue={true}>

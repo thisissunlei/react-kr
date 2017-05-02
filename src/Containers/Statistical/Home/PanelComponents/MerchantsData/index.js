@@ -1,7 +1,7 @@
 import React  from 'react';
 import {change} from 'redux-form';
 import {DateFormat} from "kr/Utils";
-
+import {Store} from 'kr/Redux';
 import {
 	Table,
 	TableBody,
@@ -15,7 +15,8 @@ import {
 	Row,
 	Col,
 	Loading,
-	Tooltip
+	Tooltip,
+	Message
 } from 'kr-ui';
 import './index.less'
 import {Http} from "kr/Utils";
@@ -116,15 +117,14 @@ class MerchantsData  extends React.Component{
     	searchParams.startDate = startValue+" 00:00:00"
     	searchParams.endDate = endValue+" 00:00:00"
     	this.setState({
-
     		tabLoading:true,
     	})
 		Http.request('already-open',searchParams).then(function(response) {
-		_this.setState({
-			data:response,
-			loading:false,
-			tabLoading:false
-		})
+			_this.setState({
+				data:response,
+				loading:false,
+				tabLoading:false
+			})
 		}).catch(function(err) {
 
 		});
@@ -348,6 +348,7 @@ class MerchantsData  extends React.Component{
 
 
 	render(){
+
 		let {data,loading,moveStyle,tabLoading} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
