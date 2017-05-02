@@ -46,6 +46,12 @@ const Demo_LiuYiHao_Detail = (location, callback) => {
   }, 'Demo_LiuYiHao_Detail')
 }
 
+const Demo_LiuYiHao_FloorMap = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Demo/LiuYiHao/FloorMap').default)
+  }, 'Demo_LiuYiHao_FloorMap')
+}
+
 const Demo_ZhangChi = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Demo/ZhangChi').default)
@@ -73,6 +79,7 @@ module.exports =()=>{
 				<Route path="liuyihao" getComponent={Basic}>
 					<Route path="new" getComponent={Demo_LiuYiHao_New}/>
 					<Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
+					<Route path="floorMap" getComponent={Demo_LiuYiHao_FloorMap}/>
 				</Route>
 				<Route path="zhangchi" getComponent={Demo_ZhangChi}/>
 				<Route path="tanlinlin" getComponent={Demo_TanLinLin}/>

@@ -296,8 +296,8 @@ import State from '../State';
             <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
             <div className="small-cheek" style={openStyle}>
 
-                <KrField grid={1/2} label="工位个数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={inforStyle?inforStyle:'无'}/>
-                <KrField grid={1/2} label="单价(积分/天)"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={openTime?openTime:'无'}/>
+                <KrField grid={1/2} label="工位个数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={State.detailData.mobileStationNum?State.detailData.mobileStationNum:'无'}/>
+                <KrField grid={1/2} label="单价(积分/天)"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={State.detailData.mobileStationPrice?State.detailData.mobileStationPrice:'无'}/>
 
                 {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                 <div className="end-round two-round"></div></div>}
