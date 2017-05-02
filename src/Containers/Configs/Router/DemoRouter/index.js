@@ -19,6 +19,7 @@ module.exports =()=>{
 				<Route path="liuyihao" component={Basic}>
 						<Route path="new" component={Demo.LiuYiHao.New}/>
 						<Route path="detail" component={Demo.LiuYiHao.Detail}/>
+						<Route path="floorMap" component={Demo.LiuYiHao.FloorMap}/>
 				</Route>
 				<Route path="zhangchi" component={Demo.ZhangChi}/>
 				<Route path="tanlinlin" component={Demo.TanLinLin}/>
