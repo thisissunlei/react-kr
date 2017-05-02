@@ -38,10 +38,9 @@ class CreateNewList extends React.Component {
 		
 		return (
 			<div className="g-new-list">
-			   <form onSubmit={handleSubmit(this.onSubmit)}>
-					<div className="u-title-box">
+				<div className="u-title-box">
 						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">新建活动</span>
+						<span className="u-title-text">新建新闻</span>
 						<span className="u-close-page" onClick={this.onCancel}>
 							<img 
 								src={require('./images/closeIMG.svg')} 
@@ -49,6 +48,8 @@ class CreateNewList extends React.Component {
 							 />
 						</span>
 					</div>
+			   <form onSubmit={handleSubmit(this.onSubmit)}>
+					
 
 				</form> 
 			</div>
