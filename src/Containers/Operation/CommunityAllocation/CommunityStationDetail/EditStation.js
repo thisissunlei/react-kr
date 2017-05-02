@@ -124,7 +124,7 @@ class EditStation  extends React.Component{
 
     return(
 
-    <div className='m-newMerchants'>
+    <div className='m-newMerchants new-station'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
               <div><span className="new-icon"></span><label className="title-text">工位信息编辑</label></div>
