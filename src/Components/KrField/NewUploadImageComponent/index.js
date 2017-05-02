@@ -128,6 +128,7 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		if (file) {
+			console.log(';;;--');
 			var progress = 0;
 			var timer = window.setInterval(function() {
 				if (progress >= 100) {
@@ -203,7 +204,8 @@ export default class UploadImageComponent extends Component {
 							}
 						}
 					};
-					 xhrfile.open('POST', requestURI, true);
+					xhrfile.open('POST', requestURI, true);
+          
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
