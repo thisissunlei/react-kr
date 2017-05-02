@@ -8,6 +8,11 @@ import Pagination from '../../Pagination';
 import Notify from '../../Notify';
 import ListGroup from '../../ListGroup/ListGroup';
 import ListGroupItem from '../../ListGroup/ListGroupItem';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
+
+import DateFormat from 'kr/Utils/DateFormat';
+
 
 
 import './index.less';
@@ -21,7 +26,14 @@ const TableHeader = ({children})=>{
 }
 
 const TableHeaderColumn = ({...props})=>{
-  return <th {...props} />
+
+  var style = props.style || {};
+
+  if(props.width){
+    style.width = props.width;
+  }
+  props.style = Object.assign({},style);
+  return <th {...props} ></th>
 }
 
 const TableBody = ({children})=>{
@@ -29,6 +41,10 @@ const TableBody = ({children})=>{
 }
 
 const TableColumn = ({...props})=>{
+    var tooltip = props.tooltip || undefined;
+    if(tooltip){
+      return <td {...props}><Tooltip placement="top" overlay={tooltip}><span>{props.children}</span></Tooltip></td>
+    }
     return <td {...props}></td>
 }
 
@@ -146,6 +162,20 @@ export default class XTable extends React.Component {
 
 	}
 
+  onExport = ()=>{
+    const {onExport} = this.props;
+    const {checkedRows,listData} = this.state;
+
+    var exportData = [];
+
+    checkedRows.forEach(function(item){
+        if(item == 1){
+          exportData.push(listData[item]);
+        }
+    });
+    onExport && onExport(exportDatas);
+  }
+
   renderTable =  ()=>{
     return (
       <div className="ui-table-wrap">
@@ -157,7 +187,7 @@ export default class XTable extends React.Component {
       <div className="table-tools">
         <ListGroup>
           <ListGroupItem style={{float:'left'}}>
-            <Button label="导出"/>
+            <Button label="导出" onClick={this.onExport}/>
           </ListGroupItem>
           <ListGroupItem style={{float:'right'}}>
             {this.renderTableFooter()}
@@ -195,13 +225,13 @@ export default class XTable extends React.Component {
       checked:this.state.checkedAll
     }
 
-
     options.map(function(child,key){
       const {label,name,type} = child.props;
+      let headerColumnProps = Object.assign({},child.props,{key});
       if(type === 'checkbox'){
-          thRows.push(<TableHeaderColumn key={key}><TableCheckBox {...checkboxProps} /></TableHeaderColumn>);
+          thRows.push(<TableHeaderColumn {...headerColumnProps}><TableCheckBox {...checkboxProps} /></TableHeaderColumn>);
       }else{
-        thRows.push(<TableHeaderColumn key={key} name={name}>{label}</TableHeaderColumn>);
+        thRows.push(<TableHeaderColumn {...headerColumnProps}>{label}</TableHeaderColumn>);
       }
     });
 
@@ -216,7 +246,7 @@ export default class XTable extends React.Component {
 
   createTableColumn = (child,itemData,key,rowNumber)=>{
 
-    var {name,component,type,format,tooltips} = child.props;
+    var {name,component,type,format,tooltip,defaultValue} = child.props;
 
     var props = { itemData, key};
 
@@ -225,7 +255,7 @@ export default class XTable extends React.Component {
     };
 
     if(name && itemData.hasOwnProperty(name)){
-      props.children = itemData[name];
+      props.children = itemData[name] || defaultValue;
     }
 
     if(typeof type ==='string' && type === 'checkbox'){
@@ -234,16 +264,18 @@ export default class XTable extends React.Component {
 
 // todo:date format
     if(typeof type === 'string' && type === 'date'){
-
+        if(!props.children){
+          props.children = defaultValue || '无';
+        }else{
+          props.children = DateFormat(props.children,format);
+        }
     }
 
-//todo:tooltips
-    if(tooltips && typeof tooltips === 'string'){
-
-    }
-
-    if(tooltips && typeof tooltips === 'function'){
-
+//todo:tooltip
+    if(tooltip && typeof tooltip === 'string'){
+      props.tooltip = tooltip;
+    }else if(tooltip && typeof tooltip === 'function'){
+      props.tooltip = tooltios(itemData);
     }
 
     if(component && typeof component === 'function'){
