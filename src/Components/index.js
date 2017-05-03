@@ -52,6 +52,7 @@ import Editor from './Editor';
 import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
 import XTable from './XTable';
+import DivTitle from './DivTitle';
 
 
 import {
@@ -94,6 +95,7 @@ module.exports = {
 	Col,
 	Dialog,
 	DotTitle,
+	DivTitle,
 	LineText,
 	Checkbox,
 	PaperBack,
