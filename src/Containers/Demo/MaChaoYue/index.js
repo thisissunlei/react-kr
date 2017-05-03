@@ -115,7 +115,7 @@ export default class MaChaoYue extends React.Component {
 							requestChange: _this.onStationVosChange.bind(null,'email',index)
 						}
 			    		return (
-			    			<div className="info-box">
+			    			<div className="info-box" key={index}>
 					    		<AdvancedQuery defaultUrl={item.headerUrl} onChange={this.addUrl} index={index}/>
 					    		
 								<div className="info-list">

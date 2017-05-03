@@ -18,11 +18,13 @@ import {
 	ButtonGroup,
 	Message,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	DivTitle
  
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
+import HeaderUpload from './HeaderUpload';
 @observer
  class NewCommunityList extends React.Component{
 
@@ -45,9 +47,10 @@ import State from '../State';
  	}
 
 	onSubmit = (values) => {
+		console.log(values,State.Leader,State.stationVos)
   
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		// const {onSubmit} = this.props;
+		// onSubmit && onSubmit(values);
   	}
 
 	onCancel = () => {
@@ -57,6 +60,10 @@ import State from '../State';
 
 	closeNew=()=>{
 		State.switchNewAddress();
+	}
+
+	selectCommunity=(item)=>{
+		console.log(item)
 	}
    
 
@@ -87,50 +94,175 @@ import State from '../State';
 	}
 
 
+	onStationVosChange=(type,index,value)=>{
+		let item = State.stationVos[index]
+		console.log(State.stationVos,State.stationVos[index],item[type],index,type,value)
+
+		item[type]= value;
+		// State.stationVos[index][type] = value;
+	}
+	positionChange=(index, value,type)=>{
+		console.log(index, value,type)
+
+	}
+	onBlur=(item)=>{
+		console.log('onblur',State.stationVos)
+	}
+	onChange=()=>{
+		console.log('onChange');
+	}
+	onLeaderChange=(type,value)=>{
+		State.Leader[type]= value;
+		
+	}
+	addUrl=(result,index)=>{
+		State.stationVos[index].headerUrl = result;
+	}
+	addHeaderLeaderUrl=(result,index)=>{
+		State.Leader.headerUrl = result;
+	}
+	addArr=()=>{
+		let item = {
+			unitprice:'111',
+			name:'',
+			phone:'',
+			email:'',
+			headerUrl:''
+		};
+		State.stationVos.push(item);
+		console.log(State.stationVos.length)
+
+	}
+	reduceArr=(index)=>{
+		State.stationVos.splice(index,1);
+	}
+
+
 
 	render(){
+		let {handleSubmit} = this.props;
 		console.log("State.addGuideList",State.addGuideList.length);
+		let list = State.stationVos;
+		let _this = this;
+		let typeLinkLeaderNameList = {
+			value: State.Leader.name,
+			requestChange: _this.onLeaderChange.bind(null,'name')
+		}
+		let typeLinkLeaderPhoneList = {
+			value: State.Leader.phone,
+			requestChange: _this.onLeaderChange.bind(null,'phone')
+		}
+		let typeLinkLeaderEmailList = {
+			value: State.Leader.email,
+			requestChange: _this.onLeaderChange.bind(null,'email')
+		}
 		return (
 	      <div className="new-my-address">
 	        <div className="close-new-div">
 	          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.closeNew}/>
 	        </div>
-	      
-	        <div className="community-guide-list-box">
-	        	<div style={{marginBottom:19}}>
-	        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
-	        	</div>
-	        	{
-	        		State.addGuideList.length>0?<div className="community-duide-list">
-	        		{
-	        			State.addGuideList.map((item,index)=>{
-	        				return(
-	        					<div className="guide-list-item" key={index}>
-	        						<span>{item.communityGuideTitle}</span>
-	        						<div className="operation-btn">
-	        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
-	        							<span onClick={this.deleteGuide.bind(this,item)}>删除</span>
-	        						</div>
-	        						
-	        					</div>
-	        					);
-	        			})
-	        		}
-	        	</div>:<div className="community-duide-list-no">
-	          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
-	        	</div>
-	        	}
-	        	<Grid style={{marginTop:18,marginBottom:'4px'}}>
+	        <form onSubmit={handleSubmit(this.onSubmit)} >
+	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
+	      	<DivTitle index={1} title='社区公告' styleType={2}>
+				
+				<KrField name="contractmark" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
+				
+			</DivTitle>
+
+			<DivTitle index={2} title='社区信息' styleType={2}>
+				<div style={{marginBottom:5,paddingBottom:32}}> 
+				<KrField grid={1/2} name="name" right={15} component="searchCommunityManage" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
+				<KrField grid={1/2} type="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue="无"  requireLabel={true}/>
+                <KrField grid={1/2} name="wifiName" right={15} component="input" type="text" inline={false} label="Wifi账号" requireLabel={true}/>
+                <KrField grid={1/2} name="wifiPassWord" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
+				</div>
+			</DivTitle>
+			<DivTitle index={3} title='团队信息'>
+			<div style={{marginBottom:5,paddingBottom:32,textAlign:'center'}}>
+
+				<div className="info-box">
+					 <HeaderUpload defaultUrl={State.Leader.headerUrl} onChange={this.addHeaderLeaderUrl} index={0}/>
+					 	
+					<div className="info-list">
+						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
+					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder='请输入姓名'/>
+					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'/>
+					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱'/>
+					</div> 
+				</div>
+
+				{list && list.map((item,index)=>{	
+			    		let typeLinkNameList = {
+							value: State.stationVos[index].name,
+							requestChange: _this.onStationVosChange.bind(null,'name',index)
+						}
+						let typeLinkPhoneList = {
+							value: State.stationVos[index].phone,
+							requestChange: _this.onStationVosChange.bind(null,'phone',index)
+						}
+						let typeLinkEmailList = {
+							value: State.stationVos[index].email,
+							requestChange: _this.onStationVosChange.bind(null,'email',index)
+						}
+			    		return (
+			    			<div className="info-box" key={index}>
+					    		<HeaderUpload defaultUrl={item.headerUrl} onChange={this.addUrl} index={index}/>
+					    		
+								<div className="info-list">
+									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder='请输入姓名'/>
+					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码'/>
+					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱'/>
+								</div> 
+								<div className="caozuo">
+									<span className="add-info-box" onClick={this.addArr}>+</span>
+									{State.stationVos.length>1 && <span className="less-info-box"  onClick={this.reduceArr.bind(this,index)}>-</span>}
+								</div>
+					    	</div>
+
+			    		)
+			    	})}
+			 </div>
+			</DivTitle>
+
+			<DivTitle index={4} title='社区指南' styleType={3}>
+		        <div className="community-guide-list-box">
+		        	<div style={{marginBottom:19}}>
+		        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
+		        	</div>
+		        	{
+		        		State.addGuideList.length>0?<div className="community-duide-list">
+		        		{
+		        			State.addGuideList.map((item,index)=>{
+		        				return(
+		        					<div className="guide-list-item" key={index}>
+		        						<span>{item.communityGuideTitle}</span>
+		        						<div className="operation-btn">
+		        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
+		        							<span onClick={this.deleteGuide.bind(this,item)}>删除</span>
+		        						</div>
+		        						
+		        					</div>
+		        					);
+		        			})
+		        		}
+		        	</div>:<div className="community-duide-list-no">
+		          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
+		        	</div>
+		        	}
+		         </div>
+	        </DivTitle>
+	        	<Grid style={{marginTop:25,marginBottom:'4px',marginLeft:40}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'310px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+							<ListGroupItem style={{width:'300px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
 							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
 						</ListGroup>					
 					</Row>
 				</Grid>
 
 	        	
-	        </div>
+	        </form >
         
       	</div>
 		);
@@ -147,4 +279,9 @@ const validate = values =>{
 
 		return errors
 	}
-export default reduxForm({ form: 'NewCommunityList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCommunityList);
+export default reduxForm({ 
+	form: 'NewCommunityList',
+	validate,
+	enableReinitialize:true,
+	keepDirtyOnReinitialize:true
+})(NewCommunityList);

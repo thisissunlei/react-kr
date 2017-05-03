@@ -3,11 +3,15 @@ import './index.less';
 
 export default class DivTitle extends React.Component {
 
+	static defaultProps = {
+		styleType: 1,
+	}
+
 	static propTypes = {
 		/**
 		 *标题
 		 */
-		title: React.PropTypes.title,
+		title: React.PropTypes.string,
 		/**
 		 *子代元素
 		 */
@@ -19,7 +23,7 @@ export default class DivTitle extends React.Component {
 		/**
 		 *子代元素
 		 */
-		children: React.PropTypes.children,
+		children: React.PropTypes.any,
 	}
 
 	render() {
@@ -30,7 +34,12 @@ export default class DivTitle extends React.Component {
 			styleType,
 			children
 		} = this.props;
-		let style={top: '50%'}
+		let style={top: '50%',display:'none'}
+		if(styleType == 2){
+			style={top: '50%'}
+		}else if(styleType == 3){
+			style={top: '100%'}
+		}
 
 		return (
 			<div className='ui-div-title'>
@@ -48,7 +57,7 @@ export default class DivTitle extends React.Component {
 
 				{children &&
 					<div className='ui-div-body'>
-						<div className='ui-body-inner'>
+						<div className='ui-div-inner'>
 							{children}
 						</div>
 					</div>}

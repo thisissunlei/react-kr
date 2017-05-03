@@ -26,7 +26,6 @@ let State = observable({
 		phone:'',
 		email:''
 	},
-	headerUrl:'',
 	
 });
 
