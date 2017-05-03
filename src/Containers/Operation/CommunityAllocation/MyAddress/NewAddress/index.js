@@ -47,10 +47,17 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
-		console.log(values,State.Leader,State.stationVos)
-  
+		console.log(values)
+		values.cmtManagerListStr = [];
+		console.log(values)
+		values.cmtManagerListStr = State.stationVos;
+		console.log(values)
+		values.cmtManagerListStr.push(State.Leader);  
+		console.log(values)
+		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr)
 		// const {onSubmit} = this.props;
 		// onSubmit && onSubmit(values);
+		console.log(values)
   	}
 
 	onCancel = () => {
@@ -118,10 +125,10 @@ import HeaderUpload from './HeaderUpload';
 		
 	}
 	addUrl=(result,index)=>{
-		State.stationVos[index].headerUrl = result;
+		State.stationVos[index].managerIcon = result;
 	}
 	addHeaderLeaderUrl=(result,index)=>{
-		State.Leader.headerUrl = result;
+		State.Leader.managerIcon = result;
 	}
 	addArr=()=>{
 		let item = {
@@ -147,16 +154,16 @@ import HeaderUpload from './HeaderUpload';
 		let list = State.stationVos;
 		let _this = this;
 		let typeLinkLeaderNameList = {
-			value: State.Leader.name,
-			requestChange: _this.onLeaderChange.bind(null,'name')
+			value: State.Leader.managerName,
+			requestChange: _this.onLeaderChange.bind(null,'managerName')
 		}
 		let typeLinkLeaderPhoneList = {
-			value: State.Leader.phone,
-			requestChange: _this.onLeaderChange.bind(null,'phone')
+			value: State.Leader.managerPhone,
+			requestChange: _this.onLeaderChange.bind(null,'managerPhone')
 		}
 		let typeLinkLeaderEmailList = {
-			value: State.Leader.email,
-			requestChange: _this.onLeaderChange.bind(null,'email')
+			value: State.Leader.managerEmail,
+			requestChange: _this.onLeaderChange.bind(null,'managerEmail')
 		}
 		return (
 	      <div className="new-my-address">
@@ -196,16 +203,16 @@ import HeaderUpload from './HeaderUpload';
 
 				{list && list.map((item,index)=>{	
 			    		let typeLinkNameList = {
-							value: State.stationVos[index].name,
-							requestChange: _this.onStationVosChange.bind(null,'name',index)
+							value: State.stationVos[index].managerName,
+							requestChange: _this.onStationVosChange.bind(null,'managerName',index)
 						}
 						let typeLinkPhoneList = {
-							value: State.stationVos[index].phone,
-							requestChange: _this.onStationVosChange.bind(null,'phone',index)
+							value: State.stationVos[index].managerPhone,
+							requestChange: _this.onStationVosChange.bind(null,'managerPhone',index)
 						}
 						let typeLinkEmailList = {
-							value: State.stationVos[index].email,
-							requestChange: _this.onStationVosChange.bind(null,'email',index)
+							value: State.stationVos[index].managerEmail,
+							requestChange: _this.onStationVosChange.bind(null,'managerEmail',index)
 						}
 			    		return (
 			    			<div className="info-box" key={index}>

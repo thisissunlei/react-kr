@@ -31,16 +31,18 @@ let State = observable({
 		guideItem:{},
 		stationVos:[
 			{
-				name:'',
-				phone:'',
-				email:'',
-				headerUrl:''
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
 			}],
 		Leader:{
-			name:'',
-			phone:'',
-			email:'',
-			headerUrl:''
+			managerName:'',
+			managerPhone:'',
+			managerEmail:'',
+			managerIcon:'',
+			managerType:'COMMUNITY_LEADER'
 		},
 		// 编辑的具体item
 		guideEditItem:{},
