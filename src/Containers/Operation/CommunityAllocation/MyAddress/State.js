@@ -80,6 +80,7 @@ let State = observable({
 		// 编辑的具体index
 		Editindex:'',
 		deleteIndex:'',
+		deleteAddcommunityId:'',
 
 
 
@@ -105,13 +106,19 @@ State.isOpenDeleteDialog= action(function() {
 	State.openDeleteDialog = !State.openDeleteDialog;
 });
 
+// 删除整条地点数据
 State.confirmDelete= action(function() {
 	State.openDeleteDialog = !State.openDeleteDialog;
-	//  Http.request('actions-edit',{},data).then(function(response) {
-		
-	// }).catch(function(err) {
-	// 	 Message.error(err.message);
-	// });
+	Http.request('deleteAddress',{cmtId:State.deleteAddcommunityId}).then(function(response) {
+		State.setSearchParams({
+			page:1,	
+			pageSize:15,
+			communityName:'',
+			timer:new Date()
+		})
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});
 });
 
 State.switchOpenAddGuideFun =action(function() {	

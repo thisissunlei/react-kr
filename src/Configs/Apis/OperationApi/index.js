@@ -349,6 +349,13 @@ module.exports = {
       },
 
 
+    //社区配置--我的地点--删除地点
+      'deleteAddress':{
+         url: '/api/krspace-finance-web//community/notice/delete?cmtId={cmtId}',
+         method: 'delete'
+      },
+
+
       
 
 }
