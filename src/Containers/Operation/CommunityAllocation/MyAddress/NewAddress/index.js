@@ -82,10 +82,11 @@ import HeaderUpload from './HeaderUpload';
 
 	// 编辑指南
 	editGuide=(item,index)=>{
-		console.log("编辑指南item",item.communityGuideTitle);
-		console.log("编辑指南index",index);
+
+		State.guideEditItem =item;
+		State.Editindex = index;
 		State.switchOpenEditGuideFun();
-		State.guideItem =item;
+
 	}
 	// 删除指南
 	deleteGuide=(item)=>{
