@@ -83,10 +83,6 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 
-	onOpenAddGuide=()=>{
-		State.switchOpenAddGuideFun();
-	}
-
 	// 编辑指南
 	editGuide=(item,index)=>{
 
@@ -239,10 +235,10 @@ import HeaderUpload from './HeaderUpload';
 		        
 		        <div className="community-guide-list-box">
 		        	<div style={{marginBottom:19}}>
-		        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
+		        	<Button  label="添加指南" type="button"  onTouchTap={State.switchOpenAddGuideFun}/>
 		        	</div>
 		        	{
-		        		State.addGuideList.length>0?<div className="community-duide-list">
+		        		State.addGuideList.length>0?<div className="community-guide-list">
 		        		{
 		        			State.addGuideList.map((item,index)=>{
 		        				return(
@@ -257,7 +253,7 @@ import HeaderUpload from './HeaderUpload';
 		        					);
 		        			})
 		        		}
-			        	</div>:<div className="community-duide-list-no">
+			        	</div>:<div className="community-guide-list-no">
 			          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
 			        	</div>
 	        		}
