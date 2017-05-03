@@ -1,0 +1,129 @@
+.metting-reservation{
+    .reservation-detail{
+        height: 60px;
+        width: 300px;
+        background: rgba(0,0,0,0.6);
+        position: absolute;
+        padding: 5px 4px;
+        color: #fff;
+        font-size: 12px;
+        line-height: 17px;
+        .mask{
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            z-index: 90;
+        }
+        .detail{
+            position: absolute;
+            width: 234px;
+            padding: 16px;
+            box-sizing: border-box;
+            background: #fff;
+            z-index: 99;
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+            margin-left: 20px;
+            border-radius: 4px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+            .close{
+                height: 15px;
+                span{
+                    width: 15px;
+                    height: 15px;
+                    float: right;
+                    background: url(images/close.svg) no-repeat;
+                    background-position: center center;    
+                    background-size:100% 100%; 
+                    cursor: pointer;
+                }
+            }
+             .time,.place,.reservation-people{
+              
+               color: #499DF1;
+               font-size: 12px;
+               span{
+                   vertical-align: middle;
+               }
+               div{
+                    display: inline-block;
+                    margin: 0px;
+                    padding: 0px;
+                    vertical-align: middle;
+                    padding-left: 10px;
+                    line-height: 20px;
+               }
+             }
+             .delete-btn{
+                 width: 80px;
+                 height: 30px;
+                 line-height: 30px;
+                 background: #FF5B52;
+                 text-align:center;
+                 color: #fff;
+                 display: block;
+                 margin: auto;
+                 font-size: 14px;
+                 border-radius: 4px;
+                 cursor: pointer;
+                 box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+                 margin-bottom: 12px;
+                 margin-top: 9px;
+             }
+        }
+        .detail:after {
+            content: '';
+            position: absolute;
+           
+            top: 50%;
+            margin-left: -26px;
+            transform: translateY(-50%);
+        
+            width: 0;
+            height: 0;
+            border-right: 10px solid #fff;
+        
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+
+        }
+    }
+    .metting-Timeline{
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: scroll;
+        .metting-Timeline-box{
+            width: 100%;
+            .metting-Timeline-shaft{
+                position: relative;
+                height: 90px;
+                border-bottom: 1px solid #CCCCCC;
+                .hours{
+                    width: 42px;
+                    box-sizing: border-box;
+                    height: 80px;
+                    border-left: 1px solid #ccc;
+                    position: absolute;
+                    left: 0px;
+                    bottom: 0px;
+                }
+                .half-hours{
+                    width: 42px;
+                    box-sizing: border-box;
+                    height: 40px;
+                    border-left: 1px solid #ccc;
+                    position: absolute;
+                    right: 0px;
+                    bottom: 0px;
+                }
+               
+            }
+             .metting-Timeline-shaf:last-child{
+                    border-right: 1px solid #ccc;
+            }
+        }
+    }
+}

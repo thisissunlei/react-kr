@@ -28,25 +28,26 @@ import {
 
 } from 'kr-ui';
 
-
+import ReservationDetail from './ReservationDetail';
+import Timeline from './Timeline';
 import './index.less';
 
-export default class List extends React.Component {
+export default class MeetingReservation extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+
 		}
 	}
-	
-	
-	 
+
+
+
     render(){
-        
+
         return(
-            <div className="switchhover">
-            
+            <div className="metting-reservation">
+				<Timeline />
             </div>
         );
     }
