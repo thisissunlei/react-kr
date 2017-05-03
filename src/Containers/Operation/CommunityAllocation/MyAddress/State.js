@@ -28,12 +28,25 @@ let State = observable({
 		//详情
 		detailData:{},
 		addGuideList:[],
+		guideItem:{},
+		stationVos:[
+			{
+				name:'',
+				phone:'',
+				email:'',
+				headerUrl:''
+			}],
+		Leader:{
+			name:'',
+			phone:'',
+			email:'',
+			headerUrl:''
+		},
 		// 编辑的具体item
 		guideEditItem:{},
 		// 编辑的具体index
 		Editindex:'',
 		deleteIndex:'',
-
 
 
 
@@ -130,6 +143,20 @@ State.onNewAddressSubmit= action(function(data) {
 	// }).catch(function(err) {
 	// 	 Message.error(err.message);
 	// });	
+});
+
+//获取社区列表
+State.getCommunityList=action(function(values) {	
+	Http.request('getCommunity', {
+		communityName: lastname
+	}).then(function(response) {
+		response.communityInfoList.forEach(function(item, index) {
+			item.value = item.id;
+			item.label = item.name;
+			return item;
+		});
+	}).catch(function(err) {
+	});
 });
 
 
