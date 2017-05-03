@@ -27,26 +27,21 @@ State.saveNews = action(function(params) {
 });
 
 State.openNewCreateDialog = action(function(params) {
+	console.log('1111')
 	this.openNewCreate=!this.openNewCreate;
 
 });
-State.openView = action(function(params) {
-	this.setState({
-	        openView:!this.state.openView
-	      });
+State.openViewDialog = action(function(params) {
+	   this.openView=!this.openView;
 
 });
-State.openEdit = action(function(params) {
-	this.setState({
-	        openEdit:!this.state.openEdit
-	      });
+State.openEditDialog = action(function(params) {
+	this.openEdit=!this.openEdit;
+	
 
 });
-State.openSearch = action(function(params) {
-	this.setState({
-	        openSearch:!this.state.openSearch
-	      });
-
+State.openSearchDialog = action(function(params) {
+	this.openSearch=!this.openSearch;
 });
 
 

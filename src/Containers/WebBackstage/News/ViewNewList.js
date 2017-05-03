@@ -95,7 +95,7 @@ class ViewNewList extends React.Component {
 						</div>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
-						{ReactHtmlParser(State.detailContent)}
+						{/*ReactHtmlParser(State.detailContent)*/}
 					</CircleStyleTwo>
 			   
 			</div>

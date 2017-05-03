@@ -46,25 +46,25 @@ export default class News extends React.Component {
       });
 
       if (type == 'view') {
-        this.openView();
+        this.openViewDialog();
       } else if (type == 'edit') {
-        this.openEdit();
+        this.openEditDialog();
       }
     }
     openNewCreateDialog=()=>{
     	State.openNewCreateDialog()
     	
     }
-    openView=()=>{
-    	State.openView();
+    openViewDialog=()=>{
+    	State.openViewDialog();
 		
     }
-    openEdit=()=>{
-    	State.openEdit();
+    openEditDialog=()=>{
+    	State.openEditDialog();
 		
     }
-    openSearch=()=>{
-    	State.openSearch();
+    openSearchDialog=()=>{
+    	State.openSearchDialog();
 		
     }
     //高级查询
@@ -166,7 +166,7 @@ export default class News extends React.Component {
 					<Drawer
 		             modal={true}
 		             width={750}
-		             open={this.state.openNewCreateDialog}
+		             open={State.openNewCreate}
 		             onClose={this.openNewCreateDialog}
 		             openSecondary={true}
 		           >
@@ -179,29 +179,29 @@ export default class News extends React.Component {
 		           <Drawer
 		             modal={true}
 		             width={750}
-		             open={this.state.openEdit}
-		             onClose={this.openEdit}
+		             open={State.openEdit}
+		             onClose={this.openEditDialog}
 		             openSecondary={true}
 		           >
-		             <EditNewList  detail={itemDetail} onCancel={this.openEdit}  />
+		             <EditNewList  detail={itemDetail} onCancel={this.openEditDialog}  />
 		           </Drawer>
 		           <Drawer
 		             modal={true}
 		             width={750}
-		             open={this.state.openView}
-		             onClose={this.openView}
+		             open={State.openView}
+		             onClose={this.openViewDialog}
 		             openSecondary={true}
 		           >
-		             <ViewNewList  detail={itemDetail} onCancel={this.openView}  />
+		             <ViewNewList  detail={itemDetail} onCancel={this.openViewDialog}  />
 		           </Drawer>
 		            <Dialog
 		              title="高级查询"
 		              modal={true}
-		              open={this.state.openSearch}
-		              onClose={this.openSearch}
+		              open={State.openSearch}
+		              onClose={this.openSearchDialog}
 		              contentStyle={{width:666,height:330}}
 		            >
-		              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+		              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearchDialog} />
 		            </Dialog>
 				</div>
 		);
