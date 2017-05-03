@@ -34,7 +34,9 @@ export default class UploadImageComponent extends Component {
 			timer :"",
 			operateImg :false,
 			files :{},
-			imageStatus : true
+			imageStatus : true,
+
+			isInit:true
 		}
 	}
 	componentWillUnmount() {
@@ -46,24 +48,39 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
-		if(nextProps.defaultValue){
-			this.setState({
-				imgSrc:nextProps.defaultValue,
-				imgUpload : true
-			})
-		}else if(nextProps.input.value){
-			this.setState({
-				imgSrc:nextProps.input.value,
-				imgUpload : true
-			})
-		}else{
-			this.setState({
-				imgSrc:'',
-				imgUpload : false
-			})
+		// if(nextProps.defaultValue){
+		// 	this.setState({
+		// 		imgSrc:nextProps.defaultValue,
+		// 		imgUpload : true
+		// 	})
+		// }else if(nextProps.input.value){
+		// 	this.setState({
+		// 		imgSrc:nextProps.input.value,
+		// 		imgUpload : true
+		// 	})
+		// }else{
+		// 	this.setState({
+		// 		imgSrc:'',
+		// 		imgUpload : false
+		// 	})
+		// }
+
+	 this.setInitValue(nextProps.defaultValue);
+
+	}
+
+	setInitValue(defaultValue) {
+		let {
+			isInit
+		} = this.state;
+		if (!isInit) {
+			return;
 		}
-
-
+		this.setState({
+			isInit: false,
+			imgUpload:true,
+			imgSrc:defaultValue
+		});
 	}
 
 	onTokenError() {
@@ -174,8 +191,6 @@ export default class UploadImageComponent extends Component {
 		form.append(formfile, file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
-			console.log(xhr,"++++++");
-			console.log(xhr.response,"++++++");
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
@@ -194,10 +209,6 @@ export default class UploadImageComponent extends Component {
 							if (xhrfile.status === 200) {
 
 								if (fileResponse && fileResponse.code > 0) {
-									console.log("ffffff",fileResponse);
-									_this.setState({
-										imgSrc:fileResponse.data.ossHref
-									})
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									_this.onError(fileResponse && fileResponse.msg);
@@ -211,7 +222,7 @@ export default class UploadImageComponent extends Component {
 						}
 					};
 					xhrfile.open('POST', requestURI, true);
-
+          xhrfile.withCredentials = true;
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -248,14 +259,14 @@ export default class UploadImageComponent extends Component {
 													 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 													 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
 													 if(width/height==realWidth/realHeight){
-														  _this.refs.uploadImage.src = xhrfile.response.data;
+														  _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
 															 _this.setState({
 															 imageStatus : true,
 															 imgUpload : true,
 															 operateImg : false
 														 });
 														 const {input}=_this.props;
-														 input.onChange(xhrfile.response.data);
+														 input.onChange(xhrfile.response.data.id);
 													 }else{
 	                         	_this.refs.inputImg.value ="";
 	 							            _this.refs.inputImgNew.value ="";
@@ -308,7 +319,6 @@ export default class UploadImageComponent extends Component {
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
 		this.refs.uploadImage.src="";
-
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 		const {input}=this.props;
@@ -318,7 +328,6 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
-		console.log(this.state.imgSrc,">>>>>>><<<<<<")
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 

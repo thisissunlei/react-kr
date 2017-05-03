@@ -78,7 +78,11 @@ class EditMeeting  extends React.Component{
 			//控制会议室
 			watchMeeting:false,
 			//控制路演厅
-			watchHouse:false
+			watchHouse:false,
+			//图片地址
+			picUrl:'',
+			timeStart:'',
+			timeEnd:''
 		}
 	}
 
@@ -133,14 +137,16 @@ class EditMeeting  extends React.Component{
 			        deviceSpace.push(list);
 				  })
 				   _this.setState({
-				   	 listDevice:deviceSpace
+				   	 listDevice:deviceSpace,
+						 picUrl:response.picUrl,
+						 timeStart:response.orderStartTimeStr,
+						 timeEnd:response.orderEndTimeStr
 				   })
+				    Store.dispatch(initialize('EditMeeting',response));
+					  response.activeTypes.map((item,index)=>{
+             Store.dispatch(change('EditMeeting','maskStation['+index+'].list',item));
+					  })
 
-
-				   Store.dispatch(initialize('EditMeeting',response));
-					 response.activeTypes.map((item,index)=>{
-            Store.dispatch(change('EditMeeting','maskStation['+index+'].list',item));
-					 })
 			    }).catch(function(err) {
 					Message.error(err.message);
 			    });
@@ -203,7 +209,7 @@ class EditMeeting  extends React.Component{
   render(){
 
      const {handleSubmit}=this.props;
-     let {listDevice,watchMeeting,watchHouse}=this.state;
+     let {listDevice,watchMeeting,watchHouse,picUrl,timeStart,timeEnd}=this.state;
 
     return(
 
@@ -266,27 +272,11 @@ class EditMeeting  extends React.Component{
 				 />
 
 
-				 {watchMeeting&&<div><div style={{display:'inline-block'}} className='community-list-time'>
-								<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTime' requireLabel={true}/>
+				 {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
+								<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' timeNum={timeStart} requireLabel={true}/>
 								<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>~</span>
-								<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTime'/>
+								<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr' timeNum={timeEnd}/>
 				 </div>
-
-				 <KrField
-						 label=""
-						 name="picId"
-						 component="newuploadImage"
-						 innerstyle={{width:332,height:186,padding:16}}
-						 sizePhoto
-						 photoSize={'16:9'}
-						 pictureFormat={'JPG,PNG,GIF'}
-						 pictureMemory={'300'}
-						 requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
-						 inline={false}
-						 formfile=' '
-						 center='center'
-					 />
-
 
 				 <KrField grid={1/2}
 					style={{width:262}}
@@ -305,24 +295,25 @@ class EditMeeting  extends React.Component{
 			 /></div>}
 
 
+			{(watchMeeting||watchHouse)&&<KrField
+					 label=""
+					 name="picId"
+					 component="newuploadImage"
+					 innerstyle={{width:370,height:223,padding:16}}
+					 sizePhoto
+					 photoSize={'16:9'}
+					 pictureFormat={'JPG,PNG,GIF'}
+					 pictureMemory={'300'}
+					 requestURI = '/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+					 inline={false}
+					 formfile=' '
+					 defaultValue={picUrl}
+					 center='center'
+				 />}
 
 
 
-
-			{watchHouse&&<span><KrField
-					label=""
-					name="picId"
-					component="newuploadImage"
-					innerstyle={{width:332,height:186,padding:16}}
-					sizePhoto
-					photoSize={'16:9'}
-					pictureFormat={'JPG,PNG,GIF'}
-					pictureMemory={'300'}
-					requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
-					inline={false}
-					formfile=' '
-					center='center'
-				/>
+			{watchHouse&&<span>
 
 
 			 <FieldArray name="maskStation" component={renderMask}/>

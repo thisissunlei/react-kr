@@ -86,7 +86,7 @@ class NewAddMeeting  extends React.Component{
 
     onSubmit=(values)=> {
 		values.id='';
-		
+
 		values.communityId=this.props.CommunityMeetingModel.communityId;
 	    const {
 		   onSubmit
@@ -135,10 +135,8 @@ class NewAddMeeting  extends React.Component{
 				 watchMeeting:false
 			 })
 		 }
-		 
-
-
 	}
+
 
 
 	render(){
@@ -215,27 +213,14 @@ class NewAddMeeting  extends React.Component{
 							/>
 
 
-               {watchMeeting&&<div><div style={{display:'inline-block'}} className='community-list-time'>
+               {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
 
 											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' requireLabel={true}/>
 											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
 											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr'/>
                </div>
 
-							 <KrField
- 									 label=""
- 									 name="picId"
- 									 component="newuploadImage"
- 									 innerstyle={{width:332,height:186,padding:16}}
- 									 sizePhoto
- 									 photoSize={'16:9'}
- 									 pictureFormat={'JPG,PNG,GIF'}
- 									 pictureMemory={'300'}
- 									 requestURI = '/api/krspace-finance-web/cmt/space/upload-photo/type/single'
- 									 inline={false}
- 									 formfile=' '
- 									 center='center'
- 								 />
+
 
 
 							 <KrField grid={1/2}
@@ -255,26 +240,24 @@ class NewAddMeeting  extends React.Component{
 						 /></div>}
 
 
+						{(watchMeeting||watchHouse)&&<KrField
+ 								label=""
+ 								name="picId"
+ 								component="newuploadImage"
+ 								innerstyle={{width:370,height:223,padding:16}}
+ 								sizePhoto
+ 								photoSize={'16:9'}
+ 								pictureFormat={'JPG,PNG,GIF'}
+ 								pictureMemory={'300'}
+ 								requestURI = '/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								inline={false}
+ 								formfile=' '
+ 								center='center'
+ 							/>}
 
 
 
-
-						{watchHouse&&<span><KrField
-								label=""
-								name="picId"
-								component="newuploadImage"
-								innerstyle={{width:332,height:186,padding:16}}
-								sizePhoto
-								photoSize={'16:9'}
-								pictureFormat={'JPG,PNG,GIF'}
-								pictureMemory={'300'}
-								requestURI = '/api /krspace-finance-web/cmt/space/upload-photo/type/single'
-
-								inline={false}
-								formfile=' '
-								center='center'
-							/>
-
+						{watchHouse&&<span>
 
 					   <FieldArray name="maskStation" component={renderMask}/>
 

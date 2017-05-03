@@ -136,6 +136,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 		  Message.error('开始时间不能大于结束时间');
 			return ;
 	 }
+	 delete params.orderEndTime;
+	 delete params.orderStartTime;
    this.props.CommunityMeetingModel.stationSubmit(params);
  }
 
