@@ -38,9 +38,6 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
-
-  		console.log("guideItem发的时间阿凡达技术开发大赛里卡多方式离开");
-  		console.log("guideItem",State.guideItem);
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
 		State.addGuideList = [
 			{
@@ -56,13 +53,27 @@ import HeaderUpload from './HeaderUpload';
 				guideContent:'33333dsajfjdksajfkasdjfa'
 			}
 		]
+		let manager = [];
+		State.detailData.cmtManagerListStr.map((item)=>{
+			if(item.managerType=='COMMUNITY_LEADER'){
+				State.editLeader = item;
+			}else{
+				manager.push(item)
+			}
+		})
+		State.editStationVos = manager;
   		
   	}
 
 	onSubmit = (values) => {
   
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		values.cmtManagerListStr = [];
+		values.cmtManagerListStr = State.editStationVos;
+		values.cmtManagerListStr.push(State.editLeader);  
+		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr)
+		// const {onSubmit} = this.props;
+		// onSubmit && onSubmit(values);
+		console.log('onsubmit',values)
   	}
 
 	onCancel = () => {
@@ -75,16 +86,7 @@ import HeaderUpload from './HeaderUpload';
 	}
    
 	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps')
-		let manager = [];
-		State.detailData.cmtManagerListStr.map((item)=>{
-			if(item.managerType=='COMMUNITY_LEADER'){
-				State.editLeader = item;
-			}else{
-				manager.push(item)
-			}
-		})
-		State.editStationVos = manager;
+		
 	}
 
 
@@ -215,7 +217,7 @@ import HeaderUpload from './HeaderUpload';
 						}
 			    		return (
 			    			<div className="info-box" key={index}>
-					    		<HeaderUpload defaultUrl={item.headerUrl} onChange={this.addUrl} index={index}/>
+					    		<HeaderUpload defaultUrl={item.managerIcon} onChange={this.addUrl} index={index}/>
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
@@ -225,7 +227,7 @@ import HeaderUpload from './HeaderUpload';
 								</div> 
 								<div className="caozuo">
 									<span className="add-info-box" onClick={this.addArr}>+</span>
-									{State.stationVos.length>1 && <span className="less-info-box"  onClick={this.reduceArr.bind(this,index)}>-</span>}
+									{State.editStationVos.length>1 && <span className="less-info-box"  onClick={this.reduceArr.bind(this,index)}>-</span>}
 								</div>
 					    	</div>
 
