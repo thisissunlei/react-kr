@@ -81,6 +81,7 @@ class LookCustomerList extends Component{
 		
 	}
 	getlocalSign=()=>{
+		allState.hasLocal = false;
 		let type = ['ENTER','INTENTION','ADDRENT','RENEW','LESSRENT','QUITRENT'];
 		let keyWord = allState.mainBillId+''+ allState.listId  ;
 		let local = [];
