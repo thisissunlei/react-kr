@@ -183,13 +183,8 @@ class NewAddMeeting  extends React.Component{
 								options={this.props.CommunityMeetingModel.sapceTypes}
 								onChange={this.spaceTypeChange}
 						/>
-<<<<<<< HEAD
 						{this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
 
-
-=======
-           {this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
->>>>>>> fed7f578a91ccc768c024cfc7467c0fb988368b0
             <KrField grid={1/2}
 								style={{width:262}}
 								name="floor"
@@ -198,10 +193,6 @@ class NewAddMeeting  extends React.Component{
 							 	requireLabel={true}
 							 	options={this.props.CommunityMeetingModel.floorData}
 						 />
-<<<<<<< HEAD
-=======
-
->>>>>>> fed7f578a91ccc768c024cfc7467c0fb988368b0
 						 <KrField grid={1/2}
 							 	style={{width:262,marginLeft:28}}
 								name="area"
@@ -225,15 +216,10 @@ class NewAddMeeting  extends React.Component{
 
 
                {watchMeeting&&<div><div style={{display:'inline-block'}} className='community-list-time'>
-<<<<<<< HEAD
+
 											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' requireLabel={true}/>
 											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
 											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr'/>
-=======
-											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTime' requireLabel={true}/>
-											<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>~</span>
-											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTime'/>
->>>>>>> fed7f578a91ccc768c024cfc7467c0fb988368b0
                </div>
 
 							 <KrField
@@ -282,11 +268,8 @@ class NewAddMeeting  extends React.Component{
 								photoSize={'16:9'}
 								pictureFormat={'JPG,PNG,GIF'}
 								pictureMemory={'300'}
-<<<<<<< HEAD
 								requestURI = '/api /krspace-finance-web/cmt/space/upload-photo/type/single'
-=======
-								requestURI = 'http://local.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
->>>>>>> fed7f578a91ccc768c024cfc7467c0fb988368b0
+
 								inline={false}
 								formfile=' '
 								center='center'
