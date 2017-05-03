@@ -80,13 +80,16 @@ class CommunityList  extends React.Component{
    onOperation=(type,itemDetail)=>{
       var id=itemDetail.id;
       itemDetail.id = itemDetail.id
+
       // State.detailData = itemDetail;
       console.log(type,itemDetail);
+
       if(type=='edit'){
         State.switchEditAddress();
       }
       if(type=='delete'){
-         State.isOpenDeleteDialog();
+        State.deleteAddcommunityId = itemDetail.communityId;
+        State.isOpenDeleteDialog();
       }
    }
 
@@ -160,11 +163,40 @@ class CommunityList  extends React.Component{
 
               <TableBody >
                     <TableRow>
-                      <TableRowColumn name="communityName"></TableRowColumn>
-                      <TableRowColumn name="wifiName"></TableRowColumn>
-                      <TableRowColumn name="wifiPwd"></TableRowColumn>
-                      <TableRowColumn name="managerName"></TableRowColumn>
-                      <TableRowColumn name="managerPhone" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
+                      <TableRowColumn name="communityName" 
+                      component={(value,oldValue)=>{
+                        if(value==""){
+                          value="-"
+                        }
+                        return (<span>{value}</span>)}}
+                      ></TableRowColumn>
+                      <TableRowColumn name="wifiName"
+                      component={(value,oldValue)=>{
+                        if(value==""){
+                          value="-"
+                        }
+                        return (<span>{value}</span>)}}
+                      ></TableRowColumn>
+                      <TableRowColumn name="wifiPwd"
+                      component={(value,oldValue)=>{
+                        if(value==""){
+                          value="-"
+                        }
+                        return (<span>{value}</span>)}}
+                      ></TableRowColumn>
+                      <TableRowColumn name="managerName"
+                      component={(value,oldValue)=>{
+                        if(value==""){
+                          value="-"
+                        }
+                        return (<span>{value}</span>)}}
+                      ></TableRowColumn>
+                      <TableRowColumn name="managerPhone" component={(value,oldValue)=>{
+                        if(value==""){
+                          value="-"
+                        }
+                        return (<span>{value}</span>)}}
+                      ></TableRowColumn>
                       <TableRowColumn type="operation">
                           <Button label="编辑"  type="operation"  operation="edit" />
                           <Button label="删除"  type="operation"  operation="delete" />
