@@ -37,7 +37,7 @@ export default class Timeline extends React.Component {
 		super(props, context);
 		this.state = {
             startTime:8,
-            endTime:20
+            endTime:30
 		}
 	}
 
@@ -49,7 +49,7 @@ export default class Timeline extends React.Component {
             console.log("i",i);
          elems.push (
                 <div style = {{width:84,float:"left",position:"relative",height:90}}>
-                    <div className = "hours"></div>
+                    <div className = "hours"><span>{i+"时"}</span></div>
                     <div className = "half-hours"></div>
                 </div>
                   )
@@ -66,6 +66,7 @@ export default class Timeline extends React.Component {
                         {this.generateCalibration()}
                     </div>
                 </div>
+                <div className = "sticky-notes"></div>
             </div>
         );
     }
