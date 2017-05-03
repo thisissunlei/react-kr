@@ -62,7 +62,7 @@ module.exports = {
       url: '/api/krspace-finance-web/news/save-news',
       method: 'post'
    },
-   //新闻列表--查看
+   //新闻列表--编辑/查看
    'get-news-detail':{
       url: '/api/krspace-finance-web/news/get-news-detail?id={id}',
       method: 'get'

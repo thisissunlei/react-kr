@@ -2,7 +2,8 @@ import mobx, {
 	observable,
 	action,
 } from 'mobx';
-
+import {reduxForm,initialize} from 'redux-form';
+import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
@@ -13,13 +14,37 @@ let State = observable({
 	openView:false,
 	openEdit:false,
 	openSearch:false,
+	newsDate:{}
 
 });
 //新建编辑保存
 State.saveNews = action(function(params) {
 	var _this = this;
 	Http.request('save-news', {},params).then(function(response) {
-		//_this.detailContent = response.summary;
+		_this.openNewCreateDialog();
+		//Message.success
+		window.location.reload();
+	}).catch(function(err) {
+
+	});
+
+});
+//编辑保存
+State.saveEditNews = action(function(params) {
+	var _this = this;
+	Http.request('save-news', {},params).then(function(response) {
+		_this.openEditDialog()
+	}).catch(function(err) {
+
+	});
+
+});
+//编辑查看获取地址
+State.getNewsDate = action(function(id) {
+	var _this = this;
+	Http.request('get-news-detail', {id:id}).then(function(response) {
+		_this.newsDate=response;
+		Store.dispatch(initialize('editNewList',State.newsDate));
 	}).catch(function(err) {
 
 	});
@@ -27,7 +52,6 @@ State.saveNews = action(function(params) {
 });
 
 State.openNewCreateDialog = action(function(params) {
-	console.log('1111')
 	this.openNewCreate=!this.openNewCreate;
 
 });

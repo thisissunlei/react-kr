@@ -131,7 +131,7 @@ export default class News extends React.Component {
 										}else{
 											TooltipStyle="block";
 										}
-										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
@@ -145,7 +145,7 @@ export default class News extends React.Component {
 										}else{
 											TooltipStyle="block";
 										}
-										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>

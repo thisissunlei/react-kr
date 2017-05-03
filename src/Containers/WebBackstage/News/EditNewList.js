@@ -24,9 +24,12 @@ class EditNewList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
+		let {detail}=this.props;
+		State.getNewsDate(detail.id);
+		
+	}
+	componentDidMount(){
+		
 		
 	}
 	onCancel=()=>{
@@ -34,12 +37,14 @@ class EditNewList extends React.Component {
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
-		console.log('form-----',form)
+		let {onSubmit}=this.props;
+		onSubmit && onSubmit(form);
 	}
 
 
 	render() {
 		const { handleSubmit} = this.props;
+		
 		
 		return (
 			<div className="g-new-list">
@@ -62,6 +67,7 @@ class EditNewList extends React.Component {
 							component="input"
 							label="新闻标题"
 							requireLabel={true}
+							value=""
 					 	/>
 					 	<KrField
 							style={{width:260,marginRight:25}}
@@ -150,7 +156,7 @@ class EditNewList extends React.Component {
 								label="新闻内容" 
 								style={{width:560}}
 								requireLabel={true}
-								defaultValue=''
+								
 								/>
 						<Grid style={{marginTop:50,width:'81%'}}>
 							<Row >
