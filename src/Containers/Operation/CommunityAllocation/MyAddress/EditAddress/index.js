@@ -41,15 +41,15 @@ import HeaderUpload from './HeaderUpload';
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
 		State.addGuideList = [
 			{
-				communityGuideTitle:"标题4",
+				guideTitle:"标题4",
 				guideContent:'11111111fdsajfjdksajfkasdjfa'
 			},
 			{
-				communityGuideTitle:"标题4",
+				guideTitle:"标题4",
 				guideContent:'222222222fdsajfjdksajfkasdjfa'
 			},
 			{
-				communityGuideTitle:"标题3",
+				guideTitle:"标题3",
 				guideContent:'33333dsajfjdksajfkasdjfa'
 			}
 		]
@@ -247,7 +247,7 @@ import HeaderUpload from './HeaderUpload';
 		        			State.addGuideList.map((item,index)=>{
 		        				return(
 		        					<div className="guide-list-item" key={index}>
-		        						<span>{item.communityGuideTitle}</span>
+		        						<span>{item.guideTitle}</span>
 		        						<div className="operation-btn">
 		        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
 		        							<span onClick={this.deleteGuide.bind(this,item,index)}>删除</span>
