@@ -4,11 +4,13 @@
 	border: 1px dotted #DFDFDF;
 	border-radius: 4px;
 	padding:22px 20px;
+	position: relative;
 	.info-list{
 		display: inline-block;
 	}
 	.info-input{
-		width: 248px;
+		width: 238px;
+		padding-left: 10px;
 		height: 32px;
 		display: block;
 		background: #FFFFFF;
@@ -17,6 +19,28 @@
 	}
 	.info-input+.info-input{
 		margin-bottom: 12px;
+	}
+	.caozuo{
+		color: #499DF1;
+		position: absolute;
+		right: -42px;
+		width:30px;
+		top:50%;
+		transform:translateY(-50%);
+		.add-info-box,.less-info-box{
+			width: 20px;
+			height: 20px;
+			border:2px solid #499DF1;
+			font-size: 22px;
+			display: inline-block;
+			text-align: center;
+			line-height: 20px;
+			border-radius: 15px;
+			cursor: pointer;
+		}
+		.add-info-box{
+			margin-bottom: 10px;
+		}
 	}
 }
 .ui-upload-header{

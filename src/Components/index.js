@@ -51,6 +51,7 @@ import Dictionary from './Dictionary';
 import Editor from './Editor';
 import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
+import DivTitle from './DivTitle';
 
 
 import {
@@ -93,6 +94,7 @@ module.exports = {
 	Col,
 	Dialog,
 	DotTitle,
+	DivTitle,
 	LineText,
 	Checkbox,
 	PaperBack,

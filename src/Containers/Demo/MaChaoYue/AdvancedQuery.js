@@ -26,7 +26,7 @@ export default class AdvanceSearchDateForm extends Component {
 	constructor(props,context){
 		super(props,context);
 		this.state={
-			imgSrc:'',
+			imgSrc:this.props.defaultUrl || '',
 			errorHide: true,
 			errorTip:'',
 			// 图片是否已经上传到界面
@@ -47,7 +47,6 @@ export default class AdvanceSearchDateForm extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
-		console.log(nextProps.defaultUrl)
 	}
 	onTokenError() {
 		Notify.show([{
@@ -87,6 +86,8 @@ export default class AdvanceSearchDateForm extends Component {
 		});
 	}
 	onChange=(event)=>{
+
+		let {index} = this.props;
 		let _this = this;
         let file = event.target.files[0];
 
@@ -127,8 +128,11 @@ export default class AdvanceSearchDateForm extends Component {
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
 									console.log('ddddd',fileResponse)
+									_this.setState({
+										imgSrc:fileResponse.data
+									})
+									// State.stationVos[index].headerUrl = fileResponse.data;
 									let uploadUrl = _this.props.onChange;
-									State.headerUrl = fileResponse.data;
 									uploadUrl && uploadUrl(fileResponse.data,_this.props.index)
 								} else {
 									_this.onError(fileResponse.msg);
@@ -162,11 +166,15 @@ export default class AdvanceSearchDateForm extends Component {
 
 	}
 	render() {
+		// let {index} = this.props;
+		// let imgUrl = State.stationVos[index].headerUrl;
+		let {imgSrc} = this.state;
+		console.log('img')
 		return(
 			<div className="ui-upload-header">
 				<div className='ui-uploadimg-inner' >
-					<img className="image"  src={State.headerUrl?State.headerUrl:upload}/>
-					<input type='file' onChange={this.onChange} ref="inputImg" className="upload-input"/>
+					<img className="image"  src={imgSrc || upload}/>
+					<input type='file' onChange={this.onChange} className="upload-input"/>
 				</div>
 			</div>
 		);
