@@ -7,16 +7,20 @@ import {
 	KrField,
 	CircleStyleTwo
 } from 'kr-ui';
+import {
+	observer
+} from 'mobx-react';
 import './index.less';
+import State from './State';
 
-
+@observer
 class ViewNewList extends React.Component {
 	
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
+
+		let {detail}=this.props;
+		State.getNewsDate(detail.id);
 		
 	}
 	onCancel=()=>{
@@ -46,21 +50,21 @@ class ViewNewList extends React.Component {
 							style={{width:548}}
 							type="labelText"
 							inline={false}
-							value=""
+							value={State.newsDate.title}
 							label="新闻标题"
 					 	/>
 					 	<KrField
 							style={{width:260,marginRight:25}}
 							type="labelText"
 							inline={false}
-							value=""
+							value={State.newsDate.publishedTime}
 							label="发布时间"
 					 	/>
 					 	<KrField
 							style={{width:260}}
 							type="labelText"
 							inline={false}
-							value=""
+							value={State.newsDate.orderNum}
 							label="排序号"
 					 	/>
 					 	 <KrField 
@@ -68,7 +72,7 @@ class ViewNewList extends React.Component {
 						 		name="publishedStatus" 
 						 		type="labelText"
 								inline={false}
-								value=""
+								value={State.newsDate.publishedStatus=='PUBLISHED'?'发布':'未发布'}
 						 		label="发布状态"
 						 />
 	                    <KrField 
@@ -76,7 +80,7 @@ class ViewNewList extends React.Component {
 		                		name="stickStatus" 
 		                		type="labelText"
 								inline={false}
-								value=""
+								value={State.newsDate.stickStatus=='STICKED'?'置顶':'未置顶'}
 		                		label="置顶状态"
 	                	/>
 			                   
@@ -86,16 +90,17 @@ class ViewNewList extends React.Component {
 								type="labelText"
 								inline={false}
 								label="新闻简介"
+								value={State.newsDate.newsDesc}
 						/>
 						<div className="u-photo-box">
 								<span className="u-photo-title">新闻列表图片</span>
 								<div className="u-photo-img-box" style={{width:390,height:230,marginLeft:15}}>
-									<img src="" style={{width:'100%',height:'100%'}}/>
+									<img src={State.newsDate.photoUrl} style={{width:'100%',height:'100%'}}/>
 								</div>
 						</div>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
-						{/*ReactHtmlParser(State.detailContent)*/}
+						{ReactHtmlParser(State.newsDate.newsContent)}
 					</CircleStyleTwo>
 			   
 			</div>
