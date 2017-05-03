@@ -172,7 +172,10 @@ class CommunityList  extends React.Component{
             photosStr.push(images)
           })
          }
-				 photosStr.push({type:'MOBILE_STATION',photoId:value.picId,first:true});
+				 if(value.picId){
+					  photosStr.push({type:'MOBILE_STATION',photoId:value.picId,first:true});
+				 }
+
 
          value.photosStr=JSON.stringify(photosStr);
 
@@ -227,6 +230,7 @@ class CommunityList  extends React.Component{
     //发送ajax请求函数
       ajaxSendData=(id)=>{
         var _this=this;
+				var selectHas=false;
         Http.request('communityGetEdit',{id:id}).then(function(response) {
 
           response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
@@ -263,11 +267,19 @@ class CommunityList  extends React.Component{
               photo_Detail.push(item);
             }
 						if(item.type=='MOBILE_STATION'){
+							selectHas=true;
               _this.setState({
 								picSrc:item.photoUrl
 							})
 						}
           })
+
+					if(response.photoVOs.length==0||!selectHas){
+						_this.setState({
+							picSrc:''
+						})
+					}
+					
 
 
           _this.setState({
@@ -344,7 +356,7 @@ class CommunityList  extends React.Component{
 	openSearchUpperDialog=()=>{
 	  State.searchDataHere();
       var params={
-       opened:'',
+      opened:'',
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',

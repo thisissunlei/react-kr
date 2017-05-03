@@ -762,7 +762,7 @@ const validate = values =>{
     }
 
 
-			values.opened = String(values.opened);
+			//values.opened = String(values.opened);
       if (!values.opened) {
         errors.opened= '请输入社区状态';
       }

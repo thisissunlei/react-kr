@@ -64,9 +64,7 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
-		  console.log('///ppp',nextProps);
 		if(nextProps.defaultValue){
-			console.log('///ppp');
 			this.setInitValue(nextProps.defaultValue);
 		}
 

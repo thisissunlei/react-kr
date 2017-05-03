@@ -246,10 +246,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			      openDown:true,
             openUp:false,
             codeName:'',
+						picUrl:''
 		}
 	}
 
 	onSubmit = (values) => {
+
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
@@ -369,6 +371,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('editCommunityList','longitude',yLocation));
     }
 
+		componentDidMount(){
+			let {picSrc}=this.props;
+			this.setState({
+				picUrl:picSrc
+			})
+		}
+
 
 
 
@@ -391,7 +400,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {codeName,openDown,openUp}=this.state;
+				let {codeName,openDown,openUp,picUrl}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -414,9 +423,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           }
 
 
-				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd,picSrc} = this.props;
+				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
 
-				console.log('===--',picSrc);
 
 				return (
 					<div>
@@ -512,9 +520,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<KrField
                      label=""
-                     name="photosStr_single"
+                     name="picId"
                      component="newuploadImage"
-                     innerstyle={{width:330,height:220,padding:16}}
+                     innerstyle={{width:364,height:254,padding:16}}
  										 sizePhoto
                      photoSize={'3:2'}
                      pictureFormat={'JPG,PNG,GIF'}
@@ -522,7 +530,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                      requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                      inline={false}
                      formfile=' '
-										 defaultValue={picSrc}
+										 defaultValue={picUrl}
                      center='center'
                    />
 
@@ -739,7 +747,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       errors.orderNum = '请输入3位以内正整数,不能以0开头';
     }
 
-			values.opened = String(values.opened);
+			//values.opened = String(values.opened);
 			if (!values.opened) {
 				errors.opened= '请输入社区状态';
 			}
