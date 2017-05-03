@@ -33,7 +33,8 @@ State.saveNews = action(function(params) {
 State.saveEditNews = action(function(params) {
 	var _this = this;
 	Http.request('save-news', {},params).then(function(response) {
-		_this.openEditDialog()
+		_this.openEditDialog();
+		window.location.reload();
 	}).catch(function(err) {
 
 	});
@@ -44,7 +45,7 @@ State.getNewsDate = action(function(id) {
 	var _this = this;
 	Http.request('get-news-detail', {id:id}).then(function(response) {
 		_this.newsDate=response;
-		Store.dispatch(initialize('editNewList',State.newsDate));
+		Store.dispatch(initialize('editNewList',response));
 	}).catch(function(err) {
 
 	});
@@ -65,6 +66,7 @@ State.openEditDialog = action(function(params) {
 
 });
 State.openSearchDialog = action(function(params) {
+	console.log('111')
 	this.openSearch=!this.openSearch;
 });
 

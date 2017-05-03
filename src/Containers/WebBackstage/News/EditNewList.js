@@ -1,6 +1,7 @@
 import React from 'react';
 import {reduxForm,initialize} from 'redux-form';
 import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -24,19 +25,34 @@ class EditNewList extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state={
+			newsContent:''
+		}
+		
+	}
+	componentDidMount() {
 		let {detail}=this.props;
-		State.getNewsDate(detail.id);
-		
+		var _this=this;
+		Http.request('get-news-detail', {id:detail.id}).then(function(response) {
+			_this.setState({
+				newsContent:response.newsContent
+			})
+			Store.dispatch(initialize('editNewList',response));
+			
+		}).catch(function(err) {
+
+		});
+		;
 	}
-	componentDidMount(){
-		
-		
-	}
+	
 	onCancel=()=>{
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
+		let {detail}=this.props;
+		form=Object.assign({},form);
+		form.id=detail.id;
 		let {onSubmit}=this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -44,8 +60,7 @@ class EditNewList extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
-		
-		
+		let {newsContent}=this.state;
 		return (
 			<div className="g-new-list">
 				<div className="u-title-box">
@@ -67,7 +82,6 @@ class EditNewList extends React.Component {
 							component="input"
 							label="新闻标题"
 							requireLabel={true}
-							value=""
 					 	/>
 					 	<KrField
 							style={{width:260,marginRight:25}}
@@ -156,7 +170,7 @@ class EditNewList extends React.Component {
 								label="新闻内容" 
 								style={{width:560}}
 								requireLabel={true}
-								
+								defaultValue={newsContent}
 								/>
 						<Grid style={{marginTop:50,width:'81%'}}>
 							<Row >
@@ -175,6 +189,7 @@ class EditNewList extends React.Component {
 
 		);
 	}
+	
 }
 const validate = values => {
 	const errors = {}

@@ -34,7 +34,8 @@ export default class News extends React.Component {
 		super(props, context);
 		this.state={
 			itemDetail:{},
-			Params:{}
+			Params:{},
+
 		}
 		
 	}
@@ -72,6 +73,7 @@ export default class News extends React.Component {
 		this.setState({
 	        Params:form
 	    });
+	    State.openSearchDialog();
     }
     //查询
     onSearch=(form)=>{
@@ -82,6 +84,10 @@ export default class News extends React.Component {
     createSave=(form)=>{
     	State.saveNews(form)
 
+    }
+    editSave=(form)=>{
+		State.saveEditNews(form)
+    	
     }
 	
 
@@ -95,7 +101,7 @@ export default class News extends React.Component {
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 							<Button label="新建新闻"  onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
-							<Button   type='search'  searchClick={this.openSearch} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+							<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 							<SearchForms 
 									onSubmit={this.onSearch} 
 									placeholder="请输入新闻标题"  
@@ -183,7 +189,11 @@ export default class News extends React.Component {
 		             onClose={this.openEditDialog}
 		             openSecondary={true}
 		           >
-		             <EditNewList  detail={itemDetail} onCancel={this.openEditDialog}  />
+		             <EditNewList  
+		             		detail={itemDetail} 
+		             		onCancel={this.openEditDialog}  
+		             		onSubmit={this.editSave}
+		             />
 		           </Drawer>
 		           <Drawer
 		             modal={true}
