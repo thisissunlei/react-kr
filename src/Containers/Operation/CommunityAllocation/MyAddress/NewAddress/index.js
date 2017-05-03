@@ -217,7 +217,7 @@ import HeaderUpload from './HeaderUpload';
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱'/>
 								</div> 
 								<div className="caozuo">
-									<span className="add-info-box" onClick={this.addArr}>+</span>
+									{index == list.length-1 && <span className="add-info-box" onClick={this.addArr}>+</span>}
 									{State.stationVos.length>1 && <span className="less-info-box"  onClick={this.reduceArr.bind(this,index)}>-</span>}
 								</div>
 					    	</div>
