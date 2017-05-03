@@ -140,11 +140,10 @@ class CommunityList  extends React.Component{
 
            <Table
               style={{marginTop:8}}
-                ajax={true}
-                onOperation={this.onOperation}
+              ajax={true}
+              onOperation={this.onOperation}
               displayCheckbox={true}
               exportSwitch={false}
-             
               ajaxParams={State.searchParams}
               ajaxUrlName='myAddressList'
               ajaxFieldListName="items"
@@ -161,11 +160,11 @@ class CommunityList  extends React.Component{
 
               <TableBody >
                     <TableRow>
-                      <TableRowColumn name="code"></TableRowColumn>
-                      <TableRowColumn name="name"></TableRowColumn>
-                      <TableRowColumn name="cityName"></TableRowColumn>
-                      <TableRowColumn name="area"></TableRowColumn>
-                      <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
+                      <TableRowColumn name="communityName"></TableRowColumn>
+                      <TableRowColumn name="wifiName"></TableRowColumn>
+                      <TableRowColumn name="wifiPwd"></TableRowColumn>
+                      <TableRowColumn name="managerName"></TableRowColumn>
+                      <TableRowColumn name="managerPhone" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
                       <TableRowColumn type="operation">
                           <Button label="编辑"  type="operation"  operation="edit" />
                           <Button label="删除"  type="operation"  operation="delete" />
