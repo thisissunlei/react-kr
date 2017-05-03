@@ -128,7 +128,6 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		if (file) {
-			console.log(';;;--');
 			var progress = 0;
 			var timer = window.setInterval(function() {
 				if (progress >= 100) {
