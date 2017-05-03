@@ -83,6 +83,8 @@ class CommunityList  extends React.Component{
    //查看或编辑
    onOperation=(type,itemDetail)=>{
       var id=itemDetail.id;
+      State.detailData = itemDetail;
+      console.log(type,itemDetail);
       if(type=='edit'){
         State.switchEditAddress();
       }
@@ -206,7 +208,7 @@ class CommunityList  extends React.Component{
                 // onSubmit={this.onNewCommunitySubmit}
                 // onCancel={this.switchEditList}
                 // open={State.openEditAddress}
-                // id={this.state.id}
+                // details={State.detailData}
             />
 
           </Drawer>
