@@ -343,6 +343,10 @@ module.exports = {
          url: '/api/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
          method: 'get'
       },
+      'addMyAddressData':{
+         url: '/api/krspace-finance-web/community/notice/cmt-notice?cmtGuideListStr={cmtGuideListStr}&cmtManagerListStr={cmtManagerListStr}&id={id}&communityId={communityId}&notice={notice}&wifiName={wifiName}&wifiPwd={wifiPwd}',
+         method: 'post'
+      },
 
 
     //社区配置--我的地点--删除地点
