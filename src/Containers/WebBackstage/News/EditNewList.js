@@ -28,8 +28,8 @@ class EditNewList extends React.Component {
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
-	onSubmit=()=>{
-
+	onSubmit=(form)=>{
+		console.log('form-----',form)
 	}
 
 

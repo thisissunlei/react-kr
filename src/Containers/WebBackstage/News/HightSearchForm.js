@@ -34,24 +34,16 @@ class HightSearchForm extends React.Component {
 			payType: [],
 			mainList: []
 		}
-		this.getCommunity();
-		this.getMain();
+		
 	}
 
 	onSubmit = (form) => {
-		form.verifyStatus = "CHECKED";
 		const {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(form);
 	}
-	openSearch = () => {
-		const {
-			openSearch
-		} = this.props;
-		openSearch && openSearch();
-
-	}
+	
 
 	onCancel = () => {
 		const {
@@ -59,36 +51,8 @@ class HightSearchForm extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
-	getCommunity = () => {
-		var communityList;
-		var _this = this;
-		Http.request('get-mainbill-community', {}, {}).then(function(response) {
-			communityList = response.map((item, index) => {
-				item.label = item.communityname;
-				item.value = item.id;
-				return item;
-			})
-			_this.setState({
-				communityList: communityList
-			})
-
-		}).catch(function(err) {});
-	}
-	getMain = () => {
-		var mainList;
-		var _this = this;
-		Http.request('get-fina-corporation', {}, {}).then(function(response) {
-			mainList = response.map((item, index) => {
-				item.label = item.corporationName;
-				item.value = item.id;
-				return item;
-			})
-			_this.setState({
-				mainList: mainList
-			})
-
-		}).catch(function(err) {});
-	}
+	
+	
 
 
 	render() {

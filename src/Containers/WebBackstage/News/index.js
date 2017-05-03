@@ -73,8 +73,17 @@ export default class News extends React.Component {
 	        openSearch:!this.state.openSearch
 	      });
     }
-    onSearchSubmit=()=>{
-
+    //高级查询
+    onSearchSubmit=(form)=>{
+		this.setState({
+	        Params:form
+	    });
+    }
+    //查询
+    onSearch=(form)=>{
+		this.setState({
+	        Params:{title:form.content}
+	    });
     }
 	
 
@@ -88,7 +97,11 @@ export default class News extends React.Component {
 							<Button label="新建新闻"  onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
 							<Button   type='search'  searchClick={this.openSearch} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-							<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} />
+							<SearchForms 
+									onSubmit={this.onSearch} 
+									placeholder="请输入新闻标题"  
+									style={{marginTop:5,zIndex:10000}} 
+							/>
 						</form>
 						<Table
 		                  style={{marginTop:10}}
