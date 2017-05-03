@@ -31,19 +31,6 @@ class HightSearchForm extends React.Component {
 		super(props);
 		this.state = {
 			communityList: [],
-			payment: [{
-				label: '支付宝支付',
-				value: 'ZHIFUBAO'
-			}, {
-				label: '微信支付',
-				value: 'WEIXIN'
-			}, {
-				label: '银行转账',
-				value: 'YINGHANG'
-			}, {
-				label: 'POS机支付',
-				value: 'POS'
-			}],
 			payType: [],
 			mainList: []
 		}
@@ -121,86 +108,73 @@ class HightSearchForm extends React.Component {
 		return (
 			<div>
 			    <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:30}}>
-				    <KrField
-				    		grid={1/2}
-							left={50}
-							right={10}
-				    		name="communityId"
-				    		component="searchCommunitys"
-				    		style={{marginTop:4}}
-				    		label="社区名称"
-				  			options={communityList}
-					/>
-					<KrField
-				    		grid={1/2}
-								right={50}
-				    		left={10}
-				    		name="payWay"
-				    		type="select"
-				    		style={{marginTop:4}}
-				    		label="收款方式"
-				  			options={payment}
-					/>
-					<KrField
-				    		grid={1/2}
-								left={50}
-								right={10}
-				    		name="flowCategoryId"
-				    		component="searchPayment"
-				    		style={{marginTop:4}}
-				    		label="收款类型"
-
-					/>
-					<KrField
-				    		grid={1/2}
-								right={50}
-				    		left={10}
-				    		name="corporationId"
-				    		component="searchCorporation"
-				    		style={{marginTop:4}}
-				    		label="主体"
-				  			options={mainList}
-					/>
-					<KrField
-							grid={1/1}
-							component="group"
-							label="录入时间"
-							left={50}
-							style={{marginTop:3}}
-					>
-						<div className='ui-listDate'>
-							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="createStratTime" component="date" /></div></ListGroupItem>
-									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="createEndTime" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
-							</ListGroup>
-		                </div>
-					</KrField>
-					<KrField
-							grid={1/1}
-							component="group"
-							label="收款时间"
-							style={{marginTop:3}}
-							left={50}
-					>
-						<div className='ui-listDate'>
-							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:245}} ><KrField  style={{width:245,marginLeft:-10,marginTop:2}} name="dealStartTime" component="date" /></div></ListGroupItem>
-									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="dealEndTime" style={{width:245,marginTop:2}} component="date" /></div></ListGroupItem>
-							</ListGroup>
-		                </div>
-					</KrField>
-					<KrField
+				   	<KrField
 							grid={1/2}
 							left={50}
 							right={10}
-							name="customerName"
+							name="createUser"
 							type="text"
 							component="input"
-							label="客户名称"
+							label="创建人"
 					 />
-				<Grid style={{marginTop:10,marginBottom:5,marginLeft:-24}}>
+					<KrField
+							grid={1/2}
+							left={10}
+							right={50}
+							name="title"
+							type="text"
+							component="input"
+							label="新闻标题"
+					 />
+					 <KrField 
+					 		grid={1 / 2} 
+					 		left={50}
+							right={10}
+							style={{marginTop:10}}
+					 		name="publishedStatus" 
+					 		component="group" 
+					 		label="发布状态" 
+					 		>
+	                    <KrField 
+	                    		name="publishedStatus" 
+	                    		grid={1 / 2} 
+	                    		label="发布" 
+	                    		type="radio" 
+	                    		value="PUBLISHED"
+	                    />
+	                    <KrField 
+	                    		name="publishedStatus" 
+	                    		grid={1 / 2} 
+	                    		label="未发布" 
+	                    		type="radio" 
+	                    		value="UNPUBLISHED"
+	                    />
+	                </KrField>
+	                <KrField 
+	                		grid={1 / 2} 
+	                		style={{marginTop:10}}
+	                		name="stickStatus" 
+	                		component="group" 
+	                		label="置顶状态"
+	                		left={10}
+							right={50} 
+	                		>
+	                    <KrField 
+	                    		name="stickStatus" 
+	                    		grid={1 / 2} 
+	                    		label="置顶" 
+	                    		type="radio" 
+	                    		value="STICKED"
+	                    />
+	                    <KrField 
+	                    		name="stickStatus" 
+	                    		grid={1 / 2} 
+	                    		label="未置顶" 
+	                    		type="radio" 
+	                    		value="UNSTICKED"
+	                    />
+	                </KrField>
+				<Grid style={{marginTop:30,marginBottom:30,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

@@ -33,9 +33,9 @@ export default class News extends React.Component {
 		super(props, context);
 		this.state={
 			openNewCreateDialog:false,
-			openHightDialog:false,
 			openView:false,
 			openEdit:false,
+			openSearch:false,
 			Params:{}
 		}
 		
@@ -68,6 +68,14 @@ export default class News extends React.Component {
 	        openEdit:!this.state.openEdit
 	      });
     }
+    openSearch=()=>{
+		this.setState({
+	        openSearch:!this.state.openSearch
+	      });
+    }
+    onSearchSubmit=()=>{
+
+    }
 	
 
 	render() {
@@ -79,13 +87,13 @@ export default class News extends React.Component {
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 							<Button label="新建新闻"  onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
-							<Button   type='search'  searchClick={this.openHightDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+							<Button   type='search'  searchClick={this.openSearch} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 							<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} />
 						</form>
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-news-list'
+		                  ajaxUrlName='activityList'
 		                  ajaxParams={this.state.Params}
 		                  onOperation={this.onOperation}
 		              >
@@ -149,6 +157,15 @@ export default class News extends React.Component {
 		           >
 		             <ViewNewList  detail={itemDetail} onCancel={this.openView}  />
 		           </Drawer>
+		            <Dialog
+		              title="高级查询"
+		              modal={true}
+		              open={this.state.openSearch}
+		              onClose={this.openSearch}
+		              contentStyle={{width:666,height:330}}
+		            >
+		              <HightSearchForm   onSubmit={this.onSearchSubmit} onCancel={this.openSearch} />
+		            </Dialog>
 				</div>
 		);
 
