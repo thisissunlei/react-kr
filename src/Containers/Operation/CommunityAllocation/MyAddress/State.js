@@ -15,7 +15,8 @@ let State = observable({
 		searchParams:{
 			page:1,	
 			pageSize:15,
-			communityName:''
+			communityName:'',
+			time:+new Date()
 		},
 		//新建
 		openNewAddress:false,
@@ -171,18 +172,13 @@ State.setSearchParams= action(function(obj) {
 
 //新建提交
 State.onNewAddressSubmit= action(function(data) {	
-	//  var _this=this;
-	//  Http.request('actions-edit',{},data).then(function(response) {
-	// 	_this.openNewAddress=false;	
-	// 	_this.openEditCommunity=false;
-	// 	_this.searchParams={
-	// 		 time:+new Date(),
-	// 		 page:1,
-	// 		 pageSize:15
-	// 	}	
-	// }).catch(function(err) {
-	// 	 Message.error(err.message);
-	// });	
+	 var _this=this;
+	 console.log('State',data);
+	 Http.request('addMyAddressData',{},data).then(function(response) {
+
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
 });
 
 //获取社区列表
