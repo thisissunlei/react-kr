@@ -181,6 +181,8 @@ class NewAddMeeting  extends React.Component{
 								options={this.props.CommunityMeetingModel.sapceTypes}
 								onChange={this.spaceTypeChange}
 						/>
+						{this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
+						
 
             <KrField grid={1/2}
 								style={{width:262}}
@@ -190,7 +192,6 @@ class NewAddMeeting  extends React.Component{
 							 	requireLabel={true}
 							 	options={this.props.CommunityMeetingModel.floorData}
 						 />
-						 {this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
 						 <KrField grid={1/2}
 							 	style={{width:262,marginLeft:28}}
 								name="area"
