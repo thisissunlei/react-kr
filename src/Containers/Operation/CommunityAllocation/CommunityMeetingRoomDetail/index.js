@@ -118,6 +118,24 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
+	 params = Object.assign({},params);
+	 //亮点开始
+	 var maskList=[];
+	 if(params.maskStation){
+		params.maskStation.map((item)=>{
+				 if(!item.list){
+					 return ;
+			 }
+				maskList.push(item.list);
+		});
+	}
+	 params.activeTypes=maskList;
+	 delete params.maskStation
+
+	 if(params.orderStartTime>params.orderEndTime){
+		  Message.error('开始时间不能大于结束时间');
+			return ;
+	 }
    this.props.CommunityMeetingModel.stationSubmit(params);
  }
 
