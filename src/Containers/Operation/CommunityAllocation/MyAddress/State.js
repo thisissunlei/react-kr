@@ -35,21 +35,21 @@ let State = observable({
 					managerName:'',
 					managerPhone:'',
 					managerEmail:'',
-					managerIcon:'',
+					managerIcon:'http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/Y/170902398_14.jpg',
 					managerType:'COMMUNITY_MANAGER'
 				},
 				{
 					managerName:'',
 					managerPhone:'',
 					managerEmail:'',
-					managerIcon:'',
+					managerIcon:'http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/Y/170902398_14.jpg',
 					managerType:'COMMUNITY_MANAGER'
 				},
 				{
 					managerName:'1',
 					managerPhone:'1',
 					managerEmail:'1',
-					managerIcon:'',
+					managerIcon:'http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/S/171211448_248.jpg',
 					managerType:'COMMUNITY_LEADER'
 				}
 			]

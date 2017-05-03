@@ -47,17 +47,13 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
-		console.log(values)
 		values.cmtManagerListStr = [];
-		console.log(values)
 		values.cmtManagerListStr = State.stationVos;
-		console.log(values)
 		values.cmtManagerListStr.push(State.Leader);  
-		console.log(values)
 		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr)
 		// const {onSubmit} = this.props;
 		// onSubmit && onSubmit(values);
-		console.log(values)
+		console.log('onsubmit',values)
   	}
 
 	onCancel = () => {
