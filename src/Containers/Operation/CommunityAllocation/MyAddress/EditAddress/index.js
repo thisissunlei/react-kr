@@ -42,6 +42,20 @@ import HeaderUpload from './HeaderUpload';
   		console.log("guideItem发的时间阿凡达技术开发大赛里卡多方式离开");
   		console.log("guideItem",State.guideItem);
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
+		State.addGuideList = [
+			{
+				communityGuideTitle:"标题4",
+				guideContent:'11111111fdsajfjdksajfkasdjfa'
+			},
+			{
+				communityGuideTitle:"标题4",
+				guideContent:'222222222fdsajfjdksajfkasdjfa'
+			},
+			{
+				communityGuideTitle:"标题3",
+				guideContent:'33333dsajfjdksajfkasdjfa'
+			}
+		]
   		
   	}
 

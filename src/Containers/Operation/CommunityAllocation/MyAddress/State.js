@@ -15,6 +15,7 @@ let State = observable({
 		searchParams:{
 			page:1,	
 			pageSize:15,
+			communityName:''
 		},
 		//新建
 		openNewAddress:false,
@@ -153,6 +154,14 @@ State.confirmDeleteGuideItem= action(function() {
 	
 	State.openDeleteGuideItemDialog = !State.openDeleteGuideItemDialog;
 	State.addGuideList.splice(State.deleteIndex,1);
+
+});
+
+
+//  改变searchParams
+State.setSearchParams= action(function(obj) {
+	
+	this.searchParams = obj;
 
 });
 
