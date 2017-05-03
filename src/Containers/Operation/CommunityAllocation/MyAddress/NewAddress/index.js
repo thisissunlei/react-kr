@@ -229,8 +229,8 @@ import HeaderUpload from './HeaderUpload';
 
 			<DivTitle index={4} title='社区指南' styleType={3}>
 		        
-		        <div className="community-guide-list-box" style={{marginLeft:28}}>
-		        	<div style={{marginBottom:19}}>
+		        <div className="community-guide-list-box" >
+		        	<div style={{marginBottom:19,marginLeft: 28}}>
 		        	<Button  label="添加指南" type="button"  onTouchTap={State.switchOpenAddGuideFun}/>
 		        	</div>
 		        	{
