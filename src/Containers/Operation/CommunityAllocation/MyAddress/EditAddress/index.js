@@ -114,6 +114,20 @@ import HeaderUpload from './HeaderUpload';
 		State.editStationVos.splice(index,1);
 	}
 
+	// 编辑指南
+	editGuide=(item,index)=>{
+
+		State.guideEditItem =item;
+		State.Editindex = index;
+		State.switchOpenEditGuideFun();
+
+	}
+	// 删除指南
+	deleteGuide=(item,index)=>{
+
+		State.switchOpenDeleteItemGuideFun(item,index);
+
+	}
 
 
 
@@ -209,10 +223,10 @@ import HeaderUpload from './HeaderUpload';
 			<DivTitle index={4} title='社区指南' styleType={3}>
 		        <div className="community-guide-list-box">
 		        	<div style={{marginBottom:19,marginLeft:28}}>
-		        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
+		        	<Button  label="添加指南" type="button"  onTouchTap={State.switchOpenAddGuideFun}/>
 		        	</div>
 		        	{
-		        		State.addGuideList.length>0?<div className="community-duide-list">
+		        		State.addGuideList.length>0?<div className="community-guide-list">
 		        		{
 		        			State.addGuideList.map((item,index)=>{
 		        				return(
@@ -220,14 +234,14 @@ import HeaderUpload from './HeaderUpload';
 		        						<span>{item.communityGuideTitle}</span>
 		        						<div className="operation-btn">
 		        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
-		        							<span onClick={this.deleteGuide.bind(this,item)}>删除</span>
+		        							<span onClick={this.deleteGuide.bind(this,item,index)}>删除</span>
 		        						</div>
 		        						
 		        					</div>
 		        					);
 		        			})
 		        		}
-		        	</div>:<div className="community-duide-list-no">
+		        	</div>:<div className="community-guide-list-no">
 		          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
 		        	</div>
 		        	}
