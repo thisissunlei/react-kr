@@ -97,13 +97,16 @@ class CommunityList  extends React.Component{
    }
 
    openDeleteDialog=()=>{
-    State.openDeleteDialog();
+      State.openDeleteDialog();
    }
 
 
   whiteClose=()=>{
     State.closeAllDialog();
   }
+
+  
+  
 
 
   render(){
@@ -241,7 +244,7 @@ class CommunityList  extends React.Component{
             />
         </Drawer>
 
-        {/*高级查询*/}
+        {/*删除整条地点*/}
           <Dialog
           title="提示"
           open={State.openDeleteDialog}
@@ -258,6 +261,29 @@ class CommunityList  extends React.Component{
                       </ListGroupItem>
                       <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
                         <Button  label="取消" type="button"  cancle={true} onTouchTap={State.isOpenDeleteDialog} />
+                      </ListGroupItem>
+                    </ListGroup>
+                  </Row>
+                </Grid>
+          </div>
+        </Dialog>
+        {/*删除单条社区指南数据*/}
+        <Dialog
+          title="提示"
+          open={State.openDeleteGuideItemDialog}
+          onClose={State.openDeleteGuideItemDialogFun}
+          contentStyle={{width:443,height:236}}
+          >
+          <div style={{marginTop:45}}>
+            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定删除吗？</p>
+            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+                  <Row>
+                    <ListGroup>
+                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+                        <Button  label="确定" type="button" onTouchTap={State.confirmDeleteGuideItem} />
+                      </ListGroupItem>
+                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+                        <Button  label="取消" type="button"  cancle={true} onTouchTap={State.openDeleteGuideItemDialogFun} />
                       </ListGroupItem>
                     </ListGroup>
                   </Row>

@@ -37,25 +37,20 @@ import State from '../State';
 	}
 	
 	componentDidMount(){
-      	Debug.log("componentDidMountState",State.guideEditItem);
+
       	Store.dispatch(initialize('EditGuide', State.guideEditItem));
-		// Store.dispatch(change('EditGuide', 'communityGuideTitle', State.guideItem.communityGuideTitle));
 
 	}
 
 	componentWillReceiveProps(nextProps) {
-      	// Debug.log("componentWillReceivePropsState",State.guideItem);
-		// Store.dispatch(initialize('EditGuide', State.guideItem));
-		// Store.dispatch(change('EditGuide', 'communityGuideTitle', State.guideItem.communityGuideTitle));
-
-
+      
 	}
 	onSubmit=(values)=>{
 		console.log("values",values);
-		State.EditGuideListFun(values);
+		State.EditGuideItemFun(values);
 	}
 	onCancel=()=>{
-		State.switchOpenAddGuideFun();
+		State.switchOpenEditGuideFun();
 	}
     
 	render(){

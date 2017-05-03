@@ -23,6 +23,8 @@ let State = observable({
 		openDeleteDialog: false,
 		openAddGuide:false,
 		openEditGuide:false,
+		//删除单条指南确认填框 	
+		openDeleteGuideItemDialog:false,
 		//详情
 		detailData:{},
 		addGuideList:[],
@@ -30,6 +32,8 @@ let State = observable({
 		guideEditItem:{},
 		// 编辑的具体index
 		Editindex:'',
+		deleteIndex:'',
+
 
 
 
@@ -80,6 +84,32 @@ State.addGuideListFun=action(function(values) {
 State.EditGuideListFun = action(function(values) {	
 	State.addGuideList.push(values);
 	this.switchOpenAddGuideFun();
+});
+
+
+// 编辑单条指南
+State.EditGuideItemFun = action(function(values) {	
+
+	this.addGuideList.splice(this.Editindex,1,values);
+	State.switchOpenEditGuideFun();
+});
+
+
+// 删除单条指南的确认弹窗，并存储deleteIndex
+State.switchOpenDeleteItemGuideFun = action(function(item,index) {
+	
+	this.openDeleteGuideItemDialog = !this.openDeleteGuideItemDialog;
+	this.deleteIndex = index;
+	
+});
+
+
+//  确认删除单条指南
+State.confirmDeleteGuideItem= action(function() {
+	
+	State.openDeleteGuideItemDialog = !State.openDeleteGuideItemDialog;
+	State.addGuideList.splice(State.deleteIndex,1);
+
 });
 
 

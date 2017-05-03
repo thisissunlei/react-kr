@@ -82,8 +82,9 @@ import State from '../State';
 
 	}
 	// 删除指南
-	deleteGuide=(item)=>{
-		console.log("删除指南item",item);
+	deleteGuide=(item,index)=>{
+
+		State.switchOpenDeleteItemGuideFun(item,index);
 
 	}
 
@@ -109,7 +110,7 @@ import State from '../State';
 	        						<span>{item.communityGuideTitle}</span>
 	        						<div className="operation-btn">
 	        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
-	        							<span onClick={this.deleteGuide.bind(this,item)}>删除</span>
+	        							<span onClick={this.deleteGuide.bind(this,item,index)}>删除</span>
 	        						</div>
 	        						
 	        					</div>
