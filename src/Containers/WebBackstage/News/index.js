@@ -23,6 +23,7 @@ import HightSearchForm from './HightSearchForm';
 import EditNewList from './EditNewList';
 import ViewNewList from './ViewNewList';
 import CreateNewList from './CreateNewList';
+import State from './State';
 import './index.less';
 
 
@@ -32,10 +33,7 @@ export default class News extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			openNewCreateDialog:false,
-			openView:false,
-			openEdit:false,
-			openSearch:false,
+			itemDetail:{},
 			Params:{}
 		}
 		
@@ -54,24 +52,20 @@ export default class News extends React.Component {
       }
     }
     openNewCreateDialog=()=>{
-    	this.setState({
-	        openNewCreateDialog:!this.state.openNewCreateDialog
-	      });
+    	State.openNewCreateDialog()
+    	
     }
     openView=()=>{
-		this.setState({
-	        openView:!this.state.openView
-	      });
+    	State.openView();
+		
     }
     openEdit=()=>{
-		this.setState({
-	        openEdit:!this.state.openEdit
-	      });
+    	State.openEdit();
+		
     }
     openSearch=()=>{
-		this.setState({
-	        openSearch:!this.state.openSearch
-	      });
+    	State.openSearch();
+		
     }
     //高级查询
     onSearchSubmit=(form)=>{
@@ -85,10 +79,15 @@ export default class News extends React.Component {
 	        Params:{title:form.content}
 	    });
     }
+    createSave=(form)=>{
+    	State.saveNews(form)
+
+    }
 	
 
 	render() {
 		let {itemDetail}=this.state;
+
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="g-news-list">
 					<Title value="新闻列表"/>
@@ -122,18 +121,39 @@ export default class News extends React.Component {
 		              </TableHeader>
 		              <TableBody>
 		              	<TableRow>
-		              		 <TableRowColumn name="payWayName"></TableRowColumn>
-		              		 <TableRowColumn name="payWayName"></TableRowColumn>
-		              		 <TableRowColumn name="payWayName"></TableRowColumn>
-		              		 <TableRowColumn name="payWayName"></TableRowColumn>
 		              		 <TableRowColumn 
-		              		 		name=""  
-			              		 	component={(value, oldValue) => {
-				                          return (<KrDate value={value} format="yyyy-mm-dd"/>)
-				                    }}>
-		              		 </TableRowColumn>
-		              		 <TableRowColumn name="payWayName"></TableRowColumn>
-		              		 <TableRowColumn name="payWayName"></TableRowColumn>
+		              		 		name="title"
+		              		 		component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="block";
+										}
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+									 }}
+		              		 ></TableRowColumn>
+		              		 <TableRowColumn 
+		              		 		name="newsDesc"
+									component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="block";
+										}
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:118,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+									 }}
+		              		 ></TableRowColumn>
+		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
+		              		 <TableRowColumn name="stickStatusName"></TableRowColumn>
+		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
+		              		 <TableRowColumn name="orderNum"></TableRowColumn>
+		              		 <TableRowColumn name="createUser"></TableRowColumn>
 		              		 <TableRowColumn>
 								<Button label="查看"  type="operation"  operation="view"/>
 								<Button label="编辑"  type="operation"  operation="edit"/>
@@ -150,7 +170,11 @@ export default class News extends React.Component {
 		             onClose={this.openNewCreateDialog}
 		             openSecondary={true}
 		           >
-		             <CreateNewList  detail={itemDetail} onCancel={this.openNewCreateDialog}  />
+		             <CreateNewList  
+		             		detail={itemDetail} 
+		             		onCancel={this.openNewCreateDialog}  
+							onSubmit={this.createSave}
+		             />
 		           </Drawer>
 		           <Drawer
 		             modal={true}

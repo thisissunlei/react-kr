@@ -38,7 +38,8 @@ class CreateNewList extends React.Component {
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
-		console.log('form-----',form)
+		let {onSubmit}=this.props;
+		onSubmit && onSubmit(form);
 	}
 
 

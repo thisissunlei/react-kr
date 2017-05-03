@@ -54,17 +54,17 @@ module.exports = {
    },
    //新闻列表--分页
    'get-news-list':{
-      url: '/api/krspace-finance-wap/news/get-news-list?createUser={createUser}&publishedStatus={publishedStatus}&stickStatus={stickStatus}&title={title}',
+      url: '/api/krspace-finance-web/news/get-news-list?createUser={createUser}&publishedStatus={publishedStatus}&stickStatus={stickStatus}&title={title}',
       method: 'get'
    },
    //新闻列表--新建、编辑保存
    'save-news':{
-      url: '/api/krspace-finance-wap/news/save-news',
+      url: '/api/krspace-finance-web/news/save-news',
       method: 'post'
    },
    //新闻列表--查看
    'get-news-detail':{
-      url: '/api/krspace-finance-wap/news/get-news-detail?id={id}',
+      url: '/api/krspace-finance-web/news/get-news-detail?id={id}',
       method: 'get'
    },
 }
