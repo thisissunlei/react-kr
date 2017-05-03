@@ -86,6 +86,7 @@ class NewAddMeeting  extends React.Component{
 
     onSubmit=(values)=> {
 		values.id='';
+		
 		values.communityId=this.props.CommunityMeetingModel.communityId;
 	    const {
 		   onSubmit
@@ -134,6 +135,7 @@ class NewAddMeeting  extends React.Component{
 				 watchMeeting:false
 			 })
 		 }
+		 
 
 
 	}
@@ -182,7 +184,7 @@ class NewAddMeeting  extends React.Component{
 								onChange={this.spaceTypeChange}
 						/>
 						{this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
-						
+
 
             <KrField grid={1/2}
 								style={{width:262}}
@@ -215,9 +217,9 @@ class NewAddMeeting  extends React.Component{
 
 
                {watchMeeting&&<div><div style={{display:'inline-block'}} className='community-list-time'>
-											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTime' requireLabel={true}/>
+											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' requireLabel={true}/>
 											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
-											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTime'/>
+											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr'/>
                </div>
 
 							 <KrField
@@ -229,7 +231,7 @@ class NewAddMeeting  extends React.Component{
  									 photoSize={'16:9'}
  									 pictureFormat={'JPG,PNG,GIF'}
  									 pictureMemory={'300'}
- 									 requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
+ 									 requestURI = '/api/krspace-finance-web/cmt/space/upload-photo/type/single'
  									 inline={false}
  									 formfile=' '
  									 center='center'
@@ -266,7 +268,7 @@ class NewAddMeeting  extends React.Component{
 								photoSize={'16:9'}
 								pictureFormat={'JPG,PNG,GIF'}
 								pictureMemory={'300'}
-								requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
+								requestURI = '/api /krspace-finance-web/cmt/space/upload-photo/type/single'
 								inline={false}
 								formfile=' '
 								center='center'

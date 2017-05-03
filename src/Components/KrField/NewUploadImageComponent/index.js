@@ -174,6 +174,8 @@ export default class UploadImageComponent extends Component {
 		form.append(formfile, file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
+			console.log(xhr,"++++++");
+			console.log(xhr.response,"++++++");
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
@@ -190,10 +192,15 @@ export default class UploadImageComponent extends Component {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
+
 								if (fileResponse && fileResponse.code > 0) {
+									console.log("ffffff",fileResponse);
+									_this.setState({
+										imgSrc:fileResponse.data.ossHref
+									})
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
-									_this.onError(fileResponse.msg);
+									_this.onError(fileResponse && fileResponse.msg);
 									return;
 								}
 							} else if (xhrfile.status == 413) {
@@ -203,6 +210,7 @@ export default class UploadImageComponent extends Component {
 							}
 						}
 					};
+					console.log(xhrfile,">>>>>>>")
 					 xhrfile.open('POST', requestURI, true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
@@ -253,11 +261,11 @@ export default class UploadImageComponent extends Component {
 	 							            _this.refs.inputImgNew.value ="";
 	 							            _this.refs.uploadImage.src="";
 	                          	_this.setState({
-							 								errorHide: false,
-							 								errorTip:"图片尺寸不符合要求",
-							 								imageStatus : false,
-							 								imgUpload : false
-							 							});
+												errorHide: false,
+												errorTip:"图片尺寸不符合要求",
+												imageStatus : false,
+												imgUpload : false
+											});
 	                         }
 												 }else{
 													 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
@@ -306,10 +314,11 @@ export default class UploadImageComponent extends Component {
 		const {input}=this.props;
 		input.onChange("");
 	}
+
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
-
+		console.log(this.state.imgSrc,">>>>>>><<<<<<")
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
