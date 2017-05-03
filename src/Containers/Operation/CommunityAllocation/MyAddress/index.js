@@ -78,10 +78,7 @@ class CommunityList  extends React.Component{
 
    //查看或编辑
    onOperation=(type,itemDetail)=>{
-      var id=itemDetail.id;
-      itemDetail.id = itemDetail.id
-
-      // State.detailData = itemDetail;
+      State.detailData = itemDetail;
       console.log(type,itemDetail);
 
       if(type=='edit'){

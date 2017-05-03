@@ -344,7 +344,7 @@ module.exports = {
          method: 'get'
       },
       'addMyAddressData':{
-         url: '/api/krspace-finance-web/community/notice/cmt-notice?cmtGuideListStr={cmtGuideListStr}&cmtManagerListStr={cmtManagerListStr}&id={id}&communityId={communityId}&notice={notice}&wifiName={wifiName}&wifiPwd={wifiPwd}',
+         url: '/api/krspace-finance-web/community/notice/cmt-notice',
          method: 'post'
       },
 
