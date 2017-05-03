@@ -72,7 +72,8 @@ let State = observable({
 			dialogDiv :[]
 
 		},
-		local:[]
+		local:[],
+		hasLocal:false
 
 });
 State.hasOfficeChange=action(function(params){

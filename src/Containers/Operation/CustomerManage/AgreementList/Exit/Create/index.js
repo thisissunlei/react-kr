@@ -75,7 +75,7 @@ export default class JoinCreate extends React.Component {
 		var _this = this;
 		Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
-			_this.removeLocalStorage();
+			_this.removeAllLocalStorage();
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -116,6 +116,21 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -194,7 +209,6 @@ export default class JoinCreate extends React.Component {
 			});
 
 		}).catch(function(err) {
-
 			Notify.show([{
 				message: '后台出错请联系管理员2',
 				type: 'danger',
@@ -296,12 +310,18 @@ export default class JoinCreate extends React.Component {
 
 			<Title value="创建退租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
-			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
-			</div>}
-			{openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} />
-			</div>}
+			{!allState.hasLocal && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+            </div>}
+            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} />
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} />
+            </div>}
 
 			<Dialog
 				title="退租意向书"

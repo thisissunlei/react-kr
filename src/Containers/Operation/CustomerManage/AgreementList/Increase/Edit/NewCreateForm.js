@@ -130,11 +130,14 @@ class NewCreateForm extends React.Component {
 
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let initialValues = nextProps.initialValues;
 			this.setState({
 				stationVos,
 				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
+
 			});
 			this.isInit = true;
 		}
@@ -227,6 +230,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname || '请选择'));
 	}
 
 
@@ -309,7 +313,6 @@ class NewCreateForm extends React.Component {
 			return true;
 		});
 		let _this = this;
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTeditstationVos', JSON.stringify(stationVos));
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTeditdelStationVos', JSON.stringify(delStationVos));
 
@@ -423,7 +426,7 @@ class NewCreateForm extends React.Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-		form.totalrent = (form.totalrent).toFixed(2);
+		form.totalrent = form.totalrent;
 		const {
 			onSubmit
 		} = this.props;
@@ -558,11 +561,14 @@ class NewCreateForm extends React.Component {
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = (''+item.unitprice).replace(/\s/g,'');
 			}
 			return item;
 		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'ADDRENTedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('joinCreateForm', 'totalrent', response));
 			_this.setState({
 				allRent:response
 			})
@@ -818,6 +824,23 @@ const validate = values => {
 
 	const errors = {}
 
+
+	++values.num;
+
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if(!!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
+
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
@@ -891,24 +914,7 @@ const validate = values => {
 	}
 
 
-	++values.num;
-
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editcontractmark','');
-
-			}
-	    };
-	}
+	
 
 
 	return errors

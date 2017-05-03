@@ -193,7 +193,7 @@ class NewCreateForm extends React.Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('joinEditForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('joinEditForm', 'lessorContactName', personel.lastname  || '请选择'));
 		Store.dispatch(change('joinEditForm', 'lessorContacttel', personel.mobile));
 	}
 
@@ -203,8 +203,11 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
-		stationVos[index].unitprice = value;
-
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -548,6 +551,7 @@ class NewCreateForm extends React.Component {
 		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTERedittotalrent', JSON.stringify(response));
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(list));
 			
 			_this.setState({
 				allRent:response
@@ -783,7 +787,7 @@ const validate = values => {
 			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
 				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,values[i]);
 			}else if( !!!values[i]){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,'');
+				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'edit'+i,'');
 
 			}
 	    };

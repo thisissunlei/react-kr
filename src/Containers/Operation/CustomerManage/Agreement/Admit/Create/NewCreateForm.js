@@ -103,8 +103,7 @@ class NewCreateForm extends React.Component {
 		this.onCloseStation = this.onCloseStation.bind(this);
 
 		this.state = {
-			stationVos: this.props.stationVos || [],
-			stationVoList: this.props.stationVoList || [],
+			stationVos: this.props.stationVoList || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -133,7 +132,7 @@ class NewCreateForm extends React.Component {
 		if (!this.isInit && nextProps.stationVoList.length ) {
 			let stationVoList = nextProps.stationVoList;
 			this.setState({
-				stationVoList
+				stationVos:stationVoList
 			});
 			this.isInit = true;
 		}
@@ -152,13 +151,14 @@ class NewCreateForm extends React.Component {
 	}
 
 	onStationVosChange(index, value) {
-
 		let {
 			stationVos
 		} = this.state;
-
-		stationVos[index].unitprice = value;
-
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -525,7 +525,7 @@ class NewCreateForm extends React.Component {
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname || '请选择'));
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
@@ -539,7 +539,7 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
-			if(!item.unitprice){
+		if(!item.unitprice){
 				item.unitprice = 0;
 			}else{
 				item.unitprice = item.unitprice.replace(/\s/g,'');
@@ -559,77 +559,7 @@ class NewCreateForm extends React.Component {
 	}
 
 
-	onCancelStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-
-		})	
-		let {removeLocalStorage} = this.props;
-		removeLocalStorage && removeLocalStorage();
-	}
-	getLocalStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-		})
-		this.getLocalStorageSata();
-	}
-
-	getLocalStorageSata=()=>{
-		var _this = this;
-		let {initialValues} = this.props;
-		let {optionValues} = this.props;
-		
-			//获取localStorage数据
-			let keyWord = initialValues.mainbillid+ initialValues.customerId+'INTENTIONcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				optionValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
-
-
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
-				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
-				initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
-				initialValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
-
-				// optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-
-			}
-			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVoList) || [];
-
-			Store.dispatch(initialize('admitCreateForm', initialValues));
-			Store.dispatch(change('admitCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
-
-
-			_this.setState({
-				initialValues,
-				optionValues,
-				stationVos,
-			},function(){
-				this.calcStationNum();
-			});
-	}
+	
 
 
 
@@ -826,27 +756,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
-			<Dialog
-				title="提示"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorage} 
-				contentStyle={{width:'400px'}}>
-					<div>
-						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-						<Grid>
-						<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-						</ListGroup>
-						</Row>
-						</Grid>
-					</div>
-
-			  </Dialog>
+			
 
 			</div>);
 	}

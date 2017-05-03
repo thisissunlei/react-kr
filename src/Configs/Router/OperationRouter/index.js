@@ -369,7 +369,11 @@ module.exports =()=>{
 
 	</Route>
 
-		{/*合同配置*/}
+		
+
+
+	</Route>
+	{/*合同配置*/}
 		<Route path="agreement" getComponent={Basic} >
 
 		{/*出租方管理*/}
@@ -382,9 +386,6 @@ module.exports =()=>{
 				<Route path="list" getComponent={Operation_CustomerManage_Agreement_Setting_List}/>
 			</Route>
 		</Route>
-
-
-	</Route>
 
 	{/*入驻订单*/}
 		<Route path="joinOrder" getComponent={Basic}>

@@ -143,17 +143,15 @@ export default class JoinCreate extends React.Component {
 	}
 	removeLocalStorages=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId + 'ENTERcreate';
-		let keyWord2 = params.orderId+''+params.customerId + 'INTENTIONcreate';
+		let keyWord = params.orderId+''+params.customerId;
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
 			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
 				 removeList.push(itemName);
-			 }else if(localStorage.key(i).indexOf(keyWord2)!= '-1'){
-			 	removeList.push(itemName);
 			 }
 		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -202,7 +200,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.contractcode = response.contractCode;
 
 			initialValues.leaseAddress = response.customer.customerAddress;
-
+			initialValues.agreement = '无';
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -342,7 +340,6 @@ export default class JoinCreate extends React.Component {
 
 		initialValues.setlocalStorage = setlocalStorage;
 		initialValue.setlocalStorage = setlocalStorage;
-
 		return (
 
 			<div>
@@ -350,12 +347,18 @@ export default class JoinCreate extends React.Component {
 				<Title value="创建入驻协议书_财务管理"/>
 
 			
-			{openLocalStorages && <div style={{marginTop:10}}>
-				<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
-			</div>}
-			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
-			</div>}
+			{!allState.hasLocal && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+            </div>}
+            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+            </div>}
 
 			<Dialog
 				title="入驻协议书"
