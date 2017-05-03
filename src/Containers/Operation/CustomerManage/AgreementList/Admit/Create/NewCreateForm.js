@@ -110,8 +110,6 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
-			local:this.props.local || [],
-			openLocalStorage:this.props.openLocalStorage || false
 		}
 	}
 
@@ -227,7 +225,6 @@ class NewCreateForm extends React.Component {
 
 
 	componentDidMount() {
-		console.log('-----componentDidMount-----',allState.openLocalStorage,allState.openLocalStorages);
 		let {
 			initialValues
 		} = this.props;
@@ -237,9 +234,7 @@ class NewCreateForm extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
-		console.log('-----componentWillReceiveProps-----',allState.openLocalStorage,allState.openLocalStorages);
 		if(this.props.initialValues != nextProps.initialValues){
-			Store.dispatch(initialize('admitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues
 			})
@@ -518,7 +513,7 @@ class NewCreateForm extends React.Component {
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 	onBlur=(item)=>{
 
@@ -532,6 +527,14 @@ class NewCreateForm extends React.Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let stationList = list.map((item)=>{
+		if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = item.unitprice.replace(/\s/g,'');
+			}
+			return item;
+		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response

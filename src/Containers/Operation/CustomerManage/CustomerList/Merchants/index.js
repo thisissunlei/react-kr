@@ -110,7 +110,7 @@ class Merchants extends Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-		
+
 	}
 
 
@@ -488,7 +488,7 @@ class Merchants extends Component{
 						<NewVisitIndent
 			                 comeFrom="Merchant"
 			                 open={State.openNewCustomerIndent}
-							 onCancel={this.switchCustomerIndent}
+							 			 	 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 operType="SHARE"
 			                 selectDatas={dataReady}

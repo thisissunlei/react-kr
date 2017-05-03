@@ -64,9 +64,9 @@ class SearchUpperForm extends React.Component {
 					  options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
 					 <KrField grid={1/2} style={{width:262}}  name="enable" component="select" label="工位状态"
 					  options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
-					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="belongSpace" component="select" label="是否属于会议室"
+					 <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="belongSpace" component="select" label="是否属于空间"
 					  options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]}/>
-					<KrField grid={1/2} style={{width:262}}  name="spaceId" component="select" label="会议室名称"
+					<KrField grid={1/2} style={{width:262}}  name="spaceId" component="select" label="空间名称"
 					 options={spacesName}
 					 />
 

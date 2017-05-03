@@ -34,6 +34,7 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
+  Tooltip,
 	Message
 } from 'kr-ui';
 import {Http} from "kr/Utils";
@@ -178,7 +179,7 @@ class EquipmentList  extends React.Component{
 
 
 		return(
-			<div className="m-equipment-list" style={{paddingTop:25,minHeight:'910'}}>
+			<div className="m-equipment-list" style={{minHeight:'910'}}>
 				<Title value="设备列表"/>
       		<Section title="设备列表"  style={{marginBottom:-5,minHeight:910}}>
 
@@ -229,8 +230,19 @@ class EquipmentList  extends React.Component{
 
 				        <TableBody >
 				          <TableRow>
-			                <TableRowColumn name="id"></TableRowColumn>
-			                <TableRowColumn name="name"></TableRowColumn>
+			                <TableRowColumn name="id" ></TableRowColumn>
+			                <TableRowColumn name="name" component={(value,oldValue) =>{
+
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="createName" ></TableRowColumn>
 			                <TableRowColumn name="createDate"
                           component={(value,oldValue)=>{
@@ -286,7 +298,7 @@ class EquipmentList  extends React.Component{
 						open={openDelEquipment}
 						onClose={this.closeDelEquipment}
 						bodyStyle={{paddingTop:34}}
-						contentStyle={{width:400}}
+						contentStyle={{width:446,height:236}}
 					>
 						<DelEquipment  onClose={this.closeDelEquipment} onSubmit = {this.onDelSubmit} />
 

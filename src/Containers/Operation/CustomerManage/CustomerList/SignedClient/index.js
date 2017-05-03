@@ -538,7 +538,7 @@ class SignedClient extends React.Component{
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666',height:'406px',overflow:'visible'}}
+						contentStyle ={{ width: '666',height:'402px',overflow:'visible'}}
 						operType="SIGN"
 					>
 						<SearchUpperForm

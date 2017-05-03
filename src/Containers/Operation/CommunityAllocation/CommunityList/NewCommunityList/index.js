@@ -40,7 +40,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
     {fields.map((item, index) => {
 
       return (
-        <li key={index} style={{width:600}}>
+        <li key={index} style={{width:600,listStyle:'none'}}>
        <div className="krFlied-box">
        <KrField
           style={{width:239,marginLeft:16,marginRight:3}}
@@ -87,7 +87,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1/2}
@@ -118,7 +118,7 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1}
@@ -150,7 +150,7 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1}
@@ -181,7 +181,7 @@ const renderService = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
            grid={1}
@@ -208,7 +208,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
-       <li key={index} style={{width:600}}><KrField
+       <li key={index} style={{width:600,listStyle:'none'}}><KrField
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}

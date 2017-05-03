@@ -376,7 +376,7 @@ import State from '../State';
                       <div style={{marginLeft:30}}>{
                         State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
                            if(item.type=='THEFIRST'){
-                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
+                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'100% 100%',display: 'inline-block',marginRight:10}}></div>
                            }
                         })
                       }

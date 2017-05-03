@@ -43,7 +43,7 @@ const renderMask = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((maskStation, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1/2}
@@ -209,11 +209,13 @@ class EditMeeting  extends React.Component{
   render(){
 
      const {handleSubmit}=this.props;
+
      let {listDevice,watchMeeting,watchHouse,picUrl,timeStart,timeEnd}=this.state;
+
 
     return(
 
-    <div className='m-newMerchants'>
+    <div className='m-newMerchants new-meeting'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
               <div><span className="new-icon"></span><label className="title-text">编辑社区空间</label></div>
@@ -270,6 +272,7 @@ class EditMeeting  extends React.Component{
 					 component="input"
 					 label="空间位置"
 				 />
+
 
 
 				 {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
@@ -347,6 +350,7 @@ class EditMeeting  extends React.Component{
 
 
 
+
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">
@@ -385,6 +389,7 @@ const validate = values =>{
 	if(values.area&&isNaN(values.area)){
 		errors.area='面积为数字'
 	}
+
 
     if(!values.capacity){
 		errors.capacity='请输入可容纳人数'

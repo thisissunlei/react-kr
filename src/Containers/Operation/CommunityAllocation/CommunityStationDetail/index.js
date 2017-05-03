@@ -43,9 +43,9 @@ class  CommunityStationDetail extends React.Component{
 		this.state={
 		 //社区名称
 		communityName:'',
-		//会议室名称数据准备
+		//空间名称数据准备
 		stationName:{},
-		//高级查询会议室名称
+		//高级查询空间名称
 		spacesName:[],
 		//楼层数据准备
 		floorData:[],
@@ -54,7 +54,7 @@ class  CommunityStationDetail extends React.Component{
 
 	componentWillMount(){
 		  var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-		  //工位列表数据准备	
+		  //工位列表数据准备
 			var data={};
 			data.communityId=href;
 			var _this=this;
@@ -257,8 +257,8 @@ SelectCommunity=()=>{
 		              <TableHeaderColumn>工位编号</TableHeaderColumn>
 		              <TableHeaderColumn>所在楼层</TableHeaderColumn>
                   <TableHeaderColumn>工位性质</TableHeaderColumn>
-		              <TableHeaderColumn>是否属于会议室</TableHeaderColumn>
-		              <TableHeaderColumn>会议室名称</TableHeaderColumn>
+		              <TableHeaderColumn>是否属于空间</TableHeaderColumn>
+		              <TableHeaderColumn>空间名称</TableHeaderColumn>
 		              <TableHeaderColumn>状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
