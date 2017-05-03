@@ -351,8 +351,15 @@ module.exports = {
 
     //社区配置--我的地点--删除地点
       'deleteAddress':{
-         url: '/api/krspace-finance-web//community/notice/delete?cmtId={cmtId}',
+         url: '/api/krspace-finance-web/community/notice/delete?cmtId={cmtId}',
          method: 'delete'
+      },
+
+
+    //社区配置--我的地点--获取基本编辑数据
+      'getEditAddress':{
+         url: '/api/krspace-finance-web/community/notice/manager-notice?id={id}',
+         method: 'get'
       },
 
 

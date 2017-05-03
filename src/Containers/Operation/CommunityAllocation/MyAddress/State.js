@@ -173,6 +173,17 @@ State.setSearchParams= action(function(obj) {
 
 });
 
+State.getEditBasicDate= action(function(id) {
+	
+	Http.request('getEditAddress',{id:id}).then(function(response) {
+		State.addGuideList = response.cmtGuideList;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
+
+});
+
+
 
 
 

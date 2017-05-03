@@ -38,21 +38,9 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
+  		State.getEditBasicDate(State.detailData.id);
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
-		State.addGuideList = [
-			{
-				guideTitle:"标题4",
-				guideContent:'11111111fdsajfjdksajfkasdjfa'
-			},
-			{
-				guideTitle:"标题4",
-				guideContent:'222222222fdsajfjdksajfkasdjfa'
-			},
-			{
-				guideTitle:"标题3",
-				guideContent:'33333dsajfjdksajfkasdjfa'
-			}
-		]
+		
 		let manager = [];
 		State.detailData.cmtManagerListStr.map((item)=>{
 			if(item.managerType=='COMMUNITY_LEADER'){
@@ -267,7 +255,7 @@ import HeaderUpload from './HeaderUpload';
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'300px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
-							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeEdit} /></ListGroupItem>
 						</ListGroup>					
 					</Row>
 				</Grid>
