@@ -69,14 +69,10 @@ class CommunityList  extends React.Component{
    //查询
   onSearchSubmit=(params)=>{
       let obj = {
-      searchKey: params.content,
-      searchType:params.filter,
-      pageSize:15
-    }
-    if(!obj.searchType){
-       Message.error('请选择搜索类型');
-       return ;
-    }
+        page:1, 
+        pageSize:15,
+        communityName:params.content,
+      }
     State.setSearchParams(obj);
   }
 
@@ -114,17 +110,12 @@ class CommunityList  extends React.Component{
 
   render(){
 
-    let searchFilter=[
-      {
-        label:'社区名称',
-        value:'NAME'
-      },
-    ]
+    
     
 
     return(
 
-      <div className='community-list'>
+      <div className='my-address-list'>
         <Title value="我的地点"/>
         <Section title="我的地点" description="" style={{marginBottom:-5,minHeight:910}}>
         <Row style={{marginBottom:21,position:'relative',zIndex:5}}>
@@ -141,7 +132,7 @@ class CommunityList  extends React.Component{
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
                   <ListGroup>
-                    <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={searchFilter} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+                    <ListGroupItem><SearchForms placeholder='请输入社区名称'  onSubmit={this.onSearchSubmit}/></ListGroupItem>
                   </ListGroup>
                 </Col>
 
@@ -155,7 +146,7 @@ class CommunityList  extends React.Component{
               exportSwitch={false}
              
               ajaxParams={State.searchParams}
-              ajaxUrlName='communitySearch'
+              ajaxUrlName='myAddressList'
               ajaxFieldListName="items"
             >
                 <TableHeader>

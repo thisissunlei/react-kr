@@ -338,5 +338,13 @@ module.exports = {
          url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
          method: 'post'
       },
+        //社区配置--我的地点--我的地点列表
+      'myAddressList':{
+         url: '/api/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+
+
+      
 
 }

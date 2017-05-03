@@ -39,7 +39,20 @@ import HeaderUpload from './HeaderUpload';
 	}
   	componentDidMount(){
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
-		console.log('componentWillReceiveProps')
+		State.addGuideList = [
+			{
+				communityGuideTitle:"标题4",
+				guideContent:'11111111fdsajfjdksajfkasdjfa'
+			},
+			{
+				communityGuideTitle:"标题4",
+				guideContent:'222222222fdsajfjdksajfkasdjfa'
+			},
+			{
+				communityGuideTitle:"标题3",
+				guideContent:'33333dsajfjdksajfkasdjfa'
+			}
+		]
 		let manager = [];
 		State.detailData.cmtManagerListStr.map((item)=>{
 			if(item.managerType=='COMMUNITY_LEADER'){
@@ -49,7 +62,6 @@ import HeaderUpload from './HeaderUpload';
 			}
 		})
 		State.editStationVos = manager;
-		console.log('componentDidMount',State.editStationVos,State.editLeader)
   		
   	}
 
