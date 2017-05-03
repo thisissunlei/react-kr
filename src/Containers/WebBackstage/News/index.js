@@ -106,7 +106,7 @@ export default class News extends React.Component {
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='activityList'
+		                  ajaxUrlName='get-news-list'
 		                  ajaxParams={this.state.Params}
 		                  onOperation={this.onOperation}
 		              >
