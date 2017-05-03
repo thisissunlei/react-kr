@@ -26,7 +26,34 @@ let State = observable({
 		//删除单条指南确认填框 	
 		openDeleteGuideItemDialog:false,
 		//详情
-		detailData:{},
+		detailData:{
+			wifiPwd:'110120119',
+			wifiName:'li',
+			notice:'社区负责人',
+			cmtManagerListStr:[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				},
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				},
+				{
+					managerName:'1',
+					managerPhone:'1',
+					managerEmail:'1',
+					managerIcon:'',
+					managerType:'COMMUNITY_LEADER'
+				}
+			]
+		},
 		addGuideList:[],
 		guideItem:{},
 		stationVos:[
@@ -44,6 +71,8 @@ let State = observable({
 			managerIcon:'',
 			managerType:'COMMUNITY_LEADER'
 		},
+		editStationVos:[],
+		editLeader:{},
 		// 编辑的具体item
 		guideEditItem:{},
 		// 编辑的具体index

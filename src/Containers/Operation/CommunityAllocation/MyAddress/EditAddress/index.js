@@ -61,16 +61,22 @@ import HeaderUpload from './HeaderUpload';
 	}
    
 	componentWillReceiveProps(nextProps) {
-
+		console.log('componentWillReceiveProps')
+		let manager = [];
+		State.detailData.cmtManagerListStr.map((item)=>{
+			if(item.managerType=='COMMUNITY_LEADER'){
+				State.editLeader = item;
+			}else{
+				manager.push(item)
+			}
+		})
+		State.editStationVos = manager;
 	}
 
 
 	onStationVosChange=(type,index,value)=>{
-		let item = State.stationVos[index]
-		console.log(State.stationVos,State.stationVos[index],item[type],index,type,value)
-
+		let item = State.editStationVos[index]
 		item[type]= value;
-		// State.stationVos[index][type] = value;
 	}
 	positionChange=(index, value,type)=>{
 		console.log(index, value,type)
@@ -83,29 +89,29 @@ import HeaderUpload from './HeaderUpload';
 		console.log('onChange');
 	}
 	onLeaderChange=(type,value)=>{
-		State.Leader[type]= value;
+		State.editLeader[type]= value;
 		
 	}
 	addUrl=(result,index)=>{
-		State.stationVos[index].headerUrl = result;
+		State.editStationVos[index].managerIcon = result;
 	}
 	addHeaderLeaderUrl=(result,index)=>{
-		State.Leader.headerUrl = result;
+		State.editLeader.headerUrl = result;
 	}
 	addArr=()=>{
 		let item = {
-			unitprice:'111',
-			name:'',
-			phone:'',
-			email:'',
-			headerUrl:''
-		};
-		State.stationVos.push(item);
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
+			};
+		State.editStationVos.push(item);
 		console.log(State.stationVos.length)
 
 	}
 	reduceArr=(index)=>{
-		State.stationVos.splice(index,1);
+		State.editStationVos.splice(index,1);
 	}
 
 
@@ -114,21 +120,21 @@ import HeaderUpload from './HeaderUpload';
 
 
 	render(){
-		console.log("State",State.detailData);
+		
 		let {handleSubmit} = this.props;
 		let list = State.stationVos;
 		let _this = this;
 		let typeLinkLeaderNameList = {
-			value: State.Leader.name,
-			requestChange: _this.onLeaderChange.bind(null,'name')
+			value: State.editLeader.managerName,
+			requestChange: _this.onLeaderChange.bind(null,'managerName')
 		}
 		let typeLinkLeaderPhoneList = {
-			value: State.Leader.phone,
-			requestChange: _this.onLeaderChange.bind(null,'phone')
+			value: State.editLeader.managerPhone,
+			requestChange: _this.onLeaderChange.bind(null,'managerPhone')
 		}
 		let typeLinkLeaderEmailList = {
-			value: State.Leader.email,
-			requestChange: _this.onLeaderChange.bind(null,'email')
+			value: State.editLeader.managerEmail,
+			requestChange: _this.onLeaderChange.bind(null,'managerEmail')
 		}
 		return (
 	      <div className="new-my-address">
@@ -138,45 +144,46 @@ import HeaderUpload from './HeaderUpload';
 	        <form onSubmit={handleSubmit(this.onSubmit)} >
 	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
+				<div style={{marginLeft:28}}>
 				
-				<KrField name="contractmark" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
-				
+				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
+				</div>
 			</DivTitle>
 
 			<DivTitle index={2} title='社区信息' styleType={2}>
-				<div style={{marginBottom:5,paddingBottom:32}}> 
+				<div style={{marginBottom:5,paddingBottom:32,marginLeft:28}}> 
 				<KrField grid={1/2} name="name" right={15} component="searchCommunityManage" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
 				<KrField grid={1/2} type="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue="无"  requireLabel={true}/>
                 <KrField grid={1/2} name="wifiName" right={15} component="input" type="text" inline={false} label="Wifi账号" requireLabel={true}/>
-                <KrField grid={1/2} name="wifiPassWord" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
+                <KrField grid={1/2} name="wifiPwd" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
 				</div>
 			</DivTitle>
 			<DivTitle index={3} title='团队信息'>
 			<div style={{marginBottom:5,paddingBottom:32,textAlign:'center'}}>
 
 				<div className="info-box">
-					 <HeaderUpload defaultUrl={State.Leader.headerUrl} onChange={this.addHeaderLeaderUrl} index={0}/>
+					 <HeaderUpload defaultUrl={State.editLeader.managerIcon} onChange={this.addHeaderLeaderUrl} index={0}/>
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder='请输入姓名'/>
-					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'/>
-					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱'/>
+					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerName||'请输入姓名'}/>
+					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder={State.editLeader.managerPhone||'请输入电话号码'}/>
+					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder={State.editLeader.managerEmail||'请输入邮箱'}/>
 					</div> 
 				</div>
 
-				{list && list.map((item,index)=>{	
+				{State.editStationVos && State.editStationVos.map((item,index)=>{	
 			    		let typeLinkNameList = {
-							value: State.stationVos[index].name,
-							requestChange: _this.onStationVosChange.bind(null,'name',index)
+							value: State.editStationVos[index].managerName,
+							requestChange: _this.onStationVosChange.bind(null,'managerName',index)
 						}
 						let typeLinkPhoneList = {
-							value: State.stationVos[index].phone,
-							requestChange: _this.onStationVosChange.bind(null,'phone',index)
+							value: State.editStationVos[index].managerPhone,
+							requestChange: _this.onStationVosChange.bind(null,'managerPhone',index)
 						}
 						let typeLinkEmailList = {
-							value: State.stationVos[index].email,
-							requestChange: _this.onStationVosChange.bind(null,'email',index)
+							value: State.editStationVos[index].managerEmail,
+							requestChange: _this.onStationVosChange.bind(null,'managerEmail',index)
 						}
 			    		return (
 			    			<div className="info-box" key={index}>
@@ -184,9 +191,9 @@ import HeaderUpload from './HeaderUpload';
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder='请输入姓名'/>
-					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码'/>
-					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱'/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerName||'请输入姓名'}/>
+					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder={item.managerPhone||'请输入电话号码'}/>
+					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder={item.managerEmail||'请输入邮箱'}/>
 								</div> 
 								<div className="caozuo">
 									<span className="add-info-box" onClick={this.addArr}>+</span>
@@ -201,7 +208,7 @@ import HeaderUpload from './HeaderUpload';
 
 			<DivTitle index={4} title='社区指南' styleType={3}>
 		        <div className="community-guide-list-box">
-		        	<div style={{marginBottom:19}}>
+		        	<div style={{marginBottom:19,marginLeft:28}}>
 		        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
 		        	</div>
 		        	{

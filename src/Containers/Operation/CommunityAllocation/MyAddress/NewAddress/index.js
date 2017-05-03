@@ -132,12 +132,12 @@ import HeaderUpload from './HeaderUpload';
 	}
 	addArr=()=>{
 		let item = {
-			unitprice:'111',
-			name:'',
-			phone:'',
-			email:'',
-			headerUrl:''
-		};
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
+			};
 		State.stationVos.push(item);
 		console.log(State.stationVos.length)
 
@@ -174,17 +174,17 @@ import HeaderUpload from './HeaderUpload';
 	        <form onSubmit={handleSubmit(this.onSubmit)} >
 	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
-				
-				<KrField name="contractmark" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
-				
+				<div style={{marginLeft:15}}> 
+				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
+				</div>
 			</DivTitle>
 
 			<DivTitle index={2} title='社区信息' styleType={2}>
-				<div style={{marginBottom:5,paddingBottom:32}}> 
+				<div style={{marginBottom:5,paddingBottom:32,marginLeft:15}}> 
 				<KrField grid={1/2} name="name" right={15} component="searchCommunityManage" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
 				<KrField grid={1/2} type="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue="无"  requireLabel={true}/>
                 <KrField grid={1/2} name="wifiName" right={15} component="input" type="text" inline={false} label="Wifi账号" requireLabel={true}/>
-                <KrField grid={1/2} name="wifiPassWord" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
+                <KrField grid={1/2} name="wifiPwd" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
 				</div>
 			</DivTitle>
 			<DivTitle index={3} title='团队信息'>
@@ -237,7 +237,7 @@ import HeaderUpload from './HeaderUpload';
 
 			<DivTitle index={4} title='社区指南' styleType={3}>
 		        
-		        <div className="community-guide-list-box">
+		        <div className="community-guide-list-box" style={{marginLeft:28}}>
 		        	<div style={{marginBottom:19}}>
 		        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
 		        	</div>
