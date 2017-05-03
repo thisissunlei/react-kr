@@ -37,9 +37,9 @@ import HeaderUpload from './HeaderUpload';
 		this.state={
 			cityId:'',
 			openDown:true,
-      openUp:false,
-      communityName:'',
-      codeName:''
+	      	openUp:false,
+	      	communityName:'',
+	      	codeName:''
 		}
 	}
   	componentDidMount(){
@@ -96,8 +96,9 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 	// 删除指南
-	deleteGuide=(item)=>{
-		console.log("删除指南item",item);
+	deleteGuide=(item,index)=>{
+
+		State.switchOpenDeleteItemGuideFun(item,index);
 
 	}
 
@@ -169,6 +170,7 @@ import HeaderUpload from './HeaderUpload';
 	        <div className="close-new-div">
 	          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.closeNew}/>
 	        </div>
+
 	        <form onSubmit={handleSubmit(this.onSubmit)} >
 	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
@@ -234,6 +236,7 @@ import HeaderUpload from './HeaderUpload';
 			</DivTitle>
 
 			<DivTitle index={4} title='社区指南' styleType={3}>
+		        
 		        <div className="community-guide-list-box">
 		        	<div style={{marginBottom:19}}>
 		        	<Button  label="添加指南" type="button"  onTouchTap={this.onOpenAddGuide}/>
@@ -247,20 +250,21 @@ import HeaderUpload from './HeaderUpload';
 		        						<span>{item.communityGuideTitle}</span>
 		        						<div className="operation-btn">
 		        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
-		        							<span onClick={this.deleteGuide.bind(this,item)}>删除</span>
+		        							<span onClick={this.deleteGuide.bind(this,item,index)}>删除</span>
 		        						</div>
 		        						
 		        					</div>
 		        					);
 		        			})
 		        		}
-		        	</div>:<div className="community-duide-list-no">
-		          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
-		        	</div>
-		        	}
-		         </div>
+			        	</div>:<div className="community-duide-list-no">
+			          		<img src={require('../images/hasNo.png')} className="list-no-img" onClick={this.closeNew}/>
+			        	</div>
+	        		}
+	        	</div>
 	        </DivTitle>
 	        	<Grid style={{marginTop:25,marginBottom:'4px',marginLeft:40}}>
+
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'300px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
