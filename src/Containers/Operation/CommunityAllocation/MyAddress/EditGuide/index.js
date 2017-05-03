@@ -10,6 +10,9 @@ import {
 	mobx
 } from 'mobx-react';
 import {
+	Store
+} from 'kr/Redux';
+import {
 	KrField,
 	Grid,
 	Row,
@@ -29,20 +32,27 @@ import State from '../State';
 	constructor(props){
 		super(props);
 		this.state={
-		
+			initializeValues:{}
 		}
 	}
 	
 	componentDidMount(){
-      
+      	Debug.log("componentDidMountState",State.guideEditItem);
+      	Store.dispatch(initialize('EditGuide', State.guideEditItem));
+		// Store.dispatch(change('EditGuide', 'communityGuideTitle', State.guideItem.communityGuideTitle));
+
 	}
 
 	componentWillReceiveProps(nextProps) {
-		
+      	// Debug.log("componentWillReceivePropsState",State.guideItem);
+		// Store.dispatch(initialize('EditGuide', State.guideItem));
+		// Store.dispatch(change('EditGuide', 'communityGuideTitle', State.guideItem.communityGuideTitle));
+
+
 	}
 	onSubmit=(values)=>{
 		console.log("values",values);
-		State.addGuideListFun(values);
+		State.EditGuideListFun(values);
 	}
 	onCancel=()=>{
 		State.switchOpenAddGuideFun();
@@ -60,10 +70,10 @@ import State from '../State';
         			<div className="close-new-div">
 			          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.onCancel}/>
 			        </div>
-					<div className="add-guide-title">添加指南</div>
+					<div className="add-guide-title">编辑指南</div>
 					<div className="add-guide-container">
 						<KrField grid={1/2} name="communityGuideTitle" type="text"  label="指南标题"  style={{display:'block',width:'252px'}}/>
-						<KrField component="editor" name="guideContent" label="指南内容" defaultValue="" style={{marginTop:"5px"}}/>
+						<KrField component="editor" name="guideContent" label="指南内容" defaultValue={State.guideEditItem.guideContent} style={{marginTop:"5px"}}/>
 						<Grid style={{marginTop:18,marginBottom:'4px'}}>
 							<Row>
 								<ListGroup>

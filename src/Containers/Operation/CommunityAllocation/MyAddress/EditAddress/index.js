@@ -55,6 +55,7 @@ import State from '../State';
 	}
    
 	componentWillReceiveProps(nextProps) {
+
 	}
 
 
@@ -63,7 +64,7 @@ import State from '../State';
 
 
 	render(){
-
+		console.log("State",State);
 		return (
 	      <div className="new-my-address">
 	        <div className="close-new-div">
@@ -75,7 +76,7 @@ import State from '../State';
 	          </Tab>
 	          <Tab label="社区指南">
 	            <div className="community-guide-box">
-	              <Button  label="添加指南" type="button"  onTouchTap={this.onCancel}/>
+	              <Button  label="编辑指南" type="button"  onTouchTap={this.onCancel}/>
 
 	            </div>
 	          </Tab>

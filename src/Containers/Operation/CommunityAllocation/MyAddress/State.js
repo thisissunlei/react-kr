@@ -26,7 +26,11 @@ let State = observable({
 		//详情
 		detailData:{},
 		addGuideList:[],
-		guideItem:{}
+		// 编辑的具体item
+		guideEditItem:{},
+		// 编辑的具体index
+		Editindex:'',
+
 
 
 });
@@ -69,6 +73,11 @@ State.switchOpenEditGuideFun = action(function() {
 });
 
 State.addGuideListFun=action(function(values) {	
+	State.addGuideList.push(values);
+	this.switchOpenAddGuideFun();
+});
+
+State.EditGuideListFun = action(function(values) {	
 	State.addGuideList.push(values);
 	this.switchOpenAddGuideFun();
 });
