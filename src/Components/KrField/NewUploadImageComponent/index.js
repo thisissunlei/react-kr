@@ -210,13 +210,8 @@ export default class UploadImageComponent extends Component {
 							}
 						}
 					};
-<<<<<<< HEAD
-					console.log(xhrfile,">>>>>>>")
-					 xhrfile.open('POST', requestURI, true);
-=======
 					xhrfile.open('POST', requestURI, true);
-          
->>>>>>> fed7f578a91ccc768c024cfc7467c0fb988368b0
+
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
