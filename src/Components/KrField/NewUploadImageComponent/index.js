@@ -64,8 +64,12 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
+		  console.log('///ppp',nextProps);
+		if(nextProps.defaultValue){
+			console.log('///ppp');
+			this.setInitValue(nextProps.defaultValue);
+		}
 
-	 this.setInitValue(nextProps.defaultValue);
 
 	}
 
@@ -259,14 +263,21 @@ export default class UploadImageComponent extends Component {
 													 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 													 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
 													 if(width/height==realWidth/realHeight){
-														  _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
+															 if(xhrfile.response.data instanceof Array){
+																 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
+																 const {input}=_this.props;
+																 input.onChange(xhrfile.response.data[0].id);
+															 }else{
+																 _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
+																 const {input}=_this.props;
+																 input.onChange(xhrfile.response.data.id);
+															 }
 															 _this.setState({
 															 imageStatus : true,
 															 imgUpload : true,
-															 operateImg : false
+															 operateImg : false,
 														 });
-														 const {input}=_this.props;
-														 input.onChange(xhrfile.response.data.id);
+
 													 }else{
 	                         	_this.refs.inputImg.value ="";
 	 							            _this.refs.inputImgNew.value ="";

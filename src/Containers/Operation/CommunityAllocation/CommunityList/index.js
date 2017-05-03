@@ -56,7 +56,7 @@ class CommunityList  extends React.Component{
       photoD:[],
       communityId:'',
       communityName:'',
-
+      picSrc:''
     }
 	}
 
@@ -172,6 +172,7 @@ class CommunityList  extends React.Component{
             photosStr.push(images)
           })
          }
+				 photosStr.push({type:'MOBILE_STATION',photoId:value.picId,first:true});
 
          value.photosStr=JSON.stringify(photosStr);
 
@@ -188,6 +189,7 @@ class CommunityList  extends React.Component{
          delete value.wherefloors;
          delete value.porTypes;
          delete value.photoVOs;
+				 delete value.picId;
 
          //图片结束
 
@@ -218,7 +220,7 @@ class CommunityList  extends React.Component{
       }
        if(type=='edit'){
       	  State.searchDataHere();
-          this.ajaxSendData(itemDetail.id);    
+          this.ajaxSendData(itemDetail.id);
       }
    }
 
@@ -235,7 +237,7 @@ class CommunityList  extends React.Component{
 
 
           Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
-          
+
           var bright_basic=[];
           var bright_service=[];
           var bright_special=[];
@@ -260,6 +262,11 @@ class CommunityList  extends React.Component{
               delete item.photoUrl;
               photo_Detail.push(item);
             }
+						if(item.type=='MOBILE_STATION'){
+              _this.setState({
+								picSrc:item.photoUrl
+							})
+						}
           })
 
 
@@ -317,7 +324,7 @@ class CommunityList  extends React.Component{
             Store.dispatch(change('editCommunityList','portalShow','0'));
           }
 
-          State.switchEditList(); 
+          State.switchEditList();
 
         }).catch(function(err) {
           Message.error(err.message);
@@ -425,7 +432,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName}=this.state;
+    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName,picSrc}=this.state;
 
 		return(
 
@@ -536,6 +543,7 @@ class CommunityList  extends React.Component{
                 photoD={photoD}
                 communityId={communityId}
                 communityName={communityName}
+								picSrc={picSrc}
 						/>
 
 		            </Drawer>

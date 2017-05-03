@@ -414,7 +414,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           }
 
 
-				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
+				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd,picSrc} = this.props;
+
+				console.log('===--',picSrc);
 
 				return (
 					<div>
@@ -517,9 +519,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                      photoSize={'3:2'}
                      pictureFormat={'JPG,PNG,GIF'}
                      pictureMemory={'300'}
-                     requestURI = '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic'
+                     requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                      inline={false}
                      formfile=' '
+										 defaultValue={picSrc}
                      center='center'
                    />
 

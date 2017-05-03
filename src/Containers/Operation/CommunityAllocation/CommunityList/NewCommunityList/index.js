@@ -540,14 +540,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                <KrField
                     label=""
-                    name="photosStr_single"
+                    name="picId"
                     component="newuploadImage"
-                    innerstyle={{width:330,height:220,padding:16}}
+                    innerstyle={{width:364,height:254,padding:16}}
 										sizePhoto
                     photoSize={'3:2'}
                     pictureFormat={'JPG,PNG,GIF'}
                     pictureMemory={'300'}
-                    requestURI = 'http://local.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                    requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                     inline={false}
                     formfile=' '
                     center='center'

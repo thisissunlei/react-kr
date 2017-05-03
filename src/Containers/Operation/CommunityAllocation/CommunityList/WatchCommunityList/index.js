@@ -299,6 +299,21 @@ import State from '../State';
                 <KrField grid={1/2} label="工位个数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={State.detailData.mobileStationNum?State.detailData.mobileStationNum:'无'}/>
                 <KrField grid={1/2} label="单价(积分/天)"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={State.detailData.mobileStationPrice?State.detailData.mobileStationPrice:'无'}/>
 
+
+								<div style={{marginBottom:'20px'}}>
+									<span className='pic-first'>工位图片</span>
+									<div style={{marginLeft:30}}>{
+										State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
+											 if(item.type=='MOBILE_STATION'){
+												 return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
+											 }
+										})
+									}
+									</div>
+								</div>
+
+
+
                 {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
                 <div className="end-round two-round"></div></div>}
 
