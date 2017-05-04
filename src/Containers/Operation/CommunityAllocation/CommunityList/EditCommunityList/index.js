@@ -545,7 +545,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
 							<div style={{display:openUp?'block':'none'}}>
-								<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
+								<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 								<div className="small-cheek" style={{paddingBottom:0}}>
 									<KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
 									<KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
