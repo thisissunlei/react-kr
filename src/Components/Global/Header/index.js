@@ -3,11 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
-import { AppBar, MenuItem,IconMenu, IconButton, Drawer, FontIcon, FlatButton } from 'material-ui';
+import { AppBar, MenuItem,IconMenu, IconButton,  FontIcon, FlatButton } from 'material-ui';
 
 import {
 	Button,
-	Message
+	Message,
+	
 } from 'kr-ui';
 
 import {
@@ -28,6 +29,7 @@ import {
 
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
+
 import {
 	LookCustomerList,
 	Agreement
@@ -455,8 +457,35 @@ class Header extends React.Component {
 			openAgreementDetail : false
 		})
 	}
-	render() {
 
+	renderSidebarNav=()=>{
+
+		return(
+			<div
+					className="ui-sidebarNav"
+					style={{
+						width:180,
+						height:'100%',
+						paddingTop:60,
+						paddingBottom:92,
+						boxSizing: 'border-box',
+						boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',
+						zIndex:10,
+						background:'#394457',
+						overflowY:'auto'
+					}}
+				>
+					<SidebarNav 
+							items={this.props.navs_current_items} 
+							current_router={this.props.current_router} 
+							current_parent={this.props.current_parent} 
+							current_child={this.props.current_child}
+					/>
+				</div>
+			
+			)
+	}
+	render() {
 		var styles = {
 			paddingLeft: 0,
 			position: 'fixed',
@@ -560,16 +589,15 @@ class Header extends React.Component {
 				/>
 			);
 		}
-
+		
 		return (
 
-			<div className="no-print">
+			<div className="no-print" style={{height:'100%'}}>
 				{this.props.header_nav.switch_value && <HeaderBar/>}
-				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,paddingBottom:92,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
-				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
-				</Drawer>
-				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
-					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
+				{this.props.sidebar_nav.switch_value && this.renderSidebarNav()}
+				
+				{/*<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
+					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
 
 					<MessageManagement
 						ref = "message"
@@ -597,7 +625,7 @@ class Header extends React.Component {
 				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					{this.contractRender()}
 				</Drawer>
-				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
+				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}*/}
 			</div>
 		);
 	}

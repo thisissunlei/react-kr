@@ -134,7 +134,8 @@ module.exports = [
 	            primaryText: '凭证列表',
 	            router: '/operation/voucherManage/voucherList',
 	            menuCode: 'evidenceList',
-	          }]
+	          }
+	          ]
 			},
 		]
 	}
