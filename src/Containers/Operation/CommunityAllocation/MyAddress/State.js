@@ -84,6 +84,7 @@ State.isOpenDeleteDialog= action(function() {
 State.confirmDelete= action(function() {
 	State.openDeleteDialog = !State.openDeleteDialog;
 	Http.request('deleteAddress',{cmtId:State.deleteAddcommunityId}).then(function(response) {
+		Message.success('删除成功');
 		State.setSearchParams({
 			page:1,	
 			pageSize:15,
@@ -166,9 +167,11 @@ State.getEditBasicDate= action(function(id) {
 State.onNewAddressSubmit= action(function(data) {	
 	 var _this=this;
 	 console.log('State',data);
+
 	 Http.request('addMyAddressData',{},data).then(function(response) {
-			// _this.openNewAddress = false;
-			// _this.openEditAddress = false;
+			_this.openNewAddress = false;
+			_this.openEditAddress = false;
+			Message.success('添加成功');
 			State.setSearchParams({
 			page:1,	
 			pageSize:15,
