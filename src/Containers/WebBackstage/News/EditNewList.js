@@ -29,20 +29,24 @@ class EditNewList extends React.Component {
 			newsContent:''
 		}
 		
+		
 	}
 	componentDidMount() {
 		let {detail}=this.props;
 		var _this=this;
-		Http.request('get-news-detail', {id:detail.id}).then(function(response) {
-			_this.setState({
-				newsContent:response.newsContent
-			})
-			Store.dispatch(initialize('editNewList',response));
-			
-		}).catch(function(err) {
+		setTimeout(function(){
+			Http.request('get-news-detail', {id:detail.id}).then(function(response) {
+				_this.setState({
+					newsContent:response.newsContent
+				})
+				Store.dispatch(initialize('editNewList',response));
+				
+			}).catch(function(err) {
 
-		});
-		;
+			});
+		},100);
+		
+		
 	}
 	
 	onCancel=()=>{
