@@ -50,6 +50,7 @@ class Login extends Component {
       forgetPwd:false,
 			timedisabled:'S后重新获取',
 			saltStr:'',
+			imgCode:'',
 			//邮箱
       verifyByMail:true,
 			togetMailtest: true,
@@ -238,6 +239,19 @@ class Login extends Component {
 				})
 			 }
 		});
+	}
+	//验证码切换
+	updateCode=()=>{
+		var time = new Date();
+		console.log(this.state.imgCode,"0000000");
+		this.setState({
+			imgCode:''
+		},function(){
+			console.log(this.state.imgCode,"111111");
+			this.setState({
+				imgCode:`http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`,
+			})
+		})
 	}
 	goToVerify=()=>{
 		this.setState({
@@ -532,6 +546,8 @@ class Login extends Component {
 	}
 	render() {
 		const {handleSubmit} = this.props;
+		let {imgCode} = this.state;
+		var time = new Date();
 		return (
           <div className="g-permission-login">
             <canvas id="canvas"></canvas>
@@ -584,7 +600,7 @@ class Login extends Component {
 				                   <div className="input-verifycode">
 					                   <input ref="imgCode" type="text" placeholder="请输入验证码"/>
 				                   </div>
-				                   <img className="input-verifycode-img" src={`http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}`}></img>
+				                   <img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
 			                 	</li>
 										 	 }
                        <li>

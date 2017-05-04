@@ -15,6 +15,8 @@ import store from 'kr/Redux/Store';
 
 import MobxStore from 'kr/Store';
 
+import  'kr/Styles/index.less';
+
 //document.domain = "krspace.cn";
 
 injectTapEventPlugin({

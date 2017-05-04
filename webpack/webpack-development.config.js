@@ -85,16 +85,6 @@ const config = {
 			cache:false,
 			showErrors:true,
 		}),
-			new HtmlWebpackPlugin({
-			title: '氪空间后台管理系统',
-			filename: 'index.html',
-			template: './src/index.template.html',
-			inject:'body',
-			excludeChunks: ['login'],
-			hash:true,
-			cache:false,
-			showErrors:true,
-		}),
 		new HtmlWebpackPlugin({
 			title: '登录-氪空间后台管理系统',
 			filename: 'login.html',

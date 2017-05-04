@@ -5,7 +5,7 @@ import {Actions,Store,connect} from 'kr/Redux';
 import Header from './Components/Global/Header';
 import Footer from './Components/Global/Footer';
 import {Http} from "kr/Utils";
-import  './Styles/index.less';
+
 
 class Master extends React.Component {
 

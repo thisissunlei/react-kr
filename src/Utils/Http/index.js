@@ -75,7 +75,7 @@ function getUrl(path, params = {},mode = false) {
 
   function check401(res) {
     if (res.code ===-4011) {
-      window.location.href = '/#/permission/login';
+      window.location.href = '/new/login.html';
     } else if (res.code ===-4033) {
         Notify.error('您没有操作权限，请联系管理员!');
     }
