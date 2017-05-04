@@ -39,20 +39,7 @@ import HeaderUpload from './HeaderUpload';
 	}
   	componentDidMount(){
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
-		State.addGuideList = [
-			{
-				communityGuideTitle:"标题4",
-				guideContent:'11111111fdsajfjdksajfkasdjfa'
-			},
-			{
-				communityGuideTitle:"标题4",
-				guideContent:'222222222fdsajfjdksajfkasdjfa'
-			},
-			{
-				communityGuideTitle:"标题3",
-				guideContent:'33333dsajfjdksajfkasdjfa'
-			}
-		]
+		
 		
   // 		State.getEditBasicDate(State.detailData.id);
 		// Store.dispatch(initialize('NewCommunityList', State.detailData));
