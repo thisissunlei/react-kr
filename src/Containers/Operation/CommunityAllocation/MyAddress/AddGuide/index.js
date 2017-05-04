@@ -34,7 +34,6 @@ import State from '../State';
 	}
 	
 	componentDidMount(){
-      State.addGuideList =[];
 	}
 
 	componentWillReceiveProps(nextProps) {

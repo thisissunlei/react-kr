@@ -30,6 +30,7 @@ let State = observable({
 		//详情
 		detailData:{},
 		addGuideList:[],
+		// EditGuideListDefault:[],
 		guideItem:{},
 		stationVos:[
 			{
@@ -192,6 +193,7 @@ State.getEditInfo= action(function() {
 			}
 		})
 		State.editStationVos = manager;
+		State.addGuideList = response.cmtGuideList;
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	

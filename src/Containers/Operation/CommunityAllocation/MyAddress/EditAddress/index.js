@@ -137,7 +137,9 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 
-
+	componentWillUnMount(){
+		State.addGuideList=[];
+	}
 
 
 
