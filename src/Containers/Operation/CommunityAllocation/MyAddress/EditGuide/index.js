@@ -33,13 +33,19 @@ class EditGuide extends  React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			initializeValues:{}
+			initializeValues:{},
+			titleLen:0
 		}
 	}
 	
 	componentDidMount(){
 
       	Store.dispatch(initialize('EditGuide', State.guideEditItem));
+      	console.log(State.guideEditItem.guideTitle);
+      	this.setState({
+      		titleLen:State.guideEditItem.guideTitle.length
+      	})
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -52,10 +58,17 @@ class EditGuide extends  React.Component{
 	onCancel=()=>{
 		State.switchOpenEditGuideFun();
 	}
+
+	titleChang=(value)=>{
+
+		this.setState({
+			titleLen:value.length
+		})
+	}
     
 	render(){
   
-    	let {openDown,openUp}=this.state;
+    	let {titleLen}=this.state;
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
 		return (
@@ -66,7 +79,8 @@ class EditGuide extends  React.Component{
 			        </div>
 					<div className="add-guide-title">编辑指南</div>
 					<div className="add-guide-container">
-						<KrField grid={1/2} name="guideTitle" type="text"  label="指南标题"  style={{display:'block',width:'252px'}}/>
+						<KrField grid={1/2} name="guideTitle" type="text"  label="指南标题" maxLength={10} onChange={this.titleChang} style={{display:'inline-block',width:'252px'}}/>
+						<span style={{display: "inline-block",width: 50,height: 40,margin: "33px 0 0 10px"}}>{titleLen}/10</span>
 						<KrField component="editor" name="guideContent" label="指南内容" defaultValue={State.guideEditItem.guideContent} style={{marginTop:"5px"}}/>
 						<Grid style={{marginTop:18,marginBottom:'4px'}}>
 							<Row>

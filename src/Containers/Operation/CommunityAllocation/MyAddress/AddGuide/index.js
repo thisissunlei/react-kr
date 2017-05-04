@@ -29,7 +29,7 @@ import State from '../State';
 	constructor(props){
 		super(props);
 		this.state={
-		
+			titleLen:0
 		}
 	}
 	
@@ -39,7 +39,7 @@ import State from '../State';
 	componentWillReceiveProps(nextProps) {
 		
 	}
-	
+
 	onSubmit=(values)=>{
 
 		State.addGuideListFun(values);
@@ -49,10 +49,17 @@ import State from '../State';
 
 		State.switchOpenAddGuideFun();
 	}
+
+	titleChang=(value)=>{
+
+		this.setState({
+			titleLen:value.length
+		})
+	}
     
 	render(){
      
-    let {openDown,openUp}=this.state;
+    let {titleLen}=this.state;
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -64,7 +71,8 @@ import State from '../State';
 			        </div>
 					<div className="add-guide-title">添加指南</div>
 					<div className="add-guide-container">
-						<KrField grid={1/2} name="guideTitle" type="text"  label="指南标题"  style={{display:'block',width:'252px'}}/>
+						<KrField grid={1/2} name="guideTitle" type="text"  label="指南标题" maxLength={10}  style={{display:'inline-block',width:'252px'}} onChange={this.titleChang}/>
+						<span style={{display: "inline-block",width: 50,height: 40,margin: "33px 0 0 10px"}}>{titleLen}/10</span>
 						<KrField component="editor" name="guideContent" label="指南内容" defaultValue="" style={{marginTop:"5px"}}/>
 						<Grid style={{marginTop:18,marginBottom:'4px'}}>
 							<Row>
