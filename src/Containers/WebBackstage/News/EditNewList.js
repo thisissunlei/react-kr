@@ -28,7 +28,8 @@ class EditNewList extends React.Component {
 		this.state={
 			newsContent:''
 		}
-		
+		let {detail}=this.props;
+		State.getNewsDate(detail.id);
 		
 	}
 	componentDidMount() {
@@ -42,7 +43,7 @@ class EditNewList extends React.Component {
 				Store.dispatch(initialize('editNewList',response));
 				
 			})
-		},100);
+		},1000);
 		
 		
 	}
