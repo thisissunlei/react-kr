@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'kr/Redux';
 import {
 	toJS
 } from 'mobx';
@@ -10,7 +9,8 @@ import {
 	mobx
 } from 'mobx-react';
 import {
-	Store
+	Store,
+	connect
 } from 'kr/Redux';
 import {
 	KrField,
@@ -23,7 +23,8 @@ import {
 import './index.less';
 import State from '../State';
 @observer
- class EditGuide extends  React.Component{
+
+class EditGuide extends  React.Component{
 
 	static PropTypes = {
 		
@@ -39,14 +40,13 @@ import State from '../State';
 	componentDidMount(){
 
       	Store.dispatch(initialize('EditGuide', State.guideEditItem));
-
 	}
 
 	componentWillReceiveProps(nextProps) {
       
 	}
 	onSubmit=(values)=>{
-		console.log("values",values);
+
 		State.EditGuideItemFun(values);
 	}
 	onCancel=()=>{
@@ -54,9 +54,8 @@ import State from '../State';
 	}
     
 	render(){
-     
-    let {openDown,openUp}=this.state;
-
+  
+    	let {openDown,openUp}=this.state;
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
 		return (

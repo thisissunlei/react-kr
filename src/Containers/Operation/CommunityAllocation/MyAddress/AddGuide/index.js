@@ -39,11 +39,14 @@ import State from '../State';
 	componentWillReceiveProps(nextProps) {
 		
 	}
+	
 	onSubmit=(values)=>{
-		console.log("values",values);
+
 		State.addGuideListFun(values);
 	}
+
 	onCancel=()=>{
+
 		State.switchOpenAddGuideFun();
 	}
     

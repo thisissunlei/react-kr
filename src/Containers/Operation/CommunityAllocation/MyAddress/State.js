@@ -30,7 +30,6 @@ let State = observable({
 		//详情
 		detailData:{},
 		addGuideList:[],
-		// EditGuideListDefault:[],
 		guideItem:{},
 		stationVos:[
 			{
