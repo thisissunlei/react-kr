@@ -47,24 +47,15 @@ import HeaderUpload from './HeaderUpload';
 
 	onSubmit = (values) => {
 
-		let managerInfo = {
-				managerName:'',
-				managerPhone:'',
-				managerEmail:'',
-				managerIcon:'',
-				managerType:'COMMUNITY_MANAGER'
-			};
+	
 		let manager = [];
-		let managerInfos = JSON.stringify(managerInfo);
 		State.editStationVos.map(item=>{
 			if(item.managerEmail || item.managerIcon || item.managerName ||item.managerPhone ){
 				manager.push(item)
 			}
 			
 		});
-		if(!manager.length){
-			manager.push(managerInfo)
-		}
+	
 
 
 		manager.push(State.editLeader);
