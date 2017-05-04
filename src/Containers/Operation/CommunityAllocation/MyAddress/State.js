@@ -66,6 +66,7 @@ State.closeAllDialog = action(function() {
 		this.openNewAddress=false;
 		this.openEditAddress=false;
 		this.openDeleteDialog=false;
+		this.addGuideList = [];
 });
 
 State.switchNewAddress= action(function() {	
