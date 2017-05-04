@@ -431,7 +431,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 				return (
 					<div>
-						<form className="m-newMerchants communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
+						<form className="communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
 							<div className="title">
 								<div><span className="new-icon list-icon"></span><label className="title-text">编辑社区</label></div>
 								<div className="customer-close" onClick={this.onCancel}></div>
