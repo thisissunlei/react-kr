@@ -41,9 +41,7 @@ class EditNewList extends React.Component {
 				})
 				Store.dispatch(initialize('editNewList',response));
 				
-			}).catch(function(err) {
-
-			});
+			})
 		},100);
 		
 		

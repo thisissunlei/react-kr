@@ -22,10 +22,10 @@ State.saveNews = action(function(params) {
 	var _this = this;
 	Http.request('save-news', {},params).then(function(response) {
 		_this.openNewCreateDialog();
-		//Message.success
+		Message.success("新建成功");
 		window.location.reload();
 	}).catch(function(err) {
-
+		Message.error(err.message);
 	});
 
 });
@@ -33,10 +33,11 @@ State.saveNews = action(function(params) {
 State.saveEditNews = action(function(params) {
 	var _this = this;
 	Http.request('save-news', {},params).then(function(response) {
+		 Message.success("修改成功");
 		_this.openEditDialog();
 		window.location.reload();
 	}).catch(function(err) {
-
+		Message.error(err.message);
 	});
 
 });
