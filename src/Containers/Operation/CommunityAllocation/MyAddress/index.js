@@ -83,7 +83,6 @@ class CommunityList  extends React.Component{
 
       if(type=='edit'){
         State.switchEditAddress();
-        State.getEditInfo();
       }
       if(type=='delete'){
         State.deleteAddcommunityId = itemDetail.communityId;

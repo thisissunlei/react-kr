@@ -38,7 +38,9 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
-		Store.dispatch(initialize('NewCommunityList', State.detailData));
+  		
+  		State.getEditInfo();
+  		console.log('编辑数据');
 		State.addGuideList = [
 			{
 				communityGuideTitle:"标题4",
@@ -70,14 +72,12 @@ import HeaderUpload from './HeaderUpload';
   	}
 
 	onSubmit = (values) => {
-  
-		values.cmtManagerListStr = [];
+		State.editStationVos.push(State.editLeader);
 		values.cmtManagerListStr = State.editStationVos;
-		values.cmtManagerListStr.push(State.editLeader);  
-		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr)
-		// const {onSubmit} = this.props;
-		// onSubmit && onSubmit(values);
-		console.log('onsubmit',values)
+		values.cmtManagerList = null;
+		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr);
+		values.cmtGuideListStr = JSON.stringify(values.cmtManagerList);
+		State.onNewAddressSubmit(values)
   	}
 
 	onCancel = () => {
@@ -155,6 +155,7 @@ import HeaderUpload from './HeaderUpload';
 
 
 	render(){
+		Store.dispatch(initialize('NewCommunityList', State.detailData));
 		
 		let {handleSubmit} = this.props;
 		let list = State.stationVos;

@@ -47,16 +47,11 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
-		 State.stationVos.push(State.Leader);
-		 	values.cmtManagerListStr = State.stationVos;
-		
+		State.stationVos.push(State.Leader);
+		values.cmtManagerListStr = State.stationVos;
 		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr);
-		console.log('values.cmtManagerListStr',values.cmtManagerListStr)
 		values.cmtGuideListStr = JSON.stringify(State.addGuideList)
-		// const {onSubmit} = this.props;
-		// onSubmit && onSubmit(values);
 		State.onNewAddressSubmit(values)
-		console.log('onsubmit',values)
   	}
 
 	onCancel = () => {

@@ -184,6 +184,7 @@ State.getEditInfo= action(function() {
 	 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
 	 	let manager = [];
 	 	State.detailData = response;
+	 	console.log('获取编辑数据');
 		response.cmtManagerList.map((item)=>{
 			if(item.managerType=='COMMUNITY_LEADER'){
 				State.editLeader = item;
