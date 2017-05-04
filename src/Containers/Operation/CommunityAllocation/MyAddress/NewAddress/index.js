@@ -54,7 +54,7 @@ import HeaderUpload from './HeaderUpload';
 				managerIcon:'',
 				managerType:'COMMUNITY_MANAGER'
 			};
-		let manager = [managerInfo];
+		let manager = [];
 		managerInfo = JSON.stringify(managerInfo);
 		State.stationVos.map(item=>{
 			if(JSON.stringify(item) !== managerInfo){

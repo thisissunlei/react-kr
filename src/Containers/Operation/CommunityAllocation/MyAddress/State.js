@@ -218,6 +218,13 @@ State.onNewAddressSubmit= action(function(data) {
 //获取编辑数据
 State.getEditInfo= action(function() {	
 	 var _this=this;
+	 let item = {
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
+			};
 	 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
 	 	let manager = [];
 	 	State.detailData = response;
@@ -229,6 +236,9 @@ State.getEditInfo= action(function() {
 				manager.push(item)
 			}
 		})
+		if(!manager.length){
+			manager.push(item)
+		}
 		State.editStationVos = manager;
 		State.addGuideList = response.cmtGuideList;
 	}).catch(function(err) {
