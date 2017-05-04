@@ -242,14 +242,14 @@ class Login extends Component {
 	}
 	//验证码切换
 	updateCode=()=>{
-		var time = new Date();
+		this.time = new Date();
 		console.log(this.state.imgCode,"0000000");
 		this.setState({
 			imgCode:''
 		},function(){
 			console.log(this.state.imgCode,"111111");
 			this.setState({
-				imgCode:`http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`,
+				imgCode:`http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${this.time}`,
 			})
 		})
 	}
@@ -547,7 +547,7 @@ class Login extends Component {
 	render() {
 		const {handleSubmit} = this.props;
 		let {imgCode} = this.state;
-		var time = new Date();
+		var time = this.time;
 		return (
           <div className="g-permission-login">
             <canvas id="canvas"></canvas>
