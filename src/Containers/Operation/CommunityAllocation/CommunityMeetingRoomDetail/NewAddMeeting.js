@@ -258,6 +258,7 @@ class NewAddMeeting  extends React.Component{
  								inline={false}
  								formfile=' '
  								center='center'
+								requireLabel={true}
  							/>}
 
 
@@ -357,6 +358,10 @@ errors.busyPrice='请输入高峰时段单价'
 
 if(values.busyPrice&&!zeroNum.test(values.busyPrice.toString().trim())){
 errors.busyPrice='高峰时段单价为整数'
+}
+
+if(!values.picId){
+errors.picId='请上传图片'
 }
 
 
