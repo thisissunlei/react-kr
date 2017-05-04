@@ -39,6 +39,10 @@ import HeaderUpload from './HeaderUpload';
 	}
   	componentDidMount(){
   		State.getEditInfo();
+  		setTimeout(function(){
+			Store.dispatch(initialize('NewCommunityList', State.detailData));
+
+  		},100)
   	}
 
 	onSubmit = (values) => {
@@ -60,7 +64,7 @@ import HeaderUpload from './HeaderUpload';
 	}
    
 	componentWillReceiveProps(nextProps) {
-		console.log('ffffff')
+		console.log('ffffff');
 		
 	}
 
@@ -87,7 +91,7 @@ import HeaderUpload from './HeaderUpload';
 		State.editStationVos[index].managerIcon = result;
 	}
 	addHeaderLeaderUrl=(result,index)=>{
-		State.editLeader.headerUrl = result;
+		State.editLeader.managerIcon = result;
 	}
 	addArr=()=>{
 		let item = {
@@ -125,8 +129,6 @@ import HeaderUpload from './HeaderUpload';
 
 
 	render(){
-		Store.dispatch(initialize('NewCommunityList', State.detailData));
-		
 		let {handleSubmit} = this.props;
 		let list = State.stationVos;
 		let _this = this;

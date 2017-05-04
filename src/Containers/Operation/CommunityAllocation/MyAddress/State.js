@@ -168,6 +168,7 @@ State.onNewAddressSubmit= action(function(data) {
 	 console.log('State',data);
 	 Http.request('addMyAddressData',{},data).then(function(response) {
 			_this.openNewAddress = false;
+			_this.openEditAddress = false;
 			State.setSearchParams({
 			page:1,	
 			pageSize:15,
