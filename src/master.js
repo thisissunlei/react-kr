@@ -2,10 +2,10 @@ import React from 'react';
 
 import {Actions,Store,connect} from 'kr/Redux';
 
-import Header from './Components/Global/Header';
-import Footer from './Components/Global/Footer';
+import Header from 'kr/Components/Global/Header';
+import Footer from 'kr/Components/Global/Footer';
+import {Http} from "kr/Utils";
 
-import  './Styles/index.less';
 
 class Master extends React.Component {
 
@@ -24,7 +24,7 @@ class Master extends React.Component {
 	constructor(props,context){
 		super(props, context);
 
-		Store.dispatch(Actions.callAPI('getSelfMenuInfo',{})).then(function(response){
+		Http.request('getSelfMenuInfo').then(function(response){
 			Store.dispatch(Actions.setUserNavs(response.navcodes));
 			Store.dispatch(Actions.setUserBasicInfo(response.user));
 		}).catch(function(err){

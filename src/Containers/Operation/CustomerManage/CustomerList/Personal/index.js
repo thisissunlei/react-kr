@@ -113,7 +113,7 @@ class Personal extends Component{
 		}).catch(function(err) {
 
 		});
-		
+
 	}
 	//客户编辑页面开关
 	switchEditCustomerList=() => {
@@ -601,7 +601,7 @@ class Personal extends Component{
 			            operType="PERSON"
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
+						contentStyle ={{ width: '666',height:'472px',overflow:'visible'}}
 
 					>
 						<SearchUpperForm

@@ -12,7 +12,7 @@ const node_modules_dir = path.join(process.cwd(),'node_modules');
 
 var env = process.env.NODE_ENV || 'development';
 
-console.log('所在环境',env);
+console.log('=== 所在环境 ===\n',env);
 
 const config = {
 	entry:{
@@ -20,22 +20,21 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		app:path.join(process.cwd(), '/src/app.js')
+		page_app:path.join(process.cwd(), '/src/Page/App/index.js'),
+		page_login:path.join(process.cwd(), '/src/Page/Login/index.js')
 	},
 	resolve: {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src')
-			/*
+			'kr': path.join(process.cwd(), '/src'),
 			'redux':path.join(node_modules_dir,'redux'),
 			'react-redux':path.join(node_modules_dir,'react-redux'),
 			'mobx':path.join(node_modules_dir,'mobx'),
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash'),
-			*/
+			'lodash':path.join(node_modules_dir,'lodash')
 		},
 	},
 	devServer: {
@@ -75,12 +74,22 @@ const config = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
-		new webpack.optimize.CommonsChunkPlugin({name:'common',filename:'common.js',chunks: ["app", "vendor"],minChunks: Infinity}),
 		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
-			template: './src/index.template.html',
+			template: './src/Page/App/index.template.html',
+			inject:'body',
+			excludeChunks: ['page_login'],
+			hash:true,
+			cache:false,
+			showErrors:true,
+		}),
+		new HtmlWebpackPlugin({
+			title: '登录-氪空间后台管理系统',
+			filename: 'login.html',
+			template: './src/Page/Login/index.template.html',
+			excludeChunks: ['page_app'],
 			inject:'body',
 			hash:true,
 			cache:false,

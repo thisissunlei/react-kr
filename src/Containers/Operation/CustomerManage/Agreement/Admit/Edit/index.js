@@ -79,6 +79,20 @@ export default class JoinCreate extends React.Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
+		let keyWord = params.orderId+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+	cancelRemoveLocalStorage=()=>{
+		let {params} = this.props;
 		let keyWord = params.orderId+params.customerId+'INTENTIONedit';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
@@ -98,7 +112,7 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 		let sign = false;
 		let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
-			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>2){
+			 if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
 			 	_this.setState({
 					openLocalStorages:true
 				})
@@ -138,7 +152,7 @@ export default class JoinCreate extends React.Component {
 		let {
 			params
 		} = this.context;
-		this.removeLocalStorage();
+		this.cancelRemoveLocalStorage();
 		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
@@ -170,7 +184,9 @@ export default class JoinCreate extends React.Component {
 			initialValues.mainbillid = params.orderId;
 			initialValues.customerId = params.customerId;
 			initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
-			initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+			if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+		        initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+		      }
 			initialValues.setLocalStorageDate = +new Date();
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -326,19 +342,21 @@ export default class JoinCreate extends React.Component {
 				id: params.id
 			}).then(function(response) {
 				let keyWord = params.orderId+ params.customerId+'INTENTIONedit';
+				initialValues.num  = localStorage.getItem(keyWord+'num') ||1;
+				initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 				initialValues.id = response.id;
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'))|| response.leaseId;
+				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValues.contractcode =response.contractcode;
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')|| response.lessorContactid;
-				initialValues.templockday = localStorage.getItem(keyWord+'templockday')|| response.templockday;
-				optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || response.contractFileList;
+				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
+				initialValues.templockday = localStorage.getItem(keyWord+'templockday');
+				optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'));
 				// initialValues.lessorContactid = response.lessorContactid;
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress')|| response.leaseAddress;
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact')|| response.leaseContact;
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel')|| response.leaseContacttel;
-				initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType')|| response.contractVersion;
+				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress');
+				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
+				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
+				initialValues.contractVersionType = localStorage.getItem(keyWord+'contractVersionType');
 				if (response.payType) {
 					initialValues.paytype = response.payType.id;
 
@@ -349,14 +367,15 @@ export default class JoinCreate extends React.Component {
 
 				}
 				if (response.boardroomnum) {
-					initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum')|| response.boardroomnum;
+					initialValues.boardroomnum = localStorage.getItem(keyWord+'boardroomnum');
 				}
-				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum')|| response.stationnum;
-				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor')|| response.wherefloor;
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')|| response.contractmark || '';
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')|| response.lessorContactName;
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel')|| response.lessorContacttel;
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment')|| response.totaldownpayment;
+				initialValues.paymentId = parseInt(localStorage.getItem(keyWord+'paymentId'));
+				initialValues.stationnum = localStorage.getItem(keyWord+'stationnum');
+				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||'';
+				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName');
+				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
+				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
 					initialValues.agreement = localStorage.getItem(keyWord+'agreement');
 
 				//时间
@@ -368,6 +387,7 @@ export default class JoinCreate extends React.Component {
 				//处理stationvos
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
+				initialValues.num = 1+parseInt(localStorage.getItem(keyWord+'num'));
 				_this.setState({
 					initialValues,
 					optionValues,

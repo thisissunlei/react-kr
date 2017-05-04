@@ -142,7 +142,7 @@ export default class TableRowColumn extends React.Component {
 
 		}
 
-		if (type == 'operation') {
+	if (type == 'operation' && !component ) {
 
 			var operationElement = [];
 
@@ -168,6 +168,15 @@ export default class TableRowColumn extends React.Component {
 					{operationElement}
 				</td>
 			);
+
+		}else if (type === 'operation' && typeof component === 'function'){
+
+			return (
+				<td className={className} style={style} {...handlers} {...other}>
+						{component(itemData)}
+				</td>
+			);
+
 		}
 
 

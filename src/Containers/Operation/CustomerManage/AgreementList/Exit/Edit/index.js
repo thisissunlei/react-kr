@@ -52,8 +52,8 @@ export default class EditCreate extends React.Component {
   onCreateSubmit(formValues) {
     const {params} = this.props;
     let _this = this;
-    Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
-    _this.removeLocalStorage();
+    Http.request('addFnaContractWithdrawal',{},formValues).then(function(response) {
+    _this.removeAllLocalStorage();
       Notify.show([{
         message: '编辑成功',
         type: 'success',
@@ -79,6 +79,20 @@ export default class EditCreate extends React.Component {
   removeLocalStorage=()=>{
     let {params} = this.props;
     let keyWord = params.orderId+''+params.customerId+'QUITRENTedit';
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf(keyWord)!='-1'){
+         removeList.push(itemName);
+       }
+     }
+     removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
+  }
+  removeAllLocalStorage=()=>{
+    let {params} = this.props;
+    let keyWord = params.orderId+''+params.customerId;
     let removeList = [];
     for (var i = 0; i < localStorage.length; i++) {
       let itemName = localStorage.key(i);
@@ -257,7 +271,7 @@ export default class EditCreate extends React.Component {
       initialValues.setLocalStorageDate = +new Date();
 
        initialValues.contractcode = response.contractCode;
-       
+
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
@@ -295,41 +309,41 @@ export default class EditCreate extends React.Component {
         let mainbillId = localStorage.getItem(keyWord +'mainbillid');
         let customerId = localStorage.getItem(keyWord +'customerId');
 
-        optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'))||response.contractFileList;
-        optionValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName')||response.lessorContactName;
+        optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'))||[];
+        optionValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
 
         initialValues.id = response.id;
         initialValues.contractstate = response.contractstate;
-        initialValues.leaseId =  parseInt(localStorage.getItem(keyWord+'leaseId'))||response.leaseId;
+        initialValues.leaseId =  parseInt(localStorage.getItem(keyWord+'leaseId'));
         initialValues.contractcode = response.contractcode;
-        initialValues.leaseAddress =  localStorage.getItem(keyWord+'leaseAddress')||response.leaseAddress;
-        initialValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName')||response.lessorContactName;
-        initialValues.leaseContact =  localStorage.getItem(keyWord+'leaseContact')||response.leaseContact;
-        initialValues.lessorContacttel =  localStorage.getItem(keyWord+'lessorContacttel')||response.lessorContacttel;
-        initialValues.leaseContacttel =  localStorage.getItem(keyWord+'leaseContacttel')||response.leaseContacttel;
-        initialValues.contractVersionType =  localStorage.getItem(keyWord+'contractVersionType')||response.contractVersion;
+        initialValues.leaseAddress =  localStorage.getItem(keyWord+'leaseAddress');
+        initialValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
+        initialValues.leaseContact =  localStorage.getItem(keyWord+'leaseContact');
+        initialValues.lessorContacttel =  localStorage.getItem(keyWord+'lessorContacttel');
+        initialValues.leaseContacttel =  localStorage.getItem(keyWord+'leaseContacttel');
+        initialValues.contractVersionType =  localStorage.getItem(keyWord+'contractVersionType');
         if (response.payType) {
-          initialValues.paytype =  parseInt(localStorage.getItem(keyWord+'paytype'))||response.payType.id;
+          initialValues.paytype =  parseInt(localStorage.getItem(keyWord+'paytype'));
 
         }
         if (response.payment) {
-          initialValues.paymodel =  parseInt(localStorage.getItem(keyWord+'paymodel'))||response.payment.id;
+          initialValues.paymodel =  parseInt(localStorage.getItem(keyWord+'paymodel'));
 
         }
         if(!response.hasOwnProperty('agreement')  || !!!response.agreement){
           initialValues.agreement =  localStorage.getItem(keyWord+'agreement')||'无';
         }else{
-          initialValues.agreement =  localStorage.getItem(keyWord+'agreement')||response.agreement;
+          initialValues.agreement =  localStorage.getItem(keyWord+'agreement');
         }
-        initialValues.stationnum =  localStorage.getItem(keyWord+'stationnum')||response.stationnum;
-        initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor')|| response.wherefloor;
-        initialValues.rentaluse =  localStorage.getItem(keyWord+'rentaluse')||response.rentaluse;
-        initialValues.contractmark =  localStorage.getItem(keyWord+'contractmark')||response.contractmark;
-        initialValues.totalrent =  localStorage.getItem(keyWord+'totalrent')||response.totalrent;
-        initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')|| response.totaldeposit;
-        initialValues.lessorContactid =  localStorage.getItem(keyWord+'lessorContactid')||response.lessorContactid;
-        initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount')||response.depositamount || 0;
-        initialValues.totalreturn =  localStorage.getItem(keyWord+'totalreturn')||response.totalreturn || 0;
+        initialValues.stationnum =  localStorage.getItem(keyWord+'stationnum');
+        initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+        initialValues.rentaluse =  localStorage.getItem(keyWord+'rentaluse');
+        initialValues.contractmark =  localStorage.getItem(keyWord+'contractmark');
+        initialValues.totalrent =  localStorage.getItem(keyWord+'totalrent');
+        initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
+        initialValues.lessorContactid =  localStorage.getItem(keyWord+'lessorContactid');
+        initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount') ;
+        initialValues.totalreturn =  localStorage.getItem(keyWord+'totalreturn')|| 0;
         //时间
 
         initialValues.signdate = localStorage.getItem(keyWord+'signdate')|| DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
@@ -391,8 +405,8 @@ export default class EditCreate extends React.Component {
     },function(){
       this.getBasicData()
       this.removeLocalStorage()
-    })  
-  } 
+    })
+  }
   getLocalStorage=()=>{
     this.setState({
       openLocalStorages:false,
@@ -423,7 +437,7 @@ export default class EditCreate extends React.Component {
         autoScrollBodyContent={true}
         autoDetectWindowHeight={true}
         onClose={this.openConfirmCreateDialog}
-        open={this.state.openLocalStorages} 
+        open={this.state.openLocalStorages}
         contentStyle={{width:'400px'}}>
           <div>
             <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>

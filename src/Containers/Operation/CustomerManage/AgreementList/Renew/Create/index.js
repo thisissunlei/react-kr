@@ -82,7 +82,7 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 
 		Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
-			_this.removeLocalStorage();
+			_this.removeAllLocalStorage();
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -119,6 +119,22 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -306,12 +322,18 @@ export default class JoinCreate extends React.Component {
 			<div>
 					<Title value="创建续租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建续租协议书']}/>
-			{!openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
-			</div>}
-			{openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
-			</div>}
+			{!allState.hasLocal && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]} />
+            </div>}
+            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+            </div>}
 
 			<Dialog
 				title="确定新建"
