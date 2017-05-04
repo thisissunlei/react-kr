@@ -47,10 +47,9 @@ import HeaderUpload from './HeaderUpload';
 
 	onSubmit = (values) => {
 		State.editStationVos.push(State.editLeader);
-		values.cmtManagerListStr = State.editStationVos;
-		values.cmtManagerList = null;
-		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr);
-		values.cmtGuideListStr = JSON.stringify(values.cmtManagerList);
+		values.cmtManagerList= State.editStationVos;
+		values.cmtManagerList= JSON.stringify(values.cmtManagerList);
+		values.cmtGuideList = JSON.stringify(State.addGuideList)
 		State.onNewAddressSubmit(values)
   	}
 
@@ -124,7 +123,9 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 
-
+	componentWillUnMount(){
+		State.addGuideList=[];
+	}
 
 
 

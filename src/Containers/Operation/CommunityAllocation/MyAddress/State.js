@@ -167,8 +167,8 @@ State.onNewAddressSubmit= action(function(data) {
 	 var _this=this;
 	 console.log('State',data);
 	 Http.request('addMyAddressData',{},data).then(function(response) {
-			_this.openNewAddress = false;
-			_this.openEditAddress = false;
+			// _this.openNewAddress = false;
+			// _this.openEditAddress = false;
 			State.setSearchParams({
 			page:1,	
 			pageSize:15,
@@ -194,6 +194,7 @@ State.getEditInfo= action(function() {
 			}
 		})
 		State.editStationVos = manager;
+		State.addGuideList = response.cmtGuideList;
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	

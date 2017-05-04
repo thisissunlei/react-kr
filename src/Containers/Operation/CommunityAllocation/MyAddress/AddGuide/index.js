@@ -34,17 +34,19 @@ import State from '../State';
 	}
 	
 	componentDidMount(){
-      State.addGuideList =[];
 	}
 
 	componentWillReceiveProps(nextProps) {
 		
 	}
+	
 	onSubmit=(values)=>{
-		console.log("values",values);
+
 		State.addGuideListFun(values);
 	}
+
 	onCancel=()=>{
+
 		State.switchOpenAddGuideFun();
 	}
     

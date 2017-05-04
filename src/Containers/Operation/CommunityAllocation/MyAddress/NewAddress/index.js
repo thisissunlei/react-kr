@@ -47,8 +47,9 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
-		State.stationVos.push(State.Leader);
-		values.cmtManagerListStr = State.stationVos;
+		let manager = Object.assign([], State.stationVos)
+		manager.push(State.Leader);
+		values.cmtManagerListStr = manager;
 		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr);
 		values.cmtGuideListStr = JSON.stringify(State.addGuideList)
 		State.onNewAddressSubmit(values)
