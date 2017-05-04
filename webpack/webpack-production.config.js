@@ -13,8 +13,8 @@ const node_modules_dir = path.join(process.cwd(),'node_modules');
 
 const config = {
 	entry:{
-		app:path.join(process.cwd(), '/src/app.js'),
-		login:path.join(process.cwd(), '/src/login.js')
+		page_app:path.join(process.cwd(), '/src/Page/App/index.js'),
+		page_login:path.join(process.cwd(), '/src/Page/Login/index.js')
 	},
 	resolve: {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
@@ -87,14 +87,14 @@ const config = {
     		minChunkSize: 10000
   		}),
   		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
+		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
-			template: './src/index.template.html',
+			template: './src/Page/App/index.template.html',
 			inject:'body',
-			excludeChunks: ['login'],
+			excludeChunks: ['page_login'],
 			hash:true,
 			cache:true,
 			showErrors:true,
@@ -110,8 +110,8 @@ const config = {
   	new HtmlWebpackPlugin({
 			title: '登录-氪空间后台管理系统',
 			filename: 'login.html',
-			template: './src/index.template.html',
-			excludeChunks: ['app'],
+			template: './src/Page/Login/index.template.html',
+			excludeChunks: ['page_app'],
 			inject:'body',
 			hash:true,
 			cache:false,
@@ -143,31 +143,31 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize' })
+				loader: 'style-loader!css-loader',
 			},
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
+				loader: "style-loader!css-loader!less-loader"
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=images/[name].[hash].[ext]'
+				loader: 'file?name=/images/[name].[hash].[ext]'
 			},
 			{
 				test: /\.eot/,
-				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/&name=/font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.woff/,
-				loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff&name=/font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.ttf/,
-				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/&name=/font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.svg/,
-				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
+				loader : 'file?prefix=font/&name=/font/[name].[hash].[ext]'
 			}
 		],
 	},
