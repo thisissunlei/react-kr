@@ -4,7 +4,7 @@ import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-
+import $ from 'jquery';
 import {
 	Table,
 	TableBody,
@@ -28,7 +28,8 @@ import {
 
 } from 'kr-ui';
 
-import ReservationDetail from './ReservationDetail';
+import Introduction from './Introduction';
+import Detail from './Detail';
 import './index.less';
 
 export default class Timeline extends React.Component {
@@ -37,7 +38,11 @@ export default class Timeline extends React.Component {
 		super(props, context);
 		this.state = {
             startTime:8,
-            endTime:30
+            endTime:30,
+            openDetail:false,
+            coordinates:{},
+            location:"right",
+            isScoll:false
 		}
 	}
 
@@ -46,7 +51,6 @@ export default class Timeline extends React.Component {
         let {startTime,endTime}=this.state;
         let elems = [];
         for(var i=startTime;i<endTime;i++){
-            console.log("i",i);
          elems.push (
                 <div style = {{width:84,float:"left",position:"relative",height:90}}>
                     <div className = "hours"><span>{i+"时"}</span></div>
@@ -56,17 +60,52 @@ export default class Timeline extends React.Component {
         }
      return elems;    
     }
+    //滚动条滚动
+   
+    openDetail = (coordinates,location) =>{    
+        $("body").css("overflow","hidden");
+        console.log(">>>>>>")
+        this.setState({
+            coordinates,
+            openDetail:true,
+            location,
+        })
+    }
+    closeDetail = () =>{
+         $("body").css("overflow","scroll");
+        this.setState({
+            openDetail:false,
+        })
+    }
     render(){
-        let {startTime,endTime}=this.state;
+        const {startTime,endTime,coordinates,openDetail,location}=this.state;
         let len = endTime - startTime;
         return(
             <div className="metting-Timeline">
+               
                 <div className = "metting-Timeline-box">
                     <div className = "metting-Timeline-shaft" style = {{width:84*len}}>
                         {this.generateCalibration()}
+                         <Introduction  
+                            onClick = {this.openDetail}
+                            allStartTime = {startTime}
+                            allEndTime = {endTime}
+                            onScroll = {this.onScroll}
+                         />
                     </div>
                 </div>
-                <div className = "sticky-notes"></div>
+                <div className = "sticky-notes">
+                    <span>H01</span>
+                    <span>2楼</span>
+                    <span>4座位</span>
+                    <span style={{float:"right"}}>ddddddddddd</span>
+                </div>
+                <Detail 
+                    open = {openDetail} 
+                    coordinates = {coordinates}
+                    close = {this.closeDetail}
+                    offset = {location}
+                />
             </div>
         );
     }
