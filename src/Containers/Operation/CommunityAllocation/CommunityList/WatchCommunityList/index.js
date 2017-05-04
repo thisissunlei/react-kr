@@ -205,6 +205,25 @@ import State from '../State';
        openStyle={};
       }
 
+      var stationNum='';
+			var stationPrice='';
+			if(State.detailData.mobileStationNum){
+				stationNum=State.detailData.mobileStationNum;
+			}else if(State.detailData.mobileStationNum==0){
+				stationNum='0';
+			}else{
+				stationNum='无'
+			}
+
+			if(State.detailData.mobileStationPrice){
+				stationPrice=State.detailData.mobileStationPrice;
+			}else if(State.detailData.mobileStationPrice==0){
+				stationPrice='0';
+			}else{
+				stationPrice='无'
+			}
+
+
 
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
@@ -296,8 +315,8 @@ import State from '../State';
             <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
             <div className="small-cheek" style={openStyle}>
 
-                <KrField grid={1/2} label="工位个数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={State.detailData.mobileStationNum?State.detailData.mobileStationNum:'无'}/>
-                <KrField grid={1/2} label="单价(积分/天)"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={State.detailData.mobileStationPrice?State.detailData.mobileStationPrice:'无'}/>
+                <KrField grid={1/2} label="工位个数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={stationNum}/>
+                <KrField grid={1/2} label="单价(积分/天)"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={stationPrice}/>
 
 
 								<div style={{marginBottom:'20px'}}>

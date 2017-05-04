@@ -270,9 +270,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
-        Message.error('开始时间不能大于结束时间');
+        Message.error('签约开始时间不能大于签约结束时间');
        return ;
      }
+		 if(values.businessBegin!=''&&values.businessEnd!=''&&values.businessEnd<values.businessBegin){
+				Message.error('营业开始时间不能大于营业结束时间');
+			 return ;
+		 }
+
+
+
 
      var flagDesk=0;
      var flagOpen=0;
