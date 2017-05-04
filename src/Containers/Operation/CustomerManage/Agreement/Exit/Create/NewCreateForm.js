@@ -184,64 +184,11 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 	}
 
 
-	getLocalStorageSata=()=>{
-		var _this = this;
-		const {
-			params
-		} = this.props;
-		let {initialValues} = this.state;
-		let {optionValues} = this.state;
-			let keyWord = params.orderId+ params.customerId+'QUITRENTcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-
-				initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate');
-				initialValues.depositamount = parseInt(localStorage.getItem(keyWord+'depositamount')) || 0;
-				initialValues.totalreturn = parseInt(localStorage.getItem(keyWord+'totalreturn')) || 0;
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid')
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-			}
-
-
-			Store.dispatch(initialize('exitCreateForm', initialValues));
-			Store.dispatch(change('exitCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
-
-			_this.setState({
-				initialValues,
-				optionValues,
-			});
-	}
-	onCancelStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-
-		})
-		let {removeLocalStorage} = this.props;
-		removeLocalStorage && removeLocalStorage();
-	}
-	getLocalStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-		})
-		this.getLocalStorageSata();
-
-	}
+	
 
 
 	render() {
@@ -337,28 +284,6 @@ class NewCreateForm extends React.Component {
 
 			</form>
 
-
-			<Dialog
-				title="提示"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorage} 
-				contentStyle={{width:'400px'}}>
-					<div>
-						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-						<Grid>
-						<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-						</ListGroup>
-						</Row>
-						</Grid>
-					</div>
-
-			  </Dialog>
 
 			</Paper>);
 	}

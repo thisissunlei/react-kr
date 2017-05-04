@@ -161,7 +161,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('renewEditForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('renewEditForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('renewEditForm', 'lessorContactName', personel.lastname|| '请选择'));
 	}
 
 	// station list
@@ -187,6 +187,7 @@ class NewCreateForm extends React.Component {
 		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWedittotalrent', JSON.stringify(response));
+			Store.dispatch(change('renewEditForm', 'totalrent', response));
 			_this.setState({
 				allRent:response
 			})
@@ -253,6 +254,7 @@ class NewCreateForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		var _this=this;
+		let initialValues = nextProps.initialValues;
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			let originStationVos = [].concat(stationVos);
@@ -274,6 +276,8 @@ class NewCreateForm extends React.Component {
 			        		openAdd:false
 			        	})
 			        }
+		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+""+initialValues.id+'RENEWeditstationVos', JSON.stringify(stationVos));
+
 			});
 			this.isInit = true;
 		};
@@ -557,6 +561,20 @@ const selector = formValueSelector('renewEditForm');
 const validate = values => {
 
 	const errors = {}
+	++values.num;
+
+	for(var i in values){
+	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+			if(i === 'contractFileList'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
+			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
+			}else if( !!!values[i]){
+				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,'');
+
+			}
+	    };
+	}
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -614,23 +632,7 @@ const validate = values => {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
-	++values.num;
-
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos' && i != 'delStationVos'){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'edit'+i,values[i]);
-			}else if(i =='agreement' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editagreement','');
-
-			}else if(i =='contractmark' && !!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+''+values.id+values.contracttype+'editcontractmark','');
-
-			}
-	    };
-	}
+	
 
 
 

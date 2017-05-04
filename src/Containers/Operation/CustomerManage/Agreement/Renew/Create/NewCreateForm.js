@@ -164,7 +164,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname  || '请选择'));
 
 	}
 
@@ -227,7 +227,7 @@ class NewCreateForm extends React.Component {
 		this.setAllRent(stationVos);
 		localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'RENEWcreatestationVos', JSON.stringify(stationVos));
 		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
-		
+
 		this.setState({
 			stationVos,
 		});
@@ -325,69 +325,7 @@ class NewCreateForm extends React.Component {
 
 
 
-	getLocalStorageSata=()=>{
-		var _this = this;
-		const {
-			params
-		} = this.props;
-		let {initialValues} = this.state;
-		let {optionValues} = this.state;
-		//获取localStorage数据s
-			let keyWord = params.orderId+ params.customerId+'RENEWcreate';
-			let mainbillId = localStorage.getItem(keyWord +'mainbillid');
-			let customerId = localStorage.getItem(keyWord +'customerId');
-			if(mainbillId && customerId){
-				initialValues.totaldownpayment = localStorage.getItem(keyWord+'totaldownpayment');
-				initialValues.signdate = localStorage.getItem(keyWord+'signdate') || '日期';
-				initialValues.lessorContacttel = localStorage.getItem(keyWord+'lessorContacttel');
-				initialValues.lessorContactid = localStorage.getItem(keyWord+'lessorContactid');
-				initialValues.leaseEnddate = localStorage.getItem(keyWord+'leaseEnddate');
-				initialValues.leaseContacttel = localStorage.getItem(keyWord+'leaseContacttel');
-				initialValues.leaseAddress = localStorage.getItem(keyWord+'leaseAddress') || null;
-				initialValues.leaseBegindate = localStorage.getItem(keyWord+'leaseBegindate');
-				optionValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.lessorContactName = localStorage.getItem(keyWord+'lessorContactName')
-				initialValues.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
-				initialValues.leaseContact = localStorage.getItem(keyWord+'leaseContact');
-				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValues.agreement = localStorage.getItem(keyWord+'agreement') || "无";
-				optionValues.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
-				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
-				initialValues.firstpaydate = localStorage.getItem(keyWord+'firstpaydate');
-				initialValues.paymodel = parseInt(localStorage.getItem(keyWord+'paymodel'));
-				initialValues.paytype = parseInt(localStorage.getItem(keyWord+'paytype'));
-				optionValues.totalrent = localStorage.getItem(keyWord+'totalrent');
-				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent');
-			}
-			initialValues.stationVos = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVos);
-
-			Store.dispatch(initialize('reduceCreateForm', initialValues));
-			Store.dispatch(change('reduceCreateForm', 'num', 1+parseInt(localStorage.getItem(keyWord+'num'))));
-
-
-			_this.setState({
-				initialValues,
-				optionValues,
-				stationVos,
-				allRent:initialValues.totalrent
-			});
-	}
-	onCancelStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-
-		})
-		let {removeLocalStorage} = this.props;
-		removeLocalStorage && removeLocalStorage();
-	}
-	getLocalStorage=()=>{
-		this.setState({
-			openLocalStorage:false,
-		})
-		this.getLocalStorageSata();
-		console.log('getLocalStorage')
-	}
+	
 
 	render() {
 
@@ -548,27 +486,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.onCloseStation}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} selectedStationVos={this.state.stationVos}/>
 					  </Dialog>
-			<Dialog
-				title="提示"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				onClose={this.openConfirmCreateDialog}
-				open={this.state.openLocalStorage} 
-				contentStyle={{width:'400px'}}>
-					<div>
-						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-						<Grid>
-						<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-						</ListGroup>
-						</Row>
-						</Grid>
-					</div>
-
-			  </Dialog>
+			
 
 
 			</Paper>);

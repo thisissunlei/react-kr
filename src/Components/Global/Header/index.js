@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
-import { AppBar, Menu, MenuItem,IconMenu, IconButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
+import { AppBar, MenuItem,IconMenu, IconButton, Drawer, FontIcon, FlatButton } from 'material-ui';
+
 import {
 	Button,
 	Message
 } from 'kr-ui';
+
 import {
 	reduxForm,
 	formValueSelector,
@@ -41,8 +42,7 @@ import {
 
 @inject("NotifyModel")
 @observer
-
-class Header extends Component {
+class Header extends React.Component {
 
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
@@ -555,7 +555,7 @@ class Header extends Component {
 						}
 					}
 					/>
-					< /IconMenu ></div>
+					</IconMenu ></div>
 				}
 				/>
 			);
