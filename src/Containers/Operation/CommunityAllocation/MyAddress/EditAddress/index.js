@@ -46,10 +46,27 @@ import HeaderUpload from './HeaderUpload';
   	}
 
 	onSubmit = (values) => {
+
+		let managerInfo = {
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
+			};
 		let manager = [];
-		manager = State.editStationVos.map(item=>{
-			return item;
+		let managerInfos = JSON.stringify(managerInfo);
+		State.editStationVos.map(item=>{
+			if(item.managerEmail || item.managerIcon || item.managerName ||item.managerPhone ){
+				manager.push(item)
+			}
+			
 		});
+		if(!manager.length){
+			manager.push(managerInfo)
+		}
+
+
 		manager.push(State.editLeader);
 		values.cmtManagerList = JSON.stringify(manager);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
@@ -66,6 +83,7 @@ import HeaderUpload from './HeaderUpload';
 	}
    
 	componentWillReceiveProps(nextProps) {
+		console.log('componentWillReceiveProps')
 
 	}
 
@@ -126,6 +144,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	componentWillUnMount(){
+		console.log('componentWillUnMount')
 		State.addGuideList=[];
 	}
 

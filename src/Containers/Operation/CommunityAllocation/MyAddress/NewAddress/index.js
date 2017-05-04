@@ -47,12 +47,20 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
-		// values.cmtManagerList = State.stationVos;
-		// values.cmtManagerList = JSON.stringify(values.cmtManagerList.push(State.Leader));
-		// values.cmtManagerList = JSON.stringify(manager);
-		let manager = [];
-		manager = State.stationVos.map(item=>{
-			return item;
+		let managerInfo = {
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
+			};
+		let manager = [managerInfo];
+		managerInfo = JSON.stringify(managerInfo);
+		State.stationVos.map(item=>{
+			if(JSON.stringify(item) !== managerInfo){
+				manager.push(item)
+			}
+			
 		});
 		manager.push(State.Leader);
 		values.cmtManagerList = JSON.stringify(manager);

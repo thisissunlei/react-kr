@@ -191,6 +191,21 @@ State.onNewAddressSubmit= action(function(data) {
 				managerIcon:'',
 				managerType:'COMMUNITY_LEADER'
 			};
+			_this.editStationVos=[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				}];
+			_this.editLeader={
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_LEADER'
+			};
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	
