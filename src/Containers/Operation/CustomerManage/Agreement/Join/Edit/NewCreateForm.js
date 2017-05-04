@@ -551,6 +551,7 @@ class NewCreateForm extends React.Component {
 		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTERedittotalrent', JSON.stringify(response));
+			localStorage.setItem(initialValues.mainbillid+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(list));
 			
 			_this.setState({
 				allRent:response
