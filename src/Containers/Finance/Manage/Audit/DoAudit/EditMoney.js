@@ -294,7 +294,7 @@ class EditMoney extends React.Component {
 	                            value={infoList.communityName}
                     	/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payWay"
 								component="labelText"
 								label="收款方式"
@@ -303,7 +303,7 @@ class EditMoney extends React.Component {
 
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="accountId"
 								component="labelText"
 								inline={false}
@@ -311,7 +311,7 @@ class EditMoney extends React.Component {
 								label="我司账户"
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
 								component="labelText"
@@ -320,7 +320,7 @@ class EditMoney extends React.Component {
 								value={infoList.payAccount}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260}}
 								name="dealTime"
 								component="labelText"
 								inline={false}

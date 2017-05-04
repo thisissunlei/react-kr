@@ -12,6 +12,7 @@ var env = process.env.NODE_ENV || 'production';
 const config = {
 	entry:{
 		app:path.join(process.cwd(), '/src/app.js'),
+		login:path.join(process.cwd(), '/src/login.js')
 	},
 	resolve: {
 		extensions: ['', '.js', '.md','.css','.png','.svg'],
@@ -24,7 +25,7 @@ const config = {
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash'),
+			'lodash':path.join(node_modules_dir,'lodash')
 		},
 	},
 	output: {
@@ -82,10 +83,21 @@ const config = {
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body',
+			excludeChunks: ['login'],
 			hash:true,
 			cache:true,
 			showErrors:true,
 			chunksSortMode:'none'
+		}),
+		new HtmlWebpackPlugin({
+			title: '登录-氪空间后台管理系统',
+			filename: 'login.html',
+			template: './src/index.template.html',
+			excludeChunks: ['app'],
+			inject:'body',
+			hash:true,
+			cache:false,
+			showErrors:true,
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new CopyWebpackPlugin([

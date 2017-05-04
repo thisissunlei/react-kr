@@ -14,13 +14,20 @@ const node_modules_dir = path.join(process.cwd(),'node_modules');
 const config = {
 	entry:{
 		app:path.join(process.cwd(), '/src/app.js'),
+		login:path.join(process.cwd(), '/src/login.js')
 	},
 	resolve: {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src')
-
+			'kr': path.join(process.cwd(), '/src'),
+			'redux':path.join(node_modules_dir,'redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'mobx':path.join(node_modules_dir,'mobx'),
+			'mobx-react':path.join(node_modules_dir,'mobx-react'),
+			'react-router':path.join(node_modules_dir,'react-router'),
+			'material-ui':path.join(node_modules_dir,'material-ui'),
+			'lodash':path.join(node_modules_dir,'lodash')
 		},
 	},
 	// 出口文件配置
@@ -52,6 +59,7 @@ const config = {
    			 verbose: false,
    			 cache:true
   	}),
+
 
     new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -86,6 +94,7 @@ const config = {
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body',
+			excludeChunks: ['login'],
 			hash:true,
 			cache:true,
 			showErrors:true,
@@ -97,6 +106,16 @@ const config = {
 		minifyJS:true,
 		minifyCSS:true
 	}
+		}),
+  	new HtmlWebpackPlugin({
+			title: '登录-氪空间后台管理系统',
+			filename: 'login.html',
+			template: './src/index.template.html',
+			excludeChunks: ['app'],
+			inject:'body',
+			hash:true,
+			cache:false,
+			showErrors:true,
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new CopyWebpackPlugin([

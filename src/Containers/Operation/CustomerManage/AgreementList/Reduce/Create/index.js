@@ -86,7 +86,7 @@ export default class JoinCreate extends React.Component {
 		var _this = this;
 		Http.request('getFnaContractRentController', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
-		    _this.removeLocalStorage()
+		    _this.removeAllLocalStorage()
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -122,6 +122,22 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -171,6 +187,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 
       		initialValues.contractcode = response.contractCode;
+      		initialValues.agreement = '无';
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'LESSRENT';
@@ -310,12 +327,18 @@ export default class JoinCreate extends React.Component {
 			<div>
 			 	<Title value="创建减租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建减租协议书']}/>
-			{!openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} params={this.props.params}  stationVos={[]}/>
-			</div>}
-			{openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} params={this.props.params}  stationVos={stationVos}/>
-			</div>}
+			{!allState.hasLocal && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]} params={this.props.params}/>
+            </div>}
+            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos} params={this.props.params}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]} params={this.props.params}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos} params={this.props.params}/>
+            </div>}
 
 			<Dialog
 				title="确定新建"

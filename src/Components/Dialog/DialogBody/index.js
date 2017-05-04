@@ -9,13 +9,21 @@ export default class DialogBody extends React.Component {
 	}
 
 	componentDidMount(){
+
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
 			}.bind(this));
+
 			let _this = this;
 			_this.initializeDialogBodyStyles();
+
+			window.addEventListener('resize',this.initializeDialogBodyStyles.bind(this));
 	}
 
+	componentWillUnmount(){
+		window.removeEventListener('resize',this.initializeDialogBodyStyles.bind(this));
+	}
+	
 	componentDidUpdate(){
 		this.initializeDialogBodyStyles();
 	}

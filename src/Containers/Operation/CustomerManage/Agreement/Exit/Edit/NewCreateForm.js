@@ -80,7 +80,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('exitEditForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('exitEditForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('exitEditForm', 'lessorContactName', personel.lastname || '请选择'));
 	}
 
 	onSubmit(form) {

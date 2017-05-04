@@ -89,7 +89,7 @@ export default class JoinCreate extends React.Component {
 			var _this = this;
 		Http.request('addFinaContractIntentletter', {}, formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
-		    _this.removeLocalStorage();
+		    _this.removeAllLocalStorage();
 
 			Notify.show([{
 				message: '创建成功',
@@ -130,6 +130,22 @@ export default class JoinCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+
+	removeAllLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -176,10 +192,10 @@ export default class JoinCreate extends React.Component {
 			initialValues.setLocalStorageDate = +new Date();
 			
 			initialValues.contractcode= response.contractCode;
+			initialValues.agreement = '无';
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
-			initialValues.agreement = '无';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
@@ -271,7 +287,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.leaseId = parseInt(localStorage.getItem(keyWord+'leaseId'));
 				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
-				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.agreement = localStorage.getItem(keyWord+'agreement');
 				initialValue.totalrent = localStorage.getItem(keyWord+'totalrent') || 0;
 				initialValue.stationnum = localStorage.getItem(keyWord+'stationnum') || 0;
 				initialValue.boardroomnum = localStorage.getItem(keyWord+'boardroomnum') || 0;
@@ -288,8 +304,7 @@ export default class JoinCreate extends React.Component {
 			initialValue = Object.assign({},initialValues,initialValue);
 
 
-			initialValues.stationVoList = localStorage.getItem(keyWord+'stationVos') || '[]';
-			let stationVos = JSON.parse(initialValues.stationVoList) || [];
+			let stationVos = JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 			_this.setState({
 				initialValue,
 				optionValue,
@@ -330,12 +345,18 @@ export default class JoinCreate extends React.Component {
 			<div >
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			{!openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} local={local}/>
-			</div>}
-			{openLocalStorages && <div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue}  stationVos={stationVos} local={local}/>
-			</div>}
+			{!allState.hasLocal && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} />
+            </div>}
+            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+            </div>}
+            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+            </div>}
 
 			<Dialog
 				title="承租意向书"
