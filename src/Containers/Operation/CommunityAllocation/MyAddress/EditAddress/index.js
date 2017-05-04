@@ -38,37 +38,7 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
-  		
   		State.getEditInfo();
-  		console.log('编辑数据');
-		State.addGuideList = [
-			{
-				communityGuideTitle:"标题4",
-				guideContent:'11111111fdsajfjdksajfkasdjfa'
-			},
-			{
-				communityGuideTitle:"标题4",
-				guideContent:'222222222fdsajfjdksajfkasdjfa'
-			},
-			{
-				communityGuideTitle:"标题3",
-				guideContent:'33333dsajfjdksajfkasdjfa'
-			}
-		]
-		
-  // 		State.getEditBasicDate(State.detailData.id);
-		// Store.dispatch(initialize('NewCommunityList', State.detailData));
-		
-		// let manager = [];
-		// State.detailData.cmtManagerListStr.map((item)=>{
-		// 	if(item.managerType=='COMMUNITY_LEADER'){
-		// 		State.editLeader = item;
-		// 	}else{
-		// 		manager.push(item)
-		// 	}
-		// })
-		// State.editStationVos = manager;
-  		
   	}
 
 	onSubmit = (values) => {

@@ -340,29 +340,29 @@ module.exports = {
       },
         //社区配置--我的地点--我的地点列表
       'myAddressList':{
-         url: '/api/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
+         url: '/apis/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
          method: 'get'
       },
       'addMyAddressData':{
-         url: '/api/krspace-finance-web/community/notice/cmt-notice',
+         url: '/apis/krspace-finance-web/community/notice/cmt-notice',
          method: 'post'
       },
       'getEditInfo':{
-         url: '/api/krspace-finance-web/community/notice/manager-notice?id={id}',
+         url: '/apis/krspace-finance-web/community/notice/manager-notice?id={id}',
          method: 'get'
       },
 
 
     //社区配置--我的地点--删除地点
       'deleteAddress':{
-         url: '/api/krspace-finance-web/community/notice/delete?cmtId={cmtId}',
+         url: '/apis/krspace-finance-web/community/notice/delete?cmtId={cmtId}',
          method: 'delete'
       },
 
 
     //社区配置--我的地点--获取基本编辑数据
       'getEditAddress':{
-         url: '/api/krspace-finance-web/community/notice/manager-notice?id={id}',
+         url: '/apis/krspace-finance-web/community/notice/manager-notice?id={id}',
          method: 'get'
       },
 
