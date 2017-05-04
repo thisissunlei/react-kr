@@ -229,7 +229,7 @@ import State from '../State';
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
 		return (
-           <div className='m-newMerchants communityList-m' style={{paddingLeft:9}}>
+           <div className='communityList-m' style={{paddingLeft:9}}>
 				<div className="title">
 						<div><span className="new-icon list-icon"></span><label className="title-text">社区详情</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
