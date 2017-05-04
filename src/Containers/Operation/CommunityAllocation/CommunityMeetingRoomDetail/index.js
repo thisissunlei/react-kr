@@ -132,10 +132,13 @@ searchParams = Object.assign({},defaultParams,searchParams);
 	 params.activeTypes=maskList;
 	 delete params.maskStation
 
-	 if(params.orderStartTime>params.orderEndTime){
-		  Message.error('开始时间不能大于结束时间');
-			return ;
+	 if(params.spaceType=='BOARDROOM'){
+		 if(params.orderStartTimeStr&&params.orderEndTimeStr&&params.orderStartTimeStr>params.orderEndTimeStr){
+			  Message.error('预定开始时间不能大于预定结束时间');
+				return ;
+		 }
 	 }
+
 	 delete params.orderEndTime;
 	 delete params.orderStartTime;
    this.props.CommunityMeetingModel.stationSubmit(params);
