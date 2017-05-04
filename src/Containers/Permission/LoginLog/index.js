@@ -22,7 +22,8 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	Message
+	Message,
+	Tooltip,
 } from 'kr-ui';
 import './index.less';
 import HightSearchForm from "./HightSearchForm";
@@ -105,7 +106,23 @@ export default class LoginLog extends React.Component {
 								}
 								
 							}}></TableRowColumn>
-							<TableRowColumn name="deviceInfo"></TableRowColumn>
+							<TableRowColumn 
+									name="deviceInfo"
+									component={(value)=>{
+		                            var styles = {
+		                              display:'block',
+		                              paddingTop:5
+		                            };
+		                            if(value.length==""){
+		                              styles.display="none"
+
+		                            }else{
+		                              styles.display="block";
+		                            }
+		                             return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:190,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		                           }}
+							></TableRowColumn>
 							<TableRowColumn name="remark" ></TableRowColumn>
 							<TableRowColumn name="clientIp"></TableRowColumn>
 							<TableRowColumn 
