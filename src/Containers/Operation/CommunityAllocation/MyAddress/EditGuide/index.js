@@ -67,7 +67,7 @@ import State from '../State';
 			        </div>
 					<div className="add-guide-title">编辑指南</div>
 					<div className="add-guide-container">
-						<KrField grid={1/2} name="communityGuideTitle" type="text"  label="指南标题"  style={{display:'block',width:'252px'}}/>
+						<KrField grid={1/2} name="guideTitle" type="text"  label="指南标题"  style={{display:'block',width:'252px'}}/>
 						<KrField component="editor" name="guideContent" label="指南内容" defaultValue={State.guideEditItem.guideContent} style={{marginTop:"5px"}}/>
 						<Grid style={{marginTop:18,marginBottom:'4px'}}>
 							<Row>

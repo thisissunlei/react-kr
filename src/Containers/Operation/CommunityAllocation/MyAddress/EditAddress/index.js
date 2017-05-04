@@ -38,7 +38,6 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
-  		State.getEditInfo()
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
 		State.addGuideList = [
 			{
@@ -55,6 +54,18 @@ import HeaderUpload from './HeaderUpload';
 			}
 		]
 		
+  // 		State.getEditBasicDate(State.detailData.id);
+		// Store.dispatch(initialize('NewCommunityList', State.detailData));
+		
+		// let manager = [];
+		// State.detailData.cmtManagerListStr.map((item)=>{
+		// 	if(item.managerType=='COMMUNITY_LEADER'){
+		// 		State.editLeader = item;
+		// 	}else{
+		// 		manager.push(item)
+		// 	}
+		// })
+		// State.editStationVos = manager;
   		
   	}
 
@@ -79,6 +90,7 @@ import HeaderUpload from './HeaderUpload';
 	}
    
 	componentWillReceiveProps(nextProps) {
+		console.log('ffffff')
 		
 	}
 
@@ -240,7 +252,7 @@ import HeaderUpload from './HeaderUpload';
 		        			State.addGuideList.map((item,index)=>{
 		        				return(
 		        					<div className="guide-list-item" key={index}>
-		        						<span>{item.communityGuideTitle}</span>
+		        						<span>{item.guideTitle}</span>
 		        						<div className="operation-btn">
 		        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
 		        							<span onClick={this.deleteGuide.bind(this,item,index)}>删除</span>
@@ -260,7 +272,7 @@ import HeaderUpload from './HeaderUpload';
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'300px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
-							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeEdit} /></ListGroupItem>
 						</ListGroup>					
 					</Row>
 				</Grid>

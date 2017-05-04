@@ -147,6 +147,17 @@ State.setSearchParams= action(function(obj) {
 
 });
 
+State.getEditBasicDate= action(function(id) {
+	
+	Http.request('getEditAddress',{id:id}).then(function(response) {
+		State.addGuideList = response.cmtGuideList;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
+
+});
+
+
 
 
 
@@ -167,13 +178,13 @@ State.onNewAddressSubmit= action(function(data) {
 		 Message.error(err.message);
 	});	
 });
-//新建提交
+//获取编辑数据
 State.getEditInfo= action(function() {	
 	 var _this=this;
 	 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
 	 	let manager = [];
 	 	State.detailData = response;
-		response.cmtManagerListStr.map((item)=>{
+		response.cmtManagerList.map((item)=>{
 			if(item.managerType=='COMMUNITY_LEADER'){
 				State.editLeader = item;
 			}else{

@@ -242,7 +242,7 @@ import HeaderUpload from './HeaderUpload';
 		        			State.addGuideList.map((item,index)=>{
 		        				return(
 		        					<div className="guide-list-item" key={index}>
-		        						<span>{item.communityGuideTitle}</span>
+		        						<span>{item.guideTitle}</span>
 		        						<div className="operation-btn">
 		        							<span onClick={this.editGuide.bind(this,item,index)}>编辑</span>
 		        							<span onClick={this.deleteGuide.bind(this,item,index)}>删除</span>
