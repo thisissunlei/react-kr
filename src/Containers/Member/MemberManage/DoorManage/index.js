@@ -167,7 +167,7 @@ export default class List extends React.Component {
 	}
 	// 选择社区
 	onChangeCommunity=(item)=>{
-		let _this = this;_
+		let _this = this;
 		if(!item){
 			_this.setState({
 				searchParams:{
