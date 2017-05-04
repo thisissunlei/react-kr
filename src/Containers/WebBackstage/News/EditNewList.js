@@ -26,7 +26,8 @@ class EditNewList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			newsContent:''
+			newsContent:'',
+			photoUrl:''
 		}
 		let {detail}=this.props;
 		State.getNewsDate(detail.id);
@@ -38,7 +39,8 @@ class EditNewList extends React.Component {
 		setTimeout(function(){
 			Http.request('get-news-detail', {id:detail.id}).then(function(response) {
 				_this.setState({
-					newsContent:response.newsContent
+					newsContent:response.newsContent,
+					photoUrl:response.photoUrl
 				})
 				Store.dispatch(initialize('editNewList',response));
 				
@@ -63,7 +65,7 @@ class EditNewList extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
-		let {newsContent}=this.state;
+		let {newsContent,photoUrl}=this.state;
 		return (
 			<div className="g-new-list">
 				<div className="u-title-box">
@@ -164,6 +166,7 @@ class EditNewList extends React.Component {
 								requireLabel={true}
 								label="新闻列表图片"
 								inline={false}
+								defaultValue={photoUrl}
 								/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
