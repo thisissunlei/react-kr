@@ -43,10 +43,14 @@ export default class HeaderUpload extends Component {
 		});
 	}
 	componentDidMount() {
-		console.log(this.props.defaultUrl,upload)
 
 	}
 	componentWillReceiveProps(nextProps){
+		if(this.props.defaultUrl != nextProps.defaultUrl){
+			this.setState({
+				imgSrc:nextProps.defaultUrl
+			})
+		}
 	}
 	onTokenError() {
 		Notify.show([{
@@ -166,8 +170,6 @@ export default class HeaderUpload extends Component {
 
 	}
 	render() {
-		// let {index} = this.props;
-		// let imgUrl = State.stationVos[index].headerUrl;
 		let {imgSrc} = this.state;
 		console.log('img')
 		return(

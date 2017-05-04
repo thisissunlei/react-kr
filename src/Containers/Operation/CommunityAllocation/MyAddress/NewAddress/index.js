@@ -47,12 +47,26 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
-		let manager = Object.assign([], State.stationVos)
+		let managerInfo = {
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_MANAGER'
+			};
+		let manager = [managerInfo];
+		managerInfo = JSON.stringify(managerInfo);
+		State.stationVos.map(item=>{
+			if(JSON.stringify(item) !== managerInfo){
+				manager.push(item)
+			}
+			
+		});
 		manager.push(State.Leader);
-		values.cmtManagerListStr = manager;
-		values.cmtManagerListStr = JSON.stringify(values.cmtManagerListStr);
-		values.cmtGuideListStr = JSON.stringify(State.addGuideList)
+		values.cmtManagerList = JSON.stringify(manager);
+		values.cmtGuideList = JSON.stringify(State.addGuideList)
 		State.onNewAddressSubmit(values)
+
   	}
 
 	onCancel = () => {
@@ -96,10 +110,7 @@ import HeaderUpload from './HeaderUpload';
 
 	onStationVosChange=(type,index,value)=>{
 		let item = State.stationVos[index]
-		console.log(State.stationVos,State.stationVos[index],item[type],index,type,value)
-
 		item[type]= value;
-		// State.stationVos[index][type] = value;
 	}
 	positionChange=(index, value,type)=>{
 		console.log(index, value,type)
