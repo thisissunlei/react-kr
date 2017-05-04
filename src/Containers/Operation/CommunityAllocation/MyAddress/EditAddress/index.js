@@ -46,9 +46,12 @@ import HeaderUpload from './HeaderUpload';
   	}
 
 	onSubmit = (values) => {
-		State.editStationVos.push(State.editLeader);
-		values.cmtManagerList= State.editStationVos;
-		values.cmtManagerList= JSON.stringify(values.cmtManagerList);
+		let manager = [];
+		manager = State.editStationVos.map(item=>{
+			return item;
+		});
+		manager.push(State.editLeader);
+		values.cmtManagerList = JSON.stringify(manager);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
 		State.onNewAddressSubmit(values)
   	}
@@ -63,8 +66,7 @@ import HeaderUpload from './HeaderUpload';
 	}
    
 	componentWillReceiveProps(nextProps) {
-		console.log('ffffff');
-		
+
 	}
 
 

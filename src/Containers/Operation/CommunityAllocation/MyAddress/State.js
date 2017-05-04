@@ -165,16 +165,31 @@ State.getEditBasicDate= action(function(id) {
 //新建提交
 State.onNewAddressSubmit= action(function(data) {	
 	 var _this=this;
-	 console.log('State',data);
+
 	 Http.request('addMyAddressData',{},data).then(function(response) {
-			// _this.openNewAddress = false;
-			// _this.openEditAddress = false;
+			_this.openNewAddress = false;
+			_this.openEditAddress = false;
 			State.setSearchParams({
-			page:1,	
-			pageSize:15,
-			communityName:'',
-			timer:new Date()
-		})
+				page:1,	
+				pageSize:15,
+				communityName:'',
+				timer:new Date()
+			})
+			_this.stationVos=[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				}];
+			_this.Leader={
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_LEADER'
+			};
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	
