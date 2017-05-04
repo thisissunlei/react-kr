@@ -28,33 +28,35 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 
 //标签
 const renderMask = ({ fields, meta: { touched, error }}) => {
-	   if(!fields.length){
-      fields.push({})
-		 }
-		 if(fields.length>9){
-		 }
      var krStyle={};
       krStyle={
         width:520
      }
   return (
       <ul style={{padding:0,margin:0}}>
-      {fields.map((maskStation, index) =>
-      <li key={index} style={{width:600,listStyle:'none'}}>
-        <KrField
-          style={krStyle}
-          grid={1/2}
-          name={`${maskStation}.list`}
-          type="text"
-          component={renderField}
-          label={index?'':'标签'}
-          placeholder='标签'
-          />
-        <span onClick={() => fields.insert(index+1,{})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
-        <span
-          className='minusBtn'
-          onClick={() => fields.remove(index)}/>
-      </li>
+      {fields.map((maskStation, index) =>{
+				return (
+					<li key={index} style={{width:600,listStyle:'none'}}>
+	        <KrField
+	          style={krStyle}
+	          grid={1/2}
+	          name={`${maskStation}.list`}
+	          type="text"
+	          component={renderField}
+	          label={index?'':'标签'}
+	          placeholder='标签'
+	          />
+	        <span onClick={
+						() =>{
+							if(fields.length>8)
+							{return ;}
+							fields.insert(index+1,{})
+					}} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+	        <span
+	          className='minusBtn'
+	          onClick={() => fields.remove(index)}/>
+	      </li>)
+			}
     )}
   </ul>
 
@@ -82,6 +84,7 @@ class NewAddMeeting  extends React.Component{
 
 	componentDidMount(){
 	  Store.dispatch(change('NewAddMeeting','enable','1'));
+		Store.dispatch(change('NewAddMeeting','maskStation',[{}]));
 	}
 
     onSubmit=(values)=> {

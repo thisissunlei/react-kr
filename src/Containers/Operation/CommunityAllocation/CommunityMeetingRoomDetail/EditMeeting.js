@@ -31,11 +31,6 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 
 //标签
 const renderMask = ({ fields, meta: { touched, error }}) => {
-
-			if(!fields.length){
-			 fields.push({})
-			}
-
      var krStyle={};
       krStyle={
         width:520
@@ -53,8 +48,13 @@ const renderMask = ({ fields, meta: { touched, error }}) => {
           label={index?'':'标签'}
           placeholder='标签'
           />
-        <span onClick={() => fields.insert(index+1,{})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
-        <span
+					<span onClick={
+						() =>{
+							if(fields.length>8)
+							{return ;}
+							fields.insert(index+1,{})
+					}} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+         <span
           className='minusBtn'
           onClick={() => fields.remove(index)}/>
       </li>
@@ -143,10 +143,10 @@ class EditMeeting  extends React.Component{
 						 timeEnd:response.orderEndTimeStr
 				   })
 				    Store.dispatch(initialize('EditMeeting',response));
+						Store.dispatch(change('EditMeeting','maskStation',response.activeTypes.length?response.activeTypes:[{}]));
 					  response.activeTypes.map((item,index)=>{
              Store.dispatch(change('EditMeeting','maskStation['+index+'].list',item));
 					  })
-
 			    }).catch(function(err) {
 					Message.error(err.message);
 			    });
