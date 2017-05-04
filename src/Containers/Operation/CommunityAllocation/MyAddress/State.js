@@ -178,9 +178,11 @@ State.onNewAddressSubmit= action(function(data) {
 			communityName:'',
 			timer:new Date()
 		})
+		State.addGuideList=[];	
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});	
+	});
+
 });
 //获取编辑数据
 State.getEditInfo= action(function() {	

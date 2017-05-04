@@ -50,7 +50,8 @@ import HeaderUpload from './HeaderUpload';
 		values.cmtManagerList= State.editStationVos;
 		values.cmtManagerList= JSON.stringify(values.cmtManagerList);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
-		State.onNewAddressSubmit(values)
+		State.onNewAddressSubmit(values);
+		
   	}
 
 	onCancel = () => {
@@ -59,6 +60,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	closeEdit=()=>{
+		State.addGuideList=[];
 		State.switchEditAddress();
 	}
    
