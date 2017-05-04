@@ -323,6 +323,10 @@ const validate = values =>{
       errors.name='请输入空间名称';
     }
 
+		if(!values.spaceType){
+      errors.spaceType='请输入空间类型';
+    }
+
     if(!values.floor){
       errors.floor='请输入所在楼层';
     }
