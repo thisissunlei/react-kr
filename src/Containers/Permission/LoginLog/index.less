@@ -12,3 +12,26 @@
 	top:70px;
 	left:340px;
 }
+.g-loginlog{
+	.ui-tooltip{
+		&.center{
+			left:50% !important;
+			transform:translateX(-50%);
+		}
+	}
+	.top-arrow{
+		display:none !important;
+	}
+	.ui-table td{
+		&:nth-child(4){
+			.ui-tooltip{
+				display:inline-block;
+				width:360px;
+				white-space:normal;
+			    word-wrap:break-word;
+			    word-break: normal;
+			}
+
+		}
+	}
+}
