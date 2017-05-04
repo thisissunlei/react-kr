@@ -347,6 +347,10 @@ module.exports = {
          url: '/api/krspace-finance-web/community/notice/cmt-notice',
          method: 'post'
       },
+      'getEditInfo':{
+         url: '/api/krspace-finance-web/community/notice/manager-notic?id={id}',
+         method: 'get'
+      },
 
 
     //社区配置--我的地点--删除地点

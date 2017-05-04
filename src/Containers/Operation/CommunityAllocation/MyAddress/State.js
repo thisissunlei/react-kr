@@ -28,34 +28,7 @@ let State = observable({
 		//删除单条指南确认填框 	
 		openDeleteGuideItemDialog:false,
 		//详情
-		detailData:{
-			wifiPwd:'110120119',
-			wifiName:'li',
-			notice:'社区负责人',
-			cmtManagerListStr:[
-				{
-					managerName:'',
-					managerPhone:'',
-					managerEmail:'',
-					managerIcon:'http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/Y/170902398_14.jpg',
-					managerType:'COMMUNITY_MANAGER'
-				},
-				{
-					managerName:'',
-					managerPhone:'',
-					managerEmail:'',
-					managerIcon:'http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/Y/170902398_14.jpg',
-					managerType:'COMMUNITY_MANAGER'
-				},
-				{
-					managerName:'1',
-					managerPhone:'1',
-					managerEmail:'1',
-					managerIcon:'http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/device_definition_unzip/201705/S/171211448_248.jpg',
-					managerType:'COMMUNITY_LEADER'
-				}
-			]
-		},
+		detailData:{},
 		addGuideList:[],
 		guideItem:{},
 		stationVos:[
@@ -81,6 +54,7 @@ let State = observable({
 		Editindex:'',
 		deleteIndex:'',
 		deleteAddcommunityId:'',
+		editId:''
 
 
 
@@ -182,7 +156,31 @@ State.onNewAddressSubmit= action(function(data) {
 	 var _this=this;
 	 console.log('State',data);
 	 Http.request('addMyAddressData',{},data).then(function(response) {
-
+			_this.openNewAddress = false;
+			State.setSearchParams({
+			page:1,	
+			pageSize:15,
+			communityName:'',
+			timer:new Date()
+		})
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
+});
+//新建提交
+State.getEditInfo= action(function() {	
+	 var _this=this;
+	 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
+	 	let manager = [];
+	 	State.detailData = response;
+		response.cmtManagerListStr.map((item)=>{
+			if(item.managerType=='COMMUNITY_LEADER'){
+				State.editLeader = item;
+			}else{
+				manager.push(item)
+			}
+		})
+		State.editStationVos = manager;
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	

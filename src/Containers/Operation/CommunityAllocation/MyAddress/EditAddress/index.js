@@ -38,6 +38,7 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
+  		State.getEditInfo()
 		Store.dispatch(initialize('NewCommunityList', State.detailData));
 		State.addGuideList = [
 			{
@@ -53,15 +54,7 @@ import HeaderUpload from './HeaderUpload';
 				guideContent:'33333dsajfjdksajfkasdjfa'
 			}
 		]
-		let manager = [];
-		State.detailData.cmtManagerListStr.map((item)=>{
-			if(item.managerType=='COMMUNITY_LEADER'){
-				State.editLeader = item;
-			}else{
-				manager.push(item)
-			}
-		})
-		State.editStationVos = manager;
+		
   		
   	}
 
