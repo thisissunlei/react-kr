@@ -32,12 +32,13 @@ const config = {
 	},
 	// 出口文件配置
 	output: {
+		publicPath: "/new",
 		path: buildPath,
 		filename: 'scripts/[name].[chunkhash].js',
 		chunkFilename: 'scripts/[name].[chunkhash:5].js',
 	},
 	externals: {
-		React:true
+		React: true
 	},
 	plugins: [
 
@@ -47,79 +48,79 @@ const config = {
 			}
 		}),
 		new webpack.DllReferencePlugin({
-             context:__dirname,
-			 manifest:require(path.resolve(buildPath,'vendors','manifest.json')),
-           	 name:'lib'
-    }),
+			context: __dirname,
+			manifest: require(path.resolve(buildPath, 'vendors', 'manifest.json')),
+			name: 'lib'
+		}),
 
-	new HappyPack({
-			 id: 'jsx',
-			 threadPool: HappyPack.ThreadPool({ size: 6 }),
-   			 loaders: [ 'babel-loader?cacheDirectory=true' ],
-   			 verbose: false,
-   			 cache:true
-  	}),
+		new HappyPack({
+			id: 'jsx',
+			threadPool: HappyPack.ThreadPool({ size: 6 }),
+			loaders: ['babel-loader?cacheDirectory=true'],
+			verbose: false,
+			cache: true
+		}),
 
 
-    new webpack.optimize.UglifyJsPlugin({
+		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
-       			 drop_console: true,
-        		drop_debugger: true,
+				drop_console: true,
+				drop_debugger: true,
 			},
 			output: {
 				comments: false,
 			},
 		}),
 
-	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
+			minSizeReduce: 1.5,
+			moveToParents: true
+		}),
 		new webpack.optimize.MinChunkSizePlugin({
-   			 compress: {
-     			 warnings: false,
-    			drop_debugger: true,
-    			drop_console: true
-    		},
-    		minChunkSize: 10000
-  		}),
-  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+			compress: {
+				warnings: false,
+				drop_debugger: true,
+				drop_console: true
+			},
+			minChunkSize: 10000
+		}),
+		new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
 		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/Page/App/index.template.html',
-			inject:'body',
+			inject: 'body',
 			excludeChunks: ['page_login'],
-			hash:true,
-			cache:true,
-			showErrors:true,
-			chunksSortMode:'none',
+			hash: true,
+			cache: true,
+			showErrors: true,
+			chunksSortMode: 'none',
 			minify: {
-		removeComments: true,
-		collapseWhitespace: true,
-		removeAttributeQuotes: true,
-		minifyJS:true,
-		minifyCSS:true
-	}
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true,
+				minifyJS: true,
+				minifyCSS: true
+			}
 		}),
-  	new HtmlWebpackPlugin({
+		new HtmlWebpackPlugin({
 			title: '登录-氪空间后台管理系统',
 			filename: 'login.html',
 			template: './src/Page/Login/index.template.html',
 			excludeChunks: ['page_app'],
-			inject:'body',
-			hash:true,
-			cache:false,
-			showErrors:true,
+			inject: 'body',
+			hash: true,
+			cache: false,
+			showErrors: true,
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
+			{ from: path.join(process.cwd(), 'public', 'vendors'), to: path.join(process.cwd(), 'dist', 'vendors') }
 		])
 	],
 	module: {
@@ -155,19 +156,19 @@ const config = {
 			},
 			{
 				test: /\.eot/,
-				loader : 'file?prefix=font/&name=/font/[name].[hash].[ext]'
+				loader: 'file?prefix=font/&name=/font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.woff/,
-				loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff&name=/font/[name].[hash].[ext]'
+				loader: 'file?prefix=font/&limit=10000&mimetype=application/font-woff&name=/font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.ttf/,
-				loader : 'file?prefix=font/&name=/font/[name].[hash].[ext]'
+				loader: 'file?prefix=font/&name=/font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.svg/,
-				loader : 'file?prefix=font/&name=/font/[name].[hash].[ext]'
+				loader: 'file?prefix=font/&name=/font/[name].[hash].[ext]'
 			}
 		],
 	},
