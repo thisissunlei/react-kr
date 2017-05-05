@@ -652,6 +652,9 @@ const validate = values =>{
     //坐标
     var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
 
+		//空格
+		let regs=/^\s*$/;
+
 
       //楼层检验
       if (!values.wherefloors || !values.wherefloors.length) {
@@ -660,7 +663,7 @@ const validate = values =>{
         const membersArrayErrors = []
         values.wherefloors.forEach((wherefloors, memberIndex) => {
           const memberErrors = {}
-          if (!wherefloors || !wherefloors.floor) {
+          if (!wherefloors || !wherefloors.floor||(wherefloors.floor&&regs.test(wherefloors.floor.toString().trim()))) {
             memberErrors.floor = '请输入所在楼层'
             membersArrayErrors[memberIndex] = memberErrors
           }
@@ -668,7 +671,7 @@ const validate = values =>{
             memberErrors.floor = '楼层为整数'
             membersArrayErrors[memberIndex] = memberErrors
           }
-          if (!wherefloors || !wherefloors.stationCount) {
+          if (!wherefloors || !wherefloors.stationCount||(wherefloors.stationCount&&regs.test(wherefloors.stationCount.toString().trim()))) {
             memberErrors.stationCount = '请输入可出租工位数'
             membersArrayErrors[memberIndex] = memberErrors
           }
@@ -734,15 +737,15 @@ const validate = values =>{
         errors.name = '请填写社区名称';
       }
 
-      if(!values.code){
+      if(!values.code||(values.code&&regs.test(values.code.toString().trim()))){
         errors.code='请填写社区编码';
       }
 
-      if(!values.local){
+      if(!values.local||(values.local&&regs.test(values.local.toString().trim()))){
         errors.local='请输入社区坐标';
       }
 
-      if(!values.area){
+      if(!values.area||(values.area&&regs.test(values.area.toString().trim()))){
         errors.area='请输入社区面积';
       }
       if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
@@ -753,7 +756,7 @@ const validate = values =>{
         errors.countyId= '请填写所属区县';
       }
 
-      if (!values.address) {
+      if (!values.address||(values.address&&regs.test(values.address.toString().trim()))) {
         errors.address= '请输入详细地址';
       }
 
@@ -786,15 +789,15 @@ const validate = values =>{
         errors.signEndDate= '请输入签约结束时间';
       }
 
-      if (!values.stationNum) {
+      if (!values.stationNum||(values.stationNum&&regs.test(values.stationNum.toString().trim()))) {
         errors.stationNum= '请输入工位总数';
       }
 
-      if (!values.meetNum) {
+      if (!values.meetNum||(values.meetNum&&regs.test(values.meetNum.toString().trim()))) {
         errors.meetNum= '请输入会议室总数';
       }
 
-      if(!values.contract){
+      if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
         errors.contract='请输入联系方式'
       }
       if(values.mobileStationNum&&(!numberNotZero.test(values.mobileStationNum.toString().trim())&&values.mobileStationNum!=0)){
@@ -804,10 +807,10 @@ const validate = values =>{
         errors.mobileStationPrice='工位单价为正整数或0'
       }
 
-			if(values.mobileStationNum&&values.mobileStationNum.length>5){
+			if(values.mobileStationNum&&values.mobileStationNum.toString().trim().length>5){
         errors.mobileStationNum='工位数最多5位'
       }
-      if(values.mobileStationPrice&&values.mobileStationPrice.length>5){
+      if(values.mobileStationPrice&&values.mobileStationPrice.toString().trim().length>5){
         errors.mobileStationPrice='工位单价最多5位'
       }
 
