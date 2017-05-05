@@ -65,13 +65,13 @@ export default class UploadImageComponent extends Component {
 		// 	})
 		// }
 		if(nextProps.defaultValue){
-			this.setInitValue(nextProps,nextProps.defaultValue);
+			this.setInitValue(nextProps.defaultValue);
 		}
 
 
 	}
 
-	setInitValue(nextProps,defaultValue) {
+	setInitValue(defaultValue) {
 		let {input}=this.props;
 		let {
 			isInit
@@ -79,21 +79,11 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
-		if(nextProps.sizePhoto){
-			this.setState({
-				isInit: false,
-				imgUpload:true,
-				imgSrc:defaultValue.picUrl
-			});
-			console.log('gyyyy',defaultValue.picId);
-			input.onChange(defaultValue.picId);
-		}else{
 			this.setState({
 				isInit: false,
 				imgUpload:true,
 				imgSrc:defaultValue
 			});
-		}
 	}
 
 	onTokenError() {
