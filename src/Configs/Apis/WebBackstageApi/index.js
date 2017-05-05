@@ -54,7 +54,7 @@ module.exports = {
    },
    //新闻列表--分页
    'get-news-list':{
-      url: '/api/krspace-finance-web/news/get-news-list?createUser={createUser}&publishedStatus={publishedStatus}&stickStatus={stickStatus}&title={title}',
+      url: '/api/krspace-finance-web/news/get-news-list?createUser={createUser}&publishedStatus={publishedStatus}&stickStatus={stickStatus}&title={title}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
    //新闻列表--新建、编辑保存

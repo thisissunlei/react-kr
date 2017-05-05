@@ -34,7 +34,10 @@ export default class News extends React.Component {
 		super(props, context);
 		this.state={
 			itemDetail:{},
-			Params:{},
+			Params:{
+				page:1,
+				pageSize:15
+			},
 
 		}
 		
