@@ -111,7 +111,7 @@ export default class HeaderUpload extends Component {
             }, 300);
         }
 		var form = new FormData();
-		form.append('file', file);
+		form.append('upfile', file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -149,7 +149,7 @@ export default class HeaderUpload extends Component {
 							}
 						}
 					};
-					xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
+					xhrfile.open('POST', '/api/krspace-finance-web/activity/upload-pic', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {

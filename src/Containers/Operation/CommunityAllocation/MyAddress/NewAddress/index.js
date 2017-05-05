@@ -19,7 +19,8 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
-	DivTitle
+	DivTitle,
+	Notify
  
 } from 'kr-ui';
 import './index.less';
@@ -65,7 +66,8 @@ import HeaderUpload from './HeaderUpload';
 		manager.push(State.Leader);
 		values.cmtManagerList = JSON.stringify(manager);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
-		State.onNewAddressSubmit(values)
+		console.log('values',values)
+		// State.onNewAddressSubmit(values)
 
   	}
 
@@ -79,7 +81,9 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectCommunity=(item)=>{
-		console.log(item)
+		console.log(item.address)
+		State.address = item.address;
+
 	}
    
 
@@ -116,8 +120,32 @@ import HeaderUpload from './HeaderUpload';
 		console.log(index, value,type)
 
 	}
-	onBlur=(item)=>{
-		console.log('onblur',State.stationVos)
+	onBlur=(item,type)=>{
+		if(type === 'managerPhone'){
+			var isPhone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+			var  phone= /^400-([0-9]){1}([0-9-]{7})$/;
+			var telephone = /^0\d{2,3}-?\d{7,8}$/;
+			if(!isPhone.test(item.managerPhone)&& !phone.test(item.managerPhone)&& !telephone.test(item.managerPhone)){
+				Notify.show([{
+					message: '请填写正确的电话',
+					type: 'danger',
+				}]);
+				item.managerPhone = '';
+				return;
+			}
+
+		}else if(type === 'managerEmail'){
+			let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;	
+			if(!email.test(item.managerEmail)){
+				Notify.show([{
+					message: '请填写正确的邮箱',
+					type: 'danger',
+				}]);
+				item.managerEmail = ''
+				return
+			}
+
+		}
 	}
 	onChange=()=>{
 		console.log('onChange');
@@ -183,8 +211,8 @@ import HeaderUpload from './HeaderUpload';
 
 			<DivTitle index={2} title='社区信息' styleType={2}>
 				<div style={{marginBottom:5,paddingBottom:32,marginLeft:15}}> 
-				<KrField grid={1/2} name="communityId" right={15} component="searchCommunityManage" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
-				<KrField grid={1/2} type="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue="无"  requireLabel={true}/>
+				<KrField grid={1/2} name="communityId" right={15} component="searchCommunityList" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
+				<KrField grid={1/2} name="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue={State.address || "无"} requireLabel={true}/>
                 <KrField grid={1/2} name="wifiName" right={15} component="input" type="text" inline={false} label="Wifi账号" requireLabel={true}/>
                 <KrField grid={1/2} name="wifiPwd" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
 				</div>
@@ -197,9 +225,9 @@ import HeaderUpload from './HeaderUpload';
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder='请输入姓名'/>
-					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'/>
-					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱'/>
+					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入姓名' onBlur={this.onBlur.bind(this,State.Leader,'managerName')}/>
+					 	<input type="text" name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
+					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
 					</div> 
 				</div>
 
@@ -222,9 +250,9 @@ import HeaderUpload from './HeaderUpload';
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder='请输入姓名'/>
-					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码'/>
-					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱'/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerName')}/>
+					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码' onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
+					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
 								</div> 
 								<div className="caozuo">
 									{index == list.length-1 && <span className="add-info-box" onClick={this.addArr}>+</span>}
@@ -286,10 +314,24 @@ const validate = values =>{
 
 		const errors = {};
 
-
-      // if(!values.area){
-      //   errors.area='请输入社区面积';
-      // }
+      if(!values.notice){
+        errors.notice='请输入社区公告';
+      }
+      if(!values.communityId){
+        errors.communityId='请选择社区';
+      }
+      if(!values.wifiName){
+        errors.wifiName='请输入wifi名称';
+      }
+      if(!values.wifiPwd){
+        errors.wifiPwd='请输入wifi密码';
+      }
+      if(values.wifiName && values.wifiName.length>30){
+        errors.wifiName='wifi名称长度不能大于30';
+      }
+      if(values.wifiPwd && values.wifiPwd.length>30){
+        errors.wifiPwd='wifi密码长度不饿能大于30';
+      }
 
 		return errors
 	}

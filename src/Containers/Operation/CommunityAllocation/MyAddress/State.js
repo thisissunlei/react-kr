@@ -25,6 +25,7 @@ let State = observable({
 		openDeleteDialog: false,
 		openAddGuide:false,
 		openEditGuide:false,
+		address:'',
 		//删除单条指南确认填框 	
 		openDeleteGuideItemDialog:false,
 		//详情
@@ -178,6 +179,7 @@ State.onNewAddressSubmit= action(function(data) {
 				timer:new Date()
 			})
 			State.addGuideList=[];	
+			State.address = '';
 				
 			_this.stationVos=[
 				{

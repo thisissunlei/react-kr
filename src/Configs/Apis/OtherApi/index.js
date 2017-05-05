@@ -168,6 +168,11 @@ const APIS = {
       method: 'get'
    },
 
+   'getCommunityList':{
+         url: '/apis/krspace-finance-web/cmt/community/select-list',
+         method: 'get'
+      },
+
 
 
 
