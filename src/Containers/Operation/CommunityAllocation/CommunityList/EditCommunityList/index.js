@@ -246,7 +246,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			      openDown:true,
             openUp:false,
             codeName:'',
-						picUrl:''
+						picUrl:'',
+						picId:''
 		}
 	}
 
@@ -375,9 +376,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
 		componentDidMount(){
-			let {picSrc}=this.props;
+			let {picSrc,picId}=this.props;
 			this.setState({
-				picUrl:picSrc
+				picUrl:picSrc,
+				picId:picId
 			})
 		}
 
@@ -403,7 +405,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {codeName,openDown,openUp,picUrl}=this.state;
+				let {codeName,openDown,openUp,picUrl,picId}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -427,6 +429,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
 				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
+
+				let picValue={
+					 picId:picId,
+					 picUrl:picUrl
+				};
+
 
 
 				return (
@@ -533,7 +541,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                      requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                      inline={false}
                      formfile=' '
-										 defaultValue={picUrl}
+										 defaultValue={picValue}
                      center='center'
                    />
 
