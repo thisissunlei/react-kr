@@ -553,7 +553,8 @@ class Header extends React.Component {
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
 					</div>}
 
-					< IconMenu
+					<div
+						className="u-header-more"
 					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
 						<div style={{marginTop:10}} ><MoreVertIcon color="#394457"/></div>
@@ -581,7 +582,7 @@ class Header extends React.Component {
 						}
 					}
 					/>
-					</IconMenu ></div>
+					</div ></div>
 				}
 				/>
 			);
