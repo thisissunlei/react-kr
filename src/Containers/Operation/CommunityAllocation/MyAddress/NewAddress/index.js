@@ -82,7 +82,8 @@ import HeaderUpload from './HeaderUpload';
 
 	selectCommunity=(item)=>{
 		console.log(item.address)
-		State.address = item.address;
+		this.address = item.address;
+		// State.address = item.address;
 
 	}
    
@@ -180,7 +181,6 @@ import HeaderUpload from './HeaderUpload';
 
 	render(){
 		let {handleSubmit} = this.props;
-		console.log("State.addGuideList",State.addGuideList.length);
 		let list = State.stationVos;
 		let _this = this;
 		let typeLinkLeaderNameList = {
@@ -212,7 +212,7 @@ import HeaderUpload from './HeaderUpload';
 			<DivTitle index={2} title='社区信息' styleType={2}>
 				<div style={{marginBottom:5,paddingBottom:32,marginLeft:15}}> 
 				<KrField grid={1/2} name="communityId" right={15} component="searchCommunityList" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
-				<KrField grid={1/2} name="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue={State.address || "无"} requireLabel={true}/>
+				<KrField grid={1/2} name="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue={this.address|| "无"} requireLabel={true}/>
                 <KrField grid={1/2} name="wifiName" right={15} component="input" type="text" inline={false} label="Wifi账号" requireLabel={true}/>
                 <KrField grid={1/2} name="wifiPwd" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
 				</div>
