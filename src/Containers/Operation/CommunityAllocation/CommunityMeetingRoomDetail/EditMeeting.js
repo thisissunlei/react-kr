@@ -434,8 +434,8 @@ errors.maskStation = { _error: 'At least one member must be entered' }
 const membersArrayErrors = []
 values.maskStation.forEach((porTypes, memberIndex) => {
 	const memberErrors = {}
-	if (porTypes.list&&porTypes.list.toString().trim()&&porTypes.list.length>40) {
-		memberErrors.list = '标签长度不超过40个字符'
+	if (porTypes.list&&porTypes.list.toString().trim()&&porTypes.list.length>35) {
+		memberErrors.list = '标签长度不超过35个字符'
 		membersArrayErrors[memberIndex] = memberErrors
 	}
 })

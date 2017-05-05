@@ -130,19 +130,28 @@ searchParams = Object.assign({},defaultParams,searchParams);
 		});
 	}
 	 params.activeTypes=maskList;
-	 delete params.maskStation
 
 	 if(params.spaceType=='BOARDROOM'){
-		 if(params.orderStartTimeStr&&params.orderEndTimeStr&&params.orderStartTimeStr>params.orderEndTimeStr){
-			  Message.error('预定开始时间不能大于预定结束时间');
-				return ;
-		 }
+		 if(params.orderStartTimeStr&&params.orderEndTimeStr){
+			 if(params.orderStartTimeStr>params.orderEndTimeStr){
+				 Message.error('预定开始时间不能大于预定结束时间');
+				 return ;
+			 }
+		}else if(params.orderStartTimeStr&&!params.orderEndTimeStr){
+			Message.error('请输入预定结束时间');
+			return ;
+		}else if(!params.orderStartTimeStr&&params.orderEndTimeStr){
+			Message.error('请输入预定开始时间');
+			return ;
+		}else{
+			Message.error('请输入预定时间段');
+			return ;
+		}
 	 }
 
 	 delete params.orderEndTime;
 	 delete params.orderStartTime;
-	 params.orderStartTimeStr='1970-01-01 '+params.orderStartTimeStr;
-	 params.orderEndTimeStr='1970-01-01 '+params.orderEndTimeStr;
+	 delete params.maskStation;
    this.props.CommunityMeetingModel.stationSubmit(params);
  }
 
