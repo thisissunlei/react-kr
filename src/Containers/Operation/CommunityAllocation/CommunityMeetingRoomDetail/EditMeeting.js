@@ -421,6 +421,13 @@ if(values.busyPrice&&(!numberNotZero.test(values.busyPrice.toString().trim())&&v
 errors.busyPrice='高峰时段单价为正整数或0'
 }
 
+if(values.busyPrice&&values.busyPrice.length>5){
+errors.busyPrice='高峰时段单价最多5位'
+}
+if(values.idlePrice&&values.idlePrice.length>5){
+errors.idlePrice='空闲时段单价最多5位'
+}
+
 
 if(!values.picId){
 errors.picId='请上传图片'

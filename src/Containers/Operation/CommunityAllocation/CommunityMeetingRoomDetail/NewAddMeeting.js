@@ -319,6 +319,8 @@ const validate = values =>{
 	//整数
 	let zeroNum=/^-?\d+$/;　
 
+  //空格
+	let reg=/^[^ ]{6,16}$/;
 
     if(!values.name){
       errors.name='请输入空间名称';
@@ -341,7 +343,7 @@ const validate = values =>{
 	}
 
 
-    if(!values.capacity){
+  if(!values.capacity){
 		errors.capacity='请输入可容纳人数'
 	}
 
@@ -350,7 +352,7 @@ const validate = values =>{
 	}
 
 	if(!values.idlePrice){
-	errors.idlePrice='请输入空闲时段单价'
+	  errors.idlePrice='请输入空闲时段单价'
 }
 
 if(values.idlePrice&&(!numberNotZero.test(values.idlePrice.toString().trim())&&values.idlePrice!=0)){
@@ -364,6 +366,16 @@ errors.busyPrice='请输入高峰时段单价'
 if(values.busyPrice&&(!numberNotZero.test(values.busyPrice.toString().trim())&&values.busyPrice!=0)){
 errors.busyPrice='高峰时段单价为正整数或0'
 }
+
+if(values.busyPrice&&values.busyPrice.length>5){
+errors.busyPrice='高峰时段单价最多5位'
+}
+if(values.idlePrice&&values.idlePrice.length>5){
+errors.idlePrice='空闲时段单价最多5位'
+}
+
+
+
 
 if(!values.picId){
 errors.picId='请上传图片'
