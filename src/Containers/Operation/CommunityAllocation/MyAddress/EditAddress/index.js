@@ -40,12 +40,21 @@ import HeaderUpload from './HeaderUpload';
 	}
   	componentDidMount(){
   		this.getEditInfo()
-  	// 	State.getEditInfo();
-  	// 	setTimeout(function(){
-			// Store.dispatch(initialize('EditAddress', State.detailData));
-			// console.log('initialize',State.detailData)
-
-  	// 	},100)
+  		State.editStationVos=[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				}];
+			State.editLeader={
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_LEADER'
+			};
   	}
 
   	getEditInfo = ()=>{

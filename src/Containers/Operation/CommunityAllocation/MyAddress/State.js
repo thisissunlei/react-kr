@@ -189,36 +189,7 @@ State.onNewAddressSubmit= action(function(data) {
 			State.addGuideList=[];	
 			State.address = '';
 				
-			_this.stationVos=[
-				{
-					managerName:'',
-					managerPhone:'',
-					managerEmail:'',
-					managerIcon:'',
-					managerType:'COMMUNITY_MANAGER'
-				}];
-			_this.Leader={
-				managerName:'',
-				managerPhone:'',
-				managerEmail:'',
-				managerIcon:'',
-				managerType:'COMMUNITY_LEADER'
-			};
-			_this.editStationVos=[
-				{
-					managerName:'',
-					managerPhone:'',
-					managerEmail:'',
-					managerIcon:'',
-					managerType:'COMMUNITY_MANAGER'
-				}];
-			_this.editLeader={
-				managerName:'',
-				managerPhone:'',
-				managerEmail:'',
-				managerIcon:'',
-				managerType:'COMMUNITY_LEADER'
-			};
+			
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});

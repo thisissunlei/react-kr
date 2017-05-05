@@ -45,6 +45,21 @@ import HeaderUpload from './HeaderUpload';
 	}
   	componentDidMount(){
   		State.address = '';
+  		State.stationVos=[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				}];
+			State.Leader={
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_LEADER'
+			};
       
  	}
 
