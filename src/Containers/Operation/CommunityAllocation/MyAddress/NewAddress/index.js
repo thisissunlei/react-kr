@@ -60,6 +60,7 @@ import HeaderUpload from './HeaderUpload';
 				managerIcon:'',
 				managerType:'COMMUNITY_LEADER'
 			};
+			State.addGuideList = []
       
  	}
 
