@@ -272,16 +272,9 @@ class CommunityList  extends React.Component{
           <Drawer
                 open={State.openEditGuide}
                 width={750}
-                // openSecondary={true}
                 onClose={this.whiteClose}
-                // containerStyle={{top:60,paddingBottom:48,zIndex:21}}
-              >
-            <EditGuide
-                // onSubmit={this.onNewCommunitySubmit}
-                // onCancel={this.switchEditList}
-                // open={State.openEditAddress}
-                // id={this.state.id}
-            />
+               >
+            <EditGuide/>
         </Drawer>
 
         {/*删除整条地点*/}
