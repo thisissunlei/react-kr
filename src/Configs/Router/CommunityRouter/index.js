@@ -25,10 +25,12 @@ const Operation_CommunityManage_CompanyMembers = (location, callback) => {
     callback(null, require('kr/Containers/Operation/CommunityManage/CompanyMembers').default)
   }, 'Operation_CommunityManage_CompanyMembers')
 }
+
 const Operation_CommunityManage_VisitorsToRecord = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Operation/CommunityManage/VisitorsToRecord').default)
   }, 'Operation_CommunityManage_VisitorsToRecord')
+}
 
 const Operation_CommunityManage_Visitor = (location, callback) => {
   require.ensure([], require => {
