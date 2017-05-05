@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
-import { AppBar, MenuItem,IconMenu, IconButton,  FontIcon, FlatButton } from 'material-ui';
+import { AppBar, MenuItem,IconMenu, IconButton, FlatButton } from 'material-ui';
 
 import {
 	Button,
@@ -528,6 +528,7 @@ class Header extends React.Component {
 				iconClassName = "hide-shu";
 
 			}
+			
 			return ( < AppBar style = {
 					styles
 				}
@@ -543,8 +544,8 @@ class Header extends React.Component {
 				iconElementLeft = {
 
 					<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:200}} />
-						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
+						 <FlatButton onTouchTap={this.handleToggle} icon={<div className={`${iconClassName} new-logo`}></div>} style={{color:'#fff',height:60,width:200}} />
+						 <FlatButton onTouchTap={this.touchTitle}  icon={<div className="new-logo"></div>} style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 				}
