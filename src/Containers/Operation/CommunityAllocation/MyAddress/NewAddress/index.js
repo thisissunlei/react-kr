@@ -88,6 +88,9 @@ import HeaderUpload from './HeaderUpload';
 				managerIcon:'',
 				managerType:'COMMUNITY_LEADER'
 			};
+			
+		State.cmtGuideList = [];
+
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
