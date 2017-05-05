@@ -145,7 +145,7 @@ export default class HeaderUpload extends Component {
 							}
 						}
 					};
-					xhrfile.open('POST', '/apis/krspace-finance-web/activity/upload-pic', true);
+					xhrfile.open('POST', '/api/krspace-finance-web/activity/upload-pic', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {

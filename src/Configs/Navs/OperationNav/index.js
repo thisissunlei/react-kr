@@ -69,6 +69,11 @@ module.exports = [
 						primaryText: '访客记录',
 						menuCode: 'sysVisitRecordList',
 						originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
+					},
+					{
+						primaryText: '我的地点',
+						menuCode: 'communityBaseList',
+						router: '/operation/communityAllocation/myaddress'
 					}
 
 
