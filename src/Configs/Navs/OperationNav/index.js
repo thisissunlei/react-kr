@@ -72,7 +72,7 @@ module.exports = [
 					},
 					{
 						primaryText: '我的地点',
-						menuCode: 'communityBaseList',
+						menuCode: 'communityNotice',
 						router: '/operation/communityAllocation/myaddress'
 					}
 
