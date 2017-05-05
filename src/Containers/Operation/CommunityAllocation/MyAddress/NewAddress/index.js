@@ -44,6 +44,7 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
+  		State.address = '';
       
  	}
 
@@ -66,12 +67,27 @@ import HeaderUpload from './HeaderUpload';
 		manager.push(State.Leader);
 		values.cmtManagerList = JSON.stringify(manager);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
-		console.log('values',values)
-		// State.onNewAddressSubmit(values)
+		console.log('values',values);
+		State.onNewAddressSubmit(values)
 
   	}
 
 	onCancel = () => {
+		State.stationVos=[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				}];
+			State.Leader={
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_LEADER'
+			};
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
@@ -81,9 +97,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectCommunity=(item)=>{
-		console.log(item.address)
-		this.address = item.address;
-		// State.address = item.address;
+		State.address = item.address;
 
 	}
    
@@ -116,10 +130,6 @@ import HeaderUpload from './HeaderUpload';
 	onStationVosChange=(type,index,value)=>{
 		let item = State.stationVos[index]
 		item[type]= value;
-	}
-	positionChange=(index, value,type)=>{
-		console.log(index, value,type)
-
 	}
 	onBlur=(item,type)=>{
 		if(type === 'managerPhone'){
@@ -170,7 +180,6 @@ import HeaderUpload from './HeaderUpload';
 				managerType:'COMMUNITY_MANAGER'
 			};
 		State.stationVos.push(item);
-		console.log(State.stationVos.length)
 
 	}
 	reduceArr=(index)=>{
@@ -212,7 +221,7 @@ import HeaderUpload from './HeaderUpload';
 			<DivTitle index={2} title='社区信息' styleType={2}>
 				<div style={{marginBottom:5,paddingBottom:32,marginLeft:15}}> 
 				<KrField grid={1/2} name="communityId" right={15} component="searchCommunityList" inline={false} label="社区名称" onChange={this.selectCommunity}  requireLabel={true}/>
-				<KrField grid={1/2} name="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue={this.address|| "无"} requireLabel={true}/>
+				<KrField grid={1/2} name="address" left={15} component="labelText" inline={false} label="社区地址"  defaultValue={State.address|| "无"} requireLabel={true}/>
                 <KrField grid={1/2} name="wifiName" right={15} component="input" type="text" inline={false} label="Wifi账号" requireLabel={true}/>
                 <KrField grid={1/2} name="wifiPwd" left={15} component="input" type="text" inline={false} label="Wifi密码" requireLabel={true}/>
 				</div>
