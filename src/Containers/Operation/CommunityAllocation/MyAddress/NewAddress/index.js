@@ -115,18 +115,20 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectCommunity=(item)=>{
-		Http.request('checkCommunityId', {
-			cmtId: item.id
-		}).then(function(response) {
-			State.address = item.address;
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-			Store.dispatch(change('NewCommunityList', 'communityId',''));
+		if(item.id){
+			Http.request('checkCommunityId', {
+				cmtId: item.id
+			}).then(function(response) {
+				State.address = item.address;
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+				Store.dispatch(change('NewCommunityList', 'communityId',''));
 
-		});
+			});
+		}	
 
 	}
    
