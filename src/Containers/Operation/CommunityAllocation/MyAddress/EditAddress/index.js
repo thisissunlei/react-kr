@@ -124,7 +124,7 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 	onBlur=(item,type)=>{
-		if(type === 'managerPhone'){
+		if(type === 'managerPhone' && item.managerPhone){
 			var isPhone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 			var  phone= /^400-([0-9]){1}([0-9-]{7})$/;
 			var telephone = /^0\d{2,3}-?\d{7,8}$/;
@@ -137,7 +137,7 @@ import HeaderUpload from './HeaderUpload';
 				return;
 			}
 
-		}else if(type === 'managerEmail'){
+		}else if(type === 'managerEmail' && item.managerEmail){
 			let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;	
 			if(!email.test(item.managerEmail)){
 				Notify.show([{
