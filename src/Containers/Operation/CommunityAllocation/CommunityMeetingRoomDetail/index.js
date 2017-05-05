@@ -141,6 +141,8 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
 	 delete params.orderEndTime;
 	 delete params.orderStartTime;
+	 params.orderStartTimeStr='1970-01-01 '+params.orderStartTimeStr;
+	 params.orderEndTimeStr='1970-01-01 '+params.orderEndTimeStr;
    this.props.CommunityMeetingModel.stationSubmit(params);
  }
 

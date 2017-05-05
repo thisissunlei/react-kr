@@ -400,8 +400,8 @@ const validate = values =>{
 		errors.capacity='请输入可容纳人数'
 	}
 
-	if(values.capacity&&!zeroNum.test(values.capacity.toString().trim())){
-		errors.capacity='可容纳人数为整数'
+	if(values.capacity&&(!numberNotZero.test(values.capacity.toString().trim())&&values.capacity!=0)){
+		errors.capacity='可容纳人数为正整数或0'
 	}
 
 
@@ -409,22 +409,40 @@ const validate = values =>{
 	errors.idlePrice='请输入空闲时段单价'
 }
 
-if(values.idlePrice&&!zeroNum.test(values.idlePrice.toString().trim())){
-	errors.idlePrice='空闲时段单价为整数'
+if(values.idlePrice&&(!numberNotZero.test(values.idlePrice.toString().trim())&&values.idlePrice!=0)){
+	errors.idlePrice='空闲时段单价为正整数或0'
 }
 
 if(!values.busyPrice){
 errors.busyPrice='请输入高峰时段单价'
 }
 
-if(values.busyPrice&&!zeroNum.test(values.busyPrice.toString().trim())){
-errors.busyPrice='高峰时段单价为整数'
+if(values.busyPrice&&(!numberNotZero.test(values.busyPrice.toString().trim())&&values.busyPrice!=0)){
+errors.busyPrice='高峰时段单价为正整数或0'
 }
+
 
 if(!values.picId){
 errors.picId='请上传图片'
 }
 
+
+//标签
+if (!values.maskStation || !values.maskStation.length) {
+errors.maskStation = { _error: 'At least one member must be entered' }
+} else {
+const membersArrayErrors = []
+values.maskStation.forEach((porTypes, memberIndex) => {
+	const memberErrors = {}
+	if (porTypes.list&&porTypes.list.toString().trim()&&porTypes.list.length>40) {
+		memberErrors.list = '标签长度不超过40个字符'
+		membersArrayErrors[memberIndex] = memberErrors
+	}
+})
+if(membersArrayErrors.length) {
+errors.maskStation = membersArrayErrors
+}
+}
 
 
 		return errors

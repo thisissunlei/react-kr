@@ -778,6 +778,22 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			if(!values.contract){
 				errors.contract='请输入联系方式'
 			}
+
+
+			if(values.mobileStationNum&&(!numberNotZero.test(values.mobileStationNum.toString().trim())&&values.mobileStationNum!=0)){
+				errors.mobileStationNum='工位数为正整数或0'
+			}
+			if(values.mobileStationPrice&&(!numberNotZero.test(values.mobileStationPrice.toString().trim())&&values.mobileStationPrice!=0)){
+				errors.mobileStationPrice='工位单价为正整数或0'
+			}
+
+			if(values.mobileStationNum&&values.mobileStationNum.length>5){
+				errors.mobileStationNum='工位数最多5位'
+			}
+			if(values.mobileStationPrice&&values.mobileStationPrice.length>5){
+				errors.mobileStationPrice='工位单价最多5位'
+			}
+
 			/*
 			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
 				errors.contract='联系方式错误'
