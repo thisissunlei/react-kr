@@ -34,7 +34,9 @@ export default class UploadImageComponent extends Component {
 			timer :"",
 			operateImg :false,
 			files :{},
-			imageStatus : true
+			imageStatus : true,
+
+			isInit:true
 		}
 	}
 	componentWillUnmount() {
@@ -46,24 +48,41 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
+		// if(nextProps.defaultValue){
+		// 	this.setState({
+		// 		imgSrc:nextProps.defaultValue,
+		// 		imgUpload : true
+		// 	})
+		// }else if(nextProps.input.value){
+		// 	this.setState({
+		// 		imgSrc:nextProps.input.value,
+		// 		imgUpload : true
+		// 	})
+		// }else{
+		// 	this.setState({
+		// 		imgSrc:'',
+		// 		imgUpload : false
+		// 	})
+		// }
 		if(nextProps.defaultValue){
-			this.setState({
-				imgSrc:nextProps.defaultValue,
-				imgUpload : true
-			})
-		}else if(nextProps.input.value){
-			this.setState({
-				imgSrc:nextProps.input.value,
-				imgUpload : true
-			})
-		}else{
-			this.setState({
-				imgSrc:'',
-				imgUpload : false
-			})
+			this.setInitValue(nextProps.defaultValue);
 		}
 
 
+	}
+
+	setInitValue(defaultValue) {
+		let {
+			isInit
+		} = this.state;
+		if (!isInit) {
+			return;
+		}
+		this.setState({
+			isInit: false,
+			imgUpload:true,
+			imgSrc:defaultValue
+		});
 	}
 
 	onTokenError() {
@@ -190,10 +209,11 @@ export default class UploadImageComponent extends Component {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
+
 								if (fileResponse && fileResponse.code > 0) {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
-									_this.onError(fileResponse.msg);
+									_this.onError(fileResponse && fileResponse.msg);
 									return;
 								}
 							} else if (xhrfile.status == 413) {
@@ -203,7 +223,8 @@ export default class UploadImageComponent extends Component {
 							}
 						}
 					};
-					 xhrfile.open('POST', requestURI, true);
+					xhrfile.open('POST', requestURI, true);
+          xhrfile.withCredentials = true;
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -223,7 +244,7 @@ export default class UploadImageComponent extends Component {
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
 		let _this = this;
-		let {photoSize}=this.props;
+		let {photoSize,sizePhoto}=this.props;
 
 		if(file ){
                 var fileData = file;
@@ -236,35 +257,61 @@ export default class UploadImageComponent extends Component {
                     image.onload=function(){
                          var width = image.width;
                          var height = image.height;
-                         var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
+												 if(sizePhoto){
+													 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
+													 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
+													 if(width/height==realWidth/realHeight){
+															 if(xhrfile.response.data instanceof Array){
+																 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
+																 const {input}=_this.props;
+																 input.onChange(xhrfile.response.data[0].id);
+															 }else{
+																 _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
+																 const {input}=_this.props;
+																 input.onChange(xhrfile.response.data.id);
+															 }
+															 _this.setState({
+															 imageStatus : true,
+															 imgUpload : true,
+															 operateImg : false,
+														 });
 
-                         var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
-
-
-                         if(width == realWidth && height == realHeight){
-                         	_this.refs.uploadImage.src = xhrfile.response.data;
-                        	_this.setState({
-								imageStatus : true,
-								imgUpload : true,
-								operateImg : false
-							});
-							const {input}=_this.props;
-							input.onChange(xhrfile.response.data);
-
-
-                        }else{
-                        	_this.refs.inputImg.value ="";
-							_this.refs.inputImgNew.value ="";
-							_this.refs.uploadImage.src="";
-                         	_this.setState({
-								errorHide: false,
-								errorTip:"图片尺寸不符合要求",
-								imageStatus : false,
-								imgUpload : false
-							});
-                        }
-
-                    };
+													 }else{
+	                         	_this.refs.inputImg.value ="";
+	 							            _this.refs.inputImgNew.value ="";
+	 							            _this.refs.uploadImage.src="";
+	                          	_this.setState({
+												errorHide: false,
+												errorTip:"图片尺寸不符合要求",
+												imageStatus : false,
+												imgUpload : false
+											});
+	                         }
+												 }else{
+													 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
+													 var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
+													 if(width == realWidth && height == realHeight){
+														_this.refs.uploadImage.src = xhrfile.response.data;
+														_this.setState({
+														imageStatus : true,
+														imgUpload : true,
+														operateImg : false
+													});
+													const {input}=_this.props;
+													input.onChange(xhrfile.response.data);
+													}else{
+														_this.refs.inputImg.value ="";
+														_this.refs.inputImgNew.value ="";
+														_this.refs.uploadImage.src="";
+														_this.setState({
+															errorHide: false,
+															errorTip:"图片尺寸不符合要求",
+															imageStatus : false,
+															imgUpload : false
+														});
+													 }
+												 }
+                     };
                     image.src= data;
                  };
                  reader.readAsDataURL(fileData);
@@ -281,16 +328,15 @@ export default class UploadImageComponent extends Component {
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
 		this.refs.uploadImage.src="";
-
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 		const {input}=this.props;
 		input.onChange("");
 	}
-	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,formfile,center,...other} = this.props;
-		let {operateImg} = this.state;
 
+	render() {
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
+		let {operateImg} = this.state;
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
@@ -318,7 +364,7 @@ export default class UploadImageComponent extends Component {
 					</div>
 
 				<p className="ui-uploadimg-notice">
-					提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}
+					{sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
 				</p>
 				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 					{this.state.errorTip}

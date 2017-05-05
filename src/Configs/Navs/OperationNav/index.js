@@ -46,20 +46,19 @@ module.exports = [
 						router: '/operation/communityAllocation/communityList'
 					},
 					{
-						primaryText: '会议室列表',
+						primaryText: '空间列表',
 						menuCode: 'communityBoardroomList',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
+						router: '/operation/communityAllocation/CommunityMeetingRoom'
 					},
 					{
 						primaryText: '设备列表',
-						menuCode: 'communityDeviceList',
-						originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
-
+		                menuCode: 'communityDeviceList',
+		                router: '/operation/communityAllocation/equipmentList'
 					},
 					{
 						primaryText: '工位列表',
 						menuCode: 'communityStationList',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
+						router: '/operation/communityAllocation/communityStation'
 					},
 					{
 						primaryText: '平面图配置',
@@ -96,14 +95,14 @@ module.exports = [
 					{
 						primaryText: '代码分类',
 						menuCode: 'codeCategoryList',
-						originUrl: '/krspace_operate_web/codecategory/toCodeCategoryList?mid=85'
+						router: '/operation/communityAllocation/codeClassification'
 					},
 
 					{
 						primaryText: '商圈列表',
-						menuCode: 'businessAreaList',
-						originUrl: '/krspace_operate_web/businessArea/toBusinessAreaList?mid=87'
-					},
+		                menuCode: 'businessAreaList',
+		                router: '/operation/basicconfig/businessList'
+		            },
 					{
 						primaryText: "出租方管理",
 						menuCode: 'lessorManage',

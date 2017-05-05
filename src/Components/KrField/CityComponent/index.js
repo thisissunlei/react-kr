@@ -51,17 +51,11 @@ export default class CityComponent extends React.Component {
 			thirdName:'',
 			city:cityName || '请选择',
 		}
-
-
+		State.city = cityName;
 	}
 
 	componentDidMount() {
-		let {cityName} = this.props;
-		if(cityName){
-			State.city=cityName;
-		}else{
-			State.city = "";
-		}
+		
 
 	}
 
@@ -70,7 +64,6 @@ export default class CityComponent extends React.Component {
 		// if(cityName){
 		// 	State.city=cityName;
 		// }
-
 	}
 
 	firstCityList=()=>{

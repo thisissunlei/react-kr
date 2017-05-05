@@ -50,7 +50,7 @@ export default class ProjectType extends React.Component {
 		}
 
 		let arr=data.map(function(item,index){
-			return (<ItemSingle value={item.codeName} data={item.children} listId={item.id} treeClose={treeClose}/>);
+			return (<ItemSingle key = {index} value={item.codeName} data={item.children} listId={item.id} treeClose={treeClose}/>);
 		})
 		return arr;
 	}

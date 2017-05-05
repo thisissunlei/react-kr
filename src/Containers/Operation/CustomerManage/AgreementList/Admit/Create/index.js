@@ -60,7 +60,7 @@ export default class JoinCreate extends React.Component {
 				optionValue:{},
 		}
 		this.isConfirmSubmiting = false;
-		Store.dispatch(reset('admitCreateForm'));
+
 	}
 
 
@@ -158,7 +158,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(reset('admitCreateForm'));
 		var _this = this;
 		const {
 			params,
@@ -190,7 +190,7 @@ export default class JoinCreate extends React.Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.setLocalStorageDate = +new Date();
-			
+
 			initialValues.contractcode= response.contractCode;
 			initialValues.agreement = '无';
 
@@ -245,7 +245,7 @@ export default class JoinCreate extends React.Component {
 			});
 
 		}
-		
+
 		if (this.props.openLocalStorages!= nextProps.openLocalStorages) {
 			this.setState({
 				openLocalStorages:nextProps.openLocalStorages

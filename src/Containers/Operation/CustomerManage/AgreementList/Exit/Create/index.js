@@ -47,7 +47,7 @@ export default class JoinCreate extends React.Component {
 				openLocalStorages:this.props.openLocalStorages
 		}
 		this.isConfirmSubmiting = false;
-		Store.dispatch(reset('exitCreateForm'));
+
 
 	}
 
@@ -143,7 +143,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(reset('exitCreateForm'));
 		var _this = this;
 		const {
 			params

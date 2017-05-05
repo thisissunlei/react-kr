@@ -51,8 +51,9 @@ export default class JoinCreate extends React.Component {
 			openConfirmCreate: false,
 			openLocalStorages:false
 		}
+
 		this.isConfirmSubmiting = false;
-		Store.dispatch(reset('admitCreateForm'));
+
 	}
 	componentWillUnmount() {
 		Store.dispatch(reset('admitCreateForm'));
@@ -162,6 +163,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('admitCreateForm'));
 		this.getlocalSign()
 	}
 
@@ -173,7 +175,8 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
-		
+
+
 		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
@@ -189,7 +192,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.oldNum = localStorage.getItem(keyWord+'num') || 1;
 
 			initialValues.setLocalStorageDate = +new Date();
-			
+
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress;
@@ -239,6 +242,7 @@ export default class JoinCreate extends React.Component {
 			}]);
 		});
 	}
+
 	onCancelStorage=()=>{
 		this.setState({
 			openLocalStorages:false,
@@ -367,7 +371,6 @@ export default class JoinCreate extends React.Component {
 
 
 	}
-	
 	
 
 	render() {

@@ -46,7 +46,7 @@ export default class JoinCreate extends React.Component {
 			openConfirmCreate: false,
 			openLocalStorage:false
 		}
-		Store.dispatch(reset('joinCreateForm'));
+
 
 		this.isConfirmSubmiting = false;
 	}
@@ -161,9 +161,11 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('joinCreateForm'));
 		this.getlocalSign()
 	}
 	getBasic=()=>{
+
 
 		var _this = this;
 		const {
@@ -178,7 +180,7 @@ export default class JoinCreate extends React.Component {
 			mainBillId: params.orderId,
 			communityId: 1,
 			type :0,
-			
+
 		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
@@ -196,7 +198,7 @@ export default class JoinCreate extends React.Component {
 
 
 			initialValues.leaseAddress = response.customer.customerAddress;
-		
+
 			initialValues.contractcode = response.contractCode;
 
 			optionValues.communityAddress = response.customer.communityAddress;
@@ -219,7 +221,7 @@ export default class JoinCreate extends React.Component {
 				item.label = item.dicName;
 				return item;
 			});
-			
+
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;

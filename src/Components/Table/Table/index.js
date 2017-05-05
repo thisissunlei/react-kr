@@ -282,8 +282,8 @@ export default class Table extends React.Component {
 
 		var _this = this;
 
-		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
+		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 			_this.onInitial({
 				response: response,
 				listData: response[_this.props.ajaxFieldListName],
@@ -294,7 +294,6 @@ export default class Table extends React.Component {
 				loading: false,
 				allRowsSelected: false
 			});
-
 
 		}).catch(function(err) {
 
