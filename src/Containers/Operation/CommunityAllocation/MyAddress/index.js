@@ -103,7 +103,6 @@ class CommunityList  extends React.Component{
 
 
   whiteClose=()=>{
-    console.log("whiteClose");
     State.closeAllDialog();
   }
 
@@ -130,7 +129,7 @@ class CommunityList  extends React.Component{
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
                   <ListGroup>
-                    <ListGroupItem><SearchForms placeholder='请输入社区名称'  onSubmit={this.onSearchSubmit}/></ListGroupItem>
+                    <ListGroupItem><SearchForms placeholder='请输入社区名称' inputName="searchCmt" onSubmit={this.onSearchSubmit}/></ListGroupItem>
                   </ListGroup>
                 </Col>
 
@@ -194,14 +193,16 @@ class CommunityList  extends React.Component{
                             var TooltipStyle=""
                             if(value.length==""){
                               TooltipStyle="none";
-                              
-
+                              value = '-'
+                              return (<span>{value}</span>)
                             }else{
                               TooltipStyle="block";
-                            }
                              return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-                      }}></TableRowColumn>
+                             <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                            }
+                          }
+                            
+                      }></TableRowColumn>
                       <TableRowColumn name="managerPhone" component={(value,oldValue)=>{
                         if(value==""){
                           value="-"

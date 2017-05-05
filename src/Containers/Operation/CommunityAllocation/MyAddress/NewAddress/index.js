@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {reduxForm,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -45,6 +45,22 @@ import HeaderUpload from './HeaderUpload';
 	}
   	componentDidMount(){
   		State.address = '';
+  		State.stationVos=[
+				{
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				}];
+			State.Leader={
+				managerName:'',
+				managerPhone:'',
+				managerEmail:'',
+				managerIcon:'',
+				managerType:'COMMUNITY_LEADER'
+			};
+			State.addGuideList = []
       
  	}
 
@@ -100,7 +116,20 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectCommunity=(item)=>{
-		State.address = item.address;
+		if(item.id){
+			Http.request('checkCommunityId', {
+				cmtId: item.id
+			}).then(function(response) {
+				State.address = item.address;
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+				Store.dispatch(change('NewCommunityList', 'communityId',''));
+
+			});
+		}	
 
 	}
    
@@ -217,7 +246,7 @@ import HeaderUpload from './HeaderUpload';
 	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
 				<div style={{marginLeft:15}}> 
-				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
+				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告' requireLabel={true}/>
 				</div>
 			</DivTitle>
 

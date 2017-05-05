@@ -41,10 +41,18 @@ class EditGuide extends  React.Component{
 	componentDidMount(){
 
       	Store.dispatch(initialize('EditGuide', State.guideEditItem));
+      	if(State.guideEditItem.guideTitle){
+      		this.setState({
+
+      			titleLen:State.guideEditItem.guideTitle.length
+      		})
+      	}else{
+      		this.setState({
+
+      			titleLen:0
+      		})
+      	}
       	
-      	this.setState({
-      		titleLen:State.guideEditItem.guideTitle.length
-      	})
 
 	}
 
@@ -79,7 +87,7 @@ class EditGuide extends  React.Component{
 			        </div>
 					<div className="add-guide-title">编辑指南</div>
 					<div className="add-guide-container">
-						<KrField grid={1/2} name="guideTitle" type="text"  label="指南标题" maxLength={10} onChange={this.titleChang} style={{display:'inline-block',width:'252px'}}/>
+						<KrField grid={1/2} name="guideTitle" type="text" requireLabel={true} label="指南标题" maxLength={10} onChange={this.titleChang} style={{display:'inline-block',width:'252px'}}/>
 						<span style={{display: "inline-block",width: 50,height: 40,margin: "33px 0 0 10px"}}>{titleLen}/10</span>
 						<KrField component="editor" name="guideContent" label="指南内容" defaultValue={State.guideEditItem.guideContent} style={{marginTop:"5px"}}/>
 						<Grid style={{marginTop:18,marginBottom:'4px'}}>
@@ -96,5 +104,20 @@ class EditGuide extends  React.Component{
 		);
 	}
 }
+const validate = values =>{
 
-export default reduxForm({ form: 'EditGuide',enableReinitialize:true,keepDirtyOnReinitialize:true})(EditGuide);
+	const errors = {};
+
+    if(!values.guideTitle){
+    	errors.guideTitle='指南标题为必填';
+    }
+	return errors
+}
+
+export default reduxForm({ 
+	form: 'EditGuide',
+	validate,
+	enableReinitialize:true,
+	keepDirtyOnReinitialize:true
+})(EditGuide);
+

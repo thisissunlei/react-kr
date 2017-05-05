@@ -86,6 +86,8 @@ State.isOpenDeleteDialog= action(function() {
 
 // 删除整条地点数据
 State.confirmDelete= action(function() {
+    document.getElementById("searchCmt").value="";
+	
 	State.openDeleteDialog = !State.openDeleteDialog;
 	Http.request('deleteAddress',{cmtId:State.deleteAddcommunityId}).then(function(response) {
 		Message.success('删除成功');
@@ -189,36 +191,7 @@ State.onNewAddressSubmit= action(function(data) {
 			State.addGuideList=[];	
 			State.address = '';
 				
-			_this.stationVos=[
-				{
-					managerName:'',
-					managerPhone:'',
-					managerEmail:'',
-					managerIcon:'',
-					managerType:'COMMUNITY_MANAGER'
-				}];
-			_this.Leader={
-				managerName:'',
-				managerPhone:'',
-				managerEmail:'',
-				managerIcon:'',
-				managerType:'COMMUNITY_LEADER'
-			};
-			_this.editStationVos=[
-				{
-					managerName:'',
-					managerPhone:'',
-					managerEmail:'',
-					managerIcon:'',
-					managerType:'COMMUNITY_MANAGER'
-				}];
-			_this.editLeader={
-				managerName:'',
-				managerPhone:'',
-				managerEmail:'',
-				managerIcon:'',
-				managerType:'COMMUNITY_LEADER'
-			};
+			
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});
@@ -255,19 +228,7 @@ State.getEditInfo= action(function() {
 	});	
 });
 
-//获取社区列表
-State.getCommunityList=action(function(values) {	
-	Http.request('getCommunity', {
-		communityName: lastname
-	}).then(function(response) {
-		response.communityInfoList.forEach(function(item, index) {
-			item.value = item.id;
-			item.label = item.name;
-			return item;
-		});
-	}).catch(function(err) {
-	});
-});
+
 
 
 module.exports = State;
