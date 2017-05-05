@@ -67,6 +67,8 @@ State.closeAllDialog = action(function() {
 		this.openNewAddress=false;
 		this.openEditAddress=false;
 		this.openDeleteDialog=false;
+		this.openAddGuide = false;
+		this.openEditGuide =false;
 		this.addGuideList = [];
 });
 

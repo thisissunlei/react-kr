@@ -103,6 +103,7 @@ class CommunityList  extends React.Component{
 
 
   whiteClose=()=>{
+    console.log("whiteClose");
     State.closeAllDialog();
   }
 
