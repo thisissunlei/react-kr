@@ -41,10 +41,18 @@ class EditGuide extends  React.Component{
 	componentDidMount(){
 
       	Store.dispatch(initialize('EditGuide', State.guideEditItem));
+      	if(State.guideEditItem.guideTitle){
+      		this.setState({
+
+      			titleLen:State.guideEditItem.guideTitle.length
+      		})
+      	}else{
+      		this.setState({
+
+      			titleLen:0
+      		})
+      	}
       	
-      	this.setState({
-      		titleLen:State.guideEditItem.guideTitle.length
-      	})
 
 	}
 
