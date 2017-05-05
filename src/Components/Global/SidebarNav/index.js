@@ -5,9 +5,6 @@ import {
 	connect
 } from 'react-redux';
 import {
-	FontIcon,
-} from 'material-ui';
-import {
 	List,
 	ListItem
 } from 'kr-ui';
@@ -134,7 +131,7 @@ export default class SidebarNav extends React.Component {
 					childStyles.backgroundColor = '#fff';
 				}
 				*/
-
+		
 		if (item.menuItems && item.menuItems.length) {
 			return (
 
@@ -148,13 +145,13 @@ export default class SidebarNav extends React.Component {
 					primaryTogglesNestedList={false}
 					autoGenerateNestedIndicator={false}
 					disabled={true}
-
-					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'22px 0 0 39px' }}/>
-			}
-
-			nestedItems = {
-				item.menuItems.map((it, ind) => this.renderMenuItem(it, ind, index))
-			}
+					leftIcon={
+						<div  className={item.iconName}  style={{fontSize:18,position: 'absolute',margin:'22px 0 0 39px',color:`${item.iconColor}`, }}>
+						</div>
+					}
+					nestedItems = {
+						item.menuItems.map((it, ind) => this.renderMenuItem(it, ind, index))
+					}
 
 			/>
 
