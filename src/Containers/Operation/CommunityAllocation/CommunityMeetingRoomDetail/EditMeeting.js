@@ -375,7 +375,10 @@ const validate = values =>{
 	//整数
 	let zeroNum=/^-?\d+$/;　
 
-    if(!values.name){
+	//空格
+	let reg=/^\s*$/;
+
+    if(!values.name||(values.name&&reg.test(values.name.toString().trim()))){
       errors.name='请输入空间名称';
     }
 
@@ -387,7 +390,7 @@ const validate = values =>{
       errors.floor='请输入所在楼层';
     }
 
-    if(!values.area){
+    if(!values.area||(values.area&&reg.test(values.area.toString().trim()))){
 		errors.area='请输入面积'
 	}
 
@@ -396,7 +399,7 @@ const validate = values =>{
 	}
 
 
-    if(!values.capacity){
+  if(!values.capacity||(values.capacity&&reg.test(values.capacity.toString().trim()))){
 		errors.capacity='请输入可容纳人数'
 	}
 
@@ -404,29 +407,32 @@ const validate = values =>{
 		errors.capacity='可容纳人数为正整数或0'
 	}
 
+	if(!values.idlePrice||(values.idlePrice&&reg.test(values.idlePrice.toString().trim()))){
+	  errors.idlePrice='请输入空闲时段单价'
+   }
 
-	if(!values.idlePrice){
-	errors.idlePrice='请输入空闲时段单价'
-}
 
 if(values.idlePrice&&(!numberNotZero.test(values.idlePrice.toString().trim())&&values.idlePrice!=0)){
 	errors.idlePrice='空闲时段单价为正整数或0'
 }
 
-if(!values.busyPrice){
-errors.busyPrice='请输入高峰时段单价'
+if(!values.busyPrice||(values.busyPrice&&reg.test(values.busyPrice.toString().trim()))){
+   errors.busyPrice='请输入高峰时段单价'
 }
+
 
 if(values.busyPrice&&(!numberNotZero.test(values.busyPrice.toString().trim())&&values.busyPrice!=0)){
 errors.busyPrice='高峰时段单价为正整数或0'
 }
 
-if(values.busyPrice&&values.busyPrice.length>5){
+if(values.busyPrice&&values.busyPrice.toString().trim().length>5){
 errors.busyPrice='高峰时段单价最多5位'
 }
-if(values.idlePrice&&values.idlePrice.length>5){
+if(values.idlePrice&&values.idlePrice.toString().trim().length>5){
 errors.idlePrice='空闲时段单价最多5位'
 }
+
+
 
 
 if(!values.picId){
