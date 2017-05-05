@@ -232,7 +232,7 @@ import HeaderUpload from './HeaderUpload';
 	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
 				<div style={{marginLeft:15}}> 
-				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
+				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告' requireLabel={true}/>
 				</div>
 			</DivTitle>
 
