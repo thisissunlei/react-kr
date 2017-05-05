@@ -32,6 +32,7 @@ State.saveNews = action(function(params) {
 //编辑保存
 State.saveEditNews = action(function(params) {
 	var _this = this;
+	console.log('111111',params)
 	Http.request('save-news', {},params).then(function(response) {
 		 Message.success("修改成功");
 		_this.openEditDialog();
@@ -48,7 +49,7 @@ State.getNewsDate = action(function(id) {
 		_this.newsDate=response;
 		Store.dispatch(initialize('editNewList',response));
 	}).catch(function(err) {
-
+		Message.error(err.message);
 	});
 
 });

@@ -85,12 +85,11 @@ export default class News extends React.Component {
 	    });
     }
     createSave=(form)=>{
-    	State.saveNews(form)
+    	State.saveNews(form);
 
     }
     editSave=(form)=>{
-		State.saveEditNews(form)
-    	
+		State.saveEditNews(form);
     }
 	
 
