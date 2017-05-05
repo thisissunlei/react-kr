@@ -12,8 +12,6 @@ import {
 	MakeSelectable
 } from 'material-ui/List';
 import './index.less';
-import Avatar from 'material-ui/Avatar';
-import Subheader from 'material-ui/Subheader';
 
 let SelectableList = MakeSelectable(List);
 
@@ -146,7 +144,15 @@ export default class SidebarNav extends React.Component {
 					autoGenerateNestedIndicator={false}
 					disabled={true}
 					leftIcon={
-						<div  className={item.iconName}  style={{fontSize:18,position: 'absolute',margin:'22px 0 0 39px',color:`${item.iconColor}`, }}>
+						<div  
+							className={item.iconName}  
+							style={{
+								fontSize:18,
+								position: 'absolute',
+								margin:'22px 0 0 39px',
+								color:`${item.iconColor}`
+							}}
+							>
 						</div>
 					}
 					nestedItems = {
