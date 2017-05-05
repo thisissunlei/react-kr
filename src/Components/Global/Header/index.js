@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
-import { AppBar, MenuItem,IconMenu, IconButton, FlatButton } from 'material-ui';
+import { AppBar, MenuItem,IconMenu, FlatButton } from 'material-ui';
 
 import {
 	Button,
@@ -560,7 +560,7 @@ class Header extends React.Component {
 					< IconMenu
 					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
-						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
+						<div style={{marginTop:10}} ><MoreVertIcon color="#394457"/></div>
 					}
 					targetOrigin = {
 						{
