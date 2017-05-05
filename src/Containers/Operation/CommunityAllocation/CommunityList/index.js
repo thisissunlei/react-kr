@@ -271,7 +271,7 @@ class CommunityList  extends React.Component{
 							selectHas=true;
               _this.setState({
 								picSrc:item.photoUrl,
-								picId:item.id
+								picId:item.photoId
 							})
 						}
           })
