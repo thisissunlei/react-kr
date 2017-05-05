@@ -2179,7 +2179,11 @@
       "hasStarExport": false,
       "activeExports": []
     },
+<<<<<<< HEAD
     "../node_modules/.0.8.9@fbjs/lib/shallowEqual.js": {
+=======
+    "../node_modules/.0.8.10@fbjs/lib/shallowEqual.js": {
+>>>>>>> feature/appnew
       "id": 199,
       "meta": {},
       "hasStarExport": false,

@@ -1,7 +1,6 @@
 import {
 	default as CommunityList
 } from './CommunityList';
-
 import {
 	default as CommunityStation
 } from './CommunityStation';
@@ -21,6 +20,9 @@ import {
 	default as EquipmentList
 } from './EquipmentList';
 
+import {default as MyAddress} from './MyAddress';
+
+
 
 module.exports = {
 	CommunityList,
@@ -29,5 +31,6 @@ module.exports = {
 	CommunityStationDetail,
 	CommunityMeetingRoom,
 	CommunityMeetingRoomDetail,
-	EquipmentList
+	EquipmentList,
+	MyAddress,
 }

@@ -38,6 +38,14 @@ const Operation_CommunityAllocation_CommunityList = (location, callback) => {
 	}, 'Operation_CommunityAllocation_CommunityList')
 }
 
+const Operation_CommunityAllocation_MyAddress = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/MyAddress').default)
+	}, 'Operation_CommunityAllocation_MyAddress')
+}
+
+
+
 const Operation_BasicConfig_EquipmentDefinition = (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/BasicConfig/EquipmentDefinition').default)
@@ -332,8 +340,10 @@ module.exports =()=>{
       <Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
 		</Route>
     {/*基础配置*/}
-		<Route path="basicConfig" getComponent={Basic}>
+    
+    <Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>
 
+		<Route path="basicConfig" getComponent={Basic}>
       <Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
       {/*商圈列表*/}
       <Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
@@ -417,7 +427,7 @@ module.exports =()=>{
 
 	</Route>
 
-		
+
 
 
 	</Route>

@@ -439,5 +439,35 @@ module.exports = {
          url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
          method: 'post'
       },
+        //社区配置--我的地点--我的地点列表
+      'myAddressList':{
+         url: '/apis/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+      'addMyAddressData':{
+         url: '/apis/krspace-finance-web/community/notice/cmt-notice',
+         method: 'post'
+      },
+      'getEditInfo':{
+         url: '/apis/krspace-finance-web/community/notice/manager-notice?id={id}',
+         method: 'get'
+      },
+
+
+    //社区配置--我的地点--删除地点
+      'deleteAddress':{
+         url: '/apis/krspace-finance-web/community/notice/delete?cmtId={cmtId}',
+         method: 'delete'
+      },
+
+
+    //社区配置--我的地点--获取基本编辑数据
+      'getEditAddress':{
+         url: '/apis/krspace-finance-web/community/notice/manager-notice?id={id}',
+         method: 'get'
+      },
+
+
+      
 
 }

@@ -147,7 +147,6 @@ export default class Button extends React.Component {
 		}
 
 		if (type == 'button') {
-
 			return (
 				<div className="ui-button" style={divStyle}>
 					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} style={defaultStyle} label={label}   {...other} />

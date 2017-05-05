@@ -29,6 +29,7 @@ module.exports = {
       url: '/api/krspace-finance-web/cmt/community/check/order?id={id}&cityId={cityId}&orderNum={orderNum}',
       method: 'get'
    },
+
 	 //社区管理－访客记录-列表
  'visit-record-list':{
 		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}',
@@ -55,8 +56,12 @@ module.exports = {
     method: 'get'
   },
 
-  
 
- 
+   //访客列表--分页
+   'get-visit-list':{
+      url: '/api/krspace-finance-web/cmt/visit/get-visit-list?communityId={communityId}&company={company}&endTime={endTime}&name={name}&startTime={startTime}&visitName={visitName}',
+      method: 'get'
+   },
+
 
 }

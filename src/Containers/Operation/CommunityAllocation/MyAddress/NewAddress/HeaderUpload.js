@@ -13,10 +13,10 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import {Actions,Store} from 'kr/Redux';
 import upload from "./images/upload.png";
-import State from './State';
+import State from '../State';
 
 @observer
-export default class AdvanceSearchDateForm extends Component {
+export default class HeaderUpload extends Component {
 	static defaultProps = {
 
 	}

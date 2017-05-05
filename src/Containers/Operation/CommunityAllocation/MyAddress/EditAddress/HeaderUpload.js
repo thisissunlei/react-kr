@@ -13,10 +13,10 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import {Actions,Store} from 'kr/Redux';
 import upload from "./images/upload.png";
-import State from './State';
+import State from '../State';
 
 @observer
-export default class AdvanceSearchDateForm extends Component {
+export default class HeaderUpload extends Component {
 	static defaultProps = {
 
 	}
@@ -43,10 +43,14 @@ export default class AdvanceSearchDateForm extends Component {
 		});
 	}
 	componentDidMount() {
-		console.log(this.props.defaultUrl,upload)
 
 	}
 	componentWillReceiveProps(nextProps){
+		if(this.props.defaultUrl != nextProps.defaultUrl){
+			this.setState({
+				imgSrc:nextProps.defaultUrl
+			})
+		}
 	}
 	onTokenError() {
 		Notify.show([{
@@ -166,8 +170,6 @@ export default class AdvanceSearchDateForm extends Component {
 
 	}
 	render() {
-		// let {index} = this.props;
-		// let imgUrl = State.stationVos[index].headerUrl;
 		let {imgSrc} = this.state;
 		console.log('img')
 		return(
