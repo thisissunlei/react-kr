@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {reduxForm,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -39,12 +39,49 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
   	componentDidMount(){
-  		State.getEditInfo();
-  		setTimeout(function(){
-			Store.dispatch(initialize('EditAddress', State.detailData));
+  		this.getEditInfo()
+  	// 	State.getEditInfo();
+  	// 	setTimeout(function(){
+			// Store.dispatch(initialize('EditAddress', State.detailData));
+			// console.log('initialize',State.detailData)
 
-  		},100)
+  	// 	},100)
   	}
+
+  	getEditInfo = ()=>{
+  		 var _this=this;
+		 let item = {
+					managerName:'',
+					managerPhone:'',
+					managerEmail:'',
+					managerIcon:'',
+					managerType:'COMMUNITY_MANAGER'
+				};
+		 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
+		 	let manager = [];
+		 	State.detailData = response;
+			Store.dispatch(initialize('EditAddress', State.detailData));
+			console.log('initialize',State.detailData)
+			response.cmtManagerList.map((item)=>{
+				if(item.managerType=='COMMUNITY_LEADER'){
+					State.editLeader = item;
+				}else{
+					manager.push(item)
+				}
+			})
+			if(!manager.length){
+				manager.push(item)
+			}
+			State.editStationVos = manager;
+			State.addGuideList = response.cmtGuideList;
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});	
+  	}
+
+	componentWillReceiveProps(nextProps,nextState) {
+
+	}
 
 	onSubmit = (values) => {
 
@@ -76,12 +113,6 @@ import HeaderUpload from './HeaderUpload';
 		State.switchEditAddress();
 	}
    
-	componentWillReceiveProps(nextProps) {
-		if(nextProps.detailData != this.props.detailData){
-			Store.dispatch(initialize('NewCommunityList', State.detailData));
-		}
-
-	}
 
 
 	onStationVosChange=(type,index,value)=>{
