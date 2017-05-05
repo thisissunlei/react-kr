@@ -193,14 +193,16 @@ class CommunityList  extends React.Component{
                             var TooltipStyle=""
                             if(value.length==""){
                               TooltipStyle="none";
-                              
-
+                              value = '-'
+                              return (<span>{value}</span>)
                             }else{
                               TooltipStyle="block";
-                            }
                              return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-                      }}></TableRowColumn>
+                             <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                            }
+                          }
+                            
+                      }></TableRowColumn>
                       <TableRowColumn name="managerPhone" component={(value,oldValue)=>{
                         if(value==""){
                           value="-"
