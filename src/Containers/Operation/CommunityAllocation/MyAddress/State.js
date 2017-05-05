@@ -228,19 +228,7 @@ State.getEditInfo= action(function() {
 	});	
 });
 
-//获取社区列表
-State.getCommunityList=action(function(values) {	
-	Http.request('getCommunity', {
-		communityName: lastname
-	}).then(function(response) {
-		response.communityInfoList.forEach(function(item, index) {
-			item.value = item.id;
-			item.label = item.name;
-			return item;
-		});
-	}).catch(function(err) {
-	});
-});
+
 
 
 module.exports = State;

@@ -468,6 +468,10 @@ module.exports = {
          url: '/api/krspace-finance-web/community/notice/manager-notice?id={id}',
          method: 'get'
       },
+      'checkCommunityId':{
+         url: '/api/krspace-finance-web/community/notice/available-cmt?cmtId={cmtId}',
+         method: 'get'
+      },
 
 
       

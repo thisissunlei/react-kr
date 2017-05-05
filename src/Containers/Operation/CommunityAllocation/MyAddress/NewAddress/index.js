@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {reduxForm,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -115,7 +115,18 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectCommunity=(item)=>{
-		State.address = item.address;
+		Http.request('checkCommunityId', {
+			cmtId: item.id
+		}).then(function(response) {
+			State.address = item.address;
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+			Store.dispatch(change('NewCommunityList', 'communityId',''));
+
+		});
 
 	}
    
