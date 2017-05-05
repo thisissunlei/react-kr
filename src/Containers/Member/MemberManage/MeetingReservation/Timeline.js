@@ -77,6 +77,10 @@ export default class Timeline extends React.Component {
             openDetail:false,
         })
     }
+    delete = (data){
+        const {delete} = this.props;
+        delete && delete(data);
+    }
     render(){
         const {startTime,endTime,coordinates,openDetail,location}=this.state;
         let len = endTime - startTime;
@@ -91,6 +95,7 @@ export default class Timeline extends React.Component {
                             allStartTime = {startTime}
                             allEndTime = {endTime}
                             onScroll = {this.onScroll}
+                           
                          />
                     </div>
                 </div>
@@ -105,6 +110,7 @@ export default class Timeline extends React.Component {
                     coordinates = {coordinates}
                     close = {this.closeDetail}
                     offset = {location}
+                    delete = {this.delete}
                 />
             </div>
         );

@@ -40,7 +40,8 @@ export default class MeetingReservation extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			data : ''
+			data : '',
+			searchParams:{},
 		}
 	}
 	//生成时间轴的方法
@@ -61,23 +62,33 @@ export default class MeetingReservation extends React.Component {
 	onPageChange = (page) =>{
 		 console.log(page,">>>>>>>");
 	}
+	onSubmit = (searchParams) => {
+		console.log(searchParams,'????')
+		this.setState({
+			searchParams,
+		})
+
+	}
+	//刷新列表
+	refreshList = (params) =>{
+
+	}
+	//删除预约
+	delete = (data) =>{
+		const {searchParams} = this.state;
+
+	}
     render(){
 
         return(
             <div className="metting-reservation">
-				<Title value="设备列表"/>
-      		<Section title="设备列表"  style={{marginBottom:-5,minHeight:910}}>
-
-		       
-				          
-								<SearchUpperForm />
-						 
-				          
-		       
-				
-					
+				<Title value="会议室预定"/>
+      		<Section title="会议室预定"  style={{marginBottom:-5,minHeight:910}}>
+				<SearchUpperForm onSubmit = {this.onSubmit}/>
 				<div className = "metting-reservation-content">
-					<Timeline />
+					<Timeline 
+						delete = {this.delete}
+					/>
 				</div>
 				<div style = {{marginTop:72}}>
 					<Pagination  

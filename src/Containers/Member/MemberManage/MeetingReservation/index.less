@@ -200,10 +200,32 @@
             width: 252px;
         }
         .ui-form-label{
-            padding-left: 0px;
+           
+            display: inline-block;
+            vertical-align: top;
+            line-height: 40px;
+            padding-bottom: 0px;
         }
         .Select.Select--single.is-searchable{
             display: inline-block;
+        }
+
+        .ui-form-controller{
+            display: inline-block
+        }
+        .meeting-reservation-select{
+            margin-top: 3px;
+            display: inline-block;
+            .ui-form-controller.inline{
+                width: 100px;
+                max-width:100%;
+                .Select-control{
+                    width: 100px;
+                }
+            }
+            .ui-form-label.inline{
+                padding-left: 0px;
+            }
         }
     }
 }

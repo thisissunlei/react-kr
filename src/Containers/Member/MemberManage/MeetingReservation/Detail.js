@@ -30,6 +30,10 @@ export default class Detail extends React.Component {
                 
             }
     }
+	delete = () =>{
+		const {delete,data} = this.props;
+		delete && delete(data);
+	}
 
     render(){
         let {open,coordinates,offset} = this.props;
@@ -75,7 +79,7 @@ export default class Detail extends React.Component {
 						</div>
 
 					</div>
-					<botton className = "delete-btn">删除会议室</botton>
+					<botton className = "delete-btn" onClick = {this.delete}>删除会议室</botton>
 				</div>
 				<div className = "mask" onClick = {this.close}></div>
             </div>
