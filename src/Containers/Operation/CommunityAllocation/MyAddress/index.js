@@ -107,13 +107,8 @@ class CommunityList  extends React.Component{
   }
 
   
-  
-
 
   render(){
-
-    
-    
 
     return(
 
@@ -245,28 +240,16 @@ class CommunityList  extends React.Component{
                 onClose={this.whiteClose}
                 containerStyle={{top:60,paddingBottom:48,zIndex:21}}
               >
-            <EditAddress
-                // onSubmit={this.onNewCommunitySubmit}
-                // onCancel={this.switchEditList}
-                // open={State.openEditAddress}
-                // details={State.detailData}
-            />
+            <EditAddress/>
 
           </Drawer>
           {/*添加指南*/}
           <Drawer
                 open={State.openAddGuide}
                 width={750}
-                // openSecondary={true}
                 onClose={this.whiteClose}
-                // containerStyle={{top:60,paddingBottom:48,zIndex:21}}
               >
-            <AddGuide
-                // onSubmit={this.onNewCommunitySubmit}
-                // onCancel={this.switchEditList}
-                // open={State.openEditAddress}
-                // id={this.state.id}
-            />
+            <AddGuide/>
         </Drawer>
         {/*添加指南*/}
           <Drawer
