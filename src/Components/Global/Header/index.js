@@ -552,13 +552,11 @@ class Header extends React.Component {
 						<span className="icon-info information-logo"  ></span>
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
 					</div>}
-
+					<div className="u-header-more" style={{marginTop:10}}><MoreVertIcon color="#394457"/></div>
 					<div
-						className="u-header-more"
+						
 					iconStyle={{fill:'#394457'}}
-					iconButtonElement = {
-						<div style={{marginTop:10}} ><MoreVertIcon color="#394457"/></div>
-					}
+					
 					targetOrigin = {
 						{
 							horizontal: 'right',
