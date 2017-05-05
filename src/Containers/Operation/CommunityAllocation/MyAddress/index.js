@@ -103,7 +103,6 @@ class CommunityList  extends React.Component{
 
 
   whiteClose=()=>{
-    console.log("whiteClose");
     State.closeAllDialog();
   }
 
@@ -130,7 +129,7 @@ class CommunityList  extends React.Component{
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
                   <ListGroup>
-                    <ListGroupItem><SearchForms placeholder='请输入社区名称'  onSubmit={this.onSearchSubmit}/></ListGroupItem>
+                    <ListGroupItem><SearchForms placeholder='请输入社区名称' inputName="searchCmt" onSubmit={this.onSearchSubmit}/></ListGroupItem>
                   </ListGroup>
                 </Col>
 
