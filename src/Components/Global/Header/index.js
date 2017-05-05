@@ -26,16 +26,12 @@ import './index.less';
 import {
 	Http
 } from "kr/Utils";
-
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
-
 import {
 	LookCustomerList,
 	Agreement
-
 } from 'kr/PureComponents';
-
 import MessageManagement from "./MessageManagement";
 import {
 	observer,
@@ -528,7 +524,7 @@ class Header extends React.Component {
 				iconClassName = "hide-shu";
 
 			}
-			
+			//icon={<div className={`${iconClassName} new-logo`}></div>}
 			return ( < AppBar style = {
 					styles
 				}
@@ -544,7 +540,7 @@ class Header extends React.Component {
 				iconElementLeft = {
 
 					<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<div className={`${iconClassName} new-logo`}></div>} style={{color:'#fff',height:60,width:200}} />
+						 <div onTouchTap={this.handleToggle} className={`${iconClassName} new-logo`} style={{color:'#fff',height:60,width:185,float:'left'}} > </div>
 						 <FlatButton onTouchTap={this.touchTitle}  icon={<div className="new-logo"></div>} style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
