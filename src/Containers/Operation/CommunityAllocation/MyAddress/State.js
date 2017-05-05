@@ -86,6 +86,8 @@ State.isOpenDeleteDialog= action(function() {
 
 // 删除整条地点数据
 State.confirmDelete= action(function() {
+    document.getElementById("searchCmt").value="";
+	
 	State.openDeleteDialog = !State.openDeleteDialog;
 	Http.request('deleteAddress',{cmtId:State.deleteAddcommunityId}).then(function(response) {
 		Message.success('删除成功');
