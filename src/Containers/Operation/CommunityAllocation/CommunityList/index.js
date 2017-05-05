@@ -56,7 +56,8 @@ class CommunityList  extends React.Component{
       photoD:[],
       communityId:'',
       communityName:'',
-      picSrc:''
+      picSrc:'',
+			picId:''
     }
 	}
 
@@ -269,17 +270,19 @@ class CommunityList  extends React.Component{
 						if(item.type=='MOBILE_STATION'){
 							selectHas=true;
               _this.setState({
-								picSrc:item.photoUrl
+								picSrc:item.photoUrl,
+								picId:item.id
 							})
 						}
           })
 
 					if(response.photoVOs.length==0||!selectHas){
 						_this.setState({
-							picSrc:''
+							picSrc:'',
+							picId:''
 						})
 					}
-					
+
 
 
           _this.setState({
@@ -444,7 +447,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName,picSrc}=this.state;
+    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName,picSrc,picId}=this.state;
 
 		return(
 
@@ -556,6 +559,7 @@ class CommunityList  extends React.Component{
                 communityId={communityId}
                 communityName={communityName}
 								picSrc={picSrc}
+								picId={picId}
 						/>
 
 		            </Drawer>
