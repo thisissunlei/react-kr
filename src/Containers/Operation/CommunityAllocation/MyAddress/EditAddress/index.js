@@ -133,6 +133,7 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 	onBlur=(item,type)=>{
+		console.log('item',item.managerEmail,type)
 		if(type === 'managerPhone' && item.managerPhone){
 			var isPhone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 			var  phone= /^400-([0-9]){1}([0-9-]{7})$/;
@@ -148,6 +149,7 @@ import HeaderUpload from './HeaderUpload';
 
 		}else if(type === 'managerEmail' && item.managerEmail){
 			let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;	
+			console.log(!email.test(item.managerEmail))
 			if(!email.test(item.managerEmail)){
 				Notify.show([{
 					message: '请填写正确的邮箱',
@@ -240,7 +242,7 @@ import HeaderUpload from './HeaderUpload';
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
 				<div style={{marginLeft:28}}>
 				
-				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告'/>
+				<KrField name="notice" style={{marginBottom:13}}type="textarea" component="textarea" label="社区公告" maxSize={1000} placeholder='请输入社区公告' requireLabel={true}/>
 				</div>
 			</DivTitle>
 
@@ -260,9 +262,9 @@ import HeaderUpload from './HeaderUpload';
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerName||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerPhone')}/>
+					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerName||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerName')}/>
 					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder={State.editLeader.managerPhone||'请输入电话号码'} onBlur={this.onBlur.bind(this,State.editLeader,'managerPhone')}/>
-					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder={State.editLeader.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,State.editLeader,'managerPhone')}/>
+					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder={State.editLeader.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,State.editLeader,'managerEmail')}/>
 					</div> 
 				</div>
 
@@ -285,9 +287,9 @@ import HeaderUpload from './HeaderUpload';
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerName||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerName||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerName')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder={item.managerPhone||'请输入电话号码'}onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
-					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder={item.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
+					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder={item.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
 								</div> 
 								<div className="caozuo">
 									{index == State.editStationVos.length-1 &&<span className="add-info-box" onClick={this.addArr}>+</span>}
