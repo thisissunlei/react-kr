@@ -67,6 +67,7 @@ State.closeAllDialog = action(function() {
 		this.openNewAddress=false;
 		this.openEditAddress=false;
 		this.openDeleteDialog=false;
+		this.addGuideList = [];
 });
 
 State.switchNewAddress= action(function() {	
@@ -165,12 +166,17 @@ State.getEditBasicDate= action(function(id) {
 
 
 //新建提交
-State.onNewAddressSubmit= action(function(data) {	
+State.onNewAddressSubmit= action(function(data) {
+
 	 var _this=this;
 	 Http.request('addMyAddressData',{},data).then(function(response) {
 			_this.openNewAddress = false;
 			_this.openEditAddress = false;
-			Message.success('添加成功');
+			if(data.id){
+				Message.success('编辑成功');
+			}else{
+				Message.success('新增成功');
+			}
 			State.setSearchParams({
 
 				page:1,	

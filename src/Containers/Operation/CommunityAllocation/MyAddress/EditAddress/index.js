@@ -26,7 +26,7 @@ import './index.less';
 import State from '../State';
 import HeaderUpload from './HeaderUpload';
 @observer
- class NewCommunityList extends React.Component{
+ class EditAddress extends React.Component{
 
 	static PropTypes = {
 
@@ -41,7 +41,7 @@ import HeaderUpload from './HeaderUpload';
   	componentDidMount(){
   		State.getEditInfo();
   		setTimeout(function(){
-			Store.dispatch(initialize('NewCommunityList', State.detailData));
+			Store.dispatch(initialize('EditAddress', State.detailData));
 
   		},100)
   	}
@@ -331,4 +331,4 @@ const validate = values =>{
 
 		return errors
 	}
-export default reduxForm({ form: 'NewCommunityList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCommunityList);
+export default reduxForm({ form: 'EditAddress',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(EditAddress);

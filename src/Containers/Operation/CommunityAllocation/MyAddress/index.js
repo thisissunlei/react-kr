@@ -28,7 +28,8 @@ import {
   Title,
   ListGroup,
   ListGroupItem,
-  Message
+  Message,
+  Tooltip
 } from 'kr-ui';
 
 import './index.less'
@@ -170,25 +171,41 @@ class CommunityList  extends React.Component{
                       ></TableRowColumn>
                       <TableRowColumn name="wifiName"
                       component={(value,oldValue)=>{
-                        if(value==""){
-                          value="-"
-                        }
-                        return (<span>{value}</span>)}}
-                      ></TableRowColumn>
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none";
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                      }}></TableRowColumn>
                       <TableRowColumn name="wifiPwd"
                       component={(value,oldValue)=>{
-                        if(value==""){
-                          value="-"
-                        }
-                        return (<span>{value}</span>)}}
-                      ></TableRowColumn>
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none";
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                      }}></TableRowColumn>
                       <TableRowColumn name="managerName"
                       component={(value,oldValue)=>{
-                        if(value==""){
-                          value="-"
-                        }
-                        return (<span>{value}</span>)}}
-                      ></TableRowColumn>
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none";
+                              
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                      }}></TableRowColumn>
                       <TableRowColumn name="managerPhone" component={(value,oldValue)=>{
                         if(value==""){
                           value="-"
