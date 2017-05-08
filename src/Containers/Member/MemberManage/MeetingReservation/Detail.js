@@ -3,7 +3,7 @@ import React from 'react';
 import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 
 import {
 	SnackTip
@@ -24,19 +24,17 @@ export default class Detail extends React.Component {
         let {close} = this.props;
 		close && close();
 	}
-    
-    componentDidMount() {
-        window.onscroll = function(){
-                
-            }
-    }
-	delete = () =>{
-		const {delete,data} = this.props;
-		delete && delete(data);
+	mtDelete = () =>{
+		const {mtDelete,detailData} = this.props;
+		mtDelete && mtDelete(detailData);
 	}
 
     render(){
-        let {open,coordinates,offset} = this.props;
+        let {open,coordinates,offset,detailData,metting} = this.props;
+		let startTime = DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM").split(",");
+		let endTime = DateFormat(detailData.endTime,"dddd,mm,dd,hh:MM").split(",");
+		let week = {Monday:'一',Tuesday:'二',Wednesday:'三',Thursday:'四',Friday:'五',Saturday:'六',Sunday:'日'}
+		// DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM")
         if(!open){
             return null;
         }
@@ -57,29 +55,30 @@ export default class Detail extends React.Component {
                                 >
 					<div className = "close"><span onClick = {this.close}></span></div>
 					<div className = "time">
-						<span>时间:</span>
+						<span>时  间:</span>
 						<div>
-							<p>4月26日（周三）</p>
-							<p>17:00-17:15</p>
+							<p>{startTime[1]+'月'+startTime[2]+'日（周'+week[startTime[0]]+'）'}</p>
+							<p>{startTime[3]+'-'+endTime[3]}</p>
 						</div>
 
 					</div>
 					<div className = "place">
-						<span>地点:</span>
+						<span>地  点:</span>
 						<div>
-							<p>火星会议室</p>
+							<p>{metting}</p>
 						</div>
 
 					</div>
 					<div className = "reservation-people">
 						<span>预约人:</span>
 						<div>
-							<p>张三</p>
-							<p>撒大声地所大大多</p>
+							<p>{detailData.memberName}</p>
+							<p>{detailData.customerName}</p>
+							
 						</div>
 
 					</div>
-					<botton className = "delete-btn" onClick = {this.delete}>删除会议室</botton>
+					<botton className = "delete-btn" onClick = {this.mtDelete}>删除会议室</botton>
 				</div>
 				<div className = "mask" onClick = {this.close}></div>
             </div>

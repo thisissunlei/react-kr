@@ -6,7 +6,7 @@ import {
 import {
 	reduxForm,
 } from 'redux-form';
-import {Http} from 'kr/Utils'
+import {Http,DateFormat} from 'kr/Utils'
 import {
 	KrField,
 	Grid,
@@ -32,11 +32,12 @@ class MeetingReservationFrom extends React.Component {
 			options:[],
 			searchParams:{
 				communityId:'',
-				time:'',
+				time:DateFormat(new Date()),
 				floor:'',
 
 			}
 		}
+
 	}
 	timeChange = (data) =>{
 		let {searchParams} = this.state;
@@ -89,16 +90,17 @@ class MeetingReservationFrom extends React.Component {
 			onSubmit(this.state.searchParams)
 		})
 	}
-    onSubmit = () =>{
-
-    } 
+   componentDidMount() {
+	   
+   }
+   
 	render() {
         const {handleSubmit} = this.props;
 		const {options} = this.state;
 	  	return(
 			<div className = "meeting-reservation-from" >
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-                    <KrField grid={1/2} label="时间:" name="signStartDate" style ={{width:310}} component="date" inline={true} onChange = {this.timeChange} />
+                    <KrField grid={1/2} label="时间:" name="time" style ={{width:310}} component="date" inline={true} onChange = {this.timeChange} />
                     <KrField grid={1/2} 
 						name="intentionCommunityId" 
 						component='searchIntend' 

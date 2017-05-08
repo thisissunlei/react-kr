@@ -12,6 +12,11 @@
         line-height: 17px;
         box-sizing: border-box;
         top: 30px;
+        div{
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
         .reservation-introduction-mask{
             position: absolute;
             width: 100%;
@@ -68,6 +73,7 @@
               
                color: #499DF1;
                font-size: 12px;
+
                span{
                    vertical-align: middle;
                }
@@ -78,6 +84,7 @@
                     vertical-align: middle;
                     padding-left: 10px;
                     line-height: 20px;
+                    width: 150px;
                }
              }
              .delete-btn{
@@ -132,6 +139,7 @@
         background: #fff;
         box-sizing: border-box;
         text-align: left;
+        margin-top: 40px;
         
         .metting-Timeline-box{
             width: 100%;
@@ -143,7 +151,10 @@
                 height: 90px;
                 border-bottom: 1px solid #CCCCCC;
                 margin-bottom: 10px;
-                
+                .metting-hours-box:last-child{
+                    border-right: 1px solid #ccc;
+                }
+
                 .hours{
                     font-size: 12px;
                     color: #ccc;
@@ -170,7 +181,7 @@
                 }
                
             }
-             .metting-Timeline-shaf:last-of-type{
+             .metting-Timeline-shaf:last-child{
                     border-right: 1px solid #ccc;
             }
         }
@@ -192,6 +203,7 @@
     }
     .meeting-reservation-from{
         margin-bottom: 20px;
+        font-size: 14px;
         .ui-form-controller.inline{
             width: 252px;
             max-width:100%;

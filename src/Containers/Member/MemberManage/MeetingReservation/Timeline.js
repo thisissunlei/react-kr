@@ -3,7 +3,7 @@ import React from 'react';
 import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import $ from 'jquery';
 import {
 	Table,
@@ -36,39 +36,119 @@ export default class Timeline extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+        
 		this.state = {
-            startTime:8,
-            endTime:30,
+            endTime:this.hourFormat(this.props.data.orderEndTime),
+            startTime:this.hourFormat(this.props.data.orderStartTime),
             openDetail:false,
             coordinates:{},
             location:"right",
-            isScoll:false
+            isScoll:false,
+            detailData:'',
+            width:84,
+
 		}
+       
 	}
 
     //生成刻度
     generateCalibration = () =>{
-        let {startTime,endTime}=this.state;
+        let {endTime,startTime,width}=this.state;
         let elems = [];
-        for(var i=startTime;i<endTime;i++){
+      
+        
+        for(var i= startTime.h;i<endTime.h;i++){
+            let border= "0px solid #ccc"
+            if(i==endTime.h-1){
+                border= "1px solid #ccc"
+            }
          elems.push (
-                <div style = {{width:84,float:"left",position:"relative",height:90}}>
-                    <div className = "hours"><span>{i+"时"}</span></div>
-                    <div className = "half-hours"></div>
+                <div className = "metting-hours-box" style = {{width:width,float:"left",position:"relative",height:80,top:10,borderRight:border}}>
+                    <div className = "hours" style = {{width:width/2}}><span>{i+"时"}</span></div>
+                    <div className = "half-hours" style = {{width:width/2}}></div>
                 </div>
                   )
         }
      return elems;    
     }
-    //滚动条滚动
+    //转化为时分
+    hourFormat = (time) =>{
+        let date = DateFormat(time,24).split(" ");
+        let obj = {
+            h:Number(date[date.length-1].split(":")[0]),
+            m:Number(date[date.length-1].split(":")[1]),
+        }
+        return obj;
+    }
+    generateIntroduction = () =>{
+        let _this = this;
+        const {data} = this.props;
+        const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
+        if(!data.appointments){
+            return null;
+        }
+        let elems =  data.appointments.map(function(item,index){
+            let inData = Object.assign({}, item);
+            inData.beginTime = _this.hourFormat(item.beginTime);
+            inData.endTime = _this.hourFormat(item.endTime);
+           
+            return  <Introduction
+                        key = {index}  
+                        onClick = {_this.openDetail}
+                        allStartTime = {startTime}
+                        allEndTime = {endTime}
+                        data = {inData}
+                        width = {width}
+                        index = {index}
+                    />
+        })
+        return elems;
+    }
+    // 生成设备
+    equipment = () =>{
+        
+        let {data} = this.props;
+        
+        let elems = data.deviceList.map(function(item,index){
+            return <span key = {index} style={{float:"right"}}>{item}</span>
+        })
+        return <div style={{float:"right"}}>{elems}</div>;
+    }
+
+    onScroll = (top,flog) =>{
+        // let {coordinates} = this.state;
+        // if(flog>0){
+        //     //下滚
+        //     this.setState({
+        //         coordinates:{
+        //             x:coordinates.x,
+        //             y:coordinates.y
+        //         }
+        //     })
+
+        // }else{
+
+        // }
+    }
    
-    openDetail = (coordinates,location) =>{    
+    openDetail = (coordinates,location,id) =>{ 
+        const {data} = this.props;   
+        let detailData = '';
         $("body").css("overflow","hidden");
-        console.log(">>>>>>")
+        if(!data){
+            return null;
+        }
+        data.appointments.map(function(item,index){
+            if(item.id == id){
+                detailData = item;
+            }
+        })
+        
         this.setState({
             coordinates,
             openDetail:true,
             location,
+            detailData
         })
     }
     closeDetail = () =>{
@@ -77,40 +157,46 @@ export default class Timeline extends React.Component {
             openDetail:false,
         })
     }
-    delete = (data){
-        const {delete} = this.props;
-        delete && delete(data);
+    mtDelete = (data) =>{
+        let {mtDelete} = this.props;
+        mtDelete && mtDelete(data,this.closeDetail);
     }
+    
     render(){
-        const {startTime,endTime,coordinates,openDetail,location}=this.state;
-        let len = endTime - startTime;
+        const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
+        const {data} = this.props;
+       
+        let len = endTime.h - startTime.h;
+        if(!data){
+            return null;
+        }
+
         return(
             <div className="metting-Timeline">
                
                 <div className = "metting-Timeline-box">
-                    <div className = "metting-Timeline-shaft" style = {{width:84*len}}>
+                    <div className = "metting-Timeline-shaft" style = {{width:width*len+1}}>
                         {this.generateCalibration()}
-                         <Introduction  
-                            onClick = {this.openDetail}
-                            allStartTime = {startTime}
-                            allEndTime = {endTime}
-                            onScroll = {this.onScroll}
-                           
-                         />
+                        {this.generateIntroduction()}
+                         
                     </div>
                 </div>
                 <div className = "sticky-notes">
-                    <span>H01</span>
-                    <span>2楼</span>
-                    <span>4座位</span>
-                    <span style={{float:"right"}}>ddddddddddd</span>
+                    <span>{data.name}</span>
+                    <span>{data.floor+"楼"}</span>
+                    <span>{data.capacity+"座位"}</span>
+                    {this.equipment()}
+                    
                 </div>
                 <Detail 
                     open = {openDetail} 
                     coordinates = {coordinates}
                     close = {this.closeDetail}
                     offset = {location}
-                    delete = {this.delete}
+                    mtDelete = {this.mtDelete}
+                    detailData = {detailData}
+                    metting = {data.name}
+                    width = {width}
                 />
             </div>
         );

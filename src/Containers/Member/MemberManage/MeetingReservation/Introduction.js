@@ -18,67 +18,87 @@ export default class Introduction extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			periodTime:2,
+			
 			startTime:9,
 			endTime:13,
 			allStartTime:this.props.allStartTime,
 			allEndTime:this.props.allEndTime,
+			all:[],
+			inData:'',
 
 		}
 		
 	}
-	// detailClick = (event) =>{
-		
-	// 	let {onClick,data} = this.props;
-	// 	onClick && onClick(data)
-	// }
+	
 	componentDidMount() {
-		const {onClick,data,onScroll} = this.props;
-		let {periodTime} = this.state;
+		const {onClick,data,onScroll,width,index} = this.props;
 		let wWidth = $(window).width();
+		let _this = this;
 		
-		document.onscroll = function(){
-			let scollTop = $("body").scrollTop();
-			onScroll && onScroll(scollTop);
+		window.onmousewheel = document.onmousewheel= function(event){
+			console.log("LLLL",event);
+		 	let scollTop = $("body").scrollTop();
+		 	onScroll && onScroll(scollTop,event.deltaY);
 		}
-		$(".reservation-introduction-mask").click(function(event){
-			let scollTop = $("body").scrollTop();
-			let pagex = event.pageX;
-			let pagey = event.pageY;
-			let offsetx = event.offsetX; 
-			let offsety = event.offsetY; 
-			let width = 84*(periodTime+1);
-			let coordinates = {
-				x:pagex+(width-offsetx)-5,
-				y:pagey+(30 - offsety)-scollTop
-			};
+		
+		
+		$(".reservation-introduction .reservation-introduction-mask").click(function(event){
+			let {inData} = _this.state; 
+			if($(this).attr("data-id") == data.id){
+				let scollTop = $("body").scrollTop();
+				let num = $(this).index();
+				let pagex = event.pageX;
+				let pagey = event.pageY;
+				let offsetx = event.offsetX; 
+				let offsety = event.offsetY; 
+				let periodTime = data.endTime.h-data.beginTime.h;
+				let detailWidth = width*(periodTime);
+				let coordinates = {
+					x:pagex+(detailWidth-offsetx)-5,
+					y:pagey+(30 - offsety)-scollTop
+				};
+				
+				let location = "right";
+				if(pagex+(detailWidth-offsetx)+254>=wWidth){
+					coordinates = {
+						x:pagex-offsetx-254-15,
+						y:pagey+(30 - offsety)
+					}; 
+					location = "left";
+				}
+				
+				
 			
-			let location = "right";
-			if(pagex+(width-offsetx)+254>=wWidth){
-				coordinates = {
-					x:pagex-offsetx-254-15,
-					y:pagey+(30 - offsety)
-				}; 
-				location = "left";
+				console.log(pagex,offsetx,detailWidth)
+				onClick && onClick(coordinates,location,data.id);
+			
 			}
 			
 			
-			onClick && onClick(coordinates,location);
-
 		})
+		this.setState({
+			inData:data,
+			
+		})
+		
+		
 	}
-	
-
     render(){
-		const {periodTime,startTime,allStartTime} = this.state;
-		let width = 84*(periodTime+1)+1;
-		let left = (startTime-allStartTime)*84;
+		const {startTime} = this.state;
+		const {data,width,allStartTime} = this.props;
+		let periodTime = data.endTime.h-data.beginTime.h;
+		if(!data){
+			return null;
+		}
+		let detailWidth = width*(periodTime)+1;
+		let left = (data.beginTime.h-allStartTime.h)*width;
+		
         return(
-            <div className="reservation-introduction" style = {{width:width,left:left}} > 
+            <div className="reservation-introduction" style = {{width:detailWidth,left:left}} onClick = {this.onClick}> 
 				
-				<div>姓名</div>
-				<div>客户</div>
-				<div className = "reservation-introduction-mask"></div>
+				<div>{data.memberName}</div>
+				<div>{data.customerName}</div>
+				<div data-id = {data.id}  className = "reservation-introduction-mask"></div>
 				
             </div>
         );
