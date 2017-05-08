@@ -86,7 +86,8 @@ class Header extends React.Component {
 			contractType:'',
 			customerId:0,
 			contractId:0,
-			mainbillId:0
+			mainbillId:0,
+			moreShow:false,
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -481,6 +482,16 @@ class Header extends React.Component {
 			
 			)
 	}
+	onClickMore=()=>{
+		this.setState({
+			moreShow:true
+		})
+	}
+	onDisMore=()=>{
+		this.setState({
+			moreShow:false
+		})
+	}
 	render() {
 		var styles = {
 			paddingLeft: 0,
@@ -510,10 +521,12 @@ class Header extends React.Component {
 					showRedDrop,
 					showMassge,
 					openAgreementDetail,
-					params
+					params,
+					moreShow
 
 				} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
+		window.addEventListener("click", this.onDisMore, false);
 		const HeaderBar = (props) => {
 
 			var iconClassName = '';
@@ -548,27 +561,25 @@ class Header extends React.Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right',position:"absolute",right:"10px",top:7}}>
-					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer',zIndex:102,right:20,top:20}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
 					</div>}
-					<div className="u-header-more" style={{marginTop:10}}><MoreVertIcon color="#394457"/></div>
+					<div className="u-header-more" onTouchTap={this.onClickMore} ><MoreVertIcon color="#394457"/></div>
 					<div
-						
-					iconStyle={{fill:'#394457'}}
-					
-					targetOrigin = {
-						{
-							horizontal: 'right',
-							vertical: 'top'
+						className={moreShow?'u-heder-show':'u-heder-hide'}
+						targetOrigin = {
+							{
+								horizontal: 'right',
+								vertical: 'top'
+							}
 						}
-					}
-					anchorOrigin = {
-						{
-							horizontal: 'right',
-							vertical: 'top'
-						}
-					} >
+						anchorOrigin = {
+							{
+								horizontal: 'right',
+								vertical: 'top'
+							}
+						} >
 					{this.props.user.nick && 	<MenuItem primaryText={this.props.user.nick} onTouchTap={(event)=>{
 						window.location.hash = 'permission/personalCenter';
 				}} />}
