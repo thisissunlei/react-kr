@@ -187,22 +187,27 @@ class Createdialog extends React.Component {
 
 		return (
 			<div className="g-create">
-				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
+				<div className="u-create-title">
+			     	<span className="u-create-icon"></span>
+			     	<span>新建角色</span>
+			     	<span className="u-create-close"   onTouchTap={this.onCancel}></span>
+			     </div>
+				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:252,marginLeft:96,marginBottom:16}}
 							name="name" type="text"
-							component="input" label="姓名"
+							component="input" label="名称"
 							requireLabel={true}
 							requiredValue={true}
-							inline={true}
+							inline={false}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:252,marginLeft:50,marginBottom:16}}
 							name="code" type="text"
-							component="input" label="编号"
+							component="input" label="编码"
 							requireLabel={true}
 							requiredValue={true}
-							inline={true}
+							inline={false}
 					/>
 					<div className="u-operation">
 						<div className="u-operation-label">

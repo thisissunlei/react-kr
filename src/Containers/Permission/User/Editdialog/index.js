@@ -214,23 +214,28 @@ class Editdialog extends React.Component {
 
 		return (
 			<div className="g-create">
+				<div className="u-create-title">
+			     	<span className="u-create-icon"></span>
+			     	<span>编辑角色</span>
+			     	<span className="u-create-close"   onTouchTap={this.onCancel}></span>
+			     </div>
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:252,marginLeft:96,marginBottom:16}}
 							name="name" 
 							type="text"
 							component="input" 
 							label="姓名"
 							requireLabel={true}
 							requiredValue={true}
-							inline={true}
+							inline={false}
 					/>
 					<KrField
-							style={{width:300,marginLeft:40,marginBottom:16}}
+							style={{width:252,marginLeft:50,marginBottom:16}}
 							component="labelText" 
 							label="编号"
 							value={detail.code}
-							inline={true}
+							inline={false}
 					/>
 					<div className="u-operation">
 						<div className="u-operation-label">

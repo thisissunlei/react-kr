@@ -20,7 +20,8 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	Message
+	Message,
+	Drawer,
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
@@ -195,24 +196,27 @@ class Operations extends React.Component {
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
 					< /Dialog>
-					 <Dialog
-						title="新建"
-						modal={true}
-						onClose={this.openCreateDialog}
-						open={this.state.openCreateDialog}
-						contentStyle={{width:660,height:550}}
+					 <Drawer
+					 	 modal={true}
+			             width={750}
+			             open={this.state.openCreateDialog}
+			             onClose={this.openCreateDialog}
+			             openSecondary={true}
+			             containerStyle={{paddingTop:40,paddingBottom:48,zIndex:20}}
+						
 						>
 						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
-					</Dialog>
-					 <Dialog
-						title="编辑"
-						modal={true}
-						onClose={this.openEditDialog}
-						open={this.state.openEditDialog}
-						contentStyle={{width:660,height:550}}
+					</Drawer>
+					 <Drawer
+					 	 modal={true}
+			             width={750}
+			             open={this.state.openEditDialog}
+			             onClose={this.openEditDialog}
+			             openSecondary={true}
+						 containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 						>
 						<Editdialog  detail={itemDetail}   onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
-					</Dialog>
+					</Drawer>
 				</Section>
 
 			</div>
