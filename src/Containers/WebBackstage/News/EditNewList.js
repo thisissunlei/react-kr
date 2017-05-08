@@ -204,8 +204,8 @@ const validate = values => {
 		errors.title = '请输入新闻标题';
 	}
 	if(values.title){
-		if(values.title.length>200){
-			errors.title = '新闻标题不能超过200字';
+		if(values.title.length>20){
+			errors.title = '新闻标题不能超过20字';
 		}
 	}
 	if(!values.publishedTime){
