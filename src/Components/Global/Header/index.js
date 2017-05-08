@@ -3,12 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
-import { AppBar, MenuItem,IconMenu } from 'material-ui';
+import { AppBar, MenuItem,IconMenu, IconButton, Drawer, FontIcon, FlatButton } from 'material-ui';
 
 import {
 	Button,
-	Message,
-	
+	Message
 } from 'kr-ui';
 
 import {
@@ -26,12 +25,15 @@ import './index.less';
 import {
 	Http
 } from "kr/Utils";
+
 import SidebarNav from '../SidebarNav';
 import InfoList from '../InfoList';
 import {
 	LookCustomerList,
 	Agreement
+
 } from 'kr/PureComponents';
+
 import MessageManagement from "./MessageManagement";
 import {
 	observer,
@@ -86,8 +88,7 @@ class Header extends React.Component {
 			contractType:'',
 			customerId:0,
 			contractId:0,
-			mainbillId:0,
-			moreShow:false,
+			mainbillId:0
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -454,45 +455,8 @@ class Header extends React.Component {
 			openAgreementDetail : false
 		})
 	}
-
-	renderSidebarNav=()=>{
-
-		return(
-			<div
-					className="ui-sidebarNav"
-					style={{
-						width:180,
-						height:'100%',
-						paddingTop:60,
-						paddingBottom:92,
-						boxSizing: 'border-box',
-						boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',
-						zIndex:10,
-						background:'#394457',
-						overflowY:'auto'
-					}}
-				>
-					<SidebarNav 
-							items={this.props.navs_current_items} 
-							current_router={this.props.current_router} 
-							current_parent={this.props.current_parent} 
-							current_child={this.props.current_child}
-					/>
-				</div>
-			
-			)
-	}
-	onClickMore=()=>{
-		this.setState({
-			moreShow:true
-		})
-	}
-	onDisMore=()=>{
-		this.setState({
-			moreShow:false
-		})
-	}
 	render() {
+
 		var styles = {
 			paddingLeft: 0,
 			position: 'fixed',
@@ -521,12 +485,10 @@ class Header extends React.Component {
 					showRedDrop,
 					showMassge,
 					openAgreementDetail,
-					params,
-					moreShow
+					params
 
 				} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
-		window.addEventListener("click", this.onDisMore, false);
 		const HeaderBar = (props) => {
 
 			var iconClassName = '';
@@ -537,7 +499,6 @@ class Header extends React.Component {
 				iconClassName = "hide-shu";
 
 			}
-			
 			return ( < AppBar style = {
 					styles
 				}
@@ -553,33 +514,36 @@ class Header extends React.Component {
 				iconElementLeft = {
 
 					<div className="main-navs" >
-						 <div onTouchTap={this.handleToggle} className={`${iconClassName} new-logo`} style={{color:'#fff',height:60,width:185,float:'left'}} > </div>
-						 <div onTouchTap={this.touchTitle}  className="new-logo" style={{height:"60px",float:'left'}}></div>
+						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:200}} />
+						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 				}
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right',position:"absolute",right:"10px",top:7}}>
-					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer',zIndex:102,right:20,top:20}} onClick={this.showInfo}>
+					{showMassge && <div style={{display:"inline-block",position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
 						{ showRedDrop && <span className="ui-un-read-count" ></span>}
 					</div>}
-					<div className="u-header-more" onTouchTap={this.onClickMore} ><MoreVertIcon color="#394457"/></div>
-					<div
-						className={moreShow?'u-heder-show':'u-heder-hide'}
-						targetOrigin = {
-							{
-								horizontal: 'right',
-								vertical: 'top'
-							}
+
+					< IconMenu
+					iconStyle={{fill:'#394457'}}
+					iconButtonElement = {
+						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
+					}
+					targetOrigin = {
+						{
+							horizontal: 'right',
+							vertical: 'top'
 						}
-						anchorOrigin = {
-							{
-								horizontal: 'right',
-								vertical: 'top'
-							}
-						} >
+					}
+					anchorOrigin = {
+						{
+							horizontal: 'right',
+							vertical: 'top'
+						}
+					} >
 					{this.props.user.nick && 	<MenuItem primaryText={this.props.user.nick} onTouchTap={(event)=>{
 						window.location.hash = 'permission/personalCenter';
 				}} />}
@@ -591,20 +555,21 @@ class Header extends React.Component {
 						}
 					}
 					/>
-					</div ></div>
+					</IconMenu ></div>
 				}
 				/>
 			);
 		}
-		
+
 		return (
 
-			<div className="no-print" style={{height:'100%'}}>
+			<div className="no-print">
 				{this.props.header_nav.switch_value && <HeaderBar/>}
-				{this.props.sidebar_nav.switch_value && this.renderSidebarNav()}
-				
-				{/*<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
-					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
+				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,paddingBottom:92,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
+				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
+				</Drawer>
+				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
+					{/*<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>*/}
 
 					<MessageManagement
 						ref = "message"
@@ -632,7 +597,7 @@ class Header extends React.Component {
 				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					{this.contractRender()}
 				</Drawer>
-				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}*/}
+				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
 			</div>
 		);
 	}
