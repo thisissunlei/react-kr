@@ -28,6 +28,7 @@ import {
 	ListGroupItem,
 	ListGroup,
 	Dialog,
+	Tooltip,
 	SearchForms,
 	ButtonGroup
 } from 'kr-ui';
@@ -289,11 +290,19 @@ class Createdialog extends React.Component {
 		} = this.state;
 		var list;
 		if (ControllerRender.length > 0) {
-			list = ControllerRender.map((item, index) => {
-				return (
-					<div className="u-add-list" key={index}>{item.controller}<span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
-				)
-			})
+				list = ControllerRender.map((item, index) => {
+					console.log(item.controller.length);
+					if (item.controller.length>67) {
+						return (
+
+							<div className="u-add-list" key={index}>{`...${item.controller.slice(-66)}`}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+						)
+					}else {
+						return (
+							<div className="u-add-list" key={index}>{item.controller}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+						)
+					}
+				})
 		}
 		return list;
 	}
