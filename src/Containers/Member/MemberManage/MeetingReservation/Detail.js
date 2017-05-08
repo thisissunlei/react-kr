@@ -35,6 +35,8 @@ export default class Detail extends React.Component {
 		let endTime = DateFormat(detailData.endTime,"dddd,mm,dd,hh:MM").split(",");
 		let week = {Monday:'一',Tuesday:'二',Wednesday:'三',Thursday:'四',Friday:'五',Saturday:'六',Sunday:'日'}
 		// DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM")
+		let DeStartTime = DateFormat(detailData.beginTime,24).split(" ")[4].split(":");
+		let DeEndTime = DateFormat(detailData.endTime,24).split(" ")[4].split(":");
         if(!open){
             return null;
         }
@@ -58,7 +60,7 @@ export default class Detail extends React.Component {
 						<span>时  间:</span>
 						<div>
 							<p>{startTime[1]+'月'+startTime[2]+'日（周'+week[startTime[0]]+'）'}</p>
-							<p>{startTime[3]+'-'+endTime[3]}</p>
+							<p>{DeStartTime[0]+':'+DeStartTime[1]+'-'+endTime[0]+':'+endTime[1]}</p>
 						</div>
 
 					</div>

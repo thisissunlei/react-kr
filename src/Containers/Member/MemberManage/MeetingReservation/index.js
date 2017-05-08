@@ -42,14 +42,14 @@ export default class MeetingReservation extends React.Component {
 		this.state = {
 			data : '',
 			searchParams:{
-				communityId:1,
-				date:'2017-05-6 00:00:00',
-				floor:3,
-				page:2,
-				pageSize:15
+				communityId:"",
+				date:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
+				floor:"",
+				page:1,
+				pageSize:4
 			},
-			page:'',
-			pageSize:15,
+			page:1,
+			pageSize:4,
 			totalCount:'',
 		}
 		this.refreshList();
@@ -64,6 +64,7 @@ export default class MeetingReservation extends React.Component {
 		}
 		
 		let elems = data.map(function(item,index){
+			
 			return <Timeline 
 						key = {index}
 						data = {item}
@@ -77,7 +78,7 @@ export default class MeetingReservation extends React.Component {
 	onPageChange = (page) =>{
 		 let {searchParams} = this.state;
 		 let _this = this;
-		
+		console.log("page")
 		 this.setState({
 			 searchParams:{
 				communityId:searchParams.communityId,
@@ -94,7 +95,7 @@ export default class MeetingReservation extends React.Component {
 	onSubmit = (params) => {
 		let {searchParams} = this.state;
 		let _this = this;
-		
+		console.log("onsubmit")
 		this.setState({
 			searchParams:{
 				communityId:params.communityId,
@@ -132,11 +133,12 @@ export default class MeetingReservation extends React.Component {
 	mtDelete = (data,fn) =>{
 		const {searchParams} = this.state;
 		let _this = this;
+		console.log("delete")
 		 fn();
 		Http.request("meeting-reservation-delete",{id:data.id}).then(function(response) {
 			 _this.refreshList();
 			 fn();
-			 console.log("?????")
+			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -147,7 +149,7 @@ export default class MeetingReservation extends React.Component {
         return(
             <div className="metting-reservation">
 				<Title value="会议室预定"/>
-      		<Section title="会议室预定"  style={{marginBottom:-5,minHeight:910}}>
+      		<Section title="会议室预定"  style={{marginBottom:-5,minHeight:910,paddingBottom:60}}>
 				<SearchUpperForm onSubmit = {this.onSubmit}/>
 				<div className = "metting-reservation-content">
 					
@@ -155,7 +157,7 @@ export default class MeetingReservation extends React.Component {
 						this.generateElems()
 					}
 				</div>
-				<div style = {{marginTop:72}}>
+				<div style = {{marginTop:72,marginBottom:60}}>
 					<Pagination  
 						totalCount={totalCount} 
 						page={page} 

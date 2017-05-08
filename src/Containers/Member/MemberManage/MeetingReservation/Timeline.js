@@ -36,7 +36,7 @@ export default class Timeline extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-        
+         console.log(this.props.data.orderEndTime,"?????")
 		this.state = {
             endTime:this.hourFormat(this.props.data.orderEndTime),
             startTime:this.hourFormat(this.props.data.orderStartTime),
@@ -55,7 +55,7 @@ export default class Timeline extends React.Component {
     generateCalibration = () =>{
         let {endTime,startTime,width}=this.state;
         let elems = [];
-      
+        
         
         for(var i= startTime.h;i<endTime.h;i++){
             let border= "0px solid #ccc"
@@ -63,7 +63,7 @@ export default class Timeline extends React.Component {
                 border= "1px solid #ccc"
             }
          elems.push (
-                <div className = "metting-hours-box" style = {{width:width,float:"left",position:"relative",height:80,top:10,borderRight:border}}>
+                <div key = {i} className = "metting-hours-box" style = {{width:width,float:"left",position:"relative",height:80,top:10,borderRight:border}}>
                     <div className = "hours" style = {{width:width/2}}><span>{i+"时"}</span></div>
                     <div className = "half-hours" style = {{width:width/2}}></div>
                 </div>
@@ -80,6 +80,7 @@ export default class Timeline extends React.Component {
         }
         return obj;
     }
+    //生成时间段
     generateIntroduction = () =>{
         let _this = this;
         const {data} = this.props;
@@ -167,6 +168,8 @@ export default class Timeline extends React.Component {
         const {data} = this.props;
        
         let len = endTime.h - startTime.h;
+        let inWidth = width*len+1;
+       
         if(!data){
             return null;
         }
@@ -175,7 +178,7 @@ export default class Timeline extends React.Component {
             <div className="metting-Timeline">
                
                 <div className = "metting-Timeline-box">
-                    <div className = "metting-Timeline-shaft" style = {{width:width*len+1}}>
+                    <div className = "metting-Timeline-shaft" style = {{width:inWidth}}>
                         {this.generateCalibration()}
                         {this.generateIntroduction()}
                          

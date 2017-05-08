@@ -35,11 +35,11 @@ export default class Introduction extends React.Component {
 		let wWidth = $(window).width();
 		let _this = this;
 		
-		window.onmousewheel = document.onmousewheel= function(event){
-			console.log("LLLL",event);
-		 	let scollTop = $("body").scrollTop();
-		 	onScroll && onScroll(scollTop,event.deltaY);
-		}
+		// window.onmousewheel = document.onmousewheel= function(event){
+			
+		//  	let scollTop = $("body").scrollTop();
+		//  	onScroll && onScroll(scollTop,event.deltaY);
+		// }
 		
 		
 		$(".reservation-introduction .reservation-introduction-mask").click(function(event){
@@ -61,7 +61,7 @@ export default class Introduction extends React.Component {
 				let location = "right";
 				if(pagex+(detailWidth-offsetx)+254>=wWidth){
 					coordinates = {
-						x:pagex-offsetx-254-15,
+						x:pagex-offsetx-235-15,
 						y:pagey+(30 - offsety)
 					}; 
 					location = "left";
@@ -92,6 +92,14 @@ export default class Introduction extends React.Component {
 		}
 		let detailWidth = width*(periodTime)+1;
 		let left = (data.beginTime.h-allStartTime.h)*width;
+		if(data.beginTime.m){
+			detailWidth = detailWidth - width/2;
+			left = left + width/2;
+		}
+		if(data.endTime.m){
+			detailWidth = detailWidth + width/2;
+		}
+		
 		
         return(
             <div className="reservation-introduction" style = {{width:detailWidth,left:left}} onClick = {this.onClick}> 
