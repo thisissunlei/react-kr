@@ -352,8 +352,8 @@ export default class JoinCreate extends React.Component {
 				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
 				initialValues.rentaluse = localStorage.getItem(keyWord+'rentaluse');
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||'';
-				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent')|| response.totalrent;
-				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')||response.totaldeposit;
+				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent');
+				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
 				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
 					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
 				}else{
