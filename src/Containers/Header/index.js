@@ -1,15 +1,12 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-
-
 import {ListGroup,ListGroupItem,Drawer} from 'kr-ui';
 
-
 import SidebarNav from './SidebarNav';
-
+import './index.less';
 
 const Nav = ({...props}) =>{
-	return <ul {...props}></ul>
+	return <ul className="u-header-nav" {...props}></ul>
 }
 const NavItem = ({...props})=>{
 	const {label,path} = props;
@@ -35,6 +32,9 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.toggleSidebar();
 	}
+	clickLogo() {
+		window.location.href = 'http://krspace.cn';
+	}
 
 	render() {
 
@@ -42,15 +42,23 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 
 		const navs = NavModel.getNavs();
-
+		
 		return (
 			<div>
 				<div className="g-header-nav">
-					<h3 onClick={this.openSidebar}>侧边栏</h3>
+					<div className="u-header-sidebar" onClick={this.openSidebar}>
+						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
+					</div>
+					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
 					<More />
 				</div>
-				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false}>
+				<Drawer 
+						open={NavModel.openSidebar} 
+						openSecondary={false} 
+						modal={false}
+						width={180}
+				>
 					<SidebarNav/>
 				</Drawer>
 			</div>

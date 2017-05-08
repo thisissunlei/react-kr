@@ -33,9 +33,6 @@ class DongFanAi extends React.Component {
 					<span className="u-header-sidebar-icon u-header-icon-heng"></span>
 				</div>
 				<div className="u-header-logo"></div>
-				<Header />
-
-
 			</div>
 
 		);

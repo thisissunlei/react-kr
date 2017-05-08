@@ -1,12 +1,11 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 
-import SidebarNav from './SidebarNav';
 
 
 @inject("NavModel")
 @observer
-export default class Header extends React.Component {
+export default class SidebarNav extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
