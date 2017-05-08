@@ -62,7 +62,7 @@ export default class Detail extends React.Component {
                                 >
 					<div className = "close"><span onClick = {this.close}></span></div>
 					<div className = "time">
-						<span style = {{display:"inline-block",width:40}}>时  间:</span>
+						<span style = {{display:"inline-block",width:50}}>时  间:</span>
 						<div>
 							<p>{startTime[1]+'月'+startTime[2]+'日（周'+week[startTime[0]]+'）'}</p>
 							<p>{DeStartTime[0]+':'+DeStartTime[1]+'-'+DeEndTime[0]+':'+DeEndTime[1]}</p>
@@ -70,14 +70,14 @@ export default class Detail extends React.Component {
 
 					</div>
 					<div className = "place">
-						<span style = {{display:"inline-block",width:40}}>地 点:</span>
+						<span style = {{display:"inline-block",width:50}}>地 点:</span>
 						<div>
 							<p>{metting}</p>
 						</div>
 
 					</div>
 					<div className = "reservation-people">
-						<span style = {{display:"inline-block",width:40}}>预约人:</span>
+						<span style = {{display:"inline-block",width:50}}>预约人:</span>
 						<div>
 							<p>{detailData.memberName}</p>
 							<p>{detailData.customerName}</p>
