@@ -2,7 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 
 
-
+import {ListGroup,ListGroupItem} from 'kr-ui';
 
 
 const Nav = ({...props}) =>{
@@ -12,6 +12,15 @@ const NavItem = ({...props})=>{
 	const {label,path} = props;
 	return <li {...props}><a href={`./#/${path}`}>{label}</a></li>
 };
+
+
+const SidebarNav = ({...props})=>{
+	return <span></span>
+}
+const More = ({...props})=>{
+	return <span></span>
+}
+
 
 @inject("NavModel")
 @observer
@@ -29,11 +38,19 @@ export default class Header extends React.Component {
 		const navs = NavModel.getNavs();
 
 		return (
-				<div>
-					<Nav>
-					{navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))}
-					</Nav>
-				</div>
+			<ListGroup>
+				<ListGroupItem>
+					<SidebarNav/>
+				</ListGroupItem>
+
+				<ListGroupItem>
+					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
+				</ListGroupItem>
+
+				<ListGroupItem>
+					<More />
+				</ListGroupItem>
+			</ListGroup>
 	   );
 	}
 }
