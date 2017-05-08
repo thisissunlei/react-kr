@@ -13,15 +13,21 @@ let State = observable({
 });
 
 
-//列表数据请求
+State.setCurrentRouter = action(function(){
+
+});
+
 State.getNavs=action(function(){
+	return mobx.toJS(this.items);
+});
+
+State.getSidebarNavs=action(function(){
 	return mobx.toJS(this.items);
 });
 
 State.toggleSidebar=action(function(){
 	this.openSidebar = !this.openSidebar;
 });
-
 
 
 
