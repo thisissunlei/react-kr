@@ -2,8 +2,8 @@ import React from 'react';
 
 import {Actions,Store,connect} from 'kr/Redux';
 
-import Header from 'kr/Components/Global/Header';
-import Footer from 'kr/Components/Global/Footer';
+import Header from 'kr/Containers/Header';
+import Footer from 'kr/Containers/Footer';
 import {Http} from "kr/Utils";
 
 

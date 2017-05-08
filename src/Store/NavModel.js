@@ -4,13 +4,12 @@ import mobx, {
 	extendObservable
 } from 'mobx';
 
+
+import Navs from 'kr/Configs/Navs';
+
 //全局store
 let State = observable({
-	name: 'dd',
-	orderDetail:{},
-	operType:"",
-	searchParams:{},
-	detail:'',
+	...Navs
 });
 
 module.exports = State;
