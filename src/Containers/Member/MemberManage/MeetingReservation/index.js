@@ -26,7 +26,8 @@ import {
 	Title,
 	SnackTip,
 	Pagination,
-	KrField
+	KrField,
+	Loading
 
 } from 'kr-ui';
 
@@ -51,6 +52,7 @@ export default class MeetingReservation extends React.Component {
 			page:1,
 			pageSize:4,
 			totalCount:'',
+			isRefreshList:true,
 		}
 		this.refreshList();
 		
@@ -95,7 +97,6 @@ export default class MeetingReservation extends React.Component {
 	onSubmit = (params) => {
 		let {searchParams} = this.state;
 		let _this = this;
-		console.log("onsubmit")
 		this.setState({
 			searchParams:{
 				communityId:params.communityId,
@@ -114,9 +115,10 @@ export default class MeetingReservation extends React.Component {
 		let _this = this;
 		let {searchParams} = this.state;
 			
-			let data = Object.assign({}, searchParams);
-			console.log(searchParams,">>>>--")
-			
+		let data = Object.assign({}, searchParams);
+		this.setState({
+			isRefreshList:true,
+		})
 		Http.request("meeting-reservation",data).then(function(response) {
 			
 			_this.setState({
@@ -124,6 +126,7 @@ export default class MeetingReservation extends React.Component {
 				page:response.page,
 				pageSize:response.pageSize,
 				totalCount:response.totalCount,
+				isRefreshList:false,
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -145,7 +148,8 @@ export default class MeetingReservation extends React.Component {
 
 	}
     render(){
-		const {page,pageSize,totalCount} = this.state;
+		const {page,pageSize,totalCount,isRefreshList} = this.state;
+		
         return(
             <div className="metting-reservation">
 				<Title value="会议室预定"/>
@@ -153,8 +157,8 @@ export default class MeetingReservation extends React.Component {
 				<SearchUpperForm onSubmit = {this.onSubmit}/>
 				<div className = "metting-reservation-content">
 					
-					{
-						this.generateElems()
+					{  
+						isRefreshList ? <Loading /> : this.generateElems()
 					}
 				</div>
 				<div style = {{marginTop:72,marginBottom:60}}>

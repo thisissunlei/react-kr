@@ -36,7 +36,6 @@ export default class Timeline extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-         console.log(this.props.data.orderEndTime,"?????")
 		this.state = {
             endTime:this.hourFormat(this.props.data.orderEndTime),
             startTime:this.hourFormat(this.props.data.orderStartTime),
@@ -50,6 +49,18 @@ export default class Timeline extends React.Component {
 		}
        
 	}
+   
+   
+    componentWillReceiveProps(nextProps){
+		if(!nextProps.data){
+            return;
+        }
+        this.setState({
+            endTime:this.hourFormat(nextProps.data.orderEndTime),
+            startTime:this.hourFormat(nextProps.data.orderStartTime),
+        })
+	}
+
 
     //生成刻度
     generateCalibration = () =>{
@@ -116,21 +127,6 @@ export default class Timeline extends React.Component {
         return <div style={{float:"right"}}>{elems}</div>;
     }
 
-    onScroll = (top,flog) =>{
-        // let {coordinates} = this.state;
-        // if(flog>0){
-        //     //下滚
-        //     this.setState({
-        //         coordinates:{
-        //             x:coordinates.x,
-        //             y:coordinates.y
-        //         }
-        //     })
-
-        // }else{
-
-        // }
-    }
    
     openDetail = (coordinates,location,id) =>{ 
         const {data} = this.props;   
