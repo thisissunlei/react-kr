@@ -305,7 +305,7 @@ class AccountList extends React.Component {
                 <Dialog title="新建登录账号" modal={true} open={this.state.openNewCreate} onClose={this.openNewCreate} contentStyle={{
                     width: 500
                 }}>
-                    <CreateAccount onSubmit={this.onNewCreateSubmit}/>
+                    <CreateAccount onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreate} />
                 </Dialog>
                 <Dialog title="编辑登录账号" modal={true} open={this.state.openEditAcc} onClose={this.openEditAcc} contentStyle={{
                     width: 500

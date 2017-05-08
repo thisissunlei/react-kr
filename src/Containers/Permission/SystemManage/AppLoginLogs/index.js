@@ -111,7 +111,7 @@ SearchForm = reduxForm({
 	form: 'searchForm'
 })(SearchForm);
 
-class Operations extends Component {
+class AppLoginLogs extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -313,7 +313,7 @@ class Operations extends Component {
 
 }
 export default reduxForm({
-	form: 'operations',
+	form: 'AppLoginLogs',
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
-})(Operations);
+})(AppLoginLogs);
