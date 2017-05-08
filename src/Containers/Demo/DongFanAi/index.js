@@ -7,7 +7,7 @@ import {
 	reduxForm,
 	change
 } from 'redux-form';
-
+import Header from "../../Header"
 import './index.less';
 
 class DongFanAi extends React.Component {
@@ -33,9 +33,7 @@ class DongFanAi extends React.Component {
 					<span className="u-header-sidebar-icon u-header-icon-heng"></span>
 				</div>
 				<div className="u-header-logo"></div>
-				<ul>
-					<li></li>
-				</ul>
+				<Header />
 
 
 			</div>
