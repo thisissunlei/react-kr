@@ -123,10 +123,10 @@ export default class Editor extends React.Component{
       autoHeightEnabled:true,
       autoFloatEnabled:true,
       elementPathEnabled:false,
-      maximumWords:2000,
+      maximumWords:50000,
       initialFrameHeight:200,
-      enableAutoSave:false
-      ,autoFloatEnabled:false
+      enableAutoSave:false,
+      autoFloatEnabled:false
     }
   }
 
