@@ -31,7 +31,6 @@ import InfoList from '../InfoList';
 import {
 	LookCustomerList,
 	Agreement
-
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
