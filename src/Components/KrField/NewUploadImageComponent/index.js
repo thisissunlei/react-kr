@@ -72,17 +72,18 @@ export default class UploadImageComponent extends Component {
 	}
 
 	setInitValue(defaultValue) {
+		let {input}=this.props;
 		let {
 			isInit
 		} = this.state;
 		if (!isInit) {
 			return;
 		}
-		this.setState({
-			isInit: false,
-			imgUpload:true,
-			imgSrc:defaultValue
-		});
+			this.setState({
+				isInit: false,
+				imgUpload:true,
+				imgSrc:defaultValue
+			});
 	}
 
 	onTokenError() {
