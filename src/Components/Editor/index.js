@@ -78,7 +78,6 @@ export default class Editor extends React.Component{
           '|',
 
           'simpleupload', //单图上传
-          'insertimage', //多图上传
           'emotion', //表情
           'map', //Baidu地图
           'pagebreak', //分页
@@ -109,15 +108,8 @@ export default class Editor extends React.Component{
           'mergecells', //合并多个单元格
           'edittable', //表格属性
           'edittd', //单元格属性
-          'charts', // 图表
-          '|',
-
-          'edittip ', //编辑提示
-          'preview', //预览
-          'searchreplace', //查询替换
-          'drafts', // 从草稿箱加载
-          'help', //帮助
-          'toUploadImg',
+          'charts' // 图表
+          
         ]
       ],
       autoHeightEnabled:true,
