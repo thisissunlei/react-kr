@@ -49,6 +49,12 @@ const Member_MemberManage_DoorManage = (location, callback) => {
   }, 'Member_MemberManage_DoorManage')
 }
 
+const Member_MemberManage_MeetingReservation = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Member/MemberManage/MeetingReservation').default)
+  }, 'Member_MemberManage_MeetingReservation')
+}
+
 module.exports =()=>{
 	return (
     <Route path="member" getComponent={Basic}>
@@ -58,7 +64,8 @@ module.exports =()=>{
             <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>
             <Route path="setting"  getComponent={Member_MemberManage_Setting}/>
             <Route path="card"  getComponent={Member_MemberManage_Card}/>
-            <Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
+						<Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
+            <Route path="meetingReservation"  getComponent={Member_MemberManage_MeetingReservation}/>
         </Route>
     </Route>
 	);
