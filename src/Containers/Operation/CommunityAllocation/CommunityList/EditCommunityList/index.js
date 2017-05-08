@@ -328,7 +328,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   //社区名称
    communityNameChange=(value)=>{
      let {communityId}=this.state;
-     if(!value){
+     if(!value.toString().trim()){
        this.setState({
        communityName:'无'
      })
@@ -337,7 +337,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        communityName:value
      })
      }
-     State.communityName(value,communityId);
+     State.communityName(value.toString().trim(),communityId);
    }
 
 
@@ -349,7 +349,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       codeName:value
     })
 
-     State.communityCode(value,communityId);
+     State.communityCode(value.toString().trim(),communityId);
    }
 
     //社区排序
@@ -408,7 +408,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {codeName,openDown,openUp,picUrl}=this.state;
+				let {codeName,openDown,openUp,picUrl,communityName}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -431,7 +431,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           }
 
 
-				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,communityName,timeStart,timeEnd} = this.props;
+				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,timeStart,timeEnd} = this.props;
 
 
 
@@ -721,7 +721,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	       errors.local='请填写正确的坐标格式';
 	     }
 
-	       if(!values.name){
+	       if(!values.name||(values.name&&regs.test(values.name.toString().trim()))){
 	         errors.name = '请填写社区名称';
 	       }
 

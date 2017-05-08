@@ -55,7 +55,7 @@ class CommunityList  extends React.Component{
       photoL:[],
       photoD:[],
       communityId:'',
-      communityName:'',
+      //communityName:'',
       picSrc:'',
 			picId:''
     }
@@ -293,7 +293,7 @@ class CommunityList  extends React.Component{
             photoL:photo_List,
             photoD:photo_Detail,
             communityId:response.id,
-            communityName:response.name,
+            //communityName:response.name,
             cityData:`${response.provinceName}/${response.cityName}/${response.countyName}`
           })
 
@@ -447,7 +447,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName,picSrc,picId}=this.state;
+    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,picSrc,picId}=this.state;
 
 		return(
 
@@ -557,7 +557,7 @@ class CommunityList  extends React.Component{
                 photoL={photoL}
                 photoD={photoD}
                 communityId={communityId}
-                communityName={communityName}
+                //communityName={communityName}
 								picSrc={picSrc}
 								picId={picId}
 						/>

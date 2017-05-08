@@ -341,7 +341,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
    //社区名称
    communityNameChange=(value)=>{
-     if(value==''){
+     if(value.toString().trim()==''){
        this.setState({
        communityName:'无'
      })
@@ -350,7 +350,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        communityName:value
      })
      }
-     State.communityName(value,'');
+     State.communityName(value.toString().trim(),'');
    }
 
    communityNameFocus=(value)=>{
@@ -368,7 +368,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       codeName:value
     })
 
-   	 State.communityCode(value,'');
+   	 State.communityCode(value.toString().trim(),'');
    }
 
    //社区排序
@@ -423,7 +423,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 	render(){
 
-       let {communityName,codeName}=this.state;
+       let {communityName,codeName,openDown,openUp}=this.state;
        var nameStyle={}
        if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
         nameStyle={
@@ -435,9 +435,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         }
        }
 
-
-
-    let {openDown,openUp}=this.state;
 
     let openStyle={};
     if(openDown){
@@ -733,7 +730,7 @@ const validate = values =>{
       errors.local='请填写正确的坐标格式';
     }
 
-      if(!values.name){
+      if(!values.name||(values.name&&regs.test(values.name.toString().trim()))){
         errors.name = '请填写社区名称';
       }
 
