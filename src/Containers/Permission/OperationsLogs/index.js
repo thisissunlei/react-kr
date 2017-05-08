@@ -115,7 +115,7 @@ export default class OperationsLogs extends Component {
 							<TableRowColumn name="realName" ></TableRowColumn>
 							<TableRowColumn name="createTime" type="date" component={(value)=>{
 								return (
-									<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+									<KrDate value={value} />
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
