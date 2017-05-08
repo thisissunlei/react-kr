@@ -171,7 +171,7 @@ class EditMeeting  extends React.Component{
 
 	//校验空间名称
 	 codeCompare=(params)=>{
-		 this.props.CommunityMeetingModel.codeStationCompare(params);
+		 this.props.CommunityMeetingModel.codeStationCompare(params.toString().trim());
 	 }
 
 
