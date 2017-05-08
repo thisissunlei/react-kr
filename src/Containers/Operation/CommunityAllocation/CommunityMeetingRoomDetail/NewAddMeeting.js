@@ -240,6 +240,7 @@ class NewAddMeeting  extends React.Component{
 								name="idlePrice"
 								component="input"
 								label='单价(积分/0.5h)(其它时段)'
+								placeholder='其它时段单价'
 								requireLabel={true}
 						 /></div>}
 
