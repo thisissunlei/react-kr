@@ -177,7 +177,7 @@ export default class Timeline extends React.Component {
                     <div className = "metting-Timeline-shaft" style = {{width:inWidth}}>
                         {this.generateCalibration()}
                         {this.generateIntroduction()}
-                         
+                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>{endTime.h+"时"}</span>
                     </div>
                 </div>
                 <div className = "sticky-notes">
