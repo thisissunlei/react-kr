@@ -241,7 +241,7 @@ class CommunityList  extends React.Component{
           Store.dispatch(initialize('editCommunityList',response));
 
 
-          Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
+          Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
 
           var bright_basic=[];
           var bright_service=[];
