@@ -38,19 +38,11 @@ export default class Header extends React.Component {
 		const navs = NavModel.getNavs();
 
 		return (
-			<ListGroup>
-				<ListGroupItem>
-					<SidebarNav/>
-				</ListGroupItem>
-
-				<ListGroupItem>
-					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
-				</ListGroupItem>
-
-				<ListGroupItem>
-					<More />
-				</ListGroupItem>
-			</ListGroup>
+			<div>
+				<SidebarNav/>
+				<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
+				<More />
+			</div>
 	   );
 	}
 }
