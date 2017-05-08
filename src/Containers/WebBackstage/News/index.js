@@ -73,6 +73,8 @@ export default class News extends React.Component {
     }
     //高级查询
     onSearchSubmit=(form)=>{
+    	form.page=1;
+		form.pageSize=15;
 		this.setState({
 	        Params:form
 	    });
@@ -81,7 +83,11 @@ export default class News extends React.Component {
     //查询
     onSearch=(form)=>{
 		this.setState({
-	        Params:{title:form.content}
+	        Params:{
+	        	title:form.content,
+	        	page:1,
+	        	pageSize:15
+	        }
 	    });
     }
     createSave=(form)=>{
