@@ -82,7 +82,7 @@ class EditMeeting  extends React.Component{
 			//图片地址
 			picUrl:'',
 			timeStart:'',
-			timeEnd:''
+			timeEnd:'',
 		}
 	}
 
@@ -140,7 +140,7 @@ class EditMeeting  extends React.Component{
 				   	 listDevice:deviceSpace,
 						 picUrl:response.picUrl,
 						 timeStart:response.orderStartTimeStr,
-						 timeEnd:response.orderEndTimeStr
+						 timeEnd:response.orderEndTimeStr,
 				   })
 				    Store.dispatch(initialize('EditMeeting',response));
 						Store.dispatch(change('EditMeeting','maskStation',response.activeTypes.length?response.activeTypes:[{}]));
@@ -205,6 +205,8 @@ class EditMeeting  extends React.Component{
 			 })
 		 }
 	}
+
+
 
   render(){
 
@@ -277,25 +279,30 @@ class EditMeeting  extends React.Component{
 
 				 {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
 								<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' timeNum={timeStart} requireLabel={true}/>
-								<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>~</span>
+								<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>-</span>
 								<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr' timeNum={timeEnd}/>
 				 </div>
 
 				 <KrField grid={1/2}
-					style={{width:262}}
+ 					style={{width:262}}
+ 					name="busyPrice"
+ 					component="input"
+					label='单价(积分/0.5h)(11:00~16:00)'
+ 					placeholder='高峰时段单价'
+ 					requireLabel={true}
+ 			 />
+
+
+
+				 <KrField grid={1/2}
+					style={{width:262,marginLeft:28}}
 					name="idlePrice"
 					component="input"
-					label="单价(积分/0.5h)"
-					requireLabel={true}
-			 />
-
-				<KrField grid={1/2}
-					style={{width:262,marginLeft:28}}
-					name="busyPrice"
-					component="input"
-					label="单价(积分/0.5h)"
+					label='单价(积分/0.5h)(其它时段)'
+					placeholder='其它时段单价'
 					requireLabel={true}
 			 /></div>}
+
 
 
 			{(watchMeeting||watchHouse)&&<KrField

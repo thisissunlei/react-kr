@@ -78,7 +78,7 @@ class NewAddMeeting  extends React.Component{
 			//控制会议室
 			watchMeeting:false,
 			//控制路演厅
-			watchHouse:false
+			watchHouse:false,
 		}
 	}
 
@@ -221,28 +221,29 @@ class NewAddMeeting  extends React.Component{
                {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
 
 											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' requireLabel={true}/>
-											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>~</span>
+											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>-</span>
 											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr'/>
                </div>
 
 
-
+							 <KrField grid={1/2}
+								 style={{width:262}}
+								 name="busyPrice"
+								 component="input"
+								 label='单价(积分/0.5h)(11:00~16:00)'
+								 placeholder='高峰时段单价'
+								 requireLabel={true}
+							/>
 
 							 <KrField grid={1/2}
-						  	style={{width:262}}
+						  	style={{width:262,marginLeft:28}}
 								name="idlePrice"
 								component="input"
-								label="单价(积分/0.5h)"
-								requireLabel={true}
-						 />
-
-						  <KrField grid={1/2}
-						  	style={{width:262,marginLeft:28}}
-								name="busyPrice"
-								component="input"
-								label="单价(积分/0.5h)"
+								label='单价(积分/0.5h)(其它时段)'
 								requireLabel={true}
 						 /></div>}
+
+
 
 
 						{(watchMeeting||watchHouse)&&<KrField
