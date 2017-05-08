@@ -116,7 +116,7 @@ const config = {
 			inject: 'body',
 			hash: true,
 			cache: false,
-			showErrors: true,
+			showErrors: false,
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new CopyWebpackPlugin([

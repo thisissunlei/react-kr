@@ -82,7 +82,7 @@ const config = {
 			inject:'body',
 			excludeChunks: ['page_login'],
 			hash:true,
-			cache:false,
+			cache:true,
 			showErrors:true,
 		}),
 		new HtmlWebpackPlugin({
