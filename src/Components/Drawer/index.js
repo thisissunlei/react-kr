@@ -10,13 +10,17 @@ export default class DrawerSimpleExample extends React.Component {
 
 
   static defaultProps = {
-    width:1000,
+    width:200,
+    openSecondary:true,
+    modal:true,
   }
   static propTypes = {
     open:React.PropTypes.bool,
     width:React.PropTypes.number,
     contentStyle:React.PropTypes.object,
     onClose:React.PropTypes.func,
+    openSecondary:React.PropTypes.bool,
+    modal:React.PropTypes.bool
   }
 
   constructor(props) {
@@ -31,27 +35,25 @@ export default class DrawerSimpleExample extends React.Component {
 
   render() {
 
-    let {children,open,contentStyle,width} = this.props;
-
+    let {children,open,contentStyle,width,openSecondary,modal} = this.props;
    
-    contentStyle = Object.assign({},contentStyle);
-
-    if(width){
-      contentStyle = Object.assign({},contentStyle,{width:width});
-    }
+    var drawerStyles = Object.assign({},{width:width});
 
      if(!open){
       return null;
     }
 
+    if(openSecondary){
+        drawerStyles.right = 0;
+    }else{
+        drawerStyles.left = 0;
+    }
 
     return (
-
-      <div className="ui-drawer">
-        <DrawerModal onClose={this.onClose}/>
+      <div className="ui-drawer" style={drawerStyles}>
+        {modal && <DrawerModal onClose={this.onClose}/> }
         <DrawerBody style={contentStyle}> {children} </DrawerBody>
       </div>
-
     );
   }
 }

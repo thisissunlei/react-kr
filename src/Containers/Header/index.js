@@ -2,7 +2,10 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 
 
-import {ListGroup,ListGroupItem} from 'kr-ui';
+import {ListGroup,ListGroupItem,Drawer} from 'kr-ui';
+
+
+import SidebarNav from './SidebarNav';
 
 
 const Nav = ({...props}) =>{
@@ -14,9 +17,6 @@ const NavItem = ({...props})=>{
 };
 
 
-const SidebarNav = ({...props})=>{
-	return <span></span>
-}
 
 const More = ({...props})=>{
 	return <span></span>
@@ -31,6 +31,11 @@ export default class Header extends React.Component {
 		super(props, context);
 	}
 
+	openSidebar = ()=>{
+		const {NavModel} = this.props;
+		NavModel.toggleSidebar();
+	}
+
 	render() {
 
 
@@ -40,9 +45,14 @@ export default class Header extends React.Component {
 
 		return (
 			<div>
-				<SidebarNav/>
-				<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
-				<More />
+				<div className="g-header-nav">
+					<h3 onClick={this.openSidebar}>侧边栏</h3>
+					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
+					<More />
+				</div>
+				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false}>
+					<SidebarNav/>
+				</Drawer>
 			</div>
 	   );
 	}
