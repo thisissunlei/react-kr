@@ -397,8 +397,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     //地图坐标
     locationMap=(value)=>{
-      var xLocation=value.split(',')[0];
-      var yLocation=value.split(',')[1];
+      var xLocation=value.split(',')[1];
+      var yLocation=value.split(',')[0];
       Store.dispatch(change('NewCommunityList','latitude',xLocation));
       Store.dispatch(change('NewCommunityList','longitude',yLocation));
     }
