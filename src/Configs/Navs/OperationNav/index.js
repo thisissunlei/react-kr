@@ -2,7 +2,7 @@ module.exports = [
 
 	{
 		primaryText: "运营平台",
-		router: 'operation',
+		router: '/operation',
 		menuCode: 'operate',
 		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [

@@ -2,7 +2,7 @@
 module.exports = [
 	{
 		primaryText: "社区经营",
-		router: 'community',
+		router: '/community',
 		menuCode: 'op_manage',
 		originUrl: '#/community/communityManage/detail',
 		menuItems: [{

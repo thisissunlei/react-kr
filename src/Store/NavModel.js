@@ -14,21 +14,32 @@ let State = observable({
 });
 
 
-const ForEachMenuItem = function(topItems,router){
+const ForEachMenuItem = function(childItem,router,topItem){
 
-	if(topItems.hasOwnProperty('router') && topItems.router === router){
-		topItems.isActive = true;
+	if(childItem.hasOwnProperty('router') && childItem.router === router){
+		childItem.isActive = true;
+		topItem.isActive = true;
+		return childItem;
 	}else{
-		topItems.isActive = false;
+		childItem.isActive = false;
 	}
 
-	if(typeof topItems === 'object' && topItems.hasOwnProperty('menuItems')){
-		topItems.menuItems = topItems.menuItems.map(function(item){
-			return ForEachMenuItem(item,router);
-		});
+	if(typeof childItem === 'object' && childItem.hasOwnProperty('menuItems')){
+		var menuItems = childItem.menuItems;
+		for(var i = 0;i<menuItems.length;i++){
+			var item = menuItems[i];
+			item = ForEachMenuItem(item,router,topItem);
+			menuItems[i] = item;
+			if(item.isActive){
+				childItem.isActive = true;
+				topItem.isActive = true;
+				break;
+			}
+		}
+		childItem.menuItems = menuItems;
 	}
 
-	return topItems;
+	return childItem;
 }
 
 State.setRouter = action(function(){
@@ -37,9 +48,15 @@ State.setRouter = action(function(){
 	var navs = this.getNavs();
 	var isOk = false;
 
+	var callback = function() {
+
+	}
+
 	navs = navs.map(function(topItem){
-		return ForEachMenuItem(topItem,router)
+		return ForEachMenuItem(topItem,router,topItem)
 	});
+
+	console.log('--->>',navs);
 
 	this.items = navs;
 });

@@ -10,7 +10,7 @@ const Nav = ({...props}) =>{
 }
 const NavItem = ({...props})=>{
 	const {label,path} = props;
-	return <li {...props}><a href={`./#/${path}`}>{label}</a></li>
+	return <li {...props}><a href={`./#${path}`}>{label}</a></li>
 };
 
 
