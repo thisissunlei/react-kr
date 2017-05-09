@@ -48,8 +48,7 @@ export default class Header extends React.Component {
 
 		const {NavModel} = this.props;
 
-		var  navs = NavModel.setRouter();
-		console.log('navs------',navs)
+		var  navs = NavModel.getNavs();
 		
 		return (
 			<div>
@@ -67,7 +66,7 @@ export default class Header extends React.Component {
 						open={NavModel.openSidebar} 
 						openSecondary={false} 
 						modal={false}
-						width={180}
+						width={200}
 				>
 					<SidebarNav/>
 				</Drawer>
