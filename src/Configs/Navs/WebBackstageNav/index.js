@@ -4,7 +4,7 @@ module.exports = [
 		primaryText: "官网后台",
 		router: 'WebBackstage',
 		menuCode: 'krspace_main_manage',
-		originUrl: '#/WebBackstage/activity/list',
+		originUrl: '/WebBackstage/activity/list',
 		menuItems: [
 			{
 				primaryText: "活动管理",
