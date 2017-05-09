@@ -11,6 +11,7 @@ let State = observable({
 	...Navs,
 	router:'',
 	openSidebar:false,
+	openHeaderbar:true,
 });
 
 

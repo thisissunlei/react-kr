@@ -4,6 +4,7 @@ import {ListGroup,ListGroupItem,Drawer} from 'kr-ui';
 import {
 	TheBell
 } from 'kr/PureComponents';
+
 import SidebarNav from './SidebarNav';
 import './index.less';
 
@@ -62,12 +63,7 @@ export default class Header extends React.Component {
 					<TheBell />
 					<MorePerson />
 				</div>
-				<Drawer 
-						open={NavModel.openSidebar} 
-						openSecondary={false} 
-						modal={false}
-						width={200}
-				>
+				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false} width={180} >
 					<SidebarNav/>
 				</Drawer>
 			</div>
