@@ -30,7 +30,22 @@ const NavItem = ({...props})=>{
 
 
 const More = ({...props})=>{
-	return <span className="u-header-more">更多</span>
+	let {NavModel}=props;
+	var navs=NavModel.slice(9)
+	console.log('NavModel----',navs)
+	return (
+		<div className="u-header-more">
+			<span className="u-header-more-title">更多</span>
+			<ul className="u-header-more-list">
+				{navs.map((item,index)=>{
+					return(
+						<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>
+					)
+				})}
+			</ul>
+		</div>
+	)
+	
 }
 
 
@@ -61,14 +76,14 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		var  navs = NavModel.getNavs();
 		return (
-			<div>
+			<div className="no-print">
 				<div className="g-header-nav">
 					<div className="u-header-sidebar" onClick={this.openSidebar}>
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
-					<Nav> {NavModel.items.map((item,index)=>(<NavItem label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>))} </Nav>
-					<More />
+					<Nav> {NavModel.items.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>))} </Nav>
+					<More NavModel={NavModel.items}/>
 					<TheBell />
 					<MorePerson />
 				</div>
