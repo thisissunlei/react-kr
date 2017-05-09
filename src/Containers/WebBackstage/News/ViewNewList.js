@@ -76,7 +76,7 @@ class ViewNewList extends React.Component {
 						 		label="发布状态"
 						 />
 	                    <KrField 
-		                		style={{width:260,marginTop:5,marginBottom:5}}
+		                		style={{width:260,marginBottom:10}}
 		                		name="stickStatus" 
 		                		type="labelText"
 								inline={false}
