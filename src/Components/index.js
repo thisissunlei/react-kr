@@ -41,7 +41,6 @@ import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import CircleStyle from './CircleStyle';
 import UpLoadList from './UpLoadList';
-import DatePicker from './DatePicker';
 import Tooltip from './Tooltip';
 import Tooltips from './Tooltips';
 import KrForm from './KrForm';
@@ -115,7 +114,6 @@ module.exports = {
 	Message,
 	DemoComponent,
 	Textarea,
-	DatePicker,
 	...KrForm,
 	InputDate,
 	SnackTip,
