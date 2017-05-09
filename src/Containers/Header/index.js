@@ -12,8 +12,8 @@ const Nav = ({...props}) =>{
 	return <ul className="u-header-nav" {...props}></ul>
 }
 const NavItem = ({...props})=>{
-	const {label,path} = props;
-	return <li {...props}><a href={`./#${path}`}>{label}</a></li>
+	const {label,path,isActive} = props;
+	return <li className={isActive?'u-header-active':''} {...props}><a href={`./#${path}`}>{label}</a></li>
 };
 
 
@@ -43,7 +43,7 @@ export default class Header extends React.Component {
 		NavModel.toggleSidebar();
 	}
 	clickLogo() {
-		window.location.href = 'http://krspace.cn';
+		window.open('http://krspace.cn') 
 	}
 
 	render() {
@@ -57,7 +57,7 @@ export default class Header extends React.Component {
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
-					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
+					<Nav> {NavModel.items.map((item,index)=>(<NavItem label={item.primaryText} isActive={item.isActive} path={item.router}/>))} </Nav>
 					<More />
 					<TheBell />
 					<MorePerson />
