@@ -10,7 +10,7 @@ import Navs from 'kr/Configs/Navs';
 let State = observable({
 	...Navs,
 	router:'',
-	openSidebar:false,
+	openSidebar:true,
 	openHeaderbar:true,
 });
 
@@ -47,34 +47,49 @@ State.setRouter = action(function(){
 	var hash = window.location.hash;
 	var router = hash.split('?').shift().substring(1);
 	var navs = this.getNavs();
-	var isOk = false;
-
-	var callback = function() {
-
-	}
-
+	
 	navs = navs.map(function(topItem){
 		return ForEachMenuItem(topItem,router,topItem)
 	});
-
-	console.log('--->>',navs);
 
 	this.items = navs;
 });
 
 
 
-
 State.getNavs=action(function(){
-	return mobx.toJS(this.items);
+	return this.items;
 });
+
 
 State.getSidebarNavs=action(function(){
-	return mobx.toJS(this.items);
+
+	var navs = this.getNavs();
+	var activeItem = {};
+	var topItem = null;
+	var menuItems = [];
+
+	for(var i = 0;i<navs.length;i++){
+		topItem = navs[i];
+		if(topItem.isActive){
+			activeItem = topItem;
+			break ;
+		}
+	}
+
+	if(topItem.hasOwnProperty('menuItems')){
+		menuItems = topItem.menuItems;
+	}
+
+	return menuItems;
 });
 
-State.toggleSidebar=action(function(){
-	this.openSidebar = !this.openSidebar;
+State.toggleSidebar=action(function(value){
+	if(typeof value === 'undefined'){
+		this.openSidebar = !this.openSidebar;
+		return ;
+	}
+	this.openSidebar = !!value;
 });
 
 State.getUser=action(function(){
