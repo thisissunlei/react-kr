@@ -103,7 +103,7 @@ export default class News extends React.Component {
 		let {itemDetail}=this.state;
 
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="g-news-list">
+			    <div className="g-news-list"  >
 					<Title value="新闻列表"/>
 					<Section title="新闻列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
@@ -124,8 +124,8 @@ export default class News extends React.Component {
 		                  onOperation={this.onOperation}
 		              >
 		              <TableHeader>
-		                  <TableHeaderColumn>新闻标题</TableHeaderColumn>
-		                  <TableHeaderColumn>新闻简介</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>新闻标题</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>新闻简介</TableHeaderColumn>
 		                  <TableHeaderColumn>发布状态</TableHeaderColumn>
 		                  <TableHeaderColumn>置顶状态</TableHeaderColumn>
 		                  <TableHeaderColumn>发布时间</TableHeaderColumn>
@@ -146,7 +146,7 @@ export default class News extends React.Component {
 											TooltipStyle="block";
 										}
 										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
@@ -160,7 +160,7 @@ export default class News extends React.Component {
 											TooltipStyle="block";
 										}
 										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
