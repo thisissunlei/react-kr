@@ -48,7 +48,8 @@ export default class Header extends React.Component {
 
 		const {NavModel} = this.props;
 
-		const navs = NavModel.getNavs();
+		var  navs = NavModel.setRouter();
+		console.log('navs------',navs)
 		
 		return (
 			<div>
