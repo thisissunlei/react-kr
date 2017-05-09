@@ -69,7 +69,8 @@ export default class Header extends React.Component {
 						open={NavModel.openSidebar} 
 						openSecondary={false} 
 						modal={false}
-						width={200}
+						width={180}
+						contentStyle={{background:'rgb(57, 68, 87)'}}
 				>
 					<SidebarNav/>
 				</Drawer>
