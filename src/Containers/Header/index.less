@@ -1,9 +1,12 @@
 ul,li{
 	list-style:none;
+	padding:0;
+	margin:0;
 }
 a{
 	text-decoration:none;
-	color:rgb(102, 102, 102);
+	color:rgba(0, 0, 0, 0.65);
+	font-family:Roboto, sans-serif;
 }
 .g-header-nav{
 	width:100%;
@@ -13,6 +16,7 @@ a{
 	left:0;
 	top:0;
 	z-index:200;
+	overflow:hidden;
 	.u-header-sidebar{
 		width:180px;
 		height:60px;
@@ -51,15 +55,45 @@ a{
 		background-size:110px 110px;
 	}
 	.u-header-nav{
-		width:900px;
+		width:848px;
 		height:60px;
 		position:absolute;
 		left:300px;
 		top:0;
 		li{
 			min-width:88px;
+			height:60px;
+			line-height:60px;
 			display:inline-block;
+			text-align:center;
+			a{
+				padding:0 16px;
+				display:inline-block;
+				height:100%;
+				
+			}
 		}
 	}
+	.u-header-more{
+		color:rgba(0, 0, 0, 0.65);
+		font-size:14px;
+		position:absolute;
+		right:100px;
+		top:0;
+		height:60px;
+		line-height:60px;
+
+	}
+	.u-message-drawer{
+		height:100%;
+		line-height:60px;
+		color:#374359;
+		font-size:22px;
+		cursor: pointer;
+		position:absolute;
+		right:65px;
+		top:0;
+	}
+	
 
 }

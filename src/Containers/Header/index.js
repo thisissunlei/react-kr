@@ -16,7 +16,10 @@ const NavItem = ({...props})=>{
 
 
 const More = ({...props})=>{
-	return <span></span>
+	return <span className="u-header-more">更多</span>
+}
+const MessageDrawer=({...props})=>{
+	return <span className="icon-info u-message-drawer" {...props}></span>
 }
 
 
@@ -51,6 +54,7 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
+					<MessageDrawer />
 					<More />
 				</div>
 				<Drawer 
