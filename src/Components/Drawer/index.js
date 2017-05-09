@@ -39,18 +39,18 @@ export default class DrawerSimpleExample extends React.Component {
 
     let {children,open,contentStyle,width,openSecondary,modal,drawerStyle} = this.props;
    
-    drawerStyle = Object.assign({},drawerStyle,{width:width});
+    contentStyle = Object.assign({},contentStyle,{width:width});
 
     if(!open){
       return null;
     }
 
     if(openSecondary){
-        drawerStyle.right = 0;
-        drawerStyle.left = 'auto';
+        contentStyle.right = 0;
+        contentStyle.left = 'auto';
     }else{
-        drawerStyle.left = 0;
-        drawerStyle.right = 'auto';
+        contentStyle.left = 0;
+        contentStyle.right = 'auto';
     }
 
     return (
