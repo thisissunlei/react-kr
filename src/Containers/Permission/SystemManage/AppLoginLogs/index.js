@@ -125,7 +125,7 @@ openHighSearch = () => {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
-		Http.request('editResources', {}, params).then(function(response) {
+		Http.request('save-version', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			window.setTimeout(function() {

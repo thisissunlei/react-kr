@@ -248,7 +248,7 @@ module.exports = {
       url: '/api/krspace-sso-web/mobile/version/get-version-list?enableFlag={enableFlag}&forcedStatus={forcedStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}',
       method: 'get'
     },
-    //权限--版本管理--新建
+    //权限--版本管理--新建/编辑
     'save-version': {
       url: '/api/krspace-sso-web/mobile/version/save-version',
       method: 'post'
