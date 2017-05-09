@@ -45,6 +45,7 @@ ReactDOM.render((
 				onUpdate={() => {
 					window.scrollTo(0, 0)
 					store.dispatch(Actions.setCurrentNav(window.location.hash));
+					MobxStore.NavModel.setCurrentRouter();
 				}}
 				/>
 			</MobxReact.Provider>
