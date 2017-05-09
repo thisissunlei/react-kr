@@ -34,6 +34,9 @@ export default class Header extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			navs:[],
+		}
 	}
 
 	openSidebar = ()=>{
@@ -45,12 +48,9 @@ export default class Header extends React.Component {
 	}
 
 	render() {
-
-
-		const {NavModel} = this.props;
-
-		var  navs = NavModel.getNavs();
-
+		let {navs}=this.state;
+		
+		console.log('nav-------',navs)
 		return (
 			<div>
 				<div className="g-header-nav">
@@ -58,7 +58,7 @@ export default class Header extends React.Component {
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
-					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
+					<Nav> {navs && navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
 					<More />
 					<TheBell />
 					<MorePerson />
