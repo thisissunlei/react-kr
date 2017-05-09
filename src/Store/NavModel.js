@@ -48,7 +48,6 @@ State.setRouter = action(function(){
 	var router = hash.split('?').shift().substring(1);
 	var navs = this.getNavs();
 	
-
 	navs = navs.map(function(topItem){
 		return ForEachMenuItem(topItem,router,topItem)
 	});
