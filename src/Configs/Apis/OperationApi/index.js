@@ -421,7 +421,7 @@ module.exports = {
       },
       //凭证管理--凭证列表--已删除凭证列表
       'voucher-find-deleted-page':{
-         url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
+         url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
          method: 'get'
       },
       //凭证管理--凭证列表--已审核凭证列表--查看回款详情
@@ -439,5 +439,11 @@ module.exports = {
          url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
          method: 'post'
       },
+      //运营平台-社区配置-预约-工位预约
+       'station-reservation':{
+         url: '/mockjsdata/36/krspace-finance-web/cmt-appointment/boardroom/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+    
 
 }

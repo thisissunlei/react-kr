@@ -27,19 +27,12 @@ import {
 import './index.less';
 //招商线索
 import MeetingReservation from './MeetingReservation';
+import StationReservation from './StationReservation';
+
+
 
 class AllAppointment extends React.Component {
-	static childContextTypes = {
-		onSetCommunity: React.PropTypes.func.isRequired,
-		communityId: React.PropTypes.string.isRequired,
-	}
-
-	getChildContext() {
-		return {
-			onSetCommunity: this.onSetCommunity,
-			communityId: this.state.communityId
-		};
-	}
+	
 
 	constructor(props, context) {
 		super(props, context);
@@ -48,97 +41,17 @@ class AllAppointment extends React.Component {
 			communityId: '',
 			initSearch:''
 		}
-		this.allDataReady();
-		this.allOrderReady();
-		this.searchPerson();
-		this.searchSign();
+	
 	}
 
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
 	}
-    //新建编辑的数据准备
-	allDataReady=()=>{
-		var _this=this;
-	    Http.request('customerDataAddList').then(function(response) {
-         State.dataReady=response;
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
-   //订单新建编辑的数据准备
-	allOrderReady=()=>{
-		var _this=this;
-	    Http.request('community-city-selected').then(function(response) {
-         State.orderReady=response;
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
-    //招商和个人的高级查询的数据准备
-	searchPerson=()=>{
-		var _this=this;
-       Http.request('search-conditions').then(function(response) {
-		     State.searchParams=response;	
-			 }).catch(function(err){
-				 Message.error(err.message);
-			});
-	}
-   //签约的高级查询的数据准备
-	searchSign=()=>{
-		var _this=this;
-       Http.request('sign-search-conditions').then(function(response) {
-		      State.searchSignParams=response;	
-			 }).catch(function(err){
-				 Message.error(err.message);
-			});
-	}
+  
 
-	onSetCommunity = (communityId) => {
-		this.setState({
-			communityId
-		});
-	}
-
-	merchants = () => {
-		let {
-			tab,
-			initSearch
-		} = this.state;
-		tab = 'merchants';
-		initSearch='m';
-		this.setState({
-			tab,
-			initSearch
-		});
-	}
-
-	personal = () => {
-		let {
-			tab,
-			initSearch
-		} = this.state;
-		tab = 'personal';
-		initSearch='p';
-		this.setState({
-			tab,
-			initSearch
-		});
-	}
-	signedClient = () => {
-		let {
-			tab,
-			initSearch
-		} = this.state;
-		tab = 'signedClient';
-		initSearch='s';
-		this.setState({
-			tab,
-			initSearch
-		});
-	}
-
-
+	
+	
+	
 	render() {
 		let {
 			tab,
@@ -174,32 +87,15 @@ class AllAppointment extends React.Component {
 			<Title value="客户列表"/>
 
 			<Tabs className="tabs">
-					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
+					<Tab label="预约会议室"  style={merchantsStyle}>
 
-							<Merchants
-								dataReady={State.dataReady}
-								searchParams={State.searchParams}
-								initSearch={initSearch}
-							/>
+							<MeetingReservation/>
 					</Tab>
-					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
+					<Tab label="预约工位"  onActive={this.personal} style={personalStyle}>
 
-							<Personal
-								dataReady={State.dataReady}
-								searchParams={State.searchParams}
-								orderReady={State.orderReady}
-								initSearch={initSearch}
-							/>
+							<StationReservation />
 					</Tab>
-					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-							<SignedClient
-									dataReady={State.dataReady}
-									searchSignParams={State.searchSignParams}
-									orderReady={State.orderReady}
-									initSearch={initSearch}
-							/>
-
-					</Tab>
+					
 			</Tabs>
 
 
