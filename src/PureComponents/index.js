@@ -5,6 +5,8 @@ import TransferCustomer from './TransferCustomer';
 import LookCustomerList from './LookCustomerList';
 import InfoList from './InfoList';
 import UrgeMoney from './UrgeMoney';
+import TheBell from './TheBell';
+
 
 module.exports = {
 	Agreement,
@@ -13,5 +15,6 @@ module.exports = {
 	LookCustomerList,
 	InfoList,
 	UrgeMoney,
-	NewIndent
+	NewIndent,
+	TheBell
 }

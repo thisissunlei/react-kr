@@ -428,7 +428,7 @@ export default class EquipmentDefinition extends React.Component {
       value:"hardwareId"
     }]
     return (
-      <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+      <div className = "equipment-define" style={{minHeight:'910',backgroundColor:"#fff"}}>
         <div className="uploadWarn" style={{display:openTipWarn?"block":"none"}}><img src={error2} className="tipImg"/>{tipText}</div>
         <Title value="设备定义 "/>
         <Section title={`设备定义`} description="" >
