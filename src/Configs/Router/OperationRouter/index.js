@@ -291,6 +291,14 @@ const Operation_CommunityAllocation_CommunityMeetingRoomDetail= (location, callb
 		callback(null, require('kr/Containers/Operation/CommunityAllocation/CommunityMeetingRoomDetail').default)
 	}, 'Operation_CommunityAllocation_CommunityMeetingRoomDetail')
 }
+
+{/*所有预约*/}
+const Operation_CommunityAllocation_AllAppointment= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/AllAppointment').default)
+	}, 'Operation_CommunityAllocation_AllAppointment')
+}
+
 {/*代码分类*/}
 const Operation_CommunityAllocation_CodeClassification= (location, callback) => {
 	require.ensure([], require => {
@@ -317,20 +325,22 @@ module.exports =()=>{
 		{/*社区配置*/}
 		<Route path="communityAllocation" getComponent={Basic}>
 
-      <Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
-      {/*设备列表*/}
-      <Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
-      {/*工位列表选择社区*/}
-      <Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
-      {/*工位列表*/}
-      <Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
-      {/*会议室列表选择社区*/}
-      <Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
-      {/*会议室列表*/}
-      <Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
-      {/*代码分类*/}
-      <Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
-		</Route>
+		<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
+		{/*设备列表*/}
+		<Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
+		{/*工位列表选择社区*/}
+		<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
+		{/*工位列表*/}
+		<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
+		{/*所有预约*/}
+		<Route path="allAppointment" getComponent={Operation_CommunityAllocation_AllAppointment}/>
+		{/*会议室列表选择社区*/}
+		<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
+		{/*会议室列表*/}
+		<Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
+		{/*代码分类*/}
+		<Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
+	</Route>
     {/*基础配置*/}
 		<Route path="basicConfig" getComponent={Basic}>
 

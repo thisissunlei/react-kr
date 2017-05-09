@@ -60,6 +60,12 @@ module.exports = [
 						menuCode: 'communityStationList',
 						router: '/operation/communityAllocation/communityStation'
 					},
+
+					{
+						primaryText: '所有预约',
+						menuCode: 'communityStationList',
+						router: '/operation/communityAllocation/allAppointment'
+					},
 					{
 						primaryText: '平面图配置',
 						menuCode: 'communityFloorPlanList',
