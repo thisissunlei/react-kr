@@ -22,6 +22,10 @@ const MessageDrawer=({...props})=>{
 	return <span className="icon-info u-message-drawer" {...props}></span>
 }
 
+const MorePerson = ({...props})=>{
+	return <span className="u-header-more-person"></span>
+}
+
 
 @inject("NavModel")
 @observer
@@ -54,8 +58,9 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					<Nav> {navs.map((item,index)=>(<NavItem label={item.primaryText} path={item.router}/>))} </Nav>
-					<MessageDrawer />
 					<More />
+					<MessageDrawer />
+					<MorePerson />
 				</div>
 				<Drawer 
 						open={NavModel.openSidebar} 
