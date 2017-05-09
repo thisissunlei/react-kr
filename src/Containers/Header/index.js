@@ -51,9 +51,6 @@ export default class Header extends React.Component {
 
 		var  navs = NavModel.getNavs();
 
-		console.log('navs------',navs)
-
-		
 		return (
 			<div>
 				<div className="g-header-nav">
