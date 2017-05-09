@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Actions, Store } from 'kr/Redux';
-import { Drawer} from 'material-ui';
 import {
 	change
 } from 'redux-form';
@@ -9,6 +8,9 @@ import './index.less';
 import {
 	Http
 } from "kr/Utils";
+import {
+	Drawer
+} from "kr-ui";
 
 import LookCustomerList from "../LookCustomerList";
 import Agreement from "../Agreement";
@@ -346,7 +348,13 @@ class TheBell extends React.Component {
 			<div className="no-print">
 				
                 {showMassge && <div className = "ui-bellIcon" onClick = {this.showInfo} style = {bellStyle} ></div>}
-				<Drawer open={openMassage} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}>
+				<Drawer 
+					open={openMassage} 
+					width={750} 
+					openSecondary={true} 
+					containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,paddingLeft:45,paddingRight:47}}
+					onClose = {this.onClose}
+				>
 					
 					<MessageManagement
 						ref = "message"
@@ -358,7 +366,13 @@ class TheBell extends React.Component {
 					/>
 				</Drawer>
 				{/*客户详情*/}
-				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer 
+					open={openLookCustomerList} 
+					width={750} 
+					openSecondary={true}
+					containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}
+					onClose={this.lookCustomerListClose}
+				>
 					<LookCustomerList
 						 comeFrom="Merchant"
 		                 operType="PERSON"
@@ -371,9 +385,19 @@ class TheBell extends React.Component {
 					/>
 				</Drawer>
 				{/*合同详情*/}
-				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<div className = "bell-agreement">
+				<Drawer 
+					open={openAgreementDetail} 
+					width={750} 
+					openSecondary={true} 
+					containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}
+					onClose={this.agreementDetailClose}
+					>
+					
 					{this.contractRender()}
+					
 				</Drawer>
+				</div>
 				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
 			</div>
 		);

@@ -12,8 +12,19 @@ const Nav = ({...props}) =>{
 	return <ul className="u-header-nav" {...props}></ul>
 }
 const NavItem = ({...props})=>{
-	const {label,path,isActive} = props;
-	return <li className={isActive?'u-header-active':''} {...props}><a href={`./#${path}`}>{label}</a></li>
+	const {label,path,isActive,originUrl} = props;
+	var url=path;
+	var index=path.indexOf('/');
+	if(index==0){
+		url=path.substr(1,path.length-1);
+	}
+	if(originUrl){
+		url=originUrl.substr(1,originUrl.length-1);
+		if(/#/.test(originUrl)){
+			url=originUrl.substr(2,originUrl.length-2);
+		}
+	}
+	return <li className={isActive?'u-header-active':''} {...props}><a href={`.#/${url}`}>{label}</a></li>
 };
 
 
@@ -56,12 +67,7 @@ export default class Header extends React.Component {
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
-					<Nav> {NavModel.items.map((item,index)=>{
-						var path=item.originUrl?item.originUrl:item.router;
-						return	(
-							<NavItem label={item.primaryText} isActive={item.isActive} path={path}/>
-						)
-					})} </Nav>
+					<Nav> {NavModel.items.map((item,index)=>(<NavItem label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>))} </Nav>
 					<More />
 					<TheBell />
 					<MorePerson />
