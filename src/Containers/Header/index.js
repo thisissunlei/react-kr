@@ -63,7 +63,7 @@ export default class Header extends React.Component {
 					<TheBell />
 					<MorePerson />
 				</div>
-				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false} width={180} >
+				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false} width={180} drawerStyle={{zIndex:-1}} >
 					<SidebarNav/>
 				</Drawer>
 			</div>
