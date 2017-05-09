@@ -29,7 +29,7 @@ module.exports = {
     },
     //运营平台-基础配置-设备定义-获取楼层
     'getFloorByComunity': {
-        url: '/api/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
+        url: '/api/krspace-finance-web/cmt/community/select/use/floor?communityId={communityId}',
         method: 'get'
     },
     //运营平台-基础配置-设备定义-根据属性获取对应位置
@@ -114,7 +114,7 @@ module.exports = {
     },
     // 运营平台－获取社区楼层数据
     'getCommunityFloors': {
-        url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
+        url: '/api/krspace-finance-web/cmt/community/select/use/floor?communityId={communityId}',
         method: 'get'
     },
     // 计划表获取数据
@@ -255,7 +255,7 @@ module.exports = {
     },
     //运营平台－客户管理－获取项目类型树
     'get-project-types': {
-        url: '/api-old/krspace_operate_web/codecategory/actions/get-project-types',
+        url: '/api/krspace-finance-web/cmt/codeCategory/select/use/info',
         method: 'get'
     },
     //运营平台－客户管理－订单删除
