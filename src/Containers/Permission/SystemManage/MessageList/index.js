@@ -1,16 +1,13 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
+
 import {
-	Http
-} from "kr/Utils";
-import {
-	connect,
 	Actions,
 	Store
 } from 'kr/Redux';
+import {
+	Http
+} from "kr/Utils";
 
 import {
 	reduxForm,
@@ -27,6 +24,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
+	Tooltip,
 	Section,
 	Grid,
 	Row,
@@ -36,284 +34,128 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	Drawer,
 	Message
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from './Deletedialog';
-import Createdialog from './Createdialog';
-import Editdialog from './Editdialog';
-
-
-class SearchForm extends Component {
-	constructor(props, context) {
-		super(props, context);
-
-	}
-
-
-	onSubmit = (form) => {
-		let {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
-
-	}
-
-
-	onFilter = (value) => {
-		let {
-			onFilter
-		} = this.props;
-		onFilter && onFilter(value);
-	}
-	openCreateDialog = () => {
-		let {
-			onCreate
-		} = this.props;
-		onCreate && onCreate();
-	}
-
-
-	render() {
-
-
-
-		let options = [{
-				label: '名称',
-				value: 'name'
-			}, {
-				label: '类型',
-				value: 'type'
-			}, {
-				label: '编码',
-				value: 'code'
-			},
-
-		];
-
-		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
-				<SearchForms
-						onSubmit={this.onSubmit}
-						searchFilter={options}
-						style={{marginTop:5}}
-						onFilter={this.onFilter}
-				/>
-			</form>
-
-		);
-	}
-}
-
-SearchForm = reduxForm({
-	form: 'searchForm'
-})(SearchForm);
-
-class MessageList extends Component {
+import SearchForm from './SearchForm';
+import HighSearchForm from './HighSearchForm';
+export default class MessageList extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-
 		this.state = {
 			searchParams: {
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
 			},
 			itemDetail: '',
-			openDeleteDialog: false,
-			openCreateDialog: false,
-			openEditDialog: false,
+			openHighSearch: false,
 		}
 	}
+//高级查询
+openHighSearch = () => {
+    this.setState({
+      openHighSearch: !this.state.openHighSearch
+    })
+  }
 
-	//操作相关
-	onOperation = (type, itemDetail) => {
-
+	onSearchSubmit = (form) => {
 		this.setState({
-			itemDetail
-		});
-
-		if (type == 'delete') {
-			this.openDeleteDialog();
-		} else if (type == 'edit') {
-			this.openEditDialog();
-		}
+			searchParams:form
+		})
+		this.openHighSearch();
 	}
-	openDeleteDialog = () => {
+//普通查询
+	searchParams = (form) => {
+		var _this = this;
 		this.setState({
-			openDeleteDialog: !this.state.openDeleteDialog
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				receviers: form.content
+			}
 		})
 	}
-	onDeleteSubmit = () => {
-		let {
-			itemDetail
-		} = this.state;
-		var _this = this;
-		Http.request('delResources', {
-			id: itemDetail.id
-		}).then(function(response) {
-			_this.openDeleteDialog();
-			Message.success('删除成功')
-		}).catch(function(err) {
-			_this.openDeleteDialog();
-			Message.error(err.message)
-		});
-	}
-	openCreateDialog = () => {
-		this.setState({
-			openCreateDialog: !this.state.openCreateDialog
-		})
-	}
-	openEditDialog = () => {
-		this.setState({
-			openEditDialog: !this.state.openEditDialog
-		})
-	}
-	onCreatSubmit = (params) => {
-		var _this = this;
-		Http.request('createResources', {}, params).then(function(response) {
-			_this.openCreateDialog();
-			Message.success('新建成功');
-			window.location.reload();
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
-
-	}
-	onEditSubmit = (params) => {
-		var _this = this;
-		Http.request('editResources', {}, params).then(function(response) {
-			_this.openEditDialog();
-			Message.success('修改成功');
-			window.location.reload();
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
-	}
-	onSearch = (form) => {
-		var searchParams = {}
-		if (form.filter == "name") {
-			searchParams = {
-				name: form.content
-			}
-		} else if (form.filter == "code") {
-			searchParams = {
-				code: form.content
-			}
-		} else if (form.filter == 'type') {
-			var content;
-			if (form.content == '菜单') {
-				content = 'MENU'
-			} else if (form.content == '操作') {
-				content = 'OPERATION'
-			}
-			searchParams = {
-				type: content
-			}
-		}
-		this.setState({
-			searchParams: searchParams
-		});
-	}
-
-
 	render() {
-		let {
-			openDeleteDialog,
-			itemDetail
-		} = this.state;
+
+
 		return (
-			<div className="g-operation">
-				<Section title="操作项" >
-					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} />
-	        		<Table
-							style={{marginTop:10}}
-							displayCheckbox={false}
-							onLoaded={this.onLoaded}
-							ajax={true}
-							ajaxUrlName='RosfindPage'
-							ajaxParams={this.state.searchParams}
-							onOperation={this.onOperation}
-							  >
-						<TableHeader>
-						<TableHeaderColumn>ID</TableHeaderColumn>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>类型</TableHeaderColumn>
-						<TableHeaderColumn>编码</TableHeaderColumn>
-						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>所属模块</TableHeaderColumn>
-						<TableHeaderColumn>创建时间</TableHeaderColumn>
-						<TableHeaderColumn>操作</TableHeaderColumn>
-					</TableHeader>
+			<div className="g-message-list">
+				<Section title="信息列表" >
+					<Grid style={{marginBottom:22,marginTop:2}}>
+						<Row>
+						<Col md={4} align="left" > </Col>
+						<Col md={8} align="right">
+							<div className="u-search">
+										<SearchForm onSubmit={this.searchParams} openSearch={this.openHighSearch} />
+							</div>
+						</Col>
+					  </Row>
+					</Grid>
+          <Table
+          style={{marginTop:10}}
+          displayCheckbox={false}
+          onLoaded={this.onLoaded}
+          ajax={true}
+          ajaxUrlName='get-log-list'
+          ajaxParams={this.state.searchParams}
+          onOperation={this.onOperation}
+            >
+        <TableHeader>
+        <TableHeaderColumn>消息类型</TableHeaderColumn>
+        <TableHeaderColumn>发送结果</TableHeaderColumn>
+        <TableHeaderColumn>发送时间</TableHeaderColumn>
+        <TableHeaderColumn>接收人</TableHeaderColumn>
+        <TableHeaderColumn>备注</TableHeaderColumn>
+      </TableHeader>
 
-					<TableBody>
-						<TableRow>
-							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
-							<TableRowColumn name="name" ></TableRowColumn>
-							<TableRowColumn
-									name="type"
-									options={[
-										{label:'菜单',value:'MENU'},
-										{label:'操作',value:'OPERATION'}
-									]}
-							></TableRowColumn>
-							<TableRowColumn name="code"></TableRowColumn>
-							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn name="moduleName"></TableRowColumn>
-							<TableRowColumn type="date" name="createTime" component={(value)=>{
-								return (
-									<KrDate value={value} />
-								)
-							}}> </TableRowColumn>
-							<TableRowColumn>
-									<Button label="编辑"   type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
-							 </TableRowColumn>
-						 </TableRow>
-					</TableBody>
-					<TableFooter></TableFooter>
-					</Table>
-					<Dialog
-						title="提示"
-						modal={true}
-						onClose={this.openDeleteDialog}
-						open={this.state.openDeleteDialog}
-						contentStyle={{width:460}}
-						>
-						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+      <TableBody>
+        <TableRow>
+          <TableRowColumn name="msgTypeName" ></TableRowColumn>
 
-					 </Dialog>
-					 <Drawer
-						modal={true}
-						width={750}
-						openSecondary={true}
-						onClose={this.openCreateDialog}
-						open={this.state.openCreateDialog}
-						>
-						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
+          <TableRowColumn name="statusName"></TableRowColumn>
+          <TableRowColumn type="date" name="sendTime" component={(value)=>{
+            return (
+              <KrDate value={value} />
+            )
+          }}> </TableRowColumn>
+          <TableRowColumn name="recivers"></TableRowColumn>
+          <TableRowColumn name="remark" component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
 
-					 </Drawer>
-					 <Drawer
-						modal={true}
-						width={750}
-						open={this.state.openEditDialog}
-						onClose={this.openEditDialog}
-						openSecondary={true}
-						>
-						<Editdialog  detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
-
-					 </Drawer>
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}>
+        </TableRowColumn>
+         </TableRow>
+      </TableBody>
+      <TableFooter></TableFooter>
+      </Table>
 				</Section>
+
+				<Dialog
+					title="高级查询"
+					modal={true}
+					open={this.state.openHighSearch}
+					onClose={this.openHighSearch}
+					contentStyle={{width:666}}
+				>
+					<HighSearchForm
+								onSubmit={this.onSearchSubmit}
+								onCancel={this.openHighSearch}
+					/>
+				</Dialog>
 
 			</div>
 		);
 	}
 
 }
-export default reduxForm({
-	form: 'MessageList',
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
-})(MessageList);

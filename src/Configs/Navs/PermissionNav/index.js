@@ -48,7 +48,7 @@ module.exports = [
 				router: 'permission/systemManage',
 				menuCode: 'coustomerInfoList',
 				menuItems: [{
-					primaryText: '登录日志',
+					primaryText: '版本管理',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'contractList',
 				},{

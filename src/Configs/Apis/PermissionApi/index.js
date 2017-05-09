@@ -238,4 +238,24 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/loginLog/find-page?loginAccount={loginAccount}&loginId={loginId}&successful={successful}&page={page}&pageSize={pageSize}',
       method: 'get'
     },
+    //权限--信息列表--分页
+    'get-log-list': {
+      url: '/api/krspace-sso-web/msg/get-log-list?msgType={msgType}&receviers={receviers}&sendStatus={sendStatus}&page={page}&pageSize={pageSize}&startTime={startTime}&endTime={endTime}',
+      method: 'get'
+    },
+    //权限--版本管理--分页
+    'get-version-list': {
+      url: '/api/krspace-sso-web/mobile/version/get-version-list?enableFlag={enableFlag}&forcedStatus={forcedStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}',
+      method: 'get'
+    },
+    //权限--版本管理--新建
+    'save-version': {
+      url: '/api/krspace-sso-web/mobile/version/save-version',
+      method: 'post'
+    },
+    //权限--版本管理--查看
+    'get-version-detail': {
+      url: '/api/krspace-sso-web/mobile/version/get-version-detail?id={id}',
+      method: 'get'
+    },
 }
