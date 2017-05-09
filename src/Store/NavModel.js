@@ -14,7 +14,7 @@ let State = observable({
 
 
 State.setCurrentRouter = action(function(){
-
+	var hash = window.location.hash;
 });
 
 State.getNavs=action(function(){
@@ -28,6 +28,13 @@ State.getSidebarNavs=action(function(){
 State.toggleSidebar=action(function(){
 	this.openSidebar = !this.openSidebar;
 });
+
+State.getUser=action(function(){
+	return {nick:'张屈'}
+});
+
+
+
 
 
 
