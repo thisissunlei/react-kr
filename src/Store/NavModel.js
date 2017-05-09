@@ -10,7 +10,7 @@ import Navs from 'kr/Configs/Navs';
 let State = observable({
 	...Navs,
 	router:'',
-	openSidebar:false,
+	openSidebar:true,
 	openHeaderbar:true,
 });
 
@@ -47,17 +47,10 @@ State.setRouter = action(function(){
 	var hash = window.location.hash;
 	var router = hash.split('?').shift().substring(1);
 	var navs = this.getNavs();
-	var isOk = false;
-
-	var callback = function() {
-
-	}
-
+	
 	navs = navs.map(function(topItem){
 		return ForEachMenuItem(topItem,router,topItem)
 	});
-
-	console.log('--->>',navs);
 
 	this.items = navs;
 });
@@ -66,7 +59,7 @@ State.setRouter = action(function(){
 
 
 State.getNavs=action(function(){
-	return mobx.toJS(this.items);
+	return this.items;
 });
 
 State.getSidebarNavs=action(function(){
