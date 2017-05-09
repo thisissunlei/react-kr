@@ -1,23 +1,23 @@
 import React from 'react';
 import {
-  Title,
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-  TableFooter,
-  Button,
-  Section,
-  SearchForms,
-  Dialog,
-  Grid,
-  ListGroup,
-  ListGroupItem,
-  Row,
-  Message,
-  Tooltip
+	Title,
+		Table,
+		TableBody,
+		TableHeader,
+		TableHeaderColumn,
+		TableRow,
+		TableRowColumn,
+		TableFooter,
+		Button,
+		Section,
+		SearchForms,
+		Dialog,
+		Grid,
+		ListGroup,
+		ListGroupItem,
+		Row,
+		Message,
+		Tooltip
 } from 'kr-ui';
 import NewCreateDefinitionForm from './NewCreateDefinitionForm';
 import EquipmentAdvanceQueryForm from './EquipmentAdvancedQueryForm';

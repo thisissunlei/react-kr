@@ -46,7 +46,7 @@ export default class InputComponent extends React.Component{
 
 	render(){
 
-		let {input, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -55,11 +55,14 @@ export default class InputComponent extends React.Component{
 					</div>
 				);
 			}
-
+			let placeholderText=placeholder||label;
 			let className = '';
 
 			if(touched && error){
 				className = 'error-input';
+			}
+			if(prompt){
+				placeholderText="";
 			}
 
 			var wrapProps = {
@@ -74,7 +77,7 @@ export default class InputComponent extends React.Component{
 			var inputProps = {
 				 ...input,
 				 type,
-				placeholder:placeholder|| label,
+				placeholder:placeholderText,
 				disabled,
 			 className,
 			 style:heightStyle,

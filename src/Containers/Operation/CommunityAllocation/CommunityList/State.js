@@ -13,7 +13,7 @@ import {
 
 let State = observable({
 		searchParams:{
-			page:1,	
+			page:1,
 			pageSize:15,
 		},
 		//新建社区
@@ -39,27 +39,28 @@ let State = observable({
 
 });
 //参数修改
-State.setSearchParams = action(function(params) {	
+State.setSearchParams = action(function(params) {
 	this.searchParams=params;
 });
 //新建社区的开关
-State.switchNewCommunityList = action(function() {	
+State.switchNewCommunityList = action(function() {
 	this.openNewCommunity=!this.openNewCommunity;
 });
 //新建社区的提交
-State.onNewCommunitySubmit= action(function(data) {	
+State.onNewCommunitySubmit= action(function(data) {
 	 var _this=this;
+
 	 Http.request('actions-edit',{},data).then(function(response) {
-		_this.openNewCommunity=false;	
+		_this.openNewCommunity=false;
 		_this.openEditCommunity=false;
 		_this.searchParams={
 			 time:+new Date(),
 			 page:1,
 			 pageSize:15
-		}	
+		}
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});	
+	});
 });
 //高级查询的开关
 State.searchUpperCustomer = action(function() {
@@ -79,7 +80,7 @@ State.searchDataHere = action(function() {
 		_this.isFlag=response.showEdit;
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});	
+	});
 });
 //编辑页面的开关
 State.switchEditList = action(function() {
@@ -97,7 +98,7 @@ State.getEditList = action(function(id) {
 	    _this.detailData=response;
 	}).catch(function(err) {
 		 Message.error(err.message);
-	});	
+	});
 })
 
 //校验社区名称
@@ -114,7 +115,7 @@ State.communityName = action(function(params,id) {
 		}else{
 			 _this.isCorpName=false;
 		}
-	});	
+	});
 });
 //校验社区编码
 State.communityCode = action(function(params,id) {
@@ -130,7 +131,7 @@ State.communityCode = action(function(params,id) {
 		}else{
 			 _this.isCorpCode=false;
 		}
-	});	
+	});
 });
 
 //校验社区排序
@@ -148,7 +149,7 @@ State.communityRank = action(function(params,id,communityId) {
 		}else{
 			 _this.isCorpRank=false;
 		}
-	});	
+	});
 });
 
 module.exports = State;

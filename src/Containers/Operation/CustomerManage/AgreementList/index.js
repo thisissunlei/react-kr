@@ -382,7 +382,7 @@ class Merchants extends Component{
 		 delList.map((item)=>{
 		 	localStorage.removeItem(item);
 		 })
-		 
+
 	}
 
 	componentDidMount() {

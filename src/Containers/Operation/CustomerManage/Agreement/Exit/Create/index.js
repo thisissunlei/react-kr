@@ -49,7 +49,7 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages:false
 		}
 		this.isConfirmSubmiting = false;
-		Store.dispatch(reset('exitCreateForm'));
+
 
 	}
 
@@ -153,6 +153,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('exitCreateForm'));
 
 		this.getlocalSign()
 	}
@@ -268,7 +269,7 @@ export default class JoinCreate extends React.Component {
       		initialValues.contractcode = response.contractCode;
 
 
-			
+
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
