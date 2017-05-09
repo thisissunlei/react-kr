@@ -346,7 +346,7 @@ class Createdialog extends React.Component {
 						<span>新建操作项</span>
 					</div>
 					<KrField
-							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
+							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="name" type="text"
 							component="input" label="名称"
 							requireLabel={true}
@@ -355,7 +355,7 @@ class Createdialog extends React.Component {
 							inline={true}
 					/>
 					<KrField
-							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
+							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="code" type="text"
 							component="input" label="编号"
 							requireLabel={true}
