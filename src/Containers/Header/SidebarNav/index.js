@@ -10,29 +10,37 @@ export default class SidebarNav extends React.Component {
 	constructor(props,context){
 		super(props, context);
 	}
+	
+	renderMenuItems=(menuItems)=>{
 
-	/*{SidebarNavDate.map((item,index)=>{
-					return(
-
-						)
-				})}*/
+		return menuItems.map((item,index)=>{
+			console.log('item------',item)
+			return(
+					<a href={item.router}  key={index}>{item.primaryText}</a>
+				)
+		})
+	}
+	
 	render() {
 
 		const {NavModel,SidebarNavDate} = this.props;
 		console.log('sidebarNavs',SidebarNavDate)
 		return (
 			<div className="g-sidebar-nav">
-				<div className="m-sidebar-nav">
-					<div className="u-sidebar-nav-title">
-						<span className="icon-user"></span>
-						客户管理
-					</div>
-					<div className="u-sidebar-navlist">
-						<a href="">客户线索</a>
-						<a href="">合同列表</a>
-						<a href="">客户公海</a>
-					</div>
-				</div>
+				{SidebarNavDate.map((item,index)=>{
+					return(
+							<div className="m-sidebar-nav" key={index}>
+								<div className="u-sidebar-nav-title">
+									<span className={item.iconName} style={{color:`${item.iconColor}`}}></span>
+									{item.primaryText}
+								</div>
+								<div className="u-sidebar-navlist">
+									{this.renderMenuItems(item.menuItems)}
+								</div>
+							</div>
+						)
+				})}
+				
 			</div>
 	   );
 	}
