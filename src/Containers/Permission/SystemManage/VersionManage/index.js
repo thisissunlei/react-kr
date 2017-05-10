@@ -41,9 +41,6 @@ import {
 import './index.less';
 import SearchForm from './SearchForm';
 import HighSearchForm from './HighSearchForm';
-import Createdialog from './Createdialog.js';
-import Editdialog from './Editdialog.js';
-import Viewdialog from './Viewdialog.js';
 export default class VersionManage extends React.Component {
 
 	constructor(props, context) {
@@ -182,8 +179,26 @@ openHighSearch = () => {
 						<TableRowColumn name="osTypeName" ></TableRowColumn>
 	          <TableRowColumn name="appVersion"></TableRowColumn>
 							<TableRowColumn name="sysInfo" ></TableRowColumn>
-		          <TableRowColumn name="ctime"></TableRowColumn>
-					 <TableRowColumn name="remark"></TableRowColumn>
+								<TableRowColumn type="date" name="ctime" component={(value)=>{
+			            return (
+			              <KrDate value={value} />
+			            )
+			          }}> </TableRowColumn>
+								<TableRowColumn name="remark" component={(value)=>{
+			                  var styles = {
+			                    display:'block',
+			                    paddingTop:5
+			                  };
+			                  if(value.length==""){
+			                    styles.display="none"
+
+			                  }else{
+			                    styles.display="block";
+			                  }
+			                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+			                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+			                 }}>
+			        </TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>
@@ -202,36 +217,8 @@ openHighSearch = () => {
 								onCancel={this.openHighSearch}
 					/>
 				</Dialog>
-				<Drawer
-				 modal={true}
-				 width={750}
-				 openSecondary={true}
-				 onClose={this.openCreateDialog}
-				 open={this.state.openCreateDialog}
-				 >
-				 <Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 
-				</Drawer>
-				<Drawer
-				 modal={true}
-				 width={750}
-				 openSecondary={true}
-				 onClose={this.openViewDialog}
-				 open={this.state.openViewDialog}
-				 >
-				 <Viewdialog detail={itemDetail} onCancel={this.openViewDialog}  />
 
-				</Drawer>
-				<Drawer
-				 modal={true}
-				 width={750}
-				 open={this.state.openEditDialog}
-				 onClose={this.openEditDialog}
-				 openSecondary={true}
-				 >
-				 <Editdialog detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
-
-				</Drawer>
 			</div>
 		);
 	}

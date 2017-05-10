@@ -66,16 +66,16 @@ class HighSearchForm extends React.Component {
 
 						 left={42}
 						 right={18}
-	 					 name="version"
+	 					 name="phone"
 	 					 style={{marginTop:4}}
-	 					 label="系统版本"
+	 					 label="手机号"
 						 component="input"
 	 			 		/>
 					<KrField
 			    		grid={1/2}
 							right={69}
  						 left={4}
-			    		name="OsType"
+			    		name="osType"
 			    		type="select"
 			    		style={{marginTop:4}}
 			    		label="设备类型"
@@ -88,27 +88,36 @@ class HighSearchForm extends React.Component {
 							grid={1/2}
 							left={42}
 							right={18}
-							name="enableFlag"
+							name="sendStatus"
 							type="select"
 							style={{marginTop:4}}
-							label="启用标识"
+							label="登录结果"
 							options={[
-								{label:'启用',value:'ENABLE'},
-								{label:'未启用',value:'DISABLE'}
+								{label:'成功',value:'SUCCESS'},
+								{label:'失败',value:'FAILED'}
 							]}
 					/>
 					<KrField
 							grid={1/2}
 							right={69}
- 						 left={4}
-							name="ForcedStatus"
+ 						 	left={4}
+							name="version"
 							type="select"
 							style={{marginTop:4}}
-							label="是否强制更新"
+							label="APP版本"
 							options={[
-								{label:'强制',value:'FORCED'},
-								{label:'不强制',value:'UNFORCED'}
+								{label:'m_app',value:'MAPP'},
+								{label:'tv_app',value:'TVAPP'}
 							]}
+					/>
+					<KrField
+							left={42}
+							right={66}
+							grid={1/1}
+							name="remark"
+							component="textarea"
+							label="备注"
+							maxSize={100}
 					/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>

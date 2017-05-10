@@ -260,7 +260,7 @@ module.exports = {
     },
     //权限--APP登录日志--分页
     'mobile-login-log': {
-      url: '/api/krspace-sso-web/mobile/msg/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
+      url: '/api/krspace-sso-web/mobile/log/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
       method: 'get'
     },
 }
