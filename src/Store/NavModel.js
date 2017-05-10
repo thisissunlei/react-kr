@@ -81,6 +81,7 @@ State.getSidebarNavs=action(function(){
 		menuItems = topItem.menuItems;
 	}
 
+	this.sidebarNavs=menuItems;
 	return menuItems;
 });
 

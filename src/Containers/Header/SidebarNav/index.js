@@ -9,13 +9,13 @@ export default class SidebarNav extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
+
 	}
 	
 	renderMenuItems=(menuItems)=>{
 
 		return menuItems.map((item,index)=>{
-			var path=item.originUrl?item.originUrl:`.#${item.router}`
-			console.log('item------',item)
+			var path=item.originUrl?item.originUrl:`.#${item.router}`;
 			return(
 					<a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.primaryText}</a>
 				)
@@ -25,7 +25,8 @@ export default class SidebarNav extends React.Component {
 	render() {
 
 		const {NavModel,SidebarNavDate} = this.props;
-		console.log('sidebarNavs',SidebarNavDate)
+			
+			console.log('111111')
 			return (
 				<div className="g-sidebar-nav">
 					{SidebarNavDate.map((item,index)=>{

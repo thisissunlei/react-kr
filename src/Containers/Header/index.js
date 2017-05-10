@@ -59,9 +59,14 @@ export default class Header extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			sidebarNavs:[],
+		}
+	}
+	componentDidMount() {
 		
 	}
-	
+
 		
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
@@ -73,9 +78,10 @@ export default class Header extends React.Component {
 
 	render() {
 		const {NavModel} = this.props;
+		//let {sidebarNavs}=this.state;
 		var  navs = NavModel.getNavs();
 		var  sidebarNavs=NavModel.getSidebarNavs();
-		
+		console.log('sidebarNavs---')
 		return (
 			<div className="no-print">
 				<div className="g-header-nav">
@@ -88,8 +94,15 @@ export default class Header extends React.Component {
 					<TheBell />
 					<MorePerson />
 				</div>
-				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false} width={180} drawerStyle={{zIndex:-1}} contentStyle={{width:"100%",background:'rgb(57, 68, 87)',padding:0}}>
-					<SidebarNav SidebarNavDate={sidebarNavs} />
+				<Drawer 
+						open={NavModel.openSidebar} 
+						openSecondary={false} 
+						modal={false} 
+						width={180} 
+						drawerStyle={{zIndex:-1}} 
+						contentStyle={{width:"100%",background:'rgb(57, 68, 87)',padding:0}}
+					>
+					<SidebarNav SidebarNavDate={NavModel.sidebarNavs} />
 				</Drawer>
 			</div>
 	   );
