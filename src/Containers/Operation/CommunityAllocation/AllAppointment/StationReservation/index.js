@@ -56,15 +56,14 @@ class StationReservation extends React.Component {
 	}
   
 
-	onOperation = (type, itemDetail) =>{
-
-		if(type === "delete"){
+	deleteClick = (data) =>{
+			console.log(data,"MMMM")
 			this.setState({
    				 openDelStation:true,
-   				id:itemDetail.id
+   				 id:data.id
    			})
-		}
 	}
+
     close = () => {
         this.setState({
    				openDelStation:false,
@@ -77,9 +76,9 @@ class StationReservation extends React.Component {
 		Http.request("meeting-reservation-delete",{id:id}).then(function(response) {
 			 _this.setState({
 				 searchParams:{
-					communityId:"",
-					date:"",
-					endDate:"",
+					communityId:searchParams.communityId,
+					date:searchParams.date,
+					endDate:searchParams.endDate,
 					page:1,
 					pageSize:15,
 					time:new Date()
@@ -176,10 +175,10 @@ class StationReservation extends React.Component {
                                 <TableRowColumn name="amount" ></TableRowColumn>
 								
                                 <TableRowColumn name = "deletable"
-									component={(value,oldValue)=>{
+									component={(value,oldValue,itemData)=>{
 										console.log(typeof value)
-										if(value == false){
-                                        	return  <Button label="删除"  type="operation"   operation="delete" />;
+										if(value == "true"){
+                                        	return  <span style = {{color:"#499df1"}} onClick = {this.deleteClick.bind(this,itemData)}>删除</span>;
 
 										}else{
                                         	return <span style = {{color:"#ccc"}}>删除</span>;

@@ -161,7 +161,7 @@ export default class MeetingReservation extends React.Component {
 					{  
 						isRefreshList ? <Loading /> : this.generateElems()
 					}
-					{data.length == 0 && <Nothing style = {{marginTop:100}}/>}
+					{!isRefreshList && data.length == 0 && <Nothing style = {{marginTop:100}}/>}
 				</div>
 				<div style = {{marginTop:72,marginBottom:40}}>
 					{data.length != 0 &&<Pagination  
