@@ -6,12 +6,21 @@ import './index.less';
 @inject("NavModel")
 @observer
 export default class SidebarNav extends React.Component {
-
+    static PropTypes = {
+        SidebarNavDate: React.PropTypes.array
+       
+    };
 	constructor(props,context){
 		super(props, context);
-
+		this.state={
+			SidebarNavDate:[],
+		}
 	}
-	
+	componentWillReceiveProps(nextProps) {
+        this.setState({
+        	SidebarNavDate: nextProps.SidebarNavDate
+        });
+    }
 	renderMenuItems=(menuItems)=>{
 
 		return menuItems.map((item,index)=>{
@@ -24,9 +33,8 @@ export default class SidebarNav extends React.Component {
 	
 	render() {
 
-		const {NavModel,SidebarNavDate} = this.props;
-			
-			console.log('111111')
+		const {NavModel} = this.props;
+		let {SidebarNavDate}=this.state;
 			return (
 				<div className="g-sidebar-nav">
 					{SidebarNavDate.map((item,index)=>{
