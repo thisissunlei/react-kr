@@ -413,8 +413,8 @@ const validate = values =>{
 	if(values.capacity&&(!numberNotZero.test(values.capacity.toString().trim())&&values.capacity!=0)){
 		errors.capacity='可容纳人数为正整数或0'
 	}
-
-	if(!values.idlePrice||(values.idlePrice&&reg.test(values.idlePrice.toString().trim()))){
+ 
+	if((!values.idlePrice&&values.idlePrice!=0)||(values.idlePrice&&reg.test(values.idlePrice.toString().trim()))){
 	  errors.idlePrice='请输入空闲时段单价'
    }
 
@@ -423,7 +423,7 @@ if(values.idlePrice&&(!numberNotZero.test(values.idlePrice.toString().trim())&&v
 	errors.idlePrice='空闲时段单价为正整数或0'
 }
 
-if(!values.busyPrice||(values.busyPrice&&reg.test(values.busyPrice.toString().trim()))){
+if((!values.busyPrice&&values.busyPrice!=0)||(values.busyPrice&&reg.test(values.busyPrice.toString().trim()))){
    errors.busyPrice='请输入高峰时段单价'
 }
 
