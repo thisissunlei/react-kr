@@ -55,6 +55,10 @@ module.exports = [
 					primaryText: '信息列表',
 					router: '/permission/systemManage/messageList',
 					menuCode: 'contractList',
+				},{
+					primaryText: 'APP登录日志',
+					router: '/permission/systemManage/versionManage',
+					menuCode: 'contractList',
 				},]
 			}
 		]

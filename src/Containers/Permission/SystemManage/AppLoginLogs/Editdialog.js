@@ -41,7 +41,7 @@ class Editdialog extends Component {
         var id = this.props.detail.id
         Http.request('get-version-detail', {
                 id: id
-            }).then(function(response) {
+            },{}).then(function(response) {
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('Editdialog', _this.state.infoList));
                 })
@@ -191,7 +191,7 @@ class Editdialog extends Component {
 
 }
 export default reduxForm({
-	form: 'Editdialog',
+	form: 'editdialog',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(Editdialog);

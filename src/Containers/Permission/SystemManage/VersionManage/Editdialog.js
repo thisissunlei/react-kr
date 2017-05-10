@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions, Store} from 'kr/Redux';
 import {
+	Http
+} from "kr/Utils";
+import {
     KrField,
     Table,
     TableBody,
@@ -21,11 +24,28 @@ import {
     ListGroup,
     ListGroupItem
 } from 'kr-ui';
-import {reduxForm, formValueSelector, change} from 'redux-form';
-class Createdialog extends Component {
-
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
+class Editdialog extends Component {
+    static PropTypes = {
+        detail: React.PropTypes.object,
+        onSubmit: React.PropTypes.func,
+        onCancel: React.PropTypes.func,
+    }
     constructor(props, context) {
         super(props, context);
+
+    }
+    componentDidMount() {
+
+        var _this = this;
+        var id = this.props.detail.id
+        Http.request('get-version-detail', {
+                id: id
+            }).then(function(response) {
+                _this.setState({infoList: response},function(){
+                  Store.dispatch(initialize('Editdialog', _this.state.infoList));
+                })
+            }).catch(function(err) {});
 
     }
     onCancel = () => {
@@ -39,13 +59,14 @@ class Createdialog extends Component {
 
     render() {
         const {handleSubmit} = this.props;
+
         return (
 
             <div>
               <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
                 <span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
                 <div className="u-operations-edit-title">
-                  <span>新建版本</span>
+                  <span>编辑版本</span>
                 </div>
                 <KrField
     	 					 grid={1/2}
@@ -170,7 +191,7 @@ class Createdialog extends Component {
 
 }
 export default reduxForm({
-	form: 'createdialog',
+	form: 'editdialog',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(Createdialog);
+})(Editdialog);
