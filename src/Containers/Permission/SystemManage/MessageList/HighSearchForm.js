@@ -100,6 +100,15 @@ class HighSearchForm extends React.Component {
 							</ListGroup>
 		                </div>
 					</KrField>
+					<KrField
+							left={42}
+							right={66}
+							grid={1/1}
+							name="remark"
+							component="textarea"
+							label="备注"
+							maxSize={100}
+					/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">

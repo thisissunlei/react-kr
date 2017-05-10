@@ -240,7 +240,7 @@ module.exports = {
     },
     //权限--信息列表--分页
     'get-log-list': {
-      url: '/api/krspace-sso-web/msg/get-log-list?msgType={msgType}&receviers={receviers}&sendStatus={sendStatus}&page={page}&pageSize={pageSize}&startTime={startTime}&endTime={endTime}',
+      url: '/api/krspace-sso-web/msg/get-log-list?msgType={msgType}&receviers={receviers}&sendStatus={sendStatus}&page={page}&pageSize={pageSize}&startTime={startTime}&endTime={endTime}&remark={remark}',
       method: 'get'
     },
     //权限--版本管理--分页
@@ -256,6 +256,11 @@ module.exports = {
     //权限--版本管理--查看
     'get-version-detail': {
       url: '/api/krspace-sso-web/mobile/version/get-version-detail?id={id}',
+      method: 'get'
+    },
+    //权限--APP登录日志--分页
+    'mobile-login-log': {
+      url: '/api/krspace-sso-web/mobile/msg/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
       method: 'get'
     },
 }

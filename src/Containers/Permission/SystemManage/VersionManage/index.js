@@ -160,56 +160,30 @@ openHighSearch = () => {
           displayCheckbox={false}
           onLoaded={this.onLoaded}
           ajax={true}
-          ajaxUrlName='get-version-list'
+          ajaxUrlName='mobile-login-log'
           ajaxParams={this.state.searchParams}
           onOperation={this.onOperation}
             >
         <TableHeader>
-        <TableHeaderColumn>系统版本</TableHeaderColumn>
+        <TableHeaderColumn>手机号</TableHeaderColumn>
+        <TableHeaderColumn>登录结果</TableHeaderColumn>
         <TableHeaderColumn>设备类型</TableHeaderColumn>
-        <TableHeaderColumn>下载地址</TableHeaderColumn>
-        <TableHeaderColumn>是否强制更新</TableHeaderColumn>
-					<TableHeaderColumn>启用标识</TableHeaderColumn>
-						<TableHeaderColumn>发布时间</TableHeaderColumn>
-							<TableHeaderColumn>APP类型</TableHeaderColumn>
-								<TableHeaderColumn>版本升级内容</TableHeaderColumn>
-								<TableHeaderColumn>操作</TableHeaderColumn>
+        <TableHeaderColumn>app版本</TableHeaderColumn>
+					<TableHeaderColumn>设备信息</TableHeaderColumn>
+	        <TableHeaderColumn>登录时间</TableHeaderColumn>
+					<TableHeaderColumn>备注</TableHeaderColumn>
+
       </TableHeader>
 
       <TableBody>
         <TableRow>
-          <TableRowColumn name="version" ></TableRowColumn>
-
-          <TableRowColumn name="osTypeName"></TableRowColumn>
-						<TableRowColumn name="downUrl" ></TableRowColumn>
-
-	          <TableRowColumn name="forcedName"></TableRowColumn>
-					 <TableRowColumn name="enableName"></TableRowColumn>
-          <TableRowColumn type="date" name="publishTime" component={(value)=>{
-            return (
-              <KrDate value={value} />
-            )
-          }}> </TableRowColumn>
-          <TableRowColumn name="appTypeName"></TableRowColumn>
-          <TableRowColumn name="updateInfo" component={(value)=>{
-                  var styles = {
-                    display:'block',
-                    paddingTop:5
-                  };
-                  if(value.length==""){
-                    styles.display="none"
-
-                  }else{
-                    styles.display="block";
-                  }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                 }}>
-        </TableRowColumn>
-				<TableRowColumn>
-						<Button label="查看"  type="operation" operation="view"/>
-						<Button label="编辑"  type="operation" operation="edit"/>
-				</TableRowColumn>
+          <TableRowColumn name="phone" ></TableRowColumn>
+          <TableRowColumn name="successfulName"></TableRowColumn>
+						<TableRowColumn name="osTypeName" ></TableRowColumn>
+	          <TableRowColumn name="appVersion"></TableRowColumn>
+							<TableRowColumn name="sysInfo" ></TableRowColumn>
+		          <TableRowColumn name="ctime"></TableRowColumn>
+					 <TableRowColumn name="remark"></TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>
