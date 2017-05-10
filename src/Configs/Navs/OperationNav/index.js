@@ -60,10 +60,9 @@ module.exports = [
 						menuCode: 'communityStationList',
 						router: '/operation/communityAllocation/communityStation'
 					},
-
 					{
-						primaryText: '所有预约',
-						menuCode: 'communityStationList',
+						primaryText: '预约列表',
+						menuCode: 'appointment_manage_list',
 						router: '/operation/communityAllocation/allAppointment'
 					},
 					{

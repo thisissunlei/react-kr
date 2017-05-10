@@ -178,10 +178,10 @@ class StationReservation extends React.Component {
 									component={(value,oldValue,itemData)=>{
 										console.log(typeof value)
 										if(value == "true"){
-                                        	return  <span style = {{color:"#499df1"}} onClick = {this.deleteClick.bind(this,itemData)}>删除</span>;
+                                        	return  <span style = {{color:"#499df1",cursor:'pointer'}} onClick = {this.deleteClick.bind(this,itemData)}>删除</span>;
 
 										}else{
-                                        	return <span style = {{color:"#ccc"}}>删除</span>;
+                                        	return <span style = {{color:"#999"}}>删除</span>;
 
 										}
                                     }}
