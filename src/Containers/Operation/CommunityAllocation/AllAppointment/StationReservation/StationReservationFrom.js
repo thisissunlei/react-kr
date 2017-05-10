@@ -32,107 +32,104 @@ class StationReservationFrom extends React.Component {
 			options:[],
 			searchParams:{
 				communityId:'',
-				time:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
-				floor:'',
+				createDateBegin:'',
+				createDateEnd:'',
 
 			},
-			date:DateFormat(new Date(),"yyyy-mm-dd"),
+			startValue:'',
+			endValue:'',
 			communityIdList:[],
 		}
-		// this.getcommunity();
+		this.getcommunity();
 	}
-	// getcommunity = () => {
-	// 	let _this = this;
-	// 	let {communityIdList} = this.state;
-	// 	Http.request('getCommunity').then(function(response) {
+	getcommunity = () => {
+		let _this = this;
+		let {communityIdList} = this.state;
+		Http.request('getCommunity').then(function(response) {
 
-	// 		communityIdList = response.communityInfoList.map(function(item, index) {
+			communityIdList = response.communityInfoList.map(function(item, index) {
 
-	// 			item.value = item.id;
-	// 			item.label = item.name;
-	// 			return item;
-	// 		});
-	// 		_this.setState({
-	// 			communityIdList,
-	// 		});
-
-
-	// 	}).catch(function(err) {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			_this.setState({
+				communityIdList,
+			});
 
 
+		}).catch(function(err) {
 
-	// 	});
-	// }
-	// timeChange = (data) =>{
-	// 	let {searchParams} = this.state;
-	// 	let {onSubmit} = this.props;
-	// 	if(!data){
-	// 		data = "";
-	// 	}
-	// 	this.setState({
-	// 		searchParams:{
-	// 			communityId:searchParams.communityId,
-	// 			time:data,
-	// 			floor:searchParams.floor,
-	// 		}
-	// 	},function(){
-	// 		onSubmit(this.state.searchParams)
-	// 	})
-		
-	// }
-	// selectChange = (data) =>{
-	// 	let {searchParams} = this.state;
-	// 	let {onSubmit} = this.props;
-	// 	let options = [];
-	// 	if(!data){
-	// 		this.setState({
-	// 			options,
-	// 			searchParams:{
-	// 				communityId:"",
-	// 				time:searchParams.time,
-	// 				floor:searchParams.floor,
-	// 			}
-	// 		},function(){
-	// 			onSubmit(this.state.searchParams)
-	// 		})
-			
-	// 		return ;
-	// 	}
-	// 	let _this = this;
-	// 	Http.request("getCommunityFloors",{communityId:data.value}).then(function(response) {
-	// 		response.floors.map(function(item,index){
-	// 			options.push({label:item,value:item});
-	// 		})
-	// 		_this.setState({
-	// 			options,
-	// 			searchParams:{
-	// 				communityId:data.value,
-	// 				time:searchParams.time,
-	// 				floor:searchParams.floor,
-	// 			}
-	// 		},function(){
-	// 			onSubmit(_this.state.searchParams)
-	// 		})
-	// 	}).catch(function(err) {
-	// 		Message.error(err.message);
-	// 	});
-	// }
-	// floorChange = (data) =>{
-	// 	let {searchParams} = this.state;
-	// 	let {onSubmit} = this.props;
-	// 	if(!data){
-	// 		data = {value:''};
-	// 	}
-	// 	this.setState({
-	// 		searchParams:{
-	// 			communityId:searchParams.communityId,
-	// 			time:searchParams.time,
-	// 			floor:data.value,
-	// 		}
-	// 	},function(){
-	// 		onSubmit(this.state.searchParams)
-	// 	})
-	// }
+
+
+		});
+	}
+	
+	communityChange = (data) =>{
+		let {searchParams} = this.state;
+		let {onSubmit} = this.props;
+		if(!data){
+			data = {value:''};
+		}
+		this.setState({
+			searchParams:{
+				createDateBegin:searchParams.createDateBegin,
+				createDateEnd:searchParams.createDateEnd,
+				communityId:data.value,
+			}
+		},function(){
+			onSubmit && onSubmit(this.state.searchParams)
+		})
+	}
+
+	 //日期开始
+	 onStartChange=(startD)=>{
+	 	const {onSubmit} = this.props;
+    	let {searchParams}=this.state;
+        let start=startD;
+        let end=searchParams.createDateEnd;
+        this.setState({
+        	startValue:startD
+        },function () {
+        	if(start>end&&end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	        let createDateBegin=this.state.startValue;
+	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
+	    	this.setState({
+				searchParams
+			},function(){
+			   onSubmit && onSubmit(searchParams);
+			});
+
+        })
+    }
+
+    //日期结束
+	 onEndChange=(endD)=>{
+	 	const {onSubmit} = this.props;
+    	let {searchParams}=this.state;
+        let start=searchParams.createDateBegin;
+        let end=endD;
+        this.setState({
+        	endValue:endD
+        },function () {
+        	if(start>end&&start){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	        let createDateEnd=this.state.endValue;
+	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue,});
+	    	this.setState({
+				searchParams
+			},function(){
+                onSubmit && onSubmit(searchParams);
+			});
+
+        })
+
+    }
   
    
 	render() {
@@ -144,15 +141,21 @@ class StationReservationFrom extends React.Component {
 				<div className='m-contract'>
 					<KrField 
 					grid={1/2}  
-					style={{width:"240px",}} 
+					style={{width:"330px",float:"left",marginTop:"4px",}} 
 					name="contractType" 
 					type="select" 
-					label="合同类型：" 
+					label="社区：" 
 					inline={true}
+					options = {communityIdList}
+					onChange = {this.communityChange}
 				
 				/>
 				
-				<div className="searchForm-col" style={{marginTop:"2px"}}>
+				<div className="searchForm-col" 
+					 style={{
+						 		marginTop:"2px",
+								 
+							}}>
 					<KrField
 						grid={1/2} 
 						label="时间" 
@@ -160,10 +163,11 @@ class StationReservationFrom extends React.Component {
 						style={{width:"310px"}}  
 						component="date" 
 						inline={true} 
+						onChange = {this.onStartChange}
 						placeholder='日期'
 					/>
 				</div>
-				<div className="searchForm-col" style={{marginTop:"-40px",position:"relative",left:35,top:53}}>
+				<div className="searchForm-col" style={{marginTop:"-40px",position:"relative",left:5,top:53}}>
 					<span>至</span>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"2px",marginRight:20}}>
@@ -173,7 +177,7 @@ class StationReservationFrom extends React.Component {
 						name="createDateEnd" 
 						style={{width:"310px"}} 
 						component="date"  inline={true} 
-						
+						onChange = {this.onEndChange}
 						placeholder='日期'
 					/>
 				</div>

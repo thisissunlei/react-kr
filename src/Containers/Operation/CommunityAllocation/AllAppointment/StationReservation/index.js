@@ -42,9 +42,10 @@ class StationReservation extends React.Component {
                 endDate:"",
                 page:1,
                 pageSize:15,
-
+				time:''
             },
    		    openDelStation:false,
+   		    id:'',
             
 		}
 	
@@ -71,7 +72,39 @@ class StationReservation extends React.Component {
     }
 
     onDelSubmit = () =>{
+    	const {id,searchParams} = this.state;
+		let _this = this;
+		Http.request("meeting-reservation-delete",{id:id}).then(function(response) {
+			 _this.setState({
+				 searchParams:{
+					communityId:"",
+					date:"",
+					endDate:"",
+					page:1,
+					pageSize:15,
+					time:new Date()
 
+				}
+			 })
+			 _this.close();
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+
+    }
+
+    fromOnSubmit = (data) =>{
+    	this.setState({
+    		searchParams:{
+    		communityId:data.communityId,
+            date:data.createDateBegin,
+            endDate:data.createDateEnd,
+            page:1,
+            pageSize:15,
+
+            }
+    	})
     }
 	
 	
@@ -81,7 +114,7 @@ class StationReservation extends React.Component {
 
 			<div className="m-station-reservation" style={{minHeight:910,background:'#fff'}}>
 			<Title value="工位预约列表"/>
-             <StationReservationFrom />
+             <StationReservationFrom onSubmit = {this.fromOnSubmit}/>
 			 <Table
 				    style={{marginTop:8}}
 	                ajax={true}
@@ -98,45 +131,64 @@ class StationReservation extends React.Component {
 				>
 			            <TableHeader>
 			              <TableHeaderColumn>社区</TableHeaderColumn>
-			              <TableHeaderColumn>预定会员</TableHeaderColumn>
-			              <TableHeaderColumn>预订客户</TableHeaderColumn>
-			              <TableHeaderColumn>预定时间</TableHeaderColumn>
+			              <TableHeaderColumn>预约人</TableHeaderColumn>
+			              <TableHeaderColumn>预约公司</TableHeaderColumn>
+			              <TableHeaderColumn>预约时间</TableHeaderColumn>
+			              <TableHeaderColumn>营业开始时间</TableHeaderColumn>
+			              <TableHeaderColumn>营业结束时间</TableHeaderColumn>
 			              <TableHeaderColumn>消耗积分</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 
 				        <TableBody >
 				          <TableRow>
-                                <TableRowColumn name="id" ></TableRowColumn>
-                                <TableRowColumn name="name" component={(value,oldValue) =>{
+                                <TableRowColumn name="communityName" ></TableRowColumn>
+                                <TableRowColumn name="memberName" ></TableRowColumn>
+                                <TableRowColumn name="customerName" 
+									component={(value,oldValue) =>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
 
-                                                            var TooltipStyle=""
-                                                            if(value.length==""){
-                                                                TooltipStyle="none"
-
-                                                            }else{
-                                                                TooltipStyle="inline-block";
-                                                            }
-                                                            return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-                                                                <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                                                        }}></TableRowColumn>
-                                <TableRowColumn name="createName" ></TableRowColumn>
-                                <TableRowColumn name="createDate"
-                                    component={(value,oldValue)=>{
+										}else{
+											TooltipStyle="inline-block";
+										}
+											return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+									}}
+								
+								></TableRowColumn>
+                                <TableRowColumn name="beginTime"
+                                    component={(value,oldValue,itemData)=>{
                                         return (<KrDate value={value} format="yyyy-mm-dd"/>)
-                                    }}
-                                                >
-                                </TableRowColumn>
-                                <TableRowColumn name="updateDate"
-                                    component={(value,oldValue)=>{
-                                                                    return (<KrDate value={value} format="yyyy-mm-dd"/>)
                                     }}
                                 >
                                 </TableRowColumn>
+                                <TableRowColumn name="businessBeginTime"
+                                   
+                                >
+                                </TableRowColumn>
 
-                                <TableRowColumn type="operation">
-                                    <Button label="删除"  type="operation"  operation="delete" />
-                                    </TableRowColumn>
+								<TableRowColumn name="businessEndTime"
+                                    
+                                >
+                                </TableRowColumn>
+                                <TableRowColumn name="amount" ></TableRowColumn>
+								
+                                <TableRowColumn name = "deletable"
+									component={(value,oldValue)=>{
+										console.log(typeof value)
+										if(value == false){
+                                        	return  <Button label="删除"  type="operation"   operation="delete" />;
+
+										}else{
+                                        	return null;
+
+										}
+                                    }}
+								>
+                                    
+                                </TableRowColumn>
                         </TableRow>
                     </TableBody>
 				    <TableFooter></TableFooter>

@@ -441,7 +441,7 @@ module.exports = {
       },
       //运营平台-社区配置-预约-工位预约
        'station-reservation':{
-         url: '/mockjsdata/36/krspace-finance-web/cmt-appointment/boardroom/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
+         url: '/api/krspace-finance-web/cmt-appointment/station/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
          method: 'get'
       },
     
