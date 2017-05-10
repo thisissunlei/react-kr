@@ -139,9 +139,9 @@ class CreateNewList extends React.Component {
 								name="photoUrl"
 								component="newuploadImage"
 								innerstyle={{width:392,height:230,padding:10}}
-								photoSize={'650*365'}
+								photoSize={'570*212'}
 								pictureFormat={'JPG,PNG,GIF'}
-								pictureMemory={'200'}
+								pictureMemory={'500'}
 								requestURI = {State.requestURI}
 								requireLabel={true}
 								label="新闻列表图片"
