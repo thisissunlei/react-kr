@@ -31,8 +31,7 @@ const NavItem = ({...props})=>{
 
 const More = ({...props})=>{
 	let {NavModel}=props;
-	var navs=NavModel.slice(9)
-	console.log('NavModel----',navs)
+	var navs=NavModel.slice(9);
 	return (
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多</span>
@@ -75,6 +74,8 @@ export default class Header extends React.Component {
 	render() {
 		const {NavModel} = this.props;
 		var  navs = NavModel.getNavs();
+		var  sidebarNavs=NavModel.getSidebarNavs();
+		
 		return (
 			<div className="no-print">
 				<div className="g-header-nav">
@@ -88,7 +89,7 @@ export default class Header extends React.Component {
 					<MorePerson />
 				</div>
 				<Drawer open={NavModel.openSidebar} openSecondary={false} modal={false} width={180} drawerStyle={{zIndex:-1}} contentStyle={{background:'rgb(57, 68, 87)'}}>
-					<SidebarNav/>
+					<SidebarNav SidebarNavDate={sidebarNavs} />
 				</Drawer>
 			</div>
 	   );
