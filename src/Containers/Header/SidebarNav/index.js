@@ -16,7 +16,7 @@ export default class SidebarNav extends React.Component {
 		return menuItems.map((item,index)=>{
 			console.log('item------',item)
 			return(
-					<a href={item.router}  key={index}>{item.primaryText}</a>
+					<a href={`.#${item.router}`}  key={index}>{item.primaryText}</a>
 				)
 		})
 	}
