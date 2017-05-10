@@ -182,7 +182,7 @@ class StationReservation extends React.Component {
                                         	return  <Button label="删除"  type="operation"   operation="delete" />;
 
 										}else{
-                                        	return null;
+                                        	return <span style = {{color:"#ccc"}}>删除</span>;
 
 										}
                                     }}

@@ -27,7 +27,8 @@ import {
 	SnackTip,
 	Pagination,
 	KrField,
-	Loading
+	Loading,
+	Nothing
 
 } from 'kr-ui';
 
@@ -148,7 +149,7 @@ export default class MeetingReservation extends React.Component {
 
 	}
     render(){
-		const {page,pageSize,totalCount,isRefreshList} = this.state;
+		const {page,pageSize,totalCount,isRefreshList,data} = this.state;
 		
         return(
             <div className="metting-reservation">
@@ -160,14 +161,15 @@ export default class MeetingReservation extends React.Component {
 					{  
 						isRefreshList ? <Loading /> : this.generateElems()
 					}
+					{data.length == 0 && <Nothing style = {{marginTop:100}}/>}
 				</div>
 				<div style = {{marginTop:72,marginBottom:40}}>
-					<Pagination  
+					{data.length != 0 &&<Pagination  
 						totalCount={totalCount} 
 						page={page} 
 						pageSize={pageSize} 
 						onPageChange={this.onPageChange}
-					/>
+					/>}
 				</div>
 				
 	           

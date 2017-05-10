@@ -52,7 +52,7 @@ import Editor from './Editor';
 import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
 import XTable from './XTable';
-
+import Nothing from './Nothing';
 
 import {
 	Grid,
@@ -143,4 +143,5 @@ module.exports = {
 	Tooltip,
 	CircleStyleTwo,
 	LoadingTwo,
+	Nothing
 }
