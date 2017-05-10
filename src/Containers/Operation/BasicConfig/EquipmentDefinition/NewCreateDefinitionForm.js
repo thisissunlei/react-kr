@@ -96,13 +96,14 @@ class NewCreateDefinitionForm extends React.Component{
   			_this.setState({
   				locationOpen : true
   			})
-  			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floorNum}
+  			let SearchLocationParams = {communityId:_this.state.communityId,
+  										whereFloor:_this.state.floorNum,
+  										type:propertyId.value}
   			
-  			Http.request('getLocationByProperty',SearchLocationParams).
-			then(function(response){
+  			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
 				var locationArr = []
 	    		for (var i=0;i<response.length;i++){
-	    			locationArr[i] = {label:response[i].boardroomname,value:response[i].id}
+	    			locationArr[i] = {label:response[i].name,value:response[i].id}
 	    		}
 	    		_this.setState({
 	    			locationOptions : locationArr
