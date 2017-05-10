@@ -19,7 +19,7 @@ module.exports = [
 						router: '/WebBackstage/activity/list',
 					},{
 						primaryText: '新闻列表',
-						menuCode: 'activityList',
+						menuCode: 'NewsMgr',
 						router: '/WebBackstage/news/list',
 					},
 					]
