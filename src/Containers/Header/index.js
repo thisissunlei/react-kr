@@ -14,17 +14,13 @@ const Nav = ({...props}) =>{
 const NavItem = ({...props})=>{
 	const {label,path,isActive,originUrl} = props;
 	var url=path;
-	var index=path.indexOf('/');
-	if(index==0){
-		url=path.substr(1,path.length-1);
-	}
 	if(originUrl){
-		url=originUrl.substr(1,originUrl.length-1);
-		if(/#/.test(originUrl)){
-			url=originUrl.substr(2,originUrl.length-2);
-		}
+		url=originUrl;
+		
+	}else{
+		url='./'+path;
 	}
-	return <li className={isActive?'u-header-active':''} {...props}><a href={`.#/${url}`}>{label}</a></li>
+	return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 };
 
 
