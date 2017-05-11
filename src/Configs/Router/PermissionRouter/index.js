@@ -78,14 +78,6 @@ module.exports =()=>{
 	return (
 		<Route path="permission" getComponent={Basic}>
       <IndexRedirect to="accountManage/accountList"/>
-		{/*
-		<Route path="index" component={Permission.Home}/>
-		<Route path="notify" component={Permission.Notify}/>
-		<Route path="memo" component={Permission.Memo}/>
-		<Route path="docs" component={Permission.Docs}/>
-		<Route path="order" component={Permission.Order}/>
-
-		*/}
 		<Route path="user" getComponent={Permission_User}/>
 		<Route path="operations" getComponent={Permission_Operations}/>
     <Route path="loginlog" getComponent={Permission_LoginLog}/>
