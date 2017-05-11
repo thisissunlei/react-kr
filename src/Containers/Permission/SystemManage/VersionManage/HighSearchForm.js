@@ -102,13 +102,10 @@ class HighSearchForm extends React.Component {
 							right={69}
  						 	left={4}
 							name="version"
-							type="select"
+							component="input"
 							style={{marginTop:4}}
 							label="APP版本"
-							options={[
-								{label:'m_app',value:'MAPP'},
-								{label:'tv_app',value:'TVAPP'}
-							]}
+
 					/>
 					<KrField
 							left={42}
