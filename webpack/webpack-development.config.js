@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
-
+const Envs = require(path.join(process.cwd(),'src','Configs','Envs'));
 const node_modules_dir = path.join(process.cwd(),'node_modules');
 
 
@@ -43,6 +43,12 @@ const config = {
     inline: true,
 	  port: 8001,
     outputPath: buildPath,
+	proxy: {
+			'/api': {
+				target: Envs[process.env.NODE_ENV],
+				changeOrigin: true
+			}
+		}
   },
 	externals: {
 		React:true,
