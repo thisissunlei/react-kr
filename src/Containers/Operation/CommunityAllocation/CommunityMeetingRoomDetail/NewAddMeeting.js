@@ -256,7 +256,7 @@ class NewAddMeeting  extends React.Component{
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = '/api/krspace-finance-web/cmt/space/upload-photo/type/single'
  								inline={false}
  								formfile=' '
  								center='center'
