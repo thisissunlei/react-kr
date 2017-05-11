@@ -22,7 +22,7 @@ const config = {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
 			'redux':path.join(node_modules_dir,'redux'),
-			'react-redux':path.join(node_modules_dir,'react-redux/dist/react-redux.min'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
 			'mobx':path.join(node_modules_dir,'mobx'),
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
