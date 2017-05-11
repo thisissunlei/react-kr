@@ -6,7 +6,8 @@ import {
 	Store
 } from 'kr/Redux';
 import {
-	Http
+	Http,
+	DateFormat
 } from "kr/Utils";
 
 import {
@@ -29,8 +30,6 @@ import {
 	Grid,
 	Row,
 	Col,
-	ListGroupItem,
-	ListGroup,
 	Dialog,
 	SearchForms,
 	KrDate,
@@ -116,10 +115,24 @@ openHighSearch = () => {
           <TableRowColumn name="statusName"></TableRowColumn>
           <TableRowColumn type="date" name="sendTime" component={(value)=>{
             return (
-              <KrDate value={value} />
+              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
             )
           }}> </TableRowColumn>
-          <TableRowColumn name="recivers"></TableRowColumn>
+						<TableRowColumn name="recivers" component={(value)=>{
+	                  var styles = {
+	                    display:'block',
+	                    paddingTop:5
+	                  };
+	                  if(value.length==""){
+	                    styles.display="none"
+
+	                  }else{
+	                    styles.display="block";
+	                  }
+	                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+	                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+	                 }}>
+	        </TableRowColumn>
           <TableRowColumn name="remark" component={(value)=>{
                   var styles = {
                     display:'block',

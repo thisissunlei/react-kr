@@ -187,7 +187,7 @@ openHighSearch = () => {
 					 <TableRowColumn name="enableName"></TableRowColumn>
           <TableRowColumn type="date" name="publishTime" component={(value)=>{
             return (
-              <KrDate value={value} />
+              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
             )
           }}> </TableRowColumn>
           <TableRowColumn name="appTypeName"></TableRowColumn>
@@ -215,49 +215,51 @@ openHighSearch = () => {
       <TableFooter></TableFooter>
       </Table>
 				</Section>
+				{/*
+					<Dialog
+						title="高级查询"
+						modal={true}
+						open={this.state.openHighSearch}
+						onClose={this.openHighSearch}
+						contentStyle={{width:666}}
+					>
+						<HighSearchForm
+									onSubmit={this.onSearchSubmit}
+									onCancel={this.openHighSearch}
+						/>
+					</Dialog>
+					<Drawer
+					 modal={true}
+					 width={750}
+					 openSecondary={true}
+					 onClose={this.openCreateDialog}
+					 open={this.state.openCreateDialog}
+					 >
+					 <Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 
-				<Dialog
-					title="高级查询"
-					modal={true}
-					open={this.state.openHighSearch}
-					onClose={this.openHighSearch}
-					contentStyle={{width:666}}
-				>
-					<HighSearchForm
-								onSubmit={this.onSearchSubmit}
-								onCancel={this.openHighSearch}
-					/>
-				</Dialog>
-				<Drawer
-				 modal={true}
-				 width={750}
-				 openSecondary={true}
-				 onClose={this.openCreateDialog}
-				 open={this.state.openCreateDialog}
-				 >
-				 <Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
+					</Drawer>
+					<Drawer
+					 modal={true}
+					 width={750}
+					 openSecondary={true}
+					 onClose={this.openViewDialog}
+					 open={this.state.openViewDialog}
+					 >
+					 <Viewdialog detail={itemDetail} onCancel={this.openViewDialog}  />
 
-				</Drawer>
-				<Drawer
-				 modal={true}
-				 width={750}
-				 openSecondary={true}
-				 onClose={this.openViewDialog}
-				 open={this.state.openViewDialog}
-				 >
-				 <Viewdialog detail={itemDetail} onCancel={this.openViewDialog}  />
+					</Drawer>
+					<Drawer
+					 modal={true}
+					 width={750}
+					 open={this.state.openEditDialog}
+					 onClose={this.openEditDialog}
+					 openSecondary={true}
+					 >
+					 <Editdialog detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 
-				</Drawer>
-				<Drawer
-				 modal={true}
-				 width={750}
-				 open={this.state.openEditDialog}
-				 onClose={this.openEditDialog}
-				 openSecondary={true}
-				 >
-				 <Editdialog detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
+					</Drawer>
+				*/}
 
-				</Drawer>
 			</div>
 		);
 	}

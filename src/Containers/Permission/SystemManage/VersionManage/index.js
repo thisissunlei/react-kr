@@ -180,7 +180,7 @@ openHighSearch = () => {
 							<TableRowColumn name="sysInfo" ></TableRowColumn>
 								<TableRowColumn type="date" name="ctime" component={(value)=>{
 			            return (
-			              <KrDate value={value} />
+			              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
 			            )
 			          }}> </TableRowColumn>
 								<TableRowColumn name="remark" component={(value)=>{
