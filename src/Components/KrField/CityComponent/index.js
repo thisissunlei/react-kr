@@ -178,7 +178,6 @@ export default class CityComponent extends React.Component {
 			showCity:false
 		});
 		let {onSubmit} = this.props;
-		console.log(city,"====>")
 		onSubmit && onSubmit(thirdId,secondId,city);
 
 	}

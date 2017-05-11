@@ -77,7 +77,6 @@ export default class DataPermission extends React.Component{
 			})
 		}
 		list[index] = item;
-		console.log(list[index]);
 		_this.setState({
 			cityList:list,
 		})
@@ -139,8 +138,6 @@ export default class DataPermission extends React.Component{
 				}
 			})
 		})
-		console.log("idList",idList);
-		console.log(detail.id);
 		Store.dispatch(Actions.callAPI('editUserCommunity',{},{
 			id:detail.id,
 			communityIds:idList
