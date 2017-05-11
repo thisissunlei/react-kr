@@ -49,11 +49,13 @@ const More = ({...props})=>{
 
 
 const MorePerson = ({...props})=>{
+	let {person}=props;
 	return (
 		<div className="u-header-more-person">
 			<span className="u-header-more-icon"></span>
-			<div>
-				
+			<div className="u-header-person">
+				<div className="u-person-name"><a href=".#/permission/personalCenter">{person.nick}</a></div>
+				<div className="u-person-operation"><a href="./new/login.html">退出</a></div>
 			</div>
 		</div>
 		)
@@ -88,7 +90,8 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		var  navs = NavModel.getNavs();
 		var  sidebarNavs=NavModel.getSidebarNavs();
-		console.log('sidebarNavs---')
+		var	 person=NavModel.getUser()
+		console.log('person---',person)
 		return (
 			<div className="no-print">
 				<div className="g-header-nav">
@@ -99,7 +102,7 @@ export default class Header extends React.Component {
 					<Nav> {NavModel.items.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>))} </Nav>
 					<More NavModel={NavModel.items}/>
 					<TheBell />
-					<MorePerson />
+					<MorePerson person={person}/>
 				</div>
 				<Drawer 
 						open={NavModel.openSidebar} 
