@@ -46,6 +46,13 @@ const Demo_LiuYiHao_Detail = (location, callback) => {
   }, 'Demo_LiuYiHao_Detail')
 }
 
+const Demo_LiuYiHao_Canvas = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Demo/LiuYiHao/Canvas').default)
+  }, 'Demo_LiuYiHao_Canvas')
+}
+
+
 const Demo_ZhangChi = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Demo/ZhangChi').default)
@@ -64,6 +71,8 @@ const Demo_WuShuLin = (location, callback) => {
   }, 'Demo_WuShuLin')
 }
 
+
+
 module.exports =()=>{
 	return (
 		<Route path="demo" getComponent={Basic}>
@@ -72,7 +81,8 @@ module.exports =()=>{
 				<Route path="dongfanai" getComponent={Demo_DongFanAi}/>
 				<Route path="liuyihao" getComponent={Basic}>
 					<Route path="new" getComponent={Demo_LiuYiHao_New}/>
-					<Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
+          <Route path="detail" getComponent={Demo_LiuYiHao_Detail}/>
+					<Route path="canvas" getComponent={Demo_LiuYiHao_Canvas}/>
 				</Route>
 				<Route path="zhangchi" getComponent={Demo_ZhangChi}/>
 				<Route path="tanlinlin" getComponent={Demo_TanLinLin}/>
