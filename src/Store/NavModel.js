@@ -36,7 +36,9 @@ const ForEachMenuItem = function(childItem,router,topItem){
 				topItem.isActive = true;
 				break;
 			}
+
 		}
+		
 		childItem.menuItems = menuItems;
 	}
 
@@ -81,7 +83,6 @@ State.getSidebarNavs=action(function(){
 		menuItems = topItem.menuItems;
 	}
 
-	this.sidebarNavs=menuItems;
 	return menuItems;
 });
 

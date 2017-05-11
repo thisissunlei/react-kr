@@ -132,7 +132,7 @@ export default class Header extends React.Component {
 						drawerStyle={{zIndex:-1}} 
 						contentStyle={{width:"100%",background:'rgb(57, 68, 87)',padding:0}}
 					>
-					<SidebarNav SidebarNavDate={NavModel.sidebarNavs} />
+					<SidebarNav SidebarNavDate={sidebarNavs} />
 				</Drawer>
 			</div>
 	   );
