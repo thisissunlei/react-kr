@@ -6,70 +6,76 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
+const Envs = require(path.join(process.cwd(),'src','Configs','Envs'));
 
-const node_modules_dir = path.join(process.cwd(),'node_modules');
-
+const node_modules_dir = path.join(process.cwd(), 'node_modules');
 
 var env = process.env.NODE_ENV || 'development';
 
-console.log('=== 所在环境 ===\n',env);
+console.log('=== 所在环境 ===\n', env,Envs.test);
 
 const config = {
-	entry:{
-		development:[
-			 'webpack/hot/dev-server',
-    		'webpack/hot/only-dev-server',
+	entry: {
+		development: [
+			'webpack/hot/dev-server',
+			'webpack/hot/only-dev-server',
 		],
-		page_app:path.join(process.cwd(), '/src/Page/App/index.js'),
-		page_login:path.join(process.cwd(), '/src/Page/Login/index.js')
+		page_app: path.join(process.cwd(), '/src/Page/App/index.js'),
+		page_login: path.join(process.cwd(), '/src/Page/Login/index.js')
 	},
 	resolve: {
-		extensions: ['', '.js','.less','.png','.jpg','.svg'],
+		extensions: ['', '.js', '.less', '.png', '.jpg', '.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
-			'redux':path.join(node_modules_dir,'redux'),
-			'react-redux':path.join(node_modules_dir,'react-redux'),
-			'mobx':path.join(node_modules_dir,'mobx'),
-			'mobx-react':path.join(node_modules_dir,'mobx-react'),
-			'react-router':path.join(node_modules_dir,'react-router'),
-			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash')
+			'redux': path.join(node_modules_dir, 'redux'),
+			'react-redux': path.join(node_modules_dir, 'react-redux'),
+			'mobx': path.join(node_modules_dir, 'mobx'),
+			'mobx-react': path.join(node_modules_dir, 'mobx-react'),
+			'react-router': path.join(node_modules_dir, 'react-router'),
+			'material-ui': path.join(node_modules_dir, 'material-ui'),
+			'lodash': path.join(node_modules_dir, 'lodash')
 		},
 	},
 	devServer: {
-	  contentBase: buildPath,
-    devtool: 'eval',
-    hot: true,
-    inline: true,
-	  port: 8001,
-    outputPath: buildPath,
-  },
+		contentBase: buildPath,
+		devtool: 'eval',
+		hot: true,
+		inline: true,
+		port: 8001,
+		outputPath: buildPath,
+		proxy: {
+			'/api': {
+				target: Envs[process.env.NODE_ENV],
+				changeOrigin: true
+			}
+		}
+	},
 	externals: {
-		React:true,
+		React: true,
 	},
 	devtool: 'eval',
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].js',
 		chunkFilename: 'scripts/[name].[chunkhash:5].js',
-		publicPath:"/"
+		publicPath: "/"
 	},
-	noParse:['/node_modules/'],
-	plugins:[
+	noParse: ['/node_modules/'],
+	plugins: [
 		new CleanWebpackPlugin([path.resolve(buildPath)]),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DllReferencePlugin({
-             context:__dirname,
-          	 manifest:require(path.join(buildPath,'vendors','manifest.json')),
-           	 name:'lib'
-        }),
-        new HappyPack({
-			 id: 'jsx',
-			 threadPool: HappyPack.ThreadPool({ size: 6 }),
-   			 loaders: [ 'babel-loader?cacheDirectory=true' ],
-   			 verbose: false
-  		}),
+			context: __dirname,
+			manifest: require(path.join(buildPath, 'vendors', 'manifest.json')),
+			name: 'lib'
+		}),
+		new HappyPack({
+			id: 'jsx',
+			threadPool: HappyPack.ThreadPool({ size: 6 }),
+			loaders: ['babel-loader?cacheDirectory=true'],
+			verbose: false
+		}),
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
@@ -79,31 +85,31 @@ const config = {
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/Page/App/index.template.html',
-			inject:'body',
+			inject: 'body',
 			excludeChunks: ['page_login'],
-			hash:true,
-			cache:true,
-			showErrors:true,
+			hash: true,
+			cache: true,
+			showErrors: true,
 		}),
 		new HtmlWebpackPlugin({
 			title: '登录-氪空间后台管理系统',
 			filename: 'login.html',
 			template: './src/Page/Login/index.template.html',
 			excludeChunks: ['page_app'],
-			inject:'body',
-			hash:true,
-			cache:false,
-			showErrors:true,
+			inject: 'body',
+			hash: true,
+			cache: false,
+			showErrors: true,
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
-		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+		new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
+		new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
 		new CopyWebpackPlugin([
-			{from:path.join(process.cwd(),'public','vendors'),to:path.join(process.cwd(),'dist','vendors')}
+			{ from: path.join(process.cwd(), 'public', 'vendors'), to: path.join(process.cwd(), 'dist', 'vendors') }
 		])
 	],
 	watch: true,
-  keepalive: true,
+	keepalive: true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
@@ -123,7 +129,7 @@ const config = {
 				loaders: [
 					'happypack/loader?id=jsx'
 				],
-				include: [ path.join(process.cwd(), './src')],
+				include: [path.join(process.cwd(), './src')],
 				exclude: /(node_modules|bower_components|static|test|build|configs)/
 			},
 			{
@@ -148,27 +154,27 @@ const config = {
 			},
 			{
 				test: /\.eot/,
-				loader : 'file?prefix=font/'
+				loader: 'file?prefix=font/'
 			},
 			{
 				test: /\.woff/,
-				loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff'
+				loader: 'file?prefix=font/&limit=10000&mimetype=application/font-woff'
 			},
 			{
 				test: /\.ttf/,
-				loader : 'file?prefix=font/'
+				loader: 'file?prefix=font/'
 			},
 			{
 				test: /\.svg/,
-				loader : 'file?prefix=font/'
+				loader: 'file?prefix=font/'
 			}
 		],
 	},
 	eslint: {
-		configFile:path.join(process.cwd(),'.eslintrc'),
+		configFile: path.join(process.cwd(), '.eslintrc'),
 		failOnWarning: false,
-    failOnError: false,
-    cache: true,
+		failOnError: false,
+		cache: true,
 		hot: true,
 		historyApiFallback: true
 	},
