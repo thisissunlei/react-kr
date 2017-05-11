@@ -27,7 +27,7 @@ module.exports = [
 				},
 				{
 					primaryText: '访客列表',
-					menuCode: 'plan_table',
+					menuCode: 'visitRecord',
 					router: '/community/visitor/list'
 				},
 			]
