@@ -61,6 +61,11 @@ module.exports = [
 						router: '/operation/communityAllocation/communityStation'
 					},
 					{
+						primaryText: '预约列表',
+						menuCode: 'appointment_manage_list',
+						router: '/operation/communityAllocation/allAppointment'
+					},
+					{
 						primaryText: '平面图配置',
 						menuCode: 'communityFloorPlanList',
 						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'

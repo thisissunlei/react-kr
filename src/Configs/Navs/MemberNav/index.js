@@ -39,11 +39,7 @@ module.exports = [
 						router: '/member/memberManage/doormanage',
 						menuCode: 'doorPermission',
 					},
-					{
-						primaryText: "会议室预定",
-						router: '/member/memberManage/meetingReservation',
-						menuCode: 'doorPermission',
-					},
+					
 
 				]
 			}

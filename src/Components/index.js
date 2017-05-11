@@ -53,7 +53,7 @@ import CircleStyleTwo from './CircleStyleTwo';
 import LoadingTwo from './LoadingTwo';
 import XTable from './XTable';
 import DivTitle from './DivTitle';
-
+import Nothing from './Nothing';
 
 import {
 	Grid,
@@ -145,4 +145,5 @@ module.exports = {
 	Tooltip,
 	CircleStyleTwo,
 	LoadingTwo,
+	Nothing
 }
