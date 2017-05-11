@@ -18,7 +18,6 @@ a{
 	left:0;
 	top:0;
 	z-index:200;
-	overflow:hidden;
 	border-bottom:1px solid #eee;
 	.u-header-sidebar{
 		width:180px;
@@ -67,7 +66,7 @@ a{
 		}
 	}
 	.u-header-nav{
-		width:848px;
+		width:755px;
 		height:60px;
 		background:#fff;
 		position:absolute;
@@ -94,18 +93,29 @@ a{
 	}
 	.u-header-more{
 		color:rgba(0, 0, 0, 0.65);
-		font-size:14px;
+		font-size:16px;
 		float:right;
-	 	margin-right:100px;
+	 	margin-right:135px;
 		height:60px;
 		line-height:60px;
 		text-align:center;
-		width:35px;
+		width:88px;
+		position: relative;
+		&:hover{
+			.u-header-more-list{
+				display: inline-block;
+			}
+		}
 	}
 	.ui-bellIcon{
 		position:fixed;
 		right:70px;
 		top:20px;
+	}
+	.icon-return{
+		vertical-align: middle;
+		color:#d3d4d4;
+		margin-left: 5px;
 	}
 	.u-header-more-person{
 		width:48px;
@@ -116,17 +126,31 @@ a{
 		right:10px;
 		top:0;
 	}
+
 	.u-header-more-list{
-		width:848px;
-		height:60px;
+		width:100px;
 		background:#fff;
 		position:absolute;
-		left:300px;
-		top:65px;
+		box-shadow: 0 1px 6px #7d7d7d;
+		left:-10px;
+		top:69px;
+		border-radius: 4px;
+		display: none;
+		&:after {
+		    content: '';
+		    border: 8px solid transparent;
+		    border-bottom-color: #fff;
+		    position: absolute;
+		    height: 0;
+		    width: 0;
+		    top: -16px;
+		    left: 50%;
+		    transform: translateX(-50%);
+		}
 		li{
-			min-width:88px;
-			height:60px;
-			line-height:60px;
+			min-width:100px;
+			height:50px !important;
+			line-height:50px;
 			display:inline-block;
 			text-align:center;
 			cursor: pointer;

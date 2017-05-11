@@ -31,10 +31,10 @@ const NavItem = ({...props})=>{
 
 const More = ({...props})=>{
 	let {NavModel}=props;
-	var navs=NavModel.slice(9);
+	var navs=NavModel.slice(8);
 	return (
 		<div className="u-header-more">
-			<span className="u-header-more-title">更多</span>
+			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
 			<ul className="u-header-more-list">
 				{navs.map((item,index)=>{
 					return(
@@ -78,7 +78,6 @@ export default class Header extends React.Component {
 
 	render() {
 		const {NavModel} = this.props;
-		//let {sidebarNavs}=this.state;
 		var  navs = NavModel.getNavs();
 		var  sidebarNavs=NavModel.getSidebarNavs();
 		console.log('sidebarNavs---')
