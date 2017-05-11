@@ -51,8 +51,8 @@ const config = {
 	devtool: 'eval',
 	output: {
 		path: buildPath,
-		filename: 'scripts/[name].js',
-		chunkFilename: 'scripts/[name].[chunkhash:5].js',
+		filename: '/scripts/[name].js',
+		chunkFilename: '/scripts/[name].[chunkhash:5].js',
 		publicPath:"/"
 	},
 	noParse:['/node_modules/'],

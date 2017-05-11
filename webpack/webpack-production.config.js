@@ -34,8 +34,8 @@ const config = {
 	output: {
 		publicPath: "/new",
 		path: buildPath,
-		filename: 'scripts/[name].[chunkhash].js',
-		chunkFilename: 'scripts/[name].[chunkhash:5].js',
+		filename: '/scripts/[name].[chunkhash].js',
+		chunkFilename: '/scripts/[name].[chunkhash:5].js',
 	},
 	externals: {
 		React: true
