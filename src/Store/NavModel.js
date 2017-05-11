@@ -20,7 +20,7 @@ const ForEachMenuItem = function(childItem,router,topItem){
 	if(childItem.hasOwnProperty('router') && childItem.router === router){
 		childItem.isActive = true;
 		topItem.isActive = true;
-		return childItem;
+		//return childItem;
 	}else{
 		childItem.isActive = false;
 	}
@@ -34,7 +34,7 @@ const ForEachMenuItem = function(childItem,router,topItem){
 			if(item.isActive){
 				childItem.isActive = true;
 				topItem.isActive = true;
-				break;
+				//break;
 			}
 
 		}
