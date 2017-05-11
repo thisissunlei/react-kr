@@ -3,22 +3,12 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions, Store} from 'kr/Redux';
 import {
     KrField,
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-    TableFooter,
     Button,
     ButtonGroup,
-    Section,
     Grid,
     Row,
     Col,
     Dialog,
-    ListGroup,
-    ListGroupItem
 } from 'kr-ui';
 import {reduxForm, formValueSelector, change} from 'redux-form';
 class Createdialog extends Component {

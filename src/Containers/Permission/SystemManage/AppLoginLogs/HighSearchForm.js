@@ -11,8 +11,6 @@ import {
 	Row,
 	Col,
 	Button,
-	ListGroup,
-	ListGroupItem,
 	SearchForms,
 	ButtonGroup
 } from 'kr-ui';

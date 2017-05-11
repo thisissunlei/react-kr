@@ -4,16 +4,7 @@ import {
 } from "kr/Utils";
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
 	KrDate,
-	ListGroupItem,
-	SearchForms,
-	ButtonGroup,
-	CircleStyleTwo
 } from 'kr-ui';
 export default class Viewdialog extends React.Component {
 
