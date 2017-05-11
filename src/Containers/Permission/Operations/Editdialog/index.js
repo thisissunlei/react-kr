@@ -15,7 +15,7 @@ import {
 	Button,
 	Row,
 	Col,
-	
+	Tooltip,
 	ButtonGroup
 } from 'kr-ui';
 import './index.less';
@@ -43,7 +43,6 @@ class Editdialog extends React.Component {
 
 		}
 		this.getModuleList();
-		this.getAllController();
 		this.getResourcesData();
 	}
 
@@ -155,21 +154,21 @@ class Editdialog extends React.Component {
 			ControllerId: idlist,
 		})
 	}
-	getAllController = () => {
-		var _this = this;
-		Http.request('getAllController', {}, {}).then(function(response) {
-			var ControllerList = response.controllerList.map((item, index) => {
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			})
-			_this.setState({
-				ControllerList: ControllerList
-			})
-		}).catch(function(err) {
-
-		});
-	}
+	// getAllController = () => {
+	// 	var _this = this;
+	// 	Http.request('getAllController', {}, {}).then(function(response) {
+	// 		var ControllerList = response.controllerList.map((item, index) => {
+	// 			item.value = item.id;
+	// 			item.label = item.name;
+	// 			return item;
+	// 		})
+	// 		_this.setState({
+	// 			ControllerList: ControllerList
+	// 		})
+	// 	}).catch(function(err) {
+	//
+	// 	});
+	// }
 	getModuleList = () => {
 		let {
 			Params
@@ -338,11 +337,19 @@ class Editdialog extends React.Component {
 		} = this.state;
 		var list;
 		if (ControllerRender.length > 0) {
-			list = ControllerRender.map((item, index) => {
-				return (
-					<div className="u-add-list" key={index}>{item.controller}<span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
-				)
-			})
+				list = ControllerRender.map((item, index) => {
+					console.log(item.controller.length);
+					if (item.controller.length>67) {
+						return (
+
+							<div className="u-add-list" key={index}>{`...${item.controller.slice(-66)}`}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+						)
+					}else {
+						return (
+							<div className="u-add-list" key={index}>{item.controller}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+						)
+					}
+				})
 		}
 		return list;
 	}
@@ -379,9 +386,13 @@ class Editdialog extends React.Component {
 		} = this.state;
 		return (
 			<div className="g-operations-create">
-				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+					<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
+					<div className="u-operations-edit-title">
+						<span>操作项编辑</span>
+					</div>
 					<KrField
-							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
+							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="name" type="text"
 							component="input" label="名称"
 							requireLabel={true}
@@ -390,7 +401,7 @@ class Editdialog extends React.Component {
 							inline={true}
 					/>
 					<KrField
-							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
+							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="code" type="text"
 							component="labelText" label="编号"
 							requireLabel={true}
@@ -398,37 +409,37 @@ class Editdialog extends React.Component {
 							inline={true}
 							value={detail.code}
 					/>
-					<KrField 
-							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}  
-							name="type" 
-							component="group" 
-							label="类型" 
-							inline={true} 
+					<KrField
+							style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
+							name="type"
+							component="group"
+							label="类型"
+							inline={true}
 							requireLabel={true}
 					>
-	                	<KrField 
-	                			name="type" 
-	                			label="菜单" 
-	                			type="radio" 
-	                			value="MENU" 
+	                	<KrField
+	                			name="type"
+	                			label="菜单"
+	                			type="radio"
+	                			value="MENU"
 	                			checked={true}
 	                	/>
-	               		<KrField 
-	               				name="type" 
-	               				label="操作" 
-	               				type="radio" 
-	               				value="OPERATION" 
+	               		<KrField
+	               				name="type"
+	               				label="操作"
+	               				type="radio"
+	               				value="OPERATION"
 	               		/>
 	              	</KrField>
 					<div className="u-operations">
-						<KrField 
-								name="module"  
-								style={{width:220,marginLeft:40}}  
-								component="select" 
-								label="模块"  
-								options={ModuleList} 
-								inline={true}  
-								requireLabel={true} 
+						<KrField
+								name="module"
+								style={{width:220,marginLeft:40}}
+								component="select"
+								label="模块"
+								options={ModuleList}
+								inline={true}
+								requireLabel={true}
 								onChange={this.onSelect}
 						/>
 						{childModule.length>0?this.renderModule():''}
@@ -436,22 +447,22 @@ class Editdialog extends React.Component {
 					</div>
 					<div className="u-method">
 						<div className="u-method-title">
-							<span className="require-label">*</span>方法配置
+							<span className="require-label-method">*</span>方法
 						</div>
 						<div className="u-method-content u-method-contentE">
-							<KrField 
-									name="controller"  
-									style={{width:600,marginLeft:70}}  
-									component="searchMethod" 
-									label=""  
-									options={ControllerList} 
-									inline={true}  
+							<KrField
+									name="controller"
+									style={{width:300,marginLeft:70}}
+									component="searchMethod"
+									label=""
+									options={ControllerList}
+									inline={true}
 									onChange={this.onSelectController}
 							/>
-							<Button 
-									label="Add" 
-									className="u-method-add" 
-									height={34} 
+							<Button
+									label="Add"
+									className="u-method-add"
+									height={34}
 									onTouchTap={this.controllerAdd}
 							/>
 						</div>
@@ -460,12 +471,12 @@ class Editdialog extends React.Component {
 						</div>
 					</div>
 					<Row style={{marginTop:30,marginBottom:15}}>
-					<Col md={12} align="center"> 
+					<Col md={12} align="center">
 						<ButtonGroup>
 							<div  className='ui-btn-center'><Button  label="确定" type="submit"   height={34} width={90}/></div>
 							<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
 						</ButtonGroup>
-						
+
 					 </Col>
 					 </Row>
 				</form>

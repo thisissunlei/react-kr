@@ -225,7 +225,7 @@ class Editdialog extends React.Component {
 							name="name" 
 							type="text"
 							component="input" 
-							label="姓名"
+							label="名称"
 							requireLabel={true}
 							requiredValue={true}
 							inline={false}
@@ -233,7 +233,7 @@ class Editdialog extends React.Component {
 					<KrField
 							style={{width:252,marginLeft:50,marginBottom:16}}
 							component="labelText" 
-							label="编号"
+							label="编码"
 							value={detail.code}
 							inline={false}
 					/>
