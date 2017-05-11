@@ -2,19 +2,10 @@
 import React from 'react';
 
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import {
 	Http,
 	DateFormat,
 } from "kr/Utils";
 
-import {
-	reduxForm,
-	formValueSelector,
-	change
-} from 'redux-form';
 import {
 	KrField,
 	Table,
@@ -31,10 +22,7 @@ import {
 	Grid,
 	Row,
 	Col,
-	ListGroupItem,
-	ListGroup,
 	Dialog,
-	SearchForms,
 	KrDate,
 	Message
 } from 'kr-ui';
@@ -103,42 +91,42 @@ openHighSearch = () => {
 			openViewDialog: !this.state.openViewDialog
 		})
 	}
-	// openCreateDialog = () => {
-	// 	this.setState({
-	// 		openCreateDialog: !this.state.openCreateDialog
-	// 	})
-	// }
-	// openEditDialog = () => {
-	// 	this.setState({
-	// 		openEditDialog: !this.state.openEditDialog
-	// 	})
-	// }
-	// onCreatSubmit = (params) => {
-	// 	var _this = this;
-	// 	Http.request('save-version', {}, params).then(function(response) {
-	// 		_this.openCreateDialog();
-	// 		Message.success('新建成功');
-	// 		window.setTimeout(function() {
-	// 			window.location.reload();
-	// 		}, 800);
-	// 	}).catch(function(err) {
-	// 		Message.error(err.message)
-	// 	});
-	//
-	// }
-	// onEditSubmit = (params) => {
-	// 	var _this = this;
-	// 	params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
-	// 	Http.request('save-version', {}, params).then(function(response) {
-	// 		_this.openEditDialog();
-	// 		Message.success('修改成功');
-	// 		window.setTimeout(function() {
-	// 			window.location.reload();
-	// 		}, 800);
-	// 	}).catch(function(err) {
-	// 		Message.error(err.message)
-	// 	});
-	// }
+	openCreateDialog = () => {
+		this.setState({
+			openCreateDialog: !this.state.openCreateDialog
+		})
+	}
+	openEditDialog = () => {
+		this.setState({
+			openEditDialog: !this.state.openEditDialog
+		})
+	}
+	onCreatSubmit = (params) => {
+		var _this = this;
+		Http.request('save-version', {}, params).then(function(response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
+		}).catch(function(err) {
+			Message.error(err.message)
+		});
+
+	}
+	onEditSubmit = (params) => {
+		var _this = this;
+		params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
+		Http.request('save-version', {}, params).then(function(response) {
+			_this.openEditDialog();
+			Message.success('修改成功');
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
+		}).catch(function(err) {
+			Message.error(err.message)
+		});
+	}
 	render() {
 		let {itemDetail} = this.state;
 
@@ -217,7 +205,6 @@ openHighSearch = () => {
       <TableFooter></TableFooter>
       </Table>
 				</Section>
-				{/*
 					<Dialog
 						title="高级查询"
 						modal={true}
@@ -260,7 +247,6 @@ openHighSearch = () => {
 					 <Editdialog detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 
 					</Drawer>
-				*/}
 
 			</div>
 		);
