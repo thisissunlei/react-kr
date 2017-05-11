@@ -49,7 +49,15 @@ const More = ({...props})=>{
 
 
 const MorePerson = ({...props})=>{
-	return <span className="u-header-more-person"></span>
+	return (
+		<div className="u-header-more-person">
+			<span className="u-header-more-icon"></span>
+			<div>
+				
+			</div>
+		</div>
+		)
+	
 }
 
 
