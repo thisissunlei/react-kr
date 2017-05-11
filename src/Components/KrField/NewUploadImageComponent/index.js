@@ -283,6 +283,7 @@ export default class UploadImageComponent extends Component {
 	                         	_this.refs.inputImg.value ="";
 	 							            _this.refs.inputImgNew.value ="";
 	 							            _this.refs.uploadImage.src="";
+
 	                          	_this.setState({
 												errorHide: false,
 												errorTip:"图片尺寸不符合要求",
@@ -306,6 +307,7 @@ export default class UploadImageComponent extends Component {
 														_this.refs.inputImg.value ="";
 														_this.refs.inputImgNew.value ="";
 														_this.refs.uploadImage.src="";
+														
 														_this.setState({
 															errorHide: false,
 															errorTip:"图片尺寸不符合要求",
