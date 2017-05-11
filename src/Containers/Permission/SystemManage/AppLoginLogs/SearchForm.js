@@ -2,17 +2,8 @@ import React from 'react';
 import {
 	reduxForm,
 } from 'redux-form';
+
 import {
-	Http
-} from "kr/Utils";
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ListGroup,
-	ListGroupItem,
 	SearchForms
 } from 'kr-ui';
 import './index.less';
@@ -75,5 +66,5 @@ class SearchForm extends React.Component {
 
 
 export default reduxForm({
-	form: 'searchForm1'
+	form: 'searchForm'
 })(SearchForm);

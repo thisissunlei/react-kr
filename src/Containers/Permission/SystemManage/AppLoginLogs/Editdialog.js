@@ -1,29 +1,21 @@
-import React, {Component} from 'react';
+
+import React from 'react';
+
 import {Actions, Store} from 'kr/Redux';
 import {
 	Http
 } from "kr/Utils";
 import {
     KrField,
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-    TableFooter,
     Button,
     ButtonGroup,
-    Section,
     Grid,
     Row,
     Col,
     Dialog,
-    ListGroup,
-    ListGroupItem
 } from 'kr-ui';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
-class Editdialog extends Component {
+class Editdialog extends React.Component {
     static PropTypes = {
         detail: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
