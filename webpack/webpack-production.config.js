@@ -22,7 +22,7 @@ const config = {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
 			'redux':path.join(node_modules_dir,'redux'),
-			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux/dist/react-redux.min'),
 			'mobx':path.join(node_modules_dir,'mobx'),
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
@@ -61,7 +61,6 @@ const config = {
 			cache: true
 		}),
 
-
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -72,8 +71,8 @@ const config = {
 				comments: false,
 			},
 		}),
-
-		new webpack.optimize.DedupePlugin(),
+		//bug apply errors 
+		//new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
 			minSizeReduce: 1.5,
