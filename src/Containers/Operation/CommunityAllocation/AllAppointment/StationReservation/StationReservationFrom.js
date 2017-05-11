@@ -138,7 +138,7 @@ class StationReservationFrom extends React.Component {
 	  	return(
 			<div className = "station-reservation-from" >
 			    <form >
-				<div className='m-contract'>
+				<div className='m-contract' style = {{height:56}}>
 					<KrField 
 					grid={1/2}  
 					style={{width:"330px",float:"left",marginTop:"4px",}} 
