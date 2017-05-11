@@ -46,7 +46,7 @@ const config = {
 	proxy: {
 			'/api': {
 				target: Envs[process.env.NODE_ENV],
-				changeOrigin: true
+				secure: false
 			}
 		}
   },
