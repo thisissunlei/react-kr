@@ -34,8 +34,8 @@ const config = {
 	output: {
 		publicPath: "/new",
 		path: buildPath,
-		filename: '/scripts/[name].[chunkhash].js',
-		chunkFilename: '/scripts/[name].[chunkhash:5].js',
+		filename: 'scripts/[name].[chunkhash].js',
+		chunkFilename: 'scripts/[name].[chunkhash:5].js',
 	},
 	externals: {
 		React: true
@@ -90,7 +90,6 @@ const config = {
 		new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
 		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
-			publicPath: '/',
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/Page/App/index.template.html',
