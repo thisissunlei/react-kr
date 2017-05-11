@@ -184,7 +184,7 @@ export default class Timeline extends React.Component {
                     <span>{data.communityName}</span>
                     <span>{data.name}</span>
                     <span>{data.floor+"楼"}</span>
-                    <span>{data.capacity+"座位"}</span>
+                    <span>{data.capacity+"人"}</span>
                     {this.equipment()}
                     
                 </div>

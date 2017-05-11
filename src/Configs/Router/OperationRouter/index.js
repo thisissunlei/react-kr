@@ -300,12 +300,7 @@ const Operation_CommunityAllocation_CommunityMeetingRoomDetail= (location, callb
 	}, 'Operation_CommunityAllocation_CommunityMeetingRoomDetail')
 }
 
-{/*所有预约*/}
-const Operation_CommunityAllocation_AllAppointment= (location, callback) => {
-	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/CommunityAllocation/AllAppointment').default)
-	}, 'Operation_CommunityAllocation_AllAppointment')
-}
+
 
 {/*代码分类*/}
 const Operation_CommunityAllocation_CodeClassification= (location, callback) => {
@@ -341,8 +336,6 @@ module.exports =()=>{
 		<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
 		{/*工位列表*/}
 		<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
-		{/*所有预约*/}
-		<Route path="allAppointment" getComponent={Operation_CommunityAllocation_AllAppointment}/>
 		{/*会议室列表选择社区*/}
 		<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
 		{/*会议室列表*/}

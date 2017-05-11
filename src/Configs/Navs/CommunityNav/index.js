@@ -15,6 +15,11 @@ module.exports = [
 				menuCode: 'plan_table',
 				router: '/community/communityManage/detail',
 			},
+			{
+						primaryText: '预约列表',
+						menuCode: 'appointment_manage_list',
+						router: '/community/communityManage/allAppointment'
+					},
 				{
 					primaryText: '访客记录',
 					menuCode: 'sysVisitRecord',
