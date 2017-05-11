@@ -101,42 +101,42 @@ openHighSearch = () => {
 			openViewDialog: !this.state.openViewDialog
 		})
 	}
-	openCreateDialog = () => {
-		this.setState({
-			openCreateDialog: !this.state.openCreateDialog
-		})
-	}
-	openEditDialog = () => {
-		this.setState({
-			openEditDialog: !this.state.openEditDialog
-		})
-	}
-	onCreatSubmit = (params) => {
-		var _this = this;
-		Http.request('save-version', {}, params).then(function(response) {
-			_this.openCreateDialog();
-			Message.success('新建成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
-
-	}
-	onEditSubmit = (params) => {
-		var _this = this;
-		params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
-		Http.request('save-version', {}, params).then(function(response) {
-			_this.openEditDialog();
-			Message.success('修改成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
-	}
+	// openCreateDialog = () => {
+	// 	this.setState({
+	// 		openCreateDialog: !this.state.openCreateDialog
+	// 	})
+	// }
+	// openEditDialog = () => {
+	// 	this.setState({
+	// 		openEditDialog: !this.state.openEditDialog
+	// 	})
+	// }
+	// onCreatSubmit = (params) => {
+	// 	var _this = this;
+	// 	Http.request('save-version', {}, params).then(function(response) {
+	// 		_this.openCreateDialog();
+	// 		Message.success('新建成功');
+	// 		window.setTimeout(function() {
+	// 			window.location.reload();
+	// 		}, 800);
+	// 	}).catch(function(err) {
+	// 		Message.error(err.message)
+	// 	});
+	//
+	// }
+	// onEditSubmit = (params) => {
+	// 	var _this = this;
+	// 	params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
+	// 	Http.request('save-version', {}, params).then(function(response) {
+	// 		_this.openEditDialog();
+	// 		Message.success('修改成功');
+	// 		window.setTimeout(function() {
+	// 			window.location.reload();
+	// 		}, 800);
+	// 	}).catch(function(err) {
+	// 		Message.error(err.message)
+	// 	});
+	// }
 	render() {
 		let {itemDetail} = this.state;
 
