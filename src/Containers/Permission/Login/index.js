@@ -565,13 +565,18 @@ class Login extends Component {
 												<input type="text" />
 											</li>
 											 <li className="loginName">
+												 <div className="outer-name">
+												 	<span className="pre-name">
 
-												 <input
-														 type='text'
-														 name="loginName"
-														 ref="loginName"
-														 placeholder="请输入手机号或者邮箱"
-													/>
+												 	</span>
+													<input
+ 														 type='text'
+ 														 name="loginName"
+ 														 ref="loginName"
+ 														 placeholder="请输入手机号或者邮箱"
+ 													/>
+												 </div>
+
 												{ this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>}
 												</li>
                 				{/*
@@ -585,12 +590,18 @@ class Login extends Component {
  												<input type="text" />
  												</li>
 											 <li className="loginPwd">
-												 <input
-														 type='password'
-														 name="loginPwds"
-														 ref="loginPwds"
-														 placeholder="请输入密码"
-													/>
+												 <div className="outer-pwd">
+													 <span className="pre-loginpwd">
+
+													 </span>
+													 <input
+													 		type='password'
+													 		name="loginPwds"
+													 		ref="loginPwds"
+													 		placeholder="请输入密码"
+													  />
+												 </div>
+
 												{ this.state.nonePwd && <span className="redErr">请输入密码</span>}
 												</li>
 											 { this.state.errThree &&
