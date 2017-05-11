@@ -143,10 +143,18 @@ class EquipmentList  extends React.Component{
 
    }
    //提交新建
-	onSubmit = (params) =>{
+	onSubmit = (params,type) =>{
 		let {id} = this.state;
 		let _this = this;
-		params.id = id;
+    if(type == "edit"){
+      params.id = id;
+      console.log(params,">>>>")
+    }else{
+      params.id = "";
+      console.log(params,"LLLLLLL")
+    }
+    // console.log(params,"LLLLLLL")
+
 		Http.request('equipment-submit',params).then(function(response) {
       _this.closeNewEquipment();
 			_this.closeEditEquipment();
