@@ -1,4 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+
 import React from 'react';
 
 import {
@@ -44,6 +44,8 @@ import HighSearchForm from './HighSearchForm';
 import Createdialog from './Createdialog.js';
 import Editdialog from './Editdialog.js';
 import Viewdialog from './Viewdialog.js';
+
+
 export default class AppLoginLogs extends React.Component {
 
 	constructor(props, context) {
