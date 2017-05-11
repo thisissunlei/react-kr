@@ -164,7 +164,6 @@ function getUrl(path, params = {},mode = false) {
       })
       .catch(function(err){
         if(err == 'TypeError: Failed to fetch'){
-            Debug.log('后台接口404,请联系后台开发人员');
             return ;
         }
         reject(err)
