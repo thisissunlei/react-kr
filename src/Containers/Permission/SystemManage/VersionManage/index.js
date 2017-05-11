@@ -89,7 +89,7 @@ openHighSearch = () => {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				version: form.content
+				phone: form.content
 			}
 		})
 	}
