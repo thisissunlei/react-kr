@@ -17,10 +17,19 @@ export default class Canvas extends React.Component {
 
 	canvasClick = (event) =>{
 		//event.pageX获取鼠标相对页面的位置
-		console.log(event.clientX,event.screenX,event.target.offsetLeft,">>>>>")
+		console.log(event);
+		console.log(event.pageX,event.clientX,event.screenX,event.target.offsetLeft,">>>>>")
 
 	}
-
+	getOffsetTop = (obj) =>{
+		 var tmp = obj.offsetTop;
+		 var val = obj.offsetParent;
+		 while(val != null){
+			tmp += val.offsetTop;
+			val = val.offsetParent;
+		 }
+		 return tmp;
+	}
 
 	render() {
 		return (
