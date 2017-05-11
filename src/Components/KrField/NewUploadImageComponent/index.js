@@ -261,7 +261,9 @@ export default class UploadImageComponent extends Component {
 												 if(sizePhoto){
 													 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 													 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
-													 if(width/height==realWidth/realHeight){
+													 var standard = Math.floor(realWidth/realHeight);
+													 var proportion = width/height;
+													 if(proportion > standard && proportion < standard+1){
 															 if(xhrfile.response.data instanceof Array){
 																 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
 																 const {input}=_this.props;
@@ -281,6 +283,7 @@ export default class UploadImageComponent extends Component {
 	                         	_this.refs.inputImg.value ="";
 	 							            _this.refs.inputImgNew.value ="";
 	 							            _this.refs.uploadImage.src="";
+
 	                          	_this.setState({
 												errorHide: false,
 												errorTip:"图片尺寸不符合要求",
@@ -304,6 +307,7 @@ export default class UploadImageComponent extends Component {
 														_this.refs.inputImg.value ="";
 														_this.refs.inputImgNew.value ="";
 														_this.refs.uploadImage.src="";
+														
 														_this.setState({
 															errorHide: false,
 															errorTip:"图片尺寸不符合要求",
