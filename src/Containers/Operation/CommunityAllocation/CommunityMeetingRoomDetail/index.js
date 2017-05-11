@@ -118,6 +118,40 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
+	 params = Object.assign({},params);
+	 //亮点开始
+	 var maskList=[];
+	 if(params.maskStation){
+		params.maskStation.map((item)=>{
+				 if(!item.list){
+					 return ;
+			 }
+				maskList.push(item.list);
+		});
+	}
+	 params.activeTypes=maskList;
+
+	 if(params.spaceType=='BOARDROOM'){
+		 if(params.orderStartTimeStr&&params.orderEndTimeStr){
+			 if(params.orderStartTimeStr>params.orderEndTimeStr){
+				 Message.error('预定开始时间不能大于预定结束时间');
+				 return ;
+			 }
+		}else if(params.orderStartTimeStr&&!params.orderEndTimeStr){
+			Message.error('请输入预定结束时间');
+			return ;
+		}else if(!params.orderStartTimeStr&&params.orderEndTimeStr){
+			Message.error('请输入预定开始时间');
+			return ;
+		}else{
+			Message.error('请输入预定时间段');
+			return ;
+		}
+	 }
+
+	 delete params.orderEndTime;
+	 delete params.orderStartTime;
+	 delete params.maskStation;
    this.props.CommunityMeetingModel.stationSubmit(params);
  }
 

@@ -1,5 +1,4 @@
 
-
 import { default as List} from './List';
 import { default as Setting} from './Setting';
 import { default as Card} from './Card';
@@ -10,6 +9,5 @@ module.exports = {
   	Setting,
 	Detail,
 	Card,
-	DoorManage
-
+	DoorManage,
 }

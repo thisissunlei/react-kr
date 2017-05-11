@@ -39,6 +39,7 @@ module.exports = [
 						router: '/member/memberManage/doormanage',
 						menuCode: 'doorPermission',
 					},
+					
 
 				]
 			}

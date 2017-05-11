@@ -55,8 +55,9 @@ class CommunityList  extends React.Component{
       photoL:[],
       photoD:[],
       communityId:'',
-      communityName:'',
-
+      //communityName:'',
+      picSrc:'',
+			picId:''
     }
 	}
 
@@ -172,6 +173,10 @@ class CommunityList  extends React.Component{
             photosStr.push(images)
           })
          }
+				 if(value.picId){
+					  photosStr.push({type:'MOBILE_STATION',photoId:value.picId,first:true});
+				 }
+
 
          value.photosStr=JSON.stringify(photosStr);
 
@@ -188,6 +193,7 @@ class CommunityList  extends React.Component{
          delete value.wherefloors;
          delete value.porTypes;
          delete value.photoVOs;
+				 delete value.picId;
 
          //图片结束
 
@@ -218,13 +224,14 @@ class CommunityList  extends React.Component{
       }
        if(type=='edit'){
       	  State.searchDataHere();
-          this.ajaxSendData(itemDetail.id);    
+          this.ajaxSendData(itemDetail.id);
       }
    }
 
     //发送ajax请求函数
       ajaxSendData=(id)=>{
         var _this=this;
+				var selectHas=false;
         Http.request('communityGetEdit',{id:id}).then(function(response) {
 
           response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
@@ -234,8 +241,8 @@ class CommunityList  extends React.Component{
           Store.dispatch(initialize('editCommunityList',response));
 
 
-          Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
-          
+          Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
+
           var bright_basic=[];
           var bright_service=[];
           var bright_special=[];
@@ -260,7 +267,22 @@ class CommunityList  extends React.Component{
               delete item.photoUrl;
               photo_Detail.push(item);
             }
+						if(item.type=='MOBILE_STATION'){
+							selectHas=true;
+              _this.setState({
+								picSrc:item.photoUrl,
+								picId:item.photoId
+							})
+						}
           })
+
+					if(response.photoVOs.length==0||!selectHas){
+						_this.setState({
+							picSrc:'',
+							picId:''
+						})
+					}
+
 
 
           _this.setState({
@@ -271,7 +293,7 @@ class CommunityList  extends React.Component{
             photoL:photo_List,
             photoD:photo_Detail,
             communityId:response.id,
-            communityName:response.name,
+            //communityName:response.name,
             cityData:`${response.provinceName}/${response.cityName}/${response.countyName}`
           })
 
@@ -317,7 +339,7 @@ class CommunityList  extends React.Component{
             Store.dispatch(change('editCommunityList','portalShow','0'));
           }
 
-          State.switchEditList(); 
+          State.switchEditList();
 
         }).catch(function(err) {
           Message.error(err.message);
@@ -337,7 +359,7 @@ class CommunityList  extends React.Component{
 	openSearchUpperDialog=()=>{
 	  State.searchDataHere();
       var params={
-       opened:'',
+      opened:'',
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',
@@ -425,7 +447,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,communityName}=this.state;
+    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,picSrc,picId}=this.state;
 
 		return(
 
@@ -535,7 +557,9 @@ class CommunityList  extends React.Component{
                 photoL={photoL}
                 photoD={photoD}
                 communityId={communityId}
-                communityName={communityName}
+                //communityName={communityName}
+								picSrc={picSrc}
+								picId={picId}
 						/>
 
 		            </Drawer>

@@ -18,6 +18,8 @@ module.exports =()=>{
 				<Route path="dongfanai" component={Demo.DongFanAi}/>
 				<Route path="liuyihao" component={Basic}>
 						<Route path="new" component={Demo.LiuYiHao.New}/>
+						<Route path="detail" component={Demo.LiuYiHao.Detail}/>
+						<Route path="floorMap" component={Demo.LiuYiHao.FloorMap}/>
 						<Route path="PlanMap" component={Demo.LiuYiHao.PlanMap}/>
 				</Route>
 				<Route path="zhangchi" component={Demo.ZhangChi}/>

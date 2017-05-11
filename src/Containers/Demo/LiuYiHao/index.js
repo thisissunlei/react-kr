@@ -1,7 +1,9 @@
 import { default as New } from './New';
-import { default as PlanMap } from './PlanMap';
+import { default as Detail } from './Detail';
+import { default as FloorMap } from './FloorMap';
 
 module.exports = {
 	New,
-	PlanMap
-};
+	Detail,
+	FloorMap
+}

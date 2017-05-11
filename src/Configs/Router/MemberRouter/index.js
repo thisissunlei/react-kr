@@ -49,6 +49,8 @@ const Member_MemberManage_DoorManage = (location, callback) => {
   }, 'Member_MemberManage_DoorManage')
 }
 
+
+
 module.exports =()=>{
 	return (
     <Route path="member" getComponent={Basic}>
@@ -58,7 +60,7 @@ module.exports =()=>{
             <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>
             <Route path="setting"  getComponent={Member_MemberManage_Setting}/>
             <Route path="card"  getComponent={Member_MemberManage_Card}/>
-            <Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
+						<Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
         </Route>
     </Route>
 	);

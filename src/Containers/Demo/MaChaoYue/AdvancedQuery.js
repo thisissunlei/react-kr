@@ -1,197 +1,182 @@
-
-import React, {Component,PropTypes} from 'react';
+import React, {
+	Component
+} from 'react';
 import {
-	reduxForm,
-	change
+	Field,
+	reduxForm
 } from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
 import {
-	KrField,
-	Grid,
-	Row,
-	Button,
-	ButtonGroup,
-  ListGroup,
-  ListGroupItem,
-	Message,
-} from 'kr-ui';
-import dateFormat from 'dateformat';
-import {Http} from 'kr/Utils';
-import $ from 'jquery'
-class AdvanceSearchDateForm extends React.Component{
-	constructor(props, context) {
-		super(props, context);
-	}
-	render(){
-		return (
+	observer
+} from 'mobx-react';
+import {Notify} from 'kr-ui';
+import ReactDOM from 'react-dom';
+import './index.less';
+import {Actions,Store} from 'kr/Redux';
+import upload from "./images/upload.png";
+import State from './State';
 
-						<ListGroup style={{width:'610'}}>
-						<ListGroupItem style={{display:'block',paddingLeft:13,marginTop:-20,marginBottom:-20,color:'#333'}}><span style={{lineHeight:'58px'}}>活动时间:</span></ListGroupItem>
-							<ListGroupItem style={{padding:0}}>
-									<KrField name="leaseBegindate"  component="date" onChange={this.props.onStartChange} style={{width:'252'}} simple={true}/>
-							</ListGroupItem>
-							<ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'15',marginRight:'5'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
-							<ListGroupItem style={{padding:0}}>
-									<KrField name="leaseendTime" component="date" onChange={this.props.onEndChange}  style={{width:'252'}} simple={true}/>
-							</ListGroupItem>
-						</ListGroup>
-
-		)
-	}
-}
-AdvanceSearchDateForm = reduxForm({
-	form: 'advanceSearchDateForm'
-})(AdvanceSearchDateForm);
-class NewCreateForm extends Component{
-	static DefaultPropTypes = {
-		initialValues: {
-			customerName: '',
-			communityName: '',
-			lessorAddress: '',
-			payTypeList: [],
-			paymentList: [],
-			fnaCorporationList: [],
-		}
+@observer
+export default class AdvanceSearchDateForm extends Component {
+	static defaultProps = {
 
 	}
-	 static PropTypes = {
-		 onSubmit:React.PropTypes.func,
-		 onCancel:React.PropTypes.func,
-	 }
-
-	constructor(props){
-		super(props);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
+	static PropTypes = {
+		className: React.PropTypes.string
+	}
+	constructor(props,context){
+		super(props,context);
 		this.state={
-			communityText:'',
-			companyText:'',
-			selectSourceOption:[],
-			searchForm:false,
-			searchParams:{
-
-			},
+			imgSrc:this.props.defaultUrl || '',
+			errorHide: true,
+			errorTip:'',
+			// 图片是否已经上传到界面
+			imgUpload: false,
+			timer :"",
+			operateImg :false,
+			files :{},
+			imageStatus : true
 		}
-		this.basicData();
 	}
-	 onSubmit(values){
-			let {content,filter} = this.props;
-			let {searchForm} = this.state;
-			if (!searchForm){
-				values.type = filter;
-				values.value = content;
-			}
-			if(!values.type){
-				values.type = filter;
-			}
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
-	 }
+	componentWillUnmount() {
+		this.setState({
+			files: []
+		});
+	}
+	componentDidMount() {
+		console.log(this.props.defaultUrl,upload)
 
-	 onCancel(){
-		 const {onCancel} = this.props;
-		 onCancel && onCancel();
-	 }
-	 basicData=()=>{
-	//  新增会员准备职位数据
-			let searchParamPosition = {
-				communityId:'',
-				companyId:'',
-				memberId:''
-			}
-		 let _this =this;
-		 Http.request('getMemberBasicData',searchParamPosition).then(function(response){
-			 response.jobList.forEach(function(item,index){
-				 item.value = item.id;
-				 item.label = item.jobName;
-			 });
-			 response.registerSourceList.forEach(function(item,index){
-				 item.value = item.id;
-				 item.label = item.sourceName;
-			 });
-			 _this.setState({
-				selectOption:response.jobList,
-				selectSourceOption :response.registerSourceList
+	}
+	componentWillReceiveProps(nextProps){
+	}
+	onTokenError() {
+		Notify.show([{
+			message: '初始化上传文件失败,请重新上传',
+			type: 'danger',
+		}]);
+	}
+	operationImg=()=>{
+		if(this.state.imgUpload){
+			this.setState({
+				operateImg :true
 			})
-		 }).catch(function(err){
-			 reject(err);
-		 });
-	 }
-	 city=(values)=>{
-		 Store.dispatch(change('AdvancedQueryForm','city',values));
-	 }
-	 onFilter=(search)=>{
-		 this.setState({searchForm:true});
-		 Store.dispatch(change('AdvancedQueryForm','type',search.value));
-		 Store.dispatch(change('AdvancedQueryForm','value',search.content));
-	 }
-	 onStartChange=(startTime)=>{
-		 let {searchParams}=this.state;
-			 let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
-			 let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
+		}
+	}
+	notOperateImg=()=>{
+		if(this.state.imgUpload){
+			this.setState({
+				operateImg :false
+			})
+		}
+	}
+	onTokenSuccess(form) {
+		this.setState({
+			form
+		});
+	}
+	onError=(message)=>{
+		message = message || '上传文件失败，请重新上传';
+		Notify.show([{
+			message: message,
+			type: 'danger',
+		}]);
 
-			 if(searchParams.endTime&&start>end){
-				 Message.error("结束时间要小于开始时间");
-				 return ;
-			 }
-			 Store.dispatch(change('AdvancedQueryForm','startTime',startTime));
-		 searchParams = Object.assign({}, searchParams, {startTime});
-		 this.setState({
-			 searchParams
-		 });
-	 }
-	 onEndChange=(endTime)=>{
-		 let {searchParams}=this.state;
-		 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
-		 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
-		 if(searchParams.startTime&&start>end){
-				 Message.error("结束时间要小于开始时间");
-				 return ;
-		 }
-		 Store.dispatch(change('AdvancedQueryForm','endTime',endTime));			 searchParams = Object.assign({}, searchParams, {endTime});
-		 this.setState({
-				 searchParams
-		 });
-	 }
-	render(){
-		const { error, handleSubmit, pristine,content,filter} = this.props;
-		let communityText = '';
-		let {selectOption,selectSourceOption} =this.state;
-		let options = [{
-			label: '公司名称',
-			value: 'COMP_NAME'
-		}, {
-			label: '手机号',
-			value: 'PHONE'
-		}, {
-			label: '微信',
-			value: 'WECHAT'
-		}, {
-			label: '姓名',
-			value: 'NAME'
-		}];
-		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
-				<KrField name="begin" grid={1/2} type="text" component="input"  label="活动标题" style={{width:'252px',marginRight:'33',marginBottom:5}}/>
-				<KrField name="begin" grid={1/2} type="text"  component="select" label="活动类型"  options={selectSourceOption} style={{width:'252px'}}/>
-				<KrField name="work"  component="city" label="活动地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
-				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
-				<Grid style={{margin:"20px 0 3px -10px"}}>
-					<Row>
-						<ListGroup>
-								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
-								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
-							</ListGroup>
-					</Row>
-				</Grid>
-		  </form>
+		this.setState({
+			progress: 0,
+			imgUpload: false
+		});
+	}
+	onChange=(event)=>{
+
+		let {index} = this.props;
+		let _this = this;
+        let file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+        if (file) {
+            var progress = 0;
+            var timer = window.setInterval(function() {
+                    if (progress >= 100) {
+                            window.clearInterval(timer);
+                    }
+                    progress += 10;
+                    _this.setState({
+                        progress
+                    });
+            }, 300);
+        }
+		var form = new FormData();
+		form.append('file', file);
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					var response = xhr.response.data;
+					form.append('sourceservicetoken', response.token);
+					form.append('docTypeCode', response.docTypeCode);
+					form.append('operater', response.operater);
+					_this.onTokenSuccess({
+						sourceservicetoken: response.token,
+						docTypeCode: response.docTypeCode,
+						operater: response.operater
+					});
+					var xhrfile = new XMLHttpRequest();
+					xhrfile.onreadystatechange = function() {
+						if (xhrfile.readyState === 4) {
+							var fileResponse = xhrfile.response;
+							if (xhrfile.status === 200) {
+								if (fileResponse && fileResponse.code > 0) {
+									console.log('ddddd',fileResponse)
+									_this.setState({
+										imgSrc:fileResponse.data
+									})
+									// State.stationVos[index].headerUrl = fileResponse.data;
+									let uploadUrl = _this.props.onChange;
+									uploadUrl && uploadUrl(fileResponse.data,_this.props.index)
+								} else {
+									_this.onError(fileResponse.msg);
+									return;
+								}
+							} else if (xhrfile.status == 413) {
+								_this.onError('您上传的文件过大！');
+							} else {
+								_this.onError('后台报错请联系管理员！');
+							}
+						}
+					};
+					xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
+					xhrfile.responseType = 'json';
+					xhrfile.send(form);
+				} else {
+					_this.onTokenError();
+				}
+			}
+		};
+
+		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
+		xhr.responseType = 'json';
+		xhr.send(null);
+		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
+		_this.setState({
+			imgUpload: true,
+			operateImg : false
+		});
+
+
+	}
+	render() {
+		// let {index} = this.props;
+		// let imgUrl = State.stationVos[index].headerUrl;
+		let {imgSrc} = this.state;
+		console.log('img')
+		return(
+			<div className="ui-upload-header">
+				<div className='ui-uploadimg-inner' >
+					<img className="image"  src={imgSrc || upload}/>
+					<input type='file' onChange={this.onChange} className="upload-input"/>
+				</div>
+			</div>
 		);
 	}
 }
-export default NewCreateForm = reduxForm({
-	form: 'AdvancedQueryForm',
-	// validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
-})(NewCreateForm);
