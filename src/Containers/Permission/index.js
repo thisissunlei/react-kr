@@ -52,6 +52,9 @@ import {
 import {
 	default as LoginLog
 } from './LoginLog';
+import {
+	default as SystemManage
+} from './SystemManage';
 module.exports = {
 	Home,
 	Basic,
@@ -70,5 +73,6 @@ module.exports = {
 	User,
 	UserList,
 	OperationsLogs,
-	LoginLog
+	LoginLog,
+	SystemManage,
 }

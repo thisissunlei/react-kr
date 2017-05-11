@@ -56,6 +56,23 @@ const Permission_LoginLog = (location, callback) => {
     callback(null, require('kr/Containers/Permission/LoginLog').default)
   }, 'Permission_LoginLog')
 }
+
+const Permission_SystemManage_AppLoginLogs = (location, callback) => {
+  require.ensure([], require => {
+      callback(null, require('kr/Containers/Permission/SystemManage/AppLoginLogs').default)
+  }, 'Permission_SystemManage_AppLoginLogs')
+}
+
+const Permission_SystemManage_MessageList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/SystemManage/MessageList').default)
+  }, 'Permission_SystemManage_MessageList')
+}
+const Permission_SystemManage_VersionManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/SystemManage/VersionManage').default)
+  }, 'Permission_SystemManage_VersionManage')
+}
 module.exports =()=>{
 
 	return (
@@ -80,7 +97,14 @@ module.exports =()=>{
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>
 		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
-		<Redirect from="permission" to="permission/personalCenter" />
-	</Route>
+	  <Redirect from="permission" to="permission/personalCenter" />
+    <Route path="systemManage" getComponent={Basic}>
+     <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
+      <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
+      <Route path="versionManage" getComponent={Permission_SystemManage_VersionManage}/>
+    </Route>
+	  </Route>
+
+
 	);
 };

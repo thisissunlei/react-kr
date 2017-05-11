@@ -41,6 +41,25 @@ module.exports = [
 					router: '/permission/operations',
 					menuCode: 'contractList',
 				},]
+			},{
+				primaryText: "系统管理",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: 'permission/systemManage',
+				menuCode: 'coustomerInfoList',
+				menuItems: [{
+					primaryText: '版本管理',
+					router: '/permission/systemManage/appLoginLogs',
+					menuCode: 'contractList',
+				},{
+					primaryText: '信息列表',
+					router: '/permission/systemManage/messageList',
+					menuCode: 'contractList',
+				},{
+					primaryText: 'APP登录日志',
+					router: '/permission/systemManage/versionManage',
+					menuCode: 'contractList',
+				},]
 			}
 		]
 	}
