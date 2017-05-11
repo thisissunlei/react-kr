@@ -125,7 +125,7 @@ export default class Header extends React.Component {
 						openSecondary={false} 
 						modal={false} 
 						width={180} 
-						drawerStyle={{zIndex:-1}} 
+						drawerStyle={{zIndex:-1,width:180}} 
 						contentStyle={{width:"100%",background:'rgb(57, 68, 87)',padding:0}}
 					>
 					<SidebarNav SidebarNavDate={sidebarNavs} />
