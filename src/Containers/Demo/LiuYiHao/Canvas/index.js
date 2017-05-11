@@ -10,7 +10,10 @@ export default class Canvas extends React.Component {
 		super(props, context);
 
 		this.state = {
-
+			theBox:{
+				left:0,
+				top:0,
+			}
 		}
 
 	}
@@ -26,25 +29,23 @@ export default class Canvas extends React.Component {
 		// console.log(event);
 		// console.log(event.pageX,event.clientX,event.screenX,event.target.offsetLeft,">>>>>")
 		//当前的元素
-		getCurrent(event)
-		console.log(elemY,elemX,);
+		let mouse = getCurrent(event);
+		console.log(mouse.x,mouse.y,);
 
 	}
-	getOffsetTop = (obj) =>{
 
-		 var tmp = obj.offsetTop;
-		 var val = obj.offsetParent;
-		 while(val != null){
-			tmp += val.offsetTop;
-			val = val.offsetParent;
-		 }
-		 return tmp;
-	}
 
 	render() {
-		return (
-			<canvas width = "1000" height = "1000" style = {{background:"#ccc",position:"relative"}} onMouseDown= {this.canvasClick} />
 
+		return (
+			<div>
+				<canvas width = "1000" height = "1000" style = {{background:"#ccc",position:"relative"}} onMouseDown= {this.canvasClick} />
+				<div style = {{width:300,height:300,display:'inline-block',background:"red",position:'absolute',top:30,left:1050}}>
+
+				</div>
+				<div style = {{position:'absolute',left:}}>
+				</div>
+			</div>
 		);
 	}
 }

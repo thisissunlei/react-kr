@@ -14,6 +14,7 @@ export function getOffset(obj){
 }
 export function getCurrent(elem){
   let off = getOffset(elem.target);
+  let tmp = {};
   return tmp = {
     x:elem.pageX - off.x,
     y:elem.pageY - off.y
