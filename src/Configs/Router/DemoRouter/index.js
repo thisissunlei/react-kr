@@ -39,6 +39,12 @@ const Demo_LiuYiHao_New = (location, callback) => {
   }, 'Demo_LiuYiHao_New')
 }
 
+const Demo_LiuYiHao_Detail = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Demo/LiuYiHao/Detail').default)
+  }, 'Demo_LiuYiHao_Detail')
+}
+
 const Demo_LiuYiHao_PlanMap = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Demo/LiuYiHao/PlanMap').default)
@@ -56,8 +62,6 @@ const Demo_LiuYiHao_Canvas = (location, callback) => {
     callback(null, require('kr/Containers/Demo/LiuYiHao/Canvas').default)
   }, 'Demo_LiuYiHao_Canvas')
 }
- master
-
 const Demo_ZhangChi = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Demo/ZhangChi').default)

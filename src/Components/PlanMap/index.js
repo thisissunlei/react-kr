@@ -128,6 +128,7 @@ export default  class PlanMapComponent extends React.Component {
 	render() {
 
 		return (
+			
 			<div ref="planMapWrap">
 				<canvas id="planMapCanvas"></canvas>
 			</div>
