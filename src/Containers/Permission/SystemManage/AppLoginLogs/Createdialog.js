@@ -159,8 +159,36 @@ class Createdialog extends Component {
     }
 
 }
+const validate = values => {
+
+	const errors = {}
+	if (!values.version) {
+		errors.version = '请输入版本';
+	}
+    if (!values.osType) {
+		errors.osType = '请选择设备类型';
+	}
+    if (!values.forced) {
+		errors.forced = '请选择是否强制更新';
+	}
+    if (!values.publishTime) {
+		errors.publishTime = '请选择发布时间';
+	}
+    if (!values.downUrl) {
+		errors.downUrl = '请输入下载地址';
+	}
+    if (!values.appType) {
+		errors.appType = '请选择app类型';
+	}
+    if (!values.enable) {
+		errors.enable = '请选择启用类型';
+	}
+
+	return errors
+}
 export default reduxForm({
 	form: 'createdialog',
   enableReinitialize: true,
+  validate,
 	keepDirtyOnReinitialize: true,
 })(Createdialog);
