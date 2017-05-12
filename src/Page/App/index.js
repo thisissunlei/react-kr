@@ -18,7 +18,6 @@ import MobxStore from 'kr/Store';
 import  'kr/Styles/index.less';
 
 //document.domain = "krspace.cn";
-
 injectTapEventPlugin({
 	/*
 	shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
@@ -26,7 +25,6 @@ injectTapEventPlugin({
 	}
 	*/
 });
-
 
 import * as Actions from 'kr/Redux/Actions';
 
