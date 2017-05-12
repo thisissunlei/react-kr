@@ -84,7 +84,7 @@ openHighSearch = () => {
 		let {itemDetail} = this.state;
 
 		return (
-			<div className="g-applogin-list">
+			<div className="g-version-list">
 				<Section title="APP登录日志" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
@@ -122,7 +122,21 @@ openHighSearch = () => {
           <TableRowColumn name="successfulName"></TableRowColumn>
 						<TableRowColumn name="osTypeName" ></TableRowColumn>
 	          <TableRowColumn name="appVersion"></TableRowColumn>
-							<TableRowColumn name="sysInfo" ></TableRowColumn>
+							<TableRowColumn name="sysInfo" component={(value)=>{
+			                  var styles = {
+			                    display:'block',
+			                    paddingTop:5
+			                  };
+			                  if(value.length==""){
+			                    styles.display="none"
+
+			                  }else{
+			                    styles.display="block";
+			                  }
+			                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+			                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+			                 }}>
+			        </TableRowColumn>
 								<TableRowColumn name="remark" component={(value)=>{
 			                  var styles = {
 			                    display:'block',
