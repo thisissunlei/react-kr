@@ -148,7 +148,7 @@ const APIS = {
     },
     // ---------------------->PlanMap组件接口
      'planMap': {
-       url:'/api/ /krspace-finance-web/cmt/floor-graph/select-info?communityId={communityId}&floor={floor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
+       url:'/api/krspace-finance-web/cmt/floor-graph/select-info?communityId={communityId}&floor={floor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
        method:'get'
     },
      //客户管理－获取招商人员列表---------------------->组件接口
