@@ -155,7 +155,10 @@ class Operations extends Component {
 			id: itemDetail.id
 		}).then(function(response) {
 			_this.openDeleteDialog();
-			Message.success('删除成功')
+			Message.success('删除成功');
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message)
@@ -176,7 +179,9 @@ class Operations extends Component {
 		Http.request('createResources', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.location.reload();
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -187,7 +192,9 @@ class Operations extends Component {
 		Http.request('editResources', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
-			//window.location.reload();
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
