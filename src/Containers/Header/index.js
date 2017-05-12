@@ -31,13 +31,15 @@ const More = ({...props})=>{
 	return (
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
-			<ul className="u-header-more-list">
-				{navs.map((item,index)=>{
-					return(
-						<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>
-					)
-				})}
-			</ul>
+			<div className="u-header-more-box">
+				<ul className="u-header-more-list">
+					{navs.map((item,index)=>{
+						return(
+							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>
+						)
+					})}
+				</ul>
+			</div>
 		</div>
 	)
 	
