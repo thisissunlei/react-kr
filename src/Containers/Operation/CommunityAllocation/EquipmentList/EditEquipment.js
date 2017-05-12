@@ -32,7 +32,7 @@ class EditEquipment extends Component{
 	onSubmit = (values) => {
 
 		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		onSubmit && onSubmit(values,"edit");
 	}
 
 	onCancel = () => {

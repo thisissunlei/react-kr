@@ -48,9 +48,31 @@ class AllAppointment extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(true));
 	}
   
-
+	merchants = () =>{
+		let {
+			tab,
+			initSearch
+		} = this.state;
+		tab = 'merchants';
+		initSearch='m';
+		this.setState({
+			tab,
+			initSearch
+		});
+	}
 	
-	
+	personal = () => {
+		let {
+			tab,
+			initSearch
+		} = this.state;
+		tab = 'personal';
+		initSearch='p';
+		this.setState({
+			tab,
+			initSearch
+		});
+	}
 	
 	render() {
 		let {
@@ -73,7 +95,7 @@ class AllAppointment extends React.Component {
 
 		let merchantsStyle = (tab == 'merchants'||tab=='table') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
-		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
+		
 
 		const inkBarStyle = {
 			background: '＃499df1',
@@ -87,11 +109,11 @@ class AllAppointment extends React.Component {
 			<Title value="客户列表"/>
 
 			<Tabs className="tabs">
-					<Tab label="预约会议室"  style={merchantsStyle}>
+					<Tab label="预约会议室" onActive={this.merchants} style={merchantsStyle}>
 
 							<MeetingReservation/>
 					</Tab>
-					<Tab label="预约工位"  onActive={this.personal} style={personalStyle}>
+					<Tab label="预约工位" onActive={this.personal}  style={personalStyle}>
 
 							<StationReservation />
 					</Tab>
