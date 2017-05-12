@@ -2,7 +2,7 @@ module.exports = [
 	
 	{
 		primaryText: "财务系统",
-		router: '/finance',
+		router: 'finance',
 		menuCode: 'finance',
 		menuItems: [
 			{
