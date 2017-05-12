@@ -103,8 +103,8 @@ openHighSearch = () => {
         <TableHeader>
         <TableHeaderColumn>消息类型</TableHeaderColumn>
         <TableHeaderColumn>发送结果</TableHeaderColumn>
-        <TableHeaderColumn>发送时间</TableHeaderColumn>
         <TableHeaderColumn>接收人</TableHeaderColumn>
+				<TableHeaderColumn>发送时间</TableHeaderColumn>
         <TableHeaderColumn>备注</TableHeaderColumn>
       </TableHeader>
 
@@ -113,11 +113,6 @@ openHighSearch = () => {
           <TableRowColumn name="msgTypeName" ></TableRowColumn>
 
           <TableRowColumn name="statusName"></TableRowColumn>
-          <TableRowColumn type="date" name="sendTime" component={(value)=>{
-            return (
-              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
-            )
-          }}> </TableRowColumn>
 						<TableRowColumn name="recivers" component={(value)=>{
 	                  var styles = {
 	                    display:'block',
@@ -133,6 +128,12 @@ openHighSearch = () => {
 	                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 	                 }}>
 	        </TableRowColumn>
+          <TableRowColumn type="date" name="sendTime" component={(value)=>{
+            return (
+              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+            )
+          }}> </TableRowColumn>
+					
           <TableRowColumn name="remark" component={(value)=>{
                   var styles = {
                     display:'block',

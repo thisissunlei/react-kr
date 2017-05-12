@@ -159,11 +159,11 @@ openHighSearch = () => {
         <TableHeaderColumn>设备类型</TableHeaderColumn>
         <TableHeaderColumn>下载地址</TableHeaderColumn>
         <TableHeaderColumn>是否强制更新</TableHeaderColumn>
-					<TableHeaderColumn>启用标识</TableHeaderColumn>
-						<TableHeaderColumn>发布时间</TableHeaderColumn>
-							<TableHeaderColumn>APP类型</TableHeaderColumn>
-								<TableHeaderColumn>版本升级内容</TableHeaderColumn>
-								<TableHeaderColumn>操作</TableHeaderColumn>
+		<TableHeaderColumn>启用标识</TableHeaderColumn>
+		<TableHeaderColumn>APP类型</TableHeaderColumn>
+		<TableHeaderColumn>版本升级内容</TableHeaderColumn>
+		<TableHeaderColumn>发布时间</TableHeaderColumn>
+		<TableHeaderColumn>操作</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
@@ -171,17 +171,7 @@ openHighSearch = () => {
           <TableRowColumn name="version" ></TableRowColumn>
 
           <TableRowColumn name="osTypeName"></TableRowColumn>
-						<TableRowColumn name="downUrl" ></TableRowColumn>
-
-	          <TableRowColumn name="forcedName"></TableRowColumn>
-					 <TableRowColumn name="enableName"></TableRowColumn>
-          <TableRowColumn type="date" name="publishTime" component={(value)=>{
-            return (
-              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
-            )
-          }}> </TableRowColumn>
-          <TableRowColumn name="appTypeName"></TableRowColumn>
-          <TableRowColumn name="updateInfo" component={(value)=>{
+		  <TableRowColumn name="downUrl" component={(value)=>{
                   var styles = {
                     display:'block',
                     paddingTop:5
@@ -196,6 +186,29 @@ openHighSearch = () => {
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}>
         </TableRowColumn>
+		 <TableRowColumn name="forcedName"></TableRowColumn>
+		<TableRowColumn name="enableName"></TableRowColumn>
+          <TableRowColumn name="appTypeName"></TableRowColumn>
+		<TableRowColumn name="updateInfo" component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
+
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}>
+        </TableRowColumn>
+		<TableRowColumn type="date" name="publishTime" component={(value)=>{
+            return (
+              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+            )
+          }}> </TableRowColumn>
 				<TableRowColumn>
 						<Button label="查看"  type="operation" operation="view"/>
 						<Button label="编辑"  type="operation" operation="edit"/>

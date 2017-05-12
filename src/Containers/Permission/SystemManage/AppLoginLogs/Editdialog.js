@@ -33,7 +33,7 @@ class Editdialog extends React.Component {
                 id: id
             },{}).then(function(response) {
                 _this.setState({infoList: response},function(){
-                  Store.dispatch(initialize('Editdialog', _this.state.infoList));
+                  Store.dispatch(initialize('editdialog', _this.state.infoList));
                 })
             }).catch(function(err) {});
 
@@ -63,7 +63,7 @@ class Editdialog extends React.Component {
     						 left={42}
     						 right={18}
     	 					 name="version"
-                 requireLabel={true}
+                             requireLabel={true}
     	 					 style={{marginTop:4}}
     	 					 label="系统版本"
     						 component="input"
@@ -73,7 +73,7 @@ class Editdialog extends React.Component {
     							right={69}
      						 left={4}
     			    		name="osType"
-                  requireLabel={true}
+                            requireLabel={true}
     			    		type="select"
     			    		style={{marginTop:4}}
     			    		label="设备类型"
@@ -118,7 +118,7 @@ class Editdialog extends React.Component {
                   requireLabel={true}
                   type="select"
                   style={{marginTop:4}}
-                  label="	app 类型"
+                  label="app 类型"
                   options={[
                     {label:'m_app',value:'MAPP'},
                     {label:'tv_app',value:'TVAPP'}
