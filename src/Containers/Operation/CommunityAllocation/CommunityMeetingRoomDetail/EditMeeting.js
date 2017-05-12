@@ -81,6 +81,7 @@ class EditMeeting  extends React.Component{
 			watchHouse:false,
 			//图片地址
 			picUrl:'',
+			picId:'',
 			timeStart:'',
 			timeEnd:'',
 		}
@@ -137,15 +138,16 @@ class EditMeeting  extends React.Component{
 			        deviceSpace.push(list);
 				  })
 				   _this.setState({
-				   	 listDevice:deviceSpace,
+				   	    listDevice:deviceSpace,
 						 picUrl:response.picUrl,
+						 picId:response.picId,
 						 timeStart:response.orderStartTimeStr,
 						 timeEnd:response.orderEndTimeStr,
 				   })
-				    Store.dispatch(initialize('EditMeeting',response));
+				        Store.dispatch(initialize('EditMeeting',response));
 						Store.dispatch(change('EditMeeting','maskStation',response.activeTypes.length?response.activeTypes:[{}]));
 					  response.activeTypes.map((item,index)=>{
-             Store.dispatch(change('EditMeeting','maskStation['+index+'].list',item));
+                      Store.dispatch(change('EditMeeting','maskStation['+index+'].list',item));
 					  })
 			    }).catch(function(err) {
 					Message.error(err.message);
@@ -212,7 +214,12 @@ class EditMeeting  extends React.Component{
 
      const {handleSubmit}=this.props;
 
-     let {listDevice,watchMeeting,watchHouse,picUrl,timeStart,timeEnd}=this.state;
+     let {listDevice,watchMeeting,watchHouse,picUrl,timeStart,timeEnd,picId}=this.state;
+
+	  let defaultValue={
+			picId:picId,
+            picUrl:picUrl
+	  }
 
 
     return(
@@ -317,7 +324,7 @@ class EditMeeting  extends React.Component{
 					 requestURI = '/api/krspace-finance-web/cmt/space/upload-photo/type/single'
 					 inline={false}
 					 formfile=' '
-					 defaultValue={picUrl}
+					 defaultValue={defaultValue}
 					 center='center'
 					 requireLabel={true}
 				 />}

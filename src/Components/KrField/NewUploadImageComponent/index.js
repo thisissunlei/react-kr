@@ -65,13 +65,12 @@ export default class UploadImageComponent extends Component {
 		// 	})
 		// }
 		if(nextProps.defaultValue){
-			this.setInitValue(nextProps.defaultValue);
+			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}
-
 
 	}
 
-	setInitValue(defaultValue) {
+	setInitValue(defaultValue,sizePhoto) {
 		let {input}=this.props;
 		let {
 			isInit
@@ -79,11 +78,24 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
+		
+		if(sizePhoto){
+			this.setState({
+				isInit: false,
+				imgUpload:true,
+				imgSrc:defaultValue.picUrl
+		    });
+			if(defaultValue.picId){
+                input.onChange(defaultValue.picId);
+			}
+		}else{
 			this.setState({
 				isInit: false,
 				imgUpload:true,
 				imgSrc:defaultValue
-			});
+		  });
+		}
+		
 	}
 
 	onTokenError() {
@@ -277,7 +289,7 @@ export default class UploadImageComponent extends Component {
 															 imageStatus : true,
 															 imgUpload : true,
 															 operateImg : false,
-														 });
+														    });
 
 													 }else{
 	                         	_this.refs.inputImg.value ="";
