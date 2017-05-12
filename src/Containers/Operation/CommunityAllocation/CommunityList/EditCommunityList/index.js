@@ -253,9 +253,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 	onSubmit = (values) => {
 		 let {picId}=this.state;
-		 if(!values.picId){
+		 console.log('///;;;',values.picId);
+		 /*if(!values.picId){
 			 values.picId=picId;
-		 }
+		 }*/
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
