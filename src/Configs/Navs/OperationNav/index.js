@@ -60,15 +60,21 @@ module.exports = [
 						menuCode: 'communityStationList',
 						router: '/operation/communityAllocation/communityStation'
 					},
+					
 					{
 						primaryText: '平面图配置',
-						menuCode: 'communityFloorPlanList',
+						menuCode: 'appointment_manage_list',
 						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
 					},
 					{
 						primaryText: '访客记录',
 						menuCode: 'sysVisitRecordList',
 						originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
+					},
+					{
+						primaryText: '我的地点',
+						menuCode: 'communityNotice',
+						router: '/operation/communityAllocation/myaddress'
 					}
 
 

@@ -40,7 +40,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
     {fields.map((item, index) => {
 
       return (
-        <li key={index} style={{width:600}}>
+        <li key={index} style={{width:600,listStyle:'none'}}>
        <div className="krFlied-box">
        <KrField
           style={{width:239,marginLeft:16,marginRight:3}}
@@ -87,7 +87,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1/2}
@@ -118,7 +118,7 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1}
@@ -150,7 +150,7 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1}
@@ -181,7 +181,7 @@ const renderService = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
            grid={1}
@@ -208,7 +208,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
-       <li key={index} style={{width:600}}><KrField
+       <li key={index} style={{width:600,listStyle:'none'}}><KrField
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}
@@ -270,9 +270,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
-        Message.error('开始时间不能大于结束时间');
+        Message.error('签约开始时间不能大于签约结束时间');
        return ;
      }
+		 if(values.businessBegin!=''&&values.businessEnd!=''&&values.businessEnd<values.businessBegin){
+				Message.error('营业开始时间不能大于营业结束时间');
+			 return ;
+		 }
+
+
+
 
      var flagDesk=0;
      var flagOpen=0;
@@ -334,7 +341,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
    //社区名称
    communityNameChange=(value)=>{
-     if(value==''){
+     if(value.toString().trim()==''){
        this.setState({
        communityName:'无'
      })
@@ -343,7 +350,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        communityName:value
      })
      }
-     State.communityName(value,'');
+     State.communityName(value.toString().trim(),'');
    }
 
    communityNameFocus=(value)=>{
@@ -361,7 +368,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       codeName:value
     })
 
-   	 State.communityCode(value,'');
+   	 State.communityCode(value.toString().trim(),'');
    }
 
    //社区排序
@@ -390,8 +397,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     //地图坐标
     locationMap=(value)=>{
-      var xLocation=value.split(',')[0];
-      var yLocation=value.split(',')[1];
+      var xLocation=value.split(',')[1];
+      var yLocation=value.split(',')[0];
       Store.dispatch(change('NewCommunityList','latitude',xLocation));
       Store.dispatch(change('NewCommunityList','longitude',yLocation));
     }
@@ -416,11 +423,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 	render(){
 
-
-
-
-
-       let {communityName,codeName}=this.state;
+       let {communityName,codeName,openDown,openUp}=this.state;
        var nameStyle={}
        if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
         nameStyle={
@@ -433,9 +436,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        }
 
 
-
-
-    let {openDown,openUp}=this.state;
+    let openStyle={};
+    if(openDown){
+     openStyle={
+      paddingBottom:0
+     }
+    }else{
+     openStyle={};
+    }
 
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
@@ -494,13 +502,15 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <div className="middle-round"></div>
 						</div>
 
+
+
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
 								<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
-								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:32}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
-								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:32}} component="date" requireLabel={true}/>
                                 <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>
 
@@ -509,7 +519,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
-                                
+
                                 <div style={{display:'inline-block'}} className='community-list-time'>
                                  <KrField component="selectTime" label='营业时间'  style={{width:140,zIndex:5,marginLeft:16}} name='businessBegin'/>
                                  <span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>至</span>
@@ -520,16 +530,42 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                                 <FieldArray name="bright_bright" component={renderBrights}/>
 
-                                {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-                                <div className="end-round two-round"></div></div>}
 
-						        {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
-
+                   <div className="middle-round"></div>
 						</div>
 
+          <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
+              <div className="small-cheek" style={openStyle}>
 
-                      <div style={{display:openUp?'block':'none'}}>
-						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
+
+                <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
+
+                <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
+
+               <KrField
+                    label=""
+                    name="picId"
+                    component="newuploadImage"
+                    innerstyle={{width:364,height:254,padding:16}}
+										sizePhoto
+                    photoSize={'3:2'}
+                    pictureFormat={'JPG,PNG,GIF'}
+                    pictureMemory={'300'}
+                    requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                    inline={false}
+                    formfile=' '
+                    center='center'
+                  />
+
+              {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
+                <div className="end-round two-round"></div></div>}
+               {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+
+           </div>
+
+
+          <div style={{display:openUp?'block':'none'}}>
+						<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
@@ -578,7 +614,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 						</div>
 						<div className="end-round"></div>
-                     </div>
+          </div>
 
 
 				    </div>
@@ -613,6 +649,9 @@ const validate = values =>{
     //坐标
     var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
 
+		//空格
+		let regs=/^\s*$/;
+
 
       //楼层检验
       if (!values.wherefloors || !values.wherefloors.length) {
@@ -621,7 +660,7 @@ const validate = values =>{
         const membersArrayErrors = []
         values.wherefloors.forEach((wherefloors, memberIndex) => {
           const memberErrors = {}
-          if (!wherefloors || !wherefloors.floor) {
+          if (!wherefloors || !wherefloors.floor||(wherefloors.floor&&regs.test(wherefloors.floor.toString().trim()))) {
             memberErrors.floor = '请输入所在楼层'
             membersArrayErrors[memberIndex] = memberErrors
           }
@@ -629,7 +668,7 @@ const validate = values =>{
             memberErrors.floor = '楼层为整数'
             membersArrayErrors[memberIndex] = memberErrors
           }
-          if (!wherefloors || !wherefloors.stationCount) {
+          if (!wherefloors || !wherefloors.stationCount||(wherefloors.stationCount&&regs.test(wherefloors.stationCount.toString().trim()))) {
             memberErrors.stationCount = '请输入可出租工位数'
             membersArrayErrors[memberIndex] = memberErrors
           }
@@ -691,19 +730,19 @@ const validate = values =>{
       errors.local='请填写正确的坐标格式';
     }
 
-      if(!values.name){
+      if(!values.name||(values.name&&regs.test(values.name.toString().trim()))){
         errors.name = '请填写社区名称';
       }
 
-      if(!values.code){
+      if(!values.code||(values.code&&regs.test(values.code.toString().trim()))){
         errors.code='请填写社区编码';
       }
 
-      if(!values.local){
+      if(!values.local||(values.local&&regs.test(values.local.toString().trim()))){
         errors.local='请输入社区坐标';
       }
 
-      if(!values.area){
+      if(!values.area||(values.area&&regs.test(values.area.toString().trim()))){
         errors.area='请输入社区面积';
       }
       if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
@@ -714,7 +753,7 @@ const validate = values =>{
         errors.countyId= '请填写所属区县';
       }
 
-      if (!values.address) {
+      if (!values.address||(values.address&&regs.test(values.address.toString().trim()))) {
         errors.address= '请输入详细地址';
       }
 
@@ -730,7 +769,7 @@ const validate = values =>{
     }
 
 
-			values.opened = String(values.opened);
+			//values.opened = String(values.opened);
       if (!values.opened) {
         errors.opened= '请输入社区状态';
       }
@@ -747,17 +786,31 @@ const validate = values =>{
         errors.signEndDate= '请输入签约结束时间';
       }
 
-      if (!values.stationNum) {
+      if (!values.stationNum||(values.stationNum&&regs.test(values.stationNum.toString().trim()))) {
         errors.stationNum= '请输入工位总数';
       }
 
-      if (!values.meetNum) {
+      if (!values.meetNum||(values.meetNum&&regs.test(values.meetNum.toString().trim()))) {
         errors.meetNum= '请输入会议室总数';
       }
 
-      if(!values.contract){
+      if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
         errors.contract='请输入联系方式'
       }
+      if(values.mobileStationNum&&(!numberNotZero.test(values.mobileStationNum.toString().trim())&&values.mobileStationNum!=0)){
+        errors.mobileStationNum='工位数为正整数或0'
+      }
+      if(values.mobileStationPrice&&(!numberNotZero.test(values.mobileStationPrice.toString().trim())&&values.mobileStationPrice!=0)){
+        errors.mobileStationPrice='工位单价为正整数或0'
+      }
+
+			if(values.mobileStationNum&&values.mobileStationNum.toString().trim().length>5){
+        errors.mobileStationNum='工位数最多5位'
+      }
+      if(values.mobileStationPrice&&values.mobileStationPrice.toString().trim().length>5){
+        errors.mobileStationPrice='工位单价最多5位'
+      }
+
 			/*
 			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
         errors.contract='联系方式错误'

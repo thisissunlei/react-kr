@@ -1,4 +1,4 @@
-.m-newMerchants{
+.m-newMerchants.new-meeting{
   margin-left: 42px;
   .customer-close{
       position: absolute;
@@ -40,7 +40,7 @@
       width: 42px;
       height: 42px;
       vertical-align:middle;
-      background: url(./images/contract.svg) no-repeat;
+      background: url(./images/meeting.svg) no-repeat;
       background-position: center center;
       background-size: 100% 100%;
     }
@@ -134,7 +134,7 @@
     padding-bottom:25px;
   }
   .meeting-device{
-    display:inline-block;
+    margin-right: 50px;
     .ui-group-checkbox>div{
        display:inline-block;
     }
@@ -144,4 +144,45 @@
   .renderFilter {
       width: 300px;
   }
+  .title{
+    font-size: 18px;
+  }
+}
+ .community-list-time{
+    .ui-form-controller{
+      width:110px;
+    }
+  }
+
+ .addBtn{
+  width:24px;
+  height:24px;
+  background:url(images/add.svg) no-repeat center;
+  background-size: 200% 200%;
+  display:inline-block;
+  margin-left:8px;
+  margin-right:5px;
+  margin-bottom: -5px;
+  cursor:pointer;
+}
+.minusBtn{
+  width:24px;
+  height:24px;
+  background:url(images/minus.svg) no-repeat center;
+  background-size: 200% 200%;
+  display:inline-block;
+  margin-bottom: -5px;
+  cursor:pointer;
+}
+li{
+	&:nth-child(1){
+	  .minusBtn{
+	  	display:none;
+	  }
+	}
+}
+.meeting-list{
+  .ui-new-uploadimg-box-center {
+    margin-bottom: 10px;
+ }
 }

@@ -24,18 +24,18 @@ import {
 @inject("CommunityDetailModel")
 @observer
 export default class OrderDelete extends Component{
-	
+
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		
+
 	}
 	constructor(props,context){
 		super(props,context);
 		this.onCancel=this.onCancel.bind(this);
 		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
-          
+
 		}
 	};
 	onCancel(){
@@ -52,25 +52,25 @@ export default class OrderDelete extends Component{
 		}).catch(function(err) {
 			 _this.onCancel();
 			 Message.error(err.message);
-		});	
+		});
 	}
-	
+
 	render(){
 
-		
-		
+
+
 		return(
-				
+
 				<div>
 					  <p className='m-delete'>确定删除所选订单吗？</p>
-					
+
 
 					   <Grid style={{marginTop:53}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
-									<div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"  onTouchTap={this.onSubmit}/></div>
-									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /> 
+									<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"  onTouchTap={this.onSubmit}/></div>
+									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 								</ButtonGroup>
 							</Col>
 						</Row>
@@ -78,10 +78,10 @@ export default class OrderDelete extends Component{
 
 
 				</div>
-					
-					
-				
+
+
+
 			);
 	}
-	
+
 }

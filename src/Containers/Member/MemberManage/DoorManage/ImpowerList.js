@@ -351,7 +351,7 @@ export default class FinishUploadImgForm extends React.Component{
 			<div className="upload-img-outer-box">
 				<div className="upload-img-box">
 
-					<div className="upload-img-body" style={{width:"100%"}}>
+					<div className="upload-img-body" style={{width:"100%",height: 387}}>
 
 						<Tabs
 					        failed={this.state.failed}

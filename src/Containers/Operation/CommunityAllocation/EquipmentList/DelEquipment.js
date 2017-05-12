@@ -55,8 +55,8 @@ class DelEquipment extends Component{
 		return (
 
 			<form className="m-del-equipment" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
-				<div style = {{textAlign:"center"}}>确定要删除吗？</div>
-				<Grid style={{marginTop:0,marginRight:0,marginTop:30,marginBottom:10}}>
+				<div style = {{textAlign:"center",marginTop:25}}>确定要删除吗？</div>
+				<Grid style={{marginTop:0,marginRight:0,marginTop:50,marginBottom:10}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

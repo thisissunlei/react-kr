@@ -38,6 +38,14 @@ const Operation_CommunityAllocation_CommunityList = (location, callback) => {
 	}, 'Operation_CommunityAllocation_CommunityList')
 }
 
+const Operation_CommunityAllocation_MyAddress = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/MyAddress').default)
+	}, 'Operation_CommunityAllocation_MyAddress')
+}
+
+
+
 const Operation_BasicConfig_EquipmentDefinition = (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/BasicConfig/EquipmentDefinition').default)
@@ -291,6 +299,9 @@ const Operation_CommunityAllocation_CommunityMeetingRoomDetail= (location, callb
 		callback(null, require('kr/Containers/Operation/CommunityAllocation/CommunityMeetingRoomDetail').default)
 	}, 'Operation_CommunityAllocation_CommunityMeetingRoomDetail')
 }
+
+
+
 {/*代码分类*/}
 const Operation_CommunityAllocation_CodeClassification= (location, callback) => {
 	require.ensure([], require => {
@@ -317,23 +328,25 @@ module.exports =()=>{
 		{/*社区配置*/}
 		<Route path="communityAllocation" getComponent={Basic}>
 
-      <Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
-      {/*设备列表*/}
-      <Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
-      {/*工位列表选择社区*/}
-      <Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
-      {/*工位列表*/}
-      <Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
-      {/*会议室列表选择社区*/}
-      <Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
-      {/*会议室列表*/}
-      <Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
-      {/*代码分类*/}
-      <Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
-		</Route>
+    	<Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>  
+		<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
+		{/*设备列表*/}
+		<Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
+		{/*工位列表选择社区*/}
+		<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
+		{/*工位列表*/}
+		<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
+		{/*会议室列表选择社区*/}
+		<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
+		{/*会议室列表*/}
+		<Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
+		{/*代码分类*/}
+		<Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
+	</Route>
     {/*基础配置*/}
-		<Route path="basicConfig" getComponent={Basic}>
+    
 
+		<Route path="basicConfig" getComponent={Basic}>
       <Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
       {/*商圈列表*/}
       <Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
@@ -418,9 +431,10 @@ module.exports =()=>{
 	</Route>
 
 
-	</Route>
 
-		{/*合同配置*/}
+
+	</Route>
+	{/*合同配置*/}
 		<Route path="agreement" getComponent={Basic} >
 
 		{/*出租方管理*/}

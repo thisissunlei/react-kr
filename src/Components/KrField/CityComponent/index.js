@@ -52,7 +52,6 @@ export default class CityComponent extends React.Component {
 			city:cityName || '请选择',
 		}
 		State.city = cityName;
-
 	}
 
 	componentDidMount() {

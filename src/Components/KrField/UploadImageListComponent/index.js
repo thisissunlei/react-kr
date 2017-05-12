@@ -170,7 +170,7 @@ export default class UploadImageListComponent extends Component {
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
 									fileResponse.data.map((item,index)=>{
-                                     images.push({
+                    images.push({
 										photoId:item.id,
 										src:item.ossHref,
 									 });

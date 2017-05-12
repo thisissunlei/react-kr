@@ -72,7 +72,8 @@ let State = observable({
 			dialogDiv :[]
 
 		},
-		local:[]
+		local:[],
+		hasLocal:false
 
 });
 State.hasOfficeChange=action(function(params){
@@ -95,7 +96,7 @@ State.ajaxListData=action(function(ajaxData){
 			setTimeout(function() {
 					loading: false
 			}, 0);
-		}).catch(function(err) {z
+		}).catch(function(err) {
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));

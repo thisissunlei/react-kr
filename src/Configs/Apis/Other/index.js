@@ -1364,10 +1364,13 @@ const APIS = {
       url: '/api/krspace-finance-web/activity/sort-filter?sort={sort}&id={id}',
       method: 'get'
    },
-   
-   
 
-   
+    'getCommunityList':{
+        url: '/api/krspace-finance-web/cmt/community/select-list',
+        method: 'get'
+    },
+
+
 }
 
 module.exports = APIS;

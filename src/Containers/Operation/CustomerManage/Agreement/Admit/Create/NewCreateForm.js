@@ -103,8 +103,7 @@ class NewCreateForm extends React.Component {
 		this.onCloseStation = this.onCloseStation.bind(this);
 
 		this.state = {
-			stationVos: this.props.stationVos || [],
-			stationVoList: this.props.stationVoList || [],
+			stationVos: this.props.stationVoList || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -133,7 +132,7 @@ class NewCreateForm extends React.Component {
 		if (!this.isInit && nextProps.stationVoList.length ) {
 			let stationVoList = nextProps.stationVoList;
 			this.setState({
-				stationVoList
+				stationVos:stationVoList
 			});
 			this.isInit = true;
 		}
@@ -152,13 +151,14 @@ class NewCreateForm extends React.Component {
 	}
 
 	onStationVosChange(index, value) {
-
 		let {
 			stationVos
 		} = this.state;
-
-		stationVos[index].unitprice = value;
-
+		if(!value ||isNaN(value)){
+			stationVos[index].unitprice = "";
+		}else{
+			stationVos[index].unitprice = value;
+		}
 		this.setState({
 			stationVos
 		});
@@ -525,7 +525,7 @@ class NewCreateForm extends React.Component {
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname || '请选择'));
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
@@ -539,7 +539,7 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
-			if(!item.unitprice){
+		if(!item.unitprice){
 				item.unitprice = 0;
 			}else{
 				item.unitprice = item.unitprice.replace(/\s/g,'');

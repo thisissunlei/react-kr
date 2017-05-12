@@ -94,5 +94,14 @@ module.exports = {
         url: '/api/krspace-finance-web/member/log/mbr-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
         method: 'get'
     },
+    //会议室预定列表
+    'meeting-reservation':{
+        url:'/api/krspace-finance-web/cmt-appointment/boardroom/manage-list?pageSize={pageSize}&communityId={communityId}&date={date}&floor={floor}&page={page}',
+        method:'get'
+    },
+    'meeting-reservation-delete':{
+        url:'/api/krspace-finance-web/cmt-appointment/actions/cancel?id={id}',
+        method:'post'
+    }
 
 }

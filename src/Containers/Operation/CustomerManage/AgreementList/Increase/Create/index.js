@@ -151,6 +151,7 @@ export default class increaseCreate extends React.Component {
 				 removeList.push(itemName);
 			 }
 		 }
+		 allState.hasLocal= false;
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
@@ -201,6 +202,7 @@ export default class increaseCreate extends React.Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 
 			initialValues.contractcode = response.contractCode;
+			initialValues.agreement = '无';
 
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
@@ -346,12 +348,18 @@ export default class increaseCreate extends React.Component {
 			<div>
 				<Title value="创建增租协议书_财务管理"/>
 		 		<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
-				{!openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
-				</div>}
-				{openLocalStorages&&<div style={{marginTop:10}}>
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
-				</div>}
+				{!allState.hasLocal && <div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+	            </div>}
+	            { allState.hasLocal && !allState.openLocalStorages && <div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={{}} onCancel={this.onCancel} optionValues={{fnaCorporationList:[]}} stationVos={stationVos}/>
+	            </div>}
+	            { allState.hasLocal && (allState.openLocalStorages == 1 ) && <div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={[]}/>
+	            </div>}
+	            { allState.hasLocal && (allState.openLocalStorages == 2 )&&<div style={{marginTop:10}}>
+	                <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValue} stationVos={stationVos}/>
+	            </div>}
 
 				<Dialog
 					title="增租协议书"

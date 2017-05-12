@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
-
+const Envs = require(path.join(process.cwd(),'src','Configs','Envs'));
 const node_modules_dir = path.join(process.cwd(),'node_modules');
 
 
@@ -26,16 +26,14 @@ const config = {
 		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
-			'kr': path.join(process.cwd(), '/src')
-			/*
+			'kr': path.join(process.cwd(), '/src'),
 			'redux':path.join(node_modules_dir,'redux'),
 			'react-redux':path.join(node_modules_dir,'react-redux'),
 			'mobx':path.join(node_modules_dir,'mobx'),
 			'mobx-react':path.join(node_modules_dir,'mobx-react'),
 			'react-router':path.join(node_modules_dir,'react-router'),
 			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash'),
-			*/
+			'lodash':path.join(node_modules_dir,'lodash')
 		},
 	},
 	devServer: {
@@ -45,6 +43,12 @@ const config = {
     inline: true,
 	  port: 8001,
     outputPath: buildPath,
+	proxy: {
+			'/api': {
+				target: Envs[process.env.NODE_ENV],
+				secure: false
+			}
+		}
   },
 	externals: {
 		React:true,

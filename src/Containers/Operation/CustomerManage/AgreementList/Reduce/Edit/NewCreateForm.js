@@ -167,6 +167,7 @@ class NewCreateForm extends React.Component {
 		})
 		Http.request('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId}).then(function(response) {
 			localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+''+initialValues.id+'LESSRENTeditrentamount', response);
+			Store.dispatch(change('reduceCreateForm', 'rentamount', response));
 			_this.setState({
 				allRent:response
 			})
@@ -211,7 +212,7 @@ class NewCreateForm extends React.Component {
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname|| '请选择'));
 
 	}
 
@@ -349,6 +350,7 @@ class NewCreateForm extends React.Component {
 				oldBasicStationVos:stationVos,
 				delStationVos:nextProps.delStationVos
 			},function(){
+				_this.setAllRent(nextProps.stationVos);
 				   let {stationVos,oldBasicStationVos,openAdd}=_this.state;
 			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
 			            _this.setState({
