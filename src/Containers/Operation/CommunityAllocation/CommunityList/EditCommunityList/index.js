@@ -252,7 +252,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	}
 
 	onSubmit = (values) => {
-		 let {picId}=this.state;
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
@@ -539,7 +538,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                      photoSize={'3:2'}
                      pictureFormat={'JPG,PNG,GIF'}
                      pictureMemory={'300'}
-                     requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                     requestURI = 'http://optest.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                      inline={false}
                      formfile=' '
 										 defaultValue={defaultValue}

@@ -294,7 +294,7 @@ class EditMeeting  extends React.Component{
  					style={{width:262}}
  					name="busyPrice"
  					component="input"
-					label='单价(积分/0.5h)(11:00~16:00)'
+					label='单价(积分/0.5h)(11:00~18:00)'
  					placeholder='高峰时段单价'
  					requireLabel={true}
  			 />
@@ -420,7 +420,7 @@ const validate = values =>{
 	if(values.capacity&&(!numberNotZero.test(values.capacity.toString().trim())&&values.capacity!=0)){
 		errors.capacity='可容纳人数为正整数或0'
 	}
- 
+
 	if((!values.idlePrice&&values.idlePrice!=0)||(values.idlePrice&&reg.test(values.idlePrice.toString().trim()))){
 	  errors.idlePrice='请输入空闲时段单价'
    }

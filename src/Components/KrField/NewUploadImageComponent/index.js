@@ -319,7 +319,7 @@ export default class UploadImageComponent extends Component {
 														_this.refs.inputImg.value ="";
 														_this.refs.inputImgNew.value ="";
 														_this.refs.uploadImage.src="";
-														
+
 														_this.setState({
 															errorHide: false,
 															errorTip:"图片尺寸不符合要求",
@@ -348,6 +348,7 @@ export default class UploadImageComponent extends Component {
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 		const {input}=this.props;
+		console.log("???????>>>")
 		input.onChange("");
 	}
 

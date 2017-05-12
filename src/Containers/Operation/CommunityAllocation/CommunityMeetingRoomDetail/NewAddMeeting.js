@@ -230,7 +230,7 @@ class NewAddMeeting  extends React.Component{
 								 style={{width:262}}
 								 name="busyPrice"
 								 component="input"
-								 label='单价(积分/0.5h)(11:00~16:00)'
+								 label='单价(积分/0.5h)(11:00~18:00)'
 								 placeholder='高峰时段单价'
 								 requireLabel={true}
 							/>
