@@ -120,8 +120,8 @@ openHighSearch = () => {
         <TableRow>
           <TableRowColumn name="phone" ></TableRowColumn>
           <TableRowColumn name="successfulName"></TableRowColumn>
-						<TableRowColumn name="osTypeName" ></TableRowColumn>
-	          <TableRowColumn name="appVersion"></TableRowColumn>
+					<TableRowColumn name="osTypeName" ></TableRowColumn>
+	        <TableRowColumn name="appVersion"></TableRowColumn>
 							<TableRowColumn name="sysInfo" component={(value)=>{
 			                  var styles = {
 			                    display:'block',
@@ -137,7 +137,7 @@ openHighSearch = () => {
 			                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 			                 }}>
 			        </TableRowColumn>
-								<TableRowColumn name="remark" component={(value)=>{
+							<TableRowColumn name="remark" component={(value)=>{
 			                  var styles = {
 			                    display:'block',
 			                    paddingTop:5
@@ -156,7 +156,8 @@ openHighSearch = () => {
 			            return (
 			              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
 			            )
-			          }}> </TableRowColumn>
+			          }}> 
+							</TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>
