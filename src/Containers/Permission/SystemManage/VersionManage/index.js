@@ -111,10 +111,9 @@ openHighSearch = () => {
         <TableHeaderColumn>登录结果</TableHeaderColumn>
         <TableHeaderColumn>设备类型</TableHeaderColumn>
         <TableHeaderColumn>app版本</TableHeaderColumn>
-					<TableHeaderColumn>设备信息</TableHeaderColumn>
-	        <TableHeaderColumn>登录时间</TableHeaderColumn>
-					<TableHeaderColumn>备注</TableHeaderColumn>
-
+				<TableHeaderColumn>设备信息</TableHeaderColumn>
+				<TableHeaderColumn>备注</TableHeaderColumn>
+        <TableHeaderColumn>登录时间</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
@@ -124,11 +123,6 @@ openHighSearch = () => {
 						<TableRowColumn name="osTypeName" ></TableRowColumn>
 	          <TableRowColumn name="appVersion"></TableRowColumn>
 							<TableRowColumn name="sysInfo" ></TableRowColumn>
-								<TableRowColumn type="date" name="ctime" component={(value)=>{
-			            return (
-			              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
-			            )
-			          }}> </TableRowColumn>
 								<TableRowColumn name="remark" component={(value)=>{
 			                  var styles = {
 			                    display:'block',
@@ -144,6 +138,11 @@ openHighSearch = () => {
 			                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 			                 }}>
 			        </TableRowColumn>
+							<TableRowColumn type="date" name="ctime" component={(value)=>{
+			            return (
+			              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+			            )
+			          }}> </TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>

@@ -143,12 +143,13 @@ class Editdialog extends React.Component {
               component="date"
               />
               <KrField
-                  grid={1/2}
-                  right={48}
-                 left={25}
+                  grid={1}
+                  left={42}
+                  right={18}
                   name="updateInfo"
-                  type="input"
-                  style={{marginTop:4}}
+                  component="textarea"
+                  maxSize={2000}
+                  style={{marginTop:4,height:110}}
                   label="版本更新内容"
               />
                 <Row style={{marginTop:30,marginBottom:15}}>
