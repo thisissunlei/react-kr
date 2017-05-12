@@ -55,7 +55,7 @@ class Createdialog extends React.Component {
 			methodId: []
 		}
 		this.getModuleList();
-		this.getAllController();
+		//this.getAllController();
 	}
 	onCancel = () => {
 		let {
@@ -102,21 +102,21 @@ class Createdialog extends React.Component {
 			ControllerId: idlist,
 		})
 	}
-	getAllController = () => {
-		var _this = this;
-		Http.request('getAllController', {}, {}).then(function(response) {
-			var ControllerList = response.controllerList.map((item, index) => {
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			})
-			_this.setState({
-				ControllerList: ControllerList
-			})
-		}).catch(function(err) {
-
-		});
-	}
+	// getAllController = () => {
+	// 	var _this = this;
+	// 	Http.request('getAllController', {}, {}).then(function(response) {
+	// 		var ControllerList = response.controllerList.map((item, index) => {
+	// 			item.value = item.id;
+	// 			item.label = item.name;
+	// 			return item;
+	// 		})
+	// 		_this.setState({
+	// 			ControllerList: ControllerList
+	// 		})
+	// 	}).catch(function(err) {
+	//
+	// 	});
+	// }
 	getModuleList = () => {
 		let {
 			Params
@@ -253,15 +253,16 @@ class Createdialog extends React.Component {
 			ControllerRender,
 			ControllerId
 		} = this.state;
-
+		if(!ControllerItem.controllerName){
+			return;
+		}
 		var controller = `${ControllerItem.controllerName} ${ControllerItem.methodName}`;
 		var item = {
 			controller: controller
 		}
 		var arr = ControllerRender;
-		Store.dispatch(change('createdialog', 'controller', ''));
-
 		var arr1 = [];
+		Store.dispatch(change('createdialog', 'controller', ''));
 		console.log(arr);
 		if(arr.length>0){
 			console.log(11111)
@@ -277,10 +278,13 @@ class Createdialog extends React.Component {
 			console.log()
 			arr.push(item);
 		}
-		//arr.push(item)
 		this.setState({
 			ControllerRender: arr,
-			ControllerId: ControllerId
+			ControllerId: ControllerId,
+			ControllerItem:{},
+		},function(){
+			Store.dispatch(change('createdialog', 'controller', ''));
+			console.log(this.state.ControllerRender);
 		})
 
 	}
@@ -312,6 +316,7 @@ class Createdialog extends React.Component {
 			ControllerId
 		} = this.state;
 		var Controller = ControllerRender;
+		console.log(ControllerRender);
 		Controller.splice(index, 1)
 		var id = ControllerId;
 		id.splice(index, 1)
@@ -461,11 +466,6 @@ const validate = values => {
 	if (!values.module) {
 		errors.module = '请选择模块';
 	}
-	if (!values.controller) {
-		errors.controller = '请选择方法';
-	}
-
-
 	return errors
 }
 export default Createdialog = reduxForm({
