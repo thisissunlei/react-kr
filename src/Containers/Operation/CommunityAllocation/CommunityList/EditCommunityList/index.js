@@ -247,16 +247,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             openUp:false,
             codeName:'',
 						picUrl:'',
-						picId:this.props.picId
+						picId:''
 		}
 	}
 
 	onSubmit = (values) => {
-		 let {picId}=this.state;
-		 if(!values.picId){
-			 values.picId=picId;
-		 }
-		 console.log(values,"ddddd")
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
@@ -381,9 +376,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
 		componentDidMount(){
-			let {picSrc}=this.props;
+			let {picSrc,picId}=this.props;
 			this.setState({
 				picUrl:picSrc,
+				picId:picId
 			})
 		}
 
@@ -409,7 +405,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {codeName,openDown,openUp,picUrl,communityName}=this.state;
+				let {codeName,openDown,openUp,picUrl,communityName,picId}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -434,6 +430,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,timeStart,timeEnd} = this.props;
 
+        let defaultValue={
+					picId:picId,
+          picUrl:picUrl
+				}
 
 
 
@@ -541,7 +541,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                      requestURI = 'http://optest.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                      inline={false}
                      formfile=' '
-										 defaultValue={picUrl}
+										 defaultValue={defaultValue}
                      center='center'
                    />
 
