@@ -10,7 +10,6 @@ function getOffset(obj){
     tmp.y += tmp.val.offsetTop;
     tmp.val = tmp.val.offsetParent;
    }
-   console.log(tmp,"LLLL")
    return tmp;
 }
 function getCurrent(elem){

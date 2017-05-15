@@ -3,6 +3,12 @@ import {
 	PlanMap
 } from 'kr-ui';
 import Original from './Original';
+
+import {
+
+PlanMapContent
+
+} from 'kr/PureComponents';
 export default class New extends React.Component {
 
 
@@ -22,8 +28,8 @@ export default class New extends React.Component {
 	render() {
 		return (
 			<div style = {{height:2000}}>
-					<Original />
-					<PlanMap />
+					
+					<PlanMapContent />
 			</div>
 
 		);
