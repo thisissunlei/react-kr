@@ -44,6 +44,13 @@ class NewCreateForm extends React.Component{
 
 	onSubmit=(values)=>{
 
+		let cmtIds = [];
+		values.communitys.map((item)=>{
+			cmtIds.push(item.id)
+		})
+
+		console.log('cmtIds',cmtIds);
+		values.cmtIds = cmtIds;
 		if(!State.timeIsTrue){
 			Message.error('结束时间不能大于开始日期');
 			return;
@@ -246,6 +253,7 @@ class NewCreateForm extends React.Component{
 	}
 	render(){
 		const { handleSubmit} = this.props;
+		let communitys = [];
 		// 对应功能选项
 		let correspondingFunction =[
 		{
@@ -375,6 +383,15 @@ class NewCreateForm extends React.Component{
 										initailPoint ={State.initailPoint}
 									/>
 								</div>
+								<Grid ><KrField name="communitys"
+									options={communitys}
+									component="activity"
+									defaultValue={communitys}
+									getList={this.getList}
+									label="活动推送社区"
+									grid={1/2}
+									style={{width:252}}
+								/></Grid>
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:252}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:252,marginLeft:24}}/>
 								<KrField name="joinType"

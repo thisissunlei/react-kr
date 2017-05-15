@@ -34,7 +34,7 @@ module.exports = {
    },
    //获取活动报名信息
    'activityGetInfo':{
-      url: '/api/krspace-finance-web/activity/activity-field?id={id}',
+      url: '/apis/krspace-finance-web/activity/activity-field?id={id}',
       method: 'get'
    },
    //活动报名项目列表

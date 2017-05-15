@@ -96,7 +96,10 @@ class EditActivityForm extends React.Component{
 				Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 				Store.dispatch(change('EditActivityForm','top',`${response.top}`));
 			})
-		}).catch(Message.error);
+		}).catch(function(err){
+			// Message.error
+			console.log(err)
+		});
 	}
 	// 取消新建
 	onCancel=()=>{
