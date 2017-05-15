@@ -263,4 +263,10 @@ module.exports = {
       url: '/api/krspace-sso-web/mobile/log/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
       method: 'get'
     },
+    //权限--获取菜单
+    'findUserData': {
+      url: '/api/krspace-sso-web/sso/sysOwn/findUserData?forceUpdate={forceUpdate}',
+      method: 'get'
+    },
+
 }

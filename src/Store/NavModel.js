@@ -3,7 +3,7 @@ import mobx, {
 	action,
 	extendObservable
 } from 'mobx';
-
+import {Http} from "kr/Utils";
 import Navs from 'kr/Configs/Navs';
 
 //全局store
@@ -12,6 +12,7 @@ let State = observable({
 	router:'',
 	openSidebar:true,
 	openHeaderbar:true,
+	userInfo:{}
 });
 
 
@@ -94,8 +95,16 @@ State.toggleSidebar=action(function(value){
 	this.openSidebar = !!value;
 });
 
-State.getUser=action(function(){
-	return {nick:'张屈'}
+State.getUser=action(function(forceUpdate){
+	var _this=this;
+		Http.request('findUserData',{forceUpdate:forceUpdate}).then(function(response) {
+			 _this.userInfo=response.userInfo;
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});
+		
+		console.log('nick---',this.userInfo)
+	
 });
 
 
