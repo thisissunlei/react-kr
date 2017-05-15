@@ -10,20 +10,26 @@ export default  class PlanMapComponent extends React.Component {
 
 	constructor(props){
 		super(props)
-		
+		this.state = {
+			data:""
+		}
 		this.getData();
 	}
 	getData = () =>{
+		var _this = this;
 		var res = {
-				communityId:43,
-				floor:[3],
-				mainBillId:1570,
-				startDate:'2017-05-16 00:00:00',
-				endDate:'2017-05-26 00:00:00',
+				communityId:1,
+				floor:3,
+				mainBillId:1473,
+				startDate:'2017-05-29 00:00:00',
+				endDate:'2017-05-31 00:00:00',
 				contractId:''
 		}
 		Http.request('planMap',res).then(function(response) {
-			console.log(response,">>>");
+			
+			_this.setState({
+				data:response[0]
+			})
 			
 		}).catch(function(err) {
 		
@@ -39,11 +45,16 @@ export default  class PlanMapComponent extends React.Component {
 	}
 
 	render() {
-
+		const {data} = this.state;
+		if(!data){
+			return null;
+		}
 		return (
 			
 			<div>
-				<Canvas />
+				<span>{data.communityName}</span>
+				<span>{data.floor}</span>
+				<Canvas data = {data.figures}/>
 			</div>
 		);
 	}
