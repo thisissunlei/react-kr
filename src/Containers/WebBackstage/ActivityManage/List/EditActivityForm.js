@@ -24,7 +24,8 @@ class EditActivityForm extends React.Component{
 		// Store.dispatch(reset('EditActivityForm'));
 		this.state = {
 			timeStart:'',
-			timeEnd:''
+			timeEnd:'',
+			communitys:[]
 		}
 	}
 	componentDidMount(){
@@ -159,7 +160,10 @@ class EditActivityForm extends React.Component{
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
 			State.searchParams = searchParams;
-		}).catch(Message.error);
+		}).catch(function(err){
+			// Message.error
+			console.log(err);
+		})
 	}
 	//存为草稿
 	toSave=()=>{
@@ -312,7 +316,7 @@ class EditActivityForm extends React.Component{
 	}
 	render(){
 		const {handleSubmit} = this.props;
-		let {timeStart,timeEnd} = this.state;
+		let {timeStart,timeEnd,communitys} = this.state;
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: 'CEO Time',
@@ -445,6 +449,17 @@ class EditActivityForm extends React.Component{
 										defaultPoint = {State.defaultPoint}
 										/>
 								</div>
+
+								<Grid ><KrField name="communitys"
+									options={communitys}
+									component="activity"
+									defaultValue={communitys}
+									getList={this.getList}
+									label="活动推送社区"
+									grid={1/2}
+									style={{width:252}}
+								/></Grid>
+
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:'252px',marginLeft:24}}/>
 								<KrField name="joinType"
