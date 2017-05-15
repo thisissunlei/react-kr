@@ -92,7 +92,7 @@ export default class Viewdialog extends React.Component {
                     format = "yyyy-mm-dd" />}
                 />
                 <KrField
-                    style={{width:260,marginLeft:25}}
+                    style={{width:545}}
                     label="版本更新内容"
                     inline={false}
                     value={infoList.updateInfo}
