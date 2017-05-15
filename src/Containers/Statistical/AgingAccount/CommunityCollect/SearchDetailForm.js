@@ -41,7 +41,7 @@ export default class SearchDetailForm extends React.Component {
 		let {detail,handleSubmit} = this.props;
 		var  yesterday = new Date(new Date().getTime() - 86400000);
 		return (
-			<div className="search-form" >
+			<div className="search-form-aging-account" >
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<img src={require('../images/staticNotOpen.svg')}/>
 					<p className="title">
@@ -54,13 +54,13 @@ export default class SearchDetailForm extends React.Component {
 							<ListGroupItem style={{color:'#333',verticalAlign:"middle",display:"inline-block"}}><span style={{lineHeight:'58px'}}>统计截止日期:</span></ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 								
-								<KrField name="leaseBegindate"  component="date" onChange={this.props.onStartChange} style={{width:'252'}} />
+								<KrField name="leaseBegindate"  component="date" onChange={this.props.onStartChange} style={{width:252,marginTop: 7}} />
 							
 							</ListGroupItem>
 							<ListGroupItem style={{textAlign:'center',padding:0,marginRight:'5',verticalAlign:"middle"}}><span style={{display:'inline-block',lineHeight:'58px'}}>社区</span></ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 								
-								<KrField  name="communityId" component="searchCommunity" label="" onChange={this.onChangeSearchCommunity} requireLabel={false}  style={{width:'252px'}}/>
+								<KrField  name="communityId" component="searchCommunity"  onChange={this.onChangeSearchCommunity} requireLabel={false}  style={{width:252,marginTop: 7}}/>
 								
 							</ListGroupItem>
 						</ListGroup>
