@@ -29,7 +29,7 @@ export default class New extends React.Component {
 		return (
 			<div style = {{height:2000}}>
 					
-					<PlanMapContent />
+					
 			</div>
 
 		);

@@ -23,20 +23,29 @@ export default  class PlanMapComponent extends React.Component {
 				name:'',
 				floors:[],
 			},
-			newfloor:''
+			newfloor:'',
+			inputStart:0,
+			inputEnd:0,
+			submitData:[],
 		}
 		this.getData();
 	}
 	getData = () =>{
 		var _this = this;
+		let {data} = this.props;
+		console.log(data,"MMMMM")
+		if(!data){
+			return;
+		}
 		var res = {
-				communityId:1,
-				floor:3,
-				mainBillId:1473,
-				startDate:'2017-05-29 00:00:00',
-				endDate:'2017-05-31 00:00:00',
+				communityId:data.communityId,
+				floor:data.floors,
+				mainBillId:data.mainBillId,
+				startDate:data.startDate,
+				endDate:data.endDate,
 				contractId:''
 		}
+
 		Http.request('planMap',res).then(function(response) {
 			let floors = [];
 			let name = ""
@@ -44,7 +53,7 @@ export default  class PlanMapComponent extends React.Component {
 				floors.push({value:""+item.floor,label:""+item.floor});
 				name = item.communityName;
 			})
-			
+
 			_this.setState({
 				data:response,
 				otherData:{
@@ -53,35 +62,63 @@ export default  class PlanMapComponent extends React.Component {
 				},
 				newfloor:floors[0].value,
 			})
-			
+
 		}).catch(function(err) {
-		
+
 		});
 	}
 
 	componentDidMount(){
-		
+
 	}
 
 	componentWillReceiveProps(nextProps) {
 
 	}
+	dataChange = (data) =>{
+		this.setState({
+			submitData:data
+		})
+	}
 	canvasEles = () =>{
-		let {data,newfloor} = this.state;
+		let {data,newfloor,inputStart,inputEnd} = this.state;
+		const _this = this;
 		var arr = data.map(function(item,index){
-			
+
 			if(item.floor == newfloor){
-				
-				return <Canvas key = {index} id = {index} data = {item.figures} url = {item.graphFilePath}/>
+
+				return <Canvas 
+							key = {index} 
+							inputStart = {inputStart} 
+							inputEnd = {inputEnd} 
+							id = {index} 
+							data = {item.figures} 
+							url = {item.graphFilePath}
+							dataChange = {_this.dataChange}
+						/>
 			}
 		})
 	 	return arr;
-	} 
+	}
     floorsChange = (value) =>{
         this.setState({
             newfloor:value,
         })
     }
+	onSubmit = (data) =>{
+		this.setState({
+			inputStart:data.inputStart,
+			inputEnd:data.inputEnd
+		})
+	}
+
+	
+	allOnsubmit = () =>{
+		let {submitData} =this.state;
+		const {onClose} = this.props;
+		onClose && onClose(submitData);
+
+	}
 
 	render() {
 		const {data,otherData} = this.state;
@@ -89,16 +126,20 @@ export default  class PlanMapComponent extends React.Component {
 			return null;
 		}
 		return (
-			
+
 			<div className = "plan-map-content">
 				<div className = "plan-map-title" style = {{background:"#fff"}}>
-				    <PlanMapSerarchForm 
-                        data = {otherData} 
+				    <PlanMapSerarchForm
+                        data = {otherData}
                         floorsChange = {this.floorsChange}
+						onSubmit = {this.onSubmit}
+						allOnsubmit = {this.allOnsubmit}
                     />
-					
+
 				</div>
-				{this.canvasEles()}
+				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll'}}>
+					{this.canvasEles()}
+				</div>
 			</div>
 		);
 	}

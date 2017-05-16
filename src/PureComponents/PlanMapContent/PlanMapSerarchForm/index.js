@@ -18,7 +18,8 @@ import {
 
 import {
 	KrField,
-	Message
+	Message,
+	Button
 } from 'kr-ui';
 import './index.less';
 
@@ -34,17 +35,22 @@ class PlanMapSerarchForm extends React.Component {
 	}
 
 	floorsChange = (data) => {
-		
+
 		const {floorsChange} = this.props;
 		floorsChange && floorsChange(data.value);
 	}
 	onSubmit = () =>{
 		const {inputStart,inputEnd} = this.state;
+		const {onSubmit} = this.props;
 		if(!inputStart || !inputEnd || isNaN(inputStart)|| isNaN(inputEnd)){
 			Message.error("请输入数字");
 		}
+		onSubmit && onSubmit({inputStart:inputStart,inputEnd:inputEnd});
 
-
+	}
+	allOnSubmit = () =>{
+		const {allOnSubmit} = this.props;
+		allOnSubmit && allOnSubmit();
 	}
 	inputStart = (value) => {
 		this.setState({
@@ -56,12 +62,15 @@ class PlanMapSerarchForm extends React.Component {
 			inputEnd:value,
 		})
 	}
-
+	componentDidMount() {
+		const {data} = this.props;
+		Store.dispatch(change('PlanMapSerarchForm','floor',data.floors[0]));
+	}
 
 
 	render() {
 
-        const {data,handleSubmit}= this.props;
+        const {data}= this.props;
 		return (
 
 			<form  className="m-PlanMap-searchForm"  style = {{position: "relative",top:15}}>
@@ -70,7 +79,7 @@ class PlanMapSerarchForm extends React.Component {
               		 <KrField  label="社区名称:" component="labelText" value={data.name} inline={true} style = {{display:"inline-block"}}/>
 				</div>
 				<div style = {{display:"inline-block",width:160}}>
-              		 <KrField  label="楼层：" name="roundId" component="select" inline={true}
+              		 <KrField  label="楼层：" name="floor" component="select" inline={true}
 						options={data.floors}
 						requireLabel={false}
 						onChange = {this.floorsChange}
@@ -101,6 +110,9 @@ class PlanMapSerarchForm extends React.Component {
 				>
               		选择
 				</botton>
+				<div className = "plan-map-num"  style = {{display:"inline-block",float:"right",marginRight:30,marginTop:13}}>
+					<Button  label="确定" onClick = {this.allOnSubmit} />
+				</div>
 			</form>
 
 

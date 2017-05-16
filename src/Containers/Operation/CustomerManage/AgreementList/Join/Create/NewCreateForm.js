@@ -14,7 +14,11 @@ import {
 import {
 	Binder
 } from 'react-binding';
+import {
 
+PlanMapContent
+
+} from 'kr/PureComponents';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import {DateFormat,Http} from 'kr/Utils';
@@ -462,30 +466,32 @@ class NewCreateForm extends React.Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
 			unitprice:0
 
 		};
 
+		// 	console.log(params,"??????")
+		// if (Object.keys(params).length) {
+		// 	for (let item in params) {
+		// 		if (params.hasOwnProperty(item)) {
+		// 			url = url.replace('{' + item + '}', params[item]);
+		// 			delete params[item];
+		// 		}
+		// 	}
+		// }
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
+		// return url;
 
-		return url;
+		return params;
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let {initialValues} = this.props;
 		// let allMoney = 0;
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTERcreatestationVos', JSON.stringify(stationVos));
-		
+
 		this.setAllRent(stationVos);
 
 	}
@@ -810,7 +816,7 @@ class NewCreateForm extends React.Component {
 						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						 >
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
@@ -824,7 +830,7 @@ class NewCreateForm extends React.Component {
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
-			
+
 
 			</div>);
 	}
@@ -927,7 +933,7 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	
+
 
 
 
