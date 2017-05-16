@@ -133,9 +133,7 @@ export default class Editor extends React.Component{
     this.containerId = 'container_'+Date.now();
     this.ue = null;
     this.init = false;
-    this.state = {
-      defaultValue:''
-    }
+    this.editor = false;
   }
 
   componentDidMount(){
@@ -144,23 +142,18 @@ export default class Editor extends React.Component{
 
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.defaultValue !== this.props.defaultValue){
+    if(nextProps.defaultValue !== this.props.defaultValue || !this.editor){
         this.init = false;
         this.initEditor(nextProps.defaultValue);
-        // this.setDefaultValue(nextProps.defaultValue);
-        // console.log('ready',nextProps.defaultValue)
-        
-        // this.setState({
-        //   defaultValue:nextProps.defaultValue
-        // })
+
     }
   }
 
 
   initEditor = (defaultValue) =>{
-    // console.log('init',this.ue);
-    if(this.ue){
-       this.ue = null;
+    if(this.editor){
+       this.setDefaultValue(defaultValue);
+       return;
     }
     var {configs} = this.props;
     var _this = this;
@@ -178,6 +171,7 @@ export default class Editor extends React.Component{
       if(!editor){
         _this.initEditor();
       }
+      _this.editor = true;
       ue.addListener('contentChange',_this.contentChange);
       _this.setDefaultValue(defaultValue);
     });
