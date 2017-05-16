@@ -2,7 +2,6 @@
 import React from 'react';
 
 import $ from 'jquery';
-import {Mouse} from 'kr/Utils';
 
 export default  class Canvas extends React.Component {
 
@@ -49,7 +48,7 @@ export default  class Canvas extends React.Component {
 				imgW:img.width,
 				imgH:img.height
 			},function(){
-				_this.draw();
+				_this.draw("one");
 			})
 		}
 	}
@@ -71,14 +70,14 @@ export default  class Canvas extends React.Component {
     draw = (flog) =>{
 		
 		let {myCanvas,myContext,inputStart,inputEnd,data} = this.state;
-		const {dataChange} = this.props;
+		const {dataChange,selectedObjs} = this.props;
 		let can = myCanvas,ctx = myContext;
 		let start = Number(inputStart);
 		let end = Number(inputEnd);
 		let items =data; 
 		let allObj = [];
 		let submitData = [];
-
+		let num = 0;
 		ctx.clearRect(0,0,can.width,can.height);
 
         allObj = items.map(function(item,index){
@@ -108,15 +107,22 @@ export default  class Canvas extends React.Component {
 				color = "#fff"
 			}
 
-			if(flog && cellName >= start && cellName <= end && (!item.status)){
+			if(flog && flog != "one" && cellName >= start && cellName <= end && (!item.status)){
 				color = "#28c288";
 				item.status = 3;
 			}
+			
 			if(item.status == 3){
 				submitData.push(item);
 			}
-
-
+			if(num != selectedObjs.length){
+				selectedObjs.map(function(eve,index){
+					if(flog && flog == "one" && item.id == eve.id && item.belongType == eve.belongType){
+						item.status = 3;
+						color = "#28c288";
+					}
+				})
+			}
       		ctx.fillStyle = color;
      	 	ctx.fillRect(x,y,width,height);
 			ctx.font="12px";
@@ -133,24 +139,21 @@ export default  class Canvas extends React.Component {
 
 	canvasClick = (event) =>{
 		event.stopPropagation();
-		const {getCurrent,getOffset} = Mouse;
+		
 		const {url} = this.props;
 		let {data} = this.state;
 		const {myCanvas,myContext,scrollX,scrollY} = this.state;
-
-
-
-		let mouse = getCurrent(event);
-		let mouse2 = getOffset(event.target);
-		
-		console.log(mouse.y+scrollY+325,document.documentElement.scrollTop ,">>>>>>>")
+		var mouse = myCanvas.getBoundingClientRect();
+		let top = $("body").scrollTop();
+		var x = event.pageX - mouse.left ;
+		var y = event.pageY - mouse.top - top;
 		let allObj = data.map(function(item,index){
 			const minX = Number(item.cellCoordX)-25;
 			const minY = Number(item.cellCoordY)-10;
 			const maxX = Number(item.cellCoordX)+Number(item.cellWidth)-25;
 			const maxY = Number(item.cellCoordY)+Number(item.cellHeight)-10;
 
-			if((mouse.x+scrollX >= minX && mouse.x+scrollX <= maxX ) && (mouse.y+scrollY+325 >= minY && mouse.y+scrollY+325  <= maxY)){
+			if((x >= minX && x<= maxX ) && (y >= minY && y  <= maxY)){
 				
 				if(!item.status ){
 					item.status = 3;

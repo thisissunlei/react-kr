@@ -49,6 +49,7 @@ class PlanMapSerarchForm extends React.Component {
 
 	}
 	allOnSubmit = () =>{
+		console.log(">>>>")
 		const {allOnSubmit} = this.props;
 		allOnSubmit && allOnSubmit();
 	}

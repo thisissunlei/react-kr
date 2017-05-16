@@ -453,7 +453,7 @@ class NewCreateForm extends React.Component {
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			return obj;
 		});
 
@@ -465,7 +465,7 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
+			selectedObjs: stationVos,
 			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
 			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
 			unitprice:0
@@ -481,7 +481,7 @@ class NewCreateForm extends React.Component {
 		// 		}
 		// 	}
 		// }
-
+		
 		// return url;
 
 		return params;
@@ -543,10 +543,10 @@ class NewCreateForm extends React.Component {
 				item.leaseBeginDate = changeValues.leaseBegindate;
 				item.leaseEndDate = changeValues.leaseEnddate;
 				item.stationId = item.id;
-				item.stationType = item.type;
-				item.stationName = item.name;
+				item.stationType = item.belongType;
+				item.stationName = item.cellName;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.floor;
 			});
 		} catch (err) {
 		}

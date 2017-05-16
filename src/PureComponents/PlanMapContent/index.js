@@ -27,6 +27,7 @@ export default  class PlanMapComponent extends React.Component {
 			inputStart:0,
 			inputEnd:0,
 			submitData:[],
+			selectedObjs:this.props.data.selectedObjs,
 		}
 		this.getData();
 	}
@@ -47,7 +48,7 @@ export default  class PlanMapComponent extends React.Component {
 
 		Http.request('planMap',res).then(function(response) {
 			let floors = [];
-			let name = ""
+			let name = "";
 			response.map(function(item,index){
 				floors.push({value:""+item.floor,label:""+item.floor});
 				name = item.communityName;
@@ -80,7 +81,7 @@ export default  class PlanMapComponent extends React.Component {
 		})
 	}
 	canvasEles = () =>{
-		let {data,newfloor,inputStart,inputEnd} = this.state;
+		let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
 		const _this = this;
 		var arr = data.map(function(item,index){
 
@@ -94,6 +95,7 @@ export default  class PlanMapComponent extends React.Component {
 							data = {item.figures} 
 							url = {item.graphFilePath}
 							dataChange = {_this.dataChange}
+							selectedObjs = {selectedObjs}
 						/>
 			}
 		})
@@ -112,10 +114,11 @@ export default  class PlanMapComponent extends React.Component {
 	}
 
 	
-	allOnsubmit = () =>{
+	allOnSubmit = () =>{
 		let {submitData} =this.state;
 		const {onClose} = this.props;
 		onClose && onClose(submitData);
+		
 
 	}
 
@@ -132,7 +135,7 @@ export default  class PlanMapComponent extends React.Component {
                         data = {otherData}
                         floorsChange = {this.floorsChange}
 						onSubmit = {this.onSubmit}
-						allOnsubmit = {this.allOnsubmit}
+						allOnSubmit = {this.allOnSubmit}
                     />
 
 				</div>
