@@ -9,7 +9,7 @@ module.exports = {
    },
    //查看活动
    'activityDetail':{
-      url: '/apis/krspace-finance-web/activity/activity?id={id}',
+      url: '/api/krspace-finance-web/activity/activity?id={id}',
       method: 'get'
    },
    //活动上下线
@@ -24,7 +24,7 @@ module.exports = {
    },
    //新建---编辑活动提交
    'newCreateActivity':{
-      url: '/apis/krspace-finance-web/activity/activity',
+      url: '/api/krspace-finance-web/activity/activity',
       method: 'post'
    },
    //活动置顶
@@ -44,7 +44,7 @@ module.exports = {
    },
    //活动详细信息
    'getActivityDetail':{
-      url: '/apis/krspace-finance-web/activity/activity?id={id}',
+      url: '/api/krspace-finance-web/activity/activity?id={id}',
       method: 'get'
    },
    //活动序号是否重复
