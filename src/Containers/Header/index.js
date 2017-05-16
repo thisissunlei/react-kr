@@ -78,6 +78,9 @@ export default class Header extends React.Component {
 	componentDidMount(){
 		window.addEventListener("click", this.personHide, false);
 	}
+	componentWillUnmount(){
+		window.removeEventListener("click", this.personHide, false);
+	}
 	
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
