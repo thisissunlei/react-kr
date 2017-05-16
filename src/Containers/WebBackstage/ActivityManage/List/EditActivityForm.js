@@ -478,6 +478,7 @@ class EditActivityForm extends React.Component{
 									getList={this.getList}
 									label="活动推送社区"
 									grid={1/2}
+									requireLabel={true}
 									style={{width:252}}
 								/></Grid>
 
