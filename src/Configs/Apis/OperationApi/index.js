@@ -472,7 +472,7 @@ module.exports = {
          method: 'get'
       },
       'getActivityCommunityList':{
-         url: '/api/krspace-op-web/cmt/community/city-cmt-list',
+         url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
          method: 'get'
       },
 
