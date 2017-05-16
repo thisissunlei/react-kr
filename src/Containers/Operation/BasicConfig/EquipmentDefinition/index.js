@@ -34,6 +34,7 @@ export default class EquipmentDefinition extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      realPage:1,
       openNewCreateDefinition: false,
       openEquipmentAdvancedQuery: false,
       openBatchUpload: false,
@@ -297,31 +298,60 @@ export default class EquipmentDefinition extends React.Component {
       .then(function(response){
         if(values.id){
           Message.success("编辑设备成功");
+          _this.setState({
+            openEditEquipment : false,
+            openNewCreateDefinition : false,
+            equipmentParams: {
+              deviceCode: "",
+              page : _this.state.realPage,
+              pageSize: 15,
+              timer : new Date()
+            }
+          })
         }else{
           Message.success("新增设备成功");
+          _this.setState({
+            openEditEquipment : false,
+            openNewCreateDefinition : false,
+            equipmentParams: {
+              deviceCode: "",
+              page : 1,
+              pageSize: 15,
+              timer : new Date()
+            }
+          })
+
         }
-        _this.setState({
-          openEditEquipment : false,
-          openNewCreateDefinition : false,
-          equipmentParams: {
-            deviceCode: "",
-            page : 1,
-            pageSize: 15,
-            timer : new Date()
-          }
-        })
+        
       }).catch(function(err){
         Message.error(err.message);
-        _this.setState({
-          openEditEquipment : false,
-          openNewCreateDefinition : false,
-          equipmentParams: {
-            deviceCode: "",
-            page : 1,
-            pageSize: 15,
-            timer : new Date()
-          }
-        })
+        if(values.id){
+          Message.success("编辑设备成功");
+          _this.setState({
+            openEditEquipment : false,
+            openNewCreateDefinition : false,
+            equipmentParams: {
+              deviceCode: "",
+              page : _this.state.realPage,
+              pageSize: 15,
+              timer : new Date()
+            }
+          })
+        }else{
+          Message.success("新增设备成功");
+          _this.setState({
+            openEditEquipment : false,
+              openNewCreateDefinition : false,
+              equipmentParams: {
+                deviceCode: "",
+                page : 1,
+                pageSize: 15,
+                timer : new Date()
+              }
+          })
+
+        }
+        
       });
   }
 
@@ -358,7 +388,7 @@ export default class EquipmentDefinition extends React.Component {
           equipmentParams: {
             filter: "deviceCode",
             content: '',
-            page : 1,
+            page : _this.state.realPage,
             pageSize: 15,
             timer : new Date()
           },
@@ -371,7 +401,7 @@ export default class EquipmentDefinition extends React.Component {
           equipmentParams: {
             filter: "deviceCode",
             content: '',
-            page : 1,
+            page : _this.state.realPage,
             pageSize: 15,
             timer : new Date()
           },
@@ -397,7 +427,7 @@ export default class EquipmentDefinition extends React.Component {
           equipmentParams: {
             filter: "deviceCode",
             content: '',
-            page : 1,
+            page : _this.state.realPage,
             pageSize: 15,
             timer : new Date()
           },
@@ -410,12 +440,23 @@ export default class EquipmentDefinition extends React.Component {
           equipmentParams: {
             filter: "deviceCode",
             content: '',
-            page : 1,
+            page : _this.state.realPage,
             pageSize: 15,
             timer : new Date()
           },
         })
      });
+
+  }
+
+
+  onPageChange=(page)=>{
+    
+    this.setState({
+      realPage:page
+    })
+
+    
 
   }
   render() {
@@ -471,6 +512,7 @@ export default class EquipmentDefinition extends React.Component {
             ajaxFieldListName='items'
             ajaxUrlName='equipmentList'
             ajaxParams={this.state.equipmentParams}
+            onPageChange={this.onPageChange}
           >
             <TableHeader>
               <TableHeaderColumn>社区名称</TableHeaderColumn>
