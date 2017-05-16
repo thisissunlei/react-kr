@@ -75,6 +75,9 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
 	}
+	componentDidMount(){
+		window.addEventListener("click", this.personHide, false);
+	}
 	
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
@@ -93,10 +96,13 @@ export default class Header extends React.Component {
 		if(target=="u-header-more-icon"){
 			return;
 		}
+		let {Isperson}=this.state;
+		if(Isperson){
+			this.setState({
+				Isperson:false
+			})
+		}
 		
-		this.setState({
-			Isperson:false
-		})
 	}
 
 
@@ -106,7 +112,7 @@ export default class Header extends React.Component {
 		let {Isperson}=this.state;
 		var  navs = NavModel.getNavs();
 		var  sidebarNavs=NavModel.getSidebarNavs();
-		window.addEventListener("click", this.personHide, false);
+		
 		return (
 			<div className="no-print">
 				<div className="g-header-nav">

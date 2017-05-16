@@ -103,7 +103,7 @@ State.getUser=action(function(forceUpdate){
 			 Message.error(err.message);
 		});
 		
-		console.log('nick---',this.userInfo)
+		
 	
 });
 
