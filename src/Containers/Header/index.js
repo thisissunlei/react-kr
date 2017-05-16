@@ -83,7 +83,7 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.toggleSidebar();
 	}
-	clickLogo() {
+	clickLogo=()=> {
 		window.open('http://krspace.cn') 
 	}
 	personShow=()=>{
