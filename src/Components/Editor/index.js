@@ -133,24 +133,36 @@ export default class Editor extends React.Component{
     this.containerId = 'container_'+Date.now();
     this.ue = null;
     this.init = false;
+    this.state = {
+      defaultValue:''
+    }
   }
 
   componentDidMount(){
-    this.initEditor();
+    this.initEditor('');
   }
 
 
   componentWillReceiveProps(nextProps){
     if(nextProps.defaultValue !== this.props.defaultValue){
         this.init = false;
-        this.setDefaultValue(nextProps.defaultValue);
+        this.initEditor(nextProps.defaultValue);
+        // this.setDefaultValue(nextProps.defaultValue);
+        // console.log('ready',nextProps.defaultValue)
+        
+        // this.setState({
+        //   defaultValue:nextProps.defaultValue
+        // })
     }
   }
 
 
-  initEditor = () =>{
-
-    var {configs,defaultValue} = this.props;
+  initEditor = (defaultValue) =>{
+    // console.log('init',this.ue);
+    if(this.ue){
+       this.ue = null;
+    }
+    var {configs} = this.props;
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function(action) {
