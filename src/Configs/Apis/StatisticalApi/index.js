@@ -55,4 +55,10 @@ module.exports = {
      method: 'get'
   },
 
+  // 数据统计-账龄分析-列表
+  'myAddressList':{
+    url: '/api/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
+    method: 'get'
+  }
+
 }
