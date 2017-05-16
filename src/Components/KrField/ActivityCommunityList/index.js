@@ -59,7 +59,10 @@ export default class InputComponent extends React.Component{
 		})
 	}
 	componentDidMount=()=>{
-		let {defaultValue} = this.props;
+		this.getBasicData(this.props.defaultValue)
+	    $('body').on('click',this.closeBox)
+	}
+	getBasicData=(defaultValue)=>{
 		let list = [];
 		
 		let _this = this;
@@ -102,7 +105,11 @@ export default class InputComponent extends React.Component{
 	    }).catch(function(err){
 	        // Message.error(err.message);
 	    });
-	    $('body').on('click',this.closeBox)
+	}
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.defaultValue!=this.props.defaultValue){
+			this.getBasicData(nextProps.defaultValue)
+		}
 	}
 
 	componentWillUnmount(){
@@ -143,7 +150,7 @@ export default class InputComponent extends React.Component{
 		let nowSelectedCommunitys =this.state.selectedCommunitys;
 		thisCity.communitys.map(function(item,index){
 			for(var i=0;i<nowSelectedCommunitys.length;i++){
-				if(item == nowSelectedCommunitys[i]){
+				if(item.id == nowSelectedCommunitys[i].id){
 					return;
 				}
 			}
@@ -160,7 +167,7 @@ export default class InputComponent extends React.Component{
 		let nowSelectedCommunitys =this.state.selectedCommunitys;
 		let sendValues="";
 		for(var i=0;i<nowSelectedCommunitys.length;i++){
-			if(detailCommunityInfo == nowSelectedCommunitys[i]){
+			if(detailCommunityInfo.id == nowSelectedCommunitys[i].id){
 				return;
 			}
 		}
@@ -219,8 +226,8 @@ export default class InputComponent extends React.Component{
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-activity-card" value={selectedCommunitys}>
-					<input readOnly="true" style={{color:nameList=='请选择'?'#ddd':'#333'}} value={nameList}  ref={input=>{this.input = input}} className='cityInput' onClick={this.click}/>
-					<div style={{display:show,width:520}} className="communitys-list">
+					<input readOnly="true" style={{color:nameList=='请选择'?'#ddd':'#666'}} value={nameList}  ref={input=>{this.input = input}} className='cityInput' onClick={this.click}/>
+					<div style={{display:show,width:520,marginTop:10}} className="communitys-list">
 					<Left communitys={options} 
 						chooseAllCommunity={this.chooseAllCommunity} 
 						selectedCommunitys={this.state.selectedCommunitys}

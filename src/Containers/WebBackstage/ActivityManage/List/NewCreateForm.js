@@ -55,6 +55,10 @@ class NewCreateForm extends React.Component{
 			Message.error('结束时间不能大于开始日期');
 			return;
 		}
+		if(!cmtIds.length){
+			Message.error('请选择推广社区');
+			return;
+		}
 
 		// 置顶时如果序列号重复不能提交
 		if(values.top == 0){
@@ -383,13 +387,15 @@ class NewCreateForm extends React.Component{
 										initailPoint ={State.initailPoint}
 									/>
 								</div>
-								<Grid ><KrField name="communitys"
+								<Grid ><KrField 
+									name="communitys"
 									options={communitys}
 									component="activity"
 									defaultValue={communitys}
 									getList={this.getList}
 									label="活动推送社区"
 									grid={1/2}
+									requireLabel={true}
 									style={{width:252}}
 								/></Grid>
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:252}}/>
@@ -579,7 +585,9 @@ const validate = values => {
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
-
+	// if(values.communitys && !values.communitys.length){
+	// 	errors.communitys = '请选择推广社区'
+	// }
 	return errors
 }
 

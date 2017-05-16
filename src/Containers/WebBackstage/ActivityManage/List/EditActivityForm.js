@@ -84,11 +84,19 @@ class EditActivityForm extends React.Component{
 			}else{
 				State.choseAdd = false;
 			}
+
+			let communitys = []
+			response.cmts.map(item=>{
+				communitys.push(item.id)
+			})
+
+
 			_this.setState({
 				beginDate: startDates,
 				endDate :endDates,
 				timeStart : detailStartTime,
-				timeEnd : detailEndTime
+				timeEnd : detailEndTime,
+				communitys:communitys
 			},function(){
 				Store.dispatch(initialize('EditActivityForm', response));
 				Store.dispatch(change('EditActivityForm','startDate',startDates));
@@ -109,6 +117,15 @@ class EditActivityForm extends React.Component{
 	}
 	// 提交
 	onSubmit=(values)=>{
+
+		let cmtIds = [];
+		values.communitys.map((item)=>{
+			cmtIds.push(item.id)
+		})
+
+		values.cmtIds = cmtIds;
+
+
 		// 时间是否正确
 		if(!State.timeIsTrue){
 			Message.error('结束时间不能大于开始日期');
@@ -120,6 +137,10 @@ class EditActivityForm extends React.Component{
 				Message.error('排序号已经存在');
 				return;
 			}
+		}
+		if(!cmtIds.length){
+			Message.error('请选择推广社区');
+			return;
 		}
 		values.publishType = this.publishType ;
 		values.beginDate = values.startDate+" "+values.startTime+":00";

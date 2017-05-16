@@ -110,6 +110,7 @@ import {DateFormat} from 'kr/Utils';
 	render(){
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
+		console.log('=====',State.cmts)
 		let partakeMan =[{
 			label: '会员专属',
 			value: 'MEMBER_ONLY'
@@ -194,7 +195,8 @@ import {DateFormat} from 'kr/Utils';
 							<KrField grid={1/2} name="type" type="labelText" inline={false} label="活动类型" requireLabel={true} style={{width:'252px'}} value={activityType} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="活动时间" requireLabel={true} value={time} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="举办地址" requireLabel={true} value={`${initValue.cityName}${initValue.countyName}-${initValue.address}`} />
-							<KrField grid={1} name="date" type="labelText" inline={false} label="活动推送社区" requireLabel={true} value={`${initValue.cityName}${initValue.countyName}-${initValue.address}`} />
+							{State.cmts && State.cmts.length == 1 && <KrField grid={1} name="date" type="labelText" inline={false} label="活动推送社区" requireLabel={true} value={`${State.cmts[0].name}`} />}
+							{State.cmts && State.cmts.length >1  && <KrField grid={1} name="date" type="labelText" inline={false} label="活动推送社区" requireLabel={true} value={`${State.cmts[0].name}等${State.cmts.length}个社区`} />}
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="地址坐标" requireLabel={true} value={`X:${initValue.xPoint} Y:${initValue.yPoint}`} />
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="排序" requireLabel={true} value={initValue.sort}  defaultValue='无'/>
 

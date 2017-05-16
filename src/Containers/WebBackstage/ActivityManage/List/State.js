@@ -58,7 +58,8 @@ let State = observable({
 	coverPicDefaultValue:'',
 	serialNumRepeat: false,
 	timeIsTrue : true,
-	activityIntroduce : ''
+	activityIntroduce : '',
+	cmts:[]
 
 });
 
@@ -144,6 +145,8 @@ State.activityDetail = action(function(id) {
 	Http.request('getActivityDetail', {
 		id: id,
 	}).then(function(response) {
+		_this.cmts = response.cmts;
+		console.log(response)
 		_this.detailContent = response.summary;
 	}).catch(function(err) {
 
