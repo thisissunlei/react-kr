@@ -47,6 +47,7 @@ export default class List extends React.Component {
 			list: {},
 			content:'',
 			filter:'COMP_NAME',
+			realPage:1,
 			searchParams: {
 				page:"1",
 				pageSize:"20",
@@ -114,7 +115,8 @@ export default class List extends React.Component {
 				searchParams:{
 					date: new Date(),
 					communityId :'',
-					customerName: ''
+					customerName: '',
+					page : _this.state.realPage
 
 				}
 			})
@@ -134,7 +136,8 @@ export default class List extends React.Component {
 				searchParams:{
 					date: new Date(),
 					communityId : _this.state.searchParams.communityId,
-					customerName : _this.state.searchParams.customerName
+					customerName : _this.state.searchParams.customerName,
+
 				}
 			})
 		}).catch(function(err){
@@ -154,7 +157,8 @@ export default class List extends React.Component {
 				searchParams:{
 					date: new Date(),
 					communityId : '',
-					customerName :''
+					customerName :'',
+					page: _this.state.realPage
 
 				}
 			})
@@ -210,6 +214,14 @@ export default class List extends React.Component {
 		})
 	}
 
+	onPageChange=(page)=>{
+    
+	    this.setState({
+	      realPage:page
+	    })
+
+	}
+
 	render() {
 		let {
 			list,itemDetail,seleced
@@ -237,6 +249,7 @@ export default class List extends React.Component {
 											ajaxUrlName='impowerList'
 											ajaxParams={this.state.searchParams}
 											displayCheckbox={false}
+											onPageChange={this.onPageChange}
 										>
 										<TableHeader>
 											<TableHeaderColumn>客户名称</TableHeaderColumn>
