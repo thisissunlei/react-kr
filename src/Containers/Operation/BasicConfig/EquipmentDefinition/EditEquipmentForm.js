@@ -53,13 +53,14 @@ class EditEquipmentForm extends React.Component{
 		}
 	}
 	getBasicData=(detail)=>{
+		console.log("detail",detail);
 		let _this = this;
-		let SearchLocationParams = {communityId:detail.communityId,whereFloor:detail.floor}
+		let SearchLocationParams = {communityId:detail.communityId,whereFloor:detail.floor,type:detail.propertyId}
 		Http.request('getLocationByProperty',SearchLocationParams)
 		.then(function(response){
 			var locationArr = []
     		for (var i=0;i<response.length;i++){
-    			locationArr[i] = {label:response[i].boardroomname,value:response[i].id}
+    			locationArr[i] = {label:response[i].name,value:response[i].id}
     		}
     		_this.setState({
     			locationOptions : locationArr
@@ -167,12 +168,12 @@ class EditEquipmentForm extends React.Component{
   				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3},{label: '路演厅',value: 4},{label: '配置门',value: 5}],
 
   			})
-  			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floor}
+  			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floor,type:propertyId.value}
   			Http.request('getLocationByProperty',SearchLocationParams).
 			then(function(response){
 				var locationArr = []
 	    		for (var i=0;i<response.length;i++){
-	    			locationArr[i] = {label:response[i].boardroomname,value:response[i].id}
+	    			locationArr[i] = {label:response[i].name,value:response[i].id}
 	    		}
 	    		_this.setState({
 	    			locationOptions : locationArr

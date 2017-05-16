@@ -86,6 +86,7 @@ class LookDetailed extends Component{
 		let tr=[];
 
 		let records=this.props.CommunityDetailModel.detail.records;
+		console.log(records,">>>>>")
 		let len=records.length;
 		if(State.recordDevelop&&records.length>State.visitLen){
 			len=State.visitLen;

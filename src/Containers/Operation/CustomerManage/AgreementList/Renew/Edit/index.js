@@ -58,7 +58,7 @@ export default class JoinCreate extends React.Component {
       openConfirmCreate: false
     }
 
-    Store.dispatch(reset('reduceCreateForm'));
+
 
   }
 
@@ -132,6 +132,7 @@ export default class JoinCreate extends React.Component {
   }
 
   componentDidMount() {
+    Store.dispatch(reset('reduceCreateForm'));
     this.getlocalSign();
     // this.getBasicData()
   }
@@ -161,7 +162,7 @@ export default class JoinCreate extends React.Component {
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
       initialValues.setLocalStorageDate = +new Date();
-     
+
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
       initialValues.contracttype = 'RENEW';
 
@@ -369,6 +370,7 @@ export default class JoinCreate extends React.Component {
 
         //处理stationvos
         initialValues.stationVos =  response.stationVos;
+
         
         stationVos =  JSON.parse(localStorage.getItem(keyWord+'stationVos')) || [];
 
@@ -426,15 +428,15 @@ export default class JoinCreate extends React.Component {
 
     },function(){
       this.getBasicData()
-    })  
-  } 
+    })
+  }
   getLocalStorage=()=>{
     this.setState({
       openLocalStorages:false,
     },function(){
       this.getLocalStorageSata();
     })
-  } 
+  }
 
 
   render() {
@@ -471,7 +473,7 @@ export default class JoinCreate extends React.Component {
         autoScrollBodyContent={true}
         autoDetectWindowHeight={true}
         onClose={this.openConfirmCreateDialog}
-        open={this.state.openLocalStorages} 
+        open={this.state.openLocalStorages}
         contentStyle={{width:'400px'}}>
           <div>
             <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>

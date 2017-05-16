@@ -1,23 +1,23 @@
 import React from 'react';
 import {
-  Title,
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-  TableFooter,
-  Button,
-  Section,
-  SearchForms,
-  Dialog,
-  Grid,
-  ListGroup,
-  ListGroupItem,
-  Row,
-  Message,
-  Tooltip
+	Title,
+		Table,
+		TableBody,
+		TableHeader,
+		TableHeaderColumn,
+		TableRow,
+		TableRowColumn,
+		TableFooter,
+		Button,
+		Section,
+		SearchForms,
+		Dialog,
+		Grid,
+		ListGroup,
+		ListGroupItem,
+		Row,
+		Message,
+		Tooltip
 } from 'kr-ui';
 import NewCreateDefinitionForm from './NewCreateDefinitionForm';
 import EquipmentAdvanceQueryForm from './EquipmentAdvancedQueryForm';
@@ -428,7 +428,7 @@ export default class EquipmentDefinition extends React.Component {
       value:"hardwareId"
     }]
     return (
-      <div style={{minHeight:'910',backgroundColor:"#fff"}}>
+      <div className = "equipment-define" style={{minHeight:'910',backgroundColor:"#fff"}}>
         <div className="uploadWarn" style={{display:openTipWarn?"block":"none"}}><img src={error2} className="tipImg"/>{tipText}</div>
         <Title value="设备定义 "/>
         <Section title={`设备定义`} description="" >

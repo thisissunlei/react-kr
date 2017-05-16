@@ -60,7 +60,7 @@ export default class JoinCreate extends React.Component {
 
 		this.isConfirmSubmiting = false;
 
-		Store.dispatch(reset('joinEditForm'));
+
 	}
 
 	onCreateSubmit(formValues) {
@@ -140,6 +140,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('joinEditForm'));
 		this.getlocalSign()
 	}
 
@@ -351,8 +352,8 @@ export default class JoinCreate extends React.Component {
 				initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
 				initialValues.rentaluse = localStorage.getItem(keyWord+'rentaluse');
 				initialValues.contractmark = localStorage.getItem(keyWord+'contractmark')||'';
-				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent')|| response.totalrent;
-				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit')||response.totaldeposit;
+				initialValues.totalrent = localStorage.getItem(keyWord+'totalrent');
+				initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
 				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
 					initialValues.agreement = localStorage.getItem(keyWord+'agreement')|| '无';
 				}else{
@@ -427,8 +428,8 @@ export default class JoinCreate extends React.Component {
     },function(){
       this.getBasicData()
       this.removeLocalStorage()
-    })  
-  } 
+    })
+  }
   getLocalStorage=()=>{
     this.setState({
       openLocalStorages:false,
@@ -462,7 +463,7 @@ export default class JoinCreate extends React.Component {
         autoScrollBodyContent={true}
         autoDetectWindowHeight={true}
         onClose={this.openConfirmCreateDialog}
-        open={this.state.openLocalStorages} 
+        open={this.state.openLocalStorages}
         contentStyle={{width:'400px'}}>
           <div>
             <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>

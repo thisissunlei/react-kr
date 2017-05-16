@@ -20,6 +20,11 @@ const WebBackstage_ActivityManage_List = (location, callback) => {
     callback(null, require('kr/Containers/WebBackstage/ActivityManage/List').default)
   }, 'WebBackstage_ActivityManage_List')
 }
+const WebBackstage_News = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/WebBackstage/News').default)
+  }, 'WebBackstage_News')
+}
 
 module.exports =()=>{
 
@@ -29,6 +34,9 @@ module.exports =()=>{
 			{/*活动列表*/}
 			<Route path="activity" getComponent={Basic}>
 				<Route path="list" getComponent={WebBackstage_ActivityManage_List}/>
+			</Route>
+			<Route path="news" getComponent={Basic}>
+				<Route path="list" getComponent={WebBackstage_News}/>
 			</Route>
 		</Route>
 	);

@@ -27,7 +27,8 @@ import {
 	Message,
 	UpLoadList,
 	FontIcon,
-	Pagination
+	Pagination,
+	Loading
 } from 'kr-ui';
 import State from './State';
 import SearchForm from "./SearchForm";
@@ -94,6 +95,7 @@ class Merchants extends Component{
 		     },
 		    agreementListAnnex:false,
 		    agreementListOther:false,
+			isRefresh:true,
 
 		}
 		 this.allOrderReady();
@@ -382,7 +384,7 @@ class Merchants extends Component{
 		 delList.map((item)=>{
 		 	localStorage.removeItem(item);
 		 })
-		 
+
 	}
 
 	componentDidMount() {
@@ -626,7 +628,7 @@ class Merchants extends Component{
 
 	render(){
 
-      	let {contractList}=State;
+      	let {contractList,loading}=State;
       	var blockStyle={};
        	const {
 			orderBaseInfo,
@@ -744,7 +746,7 @@ class Merchants extends Component{
 		          	</TableHeader>
 
 			        <TableBody>
-			        	{contractList.map((item,index)=>{
+			        	{ contractList.map((item,index)=>{
 			        		let type='';
 			        		if(item.contracttype=='INTENTION'){
                                type='承租意向书'

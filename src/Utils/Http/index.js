@@ -25,6 +25,9 @@ function getUrl(path, params = {},mode = false) {
     if(url.indexOf('http') !== -1){
       server='';
     }
+     if(url.indexOf('apis') !== -1){
+      server='';
+    }
 
     try {
       server += APIS[path].url;

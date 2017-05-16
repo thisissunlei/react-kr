@@ -5,6 +5,7 @@ import NewIndentModel from './NewIndentModel';
 import CommunityAgreementList from './CommunityAgreementList';
 import NotifyModel from './NotifyModel';
 import NavModel from './NavModel';
+import OperationCommunity from './OperationCommunity';
 
 module.exports = {
 	CommonModel,
@@ -13,5 +14,6 @@ module.exports = {
 	NotifyModel,
 	CommunityAgreementList,
 	NavModel,
+	...OperationCommunity,
 	NewIndentModel,
 }

@@ -138,7 +138,7 @@ export default class Pagination extends Component {
 	}
 
 	renderPrev = ()=> {
-   
+
 		let {
 			page,
 			pageSize,

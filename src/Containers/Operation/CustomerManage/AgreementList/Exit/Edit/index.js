@@ -46,7 +46,7 @@ export default class EditCreate extends React.Component {
       openConfirmCreate: false
     }
 
-    Store.dispatch(reset('exitEditForm'));
+
   }
 
   onCreateSubmit(formValues) {
@@ -106,6 +106,7 @@ export default class EditCreate extends React.Component {
   }
 
   componentDidMount() {
+    Store.dispatch(reset('exitEditForm'));
       this.getlocalSign()
   }
 

@@ -17,7 +17,7 @@ export default class DrawerBody extends React.Component {
     let {children,style} = this.props;
 
     return (
-      <div className="drawer-body" style={style} ref="drawerBody">
+      <div className="drawer-body ui-drawer-in" style={style} ref="drawerBody">
           {children}
       </div>
     );

@@ -47,6 +47,7 @@ import UploadImageListComponent from './UploadImageListComponent';
 import SelectTimeComponent from './SelectTimeComponent';
 import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
+import SearchCommunityList from './SearchCommunityList';
 import searchCommunityManage from './SearchCommunity';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
@@ -219,6 +220,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchCommunitys') {
 				return (
 					<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchCommunityList') {
+				return (
+					<FieldRevert {...this.props} component={SearchCommunityList}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'searchCorporation') {

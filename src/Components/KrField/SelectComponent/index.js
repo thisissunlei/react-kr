@@ -66,6 +66,7 @@ export default class SelectComponent extends React.Component {
 		this.setState({
 			value
 		});
+
 		input.onChange(value);
 	}
 
@@ -76,6 +77,8 @@ export default class SelectComponent extends React.Component {
 		} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
+
+
 		onChange && onChange(item);
 }
 
@@ -99,6 +102,7 @@ render() {
 			multi,
 			...other
 		} = this.props;
+
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
@@ -122,6 +126,8 @@ render() {
 
 		}
 		if (options) {
+
+
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

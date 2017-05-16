@@ -102,7 +102,7 @@ class SearchUpperForm extends React.Component {
 				<div className='ui-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="signStartDate" component="date" /></div></ListGroupItem>
-							<div className='ui-line-down' style={{display:"inline-block",marginTop:20}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+							<div style = {{display:"inline-block",marginTop:20}} className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 						<ListGroupItem><div className='ui-date-end'><KrField name="signEndDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 					</ListGroup>
                 </div>
@@ -111,6 +111,7 @@ class SearchUpperForm extends React.Component {
                  selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/>
                 <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="intentionCityId" type="select" label="意向城市"
                  options={cityList}
+				 
                 />
 				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} component='searchIntend'  label="意向社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类"
@@ -123,7 +124,7 @@ class SearchUpperForm extends React.Component {
 				<div className='ui-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
-							<div className='ui-line-down' style={{display:"inline-block",marginTop:20}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+							<div style = {{display:"inline-block",marginTop:20}} className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 						<ListGroupItem><div className='ui-date-end'><KrField name="createEndDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 					</ListGroup>
                 </div>

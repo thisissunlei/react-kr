@@ -34,7 +34,7 @@ module.exports = {
     },
     //运营平台-基础配置-设备定义-根据属性获取对应位置
     'getLocationByProperty': {
-        url: '/api/krspace-finance-web/community/community-boardroom?communityId={communityId}&whereFloor={whereFloor}',
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/community-boardroom?communityId={communityId}&whereFloor={whereFloor}&type={type}',
         method: 'get'
     },
     //运营平台-基础配置-设备定义-传图片
@@ -114,7 +114,7 @@ module.exports = {
     },
     // 运营平台－获取社区楼层数据
     'getCommunityFloors': {
-        url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
+        url: '/api/krspace-finance-web/cmt/community/select/use/floor?communityId={communityId}',
         method: 'get'
     },
     // 计划表获取数据
@@ -255,7 +255,7 @@ module.exports = {
     },
     //运营平台－客户管理－获取项目类型树
     'get-project-types': {
-        url: '/api-old/krspace_operate_web/codecategory/actions/get-project-types',
+        url: '/api/krspace-finance-web/cmt/codeCategory/select/use/info',
         method: 'get'
     },
     //运营平台－客户管理－订单删除
@@ -298,6 +298,107 @@ module.exports = {
         url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
         method: 'post'
     },
+    //设备列表
+   'equipment-list':{
+      url: '/api/krspace-finance-web/cmt/device/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+   //新建设备
+   'equipment-submit':{
+      url: '/api/krspace-finance-web/cmt/device/action/edit?id={id}&name={name}',
+      method: 'post'
+   },
+   //删除设备
+   'equipment-delete':{
+      url: '/api/krspace-finance-web/cmt/device/action/delete?id={id}',
+      method: 'delete'
+   },
+   //商圈列表
+   'business-list':{
+      url: '/api/krspace-finance-web/cmt/business/action/list?districtId={districtId}&page={page}&pageSize={pageSize}&enable={enable}&name={name}&no={no}',
+      method: 'get'
+   },
+
+   //商圈列表-新建商圈
+   'business-new':{
+      url: '/api/krspace-finance-web/cmt/business/action/edit?districtId={districtId}&enable={enable}&name={name}&no={no}&sort={sort}&id={id}',
+      method: 'post'
+   },
+    //运营平台－代码分类列表
+    'codeCategoryList': {
+        url: '/api/krspace-finance-web/cmt/codeCategory/action/list?noOrName={noOrName}&pid={pid}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营平台－代码分类新增或编辑
+    'codeCategoryEdit': {
+        url: '/api/krspace-finance-web/cmt/codeCategory/action/edit',
+        method: 'post'
+    },
+    //运营平台－社区列表-城市
+    'type-city-community': {
+        url: '/api/krspace-finance-web/cmt/community/list/type/city?name={name}&type={type}',
+        method: 'get'
+    },
+    //运营平台－工位列表
+    'station-list': {
+        url: '/api/krspace-finance-web/cmt/station/list?code={code}&communityId={communityId}&enable={enable}&page={page}&pageSize={pageSize}&stationType={stationType}&spaceId={spaceId}&belongSpace={belongSpace}',
+        method: 'get'
+    },
+    //运营平台－工位新增或编辑
+    'station-edit': {
+        url: '/api/krspace-finance-web/cmt/station/actions/edit',
+        method: 'post'
+    },
+    //运营平台－校验工位编码
+    'station-check-code': {
+        url: '/api/krspace-finance-web/cmt/station/check/code?code={code}&id={id}&communityId={communityId}',
+        method: 'get'
+    },
+    //运营平台－工位删除接口
+    'station-delete': {
+        url: '/api/krspace-finance-web/cmt/station/actions/delete?id={id}',
+        method: 'delete'
+    },
+    //运营平台－获取工位编辑信息
+    'station-get-edit': {
+        url: '/api/krspace-finance-web/cmt/station/info/type/edit?id={id}',
+        method: 'get'
+    },
+    //运营平台－工位列表数据准备
+    'station-param-data': {
+        url: '/api/krspace-finance-web/cmt/station/list-param-data?communityId={communityId}',
+        method: 'get'
+    },
+    //运营平台-会议室列表-列表接口
+    'meeting-room-list': {
+        url: '/api/krspace-finance-web/cmt/space/list?capacityBegin={capacityBegin}&capacityEnd={capacityEnd}&communityId={communityId}&deviceIds={deviceIds}&enable={enable}&page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&spaceType={spaceType}',
+        method: 'get'
+    },
+    //运营平台-会议室列表-获取空间编辑信息
+    'meeting-room-eidData': {
+        url: '/api/krspace-finance-web/cmt/space/info/type/edit?id={id}',
+        method: 'get'
+    },
+     //运营平台－校验空间名称
+    'meeting-check-name': {
+        url: '/api/krspace-finance-web/cmt/space/check/name?id={id}&name={name}&communityId={communityId}',
+        method: 'get'
+    },
+     //运营平台－空间列表数据准备
+    'meeting-param-data': {
+        url: '/api/krspace-finance-web/cmt/space/list-param-data?communityId={communityId}',
+        method: 'get'
+    },
+    //运营平台－空间删除接口
+    'meeting-delete': {
+        url: '/api/krspace-finance-web/cmt/space/actions/delete?id={id}',
+        method: 'delete'
+    },
+    //运营平台－空间新增或编辑
+    'meeting-edit-submit': {
+        url: '/api/krspace-finance-web/cmt/space/actions/edit',
+        method: 'post'
+    },
       //凭证管理--凭证列表--获取社区列表下拉框
       'findCommunityVoucher':{
          url: '/api/krspace-finance-web/finance/paymentEvidence/findCommunity',
@@ -320,7 +421,7 @@ module.exports = {
       },
       //凭证管理--凭证列表--已删除凭证列表
       'voucher-find-deleted-page':{
-         url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
+         url: '/api/krspace-finance-web/finance/paymentEvidence/find-deleted-page?communityId={communityId}&page={page}&pageSize={pageSize}&payWay={payWay}&customerName={customerName}&paymentAccount={paymentAccount}&startDate={startDate}&stopDate={stopDate}',
          method: 'get'
       },
       //凭证管理--凭证列表--已审核凭证列表--查看回款详情
@@ -337,6 +438,38 @@ module.exports = {
       'add-receipt':{
          url: '/api/krspace-finance-web/finance/paymentEvidence/add-receipt',
          method: 'post'
+      },
+        //社区配置--我的地点--我的地点列表
+      'myAddressList':{
+         url: '/api/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+      'addMyAddressData':{
+         url: '/api/krspace-finance-web/community/notice/cmt-notice',
+         method: 'post'
+      },
+      'getEditInfo':{
+         url: '/api/krspace-finance-web/community/notice/manager-notice?id={id}',
+         method: 'get'
+      },
+    //社区配置--我的地点--删除地点
+      'deleteAddress':{
+         url: '/api/krspace-finance-web/community/notice/delete?cmtId={cmtId}',
+         method: 'delete'
+      },
+    //社区配置--我的地点--获取基本编辑数据
+      'getEditAddress':{
+         url: '/api/krspace-finance-web/community/notice/manager-notice?id={id}',
+         method: 'get'
+      },
+      'checkCommunityId':{
+         url: '/api/krspace-finance-web/community/notice/available-cmt?cmtId={cmtId}',
+         method: 'get'
+      },
+      //运营平台-社区配置-预约-工位预约
+       'station-reservation':{
+         url: '/api/krspace-finance-web/cmt-appointment/station/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
+         method: 'get'
       },
 
 }

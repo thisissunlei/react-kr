@@ -76,7 +76,7 @@ class CustomerIndent extends Component{
 				isEdit=true;
 			}
 			return (
-				<div>
+				<div key = {index}>
 				<div className="indentList">
 					<div className="orderNumber">{index+1}</div>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单名称:" style={unifyStyle} component="labelText" value={item.mainbillname} inline={true} toolTrue/></li>

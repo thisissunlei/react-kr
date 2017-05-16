@@ -161,7 +161,7 @@ import {
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 
-									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称' requireLabel={true}/>
+									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false}  placeholder='请输入社区名称' requireLabel={true}/>
 									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"/>
 									<div className="middle-round"></div>
@@ -204,6 +204,7 @@ import {
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
+
 										<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
@@ -251,15 +252,6 @@ const validate = values =>{
 		}else if(values.name.length>20){
 			errors.name = '最多输入20个字符';
 		}
-
-
-
-
-
-
-
-
-
 		if (!values.tel) {
 			errors.tel = '请填写联系人电话';
 		}else if(!phone1.test(values.tel)){

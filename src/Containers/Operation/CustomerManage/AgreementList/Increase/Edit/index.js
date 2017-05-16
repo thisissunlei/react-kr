@@ -58,7 +58,7 @@ export default class JoinCreate extends React.Component {
 			delStationVos:[]
 		}
 
-		Store.dispatch(reset('increaseCreateForm'));
+
 	}
 
 	onCreateSubmit(formValues) {
@@ -127,6 +127,7 @@ export default class JoinCreate extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(reset('increaseCreateForm'));
 		this.getlocalSign()
 	}
 
@@ -155,7 +156,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.setLocalStorageDate = +new Date();
 			// initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
-			
+
 			initialValues.contractcode = response.contractCode;
 
 			if(!response.hasOwnProperty('agreement') || !!!response.agreement){
@@ -291,7 +292,7 @@ export default class JoinCreate extends React.Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.setLocalStorageDate = +new Date();
 			// initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
-			
+
 			initialValues.contractcode = response.contractCode;
 
 
@@ -428,15 +429,15 @@ getlocalSign=()=>{
     },function(){
       this.getBasicData()
       this.removeLocalStorage()
-    })  
-  } 
+    })
+  }
   getLocalStorage=()=>{
     this.setState({
       openLocalStorages:false,
     },function(){
       this.getLocalStorageSata();
     })
-  }	
+  }
 
 
 	render() {
@@ -463,7 +464,7 @@ getlocalSign=()=>{
         autoScrollBodyContent={true}
         autoDetectWindowHeight={true}
         onClose={this.openConfirmCreateDialog}
-        open={this.state.openLocalStorages} 
+        open={this.state.openLocalStorages}
         contentStyle={{width:'400px'}}>
           <div>
             <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>

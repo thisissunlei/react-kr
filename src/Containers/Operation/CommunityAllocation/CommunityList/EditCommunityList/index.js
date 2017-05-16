@@ -35,7 +35,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
   return (
       <ul style={{padding:0,margin:0}}>
        {fields.map((wherefloorsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <div className="krFlied-box">
         <KrField
           style={{width:239,marginLeft:16,marginRight:3}}
@@ -80,7 +80,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1/2}
@@ -111,7 +111,7 @@ const renderBasic = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1}
@@ -143,7 +143,7 @@ const renderSpecial = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
           grid={1}
@@ -175,7 +175,7 @@ const renderService = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600}}>
+      <li key={index} style={{width:600,listStyle:'none'}}>
         <KrField
           style={krStyle}
            grid={1}
@@ -202,7 +202,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
-       <li key={index} style={{width:600}}><KrField
+       <li key={index} style={{width:600,listStyle:'none'}}><KrField
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}
@@ -245,26 +245,23 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		this.state={
 			      openDown:true,
             openUp:false,
-            cityId:'',
-            communityName:'',
             codeName:'',
-            timeStart:'',
-            timeEnd:'',
-            photoF:[],
-            photoL:[],
-            photoD:[],
-            communityId:'',
+						picUrl:'',
+						picId:''
 		}
-
 	}
 
 	onSubmit = (values) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
-        Message.error('开始时间不能大于结束时间');
+        Message.error('签约开始时间不能大于签约结束时间');
        return ;
      }
+		 if(values.businessBegin!=''&&values.businessEnd!=''&&values.businessEnd<values.businessBegin){
+			 Message.error('营业开始时间不能大于营业结束时间');
+			return ;
+		}
 
      var flagDesk=0;
      var flagOpen=0;
@@ -327,7 +324,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   //社区名称
    communityNameChange=(value)=>{
      let {communityId}=this.state;
-     if(!value){
+     if(!value.toString().trim()){
        this.setState({
        communityName:'无'
      })
@@ -336,7 +333,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        communityName:value
      })
      }
-     State.communityName(value,communityId);
+     State.communityName(value.toString().trim(),communityId);
    }
 
 
@@ -348,7 +345,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       codeName:value
     })
 
-     State.communityCode(value,communityId);
+     State.communityCode(value.toString().trim(),communityId);
    }
 
     //社区排序
@@ -372,113 +369,22 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     //地图坐标
     locationMap=(value)=>{
-      var xLocation=value.split(',')[0];
-      var yLocation=value.split(',')[1];
+      var xLocation=value.split(',')[1];
+      var yLocation=value.split(',')[0];
       Store.dispatch(change('editCommunityList','latitude',xLocation));
       Store.dispatch(change('editCommunityList','longitude',yLocation));
     }
 
-    componentWillMount(){
-        let {id}=this.props;
-        var _this=this;
-				Http.request('communityGetEdit',{id:id}).then(function(response) {
-
-          response.openDate=DateFormat(response.openDate,"yyyy-mm-dd hh:MM:ss");
-          response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
-          response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
-
-          Store.dispatch(initialize('editCommunityList',response));
+		componentDidMount(){
+			let {picSrc,picId}=this.props;
+			this.setState({
+				picUrl:picSrc,
+				picId:picId
+			})
+		}
 
 
-          Store.dispatch(change('editCommunityList','local',response.latitude+','+response.longitude));
 
-          State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`
-					var bright_basic=[];
-					var bright_service=[];
-					var bright_special=[];
-					var bright_bright=[];
-
-					var photo_First=[];
-					var photo_List=[];
-					var photo_Detail=[];
-					response.photoVOs.map((item,index)=>{
-						if(item.type=='THEFIRST'){
-							item.src=item.photoUrl;
-							delete item.photoUrl;
-							photo_First.push(item);
-						}
-						if(item.type=='LIST'){
-							item.src=item.photoUrl;
-							delete item.photoUrl;
-							photo_List.push(item);
-						}
-						if(item.type=='DETAILS'){
-							item.src=item.photoUrl;
-							delete item.photoUrl;
-							photo_Detail.push(item);
-						}
-					})
-
-
-					_this.setState({
-						timeStart:response.businessBegin,
-						timeEnd:response.businessEnd,
-						cityId:response.cityId,
-						photoF:photo_First,
-						photoL:photo_List,
-						photoD:photo_Detail,
-            communityId:response.id,
-            communityName:response.name
-					})
-
-					response.brights.map((item,index)=>{
-						if(item.type=="BRIGHTPOINTS"){
-							bright_bright.push(item);
-						}
-						if(item.type=="INFRASTRUCTURE"){
-							bright_basic.push(item);
-						}
-						if(item.type=="SPECIALSERVICE"){
-							bright_special.push(item);
-						}
-						if(item.type=="BASICSERVICE"){
-							bright_service.push(item);
-						}
-						if(item.type=="TRANSPORTATION"){
-							Store.dispatch(change('editCommunityList','brightPorts.brightPoints',item.brightPoints));
-						}
-						if(item.type=="PERIMETER"){
-							Store.dispatch(change('editCommunityList','brightRound.brightPoints',item.brightPoints));
-						}
-					})
-
-          Store.dispatch(change('editCommunityList','porTypes',response.porTypes.length?response.porTypes:[{}]));
-					Store.dispatch(change('editCommunityList','bright_bright',bright_bright.length?bright_bright:[{type:'BRIGHTPOINTS'}]));
-					Store.dispatch(change('editCommunityList','bright_special',bright_special.length?bright_special:[{type:'SPECIALSERVICE'}]));
-					Store.dispatch(change('editCommunityList','bright_service',bright_service.length?bright_service:[{type:'INFRASTRUCTURE'}]));
-					Store.dispatch(change('editCommunityList','bright_basic',bright_basic.length?bright_basic:[{type:'BASICSERVICE'}]));
-
-					if(response.opened==true){
-						Store.dispatch(change('editCommunityList','opened','1'));
-					}
-					if(response.opened==false){
-						Store.dispatch(change('editCommunityList','opened','0'));
-					}
-
-
-					if(response.portalShow==true){
-						Store.dispatch(change('editCommunityList','portalShow','1'));
-					}
-					if(response.portalShow==false){
-						Store.dispatch(change('editCommunityList','portalShow','0'));
-					}
-
-				}).catch(function(err) {
-					Message.error(err.message);
-				});
-
-
-			}
 
 			//展开
 			flagOpen=()=>{
@@ -499,7 +405,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			render(){
 
 
-				let {communityName,codeName,photoF,photoL,photoD,openDown,openUp,timeStart,timeEnd}=this.state;
+				let {codeName,openDown,openUp,picUrl,communityName,picId}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -512,14 +418,28 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				}
 
 
+          let openStyle={};
+          if(openDown){
+           openStyle={
+            paddingBottom:0
+           }
+          }else{
+           openStyle={};
+          }
 
 
+				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,timeStart,timeEnd} = this.props;
 
-				const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
+        let defaultValue={
+					picId:picId,
+          picUrl:picUrl
+				}
+
+
 
 				return (
 					<div>
-						<form className="m-newMerchants communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
+						<form className="communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
 							<div className="title">
 								<div><span className="new-icon list-icon"></span><label className="title-text">编辑社区</label></div>
 								<div className="customer-close" onClick={this.onCancel}></div>
@@ -542,7 +462,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 							options={toJS(State.searchData)}
 							/>
 
-						<KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={State.cityData}/>
+						<KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={cityData}/>
 
 						<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
@@ -573,7 +493,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
-							<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}/>
+							<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
 							<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
@@ -596,17 +516,44 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 								<FieldArray name="bright_bright" component={renderBrights}/>
 
-
-								{openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-							<div className="end-round two-round"></div></div>}
-
-								{openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+                <div className="middle-round"></div>
 
 							</div>
 
 
+              <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
+              <div className="small-cheek" style={openStyle}>
+
+
+                <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
+
+                <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
+
+								<KrField
+                     label=""
+                     name="picId"
+                     component="newuploadImage"
+                     innerstyle={{width:364,height:254,padding:16}}
+ 										 sizePhoto
+                     photoSize={'3:2'}
+                     pictureFormat={'JPG,PNG,GIF'}
+                     pictureMemory={'300'}
+                     requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                     inline={false}
+                     formfile=' '
+										 defaultValue={defaultValue}
+                     center='center'
+                   />
+
+              {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
+                <div className="end-round two-round"></div></div>}
+               {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
+
+           </div>
+
+
 							<div style={{display:openUp?'block':'none'}}>
-								<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
+								<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 								<div className="small-cheek" style={{paddingBottom:0}}>
 									<KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
 									<KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
@@ -694,156 +641,173 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       //坐标
        var reg =/^[-\+]?\d+(\.\d+)\,[-\+]?\d+(\.\d+)$/;
 
+			 //空格
+	 		let regs=/^\s*$/;
 
 
-			//楼层检验
-			if (!values.wherefloors || !values.wherefloors.length) {
-				errors.wherefloors = { _error: 'At least one member must be entered' }
-			} else {
-				const membersArrayErrors = []
-				values.wherefloors.forEach((wherefloors, memberIndex) => {
-					const memberErrors = {}
-					if (!wherefloors || !wherefloors.floor) {
-						memberErrors.floor = '请输入所在楼层'
-						membersArrayErrors[memberIndex] = memberErrors
-					}
-					if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor.toString().trim())){
-						memberErrors.floor = '楼层为整数'
-						membersArrayErrors[memberIndex] = memberErrors
-					}
-					if (!wherefloors || !wherefloors.stationCount) {
-						memberErrors.stationCount = '请输入可出租工位数'
-						membersArrayErrors[memberIndex] = memberErrors
-					}
-					if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount.toString().trim())){
-						memberErrors.stationCount = '可出租工位数为非负整数'
-						membersArrayErrors[memberIndex] = memberErrors
-					}
-				})
-				if(membersArrayErrors.length) {
-					errors.wherefloors = membersArrayErrors
-				}
-			}
+	       //楼层检验
+	       if (!values.wherefloors || !values.wherefloors.length) {
+	         errors.wherefloors = { _error: 'At least one member must be entered' }
+	       } else {
+	         const membersArrayErrors = []
+	         values.wherefloors.forEach((wherefloors, memberIndex) => {
+	           const memberErrors = {}
+	           if (!wherefloors || !wherefloors.floor||(wherefloors.floor&&regs.test(wherefloors.floor.toString().trim()))) {
+	             memberErrors.floor = '请输入所在楼层'
+	             membersArrayErrors[memberIndex] = memberErrors
+	           }
+	           if(wherefloors.floor&&wherefloors.floor.toString().trim()&&!zeroNum.test(wherefloors.floor.toString().trim())){
+	             memberErrors.floor = '楼层为整数'
+	             membersArrayErrors[memberIndex] = memberErrors
+	           }
+	           if (!wherefloors || !wherefloors.stationCount||(wherefloors.stationCount&&regs.test(wherefloors.stationCount.toString().trim()))) {
+	             memberErrors.stationCount = '请输入可出租工位数'
+	             membersArrayErrors[memberIndex] = memberErrors
+	           }
+	           if(wherefloors.stationCount&&wherefloors.stationCount.toString().trim()&&!noMinus.test(wherefloors.stationCount.toString().trim())){
+	             memberErrors.stationCount = '可出租工位数为非负整数'
+	             membersArrayErrors[memberIndex] = memberErrors
+	           }
+	         })
+	         if(membersArrayErrors.length) {
+	           errors.wherefloors = membersArrayErrors
+	         }
+	       }
 
 
-          //工位校验
-       if (!values.porTypes || !values.porTypes.length) {
-          errors.porTypes = { _error: 'At least one member must be entered' }
-        } else {
-          const membersArrayErrors = []
-          values.porTypes.forEach((porTypes, memberIndex) => {
-            const memberErrors = {}
-            if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price.toString().trim())) {
-              memberErrors.price = '价格不超过五位整数'
-              membersArrayErrors[memberIndex] = memberErrors
-            }
-          })
-        if(membersArrayErrors.length) {
-          errors.porTypes = membersArrayErrors
-        }
-      }
+	           //工位校验
+	        if (!values.porTypes || !values.porTypes.length) {
+	           errors.porTypes = { _error: 'At least one member must be entered' }
+	         } else {
+	           const membersArrayErrors = []
+	           values.porTypes.forEach((porTypes, memberIndex) => {
+	             const memberErrors = {}
+	             if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price.toString().trim())) {
+	               memberErrors.price = '价格不超过五位整数'
+	               membersArrayErrors[memberIndex] = memberErrors
+	             }
+	           })
+	         if(membersArrayErrors.length) {
+	           errors.porTypes = membersArrayErrors
+	         }
+	       }
 
 
-    if(values.floorHeight&&isNaN(values.floorHeight)){
-       errors.floorHeight='请输入数字';
-    }
-    if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum.toString().trim())){
-       errors.entryNum='请输入正整数';
-    }
-    if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum.toString().trim())){
-       errors.elevatorNum='请输入正整数';
-    }
-    if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum.toString().trim())){
-       errors.cargoNum='请输入正整数';
-    }
-    if(values.efficientRate&&isNaN(values.efficientRate)){
-       errors.efficientRate='请输入数字';
-    }
-    if(values.greenRate&&isNaN(values.greenRate)){
-       errors.greenRate='请输入数字';
-    }
-    if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum.toString().trim())){
-       errors.stationNum='请输入正整数';
-    }
-    if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum.toString().trim())){
-       errors.meetNum='请输入正整数';
-    }
+	     if(values.floorHeight&&isNaN(values.floorHeight)){
+	        errors.floorHeight='请输入数字';
+	     }
+	     if(values.entryNum&&values.entryNum.toString().trim()&&!numberNotZero.test(values.entryNum.toString().trim())){
+	        errors.entryNum='请输入正整数';
+	     }
+	     if(values.elevatorNum&&values.elevatorNum.toString().trim()&&!numberNotZero.test(values.elevatorNum.toString().trim())){
+	        errors.elevatorNum='请输入正整数';
+	     }
+	     if(values.cargoNum&&values.cargoNum.toString().trim()&&!numberNotZero.test(values.cargoNum.toString().trim())){
+	        errors.cargoNum='请输入正整数';
+	     }
+	     if(values.efficientRate&&isNaN(values.efficientRate)){
+	        errors.efficientRate='请输入数字';
+	     }
+	     if(values.greenRate&&isNaN(values.greenRate)){
+	        errors.greenRate='请输入数字';
+	     }
+	     if(values.stationNum&&values.stationNum.toString().trim()&&!numberNotZero.test(values.stationNum.toString().trim())){
+	        errors.stationNum='请输入正整数';
+	     }
+	     if(values.meetNum&&values.meetNum.toString().trim()&&!numberNotZero.test(values.meetNum.toString().trim())){
+	        errors.meetNum='请输入正整数';
+	     }
 
-    if(values.local&&values.local.toString().trim()&&!reg.test(values.local.toString().trim())){
-      errors.local='请填写正确的坐标格式';
-    }
+	     if(values.local&&values.local.toString().trim()&&!reg.test(values.local.toString().trim())){
+	       errors.local='请填写正确的坐标格式';
+	     }
 
-			if(!values.name){
-				errors.name = '请填写社区名称';
-			}
+	       if(!values.name||(values.name&&regs.test(values.name.toString().trim()))){
+	         errors.name = '请填写社区名称';
+	       }
 
-			if(!values.code){
-				errors.code='请填写社区编码';
-			}
+	       if(!values.code||(values.code&&regs.test(values.code.toString().trim()))){
+	         errors.code='请填写社区编码';
+	       }
 
-			if(!values.local){
-				errors.local='请输入社区坐标';
-			}
+	       if(!values.local||(values.local&&regs.test(values.local.toString().trim()))){
+	         errors.local='请输入社区坐标';
+	       }
 
-			if(!values.area){
-				errors.area='请输入社区面积';
-			}
-			if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
-				errors.area='请输入正整数';
-			}
+	       if(!values.area||(values.area&&regs.test(values.area.toString().trim()))){
+	         errors.area='请输入社区面积';
+	       }
+	       if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
+	         errors.area='请输入正整数';
+	       }
 
-			if (!values.countyId) {
-				errors.countyId= '请填写所属区县';
-			}
+	       if (!values.countyId) {
+	         errors.countyId= '请填写所属区县';
+	       }
 
-			if (!values.address) {
-				errors.address= '请输入详细地址';
-			}
+	       if (!values.address||(values.address&&regs.test(values.address.toString().trim()))) {
+	         errors.address= '请输入详细地址';
+	       }
 
-		   //排序
-    if(values.orderNum&&isNaN(values.orderNum)){
-      errors.orderNum='请输入数字';
-    }
-    if(values.orderNum&&values.orderNum.length>3){
-      errors.orderNum = '最多输入3个字符';
-    }
-    if(values.orderNum&&values.orderNum.toString().trim()&&!stationN.test(values.orderNum.toString().trim())){
-      errors.orderNum = '请输入3位以内正整数,不能以0开头';
-    }
+	        //排序
+	     if(values.orderNum&&isNaN(values.orderNum)){
+	       errors.orderNum='请输入数字';
+	     }
+	     if(values.orderNum&&values.orderNum.length>3){
+	       errors.orderNum = '最多输入3个字符';
+	     }
+	     if(values.orderNum&&values.orderNum.toString().trim()&&!stationN.test(values.orderNum.toString().trim())){
+	       errors.orderNum = '请输入3位以内正整数,不能以0开头';
+	     }
 
-			values.opened = String(values.opened);
-			if (!values.opened) {
-				errors.opened= '请输入社区状态';
-			}
 
-			if (!values.openDate) {
-				errors.openDate= '请输入开业时间';
-			}
+	 			//values.opened = String(values.opened);
+	       if (!values.opened) {
+	         errors.opened= '请输入社区状态';
+	       }
 
-			if (!values.signStartDate) {
-				errors.signStartDate= '请输入签约开始时间';
-			}
+	       if (!values.openDate) {
+	         errors.openDate= '请输入开业时间';
+	       }
 
-			if (!values.signEndDate) {
-				errors.signEndDate= '请输入签约结束时间';
-			}
+	       if (!values.signStartDate) {
+	         errors.signStartDate= '请输入签约开始时间';
+	       }
 
-			if (!values.stationNum) {
-				errors.stationNum= '请输入工位总数';
-			}
+	       if (!values.signEndDate) {
+	         errors.signEndDate= '请输入签约结束时间';
+	       }
 
-			if (!values.meetNum) {
-				errors.meetNum= '请输入会议室总数';
-			}
+	       if (!values.stationNum||(values.stationNum&&regs.test(values.stationNum.toString().trim()))) {
+	         errors.stationNum= '请输入工位总数';
+	       }
 
-			if(!values.contract){
-				errors.contract='请输入联系方式'
-			}
-			/*
-			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
-				errors.contract='联系方式错误'
-			}
-			*/
+	       if (!values.meetNum||(values.meetNum&&regs.test(values.meetNum.toString().trim()))) {
+	         errors.meetNum= '请输入会议室总数';
+	       }
+
+	       if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
+	         errors.contract='请输入联系方式'
+	       }
+	       if(values.mobileStationNum&&(!numberNotZero.test(values.mobileStationNum.toString().trim())&&values.mobileStationNum!=0)){
+	         errors.mobileStationNum='工位数为正整数或0'
+	       }
+	       if(values.mobileStationPrice&&(!numberNotZero.test(values.mobileStationPrice.toString().trim())&&values.mobileStationPrice!=0)){
+	         errors.mobileStationPrice='工位单价为正整数或0'
+	       }
+
+	 			if(values.mobileStationNum&&values.mobileStationNum.toString().trim().length>5){
+	         errors.mobileStationNum='工位数最多5位'
+	       }
+	       if(values.mobileStationPrice&&values.mobileStationPrice.toString().trim().length>5){
+	         errors.mobileStationPrice='工位单价最多5位'
+	       }
+
+	 			/*
+	 			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
+	         errors.contract='联系方式错误'
+	       }
+	 			*/
 			return errors
 		}
 		export default reduxForm({ form: 'editCommunityList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(EditCommunityList);
