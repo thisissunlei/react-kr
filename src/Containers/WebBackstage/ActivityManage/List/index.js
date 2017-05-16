@@ -40,6 +40,7 @@ export default class List extends React.Component {
 		this.params = this.context.router.params;
 	}
 	openNewCreateDialog=()=> {
+		console.log('============')
 		State.openNewCreate = !State.openNewCreate;
 	}
 	// 打开编辑详情的Dialog
@@ -130,6 +131,12 @@ export default class List extends React.Component {
 		State.openDetail = true;
 		State.itemDetail = itemData;
 	}
+	closeAll=()=>{
+		console.log('dasdasdasd')
+		State.openDetail=false;
+		State.openNewCreate=false;
+		State.openEditDetail=false;
+	}
 
 	render() {
 		let className = '';
@@ -139,7 +146,7 @@ export default class List extends React.Component {
 			className = 'none';
 		}
 		return (
-			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="activity-list-a">
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}} className="m-activity-list-manage">
 					<div className={className} onClick={this.closeNavs}></div>
 
 								<Title value="活动列表 "/>
@@ -288,16 +295,26 @@ export default class List extends React.Component {
 								</Section>
 
 								{/*新建活动*/}
-							  <Drawer open={State.openNewCreate && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
+							  <Drawer open={State.openNewCreate}
+							   width={700} openSecondary={true} 
+							   onClose={this.closeAll}
+							   containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}
+							   >
 
-								<NewCreateForm onCancel={this.openNewCreateDialog} />
+								<NewCreateForm onCancel={this.openNewCreateDialog} open={State.openNewCreate} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
+							  <Drawer open={State.openDetail} width={700} 
+							  	openSecondary={true} 
+							  	 onClose={this.closeAll}
+							  	containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 								<ItemDetail onSubmit={this.onNewCreateSubmit} onCancel={this.closeItemDetail} detail={State.itemDetail}/>
 							  </Drawer>
 								{/*编辑活动*/}
-							  <Drawer open={State.openEditDetail && !State.openCloseNavs} width={700} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
+							  <Drawer open={State.openEditDetail} 
+							  width={700} openSecondary={true} 
+							   onClose={this.closeAll}
+							  containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 								<EditActivityForm  onCancel={this.closeEditDialog} detail={State.itemData}/>
 							  </Drawer>
 								<Dialog
