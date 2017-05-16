@@ -33,7 +33,6 @@ export default  class PlanMapComponent extends React.Component {
 	getData = () =>{
 		var _this = this;
 		let {data} = this.props;
-		console.log(data,"MMMMM")
 		if(!data){
 			return;
 		}
@@ -137,7 +136,7 @@ export default  class PlanMapComponent extends React.Component {
                     />
 
 				</div>
-				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll'}}>
+				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
 					{this.canvasEles()}
 				</div>
 			</div>

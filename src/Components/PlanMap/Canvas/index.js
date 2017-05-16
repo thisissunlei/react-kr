@@ -16,6 +16,7 @@ export default  class Canvas extends React.Component {
 			inputStart:this.props.inputStart,
 			inputEnd:this.props.inputEnd,
 			scrollX:0,
+			scrollY:0,
 			data:this.props.data
 		}
 	}
@@ -34,8 +35,11 @@ export default  class Canvas extends React.Component {
 		var context = canvas.getContext("2d");
 		$("#plan-map-content").scroll(function(){
 			let scrollX = $("#plan-map-content").scrollLeft();
+			let scrollY = $("#plan-map-content").scrollTop();
 			_this.setState({
 				scrollX:scrollX,
+				scrollY:scrollY,
+
 			})
 		})
 
@@ -128,23 +132,25 @@ export default  class Canvas extends React.Component {
     }
 
 	canvasClick = (event) =>{
+		event.stopPropagation();
 		const {getCurrent,getOffset} = Mouse;
 		const {url} = this.props;
 		let {data} = this.state;
-		const {myCanvas,myContext,scrollX} = this.state;
+		const {myCanvas,myContext,scrollX,scrollY} = this.state;
 
 
 
 		let mouse = getCurrent(event);
-		let mouse2 = getOffset(event.target)
-	
+		let mouse2 = getOffset(event.target);
+		
+		console.log(mouse.y+scrollY+325,document.documentElement.scrollTop ,">>>>>>>")
 		let allObj = data.map(function(item,index){
 			const minX = Number(item.cellCoordX)-25;
 			const minY = Number(item.cellCoordY)-10;
 			const maxX = Number(item.cellCoordX)+Number(item.cellWidth)-25;
 			const maxY = Number(item.cellCoordY)+Number(item.cellHeight)-10;
 
-			if((mouse.x+scrollX >= minX && mouse.x+scrollX <= maxX ) && (mouse.y >= minY && mouse.y <= maxY)){
+			if((mouse.x+scrollX >= minX && mouse.x+scrollX <= maxX ) && (mouse.y+scrollY+325 >= minY && mouse.y+scrollY+325  <= maxY)){
 				
 				if(!item.status ){
 					item.status = 3;
