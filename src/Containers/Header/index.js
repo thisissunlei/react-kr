@@ -6,20 +6,22 @@ import {
 } from 'kr/PureComponents';
 
 import SidebarNav from './SidebarNav';
+
 import './index.less';
 
 const Nav = ({...props}) =>{
 	return <ul className="u-header-nav" {...props}></ul>
 }
 const NavItem = ({...props})=>{
-	const {label,path,isActive,originUrl} = props;
+	const {label,path,isActive,originUrl,isPermission} = props;
+
 	var url=path;
 	if(originUrl){
 		url=originUrl;
-		
 	}else{
 		url='./#/'+path;
 	}
+
 	return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 };
 
@@ -35,7 +37,7 @@ const More = ({...props})=>{
 				<ul className="u-header-more-list">
 					{navs.map((item,index)=>{
 						return(
-							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>
+							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} />
 						)
 					})}
 				</ul>
@@ -52,7 +54,7 @@ const MorePerson = ({...props})=>{
 		<div className="u-header-more-person" onClick={personShow}>
 			<span className="u-header-more-icon"></span>
 			<div className={open?'u-header-person u-person-show':' u-person-hide'}>
-				<div className="u-person-name"><a href=".#/permission/personalCenter">{person.nick}</a></div>
+				<div className="u-person-name"><a href=".#/permission/personalCenter">{person.nickname}</a></div>
 				<div className="u-person-operation"><a href="./new/login.html">退出</a></div>
 			</div>
 		</div>
@@ -73,11 +75,12 @@ export default class Header extends React.Component {
 			Isperson:false
 		}
 	}
+
 	componentDidMount() {
-		
+		const {NavModel} = this.props;
+		NavModel.loadNavData();
 	}
 
-		
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
 		NavModel.toggleSidebar();
@@ -101,14 +104,19 @@ export default class Header extends React.Component {
 		})
 	}
 
-
+	renderNav = ()=>{
+		const {NavModel} = this.props;
+		return 	<Nav> {NavModel.items.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} </Nav>;
+	}
 
 	render() {
+
 		const {NavModel} = this.props;
 		let {Isperson}=this.state;
 		var  navs = NavModel.getNavs();
 		var  sidebarNavs=NavModel.getSidebarNavs();
 		var	 person=NavModel.getUser();
+
 		window.addEventListener("click", this.personHide, false);
 		return (
 			<div className="no-print">
@@ -117,7 +125,7 @@ export default class Header extends React.Component {
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
-					<Nav> {NavModel.items.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router}/>))} </Nav>
+					{this.renderNav()}
 					<More NavModel={NavModel.items}/>
 					<TheBell />
 					<MorePerson person={person} personShow={this.personShow} open={Isperson} />
