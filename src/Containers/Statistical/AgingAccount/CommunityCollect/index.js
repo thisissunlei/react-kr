@@ -20,30 +20,30 @@ import './index.less';
 
 import SearchDetailForm from "./SearchDetailForm";
 
+import {
+	observer
+} from 'mobx-react';
+
+import State from './State';
+
+import $ from 'jquery';
+
+@observer
+
 export default class CommunityCollect extends React.Component{
 
 	constructor(props,context){
 
 		super(props, context);
 		this.state = {
-			searchParams: {
-				beginDate:'',
-				cityId:'',
-				countyId: '',
-				endDate:'',
-				name:'',
-				page: 1,
-				pageSize: 15,
-				type:''
-			}	
+			communityBoxStyle:{}
 		}
 	}
 
 
 	componentDidMount() {
-		var _this = this;
 		
-
+		State.getStatical({page:1});
 		
 	}
 
@@ -51,8 +51,56 @@ export default class CommunityCollect extends React.Component{
 
 	}
 
+	renderTbody=()=>{
+		let _this =this;
+		return(
+				<tbody>
+					<tr className="tbody-first-tr">
+			          	<td>全国</td>
+			          	<td>全部</td>
+			          	<td>全国</td>
+			          	<td>全部</td>
+			          	<td>全国</td>
+			          	<td>全部</td>
+			          	<td>全国</td>
+			          	<td>全部</td>
+			          	<td>全国</td>
+			          	<td>全部</td>
+					</tr>
+					{
+						_this.renderTbodySecondPart()
+					}
+				</tbody>
+			)
+	}
+
+	renderTbodySecondPart=()=>{
+
+		return(
+
+			State.items.map((item,index)=>{
+				return(
+					<tr key={index}>
+
+						<td>{item.address}</td>
+						<td>{item.countyName}</td>
+						<td>{item.pcCoverPic}</td>
+
+
+					</tr>
+				)
+
+			})
+
+		)
+		
+	}
+
+	
+
 	render(){
 		let _this = this;
+		
 		return(
 			<div className="community-collect">
 				<div className="community-collect-box">
@@ -62,11 +110,16 @@ export default class CommunityCollect extends React.Component{
 						
 					</div>
 					<div className="community-collect-table-box">
+							
+						{/*
+							_this.redercommunitys()
+						*/}
+
 						
-						<table>
+						<table className="community-collect-table" style={{tableLayout:"fixed"}}>
 
 							<thead>
-								<tr>
+								<tr className="first-tr">
 									<th rowSpan="2">城市</th>
 				                  	<th rowSpan="2">社区</th>
 				                  	<th colSpan="2">应收账款</th>
@@ -75,78 +128,26 @@ export default class CommunityCollect extends React.Component{
 				                  	<th rowSpan="2">应缴滞纳金</th>
 				                  	<th rowSpan="2">应催缴金额合计</th>
 								</tr>
-								<tr>
+								<tr className="second-tr">
 
-				                  	<th>工位服务费</th>
-				                  	<th>履约保证金</th>
-				                  	<th>工位服务费</th>
-				                  	<th>履约保证金</th>
-				                  	<th>工位服务费</th>
-				                  	<th>履约保证金</th>
+				                  	<th className="deep-blue">工位服务费</th>
+				                  	<th className="deep-blue">履约保证金</th>
+				                  	<th className="light-blue">工位服务费</th>
+				                  	<th className="light-blue">履约保证金</th>
+				                  	<th className="deep-blue">工位服务费</th>
+				                  	<th className="deep-blue">履约保证金</th>
 								</tr>
 
 							</thead>
-							<tbody>
+							
+								
 
-
-							</tbody>
-
-
-
-
-
-
-
-
+							{_this.renderTbody()}
+								
+							
 
 						</table>
-						{/*<Table
-			              style={{marginTop:8}}
-			              ajax={true}
-			              onOperation={this.onOperation}
-			              displayCheckbox={true}
-			              exportSwitch={false}
-			              ajaxParams={this.state.searchParams}
-			              ajaxUrlName='myAddressList'
-			              ajaxFieldListName="items"
-			              displayCheckbox={false}
-					    >
-		                <TableHeader>
-
-		                  
-		                 <tr>
-		                  	<th>城市</th>
-		                  	<th>社区</th>
-		                  	<th>应收账款</th>
-		                  	<th>实收账款</th>
-		                  	<th>欠费金额</th>
-		                  	<th>应缴滞纳金</th>
-		                  	<th>应缴滞纳金</th>
-		                  </tr>
-		                 
-		                </TableHeader>
-						<tr>
-		                  	<th>城市</th>
-		                  	<th>社区</th>
-		                  	<th>应收账款</th>
-		                  	<th>实收账款</th>
-		                  	<th>欠费金额</th>
-		                  	<th>应缴滞纳金</th>
-		                  	<th>应缴滞纳金</th>
-		                  </tr>
-		              <TableBody >
-		                    <TableRow>
-		                       <TableRowColumn name="communityName"></TableRowColumn>
-		                       <TableRowColumn name="wifiName"></TableRowColumn>
-		                       <TableRowColumn name="wifiPwd"></TableRowColumn>
-		                       <TableRowColumn name="managerName"></TableRowColumn>
-		                       <TableRowColumn name="managerPhone"></TableRowColumn>
-		                      
-		                    </TableRow>
-		              </TableBody>
-		              <TableFooter></TableFooter>
-		            </Table>*/}
-
+						
 					</div>
 				</div>
 			</div>
