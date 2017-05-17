@@ -196,6 +196,9 @@ export default class Editor extends React.Component{
     if(this.init){
       return ;
     }
+    if(this.editor){
+      return;
+    }
     var _this = this;
     UE.getEditor(this.containerId).setContent(value);
     this.init = true;
