@@ -183,9 +183,9 @@ class Operations extends Component {
 		Http.request('createResources', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.setTimeout(function() {
+			/*window.setTimeout(function() {
 				window.location.reload();
-			}, 800);
+			}, 800);*/
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
