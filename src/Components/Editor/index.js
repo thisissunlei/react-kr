@@ -134,10 +134,12 @@ export default class Editor extends React.Component{
     this.ue = null;
     this.init = false;
     this.editor = false;
+    console.log('1')
   }
 
   componentDidMount(){
     this.initEditor();
+    console.log('2')
   }
 
 
@@ -187,12 +189,13 @@ export default class Editor extends React.Component{
 
   setDefaultValue = (value)=>{
     var _this = this;
-    if(!value){
-      return ;
-    }
+    // if(!value){
+    //   return ;
+    // }
     if(this.init){
       return ;
     }
+    console.log(this.editor)
     if(!this.editor){
       window.setTimeout(function(){
         UE.getEditor(_this.containerId).setContent(value);
