@@ -137,25 +137,21 @@ export default class Editor extends React.Component{
   }
 
   componentDidMount(){
-    this.initEditor('');
+    this.initEditor();
   }
 
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.defaultValue !== this.props.defaultValue || !this.editor){
+    if(nextProps.defaultValue !== this.props.defaultValue){
         this.init = false;
-        this.initEditor(nextProps.defaultValue);
-
+        this.setDefaultValue(nextProps.defaultValue);
     }
   }
 
 
-  initEditor = (defaultValue) =>{
-    if(this.editor){
-       this.setDefaultValue(defaultValue);
-       return;
-    }
-    var {configs} = this.props;
+  initEditor = () =>{
+
+    var {configs,defaultValue} = this.props;
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function(action) {
@@ -168,11 +164,10 @@ export default class Editor extends React.Component{
     var ue = UE.getEditor(this.containerId,configs);
     this.ue = ue;
     this.ue.ready(function(editor){
-      console.log('init-ready');
       if(!editor){
         _this.initEditor();
       }
-      // _this.editor = true;
+      _this.editor = true;
       ue.addListener('contentChange',_this.contentChange);
       _this.setDefaultValue(defaultValue);
     });
@@ -191,19 +186,21 @@ export default class Editor extends React.Component{
 
 
   setDefaultValue = (value)=>{
-    console.log('defaultValue',this.editor);
+    var _this = this;
     if(!value){
       return ;
     }
     if(this.init){
       return ;
     }
-    if(this.editor){
-      return;
+    if(!this.editor){
+      window.setTimeout(function(){
+        UE.getEditor(_this.containerId).setContent(value);
+      },200);
+    }else{
+      UE.getEditor(this.containerId).setContent(value);
     }
-    var _this = this;
-    UE.getEditor(this.containerId).setContent(value);
-    _this.editor = true;
+ 
     this.init = true;
   }
 
@@ -216,8 +213,7 @@ export default class Editor extends React.Component{
 
   componentWillUnmount(){
     this.init = false;
-    // UE.delEditor(this.containerId);
-    UE.getEditor(this.containerId).destroy();
+    UE.delEditor(this.containerId);
   }
 
   render() {
