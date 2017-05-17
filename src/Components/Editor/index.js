@@ -216,7 +216,8 @@ export default class Editor extends React.Component{
 
   componentWillUnmount(){
     this.init = false;
-    UE.delEditor(this.containerId);
+    // UE.delEditor(this.containerId);
+    UE.getEditor(this.containerId).destroy();
   }
 
   render() {
