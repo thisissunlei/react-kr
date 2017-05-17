@@ -71,8 +71,10 @@ const config = {
 				comments: false,
 			},
 		}),
+
 		//bug apply errors 
 		//new webpack.optimize.DedupePlugin(),
+
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
 			minSizeReduce: 1.5,

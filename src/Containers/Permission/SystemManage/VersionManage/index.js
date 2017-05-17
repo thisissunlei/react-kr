@@ -84,7 +84,7 @@ openHighSearch = () => {
 		let {itemDetail} = this.state;
 
 		return (
-			<div className="g-applogin-list">
+			<div className="g-version-list">
 				<Section title="APP登录日志" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
@@ -111,25 +111,18 @@ openHighSearch = () => {
         <TableHeaderColumn>登录结果</TableHeaderColumn>
         <TableHeaderColumn>设备类型</TableHeaderColumn>
         <TableHeaderColumn>app版本</TableHeaderColumn>
-					<TableHeaderColumn>设备信息</TableHeaderColumn>
-	        <TableHeaderColumn>登录时间</TableHeaderColumn>
-					<TableHeaderColumn>备注</TableHeaderColumn>
-
+				<TableHeaderColumn>设备信息</TableHeaderColumn>
+				<TableHeaderColumn>备注</TableHeaderColumn>
+        <TableHeaderColumn>登录时间</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
         <TableRow>
           <TableRowColumn name="phone" ></TableRowColumn>
           <TableRowColumn name="successfulName"></TableRowColumn>
-						<TableRowColumn name="osTypeName" ></TableRowColumn>
-	          <TableRowColumn name="appVersion"></TableRowColumn>
-							<TableRowColumn name="sysInfo" ></TableRowColumn>
-								<TableRowColumn type="date" name="ctime" component={(value)=>{
-			            return (
-			              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
-			            )
-			          }}> </TableRowColumn>
-								<TableRowColumn name="remark" component={(value)=>{
+					<TableRowColumn name="osTypeName" ></TableRowColumn>
+	        <TableRowColumn name="appVersion"></TableRowColumn>
+							<TableRowColumn name="sysInfo" component={(value)=>{
 			                  var styles = {
 			                    display:'block',
 			                    paddingTop:5
@@ -144,6 +137,27 @@ openHighSearch = () => {
 			                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 			                 }}>
 			        </TableRowColumn>
+							<TableRowColumn name="remark" component={(value)=>{
+			                  var styles = {
+			                    display:'block',
+			                    paddingTop:5
+			                  };
+			                  if(value.length==""){
+			                    styles.display="none"
+
+			                  }else{
+			                    styles.display="block";
+			                  }
+			                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+			                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+			                 }}>
+			        </TableRowColumn>
+							<TableRowColumn type="date" name="ctime" component={(value)=>{
+			            return (
+			              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+			            )
+			          }}> 
+							</TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>

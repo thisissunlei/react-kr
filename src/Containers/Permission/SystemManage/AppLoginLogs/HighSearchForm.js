@@ -73,7 +73,7 @@ class HighSearchForm extends React.Component {
 			    		grid={1/2}
 							right={69}
  						 left={4}
-			    		name="OsType"
+			    		name="osType"
 			    		type="select"
 			    		style={{marginTop:4}}
 			    		label="设备类型"
@@ -99,7 +99,7 @@ class HighSearchForm extends React.Component {
 							grid={1/2}
 							right={69}
  						 left={4}
-							name="ForcedStatus"
+							name="forcedStatus"
 							type="select"
 							style={{marginTop:4}}
 							label="是否强制更新"

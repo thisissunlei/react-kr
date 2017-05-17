@@ -323,11 +323,13 @@ class Editdialog extends React.Component {
 			console.log()
 			arr.push(item);
 		}
-
-
 		this.setState({
 			ControllerRender: arr,
-			ControllerId: ControllerId
+			ControllerId: ControllerId,
+			ControllerItem:{},
+		},function(){
+			Store.dispatch(change('editdialog', 'controller', ''));
+			console.log(this.state.ControllerRender);
 		})
 
 	}
@@ -436,7 +438,7 @@ class Editdialog extends React.Component {
 								name="module"
 								style={{width:220,marginLeft:40}}
 								component="select"
-								label="模块"
+								label="所属菜单"
 								options={ModuleList}
 								inline={true}
 								requireLabel={true}
@@ -497,13 +499,6 @@ const validate = values => {
 	if (!values.type) {
 		errors.type = '请选择类型';
 	}
-	/*if (!values.module) {
-		errors.module = '请选择模块';
-	}
-	if (!values.controller) {
-		errors.controller = '请选择方法';
-	}*/
-
 
 	return errors
 }

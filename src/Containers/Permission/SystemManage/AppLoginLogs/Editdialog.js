@@ -33,7 +33,7 @@ class Editdialog extends React.Component {
                 id: id
             },{}).then(function(response) {
                 _this.setState({infoList: response},function(){
-                  Store.dispatch(initialize('Editdialog', _this.state.infoList));
+                  Store.dispatch(initialize('editdialog', _this.state.infoList));
                 })
             }).catch(function(err) {});
 
@@ -63,7 +63,7 @@ class Editdialog extends React.Component {
     						 left={42}
     						 right={18}
     	 					 name="version"
-                 requireLabel={true}
+                             requireLabel={true}
     	 					 style={{marginTop:4}}
     	 					 label="系统版本"
     						 component="input"
@@ -73,7 +73,7 @@ class Editdialog extends React.Component {
     							right={69}
      						 left={4}
     			    		name="osType"
-                  requireLabel={true}
+                            requireLabel={true}
     			    		type="select"
     			    		style={{marginTop:4}}
     			    		label="设备类型"
@@ -118,7 +118,7 @@ class Editdialog extends React.Component {
                   requireLabel={true}
                   type="select"
                   style={{marginTop:4}}
-                  label="	app 类型"
+                  label="app 类型"
                   options={[
                     {label:'m_app',value:'MAPP'},
                     {label:'tv_app',value:'TVAPP'}
@@ -143,12 +143,13 @@ class Editdialog extends React.Component {
               component="date"
               />
               <KrField
-                  grid={1/2}
-                  right={48}
-                 left={25}
+                  grid={1}
+                  left={42}
+                  right={18}
                   name="updateInfo"
-                  type="input"
-                  style={{marginTop:4}}
+                  component="textarea"
+                  maxSize={2000}
+                  style={{marginTop:4,height:110}}
                   label="版本更新内容"
               />
                 <Row style={{marginTop:30,marginBottom:15}}>
@@ -180,8 +181,36 @@ class Editdialog extends React.Component {
     }
 
 }
+const validate = values => {
+
+	const errors = {}
+	if (!values.version) {
+		errors.version = '请输入版本';
+	}
+    if (!values.osType) {
+		errors.osType = '请选择设备类型';
+	}
+    if (!values.forced) {
+		errors.forced = '请选择是否强制更新';
+	}
+    if (!values.publishTime) {
+		errors.publishTime = '请选择发布时间';
+	}
+    if (!values.downUrl) {
+		errors.downUrl = '请输入下载地址';
+	}
+    if (!values.appType) {
+		errors.appType = '请选择app类型';
+	}
+    if (!values.enable) {
+		errors.enable = '请选择启用类型';
+	}
+
+	return errors
+}
 export default reduxForm({
 	form: 'editdialog',
   enableReinitialize: true,
+  validate,
 	keepDirtyOnReinitialize: true,
 })(Editdialog);

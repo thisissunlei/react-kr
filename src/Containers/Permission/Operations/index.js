@@ -89,11 +89,15 @@ class SearchForm extends Component {
 				label: '编码',
 				value: 'code'
 			},
+			{
+				label: '菜单',
+				value: 'moduleName'
+			},
 
 		];
 
 		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
+			<form className="g-op-form" name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
 				<Button label="新建"  onTouchTap={this.openCreateDialog} />
 				<SearchForms
 						onSubmit={this.onSubmit}
@@ -155,7 +159,10 @@ class Operations extends Component {
 			id: itemDetail.id
 		}).then(function(response) {
 			_this.openDeleteDialog();
-			Message.success('删除成功')
+			Message.success('删除成功');
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message)
@@ -176,7 +183,9 @@ class Operations extends Component {
 		Http.request('createResources', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.location.reload();
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 800);
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -187,7 +196,9 @@ class Operations extends Component {
 		Http.request('editResources', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
-			window.location.reload();
+			window.setTimeout(function() {
+				//window.location.reload();
+			}, 800);
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -211,6 +222,10 @@ class Operations extends Component {
 			}
 			searchParams = {
 				type: content
+			}
+		}else if (form.filter == "moduleName") {
+			searchParams = {
+				moduleName: form.content
 			}
 		}
 		this.setState({
@@ -243,7 +258,7 @@ class Operations extends Component {
 						<TableHeaderColumn>类型</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>所属模块</TableHeaderColumn>
+						<TableHeaderColumn>所属菜单</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>

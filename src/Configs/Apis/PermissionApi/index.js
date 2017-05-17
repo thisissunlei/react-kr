@@ -125,7 +125,7 @@ module.exports = {
     },
     //权限--操作项列表--获取操作项列表
     'RosfindPage': {
-      url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',
+      url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}&type={type}&moduleName={moduleName}',
       method: 'get'
     },
     //权限--数据--获取社区列表
