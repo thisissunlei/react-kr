@@ -97,8 +97,6 @@ class Createdialog extends React.Component {
 	}
 
 	onSelectController = (item) => {
-		var _this = this;
-
 		this.setState({
 			ControllerItem: item,
 			idlist:item.methodId
@@ -253,9 +251,9 @@ class Createdialog extends React.Component {
 		let {
 			ControllerItem,
 			ControllerRender,
+			ControllerId,
 			idlist
 		} = this.state;
-		var  ControllerId=[];
 		if(!ControllerItem.controllerName){
 			return;
 		}
@@ -269,7 +267,6 @@ class Createdialog extends React.Component {
 		
 
 		ControllerId.push(idlist);
-		console.log('8888',ControllerId);
 		if(arr.length>0){
 			arr.map((items,index)=>{
 				arr1.push(items.controller);

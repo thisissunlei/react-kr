@@ -39,7 +39,8 @@ class Editdialog extends React.Component {
 			ModuleId: '',
 			ControllerRender: [],
 			getDate: {},
-			moduleVoList: []
+			moduleVoList: [],
+			idlist:[],
 
 		}
 		this.getModuleList();
@@ -145,13 +146,9 @@ class Editdialog extends React.Component {
 	}
 
 	onSelectController = (item) => {
-
-		var _this = this;
-		var idlist = this.state.ControllerId;
-		idlist.push(item.methodId)
 		this.setState({
 			ControllerItem: item,
-			ControllerId: idlist,
+			idlist:item.methodId
 		})
 	}
 	// getAllController = () => {
@@ -298,6 +295,7 @@ class Editdialog extends React.Component {
 			ControllerItem,
 			ControllerRender,
 			ControllerId
+			idlist,
 		} = this.state;
 		if(!ControllerItem.controllerName){
 			return;
@@ -309,6 +307,7 @@ class Editdialog extends React.Component {
 		var arr = ControllerRender;
 		var arr1 = [];
 		Store.dispatch(change('editdialog', 'controller', ''));
+		ControllerId.push(idlist);
 		if(arr.length>0){
 			console.log(11111)
 			arr.map((items,index)=>{
@@ -325,7 +324,7 @@ class Editdialog extends React.Component {
 		}
 		this.setState({
 			ControllerRender: arr,
-			ControllerId: ControllerId,
+			ControllerId: idlist,
 			ControllerItem:{},
 		},function(){
 			Store.dispatch(change('editdialog', 'controller', ''));
