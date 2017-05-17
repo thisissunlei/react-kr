@@ -5,7 +5,7 @@ module.exports = [
 		primaryText: "会员中心",
 		router: 'member',
 		menuCode: 'member',
-		originUrl: '/member/memberManage/list?mid=94',
+		originUrl: './#/member/memberManage/list?mid=94',
 		menuItems: [
 			{
 				primaryText: '会员管理',
