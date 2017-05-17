@@ -14,15 +14,15 @@ module.exports = [
 				menuItems: [{
 					primaryText: '账户列表',
 					router: '/permission/accountManage/accountList',
-					menuCode: 'contractList',
+					menuCode: 'sso_userList_base',
 				},{
 					primaryText: '操作日志',
 					router: '/permission/accountManage/operationsLogs',
-					menuCode: 'contractList',
+					menuCode: 'sso_actionLog_base',
 				},{
 					primaryText: '登录日志',
 					router: '/permission/loginlog',
-					menuCode: 'contractList',
+					menuCode: 'sso_loginLog_base',
 				}
 				]
 			},
@@ -35,11 +35,11 @@ module.exports = [
 				menuItems: [{
 					primaryText: '角色列表',
 					router: '/permission/user',
-					menuCode: 'contractList',
+					menuCode: 'sso_roleList_base',
 				},{
 					primaryText: '操作项',
 					router: '/permission/operations',
-					menuCode: 'contractList',
+					menuCode: 'sso_resource_base',
 				},]
 			},{
 				primaryText: "系统管理",
@@ -50,15 +50,15 @@ module.exports = [
 				menuItems: [{
 					primaryText: '版本管理',
 					router: '/permission/systemManage/appLoginLogs',
-					menuCode: 'contractList',
+					menuCode: 'sso_appVersion_base',
 				},{
 					primaryText: '信息列表',
 					router: '/permission/systemManage/messageList',
-					menuCode: 'contractList',
+					menuCode: 'sso_infoList_base',
 				},{
 					primaryText: 'APP登录日志',
 					router: '/permission/systemManage/versionManage',
-					menuCode: 'contractList',
+					menuCode: 'sso_appLog_base',
 				},]
 			}
 		]
