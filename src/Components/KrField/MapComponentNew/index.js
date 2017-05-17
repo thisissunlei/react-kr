@@ -158,7 +158,7 @@ export default class MapComponentNew extends Component {
 		let _this =this;
 		_this.map.clearOverlays();
 		_this.setState({
-			detailSearch : searchValue
+			// detailSearch : searchValue
 		},function(){
 			_this.onChange();
 		})
