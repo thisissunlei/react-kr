@@ -592,7 +592,6 @@ class NewCreateForm extends React.Component {
 			optionValues
 		} = this.props;
 
-		console.log('-----admin-----',allState.openLocalStorage,allState.openLocalStorages);
 
 		let {
 			fnaCorporationList

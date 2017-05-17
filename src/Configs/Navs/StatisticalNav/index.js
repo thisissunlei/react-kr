@@ -14,7 +14,7 @@ module.exports = [
 				{
 					primaryText: "集团经营",
 					router: '/statistical/index',
-					menuCode: 'dataStat',
+					menuCode: 'stat_group',
 				},
 			]
 		},

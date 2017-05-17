@@ -3,7 +3,7 @@ module.exports = [
 	{
 		primaryText: "权限管理",
 		menuCode: 'rightadmin',
-		router: 'permission',
+		router: '/permission',
 		originUrl: '/sys/sysParam/toSysParamList?mid=8',
 		menuItems: [
 			{

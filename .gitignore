@@ -32,3 +32,5 @@ static/components
 /.happypack
 
 material-demo
+.happypack
+/.idea

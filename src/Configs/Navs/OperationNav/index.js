@@ -2,7 +2,7 @@ module.exports = [
 
 	{
 		primaryText: "运营平台",
-		router: 'operation',
+		router: '/operation',
 		menuCode: 'operate',
 		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [
@@ -16,17 +16,17 @@ module.exports = [
 					{
 						primaryText: '客户线索',
 						router: '/operation/customerManage/customerList',
-						menuCode: 'coustomerInfoList',
+						menuCode: 'customer_cue_base',
 					},
 					{
 						primaryText: '合同列表',
 						router: '/operation/customerManage/agreementList',
-						menuCode: 'contractList',
+						menuCode: 'contract_list_base',
 					},
 					{
 						primaryText: '客户公海',
 						router: '/operation/customerManage/customerHighSea',
-						menuCode: 'marketList',
+						menuCode: 'customer_open_sea',
 					},
 				]
 			},
@@ -42,7 +42,7 @@ module.exports = [
 					{
 
 						primaryText: '社区列表',
-						menuCode: 'communityBaseList',
+						menuCode: 'community_list_base',
 						router: '/operation/communityAllocation/communityList'
 					},
 					{
@@ -95,7 +95,7 @@ module.exports = [
 					},
 					{
 						primaryText: "合同配置",
-						menuCode: 'agreement_setting',
+						menuCode: 'contract_setting_base',
 						router: '/operation/customerManage/agreement/setting/list',
 					},
 					{
@@ -111,7 +111,7 @@ module.exports = [
 		            },
 					{
 						primaryText: "出租方管理",
-						menuCode: 'lessorManage',
+						menuCode: 'lessor_management_base',
 						router: '/operation/customerManage/agreement/lessorManage/list',
 					},
 					{
@@ -138,8 +138,9 @@ module.exports = [
 	          menuItems: [{
 	            primaryText: '凭证列表',
 	            router: '/operation/voucherManage/voucherList',
-	            menuCode: 'evidenceList',
-	          }]
+	            menuCode: 'upload_evidence_base',
+	          }
+	          ]
 			},
 		]
 	}

@@ -5904,6 +5904,44 @@ module.exports = __webpack_require__(234);
 /* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+var Symbol = __webpack_require__(184),
+    getRawTag = __webpack_require__(459),
+    objectToString = __webpack_require__(482);
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  value = Object(value);
+  return (symToStringTag && symToStringTag in value)
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+=======
+>>>>>>> master
 "use strict";
 /**
  * Copyright 2013-2015, Facebook, Inc.

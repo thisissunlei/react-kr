@@ -7,7 +7,7 @@ import NavApi from './NavApi';
 import PlanApi from './PlanApi';
 import CustomerApi from './CustomerApi';
 import FinanceApi from './FinanceApi';
-import PersonalApi from './PersonalApi';
+import PermissionApi from './PermissionApi';
 import OperationApi from './OperationApi';
 import CommunityApi from './CommunityApi';
 import WebBackstageApi from './WebBackstageApi';
@@ -27,7 +27,7 @@ module.exports = {
   ...PlanApi,
   ...CustomerApi,
   ...FinanceApi,
-  ...PersonalApi,
+  ...PermissionApi,
   ...OperationApi,
   ...CommunityApi,
   ...MemberApi,

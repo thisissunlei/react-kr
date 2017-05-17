@@ -2,8 +2,9 @@ module.exports = [
 
 	{
 		primaryText: "首页",
-		router: 'index',
-		menuCode: 'index',
-		originUrl: '/'
+		router: '/',
+		menuCode: 'fina_category_1stPage',
+		originUrl: '/',
+		openSidebar:false,
 	}
 ]
