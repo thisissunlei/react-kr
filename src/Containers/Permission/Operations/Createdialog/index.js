@@ -265,7 +265,6 @@ class Createdialog extends React.Component {
 		Store.dispatch(change('createdialog', 'controller', ''));
 		console.log(arr);
 		if(arr.length>0){
-			console.log(11111)
 			arr.map((items,index)=>{
 				arr1.push(items.controller);
 
@@ -275,7 +274,6 @@ class Createdialog extends React.Component {
 				}
 
 		}else {
-			console.log()
 			arr.push(item);
 		}
 		this.setState({

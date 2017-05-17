@@ -438,7 +438,7 @@ class Editdialog extends React.Component {
 								name="module"
 								style={{width:220,marginLeft:40}}
 								component="select"
-								label="模块"
+								label="所属菜单"
 								options={ModuleList}
 								inline={true}
 								requireLabel={true}
