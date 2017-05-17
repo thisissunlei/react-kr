@@ -15,17 +15,17 @@ module.exports = [
 					{
 						primaryText: "账单列表",
 						router: '/finance/manage/orderbill/orderList',
-						menuCode: 'billList'
+						menuCode: 'fina_account_list'
 					},
 					{
 						primaryText: "款项配置",
 						router: '/finance/manage/fundSetting/totalFund',
-						menuCode: 'categorycode'
+						menuCode: 'fina_category_1stPage'
 					}, 
 					{
 						primaryText: "审核列表",
 						router: '/finance/manage/audit/auditlist',
-						menuCode: 'verfiycode'
+						menuCode: 'fina_verify_page'
 					}
 				]
 			}

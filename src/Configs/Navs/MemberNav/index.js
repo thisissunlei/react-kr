@@ -22,22 +22,22 @@ module.exports = [
 					{
 						primaryText: "会员列表",
 						router: '/member/memberManage/list',
-						menuCode: 'memberList',
+						menuCode: 'mbr_list_base',
 					}, 
 					{
 						primaryText: "会员卡管理",
 						router: '/member/memberManage/card',
-						menuCode: 'backAdmin',
+						menuCode: 'mbr_card_base',
 					}, 
 					{
 						primaryText: "会员配置",
 						router: '/member/memberManage/setting',
-						menuCode: 'memberSetting',
+						menuCode: 'mbr_define',
 					}, 
 					{
 						primaryText: "门禁授权管理",
 						router: '/member/memberManage/doormanage',
-						menuCode: 'doorPermission',
+						menuCode: 'door_base',
 					},
 
 				]
