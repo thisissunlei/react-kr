@@ -336,6 +336,7 @@ class EditActivityForm extends React.Component{
 		State.pcCoverPicDefaultValue = '';
 	}
 	render(){
+		console.log('--------');
 		const {handleSubmit} = this.props;
 		let {timeStart,timeEnd,communitys} = this.state;
 		// 对应功能选项
