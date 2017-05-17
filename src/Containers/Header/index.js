@@ -133,7 +133,7 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav()}
-					{NavModel.items.length>8?<More NavModel={NavModel.items}/>:''}
+					{NavModel.items.length>7?<More NavModel={NavModel.items}/>:''}
 					<TheBell />
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
 				</div>
