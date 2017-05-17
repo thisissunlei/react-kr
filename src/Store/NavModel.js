@@ -126,9 +126,6 @@ State.setRouter = action(function(){
 	navs = navs.map(function(topItem){
 		return ForEachMenuItem(topItem,router,topItem)
 	});
-
-	console.log('navs:--->>',navs);
-
 	this.items = navs;
 });
 
@@ -170,10 +167,6 @@ State.toggleSidebar=action(function(value){
 State.getUser= action(function(){
 	return mobx.toJS(this.userInfo);
 });
-
-
-
-
 
 
 module.exports = State;

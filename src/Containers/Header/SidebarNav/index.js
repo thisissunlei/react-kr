@@ -37,6 +37,7 @@ export default class SidebarNav extends React.Component {
 		let {SidebarNavDate}=this.state;
 			return (
 				<div className="g-sidebar-nav">
+					<div className="m-siderbar-list">
 					{SidebarNavDate.map((item,index)=>{
 						return(
 								<div className="m-sidebar-nav" key={index}>
@@ -50,7 +51,7 @@ export default class SidebarNav extends React.Component {
 								</div>
 							)
 					})}
-					
+					</div>
 				</div>
 		   );
 

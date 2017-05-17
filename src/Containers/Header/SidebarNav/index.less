@@ -12,12 +12,24 @@ a{
 
 .g-sidebar-nav{
 	width:180px;
-	padding-bottom: 80px;
+	height:100%;
+	overflow: hidden;
+	.m-siderbar-list{
+		width:180px;
+		height:100%;
+	    overflow-x: hidden;
+	    overflow-y: scroll;
+	    &::-webkit-scrollbar {display:none}
+	}
+	
 	.m-sidebar-nav{
 		width:180px;
 		display:inline-block;
 		text-align: center;
 		padding-bottom:5px;
+		&:last-child{
+			margin-bottom: 80px;
+		}
 		.u-sidebar-nav-title{
 			width:100%;
 			height:50px;

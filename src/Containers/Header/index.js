@@ -72,20 +72,26 @@ export default class Header extends React.Component {
 		super(props, context);
 		this.state={
 			sidebarNavs:[],
-			Isperson:false
+			Isperson:false,
 		}
+		const {NavModel} = this.props;
+		NavModel.getUser(1);
 	}
 
-	componentDidMount() {
+	componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.loadNavData();
+		window.addEventListener("click", this.personHide, false);
 	}
-
+	componentWillUnmount(){
+		window.removeEventListener("click", this.personHide, false);
+	}
+	
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
 		NavModel.toggleSidebar();
 	}
-	clickLogo() {
+	clickLogo=()=> {
 		window.open('http://krspace.cn') 
 	}
 	personShow=()=>{
@@ -98,10 +104,13 @@ export default class Header extends React.Component {
 		if(target=="u-header-more-icon"){
 			return;
 		}
+		let {Isperson}=this.state;
+		if(Isperson){
+			this.setState({
+				Isperson:false
+			})
+		}
 		
-		this.setState({
-			Isperson:false
-		})
 	}
 
 	renderNav = ()=>{
@@ -117,7 +126,6 @@ export default class Header extends React.Component {
 		var  sidebarNavs=NavModel.getSidebarNavs();
 		var	 person=NavModel.getUser();
 
-		window.addEventListener("click", this.personHide, false);
 		return (
 			<div className="no-print">
 				<div className="g-header-nav">
@@ -128,7 +136,7 @@ export default class Header extends React.Component {
 					{this.renderNav()}
 					<More NavModel={NavModel.items}/>
 					<TheBell />
-					<MorePerson person={person} personShow={this.personShow} open={Isperson} />
+					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
 				</div>
 				<Drawer 
 						open={NavModel.openSidebar} 
