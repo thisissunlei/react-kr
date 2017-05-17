@@ -12,15 +12,9 @@ export default class SidebarNav extends React.Component {
     };
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			SidebarNavDate:[],
-		}
+
 	}
-	componentWillReceiveProps(nextProps) {
-        this.setState({
-        	SidebarNavDate: nextProps.SidebarNavDate
-        });
-    }
+	
 	renderMenuItems=(menuItems)=>{
 
 		return menuItems.map((item,index)=>{
@@ -33,8 +27,7 @@ export default class SidebarNav extends React.Component {
 	
 	render() {
 
-		const {NavModel} = this.props;
-		let {SidebarNavDate}=this.state;
+		const {NavModel,SidebarNavDate} = this.props;
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">

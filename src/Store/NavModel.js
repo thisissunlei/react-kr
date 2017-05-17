@@ -151,7 +151,7 @@ State.getSidebarNavs=action(function(){
 	if(topItem && typeof topItem === 'object' && topItem.hasOwnProperty('menuItems')){
 		menuItems = topItem.menuItems;
 	}
-	console.log('menuItems:',topItem);
+	
 
 	return menuItems;
 });

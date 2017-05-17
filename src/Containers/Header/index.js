@@ -123,9 +123,8 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		let {Isperson}=this.state;
 		var  navs = NavModel.getNavs();
-		var  sidebarNavs=NavModel.getSidebarNavs();
 		var	 person=NavModel.getUser();
-
+		var  sidebarNavs=NavModel.getSidebarNavs();
 		return (
 			<div className="no-print">
 				<div className="g-header-nav">
