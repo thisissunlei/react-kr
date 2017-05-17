@@ -153,5 +153,51 @@ State.activityDetail = action(function(id) {
 	});
 
 });
+State.setBasicData = (action(function(response){
+
+			var EmptyArr = [];
+			if(response.top == 1){
+				State.isStick = true;
+			}else{
+				State.isStick = false;
+			}
+			EmptyArr.push(response.xPoint);
+			EmptyArr.push(response.yPoint);
+			State.defaultPoint =  EmptyArr;
+			State.mapDefaultValue = response.address;
+			State.initailPoint = response.countyName;
+			State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
+			State.mapdefaultValue = response.address;
+			State.activityIntroduce = response.summary;
+			State.pcCoverPicDefaultValue = response.pcCoverPic || '';
+			State.appCoverPicDefaultValue = response.appCoverPic ||'';
+			State.infoPicDefaultValue = response.infoPic;
+			var enrollArr = response.enrollFiels;
+			if(enrollArr.indexOf("NAME")>-1){
+				State.choseName = true;
+			}else{
+				State.choseName = false;
+			}
+			if(enrollArr.indexOf("PHONE")>-1){
+				State.chosePhone = true;
+			}else{
+				State.chosePhone = false;
+			}
+			if(enrollArr.indexOf("COMPANY")>-1){
+				State.choseCompany = true;
+			}else{
+				State.choseCompany = false;
+			}
+			if(enrollArr.indexOf("POSITION")>-1){
+				State.chosePosition = true;
+			}else{
+				State.chosePosition = false;
+			}
+			if(enrollArr.indexOf("ADDRESS")>-1){
+				State.choseAdd = true;
+			}else{
+				State.choseAdd = false;
+			}
+}))
 
 module.exports = State;
