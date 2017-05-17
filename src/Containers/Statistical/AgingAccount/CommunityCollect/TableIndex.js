@@ -2,20 +2,23 @@
 
 import React from 'react';
 
-
 import {Actions,Store} from 'kr/Redux';
 
 import {
-	Message,
-	KrField,
 
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 
 import './index.less';
+import './fixed-data-table.css';
 
 import ReactDOM from 'react-dom';
-import {Table, Column, Cell,ColumnGroup} from 'fixed-data-table';
+import {
+	Table,
+	Column,
+	Cell,
+	ColumnGroup
+} from 'fixed-data-table';
 
 import {
 	observer
@@ -58,21 +61,44 @@ export default class TableIndex extends React.Component{
 		];
 		return(
 			<div className="community-collect">
-				<Table
+				{/*<Table
 				    rowHeight={50}
 				    rowsCount={rows.length}
 				    width={5000}
 				    height={5000}
-				    headerHeight={50}>
-				    <Column
+				    headerHeight={50}
+				    {...this.props}
+				>
+				    <ColumnGroup
+			          fixed={true}
+			          header={<Cell>Name</Cell>}>
+			          <Column
+			            fixed={true}
+			            header={<Cell>First Name</Cell>}
+			            cell={<Cell>First Name 1</Cell>}
+			            width={150}
+			          />
+			          <Column
+			            fixed={true}
+			            header={<Cell>Last Name</Cell>}
+			            cell={<Cell>Last Name 1</Cell>}
+			            width={150}
+			          />
+			        </ColumnGroup>
+			        <Column
 				      header={<Cell>姓名</Cell>}
-				      cell={<Cell>谭琳琳</Cell>}
-				      width={2000}
+				      cell={<Cell>姓名123</Cell>}
+				      width={100}
+				      fixed={true}
+
+				      
 				    />
 				    <Column
 				      header={<Cell>年龄</Cell>}
 				      cell={<Cell>11</Cell>}
-				      width={1000}
+				      width={100}
+				      fixed = {true}
+				      
 				    />
 				    <Column
 				      header={<Cell>性别</Cell>}
@@ -81,7 +107,37 @@ export default class TableIndex extends React.Component{
 				          女
 				        </Cell>
 				      )}
-				      width={2000}
+				      width={200}
+				      
+				    />
+				  </Table>*/}
+
+				  <Table
+				    rowHeight={50}
+				    rowsCount={rows.length}
+				    width={5000}
+				    height={5000}
+				    headerHeight={50}>
+				    <Column
+				      header={<Cell>Col 1</Cell>}
+				      cell={<Cell>Column 1 static content</Cell>}
+				      width={500}
+				      fixed={true}
+				    />
+				    <Column
+				      header={<Cell>Col 2</Cell>}
+				      cell={<Cell>Column 1 static content</Cell>}
+				      width={500}
+				      
+				    />
+				    <Column
+				      header={<Cell>Col 3</Cell>}
+				      cell={({rowIndex, ...props}) => (
+				        <Cell {...props}>
+				          Data for column 3: {rows[rowIndex][2]}
+				        </Cell>
+				      )}
+				      width={500}
 				    />
 				  </Table>
 			</div>
