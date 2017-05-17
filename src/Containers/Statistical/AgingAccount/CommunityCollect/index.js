@@ -5,13 +5,6 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	Message,
 	KrField,
-	Table,
-	TableHeader,
-	TableHeaderColumn,
-	TableBody,
-	TableRow,
-	TableRowColumn,
-	TableFooter
 
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
@@ -19,6 +12,7 @@ import {Http} from 'kr/Utils';
 import './index.less';
 
 import SearchDetailForm from "./SearchDetailForm";
+import TableIndex from "./TableIndex";
 
 import {
 	observer
@@ -30,13 +24,16 @@ import $ from 'jquery';
 
 @observer
 
+
+
 export default class CommunityCollect extends React.Component{
 
 	constructor(props,context){
 
 		super(props, context);
 		this.state = {
-			communityBoxStyle:{}
+			communityBoxStyle:{},
+      		
 		}
 	}
 
@@ -100,7 +97,13 @@ export default class CommunityCollect extends React.Component{
 
 	render(){
 		let _this = this;
-		
+		const rows = [
+			  ['a1', 'b1', 'c1'],
+			  ['a2', 'b2', 'c2'],
+			  ['a3', 'b3', 'c3'],
+			  // .... and more
+			];
+		let {dataList} = this.state;
 		return(
 			<div className="community-collect">
 				<div className="community-collect-box">
@@ -110,13 +113,8 @@ export default class CommunityCollect extends React.Component{
 						
 					</div>
 					<div className="community-collect-table-box">
-							
-						{/*
-							_this.redercommunitys()
-						*/}
-
-						
-						<table className="community-collect-table" style={{tableLayout:"fixed"}}>
+						<TableIndex/>
+						{/*<table className="community-collect-table" style={{tableLayout:"fixed"}}>
 
 							<thead>
 								<tr className="first-tr">
@@ -146,7 +144,9 @@ export default class CommunityCollect extends React.Component{
 								
 							
 
-						</table>
+						</table>*/}
+						
+
 						
 					</div>
 				</div>
