@@ -294,7 +294,7 @@ class Editdialog extends React.Component {
 		let {
 			ControllerItem,
 			ControllerRender,
-			ControllerId
+			ControllerId,
 			idlist,
 		} = this.state;
 		if(!ControllerItem.controllerName){
