@@ -297,6 +297,7 @@ class Editdialog extends React.Component {
 			ControllerId,
 			idlist,
 		} = this.state;
+
 		if(!ControllerItem.controllerName){
 			return;
 		}
@@ -324,11 +325,11 @@ class Editdialog extends React.Component {
 		}
 		this.setState({
 			ControllerRender: arr,
-			ControllerId: idlist,
+			ControllerId: ControllerId,
 			ControllerItem:{},
 		},function(){
 			Store.dispatch(change('editdialog', 'controller', ''));
-			console.log(this.state.ControllerRender);
+			
 		})
 
 	}
