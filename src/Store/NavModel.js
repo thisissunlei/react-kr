@@ -42,7 +42,6 @@ const ForEachMenuItemPermission = function(childItem,topItem,menusCode){
 			}
 		}
 		menuItems = menuItems.filter(function(item){
-			console.log('item----',item)
 			return item.isPermission;
 		});
 		childItem.menuItems = menuItems;

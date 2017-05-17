@@ -9,7 +9,14 @@ a{
 	color:rgba(0, 0, 0, 0.65);
 	font-family:Roboto, sans-serif;
 }
-
+.u-clearfix { zoom:1; }
+.u-clearfix:after {
+  clear: both;
+  content: '.';
+  height: 0;
+  display: block;
+  visibility: hidden;
+}
 .g-header-nav{
 	width:100%;
 	height:60px;
@@ -26,9 +33,7 @@ a{
 		cursor: pointer;
 		text-align: center;
 		background:#fff;
-		position:fixed;
-		left:0;
-		top:0;
+		float:left;
 		&:hover{
 				background:rgba(153,153,153,0.2);
 				border-radius:2px;
@@ -55,9 +60,7 @@ a{
 	.u-header-logo{
 		width:120px;
 		height:60px;
-		position:absolute;
-		left:180px;
-		top:0;
+		float:left;
 		background: url(images/logo.png) center center no-repeat;
 		background-size:110px 110px;
 		&:hover{
@@ -68,13 +71,11 @@ a{
 	}
 	
 	.u-header-nav{
-		width:755px;
+		display:inline-block;
+		max-width:760px;
 		height:60px;
 		background:#fff;
-		position:absolute;
-		left:300px;
-		top:0;
-		overflow:hidden;
+		float:left;
 		li{
 			min-width:88px;
 			height:60px;
@@ -96,8 +97,7 @@ a{
 	.u-header-more{
 		color:rgba(0, 0, 0, 0.65);
 		font-size:16px;
-		float:right;
-	 	margin-right:135px;
+		float:left;
 		height:60px;
 		line-height:60px;
 		text-align:center;

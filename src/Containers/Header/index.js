@@ -29,7 +29,7 @@ const NavItem = ({...props})=>{
 
 const More = ({...props})=>{
 	let {NavModel}=props;
-	var navs=NavModel.slice(8);
+	var navs=NavModel.slice(5);
 	return (
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
@@ -125,15 +125,18 @@ export default class Header extends React.Component {
 		var  navs = NavModel.getNavs();
 		var	 person=NavModel.getUser();
 		var  sidebarNavs=NavModel.getSidebarNavs();
+
+		console.log('NavModel.items',NavModel.items)
+		console.log('NavModel.items.length',NavModel.items.length)
 		return (
 			<div className="no-print">
-				<div className="g-header-nav">
+				<div className="g-header-nav u-clearfix">
 					<div className="u-header-sidebar" onClick={this.openSidebar}>
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav()}
-					{NavModel.items.length>7?<More NavModel={NavModel.items}/>:''}
+					{NavModel.items.length>8?<More NavModel={NavModel.items}/>:''}
 					<TheBell />
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
 				</div>

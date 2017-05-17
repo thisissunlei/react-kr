@@ -3,7 +3,6 @@ module.exports = [
 	{
 		primaryText: "运营平台",
 		router: '/operation',
-		menuCode: 'operate',
 		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [
 			{
@@ -11,7 +10,6 @@ module.exports = [
 				iconName: 'icon-user',
 				iconColor: '#79859a',
 				router: 'communityManage',
-				menuCode: 'coustomerInfoList',
 				menuItems: [
 					{
 						primaryText: '客户线索',

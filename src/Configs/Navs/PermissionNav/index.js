@@ -3,14 +3,12 @@ module.exports = [
 	{
 		primaryText: "单点系统",
 		router: 'permission',
-		menuCode: 'operate',
 		menuItems: [
 			{
 				primaryText: "账户管理",
 				iconName: 'icon-wendang',
 				iconColor: '#79859a',
 				router: 'accountManage',
-				menuCode: 'coustomerInfoList',
 				menuItems: [{
 					primaryText: '账户列表',
 					router: '/permission/accountManage/accountList',

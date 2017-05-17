@@ -8,7 +8,6 @@ module.exports = [
 			primaryText: "社区管理",
 			iconName: 'icon-com',
 			iconColor: '#79859a',
-			menuCode: 'community_manage',
 			menuItems: [{
 				primaryText: '销控表',
 				menuCode: 'cmt_run',

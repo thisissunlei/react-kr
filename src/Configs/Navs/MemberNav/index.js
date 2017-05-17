@@ -4,14 +4,12 @@ module.exports = [
 	{
 		primaryText: "会员中心",
 		router: 'member',
-		menuCode: 'member',
 		originUrl: './#/member/memberManage/list?mid=94',
 		menuItems: [
 			{
 				primaryText: '会员管理',
 				iconName: 'icon-vip',
 				iconColor: '#79859a',
-				menuCode: 'memberAdmin',
 				router: '/member/memberManage/list',
 				menuItems: [
 					{
