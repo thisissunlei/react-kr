@@ -384,9 +384,9 @@ class Createdialog extends React.Component {
 					<div className="u-operations">
 						<KrField
 								name="module"
-								style={{width:220,marginLeft:40}}
+								style={{width:310,marginLeft:14}}
 								component="select"
-								label="模块"
+								label="所属菜单"
 								options={ModuleList}
 								inline={true}
 								requireLabel={true}
@@ -462,7 +462,7 @@ const validate = values => {
 		errors.type = '请选择类型';
 	}
 	if (!values.module) {
-		errors.module = '请选择模块';
+		errors.module = '请选择所属菜单';
 	}
 	return errors
 }

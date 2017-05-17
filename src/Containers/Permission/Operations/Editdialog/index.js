@@ -436,7 +436,7 @@ class Editdialog extends React.Component {
 					<div className="u-operations">
 						<KrField
 								name="module"
-								style={{width:220,marginLeft:40}}
+								style={{width:310,marginLeft:14}}
 								component="select"
 								label="所属菜单"
 								options={ModuleList}

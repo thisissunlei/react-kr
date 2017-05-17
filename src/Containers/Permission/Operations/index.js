@@ -197,7 +197,7 @@ class Operations extends Component {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			window.setTimeout(function() {
-				//window.location.reload();
+				window.location.reload();
 			}, 800);
 		}).catch(function(err) {
 			Message.error(err.message)
