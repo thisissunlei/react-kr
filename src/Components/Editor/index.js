@@ -168,10 +168,11 @@ export default class Editor extends React.Component{
     var ue = UE.getEditor(this.containerId,configs);
     this.ue = ue;
     this.ue.ready(function(editor){
+      console.log('init-ready');
       if(!editor){
         _this.initEditor();
       }
-      _this.editor = true;
+      // _this.editor = true;
       ue.addListener('contentChange',_this.contentChange);
       _this.setDefaultValue(defaultValue);
     });
@@ -190,6 +191,7 @@ export default class Editor extends React.Component{
 
 
   setDefaultValue = (value)=>{
+    console.log('defaultValue',this.editor);
     if(!value){
       return ;
     }
@@ -201,6 +203,7 @@ export default class Editor extends React.Component{
     }
     var _this = this;
     UE.getEditor(this.containerId).setContent(value);
+    _this.editor = true;
     this.init = true;
   }
 
