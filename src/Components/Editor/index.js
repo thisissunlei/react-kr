@@ -199,6 +199,9 @@ export default class Editor extends React.Component{
         UE.getEditor(_this.containerId).setContent(value);
       },200);
     }else{
+      if(!value){
+        return;
+      }
       UE.getEditor(this.containerId).setContent(value);
     }
  
