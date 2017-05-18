@@ -137,7 +137,7 @@ export default class MapComponentNew extends Component {
 		var _this = this;
 		var inputValue = this.refs.mapInput.value;
 		this.setState({
-			detailSearch : inputValue
+			detailSearch : inputValue ||''
 		},function(){
 			if(!inputValue){
 				let {initailPoint} =_this.props;
@@ -157,11 +157,11 @@ export default class MapComponentNew extends Component {
 
 		let _this =this;
 		_this.map.clearOverlays();
-		_this.setState({
-			// detailSearch : searchValue
-		},function(){
-			_this.onChange();
-		})
+		// _this.setState({
+		// 	// detailSearch : searchValue
+		// },function(){
+		// 	_this.onChange();
+		// })
 		var options = {      
 	      	onSearchComplete: function(results){  
 				_this.map.clearOverlays();  
