@@ -38,6 +38,8 @@ class NewCreateForm extends React.Component{
 		State.isStick = false;
 		Store.dispatch(initialize('NewCreateForm',initializeValues));
 		Store.dispatch(change('NewCreateForm','communitys',[]));
+		Store.dispatch(change('NewCreateForm','mapField',{}));
+		
 	}
 
 	onCancel=()=>{
