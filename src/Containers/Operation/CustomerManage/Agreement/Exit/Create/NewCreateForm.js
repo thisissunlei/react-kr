@@ -79,7 +79,6 @@ class NewCreateForm extends React.Component {
 
 		this.onCancel = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
-		console.log(this.props.initialValues.totalRent)
 
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.state= {
@@ -193,10 +192,12 @@ class NewCreateForm extends React.Component {
 
 	setTotalReturn=(value)=>{
 		console.log(value);
-		Store.dispatch(change('exitCreateForm', 'totalRent', value));
+
 		this.setState({
 			totalRent:value
 		})
+		Store.dispatch(change('exitCreateForm', 'totalRent', value));
+		
 	}
 
 
@@ -225,6 +226,8 @@ class NewCreateForm extends React.Component {
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
+		let {totalRent} = this.state;
+		console.log('==render===',totalRent)
 
 
 		return (
@@ -241,7 +244,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField style={{width:370,marginLeft:90}} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" />
-				<KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
+				<KrField style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={initialValues.lessorContactName || '请选择...'}/>
 
 				<KrField style={{width:370,marginLeft:90}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
@@ -274,7 +277,7 @@ class NewCreateForm extends React.Component {
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField name="totalreturn" style={{width:370,marginLeft:90}} type="text" component="labelText" label="退租金总额"
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
-				value={this.state.totalRent} inline={false}/>
+				value={totalRent} inline={false}/>
 
 				
 				<KrField style={{width:370,marginLeft:70}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
@@ -307,21 +310,24 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
-
+	
 	++values.num;
+	console.log('====',values.num)
+	localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create',JSON.stringify(values));
 
-	for(var i in values){
-	    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-			if(i === 'contractFileList'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
-			}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-				localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
-			}else if(!!!values[i]){
-				localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
 
-			}
-	    };
-	}
+	// for(var i in values){
+	//     if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
+	// 		if(i === 'contractFileList'){
+	// 			localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
+	// 		}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
+	// 			localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
+	// 		}else if(!!!values[i]){
+	// 			localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
+
+	// 		}
+	//     };
+	// }
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
