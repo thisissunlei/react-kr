@@ -762,7 +762,9 @@ class Login extends Component {
             </div>
 
           </div>}
-
+					<div className="footer-wrap">
+						<p>© 2011~2016 36氪 | 京ICP备12031756号 | 京公网安备11010802012285号</p>
+					</div>
           </div>
 
 		);
