@@ -1,17 +1,22 @@
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
-import {DateFormat} from 'kr/Utils';
-import {
-  reduxForm,
-  change,
-  arrayPush,
-  initialize
-} from 'redux-form';
 
 import {
-  Actions,
-  Store
+	Actions,
+	Store
 } from 'kr/Redux';
 import {
+	Http,
+	DateFormat
+} from "kr/Utils";
+
+import {
+	reduxForm,
+	formValueSelector,
+	change
+} from 'redux-form';
+import {
+	KrField,
 	Table,
 	TableBody,
 	TableHeader,
@@ -19,270 +24,147 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Dialog,
+	Button,
+	Tooltip,
 	Section,
 	Grid,
 	Row,
 	Col,
-	Drawer,
+	Dialog,
 	SearchForms,
-	Button,
-	KrField,
 	KrDate,
-	Title,
-	ListGroup,
-	ListGroupItem,
 	Message
 } from 'kr-ui';
-import  "./index.less";
-import {Http} from "kr/Utils";
-import VisitorsSearchForm from "./SearchForm";
-import {
-	observer,
-	inject
-} from 'mobx-react';
-@inject("FormModel")
-@observer
-class HoldList  extends React.Component{
+import './index.less';
+import SearchForm from './SearchForm';
+import HighSearchForm from './HighSearchForm';
+export default class HoldList extends React.Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
-		let date = new Date();
-		this.state={
-			searchParams:{
+		this.state = {
+			searchParams: {
 				page: 1,
-     			pageSize: 15,
-     			visitType:'',
-     			searchKey:'',
-     			date:date
+				pageSize: 15,
 			},
-      openUpperForm:false,
-
-      searchContent:{
-        searchKey:'',
-        searchType:'NAME',
-      },
-      typeValue:"",
-
+			itemDetail: '',
+			openHighSearch: false,
 		}
 	}
+//高级查询
+openHighSearch = () => {
+    this.setState({
+      openHighSearch: !this.state.openHighSearch
+    })
+  }
 
-	componentDidMount(){
-
-
+	onSearchSubmit = (form) => {
+		this.setState({
+			searchParams:form
+		})
+		this.openHighSearch();
 	}
-   //搜索列表
-   onSearchSubmit = (value) =>{
-   	let {searchParams} = this.state;
-	  let date = new Date();
+//普通查询
+	searchParams = (value) => {
+		 let {searchParams} = this.state;
+        if (value.filter == 'community') {
+            this.setState({
+                searchParams: {
+                    page: 1,
+                    pageSize: 15,
+                    communityName: value.content
+                }
+            })
+        }
+        if (value.filter == 'type') {
+            this.setState({
+                searchParams: {
+                    page: 1,
+                    pageSize: 15,
+                    typeName: value.content
+                }
+            })
+        }
+	}
 
-   	this.setState({
-      searchParams:{
-				searchKey:value.content,
-				page: searchParams.page,
-     		pageSize: searchParams.pageSize,
-     		searchType:value.filter,
-     		visitType:searchParams.visitType,
-     		date:date
-			},
-
-
-   	})
-   }
-   //打开高级查询
-  openUpperForm = () =>{
-    let {FormModel} = this.props;
-    this.setState({
-   		openUpperForm:true,
-   	})
-    FormModel.getForm("VisitorsSearchForm")
-             .changeValues({visitType:''})
-    }
-   //关闭高级查询
-   closeUpperForm = () =>{
-     this.setState({
-       openUpperForm:false,
-     })
-   }
-
-   //高级查询确定
-   upperFormSubmit = (values) =>{
-     let {searchParams} = this.state;
- 	  let date = new Date();
-
-    	 this.setState({
-         searchParams:{
- 				searchKey:values.searchKey,
- 				page: searchParams.page,
-      		pageSize: searchParams.pageSize,
-      		searchType:values.searchType,
-      		visitType:values.visitType,
-      		date:date
- 			},
-    })
-    this.closeUpperForm();
-
-   }
-  //刷新列表
-  refreshList = () =>{
-    let {searchParams} = this.state;
-	  let date = new Date();
+	render() {
 
 
-   	this.setState({
-      searchParams:{
-				searchKey:searchParams.searchKey,
-        page: searchParams.page,
-        pageSize: searchParams.pageSize,
-        searchType:searchParams.searchType,
-        visitType:searchParams.visitType,
-        date:date
-			}
-   	})
-  }
-  searchChange = (values) =>{
-    const {searchContent} = this.state;
-    this.setState({
-      searchContent:{
-        searchType:searchContent.searchType,
-        searchKey:values
-      }
-    })
-  }
-  ToObtainType = (values) =>{
-    const {searchContent} = this.state;
+		return (
+			<div className="g-hold-list">
+				<Section title="信息列表" >
+					<Grid style={{marginBottom:22,marginTop:2}}>
+						<Row>
+						<Col md={4} align="left" > </Col>
+						<Col md={8} align="right">
+							<div className="u-search">
+										<SearchForm onSubmit={this.searchParams} openSearch={this.openHighSearch} />
+							</div>
+						</Col>
+					  </Row>
+					</Grid>
+          <Table
+          style={{marginTop:10}}
+          displayCheckbox={false}
+          onLoaded={this.onLoaded}
+          ajax={true}
+          ajaxUrlName='get-question-list'
+          ajaxParams={this.state.searchParams}
+          onOperation={this.onOperation}
+            >
+        <TableHeader>
+        <TableHeaderColumn>社区名称</TableHeaderColumn>
+        <TableHeaderColumn>问题类型</TableHeaderColumn>
+				<TableHeaderColumn>内容</TableHeaderColumn>
+				<TableHeaderColumn>创建时间</TableHeaderColumn>
+      </TableHeader>
 
-    this.setState({
-      searchContent:{
-        searchType:values,
-        searchKey:searchContent.searchKey
-      }
-    })
+      <TableBody>
+        <TableRow>
+          <TableRowColumn name="communityName" ></TableRowColumn>
 
-  }
+          <TableRowColumn name="typeName"></TableRowColumn>
+					<TableRowColumn name="content" component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
 
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}>
+        </TableRowColumn>
+          <TableRowColumn type="date" name="time" component={(value)=>{
+            return (
+              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+            )
+          }}> </TableRowColumn>
+         </TableRow>
+      </TableBody>
+      <TableFooter></TableFooter>
+      </Table>
+				</Section>
 
-	render(){
-		let {
-          searchParams,
-          select,
-          openUpperForm,
-          searchContent,
-          typeValue
-        } = this.state;
-
-		return(
-			<div className="m-equipment-list m-visitors-to-record" style={{paddingTop:25,minHeight:'910'}}>
-				<Title value="访客记录"/>
-      		<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
-
-		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>
-				          <Col
-						     align="left"
-						     style={{float:'left'}}
-						   >
-							
-						  </Col>
-
-				          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10,zIndex:99}}>
-
-
-
-					          <ListGroup>
-
-                        <ListGroupItem>
-
-                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} onChange ={this.searchChange}  onSubmit={this.onSearchSubmit} onFilter = {this.ToObtainType} />
-                        </ListGroupItem>
-                        <ListGroupItem><Button searchClick={this.openUpperForm}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
-					          </ListGroup>
-				          </Col>
-		        </Row>
-
-
-	            <Table
-				    style={{marginTop:8}}
-	                ajax={true}
-	                onProcessData={
-							(state)=>{
-								return state;
-							}
-						}
-		            displayCheckbox={false}
-		            ajaxParams={searchParams}
-		            ajaxUrlName='visit-record-list'
-		            ajaxFieldListName="items"
+				<Dialog
+					title="高级查询"
+					modal={true}
+					open={this.state.openHighSearch}
+					onClose={this.openHighSearch}
+					contentStyle={{width:666}}
 				>
-			            <TableHeader>
-			              <TableHeaderColumn>访客姓名</TableHeaderColumn>
-			              <TableHeaderColumn>访客电话</TableHeaderColumn>
-			              <TableHeaderColumn>访客类型</TableHeaderColumn>
-			              <TableHeaderColumn>所属社区</TableHeaderColumn>
-			              <TableHeaderColumn>访客时间</TableHeaderColumn>
-			              <TableHeaderColumn>操作</TableHeaderColumn>
+					<HighSearchForm
+								onSubmit={this.onSearchSubmit}
+								onCancel={this.openHighSearch}
+					/>
+				</Dialog>
 
-			          	</TableHeader>
-
-				        <TableBody >
-				          <TableRow>
-			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="tel"></TableRowColumn>
-			                <TableRowColumn name="typeId"
-                        component={(value,oldValue)=>{
-
-                           let types = select.type;
-                           let detail = ""
-                           types.map(function(item,index){
-                             if(item.value == value){
-                               detail = item.label;
-
-                             }
-                           })
-                           return <span>{detail}</span>;
-                        }}
-                      ></TableRowColumn>
-			                <TableRowColumn name="communityName"></TableRowColumn>
-			                <TableRowColumn name="vtime"
-                        component={(value,oldValue)=>{
-                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
-                        }}
-
-                      ></TableRowColumn>
-
-
-			                <TableRowColumn type="operation">
-                          <Button label="查看"  type="operation"  operation="detail" />
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-			                </TableRowColumn>
-				          </TableRow>
-				        </TableBody>
-				        <TableFooter></TableFooter>
-	           </Table>
-	           </Section>
-             
-
-             {/*高级查询*/}
-              <Dialog
-                title="高级查询"
-                modal={true}
-                onClose={this.closeUpperForm}
-                open={openUpperForm}
-                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
-              >
-               <VisitorsSearchForm
-                  select = {select}
-                  onCancel={this.closeUpperForm}
-                  onSubmit={this.upperFormSubmit}
-
-              />
-              </Dialog>
-
-
-
-	     </div>
-
+			</div>
 		);
 	}
-}
 
-export default HoldList;
+}
