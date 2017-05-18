@@ -42,7 +42,7 @@ export default class MapComponentNew extends Component {
 
 		//回填具体地址
 		if(this.props.defaultValue){
-			this.refs.mapInput.defaultValue = nextProps.defaultValue || '';
+			this.refs.mapInput.defaultValue = nextProps.defaultValue ;
 		}
 		//经纬度
 
@@ -70,7 +70,7 @@ export default class MapComponentNew extends Component {
 		let _this = this;
 		// 编辑时input回显
 		if(this.props.defaultValue){
-			this.refs.mapInput.defaultValue = this.props.defaultValue;
+			this.refs.mapInput.defaultValue = this.props.defaultValue || '';
 		}
 		// 编辑时地图定位回显
 		const {defaultPoint}=this.props;
