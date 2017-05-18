@@ -289,7 +289,7 @@ import {DateFormat} from 'kr/Utils';
 							<span></span>
 							<span>报名情况</span>
 						</div>
-						<div className={State.HeightAuto?'auto':'stationList'}>
+						<div className={State.HeightAuto?'auto':'stationList'}  style={{overflow:'initial'}}>
 							<Table displayCheckbox={false} style={{margin:"58px 0 0 38px",width:547}}>
 								<TableHeader>
 									{
