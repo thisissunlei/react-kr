@@ -516,6 +516,7 @@ class NewCreateForm extends React.Component{
 	}
 }
 const validate = values => {
+	console.log("values",values);
 	const errors = {}
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let numContr =/^[1-9]\d{0,4}$/;
