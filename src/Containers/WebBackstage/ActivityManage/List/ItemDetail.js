@@ -201,9 +201,9 @@ import {DateFormat} from 'kr/Utils';
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="排序" requireLabel={true} value={initValue.sort}  defaultValue='无'/>
 
 							<KrField grid={1/2} name="contact" type="labelText" inline={false} label="活动联系人" style={{width:'252px'}} value={initValue.contact} defaultValue='无'/>
-							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:24}} value={initValue.contactPhone} defaultValue='无'/>
+							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:20}} value={initValue.contactPhone} defaultValue='无'/>
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
-							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
+							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:20}} value={initValue.maxPerson}  defaultValue='无'/>
 							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.top==1?'置顶':'不置顶'}  />
 
 							<div style={{display:initValue.top?"block":"none",fontSize:14,marginBottom:10}}>
@@ -289,7 +289,7 @@ import {DateFormat} from 'kr/Utils';
 							<span></span>
 							<span>报名情况</span>
 						</div>
-						<div className={State.HeightAuto?'auto':'stationList'}>
+						<div className={State.HeightAuto?'auto':'stationList'}  style={{overflow:'initial'}}>
 							<Table displayCheckbox={false} style={{margin:"58px 0 0 38px",width:547}}>
 								<TableHeader>
 									{
