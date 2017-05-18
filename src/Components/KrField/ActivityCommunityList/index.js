@@ -36,6 +36,7 @@ export default class InputComponent extends React.Component{
 		}
 	}
 	onChange=(selectedCommunitys)=>{
+		let {onChange} = this.props;
 		let sendValues = "";
 		for(var i=0;i<selectedCommunitys.length;i++){
 				sendValues = sendValues + ","+selectedCommunitys[i].id
@@ -54,6 +55,7 @@ export default class InputComponent extends React.Component{
 		}
 		// input.onChange(sendValues);
 		input.onChange(selectedCommunitys);
+		onChange && onChange(selectedCommunitys);
 		this.setState({
 			nameList:name
 		})

@@ -33,9 +33,11 @@ class NewCreateForm extends React.Component{
 		}
 	}
 	componentWillMount() {
+		console.log('will')
 		var initializeValues = {top:'0'};
 		State.isStick = false;
 		Store.dispatch(initialize('NewCreateForm',initializeValues));
+		Store.dispatch(change('NewCreateForm','communitys',[]));
 	}
 
 	onCancel=()=>{
@@ -45,18 +47,18 @@ class NewCreateForm extends React.Component{
 
 	onSubmit=(values)=>{
 
-		let cmtIds = [];
-		values.communitys.map((item)=>{
-			cmtIds.push(item.id)
-		})
+		// let cmtIds = [];
+		// // values.communitys.map((item)=>{
+		// // 	cmtIds.push(item.id)
+		// // })
 
-		console.log('cmtIds',cmtIds);
-		values.cmtIds = cmtIds;
+		// console.log('cmtIds',cmtIds);
+		// values.cmtIds = cmtIds;
 		if(!State.timeIsTrue){
 			Message.error('结束时间不能大于开始日期');
 			return;
 		}
-		if(!cmtIds.length){
+		if(!values.cmtIds.length){
 			Message.error('请选择推广社区');
 			return;
 		}
@@ -256,9 +258,18 @@ class NewCreateForm extends React.Component{
 			State.timeIsTrue  = true;
 		}
 	}
+	setData=(value)=>{
+		console.log('setData',value);
+		let cmtIds = []
+		value.map((item)=>{
+			cmtIds.push(item.id)
+		})
+		Store.dispatch(change('NewCreateForm','communitys',cmtIds));
+		Store.dispatch(change('NewCreateForm', 'cmtIds', cmtIds));
+
+	}
 	render(){
 		const { handleSubmit} = this.props;
-		let communitys = [];
 		// 对应功能选项
 		let correspondingFunction =[
 		{
@@ -390,10 +401,8 @@ class NewCreateForm extends React.Component{
 								</div>
 								<Grid ><KrField 
 									name="communitys"
-									options={communitys}
 									component="activity"
-									defaultValue={communitys}
-									getList={this.getList}
+									onChange={this.setData}
 									label="活动推送社区"
 									grid={1/2}
 									requireLabel={true}
@@ -586,9 +595,9 @@ const validate = values => {
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
-	// if(values.communitys && !values.communitys.length){
-	// 	errors.communitys = '请选择推广社区'
-	// }
+	if(values.communitys && !values.communitys.length){
+		errors.communitys = '请选择推广社区'
+	}
 	return errors
 }
 
