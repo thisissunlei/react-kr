@@ -34,6 +34,7 @@ class NewCreateForm extends React.Component{
 	}
 	componentWillMount() {
 		var initializeValues = {top:'0'};
+		State.isStick = false;
 		Store.dispatch(initialize('NewCreateForm',initializeValues));
 	}
 
