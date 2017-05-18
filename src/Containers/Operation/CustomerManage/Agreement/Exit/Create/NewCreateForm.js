@@ -79,12 +79,14 @@ class NewCreateForm extends React.Component {
 
 		this.onCancel = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		console.log(this.props.initialValues.totalRent)
 
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.state= {
 			openLocalStorage:this.props.openLocalStorage,
 			initialValues:this.props.initialValues,
 			optionValues:this.props.optionValues,
+			totalRent:this.props.initialValues.totalRent || '0'
 		}
 	}
 
@@ -99,6 +101,7 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			initialValues:nextProps.initialValues,
 			optionValues:nextProps.optionValues,
+			totalRent:this.props.initialValues.totalRent || '0'
 		})
 		if(this.props.openLocalStorage != nextProps.openLocalStorage){
 			this.setState({
@@ -190,6 +193,10 @@ class NewCreateForm extends React.Component {
 
 	setTotalReturn=(value)=>{
 		console.log(value);
+		Store.dispatch(change('exitCreateForm', 'totalRent', value));
+		this.setState({
+			totalRent:value
+		})
 	}
 
 
@@ -267,7 +274,7 @@ class NewCreateForm extends React.Component {
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField name="totalreturn" style={{width:370,marginLeft:90}} type="text" component="labelText" label="退租金总额"
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
-				value={'dasdd'} inline={false}/>
+				value={this.state.totalRent} inline={false}/>
 
 				
 				<KrField style={{width:370,marginLeft:70}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
