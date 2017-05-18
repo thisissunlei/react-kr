@@ -42,7 +42,7 @@ export default class MapComponentNew extends Component {
 
 		//回填具体地址
 		if(this.props.defaultValue){
-			this.refs.mapInput.defaultValue = nextProps.defaultValue;
+			this.refs.mapInput.defaultValue = nextProps.defaultValue || '';
 		}
 		//经纬度
 
