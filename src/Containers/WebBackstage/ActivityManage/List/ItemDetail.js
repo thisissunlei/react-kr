@@ -305,7 +305,12 @@ import {DateFormat} from 'kr/Utils';
 									State.actField.items.length && State.actField.actEnroll && State.actField.items.map((item,index)=>{
 									return (
 										<TableRow key={index}>
-											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
+											{list.name && <TableRowColumn>
+
+												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.name}</span>
+												<Tooltip offsetTop={5} place='top' style={{marginLeft:5}}>{item.name}</Tooltip>
+
+											</TableRowColumn>}
 											{list.phone && <TableRowColumn >{item.phone}</TableRowColumn>}
 											{list.company && <TableRowColumn>
 												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.company}</span>
