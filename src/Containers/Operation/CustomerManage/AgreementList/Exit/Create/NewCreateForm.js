@@ -252,8 +252,9 @@ class NewCreateForm extends React.Component {
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额"  requireLabel={true}
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额"
-				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额"
+				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
+				value={initialValues.totalreturn} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
 

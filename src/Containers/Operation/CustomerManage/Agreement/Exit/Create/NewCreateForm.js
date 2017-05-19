@@ -97,15 +97,21 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(initialize('exitCreateForm', initialValues));
 	}
 	componentWillReceiveProps(nextProps) {
+		console.log('will')
 		this.setState({
 			initialValues:nextProps.initialValues,
 			optionValues:nextProps.optionValues,
-			totalRent:this.props.initialValues.totalRent || '0'
 		})
 		if(this.props.openLocalStorage != nextProps.openLocalStorage){
 			this.setState({
-			openLocalStorage:nextProps.openLocalStorage
-		})
+				openLocalStorage:nextProps.openLocalStorage
+			})
+		}
+		if(this.props.initialValues != nextProps.initialValues){
+			this.setState({
+				totalRent:nextProps.initialValues.totalRent || '0',
+				initialValues:nextProps.initialValues,
+			})
 		}
 	}
 
@@ -195,8 +201,11 @@ class NewCreateForm extends React.Component {
 
 		this.setState({
 			totalRent:value
+		},function(){
+			console.log('====>',this.state.totalRent)
+			Store.dispatch(change('exitCreateForm', 'totalRent', value));
+
 		})
-		Store.dispatch(change('exitCreateForm', 'totalRent', value));
 		
 	}
 
@@ -287,7 +296,7 @@ class NewCreateForm extends React.Component {
 							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={initialValues.contractFileList || []} onChange={(files)=>{
 					Store.dispatch(change('exitCreateForm','contractFileList',files));
 				}} />
 
@@ -309,25 +318,10 @@ class NewCreateForm extends React.Component {
 }
 const validate = values => {
 
-	const errors = {}
-	
+	const errors = {};
+	console.log('--->',values.totalRent)
 	++values.num;
-	console.log('====',values.num)
 	localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create',JSON.stringify(values));
-
-
-	// for(var i in values){
-	//     if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-	// 		if(i === 'contractFileList'){
-	// 			localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,JSON.stringify(values[i]));
-	// 		}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-	// 			localStorage.setItem(values.mainbillid+values.customerId+values.contracttype+'create'+i,values[i]);
-	// 		}else if(!!!values[i]){
-	// 			localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
-
-	// 		}
-	//     };
-	// }
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
