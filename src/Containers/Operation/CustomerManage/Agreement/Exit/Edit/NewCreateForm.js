@@ -88,21 +88,23 @@ class NewCreateForm extends React.Component {
 				totalRent:nextProps.initialValues.totalRent || '0',
 				initialValues:nextProps.initialValues,
 			},function(){
-				console.log(initialValues.withdrawdate);
-				// let {initialValues} = nextProps.initialValues;
-				// Http.request('setExitTotalReturn', {
-				// 	mainbillId: initialValues.mainbillid,
-				// 	withdrawDate:initialValues.withdrawdate
-				// }).then(function(response){
-				// 	_this.setState({
-				// 		totalRent:response+''
-				// 	},function(){
-				// 		Store.dispatch(change('exitEditForm', 'totalRent', response));
+				
+				let {initialValues} = nextProps;
+				let _this = this;
+				console.log(initialValues);
+				Http.request('setExitTotalReturn', {
+					mainbillId: initialValues.mainbillid,
+					withdrawDate:initialValues.withdrawdate
+				}).then(function(response){
+					_this.setState({
+						totalRent:response+''
+					},function(){
+						Store.dispatch(change('exitEditForm', 'totalRent', response));
 
-				// 	})
-				// }).catch(function(err){
-				// 	console.log(err)
-				// })
+					})
+				}).catch(function(err){
+					console.log(err)
+				})
 
 				// this.setTotalRent(initialValues.withdrawdate)
 				

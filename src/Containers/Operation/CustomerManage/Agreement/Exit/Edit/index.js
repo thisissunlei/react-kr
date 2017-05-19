@@ -304,9 +304,9 @@ export default class EditCreate extends React.Component {
 
        let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
       initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
-      if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+      // if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
         initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
-      }
+      // }
 
       //initialValues.ContractStateType = 'EXECUTE';
 
@@ -405,6 +405,7 @@ export default class EditCreate extends React.Component {
         });
 
       }).catch(function(err) {
+        console.log(err)
         Notify.show([{
           message: '后台出错请联系管理员',
           type: 'danger',
