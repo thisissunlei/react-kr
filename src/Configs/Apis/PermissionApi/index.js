@@ -263,4 +263,9 @@ module.exports = {
       url: '/api/krspace-sso-web/mobile/log/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
       method: 'get'
     },
+    //退出登录
+    'logout':{
+            url: '/api/krspace-sso-web/sso/sysOwn/logout',
+            method: 'get'
+    },
 }

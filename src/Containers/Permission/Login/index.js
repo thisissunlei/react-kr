@@ -79,16 +79,16 @@ class Login extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
     this.getCanvas();
-		this.HandleTabKey();
+	//	this.HandleTabKey();
 	}
 	//屏蔽tab
-	HandleTabKey=(evt)=>{
-				document.onkeydown = function() {
-				if (event.keyCode == 9) {  //如果是其它键，换上相应在ascii 码即可。
-						return false; //非常重要
-				}
-		}
-    }
+	// HandleTabKey=(evt)=>{
+	// 			document.onkeydown = function() {
+	// 			if (event.keyCode == 9) {  //如果是其它键，换上相应在ascii 码即可。
+	// 					return false; //非常重要
+	// 			}
+	// 	}
+  //   }
 
   getCanvas=()=>{
     var canvas = document.getElementById('canvas'),
@@ -563,9 +563,9 @@ class Login extends Component {
                   <div className="login-tip">登录</div>
                   <div className="login-content">
                      <ul className="login-content-ul">
-											<li className="hideInput">
+											{/*<li className="hideInput">
 												<input type="text" />
-											</li>
+											</li>*/}
 											 <li className="loginName">
 												 <div className="outer-name">
 												 	<span className="pre-name">
@@ -588,9 +588,9 @@ class Login extends Component {
                        	</li>
 											 */}
 
-											 <li className="hideInput">
+											 {/*<li className="hideInput">
  												<input type="text" />
- 												</li>
+ 												</li>*/}
 											 <li className="loginPwd">
 												 <div className="outer-pwd">
 													 <span className="pre-loginpwd">
