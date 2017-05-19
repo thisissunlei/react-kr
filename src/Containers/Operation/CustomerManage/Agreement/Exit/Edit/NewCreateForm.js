@@ -13,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -87,6 +87,25 @@ class NewCreateForm extends React.Component {
 			this.setState({
 				totalRent:nextProps.initialValues.totalRent || '0',
 				initialValues:nextProps.initialValues,
+			},function(){
+				console.log(initialValues.withdrawdate);
+				// let {initialValues} = nextProps.initialValues;
+				// Http.request('setExitTotalReturn', {
+				// 	mainbillId: initialValues.mainbillid,
+				// 	withdrawDate:initialValues.withdrawdate
+				// }).then(function(response){
+				// 	_this.setState({
+				// 		totalRent:response+''
+				// 	},function(){
+				// 		Store.dispatch(change('exitEditForm', 'totalRent', response));
+
+				// 	})
+				// }).catch(function(err){
+				// 	console.log(err)
+				// })
+
+				// this.setTotalRent(initialValues.withdrawdate)
+				
 			})
 		}
 	}
@@ -172,14 +191,26 @@ class NewCreateForm extends React.Component {
 		}
 		return url;
 	}
-	setTotalRent=(value)=>{
-		console.log('values',value)
-		this.setState({
-			totalRent:value
-		},function(){
 
-			Store.dispatch(change('exitEditForm', 'totalRent', value));
+	setTotalRent=(value)=>{
+		let {initialValues} = this.props;
+		let _this = this;
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
+			},function(){
+				Store.dispatch(change('exitEditForm', 'totalRent', response));
+
+			})
+		}).catch(function(err){
+			console.log(err)
 		})
+
+		
+		
 	}
 
 	render() {

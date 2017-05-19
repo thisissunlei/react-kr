@@ -13,7 +13,7 @@ import {
 } from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 
 import {
 	reduxForm,
@@ -197,15 +197,23 @@ class NewCreateForm extends React.Component {
 
 
 	setTotalReturn=(value)=>{
-		console.log(value);
+		let {initialValues} = this.props;
+		let _this = this;
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
+			},function(){
+				Store.dispatch(change('exitCreateForm', 'totalRent', response));
 
-		this.setState({
-			totalRent:value
-		},function(){
-			console.log('====>',this.state.totalRent)
-			Store.dispatch(change('exitCreateForm', 'totalRent', value));
-
+			})
+		}).catch(function(err){
+			console.log(err)
 		})
+
+		
 		
 	}
 
