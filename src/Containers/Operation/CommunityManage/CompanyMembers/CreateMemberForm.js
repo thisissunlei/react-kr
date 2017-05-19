@@ -172,7 +172,7 @@ import imgLine from './images/line.png'
 	 	let _this = this;
 	 	let communityName = '';
 
-	 	Http.request('searchCommunityByCommunityText').then(function(response){
+	 	Http.request('getCommunityListByParams').then(function(response){
 				response.forEach((item)=>{
 					if(item.id == _this.params.communityId){
 						communityName = item.communityname;

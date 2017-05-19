@@ -149,7 +149,7 @@ export default class Station extends Component {
 					</div>
 
 
-					<p>注：不足一月的，按照月服务费*12月/365天计算</p>
+					<p>注：不足一月的，按照月服务费*12月/365天计算日服务费</p>
 
 			</div>
 

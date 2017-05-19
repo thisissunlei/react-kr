@@ -33,7 +33,7 @@ class NewEquipment extends Component{
 	onSubmit = (values) => {
 
 		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		onSubmit && onSubmit(values,"new");
 	}
 
 	onClose = () => {
@@ -81,7 +81,7 @@ const validate = values =>{
 
 		const errors = {};
 		let name = values.name;
-		
+
 		if(!name){
 			errors.name="设备名称不能为空！"
 		}
