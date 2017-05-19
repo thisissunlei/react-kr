@@ -64,6 +64,9 @@ class NewCreateForm extends React.Component {
 		this.onCancel = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+		this.state= {
+			totalRent:'0'
+		}
 
 	}
 
@@ -73,6 +76,15 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('exitEditForm', initialValues));
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.props.initialValues != nextProps.initialValues){
+			this.setState({
+				totalRent:nextProps.initialValues.totalRent || nextProps.initialValues.totalreturn,
+				initialValues:nextProps.initialValues,
+			})
+		}
 	}
 
 
@@ -153,7 +165,26 @@ class NewCreateForm extends React.Component {
 		}
 		return url;
 	}
+	setTotalRent=(value)=>{
+		let {initialValues} = this.props;
+		let _this = this;
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
+			},function(){
+				Store.dispatch(change('exitEditForm', 'totalRent', response));
 
+			})
+		}).catch(function(err){
+			console.log(err)
+		})
+
+		
+		
+	}
 	render() {
 
 		let {
@@ -176,6 +207,7 @@ class NewCreateForm extends React.Component {
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
+		let {totalRent} = this.state;
 
 		return (
 
@@ -214,13 +246,14 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
-				<KrField style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
+				<KrField style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true} onChange={this.setTotalRent}/>
 				
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
 
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额" requireLabel={true}
-				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额" requireLabel={true}
+				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}
+				value={totalRent} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
