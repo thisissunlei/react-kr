@@ -32,7 +32,7 @@ module.exports = [
 				},
 				{
 					primaryText: '支持列表',
-					menuCode: 'sysVisitRecord',
+					menuCode: 'visitRecord',
 					router: '/community/communityManage/holdList'
 				},
 			]
