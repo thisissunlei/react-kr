@@ -30,6 +30,11 @@ module.exports = [
 					menuCode: 'visitRecord',
 					router: '/community/visitor/list'
 				},
+				{
+					primaryText: '支持列表',
+					menuCode: 'visitRecord',
+					router: '/community/communityManage/holdList'
+				},
 			]
 		},
 		],
