@@ -68,7 +68,7 @@ class NewCreateForm extends React.Component {
 
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.state = {
-			totalRent:'0'
+			totalRent:this.props.initialValues.totalRent+'' || '0'
 		}
 	}
 
@@ -85,9 +85,10 @@ class NewCreateForm extends React.Component {
 			Store.dispatch(initialize('exitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues,
-				totalRent:nextProps.initialValues.totalRent || '0'
+				totalRent:nextProps.initialValues.totalRent
 			})
 		}
+		console.log('will',nextProps.initialValues.totalRent)
 		if(this.props.optionValues != nextProps.optionValues){
 			this.setState({
 				optionValues:nextProps.optionValues
@@ -192,6 +193,7 @@ class NewCreateForm extends React.Component {
 				totalRent:response+''
 			},function(){
 				Store.dispatch(change('exitCreateForm', 'totalRent', response));
+				Store.dispatch(change('exitCreateForm', 'totalreturn', response));
 
 			})
 		}).catch(function(err){
@@ -227,6 +229,7 @@ class NewCreateForm extends React.Component {
 		});
 
 		let {totalRent} = this.state;
+		console.log('totalRent',totalRent)
 
 
 		return (
