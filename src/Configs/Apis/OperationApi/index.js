@@ -476,4 +476,10 @@ module.exports = {
          method: 'get'
       },
 
+      //获取平面图配置信息
+       'plan-get-detail':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/edit-info?communityId={communityId}&floor={floor}',
+         method: 'get'
+      },
+
 }

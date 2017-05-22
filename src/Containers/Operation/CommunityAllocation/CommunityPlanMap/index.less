@@ -10,7 +10,7 @@ html,body{
     height:100%;
     width:100%;
     position:relative;
-    overflow-x: hidden;
+   // overflow-x: hidden;
   }
 
   .m-station {
@@ -149,17 +149,11 @@ html,body{
     bottom: -6px;
     transform:translate(-6px) rotate(135deg);
 }
-.single-meeting{
-  display:none;
-}
-.plan-station{
+
+.plan-station,.plan-borderRoom{
   margin:0 10px;
   padding-top:10px;
   display:inline-block;
-}
-.plan-borderRoom{
-  display:none;
-  margin:0 10px;
 }
 #tab-station,#tab-meeting{
   position:relative;
@@ -182,14 +176,12 @@ html,body{
 
 .plan-header{
     background-color: #fff;
-    padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 15px;
     padding-right: 15px;
     border-bottom: 4px solid rgb(219, 237, 254);
   }
 .plan-header .header-floor{
-     width:130px;
      display:inline-block;
      line-height: 32px;
    }
@@ -249,7 +241,7 @@ html,body{
       cursor:pointer;
       position: absolute;
       right: 20px;
-      top: 27px;
+      top: 7px;
 }
 
 
