@@ -315,6 +315,13 @@ const Operation_BasicConfig_BusinessList= (location, callback) => {
 	}, 'Operation_BasicConfig_BusinessList')
 }
 
+{/*平面图配置*/}
+const Operation_CommunityAllocation_CommunityPlanMap= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/CommunityPlanMap').default)
+	}, 'Operation_CommunityAllocation_CommunityPlanMap')
+}
+
 
 
 module.exports =()=>{
@@ -342,6 +349,8 @@ module.exports =()=>{
 		<Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
 		{/*代码分类*/}
 		<Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
+		{/*平面图配置*/}
+		<Route path="communityPlanMap" getComponent={Operation_CommunityAllocation_CommunityPlanMap}/>
 	</Route>
     {/*基础配置*/}
     
