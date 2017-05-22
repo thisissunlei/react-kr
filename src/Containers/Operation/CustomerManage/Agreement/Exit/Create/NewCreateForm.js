@@ -207,6 +207,7 @@ class NewCreateForm extends React.Component {
 				totalRent:response+''
 			},function(){
 				Store.dispatch(change('exitCreateForm', 'totalRent', response));
+				Store.dispatch(change('exitCreateForm', 'totalreturn', response));
 
 			})
 		}).catch(function(err){
