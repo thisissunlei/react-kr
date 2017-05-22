@@ -85,7 +85,7 @@ class NewCreateForm extends React.Component {
 			Store.dispatch(initialize('exitCreateForm', nextProps.initialValues));
 			this.setState({
 				initialValues:nextProps.initialValues,
-				totalRent:nextProps.initialValues.totalRent
+				totalRent:nextProps.initialValues.totalRent || '0'
 			})
 		}
 		console.log('will',nextProps.initialValues.totalRent)
@@ -284,7 +284,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额"
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
-				value={totalRent} inline={false}/>
+				value={totalRent || '0'} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
 
