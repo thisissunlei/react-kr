@@ -438,9 +438,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	getStationUrl() {
-
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-
 		let {
 			changeValues,
 			initialValues,
@@ -471,19 +468,6 @@ class NewCreateForm extends React.Component {
 			unitprice:0
 
 		};
-
-		// 	console.log(params,"??????")
-		// if (Object.keys(params).length) {
-		// 	for (let item in params) {
-		// 		if (params.hasOwnProperty(item)) {
-		// 			url = url.replace('{' + item + '}', params[item]);
-		// 			delete params[item];
-		// 		}
-		// 	}
-		// }
-		
-		// return url;
-
 		return params;
 	}
 	onBlur=(item)=>{
@@ -542,11 +526,11 @@ class NewCreateForm extends React.Component {
 			billList.map(function(item, index) {
 				item.leaseBeginDate = changeValues.leaseBegindate;
 				item.leaseEndDate = changeValues.leaseEnddate;
-				item.stationId = item.id;
-				item.stationType = item.belongType;
-				item.stationName = item.cellName;
+				item.stationId = item.stationId;
+				item.stationType = item.stationType;
+				item.stationName = item.stationName;
 				item.unitprice = '';
-				item.whereFloor = item.floor;
+				item.whereFloor = item.whereFloor;
 			});
 		} catch (err) {
 		}

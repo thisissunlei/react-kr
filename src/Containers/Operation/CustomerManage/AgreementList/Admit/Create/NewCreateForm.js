@@ -24,7 +24,11 @@ import {
 	Fields,
 	change
 } from 'redux-form';
+import {
 
+PlanMapContent
+
+} from 'kr/PureComponents';
 
 import UnitPriceForm from './UnitPriceForm';
 
@@ -58,7 +62,7 @@ class NewCreateForm extends React.Component {
 
 
 	static contextTypes = {
-		par: React.PropTypes.object.isRequired
+		params: React.PropTypes.object.isRequired
 	}
 
 	static defaultPropTypes = {
@@ -416,7 +420,6 @@ class NewCreateForm extends React.Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 		let {
 			changeValues,
 			initialValues,
@@ -429,35 +432,25 @@ class NewCreateForm extends React.Component {
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			return obj;
 		});
 
 		let params = {
-			mainBillId: this.context.par.orderId,
+			mainBillId: this.context.params.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			selectedObjs: stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
+			unitprice:0
 
 		};
-
-
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
-		return url;
+		return params;
 	}
 
 
@@ -485,13 +478,13 @@ class NewCreateForm extends React.Component {
 
 		try {
 			billList && billList.map(function(item, index) {
-				item.leaseBeginDate = DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd");
-				item.leaseEndDate = DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd");
-				item.stationId = item.id;
-				item.stationName = item.name;
-				item.stationType = item.type;
+				item.leaseBeginDate = DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00");
+				item.leaseEndDate = DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00");
+				item.stationId = item.belongId;
+				item.stationName = item.cellName;
+				item.stationType = item.belongType;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.floor;
 			});
 		} catch (err) {
 		}
@@ -763,11 +756,11 @@ class NewCreateForm extends React.Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation}
 						onClose={this.onCloseStation}
 						 >
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 					<Dialog
 						title="录入单价"

@@ -6,6 +6,11 @@ import {
 import {
 	Fields
 } from 'redux-form';
+import {
+
+PlanMapContent
+
+} from 'kr/PureComponents';
 
 import ReactMixin from "react-mixin";
 import {DateFormat,Http} from 'kr/Utils';
@@ -406,8 +411,6 @@ class NewCreateForm extends React.Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
-
 		let {
 			changeValues,
 			initialValues,
@@ -416,10 +419,11 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
@@ -433,28 +437,21 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			selectedObjs: stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
+			unitprice:0
 
 		};
-
-
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
 		this.setState({
-			stationUrl: url
+			stationUrl: params
 		});
 	}
 
 	onIframeClose(billList,data) {
+		
+
+
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -465,31 +462,58 @@ class NewCreateForm extends React.Component {
 			changeValues,
 			initialValues
 		} = this.props;
-
 		var stationVos = [];
-
-		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
+		var cache = [];
+		data && data.map((item)=>{
 			var obj = {};
-			obj.stationId = item.id;
-			obj.whereFloor = item.whereFloor;
-			obj.stationType = item.type;
-			delStationVos.push(obj);
+			if(!delStationVos.length){
+					obj.stationId = item.stationId;
+					obj.whereFloor = item.whereFloor;
+					obj.stationType = item.stationType;
+					delStationVos.push(obj);
+			}else{
+				let flog = true;
+				
+				for(let i=0; i<delStationVos.length;i++){
+					if(delStationVos[i].stationId == item.stationId && delStationVos[i].stationType == item.stationType){
+						flog = false;
+						break;
+					}
+				}
+				if(flog){
+					obj.stationId = item.stationId;
+					obj.whereFloor = item.whereFloor;
+					obj.stationType = item.stationType;
+					delStationVos.push(obj);
+				}
+			}
 		})
 		try {
 			billList.map(function(item, index) {
 				var obj = {};
+				var objar = {}
 				obj.leaseBeginDate = changeValues.leaseBegindate;
 				obj.leaseEndDate = changeValues.leaseEnddate;
-				obj.stationId = item.id;
-				obj.stationType = item.type;
-				obj.stationName = item.name;
+				obj.stationId = item.stationId;
+				obj.stationType = item.stationType;
+				obj.stationName = item.stationName;
 				obj.unitprice = '';
-				obj.whereFloor = item.wherefloor;
+				obj.whereFloor = item.whereFloor;
+
+				// objar.type = item.stationType;
+				// objar.id = item.stationId;
+				// objar.name = item.stationName;
+				// objar.wherefloor = item.whereFloor;
+				// objar.leaseBeginDate = changeValues.leaseBegindate;
+				// objar.leaseEndDate = changeValues.leaseEnddate;
+				// objar.unitprice = "0"
+
 				stationVos.push(obj);
+				// cache.push(objar);
 			});
 		} catch (err) {
 		}
-
+		console.log(billList,"缓存");
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(billList));
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(delStationVos));
 
@@ -759,7 +783,7 @@ class NewCreateForm extends React.Component {
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} onClose={this.openStationDialog}>
-							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
@@ -876,7 +900,7 @@ const validate = values => {
 	}
 
 
-	
+
 
 	return errors
 }

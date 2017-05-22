@@ -16,7 +16,8 @@ export default  class Canvas extends React.Component {
 			inputEnd:this.props.inputEnd,
 			scrollX:0,
 			scrollY:0,
-			data:this.props.data
+			data:this.props.data,
+			deleteArr:[]
 		}
 	}
 
@@ -65,22 +66,30 @@ export default  class Canvas extends React.Component {
 			})
 
 		}
-		
+
 	}
     draw = (flog) =>{
-		
-		let {myCanvas,myContext,inputStart,inputEnd,data} = this.state;
-		const {dataChange,selectedObjs} = this.props;
+
+		let {myCanvas,myContext,inputStart,inputEnd,data,deleteArr} = this.state;
+		const {dataChange,selectedObjs,newfloor} = this.props;
+
 		let can = myCanvas,ctx = myContext;
 		let start = Number(inputStart);
 		let end = Number(inputEnd);
-		let items =data; 
+		let items =data;
 		let allObj = [];
 		let submitData = [];
 		let num = 0;
 		ctx.clearRect(0,0,can.width,can.height);
 
         allObj = items.map(function(item,index){
+					if(item.belongType == "STATION" ){
+						item.belongType=1;
+					}
+					if(item.belongType == "SPACE" ){
+						item.belongType=2
+					}
+			
 
 			let color = "";
 			let fontColor = "";
@@ -111,18 +120,25 @@ export default  class Canvas extends React.Component {
 				color = "#28c288";
 				item.status = 3;
 			}
-			
-			if(item.status == 3){
-				submitData.push(item);
-			}
+
+
 			if(num != selectedObjs.length){
+				
 				selectedObjs.map(function(eve,index){
-					if(flog && flog == "one" && item.id == eve.id && item.belongType == eve.belongType){
+					
+					if(flog && flog == "one" && item.belongId == eve.id && item.belongType == eve.belongType){
 						item.status = 3;
+						num++;
 						color = "#28c288";
+						
+
 					}
 				})
 			}
+			if(item.status == 3){
+				submitData.push(item);
+			}
+
       		ctx.fillStyle = color;
      	 	ctx.fillRect(x,y,width,height);
 			ctx.font="12px";
@@ -130,8 +146,8 @@ export default  class Canvas extends React.Component {
 			ctx.strokeText(item.cellName,x+(width/2-(item.cellName.length*7/2)),y+(height-14)/2+12);
 			return item;
         })
-		
-		dataChange && dataChange(submitData);
+
+		dataChange && dataChange(newfloor,submitData,deleteArr);
 		this.setState({
 			data:allObj
 		})
@@ -139,14 +155,14 @@ export default  class Canvas extends React.Component {
 
 	canvasClick = (event) =>{
 		event.stopPropagation();
-		
-		const {url} = this.props;
-		let {data} = this.state;
-		const {myCanvas,myContext,scrollX,scrollY} = this.state;
+
+		const {url,selectedObjs} = this.props;
+		const {data,myCanvas,myContext,scrollX,scrollY} = this.state;
 		var mouse = myCanvas.getBoundingClientRect();
 		let top = $("body").scrollTop();
 		var x = event.pageX - mouse.left ;
 		var y = event.pageY - mouse.top - top;
+		let deleteArr = [];
 		let allObj = data.map(function(item,index){
 			const minX = Number(item.cellCoordX)-25;
 			const minY = Number(item.cellCoordY)-10;
@@ -154,11 +170,18 @@ export default  class Canvas extends React.Component {
 			const maxY = Number(item.cellCoordY)+Number(item.cellHeight)-10;
 
 			if((x >= minX && x<= maxX ) && (y >= minY && y  <= maxY)){
-				
+
 				if(!item.status ){
 					item.status = 3;
 				}else if(item.status ==  3){
 					item.status = 0;
+					selectedObjs.map(function(ele,index){
+						if(item.belongId == ele.id && item.belongType == ele.belongType){
+							deleteArr.push(item);
+							
+						}
+					})
+					
 				}
 
 			}
@@ -166,10 +189,11 @@ export default  class Canvas extends React.Component {
 		})
 		this.setState({
 			data:allObj,
+			deleteArr:deleteArr
 		},function(){
 			this.draw();
 		})
-		
+
 
 	}
 

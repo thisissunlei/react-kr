@@ -28,14 +28,14 @@ import allState from "../../State";
 export default class JoinCreate extends React.Component {
 
       static childContextTypes = {
-        par: React.PropTypes.object.isRequired
+        params: React.PropTypes.object.isRequired
      }
 
 
 
 		getChildContext() {
 	    return {
-	        par: this.props.params
+	        params: this.props.params
 	      }
 
 	    }
