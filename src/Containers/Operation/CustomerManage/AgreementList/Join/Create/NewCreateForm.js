@@ -526,11 +526,11 @@ class NewCreateForm extends React.Component {
 			billList.map(function(item, index) {
 				item.leaseBeginDate = changeValues.leaseBegindate;
 				item.leaseEndDate = changeValues.leaseEnddate;
-				item.stationId = item.stationId;
-				item.stationType = item.stationType;
-				item.stationName = item.stationName;
+				item.stationId = item.id;
+				item.stationType = item.type;
+				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.whereFloor;
+				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
 		}
