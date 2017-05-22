@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Canvas
@@ -9,7 +9,7 @@ import {
 import PlanMapSerarchForm from './PlanMapSerarchForm'
 import './index.less';
 
-export default  class PlanMapComponent extends React.Component {
+export default class PlanMapComponent extends React.Component {
 
 
 
@@ -79,16 +79,17 @@ export default  class PlanMapComponent extends React.Component {
 	componentWillReceiveProps(nextProps) {
 
 	}
-	dataChange = (floor,data,deleteArr) =>{
-		let {otherData} = this.state;
+	dataChange = (floor,data,deleteData) =>{
+		let {otherData,selectedObjs,deleteArr} = this.state;
 		let obj = {};
 		let arr = [];
 		let delArr = [];
+		let deldata = [];
 		otherData.floors.map(function(item,index){
 			if(floor == item.value){
 				obj[floor]={
 					data : data || [],
-					deleteArr :  deleteArr || []
+					deleteArr :  deleteData || []
 				}
 
 			}
@@ -99,9 +100,29 @@ export default  class PlanMapComponent extends React.Component {
 			arr = obj[item.value].data.concat(arr);
 			delArr = obj[item.value].deleteArr.concat(delArr);
 		})
+
+		for(let i=0;i<data.length;i++){
+			for(let j=0;j<deleteArr.length;j++){
+				if(deleteArr[j].belongId == data[i].belongId && deleteArr[j].belongType == data[i].belongType ){
+					deleteArr.splice(j, 1);
+
+				}
+			}
+
+		}
+		selectedObjs && selectedObjs.map(function(item,index){
+
+				if(delArr.length !=0 && delArr[0].belongId == item.id && delArr[0].belongType == item.belongType  ){
+
+					deleteArr.push(delArr[0]);
+				}
+
+		})
+		//
+
 		this.setState({
 			submitData:arr,
-			deleteArr:delArr
+			deleteArr:deleteArr
 		})
 	}
 
@@ -145,26 +166,30 @@ export default  class PlanMapComponent extends React.Component {
 
 	allOnSubmit = () =>{
 		let {submitData,deleteArr} =this.state;
+		let {data} = this.props;
+		let allData = [];
+		let delData = [];
 		submitData.map(function(item,index){
-			item.stationId = item.belongId;
-			item.stationType = item.belongType;
-			item.whereFloor = item.floor;
-			delete item.belongId;
-			delete item.belongType;
-			delete item.floor;
+			let obj = {};
+			obj.id = item.belongId;
+			obj.type = item.belongType;
+			obj.whereFloor = item.floor;
+			obj.name = item.cellName;
+			obj.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
+			obj.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
+			allData.push(obj);
 		})
 		deleteArr.map(function(item,index){
-			item.stationId = item.belongId;
-			item.stationType = item.belongType;
-			item.whereFloor = item.floor;
-			item.stationName = item.cellName;
-			delete item.belongId;
-			delete item.belongType;
-			delete item.floor;
-			delete item.cellName;
+			let obj = {};
+			obj.id = item.belongId;
+			obj.type = item.belongType;
+			obj.whereFloor = item.floor;
+
+			delData.push(obj);
 		})
+
 		const {onClose} = this.props;
-		onClose && onClose(submitData,deleteArr);
+		onClose && onClose(allData,delData);
 
 
 	}

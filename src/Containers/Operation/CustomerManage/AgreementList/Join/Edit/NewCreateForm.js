@@ -463,57 +463,31 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		var stationVos = [];
-		var cache = [];
-		data && data.map((item)=>{
+		
+		// console.log('billList',billList);
+
+		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
-			if(!delStationVos.length){
-					obj.stationId = item.stationId;
-					obj.whereFloor = item.whereFloor;
-					obj.stationType = item.stationType;
-					delStationVos.push(obj);
-			}else{
-				let flog = true;
-				
-				for(let i=0; i<delStationVos.length;i++){
-					if(delStationVos[i].stationId == item.stationId && delStationVos[i].stationType == item.stationType){
-						flog = false;
-						break;
-					}
-				}
-				if(flog){
-					obj.stationId = item.stationId;
-					obj.whereFloor = item.whereFloor;
-					obj.stationType = item.stationType;
-					delStationVos.push(obj);
-				}
-			}
+			obj.stationId = item.id;
+			obj.whereFloor = item.whereFloor;
+			obj.stationType = item.type;
+			delStationVos.push(obj);
 		})
 		try {
 			billList.map(function(item, index) {
 				var obj = {};
-				var objar = {}
 				obj.leaseBeginDate = changeValues.leaseBegindate;
 				obj.leaseEndDate = changeValues.leaseEnddate;
-				obj.stationId = item.stationId;
-				obj.stationType = item.stationType;
-				obj.stationName = item.stationName;
+				obj.stationId = item.id;
+				obj.stationType = item.type;
+				obj.stationName = item.name;
 				obj.unitprice = '';
-				obj.whereFloor = item.whereFloor;
-
-				// objar.type = item.stationType;
-				// objar.id = item.stationId;
-				// objar.name = item.stationName;
-				// objar.wherefloor = item.whereFloor;
-				// objar.leaseBeginDate = changeValues.leaseBegindate;
-				// objar.leaseEndDate = changeValues.leaseEnddate;
-				// objar.unitprice = "0"
-
+				obj.whereFloor = item.wherefloor;
 				stationVos.push(obj);
-				// cache.push(objar);
 			});
 		} catch (err) {
 		}
-		console.log(billList,"缓存");
+		// console.log(billList,"缓存");
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(billList));
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(delStationVos));
 
