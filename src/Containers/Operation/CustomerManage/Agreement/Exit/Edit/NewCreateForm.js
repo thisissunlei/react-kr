@@ -184,7 +184,7 @@ class NewCreateForm extends React.Component {
 			},function(){
 				Store.dispatch(change('exitEditForm', 'totalRent', response));
 				Store.dispatch(change('exitEditForm', 'totalreturn', response));
-				
+
 
 			})
 		}).catch(function(err){
@@ -264,7 +264,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField name="totalreturn" style={{width:370,marginLeft:90}} type="text" component="labelText" label="退租金总额"
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
-				value={totalRent} inline={false}/>
+				value={totalRent || '0'} inline={false}/>
 
 				<KrField style={{width:370,marginLeft:70}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
