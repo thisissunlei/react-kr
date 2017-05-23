@@ -14,17 +14,17 @@ module.exports = [
 				router: '/community/communityManage/detail',
 			},
 			{
-						primaryText: '预约列表',
-						menuCode: 'appointment_manage_list',
+						primaryText: '空间预定',
+						menuCode: 'oper_msg_visit_base',
 						router: '/community/communityManage/allAppointment'
 					},
 				{
-					primaryText: '访客记录',
-					menuCode: 'sysVisitRecord',
+					primaryText: '访客登记',
+					menuCode: 'com_sys_visitList_base',
 					router: '/community/communityManage/visitorsToRecord'
 				},
 				{
-					primaryText: '访客列表',
+					primaryText: '预约参观',
 					menuCode: 'visitRecord',
 					router: '/community/visitor/list'
 				},

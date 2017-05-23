@@ -13,7 +13,7 @@ module.exports = [
 					{
 						primaryText: "账单列表",
 						router: '/finance/manage/orderbill/orderList',
-						menuCode: 'billList'
+						menuCode: 'fina_account_list'
 					},
 					{
 						primaryText: "款项配置",

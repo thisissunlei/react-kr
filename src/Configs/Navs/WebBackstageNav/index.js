@@ -13,11 +13,11 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '活动列表',
-						menuCode: 'activityList',
+						menuCode: 'main_acitvity',
 						router: '/WebBackstage/activity/list',
 					},{
 						primaryText: '新闻列表',
-						menuCode: 'NewsMgr',
+						menuCode: 'main_news',
 						router: '/WebBackstage/news/list',
 					},
 					]

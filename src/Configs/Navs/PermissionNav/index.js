@@ -30,7 +30,6 @@ module.exports = [
 				iconName: 'icon-wendang',
 				iconColor: '#79859a',
 				router: 'permission/user',
-				menuCode: 'coustomerInfoList',
 				menuItems: [{
 					primaryText: '角色列表',
 					router: '/permission/user',
@@ -45,7 +44,6 @@ module.exports = [
 				iconName: 'icon-wendang',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
-				menuCode: 'coustomerInfoList',
 				menuItems: [{
 					primaryText: '版本管理',
 					router: '/permission/systemManage/appLoginLogs',

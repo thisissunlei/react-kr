@@ -14,7 +14,7 @@ module.exports = [
 					{
 						primaryText: '客户线索',
 						router: '/operation/customerManage/customerList',
-						menuCode: 'customer_cue_base',
+						menuCode: 'oper_csr_base',
 					},
 					{
 						primaryText: '合同列表',
@@ -24,7 +24,7 @@ module.exports = [
 					{
 						primaryText: '客户公海',
 						router: '/operation/customerManage/customerHighSea',
-						menuCode: 'customer_open_sea',
+						menuCode: 'oper_csr_marketList_base',
 					},
 				]
 			},
@@ -32,43 +32,37 @@ module.exports = [
 				primaryText: "社区配置",
 				iconName: 'icon-community',
 				iconColor: '#79859a',
-
-
 				router: 'communityManage',
 				menuCode: 'communityBaseAdmin',
 				menuItems: [
 					{
 
 						primaryText: '社区列表',
-						menuCode: 'community_list_base',
+						menuCode: 'oper_cmt_communityList_base',
 						router: '/operation/communityAllocation/communityList'
 					},
 					{
 						primaryText: '空间列表',
-						menuCode: 'communityBoardroomList',
+						menuCode: 'oper_cmt_spaceList_base',
 						router: '/operation/communityAllocation/CommunityMeetingRoom'
 					},
 					{
 						primaryText: '设备列表',
-		                menuCode: 'communityDeviceList',
+		                menuCode: 'oper_cmt_deviceList_base',
 		                router: '/operation/communityAllocation/equipmentList'
 					},
 					{
 						primaryText: '工位列表',
-						menuCode: 'communityStationList',
+						menuCode: 'oper_cmt_stationList_base',
 						router: '/operation/communityAllocation/communityStation'
 					},
 					
 					{
 						primaryText: '平面图配置',
-						menuCode: 'communityFloorPlanList',
+						menuCode: 'oper_cmt_graph_base',
 						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
 					},
-					{
-						primaryText: '访客记录',
-						menuCode: 'sysVisitRecordList',
-						originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
-					},
+					
 					{
 						primaryText: '我的地点',
 						menuCode: 'communityNotice',
@@ -98,13 +92,13 @@ module.exports = [
 					},
 					{
 						primaryText: '代码分类',
-						menuCode: 'codeCategoryList',
+						menuCode: 'oper_cmt_codeList_base',
 						router: '/operation/communityAllocation/codeClassification'
 					},
 
 					{
 						primaryText: '商圈列表',
-		                menuCode: 'businessAreaList',
+		                menuCode: 'oper_cmt_businessAreaList_base',
 		                router: '/operation/basicconfig/businessList'
 		            },
 					{
@@ -122,7 +116,7 @@ module.exports = [
 					{
 
 						primaryText: '分组管理',
-						menuCode: 'groupManage',
+						menuCode: 'oper_cmt_statList_base',
 						router: '/operation/groupSetting'
 					}
 				]
