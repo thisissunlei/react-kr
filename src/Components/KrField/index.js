@@ -55,6 +55,7 @@ import SearchPayment from './SearchPayment';
 import SearchPayAccount from './SearchPayAccount';
 import SearchSourceList from './SearchSourceList';
 import SearchOrderCommunity from './SearchOrderCommunity';
+import ActivityCommunityList from './ActivityCommunityList';
 
 
 class FieldRevert extends React.Component {
@@ -182,6 +183,11 @@ class FieldRevert extends React.Component {
 			if (component === 'doorCard') {
 				return (
 					<FieldRevert {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'activity') {
+				return (
+					<FieldRevert {...this.props} component={ActivityCommunityList}  style={WrapStyles} {...other}/>
 				);
 			}
 			if (component === 'uploadImage') {

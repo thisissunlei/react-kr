@@ -63,7 +63,7 @@ export default class Introduction extends React.Component {
 				if(pagex+(detailWidth-offsetx)+254>=wWidth){
 					coordinates = {
 						x:pagex-offsetx-235-15,
-						y:pagey+(30 - offsety)
+						y:pagey+(30 - offsety)-scollTop
 					}; 
 					location = "left";
 				}

@@ -1530,6 +1530,10 @@ const APIS = {
         url: '/api/krspace-finance-web/cmt/community/select-list',
         method: 'get'
     },
+    'getActivityCommunityList':{
+         url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
+         method: 'get'
+      },
 
 
 }

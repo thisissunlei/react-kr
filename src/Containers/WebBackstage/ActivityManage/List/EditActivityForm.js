@@ -24,7 +24,8 @@ class EditActivityForm extends React.Component{
 		// Store.dispatch(reset('EditActivityForm'));
 		this.state = {
 			timeStart:'',
-			timeEnd:''
+			timeEnd:'',
+			communitys:[]
 		}
 	}
 	componentDidMount(){
@@ -32,11 +33,7 @@ class EditActivityForm extends React.Component{
 		let {detail} = this.props;
 		Http.request('activityDetail',{id:detail.id}).then(function(response){
 			// 置顶与否
-			if(response.top == 1){
-				State.isStick = true;
-			}else{
-				State.isStick = false;
-			}
+			
 			var startDates = (DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10);
 			var endDates   = (DateFormat(response.endDate,"yyyy-mm-dd HH:MM:ss")).substr(0,10);
 			var startTimes = DateFormat(response.beginDate,"yyyy-mm-dd HH:MM:ss");
@@ -45,49 +42,21 @@ class EditActivityForm extends React.Component{
 			var detailEndTime = endTimes.substr(11);
 			detailStartTime = detailStartTime.substr(0,5);
 			detailEndTime = detailEndTime.substr(0,5);
-			var EmptyArr = [];
-			EmptyArr.push(response.xPoint);
-			EmptyArr.push(response.yPoint);
-			State.defaultPoint =  EmptyArr;
-			State.mapDefaultValue = response.address;
-			State.initailPoint = response.countyName;
-			State.cityData=`${response.provinceName}/${response.cityName}/${response.countyName}`;
-			State.mapdefaultValue = response.address;
-			State.activityIntroduce = response.summary;
-			State.pcCoverPicDefaultValue = response.pcCoverPic || '';
-			State.appCoverPicDefaultValue = response.appCoverPic ||'';
-			State.infoPicDefaultValue = response.infoPic;
-			var enrollArr = response.enrollFiels;
-			if(enrollArr.indexOf("NAME")>-1){
-				State.choseName = true;
-			}else{
-				State.choseName = false;
-			}
-			if(enrollArr.indexOf("PHONE")>-1){
-				State.chosePhone = true;
-			}else{
-				State.chosePhone = false;
-			}
-			if(enrollArr.indexOf("COMPANY")>-1){
-				State.choseCompany = true;
-			}else{
-				State.choseCompany = false;
-			}
-			if(enrollArr.indexOf("POSITION")>-1){
-				State.chosePosition = true;
-			}else{
-				State.chosePosition = false;
-			}
-			if(enrollArr.indexOf("ADDRESS")>-1){
-				State.choseAdd = true;
-			}else{
-				State.choseAdd = false;
-			}
+			
+
+			State.setBasicData(response);
+			let communitys = []
+			response.cmts.map(item=>{
+				communitys.push(item.id)
+			})
+
+
 			_this.setState({
 				beginDate: startDates,
 				endDate :endDates,
 				timeStart : detailStartTime,
-				timeEnd : detailEndTime
+				timeEnd : detailEndTime,
+				communitys:communitys
 			},function(){
 				Store.dispatch(initialize('EditActivityForm', response));
 				Store.dispatch(change('EditActivityForm','startDate',startDates));
@@ -96,7 +65,10 @@ class EditActivityForm extends React.Component{
 				Store.dispatch(change('EditActivityForm','endTime',detailEndTime));
 				Store.dispatch(change('EditActivityForm','top',`${response.top}`));
 			})
-		}).catch(Message.error);
+		}).catch(function(err){
+			// Message.error
+			console.log(err)
+		});
 	}
 	// 取消新建
 	onCancel=()=>{
@@ -105,6 +77,15 @@ class EditActivityForm extends React.Component{
 	}
 	// 提交
 	onSubmit=(values)=>{
+
+		let cmtIds = [];
+		values.communitys.map((item)=>{
+			cmtIds.push(item.id)
+		})
+
+		values.cmtIds = cmtIds;
+
+
 		// 时间是否正确
 		if(!State.timeIsTrue){
 			Message.error('结束时间不能大于开始日期');
@@ -116,6 +97,10 @@ class EditActivityForm extends React.Component{
 				Message.error('排序号已经存在');
 				return;
 			}
+		}
+		if(!cmtIds.length){
+			Message.error('请选择推广社区');
+			return;
 		}
 		values.publishType = this.publishType ;
 		values.beginDate = values.startDate+" "+values.startTime+":00";
@@ -156,7 +141,10 @@ class EditActivityForm extends React.Component{
 			State.openEditDetail = !State.openEditDetail;
 			Message.success('编辑成功');
 			State.searchParams = searchParams;
-		}).catch(Message.error);
+		}).catch(function(err){
+			// Message.error
+			console.log(err);
+		})
 	}
 	//存为草稿
 	toSave=()=>{
@@ -308,8 +296,9 @@ class EditActivityForm extends React.Component{
 		State.pcCoverPicDefaultValue = '';
 	}
 	render(){
+		console.log('--------');
 		const {handleSubmit} = this.props;
-		let {timeStart,timeEnd} = this.state;
+		let {timeStart,timeEnd,communitys} = this.state;
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: 'CEO Time',
@@ -442,6 +431,18 @@ class EditActivityForm extends React.Component{
 										defaultPoint = {State.defaultPoint}
 										/>
 								</div>
+
+								<Grid ><KrField name="communitys"
+									options={communitys}
+									component="activity"
+									defaultValue={communitys}
+									getList={this.getList}
+									label="活动推送社区"
+									grid={1/2}
+									requireLabel={true}
+									style={{width:252}}
+								/></Grid>
+
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:'252px'}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:'252px',marginLeft:24}}/>
 								<KrField name="joinType"

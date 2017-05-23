@@ -62,6 +62,10 @@ module.exports = {
       url: '/api/krspace-finance-web/cmt/visit/get-visit-list?communityId={communityId}&company={company}&endTime={endTime}&name={name}&startTime={startTime}&visitName={visitName}',
       method: 'get'
    },
-
+    //支持列表--分页
+   'get-question-list':{
+      url: '/api/krspace-finance-web/op/community/question/get-question-list?typeName={typeName}&communityName={communityName}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
 
 }
