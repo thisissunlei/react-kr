@@ -110,6 +110,7 @@ import {DateFormat} from 'kr/Utils';
 	render(){
 		const { handleSubmit} = this.props;
 		let initValue = this.props.detail;
+		console.log('=====',State.cmts)
 		let partakeMan =[{
 			label: '会员专属',
 			value: 'MEMBER_ONLY'
@@ -194,13 +195,15 @@ import {DateFormat} from 'kr/Utils';
 							<KrField grid={1/2} name="type" type="labelText" inline={false} label="活动类型" requireLabel={true} style={{width:'252px'}} value={activityType} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="活动时间" requireLabel={true} value={time} />
 							<KrField grid={1} name="date" type="labelText" inline={false} label="举办地址" requireLabel={true} value={`${initValue.cityName}${initValue.countyName}-${initValue.address}`} />
+							{State.cmts && State.cmts.length == 1 && <KrField grid={1} name="date" type="labelText" inline={false} label="活动推送社区" requireLabel={true} value={`${State.cmts[0].name}`} />}
+							{State.cmts && State.cmts.length >1  && <KrField grid={1} name="date" type="labelText" inline={false} label="活动推送社区" requireLabel={true} value={`${State.cmts[0].name}等${State.cmts.length}个社区`} />}
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="地址坐标" requireLabel={true} value={`X:${initValue.xPoint} Y:${initValue.yPoint}`} />
 							<KrField grid={1/2} name="date" type="labelText" inline={false} label="排序" requireLabel={true} value={initValue.sort}  defaultValue='无'/>
 
 							<KrField grid={1/2} name="contact" type="labelText" inline={false} label="活动联系人" style={{width:'252px'}} value={initValue.contact} defaultValue='无'/>
-							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:24}} value={initValue.contactPhone} defaultValue='无'/>
+							<KrField grid={1/2} name="contactPhone" type="labelText" inline={false} label="活动联系人电话" style={{width:'252px',marginLeft:20}} value={initValue.contactPhone} defaultValue='无'/>
 							<KrField name="joinType" component="labelText" inline={false}label="参与人"style={{width:'252px'}}value={joinType}/>
-							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:24}} value={initValue.maxPerson}  defaultValue='无'/>
+							<KrField grid={1/2} name="maxPerson" type="labelText" inline={false} label="人数限制" style={{width:'252px',marginLeft:20}} value={initValue.maxPerson}  defaultValue='无'/>
 							<KrField grid={1/2} name="top" type="labelText" inline={false} label="是否置顶"  style={{width:'252px'}} value={initValue.top==1?'置顶':'不置顶'}  />
 
 							<div style={{display:initValue.top?"block":"none",fontSize:14,marginBottom:10}}>
@@ -286,7 +289,7 @@ import {DateFormat} from 'kr/Utils';
 							<span></span>
 							<span>报名情况</span>
 						</div>
-						<div className={State.HeightAuto?'auto':'stationList'}>
+						<div className={State.HeightAuto?'auto':'stationList'}  style={{overflow:'initial'}}>
 							<Table displayCheckbox={false} style={{margin:"58px 0 0 38px",width:547}}>
 								<TableHeader>
 									{
@@ -302,7 +305,12 @@ import {DateFormat} from 'kr/Utils';
 									State.actField.items.length && State.actField.actEnroll && State.actField.items.map((item,index)=>{
 									return (
 										<TableRow key={index}>
-											{list.name && <TableRowColumn>{item.name}</TableRowColumn>}
+											{list.name && <TableRowColumn>
+
+												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.name}</span>
+												<Tooltip offsetTop={5} place='top' style={{marginLeft:5}}>{item.name}</Tooltip>
+
+											</TableRowColumn>}
 											{list.phone && <TableRowColumn >{item.phone}</TableRowColumn>}
 											{list.company && <TableRowColumn>
 												<span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.company}</span>

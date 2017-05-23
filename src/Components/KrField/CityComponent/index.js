@@ -64,6 +64,9 @@ export default class CityComponent extends React.Component {
 		// if(cityName){
 		// 	State.city=cityName;
 		// }
+		if(this.props.cityName != nextProps.cityName){
+			State.city=nextProps.cityName;
+		}
 	}
 
 	firstCityList=()=>{

@@ -33,8 +33,13 @@ class NewCreateForm extends React.Component{
 		}
 	}
 	componentWillMount() {
+		console.log('will')
 		var initializeValues = {top:'0'};
+		State.isStick = false;
 		Store.dispatch(initialize('NewCreateForm',initializeValues));
+		Store.dispatch(change('NewCreateForm','communitys',[]));
+		Store.dispatch(change('NewCreateForm','mapField',{detailSearch:''}));
+		
 	}
 
 	onCancel=()=>{
@@ -44,8 +49,19 @@ class NewCreateForm extends React.Component{
 
 	onSubmit=(values)=>{
 
+		// let cmtIds = [];
+		// // values.communitys.map((item)=>{
+		// // 	cmtIds.push(item.id)
+		// // })
+
+		// console.log('cmtIds',cmtIds);
+		// values.cmtIds = cmtIds;
 		if(!State.timeIsTrue){
 			Message.error('结束时间不能大于开始日期');
+			return;
+		}
+		if(!values.cmtIds.length){
+			Message.error('请选择推广社区');
 			return;
 		}
 
@@ -244,6 +260,16 @@ class NewCreateForm extends React.Component{
 			State.timeIsTrue  = true;
 		}
 	}
+	setData=(value)=>{
+		console.log('setData',value);
+		let cmtIds = []
+		value.map((item)=>{
+			cmtIds.push(item.id)
+		})
+		Store.dispatch(change('NewCreateForm','communitys',cmtIds));
+		Store.dispatch(change('NewCreateForm', 'cmtIds', cmtIds));
+
+	}
 	render(){
 		const { handleSubmit} = this.props;
 		// 对应功能选项
@@ -375,6 +401,15 @@ class NewCreateForm extends React.Component{
 										initailPoint ={State.initailPoint}
 									/>
 								</div>
+								<Grid ><KrField 
+									name="communitys"
+									component="activity"
+									onChange={this.setData}
+									label="活动推送社区"
+									grid={1/2}
+									requireLabel={true}
+									style={{width:252}}
+								/></Grid>
 								<KrField grid={1/2} name="contact" type="text" label="活动联系人" style={{width:252}}/>
 								<KrField grid={1/2} name="contactPhone" type="text" label="活动联系人电话" style={{width:252,marginLeft:24}}/>
 								<KrField name="joinType"
@@ -493,6 +528,7 @@ class NewCreateForm extends React.Component{
 	}
 }
 const validate = values => {
+	console.log("values",values);
 	const errors = {}
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let numContr =/^[1-9]\d{0,4}$/;
@@ -562,7 +598,9 @@ const validate = values => {
 	if(values.mapField && !values.mapField.detailSearch){
 		errors.cityIdAndCountyId = "请填写完整的举办地址";
 	}
-
+	if(values.communitys && !values.communitys.length){
+		errors.communitys = '请选择推广社区'
+	}
 	return errors
 }
 

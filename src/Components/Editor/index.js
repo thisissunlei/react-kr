@@ -133,6 +133,7 @@ export default class Editor extends React.Component{
     this.containerId = 'container_'+Date.now();
     this.ue = null;
     this.init = false;
+    this.editor = false;
   }
 
   componentDidMount(){
@@ -166,6 +167,7 @@ export default class Editor extends React.Component{
       if(!editor){
         _this.initEditor();
       }
+      _this.editor = true;
       ue.addListener('contentChange',_this.contentChange);
       _this.setDefaultValue(defaultValue);
     });
@@ -184,14 +186,25 @@ export default class Editor extends React.Component{
 
 
   setDefaultValue = (value)=>{
-    if(!value){
-      return ;
-    }
+    var _this = this;
+    // if(!value){
+    //   return ;
+    // }
     if(this.init){
       return ;
     }
-    var _this = this;
-    UE.getEditor(this.containerId).setContent(value);
+    console.log(this.editor)
+    if(!this.editor){
+      window.setTimeout(function(){
+        UE.getEditor(_this.containerId).setContent(value);
+      },200);
+    }else{
+      if(!value){
+        return;
+      }
+      UE.getEditor(this.containerId).setContent(value);
+    }
+ 
     this.init = true;
   }
 
