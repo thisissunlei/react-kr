@@ -1,11 +1,16 @@
 import React from 'react';
-
+import { observer, inject } from 'mobx-react';
 import './index.less';
-
+@inject("NavModel")
+@observer
 export default class Help extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+	}
+	componentDidMount(){
+		const {NavModel} = this.props;
+		NavModel.toggleSidebar();
 	}
 
 	render(){
