@@ -92,7 +92,7 @@ export default  class Canvas extends React.Component {
 			
 
 			let color = "";
-			let fontColor = "";
+			let fontColor = "#499df1";
 			let width = Number(item.cellWidth);
 			let height = Number(item.cellHeight);
 			let x = Number(item.cellCoordX)-25;
@@ -110,15 +110,18 @@ export default  class Canvas extends React.Component {
 				fontColor ="#fff";
 			}else if(item.status==4){
 				color = "#fff";
-				fontColor = "#499df1";
+				fontColor ="#499df1";
+				
 			}
 			if(!item.status){
-				color = "#fff"
+				color = "#fff";
+				fontColor ="#499df1";
 			}
 
 			if(flog && flog != "one" && cellName >= start && cellName <= end && (!item.status)){
 				color = "#28c288";
 				item.status = 3;
+
 			}
 
 
@@ -130,20 +133,23 @@ export default  class Canvas extends React.Component {
 						item.status = 3;
 						num++;
 						color = "#28c288";
-						
-
+						fontColor ="#fff";
 					}
 				})
 			}
 			if(item.status == 3){
 				submitData.push(item);
 			}
-
+			ctx.beginPath();
       		ctx.fillStyle = color;
      	 	ctx.fillRect(x,y,width,height);
-			ctx.font="12px";
-			ctx.fillStyle = color;
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.font="300 12px Arial";
+			ctx.strokeStyle = fontColor;
 			ctx.strokeText(item.cellName,x+(width/2-(item.cellName.length*7/2)),y+(height-14)/2+12);
+			ctx.stroke();
 			return item;
         })
 

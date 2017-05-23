@@ -257,7 +257,7 @@ class NewCreateForm extends React.Component {
 			this.isInit = true;
 		}
 
-		
+
 	}
 	openPreStationUnitPriceDialog=()=> {
 		let {
@@ -478,13 +478,13 @@ class NewCreateForm extends React.Component {
 
 		try {
 			billList && billList.map(function(item, index) {
-				item.leaseBeginDate = DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00");
-				item.leaseEndDate = DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00");
-				item.stationId = item.belongId;
-				item.stationName = item.cellName;
-				item.stationType = item.belongType;
+				item.leaseBeginDate = changeValues.leaseBegindate;
+				item.leaseEndDate = changeValues.leaseEnddate;
+				item.stationId = item.id;
+				item.stationType = item.type;
+				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.floor;
+				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
 		}
@@ -769,7 +769,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
-					
+
 
 			</div>);
 	}
@@ -783,7 +783,7 @@ const validate = values => {
 
 	++values.num;
 
-	
+
 	if(values.setlocalStorage === 'admit'){
 		for(var i in values){
 		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
@@ -870,7 +870,7 @@ const validate = values => {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
 
-	
+
 
 	return errors
 }
