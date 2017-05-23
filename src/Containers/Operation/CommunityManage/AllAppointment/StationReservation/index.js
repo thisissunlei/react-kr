@@ -173,6 +173,17 @@ class StationReservation extends React.Component {
                                 >
                                 </TableRowColumn>
                                 <TableRowColumn name="amount" ></TableRowColumn>
+								<TableRowColumn name="disable" 
+									component={(value,oldValue) =>{
+										if(!value){
+											return <span>已预约</span>;
+										}else{
+											return <span>已取消</span>;
+										}
+										
+									}}
+								
+								></TableRowColumn>
 								
                                 <TableRowColumn name = "deletable"
 									component={(value,oldValue,itemData)=>{
