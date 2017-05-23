@@ -17,30 +17,42 @@ class CommunityPlanMap  extends React.Component{
 			isStation:true,
 			figureSets:[],
 			floors:[],
+			//平面图传参
+            initializeConfigs:{},
+			//上传文件
+			fileData:'',
+			//大小一致
+			sameSize:false,
+			//放大比例
+			scaleSize:1,
+			//选择楼层
+			selectFloor:3,
+			//拖拽差值
+			minusX:'',
+			minusY:'',
+			//拖拽标志
+			dragFlag:false,
+			//是否是工位
+			isStation:true,
+			//工位会议室名称
+			nameStation:''
 		}
 	}
 
-componentWillMount(){
-	 var _this=this;
-	 var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-	 window.planInfo = {};
-	  Http.request('getCommunityFloors',{
-		  communityId:href
-	  }).then(function(response) {
-		    _this.setState({
-				floors:response.floors,
-			})
-	  }).catch(function(err) {
-			Message.error(err.message);
-	  })
 
-	  Http.request('plan-get-detail',{
-		  floor:3,
+
+getMapConfigs = ()=>{
+let {selectFloor}=this.state;
+var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+var _this = this;
+Http.request('plan-get-detail',{
+		  floor:selectFloor,
 		  communityId:href
 	  }).then(function(response) {
-			console.log('resp',response);
+	
 			 var stationsDataOrigin = response.figures;
              var stations = [];
+
 			 stations = stationsDataOrigin.map(function(item,index){
 				var obj = {};
 				var x=item.cellCoordX;
@@ -51,36 +63,55 @@ componentWillMount(){
 
 				obj.width = item.cellWidth;
 				obj.height = item.cellHeight;
-				obj.name = item.cellname;
+				obj.name = item.cellName;
 				obj.basic = {
-				name:item.cellname,
+				name:item.cellName,
 				id:item.canFigureId
 				};
 
 				return obj;
 			});
-
-				window.planInfo.stations = [].concat(stations[0]);
-				window.planInfo.backgroundImage = response.graphFilePath;
-
 				var InitializeConfigs = {
 					stations:stations,
-					scale:1,
-					backgroundImageUrl:window.planInfo.backgroundImage
+					backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath
 				}
-
-				//window.map = new Map('app',InitializeConfigs);
-          
-            if(response.stationSizeSame=='SAME'){
-				document.getElementById("sizeCheckbox").checked=true;
-			}
-            _this.setState({
-			 figureSets:response.figureSets	
-			})
+            
+				_this.setState({
+				figureSets:response.figureSets,
+				initializeConfigs:InitializeConfigs,
+				})
 		}).catch(function(err) {
 			Message.error(err.message);
 		})
-	  }
+}
+
+
+getMapFloor = ()=>{
+
+	var _this = this;
+ 	var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+	Http.request('getCommunityFloors',{
+		  communityId:href
+	  }).then(function(response) {
+		    _this.setState({
+				floors:response.floors,
+			});
+			_this.getMapConfigs();
+	  }).catch(function(err) {
+			Message.error(err.message);
+	  });
+}
+
+componentWillMount(){
+	 var _this=this;
+	 this.getMapFloor();
+}
+
+componentDidMount(){
+	document.addEventListener('mousemove',this.eventListen)
+}
+
+
 
   onSubmit=()=>{
  
@@ -106,46 +137,99 @@ componentWillMount(){
 
   //楼层
   floor=(value)=>{
-    console.log('bar',value);
+	this.setState({
+		selectFloor:value.label
+	})
   }
   
   //工位大小一致
   sizeSameCheck=(event)=>{
-    map.setStationToSame(event.target.checked,function(code,message){
-      if(code<0){
-        alert('请选择工位');
-        document.getElementById("sizeCheckbox").checked=false;
-      }
-    })
+    this.setState({
+		sameSize:event.target.checked
+	})
   }
   
   //放大比例
   rangeSelect=(event)=>{
     document.getElementById("ratioSelectVal").innerHTML=parseInt(event.target.value*100);
-    map.setScale(Number(event.target.value));
+	this.setState({
+		scaleSize:Number(event.target.value)
+	})
   }
  
   //上传文件
   fileUpload=(event)=>{
     document.getElementById("bgfilename").innerHTML=event.target.files[0].name;
-    map.setBackgroundImage(event.target.files[0]);
+	this.setState({
+		fileData:event.target.files[0]
+	})
   }
 
   //保存
   save=()=>{
-   
+    
   }
   
   //上传
   upload=()=>{
-   
+   let {selectFloor,fileData}=this.state;
+	var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+    Http.request('plan-upload',{},{
+     communityId:href,
+	 id:'',
+	 floor:selectFloor,
+	 GraphFile:fileData
+	}).then(function(response) {
+		console.log('ssss',response);  
+	  }).catch(function(err) {
+		 Message.error(err.message);
+	  });
   }
+
+
+//点击
+allStationDown=(event)=>{
+  let {isStation}=this.state;
+  this.setState({
+	minusX:event.clientX-event.target.getBoundingClientRect().left,
+	minusY:event.clientY-event.target.getBoundingClientRect().top,
+	dragFlag:true 
+   })
+   if(isStation){
+     this.setState({
+		nameStation:'single-drag-square'
+	 })
+   }else{
+	 this.setState({
+		nameStation:'single-drag-meeting'
+	 })  
+   }
+}
+//移动
+eventListen=(event)=>{
+  let {dragFlag,nameStation,minusX,minusY}=this.state;
+  if(dragFlag){
+     document.getElementById(nameStation).style.display='inline-block';
+     document.getElementById(nameStation).style.left=event.clientX-minusX+'px';
+     document.getElementById(nameStation).style.top=event.clientY-minusY+'px';
+  }
+}
+
+//释放
+allStationUp=(event)=>{
+   this.setState({
+	   dragFlag:false
+   })
+}
+
+
+
 
 
 	render(){
 
         let {handleSubmit}=this.props;
-		let {isStation,figureSets,floors}=this.state;
+		let {isStation,figureSets,floors,initializeConfigs,fileData,sameSize,scaleSize}=this.state;
 		var floor=[];
 		floors.map((item,index)=>{
           var list={};
@@ -153,6 +237,7 @@ componentWillMount(){
 		  list.value=item;
 		  floor.push(list);
 		})
+
         
 
 		return(
@@ -199,7 +284,10 @@ componentWillMount(){
 						</div>
 				      
 
-						<div className="m-station" id='m-station'>
+						<div className="m-station" id='m-station' 
+						 onMouseDown={this.allStationDown}
+						 onMouseUp={this.allStationUp}
+						>
 
 						<div className='station-pic' id='single-drag-square'></div>
 						<div className="meeting-pic" id='single-drag-meeting'></div>
@@ -241,9 +329,14 @@ componentWillMount(){
 
 
 						</div>
-						<div id="app" className="m-main">
-							<PlanMapAll />
-						</div>
+						
+						<PlanMapAll  
+						  initializeConfigs={initializeConfigs}
+						  fileData={fileData}
+						  sameSize={sameSize}
+						  scaleSize={scaleSize}
+						  />
+					
 					 </form>
 					</div>
 				 </Section>
