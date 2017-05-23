@@ -32,17 +32,21 @@ export default class SidebarNav extends React.Component {
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">
 					{SidebarNavDate.map((item,index)=>{
-						return(
-								<div className="m-sidebar-nav" key={index}>
-									<div className="u-sidebar-nav-title">
-										<span className={item.iconName} style={{color:`${item.iconColor}`}}></span>
-										{item.primaryText}
+						if(item.menuItems.length>0){
+							return(
+									<div className="m-sidebar-nav" key={index}>
+										<div className="u-sidebar-nav-title">
+											<span className={item.iconName} style={{color:`${item.iconColor}`}}></span>
+											{item.primaryText}
+										</div>
+										<div className="u-sidebar-navlist">
+											{this.renderMenuItems(item.menuItems)}
+										</div>
 									</div>
-									<div className="u-sidebar-navlist">
-										{this.renderMenuItems(item.menuItems)}
-									</div>
-								</div>
-							)
+								)
+						}else{
+							return null;
+						}
 					})}
 					</div>
 				</div>
