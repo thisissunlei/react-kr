@@ -27,7 +27,11 @@ import {
 } from 'kr/Redux';
 
 import UnitPriceForm from './UnitPriceForm';
+import {
 
+PlanMapContent
+
+} from 'kr/PureComponents';
 import {
 	Dialog,
 	Table,
@@ -439,7 +443,7 @@ class NewCreateForm extends React.Component {
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			return obj;
 		});
 
@@ -451,23 +455,16 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
+			selectedObjs: stationVos,
 			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
 			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
 
 		};
 
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
+	
 
-		return url;
+		return params;
 	}
 
 	onIframeClose(billList) {
@@ -793,7 +790,7 @@ class NewCreateForm extends React.Component {
 						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog

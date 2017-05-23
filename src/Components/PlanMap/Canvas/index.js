@@ -89,13 +89,13 @@ export default  class Canvas extends React.Component {
 					if(item.belongType == "SPACE" ){
 						item.belongType=2
 					}
-			
+
 
 			let color = "";
 			let fontColor = "#499df1";
 			let width = Number(item.cellWidth);
 			let height = Number(item.cellHeight);
-			let x = Number(item.cellCoordX)-25;
+			let x = Number(item.cellCoordX)-17;
 			let y = Number(item.cellCoordY)-10;
 			let cellName = Number(item.cellName);
 
@@ -111,7 +111,7 @@ export default  class Canvas extends React.Component {
 			}else if(item.status==4){
 				color = "#fff";
 				fontColor ="#499df1";
-				
+
 			}
 			if(!item.status){
 				color = "#fff";
@@ -125,10 +125,10 @@ export default  class Canvas extends React.Component {
 			}
 
 
-			if(num != selectedObjs.length){
-				
+			if(selectedObjs.length && num != selectedObjs.length){
+				console.log(selectedObjs,">>>>>>");
 				selectedObjs.map(function(eve,index){
-					
+
 					if(flog && flog == "one" && item.belongId == eve.id && item.belongType == eve.belongType){
 						item.status = 3;
 						num++;
@@ -184,10 +184,10 @@ export default  class Canvas extends React.Component {
 					selectedObjs.map(function(ele,index){
 						if(item.belongId == ele.id && item.belongType == ele.belongType){
 							deleteArr.push(item);
-							
+
 						}
 					})
-					
+
 				}
 
 			}

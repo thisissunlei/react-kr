@@ -112,7 +112,7 @@ class PlanMapSerarchForm extends React.Component {
               		选择
 				</botton>
 				<div className = "plan-map-num"  style = {{display:"inline-block",float:"right",marginRight:30,marginTop:13}}>
-					<Button  label="确定" onClick = {this.allOnSubmit} />
+					<Button  label="保存" onClick = {this.allOnSubmit} />
 				</div>
 			</form>
 

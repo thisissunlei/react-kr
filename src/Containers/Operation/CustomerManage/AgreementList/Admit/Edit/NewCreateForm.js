@@ -25,6 +25,11 @@ import {
 	arrayInsert,
 	FieldArray
 } from 'redux-form';
+import {
+
+PlanMapContent
+
+} from 'kr/PureComponents';
 
 import {
 	Actions,
@@ -773,7 +778,7 @@ class NewCreateForm extends React.Component {
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.onClose}>
-							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 					<Dialog
 						title="录入单价"
@@ -877,7 +882,7 @@ const validate = values => {
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
-	
+
 
 
 
