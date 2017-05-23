@@ -54,7 +54,7 @@ import LoadingTwo from './LoadingTwo';
 import XTable from './XTable';
 import DivTitle from './DivTitle';
 import Nothing from './Nothing';
-
+import PlanMapAll from './PlanMapAll';
 import {
 	Grid,
 	Row,
@@ -145,5 +145,6 @@ module.exports = {
 	Tooltip,
 	CircleStyleTwo,
 	LoadingTwo,
-	Nothing
+	Nothing,
+	PlanMapAll
 }

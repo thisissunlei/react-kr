@@ -150,10 +150,14 @@ html,body{
     transform:translate(-6px) rotate(135deg);
 }
 
-.plan-station,.plan-borderRoom{
+.plan-station{
   margin:0 10px;
   padding-top:10px;
   display:inline-block;
+}
+.plan-borderRoom{
+  margin:0 10px;
+   display:inline-block; 
 }
 #tab-station,#tab-meeting{
   position:relative;
@@ -176,14 +180,17 @@ html,body{
 
 .plan-header{
     background-color: #fff;
-    padding-bottom: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-bottom: 5px;
+    padding-top: 5px;
     border-bottom: 4px solid rgb(219, 237, 254);
   }
 .plan-header .header-floor{
      display:inline-block;
      line-height: 32px;
+     margin-right: 10px;
+     .ui-form-label.inline{
+       margin-right:10px;
+     }
    }
   .size-type{
       width: auto;
@@ -203,7 +210,6 @@ html,body{
         font-size:14px;
     }
   .upload-img{
-    width:300px;
     display:inline-block;
     }
    .upload-img .upload-btn{
@@ -217,6 +223,7 @@ html,body{
       font-size: 14px;
       color:#fff;
       cursor:pointer;
+      margin-left: 10px;
     }
   .back-type{
     display:inline-block;
@@ -241,7 +248,7 @@ html,body{
       cursor:pointer;
       position: absolute;
       right: 20px;
-      top: 7px;
+      top: 10px;
 }
 
 

@@ -5,6 +5,7 @@ import {
 	Section,
 	KrField,
 	Message,
+	PlanMapAll
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import './index.less';
@@ -14,24 +15,72 @@ class CommunityPlanMap  extends React.Component{
 		super(props, context);
 		this.state={
 			isStation:true,
-			figureSets:[]
+			figureSets:[],
+			floors:[],
 		}
 	}
 
-componentDidMount(){
+componentWillMount(){
 	 var _this=this;
+	 var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+	 window.planInfo = {};
+	  Http.request('getCommunityFloors',{
+		  communityId:href
+	  }).then(function(response) {
+		    _this.setState({
+				floors:response.floors,
+			})
+	  }).catch(function(err) {
+			Message.error(err.message);
+	  })
+
 	  Http.request('plan-get-detail',{
 		  floor:3,
-		  communityId:4
+		  communityId:href
 	  }).then(function(response) {
 			console.log('resp',response);
+			 var stationsDataOrigin = response.figures;
+             var stations = [];
+			 stations = stationsDataOrigin.map(function(item,index){
+				var obj = {};
+				var x=item.cellCoordX;
+				var y=item.cellCoordY;
+
+				obj.x = Number(x);
+				obj.y = Number(y);
+
+				obj.width = item.cellWidth;
+				obj.height = item.cellHeight;
+				obj.name = item.cellname;
+				obj.basic = {
+				name:item.cellname,
+				id:item.canFigureId
+				};
+
+				return obj;
+			});
+
+				window.planInfo.stations = [].concat(stations[0]);
+				window.planInfo.backgroundImage = response.graphFilePath;
+
+				var InitializeConfigs = {
+					stations:stations,
+					scale:1,
+					backgroundImageUrl:window.planInfo.backgroundImage
+				}
+
+				//window.map = new Map('app',InitializeConfigs);
+          
+            if(response.stationSizeSame=='SAME'){
+				document.getElementById("sizeCheckbox").checked=true;
+			}
             _this.setState({
 			 figureSets:response.figureSets	
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
 		})
-	}
+	  }
 
   onSubmit=()=>{
  
@@ -55,11 +104,56 @@ componentDidMount(){
    document.getElementById('tab-meeting').style.borderBottom='2px solid rgb(219, 237, 254)'
   }
 
+  //楼层
+  floor=(value)=>{
+    console.log('bar',value);
+  }
+  
+  //工位大小一致
+  sizeSameCheck=(event)=>{
+    map.setStationToSame(event.target.checked,function(code,message){
+      if(code<0){
+        alert('请选择工位');
+        document.getElementById("sizeCheckbox").checked=false;
+      }
+    })
+  }
+  
+  //放大比例
+  rangeSelect=(event)=>{
+    document.getElementById("ratioSelectVal").innerHTML=parseInt(event.target.value*100);
+    map.setScale(Number(event.target.value));
+  }
+ 
+  //上传文件
+  fileUpload=(event)=>{
+    document.getElementById("bgfilename").innerHTML=event.target.files[0].name;
+    map.setBackgroundImage(event.target.files[0]);
+  }
+
+  //保存
+  save=()=>{
+   
+  }
+  
+  //上传
+  upload=()=>{
+   
+  }
+
 
 	render(){
 
         let {handleSubmit}=this.props;
-		let {isStation,figureSets}=this.state;
+		let {isStation,figureSets,floors}=this.state;
+		var floor=[];
+		floors.map((item,index)=>{
+          var list={};
+		  list.label=item;
+		  list.value=item;
+		  floor.push(list);
+		})
+        
 
 		return(
          <div>
@@ -70,33 +164,37 @@ componentDidMount(){
 					<div className='plan-header'> 
 
 							<div className='header-floor'>
-								<KrField  name='floor' label='楼层' inline={true} component='select'/>
+								<KrField  name='floor' label='楼层:' 
+								 inline={true} component='select'
+								 options={floor}
+								 onChange={this.floor}
+								/>
 							</div>
 
 
 							<div className="size-type">
-								<input type="checkbox" id="sizeCheckbox" title="工位大小一致" />
+								<input type="checkbox" id="sizeCheckbox" title="工位大小一致" onChange={this.sizeSameCheck}/>
 								<span>工位大小一致</span>
 							</div>
 
 
 							<div className="num-type">
 								<span className="til">当前比例：</span>    
-								<input type="range" id="ratioSelect" min="0.1" max="2" step="0.1"  />
+								<input type="range" id="ratioSelect" min="0.1" max="2" step="0.1"  onChange={this.rangeSelect}/>
 								<output id="ratioSelectVal">100</output>%
 							</div>
 									
 								<div className='upload-img'>
-								<input type="file" id="backgroundImg" name="file" style={{width:'60px'}} />
+								<input type="file" id="backgroundImg" name="file" style={{width:'60px'}} onChange={this.fileUpload}/>
 								<div className="back-type">                       
-								<span id="bgfilename">
+								<span id="bgfilename" style={{fontSize:'14px'}}>
 									
 								</span> 
 								</div>  
-								<div className='upload-btn'>上传</div>  
+								<div className='upload-btn' onClick={this.upload}>上传</div>  
 							</div>
 
-							<div className='save-header' id='save-header'>保存</div>  
+							<div className='save-header' id='save-header' onClick={this.save}>保存</div>  
 									
 						</div>
 				      
@@ -143,7 +241,9 @@ componentDidMount(){
 
 
 						</div>
-						<div id="app" className="m-main"></div>
+						<div id="app" className="m-main">
+							<PlanMapAll />
+						</div>
 					 </form>
 					</div>
 				 </Section>

@@ -481,5 +481,15 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/edit-info?communityId={communityId}&floor={floor}',
          method: 'get'
       },
+      //平面图上传背景图
+       'plan-upload':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/actions/upload',
+         method: 'post'
+      },
+      //平面图配置信息保存
+       'plan-edit':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
+         method: 'post'
+      },
 
 }
