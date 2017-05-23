@@ -43,6 +43,12 @@ const Operation_CommunityManage_AllAppointment= (location, callback) => {
 		callback(null, require('kr/Containers/Operation/CommunityManage/AllAppointment').default)
 	}, 'Operation_CommunityManage_AllAppointment')
 }
+
+const Operation_CommunityManage_HoldList= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityManage/HoldList').default)
+	}, 'Operation_CommunityManage_HoldList')
+}
 module.exports =()=>{
 
 
@@ -54,8 +60,9 @@ module.exports =()=>{
         <Route path="communityManage" getComponent={Basic}>
                 <Route path="detail" getComponent={Operation_CommunityManage_Detail}/>
                 <Route path="visitorsToRecord" getComponent={Operation_CommunityManage_VisitorsToRecord}/>
+                <Route path="holdList" getComponent={Operation_CommunityManage_HoldList}/>
                 {/*所有预约*/}
-		    
+                
                 <Route path="allAppointment" getComponent={Operation_CommunityManage_AllAppointment}/>
       
         </Route>

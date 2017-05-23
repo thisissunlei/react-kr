@@ -21,7 +21,8 @@ module.exports = [
 					primaryText: '登录日志',
 					router: '/permission/loginlog',
 					menuCode: 'sso_loginLog_base',
-				}
+
+				},
 				]
 			},
 			{

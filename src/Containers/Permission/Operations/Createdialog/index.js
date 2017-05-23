@@ -52,7 +52,8 @@ class Createdialog extends React.Component {
 			ControllerItem: {},
 			ModuleId: '',
 			ControllerRender: [],
-			methodId: []
+			methodId: [],
+			idlist:[],
 		}
 		this.getModuleList();
 		//this.getAllController();
@@ -68,7 +69,7 @@ class Createdialog extends React.Component {
 				ModuleId,
 				ControllerId
 			} = this.state;
-
+			
 			var params = {
 				code: form.code,
 				methodIds: ControllerId,
@@ -79,7 +80,9 @@ class Createdialog extends React.Component {
 			let {
 				onSubmit
 			} = this.props;
+			
 			if (ControllerId.length > 0) {
+				
 				onSubmit && onSubmit(params);
 			}
 
@@ -94,12 +97,9 @@ class Createdialog extends React.Component {
 	}
 
 	onSelectController = (item) => {
-		var _this = this;
-		var idlist = this.state.ControllerId;
-		idlist.push(item.methodId)
 		this.setState({
 			ControllerItem: item,
-			ControllerId: idlist,
+			idlist:item.methodId
 		})
 	}
 	// getAllController = () => {
@@ -251,7 +251,8 @@ class Createdialog extends React.Component {
 		let {
 			ControllerItem,
 			ControllerRender,
-			ControllerId
+			ControllerId,
+			idlist
 		} = this.state;
 		if(!ControllerItem.controllerName){
 			return;
@@ -263,7 +264,9 @@ class Createdialog extends React.Component {
 		var arr = ControllerRender;
 		var arr1 = [];
 		Store.dispatch(change('createdialog', 'controller', ''));
-		console.log(arr);
+		
+
+		ControllerId.push(idlist);
 		if(arr.length>0){
 			arr.map((items,index)=>{
 				arr1.push(items.controller);
@@ -282,7 +285,7 @@ class Createdialog extends React.Component {
 			ControllerItem:{},
 		},function(){
 			Store.dispatch(change('createdialog', 'controller', ''));
-			console.log(this.state.ControllerRender);
+			
 		})
 
 	}
@@ -293,7 +296,6 @@ class Createdialog extends React.Component {
 		var list;
 		if (ControllerRender.length > 0) {
 				list = ControllerRender.map((item, index) => {
-					console.log(item.controller.length);
 					if (item.controller.length>67) {
 						return (
 
@@ -322,6 +324,7 @@ class Createdialog extends React.Component {
 			ControllerRender: Controller,
 			ControllerId: id
 		})
+		
 
 
 	}
@@ -384,9 +387,9 @@ class Createdialog extends React.Component {
 					<div className="u-operations">
 						<KrField
 								name="module"
-								style={{width:220,marginLeft:40}}
+								style={{width:310,marginLeft:14}}
 								component="select"
-								label="模块"
+								label="所属菜单"
 								options={ModuleList}
 								inline={true}
 								requireLabel={true}
@@ -462,7 +465,7 @@ const validate = values => {
 		errors.type = '请选择类型';
 	}
 	if (!values.module) {
-		errors.module = '请选择模块';
+		errors.module = '请选择所属菜单';
 	}
 	return errors
 }

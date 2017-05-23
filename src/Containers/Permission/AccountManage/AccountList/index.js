@@ -75,59 +75,15 @@ class AccountList extends React.Component {
             openNewCreate: !this.state.openNewCreate
         })
     }
-    openEditAcc = () => {
+    openEditAcc = (itemDetail) => {
         this.setState({
-            openEditAcc: !this.state.openEditAcc
+            openEditAcc: !this.state.openEditAcc,
+            itemDetail: itemDetail
         })
     }
     //操作相关
     onOperation = (type, itemDetail) => {
-        let {searchParams} = this.state;
-        var _this = this;
-        var timer = +new Date();
-        this.setState({itemDetail});
-        if (type == 'data') {
-            let orderId = itemDetail.id
-            console.log(itemDetail);
-        } else if (type == 'dele') {
-            Store.dispatch(Actions.callAPI('delSsoUser', {id: itemDetail.id})).then(function(response) {
-                _this.setState({
-                    searchParams: {
-                        page: 1,
-                        pageSize: '15',
-                        timer: timer
-                    }
-                }, function() {
-                    Message.success("删除成功");
-                    console.log(this.state.searchParams);
-                })
-            }).catch(function(err) {
-                Message.error(err.message);
-            });
-        } else if (type == 'reset') {
-            Store.dispatch(Actions.callAPI('resetPassword', {}, {id: itemDetail.id})).then(function(response) {
-                Message.success('重置成功');
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
-            }).catch(function(err) {
-                Message.error(err.message);
-            });
-        } else if (type == 'lock') {
-            Store.dispatch(Actions.callAPI('lockAccount', {}, {id: itemDetail.id})).then(function(response) {
-                Message.success('已加锁')
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
-            }).catch(function(err) {
-                Message.error(err.message);
-            });
-        } else if (type == 'edit') {
-            _this.setState({itemDetail});
-            this.openEditAcc();
-        } else if (type == 'set') {
-            this.openSetAcc();
-        }
+       
     }
     onNewCreateSubmit(form) {
         console.log(form);
@@ -145,10 +101,56 @@ class AccountList extends React.Component {
     onNewCreateCancel() {
         this.openNewCreateDialog();
     }
-    openDataPermission = () => {
+    openDataPermission = (value) => {
         this.setState({
+            itemDetail:value,
             openDataPermission: !this.state.openDataPermission
         });
+    }
+    //重置
+    onReset=(itemDetail)=>{
+         Store.dispatch(Actions.callAPI('resetPassword', {}, {id: itemDetail.id})).then(function(response) {
+                Message.success('重置成功');
+                window.setTimeout(function() {
+                  window.location.reload();
+                }, 800);
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
+    }
+    //删除
+    onDele = (itemDetail)=>{
+            
+            Store.dispatch(Actions.callAPI('delSsoUser', {id: itemDetail.id})).then(function(response) {
+                 Message.success('删除成功');
+                 window.setTimeout(function() {
+                  window.location.reload();
+                }, 800);
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
+    }
+    //加锁
+    onLock=(itemDetail)=>{
+        Store.dispatch(Actions.callAPI('lockAccount', {}, {id: itemDetail.id})).then(function(response) {
+                Message.success('已加锁')
+                window.setTimeout(function() {
+                  window.location.reload();
+                }, 800);
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
+    }
+    //解锁
+    onUnLock=(itemDetail)=>{
+        Store.dispatch(Actions.callAPI('unlockAccount', {}, {id: itemDetail.id})).then(function(response) {
+                Message.success('已解锁')
+                window.setTimeout(function() {
+                  window.location.reload();
+                }, 800);
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
     }
     //搜索
     onSearchSubmit = (value) => {
@@ -192,14 +194,14 @@ class AccountList extends React.Component {
         }
     }
     //授予
-    openSetAcc=()=>{
+    openSetAcc=(itemDetail)=>{
       this.setState({
-          openSetAcc: !this.state.openSetAcc
+          itemDetail: itemDetail,
+          openSetAcc: !this.state.openSetAcc,
       });
     }
     render() {
-        let {searchParams} = this.state;
-        let {itemDetail} = this.state;
+        let {searchParams,itemDetail} = this.state;
         var logFlag = '';
         let options = [
             {
@@ -285,16 +287,48 @@ class AccountList extends React.Component {
                                     )
                                 }}></TableRowColumn>
 
-                                <TableRowColumn>
-                                    <Button label="修改" onTouchTap={this.openEdit} type="operation" operation="edit"/>
+                                <TableRowColumn type="operation" name="accountStatus" component={(value,oldValue,itemDetail) => {
+                                        if (value == 'NOTLOCK') {
+                                            logFlag = false;
+                                        }
+                                        if (value == 'LOCKED') {
+                                            logFlag = true;
+                                        }
+                                        return (
+                                            <div>
+                                                <Button label="修改" onClick={this.openEditAcc.bind(this,itemDetail)} type="operation" operation="edit"/>
+                                                <Button label="授予" onClick={this.openSetAcc.bind(this,itemDetail)} type="operation" operation="set"/>
+                                                <Button label="数据" onClick={this.openDataPermission.bind(this,itemDetail)} type="operation" operation="data"/>
+                                                <Button label="重置" onClick={this.onReset.bind(this,itemDetail)} type="operation" operation="reset"/>
+                                                {
+                                                    logFlag
+                                                    ? <Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} type="operation"/>
+                                                    : <Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} type="operation"/>
+                                                }
+                                                <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operation="dele"/>
+                                            </div>
+                                                )
+                                    }}>
+                                    {/*<Button label="修改" onTouchTap={this.openEdit} type="operation" operation="edit"/>
                                     <Button label="授予" type="operation" operation="set"/>
                                     <Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
                                     <Button label="重置" type="operation" operation="reset"/>
-                                    <Button label={logFlag
-                                        ? '解锁'
-                                        : '加锁'} type="operation" operation="lock"/>
-                                    <Button label="删除" type="operation" operation="dele"/>
+                                    <Button type="operation" component={(value, oldValue) => {
+                                        if (value == '未锁定') {
+                                            logFlag = false;
+                                        }
+                                        if (value == '锁定') {
+                                            logFlag = true;
+                                        }
+                                        return (
+                                            <Button 
+                                                label={logFlag
+                                                ? '解锁'
+                                                : '加锁'}>{value}</Button>
+                                                )
+                                    }} operation="lock"/>*/}
                                 </TableRowColumn>
+
                             </TableRow>
                         </TableBody>
 
@@ -315,12 +349,12 @@ class AccountList extends React.Component {
                 <Dialog title="编辑数据权限" modal={true} open={this.state.openDataPermission} onClose={this.openDataPermission} contentStyle={{
                     width: 600,
                 }}>
-                    <DataPermission detail={itemDetail} onCancel={this.openDataPermission}/>
+                    <DataPermission detail={this.state.itemDetail} onCancel={this.openDataPermission}/>
                 </Dialog>
                 <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
                     width: 600,
                 }}>
-                    <SetPermission detail={itemDetail} onCancel={this.openSetAcc}/>
+                    <SetPermission detail={this.state.itemDetail} onCancel={this.openSetAcc}/>
                 </Dialog>
             </div>
         );

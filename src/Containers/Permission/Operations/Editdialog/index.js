@@ -39,7 +39,8 @@ class Editdialog extends React.Component {
 			ModuleId: '',
 			ControllerRender: [],
 			getDate: {},
-			moduleVoList: []
+			moduleVoList: [],
+			idlist:[],
 
 		}
 		this.getModuleList();
@@ -145,13 +146,9 @@ class Editdialog extends React.Component {
 	}
 
 	onSelectController = (item) => {
-
-		var _this = this;
-		var idlist = this.state.ControllerId;
-		idlist.push(item.methodId)
 		this.setState({
 			ControllerItem: item,
-			ControllerId: idlist,
+			idlist:item.methodId
 		})
 	}
 	// getAllController = () => {
@@ -297,8 +294,10 @@ class Editdialog extends React.Component {
 		let {
 			ControllerItem,
 			ControllerRender,
-			ControllerId
+			ControllerId,
+			idlist,
 		} = this.state;
+
 		if(!ControllerItem.controllerName){
 			return;
 		}
@@ -309,6 +308,7 @@ class Editdialog extends React.Component {
 		var arr = ControllerRender;
 		var arr1 = [];
 		Store.dispatch(change('editdialog', 'controller', ''));
+		ControllerId.push(idlist);
 		if(arr.length>0){
 			console.log(11111)
 			arr.map((items,index)=>{
@@ -329,7 +329,7 @@ class Editdialog extends React.Component {
 			ControllerItem:{},
 		},function(){
 			Store.dispatch(change('editdialog', 'controller', ''));
-			console.log(this.state.ControllerRender);
+			
 		})
 
 	}
@@ -436,7 +436,7 @@ class Editdialog extends React.Component {
 					<div className="u-operations">
 						<KrField
 								name="module"
-								style={{width:220,marginLeft:40}}
+								style={{width:310,marginLeft:14}}
 								component="select"
 								label="所属菜单"
 								options={ModuleList}

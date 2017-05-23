@@ -552,7 +552,13 @@ class Header extends React.Component {
 					 < MenuItem primaryText = "退出"
 					onTouchTap = {
 						(event) => {
-							window.location.href = '/logout/logout';
+						Http.request('logout', {
+							}).then(function(response) {
+								window.setTimeout(function() {
+									window.location.reload();
+								}, 800);
+							}).catch(function(err) {
+							});
 						}
 					}
 					/>
