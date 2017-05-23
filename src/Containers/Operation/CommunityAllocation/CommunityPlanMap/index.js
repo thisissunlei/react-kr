@@ -42,7 +42,9 @@ class CommunityPlanMap  extends React.Component{
 			stationObj:{
 			},
 			//必须拖拽释放请求
-			upFlag:false
+			upFlag:false,
+			//点击的人下标
+			dataIndex:''
 		}
 	}
 
@@ -203,12 +205,14 @@ allStationDown=(event)=>{
    if(isStation){
      this.setState({
 		nameStation:'single-drag-square',
-		cellname:event.target.nextSibling.innerHTML
+		cellname:event.target.nextSibling.innerHTML,
+		dataIndex:event.target.dataset.index
 	 })
    }else{
 	 this.setState({
 		nameStation:'single-drag-meeting',
-		cellname:event.target.innerHTML
+		cellname:event.target.innerHTML,
+		dataIndex:event.target.dataset.index
 	 })  
    }
 }
@@ -228,7 +232,7 @@ eventListen=(event)=>{
 
 //释放
 allStationUp=(event)=>{
-   let {isStation,cellname,upFlag}=this.state;
+   let {isStation,cellname,upFlag,figureSets,dataIndex}=this.state;
    var type='';
    var width='';
    var height='';
@@ -253,7 +257,7 @@ allStationUp=(event)=>{
 			type:type,
 			name:cellname
 		},
-		//figureSets:figureSets.splice()
+		figureSets:figureSets.splice(dataIndex,1)
      })
 	} 
 	 document.getElementById("single-drag-meeting").style.display='none';
@@ -347,7 +351,7 @@ allStationUp=(event)=>{
                                      {figureSets&&figureSets.map((item,index)=>{
 								       if(item.belongType=="STATION"){
 										   return (<div key={index} className="plan-wrap-pic">
-											<div className="station-pic"></div>
+											<div className="station-pic" data-index={index}></div>
 											<span>{item.cellName}</span>
 							              </div>)
 									   }
@@ -357,7 +361,7 @@ allStationUp=(event)=>{
                                      {figureSets&&figureSets.map((item,index)=>{
 								       if(item.belongType=="SPACE"){
 										   return (<div key={index} className="plan-meeting-pic">
-												<div className="meeting-pic">{item.cellName}</div>
+												<div className="meeting-pic" data-index={index}>{item.cellName}</div>
 											</div>)
 									   }
 									 })}
