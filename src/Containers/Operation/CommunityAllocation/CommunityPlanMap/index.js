@@ -34,8 +34,15 @@ class CommunityPlanMap  extends React.Component{
 			dragFlag:false,
 			//是否是工位
 			isStation:true,
-			//工位会议室名称
-			nameStation:''
+			//工位会议室id名称
+			nameStation:'',
+			//元件值
+			cellname:'',
+			//传的canvas对象
+			stationObj:{
+			},
+			//必须拖拽释放请求
+			upFlag:false
 		}
 	}
 
@@ -111,11 +118,9 @@ componentDidMount(){
 	document.addEventListener('mousemove',this.eventListen)
 }
 
-
-
-  onSubmit=()=>{
+ onSubmit=()=>{
  
-  }
+ }
 
  //工位元件hover
   mouseOverStaion=()=>{
@@ -197,18 +202,24 @@ allStationDown=(event)=>{
    })
    if(isStation){
      this.setState({
-		nameStation:'single-drag-square'
+		nameStation:'single-drag-square',
+		cellname:event.target.nextSibling.innerHTML
 	 })
    }else{
 	 this.setState({
-		nameStation:'single-drag-meeting'
+		nameStation:'single-drag-meeting',
+		cellname:event.target.innerHTML
 	 })  
    }
 }
+
 //移动
 eventListen=(event)=>{
   let {dragFlag,nameStation,minusX,minusY}=this.state;
   if(dragFlag){
+     this.setState({
+		 upFlag:true
+	 })
      document.getElementById(nameStation).style.display='inline-block';
      document.getElementById(nameStation).style.left=event.clientX-minusX+'px';
      document.getElementById(nameStation).style.top=event.clientY-minusY+'px';
@@ -217,9 +228,37 @@ eventListen=(event)=>{
 
 //释放
 allStationUp=(event)=>{
-   this.setState({
-	   dragFlag:false
-   })
+   let {isStation,cellname,upFlag}=this.state;
+   var type='';
+   var width='';
+   var height='';
+   if(isStation){
+       type='station';
+       width=30;
+       height=30;
+    }else{
+       type='meeting';
+       width=118;
+       height=48;
+    } 
+	if(upFlag){
+      this.setState({
+		dragFlag:false,
+		upFlag:false,
+		stationObj:{
+			x:event.target.getBoundingClientRect().left + width/2,
+			y:event.target.getBoundingClientRect().top + height/2,
+			width:width,
+			height:height,
+			type:type,
+			name:cellname
+		},
+		//figureSets:figureSets.splice()
+     })
+	} 
+	 document.getElementById("single-drag-meeting").style.display='none';
+     document.getElementById("single-drag-square").style.display='none';
+
 }
 
 
@@ -229,7 +268,7 @@ allStationUp=(event)=>{
 	render(){
 
         let {handleSubmit}=this.props;
-		let {isStation,figureSets,floors,initializeConfigs,fileData,sameSize,scaleSize}=this.state;
+		let {isStation,figureSets,floors,initializeConfigs,fileData,sameSize,scaleSize,stationObj}=this.state;
 		var floor=[];
 		floors.map((item,index)=>{
           var list={};
@@ -335,6 +374,7 @@ allStationUp=(event)=>{
 						  fileData={fileData}
 						  sameSize={sameSize}
 						  scaleSize={scaleSize}
+						  stationObj={stationObj}
 						  />
 					
 					 </form>

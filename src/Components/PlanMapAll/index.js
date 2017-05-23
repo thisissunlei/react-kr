@@ -40,8 +40,10 @@ export default class PlanMapAll extends Component{
         if(nextProps.fileData){
           this.file(nextProps.fileData);
         }
-          //this.sameSize(nextProps.sameSize);
-          //this.scaleSize(nextProps.scaleSize);
+          this.sameSize(nextProps.sameSize);
+          this.scaleSize(nextProps.scaleSize);
+          this.stationCanvas(nextProps.stationObj);
+          
         
     }
     
@@ -50,6 +52,9 @@ export default class PlanMapAll extends Component{
     }
 
     sameSize=(same)=>{
+      if(!this.map){
+          return ;
+      }
        this.map.setStationToSame(same,function(code,message){
         if(code<0){
         alert('请选择工位');
@@ -59,8 +64,20 @@ export default class PlanMapAll extends Component{
     }
 
     scaleSize=(scale)=>{
+      if(!this.map){
+          return ;
+      }
       this.map.setScale(scale);
     }
+
+   stationCanvas=(data)=>{
+      if(!this.map){
+          return ;
+      }
+      this.map.createStation(data);
+   }
+
+
 
 	render(){  
 	   
@@ -70,7 +87,7 @@ export default class PlanMapAll extends Component{
             </div>
        	)
 	}
-}
+ }
 
 
 

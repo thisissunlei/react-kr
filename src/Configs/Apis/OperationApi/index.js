@@ -483,7 +483,7 @@ module.exports = {
       },
       //平面图上传背景图
        'plan-upload':{
-         url: '/api/krspace-finance-web/cmt/floor-graph/actions/upload',
+         url: '/api/krspace-finance-web/cmt/floor-graph/file/actions/save',
          method: 'post'
       },
       //平面图配置信息保存
