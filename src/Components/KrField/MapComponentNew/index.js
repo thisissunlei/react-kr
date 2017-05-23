@@ -42,7 +42,7 @@ export default class MapComponentNew extends Component {
 
 		//回填具体地址
 		if(this.props.defaultValue){
-			this.refs.mapInput.defaultValue = nextProps.defaultValue;
+			this.refs.mapInput.defaultValue = nextProps.defaultValue ;
 		}
 		//经纬度
 
@@ -70,7 +70,7 @@ export default class MapComponentNew extends Component {
 		let _this = this;
 		// 编辑时input回显
 		if(this.props.defaultValue){
-			this.refs.mapInput.defaultValue = this.props.defaultValue;
+			this.refs.mapInput.defaultValue = this.props.defaultValue || '';
 		}
 		// 编辑时地图定位回显
 		const {defaultPoint}=this.props;
@@ -137,7 +137,7 @@ export default class MapComponentNew extends Component {
 		var _this = this;
 		var inputValue = this.refs.mapInput.value;
 		this.setState({
-			detailSearch : inputValue
+			detailSearch : inputValue ||''
 		},function(){
 			if(!inputValue){
 				let {initailPoint} =_this.props;
@@ -157,11 +157,11 @@ export default class MapComponentNew extends Component {
 
 		let _this =this;
 		_this.map.clearOverlays();
-		_this.setState({
-			detailSearch : searchValue
-		},function(){
-			_this.onChange();
-		})
+		// _this.setState({
+		// 	// detailSearch : searchValue
+		// },function(){
+		// 	_this.onChange();
+		// })
 		var options = {      
 	      	onSearchComplete: function(results){  
 				_this.map.clearOverlays();  

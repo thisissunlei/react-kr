@@ -63,7 +63,7 @@ module.exports = [
 					
 					{
 						primaryText: '平面图配置',
-						menuCode: 'appointment_manage_list',
+						menuCode: 'communityFloorPlanList',
 						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
 					},
 					{

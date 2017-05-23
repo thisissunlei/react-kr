@@ -34,7 +34,7 @@ module.exports = {
     },
     //运营平台-基础配置-设备定义-根据属性获取对应位置
     'getLocationByProperty': {
-        url: '/api/krspace-finance-web/community/community-boardroom?communityId={communityId}&whereFloor={whereFloor}',
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/community-boardroom?communityId={communityId}&whereFloor={whereFloor}&type={type}',
         method: 'get'
     },
     //运营平台-基础配置-设备定义-传图片
@@ -469,6 +469,10 @@ module.exports = {
       //运营平台-社区配置-预约-工位预约
        'station-reservation':{
          url: '/api/krspace-finance-web/cmt-appointment/station/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+      'getActivityCommunityList':{
+         url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
          method: 'get'
       },
 

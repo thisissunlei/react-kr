@@ -173,6 +173,9 @@ class CommunityList  extends React.Component{
             photosStr.push(images)
           })
          }
+
+         
+         
 				 if(value.picId){
 					  photosStr.push({type:'MOBILE_STATION',photoId:value.picId,first:true});
 				 }
@@ -197,7 +200,7 @@ class CommunityList  extends React.Component{
 
          //图片结束
 
-
+         
    	     State.onNewCommunitySubmit(value);
 
    }

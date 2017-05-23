@@ -370,7 +370,7 @@ export default class FinishUploadImgForm extends React.Component{
 						<Grid style={{marginTop:31,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
-											<ListGroupItem style={{width:304,textAlign:'right',padding:0,paddingRight:15}}>
+											<ListGroupItem style={{width:"50%",textAlign:'right',padding:0,paddingRight:15}}>
 												{
 													this.state.totleNum==0?<div className="button-myself">授权</div>:<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
 
