@@ -5,6 +5,7 @@ import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 import { AppBar, MenuItem,IconMenu, IconButton, Drawer, FontIcon, FlatButton } from 'material-ui';
 
+import Baidu from 'kr/Utils/Baidu';
 import {
 	Button,
 	Message
@@ -31,7 +32,6 @@ import InfoList from '../InfoList';
 import {
 	LookCustomerList,
 	Agreement
-
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
@@ -206,6 +206,8 @@ class Header extends React.Component {
 		} = this.props;
 
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
+
+		Baidu.pageView();
 
 	}
 
