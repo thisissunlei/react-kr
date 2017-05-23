@@ -20,36 +20,39 @@ export default class AgingAccount  extends React.Component{
 
 		super(props, context);
 		this.state = {
-				
+			isLeft:true
 		}
 	}
 
 
 	componentDidMount() {
 		var _this = this;
-		// Http.request('get-my-groups').then(function(response) {
-		   
-		// }).catch(function(err) {
-		// 	Message.error(err);
-		// });
-
 		
 	}
 
-	render(){
+	leftActive=()=>{
+		this.setState({
+			isLeft:true
+		})
+	}
 
+	rightActive=()=>{
 		
+		this.setState({
+			isLeft:false
+		})
+	}
 
-
-
+	render(){
+		let {isLeft}=this.state;
 		return(
 			<div className="aging-account">
 				<Tabs>
-					<Tab label="社区汇总">
-						<CommunityCollect/>
+					<Tab label="社区汇总" onActive={this.leftActive}>
+						<CommunityCollect isLeftProps={isLeft}/>
 					</Tab>
-					<Tab label="社区明细">
-						<CommunityDetail/>
+					<Tab label="社区明细" onActive={this.rightActive}>
+						<CommunityDetail isLeftProps={isLeft}/>
 					</Tab>
 
 				</Tabs>

@@ -1,148 +1,230 @@
-
-
 import React from 'react';
-
-import {Actions,Store} from 'kr/Redux';
-
 import {
-
+	reduxForm,
+	formValueSelector
+} from 'redux-form';
+import {
+	KrField,
+	Grid,
+	Row,
+	Button,
+	ListGroup,
+	ListGroupItem,
 } from 'kr-ui';
-import {Http} from 'kr/Utils';
-import $ from "jquery";
-
+import State from "./State";
 import './index.less';
-import './fixed-data-table.css';
-
-
-import ReactDOM from 'react-dom';
-
-import FixedDataTable from 'fixed-data-table';
-const {Table, Column, Cell,ColumnGroup} = FixedDataTable;
-// import {
-// 	Table,
-// 	Column,
-// 	Cell,
-// 	ColumnGroup
-// } from 'fixed-data-table';
-
-
+import $ from 'jquery';
 import {
 	observer
 } from 'mobx-react';
+@ observer
 
-import State from './State';
+export default class TanLinLin extends React.Component{
+	constructor(props){
+		super(props);
+		this.state={
 
-@observer
+			windowScrollTop:0,
+			isShowTitle:"none",
+			isShowLeftTitle:"none",
+			titleLeft:0,
+			leftTitleTop:213,
+			leftTitleItemP:'',
+			leftTitleItemTop:100,
+			fixedWidth : 930
 
-export default class TableIndex extends React.Component{
-
-	constructor(props,context){
-
-		super(props, context);
-		this.state = {
-			isFixed:false
-		
 		}
 	}
+	componentWillMount() {
+	}
 
-
-	componentDidMount() {
-		// $(document).ready(function(){  
-		    
-
-		// });
-		 	$('.fixedDataTableCellLayout_main').eq(0).unbind("scroll").bind("scroll", function(e){
-				console.log("this.scrrollLeft",this.scrrollLeft);
-			
-		 	}); 
+	componentWillReceiveProps(nextProps){
 		
 	}
 
+	
+
+	componentDidMount(){
+		let _this = this;
+
+		window.onscroll = function(){
+			_this.setState({
+				windowScrollTop:$(window).scrollTop(),
+				fixedWidth : $('.table-box').eq(0).width()
+			},function(){
+
+				if($(window).scrollTop()>153){
+					_this.setState({
+						isShowTitle:"block",
+						leftTitleTop:60,
+						leftTitleItemP:"absolute",
+						leftTitleItemTop:100-($(window).scrollTop()-154)
+					})
+				}else{
+					_this.setState({
+						isShowTitle:"none",
+						leftTitleTop:213-(_this.state.windowScrollTop),
+						leftTitleItemP:''
+						
+					})
+				}
+			})
+			
+
+
+
+		}
+		$('.table-box').eq(0).scroll(function(event){
+			
+		    if($(this).scrollLeft()>140){
+		    	_this.setState({
+		    		
+		    		isShowLeftTitle:"block",
+		    		titleLeft : -($('.table-box').eq(0).scrollLeft()),
+
+		    	})
+		    }else{
+		    	_this.setState({
+		    		isShowLeftTitle:"none",
+		    		titleLeft : -($('.table-box').eq(0).scrollLeft()),
+
+		    	})
+		    }
+		   
+		});
+		
+		
+		
+	  	
 		
 
+		
+	}
+	
 	render(){
-		const rows = [
-		  ['a1', 'b1', 'c1'],
-		  ['a2', 'b2', 'c2'],
-		  ['a3', 'b3', 'c3'],
-		  ['a3', 'b3', 'c3'],
-		  ['a3', 'b3', 'c3'],
-		  ['a3', 'b3', 'c3'],
-		  ['a3', 'b3', 'c3']
-		  // .... and more
-		];
-		let {isFixed} = this.state;
-		return(
+		let {isShowTitle,titleLeft,isShowLeftTitle,leftTitleTop,leftTitleItemP,leftTitleItemTop,fixedWidth} = this.state;
+
+		return (
 			<div className="table-box">
+				<div className="table-title" style={{display:isShowTitle,width:fixedWidth}}>
+					<table className="table-container" cellPadding='0' cellSpacing='0' style={{position:"absolute",left:titleLeft}} >
+					  <tbody>
+					  	<tr>
+					      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
+					      <td rowSpan="2" className="light-color"><div className="header-div full-height">社区</div></td>
+					      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">应收账款</div></td>
+					      <td colSpan="2" className="light-color"><div className="header-div-box half-height">实收回款</div></td>
+					      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">欠款情况</div></td>
+					      <td rowSpan="2" className="light-color"><div className="header-div full-height">应缴滞纳金</div></td>
+					      <td rowSpan="2" className="dark-color"><div className="header-div full-height">应催缴金额合计</div></td>
+					    </tr>
+					    <tr>
+					      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
+					      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
+					      <td className="light-color"><div className="header-div half-height">工位服务费</div></td>
+					      <td className="light-color"><div className="header-div half-height">履约保证金</div></td>
+					      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
+					      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
+					    </tr>
+					   </tbody>
+					</table>
+				</div>
+				<div className="table-left-title" style={{display:isShowLeftTitle,top:leftTitleTop}}>
+					<div className="left-title-header" style={{position:leftTitleItemP}}>社区</div>
+					<div className="left-title-box" style={{position:leftTitleItemP,top:leftTitleItemTop}}>
+						<div className="left-title-item">创业大街社区</div>
+						<div className="left-title-item">酒仙桥社区</div>
+						<div className="left-title-item">浦项社区</div>
+						<div className="left-title-item">酒仙桥社区</div>
+						<div className="left-title-item">浦项社区</div>
+						<div className="left-title-item">酒仙桥社区</div>
+						<div className="left-title-item">浦项社区</div>
+						<div className="left-title-item">酒仙桥社区</div>
+						<div className="left-title-item">浦项社区</div>
+						<div className="left-title-item">酒仙桥社区</div>
+						<div className="left-title-item">浦项社区</div>
 
-				  <Table
-				    rowHeight={70}
-				    rowsCount={rows.length}
-				    width={900}
-				    maxHeight={550}
-				     groupHeaderHeight={30}
-				    headerHeight={50}
-				    {...this.props}>
+					</div>
+					
+				</div>
+				<table className="table-container" cellPadding='0' cellSpacing='0'>
+				  <tbody>
+				  	<tr>
+				      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
+				      <td rowSpan="2" className="light-color"><div className="header-div full-height">社区</div></td>
+				      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">应收账款</div></td>
+				      <td colSpan="2" className="light-color"><div className="header-div-box half-height">实收回款</div></td>
+				      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">欠款情况</div></td>
+				      <td rowSpan="2" className="light-color"><div className="header-div full-height">应缴滞纳金</div></td>
+				      <td rowSpan="2" className="dark-color"><div className="header-div full-height">应催缴金额合计</div></td>
+				    </tr>
+				    <tr>
+				      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
+				      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
+				      <td className="light-color"><div className="header-div half-height">工位服务费</div></td>
+				      <td className="light-color"><div className="header-div half-height">履约保证金</div></td>
+				      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
+				      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
+				    </tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>创业大街社区</div></td>
+				   		<td><div>1111</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>酒仙桥社区</div></td>
+				   		<td><div>2222</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   		<td><div>3333</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>酒仙桥社区</div></td>
+				   		<td><div>4444</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   		<td><div>5555</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   		<td><div>6666</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   	</tr>
+				   	<tr>
+				   		<td><div>fmsalsfdad</div></td>
+				   		<td><div>浦项社区</div></td>
+				   	</tr>
 
-				 
-				     <ColumnGroup
-			          fixed={true}
-			          header={<Cell>Name</Cell>}>
-			          <Column
-			            fixed={true}
-			            header={<Cell>First Name</Cell>}
-			            cell={<Cell>Last Name</Cell>}
-			            width={150}
-			          />
-			          <Column
-			            fixed={true}
-			            header={<Cell>Last Name</Cell>}
-			            cell={<Cell>Last Name</Cell>}
-			            width={150}
-			          />
-        			</ColumnGroup>
-				     <ColumnGroup
-			          
-			          header={<Cell>Name</Cell>}>
-			          <Column
-			            
-			            header={<Cell>First Name</Cell>}
-			            cell={<Cell>Last Name</Cell>}
-			            width={150}
-			          />
-			          <Column
-			            
-			            header={<Cell>Last Name</Cell>}
-			            cell={<Cell>111</Cell>}
-			            width={150}
-			          />
-        			</ColumnGroup>
-        			 {/*<ColumnGroup
-        			 			          
-        			 			          cell={<Cell>222</Cell>}
-        			 			          width={450}
-        			 			         >*/}
-			          <Column
-			            header={<Cell>First 12313Name</Cell>}
-			            cell={<Cell>232</Cell>}
-			            width={250}
-			          />
-			          <Column
-			            header={<Cell>Last 123123Name</Cell>}
-			            cell={<Cell>Last Name</Cell>}
-			            width={200}
-			          />
-        			{/*</ColumnGroup>*/}
+				   </tbody>
+				   <tfoot>
+				    
+				  </tfoot>
+				</table>
 
-				  </Table>
-
-
-			</div>
-
+		  	</div>
 		);
 	}
 }
-
-
-
 

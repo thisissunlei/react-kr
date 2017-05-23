@@ -145,5 +145,5 @@ module.exports = {
 	Tooltip,
 	CircleStyleTwo,
 	LoadingTwo,
-	Nothing
+	Nothing,
 }
