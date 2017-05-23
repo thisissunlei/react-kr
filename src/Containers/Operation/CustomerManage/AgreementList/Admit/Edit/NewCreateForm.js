@@ -771,7 +771,7 @@ class NewCreateForm extends React.Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						onCancel={this.onCancel}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.onClose}>
 							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>

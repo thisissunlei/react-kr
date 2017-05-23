@@ -755,7 +755,7 @@ class NewCreateForm extends React.Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.openStationDialog}>
 							<PlanMapContent data={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
