@@ -73,6 +73,11 @@ const Permission_SystemManage_VersionManage = (location, callback) => {
     callback(null, require('kr/Containers/Permission/SystemManage/VersionManage').default)
   }, 'Permission_SystemManage_VersionManage')
 }
+const Permission_AccountManage_OperationSource = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/AccountManage/OperationSource').default)
+  }, 'Permission_AccountManage_OperationSource')
+}
 module.exports =()=>{
 
 	return (
@@ -92,6 +97,7 @@ module.exports =()=>{
     <Route path="accountManage" getComponent={Basic}>
   			<Route path="accountList" getComponent={Permission_AccountManage_AccountList}/>
         <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>
+        <Route path="operationSource" getComponent={Permission_AccountManage_OperationSource}/>
     </Route>
 		<Route path="userlist/:userId" getComponent={Permission_UserList}>
 			<Redirect from="permission" to="permission/userlist"/>

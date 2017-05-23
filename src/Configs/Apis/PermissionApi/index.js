@@ -268,4 +268,14 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/sysOwn/logout',
             method: 'get'
     },
+     //权限--操作来源--分页
+    'operation-source-list':{
+            url: '/api/krspace-sso-web/sso/operateSource/findPage?page={page}&pageSize={pageSize}&sourceCode={sourceCode}&sourceDesc={sourceDesc}&systemType={systemType}',
+            method: 'get'
+    },
+    //
+    'source-search-data':{
+            url: '/api/krspace-sso-web/sso/log/find-searchData',
+            method: 'get'
+    }
 }

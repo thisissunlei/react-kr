@@ -243,7 +243,7 @@ export default class SearchForms extends Component{
 		let {searchFilter} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
-
+		console.log('88888',searchFilter);
 
 		if(searchFilter){
 
@@ -256,7 +256,7 @@ export default class SearchForms extends Component{
 
 					<ul onMouseOver={this.selectShow} onMouseOut={this.selectHidden} ref={li=>{this.li = li}}>
 						{searchFilter && searchFilter.map((item,index)=>{
-
+					
 								return (
 									<li className={`${index}`} onClick={this.getValue} key={index}>
 										{item.label}
