@@ -95,7 +95,7 @@ export default  class Canvas extends React.Component {
 			let fontColor = "#499df1";
 			let width = Number(item.cellWidth);
 			let height = Number(item.cellHeight);
-			let x = Number(item.cellCoordX)-17;
+			let x = Number(item.cellCoordX)-25;
 			let y = Number(item.cellCoordY)-10;
 			let cellName = Number(item.cellName);
 
