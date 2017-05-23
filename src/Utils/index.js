@@ -8,6 +8,7 @@ import Debug from './Debug';
 import MobxForm from './MobxForm';
 import  DateFormat from './DateFormat';
 import  DateCompareValue from './DateCompareValue';
+import Baidu from './Baidu';
 
 module.exports = {
 	...ClassNames,
@@ -19,4 +20,5 @@ module.exports = {
 	MobxForm,
 	DateCompareValue,
 	DateFormat,
+	Baidu,
 }
