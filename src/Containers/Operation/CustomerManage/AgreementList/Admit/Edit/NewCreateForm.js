@@ -78,6 +78,7 @@ class NewCreateForm extends React.Component {
 			payTypeList: [],
 			paymentList: [],
 			fnaCorporationList: [],
+
 		}
 	}
 
@@ -421,7 +422,6 @@ class NewCreateForm extends React.Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
 
 		let {
 			changeValues,
@@ -449,25 +449,19 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			selectedObjs:stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00")
 
 		};
 
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
+
 
 		this.setState({
-			stationUrl: url
+			stationUrl: params
 		});
+
 	}
 
 
@@ -778,7 +772,7 @@ class NewCreateForm extends React.Component {
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.onClose}>
-							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 					<Dialog
 						title="录入单价"
