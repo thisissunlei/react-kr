@@ -64,7 +64,7 @@ class Createdialog extends Component {
     			    		type="select"
     			    		style={{marginTop:4}}
     			    		label="设备类型"
-                            options={}
+                         
     					/>
     					<KrField
     							grid={1/2}
