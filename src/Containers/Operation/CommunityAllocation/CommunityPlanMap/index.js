@@ -105,7 +105,7 @@ class CommunityPlanMap extends React.Component {
 				initializeConfigs: InitializeConfigs,
 				planMapId: response.id,
 				sameSize: response.stationSizeSame
-			})
+			});
 		}).catch(function (err) {
 			Message.error(err.message);
 		})
@@ -137,9 +137,8 @@ class CommunityPlanMap extends React.Component {
 	}
 
 	componentDidMount() {
-
 		document.addEventListener('mousemove', this.eventListen);
-
+		const mapComponent = this.mapComponent;
 	}
 
 
@@ -168,117 +167,126 @@ class CommunityPlanMap extends React.Component {
 		}, function () {
 			this.getMapConfigs(value.label);
 		})
-
 	}
 
 	//工位大小一致
 	sizeSameCheck = (event) => {
+
 		this.setState({
 			sameSize: event.target.checked,
-			floorChange: true
-		})
+		});
+
+		this.mapComponent.setStationToSame(sameSize, function (code, message) {
+            if (code < 0 && change) {
+                alert('请选择工位');
+                document.getElementById("sizeCheckbox").checked = false;
+            }
+        });
+
 	}
 
 	//放大比例
 	rangeSelect = (event) => {
 		document.getElementById("ratioSelectVal").innerHTML = parseInt(event.target.value * 100);
-		this.setState({
-			scaleSize: Number(event.target.value)
-		})
+		var scaleSize =  Number(event.target.value);
+		this.mapComponent.setScale(scaleSize);
 	}
 
 	//上传文件
 	fileUpload = (event) => {
 		document.getElementById("bgfilename").innerHTML = event.target.files[0].name;
+		var fileData = event.target.files[0];
 		this.setState({
-			fileData: event.target.files[0]
-		})
-	}
-
-	//传过来的保存
-	StationSave = (data) => {
-		this.saveData = data;
+			fileData
+		});
+		this.mapComponent.setBackgroundImage(fileData);
 	}
 
 	//传过来的删除
 	onRemove = (data) => {
+
 		let { figureSets } = this.state;
+
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = 10717;
 			list.belongType = item.type == 'station' ? "STATION" : "SPACE";
 			figureSets.push(list);
-		})
-		console.log('di', data, figureSets);
+		});
+
 		this.setState({
 			deleteData: data,
 			figureSets
-		})
+		});
+
 	}
 
 	//保存
 	save = () => {
+
 		let { deleteData, planMapId, selectFloor } = this.state;
-		var saveData = this.saveData;
-		var stations = [];
-		var deleteStation = [];
-		deleteData.map((item, index) => {
-			deleteStation.push(item.id.toString());
-		})
-		var de = deleteStation.join();
-		console.log('fffff', de);
-		deleteStation = JSON.stringify(deleteStation);
-		saveData.stations.map((item, index) => {
-			var list = {};
-			list.cellCoordX = item.x;
-			list.cellCoordY = item.y;
-			list.cellWidth = item.width;
-			list.cellHeight = item.height;
-			list.id = item.id;
-			list.belongId = item.belongId;
-			list.belongType = item.belongType;
-			if (list.cellCoordX) {
-				stations.push(list);
+
+		this.mapComponent.save(function (saveData) {
+
+			var stations = [];
+			var deleteStation = [];
+			deleteData.map((item, index) => {
+				deleteStation.push(item.id.toString());
+			})
+			var de = deleteStation.join();
+			deleteStation = JSON.stringify(deleteStation);
+			saveData.stations.map((item, index) => {
+				var list = {};
+				list.cellCoordX = item.x;
+				list.cellCoordY = item.y;
+				list.cellWidth = item.width;
+				list.cellHeight = item.height;
+				list.id = item.id;
+				list.belongId = item.belongId;
+				list.belongType = item.belongType;
+				if (list.cellCoordX) {
+					stations.push(list);
+				}
+			})
+			stations = JSON.stringify(stations);
+			var cellWidth = '';
+			var cellHeight = '';
+			var isSame = '';
+			var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
+			var checked = document.getElementById("sizeCheckbox").checked;
+			if (checked) {
+				isSame = 'SAME';
+				cellWidth = saveData.stations[0].width;
+				cellHeight = saveData.stations[0].height;
+			} else {
+				isSame = 'NOT_SAME';
+				cellWidth = '';
+				cellHeight = '';
 			}
-		})
-		stations = JSON.stringify(stations);
-		var cellWidth = '';
-		var cellHeight = '';
-		var isSame = '';
-		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
-		var checked = document.getElementById("sizeCheckbox").checked;
-		if (checked) {
-			isSame = 'SAME';
-			cellWidth = saveData.stations[0].width;
-			cellHeight = saveData.stations[0].height;
-		} else {
-			isSame = 'NOT_SAME';
-			cellWidth = '';
-			cellHeight = '';
-		}
-		Http.request('plan-edit', {}, {
-			stationSizeSame: isSame,
-			id: planMapId,
-			floor: selectFloor,
-			communityId: href,
-			cellWidth: cellWidth,
-			cellHeight: cellHeight,
-			graphCellJson: stations,
-			deleteCellIdsStr: de
-		}).then(function (response) {
-			window.location.reload();
-		}).catch(function (err) {
-			Message.error(err.message);
+			Http.request('plan-edit', {}, {
+				stationSizeSame: isSame,
+				id: planMapId,
+				floor: selectFloor,
+				communityId: href,
+				cellWidth: cellWidth,
+				cellHeight: cellHeight,
+				graphCellJson: stations,
+				deleteCellIdsStr: de
+			}).then(function (response) {
+				window.location.reload();
+			}).catch(function (err) {
+				Message.error(err.message);
+			});
+
 		});
+
+
 	}
 
 
-
-
-
 	//上传
-	onSubmit = () => {
+	onSubmit = () =>{ 
 		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
 		var _this = this;
 		let { fileData } = this.state;
@@ -372,7 +380,7 @@ class CommunityPlanMap extends React.Component {
 	//移动
 	eventListen = (event) => {
 
-		let {nameStation, minusX, minusY } = this.state;
+		let { nameStation, minusX, minusY } = this.state;
 
 		if (this.dragFlag) {
 			this.upFlag = true;
@@ -407,13 +415,13 @@ class CommunityPlanMap extends React.Component {
 				myApp.getBoundingClientRect().top < event.target.getBoundingClientRect().top + height) {
 				figureSets.splice(dataIndex, 1);
 
-				var station =  {
-						x: event.target.getBoundingClientRect().left + width / 2,
-						y: event.target.getBoundingClientRect().top + height / 2,
-						width: width,
-						height: height,
-						type: type,
-						name: cellname
+				var station = {
+					x: event.target.getBoundingClientRect().left + width / 2,
+					y: event.target.getBoundingClientRect().top + height / 2,
+					width: width,
+					height: height,
+					type: type,
+					name: cellname
 				};
 
 				console.log(this.mapComponent);
@@ -538,16 +546,13 @@ class CommunityPlanMap extends React.Component {
 
 							</div>
 
-							<PlanMapAll 
-								ref = {(mapComponent) => this.mapComponent = mapComponent}
+							<PlanMapAll
+								ref={(mapComponent) => this.mapComponent = mapComponent}
 								initializeConfigs={initializeConfigs}
 								fileData={fileData}
-								sameSize={sameSize}
 								scaleSize={scaleSize}
 								stationObj={stationObj}
-								save={this.StationSave}
 								onRemove={this.onRemove}
-								floorChange={floorChange}
 							/>
 
 						</form>

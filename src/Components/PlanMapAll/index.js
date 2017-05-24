@@ -1,124 +1,109 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 
 
 import Map from './Map';
 import './index.less';
 
-export default class PlanMapAll extends Component{
-	
-	constructor(props){
-		super(props);
+export default class PlanMapAll extends Component {
+
+    constructor(props) {
+        super(props);
         this.map = null;
         this.isInit = false;
-	}
+    }
 
 
 
-    init = (initializeConfigs)=>{
+    init = (initializeConfigs) => {
 
-        if(this.isInit){
-            return ;
+        const {onRemove} = this.props;
+
+        if (this.isInit) {
+            return;
         }
-        if(!initializeConfigs || !initializeConfigs.hasOwnProperty('backgroundImageUrl')){
-            return ;
+        if (!initializeConfigs || !initializeConfigs.hasOwnProperty('backgroundImageUrl')) {
+            return;
         }
-        
-        this.map = new Map('mapAPP',initializeConfigs);
+
+        this.map = new Map('mapAPP', initializeConfigs);
+
+        this.map.onRemove(onRemove);
 
         this.isInit = true;
     }
 
-   
-    componentDidMount(){
 
-       this.init(this.props.initializeConfigs); 
-       
-       
+    componentDidMount() {
+        this.init(this.props.initializeConfigs);
     }
 
-    componentWillReceiveProps(nextProps){
-         
-         this.init(nextProps.initializeConfigs);
-        if(nextProps.fileData){
-          this.file(nextProps.fileData);
+    componentWillReceiveProps(nextProps) {
+        this.init(nextProps.initializeConfigs);
+    }
+
+    setBackgroundImage = (file)=>{
+        if (!this.map) {
+            return;
+        }
+        this.map.setBackgroundImage(file);
+    }
+
+    setScale = (scale)=>{
+        if (!this.map) {
+            return;
+        }
+        this.map.setScale(scale);
+    }
+
+    createStation = (data) => {
+        if (!this.map) {
+            return;
+        }
+        this.map.createStation(data);
+    }
+
+    save = (callback) => {
+        if (!this.map) {
+            return;
+        }
+        this.map.save(function (data) {
+            callback && callback(data);
+        });
+    }
+
+    onRemove = (callback) => {
+
+        if (!this.map) {
+            return;
         }
 
-       //this.stationCanvas(nextProps.stationObj);
-       //this.sameSize(nextProps.sameSize,nextProps.floorChange);
-       //this.scaleSize(nextProps.scaleSize);
-       //this.deleteStation();
-       //this.save();
-         
-    }
-    
-    file=(file)=>{
-      this.map.setBackgroundImage(file);
+        this.map.onRemove(function (data) {
+            callback && callback(data);
+        });
     }
 
-    sameSize=(same,change)=>{
-      if(!this.map){
-          return ;
-      }
-       this.map.setStationToSame(same,function(code,message){
-        if(code<0&&change){
-        alert('请选择工位');
-        document.getElementById("sizeCheckbox").checked=false;
-       }
-      })
-    }
-
-    scaleSize=(scale)=>{
-      if(!this.map){
-          return ;
-      }
-      this.map.setScale(scale);
-    }
-
-   createStation = (data)=>{
-
-      if(!this.map){
-          return ;
-      }
-
-      this.map.createStation(data);
-
-   }
-
-   save=()=>{
-       const {
-			save
-		} = this.props;
-       if(!this.map){
-           return ;
-       }
-       this.map.save(function(data){
-         save && save(data);
-       })
-   }
-   
-  deleteStation=()=>{
-     const {
+    deleteStation = () => {
+        const {
 			onRemove
 		} = this.props;
-       if(!this.map){
-           return ;
-       }
-       this.map.onRemove(function(data){
-         onRemove && onRemove(data);
-      }) 
-  }
+        if (!this.map) {
+            return;
+        }
+        this.map.onRemove(function (data) {
+            onRemove && onRemove(data);
+        });
+    }
 
+    render() {
 
-	render(){  
-	   
-       return(
+        return (
             <div className='m-map-main'>
                 <div className='m-inner-main' id="mapAPP">
                 </div>
             </div>
-       	)
-	}
- }
+        )
+    }
+}
 
 
 
