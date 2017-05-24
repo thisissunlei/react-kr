@@ -1,5 +1,5 @@
 import React from 'react';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
   reduxForm,
   change,
@@ -34,8 +34,7 @@ import {
 	ListGroupItem,
 	Message
 } from 'kr-ui';
-import {Http} from "kr/Utils";
-
+import SearchFormControlTable from './SearchForm';
 class ControlTable  extends React.Component{
 
 	constructor(props){
@@ -43,15 +42,37 @@ class ControlTable  extends React.Component{
 		
 		this.state={
 		
-
+			communityIdList:[]
 		}
+		this.getcommunity();
    
 	}
 
 	componentDidMount(){
 
 	}
+	getcommunity = () => {
+		let _this = this;
+		let {communityIdList} = this.state;
+		Http.request('getCommunity').then(function(response) {
 
+			communityIdList = response.communityInfoList.map(function(item, index) {
+
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			_this.setState({
+				communityIdList,
+			});
+
+
+		}).catch(function(err) {
+
+
+
+		});
+	}
  
   getEidtData = (id,itemDetail) =>{
     let _this= this;
@@ -93,13 +114,13 @@ class ControlTable  extends React.Component{
 
    }
 	render(){
-		
+		const {communityIdList} = this.state;
 
 		return(
 			<div className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="访客记录"/>
       		<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
-            <h1>销控表</h1>
+           <SearchFormControlTable />
           </Section>
           
 	     </div>
