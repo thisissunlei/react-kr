@@ -22,7 +22,6 @@ export default class PlanMapAll extends Component{
         if(!initializeConfigs || !initializeConfigs.hasOwnProperty('backgroundImageUrl')){
             return;
         }
-
         this.map = new Map('mapAPP',initializeConfigs);
 
         this.isInit = true;

@@ -1079,6 +1079,10 @@ var Map = (function (window) {
         }
 
         MapObject.prototype.drawImage = function () {
+
+            if(!bkImageObject){
+                return ;
+            }
             var img = bkImageObject;
             context.beginPath();
             context.drawImage(img, translateX * scale, translateY * scale, img.width * scale, img.height * scale);

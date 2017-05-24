@@ -44,7 +44,9 @@ class CommunityPlanMap  extends React.Component{
 			//必须拖拽释放请求
 			upFlag:false,
 			//点击的人下标
-			dataIndex:''
+			dataIndex:'',
+			
+
 		}
 	}
 
@@ -88,6 +90,7 @@ Http.request('plan-get-detail',{
 				_this.setState({
 				figureSets:response.figureSets,
 				initializeConfigs:InitializeConfigs,
+				//sameSize:response.stationSizeSame
 				})
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -120,9 +123,6 @@ componentDidMount(){
 	document.addEventListener('mousemove',this.eventListen)
 }
 
- onSubmit=()=>{
- 
- }
 
  //工位元件hover
   mouseOverStaion=()=>{
@@ -176,21 +176,54 @@ componentDidMount(){
   save=()=>{
     
   }
+
+
   
   //上传
-  upload=()=>{
-   let {selectFloor,fileData}=this.state;
-	var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-    Http.request('plan-upload',{},{
-     communityId:href,
-	 id:'',
-	 floor:selectFloor,
-	 GraphFile:fileData
-	}).then(function(response) {
-		console.log('ssss',response);  
-	  }).catch(function(err) {
-		 Message.error(err.message);
-	  });
+  onSubmit=()=>{
+    var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+    let {selectFloor,fileData}=this.state;
+	var _this=this;
+	var form = new FormData();
+    var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					var response = xhr.response.data;
+					form.append('sourceservicetoken', response.sourceservicetoken);
+					form.append('docTypeCode', response.docTypeCode);
+					form.append('operater', response.operater);
+
+					var xhrfile = new XMLHttpRequest();
+					xhrfile.onreadystatechange = function() {
+						if (xhrfile.readyState === 4) {
+							var fileResponse = xhrfile.response;
+							if (xhrfile.status === 200) {
+								if (fileResponse && fileResponse.code > 0) {
+								    console.log('success',fileResponse);	
+								} else {
+									//_this.onError(fileResponse.msg);
+								}
+							} else if (xhrfile.status == 413) {
+
+								_this.onError('您上传的文件过大！');
+							} else {
+								_this.onError('后台报错请联系管理员！');
+							}
+						}
+					};
+
+					xhrfile.open('POST', 'http://optest.krspace.cn/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
+					xhrfile.responseType = 'json';
+					xhrfile.send(form);
+				} else {
+					Message.error('初始化文件上传失败');
+				}
+			}
+		};
+		xhr.open('GET', '/api/krspace-finance-web/cmt/floor-graph/upload-token', true);
+		xhr.responseType = 'json';
+		xhr.send(null);
   }
 
 
@@ -236,6 +269,7 @@ allStationUp=(event)=>{
    var type='';
    var width='';
    var height='';
+   var myApp=document.getElementById("mapAPP");
    if(isStation){
        type='station';
        width=30;
@@ -246,7 +280,9 @@ allStationUp=(event)=>{
        height=48;
     } 
 	if(upFlag){
-      this.setState({
+      if(myApp.getBoundingClientRect().left<event.target.getBoundingClientRect().left+width&&
+	  myApp.getBoundingClientRect().top<event.target.getBoundingClientRect().top+height){
+       this.setState({
 		dragFlag:false,
 		upFlag:false,
 		stationObj:{
@@ -258,11 +294,13 @@ allStationUp=(event)=>{
 			name:cellname
 		},
 		figureSets:figureSets.splice(dataIndex,1)
-     })
+       })
+	  }
 	} 
 	 document.getElementById("single-drag-meeting").style.display='none';
      document.getElementById("single-drag-square").style.display='none';
-
+	
+     
 }
 
 
@@ -288,7 +326,7 @@ allStationUp=(event)=>{
 			 <Title value="平面图配置"/>
 			 <Section  title='平面图配置开发' description="" style={{marginBottom:-5,minHeight:910}}>   
 				<div className="wrap">
-				 <form onSubmit={handleSubmit(this.onSubmit)}>
+				 <form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className='plan-header'> 
 
 							<div className='header-floor'>
@@ -319,7 +357,7 @@ allStationUp=(event)=>{
 									
 								</span> 
 								</div>  
-								<div className='upload-btn' onClick={this.upload}>上传</div>  
+								<div className='upload-btn' onClick={this.onSubmit}>上传</div>  
 							</div>
 
 							<div className='save-header' id='save-header' onClick={this.save}>保存</div>  
