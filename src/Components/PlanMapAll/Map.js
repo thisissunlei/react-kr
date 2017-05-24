@@ -1,12 +1,14 @@
 //平面图
 var Map = (function (window) {
 
-    //画布上下文
+
+    //画布上下文    
     var context;
 
     var isEdit = true;
+    var removeCallback = function(){};
 
-    var ready = function () {};
+    var ready = function () { };
 
     //背景图Object
 
@@ -24,6 +26,7 @@ var Map = (function (window) {
     //工位
     var stations = [];
     var dragStations = []; //拖拽中的工位
+
 
     //工位大小一致
     var stationToSame = false;
@@ -50,11 +53,12 @@ var Map = (function (window) {
     //右击菜单
     var contextMenu;
 
+
     //基础数据控制器
     const DB = (function () {
 
         var DEFAULTCONFIGS = {
-            stations: []
+            stations: [],
         }
 
         var CONFIGS = Object.assign({}, DEFAULTCONFIGS);
@@ -72,15 +76,22 @@ var Map = (function (window) {
             },
             newStation: function (props) {
                 props = Object.assign({}, props);
-                CONFIGS
-                    .stations
-                    .push(props);
+                CONFIGS.stations.push(props);
                 return this;
             },
-            removeStation: function (index) {
-                var stations = CONFIGS.stations;
-                stations.splice(index, 1);
-                CONFIGS.stations = stations;
+            removeStation: function (id) {
+               var stations =  CONFIGS.stations;
+               var fdIndex;
+               stations.map(function(item,index){
+                    if(id == item.id){
+                        fdIndex = index;
+                    }
+               });
+               if(typeof fdIndex === 'undefined'){
+                   return ;
+               }
+               stations.splice(fdIndex,1);
+               CONFIGS.stations = stations;
             },
             getStation: function (index) {
                 var stations = this.getAllStation();
@@ -89,14 +100,12 @@ var Map = (function (window) {
             setStation: function (index, nextProps) {
                 var props = this.getStation(index);
                 props = Object.assign({}, props, nextProps);
-                CONFIGS
-                    .stations
-                    .splice(index, 1, props);
+                CONFIGS.stations.splice(index, 1, props);
                 return this;
             },
             getImageUrl: function () {
                 return CONFIGS.backgroundImageUrl;
-            }
+            },
         };
 
     })();
@@ -132,10 +141,12 @@ var Map = (function (window) {
             y: 0,
             width: 60,
             height: 30,
+            id:0,
             name: 'demo',
             type: 'station',
             drag: false,
-            checked: false
+            checked: false,
+            removed:false,
         }
 
         //获取props信息
@@ -164,14 +175,14 @@ var Map = (function (window) {
         }
 
         StationObject.prototype.move = function (x, y) {
-            this.componentWillReceiveProps({x, y, drag: true});
+            this.componentWillReceiveProps({ x, y, drag: true });
         }
 
         //删除工位
         StationObject.prototype.remove = function () {
-            console.log('ta');
-            const {key} = this.props;
-            DB.removeStation(key);
+            const { key,id } = this.props;
+            this.setProps({removed:true});
+            DB.removeStation(id);
         }
         //更新工位坐标参数
         StationObject.prototype.componentWillReceiveProps = function (nextProps) {
@@ -190,7 +201,11 @@ var Map = (function (window) {
         //绘制Station
         StationObject.prototype.render = function () {
 
-            const {drag, checked} = this.props;
+            const { drag, checked,removed} = this.props;
+
+            if(removed){
+                return ;
+            }
 
             const props = this.props;
             const widthOrHeight = MapFactory.transformWidthOrHeightToView(props.width, props.height);
@@ -199,6 +214,7 @@ var Map = (function (window) {
 
             var position = this.getLeftTopPosition();
             position = MapFactory.transformPositionToView(position.x, position.y);
+
 
             //绘制
             context.moveTo(position.x, position.y);
@@ -224,18 +240,22 @@ var Map = (function (window) {
 
         }
 
-        StationObject.prototype.drawCheckedStyle = function () {}
+
+        StationObject.prototype.drawCheckedStyle = function () {
+
+        }
 
         //拖拽样式
         StationObject.prototype.drawDragStyle = function () {
 
-            const {x, y} = this.props;
+            const { x, y } = this.props;
 
             var props = this.props;
 
             var widthOrHeight = MapFactory.transformWidthOrHeightToView(props.width, props.height);
             var width = widthOrHeight.width;
             var height = widthOrHeight.height;
+
 
             var position = this.getLeftTopPosition();
             position = MapFactory.transformPositionToView(position.x, position.y);
@@ -359,6 +379,7 @@ var Map = (function (window) {
             context.fill();
             context.closePath();
 
+
             //上中角
             context.beginPath();
             context.arc(position.x + width / 2, position.y, 3, 0, 2 * Math.PI);
@@ -411,72 +432,76 @@ var Map = (function (window) {
             context.fill();
             context.closePath();
 
+
         }
 
         StationObject.prototype.getCenterPosition = function () {
-            const {x, y} = this.props;
-            return {x, y};
+            const { x, y } = this.props;
+            return { x, y };
         }
 
         //左上，根据中心点坐标转换成左上角坐标值
         StationObject.prototype.getLeftTopPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             x = x - width / 2;
             y = y - height / 2;
-            return {x, y};
+            return { x, y };
         }
 
         //上中
         StationObject.prototype.getTopCenterPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             y = y - height / 2;
-            return {x, y};
+            return { x, y };
         }
+
+
 
         //左中
         StationObject.prototype.getLeftCenterPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             x = x - width / 2;
-            return {x, y};
+            return { x, y };
         }
 
         //左下
         StationObject.prototype.getLeftBottomPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             x = x - width / 2;
             y = y + height / 2;
-            return {x, y};
+            return { x, y };
         }
 
         //下中
         StationObject.prototype.getBottomCenterPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             y = y + height / 2;
-            return {x, y};
+            return { x, y };
         }
 
         //右上
         StationObject.prototype.getRightTopPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             x = x + width / 2;
             y = y - height / 2;
-            return {x, y};
+            return { x, y };
         }
 
         //右下
         StationObject.prototype.getRightBottomPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             x = x + width / 2;
             y = y + height / 2;
-            return {x, y};
+            return { x, y };
         }
 
         //右中
         StationObject.prototype.getRightCenterPosition = function () {
-            var {x, y, width, height} = this.props;
+            var { x, y, width, height } = this.props;
             x = x + width / 2;
-            return {x, y};
+            return { x, y };
         }
+
 
         //在拖拽坐标点上
         StationObject.prototype.inScalePosition = function (mouseX, mouseY) {
@@ -521,7 +546,7 @@ var Map = (function (window) {
                 return true;
             }
 
-            //下中
+             //下中
             if (StationFactory.inRange(mouseX, bottomCenter.x, range) && StationFactory.inRange(mouseY, bottomCenter.y, range)) {
                 scaleStationDirection = 'bottomCenter';
                 return true;
@@ -553,167 +578,146 @@ var Map = (function (window) {
             var move = Object.assign({}, movePosition);
             var down = Object.assign({}, downPosition);
 
+
             switch (scaleStationDirection) {
-                case 'leftTop':
-                    {
+                case 'leftTop': {
 
-                        var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
+                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
-                        scale = (move.x - down.x) > 0
-                            ? -scale
-                            : scale;
-                        scale = scale / 7;
+                    scale = (move.x - down.x) > 0 ? -scale : scale;
+                    scale = scale / 7;
 
-                        var props = this.getProps();
-                        props.width = props.width + scale;
-                        props.height = props.height + scale;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    var props = this.getProps();
+                    props.width = props.width + scale;
+                    props.height = props.height + scale;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
 
-                case 'leftCenter':
-                    {
-                        var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
+                case 'leftCenter': {
+                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
-                        scale = (move.x - down.x) > 0
-                            ? -scale
-                            : scale;
-                        scale = scale / 7;
+                    scale = (move.x - down.x) > 0 ? -scale : scale;
+                    scale = scale / 7;
 
-                        var props = this.getProps();
-                        props.width = props.width + scale;
-                        props.height = props.height;
-                        props.x -= scale / 2;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    var props = this.getProps();
+                    props.width = props.width + scale;
+                    props.height = props.height;
+                    props.x -= scale/2;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
 
-                case 'leftBottom':
-                    {
+                case 'leftBottom': {
 
-                        var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
+                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
-                        scale = (move.x - down.x) > 0
-                            ? -scale
-                            : scale;
-                        scale = scale / 7;
 
-                        var props = this.getProps();
-                        props.width = props.width + scale;
-                        props.height = props.height + scale;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
+                    scale = (move.x - down.x) > 0 ? -scale : scale;
+                    scale = scale / 7;
 
-                        break;
-                    }
+                    var props = this.getProps();
+                    props.width = props.width + scale;
+                    props.height = props.height + scale;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
 
-                case 'rightTop':
-                    {
+                    break;
+                }
 
-                        var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
+                case 'rightTop': {
 
-                        scale = (move.x - down.x) > 0
-                            ? scale
-                            : -scale;
-                        scale = scale / 7;
+                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
-                        var props = this.getProps();
-                        props.width = props.width + scale;
-                        props.height = props.height + scale;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    scale = (move.x - down.x) > 0 ? scale : -scale;
+                    scale = scale / 7;
 
-                case 'rightCenter':
-                    {
+                    var props = this.getProps();
+                    props.width = props.width + scale;
+                    props.height = props.height + scale;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
 
-                        var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
+                case 'rightCenter':{
 
-                        scale = (move.x - down.x) > 0
-                            ? scale
-                            : -scale;
-                        scale = scale / 7;
+                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
-                        var props = this.getProps();
-                        props.width = props.width + scale;
-                        props.height = props.height;
-                        props.x += scale / 2;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    scale = (move.x - down.x) > 0 ? scale : -scale;
+                    scale = scale / 7;
 
-                case 'rightBottom':
-                    {
+                    var props = this.getProps();
+                    props.width = props.width + scale;
+                    props.height = props.height;
+                    props.x += scale/2;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
 
-                        var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
+                case 'rightBottom': {
 
-                        scale = (move.x - down.x) > 0
-                            ? scale
-                            : -scale;
-                        scale = scale / 7;
+                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
-                        var props = this.getProps();
-                        props.width = props.width + scale;
-                        props.height = props.height + scale;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    scale = (move.x - down.x) > 0 ? scale : -scale;
+                    scale = scale / 7;
 
-                case 'topCenter':
-                    {
+                    var props = this.getProps();
+                    props.width = props.width + scale;
+                    props.height = props.height + scale;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
 
-                        var scale = Math.sqrt(Math.pow(down.y - move.y, 2), Math.pow(down.y - move.y, 2));
+                 case 'topCenter': {
 
-                        scale = (down.y - move.y) > 0
-                            ? scale
-                            : -scale;
-                        scale = scale / 7;
+                    var scale = Math.sqrt(Math.pow(down.y - move.y, 2), Math.pow(down.y - move.y, 2));
 
-                        var props = this.getProps();
-                        props.width = props.width;
-                        props.height = props.height + scale;
-                        props.y -= scale / 2;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    scale = (down.y - move.y) > 0 ? scale : -scale;
+                    scale = scale / 7;
 
-                case 'bottomCenter':
-                    {
+                    var props = this.getProps();
+                    props.width = props.width;
+                    props.height = props.height + scale;
+                    props.y-=scale/2;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
 
-                        var scale = Math.sqrt(Math.pow(move.y - down.y, 2), Math.pow(move.y - down.y, 2));
+                 case 'bottomCenter': {
 
-                        scale = (move.y - down.y) > 0
-                            ? scale
-                            : -scale;
-                        scale = scale / 7;
+                    var scale = Math.sqrt(Math.pow(move.y - down.y, 2), Math.pow(move.y - down.y, 2));
 
-                        var props = this.getProps();
-                        props.width = props.width;
-                        props.height = props.height + scale;
-                        props.y += scale / 2;
-                        props.drag = true;
-                        this.componentWillReceiveProps(props);
-                        break;
-                    }
+                    scale = (move.y - down.y) > 0 ? scale : -scale;
+                    scale = scale / 7;
 
-                default:
-                    {
-                        break;
-                    }
+                    var props = this.getProps();
+                    props.width = props.width;
+                    props.height = props.height + scale;
+                    props.y+=scale/2;
+                    props.drag = true;
+                    this.componentWillReceiveProps(props);
+                    break;
+                }
+
+
+                default: {
+                    break;
+                }
             }
+
 
         }
 
         //工位包涵相关坐标点
         StationObject.prototype.hasPosition = function (mouseX, mouseY) {
 
-            const {width, height} = this.props;
+            const { width, height } = this.props;
 
             var loc = this.getLeftTopPosition();
             var minX = loc.x;
@@ -731,6 +735,7 @@ var Map = (function (window) {
         }
 
         //静态方法
+
 
         return new StationObject(params);
     }
@@ -752,13 +757,18 @@ var Map = (function (window) {
 
     }
 
+
+
     const MapFactory = function (elementId, configs) {
+
+
 
         //平面构造器
         var MapObject = function (elementId, configs) {
 
             this.isComponentDidMout = false;
-            this.readyCallback = function () {};
+            this.readyCallback = function () { };
+
 
             element = document.getElementById(elementId);
             width = element.clientWidth;
@@ -771,6 +781,7 @@ var Map = (function (window) {
             canvas.height = height;
             element.appendChild(canvas);
             context = canvas.getContext('2d');
+
 
             this.loadImage();
 
@@ -789,9 +800,14 @@ var Map = (function (window) {
             }
         }
 
-        MapObject.prototype.componentDidUpdate = function () {}
+        MapObject.prototype.componentDidUpdate = function () {
 
-        MapObject.prototype.componentWillMount = function () {}
+
+        }
+
+        MapObject.prototype.componentWillMount = function () {
+
+        }
 
         MapObject.prototype.componentDidMount = function () {
             this.isComponentDidMout = true;
@@ -805,7 +821,8 @@ var Map = (function (window) {
             //重置
             canvas.width = width;
 
-            //stations = []; 设置边界值
+            //stations = [];
+            //设置边界值
             this.calcMaxMin();
             //绘制背景图片
             this.drawImage();
@@ -822,14 +839,15 @@ var Map = (function (window) {
 
         }
 
+
+
         //绘制工位及会议室
         MapObject.prototype.drawStations = function () {
 
             if (stations.length) {
-                stations
-                    .map(function (station) {
-                        station.render();
-                    });
+                stations.map(function (station) {
+                    station.render();
+                });
                 return;
             }
 
@@ -837,20 +855,20 @@ var Map = (function (window) {
 
             StationsData.map(function (item, index) {
 
-                var props = {};
-
-                props.x = item.x;
-                props.y = item.y;
-                props.width = Number(item.width);
-                props.height = Number(item.height);
-                props.name = item.name;
-                props.key = Number(index);
+                var props = Object.assign({},item);
+                props.x = Number(props.x);
+                props.y = Number(props.y);
+                props.width = Number(props.width);
+                props.height = Number(props.height);
+                props.key = index;
 
                 stations.push(StationFactory(props));
 
             });
 
         }
+
+
 
         //创建canvas dom 完成
         MapObject.prototype.registerEvents = function () {
@@ -877,10 +895,10 @@ var Map = (function (window) {
             const ScaleStationMoveEvent = function (event) {
                 MapObject.setMovePosition(event);
 
-                console.log('在放大点上移动');
-
                 self.drawScaleStationMove();
-                //self.drawDragStationMove(); 添加监听相关事件回调函数
+                //self.drawDragStationMove();
+
+                //添加监听相关事件回调函数
                 canvas.addEventListener('mouseup', ScaleStationEndEvent, false);
             }
 
@@ -929,15 +947,15 @@ var Map = (function (window) {
                 self.dragMap();
             }
 
+
             var MouseDownRightEvent = function (event) {
                 MapObject.setDownPosition(event);
                 // 鼠标右击事件
-                MapObject
-                    .contextMenu
-                    .create();
+                //MapObject.contextMenu.create();
 
-                event.preventDefault()
+                //event.preventDefault()
             }
+
 
             //鼠标按下事件
             const MouseDownEvent = function (event) {
@@ -965,6 +983,7 @@ var Map = (function (window) {
                     canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
                     canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
 
+
                     //按下不在工位上、添加拖拽地图事件
                     canvas.addEventListener('mousemove', DragMapMoveEvent, false);
                 }
@@ -973,6 +992,7 @@ var Map = (function (window) {
 
             //鼠标抬起事件
             const MouseUpEvent = function (event) {
+
 
                 canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
                 canvas.removeEventListener('mousemove', ScaleStationEndEvent, false);
@@ -985,9 +1005,7 @@ var Map = (function (window) {
 
                 canvas.removeEventListener('mouseup', MouseUpEvent, false);
 
-                MapObject
-                    .contextMenu
-                    .close();
+                MapObject.contextMenu.close();
             }
 
             //输入内容
@@ -996,7 +1014,7 @@ var Map = (function (window) {
                 var keyCode = event.keyCode;
 
                 switch (keyCode) {
-                        // 删除键
+                    // 删除键
                     case 8:
                         self.removeStation();
                         break;
@@ -1022,6 +1040,7 @@ var Map = (function (window) {
 
                 canvas.removeEventListener('mouseup', MouseUpEvent, false);
 
+
                 document.removeEventListener('keyup', KeyUpEvent, false);
                 document.removeEventListener('contextmenu', MouseDownRightEvent, false);
 
@@ -1036,14 +1055,20 @@ var Map = (function (window) {
 
         }
 
+
         MapObject.prototype.calcMaxMin = function () {
 
-            //平移 translateX 和translateY 最大 最小值设定
+
+
+/*
+            //平移
+            //translateX 和translateY 最大 最小值设定
             var translateLeftMax = bkImageObject.width - width;
             var tranlateRightMax = 100;
             var translateUpMax = bkImageObject.height - height;
             var tranlateDownMax = 100;
-            //左右 限制向左移最大值
+            //左右
+            //限制向左移最大值
             if (translateX < 0 && Math.abs(translateX) > translateLeftMax) {
                 translateX = -Math.abs(translateLeftMax);
             }
@@ -1052,17 +1077,17 @@ var Map = (function (window) {
                 translateX = tranlateRightMax;
             }
 
-            /*
-                                //上下
-                                //限制向上移最大值
-                                if (translateY < 0 && Math.abs(translateY) > translateUpMax) {
-                                    translateY = -Math.abs(translateUpMax);
-                                }
-                                //限制向下移动最大值
-                                if (translateY > 0 && Math.abs(translateY) > tranlateDownMax) {
-                                    translateY = tranlateDownMax;
-                                }
-                                */
+                        //上下
+                        //限制向上移最大值
+                        if (translateY < 0 && Math.abs(translateY) > translateUpMax) {
+                            translateY = -Math.abs(translateUpMax);
+                        }
+                        //限制向下移动最大值
+                        if (translateY > 0 && Math.abs(translateY) > tranlateDownMax) {
+                            translateY = tranlateDownMax;
+                        }
+                        */
+
 
             //缩放
 
@@ -1079,15 +1104,12 @@ var Map = (function (window) {
         }
 
         MapObject.prototype.drawImage = function () {
-
-            if(!bkImageObject){
-                return ;
-            }
             var img = bkImageObject;
             context.beginPath();
             context.drawImage(img, translateX * scale, translateY * scale, img.width * scale, img.height * scale);
             context.closePath();
         }
+
 
         //在工位的放大坐标点上
         MapObject.prototype.isDownInStationDragPosition = function () {
@@ -1101,13 +1123,13 @@ var Map = (function (window) {
             return isOK;
         }
 
-        MapObject.prototype.getDragStations = function () {
+        MapObject.prototype.getDragStations = function(){
 
             var dragStations = [];
             var props = null;
-            stations.map(function (station) {
+            stations.map(function(station){
                 props = station.getProps();
-                if (props.drag) {
+                if(props.drag && !props.removed){
                     dragStations.push(station);
                 }
             })
@@ -1123,6 +1145,7 @@ var Map = (function (window) {
             var x = downPosition.x;
             var y = downPosition.y;
 
+
             var station = null;
             var isOK = false;
             var props = null;
@@ -1133,7 +1156,7 @@ var Map = (function (window) {
                     isOK = true;
                     props = station.getProps();
 
-                    if (!props.drag) {
+                    if(!props.drag){
                         props.drag = true;
                     }
                     station.setProps(props);
@@ -1176,7 +1199,8 @@ var Map = (function (window) {
         }
 
         //工位拖拽移动
-        MapObject.prototype.moveDragStation = function () {}
+        MapObject.prototype.moveDragStation = function () {
+        }
 
         //工位拖拽-结束
         MapObject.prototype.endDragStation = function () {
@@ -1190,27 +1214,42 @@ var Map = (function (window) {
         MapObject.prototype.removeStation = function () {
 
             var dragStations = this.getDragStations();
-            if (!dragStations.length) {
-                return;
+            if(!dragStations.length){
+                return ;
             }
 
-            dragStations
-                .map(function (station) {
-                    station.remove();
-                });
-
+            var removeStations = [];
+            var props;
+            dragStations.map(function (station) {
+                station.remove();
+                props = station.getProps();
+                removeStations.push(props);
+                MapFactory.removeStationObject(props.id);
+            });
             stations = [];
             this.render();
+            removeCallback && removeCallback(removeStations);
+
         }
+
 
         //重置选中的工位
         MapObject.prototype.cleanDragStations = function () {
             var dragStations = this.getDragStations();
-            dragStations.map(function (station) {
-                station.setProps({drag: false})
+
+            //清掉已经删除的工位对象
+            dragStations = dragStations.filter(function(station){
+                return !station.removed;
             });
+
+            /*
+            dragStations.map(function(station){
+                station.setProps({drag:false})
+            });
+            */
             this.render();
         }
+
 
         //拖拽工位时，生成一个拷贝工位
         MapObject.prototype.drawDragStationMove = function () {
@@ -1219,7 +1258,7 @@ var Map = (function (window) {
 
             //设置其它工位的样式
             stations.map(function (station) {
-                station.setProps({drag: false});
+                station.setProps({ drag: false });
             });
 
             var lx = movePosition.x - downPosition.x;
@@ -1273,6 +1312,7 @@ var Map = (function (window) {
             callback && callback(params);
         }
 
+
         //销毁
         MapObject.prototype.destory = function () {
             stations = null;
@@ -1288,6 +1328,7 @@ var Map = (function (window) {
                 return;
             }
 
+
             if (stationToSame && dragStations.length) {
 
                 var targeStation = dragStations[0];
@@ -1301,33 +1342,15 @@ var Map = (function (window) {
             stations.push(StationFactory(props));
         }
 
-        //change
-        MapObject.prototype.change = function (fieldName, fieldValue) {
-
-            if (!fieldName) {
-                return;
-            }
-
-            switch (fieldName) {
-                case 'scale':
-                    {
-                        scale = Number(fieldValue);
-                        break;
-                    }
-            }
-
-            this.render();
-        }
-
-        MapObject.prototype.getCheckedAll = function () {
+        MapObject.prototype.getCheckedAll = function(){
 
             var checkedAll = [];
             var props = {};
 
-            stations.map(function (station) {
+            stations.map(function(station){
                 props = station.getProps();
 
-                if (props.checked) {
+                if(props.checked){
                     checkedAll.push(props);
                 }
             });
@@ -1338,6 +1361,10 @@ var Map = (function (window) {
 
             var self = this;
 
+            scale = 1;
+            translateX = 0;
+            translateY = 0;
+
             var reader = new FileReader();
             reader.onloadend = function () {
                 self.loadImage(reader.result);
@@ -1346,36 +1373,40 @@ var Map = (function (window) {
 
         }
 
-        MapObject.prototype.stationToSameAction = function () {
+    MapObject.prototype.stationToSameAction = function () {
 
-            var dragStations = this.getDragStations();
+        var dragStations = this.getDragStations();
 
-            if (!stationToSame) {
-                return;
-            }
-
-            if (!dragStations.length) {
-                return;
-            }
-
-            var targeStation = dragStations[0];
-            var props = targeStation.getProps();
-
-            if (props.type === 'meeting') {
-                return;
-            }
-
-            var width = props.width;
-            var height = props.height;
-
-            stations.map(function (station) {
-                var stationProps = station.getProps();
-                if (stationProps.type == 'station') {
-                    station.setProps({width, height});
-                }
-            });
-
+        if (!stationToSame) {
+            return;
         }
+
+        if (!dragStations.length) {
+            return;
+        }
+
+        var targeStation = dragStations[0];
+        var props = targeStation.getProps();
+
+        if(props.type === 'meeting'){
+            return ;
+        }
+
+        var width = props.width;
+        var height = props.height;
+
+        stations.map(function (station) {
+            var stationProps = station.getProps();
+            if(stationProps.type == 'station'){
+                station.setProps({ width, height });
+            }
+        });
+
+    }
+
+    MapObject.prototype.onRemove = function(callback){
+        removeCallback = callback;
+    }
 
         MapObject.prototype.setStationToSame = function (value, callback) {
 
@@ -1392,12 +1423,17 @@ var Map = (function (window) {
             this.render();
         }
 
+
+
         MapObject.prototype.setScale = function (scaleValue) {
             scale = scaleValue;
             this.render();
         }
 
-        ///////////静态方法////////////// 设置鼠标抬起坐标
+        ///////////静态方法//////////////
+
+
+        //设置鼠标抬起坐标
         MapObject.setUpPosition = function (event) {
             upPosition = MapObject.windowToCanvas(event);
         }
@@ -1415,10 +1451,7 @@ var Map = (function (window) {
         //转换坐标
         MapObject.windowToCanvas = function (event) {
 
-            var position = {
-                x: 0,
-                y: 0
-            };
+            var position = { x: 0, y: 0 };
             let bbox = {};
             bbox = canvas.getBoundingClientRect();
 
@@ -1428,23 +1461,17 @@ var Map = (function (window) {
             position.x = clientX - bbox.left * (width / bbox.width);
             position.y = clientY - bbox.top * (height / bbox.height);
 
-            position.x = (position.x < 0
-                ? Math.ceil(position.x)
-                : Math.floor(position.x));
-            position.y = (position.y < 0
-                ? Math.ceil(position.y)
-                : Math.floor(position.y));
+            position.x = (position.x < 0 ? Math.ceil(position.x) : Math.floor(position.x));
+            position.y = (position.y < 0 ? Math.ceil(position.y) : Math.floor(position.y));
 
             return MapFactory.transformPositionToOrigin(position.x, position.y);
 
         };
 
+
         MapObject.canvasToWindow = function (x, y) {
 
-            var position = {
-                x: 0,
-                y: 0
-            };
+            var position = { x: 0, y: 0 };
             let bbox = {};
             bbox = canvas.getBoundingClientRect();
 
@@ -1454,21 +1481,24 @@ var Map = (function (window) {
             position.x = clientX + bbox.left / (width * bbox.width);
             position.y = clientY + bbox.top / (height * bbox.height);
 
-            position.x = (position.x < 0
-                ? Math.ceil(position.x)
-                : Math.floor(position.x));
-            position.y = (position.y < 0
-                ? Math.ceil(position.y)
-                : Math.floor(position.y));
+            position.x = (position.x < 0 ? Math.ceil(position.x) : Math.floor(position.x));
+            position.y = (position.y < 0 ? Math.ceil(position.y) : Math.floor(position.y));
+
 
             return MapFactory.transformPositionToView(position.x, position.y);
         }
+
+
 
         //鼠标右击
         MapObject.contextMenu = {
 
             create: function () {
-                var html = '<ul class="right-menu"><li>加载</li><li>关闭</li></ul>' 
+                var html =
+                    '<ul class="right-menu">' +
+                    '<li>加载</li>' +
+                    '<li>关闭</li>' +
+                    '</ul>'
                 var position = MapObject.canvasToWindow(downPosition.x, downPosition.y);
                 if (typeof contextMenu === 'undefined') {
                     contextMenu = document.createElement('div');
@@ -1495,129 +1525,116 @@ var Map = (function (window) {
         return new MapObject(elementId, configs);
     }
 
+    MapFactory.removeStationObject = function(id){
+        var props;
+        stations = stations.filter(function(station){
+            props = station.getProps();
+            return props.id != id
+        });
+    }
+
+
     MapFactory.transformWidthOrHeightToView = function (w, h) {
         var width = Number(w) * scale;
         var height = Number(h) * scale;
-        return {width, height};
+        return { width, height };
     }
 
     MapFactory.transformWidthOrHeightToOrigin = function (w, h) {
         var width = Number(w) / scale;
         var height = Number(h) / scale;
-        return {width, height};
+        return { width, height };
     }
 
     //将原始坐标转换成到视野窗口坐标
     MapFactory.transformPositionToView = function (x, y) {
         var tx = (Number(x) + Number(translateX)) * scale;
         var ty = (Number(y) + Number(translateY)) * scale;
-        return {x: tx, y: ty};
+        return { x: tx, y: ty };
     }
 
     //将canvas坐标转换成原始坐标
     MapFactory.transformPositionToOrigin = function (x, y) {
         var tx = Number(x) / scale - Number(translateX);
         var ty = Number(y) / scale - Number(translateY);
-        return {x: tx, y: ty};
+        return { x: tx, y: ty };
     }
+
 
     //暴露接口,避免生活糜烂
     const exportMap = function () {
         this.map = MapFactory.apply(null, arguments);
     }
 
+
     //准备
     exportMap.prototype.ready = function () {
-        this
-            .map
-            .ready
-            .apply(this.map, arguments);
+        this.map.ready.apply(this.map, arguments);
     }
 
     //更改数据
     exportMap.prototype.change = function () {
-        this
-            .map
-            .change
-            .apply(this, arguments);
+        this.map.change.apply(this, arguments);
     }
 
     exportMap.prototype.createStation = function () {
 
-        var canvas = this
-            .map
-            .getCanvasElement();
+        var canvas = this.map.getCanvasElement();
         var box = canvas.getBoundingClientRect();
         var params = Object.assign({}, arguments[0]);
         params.x = Number(params.x) - Number(box.left);
         params.y = Number(params.y) - Number(box.top);
 
+
         var position = MapFactory.transformPositionToOrigin(params.x, params.y);
         params.x = position.x;
         params.y = position.y;
 
-        this
-            .map
-            .createStation
-            .call(this.map, params);
+        this.map.createStation.call(this.map, params);
     }
 
     //重置
-    exportMap.prototype.reset = function () {}
-    //销毁
-    exportMap.prototype.destory = function () {
-        this
-            .map
-            .destory
-            .apply(this.map);
+    exportMap.prototype.reset = function () {
+
     }
+    //销毁
+     exportMap.prototype.destory = function () {
+         this.map.destory.apply(this.map);
+     }
 
     //更新背景图片
     exportMap.prototype.setBackgroundImage = function () {
-        this
-            .map
-            .setBackgroundImage
-            .apply(this.map, arguments);
+        this.map.setBackgroundImage.apply(this.map, arguments);
     }
 
     //保存
     exportMap.prototype.save = function () {
-        this
-            .map
-            .save
-            .apply(this.map, arguments);
+        this.map.save.apply(this.map, arguments);
     }
 
     //设置放大缩小
     exportMap.prototype.setScale = function () {
-        this
-            .map
-            .setScale
-            .apply(this.map, arguments);
+        this.map.setScale.apply(this.map, arguments);
     }
 
     //设置工位大小一致
     exportMap.prototype.setStationToSame = function () {
-        this
-            .map
-            .setStationToSame
-            .apply(this.map, arguments);
+        this.map.setStationToSame.apply(this.map, arguments);
     }
 
     //获取选中
-    exportMap.prototype.getCheckedAll = function () {
-        return this
-            .map
-            .getCheckedAll
-            .apply(this, arguments);
+    exportMap.prototype.getCheckedAll = function(){
+        return this.map.getCheckedAll.apply(this.map,arguments);
     }
+
+    exportMap.prototype.onRemove = function(){
+       this.map.onRemove.apply(this.map,arguments);
+    }
+
 
     return exportMap;
 
+
 })(window);
 
-
-
-
-
-module.exports  = Map;
+module.exports=Map;

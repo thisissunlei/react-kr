@@ -1,5 +1,6 @@
 import React from 'react';
 import {reduxForm,initialize,change}  from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import {
 	Title,
 	Section,
@@ -45,9 +46,19 @@ class CommunityPlanMap  extends React.Component{
 			upFlag:false,
 			//点击的人下标
 			dataIndex:'',
-			
 
+			//平面图对象id
+			planMapId:'',
+
+			 //删除的元件
+			 deleteData:[],
+
+			 //楼层变化
+			 floorChange:false
+			
 		}
+		//保存返回的数据
+		 this.saveData={};
 	}
 
 
@@ -63,7 +74,6 @@ Http.request('plan-get-detail',{
 	
 			 var stationsDataOrigin = response.figures;
              var stations = [];
-
 			 stations = stationsDataOrigin.map(function(item,index){
 				var obj = {};
 				var x=item.cellCoordX;
@@ -75,6 +85,9 @@ Http.request('plan-get-detail',{
 				obj.width = item.cellWidth;
 				obj.height = item.cellHeight;
 				obj.name = item.cellName;
+				obj.belongType=item.belongType;
+				obj.belongId=item.belongId;
+				obj.id=item.id;
 				obj.basic = {
 				name:item.cellName,
 				id:item.canFigureId
@@ -90,8 +103,9 @@ Http.request('plan-get-detail',{
 				_this.setState({
 				figureSets:response.figureSets,
 				initializeConfigs:InitializeConfigs,
-				//sameSize:response.stationSizeSame
-				})
+				planMapId:response.id,
+				sameSize:response.stationSizeSame
+			 })
 		}).catch(function(err) {
 			Message.error(err.message);
 		})
@@ -107,6 +121,9 @@ getMapFloor = ()=>{
 	  }).then(function(response) {
 		    _this.setState({
 				floors:response.floors,
+				selectFloor:response.floors[0]
+			},function(){
+				Store.dispatch(change('CommunityPlanMap','floor',_this.state.floors[0]));
 			});
 			_this.getMapConfigs();
 	  }).catch(function(err) {
@@ -120,7 +137,9 @@ componentWillMount(){
 }
 
 componentDidMount(){
-	document.addEventListener('mousemove',this.eventListen)
+
+	document.addEventListener('mousemove',this.eventListen);
+	
 }
 
 
@@ -146,13 +165,17 @@ componentDidMount(){
   floor=(value)=>{
 	this.setState({
 		selectFloor:value.label
+	},function(){
+      this.getMapConfigs(value.label);
 	})
+	
   }
   
   //工位大小一致
   sizeSameCheck=(event)=>{
     this.setState({
-		sameSize:event.target.checked
+		sameSize:event.target.checked,
+		floorChange:true
 	})
   }
   
@@ -171,20 +194,80 @@ componentDidMount(){
 		fileData:event.target.files[0]
 	})
   }
+  
+  //传过来的保存
+  StationSave=(data)=>{
+    this.saveData=data;
+  }
+ 
+ //传过来的删除
+  onRemove=(data)=>{
+    console.log('ggffff',data);
+	this.setState({
+		deleteData:data
+	})
+  }
 
   //保存
   save=()=>{
-    
+    let {deleteData,planMapId,selectFloor}=this.state;
+	var saveData=this.saveData;
+	var stations=[];
+	saveData.stations.map((item,index)=>{
+       var list={};
+	   list.cellCoordX=item.x;
+	   list.cellCoordY=item.y;
+	   list.cellWidth=item.width;
+	   list.cellHeight=item.height;
+       list.id=item.id;
+	   list.belongId=item.belongId;
+	   list.belongType=item.belongType;
+	   if(list.cellCoordX){
+         stations.push(list);
+	   }
+	})
+	stations=JSON.stringify(stations);
+	var cellWidth='';
+	var cellHeight='';
+	var isSame='';
+	var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+	var checked=document.getElementById("sizeCheckbox").checked;
+	if(checked){
+      isSame='SAME';
+	  cellWidth=saveData.stations[0].width;
+	  cellHeight=saveData.stations[0].height;
+	}else{
+      isSame='NOT_SAME';
+	  cellWidth='';
+	  cellHeight='';
+	}
+    Http.request('plan-edit',{},{
+        stationSizeSame:isSame,
+		id:planMapId,
+		floor:selectFloor,
+		communityId:href,
+        cellWidth:cellWidth,
+		cellHeight:cellHeight,
+		graphCellJson:stations,
+		deleteCellIdsStr:['1']
+	}).then(function(response) {
+        window.location.reload();
+	  }).catch(function(err) {
+		Message.error(err.message);
+	  });
   }
+
+
 
 
   
   //上传
   onSubmit=()=>{
     var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
-    let {selectFloor,fileData}=this.state;
 	var _this=this;
+	let {fileData}=this.state;
 	var form = new FormData();
+	form.append('file', fileData);
     var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -200,21 +283,19 @@ componentDidMount(){
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-								    console.log('success',fileResponse);	
-								} else {
-									//_this.onError(fileResponse.msg);
-								}
+									_this.endUpload(fileResponse.data);	
+								} 
 							} else if (xhrfile.status == 413) {
-
-								_this.onError('您上传的文件过大！');
+								Message.error('您上传的文件过大！');
 							} else {
-								_this.onError('后台报错请联系管理员！');
+								Message.error('后台报错请联系管理员！');
 							}
 						}
 					};
 
 					xhrfile.open('POST', 'http://optest.krspace.cn/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
+					xhrfile.withCredentials = true;
 					xhrfile.send(form);
 				} else {
 					Message.error('初始化文件上传失败');
@@ -224,6 +305,26 @@ componentDidMount(){
 		xhr.open('GET', '/api/krspace-finance-web/cmt/floor-graph/upload-token', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
+  }
+ 
+ //上传保存
+  endUpload=(data)=>{
+	let {selectFloor,planMapId}=this.state;
+	var _this=this;
+	var href=window.location.href.split('communityAllocation/')[1].split('/')[0];
+	Http.request('plan-upload',{},{
+        communityId:href,
+		floor:selectFloor,
+		graphFileId:data.id,
+        graphFileName:data.filename,
+		id:planMapId,
+	   }).then(function(response) {
+        _this.setState({
+		  planMapId:response.id	
+		})
+	  }).catch(function(err) {
+		Message.error(err.message);
+	  });
   }
 
 
@@ -279,9 +380,12 @@ allStationUp=(event)=>{
        width=118;
        height=48;
     } 
+	
+
 	if(upFlag){
       if(myApp.getBoundingClientRect().left<event.target.getBoundingClientRect().left+width&&
 	  myApp.getBoundingClientRect().top<event.target.getBoundingClientRect().top+height){
+       figureSets.splice(dataIndex,1);
        this.setState({
 		dragFlag:false,
 		upFlag:false,
@@ -293,7 +397,7 @@ allStationUp=(event)=>{
 			type:type,
 			name:cellname
 		},
-		figureSets:figureSets.splice(dataIndex,1)
+		figureSets:figureSets
        })
 	  }
 	} 
@@ -310,7 +414,7 @@ allStationUp=(event)=>{
 	render(){
 
         let {handleSubmit}=this.props;
-		let {isStation,figureSets,floors,initializeConfigs,fileData,sameSize,scaleSize,stationObj}=this.state;
+		let {floorChange,isStation,figureSets,floors,initializeConfigs,fileData,sameSize,scaleSize,stationObj}=this.state;
 		var floor=[];
 		floors.map((item,index)=>{
           var list={};
@@ -318,8 +422,6 @@ allStationUp=(event)=>{
 		  list.value=item;
 		  floor.push(list);
 		})
-
-        
 
 		return(
          <div>
@@ -336,7 +438,6 @@ allStationUp=(event)=>{
 								 onChange={this.floor}
 								/>
 							</div>
-
 
 							<div className="size-type">
 								<input type="checkbox" id="sizeCheckbox" title="工位大小一致" onChange={this.sizeSameCheck}/>
@@ -411,12 +512,15 @@ allStationUp=(event)=>{
 
 						</div>
 						
-						<PlanMapAll  
+						<PlanMapAll 
 						  initializeConfigs={initializeConfigs}
 						  fileData={fileData}
 						  sameSize={sameSize}
 						  scaleSize={scaleSize}
 						  stationObj={stationObj}
+						  save={this.StationSave}
+						  onRemove={this.onRemove}
+						  floorChange={floorChange}
 						  />
 					
 					 </form>

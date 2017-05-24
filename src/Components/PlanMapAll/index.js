@@ -20,8 +20,9 @@ export default class PlanMapAll extends Component{
             return ;
         }
         if(!initializeConfigs || !initializeConfigs.hasOwnProperty('backgroundImageUrl')){
-            return;
+            return ;
         }
+        
         this.map = new Map('mapAPP',initializeConfigs);
 
         this.isInit = true;
@@ -32,6 +33,7 @@ export default class PlanMapAll extends Component{
 
        this.init(this.props.initializeConfigs); 
        
+       
     }
 
     componentWillReceiveProps(nextProps){
@@ -39,23 +41,23 @@ export default class PlanMapAll extends Component{
         if(nextProps.fileData){
           this.file(nextProps.fileData);
         }
-          this.sameSize(nextProps.sameSize);
+          this.sameSize(nextProps.sameSize,nextProps.floorChange);
           this.scaleSize(nextProps.scaleSize);
           this.stationCanvas(nextProps.stationObj);
-          
-        
+          this.deleteStation();
+          this.save();
     }
     
     file=(file)=>{
       this.map.setBackgroundImage(file);
     }
 
-    sameSize=(same)=>{
+    sameSize=(same,change)=>{
       if(!this.map){
           return ;
       }
        this.map.setStationToSame(same,function(code,message){
-        if(code<0){
+        if(code<0&&change){
         alert('请选择工位');
         document.getElementById("sizeCheckbox").checked=false;
        }
@@ -76,13 +78,37 @@ export default class PlanMapAll extends Component{
       this.map.createStation(data);
    }
 
+   save=()=>{
+       const {
+			save
+		} = this.props;
+       if(!this.map){
+           return ;
+       }
+       this.map.save(function(data){
+         save && save(data);
+       })
+   }
+   
+  deleteStation=()=>{
+     const {
+			onRemove
+		} = this.props;
+       if(!this.map){
+           return ;
+       }
+       this.map.onRemove(function(data){
+         onRemove && onRemove(data);
+      }) 
+  }
 
 
 	render(){  
 	   
        return(
-            <div id="mapAPP" className='m-map-main'>
-              
+            <div className='m-map-main'>
+                <div className='m-inner-main' id="mapAPP">
+                </div>
             </div>
        	)
 	}
