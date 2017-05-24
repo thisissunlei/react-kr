@@ -448,9 +448,12 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 
 		stationVos = stationVos.map(function(item) {
+
 			var obj = {};
 			obj.id = item.stationId;
 			obj.belongType = item.stationType;
+			
+
 			return obj;
 		});
 
@@ -504,6 +507,9 @@ class NewCreateForm extends React.Component {
 
 	onIframeClose(billList) {
 
+
+		billList = [].concat(billList);
+
 		this.openStationDialog();
 
 
@@ -521,6 +527,7 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+		console.log("billList",billList);
 
 		try {
 			billList.map(function(item, index) {
@@ -530,7 +537,7 @@ class NewCreateForm extends React.Component {
 				item.stationType = item.type;
 				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.whereFloor;
 			});
 		} catch (err) {
 		}

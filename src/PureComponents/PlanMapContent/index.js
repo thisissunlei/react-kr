@@ -118,8 +118,6 @@ export default class PlanMapComponent extends React.Component {
 				}
 
 		})
-		//
-
 		this.setState({
 			submitData:arr,
 			deleteArr:deleteArr
@@ -170,26 +168,35 @@ export default class PlanMapComponent extends React.Component {
 		let allData = [];
 		let delData = [];
 		submitData.map(function(item,index){
-			let obj = {};
-			obj.id = item.belongId;
-			obj.type = item.belongType;
-			obj.whereFloor = item.floor;
-			obj.name = item.cellName;
-			obj.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
-			obj.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
-			allData.push(obj);
-		})
-		deleteArr.map(function(item,index){
-			let obj = {};
-			obj.id = item.belongId;
-			obj.type = item.belongType;
-			obj.whereFloor = item.floor;
+				console.log('--->',item);
+			
+			var obj1 = {};
+			obj1.id = item.belongId;
+			obj1.type = item.belongType;
+			obj1.whereFloor = item.floor;
+			obj1.name = item.cellName;
+			obj1.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
+			obj1.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
 
-			delData.push(obj);
-		})
 
+				allData.push(obj1);
+		})
+		
+		 deleteArr.map(function(item,index){
+			let obj2 = {};
+		 	obj2.id = item.belongId;
+		 	obj2.type = item.belongType;
+			obj2.whereFloor = item.floor;
+
+		 	delData.push(obj2);
+		 })
+		
+
+		console.log(allData,">>>>>>");
 		const {onClose} = this.props;
+		
 		onClose && onClose(allData,delData);
+		
 
 
 	}
