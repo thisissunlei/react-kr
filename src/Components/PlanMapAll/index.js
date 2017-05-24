@@ -55,6 +55,13 @@ export default class PlanMapAll extends Component {
         this.map.setScale(scale);
     }
 
+    setStationToSame=(checked,callback)=>{
+        if (!this.map) {
+            return;
+        }
+        this.map.setStationToSame(checked,callback);
+    }
+
     createStation = (data) => {
         if (!this.map) {
             return;
@@ -82,17 +89,7 @@ export default class PlanMapAll extends Component {
         });
     }
 
-    deleteStation = () => {
-        const {
-			onRemove
-		} = this.props;
-        if (!this.map) {
-            return;
-        }
-        this.map.onRemove(function (data) {
-            onRemove && onRemove(data);
-        });
-    }
+
 
     render() {
 
