@@ -136,6 +136,7 @@ class StationReservation extends React.Component {
 			              <TableHeaderColumn>营业开始时间</TableHeaderColumn>
 			              <TableHeaderColumn>营业结束时间</TableHeaderColumn>
 			              <TableHeaderColumn>消耗积分</TableHeaderColumn>
+			              <TableHeaderColumn>预约状态</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 
