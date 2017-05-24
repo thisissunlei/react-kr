@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'; 
+import React, { PropTypes } from 'react';
 import {Http} from 'kr/Utils';
 import StationReservationFrom from './StationReservationFrom';
 import StationReservationDel from './StationReservationDel';
@@ -30,12 +30,12 @@ import './index.less';
 //招商线索
 
 class StationReservation extends React.Component {
-	
+
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+
             searchParams:{
                 communityId:"",
                 date:"",
@@ -46,18 +46,17 @@ class StationReservation extends React.Component {
             },
    		    openDelStation:false,
    		    id:'',
-            
+
 		}
-	
+
 	}
 
 	componentDidMount() {
-		
+
 	}
-  
+
 
 	deleteClick = (data) =>{
-			console.log(data,"MMMM")
 			this.setState({
    				 openDelStation:true,
    				 id:data.id
@@ -86,7 +85,7 @@ class StationReservation extends React.Component {
 				}
 			 })
 			 _this.close();
-			
+
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -105,14 +104,14 @@ class StationReservation extends React.Component {
             }
     	})
     }
-	
-	
+
+
 	render() {
 		const {openDelStation,searchParams} = this.state;
 		return (
 
 			<div className="m-station-reservation" style={{minHeight:910,background:'#fff'}}>
-			<Title value="工位预约列表"/>
+			<Title value="空间预定"/>
              <StationReservationFrom onSubmit = {this.fromOnSubmit}/>
 			 <Table
 				    style={{marginTop:8}}
@@ -136,6 +135,7 @@ class StationReservation extends React.Component {
 			              <TableHeaderColumn>营业开始时间</TableHeaderColumn>
 			              <TableHeaderColumn>营业结束时间</TableHeaderColumn>
 			              <TableHeaderColumn>消耗积分</TableHeaderColumn>
+			              <TableHeaderColumn>预约状态</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 
@@ -143,7 +143,7 @@ class StationReservation extends React.Component {
 				          <TableRow>
                                 <TableRowColumn name="communityName" ></TableRowColumn>
                                 <TableRowColumn name="memberName" ></TableRowColumn>
-                                <TableRowColumn name="customerName" 
+                                <TableRowColumn name="customerName"
 									component={(value,oldValue) =>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -155,7 +155,7 @@ class StationReservation extends React.Component {
 											return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 									}}
-								
+
 								></TableRowColumn>
                                 <TableRowColumn name="beginTime"
                                     component={(value,oldValue,itemData)=>{
@@ -164,16 +164,27 @@ class StationReservation extends React.Component {
                                 >
                                 </TableRowColumn>
                                 <TableRowColumn name="businessBeginTime"
-                                   
+
                                 >
                                 </TableRowColumn>
 
 								<TableRowColumn name="businessEndTime"
-                                    
+
                                 >
                                 </TableRowColumn>
                                 <TableRowColumn name="amount" ></TableRowColumn>
-								
+								<TableRowColumn name="disable"
+									component={(value,oldValue) =>{
+										if(value == "false"){
+											return <span>已预约</span>;
+										}else{
+											return <span style = {{color:"red"}}>已取消</span>;
+										}
+
+									}}
+
+								></TableRowColumn>
+
                                 <TableRowColumn name = "deletable"
 									component={(value,oldValue,itemData)=>{
 										console.log(typeof value)
@@ -186,7 +197,7 @@ class StationReservation extends React.Component {
 										}
                                     }}
 								>
-                                    
+
                                 </TableRowColumn>
                         </TableRow>
                     </TableBody>

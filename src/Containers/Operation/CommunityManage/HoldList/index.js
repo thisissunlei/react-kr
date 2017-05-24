@@ -92,7 +92,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-hold-list">
-				<Section title="信息列表" >
+				<Section title="支持列表" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" > </Col>
@@ -114,15 +114,31 @@ openHighSearch = () => {
             >
         <TableHeader>
         <TableHeaderColumn>社区名称</TableHeaderColumn>
+				<TableHeaderColumn>客户名称</TableHeaderColumn>
         <TableHeaderColumn>问题类型</TableHeaderColumn>
 				<TableHeaderColumn>内容</TableHeaderColumn>
+				<TableHeaderColumn>联系人</TableHeaderColumn>
+				<TableHeaderColumn>联系电话</TableHeaderColumn>
 				<TableHeaderColumn>创建时间</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
         <TableRow>
           <TableRowColumn name="communityName" ></TableRowColumn>
+ 					<TableRowColumn name="company" component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
 
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}>></TableRowColumn>
           <TableRowColumn name="typeName"></TableRowColumn>
 					<TableRowColumn name="content" component={(value)=>{
                   var styles = {
@@ -139,11 +155,13 @@ openHighSearch = () => {
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}>
         </TableRowColumn>
-          <TableRowColumn type="date" name="time" component={(value)=>{
-            return (
-              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
-            )
-          }}> </TableRowColumn>
+				<TableRowColumn name="mbrName"></TableRowColumn>
+				<TableRowColumn name="phone"></TableRowColumn>
+				<TableRowColumn type="date" name="time" component={(value)=>{
+					return (
+						<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+					)
+				}}> </TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>
