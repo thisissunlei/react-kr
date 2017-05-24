@@ -75,12 +75,17 @@ Http.request('plan-get-detail',{
 			 var stationsDataOrigin = response.figures;
              var stations = [];
 			 stations = stationsDataOrigin.map(function(item,index){
+
+				 if(!item){
+					return ;
+				 }
 				var obj = {};
 				var x=item.cellCoordX;
 				var y=item.cellCoordY;
 
 				obj.x = Number(x);
 				obj.y = Number(y);
+				
 
 				obj.width = item.cellWidth;
 				obj.height = item.cellHeight;
@@ -88,18 +93,16 @@ Http.request('plan-get-detail',{
 				obj.belongType=item.belongType;
 				obj.belongId=item.belongId;
 				obj.id=item.id;
-				obj.basic = {
-				name:item.cellName,
-				id:item.canFigureId
-				};
+				obj.canFigureId=item.canFigureId;
 
 				return obj;
 			});
+			   
 				var InitializeConfigs = {
 					stations:stations,
 					backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath
 				}
-            
+
 				_this.setState({
 				figureSets:response.figureSets,
 				initializeConfigs:InitializeConfigs,
@@ -202,9 +205,18 @@ componentDidMount(){
  
  //传过来的删除
   onRemove=(data)=>{
-    console.log('ggffff',data);
+   let {figureSets}=this.state;
+	data.map((item,index)=>{
+      var list={};
+	  list.cellName=item.name;
+	  list.belongId=10717;
+	  list.belongType=item.type=='station'?"STATION":"SPACE";
+      figureSets.push(list);
+	})
+	console.log('di',data,figureSets);
 	this.setState({
-		deleteData:data
+		deleteData:data,
+		figureSets
 	})
   }
 
@@ -213,6 +225,13 @@ componentDidMount(){
     let {deleteData,planMapId,selectFloor}=this.state;
 	var saveData=this.saveData;
 	var stations=[];
+	var deleteStation=[];
+	deleteData.map((item,index)=>{
+      deleteStation.push(item.id.toString());
+	})
+    var de=deleteStation.join();
+	console.log('fffff',de);
+	deleteStation=JSON.stringify(deleteStation);
 	saveData.stations.map((item,index)=>{
        var list={};
 	   list.cellCoordX=item.x;
@@ -223,7 +242,7 @@ componentDidMount(){
 	   list.belongId=item.belongId;
 	   list.belongType=item.belongType;
 	   if(list.cellCoordX){
-         stations.push(list);
+        stations.push(list);
 	   }
 	})
 	stations=JSON.stringify(stations);
@@ -249,7 +268,7 @@ componentDidMount(){
         cellWidth:cellWidth,
 		cellHeight:cellHeight,
 		graphCellJson:stations,
-		deleteCellIdsStr:['1']
+		deleteCellIdsStr:de
 	}).then(function(response) {
         window.location.reload();
 	  }).catch(function(err) {

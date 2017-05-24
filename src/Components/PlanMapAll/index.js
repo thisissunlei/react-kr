@@ -37,15 +37,18 @@ export default class PlanMapAll extends Component{
     }
 
     componentWillReceiveProps(nextProps){
+         
          this.init(nextProps.initializeConfigs);
         if(nextProps.fileData){
           this.file(nextProps.fileData);
         }
+
+          this.stationCanvas(nextProps.stationObj);
           this.sameSize(nextProps.sameSize,nextProps.floorChange);
           this.scaleSize(nextProps.scaleSize);
-          this.stationCanvas(nextProps.stationObj);
           this.deleteStation();
           this.save();
+         
     }
     
     file=(file)=>{
