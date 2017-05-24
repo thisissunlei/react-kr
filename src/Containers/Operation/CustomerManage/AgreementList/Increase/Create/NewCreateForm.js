@@ -429,8 +429,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	getStationUrl() {
-
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 		let {
 			changeValues,
 			initialValues,
@@ -456,8 +454,8 @@ class NewCreateForm extends React.Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
 
 		};
 

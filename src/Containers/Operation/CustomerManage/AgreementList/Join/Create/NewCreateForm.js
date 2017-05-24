@@ -463,8 +463,8 @@ class NewCreateForm extends React.Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
 			unitprice:0
 
 		};
