@@ -29,7 +29,7 @@ const ForEachMenuItemPermission = function(childItem,topItem,menusCode){
 		childItem.isPermission = false;
 		
 	}else if(childItem.hasOwnProperty('menuCode')){
-		console.log('222')
+		
 		childItem.isPermission = false;
 	}else{
 		childItem.isPermission = true;
@@ -110,13 +110,13 @@ State.loadNavData = action(function(){
 State.setPermissionNav = action(function(menusCode){
 	var navs = DefaultNavsDic.items;
 
-	console.log('init navs---',navs)
+	
 	navs = navs.map(function(topItem){
 		return ForEachMenuItemPermission(topItem,topItem,menusCode) ;
 	}).filter(function(item){
 		return item.isPermission;
 	});
-	console.log('navs111---',navs)
+	
 	this.items = navs;
 	this.isLoadedPermissionNav = true;
 	this.setRouter();
