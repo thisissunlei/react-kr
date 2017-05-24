@@ -73,7 +73,7 @@ export default class Header extends React.Component {
 		this.state={
 			sidebarNavs:[],
 			Isperson:false,
-			navs:[],
+			
 		}
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
@@ -83,9 +83,6 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.loadNavData();	
 		var  navs = NavModel.getNavs();
-		this.setState({
-			navs:navs
-		})
 		window.addEventListener("click", this.personHide, false);
 	}
 	componentWillUnmount(){
@@ -125,7 +122,9 @@ export default class Header extends React.Component {
 	render() {
 
 		const {NavModel} = this.props;
-		let {Isperson,navs}=this.state;
+		let {Isperson}=this.state;
+
+		var  navs = NavModel.getNavs();
 		var	 person=NavModel.getUser();
 		var  sidebarNavs=NavModel.getSidebarNavs();
 		console.log('navs---',navs)
