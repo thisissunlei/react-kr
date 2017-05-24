@@ -57,7 +57,6 @@ class StationReservation extends React.Component {
 
 
 	deleteClick = (data) =>{
-			console.log(data,"MMMM")
 			this.setState({
    				 openDelStation:true,
    				 id:data.id
