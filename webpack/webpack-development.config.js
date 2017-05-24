@@ -6,19 +6,30 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
-const Envs = require(path.join(process.cwd(),'src','Configs','Envs'));
+const Envs = require(path.join(process.cwd(), 'src', 'Configs', 'Envs'));
 
 const node_modules_dir = path.join(process.cwd(), 'node_modules');
 
 var env = process.env.NODE_ENV || 'development';
 
-console.log('=== 所在环境 ===\n', env,Envs.test);
+console.log('=== 所在环境 ===\n', env, Envs.test);
 
 const config = {
 	entry: {
 		development: [
 			'webpack/hot/dev-server',
 			'webpack/hot/only-dev-server',
+		],
+		vendors: [
+			'react',
+			'react-dom',
+			'redux',
+			'react-redux',
+			'mobx',
+			'mobx-react',
+			'react-router',
+			'material-ui',
+			'lodash',
 		],
 		page_app: path.join(process.cwd(), '/src/Page/App/index.js'),
 		page_login: path.join(process.cwd(), '/src/Page/Login/index.js')
@@ -65,10 +76,12 @@ const config = {
 	plugins: [
 		new CleanWebpackPlugin([path.resolve(buildPath)]),
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.DllReferencePlugin({
-			context: __dirname,
-			manifest: require(path.join(buildPath, 'vendors', 'manifest.json')),
-			name: 'lib'
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendors',
+			async: 'common-in-lazy',
+			minChunks: (module, count) => (
+				count >= 2
+			),
 		}),
 		new HappyPack({
 			id: 'jsx',

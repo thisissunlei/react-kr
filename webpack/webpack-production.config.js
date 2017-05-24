@@ -8,26 +8,37 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const node_modules_dir = path.join(process.cwd(),'node_modules');
+const node_modules_dir = path.join(process.cwd(), 'node_modules');
 
 
 const config = {
-	entry:{
-		page_app:path.join(process.cwd(), '/src/Page/App/index.js'),
-		page_login:path.join(process.cwd(), '/src/Page/Login/index.js')
+	entry: {
+		page_app: path.join(process.cwd(), '/src/Page/App/index.js'),
+		page_login: path.join(process.cwd(), '/src/Page/Login/index.js'),
+		vendors: [
+			'react',
+			'react-dom',
+			'redux',
+			'react-redux',
+			'mobx',
+			'mobx-react',
+			'react-router',
+			'material-ui',
+			'lodash',
+		]
 	},
 	resolve: {
-		extensions: ['', '.js','.less','.png','.jpg','.svg'],
+		extensions: ['', '.js', '.less', '.png', '.jpg', '.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
-			'redux':path.join(node_modules_dir,'redux'),
-			'react-redux':path.join(node_modules_dir,'react-redux'),
-			'mobx':path.join(node_modules_dir,'mobx'),
-			'mobx-react':path.join(node_modules_dir,'mobx-react'),
-			'react-router':path.join(node_modules_dir,'react-router'),
-			'material-ui':path.join(node_modules_dir,'material-ui'),
-			'lodash':path.join(node_modules_dir,'lodash')
+			'redux': path.join(node_modules_dir, 'redux'),
+			'react-redux': path.join(node_modules_dir, 'react-redux'),
+			'mobx': path.join(node_modules_dir, 'mobx'),
+			'mobx-react': path.join(node_modules_dir, 'mobx-react'),
+			'react-router': path.join(node_modules_dir, 'react-router'),
+			'material-ui': path.join(node_modules_dir, 'material-ui'),
+			'lodash': path.join(node_modules_dir, 'lodash')
 		},
 	},
 	// 出口文件配置
@@ -47,10 +58,13 @@ const config = {
 				NODE_ENV: JSON.stringify('production'),
 			}
 		}),
-		new webpack.DllReferencePlugin({
-			context: __dirname,
-			manifest: require(path.resolve(buildPath, 'vendors', 'manifest.json')),
-			name: 'lib'
+
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendors',
+			async: 'common-in-lazy',
+			minChunks: (module, count) => (
+				count >= 2
+			),
 		}),
 
 		new HappyPack({
