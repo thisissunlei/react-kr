@@ -92,7 +92,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-hold-list">
-				<Section title="信息列表" >
+				<Section title="支持列表" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" > </Col>
