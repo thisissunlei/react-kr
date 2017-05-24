@@ -330,9 +330,9 @@ class VisitorsToRecord  extends React.Component{
         } = this.state;
 
 		return(
-			<div className="m-equipment-list m-visitors-to-record" style={{paddingTop:25,minHeight:'910'}}>
-				<Title value="访客记录"/>
-      		<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
+			<div className="m-equipment-list m-visitors-to-record" style={{minHeight:'910'}}>
+				<Title value="预约参观"/>
+      		<Section title="预约参观"  style={{marginBottom:-5,minHeight:910}}>
 
 		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>
 				          <Col
@@ -347,9 +347,6 @@ class VisitorsToRecord  extends React.Component{
 						  </Col>
 
 				          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10,zIndex:99}}>
-
-
-
 					          <ListGroup>
 
                         <ListGroupItem>
