@@ -71,9 +71,7 @@ export default class Header extends React.Component {
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			sidebarNavs:[],
 			Isperson:false,
-			
 		}
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
@@ -126,8 +124,6 @@ export default class Header extends React.Component {
 
 		var  navs = NavModel.getNavs();
 		var	 person=NavModel.getUser();
-		var  sidebarNavs=NavModel.getSidebarNavs();
-		console.log('navs---',navs)
 		
 		return (
 			<div className="no-print">
@@ -149,7 +145,7 @@ export default class Header extends React.Component {
 						drawerStyle={{zIndex:-1,width:180}} 
 						contentStyle={{width:"100%",background:'rgb(57, 68, 87)',padding:0}}
 					>
-					<SidebarNav SidebarNavDate={sidebarNavs} />
+					<SidebarNav />
 				</Drawer>
 			</div>
 	   );

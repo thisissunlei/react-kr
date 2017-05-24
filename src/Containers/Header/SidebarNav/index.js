@@ -1,18 +1,15 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 
-
 import './index.less';
+
 @inject("NavModel")
 @observer
 export default class SidebarNav extends React.Component {
-    static PropTypes = {
-        SidebarNavDate: React.PropTypes.array
-       
-    };
+
+
 	constructor(props,context){
 		super(props, context);
-
 	}
 	
 	renderMenuItems=(menuItems)=>{
@@ -27,11 +24,12 @@ export default class SidebarNav extends React.Component {
 	
 	render() {
 
-		const {NavModel,SidebarNavDate} = this.props;
+		const {NavModel} = this.props;
+
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">
-					{SidebarNavDate.map((item,index)=>{
+					{NavModel.sidebarNavs.map((item,index)=>{
 						if(item.menuItems.length>0){
 							return(
 									<div className="m-sidebar-nav" key={index}>

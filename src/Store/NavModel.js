@@ -15,31 +15,28 @@ let State = observable({
 	openHeaderbar:true,
 	userInfo:{nickname:''},
 	menusCode:[],
+	sidebarNavs:[],
 	items:[],
 	isLoadedPermissionNav:false,
+	isLoadNavData:false,
 });
 
 
-const ForEachMenuItemPermission = function(childItem,topItem,menusCode){
+const ForEachMenuItemPermission = function(childItem,parentItem,topItem,menusCode){
 	
 	if(childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) !== -1){
 		childItem.isPermission = true;
+		parentItem.isPermission = true;
 		topItem.isPermission = true;
 	}else if(childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) == -1){
 		childItem.isPermission = false;
-		
-	}else if(childItem.hasOwnProperty('menuCode')){
-		
-		childItem.isPermission = false;
-	}else{
-		childItem.isPermission = true;
 	}
 	
 	if(typeof childItem === 'object' && childItem.hasOwnProperty('menuItems')){
 		var menuItems = childItem.menuItems;
 		for(var i = 0;i<menuItems.length;i++){
 			var item = menuItems[i];
-			item = ForEachMenuItemPermission(item,topItem,menusCode);
+			item = ForEachMenuItemPermission(item,childItem,topItem,menusCode);
 			menuItems[i] = item;
 			if(item.hasOwnProperty('isPermission') && item.isPermission){
 				childItem.isPermission = true;
@@ -98,32 +95,42 @@ State.setUserInfo = action(function(userInfo){
 State.loadNavData = action(function(){
 	var _this = this;
 
+	if(this.isLoadNavData){
+		return;
+	}
+
 	Http.request('newMenuInfo').then(function(response) {
 		var userInfo = response.userInfo;
 		var menusCode = response.menusCode;
 		_this.setUserInfo(response.userInfo);
 		_this.setPermissionNav(response.menusCode);
+		_this.isLoadNavData = true;
 	}).catch(function(err) { });
 
 });
 
 State.setPermissionNav = action(function(menusCode){
-	var navs = DefaultNavsDic.items;
 
-	
+	if(this.isLoadedPermissionNav){
+		return ;
+	}
+
+	var navs = DefaultNavsDic.items;
 	navs = navs.map(function(topItem){
-		return ForEachMenuItemPermission(topItem,topItem,menusCode) ;
+		return ForEachMenuItemPermission(topItem,topItem,topItem,menusCode) ;
 	}).filter(function(item){
 		return item.isPermission;
 	});
-	
+
 	this.items = navs;
 	this.isLoadedPermissionNav = true;
 	this.setRouter();
+
 });
 
 State.setRouter = action(function(){
 
+	this.loadNavData();
 	if(!this.isLoadedPermissionNav){
 		return ;
 	}
@@ -135,16 +142,18 @@ State.setRouter = action(function(){
 	navs = navs.map(function(topItem){
 		return ForEachMenuItem(topItem,router,topItem)
 	});
-	this.items = navs;
+
+	mobx.extendObservable(this,{items:navs});
+	this.setSidebarNavs();
+	console.log('items:',navs);
 });
 
 
 State.getNavs=action(function(){
-	return mobx.toJS(this.items);
+	return this.items;
 });
 
-
-State.getSidebarNavs=action(function(){
+State.setSidebarNavs=action(function(){
 
 	var navs = this.getNavs();
 	var topItem = null;
@@ -160,9 +169,11 @@ State.getSidebarNavs=action(function(){
 	if(topItem && typeof topItem === 'object' && topItem.hasOwnProperty('menuItems')){
 		menuItems = topItem.menuItems;
 	}
-	
 
-	return menuItems;
+	console.log('menuItems:',mobx.toJS(menuItems));
+
+	mobx.extendObservable(this,{sidebarNavs:menuItems})
+
 });
 
 State.toggleSidebar=action(function(value){
