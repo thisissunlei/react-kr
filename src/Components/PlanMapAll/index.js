@@ -43,11 +43,11 @@ export default class PlanMapAll extends Component{
           this.file(nextProps.fileData);
         }
 
-          this.stationCanvas(nextProps.stationObj);
-          this.sameSize(nextProps.sameSize,nextProps.floorChange);
-          this.scaleSize(nextProps.scaleSize);
-          this.deleteStation();
-          this.save();
+       //this.stationCanvas(nextProps.stationObj);
+       //this.sameSize(nextProps.sameSize,nextProps.floorChange);
+       //this.scaleSize(nextProps.scaleSize);
+       //this.deleteStation();
+       //this.save();
          
     }
     
@@ -74,11 +74,14 @@ export default class PlanMapAll extends Component{
       this.map.setScale(scale);
     }
 
-   stationCanvas=(data)=>{
+   createStation = (data)=>{
+
       if(!this.map){
           return ;
       }
+
       this.map.createStation(data);
+
    }
 
    save=()=>{
