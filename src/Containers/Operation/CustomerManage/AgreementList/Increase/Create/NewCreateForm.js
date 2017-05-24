@@ -468,7 +468,7 @@ class NewCreateForm extends React.Component {
 	onIframeClose(billList) {
 
 		this.openStationDialog();
-
+		console.log(billList,"KKKKK");
 
 		if (!billList) {
 			return;
