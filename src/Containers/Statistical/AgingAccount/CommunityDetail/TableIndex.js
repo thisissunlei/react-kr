@@ -32,7 +32,8 @@ export default class TableIndex extends React.Component{
 			leftTitleTop:213,
 			leftTitleItemP:'',
 			leftTitleItemTop:100,
-			fixedWidth : 930
+			fixedWidth : 930,
+			titleLeftMarginTop:0,
 
 		}
 	}
@@ -57,13 +58,15 @@ export default class TableIndex extends React.Component{
 						isShowTitle:"block",
 						leftTitleTop:60,
 						leftTitleItemP:"absolute",
-						leftTitleItemTop:100-($(window).scrollTop()-154)
+						leftTitleItemTop:100-($(window).scrollTop()-154),
+						titleLeftMarginTop:0,
 					})
 				}else{
 					_this.setState({
 						isShowTitle:"none",
 						leftTitleTop:213-(_this.state.windowScrollTop),
-						leftTitleItemP:''
+						leftTitleItemP:'',
+						titleLeftMarginTop:1,
 						
 					})
 				}
@@ -92,11 +95,10 @@ export default class TableIndex extends React.Component{
 		
 	}
 
-	seeDetailForm=()=>{
-		// window.open();
-		console.log("你点击了查看");
-		// var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
-		// window.location.href = url;
+	seeDetailForm=(_this,item)=>{
+		
+		window.open(`./#/operation/customerManage/${_this.customerId}/order/${_this.mainBillId}/detail`);
+
 	}
 
 
@@ -219,7 +221,7 @@ export default class TableIndex extends React.Component{
 												}) 
 				  							}</div></td>
 				  					<td><div>{item.endDate>Date.parse(new Date())?"未结束":"已结束"}</div></td>
-				  					<td><div style={{color:"#499df1"}}><span onClick={_this.seeDetailForm} style={{cursor:"pointer"}}>查看</span></div></td>
+				  					<td><div style={{color:"#499df1"}}><span onClick={_this.seeDetailForm.bind(_this,item)} style={{cursor:"pointer"}}>查看</span></div></td>
 
 					  			</tr>
 					  		})

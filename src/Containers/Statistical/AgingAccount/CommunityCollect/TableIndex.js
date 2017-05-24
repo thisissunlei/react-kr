@@ -19,7 +19,7 @@ import {
 } from 'mobx-react';
 @ observer
 
-export default class TanLinLin extends React.Component{
+export default class TableIndex extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -27,11 +27,12 @@ export default class TanLinLin extends React.Component{
 			windowScrollTop:0,
 			isShowTitle:"none",
 			isShowLeftTitle:"none",
-			titleLeft:0,
+			titleScrollLeft:0,
 			leftTitleTop:213,
 			leftTitleItemP:'',
 			leftTitleItemTop:100,
-			fixedWidth : 930
+			fixedWidth : 930,
+			titleLeftMarginTop:0,
 
 		}
 	}
@@ -58,13 +59,15 @@ export default class TanLinLin extends React.Component{
 						isShowTitle:"block",
 						leftTitleTop:60,
 						leftTitleItemP:"absolute",
-						leftTitleItemTop:100-($(window).scrollTop()-154)
+						leftTitleItemTop:100-($(window).scrollTop()-154),
+						titleLeftMarginTop:0,
 					})
 				}else{
 					_this.setState({
 						isShowTitle:"none",
 						leftTitleTop:213-(_this.state.windowScrollTop),
-						leftTitleItemP:''
+						leftTitleItemP:'',
+						titleLeftMarginTop:1,
 						
 					})
 				}
@@ -80,14 +83,15 @@ export default class TanLinLin extends React.Component{
 		    	_this.setState({
 		    		
 		    		isShowLeftTitle:"block",
-		    		titleLeft : -($('.table-box').eq(0).scrollLeft()),
+		    		titleScrollLeft : -($('.table-box').eq(0).scrollLeft())
+		    		
 
 		    	})
 		    }else{
 		    	_this.setState({
 		    		isShowLeftTitle:"none",
-		    		titleLeft : -($('.table-box').eq(0).scrollLeft()),
-
+		    		titleScrollLeft : -($('.table-box').eq(0).scrollLeft())
+		    		
 		    	})
 		    }
 		   
@@ -102,12 +106,12 @@ export default class TanLinLin extends React.Component{
 	}
 	
 	render(){
-		let {isShowTitle,titleLeft,isShowLeftTitle,leftTitleTop,leftTitleItemP,leftTitleItemTop,fixedWidth} = this.state;
+		let {isShowTitle,titleScrollLeft,isShowLeftTitle,leftTitleTop,leftTitleItemP,leftTitleItemTop,fixedWidth,titleLeftMarginTop} = this.state;
 
 		return (
 			<div className="table-box">
 				<div className="table-title" style={{display:isShowTitle,width:fixedWidth}}>
-					<table className="table-container" cellPadding='0' cellSpacing='0' style={{position:"absolute",left:titleLeft}} >
+					<table className="table-container" cellPadding='0' cellSpacing='0' style={{position:"absolute",left:titleScrollLeft}} >
 					  <tbody>
 					  	<tr>
 					      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
@@ -129,20 +133,15 @@ export default class TanLinLin extends React.Component{
 					   </tbody>
 					</table>
 				</div>
-				<div className="table-left-title" style={{display:isShowLeftTitle,top:leftTitleTop}}>
+				<div className="table-left-title" style={{display:isShowLeftTitle,top:leftTitleTop,marginTop:titleLeftMarginTop}}>
 					<div className="left-title-header" style={{position:leftTitleItemP}}>社区</div>
 					<div className="left-title-box" style={{position:leftTitleItemP,top:leftTitleItemTop}}>
-						<div className="left-title-item">创业大街社区</div>
-						<div className="left-title-item">酒仙桥社区</div>
-						<div className="left-title-item">浦项社区</div>
-						<div className="left-title-item">酒仙桥社区</div>
-						<div className="left-title-item">浦项社区</div>
-						<div className="left-title-item">酒仙桥社区</div>
-						<div className="left-title-item">浦项社区</div>
-						<div className="left-title-item">酒仙桥社区</div>
-						<div className="left-title-item">浦项社区</div>
-						<div className="left-title-item">酒仙桥社区</div>
-						<div className="left-title-item">浦项社区</div>
+						
+						{
+							State.items.map(function(item,index){
+								return <div className="left-title-item" key={index}>{item.communityName}</div>
+							})
+						}
 
 					</div>
 					
@@ -166,57 +165,49 @@ export default class TanLinLin extends React.Component{
 				      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
 				      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
 				    </tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>创业大街社区</div></td>
-				   		<td><div>1111</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>酒仙桥社区</div></td>
-				   		<td><div>2222</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   		<td><div>3333</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>酒仙桥社区</div></td>
-				   		<td><div>4444</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   		<td><div>5555</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   		<td><div>6666</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   	</tr>
-				   	<tr>
-				   		<td><div>fmsalsfdad</div></td>
-				   		<td><div>浦项社区</div></td>
-				   	</tr>
-
+				   	
+				   {
+					   	State.items.map(function(item,index){
+					   		return <tr key={index}>
+						   		<td><div>{item.cityName}</div></td>
+						   		<td><div>{item.communityName}</div></td>
+						   		<td><div>{(item.rent.receivableBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div>{(item.deposit.receivableBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div>{(item.rent.realBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div>{(item.deposit.realBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div>{(item.rent.arrearsAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div>{(item.deposit.arrearsAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div style={{color:"#ff0000"}}>{(item.lateFee+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		<td><div style={{color:"#ff0000"}}>{(item.totalAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
+												  return s+','
+												}) 
+				  							}</div></td>
+						   		
+						   	</tr>
+					   	})
+				   }
+				   	
 				   </tbody>
 				   <tfoot>
 				    

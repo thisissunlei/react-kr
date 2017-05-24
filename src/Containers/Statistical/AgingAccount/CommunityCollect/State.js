@@ -12,7 +12,7 @@ let State = observable({
 
 	// isLeft: true,
 	items : [],
-	endTime:"",
+	endDate:'',
 	communityId:'',
 
 });
@@ -21,15 +21,15 @@ let State = observable({
 
 State.getCollectList = action(function() {
 	let searchParams = {
-		end :State.endTime,
+		endDate :State.endDate,
 		communityId : State.communityId
 	}
 	console.log("searchParams",searchParams);
 
-	Http.request('activityList',searchParams).then(function(response) {
+	Http.request('communityListAging',searchParams).then(function(response) {
 
-		console.log("response获取列表",response);
-		// State.items=response.items;
+		// console.log("response获取列表---汇总",response);
+		State.items=response;
 		
 	}).catch(function(err) {
 		Message.error(err.message);

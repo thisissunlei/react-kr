@@ -34,8 +34,6 @@ export default class SearchDetailForm extends React.Component {
 
 	}
 
-	onSubmit=(values)=>{
-	}
 
 	openAdvancedQueryDialog=()=>{
 
@@ -50,6 +48,11 @@ export default class SearchDetailForm extends React.Component {
 		State.getDetailList();
 
 	}
+
+	onSubmit=()=>{
+		
+	}
+
 
 	changeCustomer=(item)=>{
 		State.customerId = item.id;

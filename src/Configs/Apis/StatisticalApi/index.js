@@ -55,9 +55,9 @@ module.exports = {
      method: 'get'
   },
 
-  // 数据统计-账龄分析-列表
-  'myAddressList':{
-    url: '/api/krspace-finance-web/community/notice/manager-notice-list?communityName={communityName}&page={page}&pageSize={pageSize}',
+  // 数据统计-账龄分析-社区汇总列表
+  'communityListAging':{
+    url: '/mockjsdata/38/finance/explan-summary?communityId={communityId}&endDate={endDate}',
     method: 'get'
   },
 

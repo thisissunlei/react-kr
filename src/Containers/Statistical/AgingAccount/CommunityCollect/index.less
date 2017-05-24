@@ -48,14 +48,16 @@
 	border: solid 1px #ccc;
 	width:100%;
 	overflow:scroll;
+	min-height:370px;
 	
+
 	.table-title{
 		position:fixed;
 		background:#fff;
 		top:60px;
-		
 	    height: 100px;
 	    overflow: hidden;
+	    
 	}
 	.table-left-title{
 		position:fixed;
@@ -63,6 +65,7 @@
 		width:140px;
 		min-height:100px;
 		border:solid 1px #eee;
+		border-left:none;
 		box-sizing:border-box;
 		.left-title-item{
 			width:100%;
@@ -106,6 +109,8 @@
 			div{
 				text-align:center;
 				font-size: 14px;
+				box-sizing: border-box;
+    			padding: 0px 5px;
 			}
 			.header-div{
 				width:140px;
@@ -151,9 +156,18 @@
 			}
 		}
 	}
-
-
-
+}
+.export{
+	width:50px;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	background:#319eff;
+	border-radius:3px;
+	font-size:14px;
+	color:#fff;
+	margin:20px 10px;
+	cursor: pointer;
 }
 
 

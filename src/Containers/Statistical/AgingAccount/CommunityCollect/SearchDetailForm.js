@@ -31,10 +31,10 @@ export default class SearchDetailForm extends React.Component {
 		}
 	}
 	componentDidMount(){
-		State.getCollectList();
+		
 	}
-
-	onSubmit=(values)=>{
+	
+	onSubmit=()=>{
 
 	}
 
@@ -45,9 +45,9 @@ export default class SearchDetailForm extends React.Component {
 
 	}
 
-	onTimeChange=(dateTime)=>{
+	onTimeChange=(endDate)=>{
 
-		State.endTime = dateTime;
+		State.endDate = endDate;
 		State.getCollectList();
 	}
 
@@ -72,7 +72,7 @@ export default class SearchDetailForm extends React.Component {
 							</ListGroupItem>
 							<ListGroupItem style={{padding:0,mrginright:10}}>
 								
-								<KrField name="leaseBegindate"  component="date" onChange={this.onTimeChange} style={{width:252,marginTop: 7}} placeholder={timeDefaultValue} />
+								<KrField name="endDate"  component="date" onChange={this.onTimeChange} style={{width:252,marginTop: 7}} placeholder={timeDefaultValue} />
 							
 							</ListGroupItem>
 							<ListGroupItem style={{textAlign:'center',padding:0,verticalAlign:"top",margin:"10px 0 10px 10px"}}>

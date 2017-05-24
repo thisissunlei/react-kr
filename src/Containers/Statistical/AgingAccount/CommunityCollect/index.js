@@ -36,7 +36,7 @@ export default class CommunityCollect extends React.Component{
 
 
 	componentDidMount() {
-		
+		State.getCollectList();
 		
 	}
 
@@ -50,7 +50,9 @@ export default class CommunityCollect extends React.Component{
 
 
 	exportExcle=()=>{
-		console.log("导出");
+		
+		window.open(`/mockjs/38/finance/explan-summary-excel?communityId=${State.communityId}&endDate=${State.endDate}`);
+
 	}
 
 

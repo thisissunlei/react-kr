@@ -51,7 +51,9 @@ export default class CommunityDetail  extends React.Component{
 
 
 	exportExcle=()=>{
-		console.log("导出");
+
+		window.open(`/mockjs/38/finance/explan-excel?communityId=${State.communityId}&corporationId=${State.corporationId}&endDate=${State.endDate}&end=${State.end}&customerId=${State.customerId}&dayType=${State.dayType}`);
+		
 	}
 
 	render(){
