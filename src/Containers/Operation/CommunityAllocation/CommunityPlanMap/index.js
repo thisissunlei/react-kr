@@ -208,11 +208,13 @@ class CommunityPlanMap extends React.Component {
 
 		let { figureSets } = this.state;
 
+		console.log('data',data);
+
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
-			list.belongId = 10717;
-			list.belongType = item.type == 'station' ? "STATION" : "SPACE";
+			list.belongId = item.belongId;
+			list.belongType = item.belongType;
 			figureSets.push(list);
 		});
 
