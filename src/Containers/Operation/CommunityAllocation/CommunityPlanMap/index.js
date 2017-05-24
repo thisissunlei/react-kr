@@ -172,23 +172,24 @@ class CommunityPlanMap extends React.Component {
 	//工位大小一致
 	sizeSameCheck = (event) => {
 
+		var sameSize = event.target.checked;
 		this.setState({
-			sameSize: event.target.checked,
+			sameSize
 		});
 
 		this.mapComponent.setStationToSame(sameSize, function (code, message) {
-            if (code < 0 && change) {
-                alert('请选择工位');
-                document.getElementById("sizeCheckbox").checked = false;
-            }
-        });
+			if (code < 0 && change) {
+				alert('请选择工位');
+				document.getElementById("sizeCheckbox").checked = false;
+			}
+		});
 
 	}
 
 	//放大比例
 	rangeSelect = (event) => {
 		document.getElementById("ratioSelectVal").innerHTML = parseInt(event.target.value * 100);
-		var scaleSize =  Number(event.target.value);
+		var scaleSize = Number(event.target.value);
 		this.mapComponent.setScale(scaleSize);
 	}
 
@@ -286,7 +287,7 @@ class CommunityPlanMap extends React.Component {
 
 
 	//上传
-	onSubmit = () =>{ 
+	onSubmit = () => {
 		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
 		var _this = this;
 		let { fileData } = this.state;
