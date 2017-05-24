@@ -73,6 +73,7 @@ export default class Header extends React.Component {
 		this.state={
 			sidebarNavs:[],
 			Isperson:false,
+			navs:[],
 		}
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
@@ -80,7 +81,11 @@ export default class Header extends React.Component {
 
 	componentDidMount(){
 		const {NavModel} = this.props;
-		NavModel.loadNavData();
+		NavModel.loadNavData();	
+		var  navs = NavModel.getNavs();
+		this.setState({
+			navs:navs
+		})
 		window.addEventListener("click", this.personHide, false);
 	}
 	componentWillUnmount(){
@@ -113,21 +118,18 @@ export default class Header extends React.Component {
 		
 	}
 
-	renderNav = ()=>{
-		const {NavModel} = this.props;
-		return 	<Nav> {NavModel.items.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} </Nav>;
+	renderNav = (navs)=>{
+		return 	<Nav> {navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} </Nav>;
 	}
 
 	render() {
 
 		const {NavModel} = this.props;
-		let {Isperson}=this.state;
-		var  navs = NavModel.getNavs();
+		let {Isperson,navs}=this.state;
 		var	 person=NavModel.getUser();
 		var  sidebarNavs=NavModel.getSidebarNavs();
-
-		console.log('NavModel.items',NavModel.items)
-		console.log('NavModel.items.length',NavModel.items.length)
+		console.log('navs---',navs)
+		
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">
@@ -135,8 +137,8 @@ export default class Header extends React.Component {
 						<span className={NavModel.openSidebar?'u-header-sidebar-icon u-header-icon-heng':'u-header-sidebar-icon u-header-icon-shu'} ></span>
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
-					{this.renderNav()}
-					{NavModel.items.length>8?<More NavModel={NavModel.items}/>:''}
+					{this.renderNav(navs)}
+					{navs.length>8?<More NavModel={navs}/>:''}
 					<TheBell />
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
 				</div>

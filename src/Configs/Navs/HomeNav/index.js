@@ -3,7 +3,7 @@ module.exports = [
 	{
 		primaryText: "首页",
 		router: '/',
-		menuCode: 'fina_category_1stPage',
+		menuCode: '',
 		originUrl: '/',
 		openSidebar:false,
 	}

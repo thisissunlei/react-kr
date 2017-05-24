@@ -26,10 +26,10 @@ export default class Master extends React.Component {
            params: React.PropTypes.object.isRequired
 		}
 
-		Http.request('getSelfMenuInfo').then(function(response){
+		/*Http.request('getSelfMenuInfo').then(function(response){
 			//Store.dispatch(Actions.setUserNavs(response.navcodes));
 			//Store.dispatch(Actions.setUserBasicInfo(response.user));
-		}).catch(function(err){ });
+		}).catch(function(err){ });*/
 
 	}
 

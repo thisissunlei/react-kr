@@ -21,15 +21,16 @@ let State = observable({
 
 
 const ForEachMenuItemPermission = function(childItem,topItem,menusCode){
-
 	if(childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) !== -1){
 		childItem.isPermission = true;
 		topItem.isPermission = true;
 	}else if(childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) == -1){
 		childItem.isPermission = false;
+		
 	}else{
 		childItem.isPermission = true;
 	}
+	
 	if(typeof childItem === 'object' && childItem.hasOwnProperty('menuItems')){
 		var menuItems = childItem.menuItems;
 		for(var i = 0;i<menuItems.length;i++){
@@ -42,11 +43,12 @@ const ForEachMenuItemPermission = function(childItem,topItem,menusCode){
 			}
 		}
 		menuItems = menuItems.filter(function(item){
+			
 			return item.isPermission;
 		});
 		childItem.menuItems = menuItems;
 	}
-
+		
 	return childItem;
 
 }
