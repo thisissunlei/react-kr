@@ -178,7 +178,7 @@ class StationReservation extends React.Component {
 										if(value == "false"){
 											return <span>已预约</span>;
 										}else{
-											return <span>已取消</span>;
+											return <span style = {{color:"red"}}>已取消</span>;
 										}
 
 									}}
