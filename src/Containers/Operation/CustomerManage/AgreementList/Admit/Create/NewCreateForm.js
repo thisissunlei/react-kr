@@ -484,7 +484,7 @@ class NewCreateForm extends React.Component {
 				item.stationType = item.type;
 				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.whereFloor;
 			});
 		} catch (err) {
 		}
