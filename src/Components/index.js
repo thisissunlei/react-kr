@@ -76,7 +76,7 @@ import {
 
 module.exports = {
 	//Components
-	PlanMap,
+	
 	Dictionary,
 	FontIcon,
 	Paper,
@@ -146,5 +146,6 @@ module.exports = {
 	CircleStyleTwo,
 	LoadingTwo,
 	Nothing,
-	PlanMapAll
+	PlanMapAll,
+	...PlanMap
 }

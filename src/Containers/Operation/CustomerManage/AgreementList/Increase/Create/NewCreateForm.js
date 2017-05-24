@@ -27,7 +27,11 @@ import {
 } from 'kr/Redux';
 
 import UnitPriceForm from './UnitPriceForm';
+import {
 
+PlanMapContent
+
+} from 'kr/PureComponents';
 import {
 	Dialog,
 	Table,
@@ -425,8 +429,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	getStationUrl() {
-
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 		let {
 			changeValues,
 			initialValues,
@@ -439,7 +441,7 @@ class NewCreateForm extends React.Component {
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			return obj;
 		});
 
@@ -451,29 +453,22 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			selectedObjs: stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
 
 		};
 
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
+	
 
-		return url;
+		return params;
 	}
 
 	onIframeClose(billList) {
 
 		this.openStationDialog();
-
+		console.log(billList,"KKKKK");
 
 		if (!billList) {
 			return;
@@ -497,7 +492,7 @@ class NewCreateForm extends React.Component {
 				obj.stationName = item.name;
 				obj.stationType = item.type;
 				obj.unitprice = '';
-				obj.whereFloor = item.wherefloor;
+				obj.whereFloor = item.whereFloor;
 				stationVos.push(obj);
 			});
 		} catch (err) {
@@ -789,11 +784,11 @@ class NewCreateForm extends React.Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog

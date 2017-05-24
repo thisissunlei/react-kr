@@ -8,8 +8,13 @@ import {
 	Message,
 	PlanMapAll
 } from 'kr-ui';
+import {
+	observer,
+	inject
+} from 'mobx-react';
 import { Http } from 'kr/Utils';
 import './index.less';
+@inject("CommunityPlanMapModel")
 class CommunityPlanMap extends React.Component {
 
 	constructor(props, context) {
@@ -459,11 +464,11 @@ class CommunityPlanMap extends React.Component {
 			list.value = item;
 			floor.push(list);
 		})
-
+        let title=`平面图配置开发(${this.props.CommunityPlanMapModel.communityName})`;
 		return (
 			<div>
 				<Title value="平面图配置" />
-				<Section title='平面图配置开发' description="" style={{ marginBottom: -5, minHeight: 910 }}>
+				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >
 							<div className='plan-header'>
