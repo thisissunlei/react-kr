@@ -120,12 +120,12 @@ class NewCreateForm extends Component {
 
 
 		this.state = {
-			stationVos: [],
+			stationVos: this.props.initialValues.stationVos||[],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
-			allRent:0,
+			allRent:this.props.initialValues.totalrent || '0',
 		}
 	}
 
@@ -236,6 +236,8 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
+		Store.dispatch(change('increaseCreateForm', 'stationVos', stationVos));
+
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -260,14 +262,11 @@ class NewCreateForm extends Component {
 			return true;
 		});
 		let _this = this;
-		let allMoney = 0;
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		Store.dispatch(change('increaseCreateForm', 'stationVos', stationVos));
+		this.setAllRent(stationVos)
+
 		this.setState({
 			stationVos,
-			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});
@@ -328,14 +327,29 @@ class NewCreateForm extends Component {
 		});
 	}
 
+
 	componentDidMount() {
 		let {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('increaseCreateForm', initialValues));
+		this.setState({
+			allRent:initialValues.totalrent
+		})
 	}
 
 	componentWillReceiveProps(nextProps) {
+
+		if(this.props.initialValues!= nextProps.initialValues){
+			Store.dispatch(initialize('increaseCreateForm', nextProps.initialValues));
+			
+		}
+		if(this.props.initialValues.stationVos!=nextProps.initialValues.stationVos){
+			this.setState({
+				stationVos:nextProps.initialValues.stationVos || [],
+				allRent:nextProps.initialValues.totalrent || '0'
+			})
+		}
 
 	}
 
@@ -483,6 +497,9 @@ class NewCreateForm extends Component {
 		} catch (err) {
 		}
 
+		Store.dispatch(change('increaseCreateForm', 'stationVos', stationVos));
+
+
 		this.setState({
 			stationVos
 		}, function() {
@@ -505,6 +522,8 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		Store.dispatch(change('increaseCreateForm', 'stationVos', stationVos));
+
 		this.setAllRent(stationVos);
 
 	}
@@ -516,48 +535,18 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Http.request('getAllRent',{stationList:JSON.stringify(stationList)}).then(function(response) {
+		Http.request('getAllRent','',{stationList:JSON.stringify(stationList)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
+			Store.dispatch(change('increaseCreateForm', 'totalrent', response));
+
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
 	}
 	dealRentName=()=>{
 		let {allRent} = this.state;
@@ -612,7 +601,7 @@ class NewCreateForm extends Component {
 			allRent,
 		} = this.state;
 		let allRentName = this.dealRentName();
-
+		console.log('======>stationVos',stationVos)
 
 		return (
 
@@ -699,7 +688,7 @@ class NewCreateForm extends Component {
 
 					<KrField  name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
 					<div className="lessor-address"><KrField  style={{width:262,marginLeft:25}}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
-					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
+					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={initialValues.lessorContactName}/>
 					<KrField style={{width:262,marginLeft:25}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 
 					requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -766,7 +755,7 @@ class NewCreateForm extends Component {
 
 
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
-					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={[]} onChange={(files)=>{
+					<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="上传附件" defaultValue={initialValues.contractFileList || []} onChange={(files)=>{
 						Store.dispatch(change('increaseCreateForm','contractFileList',files));
 					}} />
 
@@ -811,6 +800,11 @@ class NewCreateForm extends Component {
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
+	console.log('val',values.stationVos)
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
+
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';

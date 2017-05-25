@@ -4,7 +4,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
 import {DateFormat,Http} from 'kr/Utils';
 import {
@@ -56,6 +57,9 @@ import {
 
 
 } from 'kr/PureComponents';
+
+
+@inject("CommunityAgreementList")
 @observer
 class Merchants extends Component{
 
@@ -112,11 +116,14 @@ class Merchants extends Component{
 	}
 	//打开第二新建页面
 	openTwoAgreement = () => {
-		State.openTowAgreement=true;
+		this.props.CommunityAgreementList.openTowAgreement=true;
 	}
 	//关闭第二新建页面
 	closeTwoAgreement = () => {
-		State.openTowAgreement=false;
+		this.props.CommunityAgreementList.openTowAgreement=false;
+		console.log('closeAll')
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openLocalStorage = false;
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
@@ -134,11 +141,11 @@ class Merchants extends Component{
 	}
 	//打开第一新建页面
 	openOneAgreement = () => {
-		State.openOneAgreement=true;
+		this.props.CommunityAgreementList.openOneAgreement=true;
 	}
 	//关闭第一新建页面
 	closeOneAgreement = () => {
-		State.openOneAgreement=false;
+		this.props.CommunityAgreementList.openOneAgreement=false;
 	}
 	//打开编辑页
 	openEditAgreement = () => {
@@ -303,6 +310,7 @@ class Merchants extends Component{
 	confirmDelAgreement=()=>{
 
 		this.openDelAgreementDialog();
+		let {CommunityAgreementList} = this.props;
 
 		let {
 			delAgreementId
@@ -317,7 +325,7 @@ class Merchants extends Component{
 		}).catch(function(err) {
             Message.error(err.message);
 		});
-		State.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+		CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 
 	}
 
@@ -388,7 +396,7 @@ class Merchants extends Component{
 	}
 
 	componentDidMount() {
-		State.ajaxListData(this.state.searchParams);
+		this.props.CommunityAgreementList.ajaxListData(this.state.searchParams);
       	let _this=this;
 		let bodyElem=document.getElementById("m-agreement-list");
 		this.getLocalStorageDate();
@@ -434,7 +442,7 @@ class Merchants extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			    State.ajaxListData(searchParams);
+			    this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -457,7 +465,7 @@ class Merchants extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-                State.ajaxListData(searchParams);
+                this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -467,13 +475,14 @@ class Merchants extends Component{
    //搜索提交
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
+   	 let {CommunityAgreementList} = this.props;
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
         searchParams.communityName='';
         searchParams.salerName='';
         searchParams.createrName='';
-        State.ajaxListData(searchParams);
+        CommunityAgreementList.ajaxListData(searchParams);
      }
       if(value.filter=='city'){
         searchParams.cityName=value.content;
@@ -481,7 +490,7 @@ class Merchants extends Component{
         searchParams.communityName='';
         searchParams.salerName='';
         searchParams.createrName='';
-        State.ajaxListData(searchParams);
+        CommunityAgreementList.ajaxListData(searchParams);
      }
       if(value.filter=='community'){
         searchParams.communityName=value.content;
@@ -489,7 +498,7 @@ class Merchants extends Component{
         searchParams.cityName='';
         searchParams.salerName='';
         searchParams.createrName='';
-        State.ajaxListData(searchParams);
+        CommunityAgreementList.ajaxListData(searchParams);
      }
       if(value.filter=='people'){
         searchParams.salerName=value.content;
@@ -497,7 +506,7 @@ class Merchants extends Component{
         searchParams.cityName='';
         searchParams.communityName='';
         searchParams.createrName='';
-        State.ajaxListData(searchParams);
+        CommunityAgreementList.ajaxListData(searchParams);
      }
       if(value.filter=='write'){
         searchParams.createrName=value.content;
@@ -505,19 +514,20 @@ class Merchants extends Component{
         searchParams.cityName='';
         searchParams.communityName='';
         searchParams.salerName='';
-        State.ajaxListData(searchParams);
+        CommunityAgreementList.ajaxListData(searchParams);
      }
    }
 
 
  contractChange=(params)=>{
    let {searchParams}=this.state;
+   let {CommunityAgreementList} = this.props;
 	 if(!params.value){
 		 searchParams.contractType='';
 	 }else{
 		 searchParams.contractType=params.value;
 	 }
-	 State.ajaxListData(searchParams);
+	 CommunityAgreementList.ajaxListData(searchParams);
  }
 
 	everyTd=(value)=>{
@@ -536,9 +546,10 @@ class Merchants extends Component{
 
     onPageChange=(page)=>{
     	let {searchParams}=this.state;
+    	let {CommunityAgreementList} = this.props;
         searchParams.page=page;
         searchParams.pageSize='15';
-    	State.ajaxListData(searchParams);
+    	CommunityAgreementList.ajaxListData(searchParams);
 	}
 
 
@@ -552,8 +563,12 @@ class Merchants extends Component{
 		State.openEditAgreement=true;
 	}
 	maskClock=()=>{
-		State.openOneAgreement=false;
-		State.openTowAgreement=false;
+		console.log('closeAll')
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openLocalStorage = false;
+		CommunityAgreementList.openOneAgreement=false;
+		CommunityAgreementList.openTowAgreement=false;
+		
 		State.openEditAgreement=false;
 		State.openAgreementDetail=false;
 	}
@@ -610,7 +625,7 @@ class Merchants extends Component{
 	}
 
     noDataRender=()=>{
-       let {contractList}=State;
+       let {contractList}=this.props.CommunityAgreementList;
        var render='';
        if(contractList.length==0){
          render=<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
@@ -628,7 +643,8 @@ class Merchants extends Component{
 
 	render(){
 
-      	let {contractList,loading}=State;
+      	let {loading}=State;
+      	let {contractList} = this.props.CommunityAgreementList;
       	var blockStyle={};
        	const {
 			orderBaseInfo,
@@ -823,7 +839,7 @@ class Merchants extends Component{
            </Section>
 					{/*新建合同的第一页*/}
 					<Drawer
-				        open={State.openOneAgreement}
+				        open={this.props.CommunityAgreementList.openOneAgreement}
 				        width={750}
 				        openSecondary={true}
 				        onClose={this.closeOneAgreement}
@@ -836,7 +852,7 @@ class Merchants extends Component{
 
 		            {/*新建合同的第二页*/}
 		           	<Drawer
-				        open={State.openTowAgreement}
+				        open={this.props.CommunityAgreementList.openTowAgreement}
 				        width={750}
 				        openSecondary={true}
 				        onClose={this.closeTwoAgreement}

@@ -32,12 +32,15 @@ import {
 	FieldArray
 } from 'redux-form';
 
+import {Http} from 'kr/Utils'
+
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
 
 import UnitPriceForm from './UnitPriceForm';
+
 
 import {
 	Menu,
@@ -124,7 +127,7 @@ class NewCreateForm extends Component {
 
 
 		this.state = {
-			stationVos: [],
+			stationVos:this.props.initialValues.stationVos|| [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -132,6 +135,7 @@ class NewCreateForm extends Component {
 			allRent:0,
 
 		}
+		console.log('1-join',this.props.optionValues)
 	}
 
 	calcStationNum() {
@@ -204,6 +208,7 @@ class NewCreateForm extends Component {
 			stationVos[index].unitprice = value;
 		}
 
+
 		this.setState({
 			stationVos
 		});
@@ -239,7 +244,6 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
-		let allRent = 0;
 		let _this = this;
 
 		stationVos = stationVos.map(function(item, index) {
@@ -248,13 +252,15 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
+		Store.dispatch(change('joinCreateForm', 'stationVos', stationVos));
+
+
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
-			allRent
+			openStationUnitPrice:false
 		});
 
-		this.openStationUnitPriceDialog();
 	}
 
 	//删除工位
@@ -272,7 +278,9 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
+		Store.dispatch(change('joinCreateForm', 'stationVos', stationVos));
 		this.setAllRent(stationVos);
+
 
 		this.setState({
 			stationVos,
@@ -339,13 +347,29 @@ class NewCreateForm extends Component {
 
 
 	componentDidMount() {
+		console.log('did-join',this.props.optionValues)
 		let {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('joinCreateForm', initialValues));
+		this.setState({
+			allRent:initialValues.totalrent
+		})
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('will-join',this.props.optionValues)
+
+		if(this.props.initialValues!= nextProps.initialValues){
+			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
+			
+		}
+		if(this.props.initialValues.stationVos!=nextProps.initialValues.stationVos){
+			this.setState({
+				stationVos:nextProps.initialValues.stationVos || [],
+				allRent:nextProps.initialValues.totalrent || '0'
+			})
+		}
 
 	}
 
@@ -379,7 +403,7 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
-		form.totalrent = (this.state.allRent).toFixed(2);
+		// form.totalrent = (this.state.allRent).toFixed(2);
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -448,60 +472,32 @@ class NewCreateForm extends Component {
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
-		// let allMoney = 0;
+		Store.dispatch(change('joinCreateForm', 'stationVos', stationVos));
 		this.setAllRent(stationVos);
 
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+	
 		let stationList = list.map((item)=>{
 			if(!item.unitprice||isNaN(item.unitprice)){
 				item.unitprice = 0;
 			}
 			return item;
 		})
-		Http.request('getAllRent',{stationList:JSON.stringify(list)}).then(function(response) {
+		Http.request('getAllRent','',{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
+			Store.dispatch(change('joinCreateForm', 'totalrent', response.toFixed(2)));
+
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
 	}
 
 	onIframeClose(billList) {
@@ -535,6 +531,9 @@ class NewCreateForm extends Component {
 			});
 		} catch (err) {
 		}
+
+
+		Store.dispatch(change('joinCreateForm', 'stationVos', billList));
 
 
 		this.setState({
@@ -604,8 +603,6 @@ class NewCreateForm extends Component {
 			allRent
 		} = this.state;
 		let  allRentName = this.dealRentName(allRent);
-
-
 
 		return (
 
@@ -687,6 +684,7 @@ class NewCreateForm extends Component {
 					<KrField   name="mainbillid" type="hidden" component="input" />
 
 					<KrField   name="contractstate" type="hidden" component="input" />
+					<KrField   name="stationVos" type="hidden" component="input" />
 
 					<KrField   name="contracttype" type="hidden" component="input" />
 					<KrField   name="mainbillid" type="hidden" component="input" />
@@ -701,9 +699,10 @@ class NewCreateForm extends Component {
 					<div className="lessor-address" ><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
 
 
-					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
-					<KrField  style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
+					<KrField  style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={initialValues.lessorContactName}/>
+					<KrField  style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true} 
 					   requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+					
 
 					<KrField   style={{width:262,marginLeft:25}}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
@@ -754,7 +753,7 @@ class NewCreateForm extends Component {
 	</div>
 
 				<KrField  style={{width:545,marginLeft:25,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+				<KrField  style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={initialValues.contractFileList || []} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
@@ -800,6 +799,10 @@ class NewCreateForm extends Component {
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
+
 
 	if (!values.leaseId) {
 		errors.leaseId = '请输入出租方';
