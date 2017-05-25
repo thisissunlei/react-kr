@@ -40,17 +40,51 @@ class ControlTable  extends React.Component{
 
 	constructor(props){
 		super(props);
-		
+
 		this.state={
-		
-			communityIdList:[]
+			listData:['','','','','','',''],
+			communityIdList:[],
+			moveStyle:{},
+			contentStyle:{}
 		}
 		this.getcommunity();
-   
+
 	}
 
 	componentDidMount(){
-
+		var _this = this;
+		window.onscroll = function () {
+			var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
+			var t = document.documentElement.scrollTop || document.body.scrollTop;
+			console.log(left,"LLLL");
+			if(t>150){
+				_this.setState({
+					moveStyle:{
+						position:"fixed",
+						top:60,
+						left:left,
+						right:39,
+						width:"auto",
+						zIndex:99
+			
+					},
+					contentStyle:{
+						marginTop:145
+					}
+				})
+				
+			} else{
+				_this.setState({
+					moveStyle:{
+						position:"relative"
+					},
+					contentStyle:{
+						marginTop:0
+					}
+				})
+				
+			}
+		}
 	}
 	getcommunity = () => {
 		let _this = this;
@@ -74,21 +108,21 @@ class ControlTable  extends React.Component{
 
 		});
 	}
- 
+
   getEidtData = (id,itemDetail) =>{
     let _this= this;
     const {FormModel} = this.props;
 
 
     Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
-     
+
     }).catch(function(err) {
       Message.error(err.message);
     });
   }
    //搜索列表
    onSearchSubmit = (value) =>{
-   	
+
    }
 
    //打开新增访客
@@ -116,13 +150,16 @@ class ControlTable  extends React.Component{
    }
    //生成头部
    generateHead = () =>{
+	   let {moveStyle} = this.state;
 		return (
-			<div className = "m-control-table-head">
+			<div className = "m-control-table-head clearfix" style = {moveStyle}>
 				<div className = "m-control-table-head-td head-td1">
 					<div className= "m-control-table-head-tr">创业大街</div>
 					<div className= "m-control-table-head-tr">当前出租率</div>
 					<div className= "m-control-table-head-tr">
-						<div ></div>
+						<div className = "m-control-table-head-tr-td">编号</div>
+						<div className = "m-control-table-head-tr-td">类型</div>
+						<div className = "m-control-table-head-tr-td">容纳人数</div>
 					</div>
 
 				</div>
@@ -133,26 +170,60 @@ class ControlTable  extends React.Component{
 
 				</div>
 				<div className = "m-control-table-head-td ">定价</div>
-				<div className = "m-control-table-head-td ">调整成交价</div>
-				<div className = "m-control-table-head-td ">调整成交价每工位</div>
-				<div className = "m-control-table-head-td ">在租状态</div>
-				<div className = "m-control-table-head-td ">客户名称</div>
-				<div className = "m-control-table-head-td ">当前租金（元/月）</div>
+				<div className = "m-control-table-head-td "><span>实际成交价</span></div>
+				<div className = "m-control-table-head-td "><span>每工位实际</span><span>成交价</span><span>(元/月)</span></div>
+				<div className = "m-control-table-head-td "><span>在租状态</span></div>
+				<div className = "m-control-table-head-td "><span>客户名称</span></div>
+				<div className = "m-control-table-head-td "><span>当前租金</span><span>（元/月）</span></div>
 				<div className = "m-control-table-head-td ">租期</div>
 			</div>
 		)
    }
+   //生成表格
+   generateContent = () =>{
+	   const {listData} = this.state;
+	   let elem = listData.map(function(){
+		   return (
+				<div className = "m-control-table-content-tr clearfix">
+						<div className="m-control-table-content-td clearfix">
+							<div className="m-control-table-one-td">ggg</div>
+							<div className="m-control-table-one-td">ggg</div>
+							<div className="m-control-table-one-td">ggg</div>
+						</div>
+						
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+						<div className="m-control-table-content-td">fdf</div>
+
+				</div>
+		   )
+
+	   })
+	   return elem;
+   }
+
+
 	render(){
-		const {communityIdList} = this.state;
+		const {communityIdList,contentStyle} = this.state;
 
 		return(
-			<div className="m-control-table" style={{minHeight:'910'}}>
+			<div className="m-control-table" style={{minHeight:'1510'}}>
 				<Title value="访客记录"/>
-      		<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
-           <SearchFormControlTable />
-		   {this.generateHead()}
-          </Section>
-          
+				<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
+					<SearchFormControlTable />
+					{this.generateHead()}
+					<div className = "m-control-table-content clearfix" style = {contentStyle}>
+						{this.generateContent()}
+
+					</div>
+					<div id = "m-control-table-width"></div>
+				</Section>
+
 	     </div>
 
 		);
