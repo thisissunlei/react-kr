@@ -29,7 +29,7 @@ const NavItem = ({...props})=>{
 
 const More = ({...props})=>{
 	let {NavModel}=props;
-	var navs=NavModel.slice(8);
+	var navs=NavModel.slice(7);
 	return (
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
@@ -112,9 +112,22 @@ export default class Header extends React.Component {
 		}
 		
 	}
+	isActive=()=>{
 
+	}
 	renderNav = (navs)=>{
-		return 	<Nav> {navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} </Nav>;
+		var navIsActive=navs.map((item,index)=>{
+			return item.isActive;
+		})
+		var isActive=navIsActive.indexOf(true)==-1?true:false;
+		
+		return (
+			<Nav> 
+				<NavItem  label="首页" path="/"  isActive={isActive}  />
+				{navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} 
+			</Nav>
+
+			);
 	}
 
 	render() {
@@ -125,7 +138,7 @@ export default class Header extends React.Component {
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
 
-		console.log('--->>MMMM')
+		
 		
 		return (
 			<div className="no-print">
@@ -135,7 +148,7 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
-					{navs.length>8?<More NavModel={navs}/>:''}
+					{navs.length>7?<More NavModel={navs}/>:''}
 					<TheBell />
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
 				</div>
