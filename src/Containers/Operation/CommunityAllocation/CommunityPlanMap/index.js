@@ -97,10 +97,11 @@ class CommunityPlanMap extends React.Component {
 				initializeConfigs: InitializeConfigs,
 				planMapId: response.id,
 			});
-
+         
 			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
 			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
 		    });
+			_this.mapComponent.loadImage(InitializeConfigs.backgroundImageUrl);
 
 		}).catch(function (err) {
 			Message.error(err.message);

@@ -1609,7 +1609,6 @@ var Map = (function (window) {
 
     //重新绘制背景图
     exportMap.prototype.loadImage = function () {
-        console.log('vvvvv',arguments);
         this.map.loadImage.apply(this.map, arguments);
     }
 

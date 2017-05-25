@@ -10,7 +10,6 @@ export default class PlanMapAll extends Component {
         super(props);
         this.map = null;
         this.isInit = false;
-        this.floorFlag=false;
     }
 
 
@@ -19,30 +18,17 @@ export default class PlanMapAll extends Component {
 
         const {onRemove} = this.props;
 
-        if (this.isInit&&this.floorFlag==initializeConfigs.floorSelect) {
+        if (this.isInit) {
             return;
         }
-
-        console.log('init1');
 
         if (!initializeConfigs || !initializeConfigs.hasOwnProperty('backgroundImageUrl')) {
             return;
         }
 
-        if(this.map){
-           console.log('init2');
-           this.map.loadImage(initializeConfigs.backgroundImageUrl);
-        }
-
-        if(this.isInit){
-            return ;
-        }
-        console.log('init3');
         this.map = new Map('mapAPP', initializeConfigs);
 
         this.map.onRemove(onRemove);
-
-        this.floorFlag=initializeConfigs.floorSelect;
 
         this.isInit = true;
     }
@@ -69,6 +55,15 @@ export default class PlanMapAll extends Component {
         }
         this.map.setScale(scale);
     }
+   
+
+   loadImage=(src)=>{
+      if (!this.map) {
+            return;
+        }
+      this.map.loadImage(src);
+   }
+
 
     setStationToSame=(checked,callback)=>{
         if (!this.map) {
