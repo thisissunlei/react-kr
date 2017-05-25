@@ -175,11 +175,10 @@ class CommunityPlanMap extends React.Component {
 		var sameSize = event.target.checked;
 		this.mapComponent.setStationToSame(sameSize, function (code, message) {
 			if (code < 0 && change) {
-				alert('请选择工位');
+				Message.error('请选择工位');
 				document.getElementById("sizeCheckbox").checked = false;
 			}
 		});
-
 	}
 
 	//放大比例
@@ -207,7 +206,7 @@ class CommunityPlanMap extends React.Component {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = item.belongId;
-			list.belongType = item.type=='station'?'STATION':'SPACE';
+			list.belongType = item.belongType;
 			figureSets.splice(item.index,0,list);
 		});
         
@@ -272,7 +271,8 @@ class CommunityPlanMap extends React.Component {
 				graphCellJson: stations,
 				deleteCellIdsStr: de
 			}).then(function (response) {
-				window.location.reload();
+				Message.success('保存成功');
+				//window.location.reload();
 			}).catch(function (err) {
 				Message.error(err.message);
 			});
@@ -395,11 +395,11 @@ class CommunityPlanMap extends React.Component {
 		var height = '';
 		var myApp = document.getElementById("mapAPP");
 		if (isStation) {
-			type = 'station';
+			type = 'STATION';
 			width = 60;
 			height = 40;
 		} else {
-			type = 'meeting';
+			type = 'SPACE';
 			width = 118;
 			height = 48;
 		}
@@ -415,7 +415,7 @@ class CommunityPlanMap extends React.Component {
 					y: event.target.getBoundingClientRect().top + height / 2,
 					width: width,
 					height: height,
-					type: type,
+					belongType: type,
 					name: cellname,
 					belongId:cellId,
 					index:dataIndex
@@ -480,7 +480,7 @@ class CommunityPlanMap extends React.Component {
 							</div>
 
 								<div className='upload-img'>
-									<input type="file" id="backgroundImg" name="file" style={{ width: '65px' }} onChange={this.fileUpload} />
+									<input type="file" id="backgroundImg" name="file" style={{ width: '63px' }} onChange={this.fileUpload} />
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
 
