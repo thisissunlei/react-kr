@@ -148,8 +148,8 @@ class CommunityPlanMap extends React.Component {
 		this.setState({
 			isStation: true
 		})
-		document.getElementById('tab-meeting').style.borderBottom = '2px solid #eee';
-		document.getElementById('tab-station').style.borderBottom = '2px solid rgb(219, 237, 254)';
+		document.getElementById('tab-meeting').setAttribute("class",'no-bottom-color');
+		document.getElementById('tab-station').setAttribute("class",'blue-bottom-color');
 	}
 
 	//会议室元件hover
@@ -157,8 +157,8 @@ class CommunityPlanMap extends React.Component {
 		this.setState({
 			isStation: false
 		})
-		document.getElementById('tab-station').style.borderBottom = '2px solid #eee';
-		document.getElementById('tab-meeting').style.borderBottom = '2px solid rgb(219, 237, 254)'
+		document.getElementById('tab-station').setAttribute("class",'no-bottom-color');
+		document.getElementById('tab-meeting').setAttribute("class",'blue-bottom-color');
 	}
 
 	//楼层
@@ -346,6 +346,7 @@ class CommunityPlanMap extends React.Component {
 			_this.setState({
 				planMapId: response.id
 			})
+			Message.success('背景图上传成功');
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -399,8 +400,8 @@ class CommunityPlanMap extends React.Component {
 		var myApp = document.getElementById("mapAPP");
 		if (isStation) {
 			type = 'station';
-			width = 30;
-			height = 30;
+			width = 60;
+			height = 40;
 		} else {
 			type = 'meeting';
 			width = 118;
