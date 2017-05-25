@@ -101,7 +101,7 @@ class CommunityPlanMap extends React.Component {
 			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
 			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
 		    });
-			
+
 		}).catch(function (err) {
 			Message.error(err.message);
 		})
@@ -351,13 +351,14 @@ class CommunityPlanMap extends React.Component {
 	//点击
 	allStationDown = (event) => {
 		let { isStation } = this.state;
+		if(event.target.className!='station-pic'&&event.target.className!='meeting-pic'){
+			return ;
+		}
 		this.setState({
 			minusX: event.clientX - event.target.getBoundingClientRect().left,
 			minusY: event.clientY - event.target.getBoundingClientRect().top,
 		})
-
 		this.dragFlag = true;
-
 		if (isStation) {
 			this.setState({
 				nameStation: 'single-drag-square',
@@ -423,16 +424,15 @@ class CommunityPlanMap extends React.Component {
 					belongId:cellId,
 					index:dataIndex
 				};
-
 				this.mapComponent.createStation(station);
-
 				this.setState({
 					figureSets: figureSets
 				});
-
 				this.upFlag = false;
 				this.dragFlag = false;
-
+			}else{
+			   	this.upFlag = false;
+				this.dragFlag = false;	
 			}
 		}
 

@@ -81,6 +81,7 @@ export default class PlanMapAll extends Component {
         }
         this.map.createStation(data);
     }
+    
 
     save = (callback) => {
         if (!this.map) {
