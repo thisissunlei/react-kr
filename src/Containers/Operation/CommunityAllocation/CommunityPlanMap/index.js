@@ -480,7 +480,7 @@ class CommunityPlanMap extends React.Component {
 							</div>
 
 								<div className='upload-img'>
-									<input type="file" id="backgroundImg" name="file" style={{ width: '60px' }} onChange={this.fileUpload} />
+									<input type="file" id="backgroundImg" name="file" style={{ width: '65px' }} onChange={this.fileUpload} />
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
 
