@@ -21,8 +21,6 @@ class CommunityPlanMap extends React.Component {
 			initializeConfigs: {},
 			//上传文件
 			fileData: '',
-			//大小一致
-			sameSize: false,
 			//选择楼层
 			selectFloor: 3,
 			//拖拽差值
@@ -93,7 +91,6 @@ class CommunityPlanMap extends React.Component {
 				figureSets: response.figureSets,
 				initializeConfigs: InitializeConfigs,
 				planMapId: response.id,
-				sameSize: response.stationSizeSame
 			});
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -160,12 +157,7 @@ class CommunityPlanMap extends React.Component {
 
 	//工位大小一致
 	sizeSameCheck = (event) => {
-
 		var sameSize = event.target.checked;
-		this.setState({
-			sameSize
-		});
-
 		this.mapComponent.setStationToSame(sameSize, function (code, message) {
 			if (code < 0 && change) {
 				alert('请选择工位');
@@ -194,7 +186,6 @@ class CommunityPlanMap extends React.Component {
 
 	//传过来的删除
 	onRemove = (data) => {
-
 		let { figureSets } = this.state;
 		console.log('data',data);
 		data.map((item, index) => {
@@ -209,8 +200,8 @@ class CommunityPlanMap extends React.Component {
 			deleteData: data,
 			figureSets
 		});
-
 	}
+
 
 	//保存
 	save = () => {
@@ -439,7 +430,7 @@ class CommunityPlanMap extends React.Component {
 	render() {
 
 		let { handleSubmit } = this.props;
-		let { isStation, figureSets, floors, initializeConfigs, sameSize } = this.state;
+		let { isStation, figureSets, floors, initializeConfigs} = this.state;
 		var floor = [];
 		floors.map((item, index) => {
 			var list = {};

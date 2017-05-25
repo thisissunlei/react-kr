@@ -83,7 +83,6 @@ export default class PlanMapAll extends Component {
         if (!this.map) {
             return;
         }
-
         this.map.onRemove(function (data) {
             callback && callback(data);
         });
