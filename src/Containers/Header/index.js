@@ -123,7 +123,7 @@ export default class Header extends React.Component {
 		
 		return (
 			<Nav> 
-				<NavItem  label="首页" path="/"  isActive={isActive}  />
+				<NavItem  label="首页" originUrl="./#/"  isActive={isActive}  />
 				{navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} 
 			</Nav>
 
@@ -137,8 +137,6 @@ export default class Header extends React.Component {
 
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
-
-		
 		
 		return (
 			<div className="no-print">
