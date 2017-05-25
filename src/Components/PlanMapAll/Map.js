@@ -28,28 +28,28 @@ var Map = (function (window) {
             'style': 'pointer',
         },
         'stationLeftTopScale': {
-            'style': 'e-resize',
+            'style': 'nw-resize',
         },
         'stationLeftCenterScale': {
-            'style': 'e-resize',
+            'style': 'w-resize',
         },
         'stationLeftBottomScale': {
-            'style': 'e-resize',
+            'style': 'sw-resize',
         },
         'stationTopCenterScale': {
-            'style': 'e-resize',
+            'style': 'n-resize',
         },
         'stationRightTopScale': {
-            'style': 'e-resize',
+            'style': 'ne-resize',
         },
         'stationRightCenterScale': {
             'style': 'e-resize',
         },
         'stationRightBottomScale': {
-            'style': 'e-resize',
+            'style': 'se-resize',
         },
         'stationBottomCenterScale': {
-            'style': 'e-resize',
+            'style': 's-resize',
         },
     };
 
@@ -590,49 +590,56 @@ var Map = (function (window) {
             //左上
             if (StationFactory.inRange(mouseX, leftTop.x, range) && StationFactory.inRange(mouseY, leftTop.y, range)) {
                 scaleStationDirection = 'leftTop';
-
+                operationType = 'stationLeftTopScale';
                 return true;
             }
 
             //左中
             if (StationFactory.inRange(mouseX, leftCenter.x, range) && StationFactory.inRange(mouseY, leftCenter.y, range)) {
                 scaleStationDirection = 'leftCenter';
+                operationType = 'stationLeftCenterScale';
                 return true;
             }
 
             //左下
             if (StationFactory.inRange(mouseX, leftBottom.x, range) && StationFactory.inRange(mouseY, leftBottom.y, range)) {
                 scaleStationDirection = 'leftBottom';
+                operationType = 'stationLeftBottomScale';
                 return true;
             }
 
             //上中
             if (StationFactory.inRange(mouseX, topCenter.x, range) && StationFactory.inRange(mouseY, topCenter.y, range)) {
                 scaleStationDirection = 'topCenter';
+                operationType = 'stationTopCenterScale';
                 return true;
             }
 
             //下中
             if (StationFactory.inRange(mouseX, bottomCenter.x, range) && StationFactory.inRange(mouseY, bottomCenter.y, range)) {
                 scaleStationDirection = 'bottomCenter';
+                operationType = 'stationBottomCenterScale';
                 return true;
             }
 
             //右上
             if (StationFactory.inRange(mouseX, rightTop.x, range) && StationFactory.inRange(mouseY, rightTop.y, range)) {
                 scaleStationDirection = 'rightTop';
+                operationType = 'stationRightTopScale';
                 return true;
             }
 
             //右中
             if (StationFactory.inRange(mouseX, rightCenter.x, range) && StationFactory.inRange(mouseY, rightCenter.y, range)) {
                 scaleStationDirection = 'rightCenter';
+                operationType = 'stationRightCenterScale';
                 return true;
             }
 
             //右下
             if (StationFactory.inRange(mouseX, rightBottom.x, range) && StationFactory.inRange(mouseY, rightBottom.y, range)) {
                 scaleStationDirection = 'rightBottom';
+                operationType = 'stationRightBottomScale';
                 return true;
             }
 
@@ -886,6 +893,7 @@ var Map = (function (window) {
             if(typeof operationType === 'undefined'){
                 return ;
             }
+
             var operation = operationTypeConfigs[operationType];
 
             element.style.cursor = operation.style;
@@ -1090,6 +1098,7 @@ var Map = (function (window) {
                     canvas.addEventListener('mousemove', DragMapMoveEvent, false);
                 }
                 canvas.addEventListener('mouseup', MouseUpEvent, false);
+                canvas.removeEventListener('mousemove', MouseMoveEvent, false);
             }
 
             //鼠标抬起事件
@@ -1107,6 +1116,8 @@ var Map = (function (window) {
 
                 canvas.removeEventListener('mouseup', MouseUpEvent, false);
 
+                canvas.addEventListener('mousemove', MouseMoveEvent, false);
+
                 MapObject.contextMenu.close();
             }
 
@@ -1116,13 +1127,13 @@ var Map = (function (window) {
                 if (self.isInStation(movePosition.x, movePosition.y)) {
 
                     if (self.isInStationDragPosition(movePosition.x, movePosition.y)) {
-                        operationType = 'stationLeftTopScale';
+                     
                     } else {
                         operationType = 'stationHover';
                     }
 
                 } else {
-
+                    operationType = 'mapHover';
                 }
                 self.render();
 
@@ -1470,8 +1481,6 @@ var Map = (function (window) {
             }
             DB.newStation(props);
             stationObjectArray.push(StationFactory(props));
-
-            console.log('length:', stationObjectArray.length);
         }
 
         MapObject.prototype.getCheckedAll = function () {
@@ -1521,7 +1530,7 @@ var Map = (function (window) {
             var targeStation = dragStations[0];
             var props = targeStation.getProps();
 
-            if (props.belongType === 'SPACE') {
+            if (props.type === 'meeting') {
                 return;
             }
 
@@ -1530,7 +1539,7 @@ var Map = (function (window) {
 
             stationObjectArray.map(function (station) {
                 var stationProps = station.getProps();
-                if (stationProps.belongType == 'STATION') {
+                if (stationProps.type == 'station') {
                     station.setProps({ width, height });
                 }
             });
