@@ -137,7 +137,8 @@ State.setRouter = action(function(){
 
 	var hash = window.location.hash;
 	var router = hash.split('?').shift().substring(1);
-	var navs = this.getNavs();
+	var obj = mobx.toJS(this);
+	var navs = obj.items;
 	
 	navs = navs.map(function(topItem){
 		return ForEachMenuItem(topItem,router,topItem)
@@ -145,7 +146,6 @@ State.setRouter = action(function(){
 
 	mobx.extendObservable(this,{items:navs});
 	this.setSidebarNavs();
-	console.log('items:',navs);
 });
 
 
@@ -153,9 +153,15 @@ State.getNavs=action(function(){
 	return this.items;
 });
 
+State.getSidebarNavs = function(){
+	var obj = mobx.toJS(this);
+	return obj.sidebarNavs;
+}
+
 State.setSidebarNavs=action(function(){
 
-	var navs = this.getNavs();
+	var obj = mobx.toJS(this);
+	var navs = obj.items;
 	var topItem = null;
 	var menuItems = [];
 
@@ -169,11 +175,7 @@ State.setSidebarNavs=action(function(){
 	if(topItem && typeof topItem === 'object' && topItem.hasOwnProperty('menuItems')){
 		menuItems = topItem.menuItems;
 	}
-
-	console.log('menuItems:',mobx.toJS(menuItems));
-
 	mobx.extendObservable(this,{sidebarNavs:menuItems})
-
 });
 
 State.toggleSidebar=action(function(value){

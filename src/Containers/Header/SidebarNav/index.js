@@ -26,10 +26,12 @@ export default class SidebarNav extends React.Component {
 
 		const {NavModel} = this.props;
 
+		const sidebarNavs = NavModel.sidebarNavs;
+
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">
-					{NavModel.sidebarNavs.map((item,index)=>{
+					{sidebarNavs.map((item,index)=>{
 						if(item.menuItems.length>0){
 							return(
 									<div className="m-sidebar-nav" key={index}>

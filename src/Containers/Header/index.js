@@ -122,8 +122,10 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		let {Isperson}=this.state;
 
-		var  navs = NavModel.getNavs();
+		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
+
+		console.log('--->>MMMM')
 		
 		return (
 			<div className="no-print">
