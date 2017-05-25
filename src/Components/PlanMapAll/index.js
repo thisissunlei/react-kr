@@ -16,7 +16,7 @@ export default class PlanMapAll extends Component {
 
     init = (initializeConfigs) => {
 
-        const {onRemove} = this.props;
+        const {onRemove,onScaleMap} = this.props;
 
         if (this.isInit) {
             return;
@@ -29,6 +29,7 @@ export default class PlanMapAll extends Component {
         this.map = new Map('mapAPP', initializeConfigs);
 
         this.map.onRemove(onRemove);
+        this.map.onScaleMap(onScaleMap);
 
         this.isInit = true;
     }

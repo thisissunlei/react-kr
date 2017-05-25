@@ -979,6 +979,8 @@ var Map = (function (window) {
                 scale -= 0.1;
             }
 
+            onScaleMapCallback && onScaleMapCallback(Math.abs(scale));
+
             this.render();
 
         }
@@ -1230,8 +1232,7 @@ var Map = (function (window) {
                 scale = scaleMax;
             }
 
-            if (scale < scaleMin) {
-                scale = scaleMin;
+            if (scale <= scaleMin) {
                 scale = scaleMin;
             }
 
@@ -1771,4 +1772,5 @@ var Map = (function (window) {
 
 })(window);
 
-module.exports=Map;
+
+module.exports = Map;

@@ -19,6 +19,7 @@ class CommunityPlanMap extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
+			scaleNumber:100,
 			//左侧工位会议室数据
 			figureSets: [],
 			//总楼层数
@@ -183,8 +184,11 @@ class CommunityPlanMap extends React.Component {
 
 	//放大比例
 	rangeSelect = (event) => {
-		document.getElementById("ratioSelectVal").innerHTML = parseInt(event.target.value * 100);
 		var scaleSize = Number(event.target.value);
+		var scaleNumber = parseInt(event.target.value * 100);
+		this.setState({
+			scaleNumber
+		});
 		this.mapComponent.setScale(scaleSize);
 	}
 
@@ -198,10 +202,16 @@ class CommunityPlanMap extends React.Component {
 		this.mapComponent.setBackgroundImage(fileData);
 	}
 
-	//传过来的删除
+	//平面图放大callback
+	onScaleMap = (scaleNumber)=>{
+		scaleNumber = parseInt(scaleNumber*100);
+		this.setState({
+			scaleNumber
+		});
+	}
+
 	onRemove = (data) => {
 		let { figureSets } = this.state;
-        console.log('fffi1',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -210,7 +220,6 @@ class CommunityPlanMap extends React.Component {
 			figureSets.splice(item.index,0,list);
 			console.log('fffi2',data,item.index+index);
 		});
-        
 		this.setState({
 			deleteData: data,
 			figureSets
@@ -476,8 +485,8 @@ class CommunityPlanMap extends React.Component {
 
 								<div className="num-type">
 									<span className="til">当前比例：</span>
-									<input type="range" id="ratioSelect" min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
-									<output id="ratioSelectVal">100</output>%
+									<input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
+									<output>{this.state.scaleNumber}</output>%
 							</div>
 
 								<div className='upload-img'>
@@ -552,6 +561,7 @@ class CommunityPlanMap extends React.Component {
 								ref={(mapComponent) => this.mapComponent = mapComponent}
 								initializeConfigs={initializeConfigs}
 								onRemove={this.onRemove}
+								onScaleMap={this.onScaleMap}
 							/>
 
 						</form>
