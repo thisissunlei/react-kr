@@ -97,6 +97,11 @@ class CommunityPlanMap extends React.Component {
 				initializeConfigs: InitializeConfigs,
 				planMapId: response.id,
 			});
+
+			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
+			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
+		    });
+
 		}).catch(function (err) {
 			Message.error(err.message);
 		})
@@ -193,6 +198,7 @@ class CommunityPlanMap extends React.Component {
 	//传过来的删除
 	onRemove = (data) => {
 		let { figureSets } = this.state;
+
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -243,8 +249,12 @@ class CommunityPlanMap extends React.Component {
 			var checked = document.getElementById("sizeCheckbox").checked;
 			if (checked) {
 				isSame = 'SAME';
-				cellWidth = saveData.stations[0].width;
-				cellHeight = saveData.stations[0].height;
+				saveData.stations.map((item,index)=>{
+                     if(item.belongType=='STATION'){
+                       cellWidth=item.width;
+					   cellHeight=item.height;
+					 }
+				})
 			} else {
 				isSame = 'NOT_SAME';
 				cellWidth = '';
@@ -260,7 +270,7 @@ class CommunityPlanMap extends React.Component {
 				graphCellJson: stations,
 				deleteCellIdsStr: de
 			}).then(function (response) {
-				window.location.reload();
+				//window.location.reload();
 			}).catch(function (err) {
 				Message.error(err.message);
 			});
