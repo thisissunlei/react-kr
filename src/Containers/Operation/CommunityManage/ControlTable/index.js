@@ -35,6 +35,7 @@ import {
 	Message
 } from 'kr-ui';
 import SearchFormControlTable from './SearchForm';
+import './index.less';
 class ControlTable  extends React.Component{
 
 	constructor(props){
@@ -113,6 +114,34 @@ class ControlTable  extends React.Component{
       })
 
    }
+   //生成头部
+   generateHead = () =>{
+		return (
+			<div className = "m-control-table-head">
+				<div className = "m-control-table-head-td head-td1">
+					<div className= "m-control-table-head-tr">创业大街</div>
+					<div className= "m-control-table-head-tr">当前出租率</div>
+					<div className= "m-control-table-head-tr">
+						<div ></div>
+					</div>
+
+				</div>
+				<div className = "m-control-table-head-td ">
+					<div className= "m-control-table-head-tr">总面积:50</div>
+					<div className= "m-control-table-head-tr">本月收入：0</div>
+					<div className= "m-control-table-head-tr">建筑面积</div>
+
+				</div>
+				<div className = "m-control-table-head-td ">定价</div>
+				<div className = "m-control-table-head-td ">调整成交价</div>
+				<div className = "m-control-table-head-td ">调整成交价每工位</div>
+				<div className = "m-control-table-head-td ">在租状态</div>
+				<div className = "m-control-table-head-td ">客户名称</div>
+				<div className = "m-control-table-head-td ">当前租金（元/月）</div>
+				<div className = "m-control-table-head-td ">租期</div>
+			</div>
+		)
+   }
 	render(){
 		const {communityIdList} = this.state;
 
@@ -121,6 +150,7 @@ class ControlTable  extends React.Component{
 				<Title value="访客记录"/>
       		<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
            <SearchFormControlTable />
+		   {this.generateHead()}
           </Section>
           
 	     </div>
