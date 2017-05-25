@@ -85,6 +85,7 @@ export default class PlanMapComponent extends React.Component {
 		let arr = [];
 		let delArr = [];
 		let deldata = [];
+		
 		otherData.floors.map(function(item,index){
 			if(floor == item.value){
 				obj[floor]={

@@ -328,6 +328,7 @@ class NewCreateForm extends React.Component {
 		let {
 			selectedStation
 		} = this.state;
+		
 		if (!selectedStation.length) {
 			Notify.show([{
 				message: '请先选择要录入单价的工位',
@@ -393,7 +394,20 @@ class NewCreateForm extends React.Component {
 		let {
 			changeValues
 		} = this.props;
-
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+			
+		}
+		if(!unitpriceAdd){
+			Notify.show([{
+				message: '请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 		form.lessorAddress = changeValues.lessorAddress;
 
 		var _this = this;
