@@ -12,6 +12,10 @@ import { Http } from 'kr/Utils';
 import './index.less';
 class CommunityPlanMap extends React.Component {
 
+	static contextTypes = {
+       router: React.PropTypes.object.isRequired
+    }
+
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -57,13 +61,13 @@ class CommunityPlanMap extends React.Component {
 
 	getMapConfigs = () => {
 		let {selectFloor} = this.state;
-		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
+		var href =this.context.router.params.communityId;
 		var _this = this;
 		Http.request('plan-get-detail', {
 			floor: selectFloor,
 			communityId: href
 		}).then(function (response) {
-
+            
 			var stationsDataOrigin = response.figures;
 			var stations = [];
 			stations = stationsDataOrigin.map(function (item, index) {
@@ -112,7 +116,7 @@ class CommunityPlanMap extends React.Component {
 	getMapFloor = () => {
 
 		var _this = this;
-		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
+		var href = _this.context.router.params.communityId;
 		Http.request('getCommunityFloors', {
 			communityId: href
 		}).then(function (response) {
@@ -218,7 +222,7 @@ class CommunityPlanMap extends React.Component {
 	save = () => {
 
 		let { deleteData, planMapId, selectFloor } = this.state;
-
+        var _this=this;
 		this.mapComponent.save(function (saveData) {
 
 			var stations = [];
@@ -245,7 +249,7 @@ class CommunityPlanMap extends React.Component {
 			var cellWidth = '';
 			var cellHeight = '';
 			var isSame = '';
-			var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
+			var href = _this.context.router.params.communityId;
 			var checked = document.getElementById("sizeCheckbox").checked;
 			if (checked) {
 				isSame = 'SAME';
@@ -283,7 +287,7 @@ class CommunityPlanMap extends React.Component {
 
 	//上传
 	onSubmit = () => {
-		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
+		var href =this.context.router.params.communityId;
 		var _this = this;
 		let { fileData } = this.state;
 		var form = new FormData();
@@ -331,7 +335,7 @@ class CommunityPlanMap extends React.Component {
 	endUpload = (data) => {
 		let { selectFloor, planMapId } = this.state;
 		var _this = this;
-		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
+		var href = _this.context.router.params.communityId;
 		Http.request('plan-upload', {}, {
 			communityId: href,
 			floor: selectFloor,
@@ -423,12 +427,9 @@ class CommunityPlanMap extends React.Component {
 				this.setState({
 					figureSets: figureSets
 				});
+			}
 				this.upFlag = false;
 				this.dragFlag = false;
-			}else{
-			   	this.upFlag = false;
-				this.dragFlag = false;	
-			}
 		}
 
 		document.getElementById("single-drag-meeting").style.display = 'none';
@@ -477,7 +478,7 @@ class CommunityPlanMap extends React.Component {
 
 								<div className="num-type">
 									<span className="til">当前比例：</span>
-									<input type="range" id="ratioSelect" min="0.1" max="2" step="0.1" onChange={this.rangeSelect} />
+									<input type="range" id="ratioSelect" min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
 									<output id="ratioSelectVal">100</output>%
 							</div>
 
