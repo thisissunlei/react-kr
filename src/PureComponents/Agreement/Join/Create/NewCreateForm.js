@@ -347,7 +347,6 @@ class NewCreateForm extends Component {
 
 
 	componentDidMount() {
-		console.log('did-join',this.props.optionValues)
 		let {
 			initialValues
 		} = this.props;
@@ -358,7 +357,6 @@ class NewCreateForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('will-join',this.props.optionValues)
 
 		if(this.props.initialValues!= nextProps.initialValues){
 			Store.dispatch(initialize('joinCreateForm', nextProps.initialValues));
