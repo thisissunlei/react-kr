@@ -1457,9 +1457,8 @@ var Map = (function (window) {
 
         //销毁
         MapObject.prototype.destory = function () {
-            stationObjectArray = null;
+            stationObjectArray = [];
             bkImageObject = null;
-            //StationFactory = null;
             element.removeChild(canvas);
         }
 

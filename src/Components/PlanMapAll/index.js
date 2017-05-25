@@ -17,7 +17,7 @@ export default class PlanMapAll extends Component {
     init = (initializeConfigs) => {
 
         const {onRemove,onScaleMap} = this.props;
-
+ console.log('-000',this.isInit,initializeConfigs)
         if (this.isInit) {
             return;
         }
@@ -26,6 +26,7 @@ export default class PlanMapAll extends Component {
             return;
         }
 
+       
         this.map = new Map('mapAPP', initializeConfigs);
 
         this.map.onRemove(onRemove);
@@ -36,11 +37,7 @@ export default class PlanMapAll extends Component {
 
 
     componentDidMount() {
-        this.init(this.props.initializeConfigs);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.init(nextProps.initializeConfigs);
+        //this.init(this.props.initializeConfigs);
     }
 
     setBackgroundImage = (file)=>{
@@ -58,13 +55,13 @@ export default class PlanMapAll extends Component {
     }
 
 
-    newMap = (InitializeConfigs)=>{
-        if(!this.map){
-           return ;
+    newMap = (initializeConfigs)=>{
+
+        if(this.map){
+            this.map.destory();
         }
-         this.map.destory();
          this.isInit = false;
-         this.init(InitializeConfigs);
+         this.init(initializeConfigs);
     }
    
 

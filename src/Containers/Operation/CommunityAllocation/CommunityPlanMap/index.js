@@ -93,16 +93,19 @@ class CommunityPlanMap extends React.Component {
 				return obj;
 			});
 
-			var InitializeConfigs = {
+			var initializeConfigs = {
 				stations: stations,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
 			}
 
 			_this.setState({
 				figureSets: response.figureSets,
-				initializeConfigs: InitializeConfigs,
+				initializeConfigs,
 				planMapId: response.id,
 			});
+
+			console.log("--->>",initializeConfigs);
+			_this.mapComponent.newMap(initializeConfigs);
          
 			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
 			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
@@ -128,6 +131,7 @@ class CommunityPlanMap extends React.Component {
 				Store.dispatch(change('CommunityPlanMap', 'floor', _this.state.floors[0]));
 			});
 			_this.getMapConfigs();
+		
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -135,12 +139,13 @@ class CommunityPlanMap extends React.Component {
 
 	componentWillMount() {
 		var _this = this;
-		this.getMapFloor();
+
 	}
 
 	componentDidMount() {
 		document.addEventListener('mousemove', this.eventListen);
 		const mapComponent = this.mapComponent;
+		this.getMapFloor();
 	}
 
 
@@ -163,7 +168,7 @@ class CommunityPlanMap extends React.Component {
 	}
 
 	//楼层
-	floor = (value) => {
+	onChangeFloor = (value) => {
 		this.setState({
 			selectFloor: value.label,
 		}, function () {
@@ -473,7 +478,7 @@ class CommunityPlanMap extends React.Component {
 									<KrField name='floor' label='楼层:'
 										inline={true} component='select'
 										options={floor}
-										onChange={this.floor}
+										onChange={this.onChangeFloor}
 									/>
 								</div>
 
