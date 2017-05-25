@@ -201,13 +201,14 @@ class CommunityPlanMap extends React.Component {
 	//传过来的删除
 	onRemove = (data) => {
 		let { figureSets } = this.state;
-
+        console.log('fffi1',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = item.belongId;
 			list.belongType = item.belongType;
 			figureSets.splice(item.index,0,list);
+			console.log('fffi2',data,item.index+index);
 		});
         
 		this.setState({
