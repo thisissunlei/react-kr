@@ -57,23 +57,25 @@ module.exports = {
 
   // 数据统计-账龄分析-社区汇总列表
   'communityListAging':{
-    url: '/mockjsdata/38/finance/explan-summary?communityId={communityId}&endDate={endDate}',
+    url: '/apis/krspace-finance-web/finance/explan-summary?communityId={communityId}&endDate={endDate}',
     method: 'get'
   },
-
-  // 数据统计-账龄分析-高级查询主体准备数据
-  'getMainbody':{
-    url: '/mockjsdata/38/fna-corporation-list',
-    method: 'get'
-  },
-
 
   // 数据统计-账龄分析-社区明细列表
   'getDetailList':{
-    url: '/mockjsdata/38/finance/explan?customerId={customerId}&corporationId={corporationId}&dayType={dayType}&communityId={communityId}&end={end}&endDate={endDate}',
+    url: '/apis/krspace-finance-web/finance/explan?customerId={customerId}&corporationId={corporationId}&dayType={dayType}&communityId={communityId}&end={end}&endDate={endDate}',
     method: 'get'
   },
 
+
+  // 数据统计-账龄分析-高级查询主体准备数据
+  'getMainbody':{
+    url: '/apis/krspace-finance-web/fna-corporation-list',
+    method: 'get'
+  },
+
+
+  
 
   
 

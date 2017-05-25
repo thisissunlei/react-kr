@@ -34,10 +34,10 @@ State.getMainbody = action(function() {
 	
 	Http.request('getMainbody', {}).then(function(response) {
 		
-		for(var i=0;i<response.fnaCorporation.length;i++){
+		for(var i=0;i<response.length;i++){
 			State.mainbodyOptions.push({
-				label:response.fnaCorporation[i].corporationName,
-				value:response.fnaCorporation[i].id,
+				label:response[i].corporationName,
+				value:response[i].id,
 			})
 		}
 	}).catch(function(err) {
@@ -63,6 +63,8 @@ State.getDetailList= action(function() {
 	Http.request('getDetailList', searchParams).then(function(response) {
 		
 		State.items = response;
+		
+		
 	}).catch(function(err) {
 		Message.error(err.message);
 	});

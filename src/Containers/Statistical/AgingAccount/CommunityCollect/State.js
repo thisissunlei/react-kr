@@ -14,6 +14,7 @@ let State = observable({
 	items : [],
 	endDate:'',
 	communityId:'',
+	loading: true,
 
 });
 
@@ -30,6 +31,7 @@ State.getCollectList = action(function() {
 
 		// console.log("response获取列表---汇总",response);
 		State.items=response;
+		
 		
 	}).catch(function(err) {
 		Message.error(err.message);

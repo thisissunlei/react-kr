@@ -72,19 +72,19 @@ class AdvancedQueryForm extends React.Component{
 		}];
 		let daysOptions=[{
 			label: '0～5',
-			value: 1
+			value: "FIVE"
 		}, {
 			label: '6～30',
-			value: 2
+			value: "THIRTY"
 		}, {
 			label: '31～60',
-			value: 3
+			value: "SIXTY"
 		}, {
 			label: '61～90',
-			value: 4
+			value: "NINETY"
 		}, {
 			label: '90天以上',
-			value: 5
+			value: "MORE_THAN_NINETY"
 		}];
 
 		return (

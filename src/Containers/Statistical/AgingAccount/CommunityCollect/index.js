@@ -50,8 +50,8 @@ export default class CommunityCollect extends React.Component{
 
 
 	exportExcle=()=>{
-		
-		window.open(`/mockjs/38/finance/explan-summary-excel?communityId=${State.communityId}&endDate=${State.endDate}`);
+		console.log(`/apis/krspace-finance-web/finance/explan-summary-excel?communityId=${State.communityId}&endDate=${State.endDate}`);
+		window.open(`/apis/krspace-finance-web/finance/explan-summary-excel?communityId=${State.communityId}&endDate=${State.endDate}`);
 
 	}
 

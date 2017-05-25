@@ -55,10 +55,14 @@ export default class SearchDetailForm extends React.Component {
 
 
 	changeCustomer=(item)=>{
-		State.customerId = item.id;
+		
+		if(!item){
+			State.customerId = '';
+		}else{
+			State.customerId = item.id;
+		}
 		State.getDetailList();
 	}
-	
 	
 
 	render() {

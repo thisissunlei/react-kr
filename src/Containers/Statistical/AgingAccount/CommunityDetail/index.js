@@ -51,8 +51,8 @@ export default class CommunityDetail  extends React.Component{
 
 
 	exportExcle=()=>{
-
-		window.open(`/mockjs/38/finance/explan-excel?communityId=${State.communityId}&corporationId=${State.corporationId}&endDate=${State.endDate}&end=${State.end}&customerId=${State.customerId}&dayType=${State.dayType}`);
+		console.log(`/apis/krspace-finance-web/finance/explan-excel?communityId=${State.communityId}&corporationId=${State.corporationId}&endDate=${State.endDate}&end=${State.end}&customerId=${State.customerId}&dayType=${State.dayType}`);
+		window.open(`/apis/krspace-finance-web/finance/explan-excel?communityId=${State.communityId}&corporationId=${State.corporationId}&endDate=${State.endDate}&end=${State.end}&customerId=${State.customerId}&dayType=${State.dayType}`);
 		
 	}
 

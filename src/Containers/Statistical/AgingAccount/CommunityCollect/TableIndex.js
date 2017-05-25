@@ -24,94 +24,120 @@ export default class TableIndex extends React.Component{
 		super(props);
 		this.state={
 
-			windowScrollTop:0,
-			isShowTitle:"none",
-			isShowLeftTitle:"none",
-			titleScrollLeft:0,
-			leftTitleTop:213,
-			leftTitleItemP:'',
-			leftTitleItemTop:100,
-			fixedWidth : 930,
-			titleLeftMarginTop:0,
 
 		}
 	}
-	componentWillMount() {
+	componentDidMount() {
+		
 	}
 
 	componentWillReceiveProps(nextProps){
 		
 	}
 
+	thousands=(num)=>{
+
+	    num = num.toString();   
+
+	    if(/^-?\d+\.?\d+$/.test(num)){  
+	        if(/^-?\d+$/.test(num)){   
+	            num =num + ",00";   
+	        }else{
+	            num = num.replace(/\./,',');    
+	        }
+
+	        while(/\d{4}/.test(num)){ 
+	            
+	            num = num.replace(/(\d+)(\d{3}\,)/,'$1,$2');
+	        }
+
+	        num = num.replace(/\,(\d*)$/,'.$1');   
+	    }
+	    return num;
+	}
+
 	
 
 	componentDidMount(){
 		let _this = this;
-
+		var windowScrollTop;
+		var tableScrollLeft;
+		var tableBoxWidth = $(".table-box").eq(0).width();
+		$(".table-data").width(tableBoxWidth);
 		window.onscroll = function(){
-			_this.setState({
-				windowScrollTop:$(window).scrollTop(),
-				fixedWidth : $('.table-box').eq(0).width()
-			},function(){
+			var tableTotleHeight = $('.table-box').eq(0).height();
+			windowScrollTop = $(window).scrollTop();
+			if($(window).scrollTop()>153){
+				$('.table-box').eq(0).height(tableTotleHeight);
+				_this.refs.tableData.style.position = "fixed";
+				_this.refs.tableData.style.top = "60px";
 
-				if($(window).scrollTop()>153){
-					_this.setState({
-						isShowTitle:"block",
-						leftTitleTop:60,
-						leftTitleItemP:"absolute",
-						leftTitleItemTop:100-($(window).scrollTop()-154),
-						titleLeftMarginTop:0,
-					})
+				_this.refs.tableHeader.style.position = "absolute";
+				_this.refs.dateItems.style.marginTop = "101px";
+				_this.refs.dateItems.style.transform = "translateY("+(-($(window).scrollTop()-153))+"px)";
+				if(tableScrollLeft>140){
+					_this.refs.leftTitleT.style.display = "block";
+		    		_this.refs.leftTitleT.style.position = "fixed";
 				}else{
-					_this.setState({
-						isShowTitle:"none",
-						leftTitleTop:213-(_this.state.windowScrollTop),
-						leftTitleItemP:'',
-						titleLeftMarginTop:1,
-						
-					})
+					_this.refs.leftTitleT.style.display = "none";
 				}
-			})
-			
+
+			}else{
+				_this.refs.leftTitleT.style.display = "none";
+				_this.refs.tableData.style.position = "";
+				_this.refs.tableHeader.style.position = "";
+				_this.refs.dateItems.style.marginTop = "0px";
+				_this.refs.dateItems.style.transform = "translateY(0px)";
 
 
-
+			}
 		}
-		$('.table-box').eq(0).scroll(function(event){
-			
+		$('.table-data').eq(0).scroll(function(event){
+			tableScrollLeft = $(this).scrollLeft();
 		    if($(this).scrollLeft()>140){
-		    	_this.setState({
-		    		
-		    		isShowLeftTitle:"block",
-		    		titleScrollLeft : -($('.table-box').eq(0).scrollLeft())
-		    		
+		    	_this.refs.leftTitle.style.display = "block";
+		    	_this.refs.leftTitle.style.position = "absolute";
+		    	
+		    	if(windowScrollTop>153){
+		    		_this.refs.leftTitleT.style.display = "block";
+		    		_this.refs.leftTitleT.style.position = "fixed";
+		    	}else{
+		    		_this.refs.leftTitleT.style.display = "none";
+		    	}
 
-		    	})
 		    }else{
-		    	_this.setState({
-		    		isShowLeftTitle:"none",
-		    		titleScrollLeft : -($('.table-box').eq(0).scrollLeft())
-		    		
-		    	})
+		    	_this.refs.leftTitle.style.display = "none";
+		    	_this.refs.leftTitle.style.position = "";
+
+		    	_this.refs.leftTitleT.style.display = "none";
+
+		    	
 		    }
 		   
 		});
 		
-		
-		
-	  	
-		
-
-		
 	}
 	
 	render(){
-		let {isShowTitle,titleScrollLeft,isShowLeftTitle,leftTitleTop,leftTitleItemP,leftTitleItemTop,fixedWidth,titleLeftMarginTop} = this.state;
-
+		let _this = this;
 		return (
 			<div className="table-box">
-				<div className="table-title" style={{display:isShowTitle,width:fixedWidth}}>
-					<table className="table-container" cellPadding='0' cellSpacing='0' style={{position:"absolute",left:titleScrollLeft}} >
+				<div className="left-title-header-header" ref="leftTitleT">社区</div>
+				<div className="table-left-title" ref="leftTitle">
+					<div className="left-title-header">社区</div>
+					<div className="left-title-box" >
+						
+						{
+							State.items.map(function(item,index){
+								return <div className="left-title-item" key={index}>{item.communityName}</div>
+							})
+						}
+
+					</div>
+					
+				</div>
+				<div ref="tableData" className="table-data">
+					<table ref="tableHeader" className="table-container" cellPadding='0' cellSpacing='0'>
 					  <tbody>
 					  	<tr>
 					      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
@@ -130,90 +156,34 @@ export default class TableIndex extends React.Component{
 					      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
 					      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
 					    </tr>
+					   	
+					   
+					   	
 					   </tbody>
+					  
 					</table>
-				</div>
-				<div className="table-left-title" style={{display:isShowLeftTitle,top:leftTitleTop,marginTop:titleLeftMarginTop}}>
-					<div className="left-title-header" style={{position:leftTitleItemP}}>社区</div>
-					<div className="left-title-box" style={{position:leftTitleItemP,top:leftTitleItemTop}}>
-						
+					<div className='date-items' ref="dateItems">
 						{
-							State.items.map(function(item,index){
-								return <div className="left-title-item" key={index}>{item.communityName}</div>
-							})
-						}
 
+						   	State.items.map(function(item,index){
+						   		return <div key={index} className="data-item">
+									   		<div className="item-div">{item.cityName}</div>
+									   		<div className="item-div">{item.communityName}</div>
+									   		<div className="item-div">{_this.thousands(item.rent.receivableBackAmount)}</div>
+									   		<div className="item-div">{_this.thousands(item.deposit.receivableBackAmount)}</div>
+									   		<div className="item-div">{_this.thousands(item.rent.realBackAmount)}</div>
+									   		<div className="item-div">{_this.thousands(item.deposit.realBackAmount)}</div>
+									   		<div className="item-div">{_this.thousands(item.rent.arrearsAmount)}</div>
+									   		<div className="item-div">{_this.thousands(item.deposit.arrearsAmount)}</div>
+									   		<div className="item-div" style={{color:"#ff0000"}}>{_this.thousands(item.lateFee)}</div>
+									   		<div className="item-div" style={{color:"#ff0000"}}>{_this.thousands(item.totalAmount)}</div>
+							   		
+							   	</div>
+						   	})
+					   }
 					</div>
-					
 				</div>
-				<table className="table-container" cellPadding='0' cellSpacing='0'>
-				  <tbody>
-				  	<tr>
-				      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
-				      <td rowSpan="2" className="light-color"><div className="header-div full-height">社区</div></td>
-				      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">应收账款</div></td>
-				      <td colSpan="2" className="light-color"><div className="header-div-box half-height">实收回款</div></td>
-				      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">欠款情况</div></td>
-				      <td rowSpan="2" className="light-color"><div className="header-div full-height">应缴滞纳金</div></td>
-				      <td rowSpan="2" className="dark-color"><div className="header-div full-height">应催缴金额合计</div></td>
-				    </tr>
-				    <tr>
-				      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
-				      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
-				      <td className="light-color"><div className="header-div half-height">工位服务费</div></td>
-				      <td className="light-color"><div className="header-div half-height">履约保证金</div></td>
-				      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
-				      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
-				    </tr>
-				   	
-				   {
-					   	State.items.map(function(item,index){
-					   		return <tr key={index}>
-						   		<td><div>{item.cityName}</div></td>
-						   		<td><div>{item.communityName}</div></td>
-						   		<td><div>{(item.rent.receivableBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div>{(item.deposit.receivableBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div>{(item.rent.realBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div>{(item.deposit.realBackAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div>{(item.rent.arrearsAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div>{(item.deposit.arrearsAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div style={{color:"#ff0000"}}>{(item.lateFee+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		<td><div style={{color:"#ff0000"}}>{(item.totalAmount+"").replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){
-												  return s+','
-												}) 
-				  							}</div></td>
-						   		
-						   	</tr>
-					   	})
-				   }
-				   	
-				   </tbody>
-				   <tfoot>
-				    
-				  </tfoot>
-				</table>
-
+				
 		  	</div>
 		);
 	}
