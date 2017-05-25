@@ -15,7 +15,9 @@ class CommunityPlanMap extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
+			//左侧工位会议室数据
 			figureSets: [],
+			//总楼层数
 			floors: [],
 			//平面图传参
 			initializeConfigs: {},
@@ -23,14 +25,9 @@ class CommunityPlanMap extends React.Component {
 			fileData: '',
 			//选择楼层
 			selectFloor: 3,
-			//拖拽差值
-			minusX: '',
-			minusY: '',
 			//是否是工位
 			isStation: true,
-			//工位会议室id名称
-			nameStation: '',
-
+			
 			//元件值
 			cellname: '',
 			//点击的元件下标
@@ -42,19 +39,24 @@ class CommunityPlanMap extends React.Component {
 			planMapId: '',
 			//删除的元件
 			deleteData: [],
-            //楼层切换标志
-			floorSelect:false
 		}
 		//保存返回的数据
 		this.saveData = {};
+		//是否点击
 		this.dragFlag = false;
+		//必须要移动后放开的标志
 		this.upFlag = false;
+		//鼠标和元素差值
+		this.minusX='';
+		this.minusY='';
+		//工位会议室id名称
+	    this.nameStation='';
 	}
 
 
 
 	getMapConfigs = () => {
-		let {selectFloor,floorSelect} = this.state;
+		let {selectFloor} = this.state;
 		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
 		var _this = this;
 		Http.request('plan-get-detail', {
@@ -89,7 +91,6 @@ class CommunityPlanMap extends React.Component {
 			var InitializeConfigs = {
 				stations: stations,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
-				floorSelect:floorSelect
 			}
 
 			_this.setState({
@@ -160,7 +161,6 @@ class CommunityPlanMap extends React.Component {
 	floor = (value) => {
 		this.setState({
 			selectFloor: value.label,
-			floorSelect:!this.state.floorSelect
 		}, function () {
 			this.getMapConfigs();
 		})
@@ -354,21 +354,19 @@ class CommunityPlanMap extends React.Component {
 		if(event.target.className!='station-pic'&&event.target.className!='meeting-pic'){
 			return ;
 		}
-		this.setState({
-			minusX: event.clientX - event.target.getBoundingClientRect().left,
-			minusY: event.clientY - event.target.getBoundingClientRect().top,
-		})
+		this.minusX=event.clientX - event.target.getBoundingClientRect().left;
+		this.minusY=event.clientY - event.target.getBoundingClientRect().top;
 		this.dragFlag = true;
 		if (isStation) {
+			this.nameStation='single-drag-square'
 			this.setState({
-				nameStation: 'single-drag-square',
 				cellname: event.target.nextSibling.innerHTML,
 				dataIndex: event.target.dataset.index,
 				cellId:event.target.dataset.id
 			})
 		} else {
+            this.nameStation='single-drag-meeting'
 			this.setState({
-				nameStation: 'single-drag-meeting',
 				cellname: event.target.innerHTML,
 				dataIndex: event.target.dataset.index,
 				cellId:event.target.dataset.id
@@ -378,14 +376,11 @@ class CommunityPlanMap extends React.Component {
 
 	//移动
 	eventListen = (event) => {
-
-		let { nameStation, minusX, minusY } = this.state;
-
 		if (this.dragFlag) {
 			this.upFlag = true;
-			document.getElementById(nameStation).style.display = 'inline-block';
-			document.getElementById(nameStation).style.left = event.clientX - minusX + 'px';
-			document.getElementById(nameStation).style.top = event.clientY - minusY + 'px';
+			document.getElementById(this.nameStation).style.display = 'inline-block';
+			document.getElementById(this.nameStation).style.left = event.clientX - this.minusX + 'px';
+			document.getElementById(this.nameStation).style.top = event.clientY - this.minusY + 'px';
 		}
 
 	}
