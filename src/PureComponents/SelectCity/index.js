@@ -74,6 +74,7 @@ export default class  SelectCity extends React.Component{
 		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityMeetingRoomDetail`;
 	 }
 	 if(type=='GRAPH'){
+		 sessionStorage.setItem('communityName',name);
 		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityPlanMap`;
 	 }
 

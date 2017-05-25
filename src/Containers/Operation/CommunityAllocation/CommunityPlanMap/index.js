@@ -15,7 +15,6 @@ class CommunityPlanMap extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			isStation: true,
 			figureSets: [],
 			floors: [],
 			//平面图传参
@@ -197,6 +196,7 @@ class CommunityPlanMap extends React.Component {
 	onRemove = (data) => {
 
 		let { figureSets } = this.state;
+		console.log('data',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -204,7 +204,7 @@ class CommunityPlanMap extends React.Component {
 			list.belongType = item.belongType;
 			figureSets.push(list);
 		});
-
+        
 		this.setState({
 			deleteData: data,
 			figureSets
@@ -221,10 +221,12 @@ class CommunityPlanMap extends React.Component {
 
 			var stations = [];
 			var deleteStation = [];
+
 			deleteData.map((item, index) => {
 				deleteStation.push(item.id.toString());
 			})
 			var de = deleteStation.join();
+			console.log('fvvvv',de);
 			deleteStation = JSON.stringify(deleteStation);
 			saveData.stations.map((item, index) => {
 				var list = {};
@@ -445,11 +447,13 @@ class CommunityPlanMap extends React.Component {
 			list.value = item;
 			floor.push(list);
 		})
-        
+
+		var communityName = sessionStorage.getItem('communityName');
+        let title=`平面图配置开发(${communityName})`;
 		return (
 			<div>
 				<Title value="平面图配置" />
-				<Section title='平面图配置开发' description="" style={{ marginBottom: -5, minHeight: 910 }}>
+				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >
 							<div className='plan-header'>
