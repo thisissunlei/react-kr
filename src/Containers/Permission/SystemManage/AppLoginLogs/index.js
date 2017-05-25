@@ -206,7 +206,7 @@ openHighSearch = () => {
         </TableRowColumn>
 		<TableRowColumn type="date" name="publishTime" component={(value)=>{
             return (
-              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+              <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>
             )
           }}> </TableRowColumn>
 				<TableRowColumn>
