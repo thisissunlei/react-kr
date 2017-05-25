@@ -168,8 +168,6 @@ export default class PlanMapComponent extends React.Component {
 		let allData = [];
 		let delData = [];
 		submitData.map(function(item,index){
-				console.log('--->',item);
-			
 			var obj1 = {};
 			obj1.id = item.belongId;
 			obj1.type = item.belongType;
