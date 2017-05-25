@@ -19,7 +19,6 @@ import {
 import './index.less';
 @inject("CommunityMeetingModel")
 @inject("CommunityStationModel")
-@inject("CommunityPlanMapModel")
 @observer
 export default class  SelectCity extends React.Component{
 
@@ -75,7 +74,6 @@ export default class  SelectCity extends React.Component{
 		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityMeetingRoomDetail`;
 	 }
 	 if(type=='GRAPH'){
-		 this.props.CommunityPlanMapModel.communityName=name;
 		 window.location.href=`./#/operation/communityAllocation/${communityId}/communityPlanMap`;
 	 }
 

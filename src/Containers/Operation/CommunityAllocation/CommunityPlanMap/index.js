@@ -8,13 +8,8 @@ import {
 	Message,
 	PlanMapAll
 } from 'kr-ui';
-import {
-	observer,
-	inject
-} from 'mobx-react';
 import { Http } from 'kr/Utils';
 import './index.less';
-@inject("CommunityPlanMapModel")
 class CommunityPlanMap extends React.Component {
 
 	constructor(props, context) {
@@ -29,8 +24,6 @@ class CommunityPlanMap extends React.Component {
 			fileData: '',
 			//大小一致
 			sameSize: false,
-			//放大比例
-			scaleSize: 1,
 			//选择楼层
 			selectFloor: 3,
 			//拖拽差值
@@ -42,20 +35,12 @@ class CommunityPlanMap extends React.Component {
 			nameStation: '',
 			//元件值
 			cellname: '',
-			//传的canvas对象
-			stationObj: {
-			},
 			//点击的人下标
 			dataIndex: '',
-
 			//平面图对象id
 			planMapId: '',
-
 			//删除的元件
 			deleteData: [],
-
-			//楼层变化
-			floorChange: false
 
 		}
 		//保存返回的数据
@@ -212,9 +197,6 @@ class CommunityPlanMap extends React.Component {
 	onRemove = (data) => {
 
 		let { figureSets } = this.state;
-
-		console.log('data',data);
-
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -432,7 +414,6 @@ class CommunityPlanMap extends React.Component {
 					name: cellname
 				};
 
-				console.log(this.mapComponent);
 				this.mapComponent.createStation(station);
 
 				this.setState({
@@ -456,7 +437,7 @@ class CommunityPlanMap extends React.Component {
 	render() {
 
 		let { handleSubmit } = this.props;
-		let { floorChange, isStation, figureSets, floors, initializeConfigs, fileData, sameSize, scaleSize, stationObj } = this.state;
+		let { isStation, figureSets, floors, initializeConfigs, sameSize } = this.state;
 		var floor = [];
 		floors.map((item, index) => {
 			var list = {};
@@ -464,11 +445,11 @@ class CommunityPlanMap extends React.Component {
 			list.value = item;
 			floor.push(list);
 		})
-        let title=`平面图配置开发(${this.props.CommunityPlanMapModel.communityName})`;
+        
 		return (
 			<div>
 				<Title value="平面图配置" />
-				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
+				<Section title='平面图配置开发' description="" style={{ marginBottom: -5, minHeight: 910 }}>
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >
 							<div className='plan-header'>
@@ -557,9 +538,6 @@ class CommunityPlanMap extends React.Component {
 							<PlanMapAll
 								ref={(mapComponent) => this.mapComponent = mapComponent}
 								initializeConfigs={initializeConfigs}
-								fileData={fileData}
-								scaleSize={scaleSize}
-								stationObj={stationObj}
 								onRemove={this.onRemove}
 							/>
 
