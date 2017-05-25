@@ -224,10 +224,8 @@ class CommunityPlanMap extends React.Component {
 		let { deleteData, planMapId, selectFloor } = this.state;
         var _this=this;
 		this.mapComponent.save(function (saveData) {
-
 			var stations = [];
 			var deleteStation = [];
-
 			deleteData.map((item, index) => {
 				deleteStation.push(item.belongId.toString());
 			})
@@ -274,14 +272,12 @@ class CommunityPlanMap extends React.Component {
 				graphCellJson: stations,
 				deleteCellIdsStr: de
 			}).then(function (response) {
-				//window.location.reload();
+				window.location.reload();
 			}).catch(function (err) {
 				Message.error(err.message);
 			});
 
 		});
-
-
 	}
 
 
