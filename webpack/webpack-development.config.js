@@ -68,17 +68,17 @@ const config = {
 	devtool: 'eval',
 	output: {
 		path: buildPath,
-		filename: 'scripts/[name].[chunkhash].js',
+		filename: 'scripts/[name].[hash].js',
 		chunkFilename: 'scripts/[name].[chunkhash:5].js',
 		publicPath: "/"
 	},
 	noParse: ['/node_modules/'],
 	plugins: [
-		  new webpack.HashedModuleIdsPlugin(),
 		new CleanWebpackPlugin([path.resolve(buildPath)]),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendors',
+			filename:'vendors.js',
 			async: 'common-in-lazy',
 			minChunks: (module, count) => (
 				count >= 2

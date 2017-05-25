@@ -45,14 +45,13 @@ const config = {
 	output: {
 		publicPath: "/new",
 		path: buildPath,
-		filename: 'scripts/[name].[chunkhash].js',
+		filename: 'scripts/[name].[hash].js',
 		chunkFilename: '/scripts/[name].[chunkhash:5].js',
 	},
 	externals: {
 		React: true
 	},
 	plugins: [
-		new webpack.HashedModuleIdsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
