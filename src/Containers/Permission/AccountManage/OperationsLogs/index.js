@@ -158,7 +158,7 @@ export default class OperationsLogs extends Component {
 								<TableRowColumn name="operater" ></TableRowColumn>
 							 <TableRowColumn name="operateDate" type="date" component={(value)=>{
  								return (
- 									<KrDate value={value} format="yyyy-mm-dd hh:MM:ss" />
+ 									<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
  								)
  							}}></TableRowColumn>
 							<TableRowColumn>
