@@ -30,19 +30,23 @@ class CommunityPlanMap extends React.Component {
 			isStation: true,
 			//工位会议室id名称
 			nameStation: '',
+
 			//元件值
 			cellname: '',
-			//点击的人下标
+			//点击的元件下标
 			dataIndex: '',
+			//点击的元件的id
+			cellId:'',
+
 			//平面图对象id
 			planMapId: '',
 			//删除的元件
 			deleteData: [],
-
+            //楼层切换标志
+			floorSelect:false
 		}
 		//保存返回的数据
 		this.saveData = {};
-
 		this.dragFlag = false;
 		this.upFlag = false;
 	}
@@ -50,7 +54,7 @@ class CommunityPlanMap extends React.Component {
 
 
 	getMapConfigs = () => {
-		let { selectFloor } = this.state;
+		let {selectFloor,floorSelect} = this.state;
 		var href = window.location.href.split('communityAllocation/')[1].split('/')[0];
 		var _this = this;
 		Http.request('plan-get-detail', {
@@ -84,7 +88,8 @@ class CommunityPlanMap extends React.Component {
 
 			var InitializeConfigs = {
 				stations: stations,
-				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath
+				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
+				floorSelect:floorSelect
 			}
 
 			_this.setState({
@@ -149,9 +154,10 @@ class CommunityPlanMap extends React.Component {
 	//楼层
 	floor = (value) => {
 		this.setState({
-			selectFloor: value.label
+			selectFloor: value.label,
+			floorSelect:!this.state.floorSelect
 		}, function () {
-			this.getMapConfigs(value.label);
+			this.getMapConfigs();
 		})
 	}
 
@@ -187,13 +193,12 @@ class CommunityPlanMap extends React.Component {
 	//传过来的删除
 	onRemove = (data) => {
 		let { figureSets } = this.state;
-		console.log('data',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = item.belongId;
-			list.belongType = item.belongType;
-			figureSets.push(list);
+			list.belongType = item.type=='station'?'STATION':'SPACE';
+			figureSets.splice(item.index,0,list);
 		});
         
 		this.setState({
@@ -214,11 +219,9 @@ class CommunityPlanMap extends React.Component {
 			var deleteStation = [];
 
 			deleteData.map((item, index) => {
-				deleteStation.push(item.id.toString());
+				deleteStation.push(item.belongId.toString());
 			})
 			var de = deleteStation.join();
-			console.log('fvvvv',de);
-			deleteStation = JSON.stringify(deleteStation);
 			saveData.stations.map((item, index) => {
 				var list = {};
 				list.cellCoordX = item.x;
@@ -349,13 +352,15 @@ class CommunityPlanMap extends React.Component {
 			this.setState({
 				nameStation: 'single-drag-square',
 				cellname: event.target.nextSibling.innerHTML,
-				dataIndex: event.target.dataset.index
+				dataIndex: event.target.dataset.index,
+				cellId:event.target.dataset.id
 			})
 		} else {
 			this.setState({
 				nameStation: 'single-drag-meeting',
 				cellname: event.target.innerHTML,
-				dataIndex: event.target.dataset.index
+				dataIndex: event.target.dataset.index,
+				cellId:event.target.dataset.id
 			})
 		}
 	}
@@ -377,7 +382,7 @@ class CommunityPlanMap extends React.Component {
 	//释放
 	allStationUp = (event) => {
 
-		let { isStation, cellname, figureSets, dataIndex } = this.state;
+		let { isStation, cellname, figureSets, dataIndex,cellId } = this.state;
 		var type = '';
 		var width = '';
 		var height = '';
@@ -404,7 +409,9 @@ class CommunityPlanMap extends React.Component {
 					width: width,
 					height: height,
 					type: type,
-					name: cellname
+					name: cellname,
+					belongId:cellId,
+					index:dataIndex
 				};
 
 				this.mapComponent.createStation(station);
@@ -429,8 +436,8 @@ class CommunityPlanMap extends React.Component {
 
 	render() {
 
-		let { handleSubmit } = this.props;
-		let { isStation, figureSets, floors, initializeConfigs} = this.state;
+		let {handleSubmit } = this.props;
+		let {isStation,figureSets,floors,initializeConfigs} = this.state;
 		var floor = [];
 		floors.map((item, index) => {
 			var list = {};
@@ -508,7 +515,10 @@ class CommunityPlanMap extends React.Component {
 											{figureSets && figureSets.map((item, index) => {
 												if (item.belongType == "STATION") {
 													return (<div key={index} className="plan-wrap-pic">
-														<div className="station-pic" data-index={index}></div>
+														<div className="station-pic" 
+														  data-index={index} 
+														  data-id={item.belongId}>
+														</div>
 														<span>{item.cellName}</span>
 													</div>)
 												}
@@ -518,7 +528,11 @@ class CommunityPlanMap extends React.Component {
 											{figureSets && figureSets.map((item, index) => {
 												if (item.belongType == "SPACE") {
 													return (<div key={index} className="plan-meeting-pic">
-														<div className="meeting-pic" data-index={index}>{item.cellName}</div>
+														<div className="meeting-pic" 
+														  data-index={index} 
+														  data-id={item.belongId} >
+														    {item.cellName}
+														</div>
 													</div>)
 												}
 											})}
