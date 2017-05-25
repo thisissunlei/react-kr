@@ -1607,11 +1607,6 @@ var Map = (function (window) {
         this.map.setBackgroundImage.apply(this.map, arguments);
     }
 
-    //重新绘制背景图
-    exportMap.prototype.loadImage = function () {
-        this.map.loadImage.apply(this.map, arguments);
-    }
-
     //保存
     exportMap.prototype.save = function () {
         this.map.save.apply(this.map, arguments);

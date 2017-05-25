@@ -55,14 +55,17 @@ export default class PlanMapAll extends Component {
         }
         this.map.setScale(scale);
     }
-   
 
-   loadImage=(src)=>{
-      if (!this.map) {
-            return;
+
+    newMap = (InitializeConfigs)=>{
+        if(!this.map){
+           return ;
         }
-      this.map.loadImage(src);
-   }
+         this.map.destory();
+         this.isInit = false;
+         this.init(InitializeConfigs);
+    }
+   
 
 
     setStationToSame=(checked,callback)=>{
