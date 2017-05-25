@@ -104,7 +104,6 @@ class CommunityPlanMap extends React.Component {
 				planMapId: response.id,
 			});
 
-			console.log("--->>",initializeConfigs);
 			_this.mapComponent.newMap(initializeConfigs);
          
 			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
@@ -223,7 +222,6 @@ class CommunityPlanMap extends React.Component {
 			list.belongId = item.belongId;
 			list.belongType = item.belongType;
 			figureSets.splice(item.index,0,list);
-			console.log('fffi2',data,item.index+index);
 		});
 		this.setState({
 			deleteData: data,
@@ -403,7 +401,6 @@ class CommunityPlanMap extends React.Component {
 
 	//释放
 	allStationUp = (event) => {
-
 		let { isStation, cellname, figureSets, dataIndex,cellId } = this.state;
 		var type = '';
 		var width = '';
@@ -418,7 +415,6 @@ class CommunityPlanMap extends React.Component {
 			width = 118;
 			height = 48;
 		}
-
 
 		if (this.upFlag) {
 			if (myApp.getBoundingClientRect().left < event.target.getBoundingClientRect().left + width &&
@@ -440,13 +436,13 @@ class CommunityPlanMap extends React.Component {
 					figureSets: figureSets
 				});
 			}
-				this.upFlag = false;
-				this.dragFlag = false;
+				
 		}
 
 		document.getElementById("single-drag-meeting").style.display = 'none';
 		document.getElementById("single-drag-square").style.display = 'none';
-
+        this.upFlag = false;
+		this.dragFlag = false;
 
 	}
 
