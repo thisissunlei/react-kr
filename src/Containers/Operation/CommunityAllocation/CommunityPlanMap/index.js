@@ -228,6 +228,7 @@ class CommunityPlanMap extends React.Component {
 		data = [].concat(data);
 		let { figureSets,deleteData } = this.state;
 		var del=[];
+		console.log('gggbbb',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -254,7 +255,7 @@ class CommunityPlanMap extends React.Component {
 			var stations = [];
 			var deleteStation = [];
 			deleteData.map((item, index) => {
-				deleteStation.push(item.belongId.toString());
+				deleteStation.push(item.id.toString());
 			})
 			var de = deleteStation.join();
 			saveData.stations.map((item, index) => {
@@ -302,7 +303,7 @@ class CommunityPlanMap extends React.Component {
 				document.getElementById('save-no').style.display='none';
 				_this.getMapConfigs();
 				_this.setState({
-				  scaleNumber	
+				  scaleNumber:100	
 				})
 			}).catch(function (err) {
 				Message.error(err.message);
