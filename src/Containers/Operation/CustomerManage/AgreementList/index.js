@@ -114,6 +114,7 @@ class Merchants extends Component{
 			Message.error(err.message);
 		});
 	}
+	
 	//打开第二新建页面
 	openTwoAgreement = () => {
 		this.props.CommunityAgreementList.openTowAgreement=true;
