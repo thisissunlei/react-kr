@@ -78,8 +78,8 @@ class Editdialog extends React.Component {
     			    		style={{marginTop:4}}
     			    		label="设备类型"
     							options={[
-    					      {label:'android',value:'ANDROID'},
-    					      {label:'ios',value:'IOS'}
+    					      {label:'ANDROID',value:'ANDROID'},
+    					      {label:'IOS',value:'IOS'}
     					    ]}
     					/>
     					<KrField
@@ -118,10 +118,10 @@ class Editdialog extends React.Component {
                   requireLabel={true}
                   type="select"
                   style={{marginTop:4}}
-                  label="app 类型"
+                  label="APP类型"
                   options={[
-                    {label:'m_app',value:'MAPP'},
-                    {label:'tv_app',value:'TVAPP'}
+                    {label:'M_APP',value:'MAPP'},
+                    {label:'TV_APP',value:'TVAPP'}
                   ]}
               />
               <KrField
