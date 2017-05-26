@@ -104,12 +104,14 @@ class CommunityPlanMap extends React.Component {
 				initializeConfigs,
 				planMapId: response.id,
 			});
-
+            
 			_this.mapComponent.newMap(initializeConfigs);
          
 			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
+			document.getElementById("bgfilename").innerHTML=response.graphFileName;
 			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
 		    });
+
 
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -237,8 +239,8 @@ class CommunityPlanMap extends React.Component {
 
 	//保存
 	save = () => {
-
 		let { deleteData, planMapId, selectFloor } = this.state;
+		document.getElementById('save-no').style.display='inline-block';
         var _this=this;
 		this.mapComponent.save(function (saveData) {
 			var stations = [];
@@ -289,6 +291,7 @@ class CommunityPlanMap extends React.Component {
 				deleteCellIdsStr: de
 			}).then(function (response) {
 				Message.success('保存成功');
+				document.getElementById('save-no').style.display='none';
 			}).catch(function (err) {
 				Message.error(err.message);
 			});
@@ -495,7 +498,7 @@ class CommunityPlanMap extends React.Component {
 							</div>
 
 								<div className='upload-img'>
-									<input type="file" id="backgroundImg" name="file" style={{ width: '63px' }} onChange={this.fileUpload} />
+									<input type="file" name="file" style={{ width: '63px' }} onChange={this.fileUpload} />
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
 
@@ -504,7 +507,8 @@ class CommunityPlanMap extends React.Component {
 									<div className='upload-btn' onClick={this.onSubmit}>上传</div>
 								</div>
 
-								<div className='save-header' id='save-header' onClick={this.save}>保存</div>
+								<div className='save-header' onClick={this.save}>保存</div>
+								<div className='save-header-none' id='save-no'>保存</div>
 
 							</div>
 
