@@ -26,13 +26,15 @@ class SearchFormControlTable extends React.Component {
 	constructor(props) {
 		super(props);
         this.state={
-            communityIdList:[]
+            communityIdList:[],
+			placeholder:'',
         }
         this.getcommunity();
 	}
 
     getcommunity = () => {
-        let _this = this;
+        const _this = this;
+		const {communityChange} = this.props;
         let {communityIdList} = this.state;
         Http.request('getCommunity').then(function(response) {
 
@@ -44,7 +46,9 @@ class SearchFormControlTable extends React.Component {
             });
             _this.setState({
                 communityIdList,
+				placeholder:communityIdList[0].label
             });
+			communityChange(communityIdList[0]);
 
 
         }).catch(function(err) {
@@ -54,47 +58,19 @@ class SearchFormControlTable extends React.Component {
         });
 	}
 
-   //搜索下拉
-	onSearchSubmit=(value)=>{
-      const {
-			onSearchSubmit
-		} = this.props;
-		onSearchSubmit && onSearchSubmit(value);
+	communityChange = (values) =>{
+		const {communityChange} = this.props;
+		communityChange && communityChange(values);
 	}
-	//合同类型
-   contractChange=(value)=>{
-		   const {
-		   contractChange
-	     } = this.props;
-	    contractChange && contractChange(value);
-	 }
-    //日期开始
-	 onStartChange=(value)=>{
-      const {
-			onStartChange
-		} = this.props;
-		onStartChange && onStartChange(value);
-    }
-    //日期结束
-     onEndChange=(value)=>{
-      const {
-			onEndChange
-		} = this.props;
-		onEndChange && onEndChange(value);
-     }
 
+	onSubmit = (values) =>{
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
+	}
 
 	render() {
-        const {communityIdList} = this.state;
+        const {communityIdList,placeholder} = this.state;
 		let {todayDate}=this.props;
-
-		let options=[
-		 {label:'公司名称',value:'company'},
-		 {label:'城市',value:'city'},
-		 {label:'社区',value:'community'},
-		 {label:'销售员',value:'people'},
-		 {label:'录入人',value:'write'},
-		]
 
 		return (
 
@@ -104,12 +80,12 @@ class SearchFormControlTable extends React.Component {
                             component='searchCommunityManage' 
                             style ={{width:335,marginTop:3}} 
                             label="社区:" inline={true}  
-                            placeholder='请输入社区名称' 
+                            placeholder={placeholder} 
                             requireLabel={false}
-                        
+							onChange = {this.communityChange}
                             options={communityIdList}
                         />
-                    <SearchForms onSubmit={this.onSerchSubmit} placeholder="请输入被访公司名称"  style={{marginTop:5,zIndex:10000}} />
+                    <SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  style={{marginTop:5,zIndex:10000}} />
                 </form>
 
 

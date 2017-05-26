@@ -45,7 +45,18 @@ class ControlTable  extends React.Component{
 			listData:['','','','','','',''],
 			communityIdList:[],
 			moveStyle:{},
-			contentStyle:{}
+			contentStyle:{},
+			searchParams:{
+               communityId:'',
+			   customerName:'',
+            },
+			communityName:'',
+			otherData:{
+				incomeMonth:'',
+				rentalRateStr:'',
+				totalArea:'',
+			},
+
 		}
 		this.getcommunity();
 
@@ -56,7 +67,6 @@ class ControlTable  extends React.Component{
 		window.onscroll = function () {
 			var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
 			var t = document.documentElement.scrollTop || document.body.scrollTop;
-			console.log(left,"LLLL");
 			if(t>150){
 				_this.setState({
 					moveStyle:{
@@ -86,20 +96,22 @@ class ControlTable  extends React.Component{
 			}
 		}
 	}
+
+	
+
 	getcommunity = () => {
 		let _this = this;
-		let {communityIdList} = this.state;
-		Http.request('getCommunity').then(function(response) {
+		let {searchParams} = this.state;
+		Http.request('control-table',searchParams).then(function(response) {
 
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
 			_this.setState({
-				communityIdList,
-			});
+				otherData:{
+					incomeMonth:response.incomeMonth,
+					rentalRateStr:response.rentalRateStr,
+					totalArea:response.totalArea,
+				},
+				listData:response.items
+			})
 
 
 		}).catch(function(err) {
@@ -109,52 +121,36 @@ class ControlTable  extends React.Component{
 		});
 	}
 
-  getEidtData = (id,itemDetail) =>{
-    let _this= this;
-    const {FormModel} = this.props;
-
-
-    Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
-
-    }).catch(function(err) {
-      Message.error(err.message);
-    });
-  }
-   //搜索列表
-   onSearchSubmit = (value) =>{
+   //搜索框确定
+   onSubmit = (values) =>{
+	   const {searchParams} = this.state;
+		this.setState({
+			searchParams:{
+               communityId:searchParams.communityId,
+			   customerName:values.content,
+            }
+		})
 
    }
+   //搜索下拉
+   communityChange = (values) =>{
+	   const {searchParams} = this.state;
+		this.setState({
+			searchParams:{
+               communityId:values.value,
+			   customerName:searchParams.customerName,
+            },
+			communityName:values.label,
 
-   //打开新增访客
-   openNewVisitors = () =>{
-      const {FormModel} = this.props;
-   		this.setState({
-   			openNewVisitors:true,
-   		});
-      FormModel.getForm("NewVisitorsToRecord")
-  		.changeValues({
-        communityId:"",
-        typeId:"",
-        interviewTypeId:"",
-        activityTypeId:"",
-        name:"",
-        tel:"",
-        wechat:"",
-        num:'',
-        email:"",
-        purposeId:'',
-        interviewRoundId:'',
-        vtime:'',
-      })
-
+		})
    }
    //生成头部
    generateHead = () =>{
-	   let {moveStyle} = this.state;
+	   let {moveStyle,communityName} = this.state;
 		return (
 			<div className = "m-control-table-head clearfix" style = {moveStyle}>
 				<div className = "m-control-table-head-td head-td1">
-					<div className= "m-control-table-head-tr">创业大街</div>
+					<div className= "m-control-table-head-tr">{communityName}</div>
 					<div className= "m-control-table-head-tr">当前出租率</div>
 					<div className= "m-control-table-head-tr">
 						<div className = "m-control-table-head-tr-td">编号</div>
@@ -171,10 +167,10 @@ class ControlTable  extends React.Component{
 				</div>
 				<div className = "m-control-table-head-td ">定价</div>
 				<div className = "m-control-table-head-td "><span>实际成交价</span></div>
-				<div className = "m-control-table-head-td "><span>每工位实际</span><span>成交价</span><span>(元/月)</span></div>
+				<div className = "m-control-table-head-td "><span className="m-control-table-head-span"><span>每工位实际</span><span>成交价</span><span>(元/月)</span></span></div>
 				<div className = "m-control-table-head-td "><span>在租状态</span></div>
 				<div className = "m-control-table-head-td "><span>客户名称</span></div>
-				<div className = "m-control-table-head-td "><span>当前租金</span><span>（元/月）</span></div>
+				<div className = "m-control-table-head-td "><span className="m-control-table-head-span"><span>当前租金</span><span>（元/月）</span></span></div>
 				<div className = "m-control-table-head-td ">租期</div>
 			</div>
 		)
@@ -212,10 +208,13 @@ class ControlTable  extends React.Component{
 		const {communityIdList,contentStyle} = this.state;
 
 		return(
-			<div className="m-control-table" style={{minHeight:'1510'}}>
+			<div className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="访客记录"/>
 				<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
-					<SearchFormControlTable />
+					<SearchFormControlTable 
+						communityChange = {this.communityChange}
+						onSubmit = {this.onSubmit}
+					 />
 					{this.generateHead()}
 					<div className = "m-control-table-content clearfix" style = {contentStyle}>
 						{this.generateContent()}

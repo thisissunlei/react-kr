@@ -67,5 +67,12 @@ module.exports = {
       url: '/api/krspace-finance-web/op/community/question/get-question-list?typeName={typeName}&communityName={communityName}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
+    //社区经营新销控表
+   'control-table':{
+      url: '/api/krspace-finance-web/cmt/sell-control/list?communityId={communityId}&customerName={customerName}',
+      method: 'get'
+   },
+
+  
 
 }
