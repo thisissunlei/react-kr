@@ -101,8 +101,8 @@ export default class PlanMapAll extends Component {
         if (!this.map) {
             return;
         }
-        this.map.onRemove(function (data) {
-            callback && callback(data);
+        this.map.onRemove(function (data,station) {
+            callback && callback(data,station);
         });
     }
 

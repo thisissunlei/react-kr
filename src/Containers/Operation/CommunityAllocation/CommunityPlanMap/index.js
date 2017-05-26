@@ -145,7 +145,13 @@ class CommunityPlanMap extends React.Component {
 	}
 
 	componentDidMount() {
+		var _this=this;
 		document.addEventListener('mousemove', this.eventListen);
+		document.addEventListener('keydown',function(e){
+			   if( e.ctrlKey  == true && e.keyCode == 83 ){
+				  _this.save();
+	           }
+		}, false);
 		const mapComponent = this.mapComponent;
 		this.getMapFloor();
 	}
@@ -217,7 +223,9 @@ class CommunityPlanMap extends React.Component {
 		});
 	}
 
-	onRemove = (data) => {
+	onRemove = (data,station) => {
+
+		data = [].concat(data);
 		let { figureSets,deleteData } = this.state;
 		var del=[];
 		data.map((item, index) => {
@@ -292,6 +300,10 @@ class CommunityPlanMap extends React.Component {
 			}).then(function (response) {
 				Message.success('保存成功');
 				document.getElementById('save-no').style.display='none';
+				_this.getMapConfigs();
+				_this.setState({
+				  scaleNumber	
+				})
 			}).catch(function (err) {
 				Message.error(err.message);
 			});

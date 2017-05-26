@@ -1,17 +1,32 @@
-
-import Message from '../Message';
-
 //平面图
 var Map = (function (window) {
+
 
 
     //画布上下文    
     var context;
 
+    var defaultConfigs = {
+        z: 1,
+    }
+
+    //工位基本配置
+
+    var defaultStation = {
+        minWidth: 30,
+        minHeight: 30,
+        maxWidth: 200,
+        maxHeight: 200,
+        scaleSpeed: 30
+    }
+
+    var isLoadImageError = false;
+
     var isEdit = true;
     var onRemoveCallback = function () { };
 
     var onScaleMapCallback = function () { };
+    var onErrorCallback = function () { };
 
     var ready = function () { };
 
@@ -80,6 +95,7 @@ var Map = (function (window) {
 
     //向什么方向放大
     var scaleStationDirection;
+
 
     //平移
     var translateX = 0;
@@ -209,6 +225,7 @@ var Map = (function (window) {
         StationObject.defaultPropTypes = {
             x: 0,
             y: 0,
+            z: 0,
             width: 60,
             height: 30,
             id: + new Date(),
@@ -221,23 +238,25 @@ var Map = (function (window) {
 
         //获取props信息
         StationObject.prototype.getProps = function () {
-            return this.props;
+            return Object.assign(this.props);
         }
 
         //设置props信息 跟数据库进行关联
         StationObject.prototype.setProps = function (nextProps) {
             //设置到对象属性
-            var props = this.props;
+            var props = Object.assign({}, this.props);
+
             props = Object.assign({}, this.props, nextProps);
 
-            if (props.width <= 30) {
-                props.width = 30;
-            }
-            if (props.height <= 30) {
-                props.height = 30;
+            if (props.width <= defaultStation.minWidth) {
+                props.width = defaultStation.minWidth;
             }
 
-            this.props = props;
+            if (props.height <= defaultStation.minHeight) {
+                props.height = defaultStation.minHeight;
+            }
+
+            this.props = Object.assign({}, props);
 
             //存入数据库
             var params = Object.assign({}, props);
@@ -282,10 +301,11 @@ var Map = (function (window) {
             const width = widthOrHeight.width;
             const height = widthOrHeight.height;
 
+
             var position = this.getLeftTopPosition();
             position = MapFactory.transformPositionToView(position.x, position.y);
 
-
+            //context.globalCompositeOperation = 'source-over';
             //绘制
             context.moveTo(position.x, position.y);
             context.beginPath();
@@ -668,6 +688,7 @@ var Map = (function (window) {
                     props.height = props.height + scale;
                     props.drag = true;
                     this.componentWillReceiveProps(props);
+
                     break;
                 }
 
@@ -675,12 +696,16 @@ var Map = (function (window) {
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
                     scale = (move.x - down.x) > 0 ? -scale : scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width + scale;
                     props.height = props.height;
-                    props.x -= scale / 2;
+
+                    if (props.width > defaultStation.minWidth) {
+                        props.x -= scale / 2;
+                    }
+
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
@@ -692,12 +717,13 @@ var Map = (function (window) {
 
 
                     scale = (move.x - down.x) > 0 ? -scale : scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width + scale;
                     props.height = props.height + scale;
                     props.drag = true;
+
                     this.componentWillReceiveProps(props);
 
                     break;
@@ -708,7 +734,7 @@ var Map = (function (window) {
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
                     scale = (move.x - down.x) > 0 ? scale : -scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width + scale;
@@ -723,23 +749,26 @@ var Map = (function (window) {
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
                     scale = (move.x - down.x) > 0 ? scale : -scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width + scale;
                     props.height = props.height;
-                    props.x += scale / 2;
+
+                    if (props.width >= defaultStation.minWidth) {
+                        props.x += scale / 2;
+                    }
+
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
                 }
 
                 case 'rightBottom': {
-
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
                     scale = (move.x - down.x) > 0 ? scale : -scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width + scale;
@@ -754,12 +783,15 @@ var Map = (function (window) {
                     var scale = Math.sqrt(Math.pow(down.y - move.y, 2), Math.pow(down.y - move.y, 2));
 
                     scale = (down.y - move.y) > 0 ? scale : -scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width;
                     props.height = props.height + scale;
-                    props.y -= scale / 2;
+
+                    if (props.height >= defaultStation.minHeight) {
+                        props.y -= scale / 2;
+                    }
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
@@ -770,12 +802,16 @@ var Map = (function (window) {
                     var scale = Math.sqrt(Math.pow(move.y - down.y, 2), Math.pow(move.y - down.y, 2));
 
                     scale = (move.y - down.y) > 0 ? scale : -scale;
-                    scale = scale / 7;
+                    scale = scale / defaultStation.scaleSpeed;
 
                     var props = this.getProps();
                     props.width = props.width;
                     props.height = props.height + scale;
-                    props.y += scale / 2;
+
+                    if (props.height >= defaultStation.minHeight) {
+                        props.y += scale / 2;
+                    }
+
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
@@ -838,7 +874,6 @@ var Map = (function (window) {
     const MapFactory = function (elementId, configs) {
 
 
-
         //平面构造器
         var MapObject = function (elementId, configs) {
 
@@ -867,9 +902,19 @@ var Map = (function (window) {
 
             var self = this;
             imageUrl = imageUrl || DB.getImageUrl();
-            
+
+            isLoadImageError = false;
+
             bkImageObject = new Image();
             bkImageObject.src = imageUrl;
+
+            bkImageObject.onError = function () {
+                onErrorCallback && onErrorCallback('图片加载错误');
+                isLoadImageError = true;
+                self.componentWillMount();
+                self.render();
+            }
+
             bkImageObject.onload = function () {
                 self.componentWillMount();
                 self.render();
@@ -893,8 +938,8 @@ var Map = (function (window) {
 
         MapObject.prototype.setMouseStyle = function () {
 
-            if(typeof operationType === 'undefined'){
-                return ;
+            if (typeof operationType === 'undefined') {
+                return;
             }
 
             var operation = operationTypeConfigs[operationType];
@@ -936,14 +981,23 @@ var Map = (function (window) {
             onScaleMapCallback = callback;
         }
 
+        MapObject.prototype.onError = function (callback) {
+            onErrorCallback = callback;
+        }
+
+
 
         //绘制工位及会议室
         MapObject.prototype.drawStations = function () {
 
             if (stationObjectArray.length) {
+
+                this.sortStation();
+
                 stationObjectArray.map(function (station) {
                     station.render();
                 });
+
                 return;
             }
 
@@ -1132,7 +1186,7 @@ var Map = (function (window) {
                 if (self.isInStation(movePosition.x, movePosition.y)) {
 
                     if (self.isInStationDragPosition(movePosition.x, movePosition.y)) {
-                     
+
                     } else {
                         operationType = 'stationHover';
                     }
@@ -1152,6 +1206,9 @@ var Map = (function (window) {
                 switch (keyCode) {
                     // 删除键
                     case 8:
+                        self.removeStation();
+                        break;
+                    case 36:
                         self.removeStation();
                         break;
                     default:
@@ -1242,6 +1299,11 @@ var Map = (function (window) {
         }
 
         MapObject.prototype.drawImage = function () {
+
+            if (isLoadImageError) {
+                return;
+            }
+
             var img = bkImageObject;
             context.beginPath();
             context.drawImage(img, translateX * scale, translateY * scale, img.width * scale, img.height * scale);
@@ -1279,6 +1341,13 @@ var Map = (function (window) {
 
             //清空上次拖拽的工位
             this.cleanDragStations();
+
+           stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return  nextProps.z -prevProps.z;
+            });
+
             var station = null;
             var props = null;
 
@@ -1290,16 +1359,26 @@ var Map = (function (window) {
                     if (!props.drag) {
                         props.drag = true;
                     }
-                    station.setProps(props);
+                    props.z = defaultConfigs.z;
+
+                    station.componentWillReceiveProps(props);
                     break;
                 }
             }
+            defaultConfigs.z++;
 
+        }
+
+        MapObject.prototype.sortStation = function () {
+            stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return  prevProps.z - nextProps.z  ;
+            });
         }
 
         //点击在工位上
         MapObject.prototype.isInStation = function (x, y) {
-
             var station = null;
             var isOK = false;
             var props = null;
@@ -1374,7 +1453,14 @@ var Map = (function (window) {
                 removeStations.push(props);
             });
             this.render();
-            onRemoveCallback && onRemoveCallback(removeStations);
+
+            var allStation = [];
+
+            stationObjectArray.map(function (station) {
+                allStation.push(station.getProps());
+            });
+
+            onRemoveCallback && onRemoveCallback(removeStations, allStation);
         }
 
 
@@ -1416,7 +1502,9 @@ var Map = (function (window) {
                 stashProps = station.getStashProps();
                 move.x = stashProps.x + lx;
                 move.y = stashProps.y + ly;
+
                 station.move(move.x, move.y);
+
             });
 
             this.render();
@@ -1462,6 +1550,7 @@ var Map = (function (window) {
         MapObject.prototype.destory = function () {
             stationObjectArray = [];
             bkImageObject = null;
+            //StationFactory = null;
             element.removeChild(canvas);
         }
 
@@ -1474,16 +1563,19 @@ var Map = (function (window) {
                 return;
             }
 
-            if (stationToSame && dragStations.length) {
+            defaultConfigs.z++;
 
+            if (stationToSame && dragStations.length) {
                 var targeStation = dragStations[0];
                 var params = targeStation.getProps();
                 props.width = params.width;
                 props.height = params.height;
-
             }
+
+            props.z = defaultConfigs.z;
             DB.newStation(props);
             stationObjectArray.push(StationFactory(props));
+
         }
 
         MapObject.prototype.getCheckedAll = function () {
@@ -1532,8 +1624,7 @@ var Map = (function (window) {
 
             var targeStation = dragStations[0];
             var props = targeStation.getProps();
-
-            if (props.type === 'meeting') {
+            if (props.belongType === 'SPACE') {
                 return;
             }
 
@@ -1542,7 +1633,7 @@ var Map = (function (window) {
 
             stationObjectArray.map(function (station) {
                 var stationProps = station.getProps();
-                if (stationProps.type == 'station') {
+                if (stationProps.belongType == 'STATION') {
                     station.setProps({ width, height });
                 }
             });
@@ -1751,6 +1842,12 @@ var Map = (function (window) {
         this.map.setScale.apply(this.map, arguments);
     }
 
+    //错误信息
+    exportMap.prototype.onError = function () {
+        this.map.onError.apply(this.map, arguments);
+    }
+
+
     //设置工位大小一致
     exportMap.prototype.setStationToSame = function () {
         this.map.setStationToSame.apply(this.map, arguments);
@@ -1774,5 +1871,4 @@ var Map = (function (window) {
 
 })(window);
 
-
-module.exports = Map;
+module.exports=Map;
