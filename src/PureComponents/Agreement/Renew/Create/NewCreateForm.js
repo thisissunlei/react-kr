@@ -151,8 +151,8 @@ class NewCreateForm extends Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('reduceCreateForm', 'lessorContactName', personel.lastname));
+		Store.dispatch(change('renewCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('renewCreateForm', 'lessorContactName', personel.lastname));
 
 	}
 
@@ -163,7 +163,7 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
-		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
+		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
 
 		this.setAllRent(stationVos);
 
@@ -185,7 +185,7 @@ class NewCreateForm extends Component {
 			_this.setState({
 				allRent:response
 			})
-		Store.dispatch(change('reduceCreateForm', 'totalrent', response));
+		Store.dispatch(change('renewCreateForm', 'totalrent', response));
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -211,7 +211,7 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
+		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
 
 		this.setAllRent(stationVos);
 		this.setState({
@@ -235,7 +235,7 @@ class NewCreateForm extends Component {
 		let {
 			initialValues
 		} = this.props;
-		Store.dispatch(initialize('reduceCreateForm', initialValues));
+		Store.dispatch(initialize('renewCreateForm', initialValues));
 		this.setState({
 			allRent:initialValues.totalrent
 		})
@@ -244,7 +244,7 @@ class NewCreateForm extends Component {
 	componentWillReceiveProps(nextProps) {
 
 		if(this.props.initialValues!= nextProps.initialValues){
-			Store.dispatch(initialize('reduceCreateForm', nextProps.initialValues));
+			Store.dispatch(initialize('renewCreateForm', nextProps.initialValues));
 			
 		}
 		if(this.props.initialValues.stationVos!=nextProps.initialValues.stationVos){
@@ -405,7 +405,7 @@ class NewCreateForm extends Component {
                       {stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                      </DotTitle>
-                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent || '0'}</span><span>{allRentName}</span></div>
 
                     </div>
 
@@ -464,7 +464,7 @@ class NewCreateForm extends Component {
 	</div>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}}  name="fileIdList" component="file" label="合同附件" defaultValue={initialValues.contractFileList || []} onChange={(files)=>{
-					Store.dispatch(change('reduceCreateForm','contractFileList',files));
+					Store.dispatch(change('renewCreateForm','contractFileList',files));
 				}} />
 
 
@@ -502,8 +502,8 @@ const validate = values => {
 
 	const errors = {}
 
-	// ++values.num;
-	// localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
+	++values.num;
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
 
 
 	if (!values.leaseId) {
@@ -576,10 +576,10 @@ const validate = values => {
 }
 
 
-const selector = formValueSelector('reduceCreateForm');
+const selector = formValueSelector('renewCreateForm');
 
 NewCreateForm = reduxForm({
-	form: 'reduceCreateForm',
+	form: 'renewCreateForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true

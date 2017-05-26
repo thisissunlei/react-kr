@@ -593,7 +593,6 @@ class NewCreateForm extends Component {
 			allRent,
 		} = this.state;
 		let allRentName = this.dealRentName();
-		console.log('======>stationVos',stationVos)
 
 		return (
 

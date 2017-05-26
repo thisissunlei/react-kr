@@ -107,11 +107,11 @@ class NewCreateForm extends Component {
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 
 		this.state = {
-			stationVos: [],
+			stationVos: this.props.initialValues.stationVos || [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
-			allRent:0,
+			allRent:this.props.initialValues.rentamount || 0,
 			HeightAuto: false,
 		}
 	}
@@ -160,6 +160,8 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
+		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
+
 		this.setAllRent(stationVos);
 
 		this.setState({
@@ -176,7 +178,7 @@ class NewCreateForm extends Component {
 			return item;
 		})
 
-		Http.request('reduceGetAllRent',{stationList:JSON.stringify(list),billId:_this.props.initialValues.mainbillid}).then(function(response) {
+		Http.request('reduceGetAllRent','',{stationList:JSON.stringify(list),billId:_this.props.initialValues.mainbillid}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -204,6 +206,8 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
+		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
+
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
@@ -230,20 +234,20 @@ class NewCreateForm extends Component {
 		} = this.props;
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
 		this.setState({
-			allRent:initialValues.totalrent
+			allRent:initialValues.rentamount
 		})
 	}
 
 	componentWillReceiveProps(nextProps) {
-
 		if(this.props.initialValues!= nextProps.initialValues){
 			Store.dispatch(initialize('reduceCreateForm', nextProps.initialValues));
 			
 		}
 		if(this.props.initialValues.stationVos!=nextProps.initialValues.stationVos){
+			console.log('will')
 			this.setState({
 				stationVos:nextProps.initialValues.stationVos || [],
-				allRent:nextProps.initialValues.totalrent || '0'
+				allRent:nextProps.initialValues.rentamount || '0'
 			})
 		}
 
@@ -277,7 +281,7 @@ class NewCreateForm extends Component {
 
 
 		form.stationVos = stationVos;
-		form.rentamount = (this.state.allRent).toFixed(2);
+		// form.rentamount = (this.state.allRent).toFixed(2);
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		if(!!!form.agreement){
@@ -350,6 +354,7 @@ class NewCreateForm extends Component {
 					allRent,
 					HeightAuto
 				} = this.state;
+				console.log(allRent)
 				let allRentName = this.dealRentName(allRent);
 				return (
 					<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
@@ -401,7 +406,7 @@ class NewCreateForm extends Component {
 				                       		{stationVos.length > 5 ? <div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
 							            </DotTitle>
-							            <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+							            <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent || '0'}</span><span>{allRentName}</span></div>
 
 					                </div>
 
@@ -482,8 +487,8 @@ const validate = values => {
 
 	const errors = {}
 
-	// ++values.num;
-	// localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
+	++values.num;
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
 	
 
 	if (!values.leaseId) {
@@ -533,7 +538,7 @@ const validate = values => {
 	return errors
 }
 NewCreateForm = reduxForm({
-	form: 'reduceCreateDialogForm',
+	form: 'reduceCreateForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true

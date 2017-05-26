@@ -97,12 +97,9 @@ export default class PlanMapContent extends React.Component {
 					deleteArr :  deleteData || []
 				}
 
+				arr = obj[item.value].data.concat(arr);
+				delArr = obj[item.value].deleteArr.concat(delArr);
 			}
-			if(!obj && !obj[item.value]){
-				return ;
-			}
-			arr = obj[item.value].data.concat(arr);
-			delArr = obj[item.value].deleteArr.concat(delArr);
 		})
 
 		for(let i=0;i<data.length;i++){
@@ -192,9 +189,6 @@ export default class PlanMapContent extends React.Component {
 
 		 	delData.push(obj2);
 		 })
-		
-
-		console.log(allData,">>>>>>");
 		const {onClose} = this.props;
 		
 		onClose && onClose(allData,delData);
