@@ -173,7 +173,6 @@ export default class JoinCreate extends Component {
 
 		let keyWord = params.orderId+''+ params.customerId+'INTENTIONcreate';
 		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
-		console.log(localStorageData)
 
 
 		Http.request('fina-contract-intention', {

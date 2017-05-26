@@ -744,7 +744,6 @@ const validate = values => {
 	const errors = {}
 
 	++values.num;
-	console.log('admit--values',values);
 	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
 
 

@@ -67,6 +67,9 @@ class NewCreateForm extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
 
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+		this.state = {
+			totalRent:this.props.initialValues.totalreturn || '0'
+		}
 	}
 
 
@@ -81,18 +84,14 @@ class NewCreateForm extends React.Component {
 		if(this.props.initialValues != nextProps.initialValues){
 			Store.dispatch(initialize('exitCreateForm', nextProps.initialValues));
 			this.setState({
-				initialValues:nextProps.initialValues
+				initialValues:nextProps.initialValues,
+				totalRent:nextProps.initialValues.totalreturn || '0'
 			})
 		}
+		console.log('will',nextProps.initialValues.totalRent)
 		if(this.props.optionValues != nextProps.optionValues){
 			this.setState({
 				optionValues:nextProps.optionValues
-			})
-		}
-
-		if(this.props.openLocalStorage != nextProps.openLocalStorage){
-			this.setState({
-				openLocalStorage:nextProps.openLocalStorage
 			})
 		}
 	}
@@ -177,6 +176,35 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname|| '请选择'));
 	}
 
+	setTotalRent=(value)=>{
+		let {initialValues} = this.props;
+		let _this = this;
+		_this.setState({
+				totalRent:'1000'
+			},function(){
+				Store.dispatch(change('exitCreateForm', 'totalRent', '1000'));
+				Store.dispatch(change('exitCreateForm', 'totalreturn', '1000'));
+
+			})
+		// Http.request('setExitTotalReturn', {
+		// 	mainbillId: initialValues.mainbillid,
+		// 	withdrawDate:value
+		// }).then(function(response){
+		// 	_this.setState({
+		// 		totalRent:response+''
+		// 	},function(){
+		// 		Store.dispatch(change('exitCreateForm', 'totalRent', response));
+		// 		Store.dispatch(change('exitCreateForm', 'totalreturn', response));
+
+		// 	})
+		// }).catch(function(err){
+		// 	console.log(err)
+		// })
+
+		
+		
+	}
+
 
 	render() {
 
@@ -201,6 +229,9 @@ class NewCreateForm extends React.Component {
 			}
 		});
 
+		let {totalRent} = this.state;
+		console.log('totalRent',totalRent)
+
 
 		return (
 
@@ -219,7 +250,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" toolTrue={true} /></div>
-				<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={optionValues.lessorContactName || '请选择...'}/>
+				<KrField style={{width:262,marginLeft:25}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} placeholder={initialValues.lessorContactName || '请选择...'}/>
 
 				<KrField style={{width:262,marginLeft:25}} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
@@ -244,15 +275,17 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
+				<KrField style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}  onChange={this.setTotalRent}/>
 
 
 
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额"
-				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
+				
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额"  requireLabel={true}
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
-				<KrField style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额"
+				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
+				value={totalRent || '0'} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
 
@@ -286,23 +319,8 @@ const validate = values => {
 
 	const errors = {}
 	++values.num;
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
 
-
-	if(values.setlocalStorage === 'returnRent' && values.mainbillid && values.customerId){
-		for(var i in values){
-		    if (values.hasOwnProperty(i)) { //filter,只输出man的私有属性
-				if(i === 'contractFileList'){
-					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,JSON.stringify(values[i]));
-				}else if(!!values[i] && i !== 'contractFileList' && i !== 'stationVos'){
-					localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create'+i,values[i]);
-				}else if( !!!values[i]){
-					localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create'+i,'');
-				}
-				
-
-		    };
-		}
-	}
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';

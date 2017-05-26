@@ -1,5 +1,5 @@
 import React, {
-	Component,
+	 
 	PropTypes
 } from 'react';
 
@@ -7,7 +7,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import dateFormat from 'dateformat';
+import {DateFormat} from 'kr/Utils';
 
 import {
 	Table,
@@ -17,17 +17,15 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	Notify,
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail extends Component {
+export default class ConfirmFormDetail extends React.Component {
 
 
 	static PropTypes = {
@@ -76,35 +74,33 @@ export default class ConfirmFormDetail extends Component {
 			}
 		});
 
-		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
-		detail.withdrawdate = dateFormat(detail.withdrawdate, "yyyy-mm-dd ");
 
 		return (
 
 			<div>
-								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={leasorName} />
+								<KrField name="lessorId"  inline={false} grid={1/2} component="labelText" label="出租方" value={leasorName} />
 
-								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/>
+								 <KrField grid={1/2}  inline={false} name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/>
 
-								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactName} />
-								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel}/>
+								 <KrField grid={1/2}  inline={false} name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactName} />
+								 <KrField grid={1/2}  inline={false} name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel}/>
 
-								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={optionValues.customerName}/>
-								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress} />
+								 <KrField grid={1/2}   inline={false}name="leaseId" component="labelText" label="承租方" value={optionValues.customerName}/>
+								 <KrField grid={1/2}   inline={false}name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress} />
 
-								 <KrField grid={1/2}  name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact}/>
-								 <KrField grid={1/2}  name="leaseContacttel"  component="labelText" label="电话" value={detail.leaseContacttel}/>
+								 <KrField grid={1/2}  inline={false} name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact}/>
+								 <KrField grid={1/2}  inline={false} name="leaseContacttel"  component="labelText" label="电话" value={detail.leaseContacttel}/>
 
-								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} />
+								 <KrField grid={1/2}  inline={false} name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} />
 
-								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value={optionValues.communityAddress}/>
-								 <KrField grid={1/2}  name="contractcode"  component="labelText" label="合同编号" value={detail.contractcode} />
-								  <KrField grid={1/2}  name="totalreturn" component="labelText"  label="退租金总额" placeholder="" value={detail.totalreturn} />
-							 <KrField grid={1/2}  name="depositamount"  component="labelText" label="退押金总额" value={detail.depositamount}/>
-							 <KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期"  value={detail.withdrawdate}/>
-							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间" value={detail.signdate}/>
-							 <KrField grid={1/2}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue=""/>
-							 <KrField grid={1}  name="agreement" component="labelText" label="双方其他约定内容" value={detail.agreement} defaultValue="无" inline={false}/>
+								 <KrField grid={1/2}  inline={false} name=""  component="labelText" label="地址"  value={optionValues.communityAddress}/>
+								 <KrField grid={1/2}  inline={false} name="contractcode"  component="labelText" label="合同编号" value={detail.contractcode} />
+								  <KrField grid={1/2}  inline={false} name="totalreturn" component="labelText"  label="退租金总额" placeholder="" value={detail.totalreturn} />
+							 <KrField grid={1/2}  inline={false} name="depositamount"  component="labelText" label="退押金总额" value={detail.depositamount}/>
+							 <KrField grid={1/2}  inline={false} name="withdrawdate" component="labelText" label="撤场日期"  value={detail.withdrawdate}/>
+							 <KrField grid={1/2}  inline={false} name="signdate"  component="labelText" grid={1/2} label="签署时间" value={detail.signdate}/>
+							 <KrField grid={1/2}  inline={false} name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue=""/>
+							 <KrField grid={1}  inline={false} name="agreement" component="labelText" label="双方其他约定内容" value={detail.agreement} defaultValue="无" inline={false}/>
 							 
 
 							<KrField component="group" label="上传附件">
