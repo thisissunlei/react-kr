@@ -98,6 +98,13 @@ export default class Header extends React.Component {
 	}
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
+		var navIsActive=NavModel.items.map((item,index)=>{
+			return item.isActive;
+		})
+		var isActive=navIsActive.indexOf(true)==-1?true:false;
+		if(isActive){
+			NavModel.clearSidebar();
+		}
 		NavModel.toggleSidebar();
 	}
 	clickLogo=()=> {
