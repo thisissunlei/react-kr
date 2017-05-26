@@ -10,6 +10,9 @@ var Map = (function (window) {
 
     var defaultConfigs = {
         z: 1,
+        scaleMax:2,
+        scaleMin:0.1,
+        scaleSpeed:0.1,
     }
 
     //工位基本配置
@@ -107,8 +110,6 @@ var Map = (function (window) {
 
     //缩放
     var scale = 1;
-    var scaleMin = 0.1;
-    var scaleMax = 2;
 
     //鼠标按下坐标
     var downPosition = {};
@@ -1074,11 +1075,19 @@ var Map = (function (window) {
         MapObject.prototype.scaleMap = function (deltaY) {
 
             if (deltaY > 0) {
-                scale += 0.1;
-                scale += 0.1;
+                scale += defaultConfigs.scaleSpeed;
             } else {
-                scale -= 0.1;
-                scale -= 0.1;
+                scale -= defaultConfigs.scaleSpeed;
+            }
+
+
+            if (scale > defaultConfigs.scaleMax) {
+                scale = defaultConfigs.scaleMax;
+                scale = defaultConfigs.scaleMax;
+            }
+
+            if (scale <= defaultConfigs.scaleMin) {
+                scale = defaultConfigs.scaleMin;
             }
 
             onScaleMapCallback && onScaleMapCallback(Math.abs(scale));
@@ -1332,13 +1341,13 @@ var Map = (function (window) {
 
             //缩放
 
-            if (scale > scaleMax) {
-                scale = scaleMax;
-                scale = scaleMax;
+            if (scale > defaultConfigs.scaleMax) {
+                scale = defaultConfigs.scaleMax;
+                scale = defaultConfigs.scaleMax;
             }
 
-            if (scale <= scaleMin) {
-                scale = scaleMin;
+            if (scale <= defaultConfigs.scaleMin) {
+                scale = defaultConfigs.scaleMin;
             }
 
         }
