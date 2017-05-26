@@ -473,11 +473,6 @@ class CommunityPlanMap extends React.Component {
 
 	}
 
-	switchUpload=()=>{
-      document.addEventListener('onchange', this.fileUpload); 
-	}
-
-
 
 	render() {
 
@@ -522,8 +517,7 @@ class CommunityPlanMap extends React.Component {
 							</div>
 
 								<div className='upload-img'>
-									<div className='upload-switch' onClick={this.switchUpload}></div>
-									<input type="file" name="file" style={{ width: '63px',display:'none' }}/>
+									<input type="file" name="file" style={{ width: '63px'}} onChange={this.fileUpload}/>
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
 
