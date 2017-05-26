@@ -224,7 +224,7 @@ class CommunityPlanMap extends React.Component {
 			figureSets.splice(item.index,0,list);
 		});
 		this.setState({
-			deleteData:deleteData.concat(data),
+			deleteData:data,
 			figureSets
 		});
 	}
