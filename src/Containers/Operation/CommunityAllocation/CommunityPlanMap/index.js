@@ -237,7 +237,6 @@ class CommunityPlanMap extends React.Component {
 			  del.push(item);	
 			}
 		});
-		 console.log('datadel',del);
 		this.setState({
 			deleteData:deleteData.concat(del),
 			figureSets
