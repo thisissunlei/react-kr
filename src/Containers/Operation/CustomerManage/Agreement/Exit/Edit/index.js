@@ -101,22 +101,39 @@ export default class EditCreate extends React.Component {
     })
   }
   getlocalSign=()=>{
-    let {
+     let {
       params
     } = this.props;
     let _this = this;
     let sign = false;
+    let removeList = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      let itemName = localStorage.key(i);
+       if(localStorage.key(i).indexOf('NaN')!='-1' || localStorage.key(i).indexOf('undefined')!='-1'){
+         removeList.push(itemName);
+       }
+     }
+      removeList.map((item)=>{
+       localStorage.removeItem(item);
+    })
     let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
-       if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')>1){
+    let localData = JSON.parse(localStorage.getItem(keyWord)) ;
+    if(!localData){
+      this.getBasicData();
+      return;
+    }
+    let num = JSON.parse(localStorage.getItem(keyWord)).num || 0;
+    let oldNum = JSON.parse(localStorage.getItem(keyWord)).oldNum || 0;
+    console.log('num',num,oldNum)
+       if(num-oldNum>1){
         _this.setState({
           openLocalStorages:true
         })
         sign = true;
-
        }
-     if(!sign){
-      this.getBasicData()
-     }
+    if(!sign){
+      this.getBasicData();
+    }
   }
 
   componentDidMount() {
@@ -144,18 +161,21 @@ export default class EditCreate extends React.Component {
       //initialValues.ContractStateType = 'EXECUTE';
       //
       let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
-      initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
-      if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
-        initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
-      }
+      
+        initialValues = JSON.parse(localStorage.getItem(keyWord));
+        console.log(initialValues)
+      // initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
+      // if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+      //   initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
+      // }
 
-      initialValues.mainbillid = params.orderId;
-      initialValues.customerId = params.customerId;
+      // initialValues.mainbillid = params.orderId;
+      // initialValues.customerId = params.customerId;
 
-      initialValues.setLocalStorageDate = +new Date();
+      // initialValues.setLocalStorageDate = +new Date();
 
-      initialValues.leaseBegindate = DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
-      initialValues.leaseEnddate =  DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
+      // initialValues.leaseBegindate = DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
+      // initialValues.leaseEnddate =  DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
 
 
       optionValues.communityAddress = response.customer.communityAddress;
@@ -197,41 +217,41 @@ export default class EditCreate extends React.Component {
         optionValues.contractFileList =  JSON.parse(localStorage.getItem(keyWord+'contractFileList'))||[];
         optionValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
 
-        initialValues.id = response.id;
-        initialValues.contractstate = response.contractstate;
-        initialValues.leaseId =  parseInt(localStorage.getItem(keyWord+'leaseId'));
-        initialValues.contractcode = response.contractcode;
-        initialValues.leaseAddress =  localStorage.getItem(keyWord+'leaseAddress');
-        initialValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
-        optionValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
-        initialValues.leaseContact =  localStorage.getItem(keyWord+'leaseContact');
-        initialValues.lessorContacttel =  localStorage.getItem(keyWord+'lessorContacttel');
-        initialValues.leaseContacttel =  localStorage.getItem(keyWord+'leaseContacttel');
-        initialValues.contractVersionType =  localStorage.getItem(keyWord+'contractVersionType');
-        if (response.payType) {
-          initialValues.paytype =  parseInt(localStorage.getItem(keyWord+'paytype'));
+        // initialValues.id = response.id;
+        // initialValues.contractstate = response.contractstate;
+        // initialValues.leaseId =  parseInt(localStorage.getItem(keyWord+'leaseId'));
+        // initialValues.contractcode = response.contractcode;
+        // initialValues.leaseAddress =  localStorage.getItem(keyWord+'leaseAddress');
+        // initialValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
+        // optionValues.lessorContactName =  localStorage.getItem(keyWord+'lessorContactName');
+        // initialValues.leaseContact =  localStorage.getItem(keyWord+'leaseContact');
+        // initialValues.lessorContacttel =  localStorage.getItem(keyWord+'lessorContacttel');
+        // initialValues.leaseContacttel =  localStorage.getItem(keyWord+'leaseContacttel');
+        // initialValues.contractVersionType =  localStorage.getItem(keyWord+'contractVersionType');
+        // if (response.payType) {
+        //   initialValues.paytype =  parseInt(localStorage.getItem(keyWord+'paytype'));
 
-        }
-        if (response.payment) {
-          initialValues.paymodel =  parseInt(localStorage.getItem(keyWord+'paymodel'));
+        // }
+        // if (response.payment) {
+        //   initialValues.paymodel =  parseInt(localStorage.getItem(keyWord+'paymodel'));
 
-        }
-          initialValues.agreement =  localStorage.getItem(keyWord+'agreement');
-        initialValues.stationnum =  localStorage.getItem(keyWord+'stationnum');
-        initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
-        initialValues.rentaluse =  localStorage.getItem(keyWord+'rentaluse')
-        initialValues.contractmark =  localStorage.getItem(keyWord+'contractmark');
-        initialValues.totalrent =  localStorage.getItem(keyWord+'totalrent');
-        initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
-        initialValues.lessorContactid =  localStorage.getItem(keyWord+'lessorContactid');
-        initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount') || 0;
-        initialValues.totalreturn =  localStorage.getItem(keyWord+'totalreturn') || 0;
-        //时间
+        // }
+        //   initialValues.agreement =  localStorage.getItem(keyWord+'agreement');
+        // initialValues.stationnum =  localStorage.getItem(keyWord+'stationnum');
+        // initialValues.wherefloor = localStorage.getItem(keyWord+'wherefloor');
+        // initialValues.rentaluse =  localStorage.getItem(keyWord+'rentaluse')
+        // initialValues.contractmark =  localStorage.getItem(keyWord+'contractmark');
+        // initialValues.totalrent =  localStorage.getItem(keyWord+'totalrent');
+        // initialValues.totaldeposit = localStorage.getItem(keyWord+'totaldeposit');
+        // initialValues.lessorContactid =  localStorage.getItem(keyWord+'lessorContactid');
+        // initialValues.depositamount =  localStorage.getItem(keyWord+'depositamount') || 0;
+        // initialValues.totalreturn =  localStorage.getItem(keyWord+'totalreturn') || 0;
+        // //时间
 
-        initialValues.signdate = localStorage.getItem(keyWord+'signdate')|| DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.leaseBegindate =DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate')||DateFormat(response.withdrawdate , "yyyy-mm-dd hh:MM:ss");
+        // initialValues.signdate = localStorage.getItem(keyWord+'signdate')|| DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
+        // initialValues.leaseBegindate =DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+        // initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+        // initialValues.withdrawdate = localStorage.getItem(keyWord+'withdrawdate')||DateFormat(response.withdrawdate , "yyyy-mm-dd hh:MM:ss");
 
 
         //处理stationvos
@@ -253,6 +273,7 @@ export default class EditCreate extends React.Component {
 
 
     }).catch(function(err) {
+      console.log(err)
       Notify.show([{
         message: '后台出错请联系管理员',
         type: 'danger',
@@ -271,6 +292,7 @@ export default class EditCreate extends React.Component {
     let initialValues = {};
     let optionValues = {};
     let stationVos = [];
+    console.log('getbasic')
 
 
 
@@ -282,9 +304,9 @@ export default class EditCreate extends React.Component {
 
        let keyWord = params.orderId+ params.customerId+'QUITRENTedit';
       initialValues.num = localStorage.getItem(keyWord+'num')|| 1;
-      if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
+      // if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=1){
         initialValues.oldNum = localStorage.getItem(keyWord+'num')|| 1;
-      }
+      // }
 
       //initialValues.ContractStateType = 'EXECUTE';
 
@@ -383,6 +405,7 @@ export default class EditCreate extends React.Component {
         });
 
       }).catch(function(err) {
+        console.log(err)
         Notify.show([{
           message: '后台出错请联系管理员',
           type: 'danger',
@@ -391,6 +414,7 @@ export default class EditCreate extends React.Component {
 
 
     }).catch(function(err) {
+      console.log(err)
       Notify.show([{
         message: '后台出错请联系管理员',
         type: 'danger',

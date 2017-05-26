@@ -175,6 +175,7 @@ export default class JoinCreate extends React.Component {
 			//initialValues.signdate = +new Date();
 
 			 initialValues.contractcode = response.contractCode;
+			 initialValues.totalreturn = '0';
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -244,6 +245,7 @@ export default class JoinCreate extends React.Component {
 				initialValue.leaseContact = localStorage.getItem(keyWord+'leaseContact');
 				initialValue.contractmark = localStorage.getItem(keyWord+'contractmark');
 				initialValue.agreement = localStorage.getItem(keyWord+'agreement') || "无";
+				initialValue.totalRent = localStorage.getItem(keyWord+'totalRent')+'' || '0';
 				optionValue.contractFileList = JSON.parse(localStorage.getItem(keyWord+'contractFileList')) || [];
 
 			}
