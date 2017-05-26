@@ -63,7 +63,7 @@ export default class TableIndex extends React.Component{
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
 		$(".table-data").width(tableBoxWidth);
-		$(".table-box").height($(window).height()-100);
+		$(".table-box").height($(window).height()-200);
 		window.onscroll = function(){
 			var tableTotleHeight = $('.table-box').eq(0).height();
 			windowScrollTop = $(window).scrollTop();
@@ -74,8 +74,8 @@ export default class TableIndex extends React.Component{
 			// }
 		}
 		$('.table-data').eq(0).scroll(function(event){
-			console.log("$(this).scrollLeft()",$(this).scrollLeft());
-			console.log("$(this).scrollTop()",$(this).scrollTop());
+			// console.log("$(this).scrollLeft()",$(this).scrollLeft());
+			// console.log("$(this).scrollTop()",$(this).scrollTop());
 			_this.refs.tableHeader.style.left =-$(this).scrollLeft()+"px"; 
 		   
 		    if($(this).scrollLeft()>140){
