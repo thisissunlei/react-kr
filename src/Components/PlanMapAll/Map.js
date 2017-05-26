@@ -159,8 +159,9 @@ var Map = (function (window) {
                 props = Object.assign({}, props);
                 var fdIndex = this.findStationIndex(props.key);
 
-                if(fdIndex === 'undefined'){
+                if(typeof fdIndex === 'undefined'){
                     CONFIGS.stations.push(props);
+                    console.log('stations:',CONFIGS.stations);
                 }
                 return this;
             },
@@ -1598,8 +1599,11 @@ var Map = (function (window) {
             }
 
             props.z = defaultConfigs.z;
-            DB.newStation(props);
-            stationObjectArray.push(StationFactory(props));
+
+            var station = StationFactory(props);
+            console.log('hah',station);
+            DB.newStation(station.getProps());
+            stationObjectArray.push(station);
 
         }
 
@@ -1899,3 +1903,4 @@ var Map = (function (window) {
 
 
 module.exports = Map;
+
