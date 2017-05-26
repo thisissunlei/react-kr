@@ -61,56 +61,29 @@ export default class TableIndex extends React.Component{
 	componentDidMount(){
 		let _this = this;
 		var windowScrollTop;
-		var tableScrollLeft;
 		var tableBoxWidth = $(".table-box").eq(0).width();
 		$(".table-data").width(tableBoxWidth);
+		$(".table-box").height($(window).height()-70);
 		window.onscroll = function(){
 			var tableTotleHeight = $('.table-box').eq(0).height();
 			windowScrollTop = $(window).scrollTop();
-			if($(window).scrollTop()>153){
-				$('.table-box').eq(0).height(tableTotleHeight);
-				_this.refs.tableData.style.position = "fixed";
-				_this.refs.tableData.style.top = "60px";
-
-				_this.refs.tableHeader.style.position = "absolute";
-				_this.refs.dateItems.style.marginTop = "101px";
-				_this.refs.dateItems.style.transform = "translateY("+(-($(window).scrollTop()-153))+"px)";
-				if(tableScrollLeft>140){
-					_this.refs.leftTitleT.style.display = "block";
-		    		_this.refs.leftTitleT.style.position = "fixed";
-				}else{
-					_this.refs.leftTitleT.style.display = "none";
-				}
-
-			}else{
-				_this.refs.leftTitleT.style.display = "none";
-				_this.refs.tableData.style.position = "";
-				_this.refs.tableHeader.style.position = "";
-				_this.refs.dateItems.style.marginTop = "0px";
-				_this.refs.dateItems.style.transform = "translateY(0px)";
-
-
-			}
+			// if($(window).scrollTop()>153){
+				
+			// }else{
+				
+			// }
 		}
 		$('.table-data').eq(0).scroll(function(event){
-			tableScrollLeft = $(this).scrollLeft();
+			console.log("$(this).scrollLeft()",$(this).scrollLeft());
+			console.log("$(this).scrollTop()",$(this).scrollTop());
+			_this.refs.tableHeader.style.left =-$(this).scrollLeft()+"px"; 
+		   
 		    if($(this).scrollLeft()>140){
 		    	_this.refs.leftTitle.style.display = "block";
-		    	_this.refs.leftTitle.style.position = "absolute";
-		    	
-		    	if(windowScrollTop>153){
-		    		_this.refs.leftTitleT.style.display = "block";
-		    		_this.refs.leftTitleT.style.position = "fixed";
-		    	}else{
-		    		_this.refs.leftTitleT.style.display = "none";
-		    	}
-
+		    	_this.refs.leftTitleBox.style.top = -$(this).scrollTop()+"px";
+		 
 		    }else{
 		    	_this.refs.leftTitle.style.display = "none";
-		    	_this.refs.leftTitle.style.position = "";
-
-		    	_this.refs.leftTitleT.style.display = "none";
-
 		    	
 		    }
 		   
@@ -125,7 +98,7 @@ export default class TableIndex extends React.Component{
 				<div className="left-title-header-header" ref="leftTitleT">社区</div>
 				<div className="table-left-title" ref="leftTitle">
 					<div className="left-title-header">社区</div>
-					<div className="left-title-box" >
+					<div className="left-title-box" ref="leftTitleBox">
 						
 						{
 							State.items.map(function(item,index){
