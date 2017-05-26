@@ -132,7 +132,7 @@ export default class Header extends React.Component {
 		
 		return (
 			<Nav> 
-				<NavItem  label="首页" originUrl="./#/"  isActive={isActive}  onClick={this.clearSidebar} />
+				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
 				{navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} 
 			</Nav>
 
