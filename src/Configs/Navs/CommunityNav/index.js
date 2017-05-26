@@ -1,4 +1,3 @@
-
 module.exports = [
 	{
 		primaryText: "社区经营",
