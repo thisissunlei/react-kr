@@ -407,6 +407,20 @@ class NewCreateForm extends React.Component {
 			}]);
 			return;
 		};
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+			
+		}
+		if(!unitpriceAdd){
+				Notify.show([{
+					message: '请选择工位',
+					type: 'danger',
+				}]);
+				return ;
+			}
 		form.lessorAddress = changeValues.lessorAddress;
 
 		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");

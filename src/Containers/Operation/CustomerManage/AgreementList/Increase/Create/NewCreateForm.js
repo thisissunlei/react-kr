@@ -368,26 +368,19 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
-		if (!stationVos.length) {
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+			
+		}
+		if(!unitpriceAdd){
 			Notify.show([{
 				message: '请选择工位',
 				type: 'danger',
 			}]);
-			return;
-		}
-		let unitprice = true;
-		stationVos.map(function(item, index) {
-			if (!item.unitprice) {
-				unitprice = false;
-			}
-			return unitprice;
-		})
-		if (!unitprice) {
-			Notify.show([{
-				message: '请输入工位单价!',
-				type: 'danger',
-			}]);
-			return;
+			return ;
 		}
 
 

@@ -401,19 +401,19 @@ class NewCreateForm extends React.Component {
 			changeValues,
 			initialValues
 		} = this.props;
-		let unitprice = true;
-		stationVos.map(function(item, index) {
-			if (!item.unitprice) {
-				unitprice = false;
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
 			}
-			return unitprice;
-		})
-		if (!unitprice) {
+			
+		}
+		if(!unitpriceAdd){
 			Notify.show([{
-				message: '请输入工位单价!',
+				message: '请选择工位',
 				type: 'danger',
 			}]);
-			return;
+			return ;
 		}
 
 		form.lessorAddress = changeValues.lessorAddress;
@@ -487,7 +487,7 @@ class NewCreateForm extends React.Component {
 	}
 
 	onIframeClose(billList,data) {
-
+		
 		this.openStationDialog();
 		if (!billList) {
 			return;

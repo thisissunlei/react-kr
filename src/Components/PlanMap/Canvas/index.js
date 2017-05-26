@@ -151,7 +151,7 @@ export default  class Canvas extends React.Component {
 			ctx.stroke();
 			return item;
         })
-
+		console.log(submitData,"KKKGGG");
 		dataChange && dataChange(newfloor,submitData,deleteArr);
 		this.setState({
 			data:allObj
