@@ -244,12 +244,11 @@ class CommunityPlanMap extends React.Component {
 			var de = deleteStation.join();
 			saveData.stations.map((item, index) => {
 				var list = {};
-				list.cellCoordX = item.x;
-				list.cellCoordY = item.y;
-				list.cellWidth = item.width;
-				list.cellHeight = item.height;
-				list.id = item.id;
-				list.belongId = item.belongId;
+				list.cellCoordX = Number(item.x);
+				list.cellCoordY = Number(item.y);
+				list.cellWidth = Number(item.width);
+				list.cellHeight = Number(item.height);
+				list.belongId = Number(item.belongId);
 				list.belongType = item.belongType;
 				if (list.cellCoordX) {
 					stations.push(list);
@@ -285,7 +284,6 @@ class CommunityPlanMap extends React.Component {
 				deleteCellIdsStr: de
 			}).then(function (response) {
 				Message.success('保存成功');
-				//window.location.reload();
 			}).catch(function (err) {
 				Message.error(err.message);
 			});
@@ -428,7 +426,7 @@ class CommunityPlanMap extends React.Component {
 					height: height,
 					belongType: type,
 					name: cellname,
-					belongId:cellId,
+					belongId:Number(cellId),
 					index:dataIndex
 				};
 				this.mapComponent.createStation(station);
