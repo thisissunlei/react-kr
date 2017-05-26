@@ -215,7 +215,8 @@ class CommunityPlanMap extends React.Component {
 	}
 
 	onRemove = (data) => {
-		let { figureSets } = this.state;
+		let { figureSets,deleteData } = this.state;
+		console.log('vvvfffff',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -224,8 +225,10 @@ class CommunityPlanMap extends React.Component {
 			figureSets.splice(item.index,0,list);
 		});
 		this.setState({
-			deleteData: data,
+			deleteData:deleteData.concat(data),
 			figureSets
+		},function(){
+			console.log('ccffff',this.state.deleteData);
 		});
 	}
 
