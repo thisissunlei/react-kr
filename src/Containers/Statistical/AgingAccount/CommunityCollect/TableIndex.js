@@ -63,7 +63,7 @@ export default class TableIndex extends React.Component{
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
 		$(".table-data").width(tableBoxWidth);
-		$(".table-box").height($(window).height()-70);
+		$(".table-box").height($(window).height()-100);
 		window.onscroll = function(){
 			var tableTotleHeight = $('.table-box').eq(0).height();
 			windowScrollTop = $(window).scrollTop();
@@ -95,7 +95,7 @@ export default class TableIndex extends React.Component{
 		let _this = this;
 		return (
 			<div className="table-box">
-				<div className="left-title-header-header" ref="leftTitleT">社区</div>
+				
 				<div className="table-left-title" ref="leftTitle">
 					<div className="left-title-header">社区</div>
 					<div className="left-title-box" ref="leftTitleBox">
@@ -109,33 +109,30 @@ export default class TableIndex extends React.Component{
 					</div>
 					
 				</div>
-				<div ref="tableData" className="table-data">
+				<div className="table-data">
 					<table ref="tableHeader" className="table-container" cellPadding='0' cellSpacing='0'>
-					  <tbody>
-					  	<tr>
-					      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
-					      <td rowSpan="2" className="light-color"><div className="header-div full-height">社区</div></td>
-					      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">应收账款</div></td>
-					      <td colSpan="2" className="light-color"><div className="header-div-box half-height">实收回款</div></td>
-					      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">欠款情况</div></td>
-					      <td rowSpan="2" className="light-color"><div className="header-div full-height">应缴滞纳金</div></td>
-					      <td rowSpan="2" className="dark-color"><div className="header-div full-height">应催缴金额合计</div></td>
-					    </tr>
-					    <tr>
-					      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
-					      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
-					      <td className="light-color"><div className="header-div half-height">工位服务费</div></td>
-					      <td className="light-color"><div className="header-div half-height">履约保证金</div></td>
-					      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
-					      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
-					    </tr>
-					   	
-					   
-					   	
-					   </tbody>
+					  	<tbody>
+						  	<tr>
+						      <td rowSpan="2" className="dark-color"><div className="header-div  full-height">城市</div></td>
+						      <td rowSpan="2" className="light-color"><div className="header-div full-height">社区</div></td>
+						      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">应收账款</div></td>
+						      <td colSpan="2" className="light-color"><div className="header-div-box half-height">实收回款</div></td>
+						      <td colSpan="2" className="dark-color"><div className="header-div-box  half-height">欠款情况</div></td>
+						      <td rowSpan="2" className="light-color"><div className="header-div full-height">应缴滞纳金</div></td>
+						      <td rowSpan="2" className="dark-color"><div className="header-div full-height">应催缴金额合计</div></td>
+						    </tr>
+						    <tr>
+						      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
+						      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
+						      <td className="light-color"><div className="header-div half-height">工位服务费</div></td>
+						      <td className="light-color"><div className="header-div half-height">履约保证金</div></td>
+						      <td className="dark-color"><div className="header-div  half-height">工位服务费</div></td>
+						      <td className="dark-color"><div className="header-div  half-height">履约保证金</div></td>
+						    </tr>
+					   	</tbody>
 					  
 					</table>
-					<div className='date-items' ref="dateItems">
+					<div className='date-items'>
 						{
 
 						   	State.items.map(function(item,index){

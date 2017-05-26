@@ -24,16 +24,7 @@ export default class TableIndex extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			pageSecond:false,
-			windowScrollTop:0,
-			isShowTitle:"none",
-			isShowLeftTitle:"none",
-			titleLeft:0,
-			leftTitleTop:213,
-			leftTitleItemP:'',
-			leftTitleItemTop:100,
-			fixedWidth : 930,
-			titleLeftMarginTop:0,
+			
 
 		}
 	}
@@ -48,59 +39,29 @@ export default class TableIndex extends React.Component{
 	componentDidMount(){
 		let _this = this;
 		var windowScrollTop;
-		var tableScrollLeft;
-
+		var tableBoxWidth = $(".table-box").eq(0).width();
+		$(".table-data-detail").width(tableBoxWidth);
+		$(".table-box").height($(window).height()-100);
 		window.onscroll = function(){
-			
 			var tableTotleHeight = $('.table-box').eq(0).height();
 			windowScrollTop = $(window).scrollTop();
-			var tableBoxWidth = $(".table-box").eq(0).width();
-			$(".table-data-detail").width(tableBoxWidth);
-			if($(window).scrollTop()>153){
-
-				$('.table-box').eq(0).height(tableTotleHeight);
-				_this.refs.tableData.style.position = "fixed";
-				_this.refs.tableData.style.top = "60px";
-
-				_this.refs.tableHeader.style.position = "absolute";
-				_this.refs.dateItems.style.marginTop = "101px";
-				_this.refs.dateItems.style.transform = "translateY("+(-($(window).scrollTop()-153))+"px)";
-				if(tableScrollLeft>280){
-					_this.refs.leftTitleT.style.display = "block";
-		    		_this.refs.leftTitleT.style.position = "fixed";
-				}else{
-					_this.refs.leftTitleT.style.display = "none";
-				}
-
-			}else{
-				_this.refs.leftTitleT.style.display = "none";
-				_this.refs.tableData.style.position = "";
-				_this.refs.tableHeader.style.position = "";
-				_this.refs.dateItems.style.marginTop = "0px";
-				_this.refs.dateItems.style.transform = "translateY(0px)";
-
-
-			}
+			// if($(window).scrollTop()>153){
+				
+			// }else{
+				
+			// }
 		}
 		$('.table-data-detail').eq(0).scroll(function(event){
-			tableScrollLeft = $(this).scrollLeft();
-		    if($(this).scrollLeft()>420){
+			console.log("$(this).scrollLeft()",$(this).scrollLeft());
+			console.log("$(this).scrollTop()",$(this).scrollTop());
+			_this.refs.tableHeader.style.left =-$(this).scrollLeft()+"px"; 
+		   
+		    if($(this).scrollLeft()>424){
 		    	_this.refs.leftTitle.style.display = "block";
-		    	_this.refs.leftTitle.style.position = "absolute";
-		    	
-		    	if(windowScrollTop>153){
-		    		_this.refs.leftTitleT.style.display = "block";
-		    		_this.refs.leftTitleT.style.position = "fixed";
-		    	}else{
-		    		_this.refs.leftTitleT.style.display = "none";
-		    	}
-
+		    	_this.refs.leftTitleBox.style.top = -$(this).scrollTop()+"px";
+		 
 		    }else{
 		    	_this.refs.leftTitle.style.display = "none";
-		    	_this.refs.leftTitle.style.position = "";
-
-		    	_this.refs.leftTitleT.style.display = "none";
-
 		    	
 		    }
 		   
@@ -138,14 +99,13 @@ export default class TableIndex extends React.Component{
 
 	
 	render(){
-		let {isShowTitle,titleLeft,isShowLeftTitle,leftTitleTop,leftTitleItemP,leftTitleItemTop,fixedWidth} = this.state;
 		let _this = this;
 		return (
 			<div className="table-box">
-				<div className="left-title-header-header" ref="leftTitleT">客户</div>
+				
 				<div className="table-left-title" ref="leftTitle">
 					<div className="left-title-header" >客户</div>
-					<div className="left-title-box" >
+					<div className="left-title-box" ref="leftTitleBox">
 						{
 							State.items.map(function(item,index){
 								return <div className="left-title-item" key={index}>{item.customerName}</div>
@@ -154,7 +114,7 @@ export default class TableIndex extends React.Component{
 					</div>
 					
 				</div>
-				<div ref="tableData" className="table-data-detail">
+				<div className="table-data-detail">
 					<table ref="tableHeader" className="table-container" cellPadding='0' cellSpacing='0'>
 					  	<tbody>
 						  	<tr>
@@ -181,14 +141,10 @@ export default class TableIndex extends React.Component{
 						        <td className="light-color"><div className="header-div half-height">欠款金额</div></td>
 						        <td className="light-color"><div className="header-div half-height">欠款天数</div></td>
 						    </tr>
-						  	{
-
-						  		
-					  		}
-
+						  	
 					    </tbody>
 					</table>
-					<div className='date-items' ref="dateItems">
+					<div className='date-items'>
 						{
 							State.items.map(function(item,index){
 
