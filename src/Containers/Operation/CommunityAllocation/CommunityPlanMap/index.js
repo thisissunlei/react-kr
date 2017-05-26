@@ -216,7 +216,6 @@ class CommunityPlanMap extends React.Component {
 
 	onRemove = (data) => {
 		let { figureSets,deleteData } = this.state;
-		console.log('vvvfffff',data);
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
@@ -227,8 +226,6 @@ class CommunityPlanMap extends React.Component {
 		this.setState({
 			deleteData:deleteData.concat(data),
 			figureSets
-		},function(){
-			console.log('ccffff',this.state.deleteData);
 		});
 	}
 
