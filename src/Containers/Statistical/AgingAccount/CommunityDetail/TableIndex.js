@@ -84,7 +84,7 @@ export default class TableIndex extends React.Component{
 		}
 		$('.table-data-detail').eq(0).scroll(function(event){
 			tableScrollLeft = $(this).scrollLeft();
-		    if($(this).scrollLeft()>280){
+		    if($(this).scrollLeft()>420){
 		    	_this.refs.leftTitle.style.display = "block";
 		    	_this.refs.leftTitle.style.position = "absolute";
 		    	
@@ -142,13 +142,13 @@ export default class TableIndex extends React.Component{
 		let _this = this;
 		return (
 			<div className="table-box">
-				<div className="left-title-header-header" ref="leftTitleT">社区</div>
+				<div className="left-title-header-header" ref="leftTitleT">客户</div>
 				<div className="table-left-title" ref="leftTitle">
-					<div className="left-title-header" >社区</div>
+					<div className="left-title-header" >客户</div>
 					<div className="left-title-box" >
 						{
 							State.items.map(function(item,index){
-								return <div className="left-title-item" key={index}>{item.communityName}</div>
+								return <div className="left-title-item" key={index}>{item.customerName}</div>
 							})
 						}
 					</div>
