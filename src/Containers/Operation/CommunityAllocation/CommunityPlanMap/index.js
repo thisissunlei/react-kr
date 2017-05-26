@@ -93,7 +93,7 @@ class CommunityPlanMap extends React.Component {
 
 				return obj;
 			});
-
+            
 			var initializeConfigs = {
 				stations: stations,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,

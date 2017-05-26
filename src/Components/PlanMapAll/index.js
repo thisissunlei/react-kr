@@ -35,6 +35,9 @@ export default class PlanMapAll extends Component {
 
     componentWillUnmount(){
         this.isInit = false;
+        if (!this.map) {
+            return;
+        }
         this.map.destory();
     }
 
