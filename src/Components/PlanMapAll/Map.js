@@ -6,6 +6,8 @@ var Map = (function (window) {
     //画布上下文    
     var context;
 
+    var stationNumber = 1;
+
     var defaultConfigs = {
         z: 1,
     }
@@ -13,11 +15,13 @@ var Map = (function (window) {
     //工位基本配置
 
     var defaultStation = {
+        width:30,
+        height:30,
         minWidth: 30,
         minHeight: 30,
         maxWidth: 200,
         maxHeight: 200,
-        scaleSpeed: 30
+        scaleSpeed: 20,
     }
 
     var isLoadImageError = false;
@@ -140,19 +144,29 @@ var Map = (function (window) {
             setAllStation: function (stations) {
                 CONFIGS = Object.assign({}, { stations });
             },
+            findStationIndex: function (key) {
+                var fdIndex;
+                var stations = this.getAllStation();
+                stations.map(function (station, index) {
+                    if (station.key == key) {
+                        fdIndex = index;
+                    }
+                });
+                return fdIndex;
+            },
             newStation: function (props) {
                 props = Object.assign({}, props);
                 CONFIGS.stations.push(props);
                 return this;
             },
-            removeStation: function (id) {
+            removeStation: function (key) {
 
                 //删除数据
                 var stations = this.getAllStation();
 
                 var fdIndex;
                 stations.map(function (item, index) {
-                    if (id == item.id) {
+                    if (key == item.key) {
                         fdIndex = index;
                     }
                 });
@@ -165,12 +179,11 @@ var Map = (function (window) {
 
                 this.setAllStation(stations);
 
-
                 var fdIndex;
 
                 stationObjectArray.map(function (station, index) {
                     var props = station.getProps();
-                    if (props.id == id) {
+                    if (props.key == key) {
                         fdIndex = index;
                     }
                 });
@@ -179,9 +192,10 @@ var Map = (function (window) {
                 }
                 stationObjectArray.splice(fdIndex, 1);
             },
-            getStation: function (index) {
+            getStation: function (key) {
+                var index = this.findStationIndex(key);
                 var stations = this.getAllStation();
-                return stations[index];
+                return Object.assign({},stations[index]);
             },
             setStation: function (index, nextProps) {
                 var props = this.getStation(index);
@@ -199,6 +213,8 @@ var Map = (function (window) {
     const StationFactory = function (params) {
 
         params = params || {};
+
+        stationNumber++;
 
         if (params.hasOwnProperty('scale')) {
             scale = scale;
@@ -226,14 +242,14 @@ var Map = (function (window) {
             x: 0,
             y: 0,
             z: 0,
-            width: 60,
-            height: 30,
-            id: + new Date(),
+            width: defaultStation.width,
+            height: defaultStation.height,
             name: 'demo',
             type: 'station',
             drag: false,
             checked: false,
             removed: false,
+            key: stationNumber,
         }
 
         //获取props信息
@@ -271,7 +287,7 @@ var Map = (function (window) {
         StationObject.prototype.remove = function () {
             const { key, id } = this.props;
             this.setProps({ removed: true });
-            DB.removeStation(id);
+            DB.removeStation(key);
         }
         //更新工位坐标参数
         StationObject.prototype.componentWillReceiveProps = function (nextProps) {
@@ -903,6 +919,11 @@ var Map = (function (window) {
             var self = this;
             imageUrl = imageUrl || DB.getImageUrl();
 
+
+            if(!imageUrl){
+                isLoadImageError = true;
+            }
+
             isLoadImageError = false;
 
             bkImageObject = new Image();
@@ -1004,13 +1025,11 @@ var Map = (function (window) {
             var StationsData = DB.getAllStation();
 
             StationsData.map(function (item, index) {
-
                 var props = Object.assign({}, item);
                 props.x = Number(props.x);
                 props.y = Number(props.y);
                 props.width = Number(props.width);
                 props.height = Number(props.height);
-                props.key = index;
                 stationObjectArray.push(StationFactory(props));
             });
 
@@ -1342,10 +1361,10 @@ var Map = (function (window) {
             //清空上次拖拽的工位
             this.cleanDragStations();
 
-           stationObjectArray.sort(function (prev, next) {
+            stationObjectArray.sort(function (prev, next) {
                 var prevProps = prev.getProps();
                 var nextProps = next.getProps();
-                return  nextProps.z -prevProps.z;
+                return nextProps.z - prevProps.z;
             });
 
             var station = null;
@@ -1373,7 +1392,7 @@ var Map = (function (window) {
             stationObjectArray.sort(function (prev, next) {
                 var prevProps = prev.getProps();
                 var nextProps = next.getProps();
-                return  prevProps.z - nextProps.z  ;
+                return prevProps.z - nextProps.z;
             });
         }
 
@@ -1624,7 +1643,8 @@ var Map = (function (window) {
 
             var targeStation = dragStations[0];
             var props = targeStation.getProps();
-            if (props.belongType === 'SPACE') {
+
+            if (props.type === 'meeting') {
                 return;
             }
 
@@ -1633,7 +1653,7 @@ var Map = (function (window) {
 
             stationObjectArray.map(function (station) {
                 var stationProps = station.getProps();
-                if (stationProps.belongType == 'STATION') {
+                if (stationProps.type == 'station') {
                     station.setProps({ width, height });
                 }
             });

@@ -102,7 +102,7 @@ class CommunityPlanMap extends React.Component {
 			_this.setState({
 				figureSets: response.figureSets,
 				initializeConfigs,
-				planMapId: response.id,
+				planMapId: response.id?response.id:'',
 			});
             
 			_this.mapComponent.newMap(initializeConfigs);
@@ -224,7 +224,7 @@ class CommunityPlanMap extends React.Component {
 	}
 
 	onRemove = (data,station) => {
-
+        console.log('data',data);
 		data = [].concat(data);
 		let { figureSets,deleteData } = this.state;
 		var del=[];
@@ -238,6 +238,7 @@ class CommunityPlanMap extends React.Component {
 			  del.push(item);	
 			}
 		});
+		 console.log('datadel',del);
 		this.setState({
 			deleteData:deleteData.concat(del),
 			figureSets
@@ -248,6 +249,10 @@ class CommunityPlanMap extends React.Component {
 	//保存
 	save = () => {
 		let { deleteData, planMapId, selectFloor } = this.state;
+		if(!planMapId){
+			Message.error('请先上传背景图');
+			return;
+		}
 		document.getElementById('save-no').style.display='inline-block';
         var _this=this;
 		this.mapComponent.save(function (saveData) {
@@ -265,6 +270,7 @@ class CommunityPlanMap extends React.Component {
 				list.cellWidth = Number(item.width);
 				list.cellHeight = Number(item.height);
 				list.belongId = Number(item.belongId);
+				list.id=Number(item.id);
 				list.belongType = item.belongType;
 				if (list.cellCoordX) {
 					stations.push(list);
@@ -452,6 +458,7 @@ class CommunityPlanMap extends React.Component {
 					index:dataIndex,
 					style:'new'
 				};
+				console.log('ggbbb',station);
 				this.mapComponent.createStation(station);
 				this.setState({
 					figureSets: figureSets
