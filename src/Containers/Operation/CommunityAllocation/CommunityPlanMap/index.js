@@ -452,7 +452,6 @@ class CommunityPlanMap extends React.Component {
 					index:dataIndex,
 					style:'new'
 				};
-				console.log('gbbbb',station);
 				this.mapComponent.createStation(station);
 				this.setState({
 					figureSets: figureSets
