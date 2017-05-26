@@ -134,6 +134,16 @@ var Map = (function (window) {
             initialize: function (conf) {
                 DEFAULTCONFIGS = Object.assign({}, conf);
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
+
+                var stations = this.getAllStation();
+
+                stations.forEach(function(station){
+                    if(!station.hasOwnProperty('key')){
+                            station.key = stationNumber;
+                            stationNumber++;
+                    }
+                });
+                this.setAllStation(stations);
             },
             reset: function () {
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
@@ -161,7 +171,6 @@ var Map = (function (window) {
 
                 if(typeof fdIndex === 'undefined'){
                     CONFIGS.stations.push(props);
-                    console.log('stations:',CONFIGS.stations);
                 }
                 return this;
             },
@@ -282,12 +291,18 @@ var Map = (function (window) {
             this.props = Object.assign({}, props);
 
             //存入数据库
-            var params = Object.assign({}, props);
-            DB.setStation(params.key, params);
+            DB.setStation(props.key,props);
         }
 
         StationObject.prototype.move = function (x, y) {
-            this.componentWillReceiveProps({ x, y, drag: true });
+
+            var key = this.stashProps.key;
+
+            var index = DB.findStationIndex(key);
+            console.log('index:',index,key);
+            
+            var nextProps = Object.assign({},this.stashProps,{ x, y, drag: true });
+            this.componentWillReceiveProps(nextProps);
         }
 
         //删除工位
@@ -907,6 +922,10 @@ var Map = (function (window) {
             element = document.getElementById(elementId);
             width = element.clientWidth;
             height = element.clientHeight;
+
+            if(configs.hasOwnProperty('stationToSame')){
+                stationToSame = configs.stationToSame;
+            }
 
             DB.initialize(configs);
 
@@ -1528,9 +1547,7 @@ var Map = (function (window) {
                 stashProps = station.getStashProps();
                 move.x = stashProps.x + lx;
                 move.y = stashProps.y + ly;
-
                 station.move(move.x, move.y);
-
             });
 
             this.render();
@@ -1596,12 +1613,14 @@ var Map = (function (window) {
                 var params = targeStation.getProps();
                 props.width = params.width;
                 props.height = params.height;
+                console.log('--->>',props);
             }
+
+            console.log('-->>',stationToSame)
 
             props.z = defaultConfigs.z;
 
             var station = StationFactory(props);
-            console.log('hah',station);
             DB.newStation(station.getProps());
             stationObjectArray.push(station);
 
@@ -1903,4 +1922,3 @@ var Map = (function (window) {
 
 
 module.exports = Map;
-

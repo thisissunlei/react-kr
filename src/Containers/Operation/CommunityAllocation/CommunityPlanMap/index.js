@@ -96,6 +96,7 @@ class CommunityPlanMap extends React.Component {
             
 			var initializeConfigs = {
 				stations: stations,
+				stationToSame:true,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
 			}
 
