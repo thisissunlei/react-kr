@@ -89,6 +89,7 @@ class CommunityPlanMap extends React.Component {
 				obj.belongId = Number(item.belongId);
 				obj.id = Number(item.id);
 				obj.canFigureId = item.canFigureId;
+				obj.style='old';
 
 				return obj;
 			});
@@ -216,15 +217,19 @@ class CommunityPlanMap extends React.Component {
 
 	onRemove = (data) => {
 		let { figureSets,deleteData } = this.state;
+		var del=[];
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = item.belongId;
 			list.belongType = item.belongType;
 			figureSets.splice(item.index,0,list);
+			if(item.style=='old'){
+			  del.push(item);	
+			}
 		});
 		this.setState({
-			deleteData:data,
+			deleteData:del,
 			figureSets
 		});
 	}
@@ -427,7 +432,8 @@ class CommunityPlanMap extends React.Component {
 					belongType: type,
 					name: cellname,
 					belongId:Number(cellId),
-					index:dataIndex
+					index:dataIndex,
+					style:'new'
 				};
 				this.mapComponent.createStation(station);
 				this.setState({
