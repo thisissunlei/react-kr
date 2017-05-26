@@ -139,10 +139,11 @@ var Map = (function (window) {
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
             },
             getAllStation: function () {
-                return [].concat(CONFIGS.stations);
+                var stations = [].concat(CONFIGS.stations);
+                return stations;
             },
             setAllStation: function (stations) {
-                CONFIGS = Object.assign({}, { stations });
+                CONFIGS.stations = [].concat(stations);
             },
             findStationIndex: function (key) {
                 var fdIndex;
@@ -156,7 +157,11 @@ var Map = (function (window) {
             },
             newStation: function (props) {
                 props = Object.assign({}, props);
-                CONFIGS.stations.push(props);
+                var fdIndex = this.findStationIndex(props.key);
+
+                if(fdIndex === 'undefined'){
+                    CONFIGS.stations.push(props);
+                }
                 return this;
             },
             removeStation: function (key) {
@@ -197,8 +202,9 @@ var Map = (function (window) {
                 var stations = this.getAllStation();
                 return Object.assign({},stations[index]);
             },
-            setStation: function (index, nextProps) {
-                var props = this.getStation(index);
+            setStation: function (key, nextProps) {
+                var props = this.getStation(key);
+                var index = this.findStationIndex(key);
                 props = Object.assign({}, props, nextProps);
                 CONFIGS.stations.splice(index, 1, props);
                 return this;
@@ -1891,4 +1897,5 @@ var Map = (function (window) {
 
 })(window);
 
-module.exports=Map;
+
+module.exports = Map;
