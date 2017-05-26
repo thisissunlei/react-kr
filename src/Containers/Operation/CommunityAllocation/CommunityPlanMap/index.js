@@ -271,7 +271,9 @@ class CommunityPlanMap extends React.Component {
 				list.cellWidth = Number(item.width);
 				list.cellHeight = Number(item.height);
 				list.belongId = Number(item.belongId);
-				list.id=Number(item.id);
+				if(item.id){
+                  list.id=Number(item.id);
+				}
 				list.belongType = item.belongType;
 				if (list.cellCoordX) {
 					stations.push(list);
