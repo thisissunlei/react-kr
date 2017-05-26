@@ -188,6 +188,10 @@ State.toggleSidebar=action(function(value){
 	this.openSidebar = !!value;
 });
 
+State.setSidebar=action(function(value){
+	this.openSidebar = value;
+});
+
 State.getUser= action(function(){
 	return mobx.toJS(this.userInfo);
 });
