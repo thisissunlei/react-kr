@@ -61,9 +61,7 @@ import {
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends React.Component {
 
-	static contextTypes = {
-		params: React.PropTypes.object.isRequired
-	}
+	
 
 	static DefaultPropTypes = {
 		initialValues: {

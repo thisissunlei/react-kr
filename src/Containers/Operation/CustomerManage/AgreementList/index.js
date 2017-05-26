@@ -150,12 +150,14 @@ class Merchants extends Component{
 	}
 	//打开编辑页
 	openEditAgreement = () => {
-		State.openEditAgreement=true;
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openEditAgreement=true;
 	}
 	//关闭编辑页
 	closeEditAgreement = () =>{
 		// this.removeLocalStorage();
-		State.openEditAgreement=false;
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openEditAgreement=false;
 	}
 	//新建订单打开
     openNewIndent = () => {
@@ -557,11 +559,13 @@ class Merchants extends Component{
 
 
 	editClick=(values)=>{
+		let {CommunityAgreementList} = this.props;
+
 		State.argumentType=values.contracttype;
 		State.listId=values.customerid;
     	State.agreementId=values.id;
     	State.mainBillId=values.mainbillid;
-		State.openEditAgreement=true;
+		CommunityAgreementList.openEditAgreement=true;
 	}
 	maskClock=()=>{
 		console.log('closeAll')
@@ -570,7 +574,7 @@ class Merchants extends Component{
 		CommunityAgreementList.openOneAgreement=false;
 		CommunityAgreementList.openTowAgreement=false;
 		
-		State.openEditAgreement=false;
+		CommunityAgreementList.openEditAgreement=false;
 		State.openAgreementDetail=false;
 	}
 
@@ -866,7 +870,7 @@ class Merchants extends Component{
 
 		           {/*编辑合同*/}
 		           <Drawer
-				        open={State.openEditAgreement}
+				        open={this.props.CommunityAgreementList.openEditAgreement}
 				        width={750}
 				        onClose={this.closeEditAgreement}
 				        openSecondary={true}

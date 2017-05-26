@@ -1,5 +1,5 @@
 import React, {
-	Component,
+
 	PropTypes
 } from 'react';
 import {
@@ -15,7 +15,7 @@ import {
 import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	reduxForm,
 	formValueSelector,
@@ -25,22 +25,17 @@ import {
 	arrayInsert,
 	FieldArray
 } from 'redux-form';
+import PlanMapContent from '../../../PlanMapContent';
 
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import {Http} from 'kr/Utils'
 import "./index.less";
 import UnitPriceForm from './UnitPriceForm';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
-
 	Table,
 	TableBody,
 	TableHeader,
@@ -48,7 +43,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -58,15 +52,13 @@ import {
 	IframeContent,
 	DotTitle,
 	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	KrDate,
-	CircleStyle
+	KrDate
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 
 
@@ -82,6 +74,7 @@ class NewCreateForm extends Component {
 			payTypeList: [],
 			paymentList: [],
 			fnaCorporationList: [],
+
 		}
 	}
 
@@ -129,10 +122,10 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		var stationnum = 0;
 		var boardroomnum = 0;
-
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
 				stationnum++;
@@ -141,6 +134,7 @@ class NewCreateForm extends Component {
 			}
 		});
 
+		Store.dispatch(change('admitCreateForm', 'stationVos', stationVos));
 		Store.dispatch(change('admitCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('admitCreateForm', 'boardroomnum', boardroomnum));
 	}
@@ -212,7 +206,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			delStationVos
 		} = this.state;
-
+		let {initialValues} = this.props;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
@@ -220,6 +214,9 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
+
+		Store.dispatch(change('admitCreateForm', 'stationVos', stationVos));
+		Store.dispatch(change('admitCreateForm', 'delStationVos', delStationVos));
 
 		this.setState({
 			stationVos,
@@ -309,8 +306,10 @@ class NewCreateForm extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let initialValues = nextProps.initialValues;
 			this.setState({
 				stationVos,
+				delStationVos:nextProps.delStationVos
 			});
 			this.isInit = true;
 		}
@@ -319,6 +318,7 @@ class NewCreateForm extends Component {
 		let {
 			selectedStation
 		} = this.state;
+		
 		if (!selectedStation.length) {
 			Notify.show([{
 				message: '请先选择要录入单价的工位',
@@ -344,6 +344,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} =this.props;
 		let _this = this;
 		let allMoney = 0;
 
@@ -377,19 +378,35 @@ class NewCreateForm extends Component {
 			delStationVos
 		} = this.state;
 
+
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+			
+		}
+		if(!unitpriceAdd){
+			Notify.show([{
+				message: '请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 		form.lessorAddress = changeValues.lessorAddress;
 
 		var _this = this;
 
 		form.delStationVos = JSON.stringify(delStationVos);
 		form.stationVos = JSON.stringify(stationVos);
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = this.state.allRent?this.state.allRent:initialValues.totalrent;
 		if(!!!form.agreement){
 			form.agreement = '无';
@@ -409,7 +426,6 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
 
 		let {
 			changeValues,
@@ -423,39 +439,33 @@ class NewCreateForm extends Component {
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
 
 		let params = {
-			contractId: this.context.params.id,
-			mainBillId: this.context.params.orderId,
+			contractId: initialValues.id,
+			mainBillId: initialValues.mainbillid,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			selectedObjs:stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss")
 
 		};
 
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
+
 
 		this.setState({
-			stationUrl: url
+			stationUrl: params
 		});
+
 	}
 
 
@@ -472,7 +482,8 @@ class NewCreateForm extends Component {
 		let {delStationVos} = this.state;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
         data.deleteData && data.deleteData.map((item)=>{
                 var obj = {};
@@ -482,6 +493,8 @@ class NewCreateForm extends Component {
                 delStationVos.push(obj);
         })
 
+
+
 		try {
 			billList && billList.map(function(item, index) {
 				item.leaseBeginDate = changeValues.leaseBegindate;
@@ -490,11 +503,15 @@ class NewCreateForm extends Component {
 				item.stationType = item.type;
 				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.whereFloor;
 
 			});
 		} catch (err) {
 		}
+
+		Store.dispatch(change('admitCreateForm', 'stationVos', billList));
+		Store.dispatch(change('admitCreateForm', 'delStationVos', delStationVos));
+
 
 
 
@@ -509,6 +526,7 @@ class NewCreateForm extends Component {
 	onChangeSearchPersonel(personel) {
 
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname || '请选择'));
 
 
 
@@ -522,6 +540,9 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {initialValues} =this.props;
+		Store.dispatch(change('admitCreateForm', 'stationVos', stationVos));
+
 		this.setAllRent(stationVos);
 
 	}
@@ -536,6 +557,8 @@ class NewCreateForm extends Component {
 			_this.setState({
 				allRent:response
 			})
+		Store.dispatch(change('admitCreateForm', 'totalrent', response));
+
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -543,38 +566,7 @@ class NewCreateForm extends Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
 
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
-		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
 
 
 	render() {
@@ -756,9 +748,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						onCancel={this.onCancel}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.onClose}>
-							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 					<Dialog
 						title="录入单价"
@@ -779,6 +771,11 @@ const selector = formValueSelector('admitCreateForm');
 const validate = values => {
 
 	const errors = {}
+
+	++values.num;
+
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'edit',JSON.stringify(values));
+	
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -849,12 +846,13 @@ const validate = values => {
 
 
 
+
 	return errors
 }
 
 NewCreateForm = reduxForm({
 	form: 'admitCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

@@ -15,6 +15,8 @@ import Reduce from "../Reduce/Edit";
 import Renew from "../Renew/Edit";
 import allState from "../State";
 
+import { Agreement } from 'kr/PureComponents';
+
 @observer
 class EditAgreementList extends Component{
 
@@ -47,7 +49,7 @@ class EditAgreementList extends Component{
 			content=(<div><span className="content-title">增租协议书详情页</span><Increase params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="ENTER"){
-			content=(<div><span className="content-title">入驻协议书详情页</span><Join params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">入驻协议书详情页</span><Agreement.Join.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="LESSRENT"){
 			content=(<div><span className="content-title">减租协议书详情页</span><Reduce params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
@@ -56,7 +58,7 @@ class EditAgreementList extends Component{
 			content=(<div><span className="content-title">续租协议书详情页</span><Renew params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="INTENTION"){
-			content=(<div><span className="content-title">承租意向书详情页</span><Admit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">承租意向书详情页</span><Agreement.Admit.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 
 		}
 
