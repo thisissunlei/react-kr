@@ -1,3 +1,6 @@
+
+import Message from '../Message';
+
 //平面图
 var Map = (function (window) {
 
@@ -864,7 +867,7 @@ var Map = (function (window) {
 
             var self = this;
             imageUrl = imageUrl || DB.getImageUrl();
-
+            
             bkImageObject = new Image();
             bkImageObject.src = imageUrl;
             bkImageObject.onload = function () {

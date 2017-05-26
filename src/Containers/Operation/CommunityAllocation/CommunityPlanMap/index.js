@@ -107,8 +107,8 @@ class CommunityPlanMap extends React.Component {
             
 			_this.mapComponent.newMap(initializeConfigs);
          
-			document.getElementById("sizeCheckbox").checked=response.stationSizeSame;
-			document.getElementById("bgfilename").innerHTML=response.graphFileName;
+			document.getElementById("sizeCheckbox").checked=response.stationSizeSame?response.stationSizeSame:false;
+			document.getElementById("bgfilename").innerHTML=response.graphFileName?response.graphFileName:'无';
 			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
 		    });
 
