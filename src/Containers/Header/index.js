@@ -89,6 +89,13 @@ export default class Header extends React.Component {
 	
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
+		var navIsActive=NavModel.items.map((item,index)=>{
+			return item.isActive;
+		})
+		var isActive=navIsActive.indexOf(true)==-1?true:false;
+		if(isActive){
+			NavModel.clearSidebar();
+		}
 		NavModel.toggleSidebar();
 	}
 	clickLogo=()=> {
@@ -112,7 +119,9 @@ export default class Header extends React.Component {
 		}
 		
 	}
-	isActive=()=>{
+	clearSidebar=()=>{
+		const {NavModel} = this.props;
+		NavModel.clearSidebar();
 
 	}
 	renderNav = (navs)=>{
@@ -123,7 +132,7 @@ export default class Header extends React.Component {
 		
 		return (
 			<Nav> 
-				<NavItem  label="首页" originUrl="./#/"  isActive={isActive}  />
+				<NavItem  label="首页" originUrl="./#/"  isActive={isActive}  onClick={this.clearSidebar} />
 				{navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} 
 			</Nav>
 
