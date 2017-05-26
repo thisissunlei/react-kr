@@ -9,7 +9,7 @@ import {
 import PlanMapSerarchForm from './PlanMapSerarchForm'
 import './index.less';
 
-export default class PlanMapComponent extends React.Component {
+export default class PlanMapContent extends React.Component {
 
 
 
@@ -30,9 +30,11 @@ export default class PlanMapComponent extends React.Component {
 			selectedObjs:this.props.data.selectedObjs,
 			deleteArr:[]
 		}
-		this.getData();
+		
 	}
 	getData = () =>{
+
+
 		var _this = this;
 		let {data} = this.props;
 		if(!data){
@@ -73,6 +75,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentDidMount(){
+		this.getData();
 
 	}
 
@@ -87,6 +90,7 @@ export default class PlanMapComponent extends React.Component {
 		let deldata = [];
 		
 		otherData.floors.map(function(item,index){
+			console.log(floor == item.value,floor,item.value)
 			if(floor == item.value){
 				obj[floor]={
 					data : data || [],
@@ -97,7 +101,6 @@ export default class PlanMapComponent extends React.Component {
 			if(!obj && !obj[item.value]){
 				return ;
 			}
-
 			arr = obj[item.value].data.concat(arr);
 			delArr = obj[item.value].deleteArr.concat(delArr);
 		})
@@ -205,6 +208,7 @@ export default class PlanMapComponent extends React.Component {
 		if(!data){
 			return null;
 		}
+	    console.log('===oframe======>')
 		return (
 
 			<div className = "plan-map-content">

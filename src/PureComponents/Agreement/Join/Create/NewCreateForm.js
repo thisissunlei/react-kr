@@ -21,7 +21,6 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 
-
 import {
 	reduxForm,
 	formValueSelector,
@@ -32,8 +31,8 @@ import {
 	FieldArray
 } from 'redux-form';
 
-import {Http} from 'kr/Utils'
-
+import {DateFormat,Http} from 'kr/Utils'
+import PlanMapContent from 'kr/PureComponents/PlanMapContent';
 import {
 	Actions,
 	Store
@@ -422,9 +421,6 @@ class NewCreateForm extends Component {
 	}
 
 	getStationUrl() {
-
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-
 		let {
 			changeValues,
 			initialValues,
@@ -435,38 +431,31 @@ class NewCreateForm extends Component {
 		} = this.state;
 
 		stationVos = stationVos.map(function(item) {
+
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
+			
+
 			return obj;
 		});
 
 		let params = {
-			mainBillId: this.context.params.orderId,
+			mainBillId:  this.props.initialValues.mainbillid,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			selectedObjs: stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
 			unitprice:0
 
 		};
+		return params;
 
-
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
-		return url;
 	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
@@ -500,6 +489,9 @@ class NewCreateForm extends Component {
 
 	onIframeClose(billList) {
 
+
+		billList = [].concat(billList);
+
 		this.openStationDialog();
 
 
@@ -510,12 +502,14 @@ class NewCreateForm extends Component {
 		var _this = this;
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		let {
 			stationVos
 		} = this.state;
+		console.log("billList",billList);
 
 		try {
 			billList.map(function(item, index) {
@@ -525,13 +519,14 @@ class NewCreateForm extends Component {
 				item.stationType = item.type;
 				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.whereFloor;
 			});
 		} catch (err) {
 		}
 
-
 		Store.dispatch(change('joinCreateForm', 'stationVos', billList));
+
+
 
 
 		this.setState({
@@ -772,11 +767,12 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						 >
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
+
 					  </Dialog>
 
 					<Dialog

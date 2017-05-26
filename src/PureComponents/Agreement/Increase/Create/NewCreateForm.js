@@ -16,8 +16,8 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 import nzh from 'nzh';
-
-import {Http} from 'kr/Utils'
+import PlanMapContent from 'kr/PureComponents/PlanMapContent';
+import {Http,DateFormat} from 'kr/Utils'
 
 import {
 	reduxForm,
@@ -421,7 +421,6 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 		let {
 			changeValues,
 			initialValues,
@@ -432,37 +431,30 @@ class NewCreateForm extends Component {
 		} = this.state;
 
 		stationVos = stationVos.map(function(item) {
+
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
+			
+
 			return obj;
 		});
 
 		let params = {
-			mainBillId: this.context.params.orderId,
+			mainBillId:  this.props.initialValues.mainbillid,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			selectedObjs: stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
+			unitprice:0
 
 		};
-
-
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
-		return url;
+		return params;
 	}
 
 	onIframeClose(billList) {
@@ -668,7 +660,7 @@ class NewCreateForm extends Component {
 						</div>
 						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                    </DotTitle>
-                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent || '0'}</span><span>{allRentName}</span></div>
 
                    </div>
 
@@ -777,11 +769,11 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
@@ -800,14 +792,6 @@ class NewCreateForm extends Component {
 const validate = values => {
 
 	const errors = {}
-
-	// let keyWord = JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create';
-	// let localStorageData = localStorage.getItem(keyWord);
-	// console.log(values && localStorageData && localStorageData != JSON.stringify(values))
-	// if(values && localStorageData && localStorageData != JSON.stringify(values)){
-	// 	// ++values.num;
-	// 	console.log(localStorageData != JSON.stringify(values),localStorageData,JSON.stringify(values))
-	// }
 
 	++values.num;
 	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
