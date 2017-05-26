@@ -224,7 +224,6 @@ class CommunityPlanMap extends React.Component {
 	}
 
 	onRemove = (data,station) => {
-        console.log('data',data);
 		data = [].concat(data);
 		let { figureSets,deleteData } = this.state;
 		var del=[];
@@ -460,7 +459,6 @@ class CommunityPlanMap extends React.Component {
 					index:dataIndex,
 					style:'new'
 				};
-				console.log('ggbbb',station);
 				this.mapComponent.createStation(station);
 				this.setState({
 					figureSets: figureSets
