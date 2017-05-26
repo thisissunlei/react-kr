@@ -801,8 +801,15 @@ const validate = values => {
 
 	const errors = {}
 
+	// let keyWord = JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create';
+	// let localStorageData = localStorage.getItem(keyWord);
+	// console.log(values && localStorageData && localStorageData != JSON.stringify(values))
+	// if(values && localStorageData && localStorageData != JSON.stringify(values)){
+	// 	// ++values.num;
+	// 	console.log(localStorageData != JSON.stringify(values),localStorageData,JSON.stringify(values))
+	// }
+
 	++values.num;
-	console.log('val',values.stationVos)
 	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
 
 

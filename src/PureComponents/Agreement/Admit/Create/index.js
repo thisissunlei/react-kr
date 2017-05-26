@@ -238,7 +238,11 @@ export default class JoinCreate extends Component {
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 			optionValue = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
 			initialValue = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
-
+			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+				initialValue.oldNum = localStorageData.num;
+			}else{
+				initialValue.oldNum = localStorageData.oldNum;
+			}
 			_this.setState({
 				initialValues,
 				optionValues,

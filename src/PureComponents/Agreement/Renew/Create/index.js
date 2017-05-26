@@ -105,7 +105,7 @@ export default class JoinCreate extends Component {
 	}
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId + 'ADDRENTcreate';
+		let keyWord = params.orderId+''+params.customerId + 'RENEWcreate';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -219,7 +219,11 @@ export default class JoinCreate extends Component {
 
 			optionValue = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
 			initialValue = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
-
+			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+				initialValue.oldNum = localStorageData.num;
+			}else{
+				initialValue.oldNum = localStorageData.oldNum;
+			}
 			_this.setState({
 				initialValues,
 				optionValues,

@@ -191,9 +191,12 @@ export default class JoinCreate extends Component {
 			
 			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
 				initialValues.oldNum = localStorageData.num;
+
 			}else{
 				initialValues.oldNum = 1;
 			}
+
+			console.log('oldNum',localStorageData.num,initialValues.oldNum)
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -237,7 +240,12 @@ export default class JoinCreate extends Component {
 
 			optionValue = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
 			initialValue = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
-
+			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+				initialValue.oldNum = localStorageData.num;
+			}else{
+				initialValue.oldNum = localStorageData.oldNum;
+			}
+			
 			_this.setState({
 				initialValues,
 				optionValues,
@@ -264,6 +272,7 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
+		console.log(initialValue,initialValues)
 		return (
 
 			<div>
