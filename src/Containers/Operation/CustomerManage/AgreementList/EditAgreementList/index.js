@@ -7,12 +7,6 @@ import {
 } from 'mobx-react';
 import {Http} from "kr/Utils"
 import './index.less';
-import Admit from "../Admit/Edit";
-import Exit from "../Exit/Edit";
-import Increase from "../Increase/Edit";
-import Join from "../Join/Edit";
-import Reduce from "../Reduce/Edit";
-import Renew from "../Renew/Edit";
 import allState from "../State";
 
 import { Agreement } from 'kr/PureComponents';

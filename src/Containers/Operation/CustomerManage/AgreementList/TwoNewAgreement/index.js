@@ -19,12 +19,6 @@ import {
 } from 'kr-ui';
 
 import $ from 'jquery';
-import Admit from "../Admit/Create";
-import Exit from "../Exit/Create";
-import Increase from "../Increase/Create";
-import Join from "../Join/Create";
-import Reduce from "../Reduce/Create";
-import Renew from "../Renew/Create";
 import allState from "../State";
 
 import { Agreement } from 'kr/PureComponents';

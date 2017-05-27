@@ -162,9 +162,12 @@ class NewCreateForm extends Component {
 			return;
 		}
 
+		Store.dispatch(change('increaseCreateForm', 'stationVos', []));
+
 		this.setState({
 			stationVos: []
 		});
+		this.setAllRent([]);
 	}
 
 	//修改租赁期限-结束时间
@@ -177,6 +180,9 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
+		Store.dispatch(change('increaseCreateForm', 'stationVos', []));
+
+		this.setAllRent([]);
 
 		this.setState({
 			stationVos: []
