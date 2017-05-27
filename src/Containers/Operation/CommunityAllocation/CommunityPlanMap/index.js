@@ -90,6 +90,11 @@ class CommunityPlanMap extends React.Component {
 				obj.id = Number(item.id);
 				obj.canFigureId = item.canFigureId;
 				obj.style='old';
+				obj.type=obj.belongType;
+				obj.defaultStation={
+					width:response.cellWidth,
+					height:response.cellHeight
+				}
 
 				return obj;
 			});
@@ -154,7 +159,7 @@ class CommunityPlanMap extends React.Component {
 		document.addEventListener('mousemove', this.eventListen);
 		document.addEventListener('keydown',function(e){
 			   if( e.ctrlKey  == true && e.keyCode == 83 ){
-				  _this.save();
+				  //_this.save();
 				  return false;
 	           }
 		}, false);
@@ -463,7 +468,8 @@ class CommunityPlanMap extends React.Component {
 					name: cellname,
 					belongId:Number(cellId),
 					index:dataIndex,
-					style:'new'
+					style:'new',
+					type:type
 				};
 				this.mapComponent.createStation(station);
 				this.setState({

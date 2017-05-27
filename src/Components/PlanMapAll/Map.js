@@ -1943,5 +1943,5 @@ var Map = (function (window) {
 
 })(window);
 
-module.exports = Map;
 
+module.exports = Map;
