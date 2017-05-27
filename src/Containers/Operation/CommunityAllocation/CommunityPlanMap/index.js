@@ -162,7 +162,7 @@ class CommunityPlanMap extends React.Component {
 				_this.save();
 			   e.preventDefault();
 			}
-});
+       });
 		this.getMapFloor();
 	}
 
@@ -264,8 +264,11 @@ class CommunityPlanMap extends React.Component {
 		}
 		document.getElementById('save-no').style.display='inline-block';
         var _this=this;
+
 		this.mapComponent.save(function (saveData) {
-			console.log('save',saveData);
+			console.log('save1',saveData);
+			saveData = Object.assign({}, saveData);
+			console.log('save2',saveData);
 			var stations = [];
 			var deleteStation = [];
 			deleteData.map((item, index) => {
