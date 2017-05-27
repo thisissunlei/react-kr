@@ -158,7 +158,7 @@ class CommunityPlanMap extends React.Component {
 		document.addEventListener('mousemove', this.eventListen);
 		document.addEventListener('keydown',function(e){
 			   if( e.ctrlKey  == true && e.keyCode == 83 ){
-				  _this.save();
+				  //_this.save();
 				  return false;
 	           }
 		}, false);
