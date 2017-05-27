@@ -58,9 +58,8 @@ class CommunityPlanMap extends React.Component {
 	    this.nameStation='';
 	}
 
-
-
 	getMapConfigs = (data) => {
+
 		let {selectFloor} = this.state;
 		var href =this.context.router.params.communityId;
 		var _this = this;
@@ -91,16 +90,17 @@ class CommunityPlanMap extends React.Component {
 				obj.canFigureId = item.canFigureId;
 				obj.style='old';
 				obj.type=obj.belongType;
-				obj.defaultStation={
-					width:response.cellWidth,
-					height:response.cellHeight
-				}
+				
 
 				return obj;
 			});
             
 			var initializeConfigs = {
 				stations: stations,
+				defaultStation:{
+					width:Number(response.cellWidth),
+					height:Number(response.cellHeight)
+				},
 				stationToSame:true,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
 			}

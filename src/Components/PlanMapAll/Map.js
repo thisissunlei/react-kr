@@ -1299,7 +1299,7 @@ var Map = (function (window) {
                     case 8:
                         self.removeStation();
                         break;
-                    case 36:
+                    case 46:
                         self.removeStation();
                         break;
                     default:
@@ -1950,6 +1950,7 @@ var Map = (function (window) {
 
 
 })(window);
+
 
 module.exports = Map;
 
