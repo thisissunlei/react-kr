@@ -90,6 +90,7 @@ class CommunityPlanMap extends React.Component {
 				obj.id = Number(item.id);
 				obj.canFigureId = item.canFigureId;
 				obj.style='old';
+				obj.type=obj.belongType;
 				obj.defaultStation={
 					width:response.cellWidth,
 					height:response.cellHeight
@@ -467,7 +468,8 @@ class CommunityPlanMap extends React.Component {
 					name: cellname,
 					belongId:Number(cellId),
 					index:dataIndex,
-					style:'new'
+					style:'new',
+					type:type
 				};
 				this.mapComponent.createStation(station);
 				this.setState({
