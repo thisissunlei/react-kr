@@ -1347,6 +1347,9 @@ var Map = (function (window) {
             //鼠标进入canvas
             canvas.addEventListener('mouseover', MouseOverEvent, false);
 
+
+              document.addEventListener('keyup', KeyUpEvent, false);
+
         }
 
 
@@ -1960,3 +1963,4 @@ var Map = (function (window) {
 
 
 module.exports = Map;
+
