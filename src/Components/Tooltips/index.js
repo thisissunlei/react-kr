@@ -124,6 +124,7 @@ export default class Tooltip extends React.Component {
 		style.background = backgroundColor;
 		// style.boxShadow = '0 0 3px #499df1';
 		style.boxShadow = boxShadow;
+		console.log('=============')
 
 
 		return(
