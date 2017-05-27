@@ -10,16 +10,16 @@ var Map = (function (window) {
 
     var defaultConfigs = {
         z: 1,
-        scaleMax:2,
-        scaleMin:0.1,
-        scaleSpeed:0.1,
+        scaleMax: 2,
+        scaleMin: 0.1,
+        scaleSpeed: 0.1,
     }
 
     //工位基本配置
 
     var defaultStation = {
-        width:30,
-        height:30,
+        width: 30,
+        height: 30,
         minWidth: 30,
         minHeight: 30,
         maxWidth: 200,
@@ -132,20 +132,6 @@ var Map = (function (window) {
         var CONFIGS = Object.assign({}, DEFAULTCONFIGS);
 
         return {
-            initialize: function (conf) {
-                DEFAULTCONFIGS = Object.assign({}, conf);
-                CONFIGS = Object.assign({}, DEFAULTCONFIGS);
-
-                var stations = this.getAllStation();
-
-                stations.forEach(function(station){
-                    if(!station.hasOwnProperty('key')){
-                            station.key = stationNumber;
-                            stationNumber++;
-                    }
-                });
-                this.setAllStation(stations);
-            },
             reset: function () {
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
             },
@@ -170,7 +156,7 @@ var Map = (function (window) {
                 props = Object.assign({}, props);
                 var fdIndex = this.findStationIndex(props.key);
 
-                if(typeof fdIndex === 'undefined'){
+                if (typeof fdIndex === 'undefined') {
                     CONFIGS.stations.push(props);
                 }
                 return this;
@@ -211,17 +197,22 @@ var Map = (function (window) {
             getStation: function (key) {
                 var index = this.findStationIndex(key);
                 var stations = this.getAllStation();
-                return Object.assign({},stations[index]);
+                var stationData = stations[index];
+                return Object.assign({}, stationData);
             },
             setStation: function (key, nextProps) {
                 var props = this.getStation(key);
                 var index = this.findStationIndex(key);
+
                 props = Object.assign({}, props, nextProps);
                 CONFIGS.stations.splice(index, 1, props);
                 return this;
             },
             getImageUrl: function () {
                 return CONFIGS.backgroundImageUrl;
+            },
+            setImageUrl: function (imageUrl) {
+                CONFIGS.backgroundImageUrl = imageUrl;
             },
         };
 
@@ -232,6 +223,7 @@ var Map = (function (window) {
         params = params || {};
 
         stationNumber++;
+        defaultConfigs.z++;
 
         if (params.hasOwnProperty('scale')) {
             scale = scale;
@@ -258,7 +250,7 @@ var Map = (function (window) {
         StationObject.defaultPropTypes = {
             x: 0,
             y: 0,
-            z: 0,
+            z: defaultConfigs.z,
             width: defaultStation.width,
             height: defaultStation.height,
             name: 'demo',
@@ -292,17 +284,13 @@ var Map = (function (window) {
             this.props = Object.assign({}, props);
 
             //存入数据库
-            DB.setStation(props.key,props);
+            DB.setStation(props.key, props);
         }
 
         StationObject.prototype.move = function (x, y) {
-
             var key = this.stashProps.key;
-
             var index = DB.findStationIndex(key);
-            console.log('index:',index,key);
-            
-            var nextProps = Object.assign({},this.stashProps,{ x, y, drag: true });
+            var nextProps = Object.assign({}, { key, x, y, drag: true });
             this.componentWillReceiveProps(nextProps);
         }
 
@@ -717,14 +705,15 @@ var Map = (function (window) {
             switch (scaleStationDirection) {
                 case 'leftTop': {
 
+
+                    var stashProps = this.getStashProps();
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
-                    scale = (move.x - down.x) > 0 ? -scale : scale;
-                    scale = scale / 7;
+                    scale = (move.y - down.y) > 0 ? -scale : scale;
 
                     var props = this.getProps();
-                    props.width = props.width + scale;
-                    props.height = props.height + scale;
+                    props.width = stashProps.width + scale;
+                    props.height = stashProps.height + scale;
                     props.drag = true;
                     this.componentWillReceiveProps(props);
 
@@ -732,17 +721,16 @@ var Map = (function (window) {
                 }
 
                 case 'leftCenter': {
-                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
-                    scale = (move.x - down.x) > 0 ? -scale : scale;
-                    scale = scale / defaultStation.scaleSpeed;
+                    var stashProps = this.getStashProps();
+                    var scale = -(move.x - down.x);
 
                     var props = this.getProps();
-                    props.width = props.width + scale;
-                    props.height = props.height;
+                    props.width = stashProps.width + scale;
+                    props.height = stashProps.height;
 
                     if (props.width > defaultStation.minWidth) {
-                        props.x -= scale / 2;
+                        props.x = stashProps.x - scale / 2;
                     }
 
                     props.drag = true;
@@ -752,15 +740,15 @@ var Map = (function (window) {
 
                 case 'leftBottom': {
 
+
+                    var stashProps = this.getStashProps();
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
-
-                    scale = (move.x - down.x) > 0 ? -scale : scale;
-                    scale = scale / defaultStation.scaleSpeed;
+                    scale = (move.y - down.y) > 0 ? scale : -scale;
 
                     var props = this.getProps();
-                    props.width = props.width + scale;
-                    props.height = props.height + scale;
+                    props.width = stashProps.width + scale;
+                    props.height = stashProps.height + scale;
                     props.drag = true;
 
                     this.componentWillReceiveProps(props);
@@ -770,14 +758,13 @@ var Map = (function (window) {
 
                 case 'rightTop': {
 
+                    var stashProps = this.getStashProps();
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.y - down.y, 2));
 
-                    scale = (move.x - down.x) > 0 ? scale : -scale;
-                    scale = scale / defaultStation.scaleSpeed;
-
+                    scale = (move.y - down.y) > 0 ? -scale : scale;
                     var props = this.getProps();
-                    props.width = props.width + scale;
-                    props.height = props.height + scale;
+                    props.width = stashProps.width + scale;
+                    props.height = stashProps.height + scale;
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
@@ -785,17 +772,16 @@ var Map = (function (window) {
 
                 case 'rightCenter': {
 
-                    var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
+                    var stashProps = this.getStashProps();
 
-                    scale = (move.x - down.x) > 0 ? scale : -scale;
-                    scale = scale / defaultStation.scaleSpeed;
+                    var scale = move.x - down.x;
 
                     var props = this.getProps();
-                    props.width = props.width + scale;
-                    props.height = props.height;
+                    props.width = stashProps.width + scale;
+                    props.height = stashProps.height;
 
                     if (props.width >= defaultStation.minWidth) {
-                        props.x += scale / 2;
+                        props.x = stashProps.x + scale / 2;
                     }
 
                     props.drag = true;
@@ -804,14 +790,15 @@ var Map = (function (window) {
                 }
 
                 case 'rightBottom': {
+
+                    var stashProps = this.getStashProps();
                     var scale = Math.sqrt(Math.pow(move.x - down.x, 2), Math.pow(move.x - down.x, 2));
 
-                    scale = (move.x - down.x) > 0 ? scale : -scale;
-                    scale = scale / defaultStation.scaleSpeed;
+                    scale = (move.y - down.y) > 0 ? scale : -scale;
 
                     var props = this.getProps();
-                    props.width = props.width + scale;
-                    props.height = props.height + scale;
+                    props.width = stashProps.width + scale;
+                    props.height = stashProps.height + scale;
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
@@ -819,17 +806,15 @@ var Map = (function (window) {
 
                 case 'topCenter': {
 
-                    var scale = Math.sqrt(Math.pow(down.y - move.y, 2), Math.pow(down.y - move.y, 2));
-
-                    scale = (down.y - move.y) > 0 ? scale : -scale;
-                    scale = scale / defaultStation.scaleSpeed;
+                    var stashProps = this.getStashProps();
+                    var scale = -(move.y - down.y);
 
                     var props = this.getProps();
                     props.width = props.width;
-                    props.height = props.height + scale;
+                    props.height = stashProps.height + scale;
 
                     if (props.height >= defaultStation.minHeight) {
-                        props.y -= scale / 2;
+                        props.y = stashProps.y - scale / 2;
                     }
                     props.drag = true;
                     this.componentWillReceiveProps(props);
@@ -838,19 +823,16 @@ var Map = (function (window) {
 
                 case 'bottomCenter': {
 
-                    var scale = Math.sqrt(Math.pow(move.y - down.y, 2), Math.pow(move.y - down.y, 2));
-
-                    scale = (move.y - down.y) > 0 ? scale : -scale;
-                    scale = scale / defaultStation.scaleSpeed;
+                    var stashProps = this.getStashProps();
+                    var scale = move.y - down.y;
 
                     var props = this.getProps();
                     props.width = props.width;
-                    props.height = props.height + scale;
+                    props.height = stashProps.height + scale;
 
                     if (props.height >= defaultStation.minHeight) {
-                        props.y += scale / 2;
+                        props.y = stashProps.y + scale / 2;
                     }
-
                     props.drag = true;
                     this.componentWillReceiveProps(props);
                     break;
@@ -918,17 +900,20 @@ var Map = (function (window) {
 
             this.isComponentDidMout = false;
             this.readyCallback = function () { };
+            this.initializeStations = configs.stations;
 
 
             element = document.getElementById(elementId);
             width = element.clientWidth;
             height = element.clientHeight;
 
-            if(configs.hasOwnProperty('stationToSame')){
+            if (configs.hasOwnProperty('stationToSame')) {
                 stationToSame = configs.stationToSame;
             }
 
-            DB.initialize(configs);
+            if (configs.hasOwnProperty('backgroundImageUrl')) {
+                DB.setImageUrl(configs.backgroundImageUrl);
+            }
 
             canvas = document.createElement('canvas');
             canvas.width = width;
@@ -947,7 +932,7 @@ var Map = (function (window) {
             imageUrl = imageUrl || DB.getImageUrl();
 
 
-            if(!imageUrl){
+            if (!imageUrl) {
                 isLoadImageError = true;
             }
 
@@ -956,7 +941,7 @@ var Map = (function (window) {
             bkImageObject = new Image();
             bkImageObject.src = imageUrl;
 
-            bkImageObject.onError = function () {
+            bkImageObject.onerror = function () {
                 onErrorCallback && onErrorCallback('图片加载错误');
                 isLoadImageError = true;
                 self.componentWillMount();
@@ -966,6 +951,7 @@ var Map = (function (window) {
             bkImageObject.onload = function () {
                 self.componentWillMount();
                 self.render();
+                console.log('babab')
             }
         }
 
@@ -1012,7 +998,6 @@ var Map = (function (window) {
 
 
 
-
             if (!this.isComponentDidMout) {
                 this.componentDidMount();
                 return;
@@ -1049,7 +1034,7 @@ var Map = (function (window) {
                 return;
             }
 
-            var StationsData = DB.getAllStation();
+            var StationsData = this.initializeStations;
 
             StationsData.map(function (item, index) {
                 var props = Object.assign({}, item);
@@ -1071,9 +1056,23 @@ var Map = (function (window) {
             this.render();
         }
 
+        MapObject.prototype.savePropsToStash = function(){
+
+            this.stashProps = {
+                translateX,
+                translateY,
+                scale
+            }
+
+        }
+
+        MapObject.prototype.getStashProps = function(){
+            return Object.assign({},this.stashProps);
+        }
+
 
         MapObject.prototype.scaleMap = function (deltaY) {
-
+            this.savePropsToStash();
             if (deltaY > 0) {
                 scale += defaultConfigs.scaleSpeed;
             } else {
@@ -1089,6 +1088,11 @@ var Map = (function (window) {
             if (scale <= defaultConfigs.scaleMin) {
                 scale = defaultConfigs.scaleMin;
             }
+
+            var stashProps = this.getStashProps();
+
+            //translateX -= (scale+stashProps.scale) * canvas.width/2;
+            //translateY -= (scale+stashProps.scale) * canvas.height/2;
 
             onScaleMapCallback && onScaleMapCallback(Math.abs(scale));
 
@@ -1278,6 +1282,7 @@ var Map = (function (window) {
                 document.addEventListener('keyup', KeyUpEvent, false);
                 canvas.addEventListener('mouseleave', MouseLeaveEvent, false);
                 window.addEventListener("mousewheel", ScaleMapEvent, false);
+
             }
 
             //鼠标离开canvas mouseleave
@@ -1622,10 +1627,10 @@ var Map = (function (window) {
                 var params = targeStation.getProps();
                 props.width = params.width;
                 props.height = params.height;
-                console.log('--->>',props);
+                console.log('--->>', props);
             }
 
-            console.log('-->>',stationToSame)
+            console.log('-->>', stationToSame)
 
             props.z = defaultConfigs.z;
 
