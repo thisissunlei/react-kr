@@ -318,6 +318,7 @@ class CommunityPlanMap extends React.Component {
 				  scaleNumber:100,
 				  deleteData:[]	
 				})
+				_this.mapComponent.setScale(1);
 			}).catch(function (err) {
 				Message.error(err.message);
 			});
