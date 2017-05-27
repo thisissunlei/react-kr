@@ -1,19 +1,13 @@
-import React, {
-	 
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
-import {
-	reduxForm
-} from 'redux-form';
+
+
 import Section from 'kr-ui/Section';
-
-
 import DelAgreementNotify from './DelAgreementNotify';
-
 import {
 	KrField,
 	KrDate,
@@ -21,64 +15,50 @@ import {
 	DotTitle,
 	Dialog,
 	Title,
-	UpLoadList
-} from 'kr-ui';
-
-
-import {
+	Drawer,
+	UpLoadList,
 	Grid,
 	Row,
-	Col
-} from 'kr-ui/Grid';
-
-import {
-	Snackbar
-} from 'material-ui';
-
-import {
+	Col,
 	BreadCrumbs,
 	Loading,
-	Notify
-} from 'kr-ui';
-
-import Circle from './circle';
-import './active.less';
-
-
-
-import {
-	Menu,
-	MenuItem,
-	Divider,
-	FontIcon,
-	Paper,
-	IconButton
-} from 'material-ui';
-import IconMenu from 'material-ui/IconMenu';
-
-import {
+	Notify,
 	Table,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
-	TableFooter
-} from 'kr-ui/Table';
-
+	TableFooter,
+	Message
+} from 'kr-ui';
 
 import {
+	Snackbar,
+	Menu,
+	MenuItem,
+	Divider,
+	FontIcon,
+	Paper,
+	IconButton,
+	IconMenu,
 	List,
 	ListItem
-} from 'material-ui/List';
-
-
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+} from 'material-ui';
+import Circle from './circle';
+import './active.less';
 import {Http} from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
+
+import {Agreement} from 'kr/PureComponents';
+import TwoNewAgreement from "./TwoNewAgreement";
+import $ from 'jquery';
+import allState from "./State";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
 
 class NewCreatForm extends React.Component {
 	static PropTypes = {
@@ -218,6 +198,10 @@ class StaionInfo extends React.Component{
 
 }
 
+
+@inject("CommunityAgreementList")
+@observer
+
 export default class OrderDetail extends React.Component {
 
 	constructor(props, context) {
@@ -325,6 +309,8 @@ export default class OrderDetail extends React.Component {
 	}
 
 	componentDidMount() {
+		allState.listId=this.props.params.customerId;
+		allState.mainBillId = this.props.params.orderId;
 		const closeAll = this.props.location.query.closeAll;
 		if (closeAll) {
 			Store.dispatch(Actions.switchSidebarNav(false));
@@ -358,25 +344,46 @@ export default class OrderDetail extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
+	closeTwoAgreement=()=>{
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openTowAgreement = false;
+		CommunityAgreementList.openLocalStorage = false;
+	}
 
 	openCreateAgreementDialog() {
+		var _this = this;
+	    let {CommunityAgreementList} = this.props;
 
-		const {
-			contractStatusCount
-		} = this.state.response;
+		Http.request('contracts-creation', {mainBillId:allState.mainBillId}).then(function(response) {
+		//承租意向
+		allState.admit=response.intention;
+		//入驻合同是否可创建
 
-		if (contractStatusCount.quitRentTotoal) {
-			Notify.show([{
-				message: '您已经签约了退租合同！',
-				type: 'danger',
-			}]);
+		// allState.enter=true;
+		allState.enter=response.enter;
+		//增租合同是否可创建
+		allState.increase=response.increase;
+		//减租合同是否可创建
+		allState.reduce=response.reduce;
+		// allState.reduce=true;
+		//续租合同是否可创建
+		allState.relet=response.relet;
 
-			return;
-		}
-
-
-		this.setState({
-			openCreateAgreement: !this.state.openCreateAgreement
+		//allState.relet=true;
+		//退组合同是否可创建
+		allState.returnRent=response.returnRent;
+        if(!allState.enter&&!allState.increase&&!allState.reduce&&!allState.relet&&!allState.returnRent){
+        	if(response.quitRentAll>0){
+        		Message.error('该订单已签订退租，无法继续签订合同');
+        		return ;
+        	}
+        	Message.error('没有合同可以创建');
+        	return ;
+        }
+        CommunityAgreementList.openTowAgreement=true;
+		}).catch(function(err) {
+			console.log(err)
+			Message.error(err.message);
 		});
 	}
 
@@ -659,6 +666,7 @@ export default class OrderDetail extends React.Component {
 			return (<Loading/>);
 		}
 		let fileList = ['入.pdf','入议书.pdf','入驻协议书.pdf','入驻协议书.pdf'];
+		console.log('--->',this.props.CommunityAgreementList);
 
 		return (
 			<div>
@@ -841,6 +849,20 @@ export default class OrderDetail extends React.Component {
 
 			</Section>
 
+			{/*新建合同的第二页*/}
+		    <Drawer
+    			open={this.props.CommunityAgreementList.openTowAgreement}
+    			width={750}
+    			openSecondary={true}
+    			onClose={this.closeTwoAgreement}
+    			className='m-finance-drawer'
+    			containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			>
+
+			 	<TwoNewAgreement onCancel={this.closeTwoAgreement}/>
+		    </Drawer>
+		    
+
 
 			<Dialog
 			title="新建合同"
@@ -861,6 +883,8 @@ export default class OrderDetail extends React.Component {
 				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 			</Dialog>
 			</div>
+
+			
 
 		);
 	}

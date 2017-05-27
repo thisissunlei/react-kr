@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+    import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
@@ -53,6 +53,7 @@ class LookCustomerList extends Component{
 	}
 	componentDidMount(){
 		this.getlocalSign();
+		console.log('two--->',allState)
 		let {CommunityAgreementList} = this.props
 		CommunityAgreementList.openLocalStorage=false;
 		allState.openLocalStorages = 0;

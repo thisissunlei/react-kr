@@ -110,7 +110,6 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
 		this.onCloseStation = this.onCloseStation.bind(this);
-
 		this.state = {
 			stationVos:this.props.initialValues.stationVos || [],
 			selectedStation: [],
@@ -749,7 +748,7 @@ const validate = values => {
 	const errors = {}
 
 	++values.num;
-	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'create',JSON.stringify(values));
+	localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create',JSON.stringify(values));
 
 
 	if (!values.leaseId) {
