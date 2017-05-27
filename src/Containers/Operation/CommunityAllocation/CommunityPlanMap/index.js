@@ -252,7 +252,6 @@ class CommunityPlanMap extends React.Component {
 	//保存
 	save = () => {
 		let { deleteData, planMapId, selectFloor } = this.state;
-		console.log('plan',!planMapId);
 		if(!planMapId){
 			Message.error('请先上传背景图');
 			return;
