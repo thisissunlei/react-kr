@@ -60,7 +60,7 @@ class CommunityPlanMap extends React.Component {
 
 
 
-	getMapConfigs = () => {
+	getMapConfigs = (data) => {
 		let {selectFloor} = this.state;
 		var href =this.context.router.params.communityId;
 		var _this = this;
@@ -112,7 +112,10 @@ class CommunityPlanMap extends React.Component {
 			document.getElementById("bgfilename").innerHTML=response.graphFileName?response.graphFileName:'无';
 			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
 		    });
-
+            
+			if(data){
+				Message.success(data);
+			}
 
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -151,6 +154,7 @@ class CommunityPlanMap extends React.Component {
 		document.addEventListener('keydown',function(e){
 			   if( e.ctrlKey  == true && e.keyCode == 83 ){
 				  _this.save();
+				  return false;
 	           }
 		}, false);
 		const mapComponent = this.mapComponent;
@@ -306,9 +310,8 @@ class CommunityPlanMap extends React.Component {
 				graphCellJson: stations,
 				deleteCellIdsStr: de
 			}).then(function (response) {
-				Message.success('保存成功');
 				document.getElementById('save-no').style.display='none';
-				_this.getMapConfigs();
+				_this.getMapConfigs('保存更新成功');
 				_this.setState({
 				  scaleNumber:100,
 				  deleteData:[]	
