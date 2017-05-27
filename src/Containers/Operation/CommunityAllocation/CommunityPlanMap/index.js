@@ -19,6 +19,8 @@ class CommunityPlanMap extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
+			//右侧数据
+			figure:[],
 			scaleNumber:100,
 			//左侧工位会议室数据
 			figureSets: [],
@@ -42,8 +44,6 @@ class CommunityPlanMap extends React.Component {
 
 			//平面图对象id
 			planMapId: '',
-			//删除的元件
-			deleteData: [],
 		}
 		//保存返回的数据
 		this.saveData = {};
@@ -108,6 +108,7 @@ class CommunityPlanMap extends React.Component {
 			_this.setState({
 				figureSets: response.figureSets,
 				initializeConfigs,
+				figure:response.figures,
 				planMapId: response.id?response.id:'',
 			});
             
@@ -157,12 +158,12 @@ class CommunityPlanMap extends React.Component {
 		var _this=this;
 		const mapComponent = this.mapComponent;
 		document.addEventListener('mousemove', this.eventListen);
-		document.addEventListener('keydown',function(e){
+		/*document.addEventListener('keydown',function(e){
 			if( e.ctrlKey  == true && e.keyCode == 83 ){
 				_this.save();
 			   e.preventDefault();
 			}
-       });
+       });*/
 		this.getMapFloor();
 	}
 
@@ -235,21 +236,15 @@ class CommunityPlanMap extends React.Component {
 
 	onRemove = (data,station) => {
 		data = [].concat(data);
-		let { figureSets,deleteData } = this.state;
-		var del=[];
-		console.log('delete',data);
+		let { figureSets} = this.state;
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = item.belongId;
 			list.belongType = item.belongType;
 			figureSets.splice(item.index,0,list);
-			if(item.style=='old'){
-			  del.push(item);	
-			}
 		});
 		this.setState({
-			deleteData:deleteData.concat(del),
 			figureSets
 		});
 	}
@@ -257,25 +252,29 @@ class CommunityPlanMap extends React.Component {
 
 	//保存
 	save = () => {
-		let { deleteData, planMapId, selectFloor } = this.state;
+		let {planMapId, selectFloor,figure } = this.state;
 		if(!planMapId){
 			Message.error('请先上传背景图');
 			return;
 		}
 		document.getElementById('save-no').style.display='inline-block';
         var _this=this;
-
 		this.mapComponent.save(function (saveData) {
-			console.log('save1',saveData);
 			saveData = Object.assign({}, saveData);
+			var data=saveData.stations;
+			var deleteData=[];
 			console.log('save2',saveData);
+			for(var x in figure){
+				for(var y in data){
+					if(data[y].id){
+                      if(data[y].id==figure[x].id){
+                       deleteData=figure.splice(data[y],1);
+					  }
+				   }
+				}
+			}
 			var stations = [];
-			var deleteStation = [];
-			deleteData.map((item, index) => {
-				deleteStation.push(item.id.toString());
-			})
-			var de = deleteStation.join();
-			saveData.stations.map((item, index) => {
+			data.map((item, index) => {
 				var list = {};
 				list.cellCoordX = Number(item.x);
 				list.cellCoordY = Number(item.y);
@@ -291,6 +290,8 @@ class CommunityPlanMap extends React.Component {
 				}
 			})
 			stations = JSON.stringify(stations);
+			deleteData=(deleteData.join()).toString();
+			console.log('bbbbb',deleteData);
 			var cellWidth = '';
 			var cellHeight = '';
 			var isSame = '';
@@ -309,7 +310,7 @@ class CommunityPlanMap extends React.Component {
 				cellWidth = '';
 				cellHeight = '';
 			}
-			Http.request('plan-edit', {}, {
+			/*Http.request('plan-edit', {}, {
 				stationSizeSame: isSame,
 				id: planMapId,
 				floor: selectFloor,
@@ -317,18 +318,17 @@ class CommunityPlanMap extends React.Component {
 				cellWidth: cellWidth,
 				cellHeight: cellHeight,
 				graphCellJson: stations,
-				deleteCellIdsStr: de
+				deleteCellIdsStr: deleteData
 			}).then(function (response) {
 				document.getElementById('save-no').style.display='none';
 				_this.getMapConfigs('保存更新成功');
 				_this.setState({
 				  scaleNumber:100,
-				  deleteData:[]	
 				})
 				_this.mapComponent.setScale(1);
 			}).catch(function (err) {
 				Message.error(err.message);
-			});
+			});*/
 
 		});
 	}
@@ -462,8 +462,8 @@ class CommunityPlanMap extends React.Component {
 				figureSets.splice(dataIndex, 1);
 
 				var station = {
-					x: event.target.getBoundingClientRect().left + width / 2,
-					y: event.target.getBoundingClientRect().top + height / 2,
+					x: event.target.getBoundingClientRect().left,
+					y: event.target.getBoundingClientRect().top,
 					width: width,
 					height: height,
 					belongType: type,
