@@ -133,7 +133,9 @@ var Map = (function (window) {
 
         return {
             reset: function () {
-                CONFIGS = Object.assign({}, DEFAULTCONFIGS);
+                CONFIGS = {
+                    stations:[]
+                } 
             },
             getAllStation: function () {
                 var stations = [].concat(CONFIGS.stations);
@@ -192,6 +194,7 @@ var Map = (function (window) {
                 if (typeof fdIndex === 'undefined') {
                     return;
                 }
+
                 stationObjectArray.splice(fdIndex, 1);
 
             },
@@ -228,7 +231,7 @@ var Map = (function (window) {
 
         params = params || {};
 
-        stationNumber++;
+        stationNumber ++;
         defaultConfigs.z++;
 
         if (params.hasOwnProperty('scale')) {
@@ -270,7 +273,7 @@ var Map = (function (window) {
 
         //获取props信息
         StationObject.prototype.getProps = function () {
-            return Object.assign(this.props);
+            return Object.assign({},this.props);
         }
 
         //设置props信息 跟数据库进行关联
@@ -942,9 +945,12 @@ var Map = (function (window) {
         //平面构造器
         var MapObject = function (elementId, configs) {
 
+            DB.reset();
+            stationObjectArray = [];
+
+
             this.isComponentDidMout = false;
             this.readyCallback = function () { };
-            this.initializeStations = configs.stations;
 
 
             element = document.getElementById(elementId);
@@ -972,7 +978,7 @@ var Map = (function (window) {
 
 
 
-            var StationsData = this.initializeStations;
+            var StationsData = configs.stations;
 
             StationsData.map(function (item, index) {
                 var props = Object.assign({}, item);
@@ -1231,7 +1237,7 @@ var Map = (function (window) {
                 //按下在工位上、添加拖拽工位事件
 
                 if (self.isInStation(downPosition.x, downPosition.y)) {
-                    self.setDragSationStyle(downPosition.x, downPosition.y);
+                    self.setDragStationStyle(downPosition.x, downPosition.y);
 
                     //工位变成拖拽样式
                     self.startDragStation();
@@ -1303,10 +1309,10 @@ var Map = (function (window) {
                 switch (keyCode) {
                     // 删除键
                     case 8:
-                        self.removeStation();
+                        self.removeCheckedStation();
                         break;
                     case 46:
-                        self.removeStation();
+                        self.removeCheckedStation();
                         break;
                     default:
                         break;
@@ -1414,6 +1420,7 @@ var Map = (function (window) {
 
         //在工位的放大坐标点上
         MapObject.prototype.isInStationDragPosition = function (x, y) {
+
             var dragStations = this.getDragStations();
             var isOK = false;
             dragStations.map(function (station) {
@@ -1425,20 +1432,21 @@ var Map = (function (window) {
             return isOK;
         }
 
+
         MapObject.prototype.getDragStations = function () {
 
             var dragStations = [];
             var props = null;
             stationObjectArray.map(function (station) {
                 props = station.getProps();
-                if (props.drag && !props.removed) {
+                if (props.drag) {
                     dragStations.push(station);
                 }
             })
             return dragStations;
         }
 
-        MapObject.prototype.setDragSationStyle = function (x, y) {
+        MapObject.prototype.setDragStationStyle = function (x, y) {
 
             //清空上次拖拽的工位
             this.cleanDragStations();
@@ -1537,8 +1545,13 @@ var Map = (function (window) {
             });
         }
 
+        //删除工位
+        MapObject.prototype.removeStation = function(){
+
+        }
+
         //删除已选中工位
-        MapObject.prototype.removeStation = function () {
+        MapObject.prototype.removeCheckedStation = function () {
 
             var dragStations = this.getDragStations();
             if (!dragStations.length) {
@@ -1554,15 +1567,17 @@ var Map = (function (window) {
                 removeStations.push(props);
             });
 
-            this.render();
-
             var allStation = [];
 
-            stationObjectArray.map(function (station) {
-                allStation.push(station.getProps());
+           stationObjectArray =  stationObjectArray.filter(function (station) {
+                var isOK = !station.isRemove();
+                if(isOK){
+                    allStation.push(station.getProps());
+                }
+                return isOK;
             });
 
-
+             this.render();
             onRemoveCallback && onRemoveCallback(removeStations, allStation);
         }
 
@@ -1659,6 +1674,7 @@ var Map = (function (window) {
         MapObject.prototype.destory = function () {
             stationObjectArray = [];
             bkImageObject = null;
+            DB.reset();
             //StationFactory = null;
             element.removeChild(canvas);
         }
@@ -1682,7 +1698,6 @@ var Map = (function (window) {
             props.z = defaultConfigs.z;
 
             var station = StationFactory(props);
-            DB.newStation(station.getProps());
             stationObjectArray.push(station);
 
         }
@@ -1963,4 +1978,3 @@ var Map = (function (window) {
 
 
 module.exports = Map;
-
