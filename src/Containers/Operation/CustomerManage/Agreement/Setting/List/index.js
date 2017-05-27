@@ -40,6 +40,7 @@ import {
   KrDate,
   ButtonGroup,
   Title,
+  Tooltip
 } from 'kr-ui';
 import './index.less';
 
@@ -560,7 +561,7 @@ export default class SettingList extends React.Component {
               <TableRowColumn type="date">
                    <KrDate value={item.sp.createTime}/>
               </TableRowColumn>
-              <TableRowColumn>{item.sp.remark}</TableRowColumn>
+              <TableRowColumn>{item.sp.remark} <Tooltip offsetTop={5} width={200} place='top'>{item.sp.remark}</Tooltip></TableRowColumn>
               <TableRowColumn>
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
