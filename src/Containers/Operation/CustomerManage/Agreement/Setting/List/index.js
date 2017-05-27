@@ -583,7 +583,7 @@ export default class SettingList extends React.Component {
               <TableRowColumn type="date">
                    <KrDate value={item.sp.createTime}/>
               </TableRowColumn>
-              <TableRowColumn>{item.sp.remark}{item.sp.remark?<Tooltip offsetTop={5}  place='top'>{item.sp.remark}</Tooltip>:''}</TableRowColumn>
+              <TableRowColumn><span style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{item.sp.remark}</span>{item.sp.remark?<Tooltip offsetTop={5}  place='top'>{item.sp.remark}</Tooltip>:''}</TableRowColumn>
               <TableRowColumn>
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
@@ -624,7 +624,7 @@ export default class SettingList extends React.Component {
                         <TableRowColumn>
                             <KrDate value={item.createTime}/>
                         </TableRowColumn>
-                        <TableRowColumn>{item.remark}</TableRowColumn>
+                        <TableRowColumn><span style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{item.remark}</span>{item.remark?<Tooltip offsetTop={5}  place='top'>{item.remark}</Tooltip>:''}</TableRowColumn>
                         <TableRowColumn>
                           <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
                           <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
