@@ -774,7 +774,7 @@ const validate = values => {
 
 	++values.num;
 
-	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'edit',JSON.stringify(values));
+	localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit',JSON.stringify(values));
 	
 
 	if (!values.leaseId) {
