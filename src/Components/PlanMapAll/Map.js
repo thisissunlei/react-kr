@@ -1529,7 +1529,6 @@ var Map = (function (window) {
             var dragStations = this.getDragStations();
             dragStations.map(function (station) {
                 station.saveProps();
-                station.drawDragStyle();
             });
         }
 
