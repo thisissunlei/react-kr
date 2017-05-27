@@ -46,7 +46,7 @@ class EditAgreementList extends Component{
 			content=(<div><span className="content-title">退租协议书详情页</span><Exit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="ADDRENT"){
-			content=(<div><span className="content-title">增租协议书详情页</span><Increase params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">增租协议书详情页</span><Agreement.Increase.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="ENTER"){
 			content=(<div><span className="content-title">入驻协议书详情页</span><Agreement.Join.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
