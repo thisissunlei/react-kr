@@ -78,7 +78,7 @@ export default class UpdateLog extends React.Component {
     return (
       <div style={{height:'860'}}>
         <div>
-          <span style={{float:'left',color:'#499df1',marginTop:'30'}}>Krspace轨迹</span>
+          <span style={{float:'left',color:'#499df1',marginTop:'15'}}>Krspace轨迹</span>
           <SearchUpdateLog  onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
         </div>
       <Table

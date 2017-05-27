@@ -1,7 +1,7 @@
 import React, {
 	PropTypes
 } from 'react';
-
+import './index.less';
 import {
 	reduxForm,
 	formValueSelector,
@@ -108,7 +108,7 @@ class EditDetail extends React.Component {
 		} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="card-setting-edit-form">
 				<KrField  right={27}  left={42} right={42} name="foreignCode" component="labelText" label="会员卡号" value={this.state.detail.foreignCode} inline={false} />
 				<div className="clearInterCode">
 					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange} />
