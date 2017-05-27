@@ -1656,7 +1656,7 @@ var Map = (function (window) {
 
             defaultConfigs.z++;
 
-            if (stationToSame) {
+            if (stationToSame && props.type === 'STATION') {
                 props.width = defaultStation.width;
                 props.height = defaultStation.height;
             }
