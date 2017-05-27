@@ -1,5 +1,5 @@
 import React, {
-	Component,
+
 	PropTypes
 } from 'react';
 import {
@@ -9,14 +9,13 @@ import Param from 'jquery-param';
 import {
 	Fields
 } from 'redux-form';
-import {
-	Binder
-} from 'react-binding';
+
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import dateFormat from 'dateformat';
+import {DateFormat,Http} from 'kr/Utils';
+
 import nzh from 'nzh';
-import {Http} from 'kr/Utils'
+
 import {
 	reduxForm,
 	formValueSelector,
@@ -35,10 +34,6 @@ import {
 import AllStation from './AllStation';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
 	Dialog,
 
 	Table,
@@ -48,7 +43,6 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Section,
 	KrField,
 	Grid,
 	Row,
@@ -58,15 +52,12 @@ import {
 	KrDate,
 	DotTitle,
 	ButtonGroup,
-	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
-
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
-class NewCreateForm extends Component {
+class NewCreateForm extends React.Component {
 
 	static DefaultPropTypes = {
 		initialValues: {
@@ -151,6 +142,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -167,7 +159,8 @@ class NewCreateForm extends Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('renewEditForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('renewEditForm', 'lessorContactName', personel.lastname|| '请选择'));
 	}
 
 	// station list
@@ -178,6 +171,10 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
+		let {initialValues} = this.props;
+
+		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
+
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos
@@ -186,8 +183,11 @@ class NewCreateForm extends Component {
 		this.openStationDialog();
 	}
 	setAllRent=(list)=>{
+
 		let _this = this;
+		let {initialValues} = this.props;
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
+			Store.dispatch(change('renewEditForm', 'totalrent', response));
 			_this.setState({
 				allRent:response
 			})
@@ -198,38 +198,6 @@ class NewCreateForm extends Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
-
 
 
 	//删除工位
@@ -239,6 +207,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			delStationVos
 		} = this.state;
+		let {initialValues} = this.props;
 
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -250,6 +219,8 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
+		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
+		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
 
 
 		this.setState({
@@ -277,12 +248,13 @@ class NewCreateForm extends Component {
 		let {
 			initialValues
 		} = this.props;
-		Store.dispatch(initialize('reduceCreateForm', initialValues));
+		Store.dispatch(initialize('renewEditForm', initialValues));
 	}
 
 
 	componentWillReceiveProps(nextProps) {
 		var _this=this;
+		let initialValues = nextProps.initialValues;
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			let originStationVos = [].concat(stationVos);
@@ -304,6 +276,7 @@ class NewCreateForm extends Component {
 			        		openAdd:false
 			        	})
 			        }
+
 			});
 			this.isInit = true;
 		};
@@ -320,9 +293,9 @@ class NewCreateForm extends Component {
 		let {
 			stationVos,
 			delStationVos,
-			originStationVos
 		} = this.state;
-
+		let originStationVos = form.stationVos;
+		console.log('=====>',form.stationVos,stationVos)
 
 		delStationVos = originStationVos.filter(function(origin){
 				var isOk = true;
@@ -338,11 +311,11 @@ class NewCreateForm extends Component {
 			form.contractmark = '';
 		}
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 
@@ -556,7 +529,9 @@ class NewCreateForm extends Component {
 				<div className="end-round"></div>
 		</div>
 	</div>
-				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px',paddingLeft:"25px"}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}  onChange={(files)=>{
+					Store.dispatch(change('renewEditForm','contractFileList',files));
+				}} />
 				<Grid style={{paddingBottom:50,textAlign:"center"}}>
 						<Row >
 						<ListGroup>
@@ -574,17 +549,21 @@ class NewCreateForm extends Component {
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} changeValues={this.props.changeValues}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} changeValues={this.props.changeValues} params={{mainBillid:initialValues.mainbillid,contractId:initialValues.id}}/>
 					  </Dialog>
 
 
 			</div>);
 	}
 }
-const selector = formValueSelector('reduceCreateForm');
+const selector = formValueSelector('renewEditForm');
 const validate = values => {
 
 	const errors = {}
+	++values.num;
+
+	localStorage.setItem(JSON.stringify(values.mainbillid)+JSON.stringify(values.customerId)+values.contracttype+'edit',JSON.stringify(values));
+	
 
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
@@ -642,13 +621,15 @@ const validate = values => {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
+	
+
 
 
 	return errors
 }
 
 NewCreateForm = reduxForm({
-	form: 'reduceCreateForm',
+	form: 'renewEditForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true

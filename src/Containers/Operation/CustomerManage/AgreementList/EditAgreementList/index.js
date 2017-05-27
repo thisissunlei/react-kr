@@ -55,7 +55,7 @@ class EditAgreementList extends Component{
 			content=(<div><span className="content-title">减租协议书详情页</span><Reduce params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="RENEW"){
-			content=(<div><span className="content-title">续租协议书详情页</span><Renew params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">续租协议书详情页</span><Agreement.Renew.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="INTENTION"){
 			content=(<div><span className="content-title">承租意向书详情页</span><Agreement.Admit.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
