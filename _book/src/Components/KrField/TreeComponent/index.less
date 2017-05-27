@@ -1,0 +1,72 @@
+.ui-imitateInput{
+	position: relative;
+	height: 38px;
+    line-height: 38px;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box; 
+    border:1px solid #ddd;
+    background: #fff;
+}
+
+.ui-treeArrow{
+		position: absolute;
+		transform:translateY(-50%);
+		top:50%;
+		right: 10px;
+		width: 0;
+	    height: 0;
+	    border-width: 5px 5px 2.5px;
+	    border-style:solid;
+	    border-color:#999 transparent transparent;
+}
+.ui-treeList{
+	position: absolute;
+	height: 222px;
+	width: 570px;
+	display:inline-block; 
+	background: transparent;
+}
+.ui-list1,.ui-list2,.ui-list3,.ui-list4{
+	//min-width: 120px;
+	height: 222px;
+	background: #fff;
+	float: left;
+	overflow-y:scroll; 
+	border: 1px solid #dfdfdf;
+	border-radius: 4px;
+}
+.ui-treeInput{
+	max-width: 100%;
+	min-width: 90%;
+	height: 30px;
+	border:none;
+	color: #666;
+	font-size: 14px;
+	&:focus {outline: none;}
+	text-overflow:ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ui-treeItem{
+	box-sizing: border-box;
+	position: relative;
+	height:26px;
+	line-height:26px;
+	width:120px;
+	padding-left:10px; 
+	
+}
+.ui-treeItem:hover{
+	background: #eee;
+	cursor: pointer;
+}
+.ui-treeItem:hover>.ui-projectType{
+	display: block;
+	position: absolute;
+	top: 0px;
+}
+

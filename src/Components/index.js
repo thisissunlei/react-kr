@@ -54,6 +54,7 @@ import LoadingTwo from './LoadingTwo';
 import XTable from './XTable';
 import DivTitle from './DivTitle';
 import Nothing from './Nothing';
+import ToTop from './ToTop';
 
 import {
 	Grid,
@@ -145,5 +146,6 @@ module.exports = {
 	Tooltip,
 	CircleStyleTwo,
 	LoadingTwo,
-	Nothing
+	Nothing,
+	ToTop
 }

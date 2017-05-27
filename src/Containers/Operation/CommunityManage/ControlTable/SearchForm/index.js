@@ -59,11 +59,13 @@ class SearchFormControlTable extends React.Component {
 	}
 
 	communityChange = (values) =>{
+		this.refs.inputFilter.refs.realInput.value = ""
 		const {communityChange} = this.props;
 		communityChange && communityChange(values);
 	}
 
 	onSubmit = (values) =>{
+		
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
@@ -74,7 +76,7 @@ class SearchFormControlTable extends React.Component {
 
 		return (
 
-				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
+				<form name="searchForm" className="search-form-control-table searchForm searchList" style={{marginBottom:10,height:45}}>
                         <KrField grid={1/2} 
                             name="intentionCommunityId" 
                             component='searchCommunityManage' 
@@ -85,7 +87,7 @@ class SearchFormControlTable extends React.Component {
 							onChange = {this.communityChange}
                             options={communityIdList}
                         />
-                    <SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称"  style={{marginTop:5,zIndex:10000}} />
+                    <SearchForms ref = "inputFilter" onSubmit={this.onSubmit}  placeholder="请输入客户名称"  style={{marginTop:5,zIndex:10000}} />
                 </form>
 
 
