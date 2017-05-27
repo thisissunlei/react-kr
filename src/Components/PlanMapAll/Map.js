@@ -136,6 +136,7 @@ var Map = (function (window) {
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
             },
             getAllStation: function () {
+                console.log('configs:',CONFIGS);
                 var stations = [].concat(CONFIGS.stations);
                 return stations;
             },
@@ -155,7 +156,6 @@ var Map = (function (window) {
             newStation: function (props) {
                 props = Object.assign({}, props);
                 var fdIndex = this.findStationIndex(props.key);
-
                 if (typeof fdIndex === 'undefined') {
                     CONFIGS.stations.push(props);
                 }
@@ -201,8 +201,15 @@ var Map = (function (window) {
                 return Object.assign({}, stationData);
             },
             setStation: function (key, nextProps) {
+
                 var props = this.getStation(key);
                 var index = this.findStationIndex(key);
+
+                if(typeof index === 'undefined'){
+                    this.newStation(nextProps);
+                    props = this.getStation(key);
+                    index = this.findStationIndex(key);
+                }
 
                 props = Object.assign({}, props, nextProps);
                 CONFIGS.stations.splice(index, 1, props);
@@ -241,9 +248,10 @@ var Map = (function (window) {
         //工位及会议室
         var StationObject = function (props) {
 
-            this.props = Object.assign({}, StationObject.defaultPropTypes, props);
+            var props = Object.assign({}, StationObject.defaultPropTypes, props);
             this.stashProps = Object.assign({}, StationObject.defaultPropTypes, props);
-            this.render();
+
+            this.componentWillReceiveProps(props);
         }
 
         //Station参数
@@ -357,6 +365,26 @@ var Map = (function (window) {
 
         }
 
+        //会议室
+        StationObject.prototype.isSpace = function(){
+            const {type} = this.props;
+            var isOK = false;
+            if(type === 'SPACE'){
+                isOK = true;
+            }
+            return isOK;
+        }
+
+        //工位
+        StationObject.prototype.isStation = function(){
+            const {type} = this.props;
+
+            var isOK = false;
+            if(type === 'STATION'){
+                isOK = true;
+            }
+            return isOK;
+        }
 
         StationObject.prototype.drawCheckedStyle = function () {
 
@@ -914,6 +942,11 @@ var Map = (function (window) {
             if (configs.hasOwnProperty('backgroundImageUrl')) {
                 DB.setImageUrl(configs.backgroundImageUrl);
             }
+
+            if (configs.hasOwnProperty('defaultStation')) {
+                defaultStation = Object.assign({},defaultStation);
+            }
+
 
             canvas = document.createElement('canvas');
             canvas.width = width;
@@ -1579,6 +1612,15 @@ var Map = (function (window) {
                 station.opration(scaleStationDirection);
             });
 
+            var targetStation = dragStations[0];
+            var props = targetStation.getProps();
+
+            if(targetStation.isStation()){
+                 defaultStation.width = props.width;
+                 defaultStation.height = props.height;
+                 console.log('--->>')
+            }
+
             this.stationToSameAction();
             //放大
             this.render();
@@ -1622,15 +1664,10 @@ var Map = (function (window) {
 
             defaultConfigs.z++;
 
-            if (stationToSame && dragStations.length) {
-                var targeStation = dragStations[0];
-                var params = targeStation.getProps();
-                props.width = params.width;
-                props.height = params.height;
-                console.log('--->>', props);
+            if (stationToSame && props.type === 'STATION') {
+                props.width = defaultStation.width;
+                props.height = defaultStation.height;
             }
-
-            console.log('-->>', stationToSame)
 
             props.z = defaultConfigs.z;
 
@@ -1680,23 +1717,12 @@ var Map = (function (window) {
                 return;
             }
 
-            if (!dragStations.length) {
-                return;
-            }
-
-            var targeStation = dragStations[0];
-            var props = targeStation.getProps();
-
-            if (props.type === 'meeting') {
-                return;
-            }
-
-            var width = props.width;
-            var height = props.height;
+            var width = defaultStation.width;
+            var height = defaultStation.height;
 
             stationObjectArray.map(function (station) {
                 var stationProps = station.getProps();
-                if (stationProps.type == 'station') {
+                if (station.isStation()) {
                     station.setProps({ width, height });
                 }
             });
@@ -1708,16 +1734,7 @@ var Map = (function (window) {
         }
 
         MapObject.prototype.setStationToSame = function (value, callback) {
-
-            var dragStations = this.getDragStations();
-
-            if (value && !dragStations.length) {
-                callback && callback('-1', '请选择一个工位');
-                return;
-            }
-
             stationToSame = value;
-
             this.stationToSameAction();
             this.render();
         }
@@ -1934,4 +1951,5 @@ var Map = (function (window) {
 
 })(window);
 
-module.exports=Map;
+module.exports = Map;
+
