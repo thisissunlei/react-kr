@@ -136,7 +136,6 @@ var Map = (function (window) {
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
             },
             getAllStation: function () {
-                console.log('configs:',CONFIGS);
                 var stations = [].concat(CONFIGS.stations);
                 return stations;
             },
@@ -189,10 +188,12 @@ var Map = (function (window) {
                         fdIndex = index;
                     }
                 });
+
                 if (typeof fdIndex === 'undefined') {
                     return;
                 }
                 stationObjectArray.splice(fdIndex, 1);
+
             },
             getStation: function (key) {
                 var index = this.findStationIndex(key);
@@ -206,9 +207,7 @@ var Map = (function (window) {
                 var index = this.findStationIndex(key);
 
                 if(typeof index === 'undefined'){
-                    this.newStation(nextProps);
-                    props = this.getStation(key);
-                    index = this.findStationIndex(key);
+                    return ;
                 }
 
                 props = Object.assign({}, props, nextProps);
@@ -291,6 +290,11 @@ var Map = (function (window) {
 
             this.props = Object.assign({}, props);
 
+            var fdIndex = DB.findStationIndex(props.key);
+
+            if(typeof fdIndex === 'undefined'){
+                DB.newStation(props);
+            }
             //存入数据库
             DB.setStation(props.key, props);
         }
@@ -304,9 +308,16 @@ var Map = (function (window) {
 
         //删除工位
         StationObject.prototype.remove = function () {
-            const { key, id } = this.props;
+            const { key} = this.props;
             this.setProps({ removed: true });
+            var stations = DB.getAllStation();
+
+            console.log('1.length:',stations.length);
             DB.removeStation(key);
+
+            stations = DB.getAllStation();
+            console.log('2.length:',stations.length);
+
         }
         //更新工位坐标参数
         StationObject.prototype.componentWillReceiveProps = function (nextProps) {
@@ -373,6 +384,11 @@ var Map = (function (window) {
                 isOK = true;
             }
             return isOK;
+        }
+
+        StationObject.prototype.isRemove = function(){
+            const {removed} = this.props;
+            return removed;
         }
 
         //工位
@@ -955,6 +971,18 @@ var Map = (function (window) {
             context = canvas.getContext('2d');
 
 
+
+            var StationsData = this.initializeStations;
+
+            StationsData.map(function (item, index) {
+                var props = Object.assign({}, item);
+                props.x = Number(props.x);
+                props.y = Number(props.y);
+                props.width = Number(props.width);
+                props.height = Number(props.height);
+                stationObjectArray.push(StationFactory(props));
+            });
+
             this.loadImage();
 
         }
@@ -977,25 +1005,14 @@ var Map = (function (window) {
             bkImageObject.onerror = function () {
                 onErrorCallback && onErrorCallback('图片加载错误');
                 isLoadImageError = true;
-                self.componentWillMount();
                 self.render();
             }
 
             bkImageObject.onload = function () {
-                self.componentWillMount();
                 self.render();
-                console.log('babab')
             }
         }
 
-        MapObject.prototype.componentDidUpdate = function () {
-
-
-        }
-
-        MapObject.prototype.componentWillMount = function () {
-
-        }
 
         MapObject.prototype.componentDidMount = function () {
             this.isComponentDidMout = true;
@@ -1036,9 +1053,6 @@ var Map = (function (window) {
                 return;
             }
 
-            //已经更新
-            this.componentDidUpdate();
-
         }
 
 
@@ -1061,22 +1075,14 @@ var Map = (function (window) {
                 this.sortStation();
 
                 stationObjectArray.map(function (station) {
-                    station.render();
+                    if(!station.isRemove()){
+                         station.render();
+                    }
                 });
 
                 return;
             }
 
-            var StationsData = this.initializeStations;
-
-            StationsData.map(function (item, index) {
-                var props = Object.assign({}, item);
-                props.x = Number(props.x);
-                props.y = Number(props.y);
-                props.width = Number(props.width);
-                props.height = Number(props.height);
-                stationObjectArray.push(StationFactory(props));
-            });
 
         }
 
@@ -1544,13 +1550,18 @@ var Map = (function (window) {
                 station.remove();
                 removeStations.push(props);
             });
+
             this.render();
+
+            console.log(stationObjectArray.length);
+            return ;
 
             var allStation = [];
 
             stationObjectArray.map(function (station) {
                 allStation.push(station.getProps());
             });
+
 
             onRemoveCallback && onRemoveCallback(removeStations, allStation);
         }
@@ -1618,7 +1629,6 @@ var Map = (function (window) {
             if(targetStation.isStation()){
                  defaultStation.width = props.width;
                  defaultStation.height = props.height;
-                 console.log('--->>')
             }
 
             this.stationToSameAction();
@@ -1953,4 +1963,3 @@ var Map = (function (window) {
 
 
 module.exports = Map;
-
