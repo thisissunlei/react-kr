@@ -157,6 +157,12 @@ class CommunityPlanMap extends React.Component {
 		var _this=this;
 		const mapComponent = this.mapComponent;
 		document.addEventListener('mousemove', this.eventListen);
+		document.addEventListener('keydown',function(e){
+			if( e.ctrlKey  == true && e.keyCode == 83 ){
+				_this.save();
+			   e.preventDefault();
+			}
+});
 		this.getMapFloor();
 	}
 
