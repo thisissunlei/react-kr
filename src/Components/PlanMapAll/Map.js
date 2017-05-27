@@ -1553,9 +1553,6 @@ var Map = (function (window) {
 
             this.render();
 
-            console.log(stationObjectArray.length);
-            return ;
-
             var allStation = [];
 
             stationObjectArray.map(function (station) {
