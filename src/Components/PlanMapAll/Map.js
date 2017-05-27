@@ -136,6 +136,7 @@ var Map = (function (window) {
                 CONFIGS = Object.assign({}, DEFAULTCONFIGS);
             },
             getAllStation: function () {
+                console.log('configs:',CONFIGS);
                 var stations = [].concat(CONFIGS.stations);
                 return stations;
             },
@@ -155,7 +156,6 @@ var Map = (function (window) {
             newStation: function (props) {
                 props = Object.assign({}, props);
                 var fdIndex = this.findStationIndex(props.key);
-
                 if (typeof fdIndex === 'undefined') {
                     CONFIGS.stations.push(props);
                 }
@@ -201,8 +201,15 @@ var Map = (function (window) {
                 return Object.assign({}, stationData);
             },
             setStation: function (key, nextProps) {
+
                 var props = this.getStation(key);
                 var index = this.findStationIndex(key);
+
+                if(typeof index === 'undefined'){
+                    this.newStation(nextProps);
+                    props = this.getStation(key);
+                    index = this.findStationIndex(key);
+                }
 
                 props = Object.assign({}, props, nextProps);
                 CONFIGS.stations.splice(index, 1, props);
@@ -241,9 +248,10 @@ var Map = (function (window) {
         //工位及会议室
         var StationObject = function (props) {
 
-            this.props = Object.assign({}, StationObject.defaultPropTypes, props);
+            var props = Object.assign({}, StationObject.defaultPropTypes, props);
             this.stashProps = Object.assign({}, StationObject.defaultPropTypes, props);
-            this.render();
+
+            this.componentWillReceiveProps(props);
         }
 
         //Station参数
@@ -1943,5 +1951,5 @@ var Map = (function (window) {
 
 })(window);
 
-
 module.exports = Map;
+
