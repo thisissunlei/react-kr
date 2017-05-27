@@ -1538,10 +1538,12 @@ var Map = (function (window) {
 
         //工位拖拽-结束
         MapObject.prototype.endDragStation = function () {
+            /*
             var dragStations = this.getDragStations();
             dragStations.map(function (station) {
                 station.drawDragStyle();
             });
+            */
         }
 
         //删除工位
