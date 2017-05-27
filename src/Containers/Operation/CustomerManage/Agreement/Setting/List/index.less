@@ -8,14 +8,16 @@ table{
 	th,td{
 		&:nth-child(5){
 			max-width: 250px;
-			.table-remark{
-				max-width: 250px;
-				text-overflow: ellipsis;
-    			white-space: nowrap;
-    			.ui-tooltip{
-
-    			}
+			text-overflow: ellipsis;
+    		white-space: nowrap;
+			.ui-tooltip{
+				display:inline-block;
+	  			width:360px;
+	  			white-space:normal;
+	  		    word-wrap:break-word;
+	  		    word-break: normal;
 			}
+			
 			
 
 		}
