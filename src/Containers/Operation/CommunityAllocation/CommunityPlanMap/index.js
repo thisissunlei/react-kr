@@ -44,6 +44,8 @@ class CommunityPlanMap extends React.Component {
 
 			//平面图对象id
 			planMapId: '',
+			//删除的元件
+			deleteData: [],
 		}
 		//保存返回的数据
 		this.saveData = {};
@@ -113,10 +115,19 @@ class CommunityPlanMap extends React.Component {
 			});
             
 			_this.mapComponent.newMap(initializeConfigs);
+
+			var checked='';
+			if(response.stationSizeSame){
+				if(response.stationSizeSame=='NOT_SAME'){
+                    checked=false;
+				}else{
+					checked=true;
+				}
+			}
          
-			document.getElementById("sizeCheckbox").checked=response.stationSizeSame?response.stationSizeSame:false;
+			document.getElementById("sizeCheckbox").checked=checked;
 			document.getElementById("bgfilename").innerHTML=response.graphFileName?response.graphFileName:'无';
-			_this.mapComponent.setStationToSame(response.stationSizeSame, function (code, message) {
+			_this.mapComponent.setStationToSame(checked, function (code, message) {
 		    });
             
 			if(data){
@@ -236,23 +247,27 @@ class CommunityPlanMap extends React.Component {
 
 	onRemove = (data,station) => {
 		data = [].concat(data);
-		let { figureSets} = this.state;
+		let { figureSets,deleteData } = this.state;
+		var del=[];
 		data.map((item, index) => {
 			var list = {};
 			list.cellName = item.name;
 			list.belongId = item.belongId;
 			list.belongType = item.belongType;
 			figureSets.splice(item.index,0,list);
+			if(item.style=='old'){
+			  del.push(item);	
+			}
 		});
 		this.setState({
+			deleteData:deleteData.concat(del),
 			figureSets
 		});
 	}
 
-
 	//保存
 	save = () => {
-		let {planMapId, selectFloor,figure } = this.state;
+		let {planMapId, selectFloor,deleteData} = this.state;
 		if(!planMapId){
 			Message.error('请先上传背景图');
 			return;
@@ -261,20 +276,13 @@ class CommunityPlanMap extends React.Component {
         var _this=this;
 		this.mapComponent.save(function (saveData) {
 			saveData = Object.assign({}, saveData);
-			var data=saveData.stations;
-			var deleteData=[];
-			console.log('save2',saveData);
-			for(var x in figure){
-				for(var y in data){
-					if(data[y].id){
-                      if(data[y].id==figure[x].id){
-                       deleteData=figure.splice(data[y],1);
-					  }
-				   }
-				}
-			}
 			var stations = [];
-			data.map((item, index) => {
+			var deleteStation = [];
+			deleteData.map((item, index) => {
+				deleteStation.push(item.id.toString());
+			})
+			var de = deleteStation.join();
+			saveData.stations.map((item, index) => {
 				var list = {};
 				list.cellCoordX = Number(item.x);
 				list.cellCoordY = Number(item.y);
@@ -290,13 +298,12 @@ class CommunityPlanMap extends React.Component {
 				}
 			})
 			stations = JSON.stringify(stations);
-			deleteData=(deleteData.join()).toString();
-			console.log('bbbbb',deleteData);
 			var cellWidth = '';
 			var cellHeight = '';
 			var isSame = '';
 			var href = _this.context.router.params.communityId;
 			var checked = document.getElementById("sizeCheckbox").checked;
+			console.log('checkour',checked);
 			if (checked) {
 				isSame = 'SAME';
 				saveData.stations.map((item,index)=>{
@@ -310,7 +317,7 @@ class CommunityPlanMap extends React.Component {
 				cellWidth = '';
 				cellHeight = '';
 			}
-			/*Http.request('plan-edit', {}, {
+			Http.request('plan-edit', {}, {
 				stationSizeSame: isSame,
 				id: planMapId,
 				floor: selectFloor,
@@ -318,17 +325,18 @@ class CommunityPlanMap extends React.Component {
 				cellWidth: cellWidth,
 				cellHeight: cellHeight,
 				graphCellJson: stations,
-				deleteCellIdsStr: deleteData
+				deleteCellIdsStr: de
 			}).then(function (response) {
 				document.getElementById('save-no').style.display='none';
 				_this.getMapConfigs('保存更新成功');
 				_this.setState({
 				  scaleNumber:100,
+				  deleteData:[]	
 				})
 				_this.mapComponent.setScale(1);
 			}).catch(function (err) {
 				Message.error(err.message);
-			});*/
+			});
 
 		});
 	}
