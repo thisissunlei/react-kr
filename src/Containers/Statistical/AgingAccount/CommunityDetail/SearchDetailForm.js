@@ -86,7 +86,7 @@ export default class SearchDetailForm extends React.Component {
 							</ListGroupItem>
 							<ListGroupItem style={{padding:0,mrginright:10}}>
 								
-								<KrField name="endDate"  component="date" onChange={this.changeTime} style={{width:252,marginTop: 7}}  placeholder={timeDefaultValue}/>
+								<KrField name="detailEndDate"  component="date" onChange={this.changeTime} style={{width:252,marginTop: 7}}  placeholder={timeDefaultValue}/>
 							
 							</ListGroupItem>
 							<ListGroupItem style={{textAlign:'center',padding:0,verticalAlign:"top",margin:"10px 0 10px 10px"}}>
