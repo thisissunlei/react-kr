@@ -88,7 +88,6 @@ class NewCreateForm extends React.Component {
 				totalRent:nextProps.initialValues.totalreturn || '0'
 			})
 		}
-		console.log('will',nextProps.initialValues.totalRent)
 		if(this.props.optionValues != nextProps.optionValues){
 			this.setState({
 				optionValues:nextProps.optionValues
@@ -230,7 +229,6 @@ class NewCreateForm extends React.Component {
 		});
 
 		let {totalRent} = this.state;
-		console.log('totalRent',totalRent)
 
 
 		return (

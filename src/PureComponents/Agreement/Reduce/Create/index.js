@@ -240,7 +240,6 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
-			console.log(initialValue,initialValues)
 			_this.setState({
 				initialValues,
 				optionValues,
