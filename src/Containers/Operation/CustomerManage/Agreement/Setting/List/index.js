@@ -441,7 +441,9 @@ export default class SettingList extends React.Component {
   }
 
   confirmUpdateSubmit(values) {
-
+    if(!values.remark){
+      values.remark=""
+    }
     Http.request('editSysDicPayment', {}, values).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
@@ -462,7 +464,9 @@ export default class SettingList extends React.Component {
 
   }
   confirmUpdateChildSubmit(values) {
-
+    if(!values.remark){
+      values.remark=""
+    }
     Http.request('editSysDicPayment', {}, values).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
@@ -561,7 +565,7 @@ export default class SettingList extends React.Component {
               <TableRowColumn type="date">
                    <KrDate value={item.sp.createTime}/>
               </TableRowColumn>
-              <TableRowColumn>{item.sp.remark} <Tooltip offsetTop={5} width={200} place='top'>{item.sp.remark}</Tooltip></TableRowColumn>
+              <TableRowColumn><div className="table-remark">{item.sp.remark} {item.sp.remark?<Tooltip offsetTop={5}  place='top'>{item.sp.remark}</Tooltip>:''}</div></TableRowColumn>
               <TableRowColumn>
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
@@ -579,7 +583,7 @@ export default class SettingList extends React.Component {
               <TableRowColumn type="date">
                    <KrDate value={item.sp.createTime}/>
               </TableRowColumn>
-              <TableRowColumn>{item.sp.remark}</TableRowColumn>
+              <TableRowColumn>{item.sp.remark}{item.sp.remark?<Tooltip offsetTop={5}  place='top'>{item.sp.remark}</Tooltip>:''}</TableRowColumn>
               <TableRowColumn>
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>

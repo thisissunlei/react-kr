@@ -5,11 +5,29 @@ table{
 				color:#499df1 ;
 			}
 	}
+	th,td{
+		&:nth-child(5){
+			max-width: 250px;
+			.table-remark{
+				max-width: 250px;
+				text-overflow: ellipsis;
+    			white-space: nowrap;
+    			.ui-tooltip{
 
+    			}
+			}
+			
+
+		}
+		&:nth-child(6){
+			min-width: 200px;
+		}
+	}
 		td{
 			position:relative;
 
 		}
+
 
 
 
