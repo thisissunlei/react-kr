@@ -8,6 +8,7 @@ import {
 	
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
+import $ from 'jquery';
 
 import './index.less';
 
@@ -37,12 +38,43 @@ export default class CommunityDetail  extends React.Component{
 	
 	componentDidMount() {
 		var _this = this;
+		if(!_this.state.isShowLeft){
+			var tableExportHeight = $(".community-detial-table-box").eq(0).height();
+			window.onscroll = function(){
+				console.log("$(window).scrollTop()",$(window).scrollTop());
+				var windowScrollTop = $(window).scrollTop();
+				if($(window).scrollTop()>152){
+					_this.refs.communityDetailTableBox.style.position = "fixed";
+					_this.refs.communityDetailTableBox.style.top = "51px";
+					$(".community-detail-box").eq(0).height(tableExportHeight+80);
+
+				}else{
+					_this.refs.communityDetailTableBox.style.position = "";
+				}
+			}
+		}
 			
 	}
 	componentWillReceiveProps(nextProps){
-		
+		let _this =this;
 		this.setState({
 			isShowLeft : nextProps.isLeftProps
+		},function(){
+			if(!_this.state.isShowLeft){
+				var tableExportHeight = $(".community-detial-table-box").eq(0).height();
+				window.onscroll = function(){
+					console.log("$(window).scrollTop()",$(window).scrollTop());
+					var windowScrollTop = $(window).scrollTop();
+					if($(window).scrollTop()>152){
+						_this.refs.communityDetailTableBox.style.position = "fixed";
+						_this.refs.communityDetailTableBox.style.top = "51px";
+						$(".community-detail-box").eq(0).height(tableExportHeight+80);
+
+					}else{
+						_this.refs.communityDetailTableBox.style.position = "";
+					}
+				}
+			}
 		})
 	}
 	openAdvancedQueryDialog=()=>{
@@ -67,13 +99,12 @@ export default class CommunityDetail  extends React.Component{
 						<SearchDetailForm/>
 						
 					</div>
-					<div className="community-detial-table-box">
+					<div className="community-detial-table-box" ref="communityDetailTableBox">
 						{
 							!isShowLeft?<TableIndex isLeftProps={isShowLeft}/>:null
 						}
-						
+						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>
-					<div className="export" onClick={this.exportExcle}>导出</div>
 				</div>
 				<Dialog
 					title="高级查询"

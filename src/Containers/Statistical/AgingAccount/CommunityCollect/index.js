@@ -38,27 +38,46 @@ export default class CommunityCollect extends React.Component{
 	componentDidMount() {
 		let _this = this;
 		State.getCollectList();
-		var tableExportHeight = $(".community-collect-table-box").eq(0).height();
-		window.onscroll = function(){
-			console.log("$(window).scrollTop()",$(window).scrollTop());
-			var windowScrollTop = $(window).scrollTop();
-			if($(window).scrollTop()>153){
-				_this.refs.communityCollectTableBox.style.position = "fixed";
-				_this.refs.communityCollectTableBox.style.top = "30px";
-				$(".community-collect-box").eq(0).height(tableExportHeight+80);
+		if(this.state.isShowLeft){
+			var tableExportHeight = $(".community-collect-table-box").eq(0).height();
+			window.onscroll = function(){
+				console.log("$(window).scrollTop()",$(window).scrollTop());
+				var windowScrollTop = $(window).scrollTop();
+				if($(window).scrollTop()>153){
+					_this.refs.communityCollectTableBox.style.position = "fixed";
+					_this.refs.communityCollectTableBox.style.top = "30px";
+					$(".community-collect-box").eq(0).height(tableExportHeight+80);
 
-			}else{
-				_this.refs.communityCollectTableBox.style.position = "";
+				}else{
+					_this.refs.communityCollectTableBox.style.position = "";
+				}
 			}
 		}
+		
 		
 	}
 
 
 	componentWillReceiveProps(nextProps){
-		
+		let _this =this;
 		this.setState({
 			isShowLeft : nextProps.isLeftProps
+		},function(){
+			if(this.state.isShowLeft){
+				var tableExportHeight = $(".community-collect-table-box").eq(0).height();
+				window.onscroll = function(){
+					console.log("$(window).scrollTop()",$(window).scrollTop());
+					var windowScrollTop = $(window).scrollTop();
+					if($(window).scrollTop()>153){
+						_this.refs.communityCollectTableBox.style.position = "fixed";
+						_this.refs.communityCollectTableBox.style.top = "30px";
+						$(".community-collect-box").eq(0).height(tableExportHeight+80);
+
+					}else{
+						_this.refs.communityCollectTableBox.style.position = "";
+					}
+				}
+			}
 		})
 	}
 
