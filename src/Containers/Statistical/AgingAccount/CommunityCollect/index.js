@@ -41,7 +41,7 @@ export default class CommunityCollect extends React.Component{
 		if(this.state.isShowLeft){
 			var tableExportHeight = $(".community-collect-table-box").eq(0).height();
 			window.onscroll = function(){
-				console.log("$(window).scrollTop()",$(window).scrollTop());
+				
 				var windowScrollTop = $(window).scrollTop();
 				if($(window).scrollTop()>153){
 					_this.refs.communityCollectTableBox.style.position = "fixed";
@@ -66,7 +66,7 @@ export default class CommunityCollect extends React.Component{
 			if(this.state.isShowLeft){
 				var tableExportHeight = $(".community-collect-table-box").eq(0).height();
 				window.onscroll = function(){
-					console.log("$(window).scrollTop()",$(window).scrollTop());
+					
 					var windowScrollTop = $(window).scrollTop();
 					if($(window).scrollTop()>153){
 						_this.refs.communityCollectTableBox.style.position = "fixed";

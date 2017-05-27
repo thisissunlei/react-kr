@@ -25,11 +25,10 @@ State.getCollectList = action(function() {
 		endDate :State.endDate,
 		communityId : State.communityId
 	}
-	console.log("searchParams",searchParams);
+	
 
 	Http.request('communityListAging',searchParams).then(function(response) {
 
-		// console.log("response获取列表---汇总",response);
 		State.items=response;
 		
 		

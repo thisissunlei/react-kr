@@ -42,7 +42,7 @@ class AdvancedQueryForm extends React.Component{
 
 
 	onSubmit(values){
-		console.log("values",values);
+		
 		State.advanceQueryDialogOpen = false;
 
 		State.corporationId = values.corporationId;

@@ -41,7 +41,7 @@ export default class CommunityDetail  extends React.Component{
 		if(!_this.state.isShowLeft){
 			var tableExportHeight = $(".community-detial-table-box").eq(0).height();
 			window.onscroll = function(){
-				console.log("$(window).scrollTop()",$(window).scrollTop());
+				
 				var windowScrollTop = $(window).scrollTop();
 				if($(window).scrollTop()>152){
 					_this.refs.communityDetailTableBox.style.position = "fixed";
@@ -63,7 +63,7 @@ export default class CommunityDetail  extends React.Component{
 			if(!_this.state.isShowLeft){
 				var tableExportHeight = $(".community-detial-table-box").eq(0).height();
 				window.onscroll = function(){
-					console.log("$(window).scrollTop()",$(window).scrollTop());
+					
 					var windowScrollTop = $(window).scrollTop();
 					if($(window).scrollTop()>152){
 						_this.refs.communityDetailTableBox.style.position = "fixed";
