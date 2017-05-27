@@ -193,7 +193,7 @@ export default class JoinCreate extends Component {
 			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
 				initialValues.oldNum = localStorageData.num;
 			}else{
-				initialValues.oldNum = 1;
+				initialValues.oldNum = localStorageData.oldNum;
 			}
 
 			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
@@ -240,6 +240,7 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
+			console.log(initialValue,initialValues)
 			_this.setState({
 				initialValues,
 				optionValues,

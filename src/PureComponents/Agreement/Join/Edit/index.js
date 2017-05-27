@@ -70,6 +70,8 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		var _this = this;
+		console.log('jin-->',formValues)
+		return;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 			_this.removeAllLocalStorage();
 			_this.isConfirmSubmiting = false;

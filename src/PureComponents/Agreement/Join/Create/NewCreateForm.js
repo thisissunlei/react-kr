@@ -170,6 +170,8 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
+		Store.dispatch(change('joinCreateForm', 'stationVos', []));
+		Store.dispatch(change('joinCreateForm', 'totalrent', '0'));
 
 		this.setState({
 			stationVos: [],
@@ -188,6 +190,9 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
+		Store.dispatch(change('joinCreateForm', 'stationVos', []));
+		Store.dispatch(change('joinCreateForm', 'totalrent', '0'));
+
 
 		this.setState({
 			stationVos: [],
@@ -668,7 +673,7 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                         </DotTitle>
-                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25,fontSize:14}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div className="all-rent" style={{marginTop:'0px',marginBottom:25,fontSize:14}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent|| '0'}</span><span>{allRentName}</span></div>
 
 					</div>
 

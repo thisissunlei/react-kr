@@ -393,6 +393,9 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
+		Store.dispatch(change('admitCreateForm', 'stationVos', []));
+		Store.dispatch(change('admitCreateForm', 'totalrent', '0'));
+
 
 		this.setState({
 			stationVos: []
@@ -410,6 +413,8 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
+		Store.dispatch(change('admitCreateForm', 'stationVos', []));
+		Store.dispatch(change('admitCreateForm', 'totalrent', '0'));
 
 		this.setState({
 			stationVos: []

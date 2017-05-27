@@ -128,8 +128,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('will')
-
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
@@ -222,7 +220,6 @@ class NewCreateForm extends React.Component {
 		let {
 			selectedStation
 		} = this.state;
-				console.log(selectedStation,"ddd")
 
 		if (!selectedStation.length) {
 			Notify.show([{
@@ -458,8 +455,6 @@ class NewCreateForm extends React.Component {
 
 	onIframeClose(billList,data) {
 
-		// console.log(billList,"billList");
-
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -471,9 +466,7 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		var stationVos = [];
-		console.log('billList',billList);
-
-		// console.log('billList',billList);
+		console.log('billList',billList,data);
 
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
