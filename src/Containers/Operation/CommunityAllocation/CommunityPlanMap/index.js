@@ -90,6 +90,10 @@ class CommunityPlanMap extends React.Component {
 				obj.id = Number(item.id);
 				obj.canFigureId = item.canFigureId;
 				obj.style='old';
+				obj.defaultStation={
+					width:response.cellWidth,
+					height:response.cellHeight
+				}
 
 				return obj;
 			});
