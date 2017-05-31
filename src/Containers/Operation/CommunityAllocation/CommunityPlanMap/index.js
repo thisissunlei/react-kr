@@ -528,7 +528,7 @@ class CommunityPlanMap extends React.Component {
 								</div>
 
 								<div className="size-type">
-									<input type="checkbox" id="sizeCheckbox" title="工位大小一致" onChange={this.sizeSameCheck} />
+									<input type="checkbox" id="sizeCheckbox" title="工位大小一致" onChange={this.sizeSameCheck} style={{verticalAlign:'middle'}}/>
 									<span>工位大小一致</span>
 								</div>
 
@@ -540,8 +540,9 @@ class CommunityPlanMap extends React.Component {
 							</div>
 
 								<div className='upload-img'>
-									 
-									<input type="file" name="file" style={{ width: '63px'}} onChange={this.fileUpload}/>
+								  <a href="javascript:;" className="plan-file">选择文件 	 
+									<input type="file" name="file" style={{ width: '70px'}} onChange={this.fileUpload}/>
+                                  </a>
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
 
