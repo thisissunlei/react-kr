@@ -114,6 +114,8 @@ class CommunityPlanMap extends React.Component {
 				},
 				stationToSame:checked,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
+				translateX:0,
+				translateY:0
 			}
 
 			_this.setState({
@@ -594,7 +596,7 @@ class CommunityPlanMap extends React.Component {
 													return (<div key={index} className="plan-meeting-pic">
 														<div className="meeting-pic" 
 														  data-index={index} 
-														  data-id={item.belongId} >
+														  data-id={item.belongId}>
 														    {item.cellName}
 														</div>
 													</div>)
