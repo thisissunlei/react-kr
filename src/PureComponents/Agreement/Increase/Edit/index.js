@@ -141,6 +141,10 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let delStationVos = [];
 
+		let keyWord = params.orderId+''+ params.customerId+'INTENTIONedit';
+		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
+
+
 		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
@@ -196,12 +200,13 @@ export default class JoinCreate extends React.Component {
 				id: params.id
 			}).then(function(response) {
 
-				let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
-				initialValues.num = localStorage.getItem(keyWord+'num')||1;
-				if(localStorage.getItem(keyWord+'num')-localStorage.getItem(keyWord+'oldNum')<=2){
-					initialValues.oldNum = localStorage.getItem(keyWord+'num')||1;
+				initialValues.num = localStorageData.num || 1;
+			
+				if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=2){
+					initialValues.oldNum = localStorageData.num;
+				}else{
+					initialValues.oldNum = initialValues.oldNum;
 				}
-				
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
 				initialValues.id = response.id;
@@ -378,15 +383,9 @@ export default class JoinCreate extends React.Component {
 				initialValues.signdate = DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 
 				initialValues.num = localStorageData.num || 1;
-			
-				if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
-					initialValues.oldNum = localStorageData.num;
-				}else{
-					initialValues.oldNum = 1;
-				}
 				optionValues = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
 				initialValues = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
-				if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+				if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=2){
 					initialValues.oldNum = localStorageData.num;
 				}else{
 					initialValues.oldNum = localStorageData.oldNum;
@@ -395,7 +394,6 @@ export default class JoinCreate extends React.Component {
 				//处理stationvos
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
-				console.log('local',stationVos,delStationVos)
 
 				_this.setState({
 					initialValues,
@@ -428,15 +426,14 @@ export default class JoinCreate extends React.Component {
 
 
 	getlocalSign=()=>{
-
-     let {
+		let {
 			params
 		} = this.props;
 		let _this = this;
 		let sign = false;
-		let keyWord = params.orderId+''+ params.customerId+''+params.id+'ADDRENTedit';
+		let keyWord =  params.orderId+''+ params.customerId+''+params.id+'ADDRENTedit';
 		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
-		if( localStorageData.num - localStorageData.oldNum>1){
+		if( localStorageData.num - localStorageData.oldNum>2){
 			_this.setState({
 				openLocalStorages:true
 			})

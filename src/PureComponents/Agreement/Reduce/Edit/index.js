@@ -392,7 +392,6 @@ export default class JoinCreate extends React.Component {
 		let sign = false;
 		let keyWord =  params.orderId+''+ params.customerId+''+params.id+'LESSRENTedit';
 		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
-		console.log(keyWord,JSON.parse(localStorage.getItem(keyWord)),localStorageData.num ,localStorageData.oldNum)
 		if( localStorageData.num - localStorageData.oldNum>1){
 			_this.setState({
 				openLocalStorages:true
