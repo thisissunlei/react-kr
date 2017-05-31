@@ -11,6 +11,11 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
+						primaryText: "审核列表",
+						router: '/finance/manage/audit/auditlist',
+						menuCode: 'fina_verify_page'
+					},
+					{
 						primaryText: "账单列表",
 						router: '/finance/manage/orderbill/orderList',
 						menuCode: 'fina_account_list'
@@ -20,11 +25,7 @@ module.exports = [
 						router: '/finance/manage/fundSetting/totalFund',
 						menuCode: 'fina_category_1stPage'
 					}, 
-					{
-						primaryText: "审核列表",
-						router: '/finance/manage/audit/auditlist',
-						menuCode: 'fina_verify_page'
-					}
+					
 				]
 			}
 		]
