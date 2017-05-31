@@ -111,7 +111,7 @@ getScrollTop = () => {
 	componentDidMount(){
 		var _this = this;
 		//滚轮监听
-		addEventListener("scroll",this.onscrollListener,false)
+		window.addEventListener("scroll",this.onscrollListener,false)
 		
 
 			
@@ -125,7 +125,6 @@ getScrollTop = () => {
 			  let {allPage,newPage,searchParams,downLoading,end} = _this.state;
 			  //判断是否上拉加载
 		　　　　if(!end && allPage >= newPage && !downLoading){
-					console.log(allPage,newPage)
 					_this.setState({
 						newPage:newPage+1,
 						searchParams:{

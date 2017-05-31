@@ -11,13 +11,13 @@ module.exports = [
 			iconColor: '#79859a',
 			menuCode: 'community_manage',
 			menuItems: [{
-				primaryText: '销控表',
+				primaryText: '计划表',
 				menuCode: 'plan_table',
 				router: '/community/communityManage/detail',
 			},
 			{
-				primaryText: '新的销控表',
-				menuCode: 'plan_table',
+				primaryText: '销控表',
+				menuCode: 'cmt_sell_control',
 				router: '/community/communityManage/controlTable',
 			},
 			{
