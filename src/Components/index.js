@@ -55,6 +55,7 @@ import XTable from './XTable';
 import DivTitle from './DivTitle';
 import Nothing from './Nothing';
 import PlanMapAll from './PlanMapAll';
+import ToTop from './ToTop';
 import {
 	Grid,
 	Row,
@@ -63,12 +64,12 @@ import {
 
 
 //materal-ui
-import  Menu from 'material-ui/Menu'; 
-import MenuItem  from 'material-ui/MenuItem'; 
-import  DropDownMenu  from 'material-ui/DropDownMenu'; 
-import  IconMenu  from 'material-ui/IconMenu'; 
-import  Avatar  from 'material-ui/Avatar'; 
-import Snackbar from 'material-ui/Snackbar'; 
+import  Menu from 'material-ui/Menu';
+import MenuItem  from 'material-ui/MenuItem';
+import  DropDownMenu  from 'material-ui/DropDownMenu';
+import  IconMenu  from 'material-ui/IconMenu';
+import  Avatar  from 'material-ui/Avatar';
+import Snackbar from 'material-ui/Snackbar';
 
 import {
 	Tab
@@ -76,7 +77,7 @@ import {
 
 module.exports = {
 	//Components
-	
+
 	Dictionary,
 	FontIcon,
 	Paper,
@@ -148,4 +149,5 @@ module.exports = {
 	Nothing,
 	PlanMapAll,
 	...PlanMap
+	ToTop
 }

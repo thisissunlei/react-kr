@@ -11,15 +11,21 @@ module.exports = [
 			iconColor: '#79859a',
 			menuCode: 'community_manage',
 			menuItems: [{
-				primaryText: '销控表',
+				primaryText: '计划表',
 				menuCode: 'plan_table',
 				router: '/community/communityManage/detail',
 			},
 			{
-						primaryText: '空间预订',
-						menuCode: 'appointment_manage_list',
-						router: '/community/communityManage/allAppointment'
-					},
+
+				primaryText: '销控表',
+				menuCode: 'cmt_sell_control',
+				router: '/community/communityManage/controlTable',
+			},
+			{
+					primaryText: '空间预订',
+					menuCode: 'appointment_manage_list',
+					router: '/community/communityManage/allAppointment'
+				},
 				{
 					primaryText: '预约参观',
 					menuCode: 'sysVisitRecord',
