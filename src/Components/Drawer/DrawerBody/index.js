@@ -17,7 +17,7 @@ export default class DrawerBody extends React.Component {
     let {children,style,openDirection} = this.props;
     var className;
     if(openDirection=='left'){
-      className='ui-drawer-out';
+      className='ui-drawer-left';
     }else{
       className='ui-drawer-in';
     }
