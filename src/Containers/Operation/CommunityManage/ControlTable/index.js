@@ -69,7 +69,7 @@ class ControlTable  extends React.Component{
 			end:false
 
 		}
-		
+
 
 	}
 
@@ -112,9 +112,9 @@ getScrollTop = () => {
 		var _this = this;
 		//滚轮监听
 		window.addEventListener("scroll",this.onscrollListener,false)
-		
 
-			
+
+
 	}
 	onscrollListener = () =>{
 		var _this = this;
@@ -135,10 +135,10 @@ getScrollTop = () => {
 						},
 						end:(allPage == newPage) ? true:false
 					},function(){
-						
+
 						_this.getcommunity();
 					})
-					
+
 			   }
 		　　}
 			//判断是否固定头部
@@ -151,13 +151,13 @@ getScrollTop = () => {
 						right:39,
 						width:"auto",
 						zIndex:99
-			
+
 					},
 					contentStyle:{
 						marginTop:140
 					}
 				})
-				
+
 			}else{
 				_this.setState({
 					moveStyle:{
@@ -167,13 +167,13 @@ getScrollTop = () => {
 						marginTop:0
 					}
 				})
-				
+
 			}
 	}
 	componentWillUnmount(){
 		window.removeEventListener("scroll",this.onscrollListener)
 	}
-	
+
 	//获取数据
 	getcommunity = () => {
 		let _this = this;
@@ -189,8 +189,8 @@ getScrollTop = () => {
 				downLoading:true,
 			})
 		}
-		
-		
+
+
 		let data = Object.assign({},searchParams)
 		let arr = [].concat(listData);
 		Http.request('control-table',data).then(function(response) {
@@ -212,7 +212,7 @@ getScrollTop = () => {
 
 		}).catch(function(err) {
 
-		
+
 
 		});
 	}
@@ -247,7 +247,7 @@ getScrollTop = () => {
 			   customerName:'',
 			   page:1,
 			   pageSize:15,
-			   
+
             },
 			communityName:values.label,
 			loading:true,
@@ -264,7 +264,8 @@ getScrollTop = () => {
    //导出
    onExport = () =>{
 	   const {searchParams} = this.state;
-		var url = `/api /krspace-finance-web/cmt/sell-control/list/export?communityId=${searchParams.communityId}&customerName=${searchParams.customerName}`;
+     const host = "http://"+window.location.host;
+		var url = `${host}/api /krspace-finance-web/cmt/sell-control/list/export?communityId=${searchParams.communityId}&customerName=${searchParams.customerName}`;
 		window.location.href = url;
    }
    //生成头部
@@ -311,13 +312,13 @@ getScrollTop = () => {
 		return (<div>
 					<div className = "have-tooltip">{value}</div>
 					{
-					   show &&(<Tooltip 
-							className="tooltipTextStyle" 
-							style={{padding:10, maxWidth:224,}} 
-							offsetTop={5} 
+					   show &&(<Tooltip
+							className="tooltipTextStyle"
+							style={{padding:10, maxWidth:224,}}
+							offsetTop={5}
 							place='top'
 						>
-							<div 
+							<div
 								style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}
 							>
 							{value}
@@ -343,7 +344,7 @@ getScrollTop = () => {
 								<div className="m-control-table-one-td">{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
 								<div className="m-control-table-one-td">{item.capacity}</div>
 							</div>
-							
+
 							<div className="m-control-table-content-td" >{item.area}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.quotedPrice}</div>
 							<div className="m-control-table-content-td" >{item.actualPrice}</div>
@@ -352,7 +353,7 @@ getScrollTop = () => {
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.rentalStatusStr}</div>
 							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(item.company)}</div>
 							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(
-								
+
 								!item.leaseBegindate ?"-": DateFormat(item.leaseBegindate,"yyyy-mm-dd")+"至"+DateFormat(item.leaseEnddate,"yyyy-mm-dd")
 								)
 								}</div>
@@ -368,12 +369,12 @@ getScrollTop = () => {
 
 	render(){
 		const {communityIdList,contentStyle,loading,downLoading,listData} = this.state;
-		
+
 		return(
 			<div className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="访客记录"/>
 				<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
-					<SearchFormControlTable 
+					<SearchFormControlTable
 						communityChange = {this.communityChange}
 						onSubmit = {this.onSubmit}
 					 />
@@ -383,7 +384,7 @@ getScrollTop = () => {
 						{downLoading && <Loading type = "dowm" style = {{marginTop:10,marginBottom:10}} />}
 					</div>
 					<div id = "m-control-table-width"></div>
-					<div className = "on-export">	
+					<div className = "on-export">
 						{(listData && !!listData.length) && <Button
 							label="导出"
 							type='button'
@@ -392,7 +393,7 @@ getScrollTop = () => {
 				</div>
 				</Section>
 				<ToTop />
-				
+
 	     </div>
 
 		);
