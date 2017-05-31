@@ -84,8 +84,9 @@ export default class SearchDetailForm extends React.Component {
 							
 							</ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
+
 								
-								<KrField  name="collectCommunityId" component="searchCommunity"  onChange={this.changeCommunity} requireLabel={false}  style={{width:252,marginTop: 7,marginRight:7}}/>
+								<KrField  name="collectCommunityId" component="searchCommunityList"  inline={false} onChange={this.changeCommunity} requireLabel={false}  style={{width:252,marginTop: 7,marginRight:7}}/>
 								
 							</ListGroupItem>
 						</ListGroup>
