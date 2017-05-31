@@ -96,6 +96,15 @@ class CommunityPlanMap extends React.Component {
 
 				return obj;
 			});
+
+			var checked='';
+			if(response.stationSizeSame){
+				if(response.stationSizeSame=='NOT_SAME'){
+                    checked=false;
+				}else{
+					checked=true;
+				}
+			}
             
 			var initializeConfigs = {
 				stations: stations,
@@ -103,7 +112,7 @@ class CommunityPlanMap extends React.Component {
 					width:Number(response.cellWidth),
 					height:Number(response.cellHeight)
 				},
-				stationToSame:true,
+				stationToSame:checked,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
 			}
 
@@ -116,18 +125,9 @@ class CommunityPlanMap extends React.Component {
             
 			_this.mapComponent.newMap(initializeConfigs);
 
-			var checked='';
-			if(response.stationSizeSame){
-				if(response.stationSizeSame=='NOT_SAME'){
-                    checked=false;
-				}else{
-					checked=true;
-				}
-			}
-         
+			
 			document.getElementById("sizeCheckbox").checked=checked;
 			document.getElementById("bgfilename").innerHTML=response.graphFileName?response.graphFileName:'无';
-	
 			if(data){
 				Message.success(data);
 			}
