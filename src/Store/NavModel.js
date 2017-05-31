@@ -126,14 +126,15 @@ State.setPermissionNav = action(function (menusCode) {
 		var originUrl = '';
 		if(item.hasOwnProperty('menuItems') && item.menuItems[0].hasOwnProperty('menuItems')){
 			var childItem = item.menuItems[0].menuItems[0];
-			originUrl = '#/'+childItem.router;
-			if(item.hasOwnProperty('originUrl')){
-				item.originUrl = originUrl;
-			}
+			originUrl = '#'+childItem.router;
+			item.originUrl = originUrl;
 		}
 
 		return item;
 	});
+
+
+	console.log('navs:',navs);
 
 	this.items = navs;
 	this.isLoadedPermissionNav = true;
