@@ -153,7 +153,7 @@ export default class MeetingReservation extends React.Component {
 		
         return(
             <div className="metting-reservation">
-				<Title value="会议室预定"/>
+				<Title value="空间预定"/>
       		
 				<SearchUpperForm onSubmit = {this.onSubmit}/>
 				<div className = "metting-reservation-content">

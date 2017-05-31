@@ -16,17 +16,17 @@ module.exports = [
 				router: '/community/communityManage/detail',
 			},
 			{
-						primaryText: '预约列表',
+						primaryText: '空间预订',
 						menuCode: 'appointment_manage_list',
 						router: '/community/communityManage/allAppointment'
 					},
 				{
-					primaryText: '访客记录',
+					primaryText: '预约参观',
 					menuCode: 'sysVisitRecord',
 					router: '/community/communityManage/visitorsToRecord'
 				},
 				{
-					primaryText: '访客列表',
+					primaryText: '访客登记',
 					menuCode: 'visitRecord',
 					router: '/community/visitor/list'
 				},
