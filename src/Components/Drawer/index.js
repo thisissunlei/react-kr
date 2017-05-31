@@ -37,7 +37,7 @@ export default class DrawerSimpleExample extends React.Component {
 
   render() {
 
-    let {children,open,contentStyle,width,openSecondary,modal,drawerStyle} = this.props;
+    let {children,open,contentStyle,width,openSecondary,modal,drawerStyle,openDirection} = this.props;
    
     contentStyle = Object.assign({},contentStyle,{width:width});
 
@@ -56,7 +56,7 @@ export default class DrawerSimpleExample extends React.Component {
     return (
       <div className="ui-drawer" style={drawerStyle}>
         {modal && <DrawerModal onClose={this.onClose}/> }
-        <DrawerBody style={contentStyle}> {children} </DrawerBody>
+        <DrawerBody openDirection={openDirection} style={contentStyle}> {children} </DrawerBody>
       </div>
     );
   }

@@ -39,6 +39,9 @@
 .ui-drawer-in{
   animation: ui-drawer-in  450ms  cubic-bezier(0.23, 1, 0.32, 1);
 }
+.ui-drawer-out{
+  animation: ui-drawer-out  450ms  ;
+}
 
 }
 
@@ -46,4 +49,11 @@
 {
   from {transform: translateX(100%);}
   to {transform: translateX(0%);}
+}
+
+@keyframes ui-drawer-out
+{
+   from {transform: translateX(-100%);}
+    to {transform: translateX(0%);}
+ 
 }

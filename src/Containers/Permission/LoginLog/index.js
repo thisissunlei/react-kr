@@ -130,7 +130,7 @@ export default class LoginLog extends React.Component {
 									type="date"
 									component={(value)=>{
 										return (
-											<KrDate value={value} format="yyyy-mm-dd hh:MM:ss" />
+											<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
 										)
 									}}
 									></TableRowColumn>

@@ -28,8 +28,11 @@ const NavItem = ({...props})=>{
 
 
 const More = ({...props})=>{
-	let {NavModel}=props;
-	var navs=NavModel.slice(8);
+	let {Navs,NavModel}=props;
+	var navs=Navs.slice(7);
+	function setSidebar(){
+		NavModel.setSidebar(true);
+	}
 	return (
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
@@ -37,7 +40,7 @@ const More = ({...props})=>{
 				<ul className="u-header-more-list">
 					{navs.map((item,index)=>{
 						return(
-							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} />
+							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} onClick={setSidebar} />
 						)
 					})}
 				</ul>
@@ -76,19 +79,32 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
 	}
-
+	
 	componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.loadNavData();	
 		var  navs = NavModel.getNavs();
 		window.addEventListener("click", this.personHide, false);
+		NavModel.setSidebar(true);
+
 	}
+
 	componentWillUnmount(){
 		window.removeEventListener("click", this.personHide, false);
 	}
-	
+	setSidebar=()=>{
+		const {NavModel} = this.props;
+		NavModel.setSidebar(true);
+	}
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
+		var navIsActive=NavModel.items.map((item,index)=>{
+			return item.isActive;
+		})
+		var isActive=navIsActive.indexOf(true)==-1?true:false;
+		if(isActive){
+			NavModel.clearSidebar();
+		}
 		NavModel.toggleSidebar();
 	}
 	clickLogo=()=> {
@@ -112,11 +128,26 @@ export default class Header extends React.Component {
 		}
 		
 	}
+	clearSidebar=()=>{
+		const {NavModel} = this.props;
+		NavModel.clearSidebar();
 
-	renderNav = (navs)=>{
-		return 	<Nav> {navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission}/>))} </Nav>;
 	}
+	renderNav = (navs)=>{
+		var navIsActive=navs.map((item,index)=>{
+			return item.isActive;
+		})
+		var isActive=navIsActive.indexOf(true)==-1?true:false;
+		
+		return (
+			<Nav> 
+				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
+				{navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} onClick={this.setSidebar}/>))} 
+			</Nav>
 
+			);
+	}
+	
 	render() {
 
 		const {NavModel} = this.props;
@@ -124,8 +155,6 @@ export default class Header extends React.Component {
 
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
-
-		console.log('--->>MMMM')
 		
 		return (
 			<div className="no-print">
@@ -135,13 +164,14 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
-					{navs.length>8?<More NavModel={navs}/>:''}
+					{navs.length>7?<More Navs={navs} NavModel={NavModel}/>:''}
 					<TheBell />
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
 				</div>
 				<Drawer 
 						open={NavModel.openSidebar} 
 						openSecondary={false} 
+						openDirection="left"
 						modal={false} 
 						width={180} 
 						drawerStyle={{zIndex:-1,width:180}} 

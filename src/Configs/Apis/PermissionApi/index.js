@@ -240,27 +240,27 @@ module.exports = {
     },
     //权限--信息列表--分页
     'get-log-list': {
-      url: '/api/krspace-sso-web/msg/get-log-list?msgType={msgType}&receviers={receviers}&sendStatus={sendStatus}&page={page}&pageSize={pageSize}&startTime={startTime}&endTime={endTime}&remark={remark}',
+      url: '/api/krspace-sso-web/sso/msg/get-log-list?msgType={msgType}&receviers={receviers}&sendStatus={sendStatus}&page={page}&pageSize={pageSize}&startTime={startTime}&endTime={endTime}&remark={remark}',
       method: 'get'
     },
     //权限--版本管理--分页
     'get-version-list': {
-      url: '/api/krspace-sso-web/mobile/version/get-version-list?enableFlag={enableFlag}&forcedStatus={forcedStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}',
+      url: '/api/krspace-sso-web/sso/mobile/version/get-version-list?enableFlag={enableFlag}&forcedStatus={forcedStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}',
       method: 'get'
     },
     //权限--版本管理--新建/编辑
     'save-version': {
-      url: '/api/krspace-sso-web/mobile/version/save-version',
+      url: '/api/krspace-sso-web/sso/mobile/version/save-version',
       method: 'post'
     },
     //权限--版本管理--查看
     'get-version-detail': {
-      url: '/api/krspace-sso-web/mobile/version/get-version-detail?id={id}',
+      url: '/api/krspace-sso-web/sso/mobile/version/get-version-detail?id={id}',
       method: 'get'
     },
     //权限--APP登录日志--分页
     'mobile-login-log': {
-      url: '/api/krspace-sso-web/mobile/log/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
+      url: '/api/krspace-sso-web/sso/mobile/log/mobile-login-log?phone={phone}&sendStatus={sendStatus}&osType={osType}&page={page}&pageSize={pageSize}&version={version}&remark={remark}',
       method: 'get'
     },
 

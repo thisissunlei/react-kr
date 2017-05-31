@@ -90,7 +90,9 @@ State.getMenusCode = action(function (menusCode) {
 State.setUserInfo = action(function (userInfo) {
 	mobx.extendObservable(this, { userInfo });
 });
-
+State.clearSidebar=action(function(userInfo){
+	this.sidebarNavs=[];
+});
 
 State.loadNavData = action(function () {
 	var _this = this;
@@ -191,7 +193,11 @@ State.toggleSidebar = action(function (value) {
 	this.openSidebar = !!value;
 });
 
-State.getUser = action(function () {
+State.setSidebar=action(function(value){
+	this.openSidebar = value;
+});
+
+State.getUser= action(function(){
 	return mobx.toJS(this.userInfo);
 });
 

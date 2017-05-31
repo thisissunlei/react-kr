@@ -94,7 +94,7 @@ class ViewNewList extends React.Component {
 						/>
 						<div className="u-photo-box">
 								<span className="u-photo-title">新闻列表图片</span>
-								<div className="u-photo-img-box" style={{width:390,height:230,marginLeft:15}}>
+								<div className="u-photo-img-box" style={{width:390,height:161,marginLeft:15}}>
 									<img src={State.newsDate.photoUrl} style={{width:'100%',height:'100%'}}/>
 								</div>
 						</div>

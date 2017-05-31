@@ -104,8 +104,8 @@ openHighSearch = () => {
         <TableHeaderColumn>消息类型</TableHeaderColumn>
         <TableHeaderColumn>发送结果</TableHeaderColumn>
         <TableHeaderColumn>接收人</TableHeaderColumn>
-				<TableHeaderColumn>备注</TableHeaderColumn>
-				<TableHeaderColumn>发送时间</TableHeaderColumn>
+		<TableHeaderColumn>备注</TableHeaderColumn>
+		<TableHeaderColumn>发送时间</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
@@ -124,7 +124,7 @@ openHighSearch = () => {
 	                  }else{
 	                    styles.display="block";
 	                  }
-	                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+	                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:350,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
 	                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 	                 }}>
 	        </TableRowColumn>
@@ -139,13 +139,13 @@ openHighSearch = () => {
                   }else{
                     styles.display="block";
                   }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}>
         </TableRowColumn>
           <TableRowColumn type="date" name="sendTime" component={(value)=>{
             return (
-              <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+              <KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>
             )
           }}> </TableRowColumn>
          </TableRow>

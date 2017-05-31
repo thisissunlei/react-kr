@@ -138,7 +138,7 @@ class CreateNewList extends React.Component {
 						<KrField 
 								name="photoUrl"
 								component="newuploadImage"
-								innerstyle={{width:392,height:230,padding:10}}
+								innerstyle={{width:392,height:161,padding:10}}
 								photoSize={'570*212'}
 								pictureFormat={'JPG,PNG,GIF'}
 								pictureMemory={'500'}

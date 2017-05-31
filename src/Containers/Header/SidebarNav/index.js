@@ -27,7 +27,7 @@ export default class SidebarNav extends React.Component {
 		const {NavModel} = this.props;
 
 		const sidebarNavs = NavModel.sidebarNavs;
-
+		
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">

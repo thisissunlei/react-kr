@@ -10,7 +10,7 @@ export default class Help extends React.Component{
 	}
 	componentDidMount(){
 		const {NavModel} = this.props;
-		NavModel.toggleSidebar();
+		NavModel.setSidebar(false);
 	}
 
 	render(){
