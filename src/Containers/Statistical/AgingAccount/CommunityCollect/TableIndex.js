@@ -62,6 +62,15 @@ export default class TableIndex extends React.Component{
 		$(".table-data").width(tableBoxWidth);
 		$(".table-box").height($(window).height()-200);
 		
+		var tableContainerWidth = $(".table-container").eq(0).width();
+
+		if(tableContainerWidth<tableBoxWidth){
+			$("td div").filter(".header-div").width((tableBoxWidth-10)/10-10);
+			$(".date-items").eq(0).width(tableBoxWidth);
+		}
+
+		
+
 		$('.table-data').eq(0).scroll(function(event){
 			_this.refs.tableHeader.style.left =-$(this).scrollLeft()+"px"; 
 		   
