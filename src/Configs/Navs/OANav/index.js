@@ -4,7 +4,7 @@ module.exports = [
 	{
 		primaryText: "OA办公",
 		menuCode: 'oa',
-		router: '/oa',
+		router: 'oa',
 		originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
 		menuItems: [
 			{
