@@ -77,9 +77,6 @@ export default class JoinCreate extends React.Component {
 		let _this = this;
 		let {CommunityAgreementList} = this.props;
 
-		// console.log('reduce--->',formValues);
-		// return;
-
 		Http.request('getFnaContractRentController', {}, formValues).then(function(response) {
 			_this.removeAllLocalStorage();
 			Notify.show([{

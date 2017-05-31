@@ -636,7 +636,7 @@ class NewCreateForm extends React.Component {
 					</ListGroup>
 				</KrField>
 				<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
-				 <DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+				 <DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 				        <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">

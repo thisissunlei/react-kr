@@ -443,7 +443,7 @@ class NewCreateForm extends React.Component {
 			<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 			<div className="small-cheek">
 			<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
-				 <DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+				 <DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 				      <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">

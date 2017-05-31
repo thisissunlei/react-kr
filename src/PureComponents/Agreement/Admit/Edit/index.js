@@ -84,6 +84,7 @@ export default class JoinCreate extends React.Component {
 			formValues
 		} = this.state;
 		let _this  = this;
+		// console.log('admit',formValues)
 		// return;
 
 		Http.request('updateFinaContractIntentletter', {}, formValues).then(function(response) {
