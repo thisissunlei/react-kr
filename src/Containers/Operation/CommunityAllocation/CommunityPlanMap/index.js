@@ -127,9 +127,7 @@ class CommunityPlanMap extends React.Component {
          
 			document.getElementById("sizeCheckbox").checked=checked;
 			document.getElementById("bgfilename").innerHTML=response.graphFileName?response.graphFileName:'无';
-			_this.mapComponent.setStationToSame(checked, function (code, message) {
-		    });
-            
+	
 			if(data){
 				Message.success(data);
 			}

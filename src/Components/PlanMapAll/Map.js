@@ -246,7 +246,6 @@ var Map = (function (window) {
             translateY = translateY;
         }
 
-
         //工位及会议室
         var StationObject = function (props) {
 
@@ -1736,8 +1735,6 @@ var Map = (function (window) {
         }
 
         MapObject.prototype.stationToSameAction = function () {
-
-            var dragStations = this.getDragStations();
 
             if (!stationToSame) {
                 return;
