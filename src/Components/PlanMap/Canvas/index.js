@@ -26,8 +26,10 @@ export default  class Canvas extends React.Component {
 		const {url,id} = this.props;
 		const {data} = this.state;
 		const _this = this;
+		const host = "http://"+window.location.host;
+		console.log("host",host);
 		let img = new Image();
-		img.src = "http://optest.krspace.cn"+url;
+		img.src = host+url;
 		img.onload = function () {
 	  	var canvas = document.getElementById("canvas"+id);
 		canvas.width = img.width || 1000;
@@ -151,7 +153,6 @@ export default  class Canvas extends React.Component {
 			ctx.stroke();
 			return item;
         })
-		console.log(submitData,"KKKGGG");
 		dataChange && dataChange(newfloor,submitData,deleteArr);
 		this.setState({
 			data:allObj
