@@ -24,12 +24,19 @@ export default class TableIndex extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			sWidthC :0
 		}
 	}
 
 	componentWillReceiveProps(nextProps){
-		
+		let _this = this;
+		if(!nextProps.isLeftNavShow){
+			$(".table-box").eq(0).width($(window).width()-80);
+			$(".table-data").eq(0).width($(window).width()-80);
+		}else{
+			$(".table-box").eq(0).width(_this.state.sWidthC);
+			$(".table-data").eq(0).width(_this.state.sWidthC);
+		}
 	}
 
 	thousands=(num)=>{
@@ -59,7 +66,11 @@ export default class TableIndex extends React.Component{
 		let _this = this;
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
-		// $(".table-data").width(tableBoxWidth);
+		this.setState({
+			sWidthC:$(window).width()-260
+		})
+		$(".table-data").width(tableBoxWidth);
+		$(".table-box").eq(0).width($(".community-collect-box").eq(0).width());
 		$(".table-box").height($(window).height()-200);
 		
 		var tableContainerWidth = $(".table-container").eq(0).width();
@@ -68,13 +79,11 @@ export default class TableIndex extends React.Component{
 			$("td div").filter(".header-div").width((tableBoxWidth-10)/10-10);
 			$(".date-items").eq(0).width(tableBoxWidth);
 		}
-
-		
-
 		$('.table-data').eq(0).scroll(function(event){
 			_this.refs.tableHeader.style.left =-$(this).scrollLeft()+"px"; 
 		   
 		    if($(this).scrollLeft()>140){
+
 		    	_this.refs.leftTitle.style.display = "block";
 		    	_this.refs.leftTitleBox.style.top = -$(this).scrollTop()+"px";
 		 
