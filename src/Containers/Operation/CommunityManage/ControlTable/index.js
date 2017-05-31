@@ -265,7 +265,7 @@ getScrollTop = () => {
    onExport = () =>{
 	   const {searchParams} = this.state;
      const host = "http://"+window.location.host;
-		var url = `${host}/api /krspace-finance-web/cmt/sell-control/list/export?communityId=${searchParams.communityId}&customerName=${searchParams.customerName}`;
+		var url = `/api/krspace-finance-web/cmt/sell-control/list/export?communityId=${searchParams.communityId}&customerName=${searchParams.customerName}`;
 		window.location.href = url;
    }
    //生成头部
@@ -372,8 +372,8 @@ getScrollTop = () => {
 
 		return(
 			<div className="m-control-table" style={{minHeight:'910'}}>
-				<Title value="访客记录"/>
-				<Section title="访客记录"  style={{marginBottom:-5,minHeight:910}}>
+				<Title value="销控表"/>
+				<Section title="销控表"  style={{marginBottom:-5,minHeight:910}}>
 					<SearchFormControlTable
 						communityChange = {this.communityChange}
 						onSubmit = {this.onSubmit}
