@@ -113,8 +113,6 @@ getScrollTop = () => {
 		//滚轮监听
 		window.addEventListener("scroll",this.onscrollListener,false)
 
-
-
 	}
 	onscrollListener = () =>{
 		var _this = this;
@@ -149,7 +147,7 @@ getScrollTop = () => {
 						top:60,
 						left:left,
 						right:39,
-						width:"auto",
+						
 						zIndex:99
 
 					},

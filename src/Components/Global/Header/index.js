@@ -204,7 +204,9 @@ class Header extends React.Component {
 			sidebar_nav,
 			flag
 		} = this.props;
-
+		
+		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop ;
+		document.documentElement.scrollTop = document.body.scrollTop = scrollTop+1;
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
 
 	}

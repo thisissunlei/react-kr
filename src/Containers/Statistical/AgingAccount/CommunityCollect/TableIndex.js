@@ -24,8 +24,7 @@ export default class TableIndex extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			loading : false
-
+			
 		}
 	}
 
@@ -58,17 +57,20 @@ export default class TableIndex extends React.Component{
 
 	componentDidMount(){
 		let _this = this;
-		setTimeout(function(){
-			_this.setState({
-				loading:false
-			})
-		},1500);
-		
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
-		$(".table-data").width(tableBoxWidth);
+		// $(".table-data").width(tableBoxWidth);
 		$(".table-box").height($(window).height()-200);
 		
+		var tableContainerWidth = $(".table-container").eq(0).width();
+
+		if(tableContainerWidth<tableBoxWidth){
+			$("td div").filter(".header-div").width((tableBoxWidth-10)/10-10);
+			$(".date-items").eq(0).width(tableBoxWidth);
+		}
+
+		
+
 		$('.table-data').eq(0).scroll(function(event){
 			_this.refs.tableHeader.style.left =-$(this).scrollLeft()+"px"; 
 		   
@@ -89,7 +91,7 @@ export default class TableIndex extends React.Component{
 	
 	render(){
 		let _this = this;
-		let {loading} = this.state;
+		
 		return (
 			<div className="table-box">
 				
@@ -133,13 +135,11 @@ export default class TableIndex extends React.Component{
 					
 					<div className='date-items'>
 						
-
 						{
-							!loading && State.items.length<1 && <div><img style={{display: "inline-block",width: 121, height: 169,marginLeft: 413,marginTop: 100}}  src={require("../images/nothings.png")}/></div>
+							State.items.length<1 && <div><img style={{display: "inline-block",width: 121, height: 169,marginLeft: 413,marginTop: 100}}  src={require("../images/nothings.png")}/></div>
 						}
 						{
-
-						   	!loading && State.items.length>0 && State.items.map(function(item,index){
+						   	State.items.length>0 && State.items.map(function(item,index){
 						   		return <div key={index} className="data-item">
 									   		<div className="item-div">{item.cityName}</div>
 									   		<div className="item-div">{item.communityName}</div>
