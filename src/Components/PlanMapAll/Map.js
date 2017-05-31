@@ -133,7 +133,7 @@ var Map = (function (window) {
 
         return {
             reset: function () {
-                CONFIGS = {
+                 CONFIGS = {
                     stations:[]
                 } 
             },
@@ -245,6 +245,7 @@ var Map = (function (window) {
         if (params.hasOwnProperty('translateY')) {
             translateY = translateY;
         }
+
 
         //工位及会议室
         var StationObject = function (props) {
@@ -945,8 +946,8 @@ var Map = (function (window) {
         var MapObject = function (elementId, configs) {
 
             DB.reset();
-            stationObjectArray = [];
 
+            stationObjectArray = [];
 
             this.isComponentDidMout = false;
             this.readyCallback = function () { };
@@ -966,6 +967,14 @@ var Map = (function (window) {
 
             if (configs.hasOwnProperty('defaultStation')) {
                 defaultStation = Object.assign({},defaultStation);
+            }
+
+            if (configs.hasOwnProperty('translateX')) {
+                translateX = configs.translateX;
+            }
+
+            if (configs.hasOwnProperty('translateY')) {
+                translateY = configs.translateY;
             }
 
 
@@ -1736,6 +1745,8 @@ var Map = (function (window) {
 
         MapObject.prototype.stationToSameAction = function () {
 
+            var dragStations = this.getDragStations();
+
             if (!stationToSame) {
                 return;
             }
@@ -1974,5 +1985,4 @@ var Map = (function (window) {
 
 })(window);
 
-
-module.exports = Map;
+module.exports=Map;

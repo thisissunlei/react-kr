@@ -510,7 +510,7 @@ class CommunityPlanMap extends React.Component {
 		})
 
 		var communityName = sessionStorage.getItem('communityName');
-        let title=`平面图配置开发(${communityName})`;
+        let title=`平面图配置(${communityName})`;
 		return (
 			<div>
 				<Title value="平面图配置" />
