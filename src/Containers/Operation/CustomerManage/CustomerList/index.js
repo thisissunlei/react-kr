@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'; 
+import React, { PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 
 import {
@@ -84,7 +84,7 @@ class CustomerList extends React.Component {
 	searchPerson=()=>{
 		var _this=this;
        Http.request('search-conditions').then(function(response) {
-		     State.searchParams=response;	
+		     State.searchParams=response;
 			 }).catch(function(err){
 				 Message.error(err.message);
 			});
@@ -93,7 +93,7 @@ class CustomerList extends React.Component {
 	searchSign=()=>{
 		var _this=this;
        Http.request('sign-search-conditions').then(function(response) {
-		      State.searchSignParams=response;	
+		      State.searchSignParams=response;
 			 }).catch(function(err){
 				 Message.error(err.message);
 			});
@@ -176,7 +176,7 @@ class CustomerList extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
-			<Title value="客户列表"/>
+			<Title value="客户线索"/>
 
 			<Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
