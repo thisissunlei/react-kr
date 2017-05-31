@@ -96,6 +96,15 @@ export default class PlanMapAll extends Component {
         });
     }
 
+    ready=(callback)=>{
+        if (!this.map) {
+            return;
+        }
+        this.map.ready(function (data) {
+            callback && callback(data);
+        }); 
+    }
+
     onRemove = (callback) => {
 
         if (!this.map) {

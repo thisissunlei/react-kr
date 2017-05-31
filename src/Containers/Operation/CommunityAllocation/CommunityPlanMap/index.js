@@ -6,7 +6,8 @@ import {
 	Section,
 	KrField,
 	Message,
-	PlanMapAll
+	PlanMapAll,
+	Loading
 } from 'kr-ui';
 import { Http } from 'kr/Utils';
 import './index.less';
@@ -46,6 +47,8 @@ class CommunityPlanMap extends React.Component {
 			planMapId: '',
 			//删除的元件
 			deleteData: [],
+			//加载
+			loading:true
 		}
 		//保存返回的数据
 		this.saveData = {};
@@ -114,6 +117,8 @@ class CommunityPlanMap extends React.Component {
 				},
 				stationToSame:checked,
 				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
+				translateX:0,
+				translateY:0
 			}
 
 			_this.setState({
@@ -124,6 +129,13 @@ class CommunityPlanMap extends React.Component {
 			});
             
 			_this.mapComponent.newMap(initializeConfigs);
+			_this.mapComponent.ready(function(data){
+                  _this.setState({
+					  loading:false
+				  })
+			});
+			
+
 
 			
 			document.getElementById("sizeCheckbox").checked=checked;
@@ -301,7 +313,6 @@ class CommunityPlanMap extends React.Component {
 			var isSame = '';
 			var href = _this.context.router.params.communityId;
 			var checked = document.getElementById("sizeCheckbox").checked;
-			console.log('checkour',checked);
 			if (checked) {
 				isSame = 'SAME';
 				saveData.stations.map((item,index)=>{
@@ -451,15 +462,21 @@ class CommunityPlanMap extends React.Component {
 		var type = '';
 		var width = '';
 		var height = '';
+		var x='';
+		var y='';
 		var myApp = document.getElementById("mapAPP");
 		if (isStation) {
 			type = 'STATION';
 			width = 30;
 			height = 30;
+            x=event.target.getBoundingClientRect().left+width/2;
+			y=event.target.getBoundingClientRect().top+height/2;
 		} else {
 			type = 'SPACE';
 			width = 60;
 			height = 40;
+			x= event.target.getBoundingClientRect().left+118/2;
+			y= event.target.getBoundingClientRect().top+48/2;
 		}
 
 		if (this.upFlag) {
@@ -468,8 +485,8 @@ class CommunityPlanMap extends React.Component {
 				figureSets.splice(dataIndex, 1);
 
 				var station = {
-					x: event.target.getBoundingClientRect().left+width/2,
-					y: event.target.getBoundingClientRect().top+height/2,
+					x: x,
+					y: y,
 					width: width,
 					height: height,
 					belongType: type,
@@ -498,7 +515,7 @@ class CommunityPlanMap extends React.Component {
 	render() {
 
 		let {handleSubmit } = this.props;
-		let {isStation,figureSets,floors,initializeConfigs} = this.state;
+		let {isStation,figureSets,floors,initializeConfigs,loading} = this.state;
 		var floor = [];
 		floors.map((item, index) => {
 			var list = {};
@@ -508,11 +525,12 @@ class CommunityPlanMap extends React.Component {
 		})
 
 		var communityName = sessionStorage.getItem('communityName');
-        let title=`平面图配置开发(${communityName})`;
+        let title=`平面图配置(${communityName})`;
 		return (
 			<div>
 				<Title value="平面图配置" />
 				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
+					{loading&&<Loading />}
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >
 							<div className='plan-header'>
@@ -543,7 +561,6 @@ class CommunityPlanMap extends React.Component {
                                   </a>
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
-
 										</span>
 									</div>
 									<div className='upload-btn' onClick={this.onSubmit}>上传</div>
@@ -565,11 +582,11 @@ class CommunityPlanMap extends React.Component {
 
 								<div className='plan-body-left'>
 									<div className='tab-list'>
-										<li id='tab-station' onMouseOver={this.mouseOverStaion}>
+										<li id='tab-station' onClick={this.mouseOverStaion}>
 											<span>工位元件</span>
 											{isStation && <span className='single-station'></span>}
 										</li>
-										<li id='tab-meeting' onMouseOver={this.mouseOverMeeting}>
+										<li id='tab-meeting' onClick={this.mouseOverMeeting}>
 											<span>会议室元件</span>
 											{!isStation && <span className='single-meeting'></span>}
 										</li>
@@ -594,7 +611,7 @@ class CommunityPlanMap extends React.Component {
 													return (<div key={index} className="plan-meeting-pic">
 														<div className="meeting-pic" 
 														  data-index={index} 
-														  data-id={item.belongId} >
+														  data-id={item.belongId}>
 														    {item.cellName}
 														</div>
 													</div>)
