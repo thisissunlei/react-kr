@@ -36,16 +36,6 @@ import SearchForm from "./SearchForm";
 import OneNewAgreement from "./OneNewAgreement";
 import TwoNewAgreement from "./TwoNewAgreement";
 import EditAgreementList from "./EditAgreementList";
-import Admit from "./Admit";
-import Create from './Admit/Create';
-
-
-import AdmitDetail from './Admit/Detail';
-import ExitDetail from './Exit/Detail';
-import ReduceDetail from './Reduce/Detail';
-import RenewDetail from './Renew/Detail';
-import IncreaseDetail from './Increase/Detail';
-import JoinDetail from './Join/Detail';
 import NewIndent from "./NewIndent";
 import DelAgreementNotify from './DelAgreementNotify';
 import './circle.less';

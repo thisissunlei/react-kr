@@ -23,6 +23,8 @@ let State = observable({
 	//编辑合同
 	openEditAgreement:false,
 	openLocalStorage:false,
+	openAgreementDetail:false,
+	detailValue:''
 
 });
 

@@ -73,7 +73,9 @@ let State = observable({
 
 		},
 		local:[],
-		hasLocal:false
+		hasLocal:false,
+		detailValue:'',
+		openAgreementDetail:false
 
 });
 State.hasOfficeChange=action(function(params){
@@ -110,6 +112,12 @@ State.createContract=action(function(){
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+})
+State.editParams = action(function(customerId, orderId, typeValue, agreementId){
+		this.argumentType = typeValue;
+		this.listId = customerId;
+		this.mainBillId = orderId;
+		this.agreementId = agreementId;
 })
 
 
