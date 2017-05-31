@@ -456,12 +456,12 @@ class CommunityPlanMap extends React.Component {
 		var myApp = document.getElementById("mapAPP");
 		if (isStation) {
 			type = 'STATION';
-			width = 60;
-			height = 40;
+			width = 30;
+			height = 30;
 		} else {
 			type = 'SPACE';
-			width = 118;
-			height = 48;
+			width = 60;
+			height = 40;
 		}
 
 		if (this.upFlag) {
