@@ -72,7 +72,7 @@ export default class JoinCreate extends React.Component {
 	onCreateSubmit(formValues) {
 
 		let {
-			params
+			params,onSubmit
 		} = this.props;
 		let _this = this;
 		let {CommunityAgreementList} = this.props;
@@ -86,7 +86,8 @@ export default class JoinCreate extends React.Component {
 				message: '更新成功',
 				type: 'success',
 			}]);
-			CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			onSubmit && onSubmit()
+			// CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			CommunityAgreementList.openEditAgreement=false;
 
 			//location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/reduce/" + response.contractId + "/detail";

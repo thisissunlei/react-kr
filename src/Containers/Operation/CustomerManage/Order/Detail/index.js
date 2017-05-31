@@ -343,6 +343,32 @@ export default class OrderDetail extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
+	submitAgreement=()=>{
+
+		var _this = this;
+
+		Http.request('get-order-detail', {
+			mainBillId: this.props.params.orderId
+		}).then(function(response) {
+			_this.setState({
+				response: response
+			});
+
+
+			setTimeout(function() {
+				_this.setState({
+					loading: false
+				});
+			}, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		});
+	}
 	closeTwoAgreement=()=>{
 		let {CommunityAgreementList} = this.props;
 		CommunityAgreementList.openTowAgreement = false;
@@ -902,7 +928,7 @@ export default class OrderDetail extends React.Component {
     			containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			>
 
-			 	<TwoNewAgreement onCancel={this.closeTwoAgreement}/>
+			 	<TwoNewAgreement onCancel={this.closeTwoAgreement} onSubmit={this.submitAgreement}/>
 		    </Drawer>
 
 			{/*查看*/}
@@ -929,7 +955,7 @@ export default class OrderDetail extends React.Component {
 			>
 
 
-			   	<EditAgreementList onCancel={this.closeEditAgreement}/>
+			   	<EditAgreementList onCancel={this.closeEditAgreement} onSubmit={this.submitAgreement}/>
 		    </Drawer>
 
 		    

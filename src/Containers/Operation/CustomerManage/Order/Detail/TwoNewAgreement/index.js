@@ -15,8 +15,10 @@ import {
 	Row,
 	ListGroup,
 	ListGroupItem,
-	Button
+	Button,
+	Notify
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 import $ from 'jquery';
 import allState from "../State";
@@ -34,9 +36,14 @@ class LookCustomerList extends Component{
 		super(props, context);
 
 	}
-	onSubmit = (values) => {
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+	onSubmit = () => {
+		let {onSubmit} = this.props;
+		onSubmit && onSubmit()
+
+		// window.location.reload();
+
+		
+		
 	}
 
 	onCancel = () => {
@@ -53,7 +60,6 @@ class LookCustomerList extends Component{
 	}
 	componentDidMount(){
 		this.getlocalSign();
-		console.log('two--->',allState)
 		let {CommunityAgreementList} = this.props
 		CommunityAgreementList.openLocalStorage=false;
 		allState.openLocalStorages = 0;
@@ -119,13 +125,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')}>
-					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} />
+					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}  onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')} type="ENTER">
-					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 		}
@@ -139,13 +145,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')} >
-					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')} type="ADDRENT">
-					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 		}
@@ -159,14 +165,14 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')}>
-					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 
 		}else{
 			showTab.push(
 				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')} type="RENEW">
-					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 
@@ -180,13 +186,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')}>
-					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')} type="LESSRENT">
-					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 		}
@@ -199,13 +205,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')}>
-					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')} type="QUITRENT">
-					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 
@@ -219,13 +225,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')}>
-					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')} type='INTENTION'>
-					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 

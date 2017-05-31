@@ -90,7 +90,7 @@ export default class JoinCreate extends Component {
 			formValues
 		} = this.state;
 		let {
-			params
+			params,onSubmit
 		} = this.props;
 		var _this = this;
 		Http.request('getFnaContractRentController','' ,formValues).then(function(response) {
@@ -100,7 +100,7 @@ export default class JoinCreate extends Component {
 				type: 'success',
 			}]);
 			_this.removeLocalStorages();
-			_this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			onSubmit && onSubmit()
 			_this.props.CommunityAgreementList.openTowAgreement=false;
 			_this.props.CommunityAgreementList.openOneAgreement=false;
 			_this.props.CommunityAgreementList.openLocalStorage = false;

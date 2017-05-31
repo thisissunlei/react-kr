@@ -79,6 +79,7 @@ export default class JoinCreate extends React.Component {
 	onConfrimSubmit() {
 
 		let params = this.props.params;
+		let {onSubmit} = this.props;
 		let {
 			formValues
 		} = this.state;
@@ -90,7 +91,8 @@ export default class JoinCreate extends React.Component {
 				message: '更新成功',
 				type: 'success',
 			}]);
-			_this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			onSubmit && onSubmit();
+			// _this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 			_this.props.CommunityAgreementList.openEditAgreement=false;
 
 

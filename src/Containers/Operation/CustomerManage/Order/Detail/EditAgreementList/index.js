@@ -18,9 +18,9 @@ class EditAgreementList extends Component{
 		super(props, context);
 
 	}
-	onSubmit = (values) => {
+	onSubmit = () => {
 		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		onSubmit && onSubmit();
 	}
 
 	onCancel = () => {
@@ -37,23 +37,23 @@ class EditAgreementList extends Component{
 		var content="";
 		if(allState.argumentType=="QUITRENT"){
 
-			content=(<div><span className="content-title">退租协议书详情页</span><Agreement.Exit.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">退租协议书详情页</span><Agreement.Exit.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} onSubmit={this.onSubmit}/></div>)
 
 		}
 		if(allState.argumentType=="ADDRENT"){
-			content=(<div><span className="content-title">增租协议书详情页</span><Agreement.Increase.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">增租协议书详情页</span><Agreement.Increase.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} onSubmit={this.onSubmit}/></div>)
 		}
 		if(allState.argumentType=="ENTER"){
-			content=(<div><span className="content-title">入驻协议书详情页</span><Agreement.Join.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">入驻协议书详情页</span><Agreement.Join.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} onSubmit={this.onSubmit}/></div>)
 		}
 		if(allState.argumentType=="LESSRENT"){
-			content=(<div><span className="content-title">减租协议书详情页</span><Agreement.Reduce.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">减租协议书详情页</span><Agreement.Reduce.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} onSubmit={this.onSubmit}/></div>)
 		}
 		if(allState.argumentType=="RENEW"){
-			content=(<div><span className="content-title">续租协议书详情页</span><Agreement.Renew.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">续租协议书详情页</span><Agreement.Renew.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} onSubmit={this.onSubmit}/></div>)
 		}
 		if(allState.argumentType=="INTENTION"){
-			content=(<div><span className="content-title">承租意向书详情页</span><Agreement.Admit.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+			content=(<div><span className="content-title">承租意向书详情页</span><Agreement.Admit.Edit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} onSubmit={this.onSubmit}/></div>)
 
 		}
 
