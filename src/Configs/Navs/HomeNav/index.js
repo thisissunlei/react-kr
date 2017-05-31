@@ -1,10 +1,7 @@
 module.exports = [
-
 	{
 		primaryText: "首页",
-		router: '/',
-		
-		originUrl: '/',
+		router: '',
 		openSidebar:false,
 	}
 ]

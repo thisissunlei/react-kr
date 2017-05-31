@@ -3,7 +3,7 @@ module.exports = [
 	{
 		primaryText: "知识中心",
 		menuCode: 'krspace_knowledge',
-		router: '/document',
+		router: 'document',
 		originUrl: '/krspace_knowledge_web/doc/docFile/toDocTypeList?mid=67',
 		menuItems: [
 			{
