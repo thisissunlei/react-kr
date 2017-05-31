@@ -10,6 +10,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	Loading,
 } from 'kr-ui';
 import State from "./State";
 import './index.less';
@@ -23,12 +24,9 @@ export default class TableIndex extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-
+			loading : false
 
 		}
-	}
-	componentDidMount() {
-		
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -60,6 +58,12 @@ export default class TableIndex extends React.Component{
 
 	componentDidMount(){
 		let _this = this;
+		setTimeout(function(){
+			_this.setState({
+				loading:false
+			})
+		},1500);
+		
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
 		$(".table-data").width(tableBoxWidth);
@@ -80,9 +84,12 @@ export default class TableIndex extends React.Component{
 		});
 		
 	}
+
+	
 	
 	render(){
 		let _this = this;
+		let {loading} = this.state;
 		return (
 			<div className="table-box">
 				
@@ -122,10 +129,17 @@ export default class TableIndex extends React.Component{
 					   	</tbody>
 					  
 					</table>
+					
+					
 					<div className='date-items'>
+						
+
+						{
+							!loading && State.items.length<1 && <div><img style={{display: "inline-block",width: 121, height: 169,marginLeft: 413,marginTop: 100}}  src={require("../images/nothings.png")}/></div>
+						}
 						{
 
-						   	State.items.map(function(item,index){
+						   	!loading && State.items.length>0 && State.items.map(function(item,index){
 						   		return <div key={index} className="data-item">
 									   		<div className="item-div">{item.cityName}</div>
 									   		<div className="item-div">{item.communityName}</div>

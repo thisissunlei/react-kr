@@ -68,7 +68,7 @@ export default class SearchDetailForm extends React.Component {
 					
 					<div className="right-cont">
 						<ListGroup style={{height:50,lineHeight: 50}}>
-							<ListGroupItem style={{padding:0,color:'#333',verticalAlign:"top",display:"inline-block",margin:0,marginTop:10}}>
+							<ListGroupItem style={{padding:0,color:'#333',verticalAlign:"top",display:"inline-block",margin:0,marginTop:15}}>
 								
 								<span style={{height:58,fontSize:14}}>统计截止日期:</span>
 							
@@ -78,14 +78,15 @@ export default class SearchDetailForm extends React.Component {
 								<KrField name="endDate"  component="date" onChange={this.onTimeChange} style={{width:252,marginTop: 7}} placeholder={timeDefaultValue} />
 							
 							</ListGroupItem>
-							<ListGroupItem style={{textAlign:'center',padding:0,verticalAlign:"top",margin:"10px 0 10px 10px"}}>
+							<ListGroupItem style={{textAlign:'center',padding:0,verticalAlign:"top",margin:"13px 0 0px 10px"}}>
 								
 								<span style={{display:'inline-block',height:58,fontSize:14}}>社区:</span>
 							
 							</ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
+
 								
-								<KrField  name="collectCommunityId" component="searchCommunity"  onChange={this.changeCommunity} requireLabel={false}  style={{width:252,marginTop: 7,marginRight:7}}/>
+								<KrField  name="collectCommunityId" component="searchCommunityList"  inline={false} onChange={this.changeCommunity} requireLabel={false}  style={{width:252,marginTop: 7,marginRight:7}}/>
 								
 							</ListGroupItem>
 						</ListGroup>

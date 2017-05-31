@@ -468,8 +468,8 @@ class CommunityPlanMap extends React.Component {
 				figureSets.splice(dataIndex, 1);
 
 				var station = {
-					x: event.target.getBoundingClientRect().left,
-					y: event.target.getBoundingClientRect().top,
+					x: event.target.getBoundingClientRect().left+width/2,
+					y: event.target.getBoundingClientRect().top+height/2,
 					width: width,
 					height: height,
 					belongType: type,
