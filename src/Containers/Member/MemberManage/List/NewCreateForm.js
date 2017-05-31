@@ -240,7 +240,7 @@ class NewCreateForm extends React.Component{
 					<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 					</div>
-					<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} style={{width:'252px',marginRight:'30'}}/>
+					<KrField grid={1/2} name="communityId" component="searchCommunityList" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} inline={false} style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px'}}/>
 					<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
 					<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px'}}/>
