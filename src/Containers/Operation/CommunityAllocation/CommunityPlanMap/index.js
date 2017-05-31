@@ -6,7 +6,8 @@ import {
 	Section,
 	KrField,
 	Message,
-	PlanMapAll
+	PlanMapAll,
+	Loading
 } from 'kr-ui';
 import { Http } from 'kr/Utils';
 import './index.less';
@@ -46,6 +47,8 @@ class CommunityPlanMap extends React.Component {
 			planMapId: '',
 			//删除的元件
 			deleteData: [],
+			//加载
+			loading:true
 		}
 		//保存返回的数据
 		this.saveData = {};
@@ -126,6 +129,13 @@ class CommunityPlanMap extends React.Component {
 			});
             
 			_this.mapComponent.newMap(initializeConfigs);
+			_this.mapComponent.ready(function(data){
+                  _this.setState({
+					  loading:false
+				  })
+			});
+			
+
 
 			
 			document.getElementById("sizeCheckbox").checked=checked;
@@ -303,7 +313,6 @@ class CommunityPlanMap extends React.Component {
 			var isSame = '';
 			var href = _this.context.router.params.communityId;
 			var checked = document.getElementById("sizeCheckbox").checked;
-			console.log('checkour',checked);
 			if (checked) {
 				isSame = 'SAME';
 				saveData.stations.map((item,index)=>{
@@ -506,7 +515,7 @@ class CommunityPlanMap extends React.Component {
 	render() {
 
 		let {handleSubmit } = this.props;
-		let {isStation,figureSets,floors,initializeConfigs} = this.state;
+		let {isStation,figureSets,floors,initializeConfigs,loading} = this.state;
 		var floor = [];
 		floors.map((item, index) => {
 			var list = {};
@@ -521,6 +530,7 @@ class CommunityPlanMap extends React.Component {
 			<div>
 				<Title value="平面图配置" />
 				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
+					{loading&&<Loading />}
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >
 							<div className='plan-header'>
