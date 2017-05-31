@@ -453,15 +453,21 @@ class CommunityPlanMap extends React.Component {
 		var type = '';
 		var width = '';
 		var height = '';
+		var x='';
+		var y='';
 		var myApp = document.getElementById("mapAPP");
 		if (isStation) {
 			type = 'STATION';
 			width = 30;
 			height = 30;
+            x=event.target.getBoundingClientRect().left+width/2;
+			y=event.target.getBoundingClientRect().top+height/2;
 		} else {
 			type = 'SPACE';
 			width = 60;
 			height = 40;
+			x= event.target.getBoundingClientRect().left+118/2;
+			y= event.target.getBoundingClientRect().top+48/2;
 		}
 
 		if (this.upFlag) {
@@ -470,8 +476,8 @@ class CommunityPlanMap extends React.Component {
 				figureSets.splice(dataIndex, 1);
 
 				var station = {
-					x: event.target.getBoundingClientRect().left+width/2,
-					y: event.target.getBoundingClientRect().top+height/2,
+					x: x,
+					y: y,
 					width: width,
 					height: height,
 					belongType: type,
