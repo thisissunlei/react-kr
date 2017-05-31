@@ -551,7 +551,6 @@ class CommunityPlanMap extends React.Component {
                                   </a>
 									<div className="back-type">
 										<span id="bgfilename" style={{ fontSize: '14px' }}>
-
 										</span>
 									</div>
 									<div className='upload-btn' onClick={this.onSubmit}>上传</div>
@@ -573,11 +572,11 @@ class CommunityPlanMap extends React.Component {
 
 								<div className='plan-body-left'>
 									<div className='tab-list'>
-										<li id='tab-station' onMouseOver={this.mouseOverStaion}>
+										<li id='tab-station' onClick={this.mouseOverStaion}>
 											<span>工位元件</span>
 											{isStation && <span className='single-station'></span>}
 										</li>
-										<li id='tab-meeting' onMouseOver={this.mouseOverMeeting}>
+										<li id='tab-meeting' onClick={this.mouseOverMeeting}>
 											<span>会议室元件</span>
 											{!isStation && <span className='single-meeting'></span>}
 										</li>
