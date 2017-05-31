@@ -59,7 +59,7 @@ export default class TableIndex extends React.Component{
 		let _this = this;
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
-		$(".table-data").width(tableBoxWidth);
+		// $(".table-data").width(tableBoxWidth);
 		$(".table-box").height($(window).height()-200);
 		
 		var tableContainerWidth = $(".table-container").eq(0).width();
