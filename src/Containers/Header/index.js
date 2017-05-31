@@ -171,6 +171,7 @@ export default class Header extends React.Component {
 				<Drawer 
 						open={NavModel.openSidebar} 
 						openSecondary={false} 
+						openDirection="left"
 						modal={false} 
 						width={180} 
 						drawerStyle={{zIndex:-1,width:180}} 
