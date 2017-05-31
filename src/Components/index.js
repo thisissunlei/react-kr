@@ -148,6 +148,6 @@ module.exports = {
 	LoadingTwo,
 	Nothing,
 	PlanMapAll,
-	...PlanMap
+	...PlanMap,
 	ToTop
 }
