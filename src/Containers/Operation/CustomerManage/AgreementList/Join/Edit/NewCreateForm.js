@@ -480,16 +480,15 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		var stationVos = [];
-
-		// console.log('billList',billList);
-
-		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
+		data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
 			obj.stationId = item.id;
 			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.type;
 			delStationVos.push(obj);
+
 		})
+		console.log()
 		try {
 			billList.map(function(item, index) {
 				var obj = {};

@@ -186,9 +186,10 @@ export default class PlanMapComponent extends React.Component {
 
 		 	delData.push(obj2);
 		 })
+
 		const {onClose} = this.props;
 		
-		onClose && onClose(allData,delData);
+		onClose && onClose(allData,{deleteData:delData});
 		
 
 
