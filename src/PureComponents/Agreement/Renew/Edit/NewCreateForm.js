@@ -172,12 +172,23 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		let {initialValues} = this.props;
+		let oldStationsVos = this.state.stationVos;
+		let delStationVos = Object.assign([],oldStationsVos)
+		stationVos.map(item=>{
+			oldStationsVos.map((values,index)=>{
+				if(item.stationId == values.stationId){
+					delStationVos.splice(index,1)
+				}
+			})
+		})
 
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
+		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
 
 		this.setAllRent(stationVos);
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
 		});
 
 		this.openStationDialog();
@@ -208,6 +219,8 @@ class NewCreateForm extends React.Component {
 			delStationVos
 		} = this.state;
 		let {initialValues} = this.props;
+
+		console.log('delStationVos',delStationVos)
 
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -294,18 +307,16 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos,
 		} = this.state;
-		let originStationVos = form.stationVos;
-		console.log('=====>',form.stationVos,stationVos)
 
-		delStationVos = originStationVos.filter(function(origin){
-				var isOk = true;
-				stationVos.map(function(station){
-						if(station.id == origin.id){
-								isOk = false;
-						}
-				});
-				return isOk;
-		});
+		// delStationVos = originStationVos.filter(function(origin){
+		// 		var isOk = true;
+		// 		stationVos.map(function(station){
+		// 				if(station.id == origin.id){
+		// 						isOk = false;
+		// 				}
+		// 		});
+		// 		return isOk;
+		// });
 		// form.contractmark = '';
 		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';

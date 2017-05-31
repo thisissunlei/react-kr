@@ -70,8 +70,8 @@ static contextTypes = {
     } = this.props;
    let _this = this;
    let {CommunityAgreementList} = this.props;
-   console.log('formValues',formValues);
-   return;
+   // console.log('formValues',formValues);
+   // return;
 
     Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
       _this.removeAllLocalStorage();
@@ -105,7 +105,7 @@ static contextTypes = {
 
    removeLocalStorage=()=>{
     let {params} = this.props;
-    let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'RENEWedit';
+    let keyWord = params.orderId+''+params.customerId+''+params.id+'RENEWedit';
     let removeList = [];
     for (var i = 0; i < localStorage.length; i++) {
       let itemName = localStorage.key(i);
@@ -288,7 +288,7 @@ static contextTypes = {
     let stationVos = [];
     let delStationVos = [];
 
-    let keyWord = params.orderId+''+ params.customerId+'RENEWedit';
+    let keyWord = params.orderId+''+ params.customerId+''+params.id+'RENEWedit';
     let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
 
@@ -387,7 +387,7 @@ static contextTypes = {
     } = this.props;
     let _this = this;
     let sign = false;
-    let keyWord = params.orderId+''+ params.customerId+'RENEWedit';
+    let keyWord = params.orderId+''+ params.customerId+''+params.id+'RENEWedit';
     let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
     if( localStorageData.num - localStorageData.oldNum>1){
       _this.setState({
@@ -426,7 +426,6 @@ static contextTypes = {
       stationVos,
       delStationVos
     } = this.state;
-
     return (
 
       <div>

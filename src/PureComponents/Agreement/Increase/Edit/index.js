@@ -65,6 +65,8 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		let _this = this;
+		console.log('increase',formValues)
+		return;
 		let {CommunityAgreementList} = this.props;
 		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
 
@@ -99,7 +101,7 @@ export default class JoinCreate extends React.Component {
 
 	removeLocalStorage=()=>{
 		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId+''+allState.agreementId+'ADDRENTedit';
+		let keyWord = params.orderId+''+params.customerId+''+params.id+'ADDRENTedit';
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
