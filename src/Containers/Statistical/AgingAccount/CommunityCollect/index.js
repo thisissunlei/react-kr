@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Actions,Store} from 'kr/Redux';
+import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Message,
 	Tabs,
@@ -26,7 +26,7 @@ import {
 @observer
 
 
-export default class CommunityCollect extends React.Component{
+class CommunityCollect extends React.Component{
 
 	constructor(props,context){
 
@@ -100,9 +100,9 @@ export default class CommunityCollect extends React.Component{
 
 	render(){
 		let _this = this;
-		
 		let {dataList,isShowLeft} = this.state;
-		let {LeftIconClick} = this.props;
+		let {sidebar_nav}=this.props;
+		// console.log("sidebar_nav communityCollect",sidebar_nav);
 		return(
 			<div className="community-collect">
 				<div className="community-collect-box">
@@ -113,7 +113,7 @@ export default class CommunityCollect extends React.Component{
 					</div>
 					<div className="community-collect-table-box" ref="communityCollectTableBox">
 						{
-							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={LeftIconClick.showSideNav}/>:null
+							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={sidebar_nav.switch_value}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>
@@ -123,3 +123,14 @@ export default class CommunityCollect extends React.Component{
 		);
 	}
 }
+
+export default connect((state) => {
+
+   var sidebar_nav = state.sidebar_nav;
+
+
+	return {
+		sidebar_nav
+	}
+
+})(CommunityCollect);
