@@ -3,7 +3,7 @@ var Map = (function (window) {
 
 
 
-    //画布上下文    
+    //画布上下文
     var context;
 
     var stationNumber = 1;
@@ -135,7 +135,7 @@ var Map = (function (window) {
             reset: function () {
                  CONFIGS = {
                     stations:[]
-                } 
+                }
             },
             getAllStation: function () {
                 var stations = [].concat(CONFIGS.stations);
@@ -1387,7 +1387,7 @@ var Map = (function (window) {
                         if (translateX > 0 && Math.abs(translateX) > tranlateRightMax) {
                             translateX = tranlateRightMax;
                         }
-            
+
                                     //上下
                                     //限制向上移最大值
                                     if (translateY < 0 && Math.abs(translateY) > translateUpMax) {
@@ -1420,6 +1420,10 @@ var Map = (function (window) {
             }
 
             var img = bkImageObject;
+            if(!img){
+              return;
+            }
+            console.log("img",img);
             context.beginPath();
             context.drawImage(img, translateX * scale, translateY * scale, img.width * scale, img.height * scale);
             context.closePath();

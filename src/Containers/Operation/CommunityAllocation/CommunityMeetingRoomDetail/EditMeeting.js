@@ -208,6 +208,12 @@ class EditMeeting  extends React.Component{
 		 }
 	}
 
+	priceBlur=(param)=>{
+       if(!param){
+          Store.dispatch(change('EditMeeting','quotedPrice','0'))
+       }
+	}
+
 
 
   render(){
@@ -349,10 +355,13 @@ class EditMeeting  extends React.Component{
 
 
 
-				<KrField grid={1/2}  name="enable" component="group" label="启用状态">
+				<KrField grid={1/2} style={{width:262}} name="enable" component="group" label="启用状态">
 					<KrField name="enable" label="启用" type="radio" value='1' />
 					<KrField name="enable" label="禁用" type="radio" value='0' />
 			   </KrField>
+
+			    <KrField grid={1/2} style={{width:262,marginLeft:29}} name="quotedPrice" component="input"  label="报价"
+                 onBlur={this.priceBlur}/>	
 
 
 			    <div className='meeting-device'><KrField
@@ -470,6 +479,10 @@ if(membersArrayErrors.length) {
 errors.maskStation = membersArrayErrors
 }
 }
+
+    if(values.quotedPrice&&isNaN(values.quotedPrice)){
+		errors.quotedPrice='报价为数字'
+	}
 
 
 		return errors

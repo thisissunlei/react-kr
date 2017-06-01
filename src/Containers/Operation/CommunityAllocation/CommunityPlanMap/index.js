@@ -530,7 +530,6 @@ class CommunityPlanMap extends React.Component {
 			<div>
 				<Title value="平面图配置" />
 				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
-					{loading&&<Loading />}
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >
 							<div className='plan-header'>
