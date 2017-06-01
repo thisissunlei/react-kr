@@ -359,7 +359,8 @@ export default class FloorPlan extends React.Component {
 					</ListGroup>
 			</form>
 			<p style={{margin:10}}></p>
-			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>
+			{/*<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>*/}
+			
 
 		</div>
 		);
