@@ -499,7 +499,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-
 		if (!billList) {
 			return;
 		}

@@ -105,9 +105,9 @@ class NewCreateForm extends React.Component {
 		form = Object.assign({}, form);
 
 		form.lessorAddress = changeValues.lessorAddress;
-		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:sss");
-		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
 		form.contractVersionType = 'NEW';
 		if(!form.contractmark){
 			form.contractmark="";

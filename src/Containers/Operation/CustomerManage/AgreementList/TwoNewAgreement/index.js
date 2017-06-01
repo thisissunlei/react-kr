@@ -86,7 +86,6 @@ class LookCustomerList extends Component{
 		let local = [];
 		type.map((item)=>{
 			let localData = JSON.parse(localStorage.getItem(keyWord + item+'create'));
-			console.log('localData',localData)
 			if(localData && localData.num-localData.oldNum>1){
 				allState.openLocalStorage = true;
 				allState.hasLocal = true;

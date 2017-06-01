@@ -153,8 +153,8 @@ class NewCreateForm extends React.Component {
 		if (!stationVos.length) {
 			return;
 		}else{
-			stationVos = [];
 			delStationVos= stationVos;
+			stationVos = [];
 		}
 		this.setState({
 			stationVos: [],
@@ -175,13 +175,8 @@ class NewCreateForm extends React.Component {
 		let delStationVos;
 
 		let {initialValues} = this.props;
-
-		if (!stationVos.length) {
-			return;
-		}else{
-			stationVos = [];
-			delStationVos= stationVos;
-		}
+		delStationVos= stationVos;
+		stationVos = [];
 
 		this.setState({
 			stationVos,
@@ -466,7 +461,7 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		var stationVos = [];
-		console.log('billList',billList,data);
+		console.log('billList',billList,data,delStationVos);
 
 		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};

@@ -168,7 +168,7 @@ static contextTypes = {
       initialValues.contractcode = response.contractCode;
       optionValues.communityAddress = response.customer.communityAddress;
       optionValues.leaseAddress = response.customer.customerAddress;
-      initialValues.setLocalStorageDate = +new Date();
+      initialValues.setLocalStorageDate = DateFormat(+new Date(),"yyyy-mm-dd 00:00:00");
 
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
       initialValues.contracttype = 'RENEW';
@@ -242,10 +242,10 @@ static contextTypes = {
         initialValues.lessorContacttel = response.lessorContacttel;
 
         //时间
-        initialValues.firstpaydate = DateFormat(response.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.signdate =DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.leaseBegindate = DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+        initialValues.firstpaydate = DateFormat(response.firstpaydate, "yyyy-mm-dd 00:00:00");
+        initialValues.signdate =DateFormat(response.signdate, "yyyy-mm-dd 00:00:00");
+        initialValues.leaseBegindate = DateFormat(response.leaseBegindate, "yyyy-mm-dd 00:00:00");
+        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd 00:00:00");
         delStationVos = [];
 
 

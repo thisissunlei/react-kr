@@ -354,7 +354,6 @@ class NewCreateForm extends Component {
 					allRent,
 					HeightAuto
 				} = this.state;
-				console.log(allRent)
 				let allRentName = this.dealRentName(allRent);
 				return (
 					<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
@@ -363,8 +362,8 @@ class NewCreateForm extends Component {
 							<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 								<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 								<div className="small-cheek">
-									<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}} >
-										<DotTitle title='租赁明细' tyle={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+									<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px",paddingLeft:0,paddingRight:0}} >
+										<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 									       <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 												<Row>
 													<Col align="right">

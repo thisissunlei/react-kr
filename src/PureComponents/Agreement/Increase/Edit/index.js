@@ -65,8 +65,7 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		let _this = this;
-		console.log('increase',formValues)
-		return;
+
 		let {CommunityAgreementList} = this.props;
 		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
 

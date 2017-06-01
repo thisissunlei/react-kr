@@ -121,7 +121,7 @@ const Operation_CustomerManage_Order_Edit = (location, callback) => {
 
 const Operation_CustomerManage_Agreement_Join_Print = (location, callback) => {
 	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Print').default)
+		callback(null, require('kr/PureComponents/Agreement/Join/Print').default)
 	}, 'Operation_CustomerManage_Agreement_Join_Print')
 }
 
@@ -145,7 +145,7 @@ const Operation_CustomerManage_Agreement_Join_Print = (location, callback) => {
 
 const Operation_CustomerManage_Agreement_Admit_Print = (location, callback) => {
 	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Print').default)
+		callback(null, require('kr/PureComponents/Agreement/Admit/Print').default)
 	}, 'Operation_CustomerManage_Agreement_Admit_Print')
 }
 
@@ -169,7 +169,7 @@ const Operation_CustomerManage_Agreement_Admit_Print = (location, callback) => {
 
 const Operation_CustomerManage_Agreement_Increase_Print = (location, callback) => {
 	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Print').default)
+		callback(null, require('kr/PureComponents/Agreement/Increase/Print').default)
 	}, 'Operation_CustomerManage_Agreement_Increase_Print')
 }
 
@@ -193,7 +193,7 @@ const Operation_CustomerManage_Agreement_Increase_Print = (location, callback) =
 
 const Operation_CustomerManage_Agreement_Renew_Print = (location, callback) => {
 	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Print').default)
+		callback(null, require('kr/PureComponents/Agreement/Renew/Print').default)
 	}, 'Operation_CustomerManage_Agreement_Renew_Print')
 }
 
@@ -217,7 +217,7 @@ const Operation_CustomerManage_Agreement_Renew_Print = (location, callback) => {
 
 const Operation_CustomerManage_Agreement_Reduce_Print = (location, callback) => {
 	require.ensure([], require => {
-		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Reduce/Print').default)
+		callback(null, require('kr/PureComponents/Agreement/Reduce/Print').default)
 	}, 'Operation_CustomerManage_Agreement_Reduce_Print')
 }
 

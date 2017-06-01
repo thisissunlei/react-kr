@@ -173,8 +173,8 @@ class NewCreateForm extends React.Component {
 		}
 
 		this.setState({
+			delStationVos: stationVos,
 			stationVos: [],
-			delStationVos: stationVos
 		}, function() {
 			this.calcStationNum();
 		});
@@ -191,8 +191,9 @@ class NewCreateForm extends React.Component {
 		}
 
 		this.setState({
+			
+			delStationVos: stationVos,
 			stationVos: [],
-			delStationVos: stationVos
 		}, function() {
 			this.calcStationNum();
 		});

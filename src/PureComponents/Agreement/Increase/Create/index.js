@@ -196,8 +196,6 @@ export default class JoinCreate extends Component {
 				initialValues.oldNum = 1;
 			}
 
-			console.log('oldNum',localStorageData.num,initialValues.oldNum)
-
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.signdate = DateFormat(+new Date(), "yyyy-mm-dd 00:00:00");
@@ -273,7 +271,6 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
-		console.log(initialValue,initialValues)
 		return (
 
 			<div>
