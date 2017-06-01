@@ -28,6 +28,7 @@ export default class AgingAccount  extends React.Component{
 
 
 	componentDidMount() {
+		
 		let _this =this;
 		Http.request('getSelfMenuInfo', {}).then(function(response) {
 			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")>-1){

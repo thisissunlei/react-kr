@@ -40,8 +40,9 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("NotifyModel")
+@inject("NotifyModel","LeftIconClick")
 @observer
+
 class Header extends React.Component {
 
 	static contextTypes = {
@@ -198,12 +199,16 @@ class Header extends React.Component {
 	}
 
 	handleToggle() {
-
+		
 		var {
 			actions,
 			sidebar_nav,
-			flag
+			flag,
+			LeftIconClick,
 		} = this.props;
+		const {showSideNav,leftIconClickFun}= LeftIconClick;
+		
+		leftIconClickFun();
 		
 		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop ;
 		document.documentElement.scrollTop = document.body.scrollTop = scrollTop+1;

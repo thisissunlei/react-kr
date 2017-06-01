@@ -18,9 +18,12 @@ import TableIndex from "./TableIndex";
 import AdvancedQueryForm from "./AdvancedQueryForm";
 import State from './State';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
-@ observer
+
+@inject("LeftIconClick")
+@observer
 
 export default class CommunityDetail  extends React.Component{
 
@@ -53,7 +56,9 @@ export default class CommunityDetail  extends React.Component{
 				}
 			}
 		}
-			
+		let {LeftIconClick} = this.props;
+		let  {showSideNav}=LeftIconClick;
+		console.log("showSideNav==>",showSideNav);
 	}
 	componentWillReceiveProps(nextProps){
 		let _this =this;
@@ -90,7 +95,7 @@ export default class CommunityDetail  extends React.Component{
 
 	render(){
 		let {isShowLeft}=this.state;
-		let {pageSecond}=this.props;
+		let {pageSecond,LeftIconClick}=this.props;
 		return(
 			<div className="community-detail">
 				<div className="community-detail-box">
@@ -101,7 +106,7 @@ export default class CommunityDetail  extends React.Component{
 					</div>
 					<div className="community-detial-table-box" ref="communityDetailTableBox">
 						{
-							!isShowLeft?<TableIndex isLeftProps={isShowLeft}/>:null
+							!isShowLeft?<TableIndex isLeftProps={isShowLeft} sideNavShow={LeftIconClick.showSideNav}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>
