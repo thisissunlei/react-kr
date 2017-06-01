@@ -26,10 +26,6 @@ import {
 
 
 export default class FloorPlan extends React.Component {
-	// static contextTypes = {
-	// 	onSetCommunity: React.PropTypes.func.isRequired,
-	// 	communityId: React.PropTypes.string.isRequired,
-	// }
 	static defaultProps = {
 		tab: '',
 	}
@@ -178,7 +174,6 @@ export default class FloorPlan extends React.Component {
 			var top = $(window).scrollTop() || 0; //539滚出的距离
 			var height = $(window).height() || 0; //705浏览器高度
 			var num = $(document).height() - $(window).height(); //页面高-浏览器高度
-			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
 			var scrollBottom = top - num;
 			var isOutBoundary = scrollBottom >= 0;
 			if (isOutBoundary) {
@@ -208,10 +203,7 @@ export default class FloorPlan extends React.Component {
 				communityIdList,
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
 	selectCommunity(personel) {
@@ -355,7 +347,6 @@ export default class FloorPlan extends React.Component {
 						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
 						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
-						{/*<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>*/}
 					</ListGroup>
 			</form>
 			<p style={{margin:10}}></p>
