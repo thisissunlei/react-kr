@@ -64,8 +64,11 @@ class EquipmentList  extends React.Component{
 
 	componentDidMount(){
 
-
+    window.addEventListener("scroll",this.scroll,false)
 	}
+  scroll = () =>{
+
+  }
    //搜索列表
    onSearchSubmit = (value) =>{
    	let {searchParams} = this.state;
