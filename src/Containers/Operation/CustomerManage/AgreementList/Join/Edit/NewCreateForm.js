@@ -378,17 +378,19 @@ class NewCreateForm extends React.Component {
 			delStationVos,
 			selectedStation
 		} = this.state;
+		console.log("<<>>>>>",stationVos)
 		let {
 			changeValues,
 			initialValues
 		} = this.props;
-		let unitpriceAdd = 0; 
+		let unitpriceAdd = 0;
 		for(var i=0 ;i<stationVos.length;i++){
 			if(!isNaN(stationVos[i].unitprice)){
 				unitpriceAdd+=Number(stationVos[i].unitprice);
 			}
-			
+
 		}
+
 		if(!unitpriceAdd){
 			Notify.show([{
 				message: '请选择工位',
@@ -666,6 +668,7 @@ class NewCreateForm extends React.Component {
 						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
+
 						{stationVos.map((item,index)=>{
 							var typeLink = {
 								value: this.state.stationVos[index].unitprice,
@@ -884,10 +887,6 @@ const validate = values => {
 		errors.firstpaydate = '请输入首付款时间';
 	}
 
-
-	if (!values.stationnum && !values.boardroomnum) {
-		errors.stationnum = '租赁项目必须填写一项';
-	}
 
 
 

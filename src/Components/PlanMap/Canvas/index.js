@@ -35,15 +35,7 @@ export default  class Canvas extends React.Component {
 		canvas.width = img.width || 1000;
     	canvas.height = img.height || 1000;
 		var context = canvas.getContext("2d");
-		$("#plan-map-content").scroll(function(){
-			let scrollX = $("#plan-map-content").scrollLeft();
-			let scrollY = $("#plan-map-content").scrollTop();
-			_this.setState({
-				scrollX:scrollX,
-				scrollY:scrollY,
-
-			})
-		})
+		$("#plan-map-content").bind("scroll",this.scrolldata);
 
 			_this.setState({
 				myCanvas:canvas,
@@ -54,6 +46,18 @@ export default  class Canvas extends React.Component {
 				_this.draw("one");
 			})
 		}
+	}
+	scrolldata = () =>{
+		let scrollX = $("#plan-map-content").scrollLeft();
+		let scrollY = $("#plan-map-content").scrollTop();
+		this.setState({
+			scrollX:scrollX,
+			scrollY:scrollY,
+
+		})
+	}
+	componentWillUnmount(){
+		$("#plan-map-content").unbind("scroll",this.scrolldata);
 	}
 	componentWillReceiveProps(nextProps){
 		let _this = this;
