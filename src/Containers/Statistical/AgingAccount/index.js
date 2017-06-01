@@ -59,6 +59,8 @@ export default class AgingAccount  extends React.Component{
 			Message.error(err.message);
 		});
 		
+		Store.dispatch(Actions.switchSidebarNav(false));
+		
 	}
 
 	leftActive=()=>{

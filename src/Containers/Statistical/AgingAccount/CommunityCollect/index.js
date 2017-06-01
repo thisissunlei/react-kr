@@ -62,6 +62,10 @@ export default class CommunityCollect extends React.Component{
 		
 	}
 
+	componentwillUnmount(){
+		 $(window).unbind('scroll');
+	}
+
 
 	componentWillReceiveProps(nextProps){
 		let _this =this;

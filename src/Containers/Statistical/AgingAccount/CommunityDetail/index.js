@@ -60,6 +60,9 @@ export default class CommunityDetail  extends React.Component{
 		let  {showSideNav}=LeftIconClick;
 		console.log("showSideNav==>",showSideNav);
 	}
+	componentwillUnmount(){
+		 $(window).unbind('scroll');
+	}
 	componentWillReceiveProps(nextProps){
 		let _this =this;
 		this.setState({
