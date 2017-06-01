@@ -14,9 +14,9 @@ import {DateFormat,Http} from 'kr/Utils';
 import {
 	Notify,
 	KrField,
-	IframeContent,
 	Button,
 	ListGroup,
+	Message,
 	ListGroupItem
 } from 'kr-ui';
 import {
@@ -27,163 +27,38 @@ import {
 
 export default class FloorPlan extends React.Component {
 	static defaultProps = {
-		tab: '',
+		
 	}
 
 	constructor(props, context) {
 		super(props, context);
 		let _this = this;
-		this.getStationUrl = this.getStationUrl.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-		this.scrollLoad = this.scrollLoad.bind(this);
-		this.onLoad = this.onLoad.bind(this);
-		this.iframeWindow = null;
 		this.state = {
-
-			form: {},
-			floors: '',
-			community: '',
 			communityIdList: [],
 			communityInfoFloorList: [],
-			url: '',
 			dateend: DateFormat(new Date(), "yyyy-mm-dd"),
 			date: DateFormat(new Date(), "yyyy-mm-dd")
 		}
-
-		this.getcommunity = this.getcommunity.bind(this);
-		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
-		this.getCommunityFloors = this.getCommunityFloors.bind(this);
-		this.selectFloors = this.selectFloors.bind(this);
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
 		Store.dispatch(change('FloorPlan', 'end', DateFormat(new Date(), "yyyy-mm-dd")));
-
-
 	}
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.url != this.props.url) {
-			this.setState({
-				url: nextProps.url
-			}, function() {
-				this.getStationUrl();
-			});
-		}
+		
 	}
-
-
-	onLoad(iframeWindow) {
-		this.iframeWindow = iframeWindow;
-
-	}
-
 
 
 	componentDidMount() {
-		this.setState({
-			url: this.getStationUrl()
-		})
-		let {tab} = this.props;
-
-		if (tab === 'floorplan') {
-			$(window).bind('scroll.floorplan', this.scrollLoad);
-
-		} 
-
 
 	}
 
-	getStationUrl(form) {
-
-
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
-
-		var formList = form || {};
-		let params;
-		let {
-			community,
-			floors,
-			date,
-			dateend
-
-		} = this.state;
-		if (community == 0) {
-			community = '';
-		}
-
-		params = {
-			communityId: community,
-			wherefloor: floors,
-			date: date,
-			dateend: dateend,
-		}
-
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		};
-
-		return url;
+	
+	onSubmit=(form)=> {
+			
 	}
-	onSubmit(form) {
-			form = Object.assign({}, form);
 
-			let {
-				floors,
-				community
-			} = this.state;
-			var that = this;
-			var params = {
-				communityId: community,
-				wherefloor: floors,
-				date: DateFormat(form.start, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
-				dateend: DateFormat(form.end, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
-			};
-			if (form.start && form.end) {
-				var datastart = Date.parse(form.start),
-					dataend = Date.parse(form.end);
-				if (datastart > dataend) {
-					Notify.show([{
-						message: '开始时间不能大于结束时间',
-						type: 'danger',
-					}]);
-
-				} else {
-					this.setState({
-						date: DateFormat(form.start, "yyyy-mm-dd"),
-						dateend: DateFormat(form.end, "yyyy-mm-dd"),
-						url: this.getStationUrl(params)
-					})
-				}
-
-			} else {
-				Notify.show([{
-					message: '注册时间不能为空',
-					type: 'danger',
-				}]);
-			}
-
-
-		}
-		// 监听滚动事件
-	scrollLoad() {
-		var that = this;
-			var top = $(window).scrollTop() || 0; //539滚出的距离
-			var height = $(window).height() || 0; //705浏览器高度
-			var num = $(document).height() - $(window).height(); //页面高-浏览器高度
-			var scrollBottom = top - num;
-			var isOutBoundary = scrollBottom >= 0;
-			if (isOutBoundary) {
-				that.iframeWindow.pagequery();
-
-			}
-
-
-	}
-	getcommunity() {
+	//获取社区
+	getcommunity=()=> {
 		let _this = this;
 		let {
 			communityIdList
@@ -206,24 +81,19 @@ export default class FloorPlan extends React.Component {
 			Message.error(err.message);
 		});
 	}
-	selectCommunity(personel) {
+    
+	//选择社区
+	selectCommunity=(personel)=> {
 		let id = '';
 		if (personel) {
 			id = personel.id;
 			this.getCommunityFloors(personel.id);
 		}
-
 		Store.dispatch(change('FloorPlan', 'floor', ''));
-
-		this.setState({
-			community: id,
-			floors: '',
-
-		})
-
 	}
-
-	getCommunityFloors(id) {
+	
+	//获取楼层
+	getCommunityFloors=(id)=> {
 		let communityId = {
 			communityId: parseInt(id)
 		};
@@ -240,24 +110,12 @@ export default class FloorPlan extends React.Component {
 				communityInfoFloorList
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
-	selectFloors(personel) {
-		let value = '';
-		if (personel) {
-			value = personel.value;
-		}
-		this.setState({
-			floors: value
-		})
-	}
+	
+	//开始时间
 	firstDate = (personel) => {
-
-		// Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
 		let firstDate = new Date(personel);
 		let {date} = this.state;
 		if (this.state.dateend) {
@@ -281,9 +139,10 @@ export default class FloorPlan extends React.Component {
 			})
 		}
 	}
+
+	//结束时间
 	secondDate = (personel) => {
 		let {dateend}= this.state;
-
 		let secondDate = new Date(personel);
 		let end = this.state.dateend;
 		if (this.state.date) {
@@ -311,24 +170,19 @@ export default class FloorPlan extends React.Component {
 
 	}
 	componentWillUnmount(){
-		$(window).bind('scroll.floorplan', this.scrollLoad);
+		
 	}
 
 	render() {
 
 		const {
-			height,
-			communityLabel,
 			communityIdList,
-			communityId,
 			communityInfoFloorList,
 			dateend,
 			date
 		} = this.state;
-		let url = this.getStationUrl();
 
 		let {
-			tab,
 			handleSubmit
 		} = this.props;
 
