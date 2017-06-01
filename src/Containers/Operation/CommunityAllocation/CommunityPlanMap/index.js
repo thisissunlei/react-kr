@@ -178,7 +178,7 @@ class CommunityPlanMap extends React.Component {
 	componentDidMount() {
 		var _this=this;
 		const mapComponent = this.mapComponent;
-		document.addEventListener('mousemove', this.eventListen);
+		document.addEventListener('mousemove', this.eventListen,false);
 		/*document.addEventListener('keydown',function(e){
 			if( e.ctrlKey  == true && e.keyCode == 83 ){
 				_this.save();
@@ -453,7 +453,6 @@ class CommunityPlanMap extends React.Component {
 			document.getElementById(this.nameStation).style.left = event.clientX - this.minusX + 'px';
 			document.getElementById(this.nameStation).style.top = event.clientY - this.minusY + 'px';
 		}
-
 	}
 
 	//释放
@@ -509,6 +508,10 @@ class CommunityPlanMap extends React.Component {
         this.upFlag = false;
 		this.dragFlag = false;
 
+	}
+
+	componentWillUnmount(){
+        document.removeEventListener('mousemove', this.eventListen,false);
 	}
 
 
