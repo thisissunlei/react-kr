@@ -66,7 +66,8 @@ class ControlTable  extends React.Component{
 			newPage:1,
 			allPage:0,
 			downLoading:false,
-			end:false
+			end:false,
+      showToTop:false
 
 		}
 
@@ -117,8 +118,18 @@ getScrollTop = () => {
 	onscrollListener = () =>{
 		var _this = this;
 		var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
-			var t = document.documentElement.scrollTop || document.body.scrollTop;
+		var t = document.documentElement.scrollTop || document.body.scrollTop;
+    var windowHeight = window.innerHeight = document.body.clientHeight;
 
+      if(t>windowHeight/2){
+        _this.setState({
+          showToTop:true,
+        })
+      }else{
+        _this.setState({
+          showToTop:false,
+        })
+      }
 			if(_this.getScrollTop() + _this.getWindowHeight() == _this.getScrollHeight()){
 			  let {allPage,newPage,searchParams,downLoading,end} = _this.state;
 			  //判断是否上拉加载
@@ -147,7 +158,7 @@ getScrollTop = () => {
 						top:60,
 						left:left,
 						right:39,
-						
+
 						zIndex:99
 
 					},
@@ -366,7 +377,7 @@ getScrollTop = () => {
 
 
 	render(){
-		const {communityIdList,contentStyle,loading,downLoading,listData} = this.state;
+		const {communityIdList,contentStyle,loading,downLoading,listData,showToTop} = this.state;
 
 		return(
 			<div className="m-control-table" style={{minHeight:'910'}}>
@@ -390,7 +401,7 @@ getScrollTop = () => {
 						/>}
 				</div>
 				</Section>
-				<ToTop />
+				{showToTop && <ToTop />}
 
 	     </div>
 
