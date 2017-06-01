@@ -44,8 +44,8 @@ class CommunityCollect extends React.Component{
 		State.getCollectList();
 		if(this.state.isShowLeft){
 			var tableExportHeight = $(".community-collect-table-box").eq(0).height();
-			window.onscroll = function(){
-				
+			
+			$(window).bind("scroll",function(){
 				var windowScrollTop = $(window).scrollTop();
 				if($(window).scrollTop()>153){
 					_this.refs.communityCollectTableBox.style.position = "fixed";
@@ -56,14 +56,14 @@ class CommunityCollect extends React.Component{
 				}else{
 					_this.refs.communityCollectTableBox.style.position = "";
 				}
-			}
+			})
 		}
 		
 		
 	}
 
-	componentwillUnmount(){
-		 $(window).unbind('scroll');
+	componentWillUnmount(){
+		
 	}
 
 
@@ -74,8 +74,8 @@ class CommunityCollect extends React.Component{
 		},function(){
 			if(this.state.isShowLeft){
 				var tableExportHeight = $(".community-collect-table-box").eq(0).height();
-				window.onscroll = function(){
-					
+				
+				$(window).bind("scroll",function(){
 					var windowScrollTop = $(window).scrollTop();
 					if($(window).scrollTop()>153){
 						_this.refs.communityCollectTableBox.style.position = "fixed";
@@ -85,7 +85,7 @@ class CommunityCollect extends React.Component{
 					}else{
 						_this.refs.communityCollectTableBox.style.position = "";
 					}
-				}
+				})
 			}
 		})
 	}

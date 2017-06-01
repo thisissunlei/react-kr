@@ -42,8 +42,8 @@ class CommunityDetail  extends React.Component{
 		var _this = this;
 		if(!_this.state.isShowLeft){
 			var tableExportHeight = $(".community-detial-table-box").eq(0).height();
-			window.onscroll = function(){
-				
+			
+			$(window).bind("scroll",function(){
 				var windowScrollTop = $(window).scrollTop();
 				if($(window).scrollTop()>152){
 					_this.refs.communityDetailTableBox.style.position = "fixed";
@@ -53,14 +53,15 @@ class CommunityDetail  extends React.Component{
 				}else{
 					_this.refs.communityDetailTableBox.style.position = "";
 				}
-			}
+			})
 		}
 		let {LeftIconClick} = this.props;
 		let  {showSideNav}=LeftIconClick;
 		// console.log("showSideNav==>",showSideNav);
 	}
-	componentwillUnmount(){
-		 $(window).unbind('scroll');
+	
+	componentWillUnmount(){
+
 	}
 	componentWillReceiveProps(nextProps){
 		let _this =this;
@@ -69,8 +70,8 @@ class CommunityDetail  extends React.Component{
 		},function(){
 			if(!_this.state.isShowLeft){
 				var tableExportHeight = $(".community-detial-table-box").eq(0).height();
-				window.onscroll = function(){
-					
+				
+				$(window).bind("scroll",function(){
 					var windowScrollTop = $(window).scrollTop();
 					if($(window).scrollTop()>152){
 						_this.refs.communityDetailTableBox.style.position = "fixed";
@@ -80,7 +81,7 @@ class CommunityDetail  extends React.Component{
 					}else{
 						_this.refs.communityDetailTableBox.style.position = "";
 					}
-				}
+				})
 			}
 		})
 	}

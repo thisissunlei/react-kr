@@ -8,7 +8,7 @@ import {
 	Tab
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
-
+import $ from 'jquery';
 import './index.less';
 
 import CommunityCollect from "./CommunityCollect";
@@ -75,6 +75,9 @@ class AgingAccount  extends React.Component{
 		this.setState({
 			isLeft:false
 		})
+	}
+	componentWillUnmount(){
+		$(window).unbind();
 	}
 
 	render(){
