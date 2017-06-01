@@ -12,7 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import {Http} from 'kr/Utils'
+import {Http,DateFormat} from 'kr/Utils'
 import {
 	Dialog,
 	Section,
@@ -200,8 +200,8 @@ export default class JoinCreate extends Component {
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			initialValues.signdate = +new Date();
-			initialValues.firstpaydate = +new Date();
+			initialValues.signdate = DateFormat(+new Date(), "yyyy-mm-dd 00:00:00");
+			initialValues.firstpaydate = DateFormat(+new Date(), "yyyy-mm-dd 00:00:00");
 
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
@@ -254,6 +254,7 @@ export default class JoinCreate extends Component {
 			});
 
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: "222",
 				type: 'danger',

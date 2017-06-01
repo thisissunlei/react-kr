@@ -161,7 +161,7 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 
 		let {
 			stationVos
@@ -182,7 +182,7 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 		let {
 			stationVos
 		} = this.state;
@@ -400,10 +400,10 @@ class NewCreateForm extends Component {
 		};
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
+		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
+		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
 		form.contractVersionType = 'NEW';
 		// form.totalrent = (this.state.allRent).toFixed(2);
 		if(!!!form.agreement){
@@ -454,8 +454,8 @@ class NewCreateForm extends Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
 			unitprice:0
 
 		};
@@ -622,7 +622,7 @@ class NewCreateForm extends Component {
 
 				<div className="detail-list" style={{marginTop:"-35px",marginLeft:"35px",width:"621px"}}>
 
-				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 
 				       <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>

@@ -123,6 +123,7 @@ export default class JoinCreate extends React.Component {
 		let {params} = this.props;
 		let keyWord = params.orderId+''+params.customerId+'INTENTIONedit';
 		let removeList = [];
+		console.log('admit',keyWord)
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
 			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
@@ -464,8 +465,8 @@ export default class JoinCreate extends React.Component {
 			openLocalStorages:false,
 
 		},function(){
-			this.getBasicData()
 			this.removeLocalStorage()
+			this.getBasicData()
 		})
 	}
 	getLocalStorage=()=>{

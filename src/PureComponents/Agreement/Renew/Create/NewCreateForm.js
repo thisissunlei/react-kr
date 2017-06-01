@@ -279,10 +279,10 @@ class NewCreateForm extends Component {
 		form.stationVosList = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd 00:00:00");
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.contractVersionType = 'NEW';
@@ -352,7 +352,6 @@ class NewCreateForm extends Component {
 		} = this.state;
 		let allRentName = this.dealRentName(allRent);
 
-		console.log(stationVos)
 		return (
 		<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
 
@@ -361,7 +360,7 @@ class NewCreateForm extends Component {
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
 				<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
-				<DotTitle title='租赁明细' style={{marginTop:20,marginBottom:25}}>
+				<DotTitle title='租赁明细' style={{marginTop:20,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 				      <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">

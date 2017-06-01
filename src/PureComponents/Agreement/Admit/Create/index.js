@@ -121,6 +121,7 @@ export default class JoinCreate extends Component {
 			onSubmit
 		} = this.props;
 			var _this = this;
+			// console.log(formValues);return;
 		Http.request('addFinaContractIntentletter', '',formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			Notify.show([{

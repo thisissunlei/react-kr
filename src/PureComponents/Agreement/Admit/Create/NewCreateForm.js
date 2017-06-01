@@ -342,9 +342,9 @@ class NewCreateForm extends Component {
 		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd HH:MM:ss");
+		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd HH:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd HH:MM:ss");
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
@@ -383,7 +383,7 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = dateFormat(value, "yyyy-mm-dd HH:MM:ss");
 
 		let {
 			stationVos
@@ -404,7 +404,7 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
+		value = dateFormat(value, "yyyy-mm-dd HH:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -451,8 +451,8 @@ class NewCreateForm extends Component {
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd HH:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd HH:MM:ss"),
 			unitprice:0
 
 		};
@@ -593,7 +593,7 @@ class NewCreateForm extends Component {
 										</ListGroup>
 					</KrField>
 					<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
-					<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+					<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 						<Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">
