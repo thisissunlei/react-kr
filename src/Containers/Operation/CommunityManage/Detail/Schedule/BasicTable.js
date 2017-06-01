@@ -213,7 +213,7 @@ export default class BasicTable extends React.Component {
 	}
 
 	componentWillUnmount(){
-		$(window).bind('scroll.table', this.scrollLoading);
+		$(window).unbind('scroll.table', this.scrollLoading);
 	}
 	
 

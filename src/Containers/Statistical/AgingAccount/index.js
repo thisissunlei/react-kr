@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import {Actions,Store} from 'kr/Redux';
+import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Message,
 	Tabs,
@@ -14,7 +14,7 @@ import './index.less';
 import CommunityCollect from "./CommunityCollect";
 import CommunityDetail from "./CommunityDetail";
 
-export default class AgingAccount  extends React.Component{
+class AgingAccount  extends React.Component{
 
 	constructor(props,context){
 
@@ -28,7 +28,7 @@ export default class AgingAccount  extends React.Component{
 
 
 	componentDidMount() {
-		
+	
 		let _this =this;
 		Http.request('getSelfMenuInfo', {}).then(function(response) {
 			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")>-1){
@@ -59,6 +59,9 @@ export default class AgingAccount  extends React.Component{
 			Message.error(err.message);
 		});
 		
+		Store.dispatch(Actions.switchSidebarNav(false));
+
+		
 	}
 
 	leftActive=()=>{
@@ -76,6 +79,8 @@ export default class AgingAccount  extends React.Component{
 
 	render(){
 		let {isLeft,hasDetail,hasCollect}=this.state;
+		let {sidebar_nav}=this.props;
+		console.log("sidebar_nav",sidebar_nav.switch_value);
 		return(
 			<div className="aging-account">
 				<Tabs>
@@ -104,3 +109,15 @@ export default class AgingAccount  extends React.Component{
 		);
 	}
 }
+
+
+export default connect((state) => {
+
+   var sidebar_nav = state.sidebar_nav;
+
+
+	return {
+		sidebar_nav
+	}
+
+})(AgingAccount);

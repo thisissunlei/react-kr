@@ -53,7 +53,7 @@ class  CommunityMeetingRoomDetail extends React.Component{
 	openAddStation=()=>{
 		const {FormModel} = this.props;
 		FormModel.getForm("NewAddMeeting")
-		.changeValues({capacity:'',area:'',deviceIds:'',enable:'',floor:'',location:'',name:'',spaceType:''});
+		.changeValues({capacity:'',area:'',deviceIds:'',enable:'',floor:'',location:'',name:'',spaceType:'',quotedPrice:''});
 		this.props.CommunityMeetingModel.addStation();
 		this.props.CommunityMeetingModel.isCode=false;
 		this.props.CommunityMeetingModel.deleteId='';
@@ -276,6 +276,7 @@ SelectCommunity=()=>{
 		              <TableHeaderColumn>可容纳人数</TableHeaderColumn>
 					 <TableHeaderColumn>面积（㎡）</TableHeaderColumn>
 		              <TableHeaderColumn>所在楼层</TableHeaderColumn>
+		              <TableHeaderColumn>报价</TableHeaderColumn>
 		              <TableHeaderColumn>状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
@@ -289,6 +290,7 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="capacity"></TableRowColumn>
                       <TableRowColumn name="area"></TableRowColumn>
 			                <TableRowColumn name="floor"></TableRowColumn>
+			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'禁用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
