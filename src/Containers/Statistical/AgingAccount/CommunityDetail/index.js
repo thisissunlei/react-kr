@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import {Actions,Store} from 'kr/Redux';
+import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Message,
 	Dialog,
@@ -11,7 +11,6 @@ import {Http} from 'kr/Utils';
 import $ from 'jquery';
 
 import './index.less';
-
 
 import SearchDetailForm from "./SearchDetailForm";
 import TableIndex from "./TableIndex";
@@ -25,7 +24,7 @@ import {
 @inject("LeftIconClick")
 @observer
 
-export default class CommunityDetail  extends React.Component{
+class CommunityDetail  extends React.Component{
 
 	constructor(props,context){
 
@@ -98,7 +97,8 @@ export default class CommunityDetail  extends React.Component{
 
 	render(){
 		let {isShowLeft}=this.state;
-		let {pageSecond,LeftIconClick}=this.props;
+		let {pageSecond,sidebar_nav}=this.props;
+		console.log("sidebar_nav communiytDetail",sidebar_nav);
 		return(
 			<div className="community-detail">
 				<div className="community-detail-box">
@@ -109,7 +109,7 @@ export default class CommunityDetail  extends React.Component{
 					</div>
 					<div className="community-detial-table-box" ref="communityDetailTableBox">
 						{
-							!isShowLeft?<TableIndex isLeftProps={isShowLeft} sideNavShow={LeftIconClick.showSideNav}/>:null
+							!isShowLeft?<TableIndex isLeftProps={isShowLeft} sideNavShow={sidebar_nav.switch_value}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>
@@ -128,3 +128,15 @@ export default class CommunityDetail  extends React.Component{
 		);
 	}
 }
+
+
+export default connect((state) => {
+
+   var sidebar_nav = state.sidebar_nav;
+
+
+	return {
+		sidebar_nav
+	}
+
+})(CommunityDetail);
