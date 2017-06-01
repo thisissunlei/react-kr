@@ -116,7 +116,7 @@ class CommunityPlanMap extends React.Component {
 					height:Number(response.cellHeight)
 				},
 				stationToSame:checked,
-				backgroundImageUrl: 'http://optest.krspace.cn' + response.graphFilePath,
+				backgroundImageUrl:response.graphFilePath,
 				translateX:0,
 				translateY:0
 			}
@@ -209,6 +209,9 @@ class CommunityPlanMap extends React.Component {
 
 	//楼层
 	onChangeFloor = (value) => {
+		if(!value){
+			return ;
+		}
 		this.setState({
 			selectFloor: value.label,
 		}, function () {
@@ -383,7 +386,7 @@ class CommunityPlanMap extends React.Component {
 						}
 					};
 
-					xhrfile.open('POST', 'http://optest.krspace.cn/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
+					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
 					xhrfile.withCredentials = true;
 					xhrfile.send(form);
