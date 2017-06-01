@@ -67,7 +67,8 @@ class ControlTable  extends React.Component{
 			allPage:0,
 			downLoading:false,
 			end:false,
-      showToTop:false
+      		showToTop:false,
+			theEnd:true,
 
 		}
 
@@ -119,17 +120,25 @@ getScrollTop = () => {
 		var _this = this;
 		var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
 		var t = document.documentElement.scrollTop || document.body.scrollTop;
-    var windowHeight = window.innerHeight = document.body.clientHeight;
-
-      if(t>windowHeight/2){
-        _this.setState({
-          showToTop:true,
-        })
-      }else{
-        _this.setState({
-          showToTop:false,
-        })
-      }
+    	var windowHeight = window.innerHeight = document.body.clientHeight;
+			if(_this.getScrollTop() + _this.getWindowHeight() >= _this.getScrollHeight()-85){
+				_this.setState({
+				theEnd:true,
+				})
+			}else{
+				_this.setState({
+				theEnd:false,
+				})
+			}
+			if(t>windowHeight/2){
+				_this.setState({
+				showToTop:true,
+				})
+			}else{
+				_this.setState({
+				showToTop:false,
+				})
+			}
 			if(_this.getScrollTop() + _this.getWindowHeight() == _this.getScrollHeight()){
 			  let {allPage,newPage,searchParams,downLoading,end} = _this.state;
 			  //判断是否上拉加载
@@ -216,8 +225,10 @@ getScrollTop = () => {
 				loading:false,
 				downLoading:false,
 				end:(Math.ceil(response.totalCount/searchParams.pageSize)==response.page)?true:false,
-			})
 
+			})
+			var top = document.documentElement.scrollTop || document.body.scrollTop;
+			 document.documentElement.scrollTop = document.body.scrollTop = top+1; 
 
 		}).catch(function(err) {
 
@@ -377,8 +388,11 @@ getScrollTop = () => {
 
 
 	render(){
-		const {communityIdList,contentStyle,loading,downLoading,listData,showToTop} = this.state;
-
+		const {communityIdList,contentStyle,loading,downLoading,listData,showToTop,theEnd} = this.state;
+		let exportClassName = "on-export-end";
+		let endStyle = {};
+		exportClassName = theEnd?"on-export-end":"on-export-middle";
+		endStyle = theEnd ? {}:{height:40}
 		return(
 			<div className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="销控表"/>
@@ -392,8 +406,8 @@ getScrollTop = () => {
 						{loading?<Loading />:this.generateContent()}
 						{downLoading && <Loading type = "dowm" style = {{marginTop:10,marginBottom:10}} />}
 					</div>
-					<div id = "m-control-table-width"></div>
-					<div className = "on-export">
+					<div id = "m-control-table-width" style = {endStyle}></div>
+					<div className ={exportClassName}>
 						{(listData && !!listData.length) && <Button
 							label="导出"
 							type='button'
