@@ -80,7 +80,6 @@ class AgingAccount  extends React.Component{
 	render(){
 		let {isLeft,hasDetail,hasCollect}=this.state;
 		let {sidebar_nav}=this.props;
-		console.log("sidebar_nav",sidebar_nav.switch_value);
 		return(
 			<div className="aging-account">
 				<Tabs>

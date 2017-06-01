@@ -57,7 +57,7 @@ class CommunityDetail  extends React.Component{
 		}
 		let {LeftIconClick} = this.props;
 		let  {showSideNav}=LeftIconClick;
-		console.log("showSideNav==>",showSideNav);
+		// console.log("showSideNav==>",showSideNav);
 	}
 	componentwillUnmount(){
 		 $(window).unbind('scroll');
@@ -98,7 +98,7 @@ class CommunityDetail  extends React.Component{
 	render(){
 		let {isShowLeft}=this.state;
 		let {pageSecond,sidebar_nav}=this.props;
-		console.log("sidebar_nav communiytDetail",sidebar_nav);
+		// console.log("sidebar_nav communiytDetail",sidebar_nav);
 		return(
 			<div className="community-detail">
 				<div className="community-detail-box">

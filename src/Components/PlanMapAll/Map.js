@@ -1423,7 +1423,6 @@ var Map = (function (window) {
             if(!img){
               return;
             }
-            console.log("img",img);
             context.beginPath();
             context.drawImage(img, translateX * scale, translateY * scale, img.width * scale, img.height * scale);
             context.closePath();
