@@ -372,6 +372,7 @@ class NewCreateForm extends React.Component {
 			}
 			
 		}
+		console.log('----->',!unitpriceAdd)
 		if(!unitpriceAdd){
 			Notify.show([{
 				message: '请选择工位',
@@ -853,10 +854,6 @@ const validate = values => {
 		errors.firstpaydate = '请输入首付款时间';
 	}
 
-
-	if (!values.stationnum && !values.boardroomnum) {
-		errors.stationnum = '租赁项目必须填写一项';
-	}
 
 
 

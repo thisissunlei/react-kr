@@ -735,8 +735,6 @@ export default class OrderDetail extends React.Component {
 			return (<Loading/>);
 		}
 		let fileList = ['入.pdf','入议书.pdf','入驻协议书.pdf','入驻协议书.pdf'];
-		console.log('--->',this.props.CommunityAgreementList);
-
 		return (
 			<div>
 
