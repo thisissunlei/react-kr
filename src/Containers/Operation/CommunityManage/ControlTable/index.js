@@ -69,6 +69,7 @@ class ControlTable  extends React.Component{
 			end:false,
       		showToTop:false,
 			theEnd:true,
+			exportLeft:0,
 
 		}
 
@@ -118,6 +119,7 @@ getScrollTop = () => {
 	}
 	onscrollListener = () =>{
 		var _this = this;
+		let {exportLeft} = this.state;
 		var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
 		var t = document.documentElement.scrollTop || document.body.scrollTop;
     	var windowHeight = window.innerHeight = document.body.clientHeight;
@@ -137,6 +139,11 @@ getScrollTop = () => {
 			}else{
 				_this.setState({
 				showToTop:false,
+				})
+			}
+			if(exportLeft != left ){
+				_this.setState({
+					exportLeft:left,
 				})
 			}
 			if(_this.getScrollTop() + _this.getWindowHeight() == _this.getScrollHeight()){
@@ -388,7 +395,7 @@ getScrollTop = () => {
 
 
 	render(){
-		const {communityIdList,contentStyle,loading,downLoading,listData,showToTop,theEnd} = this.state;
+		const {communityIdList,contentStyle,loading,downLoading,listData,showToTop,theEnd,exportLeft} = this.state;
 		let exportClassName = "on-export-end";
 		let endStyle = {};
 		exportClassName = theEnd?"on-export-end":"on-export-middle";
@@ -407,7 +414,7 @@ getScrollTop = () => {
 						{downLoading && <Loading type = "dowm" style = {{marginTop:10,marginBottom:10}} />}
 					</div>
 					<div id = "m-control-table-width" style = {endStyle}></div>
-					<div className ={exportClassName}>
+					<div className ={exportClassName} style = {{left:exportLeft}}>
 						{(listData && !!listData.length) && <Button
 							label="导出"
 							type='button'
