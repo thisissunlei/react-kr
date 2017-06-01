@@ -39,7 +39,8 @@ export default class SearchDetailForm extends React.Component {
 	}
 
 	changeCommunity=(item)=>{
-		if(!item){
+		
+		if(!item || !item.id){
 			State.communityId = '';
 		}else{
 			State.communityId = item.id;
