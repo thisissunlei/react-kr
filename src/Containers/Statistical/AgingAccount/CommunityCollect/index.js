@@ -16,10 +16,14 @@ import TableIndex from "./TableIndex";
 import $ from 'jquery';
 
 import State from './State';
+
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
-@ observer
+
+@inject("LeftIconClick")
+@observer
 
 
 export default class CommunityCollect extends React.Component{
@@ -47,7 +51,8 @@ export default class CommunityCollect extends React.Component{
 					_this.refs.communityCollectTableBox.style.position = "fixed";
 					_this.refs.communityCollectTableBox.style.top = "30px";
 					$(".community-collect-box").eq(0).height(tableExportHeight+80);
-
+		    	
+					
 				}else{
 					_this.refs.communityCollectTableBox.style.position = "";
 				}
@@ -93,7 +98,7 @@ export default class CommunityCollect extends React.Component{
 		let _this = this;
 		
 		let {dataList,isShowLeft} = this.state;
-
+		let {LeftIconClick} = this.props;
 		return(
 			<div className="community-collect">
 				<div className="community-collect-box">
@@ -104,7 +109,7 @@ export default class CommunityCollect extends React.Component{
 					</div>
 					<div className="community-collect-table-box" ref="communityCollectTableBox">
 						{
-							isShowLeft?<TableIndex isLeftProps={isShowLeft}/>:null
+							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={LeftIconClick.showSideNav}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>

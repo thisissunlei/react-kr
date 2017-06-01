@@ -26,29 +26,38 @@ export default class TableIndex extends React.Component{
 		super(props);
 		this.state={
 			// loading:false
-
+			sWidth : 0
 		}
 	}
 	componentWillMount() {
 	}
 
 	componentWillReceiveProps(nextProps){
+		let _this = this;
+		console.log("nextProps",nextProps);
+		if(!nextProps.sideNavShow){
+			console.log("$(.table-box).eq(0).width()",$(".table-box").eq(0).width());
+			$(".table-box").eq(0).width($(window).eq(0).width()-80);
+			$(".table-data-detail").eq(0).width($(window).eq(0).width()-80);
+		}else{
+			$(".table-box").eq(0).width(_this.state.sWidth);
+			$(".table-data-detail").eq(0).width(_this.state.sWidth);
 
+		}
 		
 	}
 
 	componentDidMount(){
 
 		let _this = this;
-		// setTimeout(function(){
-		// 	_this.setState({
-		// 		loading : false
-		// 	})
-		// },1500);
 		
 		var tableBoxWidth = $(".table-box").eq(0).width();
-		// $(".table-data-detail").width(tableBoxWidth);
+		this.setState({
+			sWidth :$(window).width()-260
+		})
+		$(".table-data-detail").width(tableBoxWidth);
 		$(".table-box").height($(window).height()-200);
+		$(".table-box").eq(0).width($(".search-form-community-detail").width());
 		
 		$('.table-data-detail').eq(0).scroll(function(event){
 			
