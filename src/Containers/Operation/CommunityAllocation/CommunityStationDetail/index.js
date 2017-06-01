@@ -76,7 +76,7 @@ class  CommunityStationDetail extends React.Component{
 	openAddStation=()=>{
 		let {FormModel} = this.props;
 		FormModel.getForm("NewAddStation")
-		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
+		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:'',quotedPrice:''});
 		this.props.CommunityStationModel.addStation();
 		this.props.CommunityStationModel.isCode=false;
 		this.props.CommunityStationModel.deleteId='';

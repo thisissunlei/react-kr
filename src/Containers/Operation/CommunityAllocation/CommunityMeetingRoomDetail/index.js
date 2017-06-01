@@ -53,7 +53,7 @@ class  CommunityMeetingRoomDetail extends React.Component{
 	openAddStation=()=>{
 		const {FormModel} = this.props;
 		FormModel.getForm("NewAddMeeting")
-		.changeValues({capacity:'',area:'',deviceIds:'',enable:'',floor:'',location:'',name:'',spaceType:''});
+		.changeValues({capacity:'',area:'',deviceIds:'',enable:'',floor:'',location:'',name:'',spaceType:'',quotedPrice:''});
 		this.props.CommunityMeetingModel.addStation();
 		this.props.CommunityMeetingModel.isCode=false;
 		this.props.CommunityMeetingModel.deleteId='';
