@@ -102,7 +102,7 @@ class CommunityCollect extends React.Component{
 		let _this = this;
 		let {dataList,isShowLeft} = this.state;
 		let {sidebar_nav}=this.props;
-		console.log("sidebar_nav communityCollect",sidebar_nav);
+		// console.log("sidebar_nav communityCollect",sidebar_nav);
 		return(
 			<div className="community-collect">
 				<div className="community-collect-box">
