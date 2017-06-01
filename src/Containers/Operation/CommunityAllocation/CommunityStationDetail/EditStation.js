@@ -104,6 +104,12 @@ class EditStation  extends React.Component{
 		})
  	}
 
+ 	priceBlur=(param)=>{
+       if(!param){
+          Store.dispatch(change('EditStation','quotedPrice','0'))
+       }
+	}
+
 
   render(){
 
@@ -157,7 +163,7 @@ class EditStation  extends React.Component{
             requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 
              <KrField grid={1/2} style={priceStyle} name="quotedPrice" component="input"  label="报价"
-             />		
+             onBlur={this.priceBlur}/>		
 
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>

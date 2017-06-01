@@ -140,7 +140,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
-
+   
    this.props.CommunityStationModel.stationSubmit(params);
  }
 
@@ -248,7 +248,7 @@ SelectCommunity=()=>{
               onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
-			        onExport={this.onExport}
+			    onExport={this.onExport}
 	            ajaxParams={this.props.CommunityStationModel.searchParams}
 	            ajaxUrlName='station-list'
 	            ajaxFieldListName="items"

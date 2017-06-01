@@ -208,6 +208,12 @@ class EditMeeting  extends React.Component{
 		 }
 	}
 
+	priceBlur=(param)=>{
+       if(!param){
+          Store.dispatch(change('EditMeeting','quotedPrice','0'))
+       }
+	}
+
 
 
   render(){
@@ -355,7 +361,7 @@ class EditMeeting  extends React.Component{
 			   </KrField>
 
 			    <KrField grid={1/2} style={{width:262,marginLeft:29}} name="quotedPrice" component="input"  label="报价"
-                />	
+                 onBlur={this.priceBlur}/>	
 
 
 			    <div className='meeting-device'><KrField
