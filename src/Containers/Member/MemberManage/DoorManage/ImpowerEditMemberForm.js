@@ -157,21 +157,21 @@ export default class ImpowerEditMemberForm extends React.Component {
 		return (
 			<div className="edit-form" style={{paddingBottom:"3",margin:"0 20px"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-					<div className="person-info" style={{margin:"30px 0"}}>
+					<div className="person-info" style={{margin:"25px 0"}}>
 						<span>客户姓名：&nbsp;</span>
 						<span style={{fontsize:14}}>{detail.customerName}</span>
 					</div>
 
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0,marginTop:15}}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0,marginTop:18}}/>
 
-					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:15}}/>
+					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:18}}/>
 
-					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange} style={{marginTop:15}}/>
+					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange} style={{marginTop:18}}/>
 
-					<Grid style={{margin:'30px 0'}}>
+					<Grid style={{margin:'25px 0'}}>
 						<Row>
 							<ListGroup>
-								<ListGroupItem style={{width:'240px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
+								<ListGroupItem style={{width:'270px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
 								<ListGroupItem style={{width:'240px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 							</ListGroup>
 						  </Row>
