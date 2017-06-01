@@ -157,18 +157,18 @@ export default class ImpowerEditMemberForm extends React.Component {
 		return (
 			<div className="edit-form" style={{paddingBottom:"3",margin:"0 20px"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-					<div className="person-info" style={{margin:"20px 0"}}>
+					<div className="person-info" style={{margin:"30px 0"}}>
 						<span>客户姓名：&nbsp;</span>
 						<span style={{fontsize:14}}>{detail.customerName}</span>
 					</div>
 
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0}}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0,marginTop:15}}/>
 
-					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
+					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:15}}/>
 
-					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange}/>
+					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange} style={{marginTop:15}}/>
 
-					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
+					<Grid style={{margin:'30px 0'}}>
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'240px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
@@ -176,7 +176,7 @@ export default class ImpowerEditMemberForm extends React.Component {
 							</ListGroup>
 						  </Row>
 					</Grid>
-							 </form>
+				</form>
 			</div>
 		)
 	}
