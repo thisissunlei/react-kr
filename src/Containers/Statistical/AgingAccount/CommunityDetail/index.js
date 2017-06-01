@@ -61,7 +61,7 @@ class CommunityDetail  extends React.Component{
 	}
 	
 	componentWillUnmount(){
-
+		$(window).unbind();
 	}
 	componentWillReceiveProps(nextProps){
 		let _this =this;

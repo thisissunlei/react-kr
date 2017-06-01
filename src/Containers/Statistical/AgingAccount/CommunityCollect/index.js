@@ -64,6 +64,7 @@ class CommunityCollect extends React.Component{
 
 	componentWillUnmount(){
 		
+		$(window).unbind();
 	}
 
 
