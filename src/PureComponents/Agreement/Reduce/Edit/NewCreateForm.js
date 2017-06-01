@@ -225,20 +225,22 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
-		let stationVosList = this.state.stationVos;
+		let stationVosList = this.state.originStationVos;
+		let {delStationVos} = this.state;
 		let {initialValues } = this.props;
-		stationVosList.forEach((item,index)=>{
+		this.state.originStationVos.forEach((item,index)=>{
 			stationVos.map((value)=>{
 				if(item.stationId == value.stationId){
 					stationVosList.splice(index,1);
 				}
 			})
 		})
+		delStationVos = Object.assign([],stationVosList);
 		Store.dispatch(change('reduceCreateForm', 'stationVos', stationVos));
 		Store.dispatch(change('reduceCreateForm', 'delStationVos', stationVosList));
 		this.setState({
 			stationVos,
-			delStationVos:stationVosList
+			delStationVos
 		});
 		this.openStationDialog();
 	}
@@ -271,6 +273,7 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(change('reduceCreateForm', 'delStationVos',delStationVos));
 		let _this = this;
 		let allRent = 0;
+		console.log('delStationVos',delStationVos)
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,

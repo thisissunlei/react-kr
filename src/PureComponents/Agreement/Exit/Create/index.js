@@ -79,7 +79,7 @@ export default class JoinCreate extends Component {
 			params,onSubmit
 		} = this.props;
 		var _this = this;
-		Http.request('addFnaContractWithdrawal', formValues).then(function(response) {
+		Http.request('addFnaContractWithdrawal', '',formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',

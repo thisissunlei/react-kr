@@ -158,7 +158,7 @@ class NewCreateForm extends React.Component {
 		}
 		this.setState({
 			stationVos: [],
-			delStationVos: stationVos,
+			delStationVos,
 			allRent:0
 		}, function() {
 			this.getStationUrl();
@@ -372,7 +372,6 @@ class NewCreateForm extends React.Component {
 			}
 			
 		}
-		console.log('----->',!unitpriceAdd)
 		if(!unitpriceAdd){
 			Notify.show([{
 				message: '请选择工位',

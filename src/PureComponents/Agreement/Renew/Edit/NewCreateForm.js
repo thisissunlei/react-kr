@@ -173,7 +173,7 @@ class NewCreateForm extends React.Component {
 		let allRent = 0;
 		let {initialValues} = this.props;
 		let oldStationsVos = this.state.stationVos;
-		let delStationVos = Object.assign([],oldStationsVos)
+		let delStationVos = Object.assign([],oldStationsVos,this.state.delStationVos)
 		stationVos.map(item=>{
 			oldStationsVos.map((values,index)=>{
 				if(item.stationId == values.stationId){
@@ -220,7 +220,7 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let {initialValues} = this.props;
 
-		console.log('delStationVos',delStationVos)
+		
 
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -234,7 +234,7 @@ class NewCreateForm extends React.Component {
 		this.setAllRent(stationVos);
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
-
+		console.log('delStationVos',delStationVos)
 
 		this.setState({
 			stationVos,
@@ -320,6 +320,20 @@ class NewCreateForm extends React.Component {
 		// form.contractmark = '';
 		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';
+		}
+
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+		}
+		if(!unitpriceAdd){
+			Notify.show([{
+				message: '请选择工位',
+				type: 'danger',
+			}]);
+			return ;
 		}
 
 		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd 00:00:00");

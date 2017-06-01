@@ -57,7 +57,6 @@ class EditAgreementList extends Component{
 
 		}
 
-		console.log('==edit===>',allState.argumentType)
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:0,marginLeft:10}}>
 		      	<div className="title" >
