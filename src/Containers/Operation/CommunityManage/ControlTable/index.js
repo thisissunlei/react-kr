@@ -123,6 +123,7 @@ getScrollTop = () => {
 		var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
 		var t = document.documentElement.scrollTop || document.body.scrollTop;
     	var windowHeight = window.innerHeight = document.body.clientHeight;
+			//判断导出按钮的位置
 			if(_this.getScrollTop() + _this.getWindowHeight() >= _this.getScrollHeight()-85){
 				_this.setState({
 				theEnd:true,
@@ -132,6 +133,7 @@ getScrollTop = () => {
 				theEnd:false,
 				})
 			}
+			//判断回到顶部是否出现
 			if(t>windowHeight/2){
 				_this.setState({
 				showToTop:true,
@@ -141,11 +143,13 @@ getScrollTop = () => {
 				showToTop:false,
 				})
 			}
+			//判断侧滑按钮师否点击
 			if(exportLeft != left ){
 				_this.setState({
 					exportLeft:left,
 				})
 			}
+			//判断是否到达底部
 			if(_this.getScrollTop() + _this.getWindowHeight() == _this.getScrollHeight()){
 			  let {allPage,newPage,searchParams,downLoading,end} = _this.state;
 			  //判断是否上拉加载
