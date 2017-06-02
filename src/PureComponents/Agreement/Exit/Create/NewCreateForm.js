@@ -178,27 +178,20 @@ class NewCreateForm extends React.Component {
 	setTotalRent=(value)=>{
 		let {initialValues} = this.props;
 		let _this = this;
-		_this.setState({
-				totalRent:'1000'
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
 			},function(){
-				Store.dispatch(change('exitCreateForm', 'totalRent', '1000'));
-				Store.dispatch(change('exitCreateForm', 'totalreturn', '1000'));
+				Store.dispatch(change('exitCreateForm', 'totalRent', response));
+				Store.dispatch(change('exitCreateForm', 'totalreturn', response));
 
 			})
-		// Http.request('setExitTotalReturn', {
-		// 	mainbillId: initialValues.mainbillid,
-		// 	withdrawDate:value
-		// }).then(function(response){
-		// 	_this.setState({
-		// 		totalRent:response+''
-		// 	},function(){
-		// 		Store.dispatch(change('exitCreateForm', 'totalRent', response));
-		// 		Store.dispatch(change('exitCreateForm', 'totalreturn', response));
-
-		// 	})
-		// }).catch(function(err){
-		// 	console.log(err)
-		// })
+		}).catch(function(err){
+			console.log(err)
+		})
 
 		
 		
