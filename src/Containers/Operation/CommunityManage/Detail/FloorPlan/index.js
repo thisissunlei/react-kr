@@ -12,7 +12,8 @@ import {
 	Button,
 	ListGroup,
 	Message,
-	ListGroupItem
+	ListGroupItem,
+	PlanMapAll
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -186,7 +187,9 @@ export default class FloorPlan extends React.Component {
 			</form>
 			<p style={{margin:10}}></p>
 			{/*<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>*/}
-			
+			<PlanMapAll
+			 
+			/>
 
 		</div>
 		);
