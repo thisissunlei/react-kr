@@ -49,6 +49,7 @@ class EditAccount extends React.Component {
     }
     onSubmit = (form) => {
         var _this = this;
+        const {onSubmit} = this.props;
         console.log("form", form);
         let {detail} = this.props;
         Store.dispatch(Actions.callAPI('editSsoUser', {}, {
@@ -59,9 +60,10 @@ class EditAccount extends React.Component {
             mobilePhone: form.mobilePhone
         })).then(function(response) {
             Message.success('修改成功');
-            window.setTimeout(function(){
-    					window.location.reload();
-    				},800)
+            onSubmit();
+            // window.setTimeout(function(){
+    		// 			window.location.reload();
+    		// 		},800)
         }).catch(function(err) {
             Message.error(err.message);
         });

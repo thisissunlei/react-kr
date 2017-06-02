@@ -42,9 +42,10 @@ class AccountList extends React.Component {
             searchParams: {
                 accountName: '',
                 page: 1,
-                pageSize: 15,
+                pageSize: 20,
                 timer: 1
             },
+            newPage:1,
             openNewCreate: false,
             openDataPermission: false,
             openEditAcc: false,
@@ -159,8 +160,8 @@ class AccountList extends React.Component {
         if (value.filter == 'company') {
             this.setState({
                 searchParams: {
-                    page: 1,
-                    pageSize: 15,
+                    page: this.state.newPage,
+                    pageSize: 20,
                     accountName: value.content
                 }
             })
@@ -168,8 +169,8 @@ class AccountList extends React.Component {
         if (value.filter == 'city') {
             this.setState({
                 searchParams: {
-                    page: 1,
-                    pageSize: 15,
+                    page: this.state.newPage,
+                    pageSize: 20,
                     realName: value.content
                 }
             })
@@ -177,8 +178,8 @@ class AccountList extends React.Component {
         if (value.filter == 'community') {
             this.setState({
                 searchParams: {
-                    page: 1,
-                    pageSize: 15,
+                    page: this.state.newPage,
+                    pageSize: 20,
                     mobilePhone: value.content
                 }
             })
@@ -186,8 +187,8 @@ class AccountList extends React.Component {
         if (value.filter == 'people') {
             this.setState({
                 searchParams: {
-                    page: 1,
-                    pageSize: 15,
+                    page: this.state.newPage,
+                    pageSize: 20,
                     email: value.content
                 }
             })
@@ -199,6 +200,23 @@ class AccountList extends React.Component {
           itemDetail: itemDetail,
           openSetAcc: !this.state.openSetAcc,
       });
+    }
+    //改变页码
+    onEditSubmit=()=>{
+        console.log(this.state.newPage);
+        var timer = new Date();
+        this.setState({
+            searchParams: {
+                    page: this.state.newPage,
+                    timer: timer,
+            }
+        })
+        this.openEditAcc();
+    }
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
     }
     render() {
         let {searchParams,itemDetail} = this.state;
@@ -245,7 +263,7 @@ class AccountList extends React.Component {
                           </ListGroupItem>
                         </Col>
                     </Row>
-                    <Table style={{
+                    <Table onPageChange={this.onPageChange} style={{
                         marginTop: 10
                     }} displayCheckbox={false} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='getSsoUserList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} onExport={this.onExport}>
                         <TableHeader>
@@ -344,7 +362,7 @@ class AccountList extends React.Component {
                 <Dialog title="编辑登录账号" modal={true} open={this.state.openEditAcc} onClose={this.openEditAcc} contentStyle={{
                     width: 500
                 }}>
-                    <EditAccount detail={this.state.itemDetail} onCancel={this.openEditAcc}/>
+                    <EditAccount detail={this.state.itemDetail} onSubmit = {this.onEditSubmit} onCancel={this.openEditAcc}/>
                 </Dialog>
                 <Dialog title="编辑数据权限" modal={true} open={this.state.openDataPermission} onClose={this.openDataPermission} contentStyle={{
                     width: 600,
