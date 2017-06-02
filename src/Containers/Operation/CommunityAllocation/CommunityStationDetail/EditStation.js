@@ -218,6 +218,10 @@ const validate = values =>{
 		errors.quotedPrice='报价为数字'
 	}
 
+	  if(values.quotedPrice&&values.quotedPrice.length>18){
+		  errors.quotedPrice='报价长度不能超过18位'
+   	}
+
 		return errors
 }
 export default reduxForm({ form: 'EditStation',validate})(EditStation);

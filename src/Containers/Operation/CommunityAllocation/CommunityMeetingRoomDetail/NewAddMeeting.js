@@ -413,6 +413,10 @@ errors.maskStation = membersArrayErrors
     if(values.quotedPrice&&isNaN(values.quotedPrice)){
 		errors.quotedPrice='报价为数字'
 	}
+	 
+	 if(values.quotedPrice&&values.quotedPrice.length>18){
+		  errors.quotedPrice='报价长度不能超过18位'
+   	}
 
 		return errors
 }
