@@ -19,7 +19,9 @@ class EditAgreementList extends Component{
 
 	}
 	onSubmit = (values) => {
-		this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+    let {searchParams} = this.props;
+
+		 this.props.CommunityAgreementList.ajaxListData(searchParams)
 
 		// const {onSubmit} = this.props;
 		// onSubmit && onSubmit(values);

@@ -467,7 +467,7 @@ class Merchants extends Component{
 
    //搜索提交
    onSearchSubmit=(value)=>{
-   	 let {searchParams}=this.state;
+   	 let {searchParams}=state;
    	 let {CommunityAgreementList} = this.props;
       if(value.filter=='company'){
         searchParams.customerName=value.content;
@@ -563,7 +563,7 @@ class Merchants extends Component{
 		CommunityAgreementList.openLocalStorage = false;
 		CommunityAgreementList.openOneAgreement=false;
 		CommunityAgreementList.openTowAgreement=false;
-		
+
 		CommunityAgreementList.openEditAgreement=false;
 		State.openAgreementDetail=false;
 	}
@@ -839,6 +839,7 @@ class Merchants extends Component{
 				        width={750}
 				        openSecondary={true}
 				        onClose={this.closeOneAgreement}
+
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
@@ -856,7 +857,7 @@ class Merchants extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 
-			       	 	<TwoNewAgreement onCancel={this.closeTwoAgreement}/>
+			       	 	<TwoNewAgreement onCancel={this.closeTwoAgreement} searchParams = {searchParams}/>
 		           	</Drawer>
 
 		           {/*编辑合同*/}
@@ -865,12 +866,13 @@ class Merchants extends Component{
 				        width={750}
 				        onClose={this.closeEditAgreement}
 				        openSecondary={true}
+
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 
 
-			      	<EditAgreementList onCancel={this.closeEditAgreement}/>
+			      	<EditAgreementList onCancel={this.closeEditAgreement} searchParams = {searchParams}/>
 		           </Drawer>
 
 					{/*新建订单*/}

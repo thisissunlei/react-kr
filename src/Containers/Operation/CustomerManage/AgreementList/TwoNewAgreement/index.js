@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer,
 	inject
@@ -35,7 +36,11 @@ class LookCustomerList extends Component{
 
 	}
 	onSubmit = () => {
-	 this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})	
+
+	 this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''});
+	 Store.dispatch(change('SearchForm','contractType',""));
+	 Store.dispatch(change('SearchForm','createDateBegin',""));
+	 Store.dispatch(change('SearchForm','createDateEnd',""));
 	}
 
 	onCancel = () => {
@@ -46,7 +51,7 @@ class LookCustomerList extends Component{
 	onActive=(type)=>{
 		allState.active = type;
 	}
-	
+
 	componentWillReceiveProps(nextProps){
 
 	}
@@ -58,7 +63,7 @@ class LookCustomerList extends Component{
 		let obj = this.renderTab();
 		let defaultActive = obj.showTab[0].props.label;
 		switch (defaultActive){
-			case '入驻协议书' : 
+			case '入驻协议书' :
 				this.onActive('enter')
 				break;
 			case '增租协议书' :
@@ -77,7 +82,7 @@ class LookCustomerList extends Component{
 				this.onActive('admit')
 				break;
 		}
-		
+
 	}
 	getlocalSign=()=>{
 		allState.hasLocal = false;
@@ -107,7 +112,7 @@ class LookCustomerList extends Component{
         	noneTab:[],
         	dialogDiv:[]
         }
-        
+
         let local = allState.local;
 
 		if(!allState.enter){
@@ -226,10 +231,10 @@ class LookCustomerList extends Component{
 				</Tab>
 			);
 
-		}	
+		}
 
 		obj.noneTab = noneTab;
-		
+
 		obj.dialogDiv = dialogDiv;
 		let localArr = [];
 		showTab.map((item,index)=>{
@@ -245,9 +250,9 @@ class LookCustomerList extends Component{
 
 		obj.showTab = showTab;
 
-	
-		return obj;   
-		     
+
+		return obj;
+
 
 	}
 	removeLocalStorage=()=>{
@@ -279,7 +284,7 @@ class LookCustomerList extends Component{
 
 	render(){
 		let obj = this.renderTab();
-	
+
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
@@ -294,19 +299,19 @@ class LookCustomerList extends Component{
 				>
 				{obj.showTab}
 				{obj.noneTab}
-					
-				
+
+
 			</Tabs>
 			<div className="m-noneClick" style={{width:obj.noneTab.length*109.16}}>
 			 {obj.dialogDiv}
-			</div>	
+			</div>
 					<Dialog
 				title="提示"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				onClose={this.openConfirmCreateDialog}
-				open={allState.openLocalStorage} 
+				open={allState.openLocalStorage}
 				contentStyle={{width:'400px'}}>
 					<div>
 						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
@@ -320,7 +325,7 @@ class LookCustomerList extends Component{
 						</Grid>
 					</div>
 
-			  </Dialog>	        
+			  </Dialog>
 		    </div>
 		);
 	}
