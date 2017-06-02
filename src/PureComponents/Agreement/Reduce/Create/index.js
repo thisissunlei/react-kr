@@ -191,13 +191,14 @@ export default class JoinCreate extends Component {
 
 
 			
-			initialValues.num = localStorageData.num || 1;
+			initialValues.num = 1;
+			initialValues.oldNum = 1;
 			
-			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
-				initialValues.oldNum = localStorageData.num;
-			}else{
-				initialValues.oldNum = localStorageData.oldNum;
-			}
+			// if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+			// 	initialValues.oldNum = localStorageData.num;
+			// }else{
+			// 	initialValues.oldNum = localStorageData.oldNum;
+			// }
 
 			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 			initialValues.leaseContacttel = response.customer.customerPhone;

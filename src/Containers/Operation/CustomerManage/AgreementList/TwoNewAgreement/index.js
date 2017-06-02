@@ -257,6 +257,7 @@ class LookCustomerList extends Component{
 	}
 	removeLocalStorage=()=>{
 		let keyWord = allState.mainBillId+''+allState.listId;
+
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -264,16 +265,20 @@ class LookCustomerList extends Component{
 				 removeList.push(itemName);
 			 }
 		 }
+		 console.log(removeList)
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
+ 		console.log('remove')
 	}
 
 	onCancelStorage=()=>{
+		this.removeLocalStorage();
 		let {CommunityAgreementList} = this.props
 		allState.openLocalStorage=false;
+		console.log('open')
 		CommunityAgreementList.openLocalStorage=false;
-		this.removeLocalStorage();
+		
 		allState.local = [];
 	}
 	getLocalStorage=()=>{

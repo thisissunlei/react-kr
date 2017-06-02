@@ -199,15 +199,16 @@ export default class JoinCreate extends Component {
 			initialValues.customerId = params.customerId;
 			initialValues.agreement = '无';
 
-
+			initialValues.num = 1;
+			initialValues.oldNum = 1;
 			
-			initialValues.num = localStorageData.num || 1;
+			// initialValues.num = localStorageData.num || 1;
 			
-			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
-				initialValues.oldNum = localStorageData.num;
-			}else{
-				initialValues.oldNum = localStorageData.oldNum;
-			}
+			// if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+			// 	initialValues.oldNum = localStorageData.num;
+			// }else{
+			// 	initialValues.oldNum = localStorageData.oldNum;
+			// }
 
 
 			initialValues.leaseContact = response.customer.customerMember;
