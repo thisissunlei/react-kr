@@ -239,7 +239,7 @@ getScrollTop = () => {
 
 			})
 			var top = document.documentElement.scrollTop || document.body.scrollTop;
-			 document.documentElement.scrollTop = document.body.scrollTop = top+1; 
+			 document.documentElement.scrollTop = document.body.scrollTop = top+1;
 
 		}).catch(function(err) {
 
@@ -271,10 +271,11 @@ getScrollTop = () => {
    }
    //搜索下拉选中
    communityChange = (values) =>{
+     console.log(values,">>>>>>");
 	   const {searchParams} = this.state;
 		this.setState({
 			searchParams:{
-               communityId:values.value,
+         communityId:values.value,
 			   customerName:'',
 			   page:1,
 			   pageSize:15,
