@@ -475,5 +475,10 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
          method: 'get'
       },
+      //获取销控表平面图列表信息
+      'getControlGraph':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/list?communityId={communityId}&endDate={endDate}&floor={floor}&page={page}&pageSize={pageSize}&startDate={startDate}',
+         method: 'get'
+      },
 
 }

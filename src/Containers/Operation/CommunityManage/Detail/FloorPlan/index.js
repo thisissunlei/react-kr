@@ -31,10 +31,21 @@ export default class FloorPlan extends React.Component {
 		super(props, context);
 		let _this = this;
 		this.state = {
+			searchParams:{
+               page:1,
+			   pageSize:2,
+			   communityId:'',
+               floor:'',
+			},
+			//社区
 			communityIdList: [],
+			//楼层
 			communityInfoFloorList: [],
-			dateend: DateFormat(new Date(), "yyyy-mm-dd"),
-			date: DateFormat(new Date(), "yyyy-mm-dd")
+			//开始结束时间
+			dateend: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
+			date: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
+			//获取的基本信息
+			initializeConfigs:{}
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -42,6 +53,30 @@ export default class FloorPlan extends React.Component {
 	}
 	
 	
+    componentWillMount(){
+	   this.getBaseData();
+	}
+    
+	//获取基本信息
+	getBaseData=()=>{
+		let {dateend,date,searchParams}=this.state;
+		var data={};
+		data.startDate=date;
+		data.endDate=dateend;
+		data.communityId=searchParams.communityId;
+		data.floor=searchParams.floor;
+		data.page=searchParams.page;
+		data.pageSize=searchParams.pageSize;
+		var _this=this;
+		Http.request('getControlGraph',data).then(function(response) {
+			
+			console.log('vvvv',response);
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
 	//获取社区
 	getcommunity=()=> {
 		let _this = this;
@@ -147,10 +182,6 @@ export default class FloorPlan extends React.Component {
 	}
 
 
-	componentWillUnmount(){
-		
-	}
-
 	onSubmit=()=>{
 		
 	}
@@ -187,9 +218,10 @@ export default class FloorPlan extends React.Component {
 			</form>
 			<p style={{margin:10}}></p>
 			{/*<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>*/}
-			<PlanMapAll
-			 
-			/>
+			{/*<PlanMapAll
+			   ref={(mapComponent) => this.mapComponent = mapComponent}
+			   //initializeConfigs={initializeConfigs}
+			/>*/}
 
 		</div>
 		);
