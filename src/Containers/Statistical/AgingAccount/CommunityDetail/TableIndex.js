@@ -152,15 +152,17 @@ export default class TableIndex extends React.Component{
 						  	
 					    </tbody>
 					</table>
-					
+					{
+						State.items.length<1 && <div style={{width:121,height:169,margin:"200px auto"}}>
+													<img style={{display: "inline-block",width: 121, height: 169}} src={require('../images/nothings.png')}/>
+												</div>
+					}
 					
 					<div className='date-items'>
 						
+						
 						{
-							!loading && State.items.length<1 && <div><img style={{display: "inline-block",width: 121, height: 169,marginLeft: 413,marginTop: 100}} src={require('../images/nothings.png')}/></div>
-						}
-						{
-							!loading && State.items.length>0 && State.items.map(function(item,index){
+							State.items.length>0 && State.items.map(function(item,index){
 
 					  			return <div key={index} className="data-item">
 					  				<div className="item-div line-height">{item.cityName}</div>
