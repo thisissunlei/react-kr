@@ -2,17 +2,12 @@ import React, {
 	PropTypes
 } from 'react';
 import {
-	connect
-} from 'kr/Redux';
-import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
 import {DateFormat,Http} from 'kr/Utils';
 import {
-	Notify,
 	KrField,
 	Button,
 	ListGroup,
@@ -26,6 +21,7 @@ import {
 
 
 export default class FloorPlan extends React.Component {
+
 	static defaultProps = {
 		
 	}
@@ -43,20 +39,8 @@ export default class FloorPlan extends React.Component {
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
 		Store.dispatch(change('FloorPlan', 'end', DateFormat(new Date(), "yyyy-mm-dd")));
 	}
-	componentWillReceiveProps(nextProps) {
-		
-	}
-
-
-	componentDidMount() {
-
-	}
-
 	
-	onSubmit=(form)=> {
-			
-	}
-
+	
 	//获取社区
 	getcommunity=()=> {
 		let _this = this;
@@ -127,10 +111,7 @@ export default class FloorPlan extends React.Component {
 					date: personel
 				})
 			} else {
-				Notify.show([{
-					message: '结束时间不能小于开始时间',
-					type: 'danger',
-				}]);
+				Message.error('结束时间不能小于开始时间');
 				Store.dispatch(change('FloorPlan', 'start', DateFormat(date, "yyyy-mm-dd")));
 			}
 		} else {
@@ -154,10 +135,7 @@ export default class FloorPlan extends React.Component {
 					dateend: personel
 				})
 			} else {
-				Notify.show([{
-					message: '结束时间不能小于开始时间',
-					type: 'danger',
-				}]);
+				Message.error('结束时间不能小于开始时间');
 				Store.dispatch(change('FloorPlan', 'end', DateFormat(dateend, "yyyy-mm-dd")));
 			}
 		} else {
@@ -165,11 +143,14 @@ export default class FloorPlan extends React.Component {
 				dateend: personel
 			})
 		}
-
-
-
 	}
+
+
 	componentWillUnmount(){
+		
+	}
+
+	onSubmit=()=>{
 		
 	}
 
