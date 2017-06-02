@@ -116,18 +116,18 @@ export default class NewCreateForm extends React.Component {
 	render() {
 		let {detail,handleSubmit} = this.props;
 		return (
-			<div className="edit-form" style={{paddingBottom:"3"}}>
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+			<div className="edit-form" >
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:20}}>
 					
 
-					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true}/>
+					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true} style={{marginTop:20}}/>
 					
 					
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" requiredValue={true} requireLabel={true}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" requiredValue={true} requireLabel={true} style={{marginTop:15}}/>
 					
-					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
+					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:15}}/>
 
-					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange}/>
+					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange} style={{marginTop:15}}/>
 
 
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
