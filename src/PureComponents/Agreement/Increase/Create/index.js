@@ -61,6 +61,9 @@ export default class JoinCreate extends Component {
 			openConfirmCreate: false
 		}
 			this.isConfirmSubmiting = false;
+		// Store.dispatch(reset('increaseCreateForm'));
+	}
+	componentWillUnmount() {
 		Store.dispatch(reset('increaseCreateForm'));
 	}
 

@@ -134,7 +134,6 @@ class NewCreateForm extends Component {
 			allRent:0,
 
 		}
-		console.log('1-join',this.props.optionValues)
 	}
 
 	calcStationNum() {

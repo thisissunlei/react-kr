@@ -53,7 +53,7 @@ export default class JoinCreate extends Component {
 			openConfirmCreate: false
 		}
 		this.isConfirmSubmiting = false;
-		Store.dispatch(reset('exitCreateForm'));
+		// Store.dispatch(reset('exitCreateForm'));
 
 	}
 
@@ -64,6 +64,9 @@ export default class JoinCreate extends Component {
 
 		// this.onConfrimSubmit(formValues);
 		this.openConfirmCreateDialog();
+	}
+	componentWillUnmount() {
+		Store.dispatch(reset('exitCreateForm'));
 	}
 
 	onConfrimSubmit() {
