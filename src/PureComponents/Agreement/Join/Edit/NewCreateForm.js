@@ -156,6 +156,8 @@ class NewCreateForm extends React.Component {
 			delStationVos= stationVos;
 			stationVos = [];
 		}
+			Store.dispatch(change('joinEditForm', 'stationVos',[]));
+			Store.dispatch(change('joinEditForm', 'delStationVos',delStationVos));
 		this.setState({
 			stationVos: [],
 			delStationVos,
@@ -177,6 +179,8 @@ class NewCreateForm extends React.Component {
 		let {initialValues} = this.props;
 		delStationVos= stationVos;
 		stationVos = [];
+		Store.dispatch(change('joinEditForm', 'stationVos',[]));
+		Store.dispatch(change('joinEditForm', 'delStationVos',delStationVos));
 
 		this.setState({
 			stationVos,
