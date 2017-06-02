@@ -137,7 +137,7 @@ export default class List extends React.Component {
 					date: new Date(),
 					communityId : _this.state.searchParams.communityId,
 					customerName : _this.state.searchParams.customerName,
-					page : _this.state.realPage
+					page : 1
 				}
 			})
 		}).catch(function(err){
@@ -179,7 +179,7 @@ export default class List extends React.Component {
 				searchParams:{
 					communityId : '',
 					customerName : _this.state.searchParams.customerName,
-					page : _this.state.realPage
+					page : 1
 				}
 			})
 		}else{
@@ -187,7 +187,7 @@ export default class List extends React.Component {
 			searchParams:{
 				communityId : item.id,
 				customerName : _this.state.searchParams.customerName,
-				page : _this.state.realPage
+				page :1
 			}
 		})
 		}
@@ -200,7 +200,7 @@ export default class List extends React.Component {
 			searchParams:{
 				customerName : value.content,
 				communityId : _this.state.searchParams.communityId,
-				page : _this.state.realPage,
+				page : 1,
 				
 			}
 		})

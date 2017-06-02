@@ -171,7 +171,7 @@ export default class EquipmentDefinition extends React.Component {
         content: value.content,
         equipmentParams: {
           deviceCode: value.content,
-          page : _this.state.realPage
+          
 
         }
       })
@@ -181,7 +181,7 @@ export default class EquipmentDefinition extends React.Component {
         content: value.content,
         equipmentParams: {
           hardwareId: value.content,
-          page : _this.state.realPage
+          
         }
       })
     }
@@ -195,7 +195,7 @@ export default class EquipmentDefinition extends React.Component {
       content: '',
       equipmentParams: {
         deviceCode: "",
-        page : _this.state.realPage
+        
       }
     })
   }
@@ -209,7 +209,7 @@ export default class EquipmentDefinition extends React.Component {
         filter : "deviceCode",
         content : "",
         equipmentParams:{
-          page : _this.state.realPage,
+         
           communityId :values.communityId || "",
           hardwareId : values.value || "",
           floor : values.floor || "",
@@ -224,7 +224,7 @@ export default class EquipmentDefinition extends React.Component {
         content : "",
         timer : new Date(),
         equipmentParams:{
-           page : _this.state.realPage,
+          
           communityId :values.communityId || "",
           deviceCode : values.value || "",
           floor : values.floor || "",

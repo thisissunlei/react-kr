@@ -179,7 +179,7 @@ export default class List extends React.Component {
 			searchParams :{
 				type:value.filter,
 				value:value.content,
-				page :_this.state.realPage,
+				
 				pageSize:15,
 				companyId:0,
 			}
@@ -205,7 +205,7 @@ export default class List extends React.Component {
 				endTime :values.endTime || '',
 				startTime :values.startTime || '',
 				jobId :values.jobId || '',
-				page:_this.state.realPage,
+				
 				pageSize:15,
 				companyId:0,
 			}
