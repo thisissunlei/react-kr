@@ -79,7 +79,7 @@ export default class FloorPlan extends React.Component {
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
 
-			var response=response.items[0];
+			    /*var response=response.items[0];
 				var stationsDataOrigin = response.figures;
 				var stations = [];
 				stations = stationsDataOrigin.map(function (item, index) {
@@ -115,7 +115,7 @@ export default class FloorPlan extends React.Component {
 					initializeConfigs,
 				 });
             
-                 //_this.mapComponent.newMap(initializeConfigs);
+                 //_this.mapComponent.newMap(initializeConfigs);*/
 
 			console.log('vvvv',response);
 		}).catch(function(err) {
@@ -173,7 +173,6 @@ export default class FloorPlan extends React.Component {
     
 	//选择社区
 	selectCommunity=(personel)=> {
-		
 		if (personel) {
 			this.getCommunityFloors(personel.id);
 			var searchParams={
@@ -184,6 +183,7 @@ export default class FloorPlan extends React.Component {
 			    searchParams
 			},function(){
 				this.getRentData();
+				this.getBaseData();
 			})
 		}
 		Store.dispatch(change('FloorPlan', 'floor', ''));
@@ -210,52 +210,64 @@ export default class FloorPlan extends React.Component {
 			Message.error(err.message);
 		});
 	}
+
+	//选择楼层
+	selectFloors=(param)=>{
+		 if(param){
+            var searchParams={
+			 floor:param.label
+			}
+			searchParams = Object.assign({},this.state.searchParams, searchParams);
+            this.setState({
+			    searchParams
+			},function(){
+				this.getRentData();
+				this.getBaseData();
+		 })
+		}
+	}
 	
 	//开始时间
 	firstDate = (personel) => {
-		let firstDate = new Date(personel);
-		let {date} = this.state;
-		if (this.state.dateend) {
+		    let firstDate = new Date(personel);
 			let endDate = new Date(this.state.dateend);
 			let start = firstDate.getTime();
 			let end = endDate.getTime();
 			if (start <= end) {
 				this.setState({
 					date: personel
+				},function(){
+					this.getRentData();
+				    this.getBaseData();
 				})
 			} else {
 				Message.error('结束时间不能小于开始时间');
-				Store.dispatch(change('FloorPlan', 'start', DateFormat(date, "yyyy-mm-dd")));
+				this.setState({
+					date: personel
+				})
 			}
-		} else {
-			this.setState({
-				date: personel
-			})
-		}
 	}
 
 	//结束时间
 	secondDate = (personel) => {
-		let {dateend}= this.state;
-		let secondDate = new Date(personel);
-		let end = this.state.dateend;
-		if (this.state.date) {
+		    let secondDate = new Date(personel);
 			let firstDate = new Date(this.state.date);
 			let start = firstDate.getTime();
 			let end = secondDate.getTime();
 			if (start <= end) {
 				this.setState({
 					dateend: personel
+				},function(){
+					this.getRentData();
+				    this.getBaseData();
 				})
 			} else {
 				Message.error('结束时间不能小于开始时间');
-				Store.dispatch(change('FloorPlan', 'end', DateFormat(dateend, "yyyy-mm-dd")));
+			    this.setState({
+					dateend: personel
+				})
 			}
-		} else {
-			this.setState({
-				dateend: personel
-			})
-		}
+
 	}
 
 
