@@ -542,23 +542,31 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		let {initialValues} =this.props;
-		Store.dispatch(change('admitCreateForm', 'stationVos', stationVos));
-
 		this.setAllRent(stationVos);
 
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		for(let i=0;i<list.length;i++){
-			if(!list[i].unitprice){
-				return;
+		// for(let i=0;i<list.length;i++){
+		// 	if(!list[i].unitprice){
+		// 		return;
+		// 	}
+		// }
+		let stationList = list.map((item)=>{
+			console.log('item',item.unitprice,typeof item.unitprice)
+		if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
 			}
-		}
+			return item;
+		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
-		Store.dispatch(change('admitCreateForm', 'totalrent', response));
+			Store.dispatch(change('admitCreateForm', 'stationVos', list));
+			Store.dispatch(change('admitCreateForm', 'totalrent', response));
 
 		}).catch(function(err) {
 			Notify.show([{
