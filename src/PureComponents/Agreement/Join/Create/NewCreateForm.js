@@ -469,10 +469,11 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-	
 		let stationList = list.map((item)=>{
-			if(!item.unitprice||isNaN(item.unitprice)){
+		if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
 			}
 			return item;
 		})

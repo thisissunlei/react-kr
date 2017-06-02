@@ -553,7 +553,6 @@ class NewCreateForm extends React.Component {
 		// 	}
 		// }
 		let stationList = list.map((item)=>{
-			console.log('item',item.unitprice,typeof item.unitprice)
 		if(!item.unitprice){
 				item.unitprice = 0;
 			}else{
