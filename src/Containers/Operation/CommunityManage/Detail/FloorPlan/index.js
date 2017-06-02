@@ -19,7 +19,7 @@ import {
 	reduxForm,
 	change
 } from 'redux-form';
-
+import './index.less';
 
 export default class FloorPlan extends React.Component {
 
@@ -37,6 +37,12 @@ export default class FloorPlan extends React.Component {
 			   communityId:'',
                floor:'',
 			},
+			//三个数
+			station:{
+              stationNum:'',
+			  stationRate:'',
+			  stationTotal:''
+			},
 			//社区
 			communityIdList: [],
 			//楼层
@@ -53,8 +59,11 @@ export default class FloorPlan extends React.Component {
 	}
 	
 	
-    componentWillMount(){
+    componentDidMount(){
+	   var _this=this;
+       const mapComponent = this.mapComponent;
 	   this.getBaseData();
+	   this.getRentData();
 	}
     
 	//获取基本信息
@@ -70,53 +79,71 @@ export default class FloorPlan extends React.Component {
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
 
-			var stationsDataOrigin = response.figures;
-            var stations = [];
-            stations = stationsDataOrigin.map(function (item, index) {
+			var response=response.items[0];
+				var stationsDataOrigin = response.figures;
+				var stations = [];
+				stations = stationsDataOrigin.map(function (item, index) {
+					if (!item) {
+						return;
+					}
+					var obj = {};
+					var x = item.cellCoordX;
+					var y = item.cellCoordY;
 
-                if (!item) {
-                    return;
-                }
-                var obj = {};
-                var x = item.cellCoordX;
-                var y = item.cellCoordY;
+					obj.x = Number(x);
+					obj.y = Number(y);
+					obj.width = Number(item.cellWidth);
+					obj.height = Number(item.cellHeight);
+					obj.name = item.cellName;
+					obj.belongType = item.belongType;
+					obj.belongId = Number(item.belongId);
+					obj.id = Number(item.id);
+					obj.canFigureId = item.canFigureId;
+					obj.type=obj.belongType;
+					return obj;
+				}); 
 
-                obj.x = Number(x);
-                obj.y = Number(y);
-                obj.width = Number(item.cellWidth);
-                obj.height = Number(item.cellHeight);
-                obj.name = item.cellName;
-                obj.belongType = item.belongType;
-                obj.belongId = Number(item.belongId);
-                obj.id = Number(item.id);
-                obj.canFigureId = item.canFigureId;
-                obj.type=obj.belongType;
-                return obj;
-            });
+				  var initializeConfigs = {
+						stations: stations,
+						backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
+						translateX:0,
+						translateY:0,
+						mode:'view'
+				 }
+
+			     _this.setState({
+					initializeConfigs,
+				 });
             
-            var initializeConfigs = {
-                stations: stations,
-                backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
-                translateX:0,
-                translateY:0,
-                mode:'view'
-            }
+                 //_this.mapComponent.newMap(initializeConfigs);
 
-            _this.setState({
-                initializeConfigs,
-            });
-            
-            _this.mapComponent.newMap(initializeConfigs);
-            _this.mapComponent.ready(function(data){
-                  _this.setState({
-                      loading:false
-                  })
-            });
 			console.log('vvvv',response);
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
+    
+	//获取出租数信息
+	getRentData=()=>{
+       let {dateend,date,searchParams}=this.state;
+		var data={};
+		data.startDate=date;
+		data.endDate=dateend;
+		data.communityId=searchParams.communityId;
+		data.floor=searchParams.floor;
+		var _this=this;
+		Http.request('getGraphRent',data).then(function(response) {
+			_this.setState({
+				station:{
+					stationNum:response.stationNum,
+					stationRate:response.stationRate,
+					stationTotal:response.stationTotal
+				},
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		}); 
+	} 
 
 
 	//获取社区
@@ -146,10 +173,18 @@ export default class FloorPlan extends React.Component {
     
 	//选择社区
 	selectCommunity=(personel)=> {
-		let id = '';
+		
 		if (personel) {
-			id = personel.id;
 			this.getCommunityFloors(personel.id);
+			var searchParams={
+			communityId:personel.id
+			}
+			searchParams = Object.assign({},this.state.searchParams, searchParams);
+            this.setState({
+			    searchParams
+			},function(){
+				this.getRentData();
+			})
 		}
 		Store.dispatch(change('FloorPlan', 'floor', ''));
 	}
@@ -235,7 +270,8 @@ export default class FloorPlan extends React.Component {
 			communityInfoFloorList,
 			dateend,
 			date,
-			initializeConfigs
+			initializeConfigs,
+			station
 		} = this.state;
 
 		let {
@@ -259,12 +295,32 @@ export default class FloorPlan extends React.Component {
 						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
 					</ListGroup>
 			</form>
-			<p style={{margin:10}}></p>
+			
+			<div className='m-control-list'>
+               <div className="com-header">
+					<ul className="header-list">
+						<li><span className="color-span none"></span><span>空置工位</span></li>
+						<li><span className="color-span ordered"></span><span>预订工位</span></li>
+						<li><span className="color-span enter"></span><span>已入驻工位</span></li>
+					</ul>
+					<div className="station-list">
+						<span className="til">已出租工位数：{station.stationNum}</span>
+						<span className="til">可出租工位数：{station.stationTotal}</span>
+						<span className="til">出租率：{station.stationRate}</span> 
+					</div>
+			    </div>
+
+                <div className='com-body'>
+				   
+				</div>
+
+
+		    </div>
 			{/*<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>*/}
-			<PlanMapAll
+			{/*<PlanMapAll
 			   ref={(mapComponent) => this.mapComponent = mapComponent}
 			   initializeConfigs={initializeConfigs}
-			/>
+			/>*/}
 
 		</div>
 		);

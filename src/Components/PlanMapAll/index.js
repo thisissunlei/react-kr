@@ -62,7 +62,6 @@ export default class PlanMapAll extends Component {
 
 
     newMap = (initializeConfigs)=>{
-
         if(this.map){
             this.map.destory();
         }

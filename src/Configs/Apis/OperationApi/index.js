@@ -480,5 +480,10 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/list?communityId={communityId}&endDate={endDate}&floor={floor}&page={page}&pageSize={pageSize}&startDate={startDate}',
          method: 'get'
       },
+      //获取销控表平面图列表出租数信息
+      'getGraphRent':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/list-num?communityId={communityId}&endDate={endDate}&floor={floor}&startDate={startDate}',
+         method: 'get'
+      },
 
 }
