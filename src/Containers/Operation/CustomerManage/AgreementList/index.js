@@ -104,7 +104,7 @@ class Merchants extends Component{
 			Message.error(err.message);
 		});
 	}
-	
+
 	//打开第二新建页面
 	openTwoAgreement = () => {
 		this.props.CommunityAgreementList.openTowAgreement=true;
@@ -728,7 +728,7 @@ class Merchants extends Component{
 				<TableBody className='noDataBody' borderBodyStyle>
 					<TableRow style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
-							 {this.noDataRender()}
+							 {!loading && this.noDataRender()}
 						</TableRowColumn>
 					</TableRow>
 				</TableBody>
@@ -757,7 +757,8 @@ class Merchants extends Component{
 		          	</TableHeader>
 
 			        <TableBody>
-			        	{ contractList.map((item,index)=>{
+
+			        	{ !loading && contractList.map((item,index)=>{
 			        		let type='';
 			        		if(item.contracttype=='INTENTION'){
                                type='承租意向书'
@@ -828,8 +829,8 @@ class Merchants extends Component{
 
 
            </Table>
-
-           <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
+					 {loading&&<Loading style = {{width:"100%"}}/>}
+           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>}
 
            </Section>
 					{/*新建合同的第一页*/}

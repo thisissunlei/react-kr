@@ -331,7 +331,7 @@ class VisitorsToRecord  extends React.Component{
 
 		return(
 			<div className="m-equipment-list m-visitors-to-record" style={{minHeight:'910'}}>
-				<Title value="预约参观"/>
+				<Title value="预约参观" style = {{}}/>
       		<Section title="预约参观"  style={{marginBottom:-5,minHeight:910}}>
 
 		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>

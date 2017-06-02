@@ -26,22 +26,16 @@ export default  class Canvas extends React.Component {
 		const {url,id} = this.props;
 		const {data} = this.state;
 		const _this = this;
+		const host = "http://"+window.location.host;
+		console.log("host",host);
 		let img = new Image();
-		img.src = "http://optest.krspace.cn"+url;
+		img.src = host+url;
 		img.onload = function () {
 	  	var canvas = document.getElementById("canvas"+id);
 		canvas.width = img.width || 1000;
     	canvas.height = img.height || 1000;
 		var context = canvas.getContext("2d");
-		$("#plan-map-content").scroll(function(){
-			let scrollX = $("#plan-map-content").scrollLeft();
-			let scrollY = $("#plan-map-content").scrollTop();
-			_this.setState({
-				scrollX:scrollX,
-				scrollY:scrollY,
-
-			})
-		})
+		$("#plan-map-content").bind("scroll",this.scrolldata);
 
 			_this.setState({
 				myCanvas:canvas,
@@ -52,6 +46,18 @@ export default  class Canvas extends React.Component {
 				_this.draw("one");
 			})
 		}
+	}
+	scrolldata = () =>{
+		let scrollX = $("#plan-map-content").scrollLeft();
+		let scrollY = $("#plan-map-content").scrollTop();
+		this.setState({
+			scrollX:scrollX,
+			scrollY:scrollY,
+
+		})
+	}
+	componentWillUnmount(){
+		$("#plan-map-content").unbind("scroll",this.scrolldata);
 	}
 	componentWillReceiveProps(nextProps){
 		let _this = this;
@@ -151,7 +157,6 @@ export default  class Canvas extends React.Component {
 			ctx.stroke();
 			return item;
         })
-		console.log(submitData,"KKKGGG");
 		dataChange && dataChange(newfloor,submitData,deleteArr);
 		this.setState({
 			data:allObj

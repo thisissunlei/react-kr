@@ -1,0 +1,28 @@
+.tabs{
+	
+
+}
+.tab-container{
+	position: relative;
+	.line:before{
+		position: absolute;
+		content:'';
+		display: inline-block;
+		width: 0px;
+		height: 30px;
+		border-right:1px solid #eee;
+		// z-index: 10;
+		left: 50%;
+		top: 10px;
+	}
+}
+.hidden-div{
+	background:transparent;
+    position: fixed;
+    top: 0;
+    z-index:1000;
+    left:0;
+    top: 60px;
+    right: 570px;
+    bottom: 0;
+}

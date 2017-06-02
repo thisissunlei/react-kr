@@ -21,7 +21,7 @@ class SearchForm extends React.Component {
 		super(props);
 
 		this.onSubmit = this.onSubmit.bind(this);
-		var dt = new Date(); 
+		var dt = new Date();
 		let currentYear = dt.getFullYear();
 		this.state = {
 			currentYear: currentYear,
@@ -161,7 +161,7 @@ export default class BasicTable extends React.Component {
 		this.onStation = this.onStation.bind(this);
 		this.scrollLoading = this.scrollLoading.bind(this);
 		this.onSetState = this.onSetState.bind(this);
-		var dt = new Date(); 
+		var dt = new Date();
 		this.currentYear = dt.getFullYear();
 		let currentYear = dt.getFullYear();
 
@@ -197,6 +197,7 @@ export default class BasicTable extends React.Component {
 		this.getInstallmentplan();
 		let {tab}= this.props;
 		if (tab === 'table') {
+				console.log('scroll')
 			$(window).bind('scroll.table', this.scrollLoading);
 		}
 	}
@@ -213,12 +214,13 @@ export default class BasicTable extends React.Component {
 	}
 
 	componentWillUnmount(){
-		$(window).bind('scroll.table', this.scrollLoading);
+		$(window).unbind('scroll.table', this.scrollLoading);
 	}
 
 
 
 	scrollLoading() {
+		console.log('scrolling')
 		var _this = this;
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
@@ -514,10 +516,10 @@ export default class BasicTable extends React.Component {
 				});
 			}
 
-			
 
 
-			 
+
+
 
 		}).catch(function(err) {
 
@@ -713,7 +715,7 @@ export default class BasicTable extends React.Component {
 		}
 	}
 
-	
+
 
 	render() {
 
@@ -792,7 +794,7 @@ export default class BasicTable extends React.Component {
 				</thead>
 				{this.renderNone(showNone)}
 
-				
+
 
 
 
