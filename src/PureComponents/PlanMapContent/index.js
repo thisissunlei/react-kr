@@ -90,7 +90,6 @@ export default class PlanMapContent extends React.Component {
 		let deldata = [];
 		
 		otherData.floors.map(function(item,index){
-			console.log(floor == item.value,floor,item.value)
 			if(floor == item.value){
 				obj[floor]={
 					data : data || [],
@@ -203,7 +202,6 @@ export default class PlanMapContent extends React.Component {
 		if(!data){
 			return null;
 		}
-	    console.log('===oframe======>')
 		return (
 
 			<div className = "plan-map-content">

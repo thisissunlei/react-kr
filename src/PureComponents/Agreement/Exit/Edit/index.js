@@ -60,8 +60,6 @@ export default class EditCreate extends React.Component {
     const {params,onSubmit} = this.props;
     let _this = this;
     let {CommunityAgreementList}= this.props;
-    console.log('--->',formValues);
-    return;
      Http.request('addFnaContractWithdrawal', {}, formValues).then(function(response) {
       
      _this.removeLocalStorage();
@@ -135,14 +133,12 @@ export default class EditCreate extends React.Component {
     })
     let keyWord = params.orderId+ ''+params.customerId+'QUITRENTedit';
     let localData = JSON.parse(localStorage.getItem(keyWord)) ;
-    console.log('localStorageData',localData);
     if(!localData){
       this.getBasicData();
       return;
     }
     let num = JSON.parse(localStorage.getItem(keyWord)).num || 0;
     let oldNum = JSON.parse(localStorage.getItem(keyWord)).oldNum || 0;
-    console.log('num',num,oldNum)
        if(num-oldNum>1){
         _this.setState({
           openLocalStorages:true
