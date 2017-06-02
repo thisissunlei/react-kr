@@ -177,37 +177,6 @@ class NewCreateForm extends React.Component {
 			}]);
 		});
 	}
-	getSingleRent=(item)=>{
-		//年月日
-		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		let rentBegin = DateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
-		let rentEnd = DateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
-		let rentDay = 0;
-		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
-		let years = rentEnd[0];
-		if(rentBegin[2]-rentEnd[2] == 1){
-			rentDay = 0;
-		}else{
-			let a =rentEnd[2]-rentBegin[2];
-			if(a>=0){
-				rentDay = a+1;
-
-			}else{
-				let mounthIndex = rentEnd[1]-1;
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
-					rentDay = mounth[mounthIndex]+2+a;
-				}
-				rentDay = mounth[mounthIndex]+1+a;
-				rentMounth = rentMounth-1;
-			}
-		}
-		//计算日单价
-		let rentPriceByDay =((item.unitprice*12)/365).toFixed(6);
-		//工位总价钱
-		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2)*1;
-		return allRent;
-	}
 
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('reduceCreateForm', 'lessorContacttel', personel.mobile));
