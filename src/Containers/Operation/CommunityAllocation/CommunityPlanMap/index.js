@@ -118,7 +118,8 @@ class CommunityPlanMap extends React.Component {
 				stationToSame:checked,
 				backgroundImageUrl:response.graphFilePath,
 				translateX:0,
-				translateY:0
+				translateY:0,
+				mode:'edit'
 			}
 
 			_this.setState({
