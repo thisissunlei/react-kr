@@ -79,44 +79,45 @@ export default class FloorPlan extends React.Component {
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
 
-			    /*var response=response.items[0];
-				var stationsDataOrigin = response.figures;
-				var stations = [];
-				stations = stationsDataOrigin.map(function (item, index) {
-					if (!item) {
-						return;
+			    /*var response=response.items;
+				response.map((items,indexs)=>{
+                    var stationsDataOrigin = items.figures;
+					var stations = [];
+					stations = stationsDataOrigin.map(function (item, index) {
+						if (!item) {
+							return;
+						}
+						var obj = {};
+						var x = item.cellCoordX;
+						var y = item.cellCoordY;
+
+						obj.x = Number(x);
+						obj.y = Number(y);
+						obj.width = Number(item.cellWidth);
+						obj.height = Number(item.cellHeight);
+						obj.name = item.cellName;
+						obj.belongType = item.belongType;
+						obj.belongId = Number(item.belongId);
+						obj.id = Number(item.id);
+						obj.canFigureId = item.canFigureId;
+						obj.type=obj.belongType;
+						return obj;
+					}); 
+
+					var initializeConfigs = {
+							stations: stations,
+							backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
+							translateX:0,
+							translateY:0,
+							mode:'view'
 					}
-					var obj = {};
-					var x = item.cellCoordX;
-					var y = item.cellCoordY;
 
-					obj.x = Number(x);
-					obj.y = Number(y);
-					obj.width = Number(item.cellWidth);
-					obj.height = Number(item.cellHeight);
-					obj.name = item.cellName;
-					obj.belongType = item.belongType;
-					obj.belongId = Number(item.belongId);
-					obj.id = Number(item.id);
-					obj.canFigureId = item.canFigureId;
-					obj.type=obj.belongType;
-					return obj;
-				}); 
-
-				  var initializeConfigs = {
-						stations: stations,
-						backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
-						translateX:0,
-						translateY:0,
-						mode:'view'
-				 }
-
-			     _this.setState({
-					initializeConfigs,
-				 });
-            
-                 //_this.mapComponent.newMap(initializeConfigs);*/
-
+					_this.setState({
+						initializeConfigs,
+					});
+					_this.mapComponent.newMap(initializeConfigs);
+				})*/
+				
 			console.log('vvvv',response);
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -328,7 +329,6 @@ export default class FloorPlan extends React.Component {
 
 
 		    </div>
-			{/*<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>*/}
 			{/*<PlanMapAll
 			   ref={(mapComponent) => this.mapComponent = mapComponent}
 			   initializeConfigs={initializeConfigs}
