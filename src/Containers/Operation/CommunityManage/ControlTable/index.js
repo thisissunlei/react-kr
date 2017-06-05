@@ -6,6 +6,7 @@ import {
   arrayPush,
   initialize
 } from 'redux-form';
+import $ from 'jquery';
 
 import {
   Actions,
@@ -306,26 +307,26 @@ getScrollTop = () => {
 	   let _this = this;
 		return (
 			<div className = "m-control-table-head clearfix" style = {moveStyle}>
-				<div className = "m-control-table-head-td head-td1">
+				<div className = "m-control-table-head-td head-td1" style = {{width:"26%"}}>
 					<div className= "m-control-table-head-tr">{communityName}</div>
 					<div className= "m-control-table-head-tr">当前出租率:{otherData.rentalRateStr}</div>
 					<div className= "m-control-table-head-tr">
-						<div className = "m-control-table-head-tr-td">编号/名称</div>
-						<div className = "m-control-table-head-tr-td">类型</div>
-						<div className = "m-control-table-head-tr-td">容纳人数</div>
+						<div className = "m-control-table-head-tr-td" style = {{width:'40%'}}>编号/名称</div>
+						<div className = "m-control-table-head-tr-td" style = {{width:'30%'}}>类型</div>
+						<div className = "m-control-table-head-tr-td" style = {{width:'30%'}}>容纳人数</div>
 					</div>
 
 				</div>
-				<div className = "m-control-table-head-td ">
+				<div className = "m-control-table-head-td " style = {{minHeight:120}}>
 					<div className= "m-control-table-head-tr">总面积:{otherData.totalArea}</div>
-					<div className= "m-control-table-head-tr">{_this.tooltip("本月收入:"+otherData.incomeMonth)}</div>
+					<div className= "m-control-table-head-tr" style = {{lineHeight:(""+otherData.incomeMonth).length>4 ? "20px":"40px"}}>{"本月收入:"+otherData.incomeMonth}</div>
 					<div className= "m-control-table-head-tr">建筑面积</div>
 
 				</div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>报价</div>
-				<div className = "m-control-table-head-td "><span>实际成交价</span></div>
+				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span>实际成交价</span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>折扣</div>
-				<div className = "m-control-table-head-td "><span className="m-control-table-head-span"><span>每工位实际</span><span>成交价</span><span>(元/月)</span></span></div>
+				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span className="m-control-table-head-span"><span>每工位实际</span><span>成交价</span><span>(元/月)</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}><span className="m-control-table-head-span"><span>在租状态</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"17.5%"}}><span>客户名称</span></div>
 				<div className = "m-control-table-head-td " style = {{width:"17.5%"}}>租期</div>
@@ -372,17 +373,17 @@ getScrollTop = () => {
 		let elem = listData.map(function(item,index){
 			return (
 					<div key={index}  className = "m-control-table-content-tr clearfix">
-							<div className="m-control-table-content-td clearfix">
-								<div className="m-control-table-one-td">{_this.tooltip(item.codeName)}</div>
-								<div className="m-control-table-one-td">{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
-								<div className="m-control-table-one-td">{item.capacity}</div>
+							<div className="m-control-table-content-td clearfix" style = {{width:"26%"}}>
+								<div className="m-control-table-one-td" style = {{width:'40%',lineHeight:(""+item.codeName).length>10 ? "20px":"40px"}}>{item.codeName}</div>
+								<div className="m-control-table-one-td" style = {{width:'30%'}}>{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
+								<div className="m-control-table-one-td" style = {{width:'30%'}}>{item.capacity}</div>
 							</div>
 
 							<div className="m-control-table-content-td" >{item.area}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.quotedPrice}</div>
-							<div className="m-control-table-content-td" >{item.actualPrice}</div>
+							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.actualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{_this.tooltip(item.discountStr)}</div>
-							<div className="m-control-table-content-td">{item.unitActualPrice}</div>
+							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.unitActualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.rentalStatusStr}</div>
 							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(item.company)}</div>
 							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(
