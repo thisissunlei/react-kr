@@ -176,10 +176,11 @@ export default class List extends React.Component {
 			content :value.content,
 			filter :value.filter,
 			submit:true,
+			realPage : 1,
 			searchParams :{
 				type:value.filter,
 				value:value.content,
-				
+				page :1,
 				pageSize:15,
 				companyId:0,
 			}
@@ -197,6 +198,7 @@ export default class List extends React.Component {
 		let _this = this;
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
+			realPage:1,
 			searchParams :{
 				registerSourceId:values.registerSourceId || '',
 				value :values.value,
@@ -205,7 +207,7 @@ export default class List extends React.Component {
 				endTime :values.endTime || '',
 				startTime :values.startTime || '',
 				jobId :values.jobId || '',
-				
+				page :1,
 				pageSize:15,
 				companyId:0,
 			}
