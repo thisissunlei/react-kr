@@ -5,6 +5,7 @@ import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 import { AppBar, MenuItem,IconMenu, IconButton, Drawer, FontIcon, FlatButton } from 'material-ui';
 
+
 import {
 	Button,
 	Message
@@ -31,7 +32,6 @@ import InfoList from '../InfoList';
 import {
 	LookCustomerList,
 	Agreement
-
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
