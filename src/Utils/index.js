@@ -8,6 +8,7 @@ import Debug from './Debug';
 import MobxForm from './MobxForm';
 import  DateFormat from './DateFormat';
 import  DateCompareValue from './DateCompareValue';
+import Map from './Map';
 
 module.exports = {
 	...ClassNames,
@@ -15,6 +16,7 @@ module.exports = {
 	ShallowEqual,
 	Http,
 	Debug,
+	Map,
 	ReactHtmlParser,
 	MobxForm,
 	DateCompareValue,
