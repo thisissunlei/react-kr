@@ -338,7 +338,7 @@ export default class FloorPlan extends React.Component {
 		
 	}
 
-	componentUnmount(){
+	componentWillUnmount(){
 	  window.removeEventListener('scroll',this.scrollListener,false);	
 	}
 
