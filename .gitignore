@@ -27,8 +27,6 @@ static/components
 *.DS_Store
 
 /dist/*
-# !/dist/vendors
-
 /.happypack
 
 material-demo

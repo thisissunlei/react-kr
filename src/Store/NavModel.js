@@ -119,10 +119,28 @@ State.setPermissionNav = action(function (menusCode) {
 
 	var navs = DefaultNavsDic.items;
 	navs = navs.map(function (topItem) {
-		return ForEachMenuItemPermission(topItem, topItem, topItem, menusCode);
+		return  ForEachMenuItemPermission(topItem, topItem, topItem, menusCode);
 	}).filter(function (item) {
 		return item.isPermission;
+	}).map(function(item){
+		var originUrl = '';
+		if(item.hasOwnProperty('menuItems') && item.menuItems[0].hasOwnProperty('menuItems')){
+			var childItem = item.menuItems[0].menuItems[0];
+
+			if(item.menuCode=="oa"){
+				item.originUrl = childItem.originUrl;
+			}else{
+				originUrl = '#'+childItem.router;
+				item.originUrl = originUrl;
+			}
+			
+		}
+
+		return item;
 	});
+
+
+	console.log('navs:',navs);
 
 	this.items = navs;
 	this.isLoadedPermissionNav = true;
