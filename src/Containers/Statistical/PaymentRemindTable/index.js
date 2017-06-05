@@ -10,6 +10,8 @@ import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 // import './index.less';
 import SearchForm from "./SearchForm";
+import TableIndex from "./TableIndex";
+
 
 
 
@@ -35,6 +37,7 @@ export default class PaymentRemindTable extends React.Component {
 					<Title value="催款表"/>
 					<Section title="催款表">
 						<SearchForm/>
+						<TableIndex/>
 					</Section>
 				</div>
 		);
