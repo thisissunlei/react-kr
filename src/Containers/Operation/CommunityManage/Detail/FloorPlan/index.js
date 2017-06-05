@@ -6,7 +6,7 @@ import {
 	Store
 } from 'kr/Redux';
 import $ from 'jquery';
-import {DateFormat,Http} from 'kr/Utils';
+import {DateFormat,Http,Map} from 'kr/Utils';
 import {
 	KrField,
 	Button,
@@ -50,8 +50,6 @@ export default class FloorPlan extends React.Component {
 			//开始结束时间
 			dateend: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
 			date: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
-			//获取的基本信息
-			initializeConfigs:{},
 			//总页数
 			totalPages:'',
 			//返回的items
@@ -85,8 +83,8 @@ export default class FloorPlan extends React.Component {
 		Http.request('getControlGraph',data).then(function(response) {
 
 			      var items=response.items;
-				/*response.map((items,indexs)=>{
-                    var stationsDataOrigin = items.figures;
+				   items.map((it,indexs)=>{
+                    var stationsDataOrigin = it.figures;
 					var stations = [];
 					stations = stationsDataOrigin.map(function (item, index) {
 						if (!item) {
@@ -106,6 +104,14 @@ export default class FloorPlan extends React.Component {
 						obj.id = Number(item.id);
 						obj.canFigureId = item.canFigureId;
 						obj.type=obj.belongType;
+						if(item.status){
+							obj.status=item.status;
+						}
+						obj.pName=item.pName?item.pName:'';
+						obj.phone=item.phone?item.phone:'';
+						obj.leaseEnd=item.leaseEnd?item.leaseEnd:'';
+						obj.leaseStart=item.leaseStart?item.leaseStart:'';
+						obj.company=item.company?item.company:'';
 						return obj;
 					}); 
 
@@ -114,16 +120,11 @@ export default class FloorPlan extends React.Component {
 							backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
 							translateX:0,
 							translateY:0,
-							mode:'view'
+							isMode:'view'
 					}
-
-					_this.setState({
-						initializeConfigs,
-					});
-					_this.mapComponent.newMap(initializeConfigs);
-				})*/
+                    Map('plan-app',initializeConfigs);
+				})
 				
-			console.log('vvvv',response);
 			_this.setState({
 				totalPages:response.totalPages,
 				items
@@ -352,7 +353,6 @@ export default class FloorPlan extends React.Component {
 			communityInfoFloorList,
 			dateend,
 			date,
-			initializeConfigs,
 			station,
 			items
 		} = this.state;
@@ -408,10 +408,6 @@ export default class FloorPlan extends React.Component {
 
 
 		    </div>
-			{/*<PlanMapAll
-			   ref={(mapComponent) => this.mapComponent = mapComponent}
-			   initializeConfigs={initializeConfigs}
-			/>*/}
 
 		</div>
 		);
