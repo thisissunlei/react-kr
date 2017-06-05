@@ -6,8 +6,6 @@ import {
   arrayPush,
   initialize
 } from 'redux-form';
-import $ from 'jquery';
-
 import {
   Actions,
   Store
@@ -202,6 +200,8 @@ getScrollTop = () => {
 	}
 	componentWillUnmount(){
 		window.removeEventListener("scroll",this.onscrollListener)
+		
+	
 	}
 
 	//获取数据
@@ -365,8 +365,9 @@ getScrollTop = () => {
 	}
    //表格内容生成
    generateContent = () =>{
-	   const {listData} = this.state;
+	   const {listData,tableWidth} = this.state;
 	   const _this = this;
+	  
 	   if(listData && !listData.length){
 			return <Nothing style = {{marginTop:50}}/>
 	   }else{
@@ -374,7 +375,7 @@ getScrollTop = () => {
 			return (
 					<div key={index}  className = "m-control-table-content-tr clearfix">
 							<div className="m-control-table-content-td clearfix" style = {{width:"26%"}}>
-								<div className="m-control-table-one-td" style = {{width:'40%',lineHeight:(""+item.codeName).length>10 ? "20px":"40px"}}>{item.codeName}</div>
+								<div className="m-control-table-one-td" style = {{width:'40%',lineHeight:"40px"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.codeName}</span></div>
 								<div className="m-control-table-one-td" style = {{width:'30%'}}>{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
 								<div className="m-control-table-one-td" style = {{width:'30%'}}>{item.capacity}</div>
 							</div>
@@ -408,7 +409,7 @@ getScrollTop = () => {
 		exportClassName = theEnd?"on-export-end":"on-export-middle";
 		endStyle = theEnd ? {}:{height:40}
 		return(
-			<div className="m-control-table" style={{minHeight:'910'}}>
+			<div id = "control-table-width" className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="销控表"/>
 				<Section title="销控表"  style={{marginBottom:-5,minHeight:910}}>
 					<SearchFormControlTable
