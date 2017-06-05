@@ -394,6 +394,9 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
+					<div id='plan-app' style={{background:'#fff'}}>
+										
+					</div>
 				   {
 					   items&&items.map((item,index)=>{
                          return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>

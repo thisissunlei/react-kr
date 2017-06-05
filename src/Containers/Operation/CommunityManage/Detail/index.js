@@ -106,7 +106,7 @@ export default class CommunityManage extends React.Component {
 				<span className="line"></span>
 				 <Tabs className="tabs">
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
-						<Schedule tab={tab}/>
+					   {tab=='table'&&<Schedule tab={tab} />}
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
 
