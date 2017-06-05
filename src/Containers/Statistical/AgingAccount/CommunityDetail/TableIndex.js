@@ -26,7 +26,8 @@ export default class TableIndex extends React.Component{
 		super(props);
 		this.state={
 			// loading:false
-			sWidth : 0
+			sWidth : 0,
+			middlePX : 0
 		}
 	}
 	componentWillMount() {
@@ -39,9 +40,15 @@ export default class TableIndex extends React.Component{
 			// console.log("$(.table-box).eq(0).width()",$(".table-box").eq(0).width());
 			$(".table-box").eq(0).width($(window).eq(0).width()-80);
 			$(".table-data-detail").eq(0).width($(window).eq(0).width()-80);
+			_this.setState({
+				middlePX : ($(window).width()-80)/2-60,
+			})
 		}else{
 			$(".table-box").eq(0).width(_this.state.sWidth);
 			$(".table-data-detail").eq(0).width(_this.state.sWidth);
+			_this.setState({
+				middlePX : (_this.state.sWidth)/2-60
+			})
 
 		}
 		
@@ -53,7 +60,8 @@ export default class TableIndex extends React.Component{
 		
 		var tableBoxWidth = $(".table-box").eq(0).width();
 		this.setState({
-			sWidth :$(window).width()-260
+			sWidth :$(window).width()-260,
+			middlePX :($(window).width()-80)/2-60
 		})
 		$(".table-data-detail").width(tableBoxWidth);
 		$(".table-box").height($(window).height()-200);
@@ -107,7 +115,7 @@ export default class TableIndex extends React.Component{
 	
 	render(){
 		let _this = this;
-		let {loading} = this.props;
+		let {middlePX} = this.state;
 		return (
 			<div className="table-box">
 				
@@ -152,15 +160,17 @@ export default class TableIndex extends React.Component{
 						  	
 					    </tbody>
 					</table>
-					
+
 					
 					<div className='date-items'>
+						{
+							State.items.length<1 && <div style={{width:121,height:169,marginTop:200,marginLeft:middlePX}}>
+													<img style={{display: "inline-block",width: 121, height: 169}} src={require('../images/nothings.png')}/>
+												</div>
+						}
 						
 						{
-							!loading && State.items.length<1 && <div><img style={{display: "inline-block",width: 121, height: 169,marginLeft: 413,marginTop: 100}} src={require('../images/nothings.png')}/></div>
-						}
-						{
-							!loading && State.items.length>0 && State.items.map(function(item,index){
+							State.items.length>0 && State.items.map(function(item,index){
 
 					  			return <div key={index} className="data-item">
 					  				<div className="item-div line-height">{item.cityName}</div>

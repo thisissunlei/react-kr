@@ -24,7 +24,8 @@ export default class TableIndex extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			sWidthC :0
+			sWidthC :0,
+			middlePX : 0
 		}
 	}
 
@@ -33,9 +34,15 @@ export default class TableIndex extends React.Component{
 		if(!nextProps.isLeftNavShow){
 			$(".table-box").eq(0).width($(window).width()-80);
 			$(".table-data").eq(0).width($(window).width()-80);
+			_this.setState({
+				middlePX : ($(window).width()-80)/2-60
+			})
 		}else{
 			$(".table-box").eq(0).width(_this.state.sWidthC);
 			$(".table-data").eq(0).width(_this.state.sWidthC);
+			_this.setState({
+				middlePX : (_this.state.sWidth)/2-60
+			})
 		}
 	}
 
@@ -67,7 +74,8 @@ export default class TableIndex extends React.Component{
 		var windowScrollTop;
 		var tableBoxWidth = $(".table-box").eq(0).width();
 		this.setState({
-			sWidthC:$(window).width()-260
+			sWidthC:$(window).width()-260,
+			middlePX : ($(window).width()-80)/2-60
 		})
 		$(".table-data").width(tableBoxWidth);
 		$(".table-box").eq(0).width($(".community-collect-box").eq(0).width());
@@ -100,6 +108,7 @@ export default class TableIndex extends React.Component{
 	
 	render(){
 		let _this = this;
+		let {middlePX} = this.state;
 		
 		return (
 			<div className="table-box">
@@ -143,9 +152,10 @@ export default class TableIndex extends React.Component{
 					
 					
 					<div className='date-items'>
-						
 						{
-							State.items.length<1 && <div><img style={{display: "inline-block",width: 121, height: 169,marginLeft: 413,marginTop: 100}}  src={require("../images/nothings.png")}/></div>
+						State.items.length<1 && <div style={{width:121,height:169,marginTop:200,marginLeft:middlePX}}>
+													<img style={{display: "inline-block",width: 121, height: 169}} src={require('../images/nothings.png')}/>
+												</div>
 						}
 						{
 						   	State.items.length>0 && State.items.map(function(item,index){
