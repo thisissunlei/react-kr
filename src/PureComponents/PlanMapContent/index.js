@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import {Http,DateFormat} from 'kr/Utils';
+import {Http,DateFormat,Map} from 'kr/Utils';
 import {
 	KrField,
 	Canvas
@@ -76,6 +76,7 @@ export default class PlanMapComponent extends React.Component {
 
 	}
 
+
 	componentWillReceiveProps(nextProps) {
 
 	}
@@ -85,7 +86,7 @@ export default class PlanMapComponent extends React.Component {
 		let arr = [];
 		let delArr = [];
 		let deldata = [];
-		
+
 		otherData.floors.map(function(item,index){
 			if(floor == item.value){
 				obj[floor]={
@@ -96,7 +97,7 @@ export default class PlanMapComponent extends React.Component {
 				arr = obj[item.value].data.concat(arr);
 				delArr = obj[item.value].deleteArr.concat(delArr);
 			}
-			
+
 		})
 
 		for(let i=0;i<data.length;i++){
@@ -126,26 +127,41 @@ export default class PlanMapComponent extends React.Component {
 
 
 	canvasEles = () =>{
-		let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
-		const _this = this;
-		var arr = data.map(function(item,index){
-
-			if(item.floor == newfloor){
-
-				return <Canvas
-							key = {index}
-							inputStart = {inputStart}
-							inputEnd = {inputEnd}
-							id = {index}
-							data = {item.figures}
-							url = {item.graphFilePath}
-							dataChange = {_this.dataChange}
-							selectedObjs = {selectedObjs}
-							newfloor = {newfloor}
-						/>
+		const {data,newfloor} = this.state;
+		var dainitializeConfigs = {};
+		for(let i=0; i<data.length;i++){
+			if(data[i].floor == newfloor){
+				dainitializeConfigs = {
+					stations:data[i].figures,
+					scale:1,
+					backgroundImageUrl:"http://optest.krspace.cn/" + data[i].graphFilePath
+				}
 			}
-		})
-	 	return arr;
+		}
+
+
+
+		Map("plan-map-content",dainitializeConfigs)
+		// let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
+		// const _this = this;
+		// var arr = data.map(function(item,index){
+		//
+		// 	if(item.floor == newfloor){
+		//
+		// 		return <Canvas
+		// 					key = {index}
+		// 					inputStart = {inputStart}
+		// 					inputEnd = {inputEnd}
+		// 					id = {index}
+		// 					data = {item.figures}
+		// 					url = {item.graphFilePath}
+		// 					dataChange = {_this.dataChange}
+		// 					selectedObjs = {selectedObjs}
+		// 					newfloor = {newfloor}
+		// 				/>
+		// 	}
+		// })
+		// 	return arr;
 	}
     floorsChange = (value) =>{
         this.setState({
@@ -177,7 +193,7 @@ export default class PlanMapComponent extends React.Component {
 
 				allData.push(obj1);
 		})
-		
+
 		 deleteArr.map(function(item,index){
 			let obj2 = {};
 		 	obj2.id = item.belongId;
@@ -188,9 +204,9 @@ export default class PlanMapComponent extends React.Component {
 		 })
 
 		const {onClose} = this.props;
-		
+
 		onClose && onClose(allData,{deleteData:delData});
-		
+
 
 
 	}
@@ -213,7 +229,7 @@ export default class PlanMapComponent extends React.Component {
 
 				</div>
 				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
-					{this.canvasEles()}
+					
 				</div>
 			</div>
 		);
