@@ -2,162 +2,193 @@ import React, {
 	PropTypes
 } from 'react';
 import {
+	connect
+} from 'kr/Redux';
+import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
 import {DateFormat,Http} from 'kr/Utils';
 import {
+	Notify,
 	KrField,
+	IframeContent,
 	Button,
 	ListGroup,
-	Message,
-	ListGroupItem,
-	PlanMapAll
+	ListGroupItem
 } from 'kr-ui';
 import {
 	reduxForm,
 	change
 } from 'redux-form';
-import './index.less';
+
 
 export default class FloorPlan extends React.Component {
-
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 	static defaultProps = {
-		
+		tab: '',
 	}
 
 	constructor(props, context) {
 		super(props, context);
 		let _this = this;
+		this.getStationUrl = this.getStationUrl.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
+		this.scrollLoad = this.scrollLoad.bind(this);
+		this.onLoad = this.onLoad.bind(this);
+		this.iframeWindow = null;
 		this.state = {
-			searchParams:{
-               page:1,
-			   pageSize:2,
-			   communityId:'',
-               floor:'',
-			},
-			//三个数
-			station:{
-              stationNum:'',
-			  stationRate:'',
-			  stationTotal:''
-			},
-			//社区
+
+			form: {},
+			floors: '',
+			community: '',
 			communityIdList: [],
-			//楼层
 			communityInfoFloorList: [],
-			//开始结束时间
-			dateend: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
-			date: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
-			//获取的基本信息
-			initializeConfigs:{},
-			//总页数
-			totalPages:'',
-			//返回的items
-			items:[]
+			url: '',
+			dateend: DateFormat(new Date(), "yyyy-mm-dd"),
+			date: DateFormat(new Date(), "yyyy-mm-dd")
 		}
+
+		this.getcommunity = this.getcommunity.bind(this);
+		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
+		this.getCommunityFloors = this.getCommunityFloors.bind(this);
+		this.selectFloors = this.selectFloors.bind(this);
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
 		Store.dispatch(change('FloorPlan', 'end', DateFormat(new Date(), "yyyy-mm-dd")));
+
+
 	}
-	
-	
-    componentDidMount(){
-	   var _this=this;
-       const mapComponent = this.mapComponent;
-	   this.getBaseData();
-	   this.getRentData();
-	   window.addEventListener('scroll',this.scrollListener,false);
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.url != this.props.url) {
+			this.setState({
+				url: nextProps.url
+			}, function() {
+				this.getStationUrl();
+			});
+		}
 	}
-    
-	//获取基本信息
-	getBaseData=()=>{
-		let {dateend,date,searchParams}=this.state;
-		var data={};
-		data.startDate=date;
-		data.endDate=dateend;
-		data.communityId=searchParams.communityId;
-		data.floor=searchParams.floor;
-		data.page=searchParams.page;
-		data.pageSize=searchParams.pageSize;
-		var _this=this;
-		Http.request('getControlGraph',data).then(function(response) {
 
-			      var items=response.items;
-				/*response.map((items,indexs)=>{
-                    var stationsDataOrigin = items.figures;
-					var stations = [];
-					stations = stationsDataOrigin.map(function (item, index) {
-						if (!item) {
-							return;
-						}
-						var obj = {};
-						var x = item.cellCoordX;
-						var y = item.cellCoordY;
 
-						obj.x = Number(x);
-						obj.y = Number(y);
-						obj.width = Number(item.cellWidth);
-						obj.height = Number(item.cellHeight);
-						obj.name = item.cellName;
-						obj.belongType = item.belongType;
-						obj.belongId = Number(item.belongId);
-						obj.id = Number(item.id);
-						obj.canFigureId = item.canFigureId;
-						obj.type=obj.belongType;
-						return obj;
-					}); 
+	onLoad(iframeWindow) {
+		this.iframeWindow = iframeWindow;
 
-					var initializeConfigs = {
-							stations: stations,
-							backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
-							translateX:0,
-							translateY:0,
-							mode:'view'
-					}
-
-					_this.setState({
-						initializeConfigs,
-					});
-					_this.mapComponent.newMap(initializeConfigs);
-				})*/
-				
-			console.log('vvvv',response);
-			_this.setState({
-				totalPages:response.totalPages,
-				items
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
 	}
-    
-	//获取出租数信息
-	getRentData=()=>{
-       let {dateend,date,searchParams}=this.state;
-		var data={};
-		data.startDate=date;
-		data.endDate=dateend;
-		data.communityId=searchParams.communityId;
-		data.floor=searchParams.floor;
-		var _this=this;
-		Http.request('getGraphRent',data).then(function(response) {
-			_this.setState({
-				station:{
-					stationNum:response.stationNum,
-					stationRate:response.stationRate,
-					stationTotal:response.stationTotal
-				},
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		}); 
-	} 
 
 
-	//获取社区
-	getcommunity=()=> {
+
+	componentDidMount() {
+		this.setState({
+			url: this.getStationUrl()
+		})
+		let {tab} = this.props;
+
+		if (tab === 'floorplan') {
+			$(window).bind('scroll.floorplan', this.scrollLoad);
+
+		}
+
+
+	}
+
+	getStationUrl(form) {
+
+
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
+
+		var formList = form || {};
+		let params;
+		let {
+			community,
+			floors,
+			date,
+			dateend
+
+		} = this.state;
+		if (community == 0) {
+			community = '';
+		}
+
+		params = {
+			communityId: community,
+			wherefloor: floors,
+			date: date,
+			dateend: dateend,
+		}
+
+		if (Object.keys(params).length) {
+			for (let item in params) {
+				if (params.hasOwnProperty(item)) {
+					url = url.replace('{' + item + '}', params[item]);
+					delete params[item];
+				}
+			}
+		};
+
+		return url;
+	}
+	onSubmit(form) {
+			form = Object.assign({}, form);
+
+			let {
+				floors,
+				community
+			} = this.state;
+			var that = this;
+			var params = {
+				communityId: community,
+				wherefloor: floors,
+				date: DateFormat(form.start, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
+				dateend: DateFormat(form.end, "yyyy-mm-dd") || DateFormat(new Date(), "yyyy-mm-dd"),
+			};
+			if (form.start && form.end) {
+				var datastart = Date.parse(form.start),
+					dataend = Date.parse(form.end);
+				if (datastart > dataend) {
+					Notify.show([{
+						message: '开始时间不能大于结束时间',
+						type: 'danger',
+					}]);
+
+				} else {
+					this.setState({
+						date: DateFormat(form.start, "yyyy-mm-dd"),
+						dateend: DateFormat(form.end, "yyyy-mm-dd"),
+						url: this.getStationUrl(params)
+					})
+				}
+
+			} else {
+				Notify.show([{
+					message: '注册时间不能为空',
+					type: 'danger',
+				}]);
+			}
+
+
+		}
+		// 监听滚动事件
+	scrollLoad() {
+		var that = this;
+			var top = $(window).scrollTop() || 0; //539滚出的距离
+			var height = $(window).height() || 0; //705浏览器高度
+			var num = $(document).height() - $(window).height(); //页面高-浏览器高度
+			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
+			var scrollBottom = top - num;
+			var isOutBoundary = scrollBottom >= 0;
+			if (isOutBoundary) {
+				that.iframeWindow.pagequery();
+
+			}
+
+
+	}
+	getcommunity() {
 		let _this = this;
 		let {
 			communityIdList
@@ -177,30 +208,30 @@ export default class FloorPlan extends React.Component {
 				communityIdList,
 			});
 		}).catch(function(err) {
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
-    
-	//选择社区
-	selectCommunity=(personel)=> {
+	selectCommunity(personel) {
+		let id = '';
 		if (personel) {
+			id = personel.id;
 			this.getCommunityFloors(personel.id);
-			var searchParams={
-			communityId:personel.id
-			}
-			searchParams = Object.assign({},this.state.searchParams, searchParams);
-            this.setState({
-			    searchParams
-			},function(){
-				this.getRentData();
-				this.getBaseData();
-			})
 		}
+
 		Store.dispatch(change('FloorPlan', 'floor', ''));
+
+		this.setState({
+			community: id,
+			floors: '',
+
+		})
+
 	}
-	
-	//获取楼层
-	getCommunityFloors=(id)=> {
+
+	getCommunityFloors(id) {
 		let communityId = {
 			communityId: parseInt(id)
 		};
@@ -217,151 +248,99 @@ export default class FloorPlan extends React.Component {
 				communityInfoFloorList
 			});
 		}).catch(function(err) {
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
-
-	//选择楼层
-	selectFloors=(param)=>{
-		 if(param){
-            var searchParams={
-			 floor:param.label
-			}
-			searchParams = Object.assign({},this.state.searchParams, searchParams);
-            this.setState({
-			    searchParams
-			},function(){
-				this.getRentData();
-				this.getBaseData();
-		 })
+	selectFloors(personel) {
+		let value = '';
+		if (personel) {
+			value = personel.value;
 		}
+		this.setState({
+			floors: value
+		})
 	}
-	
-	//开始时间
 	firstDate = (personel) => {
-		    let firstDate = new Date(personel);
+
+		// Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
+		let firstDate = new Date(personel);
+		let {date} = this.state;
+		if (this.state.dateend) {
 			let endDate = new Date(this.state.dateend);
 			let start = firstDate.getTime();
 			let end = endDate.getTime();
 			if (start <= end) {
 				this.setState({
 					date: personel
-				},function(){
-					this.getRentData();
-				    this.getBaseData();
 				})
 			} else {
-				Message.error('结束时间不能小于开始时间');
-				this.setState({
-					date: personel
-				})
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				Store.dispatch(change('FloorPlan', 'start', DateFormat(date, "yyyy-mm-dd")));
 			}
+		} else {
+			this.setState({
+				date: personel
+			})
+		}
 	}
-
-	//结束时间
 	secondDate = (personel) => {
-		    let secondDate = new Date(personel);
+		let {dateend}= this.state;
+
+		let secondDate = new Date(personel);
+		let end = this.state.dateend;
+		if (this.state.date) {
 			let firstDate = new Date(this.state.date);
 			let start = firstDate.getTime();
 			let end = secondDate.getTime();
 			if (start <= end) {
 				this.setState({
 					dateend: personel
-				},function(){
-					this.getRentData();
-				    this.getBaseData();
 				})
 			} else {
-				Message.error('结束时间不能小于开始时间');
-			    this.setState({
-					dateend: personel
-				})
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				Store.dispatch(change('FloorPlan', 'end', DateFormat(dateend, "yyyy-mm-dd")));
 			}
+		} else {
+			this.setState({
+				dateend: personel
+			})
+		}
+
+
 
 	}
-
-	//滚动监听
-    scrollListener=()=>{
-      if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
-		   let {totalPages}=this.state;
-		   if(this.state.searchParams.page<=totalPages){
-			   var searchParams={
-				 page:this.state.searchParams.page+1
-				}
-				searchParams = Object.assign({},this.state.searchParams, searchParams);
-			   this.setState({
-                  searchParams
-			   },function(){
-				   this.getBaseData();
-			   })
-		   }
-        }
-	}
-
-	//滚动条在Y轴上的滚动距离
-	getScrollTop = () => {
-	　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
-	　　if(document.body){
-	　　　　bodyScrollTop = document.body.scrollTop;
-	　　}
-	　　if(document.documentElement){
-	　　　　documentScrollTop = document.documentElement.scrollTop;
-	　　}
-	　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-	　　return scrollTop;
-	}
-   
-    //浏览器视口的高度
-	getWindowHeight = () => {
-	　　var windowHeight = 0;
-	　　if(document.compatMode == "CSS1Compat"){
-	　　　　windowHeight = document.documentElement.clientHeight;
-	　　}else{
-	　　　　windowHeight = document.body.clientHeight;
-	　　}
-	　　return windowHeight;
-	}
-    
-	//文档的总高度
-	getScrollHeight = () => {
-	　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
-	　　if(document.body){
-	　　　　bodyScrollHeight = document.body.scrollHeight;
-	　　}
-	　　if(document.documentElement){
-	　　　　documentScrollHeight = document.documentElement.scrollHeight;
-	　　}
-	　　scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
-	　　return scrollHeight;
-	}
-
-
-
-	onSubmit=()=>{
-		
-	}
-
 	componentWillUnmount(){
-	  window.removeEventListener('scroll',this.scrollListener,false);	
+		$(window).unbind('scroll.floorplan', this.scrollLoad);
 	}
 
 	render() {
 
 		const {
+			height,
+			communityLabel,
 			communityIdList,
+			communityId,
 			communityInfoFloorList,
 			dateend,
-			date,
-			initializeConfigs,
-			station,
-			items
+			date
 		} = this.state;
+		let url = this.getStationUrl();
 
 		let {
+			tab,
 			handleSubmit
 		} = this.props;
 
-		
+
 
 		return (
 
@@ -376,42 +355,11 @@ export default class FloorPlan extends React.Component {
 						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
 						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
+						{/*<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>*/}
 					</ListGroup>
 			</form>
-			
-			<div className='m-control-list'>
-               <div className="com-header">
-					<ul className="header-list">
-						<li><span className="color-span none"></span><span>空置工位</span></li>
-						<li><span className="color-span ordered"></span><span>预订工位</span></li>
-						<li><span className="color-span enter"></span><span>已入驻工位</span></li>
-					</ul>
-					<div className="station-list">
-						<span className="til">已出租工位数：{station.stationNum}</span>
-						<span className="til">可出租工位数：{station.stationTotal}</span>
-						<span className="til">出租率：{station.stationRate}</span> 
-					</div>
-			    </div>
-
-                <div className='com-body'>
-				   {
-					   items&&items.map((item,index)=>{
-                         return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
-								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
-									<div id='plan-app' style={{background:'#fff'}}>
-										
-									</div>
-						        </div>
-					   })
-				   }
-				</div>
-
-
-		    </div>
-			{/*<PlanMapAll
-			   ref={(mapComponent) => this.mapComponent = mapComponent}
-			   initializeConfigs={initializeConfigs}
-			/>*/}
+			<p style={{margin:10}}></p>
+			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>
 
 		</div>
 		);

@@ -6,6 +6,11 @@ import {
 import {
 	Fields
 } from 'redux-form';
+import {
+
+PlanMapContent
+
+} from 'kr/PureComponents';
 
 import ReactMixin from "react-mixin";
 import {DateFormat,Http} from 'kr/Utils';
@@ -225,6 +230,8 @@ class NewCreateForm extends React.Component {
 		let {
 			selectedStation
 		} = this.state;
+				console.log(selectedStation,"ddd")
+
 		if (!selectedStation.length) {
 			Notify.show([{
 				message: '请先选择要录入单价的工位',
@@ -368,12 +375,29 @@ class NewCreateForm extends React.Component {
 
 		let {
 			stationVos,
-			delStationVos
+			delStationVos,
+			selectedStation
 		} = this.state;
+		console.log("<<>>>>>",stationVos)
 		let {
 			changeValues,
 			initialValues
 		} = this.props;
+		let unitpriceAdd = 0;
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+
+		}
+
+		if(!unitpriceAdd){
+			Notify.show([{
+				message: '请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 
 		form.lessorAddress = changeValues.lessorAddress;
 
@@ -406,8 +430,6 @@ class NewCreateForm extends React.Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
-
 		let {
 			changeValues,
 			initialValues,
@@ -416,10 +438,11 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
+
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
@@ -433,28 +456,21 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			selectedObjs: stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
+			unitprice:0
 
 		};
-
-
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
 		this.setState({
-			stationUrl: url
+			stationUrl: params
 		});
 	}
 
 	onIframeClose(billList,data) {
+
+		// console.log(billList,"billList");
+
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -465,16 +481,16 @@ class NewCreateForm extends React.Component {
 			changeValues,
 			initialValues
 		} = this.props;
-
 		var stationVos = [];
-
-		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
+		data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
 			obj.stationId = item.id;
 			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.type;
 			delStationVos.push(obj);
+
 		})
+		console.log()
 		try {
 			billList.map(function(item, index) {
 				var obj = {};
@@ -484,12 +500,12 @@ class NewCreateForm extends React.Component {
 				obj.stationType = item.type;
 				obj.stationName = item.name;
 				obj.unitprice = '';
-				obj.whereFloor = item.wherefloor;
+				obj.whereFloor = item.whereFloor;
 				stationVos.push(obj);
 			});
 		} catch (err) {
 		}
-
+		// console.log(billList,"缓存");
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditstationVos', JSON.stringify(billList));
 		localStorage.setItem(initialValues.mainbillid+''+initialValues.customerId+'ENTEReditdelStationVos', JSON.stringify(delStationVos));
 
@@ -652,6 +668,7 @@ class NewCreateForm extends React.Component {
 						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
+
 						{stationVos.map((item,index)=>{
 							var typeLink = {
 								value: this.state.stationVos[index].unitprice,
@@ -757,9 +774,9 @@ class NewCreateForm extends React.Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.openStationDialog}>
-							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
@@ -871,12 +888,8 @@ const validate = values => {
 	}
 
 
-	if (!values.stationnum && !values.boardroomnum) {
-		errors.stationnum = '租赁项目必须填写一项';
-	}
 
 
-	
 
 	return errors
 }

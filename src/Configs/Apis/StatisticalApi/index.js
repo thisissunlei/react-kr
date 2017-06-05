@@ -55,4 +55,29 @@ module.exports = {
      method: 'get'
   },
 
+  // 数据统计-账龄分析-社区汇总列表
+  'communityListAging':{
+    url: '/api/krspace-finance-web/finance/explan-summary?communityId={communityId}&endDate={endDate}',
+    method: 'get'
+  },
+
+  // 数据统计-账龄分析-社区明细列表
+  'getDetailList':{
+    url: '/api/krspace-finance-web/finance/explan?customerId={customerId}&corporationId={corporationId}&dayType={dayType}&communityId={communityId}&end={end}&endDate={endDate}',
+    method: 'get'
+  },
+
+
+  // 数据统计-账龄分析-高级查询主体准备数据
+  'getMainbody':{
+    url: '/api/krspace-finance-web/fna-corporation-list',
+    method: 'get'
+  },
+
+
+  
+
+  
+
+
 }

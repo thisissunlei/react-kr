@@ -9,6 +9,7 @@ import MobxForm from './MobxForm';
 import  DateFormat from './DateFormat';
 import  DateCompareValue from './DateCompareValue';
 import Map from './Map';
+import  Mouse from './Mouse';
 
 module.exports = {
 	...ClassNames,
@@ -21,4 +22,5 @@ module.exports = {
 	MobxForm,
 	DateCompareValue,
 	DateFormat,
+	Mouse
 }
