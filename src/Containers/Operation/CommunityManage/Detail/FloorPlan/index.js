@@ -51,7 +51,9 @@ export default class FloorPlan extends React.Component {
 			dateend: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
 			date: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
 			//获取的基本信息
-			initializeConfigs:{}
+			initializeConfigs:{},
+			//总页数
+			totalPages:''
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -120,6 +122,9 @@ export default class FloorPlan extends React.Component {
 				})*/
 				
 			console.log('vvvv',response);
+			_this.setState({
+				totalPages:response.totalPages
+			})
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -274,12 +279,67 @@ export default class FloorPlan extends React.Component {
 
 	//滚动监听
     scrollListener=()=>{
-      
+       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
+		   let {totalPages}=this.state;
+		   if(this.state.searchParams.page<=totalPages){
+			   var searchParams={
+				 page:this.state.searchParams.page+1
+				}
+				searchParams = Object.assign({},this.state.searchParams, searchParams);
+			   this.setState({
+                  searchParams
+			   },function(){
+				   this.getBaseData();
+			   })
+		   }
+        }
 	}
+
+	//滚动条在Y轴上的滚动距离
+	getScrollTop = () => {
+	　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+	　　if(document.body){
+	　　　　bodyScrollTop = document.body.scrollTop;
+	　　}
+	　　if(document.documentElement){
+	　　　　documentScrollTop = document.documentElement.scrollTop;
+	　　}
+	　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+	　　return scrollTop;
+	}
+   
+    //浏览器视口的高度
+	getWindowHeight = () => {
+	　　var windowHeight = 0;
+	　　if(document.compatMode == "CSS1Compat"){
+	　　　　windowHeight = document.documentElement.clientHeight;
+	　　}else{
+	　　　　windowHeight = document.body.clientHeight;
+	　　}
+	　　return windowHeight;
+	}
+    
+	//文档的总高度
+	getScrollHeight = () => {
+	　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+	　　if(document.body){
+	　　　　bodyScrollHeight = document.body.scrollHeight;
+	　　}
+	　　if(document.documentElement){
+	　　　　documentScrollHeight = document.documentElement.scrollHeight;
+	　　}
+	　　scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+	　　return scrollHeight;
+	}
+
 
 
 	onSubmit=()=>{
 		
+	}
+
+	componentUnmount(){
+	  window.removeEventListener('scroll',this.scrollListener,false);	
 	}
 
 	render() {
