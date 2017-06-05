@@ -64,6 +64,7 @@ var Map = function (elementId,configs) {
 		},
 		//地图信息
 		map:{
+			scaleEnable:true,
     		scale:1,
 			scaleMax: 2,
 			scaleMin: 0.1,
@@ -1428,7 +1429,12 @@ var Map = function (elementId,configs) {
 
                 document.addEventListener('keyup', KeyUpEvent, false);
                 canvas.addEventListener('mouseleave', MouseLeaveEvent, false);
-                window.addEventListener("mousewheel", ScaleMapEvent, false);
+
+				const {scaleEnable} = defaultConfigs.map;
+
+				if(scaleEnable){
+                	window.addEventListener("mousewheel", ScaleMapEvent, false);
+				}
 
             }
 

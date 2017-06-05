@@ -52,7 +52,7 @@ export default class FloorPlan extends React.Component {
 			date: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
 			//总页数
 			totalPages:'',
-			//返回的items
+			//
 			items:[]
 		}
 		this.getcommunity();
@@ -81,11 +81,16 @@ export default class FloorPlan extends React.Component {
 		data.pageSize=searchParams.pageSize;
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
-
+                 
 			      var items=response.items;
+				   _this.setState({
+					  totalPages:response.totalPages,
+					  items
+				  })
 				   items.map((it,indexs)=>{
                     var stationsDataOrigin = it.figures;
 					var stations = [];
+					var list='';
 					stations = stationsDataOrigin.map(function (item, index) {
 						if (!item) {
 							return;
@@ -118,17 +123,17 @@ export default class FloorPlan extends React.Component {
 					var initializeConfigs = {
 							stations: stations,
 							backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
-							translateX:0,
-							translateY:0,
+							map:{
+                             translateX:0,
+							 translateY:0,
+							 scaleEnable:false
+							},
 							isMode:'view'
 					}
-                    Map('plan-app',initializeConfigs);
+                    Map(`plan-app${indexs}`,initializeConfigs);
 				})
 				
-			_this.setState({
-				totalPages:response.totalPages,
-				items
-			})
+				
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -187,7 +192,8 @@ export default class FloorPlan extends React.Component {
 		if (personel) {
 			this.getCommunityFloors(personel.id);
 			var searchParams={
-			communityId:personel.id
+			communityId:personel.id,
+			floor:''
 			}
 			searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
@@ -285,7 +291,7 @@ export default class FloorPlan extends React.Component {
     scrollListener=()=>{
       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
 		   let {totalPages}=this.state;
-		   if(this.state.searchParams.page<=totalPages){
+		   if(this.state.searchParams.page<totalPages){
 			   var searchParams={
 				 page:this.state.searchParams.page+1
 				}
@@ -394,19 +400,18 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-					<div id='plan-app' style={{background:'#fff'}}>
-										
-					</div>
-				   {
-					   items&&items.map((item,index)=>{
+				  {
+					  items&&items.map((item,index)=>{
                          return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
 								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
-									<div id='plan-app' style={{background:'#fff'}}>
+									<div id={`plan-app${index}`} style={{background:'#fff',width:'100%',height:'670px'}}>
 										
 									</div>
 						        </div>
-					   })
-				   }
+					  })
+				  }
+                         
+				 
 				</div>
 
 
