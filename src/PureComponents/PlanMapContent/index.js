@@ -72,8 +72,14 @@ export default class PlanMapComponent extends React.Component {
 		});
 	}
 
-	componentDidMount(){
+	componentDidUpdate(){
 
+		var element = document.getElementById("plan-map-content");
+		console.log(element,"canvasHeight");
+		 canvasWidth = element.clientWidth;
+		 canvasHeight = element.clientHeight;
+
+		 this.canvasEles();
 	}
 
 
@@ -134,6 +140,7 @@ export default class PlanMapComponent extends React.Component {
 				dainitializeConfigs = {
 					stations:data[i].figures,
 					scale:1,
+					isMode:'select',
 					backgroundImageUrl:"http://optest.krspace.cn/" + data[i].graphFilePath
 				}
 			}
@@ -141,7 +148,7 @@ export default class PlanMapComponent extends React.Component {
 
 
 
-		Map("plan-map-content",dainitializeConfigs)
+		Map("plan-map-content",dainitializeConfigs);
 		// let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
 		// const _this = this;
 		// var arr = data.map(function(item,index){
@@ -229,7 +236,7 @@ export default class PlanMapComponent extends React.Component {
 
 				</div>
 				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
-					
+
 				</div>
 			</div>
 		);
