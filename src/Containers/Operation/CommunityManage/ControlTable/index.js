@@ -303,6 +303,7 @@ getScrollTop = () => {
    //生成头部
    generateHead = () =>{
 	   let {moveStyle,communityName,otherData} = this.state;
+	   let _this = this;
 		return (
 			<div className = "m-control-table-head clearfix" style = {moveStyle}>
 				<div className = "m-control-table-head-td head-td1">
@@ -317,7 +318,7 @@ getScrollTop = () => {
 				</div>
 				<div className = "m-control-table-head-td ">
 					<div className= "m-control-table-head-tr">总面积:{otherData.totalArea}</div>
-					<div className= "m-control-table-head-tr">本月收入:{otherData.incomeMonth}</div>
+					<div className= "m-control-table-head-tr">{_this.tooltip("本月收入:"+otherData.incomeMonth)}</div>
 					<div className= "m-control-table-head-tr">建筑面积</div>
 
 				</div>
@@ -372,7 +373,7 @@ getScrollTop = () => {
 			return (
 					<div key={index}  className = "m-control-table-content-tr clearfix">
 							<div className="m-control-table-content-td clearfix">
-								<div className="m-control-table-one-td">{item.codeName}</div>
+								<div className="m-control-table-one-td">{_this.tooltip(item.codeName)}</div>
 								<div className="m-control-table-one-td">{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
 								<div className="m-control-table-one-td">{item.capacity}</div>
 							</div>
