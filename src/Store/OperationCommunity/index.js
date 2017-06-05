@@ -4,5 +4,5 @@ import CommunityMeetingModel from './CommunityMeetingModel';
 
 module.exports = {
 	CommunityStationModel,
-	CommunityMeetingModel
+	CommunityMeetingModel,
 }

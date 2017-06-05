@@ -1,0 +1,43 @@
+.static-tabWrap{
+	position: relative;
+	.line:before{
+		position: absolute;
+		content:'';
+		display: inline-block;
+		width: 0px;
+		height: 30px;
+		border-right:1px solid #eee;
+		z-index: 10;
+		left: 50%;
+		top: 10px;
+	}
+	.ui-calendar .calendar-content .calendar-value{
+		float: left;
+	}
+}
+.static-section .section .section-body{
+  background:none;
+  padding-left:0;
+  padding-right:0;
+}
+.tabWrap_section{
+	margin-left:-20px;
+	margin-right:-20px;
+	border-top:solid 1px #e8e9e9;
+}
+.backStatic .static-tabWrap .tabs{
+	background:#f1f2f7 !important;
+	.line{
+		&:before{
+			display:none;
+		}
+	}
+}
+.backStatic .static-tabWrap .tabs > div:first-child{
+   	box-shadow: 1.5px 0px 1px rgba(73, 157, 241, 0.22), -1px 0px 1px rgba(73, 157, 241, 0.22);
+}
+
+
+
+
+

@@ -1,0 +1,49 @@
+.m-original{
+  width: 100px;
+  height: 100px;
+  border: 1px solid #000;
+  background: red;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  cursor: move;
+  .zoom-1,
+  .zoom-2,
+  .zoom-3,
+  .zoom-4{
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: #fff;
+    position: absolute;
+  }
+  .zoom-1{
+    top: 0;
+    left: 0;
+    margin-left: -8px;
+    margin-top: -8px;
+    cursor: nw-resize;
+  }
+  .zoom-2{
+    top: 0;
+    right: 0;
+    margin-right: -8px;
+    margin-top: -8px;
+    cursor: ne-resize;
+  }
+  .zoom-3{
+    bottom: 0;
+    right: 0;
+    margin-right:  -8px;
+    margin-bottom: -8px;
+    cursor: se-resize;
+  }
+  .zoom-4{
+    bottom: 0;
+    left: 0;
+    margin-left: -8px;
+    margin-bottom: -8px;
+    cursor: sw-resize;
+  }
+}

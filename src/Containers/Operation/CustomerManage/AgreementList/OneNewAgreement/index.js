@@ -92,9 +92,13 @@ import newIndentState from "../NewIndent/State";
 		onCancel && onCancel();
 	}
 	 onChangeSign=(person)=>{
+
 	 	if(!person || person.length == 0) {
-	 		return;
+			State.haveOrder = false;
+	 		return ;
 	 	}
+		State.haveOrder = true;
+
 		this.fetchCustomer({customerId:person.id});
 		allState.companyName=person.company;
 		allState.listId=person.id;
@@ -111,10 +115,13 @@ import newIndentState from "../NewIndent/State";
 	orderNameInit = (value) => {
 		var _this=this;
 		let data={};
-
+		if(value == ''){
+			return ;
+		}
 		data.customerId=value;
 
 		Http.request('get-customName-orderName',data).then(function(response) {
+
 			allState.customerName=response.customerName;
 			allState.orderCount=response.orderCount;
 		}).catch(function(err) {
@@ -166,7 +173,7 @@ import newIndentState from "../NewIndent/State";
 
 
 						<KrField grid={1/2} label="订单名称" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
-								options={toJS(State.orderList)}
+								options={State.haveOrder?toJS(State.orderList):[]}
 								requireLabel={true}
 								onChange={this.orderListChange}
 						/>

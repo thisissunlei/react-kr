@@ -25,6 +25,11 @@ import {
 	arrayInsert,
 	FieldArray
 } from 'redux-form';
+import {
+
+PlanMapContent
+
+} from 'kr/PureComponents';
 
 import {
 	Actions,
@@ -73,6 +78,7 @@ class NewCreateForm extends React.Component {
 			payTypeList: [],
 			paymentList: [],
 			fnaCorporationList: [],
+
 		}
 	}
 
@@ -322,6 +328,7 @@ class NewCreateForm extends React.Component {
 		let {
 			selectedStation
 		} = this.state;
+		
 		if (!selectedStation.length) {
 			Notify.show([{
 				message: '请先选择要录入单价的工位',
@@ -387,7 +394,20 @@ class NewCreateForm extends React.Component {
 		let {
 			changeValues
 		} = this.props;
-
+		let unitpriceAdd = 0; 
+		for(var i=0 ;i<stationVos.length;i++){
+			if(!isNaN(stationVos[i].unitprice)){
+				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+			
+		}
+		if(!unitpriceAdd){
+			Notify.show([{
+				message: '请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 		form.lessorAddress = changeValues.lessorAddress;
 
 		var _this = this;
@@ -416,7 +436,6 @@ class NewCreateForm extends React.Component {
 
 	getStationUrl() {
 
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
 
 		let {
 			changeValues,
@@ -430,7 +449,7 @@ class NewCreateForm extends React.Component {
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
-			obj.type = item.stationType;
+			obj.belongType = item.stationType;
 			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
@@ -444,25 +463,19 @@ class NewCreateForm extends React.Component {
 			goalStationNum: changeValues.stationnum,
 			//会议室
 			goalBoardroomNum: changeValues.boardroomnum,
-			selectedObjs: JSON.stringify(stationVos),
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			selectedObjs:stationVos,
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss")
 
 		};
 
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
+
 
 		this.setState({
-			stationUrl: url
+			stationUrl: params
 		});
+
 	}
 
 
@@ -498,7 +511,7 @@ class NewCreateForm extends React.Component {
 				item.stationType = item.type;
 				item.stationName = item.name;
 				item.unitprice = '';
-				item.whereFloor = item.wherefloor;
+				item.whereFloor = item.whereFloor;
 
 			});
 		} catch (err) {
@@ -771,9 +784,9 @@ class NewCreateForm extends React.Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						onCancel={this.onCancel}
-						contentStyle ={{ width: '100%', maxWidth: 'none'}}
+						contentStyle ={{ width: '100%', maxWidth: 'none',height:650}}
 						open={this.state.openStation} onClose={this.onClose}>
-							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
+							<PlanMapContent data={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 					<Dialog
 						title="录入单价"
@@ -877,7 +890,7 @@ const validate = values => {
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
-	
+
 
 
 

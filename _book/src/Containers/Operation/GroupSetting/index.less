@@ -1,0 +1,28 @@
+.switchhover .tableOver{
+	display:block;
+	max-width: 160px ;
+    text-overflow: ellipsis;
+    overflow: hidden;
+		background-color:transparent;
+}
+.switchhover .ui-tooltip.center{
+	left: 50%;
+
+}
+.switchhover{
+		.top-arrow:after {
+	    content: '';
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    bottom: -5px;
+	    width: 0;
+	    height: 0;
+	    border-left: 7px solid transparent;
+	    border-right: 7px solid transparent;
+	    border-top: 5px solid rgba(0, 0, 0, 0);
+	}
+	.ui-tooltip{
+		padding: 10px
+	}
+}
