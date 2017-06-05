@@ -64,6 +64,7 @@ export default class FloorPlan extends React.Component {
        const mapComponent = this.mapComponent;
 	   this.getBaseData();
 	   this.getRentData();
+	   window.addEventListener('scroll',this.scrollListener,false);
 	}
     
 	//获取基本信息
@@ -269,6 +270,11 @@ export default class FloorPlan extends React.Component {
 				})
 			}
 
+	}
+
+	//滚动监听
+    scrollListener=()=>{
+      
 	}
 
 
