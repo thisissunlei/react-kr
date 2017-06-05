@@ -53,7 +53,9 @@ export default class FloorPlan extends React.Component {
 			//获取的基本信息
 			initializeConfigs:{},
 			//总页数
-			totalPages:''
+			totalPages:'',
+			//返回的items
+			items:[]
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -82,8 +84,8 @@ export default class FloorPlan extends React.Component {
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
 
-			    /*var response=response.items;
-				response.map((items,indexs)=>{
+			      var items=response.items;
+				/*response.map((items,indexs)=>{
                     var stationsDataOrigin = items.figures;
 					var stations = [];
 					stations = stationsDataOrigin.map(function (item, index) {
@@ -123,7 +125,8 @@ export default class FloorPlan extends React.Component {
 				
 			console.log('vvvv',response);
 			_this.setState({
-				totalPages:response.totalPages
+				totalPages:response.totalPages,
+				items
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -279,7 +282,7 @@ export default class FloorPlan extends React.Component {
 
 	//滚动监听
     scrollListener=()=>{
-       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
+      if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
 		   let {totalPages}=this.state;
 		   if(this.state.searchParams.page<=totalPages){
 			   var searchParams={
@@ -350,7 +353,8 @@ export default class FloorPlan extends React.Component {
 			dateend,
 			date,
 			initializeConfigs,
-			station
+			station,
+			items
 		} = this.state;
 
 		let {
@@ -390,7 +394,16 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-				   
+				   {
+					   items&&items.map((item,index)=>{
+                         return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
+								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
+									<div id='plan-app' style={{background:'#fff'}}>
+										
+									</div>
+						        </div>
+					   })
+				   }
 				</div>
 
 
