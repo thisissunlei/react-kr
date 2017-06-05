@@ -13,7 +13,7 @@ import {
 	ListGroup,
 	Message,
 	ListGroupItem,
-	PlanMapAll
+	Tooltips
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -63,10 +63,11 @@ export default class FloorPlan extends React.Component {
 	
     componentDidMount(){
 	   var _this=this;
-       const mapComponent = this.mapComponent;
 	   this.getBaseData();
 	   this.getRentData();
 	   window.addEventListener('scroll',this.scrollListener,false);
+	  
+
 	}
     
 	//获取基本信息
@@ -122,7 +123,7 @@ export default class FloorPlan extends React.Component {
 
 					var initializeConfigs = {
 							stations: stations,
-							backgroundImageUrl:'http://optest.krspace.cn'+response.graphFilePath,
+							backgroundImageUrl:'http://optest.krspace.cn'+it.graphFilePath,
 							map:{
                              translateX:0,
 							 translateY:0,
@@ -130,7 +131,7 @@ export default class FloorPlan extends React.Component {
 							},
 							isMode:'view'
 					}
-                    Map(`plan-app${indexs}`,initializeConfigs);
+                     Map(`plan-app${indexs}`,initializeConfigs);
 				})
 				
 				
@@ -400,6 +401,14 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
+				  <div className="com-tips">
+					<div>工位编号：</div>
+					<div>姓名：</div>
+					<div>电话：</div>
+					<div>公司：</div>
+					<div>租期：</div>
+				 </div>
+
 				  {
 					  items&&items.map((item,index)=>{
                          return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
