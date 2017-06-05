@@ -24,6 +24,8 @@ import {
 	Title
 } from 'kr-ui';
 
+import Baidu from 'kr/Utils/Baidu';
+
 import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
@@ -52,7 +54,7 @@ export default class CommunityManage extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Baidu.trackEvent('销控表页面','访问');
 	}
 
 	onSetCommunity = (communityId) => {

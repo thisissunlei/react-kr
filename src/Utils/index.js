@@ -9,6 +9,7 @@ import MobxForm from './MobxForm';
 import  DateFormat from './DateFormat';
 import  DateCompareValue from './DateCompareValue';
 import  Mouse from './Mouse';
+import Baidu from './Baidu';
 
 module.exports = {
 	...ClassNames,
@@ -20,5 +21,6 @@ module.exports = {
 	MobxForm,
 	DateCompareValue,
 	DateFormat,
-	Mouse
+	Mouse,
+	Baidu,
 }

@@ -210,7 +210,10 @@ export default  class Canvas extends React.Component {
 	render() {
 		const {url,id} = this.props;
 		const {imgW,imgH} = this.state;
-		let src = "http://optest.krspace.cn"+url;
+		
+		const host = "http://"+window.location.host;
+		console.log(host,">>");
+		let src = host+url;
 		return (
 
 			<div style = {{background:"url("+src+")",width:imgW,height:imgH}}>

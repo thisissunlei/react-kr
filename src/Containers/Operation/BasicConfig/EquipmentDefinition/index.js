@@ -169,6 +169,7 @@ export default class EquipmentDefinition extends React.Component {
       this.setState({
         filter: value.filter,
         content: value.content,
+        realPage : 1,
         equipmentParams: {
           deviceCode: value.content,
           
@@ -179,6 +180,7 @@ export default class EquipmentDefinition extends React.Component {
       this.setState({
         filter: value.filter,
         content: value.content,
+        realPage :1,
         equipmentParams: {
           hardwareId: value.content,
           
@@ -191,6 +193,7 @@ export default class EquipmentDefinition extends React.Component {
   onEquipmentAdvanceSearchReset=()=>{
     this.refs.inputFilter.refs.realInput.value = "";
     this.setState({
+
       filter: 'deviceCode',
       content: '',
       equipmentParams: {
@@ -208,6 +211,7 @@ export default class EquipmentDefinition extends React.Component {
       _this.setState({
         filter : "deviceCode",
         content : "",
+        realPage :1,
         equipmentParams:{
          
           communityId :values.communityId || "",
