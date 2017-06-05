@@ -197,6 +197,7 @@ export default class List extends React.Component {
 	onSearchSubmit=(value)=>{
 		let _this = this;
 		_this.setState({
+			realPage:1,
 			searchParams:{
 				customerName : value.content,
 				communityId : _this.state.searchParams.communityId,
