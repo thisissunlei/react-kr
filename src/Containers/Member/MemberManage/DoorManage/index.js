@@ -106,7 +106,6 @@ export default class List extends React.Component {
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
-
 		var _this = this;
 		Http.request('newCreateOrEditImpower',{},values).then(function(response){
 			Message.success("操作成功");
@@ -176,6 +175,7 @@ export default class List extends React.Component {
 		let _this = this;
 		if(!item){
 			_this.setState({
+				realPage:1,
 				searchParams:{
 					communityId : '',
 					customerName : _this.state.searchParams.customerName,
@@ -184,6 +184,7 @@ export default class List extends React.Component {
 			})
 		}else{
 			_this.setState({
+			realPage:1,
 			searchParams:{
 				communityId : item.id,
 				customerName : _this.state.searchParams.customerName,
