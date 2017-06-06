@@ -489,7 +489,7 @@ class NewCreateForm extends Component {
 				obj.stationName = item.name;
 				obj.stationType = item.type;
 				obj.unitprice = '';
-				obj.whereFloor = item.wherefloor;
+				obj.whereFloor = item.whereFloor;
 				stationVos.push(obj);
 			});
 		} catch (err) {
