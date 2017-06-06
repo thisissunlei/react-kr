@@ -155,8 +155,7 @@ export default class Header extends React.Component {
 
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
-		console.log('---',navs)
-		console.table(navs)
+		
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">
