@@ -216,7 +216,8 @@ export default class FloorPlan extends React.Component {
 			this.getCommunityFloors(personel.id);
 			var searchParams={
 			communityId:personel.id,
-			floor:''
+			floor:'',
+			page:1,
 			}
 		}else{
 		   var searchParams={
@@ -228,7 +229,8 @@ export default class FloorPlan extends React.Component {
 		searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
 			    searchParams,
-				canvasRender:[]
+				canvasRender:[],
+			    downLine:false
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -262,18 +264,20 @@ export default class FloorPlan extends React.Component {
 	selectFloors=(param)=>{
 		 if(param){
             var searchParams={
-			 floor:param.label
+			 floor:param.label,
+			 page:1,
 			}
 		 }else{
 		    var searchParams={
 			 floor:'',
-			 page:1
+			 page:1,
 			}	
 		 }
 		 searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
 			    searchParams,
-				canvasRender:[]
+				canvasRender:[],
+				downLine:false
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -286,9 +290,16 @@ export default class FloorPlan extends React.Component {
 			let endDate = new Date(this.state.dateend);
 			let start = firstDate.getTime();
 			let end = endDate.getTime();
+			var searchParams={
+			  page:1,
+			}	
+			 searchParams = Object.assign({},this.state.searchParams, searchParams);
 			if (start <= end) {
 				this.setState({
-					date: personel
+					date: personel,
+					canvasRender:[],
+					downLine:false,
+					searchParams
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -307,9 +318,16 @@ export default class FloorPlan extends React.Component {
 			let firstDate = new Date(this.state.date);
 			let start = firstDate.getTime();
 			let end = secondDate.getTime();
+			var searchParams={
+			  page:1,
+			}	
+			 searchParams = Object.assign({},this.state.searchParams, searchParams);
 			if (start <= end) {
 				this.setState({
-					dateend: personel
+					dateend: personel,
+					canvasRender:[],
+					searchParams,
+					downLine:false
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -326,7 +344,10 @@ export default class FloorPlan extends React.Component {
 	//滚动监听
     scrollListener=()=>{
       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
-		   let {totalPages,destroyData}=this.state;
+		   let {totalPages,destroyData,isLoading}=this.state;
+		   if(isLoading){
+			   return ;
+		   }
 		   if(this.state.searchParams.page<totalPages){
 			   destroyData.map((item,index)=>{
                    item.destory();
@@ -338,7 +359,8 @@ export default class FloorPlan extends React.Component {
 			   this.setState({
                   searchParams,
 				  isLoading:true,
-				  destroyData:[]
+				  destroyData:[],
+				  downLine:false
 			   },function(){
 				   this.getBaseData();
 			   })
@@ -423,8 +445,6 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
-
-		console.log('hbbbbb',hoverData);
 
 		return (
 
