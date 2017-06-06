@@ -148,14 +148,16 @@ class NewCreateForm extends React.Component {
 			stationVos
 		} = this.state;
 		let {initialValues} = this.props;
-		let delStationVos;
+		let {delStationVos} = this.state;
+		
 
 		if (!stationVos.length) {
 			return;
 		}else{
-			delStationVos= stationVos;
+			delStationVos = delStationVos.concat(stationVos);
 			stationVos = [];
 		}
+		console.log(delStationVos,typeof delStationVos)
 			Store.dispatch(change('joinEditForm', 'stationVos',[]));
 			Store.dispatch(change('joinEditForm', 'delStationVos',delStationVos));
 		this.setState({
@@ -174,16 +176,16 @@ class NewCreateForm extends React.Component {
 		let {
 			stationVos
 		} = this.state;
-		let delStationVos;
+		let {delStationVos} = this.state;
+		console.log(delStationVos,stationVos)
 
 		let {initialValues} = this.props;
-		delStationVos= stationVos;
-		stationVos = [];
+		delStationVos = delStationVos.concat(stationVos);
 		Store.dispatch(change('joinEditForm', 'stationVos',[]));
 		Store.dispatch(change('joinEditForm', 'delStationVos',delStationVos));
 
 		this.setState({
-			stationVos,
+			stationVos:[],
 			delStationVos,
 			allRent:0
 		}, function() {
@@ -370,6 +372,7 @@ class NewCreateForm extends React.Component {
 			initialValues
 		} = this.props;
 		let unitpriceAdd = 0; 
+		console.log('===>',delStationVos)
 		for(var i=0 ;i<stationVos.length;i++){
 			if(!isNaN(stationVos[i].unitprice)){
 				unitpriceAdd+=Number(stationVos[i].unitprice);
