@@ -107,11 +107,11 @@ const Operation_CustomerManage_Order_Edit = (location, callback) => {
 // 	}, 'Operation_CustomerManage_Agreement_Join_Edit')
 // }
 
-// const Operation_CustomerManage_Agreement_Join_Detail = (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Detail').default)
-// 	}, 'Operation_CustomerManage_Agreement_Join_Detail')
-// }
+const Operation_CustomerManage_Agreement_Join_Detail = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Join/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Join_Detail')
+}
 
 // const Operation_CustomerManage_Agreement_Join_Create = (location, callback) => {
 // 	require.ensure([], require => {
@@ -137,11 +137,11 @@ const Operation_CustomerManage_Agreement_Join_Print = (location, callback) => {
 // 	}, 'Operation_CustomerManage_Agreement_Admit_Edit')
 // }
 
-// const Operation_CustomerManage_Agreement_Admit_Detail = (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Detail').default)
-// 	}, 'Operation_CustomerManage_Agreement_Admit_Detail')
-// }
+const Operation_CustomerManage_Agreement_Admit_Detail = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Admit/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Admit_Detail')
+}
 
 const Operation_CustomerManage_Agreement_Admit_Print = (location, callback) => {
 	require.ensure([], require => {
@@ -161,11 +161,11 @@ const Operation_CustomerManage_Agreement_Admit_Print = (location, callback) => {
 // 	}, 'Operation_CustomerManage_Agreement_Increase_Edit')
 // }
 
-// const Operation_CustomerManage_Agreement_Increase_Detail = (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Detail').default)
-// 	}, 'Operation_CustomerManage_Agreement_Increase_Detail')
-// }
+const Operation_CustomerManage_Agreement_Increase_Detail = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Increase/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Increase_Detail')
+}
 
 const Operation_CustomerManage_Agreement_Increase_Print = (location, callback) => {
 	require.ensure([], require => {
@@ -185,11 +185,11 @@ const Operation_CustomerManage_Agreement_Increase_Print = (location, callback) =
 // 	}, 'Operation_CustomerManage_Agreement_Renew_Edit')
 // }
 
-// const Operation_CustomerManage_Agreement_Renew_Detail = (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Detail').default)
-// 	}, 'Operation_CustomerManage_Agreement_Renew_Detail')
-// }
+const Operation_CustomerManage_Agreement_Renew_Detail = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Renew/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Renew_Detail')
+}
 
 const Operation_CustomerManage_Agreement_Renew_Print = (location, callback) => {
 	require.ensure([], require => {
@@ -209,11 +209,11 @@ const Operation_CustomerManage_Agreement_Renew_Print = (location, callback) => {
 // 	}, 'Operation_CustomerManage_Agreement_Reduce_Edit')
 // }
 
-// const Operation_CustomerManage_Agreement_Reduce_Detail = (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Reduce/Detail').default)
-// 	}, 'Operation_CustomerManage_Agreement_Reduce_Detail')
-// }
+const Operation_CustomerManage_Agreement_Reduce_Detail = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Reduce/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Reduce_Detail')
+}
 
 const Operation_CustomerManage_Agreement_Reduce_Print = (location, callback) => {
 	require.ensure([], require => {
@@ -234,11 +234,11 @@ const Operation_CustomerManage_Agreement_Reduce_Print = (location, callback) => 
 // 	}, 'Operation_CustomerManage_Agreement_Exit_Edit')
 // }
 
-// const Operation_CustomerManage_Agreement_Exit_Detail= (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Detail').default)
-// 	}, 'Operation_CustomerManage_Agreement_Exit_Detail')
-// }
+const Operation_CustomerManage_Agreement_Exit_Detail= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Detail').default)
+	}, 'Operation_CustomerManage_Agreement_Exit_Detail')
+}
 
 const Operation_CustomerManage_Agreement_LessorManage_List= (location, callback) => {
 	require.ensure([], require => {
@@ -398,51 +398,50 @@ module.exports =()=>{
 
 			{/*入驻协议书*/}
 			<Route path="join" getComponent={Basic}>
-				{/*<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Join_Edit}/>
+				{/*<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Join_Edit}/>*/}
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Join_Detail}/>
-				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Join_Create}/>*/}
 				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Join_Print}/>
 			</Route>
 
 			{/*承租意向书*/}
 			<Route path="admit" getComponent={Basic}>
 				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Admit_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Admit_Edit}/>
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Admit_Detail}/>*/}
+				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Admit_Edit}/>*/}
+				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Admit_Detail}/>
 				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Admit_Print}/>
 			</Route>
 
 			{/*增租协议书*/}
 			<Route path="increase" getComponent={Basic}>
 				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Increase_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Increase_Edit}/>
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Increase_Detail}/>*/}
+				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Increase_Edit}/>*/}
+				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Increase_Detail}/>
 				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Increase_Print}/>
 			</Route>
 
 			{/*续租协议书*/}
 			<Route path="renew" getComponent={Basic}>
 				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Renew_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Renew_Edit}/>
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Renew_Detail}/>*/}
+				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Renew_Edit}/>*/}
+				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Renew_Detail}/>
 				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Renew_Print}/>
 			</Route>
 
 			{/*减租协议书*/}
 			<Route path="reduce" getComponent={Basic}>
 				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Reduce_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Reduce_Edit}/>
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Reduce_Detail}/>*/}
+				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Reduce_Edit}/>*/}
+				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Reduce_Detail}/>
 				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Reduce_Print}/>
 
 			</Route>
 
-			{/*退租协议书
+			{/*退租协议书*/}
 			<Route path="exit" getComponent={Basic}>
-				<Route path="create" getComponent={Operation_CustomerManage_Agreement_Exit_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Exit_Edit}/>
+				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Exit_Create}/>
+				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Exit_Edit}/>*/}
 				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Exit_Detail}/>
-			</Route>*/}
+			</Route>
 
 	</Route>
 
