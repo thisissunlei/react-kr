@@ -201,18 +201,23 @@ export default class FloorPlan extends React.Component {
 		if (personel) {
 			this.getCommunityFloors(personel.id);
 			var searchParams={
-			communityId:personel.id,
-			floor:''
+				communityId:personel.id,
+				floor:''
 			}
-			searchParams = Object.assign({},this.state.searchParams, searchParams);
+		}else{
+		   var searchParams={
+			 communityId:'',
+			 floor:''
+			}
+		}
+		searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
 			    searchParams,
 				canvasRender:[]
 			},function(){
 				this.getRentData();
 				this.getBaseData();
-			})
-		}
+		})
 		Store.dispatch(change('FloorPlan', 'floor', ''));
 	}
 	
@@ -244,7 +249,12 @@ export default class FloorPlan extends React.Component {
             var searchParams={
 			 floor:param.label
 			}
-			searchParams = Object.assign({},this.state.searchParams, searchParams);
+		 }else{
+		    var searchParams={
+			 floor:''
+			}	
+		 }
+		 searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
 			    searchParams,
 				canvasRender:[]
@@ -252,7 +262,6 @@ export default class FloorPlan extends React.Component {
 				this.getRentData();
 				this.getBaseData();
 		 })
-		}
 	}
 	
 	//开始时间
