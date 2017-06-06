@@ -347,7 +347,6 @@ var Map = function (elementId,configs) {
             DB.removeStation(key);
 
             stations = DB.getAllStation();
-            console.log('2.length:',stations.length);
 
         }
         //更新工位坐标参数
@@ -430,6 +429,19 @@ var Map = function (elementId,configs) {
                 isOK = true;
             }
             return isOK;
+        }
+
+        StationObject.prototype.toChecked = function(){
+			var {checked,type,status,z} = this.props;
+
+			if(status == 1 || status == 2){
+				return ;
+			}
+			z = defaultConfigs.z;
+            defaultConfigs.z++;
+			checked = !checked;
+			this.componentWillReceiveProps({checked,z});
+
         }
 
         StationObject.prototype.isRemove = function(){
@@ -873,6 +885,7 @@ var Map = function (elementId,configs) {
 
                     props.drag = true;
                     this.componentWillReceiveProps(props);
+
                     break;
                 }
 
@@ -1004,9 +1017,8 @@ var Map = function (elementId,configs) {
             }
 
             if (configs.hasOwnProperty('isMode')) {
-                defaultConfigs.isMode =  configs.isMode;
+                defaultConfigs.isMode =  configs.isMode ;
             }
-
 
             if (configs.hasOwnProperty('station')) {
                 defaultConfigs.station = Object.assign({},defaultConfigs.station,configs.station);
@@ -1106,11 +1118,17 @@ var Map = function (elementId,configs) {
 
         }
 
+		//清除
+		MapObject.prototype.clear = function(){
+            canvas.width = canvasWidth;
+		}
+
         //构造视图
         MapObject.prototype.render = function () {
 
+
             //重置
-            canvas.width = canvasWidth;
+			this.clear();
 
             //设置边界值
             this.calcMaxMin();
@@ -1576,15 +1594,10 @@ var Map = function (elementId,configs) {
             for (var i = 0, len = stationObjectArray.length; i < len; i++) {
                 station = stationObjectArray[i];
                 if (station.hasPosition(x, y)) {
-                    props = station.getProps();
-                    props.checked = !props.checked;
-                    props.z = defaultConfigs.z;
-                    station.componentWillReceiveProps(props);
+					station.toChecked();
                     break;
                 }
             }
-
-            defaultConfigs.z++;
 
 			const {onCheckedStationCallback} = defaultConfigs.plugin;
 

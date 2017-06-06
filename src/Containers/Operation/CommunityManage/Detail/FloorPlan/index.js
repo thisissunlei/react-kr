@@ -57,7 +57,9 @@ export default class FloorPlan extends React.Component {
 			//loading
 			isLoading:false,
 			//底线
-			downLine:false
+			downLine:false,
+			//hover信息
+			hoverData:''
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -140,7 +142,12 @@ export default class FloorPlan extends React.Component {
 					totalPages:response.totalPages,
 				},function(){
                     canvasRender.map((item,index)=>{
-					  Map(`plan-app${index}`,item);
+					  var map=Map(`plan-app${index}`,item);
+					  map.onHoverStation(function(data){
+						 _this.setState({
+							 hoverData:data
+						 })
+					  })
 					})
 				})
 				
@@ -388,14 +395,15 @@ export default class FloorPlan extends React.Component {
 			station,
 			canvasRender,
 			isLoading,
-			downLine
+			downLine,
+			hoverData
 		} = this.state;
 
 		let {
 			handleSubmit
 		} = this.props;
 
-        console.log('ggbbbb',canvasRender);
+        console.log('ggbbbb',canvasRender,hoverData);
 
 		return (
 
@@ -428,12 +436,12 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-				  <div className="com-tips">
-					<div>工位编号：</div>
-					<div>姓名：</div>
-					<div>电话：</div>
-					<div>公司：</div>
-					<div>租期：</div>
+				  <div className="com-tips" style={{left:hoverData.x,top:hoverData.y-hoverData.height/2}}>
+					<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
+					<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
+					<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
+					<div>公司：{hoverData.company?hoverData.company:'-'}</div>
+					<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
 				 </div>
 
 				  {
