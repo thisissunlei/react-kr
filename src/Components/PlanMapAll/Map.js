@@ -1987,4 +1987,4 @@ var Map = (function (window) {
 
 })(window);
 
-module.export=Map;
+module.exports=Map;
