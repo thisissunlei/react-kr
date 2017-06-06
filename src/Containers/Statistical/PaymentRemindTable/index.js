@@ -4,15 +4,15 @@ import {
 
 	Title,
 	Section,
-	
+	Dialog,
+	KrField,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 // import './index.less';
 import SearchForm from "./SearchForm";
 import TableIndex from "./TableIndex";
-
-
+import IntroduceForm from "./IntroduceForm";
 
 
 import State from './State';
@@ -30,6 +30,8 @@ export default class PaymentRemindTable extends React.Component {
 			
 		}
 	}
+
+	
 	
 	render() {
 		return (
@@ -39,6 +41,15 @@ export default class PaymentRemindTable extends React.Component {
 						<SearchForm/>
 						<TableIndex/>
 					</Section>
+					<Dialog
+						title="开票"
+						open={State.openDialog}
+						onClose={this.switchOpenDialog}
+						contentStyle={{width:687}}
+					>
+						<IntroduceForm/>
+
+				  	</Dialog>
 				</div>
 		);
 

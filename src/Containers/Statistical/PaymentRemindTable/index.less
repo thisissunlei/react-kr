@@ -18,7 +18,7 @@
 .table-index{
 	.table-box{
 		.table-header{
-			width:1750px;
+			width:2010px;
 			height:40px;
 			background:#319eff;
 			.table-header-item{
@@ -30,14 +30,90 @@
 				text-align:center;
 				box-sizing:border-box;
 				color:#fff;
+
 			}
 			.table-header-item:first-child{
 				width:250px;
+			}
+			.table-header-item:last-child{
+				border-right:none;
 			}
 			.table-header-item:nth-child(2){
 				width:200px;
 			}
 		}
+		.table-items{
+			width:2010px;
+			.table-item-box{
+				.table-item{
+					display:flex;
+
+					div{
+						display:inline-block;
+					}
+					.customer-name{
+						width:250px;
+						border-right:solid 1px #eee;
+						border-bottom:solid 1px #eee;
+						text-align:center;
+						box-sizing:border-box;
+						vertical-align:top;
+					}
+					
+					.contract-detail-box{
+						display:inline-flex;
+						
+					}
+						
+						.contract-list{
+							display:inline-flex;
+							.contract-code{
+								width:200px;
+								height:100%;
+								text-align:center;
+								border-right:solid 1px #eee;
+								border-bottom:solid 1px #eee;
+								box-sizing:border-box;
+								
+							}
+							.contract-detail{
+								border-bottom:solid 1px #eee;
+								width:120px;
+								text-align:center;
+								border-right:solid 1px #eee;
+								box-sizing:border-box;
+							}
+						}
+						
+						.remind-detail-box{
+							dispaly:inline-flex;
+							flex-direction:row-reverse;
+							.remind-detial{
+								vertical-align:top;
+								width:1080px;
+								height:30px;
+								line-height:30px;
+								border-bottom:solid 1px #eee;
+								overflow:hidden;
+								box-sizing:border-box;
+								div{
+									width:120px;
+									text-align:center;
+									border-right:solid 1px #eee;
+									box-sizing:border-box;
+								}
+								div:last-child{
+									border:none;
+								}
+							}
+						}
+						
+					
+					
+				}
+			}
+		}
+		
 	}
 	.export{
 		width: 80px;
@@ -53,3 +129,17 @@
 	    cursor: pointer;
 	}
 }
+
+
+.introduce-form{
+	padding:20px 20px 0 20px;
+	.tip{
+		padding-left:10px;
+		color:#ff6868;
+	}
+}
+
+
+
+
+

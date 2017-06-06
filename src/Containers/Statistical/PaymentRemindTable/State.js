@@ -6,10 +6,11 @@ import mobx, {
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
+	openDialog : false,
 	items:[],
-
 	searchParams:{
 		communityId:'',
+		customerName:'',
 		startTime:'',
 		endTime:'',
 		page:1,
@@ -18,20 +19,16 @@ let State = observable({
 
 });
 
-// State.itemDownPublish = action(function(id) {
-// 	var _this = this;
-// 	var searchParams = Object.assign({},mobx.toJS(_this.searchParams));
-// 	searchParams.time = +new Date();
-// 	Http.request('activityPublish', {
-// 		id: id,
-// 		type:0
-// 	}).then(function(response) {
-// 		Message.success('下线成功');
-// 		_this.searchParams = searchParams;
-// 	}).catch(function(err) {
-// 		Message.error('下线失败');
-// 	});
+State.getList = action(function(id) {
 
-// });
+	var _this = this;
+	var searchParams = State.searchParams;
+	Http.request('getPaymentRemind', searchParams).then(function(response) {
+		State.items = response.items;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+
+});
 
 module.exports = State;
