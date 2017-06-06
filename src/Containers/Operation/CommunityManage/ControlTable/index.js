@@ -47,13 +47,17 @@ class ControlTable  extends React.Component{
 		this.state={
 			listData:[],
 			communityIdList:[],
-			moveStyle:{},
-			contentStyle:{},
+			moveStyle:{
+        position:"relative"
+      },
+			contentStyle:{
+        marginTop:0
+      },
 			searchParams:{
                communityId:'',
 			   customerName:'',
 			   page:19,
-			   pageSize:15,
+			   pageSize:200,
             },
 			communityName:'',
 			otherData:{
@@ -66,9 +70,10 @@ class ControlTable  extends React.Component{
 			allPage:0,
 			downLoading:false,
 			end:false,
-      		showToTop:false,
+      showToTop:false,
 			theEnd:true,
 			exportLeft:0,
+      isStandard:false,
 
 		}
 
@@ -118,26 +123,28 @@ getScrollTop = () => {
 	}
 	onscrollListener = () =>{
 		var _this = this;
-		let {exportLeft} = this.state;
+		let {exportLeft,isStandard,showToTop,theEnd} = this.state;
 		var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
 		var t = document.documentElement.scrollTop || document.body.scrollTop;
     	var windowHeight = window.innerHeight = document.body.clientHeight;
-			//判断导出按钮的位置
-			if(_this.getScrollTop() + _this.getWindowHeight() >= _this.getScrollHeight()-85){
+			// //判断导出按钮的位置
+			if(!theEnd && (_this.getScrollTop() + _this.getWindowHeight() >= _this.getScrollHeight()-85)){
 				_this.setState({
-				theEnd:true,
+				     theEnd:true,
 				})
-			}else{
+			}
+      if(theEnd && (_this.getScrollTop() + _this.getWindowHeight() < _this.getScrollHeight()-85)){
 				_this.setState({
-				theEnd:false,
+				   theEnd:false,
 				})
 			}
 			//判断回到顶部是否出现
-			if(t>windowHeight/2){
+			if(!showToTop && t>windowHeight/2){
 				_this.setState({
-				showToTop:true,
+				      showToTop:true,
 				})
-			}else{
+			}
+      if(showToTop && t <= windowHeight/2){
 				_this.setState({
 				showToTop:false,
 				})
@@ -170,7 +177,7 @@ getScrollTop = () => {
 			   }
 		　　}
 			//判断是否固定头部
-			if(t>145){
+			if(!isStandard && t>145){
 				_this.setState({
 					moveStyle:{
 						position:"fixed",
@@ -183,25 +190,29 @@ getScrollTop = () => {
 					},
 					contentStyle:{
 						marginTop:140
-					}
+					},
+          isStandard:true,
 				})
 
-			}else{
+			}
+      if(isStandard && t<=145){
 				_this.setState({
 					moveStyle:{
 						position:"relative"
 					},
 					contentStyle:{
 						marginTop:0
-					}
+					},
+          isStandard:false,
 				})
+
 
 			}
 	}
 	componentWillUnmount(){
 		window.removeEventListener("scroll",this.onscrollListener)
-		
-	
+
+
 	}
 
 	//获取数据
@@ -257,7 +268,7 @@ getScrollTop = () => {
                communityId:searchParams.communityId,
 			   customerName:values.content,
 			   page:1,
-			   pageSize:15
+			   pageSize:200
             },
 			loading:true,
 			newPage:1,
@@ -272,14 +283,13 @@ getScrollTop = () => {
    }
    //搜索下拉选中
    communityChange = (values) =>{
-     console.log(values,">>>>>>");
 	   const {searchParams} = this.state;
 		this.setState({
 			searchParams:{
          communityId:values.value,
 			   customerName:'',
 			   page:1,
-			   pageSize:15,
+			   pageSize:200,
 
             },
 			communityName:values.label,
@@ -367,7 +377,7 @@ getScrollTop = () => {
    generateContent = () =>{
 	   const {listData,tableWidth} = this.state;
 	   const _this = this;
-	  
+
 	   if(listData && !listData.length){
 			return <Nothing style = {{marginTop:50}}/>
 	   }else{
