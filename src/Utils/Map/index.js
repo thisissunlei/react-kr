@@ -1291,6 +1291,7 @@ var Map = function (elementId,configs) {
 
             //拖拽地图-移动
             const DragMapMoveEvent = function (event) {
+                console.log("MMMMMM")
                 MapObject.setMovePosition(event);
                 canvas.addEventListener('mouseup', DragMapEndEvent, false);
             }
@@ -1673,7 +1674,7 @@ var Map = function (elementId,configs) {
 
         //拖拽地图
         MapObject.prototype.dragMap = function () {
-
+            console.log("NNNNN");
             var dragX = position.up.x - position.down.x;
             var dragY = position.up.y - position.down.y;
 

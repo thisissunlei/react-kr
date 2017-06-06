@@ -65,7 +65,10 @@ export default class PlanMapComponent extends React.Component {
 					name:name
 				},
 				newfloor:floors[0].value,
+			},function(){
+				 _this.canvasEles();
 			})
+
 
 		}).catch(function(err) {
 
@@ -73,11 +76,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentDidMount(){
-
-		var element = document.getElementById("plan-map-content");
-		console.log(element,"canvasHeight");
-
-		 this.canvasEles();
+		
 	}
 
 
@@ -133,22 +132,42 @@ export default class PlanMapComponent extends React.Component {
 	canvasEles = () =>{
 		const {data,newfloor} = this.state;
 		var dainitializeConfigs = {};
-		console.log(newfloor,">>>>")
-
 		for(let i=0; i<data.length;i++){
-			console.log(newfloor,">>>>")
 			if(data[i].floor == newfloor){
-				console.log("feature销控表平面图feature销控表平面图feature销控表平面图")
+				var arr = [];
+				arr = data[i].figures.map(function(item ,index){
+					var obj = {};
+						var x = item.cellCoordX;
+						var y = item.cellCoordY;
+						obj.x = Number(x);
+						obj.y = Number(y);
+						obj.width = Number(item.cellWidth);
+						obj.height = Number(item.cellHeight);
+						obj.name = item.cellName;
+						obj.belongType = item.belongType;
+						obj.belongId = Number(item.belongId);
+						obj.id = Number(item.id);
+						obj.canFigureId = item.canFigureId;
+						obj.type=obj.belongType;
+						if(item.status){
+							obj.status=item.status;
+						}
+						
+						return obj;
+				})
+				
+
+
 				dainitializeConfigs = {
-					stations:data[i].figures,
+					stations:arr,
 					scale:1,
 					isMode:'select',
-					backgroundImageUrl:"http://optest.krspace.cn/" + data[i].graphFilePath
+					backgroundImageUrl:"http://optest.krspace.cn" + data[i].graphFilePath
 				}
 			}
 		}
 
-
+		console.log(dainitializeConfigs,"dainitializeConfigs");
 
 		Map("plan-map-content",dainitializeConfigs);
 		// let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
@@ -222,9 +241,7 @@ export default class PlanMapComponent extends React.Component {
 
 	render() {
 		const {data,otherData} = this.state;
-		if(!data){
-			return null;
-		}
+		
 		return (
 
 			<div className = "plan-map-content">
