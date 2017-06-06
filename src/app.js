@@ -12,6 +12,7 @@ import MobxReact from 'mobx-react';
 import routes from 'kr/Configs/Router';
 
 import store from 'kr/Redux/Store';
+import Baidu from 'kr/Utils/Baidu';
 
 import MobxStore from 'kr/Store';
 
@@ -43,6 +44,7 @@ ReactDOM.render((
 				onUpdate={() => {
 					window.scrollTo(0, 0)
 					store.dispatch(Actions.setCurrentNav(window.location.hash));
+					Baidu.pageView();
 				}}
 				/>
 			</MobxReact.Provider>

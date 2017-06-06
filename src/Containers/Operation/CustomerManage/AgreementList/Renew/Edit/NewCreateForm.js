@@ -295,6 +295,12 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos,
 		} = this.state;
+		if(stationVos && stationVos.length == 0){
+			Notify.show([{
+				message: "请选择工位",
+				type: 'danger',
+			}]);
+		}
 		let originStationVos = form.stationVos;
 
 
@@ -632,7 +638,7 @@ const validate = values => {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
-	
+
 
 
 

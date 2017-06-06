@@ -88,6 +88,8 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
+		delete formValues.stationVoList;
+		
 
 		var _this = this;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {

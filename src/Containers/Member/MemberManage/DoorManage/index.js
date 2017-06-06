@@ -106,7 +106,6 @@ export default class List extends React.Component {
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
-
 		var _this = this;
 		Http.request('newCreateOrEditImpower',{},values).then(function(response){
 			Message.success("操作成功");
@@ -137,7 +136,7 @@ export default class List extends React.Component {
 					date: new Date(),
 					communityId : _this.state.searchParams.communityId,
 					customerName : _this.state.searchParams.customerName,
-
+					page : 1
 				}
 			})
 		}).catch(function(err){
@@ -148,12 +147,12 @@ export default class List extends React.Component {
 
 	// 打开确认删除
 	confirmDelete=()=>{
-		console.log("this.state.searchParams",this.state.searchParams);
+		// console.log("this.state.searchParams",this.state.searchParams);
 		let _this = this;
 		let {itemDetail} = this.state;
 		Http.request('doorCustomerDelete',{id:itemDetail.id}).then(function(response){
 			Message.success("操作成功");
-			console.log("_this.state.searchParams.communityId",_this.state.searchParams.communityId);
+			// console.log("_this.state.searchParams.communityId",_this.state.searchParams.communityId);
 			_this.setState({
 				openDeleteDialog : !_this.state.openDeleteDialog,
 				searchParams:{
@@ -176,16 +175,20 @@ export default class List extends React.Component {
 		let _this = this;
 		if(!item){
 			_this.setState({
+				realPage:1,
 				searchParams:{
 					communityId : '',
 					customerName : _this.state.searchParams.customerName,
+					page : 1
 				}
 			})
 		}else{
 			_this.setState({
+			realPage:1,
 			searchParams:{
 				communityId : item.id,
 				customerName : _this.state.searchParams.customerName,
+				page :1
 			}
 		})
 		}
@@ -195,9 +198,12 @@ export default class List extends React.Component {
 	onSearchSubmit=(value)=>{
 		let _this = this;
 		_this.setState({
+			realPage:1,
 			searchParams:{
 				customerName : value.content,
-				communityId : _this.state.searchParams.communityId
+				communityId : _this.state.searchParams.communityId,
+				page : 1,
+				
 			}
 		})
 	}

@@ -76,7 +76,7 @@ class  CommunityStationDetail extends React.Component{
 	openAddStation=()=>{
 		let {FormModel} = this.props;
 		FormModel.getForm("NewAddStation")
-		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:''});
+		.changeValues({code:'',area:'',belongSpace:'',enable:'',floor:'',spaceId:'',stationType:'',quotedPrice:''});
 		this.props.CommunityStationModel.addStation();
 		this.props.CommunityStationModel.isCode=false;
 		this.props.CommunityStationModel.deleteId='';
@@ -140,7 +140,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
-
+   
    this.props.CommunityStationModel.stationSubmit(params);
  }
 
@@ -248,7 +248,7 @@ SelectCommunity=()=>{
               onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
-			        onExport={this.onExport}
+			    onExport={this.onExport}
 	            ajaxParams={this.props.CommunityStationModel.searchParams}
 	            ajaxUrlName='station-list'
 	            ajaxFieldListName="items"
@@ -259,6 +259,7 @@ SelectCommunity=()=>{
                   <TableHeaderColumn>工位性质</TableHeaderColumn>
 		              <TableHeaderColumn>是否属于空间</TableHeaderColumn>
 		              <TableHeaderColumn>空间名称</TableHeaderColumn>
+		              <TableHeaderColumn>报价</TableHeaderColumn>
 		              <TableHeaderColumn>状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
@@ -270,6 +271,7 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="stationType" options={[{label:'开放',value:'OPEN'},{label:'半开放',value:'HALF_OPEN'},{label:'封闭',value:'CLOSED'}]}></TableRowColumn>
                       <TableRowColumn name="belongSpace"  options={[{label:'属于',value:'true'},{label:'不属于',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="spaceName"></TableRowColumn>
+			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'未启用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />

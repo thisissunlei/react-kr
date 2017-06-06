@@ -164,20 +164,26 @@ export default class EquipmentDefinition extends React.Component {
   }
   // 查询
   onSearchSubmit=(value)=>{
+    let _this =this;
     if(value.filter == "deviceCode"){
       this.setState({
         filter: value.filter,
         content: value.content,
+        realPage : 1,
         equipmentParams: {
           deviceCode: value.content,
+          
+
         }
       })
     }else{
       this.setState({
         filter: value.filter,
         content: value.content,
+        realPage :1,
         equipmentParams: {
           hardwareId: value.content,
+          
         }
       })
     }
@@ -187,10 +193,12 @@ export default class EquipmentDefinition extends React.Component {
   onEquipmentAdvanceSearchReset=()=>{
     this.refs.inputFilter.refs.realInput.value = "";
     this.setState({
+
       filter: 'deviceCode',
       content: '',
       equipmentParams: {
         deviceCode: "",
+        
       }
     })
   }
@@ -203,7 +211,9 @@ export default class EquipmentDefinition extends React.Component {
       _this.setState({
         filter : "deviceCode",
         content : "",
+        realPage :1,
         equipmentParams:{
+         
           communityId :values.communityId || "",
           hardwareId : values.value || "",
           floor : values.floor || "",
@@ -218,6 +228,7 @@ export default class EquipmentDefinition extends React.Component {
         content : "",
         timer : new Date(),
         equipmentParams:{
+          
           communityId :values.communityId || "",
           deviceCode : values.value || "",
           floor : values.floor || "",
