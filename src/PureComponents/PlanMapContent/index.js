@@ -76,54 +76,57 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentDidMount(){
-		
+
 	}
 
 
 	componentWillReceiveProps(nextProps) {
 
 	}
-	dataChange = (floor,data,deleteData) =>{
-		let {otherData,selectedObjs,deleteArr} = this.state;
-		let obj = {};
-		let arr = [];
-		let delArr = [];
-		let deldata = [];
+	dataChange = (arr) =>{
 
-		otherData.floors.map(function(item,index){
-			if(floor == item.value){
-				obj[floor]={
-					data : data || [],
-					deleteArr :  deleteData || []
-				}
 
-				arr = obj[item.value].data.concat(arr);
-				delArr = obj[item.value].deleteArr.concat(delArr);
-			}
-
-		})
-
-		for(let i=0;i<data.length;i++){
-			for(let j=0;j<deleteArr.length;j++){
-				if(deleteArr[j].belongId == data[i].belongId && deleteArr[j].belongType == data[i].belongType ){
-					deleteArr.splice(j, 1);
-
-				}
-			}
-
-		}
-		selectedObjs && selectedObjs.map(function(item,index){
-
-				if(delArr.length !=0 && delArr[0].belongId == item.id && delArr[0].belongType == item.belongType  ){
-
-					deleteArr.push(delArr[0]);
-				}
-
-		})
-		this.setState({
-			submitData:arr,
-			deleteArr:deleteArr
-		})
+		console.log(arr,">>>");
+		// let {otherData,selectedObjs,deleteArr} = this.state;
+		// let obj = {};
+		// let arr = [];
+		// let delArr = [];
+		// let deldata = [];
+		//
+		// otherData.floors.map(function(item,index){
+		// 	if(floor == item.value){
+		// 		obj[floor]={
+		// 			data : data || [],
+		// 			deleteArr :  deleteData || []
+		// 		}
+		//
+		// 		arr = obj[item.value].data.concat(arr);
+		// 		delArr = obj[item.value].deleteArr.concat(delArr);
+		// 	}
+		//
+		// })
+		//
+		// for(let i=0;i<data.length;i++){
+		// 	for(let j=0;j<deleteArr.length;j++){
+		// 		if(deleteArr[j].belongId == data[i].belongId && deleteArr[j].belongType == data[i].belongType ){
+		// 			deleteArr.splice(j, 1);
+		//
+		// 		}
+		// 	}
+		//
+		// }
+		// selectedObjs && selectedObjs.map(function(item,index){
+		//
+		// 		if(delArr.length !=0 && delArr[0].belongId == item.id && delArr[0].belongType == item.belongType  ){
+		//
+		// 			deleteArr.push(delArr[0]);
+		// 		}
+		//
+		// })
+		// this.setState({
+		// 	submitData:arr,
+		// 	deleteArr:deleteArr
+		// })
 	}
 
 
@@ -152,22 +155,23 @@ export default class PlanMapComponent extends React.Component {
 						if(item.status){
 							obj.status=item.status;
 						}
-						
+
 						return obj;
 				})
-				
+
 
 
 				dainitializeConfigs = {
 					stations:arr,
 					scale:1,
 					isMode:'select',
+					onCheckedStationCallback:this.dataChange,
 					backgroundImageUrl:"http://optest.krspace.cn" + data[i].graphFilePath
 				}
 			}
 		}
 
-		console.log(dainitializeConfigs,"dainitializeConfigs");
+		
 
 		Map("plan-map-content",dainitializeConfigs);
 		// let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
@@ -241,7 +245,7 @@ export default class PlanMapComponent extends React.Component {
 
 	render() {
 		const {data,otherData} = this.state;
-		
+
 		return (
 
 			<div className = "plan-map-content">

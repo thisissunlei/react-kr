@@ -1,7 +1,7 @@
 //平面图
 var Map = function (elementId,configs) {
 
-    //画布上下文    
+    //画布上下文
     var context;
 
     //画布父本
@@ -169,7 +169,7 @@ var Map = function (elementId,configs) {
             reset: function () {
                  CONFIGS = {
                     stations:[]
-                } 
+                }
             },
             getAllStation: function () {
                 var stations = [].concat(CONFIGS.stations);
@@ -1508,7 +1508,7 @@ var Map = function (elementId,configs) {
                         if (defaultConfigs.map.translateX > 0 && Math.abs(defaultConfigs.map.translateX) > tranlateRightMax) {
                             defaultConfigs.map.translateX = tranlateRightMax;
                         }
-            
+
                                     //上下
                                     //限制向上移最大值
                                     if (defaultConfigs.map.translateY < 0 && Math.abs(defaultConfigs.map.translateY) > translateUpMax) {
@@ -2196,7 +2196,7 @@ var Map = function (elementId,configs) {
     exportMap.prototype.onScaleMap = function () {
         this.map.onScaleMap.apply(this.map, arguments);
     };
-	
+
     exportMap.prototype.onCheckedStation = function () {
         this.map.onCheckedStation.apply(this.map, arguments);
     };
