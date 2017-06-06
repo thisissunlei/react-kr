@@ -68,7 +68,7 @@ export default class DialogComponent extends React.Component {
 			if(!dialogContentEle){
 				return 
 			}
-			dialogContentEle.style.transform = `translateY(-${Math.floor(height/2+50)}px)`;
+			dialogContentEle.style.transform = `translateY(-${Math.floor(height/2+30)}px)`;
 	}
 
 
