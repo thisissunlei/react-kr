@@ -144,12 +144,13 @@ export default class FloorPlan extends React.Component {
 					totalPages:response.totalPages,
 				},function(){
                     canvasRender.map((item,index)=>{
-					  destroyData.push(Map(`plan-app${index}`,item));
-					  /*map.onHoverStation(function(data){
+				      var map=Map(`plan-app${index}`,item);
+					  destroyData.push(map);
+					  map.onHoverStation(function(data){
 						 _this.setState({
 							 hoverData:data
 						 })
-					  })*/
+					  })
 					})
 				})
 				_this.setState({
@@ -446,9 +447,11 @@ export default class FloorPlan extends React.Component {
 			handleSubmit
 		} = this.props;
 
+
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
+
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
 
 					<ListGroup>
@@ -477,16 +480,18 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-				  {
-					  canvasRender&&canvasRender.map((item,index)=>{
-                         return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
-							        {hoverData.status=='1'&&<div className="com-tips" style={{left:hoverData.x-116,top:hoverData.y-hoverData.height/2-80}}>
+
+			        {hoverData.status=='1'&&<div className="com-tips" style={{left:hoverData.clientX-238,top:hoverData.clientY-hoverData.height/2-80}}>
 										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
 										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
 										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
 										<div>公司：{hoverData.company?hoverData.company:'-'}</div>
 										<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
-									</div>}
+				     </div>}
+				  
+				  {
+					  canvasRender&&canvasRender.map((item,index)=>{
+                         return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
 								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
 								    <div id= {`plan-app${index}`} style={{background:'#fff',width:'100%',height:'670px'}}>
 										
