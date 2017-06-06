@@ -117,7 +117,7 @@ export default class NewCreateForm extends React.Component {
 		let {detail,handleSubmit} = this.props;
 		return (
 			<div className="edit-form" >
-				<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:20}}>
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:"0 20px 20px 20px"}}>
 					
 
 					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true} style={{marginTop:20}}/>
