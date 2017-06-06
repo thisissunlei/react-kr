@@ -76,7 +76,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentDidMount(){
-		
+		this.canvasEles();
 	}
 
 
@@ -152,10 +152,10 @@ export default class PlanMapComponent extends React.Component {
 						if(item.status){
 							obj.status=item.status;
 						}
-						
+
 						return obj;
 				})
-				
+
 
 
 				dainitializeConfigs = {
@@ -241,7 +241,7 @@ export default class PlanMapComponent extends React.Component {
 
 	render() {
 		const {data,otherData} = this.state;
-		
+
 		return (
 
 			<div className = "plan-map-content">
