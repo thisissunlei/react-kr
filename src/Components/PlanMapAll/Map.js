@@ -2,8 +2,7 @@
 var Map = (function (window) {
 
 
-
-    //画布上下文
+    //画布上下文    
     var context;
 
     var stationNumber = 1;
@@ -135,7 +134,7 @@ var Map = (function (window) {
             reset: function () {
                  CONFIGS = {
                     stations:[]
-                }
+                } 
             },
             getAllStation: function () {
                 var stations = [].concat(CONFIGS.stations);
@@ -269,6 +268,7 @@ var Map = (function (window) {
             checked: false,
             removed: false,
             key: stationNumber,
+            status:1,
         }
 
         //获取props信息
@@ -1362,7 +1362,7 @@ var Map = (function (window) {
             canvas.addEventListener('mouseover', MouseOverEvent, false);
 
 
-              document.addEventListener('keyup', KeyUpEvent, false);
+            document.addEventListener('keyup', KeyUpEvent, false);
 
         }
 
@@ -1387,7 +1387,7 @@ var Map = (function (window) {
                         if (translateX > 0 && Math.abs(translateX) > tranlateRightMax) {
                             translateX = tranlateRightMax;
                         }
-
+            
                                     //上下
                                     //限制向上移最大值
                                     if (translateY < 0 && Math.abs(translateY) > translateUpMax) {
@@ -1420,9 +1420,6 @@ var Map = (function (window) {
             }
 
             var img = bkImageObject;
-            if(!img){
-              return;
-            }
             context.beginPath();
             context.drawImage(img, translateX * scale, translateY * scale, img.width * scale, img.height * scale);
             context.closePath();
@@ -1686,8 +1683,10 @@ var Map = (function (window) {
         MapObject.prototype.destory = function () {
             stationObjectArray = [];
             bkImageObject = null;
+			scale = 1;
+			translateX = 0;
+			translateY = 0;
             DB.reset();
-            //StationFactory = null;
             element.removeChild(canvas);
         }
 
@@ -1988,4 +1987,4 @@ var Map = (function (window) {
 
 })(window);
 
-module.exports=Map;
+module.export=Map;
