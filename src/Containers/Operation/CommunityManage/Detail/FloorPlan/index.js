@@ -52,8 +52,8 @@ export default class FloorPlan extends React.Component {
 			date: DateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
 			//总页数
 			totalPages:'',
-			//
-			items:[]
+			//渲染信息
+			canvasRender:[]
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -66,13 +66,11 @@ export default class FloorPlan extends React.Component {
 	   this.getBaseData();
 	   this.getRentData();
 	   window.addEventListener('scroll',this.scrollListener,false);
-	  
-
 	}
     
 	//获取基本信息
 	getBaseData=()=>{
-		let {dateend,date,searchParams}=this.state;
+		let {dateend,date,searchParams,canvasRender}=this.state;
 		var data={};
 		data.startDate=date;
 		data.endDate=dateend;
@@ -82,12 +80,8 @@ export default class FloorPlan extends React.Component {
 		data.pageSize=searchParams.pageSize;
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
-                 
+                   
 			      var items=response.items;
-				   _this.setState({
-					  totalPages:response.totalPages,
-					  items
-				  })
 				   items.map((it,indexs)=>{
                     var stationsDataOrigin = it.figures;
 					var stations = [];
@@ -129,11 +123,21 @@ export default class FloorPlan extends React.Component {
 							 translateY:0,
 							 scaleEnable:false
 							},
-							isMode:'view'
+							isMode:'view',
+							communityName:it.communityName,
+							floor:it.floor
 					}
-                     Map(`plan-app${indexs}`,initializeConfigs);
+					 canvasRender.push(initializeConfigs);
 				})
 				
+				_this.setState({
+					canvasRender,
+					totalPages:response.totalPages,
+				},function(){
+                    canvasRender.map((item,index)=>{
+						Map(`plan-app${index}`,item);
+					})
+				})
 				
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -198,7 +202,8 @@ export default class FloorPlan extends React.Component {
 			}
 			searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
-			    searchParams
+			    searchParams,
+				canvasRender:[]
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -351,6 +356,7 @@ export default class FloorPlan extends React.Component {
 
 	componentWillUnmount(){
 	  window.removeEventListener('scroll',this.scrollListener,false);	
+	  Map(`plan-app${indexs}`,initializeConfigs);
 	}
 
 	render() {
@@ -361,14 +367,12 @@ export default class FloorPlan extends React.Component {
 			dateend,
 			date,
 			station,
-			items
+			canvasRender
 		} = this.state;
 
 		let {
 			handleSubmit
 		} = this.props;
-
-		
 
 		return (
 
@@ -410,12 +414,13 @@ export default class FloorPlan extends React.Component {
 				 </div>
 
 				  {
-					  items&&items.map((item,index)=>{
+					  canvasRender&&canvasRender.map((item,index)=>{
                          return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
 								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
-									<div id={`plan-app${index}`} style={{background:'#fff',width:'100%',height:'670px'}}>
+								    <div id= {`plan-app${index}`} style={{background:'#fff',width:'100%',height:'670px'}}>
 										
 									</div>
+									
 						        </div>
 					  })
 				  }
