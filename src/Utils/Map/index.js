@@ -19,7 +19,7 @@ var Map = function (elementId,configs) {
     var defaultConfigs = {
         z: 1,
         modes:['edit','view','select'],
-        isMode:'view',
+        isMode:'select',
 		isEditMode:function(){
 			return this.isMode === 'edit';
 		},
@@ -367,7 +367,7 @@ var Map = function (elementId,configs) {
         //绘制Station
         StationObject.prototype.render = function () {
 
-            const { drag, checked, removed } = this.props;
+            const { drag, checked, removed,status } = this.props;
 
             if (removed) {
                 return;
@@ -375,7 +375,7 @@ var Map = function (elementId,configs) {
 
             const props = this.props;
 
-			var style = defaultConfigs.stationStatus[props.status];
+			var style = defaultConfigs.stationStatus[status];
 
             if (checked) {
 				 style = defaultConfigs.stationStatus[3];
@@ -388,8 +388,6 @@ var Map = function (elementId,configs) {
 
             var position = this.getLeftTopPosition();
             position = MapFactory.transformPositionToView(position.x, position.y);
-
-            //context.globalCompositeOperation = 'source-over';
 
             //绘制
             context.moveTo(position.x, position.y);
