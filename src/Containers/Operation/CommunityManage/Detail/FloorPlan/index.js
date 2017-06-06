@@ -403,7 +403,7 @@ export default class FloorPlan extends React.Component {
 			handleSubmit
 		} = this.props;
 
-        console.log('ggbbbb',canvasRender,hoverData);
+		console.log('hbbbbb',hoverData);
 
 		return (
 
@@ -436,17 +436,16 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-				  <div className="com-tips" style={{left:hoverData.x,top:hoverData.y-hoverData.height/2}}>
-					<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
-					<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
-					<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
-					<div>公司：{hoverData.company?hoverData.company:'-'}</div>
-					<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
-				 </div>
-
 				  {
 					  canvasRender&&canvasRender.map((item,index)=>{
                          return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
+							        {hoverData.status=='1'&&<div className="com-tips" style={{left:hoverData.x-116,top:hoverData.y-hoverData.height/2-80}}>
+										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
+										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
+										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
+										<div>公司：{hoverData.company?hoverData.company:'-'}</div>
+										<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
+									</div>}
 								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
 								    <div id= {`plan-app${index}`} style={{background:'#fff',width:'100%',height:'670px'}}>
 										
