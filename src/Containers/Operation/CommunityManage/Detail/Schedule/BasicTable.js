@@ -202,6 +202,15 @@ export default class BasicTable extends React.Component {
 		}
 	}
 
+	componentDidUpdate(){
+		const {tab} = this.props;
+		if(tab !== 'table'){
+			$(window).unbind('scroll.table', this.scrollLoading);
+		}else{
+			$(window).bind('scroll.table', this.scrollLoading);
+		}
+	}
+
 
 
 	componentWillReceiveProps(nextProps) {

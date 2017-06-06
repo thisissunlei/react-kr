@@ -59,7 +59,9 @@ export default class FloorPlan extends React.Component {
 			//底线
 			downLine:false,
 			//hover信息
-			hoverData:''
+			hoverData:'',
+			//销毁原来的canvas
+			destroyData:[]
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -77,7 +79,7 @@ export default class FloorPlan extends React.Component {
 
 	//获取基本信息
 	getBaseData=()=>{
-		let {dateend,date,searchParams,canvasRender}=this.state;
+		let {dateend,date,searchParams,canvasRender,destroyData}=this.state;
 		var data={};
 		data.startDate=date;
 		data.endDate=dateend;
@@ -142,13 +144,17 @@ export default class FloorPlan extends React.Component {
 					totalPages:response.totalPages,
 				},function(){
                     canvasRender.map((item,index)=>{
-					  var map=Map(`plan-app${index}`,item);
-					  map.onHoverStation(function(data){
+					  destroyData.push(Map(`plan-app${index}`,item));
+					  /*map.onHoverStation(function(data){
 						 _this.setState({
 							 hoverData:data
 						 })
-					  })
+					  })*/
 					})
+				})
+				_this.setState({
+					destroyData,
+					isLoading:false
 				})
 				
 		}).catch(function(err) {
@@ -215,7 +221,8 @@ export default class FloorPlan extends React.Component {
 		}else{
 		   var searchParams={
 			 communityId:'',
-			 floor:''
+			 floor:'',
+			 page:1,
 			}
 		}
 		searchParams = Object.assign({},this.state.searchParams, searchParams);
@@ -259,7 +266,8 @@ export default class FloorPlan extends React.Component {
 			}
 		 }else{
 		    var searchParams={
-			 floor:''
+			 floor:'',
+			 page:1
 			}	
 		 }
 		 searchParams = Object.assign({},this.state.searchParams, searchParams);
@@ -318,15 +326,19 @@ export default class FloorPlan extends React.Component {
 	//滚动监听
     scrollListener=()=>{
       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
-		   let {totalPages}=this.state;
+		   let {totalPages,destroyData}=this.state;
 		   if(this.state.searchParams.page<totalPages){
+			   destroyData.map((item,index)=>{
+                   item.destory();
+				})
 			   var searchParams={
 				 page:this.state.searchParams.page+1
 				}
 				searchParams = Object.assign({},this.state.searchParams, searchParams);
 			   this.setState({
                   searchParams,
-				  isLoading:true
+				  isLoading:true,
+				  destroyData:[]
 			   },function(){
 				   this.getBaseData();
 			   })
@@ -379,6 +391,15 @@ export default class FloorPlan extends React.Component {
 
 	onSubmit=()=>{
 		
+	}
+
+	componentDidUpdate(){
+		const {tab} = this.props;
+		if(tab !== 'floorplan'){
+			window.removeEventListener('scroll',this.scrollListener,false);	
+		}else{
+			window.addEventListener('scroll',this.scrollListener,false);
+		}
 	}
 
 	componentWillUnmount(){
