@@ -42,30 +42,39 @@ class SearchForm extends React.Component {
 		}else{
 			State.searchParams.communityId = item.id;
 		}
+		State.searchParams.page = 1;
 	}
 
 	chooseStartTime=(date)=>{
 		
 		
-		if(State.searchParams.endTime && this.getTimeFun(date)>this.getTimeFun(State.searchParams.endTime)){
+		if(State.searchParams.endDate && this.getTimeFun(date)>this.getTimeFun(State.searchParams.endDate)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		State.searchParams.startTime = date;
+		State.searchParams.beginDate = date;
+		State.searchParams.page = 1;
 		
 
 	}
 
 	chooseEndTime=(date)=>{
 
-		if(State.searchParams.startTime && this.getTimeFun(State.searchParams.startTime)>this.getTimeFun(date)){
+		if(State.searchParams.beginDate && this.getTimeFun(State.searchParams.beginDate)>this.getTimeFun(date)){
 			Message.error("开始时间不能大于结束时间");
-			console.log("DateFormat(State.searchParams.endTime, yyyy-mm-dd)",DateFormat(State.searchParams.endTime, "yyyy-mm-dd"));
 			Store.dispatch(change('SearchForm', 'endDate', DateFormat(new Date(), "yyyy-mm-dd")));
 			return;
 		}
-		State.searchParams.endTime = date;
+		State.searchParams.endDate = date;
+		State.searchParams.page = 1;
 
+	}
+	
+	inputCompanyName=(value)=>{
+		
+		State.searchParams.customerName = value.content;
+		State.searchParams.page = 1;
+		
 	}
 
 	// 转成时间戳
@@ -75,13 +84,6 @@ class SearchForm extends React.Component {
 		var timeDate = Date.parse(timeDateArr[0]);
 		return timeDate;
 	}
-
-	inputCompanyName=(value)=>{
-		console.log("State",State);
-		State.searchParams.companyName = value.content;
-		console.log("State",State);
-	}
-
 
 	render() {
 

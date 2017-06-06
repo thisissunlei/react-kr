@@ -37,6 +37,18 @@ class IntroduceForm extends React.Component {
 	}
 	componentDidMount() {
 	}
+	onCancelDialog=()=>{
+		State.openDialog = false;
+	}
+
+	onConfirm=()=>{
+		State.openDialog = false;
+		State.submitVioce();
+	}
+
+	changeIntroduce=(value)=>{
+		State.voiceIntro = value;
+	}
 
 	render() {
 
@@ -51,8 +63,8 @@ class IntroduceForm extends React.Component {
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
-								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
-								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit" onTouchTap={this.onConfirm} /></ListGroupItem>
+								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancelDialog} /></ListGroupItem>
 							</ListGroup>					
 						</Row>
 					</Grid>
