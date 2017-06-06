@@ -11,6 +11,9 @@ import {
 import {
     Http,
 } from "kr/Utils";
+
+import Baidu from 'kr/Utils/Baidu';
+
 import ToDoAudit from './ToDoAudit';
 import DoAudit from './DoAudit';
 import DoneAudit from './DoneAudit';
@@ -24,6 +27,9 @@ export default class AuditList extends React.Component {
       countList: " "
     }
     this.getCount()
+  }
+  componentDidMount(){
+    Baidu.trackEvent('财务管理-审核列表','访问');
   }
 
   getCount = (form) => {

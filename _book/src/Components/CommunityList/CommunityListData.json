@@ -1,0 +1,34 @@
+ [
+	{"cityName": "北京市", 
+		"children": [
+		{"communityName": "北京创业大街社区","children": [{
+			"id":"1","hardwareid":"7550099_84C2E4F1DAEE"
+			}]
+		},
+		{"communityName": "北京天创社区","children": [{
+			"id":"2","hardwareid":"7550099_84C2E4F1DAEE"
+			}]
+		}
+	]
+	},
+	{"cityName": "杭州市", "children": [
+		{"communityName": "杭州梦想小镇社区","children": [{
+			"id":"3","hardwareid":"7550099_84C2E4F1DAEE"
+			}]
+		},
+		{"communityName": "杭州文三社区","children": [{
+			"id":"4","hardwareid":"7550099_84C2E4F1DAEE"
+			}]
+		}
+	]},
+	{"cityName": "上海", "children": [
+		{"communityName": "上海绿地社区","children": [{
+			"id":"5","hardwareid":"7550099_84C2E4F1DAEE"
+			}]
+		},
+		{"communityName": "上海浦东社区","children": [{
+			"id":"6","hardwareid":"7550099_84C2E4F1DAEE"
+			}]
+		}
+	]}
+]

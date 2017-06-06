@@ -1,0 +1,242 @@
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+import {Http} from 'kr/Utils'
+import {
+	Dialog,
+	Section,
+	Grid,
+	Notify,
+	BreadCrumbs,
+} from 'kr-ui';
+import allState from "../../State";
+
+import NewCreateForm from './NewCreateForm';
+import ConfirmFormDetail from './ConfirmFormDetail';
+import './index.less';
+export default class JoinCreate extends Component {
+	static contextTypes = {
+		params: React.PropTypes.object.isRequired
+	}
+	static childContextTypes = {
+        params: React.PropTypes.object.isRequired
+     }
+
+	getChildContext() {
+		    return {
+		        params: this.props.params
+		      }
+		    }
+	constructor(props, context) {
+		super(props, context);
+
+		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
+		this.onCreateSubmit = this.onCreateSubmit.bind(this);
+		this.onCancel = this.onCancel.bind(this);
+
+		this.state = {
+			stationVos: [],
+			initialValues: {},
+			optionValues: {},
+			openConfirmCreate: false
+		}
+
+		Store.dispatch(reset('reduceCreateForm'));
+
+	}
+
+	onCreateSubmit(formValues) {
+
+		let {
+			params
+		} = this.props;
+		Http.request('getFnaContractRentController', formValues).then(function(response) {
+			Notify.show([{
+				message: '更新成功',
+				type: 'success',
+			}]);
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			allState.openEditAgreement=false;
+
+			//location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/reduce/" + response.contractId + "/detail";
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+		//this.openConfirmCreateDialog();
+	}
+
+	onCancel() {
+		let {
+			params
+		} = this.context;
+		allState.openEditAgreement=false;
+		//window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+	}
+
+	openConfirmCreateDialog() {
+		this.setState({
+			openConfirmCreate: !this.state.openConfirmCreate
+		});
+	}
+
+	componentDidMount() {
+
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let initialValues = {};
+		let optionValues = {};
+		let stationVos = [];
+		let rentamount = 0;
+
+		Http.request('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1,
+			type : 1,
+		}).then(function(response) {
+
+			initialValues.contractstate = 'UNSTART';
+			initialValues.mainbillid = params.orderId;
+
+			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
+
+			optionValues.communityAddress = response.customer.communityAddress;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+			initialValues.contracttype = 'LESSRENT';
+
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+			optionValues.paymentList = response.payment.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+			optionValues.payTypeList = response.payType.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
+			optionValues.floorList = response.customer.floor;
+			optionValues.customerName = response.customer.customerName;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			optionValues.communityName = response.customer.communityName;
+			optionValues.communityId = response.customer.communityid;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+
+			Http.request('showFnaContractRentController', {
+				id: params.id
+			}).then(function(response) {
+
+
+				optionValues.lessorContactName = response.lessorContactName;
+				optionValues.contractFileList = response.contractFileList;
+				optionValues.leaseEnddate = response.leaseEnddate;
+				optionValues.leaseBegindate = response.leaseBegindate;
+
+
+				initialValues.leaseEnddate = response.leaseEnddate;
+
+				// initialValues.id = response.id;
+				initialValues.id = response.id;
+				initialValues.leaseId = response.leaseId;
+				initialValues.contractcode = response.contractcode;
+				initialValues.leaseAddress = response.leaseAddress;
+				initialValues.lessorContactName = response.lessorContactName;
+				initialValues.leaseContact = response.leaseContact;
+				initialValues.leaseContacttel = response.leaseContacttel;
+        initialValues.contractVersionType = response.contractVersion;
+				initialValues.lessorContactid = response.lessorContactid;
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
+				// initialValues.paymodel = response.payment.id;
+				// initialValues.stationnum = response.stationnum;
+				// initialValues.rentamount = response.rentamount;
+				// initialValues.rentaluse = response.rentaluse;
+				// initialValues.contractmark = response.contractmark;
+				// initialValues.totalrent = response.totalrent;
+				if (response.rentamount) {
+					initialValues.rentamount = response.rentamount;
+				}
+				initialValues.lessorContacttel = response.lessorContacttel;
+
+				//时间
+				// initialValues.firstpaydate = new Date(response.firstpaydate);
+				initialValues.signdate = new Date(response.signdate);
+				// initialValues.leaseBegindate = new Date(response.leaseBegindate);
+				initialValues.rentamount = response.rentamount;
+
+
+
+				//处理stationvos
+				stationVos = response.stationVos;
+
+
+				_this.setState({
+					initialValues,
+					optionValues,
+					stationVos,
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: '后台出错请联系管理员',
+					type: 'danger',
+				}]);
+			});
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: '后台出错请联系管理员',
+				type: 'danger',
+			}]);
+		});
+
+	}
+
+
+	render() {
+
+		let {
+			initialValues,
+			optionValues,
+			stationVos,
+			params
+		} = this.state;
+		return (
+
+			<div>
+		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
+			<div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} params={this.props.params}/>
+			</div>
+		</div>
+		);
+	}
+}

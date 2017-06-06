@@ -13,25 +13,31 @@ module.exports = [
 				router: '/community/communityManage/detail',
 			},
 			{
-						primaryText: '空间预定',
-						menuCode: 'oper_msg_visit_base',
-						router: '/community/communityManage/allAppointment'
-					},
-				{
-					primaryText: '访客登记',
-					menuCode: 'com_sys_visitList_base',
-					router: '/community/communityManage/visitorsToRecord'
-				},
-				{
-					primaryText: '预约参观',
-					menuCode: 'visitRecord',
-					router: '/community/visitor/list'
-				},
-				{
-					primaryText: '支持列表',
-					menuCode: 'visitRecord',
-					router: '/community/communityManage/holdList'
-				},
+				primaryText: '销控表',
+				menuCode: 'cmt_sell_control',
+				router: '/community/communityManage/controlTable',
+			},
+			{
+				primaryText: '空间预订',
+				menuCode: 'oper_msg_visit_base',
+				router: '/community/communityManage/allAppointment'
+			},
+
+			{
+				primaryText: '访客登记',
+				menuCode: 'com_sys_visitList_base',
+				router: '/community/communityManage/visitorsToRecord'
+			},
+			{
+				primaryText: '预约参观',
+				menuCode: 'visitRecord',
+				router: '/community/visitor/list'
+			},
+			{
+				primaryText: '支持列表',
+				menuCode: 'visitRecord',
+				router: '/community/communityManage/holdList'
+			},
 			]
 		},
 		],

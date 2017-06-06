@@ -23,14 +23,29 @@ export default class Loading extends Component{
 		);
 
 	}
+	onPullLoading = () =>{
+		const {style} = this.props;
+		return (
+			<div className="ui-ladding-dowm" style = {style}>
+				
+					<div className="ui-ladding-dowm-line ui-ladding-dowm-1"></div>
+					<div className="ui-ladding-dowm-line ui-ladding-dowm-2"></div>
+					<div className="ui-ladding-dowm-line ui-ladding-dowm-3"></div>
+					<div className="ui-ladding-dowm-line ui-ladding-dowm-4"></div>
+					
+				
+			</div>
 
+		)
+		
+	}
 	render(){
 
 			const {type} = this.props;
 
 			switch(type){
-					case 'default':{
-							return this.renderDefault();
+					case 'dowm':{
+							return this.onPullLoading();
 					}
 					default:{
 							return this.renderDefault();

@@ -88,14 +88,13 @@ State.ajaxListData=action(function(ajaxData){
 	    //错误到了这一层要深究
 		ajaxData = Object.assign({},ajaxData);
 	    var _this = this;
+			this.loading=true
 		Http.request('contract-list', ajaxData).then(function(response) {
 			_this.contractList=response.items;
 			_this.totalPaper=response.totalCount;
 			_this.page=response.page;
 			_this.pageSize=response.pageSize;
-			setTimeout(function() {
-					loading: false
-			}, 0);
+			_this.loading=false;
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
