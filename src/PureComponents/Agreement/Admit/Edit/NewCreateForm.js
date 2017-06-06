@@ -171,6 +171,8 @@ class NewCreateForm extends React.Component {
 		if (!stationVos.length) {
 			return;
 		}
+		Store.dispatch(change('admitCreateForm', 'delStationVos', stationVos));
+		
 
 		this.setState({
 			delStationVos: stationVos,
@@ -189,7 +191,8 @@ class NewCreateForm extends React.Component {
 		if (!stationVos.length) {
 			return;
 		}
-
+		Store.dispatch(change('admitCreateForm', 'delStationVos', stationVos));
+		
 		this.setState({
 			
 			delStationVos: stationVos,

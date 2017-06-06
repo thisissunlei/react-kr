@@ -110,7 +110,7 @@ export default  class Canvas extends React.Component {
 				fontColor ="#fff";
 			}else if(item.status==2){
 				color = "#eee";
-				fontColor ="#fff";
+				fontColor ="#777";
 			}else if(item.status==3){
 				color = "#28c288";
 				fontColor ="#fff";
