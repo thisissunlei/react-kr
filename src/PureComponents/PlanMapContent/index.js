@@ -76,7 +76,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentDidMount(){
-		this.canvasEles();
+		
 	}
 
 

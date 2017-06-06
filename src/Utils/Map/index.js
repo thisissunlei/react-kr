@@ -1,5 +1,5 @@
 //平面图
-var Map = (function (window) {
+var Map =function(elementId,configs){
 
 
     //画布上下文
@@ -987,7 +987,6 @@ var Map = (function (window) {
 
 
             var StationsData = configs.stations;
-
             StationsData.map(function (item, index) {
                 var props = Object.assign({}, item);
                 props.x = Number(props.x);
@@ -1982,7 +1981,8 @@ var Map = (function (window) {
         this.map.onScaleMap.apply(this.map, arguments);
     };
 
-    return exportMap;
+    return new exportMap(elementId,configs);
 
 
-})(window);
+}
+module.exports=Map;
