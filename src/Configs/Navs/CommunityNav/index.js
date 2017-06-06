@@ -19,7 +19,7 @@ module.exports = [
 			},
 			{
 				primaryText: '空间预订',
-				menuCode: 'oper_msg_visit_base',
+				menuCode: 'oper_appointment_base',
 				router: '/community/communityManage/allAppointment'
 			},
 
@@ -35,7 +35,7 @@ module.exports = [
 			},
 			{
 				primaryText: '支持列表',
-				menuCode: 'visitRecord',
+				menuCode: 'mobile_question_base',
 				router: '/community/communityManage/holdList'
 			},
 			]
