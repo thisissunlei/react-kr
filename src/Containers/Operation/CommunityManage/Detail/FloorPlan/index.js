@@ -55,7 +55,9 @@ export default class FloorPlan extends React.Component {
 			//渲染信息
 			canvasRender:[],
 			//loading
-			isLoading:false
+			isLoading:false,
+			//底线
+			downLine:false
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -310,6 +312,10 @@ export default class FloorPlan extends React.Component {
 			   },function(){
 				   this.getBaseData();
 			   })
+		   }else{
+			   this.setState({
+				   downLine:true
+			   })
 		   }
         }
 	}
@@ -359,7 +365,6 @@ export default class FloorPlan extends React.Component {
 
 	componentWillUnmount(){
 	  window.removeEventListener('scroll',this.scrollListener,false);	
-	  Map(`plan-app${indexs}`,initializeConfigs);
 	}
 
 	render() {
@@ -371,12 +376,15 @@ export default class FloorPlan extends React.Component {
 			date,
 			station,
 			canvasRender,
-			isLoading
+			isLoading,
+			downLine
 		} = this.state;
 
 		let {
 			handleSubmit
 		} = this.props;
+
+		console.log('ggggg',canvasRender);
 
 		return (
 
@@ -430,6 +438,13 @@ export default class FloorPlan extends React.Component {
 				  }
 
 				  {isLoading&&<Loading />}
+
+
+				  {downLine&&<div className='end-tips'>
+						<p></p>
+						<p>我是有底线的</p>
+						<p></p>
+				  </div>}
                          
 				 
 				</div>
