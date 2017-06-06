@@ -71,7 +71,8 @@ export default class FloorPlan extends React.Component {
 	   this.getRentData();
 	   window.addEventListener('scroll',this.scrollListener,false);
 	}
-    
+
+
 	//获取基本信息
 	getBaseData=()=>{
 		let {dateend,date,searchParams,canvasRender}=this.state;
@@ -139,7 +140,7 @@ export default class FloorPlan extends React.Component {
 					totalPages:response.totalPages,
 				},function(){
                     canvasRender.map((item,index)=>{
-						Map(`plan-app${index}`,item);
+					  Map(`plan-app${index}`,item);
 					})
 				})
 				
@@ -201,8 +202,8 @@ export default class FloorPlan extends React.Component {
 		if (personel) {
 			this.getCommunityFloors(personel.id);
 			var searchParams={
-				communityId:personel.id,
-				floor:''
+			communityId:personel.id,
+			floor:''
 			}
 		}else{
 		   var searchParams={

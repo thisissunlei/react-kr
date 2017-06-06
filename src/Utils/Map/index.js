@@ -1003,6 +1003,11 @@ var Map = function (elementId,configs) {
                 DB.setImageUrl(configs.backgroundImageUrl);
             }
 
+            if (configs.hasOwnProperty('isMode')) {
+                defaultConfigs.isMode =  configs.isMode;
+            }
+
+
             if (configs.hasOwnProperty('station')) {
                 defaultConfigs.station = Object.assign({},defaultConfigs.station,configs.station);
             }
@@ -1289,7 +1294,6 @@ var Map = function (elementId,configs) {
 
             //拖拽地图-移动
             const DragMapMoveEvent = function (event) {
-                console.log("MMMMMM")
                 MapObject.setMovePosition(event);
                 canvas.addEventListener('mouseup', DragMapEndEvent, false);
             }
@@ -1672,7 +1676,7 @@ var Map = function (elementId,configs) {
 
         //拖拽地图
         MapObject.prototype.dragMap = function () {
-            console.log("NNNNN");
+
             var dragX = position.up.x - position.down.x;
             var dragY = position.up.y - position.down.y;
 
@@ -1855,8 +1859,14 @@ var Map = function (elementId,configs) {
 
         //销毁
         MapObject.prototype.destory = function () {
+
             stationObjectArray = [];
             bkImageObject = null;
+
+			defaultConfigs.map.scale = 1;
+			defaultConfigs.map.translateX = 0;
+			defaultConfigs.map.translateY = 0;
+
             DB.reset();
             //StationFactory = null;
             element.removeChild(canvas);
