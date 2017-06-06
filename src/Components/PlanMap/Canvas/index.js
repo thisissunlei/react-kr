@@ -127,6 +127,7 @@ export default  class Canvas extends React.Component {
 			if(flog && flog != "one" && cellName >= start && cellName <= end && (!item.status)){
 				color = "#28c288";
 				item.status = 3;
+				fontColor ="#fff";
 
 			}
 
