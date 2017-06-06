@@ -246,7 +246,8 @@ export default class FloorPlan extends React.Component {
 			}
 			searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
-			    searchParams
+			    searchParams,
+				canvasRender:[]
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -384,7 +385,7 @@ export default class FloorPlan extends React.Component {
 			handleSubmit
 		} = this.props;
 
-		console.log('ggggg',canvasRender);
+        console.log('ggbbbb',canvasRender);
 
 		return (
 
