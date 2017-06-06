@@ -13,15 +13,6 @@ module.exports = [
 					primaryText: '账户列表',
 					router: '/permission/accountManage/accountList',
 					menuCode: 'sso_userList_base',
-				},{
-					primaryText: '操作日志',
-					router: '/permission/accountManage/operationsLogs',
-					menuCode: 'sso_actionLog_base',
-				},{
-					primaryText: '登录日志',
-					router: '/permission/loginlog',
-					menuCode: 'sso_loginLog_base',
-
 				},
 				]
 			},
@@ -39,6 +30,32 @@ module.exports = [
 					router: '/permission/operations',
 					menuCode: 'sso_resource_base',
 				},]
+			},
+			{
+				primaryText: "日志管理",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: 'permission/systemManage',
+				menuItems: [
+				{
+					primaryText: '操作日志',
+					router: '/permission/accountManage/operationsLogs',
+					menuCode: 'sso_actionLog_base',
+				},
+				{
+					primaryText: '消息日志',
+					router: '/permission/systemManage/messageList',
+					menuCode: 'sso_infoList_base',
+				},{
+					primaryText: 'PC登录日志',
+					router: '/permission/loginlog',
+					menuCode: 'sso_loginLog_base',
+
+				},{
+					primaryText: 'APP登录日志',
+					router: '/permission/systemManage/versionManage',
+					menuCode: 'sso_appLog_base',
+				},]
 			},{
 				primaryText: "系统管理",
 				iconName: 'icon-wendang',
@@ -48,14 +65,6 @@ module.exports = [
 					primaryText: '版本管理',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'sso_appVersion_base',
-				},{
-					primaryText: '信息列表',
-					router: '/permission/systemManage/messageList',
-					menuCode: 'sso_infoList_base',
-				},{
-					primaryText: 'APP登录日志',
-					router: '/permission/systemManage/versionManage',
-					menuCode: 'sso_appLog_base',
 				},]
 			}
 		]
