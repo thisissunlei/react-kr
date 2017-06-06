@@ -13,7 +13,7 @@ import {
 	ListGroup,
 	Message,
 	ListGroupItem,
-	Tooltips
+	Loading
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -53,7 +53,9 @@ export default class FloorPlan extends React.Component {
 			//总页数
 			totalPages:'',
 			//渲染信息
-			canvasRender:[]
+			canvasRender:[],
+			//loading
+			isLoading:false
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -303,7 +305,8 @@ export default class FloorPlan extends React.Component {
 				}
 				searchParams = Object.assign({},this.state.searchParams, searchParams);
 			   this.setState({
-                  searchParams
+                  searchParams,
+				  isLoading:true
 			   },function(){
 				   this.getBaseData();
 			   })
@@ -367,7 +370,8 @@ export default class FloorPlan extends React.Component {
 			dateend,
 			date,
 			station,
-			canvasRender
+			canvasRender,
+			isLoading
 		} = this.state;
 
 		let {
@@ -424,6 +428,8 @@ export default class FloorPlan extends React.Component {
 						        </div>
 					  })
 				  }
+
+				  {isLoading&&<Loading />}
                          
 				 
 				</div>
