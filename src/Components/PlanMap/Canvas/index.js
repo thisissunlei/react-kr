@@ -110,7 +110,7 @@ export default  class Canvas extends React.Component {
 				fontColor ="#fff";
 			}else if(item.status==2){
 				color = "#eee";
-				fontColor ="#fff";
+				fontColor ="#777";
 			}else if(item.status==3){
 				color = "#28c288";
 				fontColor ="#fff";
@@ -127,6 +127,7 @@ export default  class Canvas extends React.Component {
 			if(flog && flog != "one" && cellName >= start && cellName <= end && (!item.status)){
 				color = "#28c288";
 				item.status = 3;
+				fontColor ="#fff";
 
 			}
 
