@@ -1,5 +1,5 @@
 //平面图
-var Map = function (elementId,configs) {
+var Map = function (elementId, configs) {
 
     //画布上下文    
     var context;
@@ -14,130 +14,138 @@ var Map = function (elementId,configs) {
     var canvasWidth;
     var canvasHeight;
 
+
+	var mapMenu;
+
     var stationNumber = 1;
 
 
-	//操作类型
+    //操作类型
     var operationType;
 
     //背景图Object
     var bkImageObject = null;
 
+
     var defaultConfigs = {
         z: 1,
-        isMode:'edit',
-        modes:['edit','view','select'],
-		isEditMode:function(){
-			return this.isMode === 'edit';
-		},
-		isViewMode:function(){
-			return this.isMode === 'view';
-		},
-		isSelectMode:function(){
-			return this.isMode === 'select';
-		},
-		//工位状态
-		stationStatus:{
-			'1':{
-				status:'join',
-				mark:'已入住',
-				textColor:'#fff',
-				backgroundColor:'#499df1',
-			},
-			'2':{
-				status:'admit',
-				mark:'有意向',
-				textColor:'#fff',
-				backgroundColor:'#eee',
-			},
-			'3':{
-				status:'checked',
-				mark:'已选中',
-				textColor:'#fff',
-				backgroundColor:'#28c288',
-			},
-			'4':{
-				status:'notChecked',
-				mark:'未选择',
-				textColor:'#fff',
-				backgroundColor:'#499df1',
-			},
-			'5':{
-				status:'default',
-				mark:'默认',
-				textColor:'#499df1',
-				backgroundColor:'#ffffff',
-			}
-		},
-		//地图信息
-		map:{
-			scaleEnable:true,
-    		scale:1,
-			scaleMax: 2,
-			scaleMin: 0.1,
-			scaleSpeed: 0.1,
-			translateX:0,
-			translateY:0,
-    		isLoadImageError:false,
-		},
-		//工位信息
-		station:{
-			width: 30,
-			height: 30,
-			minWidth: 30,
-			minHeight: 30,
-			maxWidth: 200,
-			maxHeight: 200,
-			scaleSpeed: 20,
-			//工位大小一致
-			isToSameSize:true,
-		},
-		plugin:{
-			onRemoveCallback:null,
-			onScaleMapCallback:null,
-			onCheckedStationCallback:null,
-			onHoverStationCallback:null,
-			onErrorCallback:null,
-			onReadyCallback:null,
-			onRenderMapCallback:null,
-		},
-
-    operationTypeConfigs:{
-        'mapHover': {
-            'style': 'move',
+        isMode: 'edit',
+        modes: ['edit', 'view', 'select'],
+        isEditMode: function () {
+            return this.isMode === 'edit';
         },
-        'stationMove': {
-            'style': 'move',
+        isViewMode: function () {
+            return this.isMode === 'view';
         },
-        'stationHover': {
-            'style': 'pointer',
+        isSelectMode: function () {
+            return this.isMode === 'select';
         },
-        'stationLeftTopScale': {
-            'style': 'nw-resize',
+        //工位状态
+        stationStatus: {
+            '1': {
+                status: 'join',
+                mark: '已入住',
+                textColor: '#fff',
+                backgroundColor: '#499df1',
+            },
+            '2': {
+                status: 'admit',
+                mark: '有意向',
+                textColor: '#666',
+                backgroundColor: '#eee',
+            },
+            '3':{
+                status: 'checked',
+                mark: '已选中',
+                textColor: '#fff',
+                backgroundColor: '#28c288',
+            },
+            '4':{
+                status: 'notChecked',
+                mark: '未选择',
+                textColor: '#fff',
+                backgroundColor: '#499df1',
+            },
+            '5':{
+                status: 'default',
+                mark: '默认',
+                textColor: '#499df1',
+                backgroundColor: '#ffffff',
+            }
         },
-        'stationLeftCenterScale': {
-            'style': 'w-resize',
+        //地图信息
+        map: {
+			menuEnable:false,
+            mouseEnable: false,
+            deleteEnable: true,
+            scaleEnable: true,
+			rulerEnable:true,
+            scale: 1,
+            scaleMax: 2,
+            scaleMin: 0.1,
+            scaleSpeed: 0.1,
+            translateX: 0,
+            translateY: 0,
+            isLoadImageError: false,
         },
-        'stationLeftBottomScale': {
-            'style': 'sw-resize',
+        //工位信息
+        station: {
+            width: 30,
+            height: 30,
+            minWidth: 30,
+            minHeight: 30,
+            maxWidth: 200,
+            maxHeight: 200,
+            scaleSpeed: 20,
+            //工位大小一致
+            isToSameSize: true,
         },
-        'stationTopCenterScale': {
-            'style': 'n-resize',
-        },
-        'stationRightTopScale': {
-            'style': 'ne-resize',
-        },
-        'stationRightCenterScale': {
-            'style': 'e-resize',
-        },
-        'stationRightBottomScale': {
-            'style': 'se-resize',
-        },
-        'stationBottomCenterScale': {
-            'style': 's-resize',
+        plugin: {
+            onRemoveCallback: null,
+            onScaleMapCallback: null,
+            onCheckedStationCallback: null,
+            onHoverStationCallback: null,
+            onErrorCallback: null,
+            onReadyCallback: null,
+            onRenderMapCallback: null,
         },
 
-    	}
+        operationTypeConfigs: {
+            'mapHover': {
+                'style': 'move',
+            },
+            'stationMove': {
+                'style': 'move',
+            },
+            'stationHover': {
+                'style': 'pointer',
+            },
+            'stationLeftTopScale': {
+                'style': 'nw-resize',
+            },
+            'stationLeftCenterScale': {
+                'style': 'w-resize',
+            },
+            'stationLeftBottomScale': {
+                'style': 'sw-resize',
+            },
+            'stationTopCenterScale': {
+                'style': 'n-resize',
+            },
+            'stationRightTopScale': {
+                'style': 'ne-resize',
+            },
+            'stationRightCenterScale': {
+                'style': 'e-resize',
+            },
+            'stationRightBottomScale': {
+                'style': 'se-resize',
+            },
+            'stationBottomCenterScale': {
+                'style': 's-resize',
+            },
+
+        }
     }
 
 
@@ -147,14 +155,14 @@ var Map = function (elementId,configs) {
     //向什么方向放大
     var scaleStationDirection;
 
-	var position = {
-    	//鼠标按下坐标
-		down:{},
-    	//鼠标抬起坐标
-		up:{},
-    	//鼠标移动坐标
-		move:{}
-	}
+    var position = {
+        //鼠标按下坐标
+        down: {},
+        //鼠标抬起坐标
+        up: {},
+        //鼠标移动坐标
+        move: {}
+    }
 
     //右击菜单
     var contextMenu;
@@ -170,9 +178,9 @@ var Map = function (elementId,configs) {
 
         return {
             reset: function () {
-                 CONFIGS = {
-                    stations:[]
-                } 
+                CONFIGS = {
+                    stations: []
+                }
             },
             getAllStation: function () {
                 var stations = [].concat(CONFIGS.stations);
@@ -246,8 +254,8 @@ var Map = function (elementId,configs) {
                 var props = this.getStation(key);
                 var index = this.findStationIndex(key);
 
-                if(typeof index === 'undefined'){
-                    return ;
+                if (typeof index === 'undefined') {
+                    return;
                 }
 
                 props = Object.assign({}, props, nextProps);
@@ -271,7 +279,7 @@ var Map = function (elementId,configs) {
 
         params = params || {};
 
-        stationNumber ++;
+        stationNumber++;
         defaultConfigs.z++;
 
         //工位及会议室
@@ -296,18 +304,18 @@ var Map = function (elementId,configs) {
             checked: false,
             removed: false,
             key: stationNumber,
-            status:5,
+            status: 5,
         }
 
         //获取props信息
         StationObject.prototype.getProps = function () {
-            return Object.assign({},this.props);
+            return Object.assign({}, this.props);
         }
 
         //设置props信息 跟数据库进行关联
         StationObject.prototype.setProps = function (nextProps) {
 
-			const {minWidth,minHeight} = defaultConfigs.station;
+            const { minWidth, minHeight } = defaultConfigs.station;
 
             //设置到对象属性
             var props = Object.assign({}, this.props);
@@ -326,7 +334,7 @@ var Map = function (elementId,configs) {
 
             var fdIndex = DB.findStationIndex(props.key);
 
-            if(typeof fdIndex === 'undefined'){
+            if (typeof fdIndex === 'undefined') {
                 DB.newStation(props);
             }
 
@@ -346,7 +354,7 @@ var Map = function (elementId,configs) {
         //删除工位
         StationObject.prototype.remove = function () {
 
-            const { key} = this.props;
+            const { key } = this.props;
             this.setProps({ removed: true });
             var stations = DB.getAllStation();
 
@@ -372,7 +380,7 @@ var Map = function (elementId,configs) {
         //绘制Station
         StationObject.prototype.render = function () {
 
-            const { drag, checked, removed,status } = this.props;
+            const { drag, checked, removed, status } = this.props;
 
             if (removed) {
                 return;
@@ -380,10 +388,10 @@ var Map = function (elementId,configs) {
 
             const props = this.props;
 
-			var style = defaultConfigs.stationStatus[status];
+            var style = defaultConfigs.stationStatus[status];
 
             if (checked) {
-				 style = defaultConfigs.stationStatus[3];
+                style = defaultConfigs.stationStatus[3];
             }
 
             const widthOrHeight = MapFactory.transformWidthOrHeightToView(props.width, props.height);
@@ -398,11 +406,11 @@ var Map = function (elementId,configs) {
             context.moveTo(position.x, position.y);
             context.beginPath();
 
-           	context.fillStyle = '#fff';
+            context.fillStyle = '#fff';
 
-			if(typeof style === 'object' && style.hasOwnProperty('backgroundColor')){
-            	context.fillStyle = style.backgroundColor;
-			}
+            if (typeof style === 'object' && style.hasOwnProperty('backgroundColor')) {
+                context.fillStyle = style.backgroundColor;
+            }
 
             context.fillRect(position.x, position.y, width, height);
             context.closePath();
@@ -410,11 +418,11 @@ var Map = function (elementId,configs) {
             context.beginPath();
             context.font = 12 * defaultConfigs.map.scale + 'px';
 
-           	context.fillStyle = '#fff';
+            context.fillStyle = '#fff';
 
-			if(typeof style === 'object' && style.hasOwnProperty('textColor')){
-            	context.fillStyle = style.textColor;
-			}
+            if (typeof style === 'object' && style.hasOwnProperty('textColor')) {
+                context.fillStyle = style.textColor;
+            }
 
             context.textAlign = 'center';
             context.fillText(this.props.name, position.x + width / 2, position.y + height / 2 + 5);
@@ -428,39 +436,39 @@ var Map = function (elementId,configs) {
         }
 
         //会议室
-        StationObject.prototype.isSpace = function(){
-            const {type} = this.props;
+        StationObject.prototype.isSpace = function () {
+            const { type } = this.props;
             var isOK = false;
-            if(type === 'SPACE'){
+            if (type === 'SPACE') {
                 isOK = true;
             }
             return isOK;
         }
 
-        StationObject.prototype.toChecked = function(){
-			var {checked,type,status,z} = this.props;
+        StationObject.prototype.toChecked = function () {
+            var { checked, type, status, z } = this.props;
 
-			if(status == 1 || status == 2){
-				return ;
-			}
-			z = defaultConfigs.z;
+            if (status == 1 || status == 2) {
+                return;
+            }
+            z = defaultConfigs.z;
             defaultConfigs.z++;
-			checked = !checked;
-			this.componentWillReceiveProps({checked,z});
+            checked = !checked;
+            this.componentWillReceiveProps({ checked, z });
 
         }
 
-        StationObject.prototype.isRemove = function(){
-            const {removed} = this.props;
+        StationObject.prototype.isRemove = function () {
+            const { removed } = this.props;
             return removed;
         }
 
         //工位
-        StationObject.prototype.isStation = function(){
-            const {type} = this.props;
+        StationObject.prototype.isStation = function () {
+            const { type } = this.props;
 
             var isOK = false;
-            if(type === 'STATION'){
+            if (type === 'STATION') {
                 isOK = true;
             }
             return isOK;
@@ -1024,11 +1032,15 @@ var Map = function (elementId,configs) {
             }
 
             if (configs.hasOwnProperty('isMode')) {
-                defaultConfigs.isMode =  configs.isMode ;
+                defaultConfigs.isMode = configs.isMode;
             }
 
+
+
+			this.initializeModeConfigs();
+
             if (configs.hasOwnProperty('station')) {
-                defaultConfigs.station = Object.assign({},defaultConfigs.station,configs.station);
+                defaultConfigs.station = Object.assign({}, defaultConfigs.station, configs.station);
             }
 
             if (configs.hasOwnProperty('translateX')) {
@@ -1040,17 +1052,19 @@ var Map = function (elementId,configs) {
             }
 
             if (configs.hasOwnProperty('map')) {
-                defaultConfigs.map = Object.assign({},defaultConfigs.map,configs.map);
+                defaultConfigs.map = Object.assign({}, defaultConfigs.map, configs.map);
             }
 
             if (configs.hasOwnProperty('stationStatus')) {
-                defaultConfigs.stationStatus = Object.assign({},defaultConfigs.stationStatus,configs.stationStatus);
+                defaultConfigs.stationStatus = Object.assign({}, defaultConfigs.stationStatus, configs.stationStatus);
             }
 
 
-			if(configs.hasOwnProperty('plugin')){
-				defaultConfigs.plugin = Object.assign({},defaultConfigs.plugin,configs.plugin);
-			}
+            if (configs.hasOwnProperty('plugin')) {
+                defaultConfigs.plugin = Object.assign({}, defaultConfigs.plugin, configs.plugin);
+            }
+
+
 
 
             canvas = document.createElement('canvas');
@@ -1076,6 +1090,101 @@ var Map = function (elementId,configs) {
 
         }
 
+		MapObject.prototype.initializeModeConfigs = function(){
+
+			var {operationTypeConfigs} = defaultConfigs;
+
+			//查看模式
+			if(defaultConfigs.isViewMode()){
+				defaultConfigs.map.deleteEnable = false;
+				defaultConfigs.map.scaleEnable = true;
+				defaultConfigs.map.mouseEnable = false;
+				operationTypeConfigs.stationHover.style = 'auto';
+			}
+
+			//选择模式
+			if(defaultConfigs.isSelectMode()){
+				defaultConfigs.map.deleteEnable = false;
+				defaultConfigs.map.scaleEnable = true;
+				defaultConfigs.map.mouseEnable = false;
+			}
+
+			defaultConfigs.operationTypeConfigs  = Object.assign({},operationTypeConfigs);
+		}
+
+
+		MapObject.prototype.mapMenu = {
+			element:null,
+            create: function (plugin) {
+
+                var html = `<div>
+						<span data-type="left">左</span>
+						<span data-type="up">上</span>
+						<span data-type="right">右</span>
+						<span data-type="down">下</span>
+					</div>`;
+
+
+
+                if (typeof mapMenu === 'undefined') {
+                    mapMenu = document.createElement('div');
+					//style
+					mapMenu.style.position = 'absolute';
+					mapMenu.style.width = '100px';
+					mapMenu.style.height = '100px';
+					mapMenu.style.right = '10px';
+					mapMenu.style.top = '10px';
+					mapMenu.style.border = '1px solid red';
+					mapMenu.style.zIndex = 8;
+                    mapMenu.innerHTML = html;
+
+					var timer = null;
+					mapMenu.addEventListener('mousedown',function(event){
+
+						var targetEle = event.target;
+						var type = targetEle.getAttribute('data-type');
+						console.log('event',event.target,type);
+
+						timer = window.setInterval(function(){
+
+							switch(type){
+							case 'up':{
+								plugin.operationToTranslateUp();
+								break;
+							}
+
+							case 'right':{
+								plugin.operationToTranslateRight();
+								break;
+							}
+
+							case 'down':{
+								plugin.operationToTranslateDown();
+								break;
+							}
+
+							case 'left':{
+								plugin.operationToTranslateLeft();
+								break;
+							}
+							}
+						},200);
+
+					});
+
+					mapMenu.addEventListener('mouseup',function(event){
+						window.clearInterval(timer);
+					});
+
+                    element.appendChild(mapMenu);
+
+                }
+
+                mapMenu.style.display = 'block';
+
+            },
+		}
+			
         MapObject.prototype.loadImage = function (imageUrl) {
 
 
@@ -1109,7 +1218,7 @@ var Map = function (elementId,configs) {
 
         MapObject.prototype.componentDidMount = function () {
 
-			const {readyCallback} = defaultConfigs.plugin;
+            const { readyCallback } = defaultConfigs.plugin;
 
             this.isComponentDidMout = true;
             this.registerEvents();
@@ -1124,7 +1233,7 @@ var Map = function (elementId,configs) {
                 return;
             }
 
-			const {operationTypeConfigs} = defaultConfigs;
+            const { operationTypeConfigs } = defaultConfigs;
 
             var operation = operationTypeConfigs[operationType];
 
@@ -1132,17 +1241,71 @@ var Map = function (elementId,configs) {
 
         }
 
-		//清除
-		MapObject.prototype.clear = function(){
+        //清除
+        MapObject.prototype.clear = function () {
             canvas.width = canvasWidth;
+        }
+
+		//标尺
+		MapObject.prototype.drawMouserPosition = function(){
+
+			const {mouseEnable} = defaultConfigs.map;
+
+			if(!mouseEnable){
+				return;
+			}
+
+			const {move} = position;
+
+			const {x,y} = MapFactory.transformPositionToView(move.x,move.y);
+
+
+			//横线
+			context.beginPath();
+			context.moveTo(x,0);
+			context.strokeStyle = 'red';
+			context.lineTo(x,canvasHeight);
+			context.closePath();
+			context.stroke();
+
+			//竖线
+			context.beginPath();
+			context.moveTo(0,y);
+			context.strokeStyle = 'red';
+			context.lineTo(canvasWidth,y);
+			context.closePath();
+			context.stroke();
 		}
+
+		MapObject.prototype.operationToTranslateLeft = function(){
+            defaultConfigs.map.translateX-= 50;
+			this.render();
+		}
+
+		MapObject.prototype.operationToTranslateRight = function(){
+            defaultConfigs.map.translateX+=50;
+			this.render();
+		}
+
+		MapObject.prototype.operationToTranslateUp = function(){
+            defaultConfigs.map.translateY-=50;
+			this.render();
+		}
+
+      	MapObject.prototype.operationToTranslateDown = function(){
+            defaultConfigs.map.translateY+=50;
+			this.render();
+		}
+
 
         //构造视图
         MapObject.prototype.render = function () {
 
+			const {menuEnable} = defaultConfigs.map;
+
 
             //重置
-			this.clear();
+            this.clear();
 
             //设置边界值
             this.calcMaxMin();
@@ -1153,14 +1316,23 @@ var Map = function (elementId,configs) {
 
             this.setMouseStyle();
 
+			this.drawMouserPosition();
+
+
+			if(menuEnable){
+				this.mapMenu.create(this);
+			}
+
             if (!this.isComponentDidMout) {
                 this.componentDidMount();
                 return;
             }
 
 
-			const {onRenderMapCallback} = defaultConfigs.plugin;
-			onRenderMapCallback && onRenderMapCallback(canvas.toDataURL('image/jpeg'));
+
+            const { onRenderMapCallback } = defaultConfigs.plugin;
+            onRenderMapCallback && onRenderMapCallback(canvas.toDataURL('image/jpeg'));
+
 
         }
 
@@ -1198,8 +1370,8 @@ var Map = function (elementId,configs) {
                 this.sortStation();
 
                 stationObjectArray.map(function (station) {
-                    if(!station.isRemove()){
-                         station.render();
+                    if (!station.isRemove()) {
+                        station.render();
                     }
                 });
 
@@ -1218,29 +1390,29 @@ var Map = function (elementId,configs) {
             this.render();
         }
 
-        MapObject.prototype.savePropsToStash = function(){
+        MapObject.prototype.savePropsToStash = function () {
 
-			const {translateX,translateY,scale} = defaultConfigs.map;
+            const { translateX, translateY, scale } = defaultConfigs.map;
 
             this.stashProps = {
-				translateX,
-				translateY,
-				scale
+                translateX,
+                translateY,
+                scale
             }
 
         }
 
-        MapObject.prototype.getStashProps = function(){
-            return Object.assign({},this.stashProps);
+        MapObject.prototype.getStashProps = function () {
+            return Object.assign({}, this.stashProps);
         }
 
 
         MapObject.prototype.scaleMap = function (deltaY) {
             this.savePropsToStash();
 
-			const {scaleSpeed,scaleMax,scaleMin} = defaultConfigs.map;
+            const { scaleSpeed, scaleMax, scaleMin } = defaultConfigs.map;
 
-			const {onScaleMapCallback} = defaultConfigs.plugin;
+            const { onScaleMapCallback } = defaultConfigs.plugin;
 
             if (deltaY > 0) {
                 defaultConfigs.map.scale += scaleSpeed;
@@ -1279,238 +1451,236 @@ var Map = function (elementId,configs) {
 
             var self = this;
 
+            const { scaleEnable } = defaultConfigs.map;
+
+            const ScaleMapEvent = function (event) {
+                event.preventDefault();
+                var deltaY = event.deltaY;
+                self.scaleMap(deltaY);
+                return false;
+            }
 
-			const {scaleEnable} = defaultConfigs.map;
+            //放大工位
+            const ScaleStationMoveEvent = function (event) {
+                MapFactory.setMovePosition(event);
 
-			const ScaleMapEvent = function (event) {
-				event.preventDefault();
-				var deltaY = event.deltaY;
-				self.scaleMap(deltaY);
-				return false;
-			}
+                self.drawScaleStationMove();
+                //self.drawDragStationMove();
+
+                //添加监听相关事件回调函数
+                canvas.addEventListener('mouseup', ScaleStationEndEvent, false);
+            }
+
+            const ScaleStationEndEvent = function (event) {
+                MapFactory.setUpPosition(event);
+                //MapObject.setDownPosition(event);
+                canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
+            }
 
-			//放大工位
-			const ScaleStationMoveEvent = function (event) {
-				MapFactory.setMovePosition(event);
+            //拖拽工位-移动
+            const DragStationMoveEvent = function (event) {
+                MapFactory.setMovePosition(event);
+                self.drawDragStationMove();
 
-				self.drawScaleStationMove();
-				//self.drawDragStationMove();
+                //添加监听相关事件回调函数
+                canvas.addEventListener('mouseup', DragStationEndEvent, false);
+            }
 
-				//添加监听相关事件回调函数
-				canvas.addEventListener('mouseup', ScaleStationEndEvent, false);
-			}
+            //拖拽工位-结束
+            const DragStationEndEvent = function (event) {
+                MapFactory.setUpPosition(event);
 
-			const ScaleStationEndEvent = function (event) {
-				MapFactory.setUpPosition(event);
-				//MapObject.setDownPosition(event);
-				canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
-			}
+                //工位拖拽结束
+                self.endDragStation();
 
-			//拖拽工位-移动
-			const DragStationMoveEvent = function (event) {
-				MapFactory.setMovePosition(event);
-				self.drawDragStationMove();
+                //取消相关事件回调函数
+                canvas.removeEventListener('mouseup', DragStationEndEvent, false);
+                canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
+            }
 
-				//添加监听相关事件回调函数
-				canvas.addEventListener('mouseup', DragStationEndEvent, false);
-			}
+            //拖拽地图-移动
+            const DragMapMoveEvent = function (event) {
+                MapFactory.setMovePosition(event);
+                canvas.addEventListener('mouseup', DragMapEndEvent, false);
+            }
 
-			//拖拽工位-结束
-			const DragStationEndEvent = function (event) {
-				MapFactory.setUpPosition(event);
+            //拖拽地图-结束
+            const DragMapEndEvent = function (event) {
+                MapFactory.setUpPosition(event);
+                canvas.removeEventListener('mouseup', DragMapEndEvent, false);
+                canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
 
-				//工位拖拽结束
-				self.endDragStation();
+                //拖拽地图
+                self.dragMap();
+            }
 
-				//取消相关事件回调函数
-				canvas.removeEventListener('mouseup', DragStationEndEvent, false);
-				canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
-			}
 
-			//拖拽地图-移动
-			const DragMapMoveEvent = function (event) {
-				MapFactory.setMovePosition(event);
-				canvas.addEventListener('mouseup', DragMapEndEvent, false);
-			}
+            var MouseDownRightEvent = function (event) {
+                MapFactory.setDownPosition(event);
+                // 鼠标右击事件
+                //MapObject.contextMenu.create();
 
-			//拖拽地图-结束
-			const DragMapEndEvent = function (event) {
-				MapFactory.setUpPosition(event);
-				canvas.removeEventListener('mouseup', DragMapEndEvent, false);
-				canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
+                //event.preventDefault()
+            }
 
-				//拖拽地图
-				self.dragMap();
-			}
 
+            //鼠标按下事件
+            const MouseDownEvent = function (event) {
+                MapFactory.setDownPosition(event);
 
-			var MouseDownRightEvent = function (event) {
-				MapFactory.setDownPosition(event);
-				// 鼠标右击事件
-				//MapObject.contextMenu.create();
+                const { down } = position;
 
-				//event.preventDefault()
-			}
+                //鼠标右击事件
+                if (event.button === 2) {
+                    document.addEventListener('contextmenu', MouseDownRightEvent, false);
+                    return false;
+                }
+                //按下在工位上、添加拖拽工位事件
 
+                if (self.isInStation(down.x, down.y)) {
 
-			//鼠标按下事件
-			const MouseDownEvent = function (event) {
-				MapFactory.setDownPosition(event);
+                    if (defaultConfigs.isSelectMode()) {
+                        self.setCheckedStationStyle(down.x, down.y);
+                        return;
+                    }
 
-				const {down} = position;
+                    self.setDragStationStyle(down.x, down.y);
 
-				//鼠标右击事件
-				if (event.button === 2) {
-					document.addEventListener('contextmenu', MouseDownRightEvent, false);
-					return false;
-				}
-				//按下在工位上、添加拖拽工位事件
+                    //工位变成拖拽样式
+                    self.startDragStation();
+                    if (self.isInStationDragPosition(down.x, down.y)) {
+                        canvas.addEventListener('mousemove', ScaleStationMoveEvent, false);
+                    } else {
+                        canvas.addEventListener('mousemove', DragStationMoveEvent, false);
+                    }
 
-				if (self.isInStation(down.x, down.y)) {
+                } else {
 
+                    self.cleanStationDragStyle();
 
-					if(defaultConfigs.isSelectMode()){
-						self.setCheckedStationStyle(down.x,down.y);
-						return ;
-					}
+                    //TODO:取消事件 : 放大工位  是否有bug 未知，建议留意
+                    canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
+                    canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
 
-					self.setDragStationStyle(down.x, down.y);
+                    //按下不在工位上、添加拖拽地图事件
+                    canvas.addEventListener('mousemove', DragMapMoveEvent, false);
+                }
+                canvas.addEventListener('mouseup', MouseUpEvent, false);
+                canvas.removeEventListener('mousemove', MouseMoveEvent, false);
+            }
 
-					//工位变成拖拽样式
-					self.startDragStation();
-					if (self.isInStationDragPosition(down.x, down.y)) {
-						canvas.addEventListener('mousemove', ScaleStationMoveEvent, false);
-					} else {
-						canvas.addEventListener('mousemove', DragStationMoveEvent, false);
-					}
+            //鼠标抬起事件
+            const MouseUpEvent = function (event) {
 
-				} else {
 
-					self.cleanStationDragStyle();
+                canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
+                canvas.removeEventListener('mousemove', ScaleStationEndEvent, false);
 
-					//TODO:取消事件 : 放大工位  是否有bug 未知，建议留意
-					canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
-					canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
+                canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
+                canvas.removeEventListener('mousemove', DragStationEndEvent, false);
 
+                canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
+                canvas.removeEventListener('mousemove', DragMapEndEvent, false);
 
-					//按下不在工位上、添加拖拽地图事件
-					canvas.addEventListener('mousemove', DragMapMoveEvent, false);
-				}
-				canvas.addEventListener('mouseup', MouseUpEvent, false);
-				canvas.removeEventListener('mousemove', MouseMoveEvent, false);
-			}
+                canvas.removeEventListener('mouseup', MouseUpEvent, false);
 
-			//鼠标抬起事件
-			const MouseUpEvent = function (event) {
+                canvas.addEventListener('mousemove', MouseMoveEvent, false);
 
+                MapObject.contextMenu.close();
+            }
 
-				canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
-				canvas.removeEventListener('mousemove', ScaleStationEndEvent, false);
+            const MouseMoveEvent = function (event) {
+                MapFactory.setMovePosition(event);
 
-				canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
-				canvas.removeEventListener('mousemove', DragStationEndEvent, false);
+                const { move } = position;
 
-				canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
-				canvas.removeEventListener('mousemove', DragMapEndEvent, false);
+                if (self.isInStation(move.x, move.y)) {
 
-				canvas.removeEventListener('mouseup', MouseUpEvent, false);
+                    self.hoverInStation(move.x, move.y);
 
-				canvas.addEventListener('mousemove', MouseMoveEvent, false);
+                    if (self.isInStationDragPosition(move.x, move.y)) {
 
-				MapObject.contextMenu.close();
-			}
+                    } else {
+                        operationType = 'stationHover';
+                    }
 
-			const MouseMoveEvent = function (event) {
-				MapFactory.setMovePosition(event);
+                } else {
+                    operationType = 'mapHover';
+                }
 
-				const {move} = position;
+                self.render();
 
-				if (self.isInStation(move.x, move.y)) {
+            }
 
-					self.hoverInStation(move.x,move.y);
+            //输入内容
+            const KeyUpEvent = function (event) {
 
-					if (self.isInStationDragPosition(move.x, move.y)) {
+                var keyCode = event.keyCode;
 
-					} else {
-						operationType = 'stationHover';
-					}
+                switch (keyCode) {
+                    // 删除键
+                    case 8:
+                        self.removeCheckedStation();
+                        break;
+                    case 46:
+                        self.removeCheckedStation();
+                        break;
+                    default:
+                        break;
+                }
+            }
 
-				} else {
-					operationType = 'mapHover';
-				}
-				self.render();
+            //mouseover
+            const MouseOverEvent = function (event) {
 
-			}
+                canvas.addEventListener('mousemove', MouseMoveEvent, false);
 
-			//输入内容
-			const KeyUpEvent = function (event) {
+                document.addEventListener('keyup', KeyUpEvent, false);
+                canvas.addEventListener('mouseleave', MouseLeaveEvent, false);
 
-				var keyCode = event.keyCode;
 
-				switch (keyCode) {
-					// 删除键
-				case 8:
-					self.removeCheckedStation();
-					break;
-				case 46:
-					self.removeCheckedStation();
-					break;
-				default:
-					break;
-				}
-			}
+                if (scaleEnable) {
+                    window.addEventListener("mousewheel", ScaleMapEvent, false);
+                }
 
-			//mouseover
-			const MouseOverEvent = function (event) {
+            }
 
-				canvas.addEventListener('mousemove', MouseMoveEvent, false);
+            //鼠标离开canvas mouseleave
+            const MouseLeaveEvent = function (event) {
+                MapFactory.setDownPosition(event);
 
-				document.addEventListener('keyup', KeyUpEvent, false);
-				canvas.addEventListener('mouseleave', MouseLeaveEvent, false);
+                canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
+                canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
+                canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
 
+                canvas.removeEventListener('mouseup', MouseUpEvent, false);
 
-				if(scaleEnable){
-					window.addEventListener("mousewheel", ScaleMapEvent, false);
-				}
 
-			}
+                document.removeEventListener('keyup', KeyUpEvent, false);
+                document.removeEventListener('contextmenu', MouseDownRightEvent, false);
 
-			//鼠标离开canvas mouseleave
-			const MouseLeaveEvent = function (event) {
-				MapFactory.setDownPosition(event);
+                window.removeEventListener("mousewheel", ScaleMapEvent, false);
+            }
 
-				canvas.removeEventListener('mousemove', DragStationMoveEvent, false);
-				canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
-				canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
+            //鼠标按键
+            canvas.addEventListener('mousedown', MouseDownEvent, false);
 
-				canvas.removeEventListener('mouseup', MouseUpEvent, false);
+            //鼠标进入canvas
+            canvas.addEventListener('mouseover', MouseOverEvent, false);
 
 
-				document.removeEventListener('keyup', KeyUpEvent, false);
-				document.removeEventListener('contextmenu', MouseDownRightEvent, false);
+            document.addEventListener('keyup', KeyUpEvent, false);
 
-				window.removeEventListener("mousewheel", ScaleMapEvent, false);
-			}
+            if (scaleEnable) {
+                window.addEventListener("mousewheel", ScaleMapEvent, false);
+            }
 
-			//鼠标按键
-			canvas.addEventListener('mousedown', MouseDownEvent, false);
 
-			//鼠标进入canvas
-			canvas.addEventListener('mouseover', MouseOverEvent, false);
 
+        }
 
-			document.addEventListener('keyup', KeyUpEvent, false);
 
-			if(scaleEnable){
-				window.addEventListener("mousewheel", ScaleMapEvent, false);
-			}
-
-
-
-		}
-
-
-		MapObject.prototype.calcMaxMin = function () {
+        MapObject.prototype.calcMaxMin = function () {
 
 
 
@@ -1543,278 +1713,280 @@ var Map = function (elementId,configs) {
 			 */
 
 
-			//缩放
+            //缩放
 
-			if (defaultConfigs.map.scale > defaultConfigs.map.scaleMax) {
-				defaultConfigs.map.scale = defaultConfigs.map.scaleMax;
-				defaultConfigs.map.scale = defaultConfigs.map.scaleMax;
-			}
+            if (defaultConfigs.map.scale > defaultConfigs.map.scaleMax) {
+                defaultConfigs.map.scale = defaultConfigs.map.scaleMax;
+                defaultConfigs.map.scale = defaultConfigs.map.scaleMax;
+            }
 
-			if (defaultConfigs.map.scale <= defaultConfigs.map.scaleMin) {
-				defaultConfigs.map.scale = defaultConfigs.map.scaleMin;
-			}
+            if (defaultConfigs.map.scale <= defaultConfigs.map.scaleMin) {
+                defaultConfigs.map.scale = defaultConfigs.map.scaleMin;
+            }
 
-		}
+        }
 
-		MapObject.prototype.drawImage = function () {
+        MapObject.prototype.drawImage = function () {
 
-			const {isLoadImageError} = defaultConfigs.map;
+            const { isLoadImageError } = defaultConfigs.map;
 
-			if (isLoadImageError) {
-				return;
-			}
+            if (isLoadImageError) {
+                return;
+            }
 
-			var img = bkImageObject;
-			context.beginPath();
-			context.drawImage(img, defaultConfigs.map.translateX * defaultConfigs.map.scale, defaultConfigs.map.translateY * defaultConfigs.map.scale, img.width * defaultConfigs.map.scale, img.height * defaultConfigs.map.scale);
-			context.closePath();
-		}
-
-
-		//在工位的放大坐标点上
-		MapObject.prototype.isInStationDragPosition = function (x, y) {
-
-			var dragStations = this.getDragStations();
-			var isOK = false;
-			dragStations.map(function (station) {
-					if (station.inScalePosition(x, y)) {
-					isOK = true;
-					}
-					});
-
-			return isOK;
-		}
+            var img = bkImageObject;
+            context.beginPath();
+            context.drawImage(img, defaultConfigs.map.translateX * defaultConfigs.map.scale, defaultConfigs.map.translateY * defaultConfigs.map.scale, img.width * defaultConfigs.map.scale, img.height * defaultConfigs.map.scale);
+            context.closePath();
+        }
 
 
-		MapObject.prototype.getDragStations = function () {
+        //在工位的放大坐标点上
+        MapObject.prototype.isInStationDragPosition = function (x, y) {
 
-			var dragStations = [];
-			var props = null;
-			stationObjectArray.map(function (station) {
-					props = station.getProps();
-					if (props.drag) {
-					dragStations.push(station);
-					}
-					})
-			return dragStations;
-		}
+            var dragStations = this.getDragStations();
+            var isOK = false;
+            dragStations.map(function (station) {
+                if (station.inScalePosition(x, y)) {
+                    isOK = true;
+                }
+            });
 
-		MapObject.prototype.setCheckedStationStyle = function(x,y){
-
-			//查看模式
-			if(defaultConfigs.isEditMode()){
-				return ;
-			}
-
-			stationObjectArray.sort(function (prev, next) {
-					var prevProps = prev.getProps();
-					var nextProps = next.getProps();
-					return nextProps.z - prevProps.z;
-					});
-
-			var station = null;
-			var props = null;
-
-			var targetProps = {};
-
-			for (var i = 0, len = stationObjectArray.length; i < len; i++) {
-				station = stationObjectArray[i];
-				if (station.hasPosition(x, y)) {
-					station.toChecked();
-					targetProps = station.getProps();
-					break;
-				}
-			}
-
-			const {onCheckedStationCallback} = defaultConfigs.plugin;
-
-			const checkedAll = this.getCheckedAll();
-
-			onCheckedStationCallback && onCheckedStationCallback(targetProps,checkedAll);
-
-		}
-
-		MapObject.prototype.setDragStationStyle = function (x, y) {
-
-			if(!defaultConfigs.isEditMode()){
-				return ;
-			}
-
-			//清空上次拖拽的工位
-			this.cleanDragStations();
-
-			stationObjectArray.sort(function (prev, next) {
-					var prevProps = prev.getProps();
-					var nextProps = next.getProps();
-					return nextProps.z - prevProps.z;
-					});
-
-			var station = null;
-			var props = null;
-
-			for (var i = 0, len = stationObjectArray.length; i < len; i++) {
-				station = stationObjectArray[i];
-				if (station.hasPosition(x, y)) {
-					props = station.getProps();
-
-					if (!props.drag) {
-						props.drag = true;
-					}
-					props.z = defaultConfigs.z;
-
-					station.componentWillReceiveProps(props);
-					break;
-				}
-			}
-			defaultConfigs.z++;
-
-		}
-
-		MapObject.prototype.sortStation = function () {
-			stationObjectArray.sort(function (prev, next) {
-					var prevProps = prev.getProps();
-					var nextProps = next.getProps();
-					return prevProps.z - nextProps.z;
-					});
-		}
-
-		//点击在工位上
-		MapObject.prototype.isInStation = function (x, y) {
-
-			var station = null;
-			var isOK = false;
-			var props = null;
-
-			for (var i = 0, len = stationObjectArray.length; i < len; i++) {
-				station = stationObjectArray[i];
-				if (station.hasPosition(x, y)) {
-					isOK = true;
-					break;
-				}
-			}
-			return isOK;
-		}
-
-		//hover
-		MapObject.prototype.hoverInStation = function(x,y){
-
-			const {onHoverStationCallback} = defaultConfigs.plugin;
-
-			var station = null;
-			var isOK = false;
-			var props = null;
-
-			for (var i = 0, len = stationObjectArray.length; i < len; i++) {
-				station = stationObjectArray[i];
-				if (station.hasPosition(x, y)) {
-					var props = station.getProps();
+            return isOK;
+        }
 
 
-					const bbox = canvas.getBoundingClientRect();
-					const position =  MapFactory.canvasToWindow(props.x+bbox.left,props.y+bbox.top);
+        MapObject.prototype.getDragStations = function () {
 
-					props.clientX = position.x;
-					props.clientY = position.y;
+            var dragStations = [];
+            var props = null;
+            stationObjectArray.map(function (station) {
+                props = station.getProps();
+                if (props.drag) {
+                    dragStations.push(station);
+                }
+            })
+            return dragStations;
+        }
 
-					onHoverStationCallback && onHoverStationCallback(props);
-					isOK = true;
-				}
-			}
+        MapObject.prototype.setCheckedStationStyle = function (x, y) {
 
-		}
+            //查看模式
+            if (defaultConfigs.isEditMode()) {
+                return;
+            }
 
-		//拖拽地图
-		MapObject.prototype.dragMap = function () {
+            stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return nextProps.z - prevProps.z;
+            });
 
-			var dragX = position.up.x - position.down.x;
-			var dragY = position.up.y - position.down.y;
+            var station = null;
+            var props = null;
 
-			var lx = Math.abs(dragX);
-			var ly = Math.abs(dragY);
-			var lmax = Math.max(lx, ly);
+            var targetProps = {};
 
-			//控制鼠标点击抖动导致拖拽
-			if (lmax < 10) {
-				return;
-			}
+            for (var i = 0, len = stationObjectArray.length; i < len; i++) {
+                station = stationObjectArray[i];
+                if (station.hasPosition(x, y)) {
+                    station.toChecked();
+                    targetProps = station.getProps();
+                    break;
+                }
+            }
 
-			//计算平移单位
-			defaultConfigs.map.translateX += position.up.x - position.down.x;
-			defaultConfigs.map.translateY += position.up.y - position.down.y;
+            const { onCheckedStationCallback } = defaultConfigs.plugin;
 
-			this.render();
-		}
+            const checkedAll = this.getCheckedAll();
 
-		//工位拖拽-开始
-		MapObject.prototype.startDragStation = function () {
-			var dragStations = this.getDragStations();
-			dragStations.map(function (station) {
-					station.saveProps();
-					});
-		}
+            onCheckedStationCallback && onCheckedStationCallback(targetProps, checkedAll);
 
-		//工位拖拽移动
-		MapObject.prototype.moveDragStation = function () {
-		}
+        }
 
-		//工位拖拽-结束
-		MapObject.prototype.endDragStation = function () {
+        MapObject.prototype.setDragStationStyle = function (x, y) {
+
+            if (!defaultConfigs.isEditMode()) {
+                return;
+            }
+
+            //清空上次拖拽的工位
+            this.cleanDragStations();
+
+            stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return nextProps.z - prevProps.z;
+            });
+
+            var station = null;
+            var props = null;
+
+            for (var i = 0, len = stationObjectArray.length; i < len; i++) {
+                station = stationObjectArray[i];
+                if (station.hasPosition(x, y)) {
+                    props = station.getProps();
+
+                    if (!props.drag) {
+                        props.drag = true;
+                    }
+                    props.z = defaultConfigs.z;
+
+                    station.componentWillReceiveProps(props);
+                    break;
+                }
+            }
+            defaultConfigs.z++;
+
+        }
+
+        MapObject.prototype.sortStation = function () {
+            stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return prevProps.z - nextProps.z;
+            });
+        }
+
+        //点击在工位上
+        MapObject.prototype.isInStation = function (x, y) {
+
+            var station = null;
+            var isOK = false;
+            var props = null;
+
+            for (var i = 0, len = stationObjectArray.length; i < len; i++) {
+                station = stationObjectArray[i];
+                if (station.hasPosition(x, y)) {
+                    isOK = true;
+                    break;
+                }
+            }
+            return isOK;
+        }
+
+        //hover
+        MapObject.prototype.hoverInStation = function (x, y) {
+
+            const { onHoverStationCallback } = defaultConfigs.plugin;
+
+            var station = null;
+            var isOK = false;
+            var props = null;
+
+            for (var i = 0, len = stationObjectArray.length; i < len; i++) {
+                station = stationObjectArray[i];
+                if (station.hasPosition(x, y)) {
+                    var props = station.getProps();
+
+
+                    const bbox = canvas.getBoundingClientRect();
+                    const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
+
+                    props.clientX = position.x;
+                    props.clientY = position.y;
+
+                    onHoverStationCallback && onHoverStationCallback(props);
+                    isOK = true;
+                }
+            }
+
+        }
+
+        //拖拽地图
+        MapObject.prototype.dragMap = function () {
+
+            var dragX = position.up.x - position.down.x;
+            var dragY = position.up.y - position.down.y;
+
+            var lx = Math.abs(dragX);
+            var ly = Math.abs(dragY);
+            var lmax = Math.max(lx, ly);
+
+            //控制鼠标点击抖动导致拖拽
+            if (lmax < 10) {
+                return;
+            }
+
+            //计算平移单位
+            defaultConfigs.map.translateX += position.up.x - position.down.x;
+            defaultConfigs.map.translateY += position.up.y - position.down.y;
+
+            this.render();
+        }
+
+        //工位拖拽-开始
+        MapObject.prototype.startDragStation = function () {
+            var dragStations = this.getDragStations();
+            dragStations.map(function (station) {
+                station.saveProps();
+            });
+        }
+
+        //工位拖拽移动
+        MapObject.prototype.moveDragStation = function () {
+        }
+
+        //工位拖拽-结束
+        MapObject.prototype.endDragStation = function () {
 			/*
 			   var dragStations = this.getDragStations();
 			   dragStations.map(function (station) {
 			   station.drawDragStyle();
 			   });
 			 */
-		}
+        }
 
-		//删除工位
-		MapObject.prototype.removeStation = function(){
+        //删除工位
+        MapObject.prototype.removeStation = function () {
 
-		}
+        }
 
-		//删除已选中工位
-		MapObject.prototype.removeCheckedStation = function () {
+        //删除已选中工位
+        MapObject.prototype.removeCheckedStation = function () {
 
-			if(!defaultConfigs.isEditMode()){
+			const {deleteEnable} = defaultConfigs.map;
+
+			if(!deleteEnable){
 				return ;
 			}
 
-			var dragStations = this.getDragStations();
-			if (!dragStations.length) {
-				return;
-			}
+            var dragStations = this.getDragStations();
+            if (!dragStations.length) {
+                return;
+            }
 
-			var removeStations = [];
-			var props;
+            var removeStations = [];
+            var props;
 
-			dragStations.map(function (station) {
-					props = station.getProps();
-					station.remove();
-					removeStations.push(props);
-					});
+            dragStations.map(function (station) {
+                props = station.getProps();
+                station.remove();
+                removeStations.push(props);
+            });
 
-			var allStation = [];
+            var allStation = [];
 
-			stationObjectArray =  stationObjectArray.filter(function (station) {
-					var isOK = !station.isRemove();
-					if(isOK){
-					allStation.push(station.getProps());
-					}
-					return isOK;
-					});
+            stationObjectArray = stationObjectArray.filter(function (station) {
+                var isOK = !station.isRemove();
+                if (isOK) {
+                    allStation.push(station.getProps());
+                }
+                return isOK;
+            });
 
-			this.render();
-			defaultConfigs.plugin.onRemoveCallback && defaultConfigs.plugin.onRemoveCallback(removeStations, allStation);
-		}
+            this.render();
+            defaultConfigs.plugin.onRemoveCallback && defaultConfigs.plugin.onRemoveCallback(removeStations, allStation);
+        }
 
 
-		//重置选中的工位
-		MapObject.prototype.cleanDragStations = function () {
-			var dragStations = this.getDragStations();
-			//清掉已经删除的工位对象
-			dragStations = dragStations.filter(function (station) {
-					return !station.removed;
-					});
+        //重置选中的工位
+        MapObject.prototype.cleanDragStations = function () {
+            var dragStations = this.getDragStations();
+            //清掉已经删除的工位对象
+            dragStations = dragStations.filter(function (station) {
+                return !station.removed;
+            });
 
 			/*
 			   dragStations.map(function(station){
@@ -1822,402 +1994,398 @@ var Map = function (elementId,configs) {
 			   });
 			 */
 
-			this.render();
-		}
+            this.render();
+        }
 
 
-		//拖拽工位时，生成一个拷贝工位
-		MapObject.prototype.drawDragStationMove = function () {
+        //拖拽工位时，生成一个拷贝工位
+        MapObject.prototype.drawDragStationMove = function () {
 
-			if(!defaultConfigs.isEditMode()){
-				return ;
-			}
+            if (!defaultConfigs.isEditMode()) {
+                return;
+            }
 
-			var dragStations = this.getDragStations();
+            var dragStations = this.getDragStations();
 
-			//设置其它工位的样式
-			stationObjectArray.map(function (station) {
-					station.setProps({ drag: false });
-					});
+            //设置其它工位的样式
+            stationObjectArray.map(function (station) {
+                station.setProps({ drag: false });
+            });
 
-			var lx = position.move.x - position.down.x;
-			var ly = position.move.y - position.down.y;
-			var move = {};
+            var lx = position.move.x - position.down.x;
+            var ly = position.move.y - position.down.y;
+            var move = {};
 
-			var stashProps = null;
+            var stashProps = null;
 
-			dragStations.map(function (station, index) {
-					stashProps = station.getStashProps();
-					move.x = stashProps.x + lx;
-					move.y = stashProps.y + ly;
-					station.move(move.x, move.y);
-					});
+            dragStations.map(function (station, index) {
+                stashProps = station.getStashProps();
+                move.x = stashProps.x + lx;
+                move.y = stashProps.y + ly;
+                station.move(move.x, move.y);
+            });
 
-			this.render();
-		}
+            this.render();
+        }
 
-		//放大工位时
-		MapObject.prototype.drawScaleStationMove = function () {
+        //放大工位时
+        MapObject.prototype.drawScaleStationMove = function () {
 
-			if(!defaultConfigs.isEditMode()){
-				return ;
-			}
+            if (!defaultConfigs.isEditMode()) {
+                return;
+            }
 
-			const {move} = position;
+            const { move } = position;
 
-			var activeStation = undefined;
-			var self = this;
+            var activeStation = undefined;
+            var self = this;
 
-			var dragStations = this.getDragStations();
+            var dragStations = this.getDragStations();
 
-			dragStations.map(function (station, index) {
-					station.opration(scaleStationDirection);
-					});
+            dragStations.map(function (station, index) {
+                station.opration(scaleStationDirection);
+            });
 
-			var targetStation = dragStations[0];
-			var props = targetStation.getProps();
+            var targetStation = dragStations[0];
+            var props = targetStation.getProps();
 
-			if(targetStation.isStation()){
-				defaultConfigs.station.width = props.width;
-				defaultConfigs.station.height = props.height;
-			}
+            if (targetStation.isStation()) {
+                defaultConfigs.station.width = props.width;
+                defaultConfigs.station.height = props.height;
+            }
 
-			this.stationToSameAction();
-			//放大
-			this.render();
-		}
+            this.stationToSameAction();
+            //放大
+            this.render();
+        }
 
-		//准备好了
-		MapObject.prototype.ready = function (callback) {
-			defaultConfigs.plugin.readyCallback = callback;
-		}
+        //准备好了
+        MapObject.prototype.ready = function (callback) {
+            defaultConfigs.plugin.readyCallback = callback;
+        }
 
-		MapObject.prototype.getCanvasElement = function () {
-			return canvas;
-		}
+        MapObject.prototype.getCanvasElement = function () {
+            return canvas;
+        }
 
-		MapObject.prototype.save = function (callback) {
-			var params = {};
-			params.translateX = defaultConfigs.map.translateX;
-			params.translateY = defaultConfigs.map.translateY;
-			params.scale = defaultConfigs.map.scale;
-			params.stations = DB.getAllStation();
-			callback && callback(params);
-		}
+        MapObject.prototype.save = function (callback) {
+            var params = {};
+            params.translateX = defaultConfigs.map.translateX;
+            params.translateY = defaultConfigs.map.translateY;
+            params.scale = defaultConfigs.map.scale;
+            params.stations = DB.getAllStation();
+            callback && callback(params);
+        }
 
 
-		//销毁
-		MapObject.prototype.destory = function () {
+        //销毁
+        MapObject.prototype.destory = function () {
 
-			stationObjectArray = [];
-			bkImageObject = null;
+            stationObjectArray = [];
+            bkImageObject = null;
 
-			defaultConfigs.map.scale = 1;
-			defaultConfigs.map.translateX = 0;
-			defaultConfigs.map.translateY = 0;
+            defaultConfigs.map.scale = 1;
+            defaultConfigs.map.translateX = 0;
+            defaultConfigs.map.translateY = 0;
 
-			DB.reset();
-			//StationFactory = null;
-			element.removeChild(canvas);
-		}
+            DB.reset();
+            //StationFactory = null;
+            element.removeChild(canvas);
+        }
 
-		//创建新的工位
-		MapObject.prototype.createStation = function (props) {
+        //创建新的工位
+        MapObject.prototype.createStation = function (props) {
 
-			var dragStations = this.getDragStations();
+            var dragStations = this.getDragStations();
 
-			const {width,height,isToSameSize} = defaultConfigs.station;
+            const { width, height, isToSameSize } = defaultConfigs.station;
 
-			if (!props) {
-				return;
-			}
+            if (!props) {
+                return;
+            }
 
-			defaultConfigs.z++;
+            defaultConfigs.z++;
 
-			if (isToSameSize && props.type === 'STATION') {
-				props.width = width;
-				props.height = height;
-			}
+            if (isToSameSize && props.type === 'STATION') {
+                props.width = width;
+                props.height = height;
+            }
 
-			props.z = defaultConfigs.z;
+            props.z = defaultConfigs.z;
 
-			var station = StationFactory(props);
-			stationObjectArray.push(station);
+            var station = StationFactory(props);
+            stationObjectArray.push(station);
 
-		}
+        }
 
-		MapObject.prototype.getCheckedAll = function () {
+        MapObject.prototype.getCheckedAll = function () {
 
-			var checkedAll = [];
-			var props = {};
+            var checkedAll = [];
+            var props = {};
 
-			stationObjectArray.map(function (station) {
-					props = station.getProps();
-					if (props.checked) {
-					checkedAll.push(props);
-					}
-					});
+            stationObjectArray.map(function (station) {
+                props = station.getProps();
+                if (props.checked) {
+                    checkedAll.push(props);
+                }
+            });
 
-			return checkedAll;
+            return checkedAll;
 
-		}
+        }
 
-		MapObject.prototype.setBackgroundImage = function (file) {
+        MapObject.prototype.setBackgroundImage = function (file) {
 
-			var self = this;
+            var self = this;
 
-			defaultConfigs.map.scale = 1;
-			defaultConfigs.map.translateX = 0;
-			defaultConfigs.map.translateY = 0;
+            defaultConfigs.map.scale = 1;
+            defaultConfigs.map.translateX = 0;
+            defaultConfigs.map.translateY = 0;
 
-			var reader = new FileReader();
-			reader.onloadend = function () {
-				self.loadImage(reader.result);
-			}
-			reader.readAsDataURL(file);
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                self.loadImage(reader.result);
+            }
+            reader.readAsDataURL(file);
 
-		}
+        }
 
-		MapObject.prototype.stationToSameAction = function () {
+        MapObject.prototype.stationToSameAction = function () {
 
-			var dragStations = this.getDragStations();
+            var dragStations = this.getDragStations();
 
-			if (!defaultConfigs.station.isToSameSize) {
-				return;
-			}
+            if (!defaultConfigs.station.isToSameSize) {
+                return;
+            }
 
-			const {width,height} = defaultConfigs.station;
+            const { width, height } = defaultConfigs.station;
 
-			stationObjectArray.map(function (station) {
-					var stationProps = station.getProps();
-					if (station.isStation()) {
-					station.setProps({ width, height });
-					}
-					});
+            stationObjectArray.map(function (station) {
+                var stationProps = station.getProps();
+                if (station.isStation()) {
+                    station.setProps({ width, height });
+                }
+            });
 
-		}
+        }
 
-		MapObject.prototype.onRemove = function (callback) {
-			defaultConfigs.plugin.onRemoveCallback = callback;
-		}
+        MapObject.prototype.onRemove = function (callback) {
+            defaultConfigs.plugin.onRemoveCallback = callback;
+        }
 
-		MapObject.prototype.setStationToSame = function (value, callback) {
-			defaultConfigs.station.isToSameSize = value;
-			console.log('this:',this);
-			this.stationToSameAction();
-			this.render();
-		}
+        MapObject.prototype.setStationToSame = function (value, callback) {
+            defaultConfigs.station.isToSameSize = value;
+            this.stationToSameAction();
+            this.render();
+        }
 
 
 
-		MapObject.prototype.setScale = function (scaleValue) {
-			defaultConfigs.map.scale = scaleValue;
-			this.render();
-		}
+        MapObject.prototype.setScale = function (scaleValue) {
+            defaultConfigs.map.scale = scaleValue;
+            this.render();
+        }
 
-		///////////静态方法//////////////
 
+        ///////////静态方法//////////////
 
+        //鼠标右击
+        MapObject.contextMenu = {
 
-		//鼠标右击
-		MapObject.contextMenu = {
+            create: function () {
+                var html =
+                    '<ul class="right-menu">' +
+                    '<li>加载</li>' +
+                    '<li>关闭</li>' +
+                    '</ul>'
+                var position = MapObject.canvasToWindow(position.down.x, position.down.y);
+                if (typeof contextMenu === 'undefined') {
+                    contextMenu = document.createElement('div');
+                    contextMenu.id = 'contextMenu';
+                    contextMenu.className = 'm-context-menu';
+                    contextMenu.innerHTML = html;
+                    element.appendChild(contextMenu);
+                }
+                contextMenu.style.left = position.x + 'px';
+                contextMenu.style.top = position.y + 'px';
+                contextMenu.style.display = 'block';
 
-create: function () {
-			var html =
-				'<ul class="right-menu">' +
-				'<li>加载</li>' +
-				'<li>关闭</li>' +
-				'</ul>'
-				var position = MapObject.canvasToWindow(position.down.x, position.down.y);
-			if (typeof contextMenu === 'undefined') {
-				contextMenu = document.createElement('div');
-				contextMenu.id = 'contextMenu';
-				contextMenu.className = 'm-context-menu';
-				contextMenu.innerHTML = html;
-				element.appendChild(contextMenu);
-			}
-			contextMenu.style.left = position.x + 'px';
-			contextMenu.style.top = position.y + 'px';
-			contextMenu.style.display = 'block';
+            },
+            close: function () {
+                if (typeof contextMenu === 'undefined') {
+                    return;
+                }
+                contextMenu.style.display = 'none';
 
-		},
-close: function () {
-		   if (typeof contextMenu === 'undefined') {
-			   return;
-		   }
-		   contextMenu.style.display = 'none';
+            }
 
-	   }
+        }
 
-		}
+        return new MapObject(elementId, configs);
+    }
 
-		return new MapObject(elementId, configs);
-	}
+    //设置鼠标抬起坐标
+    MapFactory.setUpPosition = function (event) {
+        position.up = MapFactory.windowToCanvas(event);
+    }
 
-	//设置鼠标抬起坐标
-	MapFactory.setUpPosition = function (event) {
-		position.up = MapFactory.windowToCanvas(event);
-	}
+    //设置鼠标按下坐标
+    MapFactory.setDownPosition = function (event) {
+        position.down = MapFactory.windowToCanvas(event);
+    }
+    //设置鼠标移动坐标
+    MapFactory.setMovePosition = function (event) {
+        position.move = MapFactory.windowToCanvas(event);
+    }
 
-	//设置鼠标按下坐标
-	MapFactory.setDownPosition = function (event) {
-		position.down = MapFactory.windowToCanvas(event);
-	}
-	//设置鼠标移动坐标
-	MapFactory.setMovePosition = function (event) {
-		position.move = MapFactory.windowToCanvas(event);
-	}
 
+    //转换坐标
+    MapFactory.windowToCanvas = function (event) {
 
-	//转换坐标
-	MapFactory.windowToCanvas = function (event) {
+        var position = { x: 0, y: 0 };
+        let bbox = {};
+        bbox = canvas.getBoundingClientRect();
 
-		var position = { x: 0, y: 0 };
-		let bbox = {};
-		bbox = canvas.getBoundingClientRect();
+        var clientX = event.clientX;
+        var clientY = event.clientY;
 
-		var clientX = event.clientX;
-		var clientY = event.clientY;
+        position.x = clientX - bbox.left * (canvasWidth / bbox.width);
+        position.y = clientY - bbox.top * (canvasHeight / bbox.height);
 
-		position.x = clientX - bbox.left * (canvasWidth / bbox.width);
-		position.y = clientY - bbox.top * (canvasHeight / bbox.height);
+        position.x = (position.x < 0 ? Math.ceil(position.x) : Math.floor(position.x));
+        position.y = (position.y < 0 ? Math.ceil(position.y) : Math.floor(position.y));
 
-		position.x = (position.x < 0 ? Math.ceil(position.x) : Math.floor(position.x));
-		position.y = (position.y < 0 ? Math.ceil(position.y) : Math.floor(position.y));
+        return MapFactory.transformPositionToOrigin(position.x, position.y);
 
-		return MapFactory.transformPositionToOrigin(position.x, position.y);
+    };
 
-	};
 
+    MapFactory.canvasToWindow = function (x, y) {
 
-	MapFactory.canvasToWindow = function (x, y) {
+        var position = { x: 0, y: 0 };
+        let bbox = {};
+        bbox = canvas.getBoundingClientRect();
 
-		var position = { x: 0, y: 0 };
-		let bbox = {};
-		bbox = canvas.getBoundingClientRect();
+        var clientX = x;
+        var clientY = y;
 
-		var clientX = x;
-		var clientY = y;
+        position.x = clientX + bbox.left / (canvasWidth * bbox.width);
+        position.y = clientY + bbox.top / (canvasHeight * bbox.height);
 
-		position.x = clientX + bbox.left / (canvasWidth * bbox.width);
-		position.y = clientY + bbox.top / (canvasHeight * bbox.height);
+        position.x = (position.x < 0 ? Math.ceil(position.x) : Math.floor(position.x));
+        position.y = (position.y < 0 ? Math.ceil(position.y) : Math.floor(position.y));
 
-		position.x = (position.x < 0 ? Math.ceil(position.x) : Math.floor(position.x));
-		position.y = (position.y < 0 ? Math.ceil(position.y) : Math.floor(position.y));
 
+        return MapFactory.transformPositionToView(position.x, position.y);
+    }
 
-		return MapFactory.transformPositionToView(position.x, position.y);
-	}
 
+    MapFactory.transformWidthOrHeightToView = function (w, h) {
 
+        const { scale } = defaultConfigs.map;
 
+        const width = Number(w) * scale;
+        const height = Number(h) * scale;
 
-	MapFactory.transformWidthOrHeightToView = function (w, h) {
+        return { width, height };
+    }
 
-		const {scale} = defaultConfigs.map;
+    MapFactory.transformWidthOrHeightToOrigin = function (w, h) {
 
-		const width = Number(w) * scale;
-		const height = Number(h) * scale;
+        const { scale } = defaultConfigs.map;
 
-		return { width, height };
-	}
+        const width = Number(w) / scale;
+        const height = Number(h) / scale;
 
-	MapFactory.transformWidthOrHeightToOrigin = function (w, h) {
+        return { width, height };
+    }
 
-		const {scale} = defaultConfigs.map;
+    //将原始坐标转换成到视野窗口坐标
+    MapFactory.transformPositionToView = function (x, y) {
 
-		const width = Number(w) / scale;
-		const height = Number(h) / scale;
+        const { translateX, translateY, scale } = defaultConfigs.map;
 
-		return { width, height };
-	}
+        const tx = (Number(x) + Number(translateX)) * scale;
+        const ty = (Number(y) + Number(translateY)) * scale;
 
-	//将原始坐标转换成到视野窗口坐标
-	MapFactory.transformPositionToView = function (x, y) {
+        return { x: tx, y: ty };
+    }
 
-		const {translateX,translateY,scale} = defaultConfigs.map;
+    //将canvas坐标转换成原始坐标
+    MapFactory.transformPositionToOrigin = function (x, y) {
 
-		const tx = (Number(x) + Number(translateX)) * scale;
-		const ty = (Number(y) + Number(translateY)) * scale;
+        const { translateX, translateY, scale } = defaultConfigs.map;
 
-		return { x: tx, y: ty };
-	}
+        var tx = Number(x) / scale - Number(translateX);
+        var ty = Number(y) / scale - Number(translateY);
 
-	//将canvas坐标转换成原始坐标
-	MapFactory.transformPositionToOrigin = function (x, y) {
+        return { x: tx, y: ty };
+    }
 
-		const {translateX,translateY,scale} = defaultConfigs.map;
 
-		var tx = Number(x) / scale - Number(translateX);
-		var ty = Number(y) / scale - Number(translateY);
+    const map = MapFactory(elementId, configs);
 
-		return { x: tx, y: ty };
-	}
+    //暴露接口
+    return  {
+        ready: function () {
+            map.ready.apply(map, arguments)
+        },
+        change: function () {
+        },
+        setScale: function () {
+            map.setScale.apply(map, arguments)
+        },
+        onError: function () {
+            map.onError.apply(map, arguments)
+        },
+        setStationToSame: function () {
+            map.setStationToSame.apply(map, arguments)
+        },
+        save: function () {
+            map.save.apply(map, arguments)
+        },
+        destory: function () {
+            map.destory.apply(map, arguments)
+        },
+        setBackgroundImage: function () {
+            map.setBackgroundImage.apply(map, arguments)
+        },
+        getCheckedAll: function () {
+            map.getCheckedAll.apply(map, arguments)
+        },
+        onRemove: function () {
+            map.onRemove.apply(map, arguments)
+        },
+        onScaleMap: function () {
+            map.onScaleMap.apply(map, arguments)
+        },
+        onCheckedStation: function () {
+            map.onCheckedStation.apply(map, arguments)
+        },
+        onHoverStation: function () {
+            map.onHoverStation.apply(map, arguments)
+        },
+        onRenderMap: function () {
+            map.onRenderMap.apply(map, arguments)
+        },
+        createStation: function () {
 
+            var canvas = map.getCanvasElement();
+            var box = canvas.getBoundingClientRect();
 
-	const map = MapFactory(elementId,configs);
+            var params = Object.assign({}, arguments[0]);
 
-	//暴露接口
-	return  {
-ready:function(){
-		  map.ready.apply(map,arguments)
-	  },
-change:function(){
-	   },
-setScale:function(){
-			 map.setScale.apply(map,arguments)
-		 },
-onError:function(){
-			map.onError.apply(map,arguments)
-		},
-setStationToSame:function(){
-					 map.setStationToSame.apply(map,arguments)
-				 },
-save:function(){
-		 map.save.apply(map,arguments)
-	 },
-destory:function(){
-			map.destory.apply(map,arguments)
-		},
-setBackgroundImage:function(){
-					   map.setBackgroundImage.apply(map,arguments)
-				   },
-getCheckedAll:function(){
-				  map.getCheckedAll.apply(map,arguments)
-			  },
-onRemove:function(){
-			 map.onRemove.apply(map,arguments)
-		 },
-onScaleMap:function(){
-			   map.onScaleMap.apply(map,arguments)
-		   },
-onCheckedStation:function(){
-					 map.onCheckedStation.apply(map,arguments)
-				 },
-onHoverStation:function(){
-				   map.onHoverStation.apply(map,arguments)
-			   },
-onRenderMap:function(){
-				map.onRenderMap.apply(map,arguments)
-			},
-createStation:function(){
+            params.x = Number(params.x) - Number(box.left);
+            params.y = Number(params.y) - Number(box.top);
 
-				  var canvas = map.getCanvasElement();
-				  var box = canvas.getBoundingClientRect();
+            var position = MapFactory.transformPositionToOrigin(params.x, params.y);
 
-				  var params = Object.assign({}, arguments[0]);
+            params.x = position.x;
+            params.y = position.y;
 
-				  params.x = Number(params.x) - Number(box.left);
-				  params.y = Number(params.y) - Number(box.top);
-
-				  var position = MapFactory.transformPositionToOrigin(params.x, params.y);
-
-				  params.x = position.x;
-				  params.y = position.y;
-
-				  map.createStation(params);
-			  },
-	}
+            map.createStation(params);
+        },
+    }
 };
 
 module.exports=Map;
