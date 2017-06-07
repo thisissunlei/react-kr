@@ -45,6 +45,7 @@ export default class List extends React.Component {
 			list: {},
 			content:'',
 			filter:'COMP_NAME',
+			realPage : 1,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -121,7 +122,7 @@ export default class List extends React.Component {
 			_this.setState({
 				status:!_this.state.status,
 				searchParams:{
-					page:"1",
+					page: _this.state.realPage,
 					pageSize:"15",
 					value:'',
 					type:'COMP_NAME',
@@ -130,10 +131,8 @@ export default class List extends React.Component {
 				}
 			})
 		}).catch(function(err){
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'danger',
-			// }]);
+			
+			Message.error(err.message);
 		});
 	}
 	// 提交新建
@@ -177,6 +176,7 @@ export default class List extends React.Component {
 			content :value.content,
 			filter :value.filter,
 			submit:true,
+			realPage : 1,
 			searchParams :{
 				type:value.filter,
 				value:value.content,
@@ -198,6 +198,7 @@ export default class List extends React.Component {
 		let _this = this;
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
+			realPage:1,
 			searchParams :{
 				registerSourceId:values.registerSourceId || '',
 				value :values.value,
@@ -206,10 +207,15 @@ export default class List extends React.Component {
 				endTime :values.endTime || '',
 				startTime :values.startTime || '',
 				jobId :values.jobId || '',
-				page:1,
+				page :1,
 				pageSize:15,
 				companyId:0,
 			}
+		})
+	}
+	onPageChange=(page)=>{
+		this.setState({
+			realPage : page 
 		})
 	}
 	render() {
@@ -256,6 +262,7 @@ export default class List extends React.Component {
 											ajaxFieldListName='items'
 											ajaxUrlName='membersList'
 											ajaxParams={this.state.searchParams}
+											onPageChange={this.onPageChange}
 										>
 										<TableHeader>
 											<TableHeaderColumn>联系电话</TableHeaderColumn>

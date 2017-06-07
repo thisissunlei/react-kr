@@ -39,7 +39,7 @@ export default class SureTipBtn  extends React.Component{
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
-									<div  className='ui-btn-center'>
+									<div style = {{display:"inline-block",marginRight:30}}>
 									  {State.statusCode==-3?<Button  label="重新导入" type="button"  onTouchTap={this.reloadSubmit}/>:<div className='m-upload-sure'><Button  label="确定" type="button"  onTouchTap={this.onCancel}/></div>}
 									</div>
 									  {State.statusCode==-3&&<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />}

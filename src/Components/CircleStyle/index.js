@@ -64,7 +64,7 @@ export default class CircleStyle extends React.Component {
 					<div className="one"><p>{num}</p><div className="txt">—— {info}</div></div>
 					<div className="circle"><span></span></div>
 					{children}
-			</div>
+			  </div>
 			);
 
 		}

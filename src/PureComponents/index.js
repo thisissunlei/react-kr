@@ -7,7 +7,7 @@ import InfoList from './InfoList';
 import UrgeMoney from './UrgeMoney';
 import SelectCity from './SelectCity';
 import TheBell from './TheBell';
-
+import PlanMapContent from './PlanMapContent';
 
 module.exports = {
 	Agreement,
@@ -20,4 +20,5 @@ module.exports = {
 	NewIndent,
 	NewIndent,
 	TheBell,
+	PlanMapContent,
 }

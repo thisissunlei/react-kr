@@ -104,6 +104,7 @@ export default class Header extends React.Component {
 		var isActive=navIsActive.indexOf(true)==-1?true:false;
 		if(isActive){
 			NavModel.clearSidebar();
+			return;
 		}
 		NavModel.toggleSidebar();
 	}

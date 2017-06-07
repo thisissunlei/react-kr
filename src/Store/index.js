@@ -6,6 +6,7 @@ import CommunityAgreementList from './CommunityAgreementList';
 import NotifyModel from './NotifyModel';
 import NavModel from './NavModel';
 import OperationCommunity from './OperationCommunity';
+import LeftIconClick from './LeftIconClick';
 
 module.exports = {
 	CommonModel,
@@ -16,4 +17,5 @@ module.exports = {
 	NavModel,
 	...OperationCommunity,
 	NewIndentModel,
+	LeftIconClick
 }
