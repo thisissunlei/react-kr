@@ -467,8 +467,9 @@ class Merchants extends Component{
 
    //搜索提交
    onSearchSubmit=(value)=>{
-   	 let {searchParams}=state;
+   	 let {searchParams}=this.state;
    	 let {CommunityAgreementList} = this.props;
+   	 searchParams.page = 1;
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
@@ -647,6 +648,8 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
+		console.log(this.props.CommunityAgreementList)
+
 
 
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
@@ -828,9 +831,11 @@ class Merchants extends Component{
 			        </TableBody>
 
 
+
            </Table>
+
 					 {loading&&<Loading style = {{width:"100%"}}/>}
-           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>}
+           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={this.props.CommunityAgreementList.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
 
            </Section>
 					{/*新建合同的第一页*/}
