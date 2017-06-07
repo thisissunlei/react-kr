@@ -446,8 +446,15 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
-
-
+        
+		var dom=document.getElementById('com-tips');
+		var width=117;
+		var height=100;
+		if(dom){
+			 width=dom.getBoundingClientRect().width;
+			 height=dom.getBoundingClientRect().height;
+		}
+		
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
@@ -455,7 +462,7 @@ export default class FloorPlan extends React.Component {
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
 
 					<ListGroup>
-						<div className='searchPlan'><KrField component='searchCommunityManage' label='社区'  onChange={this.selectCommunity}/></div>
+						<div className='searchPlan'><KrField component='searchCommunityManage' label='社区' name='community' onChange={this.selectCommunity}/></div>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
 						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
 						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
@@ -480,7 +487,7 @@ export default class FloorPlan extends React.Component {
 
                 <div className='com-body'>
 
-			        {hoverData.status=='1'&&<div className="com-tips" style={{left:hoverData.clientX-238,top:hoverData.clientY-hoverData.height/2-80}}>
+			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX-width/2,top:hoverData.clientY-height-20}}>
 										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
 										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
 										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
