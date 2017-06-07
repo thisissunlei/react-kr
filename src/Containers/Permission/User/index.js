@@ -38,13 +38,15 @@ class Operations extends React.Component {
 		this.state = {
 			searchParams: {
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
+				timer: 0,
 			},
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
 			openEditDialog: false,
-			moduleDetail: ''
+			moduleDetail: '',
+			newPage:0,
 		}
 	}
 
@@ -83,9 +85,9 @@ class Operations extends React.Component {
 		Http.request('delRole', {
 			id: itemDetail.id
 		}).then(function(response) {
-			_this.openDeleteDialog();
 			Message.success('删除成功')
-			window.location.reload();
+			_this.changeP();
+        	_this.openDeleteDialog();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message);
@@ -114,11 +116,10 @@ class Operations extends React.Component {
 	onCreatSubmit = (form) => {
 		var _this = this;
 		Http.request('createRole', {}, form).then(function(response) {
-			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.location.reload();
+			_this.changeP();
+        	_this.openCreateDialog();
 		}).catch(function(err) {
-			_this.openCreateDialog();
 			Message.error(err.message);
 		});
 
@@ -131,15 +132,28 @@ class Operations extends React.Component {
 	onEditSubmit = (form) => {
 		var _this = this;
 		Http.request('editRole', {}, form).then(function(response) {
-			_this.openCreateDialog();
 			Message.success('修改成功');
-			window.location.reload();
+			_this.changeP();
+        	_this.openEditDialog();
 		}).catch(function(err) {
-			_this.openCreateDialog();
 			Message.error(err.message);
 		});
 	}
-
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+        this.setState({
+            searchParams: {
+                    page: this.state.newPage,
+                    timer: timer,
+            }
+        })
+    }
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
+    }
 	render() {
 		let {
 			openDeleteDialog,
@@ -159,6 +173,7 @@ class Operations extends React.Component {
 							ajaxUrlName='UserfindPage'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
+							onPageChange={this.onPageChange}
 							  >
 						<TableHeader>
 						<TableHeaderColumn>编码</TableHeaderColumn>
