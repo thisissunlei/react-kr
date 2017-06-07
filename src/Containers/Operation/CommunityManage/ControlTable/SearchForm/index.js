@@ -92,12 +92,12 @@ class SearchFormControlTable extends React.Component {
 					<div style = {{float:"right"}}>
                     <SearchForms ref = "inputFilter" onSubmit={this.onSubmit}  placeholder="请输入客户名称"  style={{marginTop:5,zIndex:10000}} />
 					</div>
-					<div style = {{width:250,height:40,display:'inline-block',float:"right"}}>
+					<div style = {{width:260,height:40,display:'inline-block',float:"right"}}>
 						
 						<KrField 
 							grid={1/2} 
 							name = "rentalStatus"
-							style ={{width:260,marginTop:3,}} 
+							style ={{width:250,marginTop:3,}} 
 							type="select" 
 							label="在租状态：" 
 							inline={true}
@@ -109,8 +109,9 @@ class SearchFormControlTable extends React.Component {
                         <KrField grid={1/2} 
                             name="intentionCommunityId" 
                             component='searchCommunityManage' 
-                            style ={{width:220,marginTop:3}} 
-                            label="社区：" inline={true}  
+                            style ={{width:210,marginTop:3}} 
+                            label="社区：" 
+							inline={true}  
                             placeholder={placeholder} 
                             requireLabel={false}
 							onChange = {this.communityChange}
