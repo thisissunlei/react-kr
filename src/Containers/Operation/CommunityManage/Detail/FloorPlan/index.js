@@ -487,7 +487,7 @@ export default class FloorPlan extends React.Component {
 
                 <div className='com-body'>
 
-			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX-width/2,top:hoverData.clientY-height-20}}>
+			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX-width/2,top:hoverData.clientY-height-22}}>
 										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
 										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
 										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
