@@ -78,13 +78,12 @@ export default class PlanMapComponent extends React.Component {
 
 	}
 
-
-	componentWillReceiveProps(nextProps) {
-
+	componentWillUnmount(){
+		 this.Map.destory();
 	}
 	dataChange = (data,allData) =>{
 		const {selectedObjs} = this.state;
-		let del = [];
+		let del = [].concat(selectedObjs);
 
 		for(let i=0;i<data.length;i++){
 
@@ -99,9 +98,7 @@ export default class PlanMapComponent extends React.Component {
 					del.splice(j, 1);
 					isDel = false;
 				}
-				if(isDel){
-					del.push(selectedObjs[j]);
-				}
+				
 			}
 
 
@@ -148,7 +145,7 @@ export default class PlanMapComponent extends React.Component {
 								belongType = "SPACE";
 							}
 							if(item.belongId ==selectedObjs[j].id && item.belongType == belongType ){
-								obj.status =3;
+								
 								obj.checked = true;
 
 							}
@@ -167,7 +164,7 @@ export default class PlanMapComponent extends React.Component {
 				}
 			}
 		}
-		Map("plan-map-content",dainitializeConfigs);
+		this.Map =  Map("plan-map-content",dainitializeConfigs);
 	}
     floorsChange = (value) =>{
         this.setState({
@@ -212,7 +209,7 @@ export default class PlanMapComponent extends React.Component {
 
 		 	delData.push(obj2);
 		 })
-		 Map.destory();
+		
 		const {onClose} = this.props;
 		
 
