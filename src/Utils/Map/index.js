@@ -1976,8 +1976,8 @@ var Map = function (elementId, configs) {
             }
 
             //计算平移单位
-            defaultConfigs.map.translateX += (end.x - start.x)*2;
-            defaultConfigs.map.translateY += (end.y - start.y)*2;
+            defaultConfigs.map.translateX += (end.x - start.x)*2.5;
+            defaultConfigs.map.translateY += (end.y - start.y)*2.5;
 
             this.render();
             movePositionArr = [];
