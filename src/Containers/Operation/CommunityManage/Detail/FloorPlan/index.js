@@ -59,7 +59,9 @@ export default class FloorPlan extends React.Component {
 			//底线
 			downLine:false,
 			//hover信息
-			hoverData:''
+			hoverData:'',
+			//销毁原来的canvas
+			destroyData:[]
 		}
 		this.getcommunity();
 		Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -77,7 +79,7 @@ export default class FloorPlan extends React.Component {
 
 	//获取基本信息
 	getBaseData=()=>{
-		let {dateend,date,searchParams,canvasRender}=this.state;
+		let {dateend,date,searchParams,canvasRender,destroyData}=this.state;
 		var data={};
 		data.startDate=date;
 		data.endDate=dateend;
@@ -142,13 +144,18 @@ export default class FloorPlan extends React.Component {
 					totalPages:response.totalPages,
 				},function(){
                     canvasRender.map((item,index)=>{
-					  var map=Map(`plan-app${index}`,item);
+				      var map=Map(`plan-app${index}`,item);
+					  destroyData.push(map);
 					  map.onHoverStation(function(data){
 						 _this.setState({
 							 hoverData:data
 						 })
 					  })
 					})
+				})
+				_this.setState({
+					destroyData,
+					isLoading:false
 				})
 				
 		}).catch(function(err) {
@@ -210,18 +217,21 @@ export default class FloorPlan extends React.Component {
 			this.getCommunityFloors(personel.id);
 			var searchParams={
 			communityId:personel.id,
-			floor:''
+			floor:'',
+			page:1,
 			}
 		}else{
 		   var searchParams={
 			 communityId:'',
-			 floor:''
+			 floor:'',
+			 page:1,
 			}
 		}
 		searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
 			    searchParams,
-				canvasRender:[]
+				canvasRender:[],
+			    downLine:false
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -255,17 +265,20 @@ export default class FloorPlan extends React.Component {
 	selectFloors=(param)=>{
 		 if(param){
             var searchParams={
-			 floor:param.label
+			 floor:param.label,
+			 page:1,
 			}
 		 }else{
 		    var searchParams={
-			 floor:''
+			 floor:'',
+			 page:1,
 			}	
 		 }
 		 searchParams = Object.assign({},this.state.searchParams, searchParams);
             this.setState({
 			    searchParams,
-				canvasRender:[]
+				canvasRender:[],
+				downLine:false
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -278,9 +291,16 @@ export default class FloorPlan extends React.Component {
 			let endDate = new Date(this.state.dateend);
 			let start = firstDate.getTime();
 			let end = endDate.getTime();
+			var searchParams={
+			  page:1,
+			}	
+			 searchParams = Object.assign({},this.state.searchParams, searchParams);
 			if (start <= end) {
 				this.setState({
-					date: personel
+					date: personel,
+					canvasRender:[],
+					downLine:false,
+					searchParams
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -299,9 +319,16 @@ export default class FloorPlan extends React.Component {
 			let firstDate = new Date(this.state.date);
 			let start = firstDate.getTime();
 			let end = secondDate.getTime();
+			var searchParams={
+			  page:1,
+			}	
+			 searchParams = Object.assign({},this.state.searchParams, searchParams);
 			if (start <= end) {
 				this.setState({
-					dateend: personel
+					dateend: personel,
+					canvasRender:[],
+					searchParams,
+					downLine:false
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -318,15 +345,23 @@ export default class FloorPlan extends React.Component {
 	//滚动监听
     scrollListener=()=>{
       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
-		   let {totalPages}=this.state;
+		   let {totalPages,destroyData,isLoading}=this.state;
+		   if(isLoading){
+			   return ;
+		   }
 		   if(this.state.searchParams.page<totalPages){
+			   destroyData.map((item,index)=>{
+                   item.destory();
+				})
 			   var searchParams={
 				 page:this.state.searchParams.page+1
 				}
 				searchParams = Object.assign({},this.state.searchParams, searchParams);
 			   this.setState({
                   searchParams,
-				  isLoading:true
+				  isLoading:true,
+				  destroyData:[],
+				  downLine:false
 			   },function(){
 				   this.getBaseData();
 			   })
@@ -381,6 +416,15 @@ export default class FloorPlan extends React.Component {
 		
 	}
 
+	componentDidUpdate(){
+		const {tab} = this.props;
+		if(tab !== 'floorplan'){
+			window.removeEventListener('scroll',this.scrollListener,false);	
+		}else{
+			window.addEventListener('scroll',this.scrollListener,false);
+		}
+	}
+
 	componentWillUnmount(){
 	  window.removeEventListener('scroll',this.scrollListener,false);	
 	}
@@ -402,17 +446,23 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
-
-		console.log('hbbbbb',hoverData);
-
+        
+		var dom=document.getElementById('com-tips');
+		var width=117;
+		var height=100;
+		if(dom){
+			 width=dom.getBoundingClientRect().width;
+			 height=dom.getBoundingClientRect().height;
+		}
+		
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
+
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
 
 					<ListGroup>
-						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>社区</span></ListGroupItem>
-						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
+						<div className='searchPlan'><KrField component='searchCommunityManage' label='社区' name='community' onChange={this.selectCommunity}/></div>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
 						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
 						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
@@ -436,16 +486,18 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-				  {
-					  canvasRender&&canvasRender.map((item,index)=>{
-                         return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
-							        {hoverData.status=='1'&&<div className="com-tips" style={{left:hoverData.x-116,top:hoverData.y-hoverData.height/2-80}}>
+
+			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX-width/2,top:hoverData.clientY-height-20}}>
 										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
 										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
 										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
 										<div>公司：{hoverData.company?hoverData.company:'-'}</div>
 										<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
-									</div>}
+				     </div>}
+				  
+				  {
+					  canvasRender&&canvasRender.map((item,index)=>{
+                         return <div key={index} className="com-container" style={{borderTop:'4px solid rgb(219, 237, 254)'}}>
 								    <div style={{fontSize:'14px',paddingLeft:'10px',color:'#9a9a9a'}}>{item.communityName+item.floor+'层'}</div>
 								    <div id= {`plan-app${index}`} style={{background:'#fff',width:'100%',height:'670px'}}>
 										

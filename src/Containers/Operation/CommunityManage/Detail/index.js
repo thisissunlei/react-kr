@@ -27,7 +27,8 @@ import {
 import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
-import './index.less'
+import './index.less';
+
 
 export default class CommunityManage extends React.Component {
 	static childContextTypes = {
@@ -46,7 +47,7 @@ export default class CommunityManage extends React.Component {
 		super(props, context);
 		this.state = {
 			tab: 'table',
-			communityId: ''
+			communityId: '',
 		}
 
 	}
@@ -63,13 +64,13 @@ export default class CommunityManage extends React.Component {
 
 	Floorplan =()=> {
 		this.setState({
-			tab:'floorplan'
+			tab:'floorplan',
 		});
 	}
 
 	planTable=()=> {
 		this.setState({
-			tab:'table'
+			tab:'table',
 		});
 	}
 
@@ -77,7 +78,7 @@ export default class CommunityManage extends React.Component {
 
 	render() {
 		let {
-			tab
+			tab,
 		} = this.state;
 
 		const activeTab = {
@@ -106,13 +107,10 @@ export default class CommunityManage extends React.Component {
 				<span className="line"></span>
 				 <Tabs className="tabs">
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
-					   {tab=='table'&&<Schedule tab={tab} />}
+					   <Schedule tab={tab} />
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
-
-					   {tab=='floorplan'&&<FloorPlan tab={tab} />}
-
-
+					   <FloorPlan tab={tab} />
 					</Tab>
 			</Tabs>
 

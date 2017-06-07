@@ -56,37 +56,6 @@
         top: 0;
         overflow: auto;
     }
-    .com-tips{
-        padding:10px;
-        background-color: rgba(0,0,0,.6);
-        color:#fff;
-        border-radius:4px;
-        position:absolute;
-        width:auto;
-        font-size:12px;
-        display:inline-block;
-        z-index:10;
-        }
-        .com-tips div:before{
-            content:'';
-            border:2px solid #fff;
-            display:inline-block;
-            border-radius:2px;
-            float:left;
-            margin:5px 5px 0 0;
-        }
-        .com-tips:after{
-            position:absolute;
-            bottom:-8px;
-            content:'';
-            width: 0;
-            height: 0;
-            left:50%;
-            margin-left:-8px;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid rgba(0,0,0,.6);
-        }
         .end-tips{
           width: 640px; 
           color: rgb(153, 153, 153);
@@ -122,3 +91,50 @@
         }
 }
 
+   .com-tips{
+        padding:10px;
+        background-color: rgba(0,0,0,.6);
+        color:#fff;
+        border-radius:4px;
+        position:fixed;
+        width:auto;
+        font-size:12px;
+        display:inline-block;
+        z-index:10;
+        }
+        .com-tips div:before{
+            content:'';
+            border:2px solid #fff;
+            display:inline-block;
+            border-radius:2px;
+            float:left;
+            margin:5px 5px 0 0;
+        }
+        .com-tips:after{
+            position:absolute;
+            bottom:-8px;
+            content:'';
+            width: 0;
+            height: 0;
+            left:50%;
+            margin-left:-8px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(0,0,0,.6);
+        }
+        .searchPlan{
+            display:inline-block;
+            .ui-form-controller{
+                width:160px;
+                margin-right: 20px;
+                margin-top: 5px;
+            }
+            .ui-form-label{
+               margin-right: 20px;
+               span{
+                   font-size: 17px;
+                    line-height: 45px;
+                    color: #000;
+               }
+            }
+        }
