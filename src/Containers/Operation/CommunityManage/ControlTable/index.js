@@ -6,6 +6,7 @@ import {
   arrayPush,
   initialize
 } from 'redux-form';
+import Baidu from 'kr/Utils/Baidu';
 import {
   Actions,
   Store
@@ -58,6 +59,7 @@ class ControlTable  extends React.Component{
 			   customerName:'',
 			   page:19,
 			   pageSize:200,
+			   rentalStatus:''
             },
 			communityName:'',
 			otherData:{
@@ -117,6 +119,7 @@ getScrollTop = () => {
 
 	componentDidMount(){
 		var _this = this;
+		Baidu.trackEvent('销控表','访问');
 		//滚轮监听
 		window.addEventListener("scroll",this.onscrollListener,false)
 
@@ -268,7 +271,8 @@ getScrollTop = () => {
                communityId:searchParams.communityId,
 			   customerName:values.content,
 			   page:1,
-			   pageSize:200
+			   pageSize:200,
+			   rentalStatus:searchParams.rentalStatus
             },
 			loading:true,
 			newPage:1,
@@ -290,9 +294,35 @@ getScrollTop = () => {
 			   customerName:'',
 			   page:1,
 			   pageSize:200,
+			   rentalStatus:''
 
             },
 			communityName:values.label,
+			loading:true,
+			newPage:1,
+			allPage:0,
+			downLoading:false,
+			end:false,
+			listData:[],
+
+		},function(){
+			this.getcommunity();
+		})
+   }
+   //租用状态选中
+   rentalStatusChange = (values) =>{
+	console.log(values,)
+	const {searchParams,communityName} = this.state;
+		this.setState({
+			searchParams:{
+         	   communityId:searchParams.communityId,
+			   customerName:searchParams.customerName,
+			   page:1,
+			   pageSize:200,
+			   rentalStatus:values.value
+
+            },
+			communityName:communityName,
 			loading:true,
 			newPage:1,
 			allPage:0,
@@ -319,7 +349,7 @@ getScrollTop = () => {
 			<div className = "m-control-table-head clearfix" style = {moveStyle}>
 				<div className = "m-control-table-head-td head-td1" style = {{width:"26%"}}>
 					<div className= "m-control-table-head-tr">{communityName}</div>
-					<div className= "m-control-table-head-tr">当前出租率:{otherData.rentalRateStr}</div>
+					<div className= "m-control-table-head-tr"><span style = {{lineHeight:"20px",display:'inline-block'}}>当前出租率:{otherData.rentalRateStr}</span></div>
 					<div className= "m-control-table-head-tr">
 						<div className = "m-control-table-head-tr-td" style = {{width:'40%'}}>编号/名称</div>
 						<div className = "m-control-table-head-tr-td" style = {{width:'30%'}}>类型</div>
@@ -329,7 +359,7 @@ getScrollTop = () => {
 				</div>
 				<div className = "m-control-table-head-td " style = {{minHeight:120}}>
 					<div className= "m-control-table-head-tr">总面积:{otherData.totalArea}</div>
-					<div className= "m-control-table-head-tr" style = {{lineHeight:(""+otherData.incomeMonth).length>4 ? "20px":"40px"}}>{"本月收入:"+otherData.incomeMonth}</div>
+					<div className= "m-control-table-head-tr" ><span style = {{lineHeight:"20px",display:'inline-block'}}>{"本月收入:"+otherData.incomeMonth}</span></div>
 					<div className= "m-control-table-head-tr">建筑面积</div>
 
 				</div>
@@ -338,8 +368,9 @@ getScrollTop = () => {
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>折扣</div>
 				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span className="m-control-table-head-span"><span>每工位实际</span><span>成交价</span><span>(元/月)</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}><span className="m-control-table-head-span"><span>在租状态</span></span></div>
-				<div className = "m-control-table-head-td " style = {{width:"17.5%"}}><span>客户名称</span></div>
-				<div className = "m-control-table-head-td " style = {{width:"17.5%"}}>租期</div>
+				<div className = "m-control-table-head-td " style = {{width:"12.5%"}}><span>客户名称</span></div>
+				<div className = "m-control-table-head-td " style = {{width:"12.5%"}}>租赁期限</div>
+				<div className = "m-control-table-head-td " style = {{width:"10%"}}>租期</div>
 			</div>
 		)
    }
@@ -386,7 +417,7 @@ getScrollTop = () => {
 					<div key={index}  className = "m-control-table-content-tr clearfix">
 							<div className="m-control-table-content-td clearfix" style = {{width:"26%"}}>
 								<div className="m-control-table-one-td" style = {{width:'40%',lineHeight:"40px"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.codeName}</span></div>
-								<div className="m-control-table-one-td" style = {{width:'30%'}}>{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
+								<div className="m-control-table-one-td" style = {{width:'30%'}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.stationType=="STATION"?"工位":"独立空间"}</span></div>
 								<div className="m-control-table-one-td" style = {{width:'30%'}}>{item.capacity}</div>
 							</div>
 
@@ -396,12 +427,9 @@ getScrollTop = () => {
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{_this.tooltip(item.discountStr)}</div>
 							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.unitActualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.rentalStatusStr}</div>
-							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(item.company)}</div>
-							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(
-
-								!item.leaseBegindate ?"-": DateFormat(item.leaseBegindate,"yyyy-mm-dd")+"至"+DateFormat(item.leaseEnddate,"yyyy-mm-dd")
-								)
-								}</div>
+							<div className="m-control-table-content-td" style = {{width:"12.5%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.company}</span></div>
+							<div className="m-control-table-content-td" style = {{width:"12.5%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{!item.leaseBegindate ?"-": DateFormat(item.leaseBegindate,"yyyy-mm-dd")+" 至 "+DateFormat(item.leaseEnddate,"yyyy-mm-dd")}</span></div>
+							<div className="m-control-table-content-td" style = {{width:"10%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.leaseLengthStr}</span></div>
 
 					</div>
 			)
@@ -417,7 +445,6 @@ getScrollTop = () => {
 		let exportClassName = "on-export-end";
 		let endStyle = {};
 		exportClassName = theEnd?"on-export-end":"on-export-middle";
-		endStyle = theEnd ? {}:{height:40}
 		return(
 			<div id = "control-table-width" className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="销控表"/>
@@ -425,6 +452,7 @@ getScrollTop = () => {
 					<SearchFormControlTable
 						communityChange = {this.communityChange}
 						onSubmit = {this.onSubmit}
+						rentalStatusChange = {this.rentalStatusChange}
 					 />
 					{this.generateHead()}
 					<div className = "m-control-table-content clearfix" style = {contentStyle}>
