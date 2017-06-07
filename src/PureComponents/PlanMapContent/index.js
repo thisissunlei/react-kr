@@ -82,7 +82,7 @@ export default class PlanMapComponent extends React.Component {
 	componentWillReceiveProps(nextProps) {
 
 	}
-	dataChange = (data) =>{
+	dataChange = (data,allData) =>{
 		const {selectedObjs} = this.state;
 		let del = [];
 
@@ -106,9 +106,9 @@ export default class PlanMapComponent extends React.Component {
 
 
 		}
-		console.log(del,"delete");
+		console.log(del,"delete",allData);
 		this.setState({
-			submitData:data,
+			submitData:allData,
 			deleteArr:del
 		})
 	}
@@ -189,15 +189,19 @@ export default class PlanMapComponent extends React.Component {
 		let delData = [];
 		submitData.map(function(item,index){
 			var obj1 = {};
+			let belongType = 1;
+			if( item.belongType == "SPACE"){
+				belongType = 2;
+			}
 			obj1.id = item.belongId;
-			obj1.type = item.belongType;
+			obj1.type = belongType;
 			obj1.whereFloor = item.whereFloor;
 			obj1.name = item.name;
 			obj1.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
 			obj1.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
 
 
-				allData.push(obj1);
+			allData.push(obj1);
 		})
 
 		 deleteArr.map(function(item,index){
@@ -208,8 +212,9 @@ export default class PlanMapComponent extends React.Component {
 
 		 	delData.push(obj2);
 		 })
-
+		 Map.destory();
 		const {onClose} = this.props;
+		
 
 		onClose && onClose(allData,{deleteData:delData});
 
