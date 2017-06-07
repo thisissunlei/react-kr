@@ -38,7 +38,6 @@ export default class PlanMapComponent extends React.Component {
 		if(!data){
 			return;
 		}
-
 		var res = {
 				communityId:data.communityId,
 				floor:data.floors,
@@ -83,58 +82,45 @@ export default class PlanMapComponent extends React.Component {
 	componentWillReceiveProps(nextProps) {
 
 	}
-	dataChange = (arr) =>{
+	dataChange = (data) =>{
+		const {selectedObjs} = this.state;
+		let del = [];
+
+		for(let i=0;i<data.length;i++){
+
+			for(let j=0;j<selectedObjs.length;j++){
+				let isDel = true;
+				let every = selectedObjs[j];
+				let belongType = "STATION"
+				if(selectedObjs[j].belongType == 2){
+					belongType = "SPACE";
+				}
+				if(data[i].belongId ==selectedObjs[j].id && data[i].belongType == belongType ){
+					del.splice(j, 1);
+					isDel = false;
+				}
+				if(isDel){
+					del.push(selectedObjs[j]);
+				}
+			}
 
 
-		console.log(arr,">>>");
-		// let {otherData,selectedObjs,deleteArr} = this.state;
-		// let obj = {};
-		// let arr = [];
-		// let delArr = [];
-		// let deldata = [];
-		//
-		// otherData.floors.map(function(item,index){
-		// 	if(floor == item.value){
-		// 		obj[floor]={
-		// 			data : data || [],
-		// 			deleteArr :  deleteData || []
-		// 		}
-		//
-		// 		arr = obj[item.value].data.concat(arr);
-		// 		delArr = obj[item.value].deleteArr.concat(delArr);
-		// 	}
-		//
-		// })
-		//
-		// for(let i=0;i<data.length;i++){
-		// 	for(let j=0;j<deleteArr.length;j++){
-		// 		if(deleteArr[j].belongId == data[i].belongId && deleteArr[j].belongType == data[i].belongType ){
-		// 			deleteArr.splice(j, 1);
-		//
-		// 		}
-		// 	}
-		//
-		// }
-		// selectedObjs && selectedObjs.map(function(item,index){
-		//
-		// 		if(delArr.length !=0 && delArr[0].belongId == item.id && delArr[0].belongType == item.belongType  ){
-		//
-		// 			deleteArr.push(delArr[0]);
-		// 		}
-		//
-		// })
-		// this.setState({
-		// 	submitData:arr,
-		// 	deleteArr:deleteArr
-		// })
+		}
+		console.log(del);
+		this.setState({
+			submitData:data,
+			deleteArr:del
+		})
 	}
 
 
 
 
 	canvasEles = () =>{
-		const {data,newfloor} = this.state;
+		const {data,newfloor,selectedObjs} = this.state;
+		const _this = this;
 		var dainitializeConfigs = {};
+
 		for(let i=0; i<data.length;i++){
 			if(data[i].floor == newfloor){
 				var arr = [];
@@ -147,6 +133,7 @@ export default class PlanMapComponent extends React.Component {
 						obj.width = Number(item.cellWidth);
 						obj.height = Number(item.cellHeight);
 						obj.name = item.cellName;
+						obj.whereFloor = item.floor;
 						obj.belongType = item.belongType;
 						obj.belongId = Number(item.belongId);
 						obj.id = Number(item.id);
@@ -155,45 +142,32 @@ export default class PlanMapComponent extends React.Component {
 						if(item.status){
 							obj.status=item.status;
 						}
+						for(let j=0; j<selectedObjs.length;j++){
+							let belongType = "STATION";
+							if(selectedObjs[j].belongType == 2){
+								belongType = "SPACE";
+							}
+							if(item.belongId ==selectedObjs[j].id && item.belongType == belongType ){
+								obj.status =3;
+								obj.checked = true;
+
+							}
+						}
 
 						return obj;
 				})
-
-
-
 				dainitializeConfigs = {
 					stations:arr,
 					scale:1,
 					isMode:'select',
-					onCheckedStationCallback:this.dataChange,
+					plugin:{
+						onCheckedStationCallback:_this.dataChange
+					},
 					backgroundImageUrl:"http://optest.krspace.cn" + data[i].graphFilePath
 				}
 			}
 		}
-
-		
-
 		Map("plan-map-content",dainitializeConfigs);
-		// let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
-		// const _this = this;
-		// var arr = data.map(function(item,index){
-		//
-		// 	if(item.floor == newfloor){
-		//
-		// 		return <Canvas
-		// 					key = {index}
-		// 					inputStart = {inputStart}
-		// 					inputEnd = {inputEnd}
-		// 					id = {index}
-		// 					data = {item.figures}
-		// 					url = {item.graphFilePath}
-		// 					dataChange = {_this.dataChange}
-		// 					selectedObjs = {selectedObjs}
-		// 					newfloor = {newfloor}
-		// 				/>
-		// 	}
-		// })
-		// 	return arr;
 	}
     floorsChange = (value) =>{
         this.setState({
@@ -217,8 +191,8 @@ export default class PlanMapComponent extends React.Component {
 			var obj1 = {};
 			obj1.id = item.belongId;
 			obj1.type = item.belongType;
-			obj1.whereFloor = item.floor;
-			obj1.name = item.cellName;
+			obj1.whereFloor = item.whereFloor;
+			obj1.name = item.name;
 			obj1.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
 			obj1.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
 
@@ -228,9 +202,9 @@ export default class PlanMapComponent extends React.Component {
 
 		 deleteArr.map(function(item,index){
 			let obj2 = {};
-		 	obj2.id = item.belongId;
-		 	obj2.type = item.belongType;
-			obj2.whereFloor = item.floor;
+		 	obj2.id = item.id;
+		 	obj2.type = item.type;
+			obj2.whereFloor = item.whereFloor;
 
 		 	delData.push(obj2);
 		 })
