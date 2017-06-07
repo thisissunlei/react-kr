@@ -170,6 +170,8 @@ getScrollTop = () => {
 							customerName:searchParams.customerName,
 							page:newPage+1,
 							pageSize:searchParams.pageSize,
+							rentalStatus:searchParams.rentalStatus
+
 						},
 						end:(allPage == newPage) ? true:false
 					},function(){
@@ -266,6 +268,7 @@ getScrollTop = () => {
    //搜索框确定点击
    onSubmit = (values) =>{
 	   const {searchParams} = this.state;
+	   console.log()
 		this.setState({
 			searchParams:{
                communityId:searchParams.communityId,
