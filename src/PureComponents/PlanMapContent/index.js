@@ -85,18 +85,18 @@ export default class PlanMapComponent extends React.Component {
 		const {selectedObjs} = this.state;
 		let del = [].concat(selectedObjs);
 
-		for(let i=0;i<data.length;i++){
+		for(let i=0;i<allData.length;i++){
 
-			for(let j=0;j<selectedObjs.length;j++){
-				let isDel = true;
-				let every = selectedObjs[j];
+			for(let j=0;j<del.length;j++){
+				
 				let belongType = "STATION"
-				if(selectedObjs[j].belongType == 2){
+				if(del[j].belongType == 2){
 					belongType = "SPACE";
 				}
-				if(data[i].belongId ==selectedObjs[j].id && data[i].belongType == belongType ){
+				console.log(belongType,">>>>>>");
+				if(allData[i].belongId ==del[j].id && allData[i].belongType == belongType ){
 					del.splice(j, 1);
-					isDel = false;
+					
 				}
 				
 			}
