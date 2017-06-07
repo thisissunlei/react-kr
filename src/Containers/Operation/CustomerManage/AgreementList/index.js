@@ -7,6 +7,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
+import Baidu from 'kr/Utils/Baidu';
 import {DateFormat,Http} from 'kr/Utils';
 import {
 	Table,
@@ -390,6 +391,7 @@ class Merchants extends Component{
 
 	componentDidMount() {
 		this.props.CommunityAgreementList.ajaxListData(this.state.searchParams);
+		Baidu.trackEvent('合同列表','访问');
       	let _this=this;
 		let bodyElem=document.getElementById("m-agreement-list");
 		this.getLocalStorageDate();

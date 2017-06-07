@@ -2,6 +2,7 @@ import React  from 'react';
 import {change} from 'redux-form';
 import {DateFormat} from "kr/Utils";
 import {Store} from 'kr/Redux';
+import Baidu from 'kr/Utils/Baidu';
 import {
 	Table,
 	TableBody,
@@ -146,8 +147,8 @@ class MerchantsData  extends React.Component{
     }
 
     componentDidMount() {
-
     	var _this=this;
+		Baidu.trackEvent('招商数据','访问');
     	let {groupList} = this.props;
 		let right = groupList.length == 1 ? 40 :20;
     	window.onscroll = function () {
