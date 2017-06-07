@@ -20,7 +20,7 @@ import {
 	change
 } from 'redux-form';
 import './index.less';
-
+import Tip from './tip';
 export default class FloorPlan extends React.Component {
 
 	static defaultProps = {
@@ -453,7 +453,7 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
-
+        
         
 		return (
 
@@ -487,13 +487,7 @@ export default class FloorPlan extends React.Component {
 
                 <div className='com-body'>
 
-			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX,top:hoverData.clientY-22}}>
-										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
-										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
-										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
-										<div>公司：{hoverData.company?hoverData.company:'-'}</div>
-										<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
-				     </div>}
+			        {hoverData.status=='1'&&<Tip hoverData={hoverData}/>}
 				  
 				  {
 					  canvasRender&&canvasRender.map((item,index)=>{
