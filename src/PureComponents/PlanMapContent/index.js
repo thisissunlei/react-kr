@@ -106,7 +106,7 @@ export default class PlanMapComponent extends React.Component {
 
 
 		}
-		console.log(del);
+		console.log(del,"delete");
 		this.setState({
 			submitData:data,
 			deleteArr:del
