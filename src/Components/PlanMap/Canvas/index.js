@@ -188,7 +188,6 @@ export default  class Canvas extends React.Component {
 					selectedObjs.map(function(ele,index){
 						if(item.belongId == ele.id && item.belongType == ele.belongType){
 							deleteArr.push(item);
-
 						}
 					})
 
