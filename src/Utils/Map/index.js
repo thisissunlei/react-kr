@@ -332,8 +332,11 @@ var Map = function (elementId, configs) {
 			props.clientY = position.y;
 
 
+			defaultConfigs.z++;
+
 			this.setProps({
-				switchHoverIn:true
+				switchHoverIn:true,
+				z:defaultConfigs.z
 			});
 
 			onHoverInStationCallback && onHoverInStationCallback(props);
@@ -1831,6 +1834,15 @@ var Map = function (elementId, configs) {
             return dragStations;
         }
 
+		//根据z属性，排序
+		MapObject.prototype.sortStationObjectArray = function(){
+            stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return nextProps.z - prevProps.z;
+            });
+		}
+
         MapObject.prototype.setCheckedStationStyle = function (x, y) {
 
             //查看模式
@@ -1838,11 +1850,7 @@ var Map = function (elementId, configs) {
                 return;
             }
 
-            stationObjectArray.sort(function (prev, next) {
-                var prevProps = prev.getProps();
-                var nextProps = next.getProps();
-                return nextProps.z - prevProps.z;
-            });
+			this.sortStationObjectArray();
 
             var station = null;
             var props = null;
@@ -1936,8 +1944,11 @@ var Map = function (elementId, configs) {
             var isOK = false;
             var props = null;
 
+			this.sortStationObjectArray();
+
             for (var i = 0, len = stationObjectArray.length; i < len; i++) {
                 station = stationObjectArray[i];
+
                 if (station.hasPosition(x, y)) {
 					station.onHoverIn();
                     isOK = true;
