@@ -193,6 +193,7 @@ export default class PlanMapContent extends React.Component {
 		
 		onClose && onClose(allData,{deleteData:delData});
 		
+		
 
 
 	}
