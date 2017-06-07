@@ -105,11 +105,11 @@ class SearchFormControlTable extends React.Component {
 							onChange={this.rentalStatusChange}
 						/>
 						</div>
-						<div className = "intention-community" style = {{width:210,height:40,display:'inline-block',float:"right"}}>
+						<div className = "intention-community" style = {{width:230,height:40,display:'inline-block',float:"right"}}>
                         <KrField grid={1/2} 
                             name="intentionCommunityId" 
                             component='searchCommunityManage' 
-                            style ={{width:230,marginTop:3}} 
+                            style ={{width:220,marginTop:3}} 
                             label="社区：" inline={true}  
                             placeholder={placeholder} 
                             requireLabel={false}
