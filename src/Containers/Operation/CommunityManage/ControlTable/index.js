@@ -294,7 +294,7 @@ getScrollTop = () => {
 			   customerName:'',
 			   page:1,
 			   pageSize:200,
-			   rentalStatus:''
+			   rentalStatus:searchParams.rentalStatus
 
             },
 			communityName:values.label,
