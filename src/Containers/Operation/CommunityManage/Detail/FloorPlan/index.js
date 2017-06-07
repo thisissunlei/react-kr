@@ -146,8 +146,14 @@ export default class FloorPlan extends React.Component {
                     canvasRender.map((item,index)=>{
 				      var map=Map(`plan-app${index}`,item);
 					  destroyData.push(map);
-					  map.onHoverStation(function(data){
+					   map.onHoverInStation(function(data){
 						 _this.setState({
+							 hoverData:data
+						 })
+					  })
+					   map.onHoverOutStation(function(data){
+				          data.status='0';
+						  _this.setState({
 							 hoverData:data
 						 })
 					  })
@@ -344,6 +350,11 @@ export default class FloorPlan extends React.Component {
 
 	//滚动监听
     scrollListener=()=>{
+      var hoverData={};
+	  hoverData.status='0';
+      this.setState({
+		  hoverData
+	  })
       if(this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()){
 		   let {totalPages,destroyData,isLoading}=this.state;
 		   if(isLoading){
@@ -447,14 +458,6 @@ export default class FloorPlan extends React.Component {
 			handleSubmit
 		} = this.props;
         
-		var dom=document.getElementById('com-tips');
-		var width=117;
-		var height=100;
-		if(dom){
-			 width=dom.getBoundingClientRect().width;
-			 height=dom.getBoundingClientRect().height;
-		}
-		
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
@@ -487,7 +490,7 @@ export default class FloorPlan extends React.Component {
 
                 <div className='com-body'>
 
-			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX-width/2,top:hoverData.clientY-height-22}}>
+			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX,top:hoverData.clientY-22}}>
 										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
 										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
 										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>

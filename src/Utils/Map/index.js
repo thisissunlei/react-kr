@@ -104,7 +104,11 @@ var Map = function (elementId, configs) {
             onRemoveCallback: null,
             onScaleMapCallback: null,
             onCheckedStationCallback: null,
-            onHoverStationCallback: null,
+
+			//对立事件
+            onHoverInStationCallback: null,
+            onHoverOutStationCallback: null,
+
             onErrorCallback: null,
             onReadyCallback: null,
             onRenderMapCallback: null,
@@ -305,7 +309,59 @@ var Map = function (elementId, configs) {
             removed: false,
             key: stationNumber,
             status: 5,
+			//开关，面向有对立事件的判断控制
+			switchHoverIn:false,
         }
+
+
+		//工位事件
+		StationObject.prototype.onHoverIn = function(){
+
+			const {onHoverInStationCallback} = defaultConfigs.plugin;
+
+			var props = this.getProps();
+
+			if(props.switchHoverIn){
+				return ;
+			}
+
+			const bbox = canvas.getBoundingClientRect();
+			const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
+
+			props.clientX = position.x;
+			props.clientY = position.y;
+
+
+			this.setProps({
+				switchHoverIn:true
+			});
+
+			onHoverInStationCallback && onHoverInStationCallback(props);
+		}
+
+		StationObject.prototype.onHoverOut = function(){
+
+			const {onHoverOutStationCallback} = defaultConfigs.plugin;
+
+			var props = this.getProps();
+
+			if(!props.switchHoverIn){
+				return ;
+			}
+
+			this.setProps({
+				switchHoverIn:false
+			});
+
+			const bbox = canvas.getBoundingClientRect();
+			const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
+
+			props.clientX = position.x;
+			props.clientY = position.y;
+
+			onHoverOutStationCallback && onHoverOutStationCallback(props);
+		}
+
 
         //获取props信息
         StationObject.prototype.getProps = function () {
@@ -363,6 +419,7 @@ var Map = function (elementId, configs) {
             stations = DB.getAllStation();
 
         }
+
         //更新工位坐标参数
         StationObject.prototype.componentWillReceiveProps = function (nextProps) {
             this.setProps(nextProps);
@@ -1351,8 +1408,12 @@ var Map = function (elementId, configs) {
             defaultConfigs.plugin.onCheckedStationCallback = callback;
         }
 
-        MapObject.prototype.onHoverStation = function (callback) {
-            defaultConfigs.plugin.onHoverStationCallback = callback;
+        MapObject.prototype.onHoverInStation = function (callback) {
+            defaultConfigs.plugin.onHoverInStationCallback = callback;
+        }
+
+        MapObject.prototype.onHoverOutStation = function (callback) {
+            defaultConfigs.plugin.onHoverOutStationCallback = callback;
         }
 
 
@@ -1594,9 +1655,10 @@ var Map = function (elementId, configs) {
 
                 const { move } = position;
 
+                self.judgeHoverInStation(move.x, move.y);
+
                 if (self.isInStation(move.x, move.y)) {
 
-                    self.hoverInStation(move.x, move.y);
 
                     if (self.isInStationDragPosition(move.x, move.y)) {
 
@@ -1866,9 +1928,9 @@ var Map = function (elementId, configs) {
         }
 
         //hover
-        MapObject.prototype.hoverInStation = function (x, y) {
+        MapObject.prototype.judgeHoverInStation = function (x, y) {
 
-            const { onHoverStationCallback } = defaultConfigs.plugin;
+            const { onHoverInStationCallback } = defaultConfigs.plugin;
 
             var station = null;
             var isOK = false;
@@ -1877,18 +1939,11 @@ var Map = function (elementId, configs) {
             for (var i = 0, len = stationObjectArray.length; i < len; i++) {
                 station = stationObjectArray[i];
                 if (station.hasPosition(x, y)) {
-                    var props = station.getProps();
-
-
-                    const bbox = canvas.getBoundingClientRect();
-                    const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
-
-                    props.clientX = position.x;
-                    props.clientY = position.y;
-
-                    onHoverStationCallback && onHoverStationCallback(props);
+					station.onHoverIn();
                     isOK = true;
-                }
+                }else{
+					station.onHoverOut();
+				}
             }
 
         }
@@ -2362,8 +2417,11 @@ var Map = function (elementId, configs) {
         onCheckedStation: function () {
             map.onCheckedStation.apply(map, arguments)
         },
-        onHoverStation: function () {
-            map.onHoverStation.apply(map, arguments)
+        onHoverInStation: function () {
+            map.onHoverInStation.apply(map, arguments)
+        },
+        onHoverOutStation: function () {
+            map.onHoverOutStation.apply(map, arguments)
         },
         onRenderMap: function () {
             map.onRenderMap.apply(map, arguments)
