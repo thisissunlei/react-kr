@@ -468,9 +468,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	onIframeClose(billList,data) {
-
-		// console.log(billList,"billList");
-
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -490,7 +487,6 @@ class NewCreateForm extends React.Component {
 			delStationVos.push(obj);
 
 		})
-		console.log()
 		try {
 			billList.map(function(item, index) {
 				var obj = {};

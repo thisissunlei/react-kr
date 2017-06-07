@@ -78,37 +78,34 @@ export default class PlanMapComponent extends React.Component {
 
 	}
 
-
-	componentWillReceiveProps(nextProps) {
-
+	componentWillUnmount(){
+		 this.Map.destory();
 	}
-	dataChange = (data) =>{
+	dataChange = (data,allData) =>{
 		const {selectedObjs} = this.state;
-		let del = [];
+		let del = [].concat(selectedObjs);
 
-		for(let i=0;i<data.length;i++){
+		for(let i=0;i<allData.length;i++){
 
-			for(let j=0;j<selectedObjs.length;j++){
-				let isDel = true;
-				let every = selectedObjs[j];
+			for(let j=0;j<del.length;j++){
+				
 				let belongType = "STATION"
-				if(selectedObjs[j].belongType == 2){
+				if(del[j].belongType == 2){
 					belongType = "SPACE";
 				}
-				if(data[i].belongId ==selectedObjs[j].id && data[i].belongType == belongType ){
+				console.log(belongType,">>>>>>");
+				if(allData[i].belongId ==del[j].id && allData[i].belongType == belongType ){
 					del.splice(j, 1);
-					isDel = false;
+					
 				}
-				if(isDel){
-					del.push(selectedObjs[j]);
-				}
+				
 			}
 
 
 		}
-		console.log(del,"delete");
+		console.log(del,"delete",allData);
 		this.setState({
-			submitData:data,
+			submitData:allData,
 			deleteArr:del
 		})
 	}
@@ -148,7 +145,7 @@ export default class PlanMapComponent extends React.Component {
 								belongType = "SPACE";
 							}
 							if(item.belongId ==selectedObjs[j].id && item.belongType == belongType ){
-								obj.status =3;
+								
 								obj.checked = true;
 
 							}
@@ -167,7 +164,7 @@ export default class PlanMapComponent extends React.Component {
 				}
 			}
 		}
-		Map("plan-map-content",dainitializeConfigs);
+		this.Map =  Map("plan-map-content",dainitializeConfigs);
 	}
     floorsChange = (value) =>{
         this.setState({
@@ -189,27 +186,32 @@ export default class PlanMapComponent extends React.Component {
 		let delData = [];
 		submitData.map(function(item,index){
 			var obj1 = {};
+			let belongType = 1;
+			if( item.belongType == "SPACE"){
+				belongType = 2;
+			}
 			obj1.id = item.belongId;
-			obj1.type = item.belongType;
+			obj1.type = belongType;
 			obj1.whereFloor = item.whereFloor;
 			obj1.name = item.name;
 			obj1.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
 			obj1.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
 
 
-				allData.push(obj1);
+			allData.push(obj1);
 		})
 
 		 deleteArr.map(function(item,index){
 			let obj2 = {};
 		 	obj2.id = item.id;
-		 	obj2.type = item.type;
+		 	obj2.type = item.whereFloor;
 			obj2.whereFloor = item.whereFloor;
 
 		 	delData.push(obj2);
 		 })
-
+		
 		const {onClose} = this.props;
+		
 
 		onClose && onClose(allData,{deleteData:delData});
 

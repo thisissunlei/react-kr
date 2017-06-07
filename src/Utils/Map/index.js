@@ -1,4 +1,5 @@
 //平面图
+//平面图
 var Map = function (elementId, configs) {
     var movePositionArr = [];
     //画布上下文    
@@ -27,171 +28,32 @@ var Map = function (elementId, configs) {
     var bkImageObject = null;
 
 
-    var defaultConfigs = {
-        z: 1,
-        isMode: 'edit',
-        modes: ['edit', 'view', 'select'],
-        isEditMode: function () {
-            return this.isMode === 'edit';
-        },
-        isViewMode: function () {
-            return this.isMode === 'view';
-        },
-        isSelectMode: function () {
-            return this.isMode === 'select';
-        },
-        //工位状态
-        stationStatus: {
-            '1': {
-                status: 'join',
-                mark: '已入住',
-                textColor: '#fff',
-                backgroundColor: '#499df1',
-            },
-            '2': {
-                status: 'admit',
-                mark: '有意向',
-                textColor: '#666',
-                backgroundColor: '#eee',
-            },
-            '3':{
-                status: 'checked',
-                mark: '已选中',
-                textColor: '#fff',
-                backgroundColor: '#28c288',
-            },
-            '4':{
-                status: 'notChecked',
-                mark: '未选择',
-                textColor: '#fff',
-                backgroundColor: '#499df1',
-            },
-            '5':{
-                status: 'default',
-                mark: '默认',
-                textColor: '#499df1',
-                backgroundColor: '#ffffff',
-            }
-        },
-        //地图信息
-        map: {
-			menuEnable:false,
-            mouseEnable: false,
-            deleteEnable: true,
-            scaleEnable: true,
-			rulerEnable:true,
-            scale: 1,
-            scaleMax: 2,
-            scaleMin: 0.1,
-            scaleSpeed: 0.1,
-            translateX: 0,
-            translateY: 0,
-            isLoadImageError: false,
-        },
-        //工位信息
-        station: {
-            width: 30,
-            height: 30,
-            minWidth: 30,
-            minHeight: 30,
-            maxWidth: 200,
-            maxHeight: 200,
-            scaleSpeed: 20,
-            //工位大小一致
-            isToSameSize: true,
-        },
-        plugin: {
-            onRemoveCallback: null,
-            onScaleMapCallback: null,
-            onCheckedStationCallback: null,
-
-			//对立事件
-            onHoverInStationCallback: null,
-            onHoverOutStationCallback: null,
-
-            onErrorCallback: null,
-            onReadyCallback: null,
-            onRenderMapCallback: null,
-        },
-
-        operationTypeConfigs: {
-            'mapHover': {
-                'style': 'move',
-            },
-            'stationMove': {
-                'style': 'move',
-            },
-            'stationHover': {
-                'style': 'pointer',
-            },
-            'stationLeftTopScale': {
-                'style': 'nw-resize',
-            },
-            'stationLeftCenterScale': {
-                'style': 'w-resize',
-            },
-            'stationLeftBottomScale': {
-                'style': 'sw-resize',
-            },
-            'stationTopCenterScale': {
-                'style': 'n-resize',
-            },
-            'stationRightTopScale': {
-                'style': 'ne-resize',
-            },
-            'stationRightCenterScale': {
-                'style': 'e-resize',
-            },
-            'stationRightBottomScale': {
-                'style': 'se-resize',
-            },
-            'stationBottomCenterScale': {
-                'style': 's-resize',
-            },
-
-        }
-    }
-
-
     //工位
     var stationObjectArray = [];
 
-    //向什么方向放大
-    var scaleStationDirection;
+    var DC = {
+        z: 1,
+        isMode: 'select',
+        modes: ['edit', 'view', 'select'],
 
-    var position = {
-        //鼠标按下坐标
-        down: {},
-        //鼠标抬起坐标
-        up: {},
-        //鼠标移动坐标
-        move: {}
+		//工位和会议室数据
+		stations:[],
+		//背景图
+        backgroundImageUrl:'',
     }
 
-    //右击菜单
-    var contextMenu;
 
-    //基础数据控制器
-    const DB = (function () {
-
-        var DEFAULTCONFIGS = {
-            stations: [],
-        }
-
-        var CONFIGS = Object.assign({}, DEFAULTCONFIGS);
-
-        return {
+	//工位数据操作
+	DC.db = {
             reset: function () {
-                CONFIGS = {
-                    stations: []
-                }
+                DC.stations = [];
             },
             getAllStation: function () {
-                var stations = [].concat(CONFIGS.stations);
+                var stations = [].concat(DC.stations);
                 return stations;
             },
             setAllStation: function (stations) {
-                CONFIGS.stations = [].concat(stations);
+                DC.stations = [].concat(stations);
             },
             findStationIndex: function (key) {
                 var fdIndex;
@@ -207,7 +69,7 @@ var Map = function (elementId, configs) {
                 props = Object.assign({}, props);
                 var fdIndex = this.findStationIndex(props.key);
                 if (typeof fdIndex === 'undefined') {
-                    CONFIGS.stations.push(props);
+                    DC.stations.push(props);
                 }
                 return this;
             },
@@ -263,20 +125,166 @@ var Map = function (elementId, configs) {
                 }
 
                 props = Object.assign({}, props, nextProps);
-                CONFIGS.stations.splice(index, 1, props);
+                DC.stations.splice(index, 1, props);
                 return this;
             },
             getImageUrl: function () {
-                return CONFIGS.backgroundImageUrl;
+                return DC.backgroundImageUrl;
             },
             setImageUrl: function (imageUrl) {
-                CONFIGS.backgroundImageUrl = imageUrl;
+                DC.backgroundImageUrl = imageUrl;
             },
-        };
+	}
 
-    })();
+	//函数方法
+	DC.utils = {
+        isEditMode: function () {
+            return DC.isMode === 'edit';
+        },
+        isViewMode: function () {
+            return DC.isMode === 'view';
+        },
+        isSelectMode: function () {
+            return DC.isMode === 'select';
+        }
+	}
+
+    //工位状态
+	DC.stationStatus = {
+            '1': {
+                status: 'join',
+                mark: '已入住',
+                textColor: '#fff',
+                backgroundColor: '#499df1',
+            },
+            '2': {
+                status: 'admit',
+                mark: '有意向',
+                textColor: '#666',
+                backgroundColor: '#eee',
+            },
+            '3':{
+                status: 'checked',
+                mark: '已选中',
+                textColor: '#fff',
+                backgroundColor: '#28c288',
+            },
+            '4':{
+                status: 'notChecked',
+                mark: '未选择',
+                textColor: '#fff',
+                backgroundColor: '#499df1',
+            },
+            '5':{
+                status: 'default',
+                mark: '默认',
+                textColor: '#499df1',
+                backgroundColor: '#ffffff',
+            }
+   };
+
+    //工位信息
+	DC.station = {
+		width: 30,
+	   height: 30,
+	   minWidth: 30,
+	   minHeight: 30,
+	   maxWidth: 200,
+	   maxHeight: 200,
+	   scaleSpeed: 20,
+	   //工位大小一致
+	   isToSameSize: true,
+	};
+
+	//操作类型
+	DC.operationTypeConfigs = {
+            'mapHover': {
+                'style': 'move',
+            },
+            'stationMove': {
+                'style': 'move',
+            },
+            'stationHover': {
+                'style': 'pointer',
+            },
+            'stationLeftTopScale': {
+                'style': 'nw-resize',
+            },
+            'stationLeftCenterScale': {
+                'style': 'w-resize',
+            },
+            'stationLeftBottomScale': {
+                'style': 'sw-resize',
+            },
+            'stationTopCenterScale': {
+                'style': 'n-resize',
+            },
+            'stationRightTopScale': {
+                'style': 'ne-resize',
+            },
+            'stationRightCenterScale': {
+                'style': 'e-resize',
+            },
+            'stationRightBottomScale': {
+                'style': 'se-resize',
+            },
+            'stationBottomCenterScale': {
+                'style': 's-resize',
+            },
+
+    };
+
+	//外界事件回调函数
+    DC.plugin = {
+            onRemoveCallback: null,
+            onScaleMapCallback: null,
+            onCheckedStationCallback: null,
+
+			//对立事件
+            onHoverInStationCallback: null,
+            onHoverOutStationCallback: null,
+
+            onErrorCallback: null,
+            onReadyCallback: null,
+            onRenderMapCallback: null,
+    };
 
 
+	//地图信息
+	DC.map = {
+			contextMenuEnable:false,
+			menuEnable:false,
+            mouseEnable: false,
+            deleteEnable: true,
+            scaleEnable: true,
+			rulerEnable:true,
+
+            scale: 1,
+            scaleMax: 2,
+            scaleMin: 0.1,
+            scaleSpeed: 0.1,
+            translateX: 0,
+            translateY: 0,
+            isLoadImageError: false,
+	};
+
+
+
+
+    //向什么方向放大
+    var scaleStationDirection;
+
+    var position = {
+        //鼠标按下坐标
+        down: {},
+        //鼠标抬起坐标
+        up: {},
+        //鼠标移动坐标
+        move: {}
+    }
+
+    //右击菜单
+    var contextMenu;
 
     //每调用一次，生成一个新的station 并与DB进行关联
     const StationFactory = function (params) {
@@ -284,7 +292,7 @@ var Map = function (elementId, configs) {
         params = params || {};
 
         stationNumber++;
-        defaultConfigs.z++;
+        DC.z++;
 
         //工位及会议室
         var StationObject = function (props) {
@@ -299,9 +307,9 @@ var Map = function (elementId, configs) {
         StationObject.defaultPropTypes = {
             x: 0,
             y: 0,
-            z: defaultConfigs.z,
-            width: defaultConfigs.station.width,
-            height: defaultConfigs.station.height,
+            z: DC.z,
+            width: DC.station.width,
+            height: DC.station.height,
             name: 'demo',
             type: 'station',
             drag: false,
@@ -317,7 +325,7 @@ var Map = function (elementId, configs) {
 		//工位事件
 		StationObject.prototype.onHoverIn = function(){
 
-			const {onHoverInStationCallback} = defaultConfigs.plugin;
+			const {onHoverInStationCallback} = DC.plugin;
 
 			var props = this.getProps();
 
@@ -332,11 +340,11 @@ var Map = function (elementId, configs) {
 			props.clientY = position.y;
 
 
-			defaultConfigs.z++;
+			DC.z++;
 
 			this.setProps({
 				switchHoverIn:true,
-				z:defaultConfigs.z
+				z:DC.z
 			});
 
 			onHoverInStationCallback && onHoverInStationCallback(props);
@@ -344,7 +352,7 @@ var Map = function (elementId, configs) {
 
 		StationObject.prototype.onHoverOut = function(){
 
-			const {onHoverOutStationCallback} = defaultConfigs.plugin;
+			const {onHoverOutStationCallback} = DC.plugin;
 
 			var props = this.getProps();
 
@@ -374,7 +382,7 @@ var Map = function (elementId, configs) {
         //设置props信息 跟数据库进行关联
         StationObject.prototype.setProps = function (nextProps) {
 
-            const { minWidth, minHeight } = defaultConfigs.station;
+            const { minWidth, minHeight } = DC.station;
 
             //设置到对象属性
             var props = Object.assign({}, this.props);
@@ -391,20 +399,20 @@ var Map = function (elementId, configs) {
 
             this.props = Object.assign({}, props);
 
-            var fdIndex = DB.findStationIndex(props.key);
+            var fdIndex = DC.db.findStationIndex(props.key);
 
             if (typeof fdIndex === 'undefined') {
-                DB.newStation(props);
+                DC.db.newStation(props);
             }
 
             //存入数据库
-            DB.setStation(props.key, props);
+            DC.db.setStation(props.key, props);
         }
 
         StationObject.prototype.move = function (x, y) {
 
             var key = this.stashProps.key;
-            var index = DB.findStationIndex(key);
+            var index = DC.db.findStationIndex(key);
             var nextProps = Object.assign({}, { key, x, y, drag: true });
             this.componentWillReceiveProps(nextProps);
 
@@ -415,11 +423,11 @@ var Map = function (elementId, configs) {
 
             const { key } = this.props;
             this.setProps({ removed: true });
-            var stations = DB.getAllStation();
+            var stations = DC.db.getAllStation();
 
-            DB.removeStation(key);
+            DC.db.removeStation(key);
 
-            stations = DB.getAllStation();
+            stations = DC.db.getAllStation();
 
         }
 
@@ -448,10 +456,10 @@ var Map = function (elementId, configs) {
 
             const props = this.props;
 
-            var style = defaultConfigs.stationStatus[status];
+            var style = DC.stationStatus[status];
 
             if (checked) {
-                style = defaultConfigs.stationStatus[3];
+                style = DC.stationStatus[3];
             }
 
             const widthOrHeight = MapFactory.transformWidthOrHeightToView(props.width, props.height);
@@ -476,7 +484,7 @@ var Map = function (elementId, configs) {
             context.closePath();
 
             context.beginPath();
-            context.font = 12 * defaultConfigs.map.scale + 'px';
+            context.font = 12 * DC.map.scale + 'px';
 
             context.fillStyle = '#fff';
 
@@ -511,8 +519,8 @@ var Map = function (elementId, configs) {
             if (status == 1 || status == 2) {
                 return;
             }
-            z = defaultConfigs.z;
-            defaultConfigs.z++;
+            z = DC.z;
+            DC.z++;
             checked = !checked;
             this.componentWillReceiveProps({ checked, z });
 
@@ -902,7 +910,7 @@ var Map = function (elementId, configs) {
                     props.width = stashProps.width + scale;
                     props.height = stashProps.height;
 
-                    if (props.width > defaultConfigs.station.minWidth) {
+                    if (props.width > DC.station.minWidth) {
                         props.x = stashProps.x - scale / 2;
                     }
 
@@ -953,7 +961,7 @@ var Map = function (elementId, configs) {
                     props.width = stashProps.width + scale;
                     props.height = stashProps.height;
 
-                    if (props.width >= defaultConfigs.station.minWidth) {
+                    if (props.width >= DC.station.minWidth) {
                         props.x = stashProps.x + scale / 2;
                     }
 
@@ -987,7 +995,7 @@ var Map = function (elementId, configs) {
                     props.width = props.width;
                     props.height = stashProps.height + scale;
 
-                    if (props.height >= defaultConfigs.station.minHeight) {
+                    if (props.height >= DC.station.minHeight) {
                         props.y = stashProps.y - scale / 2;
                     }
                     props.drag = true;
@@ -1004,7 +1012,7 @@ var Map = function (elementId, configs) {
                     props.width = props.width;
                     props.height = stashProps.height + scale;
 
-                    if (props.height >= defaultConfigs.station.minHeight) {
+                    if (props.height >= DC.station.minHeight) {
                         props.y = stashProps.y + scale / 2;
                     }
                     props.drag = true;
@@ -1070,7 +1078,7 @@ var Map = function (elementId, configs) {
         //平面构造器
         var MapObject = function (elementId, configs) {
 
-            DB.reset();
+            DC.db.reset();
 
             stationObjectArray = [];
 
@@ -1084,15 +1092,15 @@ var Map = function (elementId, configs) {
             canvasHeight = element.clientHeight;
 
             if (configs.hasOwnProperty('stationToSame')) {
-                defaultConfigs.station.isToSameSize = configs.stationToSame;
+                DC.station.isToSameSize = configs.stationToSame;
             }
 
             if (configs.hasOwnProperty('backgroundImageUrl')) {
-                DB.setImageUrl(configs.backgroundImageUrl);
+                DC.db.setImageUrl(configs.backgroundImageUrl);
             }
 
             if (configs.hasOwnProperty('isMode')) {
-                defaultConfigs.isMode = configs.isMode;
+                DC.isMode = configs.isMode;
             }
 
 
@@ -1100,28 +1108,28 @@ var Map = function (elementId, configs) {
 			this.initializeModeConfigs();
 
             if (configs.hasOwnProperty('station')) {
-                defaultConfigs.station = Object.assign({}, defaultConfigs.station, configs.station);
+                DC.station = Object.assign({}, DC.station, configs.station);
             }
 
             if (configs.hasOwnProperty('translateX')) {
-                defaultConfigs.map.translateX = configs.translateX;
+                DC.map.translateX = configs.translateX;
             }
 
             if (configs.hasOwnProperty('translateY')) {
-                defaultConfigs.map.translateY = configs.translateY;
+                DC.map.translateY = configs.translateY;
             }
 
             if (configs.hasOwnProperty('map')) {
-                defaultConfigs.map = Object.assign({}, defaultConfigs.map, configs.map);
+                DC.map = Object.assign({}, DC.map, configs.map);
             }
 
             if (configs.hasOwnProperty('stationStatus')) {
-                defaultConfigs.stationStatus = Object.assign({}, defaultConfigs.stationStatus, configs.stationStatus);
+                DC.stationStatus = Object.assign({}, DC.stationStatus, configs.stationStatus);
             }
 
 
             if (configs.hasOwnProperty('plugin')) {
-                defaultConfigs.plugin = Object.assign({}, defaultConfigs.plugin, configs.plugin);
+                DC.plugin = Object.assign({}, DC.plugin, configs.plugin);
             }
 
 
@@ -1152,24 +1160,27 @@ var Map = function (elementId, configs) {
 
 		MapObject.prototype.initializeModeConfigs = function(){
 
-			var {operationTypeConfigs} = defaultConfigs;
+
+			var {operationTypeConfigs,utils} = DC;
 
 			//查看模式
-			if(defaultConfigs.isViewMode()){
-				defaultConfigs.map.deleteEnable = false;
-				defaultConfigs.map.scaleEnable = true;
-				defaultConfigs.map.mouseEnable = false;
+			if(utils.isViewMode()){
+
+				DC.map.deleteEnable = false;
+				DC.map.scaleEnable = true;
+				DC.map.mouseEnable = false;
 				operationTypeConfigs.stationHover.style = 'auto';
+
 			}
 
 			//选择模式
-			if(defaultConfigs.isSelectMode()){
-				defaultConfigs.map.deleteEnable = false;
-				defaultConfigs.map.scaleEnable = true;
-				defaultConfigs.map.mouseEnable = false;
+			if(utils.isSelectMode()){
+				DC.map.deleteEnable = false;
+				DC.map.scaleEnable = true;
+				DC.map.mouseEnable = false;
 			}
 
-			defaultConfigs.operationTypeConfigs  = Object.assign({},operationTypeConfigs);
+			DC.operationTypeConfigs  = Object.assign({},operationTypeConfigs);
 		}
 
 
@@ -1249,23 +1260,23 @@ var Map = function (elementId, configs) {
 
 
             var self = this;
-            imageUrl = imageUrl || DB.getImageUrl();
+            imageUrl = imageUrl || DC.db.getImageUrl();
 
 
             if (!imageUrl) {
-                defaultConfigs.map.isLoadImageError = true;
+                DC.map.isLoadImageError = true;
             }
 
-            defaultConfigs.map.isLoadImageError = false;
+            DC.map.isLoadImageError = false;
 
             bkImageObject = new Image();
             bkImageObject.src = imageUrl;
 
             bkImageObject.onerror = function () {
 
-                defaultConfigs.plugin.onErrorCallback && defaultConfigs.plugin.onErrorCallback('图片加载错误');
+                DC.plugin.onErrorCallback && DC.plugin.onErrorCallback('图片加载错误');
 
-                defaultConfigs.map.isLoadImageError = true;
+                DC.map.isLoadImageError = true;
                 self.render();
 
             }
@@ -1278,7 +1289,7 @@ var Map = function (elementId, configs) {
 
         MapObject.prototype.componentDidMount = function () {
 
-            const { readyCallback } = defaultConfigs.plugin;
+            const { readyCallback } = DC.plugin;
 
             this.isComponentDidMout = true;
             this.registerEvents();
@@ -1293,7 +1304,7 @@ var Map = function (elementId, configs) {
                 return;
             }
 
-            const { operationTypeConfigs } = defaultConfigs;
+            const { operationTypeConfigs } = DC;
 
             var operation = operationTypeConfigs[operationType];
 
@@ -1309,7 +1320,7 @@ var Map = function (elementId, configs) {
 		//标尺
 		MapObject.prototype.drawMouserPosition = function(){
 
-			const {mouseEnable} = defaultConfigs.map;
+			const {mouseEnable} = DC.map;
 
 			if(!mouseEnable){
 				return;
@@ -1338,22 +1349,22 @@ var Map = function (elementId, configs) {
 		}
 
 		MapObject.prototype.operationToTranslateLeft = function(){
-            defaultConfigs.map.translateX-= 50;
+            DC.map.translateX-= 50;
 			this.render();
 		}
 
 		MapObject.prototype.operationToTranslateRight = function(){
-            defaultConfigs.map.translateX+=50;
+            DC.map.translateX+=50;
 			this.render();
 		}
 
 		MapObject.prototype.operationToTranslateUp = function(){
-            defaultConfigs.map.translateY-=50;
+            DC.map.translateY-=50;
 			this.render();
 		}
 
       	MapObject.prototype.operationToTranslateDown = function(){
-            defaultConfigs.map.translateY+=50;
+            DC.map.translateY+=50;
 			this.render();
 		}
 
@@ -1361,7 +1372,7 @@ var Map = function (elementId, configs) {
         //构造视图
         MapObject.prototype.render = function () {
 
-			const {menuEnable} = defaultConfigs.map;
+			const {menuEnable} = DC.map;
 
 
             //重置
@@ -1390,7 +1401,7 @@ var Map = function (elementId, configs) {
 
 
 
-            const { onRenderMapCallback } = defaultConfigs.plugin;
+            const { onRenderMapCallback } = DC.plugin;
             onRenderMapCallback && onRenderMapCallback(canvas.toDataURL('image/jpeg'));
 
 
@@ -1399,29 +1410,29 @@ var Map = function (elementId, configs) {
 
 
         MapObject.prototype.onRenderMap = function (callback) {
-            defaultConfigs.plugin.onRenderMapCallback = callback;
+            DC.plugin.onRenderMapCallback = callback;
         }
 
         //放大
         MapObject.prototype.onScaleMap = function (callback) {
-            defaultConfigs.plugin.onScaleMapCallback = callback;
+            DC.plugin.onScaleMapCallback = callback;
         }
 
         MapObject.prototype.onCheckedStation = function (callback) {
-            defaultConfigs.plugin.onCheckedStationCallback = callback;
+            DC.plugin.onCheckedStationCallback = callback;
         }
 
         MapObject.prototype.onHoverInStation = function (callback) {
-            defaultConfigs.plugin.onHoverInStationCallback = callback;
+            DC.plugin.onHoverInStationCallback = callback;
         }
 
         MapObject.prototype.onHoverOutStation = function (callback) {
-            defaultConfigs.plugin.onHoverOutStationCallback = callback;
+            DC.plugin.onHoverOutStationCallback = callback;
         }
 
 
         MapObject.prototype.onError = function (callback) {
-            defaultConfigs.plugin.onErrorCallback = callback;
+            DC.plugin.onErrorCallback = callback;
         }
 
 
@@ -1456,7 +1467,7 @@ var Map = function (elementId, configs) {
 
         MapObject.prototype.savePropsToStash = function () {
 
-            const { translateX, translateY, scale } = defaultConfigs.map;
+            const { translateX, translateY, scale } = DC.map;
 
             this.stashProps = {
                 translateX,
@@ -1474,35 +1485,35 @@ var Map = function (elementId, configs) {
         MapObject.prototype.scaleMap = function (deltaY) {
             this.savePropsToStash();
 
-            const { scaleSpeed, scaleMax, scaleMin } = defaultConfigs.map;
+            const { scaleSpeed, scaleMax, scaleMin } = DC.map;
 
-            const { onScaleMapCallback } = defaultConfigs.plugin;
+            const { onScaleMapCallback } = DC.plugin;
 
             if (deltaY > 0) {
-                defaultConfigs.map.scale += scaleSpeed;
+                DC.map.scale += scaleSpeed;
             } else {
-                defaultConfigs.map.scale -= scaleSpeed;
+                DC.map.scale -= scaleSpeed;
             }
 
 
-            if (defaultConfigs.map.scale > scaleMax) {
-                defaultConfigs.map.scale = scaleMax;
-                defaultConfigs.map.scale = scaleMax;
+            if (DC.map.scale > scaleMax) {
+                DC.map.scale = scaleMax;
+                DC.map.scale = scaleMax;
             }
 
-            if (defaultConfigs.map.scale <= scaleMin) {
-                defaultConfigs.map.scale = scaleMin;
+            if (DC.map.scale <= scaleMin) {
+                DC.map.scale = scaleMin;
             }
 
             var stashProps = this.getStashProps();
 
 			/*
-            defaultConfigs.map.translateX -= (scale) * canvas.width/2;
-            defaultConfigs.map.translateY -= (scale) * canvas.height/2;
+            DC.map.translateX -= (scale) * canvas.width/2;
+            DC.map.translateY -= (scale) * canvas.height/2;
 			*/
 
 
-            onScaleMapCallback && onScaleMapCallback(Math.abs(defaultConfigs.map.scale));
+            onScaleMapCallback && onScaleMapCallback(Math.abs(DC.map.scale));
 
             this.render();
 
@@ -1515,7 +1526,7 @@ var Map = function (elementId, configs) {
 
             var self = this;
 
-            const { scaleEnable } = defaultConfigs.map;
+            const { scaleEnable } = DC.map;
 
             const ScaleMapEvent = function (event) {
                 event.preventDefault();
@@ -1590,10 +1601,16 @@ var Map = function (elementId, configs) {
 
             var MouseDownRightEvent = function (event) {
                 MapFactory.setDownPosition(event);
-                // 鼠标右击事件
-                //MapObject.contextMenu.create();
 
-                //event.preventDefault()
+				const {contextMenuEnable} = DC.map;
+
+				if(!contextMenuEnable){
+					return ;
+				}
+
+					// 鼠标右击事件
+				MapObject.contextMenu.create();
+				event.preventDefault()
             }
 
 
@@ -1612,7 +1629,7 @@ var Map = function (elementId, configs) {
 
                 if (self.isInStation(down.x, down.y)) {
 
-                    if (defaultConfigs.isSelectMode()) {
+                    if (DC.utils.isSelectMode()) {
                         self.setCheckedStationStyle(down.x, down.y);
                         return;
                     }
@@ -1767,42 +1784,42 @@ var Map = function (elementId, configs) {
 			var tranlateDownMax = 100;
 			//左右
 			//限制向左移最大值
-			if (defaultConfigs.map.translateX < 0 && Math.abs(defaultConfigs.map.translateX) > translateLeftMax) {
-			defaultConfigs.map.translateX = -Math.abs(translateLeftMax);
+			if (DC.map.translateX < 0 && Math.abs(DC.map.translateX) > translateLeftMax) {
+			DC.map.translateX = -Math.abs(translateLeftMax);
 			}
 			//限制向右移动最大值
-			if (defaultConfigs.map.translateX > 0 && Math.abs(defaultConfigs.map.translateX) > tranlateRightMax) {
-			defaultConfigs.map.translateX = tranlateRightMax;
+			if (DC.map.translateX > 0 && Math.abs(DC.map.translateX) > tranlateRightMax) {
+			DC.map.translateX = tranlateRightMax;
 			}
 
 			//上下
 			//限制向上移最大值
-			if (defaultConfigs.map.translateY < 0 && Math.abs(defaultConfigs.map.translateY) > translateUpMax) {
-			defaultConfigs.map.translateY = -Math.abs(translateUpMax);
+			if (DC.map.translateY < 0 && Math.abs(DC.map.translateY) > translateUpMax) {
+			DC.map.translateY = -Math.abs(translateUpMax);
 			}
 			//限制向下移动最大值
-			if (defaultConfigs.map.translateY > 0 && Math.abs(defaultConfigs.map.translateY) > tranlateDownMax) {
-			defaultConfigs.map.translateY = tranlateDownMax;
+			if (DC.map.translateY > 0 && Math.abs(DC.map.translateY) > tranlateDownMax) {
+			DC.map.translateY = tranlateDownMax;
 			}
 			 */
 
 
             //缩放
 
-            if (defaultConfigs.map.scale > defaultConfigs.map.scaleMax) {
-                defaultConfigs.map.scale = defaultConfigs.map.scaleMax;
-                defaultConfigs.map.scale = defaultConfigs.map.scaleMax;
+            if (DC.map.scale > DC.map.scaleMax) {
+                DC.map.scale = DC.map.scaleMax;
+                DC.map.scale = DC.map.scaleMax;
             }
 
-            if (defaultConfigs.map.scale <= defaultConfigs.map.scaleMin) {
-                defaultConfigs.map.scale = defaultConfigs.map.scaleMin;
+            if (DC.map.scale <= DC.map.scaleMin) {
+                DC.map.scale = DC.map.scaleMin;
             }
 
         }
 
         MapObject.prototype.drawImage = function () {
 
-            const { isLoadImageError } = defaultConfigs.map;
+            const { isLoadImageError } = DC.map;
 
             if (isLoadImageError) {
                 return;
@@ -1810,7 +1827,7 @@ var Map = function (elementId, configs) {
 
             var img = bkImageObject;
             context.beginPath();
-            context.drawImage(img, defaultConfigs.map.translateX * defaultConfigs.map.scale, defaultConfigs.map.translateY * defaultConfigs.map.scale, img.width * defaultConfigs.map.scale, img.height * defaultConfigs.map.scale);
+            context.drawImage(img, DC.map.translateX * DC.map.scale, DC.map.translateY * DC.map.scale, img.width * DC.map.scale, img.height * DC.map.scale);
             context.closePath();
         }
 
@@ -1854,8 +1871,10 @@ var Map = function (elementId, configs) {
 
         MapObject.prototype.setCheckedStationStyle = function (x, y) {
 
+			const {utils} = DC;
+
             //查看模式
-            if (defaultConfigs.isEditMode()) {
+            if (utils.isEditMode()) {
                 return;
             }
 
@@ -1875,7 +1894,7 @@ var Map = function (elementId, configs) {
                 }
             }
 
-            const { onCheckedStationCallback } = defaultConfigs.plugin;
+            const { onCheckedStationCallback } = DC.plugin;
 
             const checkedAll = this.getCheckedAll();
 
@@ -1885,7 +1904,9 @@ var Map = function (elementId, configs) {
 
         MapObject.prototype.setDragStationStyle = function (x, y) {
 
-            if (!defaultConfigs.isEditMode()) {
+			const {utils} = DC;
+
+            if (!utils.isEditMode()) {
                 return;
             }
 
@@ -1909,13 +1930,13 @@ var Map = function (elementId, configs) {
                     if (!props.drag) {
                         props.drag = true;
                     }
-                    props.z = defaultConfigs.z;
+                    props.z = DC.z;
 
                     station.componentWillReceiveProps(props);
                     break;
                 }
             }
-            defaultConfigs.z++;
+            DC.z++;
 
         }
 
@@ -1947,7 +1968,7 @@ var Map = function (elementId, configs) {
         //hover
         MapObject.prototype.judgeHoverInStation = function (x, y) {
 
-            const { onHoverInStationCallback } = defaultConfigs.plugin;
+            const { onHoverInStationCallback } = DC.plugin;
 
             var station = null;
             var isOK = false;
@@ -1971,7 +1992,7 @@ var Map = function (elementId, configs) {
         //拖拽地图
         MapObject.prototype.dragMap = function () {
 
-            let start = movePositionArr[0];
+           let start = movePositionArr[0];
             let end = movePositionArr[movePositionArr.length - 1];
 
             var dragX = end.x - start.x;
@@ -1987,8 +2008,8 @@ var Map = function (elementId, configs) {
             }
 
             //计算平移单位
-            defaultConfigs.map.translateX += (end.x - start.x)*2.5;
-            defaultConfigs.map.translateY += (end.y - start.y)*2.5;
+            DC.map.translateX += (end.x - start.x)*2.5;
+            DC.map.translateY += (end.y - start.y)*2.5;
 
             this.render();
             movePositionArr = [];
@@ -2024,7 +2045,7 @@ var Map = function (elementId, configs) {
         //删除已选中工位
         MapObject.prototype.removeCheckedStation = function () {
 
-			const {deleteEnable} = defaultConfigs.map;
+			const {deleteEnable} = DC.map;
 
 			if(!deleteEnable){
 				return ;
@@ -2055,7 +2076,7 @@ var Map = function (elementId, configs) {
             });
 
             this.render();
-            defaultConfigs.plugin.onRemoveCallback && defaultConfigs.plugin.onRemoveCallback(removeStations, allStation);
+            DC.plugin.onRemoveCallback && DC.plugin.onRemoveCallback(removeStations, allStation);
         }
 
 
@@ -2080,7 +2101,9 @@ var Map = function (elementId, configs) {
         //拖拽工位时，生成一个拷贝工位
         MapObject.prototype.drawDragStationMove = function () {
 
-            if (!defaultConfigs.isEditMode()) {
+			const {utils} = DC;
+
+            if (!utils.isEditMode()) {
                 return;
             }
 
@@ -2110,7 +2133,9 @@ var Map = function (elementId, configs) {
         //放大工位时
         MapObject.prototype.drawScaleStationMove = function () {
 
-            if (!defaultConfigs.isEditMode()) {
+			const {utils} = DC;
+
+            if (!utils.isEditMode()) {
                 return;
             }
 
@@ -2129,8 +2154,8 @@ var Map = function (elementId, configs) {
             var props = targetStation.getProps();
 
             if (targetStation.isStation()) {
-                defaultConfigs.station.width = props.width;
-                defaultConfigs.station.height = props.height;
+                DC.station.width = props.width;
+                DC.station.height = props.height;
             }
 
             this.stationToSameAction();
@@ -2140,7 +2165,7 @@ var Map = function (elementId, configs) {
 
         //准备好了
         MapObject.prototype.ready = function (callback) {
-            defaultConfigs.plugin.readyCallback = callback;
+            DC.plugin.readyCallback = callback;
         }
 
         MapObject.prototype.getCanvasElement = function () {
@@ -2149,10 +2174,10 @@ var Map = function (elementId, configs) {
 
         MapObject.prototype.save = function (callback) {
             var params = {};
-            params.translateX = defaultConfigs.map.translateX;
-            params.translateY = defaultConfigs.map.translateY;
-            params.scale = defaultConfigs.map.scale;
-            params.stations = DB.getAllStation();
+            params.translateX = DC.map.translateX;
+            params.translateY = DC.map.translateY;
+            params.scale = DC.map.scale;
+            params.stations = DC.db.getAllStation();
             callback && callback(params);
         }
 
@@ -2163,12 +2188,12 @@ var Map = function (elementId, configs) {
             stationObjectArray = [];
             bkImageObject = null;
 
-            defaultConfigs.map.scale = 1;
-            defaultConfigs.map.translateX = 0;
-            defaultConfigs.map.translateY = 0;
+            DC.map.scale = 1;
+            DC.map.translateX = 0;
+            DC.map.translateY = 0;
 
-            DB.reset();
-            //StationFactory = null;
+            DC.db.reset();
+
             element.removeChild(canvas);
         }
 
@@ -2177,20 +2202,20 @@ var Map = function (elementId, configs) {
 
             var dragStations = this.getDragStations();
 
-            const { width, height, isToSameSize } = defaultConfigs.station;
+            const { width, height, isToSameSize } = DC.station;
 
             if (!props) {
                 return;
             }
 
-            defaultConfigs.z++;
+            DC.z++;
 
             if (isToSameSize && props.type === 'STATION') {
                 props.width = width;
                 props.height = height;
             }
 
-            props.z = defaultConfigs.z;
+            props.z = DC.z;
 
             var station = StationFactory(props);
             stationObjectArray.push(station);
@@ -2217,9 +2242,9 @@ var Map = function (elementId, configs) {
 
             var self = this;
 
-            defaultConfigs.map.scale = 1;
-            defaultConfigs.map.translateX = 0;
-            defaultConfigs.map.translateY = 0;
+            DC.map.scale = 1;
+            DC.map.translateX = 0;
+            DC.map.translateY = 0;
 
             var reader = new FileReader();
             reader.onloadend = function () {
@@ -2233,11 +2258,11 @@ var Map = function (elementId, configs) {
 
             var dragStations = this.getDragStations();
 
-            if (!defaultConfigs.station.isToSameSize) {
+            if (!DC.station.isToSameSize) {
                 return;
             }
 
-            const { width, height } = defaultConfigs.station;
+            const { width, height } = DC.station;
 
             stationObjectArray.map(function (station) {
                 var stationProps = station.getProps();
@@ -2249,11 +2274,11 @@ var Map = function (elementId, configs) {
         }
 
         MapObject.prototype.onRemove = function (callback) {
-            defaultConfigs.plugin.onRemoveCallback = callback;
+            DC.plugin.onRemoveCallback = callback;
         }
 
         MapObject.prototype.setStationToSame = function (value, callback) {
-            defaultConfigs.station.isToSameSize = value;
+            DC.station.isToSameSize = value;
             this.stationToSameAction();
             this.render();
         }
@@ -2261,7 +2286,7 @@ var Map = function (elementId, configs) {
 
 
         MapObject.prototype.setScale = function (scaleValue) {
-            defaultConfigs.map.scale = scaleValue;
+            DC.map.scale = scaleValue;
             this.render();
         }
 
@@ -2272,12 +2297,17 @@ var Map = function (elementId, configs) {
         MapObject.contextMenu = {
 
             create: function () {
+
+				const {down} = position;
+
                 var html =
                     '<ul class="right-menu">' +
                     '<li>加载</li>' +
                     '<li>关闭</li>' +
                     '</ul>'
-                var position = MapObject.canvasToWindow(position.down.x, position.down.y);
+
+                const {x,y} = MapFactory.canvasToWindow(down.x,down.y);
+
                 if (typeof contextMenu === 'undefined') {
                     contextMenu = document.createElement('div');
                     contextMenu.id = 'contextMenu';
@@ -2285,8 +2315,8 @@ var Map = function (elementId, configs) {
                     contextMenu.innerHTML = html;
                     element.appendChild(contextMenu);
                 }
-                contextMenu.style.left = position.x + 'px';
-                contextMenu.style.top = position.y + 'px';
+                contextMenu.style.left = x + 'px';
+                contextMenu.style.top = y + 'px';
                 contextMenu.style.display = 'block';
 
             },
@@ -2361,7 +2391,7 @@ var Map = function (elementId, configs) {
 
     MapFactory.transformWidthOrHeightToView = function (w, h) {
 
-        const { scale } = defaultConfigs.map;
+        const { scale } = DC.map;
 
         const width = Number(w) * scale;
         const height = Number(h) * scale;
@@ -2371,7 +2401,7 @@ var Map = function (elementId, configs) {
 
     MapFactory.transformWidthOrHeightToOrigin = function (w, h) {
 
-        const { scale } = defaultConfigs.map;
+        const { scale } = DC.map;
 
         const width = Number(w) / scale;
         const height = Number(h) / scale;
@@ -2382,7 +2412,7 @@ var Map = function (elementId, configs) {
     //将原始坐标转换成到视野窗口坐标
     MapFactory.transformPositionToView = function (x, y) {
 
-        const { translateX, translateY, scale } = defaultConfigs.map;
+        const { translateX, translateY, scale } = DC.map;
 
         const tx = (Number(x) + Number(translateX)) * scale;
         const ty = (Number(y) + Number(translateY)) * scale;
@@ -2393,7 +2423,7 @@ var Map = function (elementId, configs) {
     //将canvas坐标转换成原始坐标
     MapFactory.transformPositionToOrigin = function (x, y) {
 
-        const { translateX, translateY, scale } = defaultConfigs.map;
+        const { translateX, translateY, scale } = DC.map;
 
         var tx = Number(x) / scale - Number(translateX);
         var ty = Number(y) / scale - Number(translateY);
@@ -2469,5 +2499,4 @@ var Map = function (elementId, configs) {
         },
     }
 };
-
 module.exports=Map;
