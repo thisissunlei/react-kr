@@ -161,37 +161,7 @@ export default class JoinDetail extends Component {
 		var newWindow = window.open(url);
 
 	}
-	render() {
-
-		if (this.state.loading) {
-			return (<Loading/>);
-		}
-		const orderBaseInfo = {};
-		const contractList = [];
-		let {eidtBotton} = this.props;
-		let showEdit = true;
-		if(eidtBotton == "none"){
-			showEdit = false;
-		}
-
-		const params = this.props.params;
-
-		function onCancel() {
-			location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
-		}
-
-		function getOrderUrl() {
-			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-		}
-
-		const {
-			basic,
-			newBasicStationVos,
-			openAdd,
-			openMinus
-		} = this.state;
-
-		const BasicRender = (props) => {
+	 BasicRender=(basic,newBasicStationVos,openAdd,openMinus)=>{
 			const content = {
 				position: 'relative',
 				width: '100%',
@@ -299,6 +269,37 @@ export default class JoinDetail extends Component {
 			);
 
 		}
+	render() {
+
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
+		const orderBaseInfo = {};
+		const contractList = [];
+		let {eidtBotton} = this.props;
+		let showEdit = true;
+		if(eidtBotton == "none"){
+			showEdit = false;
+		}
+
+		const params = this.props.params;
+
+		function onCancel() {
+			location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
+		}
+
+		function getOrderUrl() {
+			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		}
+
+		const {
+			basic,
+			newBasicStationVos,
+			openAdd,
+			openMinus
+		} = this.state;
+
+		
 
 		return (
 
@@ -306,7 +307,7 @@ export default class JoinDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情','续租合同查看']}/>
 
-				<BasicRender/>
+				{this.BasicRender(basic,newBasicStationVos,openAdd,openMinus)}
 
 			 <Grid style={{marginTop:5,marginBottom:50}}>
 				 {showEdit && <Row>

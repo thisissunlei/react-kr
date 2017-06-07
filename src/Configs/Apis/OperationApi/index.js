@@ -471,6 +471,10 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt-appointment/station/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
          method: 'get'
       },
+      'setExitTotalReturn':{
+         url: '/api/krspace-finance-web/rent/total-return?mainbillId={mainbillId}&withdrawDate={withdrawDate}',
+          method: 'get'
+      },
       'getActivityCommunityList':{
          url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
          method: 'get'

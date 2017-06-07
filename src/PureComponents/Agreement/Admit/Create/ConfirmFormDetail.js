@@ -73,7 +73,7 @@ export default class ConfirmFormDetail  extends React.Component{
 
 		       <div>
 
-								<KrField  grid={1/2} style={{width:"252px"}} component="labelText" label="出租方" value={leasorName} inline={false}/>
+								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
 								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress} inline={false}/>
 

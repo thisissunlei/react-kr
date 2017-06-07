@@ -4,7 +4,8 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
 import mobx, {
 	observable,
@@ -28,7 +29,7 @@ import State from './State';
 import allState from '../State';
 import NewIndent from "../NewIndent";
 import newIndentState from "../NewIndent/State";
-
+@inject("CommunityAgreementList")
 @observer
  class OneNewAgreement extends React.Component{
 
@@ -55,6 +56,7 @@ import newIndentState from "../NewIndent/State";
 	onSubmit = () => {
 
 	    var _this = this;
+	    let {CommunityAgreementList} = this.props;
 
 		Http.request('contracts-creation', {mainBillId:allState.mainBillId}).then(function(response) {
 		//承租意向
@@ -82,7 +84,7 @@ import newIndentState from "../NewIndent/State";
         	Message.error('没有合同可以创建');
         	return ;
         }
-        allState.openTowAgreement=true;
+        CommunityAgreementList.openTowAgreement=true;
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
