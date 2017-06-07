@@ -469,6 +469,7 @@ class Merchants extends Component{
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
    	 let {CommunityAgreementList} = this.props;
+   	 searchParams.page = 1;
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
