@@ -109,7 +109,7 @@ class SearchFormControlTable extends React.Component {
                         <KrField grid={1/2} 
                             name="intentionCommunityId" 
                             component='searchCommunityManage' 
-                            style ={{width:210,marginTop:3}} 
+                            style ={{width:220,marginTop:3}} 
                             label="社区：" 
 							inline={true}  
                             placeholder={placeholder} 

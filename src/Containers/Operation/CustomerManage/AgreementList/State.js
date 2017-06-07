@@ -74,7 +74,6 @@ let State = observable({
 		},
 		local:[],
 		hasLocal:false,
-		searchParams:{}
 
 });
 State.hasOfficeChange=action(function(params){

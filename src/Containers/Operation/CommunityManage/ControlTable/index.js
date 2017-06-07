@@ -363,13 +363,13 @@ getScrollTop = () => {
 				<div className = "m-control-table-head-td " style = {{minHeight:120}}>
 					<div className= "m-control-table-head-tr">总面积:{otherData.totalArea}</div>
 					<div className= "m-control-table-head-tr" ><span style = {{lineHeight:"20px",display:'inline-block'}}>{"本月收入:"+otherData.incomeMonth}</span></div>
-					<div className= "m-control-table-head-tr">建筑面积</div>
+					<div className= "m-control-table-head-tr">招商面积</div>
 
 				</div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>报价</div>
+				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span className="m-control-table-head-span"><span>每工位报价=</span><span>报价/容纳人数</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span>实际成交价</span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>折扣</div>
-				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span className="m-control-table-head-span"><span>每工位实际</span><span>成交价</span><span>(元/月)</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}><span className="m-control-table-head-span"><span>在租状态</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"12.5%"}}><span>客户名称</span></div>
 				<div className = "m-control-table-head-td " style = {{width:"12.5%"}}>租赁期限</div>
@@ -426,9 +426,9 @@ getScrollTop = () => {
 
 							<div className="m-control-table-content-td" >{item.area}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.quotedPrice}</div>
+							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.unitActualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.actualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{_this.tooltip(item.discountStr)}</div>
-							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.unitActualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.rentalStatusStr}</div>
 							<div className="m-control-table-content-td" style = {{width:"12.5%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.company}</span></div>
 							<div className="m-control-table-content-td" style = {{width:"12.5%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{!item.leaseBegindate ?"-": DateFormat(item.leaseBegindate,"yyyy-mm-dd")+" 至 "+DateFormat(item.leaseEnddate,"yyyy-mm-dd")}</span></div>
