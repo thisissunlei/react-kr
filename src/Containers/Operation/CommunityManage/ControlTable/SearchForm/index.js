@@ -97,7 +97,7 @@ class SearchFormControlTable extends React.Component {
 						<KrField 
 							grid={1/2} 
 							name = "rentalStatus"
-							style ={{width:250,marginTop:3,}} 
+							style ={{width:260,marginTop:3,}} 
 							type="select" 
 							label="在租状态：" 
 							inline={true}
@@ -109,7 +109,7 @@ class SearchFormControlTable extends React.Component {
                         <KrField grid={1/2} 
                             name="intentionCommunityId" 
                             component='searchCommunityManage' 
-                            style ={{width:220,marginTop:3}} 
+                            style ={{width:230,marginTop:3}} 
                             label="社区：" inline={true}  
                             placeholder={placeholder} 
                             requireLabel={false}
