@@ -89,7 +89,6 @@ export default class FloorPlan extends React.Component {
 		data.pageSize=searchParams.pageSize;
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
-                   
 			      var items=response.items;
 				   items.map((it,indexs)=>{
                     var stationsDataOrigin = it.figures;
@@ -204,11 +203,6 @@ export default class FloorPlan extends React.Component {
 				item.label = item.name;
 				return item;
 			});
-			communityIdList.unshift({
-				label: '请选择',
-				value: '0',
-				id: '0',
-			});
 			_this.setState({
 				communityIdList,
 			});
@@ -220,9 +214,11 @@ export default class FloorPlan extends React.Component {
 	//选择社区
 	selectCommunity=(personel)=> {
 		if (personel) {
-			this.getCommunityFloors(personel.id);
+			if(personel.id){
+              this.getCommunityFloors(personel.id);
+			}
 			var searchParams={
-			communityId:personel.id,
+			communityId:personel.id?personel.id:'',
 			floor:'',
 			page:1,
 			}
@@ -457,6 +453,7 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
+
         
 		return (
 
