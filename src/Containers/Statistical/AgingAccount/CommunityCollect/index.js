@@ -22,7 +22,7 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("LeftIconClick")
+@inject("NavModel")
 @observer
 
 
@@ -100,6 +100,8 @@ class CommunityCollect extends React.Component{
 
 
 	render(){
+		let {NavModel} = this.props;
+		console.log("NavModel",NavModel,NavModel.openSidebar);
 		let _this = this;
 		let {dataList,isShowLeft} = this.state;
 		let {sidebar_nav}=this.props;
@@ -114,7 +116,7 @@ class CommunityCollect extends React.Component{
 					</div>
 					<div className="community-collect-table-box" ref="communityCollectTableBox">
 						{
-							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={sidebar_nav.switch_value}/>:null
+							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={NavModel.openSidebar}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>

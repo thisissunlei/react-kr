@@ -35,7 +35,7 @@ export default class TableIndex extends React.Component{
 
 	componentWillReceiveProps(nextProps){
 		let _this = this;
-		// console.log("nextProps",nextProps);
+		console.log("nextProps.sideNavShow",nextProps.sideNavShow);
 		if(!nextProps.sideNavShow){
 			// console.log("$(.table-box).eq(0).width()",$(".table-box").eq(0).width());
 			$(".table-box").eq(0).width($(window).eq(0).width()-80);
