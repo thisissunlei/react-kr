@@ -197,7 +197,6 @@ export default class BasicTable extends React.Component {
 		this.getInstallmentplan();
 		let {tab}= this.props;
 		if (tab === 'table') {
-				console.log('scroll')
 			$(window).bind('scroll.table', this.scrollLoading);
 		}
 	}
@@ -220,7 +219,6 @@ export default class BasicTable extends React.Component {
 
 
 	scrollLoading() {
-		console.log('scrolling')
 		var _this = this;
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
