@@ -1,7 +1,6 @@
 //平面图
-//平面图
 var Map = function (elementId, configs) {
-    var movePositionArr = [];
+
     //画布上下文    
     var context;
 
@@ -30,14 +29,16 @@ var Map = function (elementId, configs) {
 
     //工位
     var stationObjectArray = [];
+	var rulerObjectArray = [];
 
     var DC = {
         z: 1,
-        isMode: 'select',
+        isMode: 'edit',
         modes: ['edit', 'view', 'select'],
 
 		//工位和会议室数据
 		stations:[],
+		rulers:[],
 		//背景图
         backgroundImageUrl:'',
     }
@@ -198,6 +199,18 @@ var Map = function (elementId, configs) {
 
 	//操作类型
 	DC.operationTypeConfigs = {
+
+			//canvasTop边缘线
+			'canvasTopLineHover':{
+                'style': 'pointer',
+			},
+			'canvasLeftLineHover':{
+                'style': 'pointer',
+			},
+            'rulerHover': {
+                'style': 'pointer',
+            },
+
             'mapHover': {
                 'style': 'move',
             },
@@ -252,6 +265,7 @@ var Map = function (elementId, configs) {
 
 	//地图信息
 	DC.map = {
+
 			contextMenuEnable:false,
 			menuEnable:false,
             mouseEnable: false,
@@ -285,6 +299,158 @@ var Map = function (elementId, configs) {
 
     //右击菜单
     var contextMenu;
+
+
+	//////////////////////// 标尺工厂 //////////////////
+
+
+	const RulerFactory = function(props){
+
+		var RulerObject = function(props){
+
+			props = Object.assign({},RulerObject.defaultPropTypes,props);
+
+			this.setProps(props);
+
+		}
+
+
+
+		RulerObject.defaultPropTypes = {
+			//horizontal、vertical	
+			type:'horizontal',
+			x:0,
+			y:0,
+			checked:false,
+		}
+
+		RulerObject.prototype.isHorizontalLine = function(){
+			const {x,y,type} = this.getProps();
+			return type === 'horizontal';
+		}
+
+		RulerObject.prototype.isVerticalLine = function(){
+			const {x,y,type} = this.getProps();
+			return type === 'vertical';
+		}
+
+		RulerObject.prototype.componentWillReceiveProps = function(){
+			this.render();
+		}
+
+		RulerObject.prototype.hasPosition = function(locX,locY){
+			const {x,y,type} = this.getProps();
+
+			var range = 2;
+			
+			var minX = x-range;
+			var maxX = x+range;
+
+			var minY = y-range;
+			var maxY = y+range;
+
+			if(type == 'horizontal'){
+
+				if (locY >= minY && locY<=maxY ){
+					return true;
+				}
+
+				return false;
+			}else if(type =='vertical') {
+
+				if (locX >= minX && locX<=maxX ){
+						return true;
+				}
+			}
+
+
+			return false;
+
+		}
+
+
+		//竖线
+		RulerObject.prototype.drawHorizontalLine = function(){
+
+			const {x,y,checked} = this.getProps();
+
+            var position = MapFactory.transformPositionToView(x,y);
+
+			context.beginPath();
+			context.moveTo(0,position.y);
+			context.strokeStyle = 'red';
+
+			if(checked){
+				context.strokeStyle = 'green';
+			}
+
+			context.lineTo(canvasWidth,position.y);
+			context.closePath();
+			context.stroke();
+		}
+
+		//横线
+		RulerObject.prototype.drawVerticalLine = function(){
+
+			const {x,y,checked} = this.getProps();
+
+            var position = MapFactory.transformPositionToView(x,y);
+
+			context.beginPath();
+			context.moveTo(position.x,0);
+
+			context.strokeStyle = 'red';
+
+			if(checked){
+				context.strokeStyle = 'green';
+			}
+
+			context.lineTo(position.x,canvasHeight);
+			context.closePath();
+			context.stroke();
+		}
+
+		RulerObject.prototype.move = function(x,y){
+			this.setProps({x,y});
+		}
+
+		RulerObject.prototype.setProps = function(props){
+			this.props = Object.assign({},this.props,props);
+			this.componentWillReceiveProps();
+		}
+
+		RulerObject.prototype.getProps = function(){
+			return Object.assign({},this.props);
+		}
+
+		RulerObject.prototype.toChecked = function(){
+			var {checked} = this.getProps();
+			checked = !checked;
+			this.setProps({checked});
+		}
+
+
+		RulerObject.prototype.render = function(){
+			const {type} = this.getProps();
+
+			if(type == 'horizontal'){
+				this.drawHorizontalLine();
+			}else{
+				this.drawVerticalLine();
+			}
+
+		}
+
+
+		return new RulerObject(props);
+
+	}
+
+
+
+
+
+	///////////////////  工位工厂 ///////////////////
 
     //每调用一次，生成一个新的station 并与DB进行关联
     const StationFactory = function (params) {
@@ -1154,6 +1320,17 @@ var Map = function (elementId, configs) {
                 stationObjectArray.push(StationFactory(props));
             });
 
+
+			var RulersData = DC.rulers;
+
+            RulersData.map(function (item, index) {
+                var props = Object.assign({}, item);
+                props.x = Number(props.x);
+                props.y = Number(props.y);
+                rulerObjectArray.push(RulerFactory(props));
+
+            });
+
             this.loadImage();
 
         }
@@ -1169,6 +1346,7 @@ var Map = function (elementId, configs) {
 				DC.map.deleteEnable = false;
 				DC.map.scaleEnable = true;
 				DC.map.mouseEnable = false;
+				DC.map.rulerEnable = false;
 				operationTypeConfigs.stationHover.style = 'auto';
 
 			}
@@ -1178,6 +1356,7 @@ var Map = function (elementId, configs) {
 				DC.map.deleteEnable = false;
 				DC.map.scaleEnable = true;
 				DC.map.mouseEnable = false;
+				DC.map.rulerEnable = false;
 			}
 
 			DC.operationTypeConfigs  = Object.assign({},operationTypeConfigs);
@@ -1214,7 +1393,6 @@ var Map = function (elementId, configs) {
 
 						var targetEle = event.target;
 						var type = targetEle.getAttribute('data-type');
-						console.log('event',event.target,type);
 
 						timer = window.setInterval(function(){
 
@@ -1382,8 +1560,12 @@ var Map = function (elementId, configs) {
             this.calcMaxMin();
             //绘制背景图片
             this.drawImage();
+
             //绘制工位
             this.drawStations();
+
+			//绘制标尺线
+			this.drawRulers();
 
             this.setMouseStyle();
 
@@ -1433,6 +1615,19 @@ var Map = function (elementId, configs) {
 
         MapObject.prototype.onError = function (callback) {
             DC.plugin.onErrorCallback = callback;
+        }
+
+
+        MapObject.prototype.drawRulers = function () {
+
+            if (rulerObjectArray.length) {
+                rulerObjectArray.map(function (ruler) {
+                        ruler.render();
+                });
+                return;
+            }
+
+
         }
 
 
@@ -1528,12 +1723,26 @@ var Map = function (elementId, configs) {
 
             const { scaleEnable } = DC.map;
 
+
+			//canvasTopLine 边缘
+			const NewRulerMoveEvent = function(event){
+                MapFactory.setMovePosition(event);
+				self.drawRulerMove();
+			}
+
+			//标尺上
+			const RulerMoveEvent = function(event){
+                MapFactory.setMovePosition(event);
+				self.drawRulerMove();
+			}
+
             const ScaleMapEvent = function (event) {
                 event.preventDefault();
                 var deltaY = event.deltaY;
                 self.scaleMap(deltaY);
                 return false;
             }
+
 
             //放大工位
             const ScaleStationMoveEvent = function (event) {
@@ -1576,16 +1785,7 @@ var Map = function (elementId, configs) {
             //拖拽地图-移动
             const DragMapMoveEvent = function (event) {
                 MapFactory.setMovePosition(event);
-                movePositionArr.push(position.move);
-                let start = movePositionArr[0];
-                let end = movePositionArr[movePositionArr.length - 1];
-                if(Math.abs(start.x-end.x)>=1||Math.abs(start.y-end.y)>=1){
-                    self.dragMap();
-                }
-
                 canvas.addEventListener('mouseup', DragMapEndEvent, false);
-                // MapFactory.setMovePosition(event);
-                // canvas.addEventListener('mouseup', DragMapEndEvent, false);
             }
 
             //拖拽地图-结束
@@ -1593,9 +1793,9 @@ var Map = function (elementId, configs) {
                 MapFactory.setUpPosition(event);
                 canvas.removeEventListener('mouseup', DragMapEndEvent, false);
                 canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
-                movePositionArr = [];
+
                 //拖拽地图
-                // self.dragMap();
+                self.dragMap();
             }
 
 
@@ -1644,7 +1844,23 @@ var Map = function (elementId, configs) {
                         canvas.addEventListener('mousemove', DragStationMoveEvent, false);
                     }
 
-                } else {
+				//在标尺上
+                } else if(self.isInRuler(down.x,down.y)){
+                      self.setCheckedRulerStyle(down.x, down.y);
+                     canvas.addEventListener('mousemove', RulerMoveEvent, false);
+
+				//在canvasToLine 边缘线上
+				} else if(self.isInCanvasTopLine(down.x,down.y)){
+
+                     self.newRulerInCanvasTop(down.x, down.y);
+                     canvas.addEventListener('mousemove', NewRulerMoveEvent, false);
+
+				} else if(self.isInCanvasLeftLine(down.x,down.y)){
+
+                     self.newRulerInCanvasLeft(down.x, down.y);
+                     canvas.addEventListener('mousemove', NewRulerMoveEvent, false);
+
+				}else {
 
                     self.cleanStationDragStyle();
 
@@ -1655,6 +1871,7 @@ var Map = function (elementId, configs) {
                     //按下不在工位上、添加拖拽地图事件
                     canvas.addEventListener('mousemove', DragMapMoveEvent, false);
                 }
+
                 canvas.addEventListener('mouseup', MouseUpEvent, false);
                 canvas.removeEventListener('mousemove', MouseMoveEvent, false);
             }
@@ -1662,7 +1879,11 @@ var Map = function (elementId, configs) {
             //鼠标抬起事件
             const MouseUpEvent = function (event) {
 
+				//标尺
+                canvas.removeEventListener('mousemove', RulerMoveEvent, false);
+                canvas.removeEventListener('mousemove', NewRulerMoveEvent, false);
 
+				//工位
                 canvas.removeEventListener('mousemove', ScaleStationMoveEvent, false);
                 canvas.removeEventListener('mousemove', ScaleStationEndEvent, false);
 
@@ -1677,6 +1898,7 @@ var Map = function (elementId, configs) {
                 canvas.addEventListener('mousemove', MouseMoveEvent, false);
 
                 MapObject.contextMenu.close();
+
             }
 
             const MouseMoveEvent = function (event) {
@@ -1688,14 +1910,18 @@ var Map = function (elementId, configs) {
 
                 if (self.isInStation(move.x, move.y)) {
 
-
                     if (self.isInStationDragPosition(move.x, move.y)) {
 
                     } else {
                         operationType = 'stationHover';
                     }
-
-                } else {
+                } else if(self.isInRuler(move.x,move.y)){
+                      operationType = 'rulerHover';
+				}else if(self.isInCanvasTopLine(move.x,move.y)) {
+                      operationType = 'canvasTopLineHover';
+				} else if(self.isInCanvasLeftLine(move.x,move.y)){
+                      operationType = 'canvasLeftLineHover';
+				}else{
                     operationType = 'mapHover';
                 }
 
@@ -1869,6 +2095,25 @@ var Map = function (elementId, configs) {
             });
 		}
 
+		MapObject.prototype.setCheckedRulerStyle = function(x,y){
+
+			var ruler = null;
+			var props = null;
+
+            for (var i = 0, len = rulerObjectArray.length; i <len; i++) {
+                ruler = rulerObjectArray[i];
+                if (ruler.hasPosition(x, y)) {
+					props = ruler.getProps();
+					ruler.toChecked();
+                } else{
+					ruler.setProps({checked:false})
+				}
+            }
+
+			//this.render();
+
+		}
+
         MapObject.prototype.setCheckedStationStyle = function (x, y) {
 
 			const {utils} = DC;
@@ -1948,6 +2193,89 @@ var Map = function (elementId, configs) {
             });
         }
 
+
+		MapObject.prototype.isInCanvasLeftLine = function(x,y){
+			var pos = MapFactory.canvasToWindow(x,y);
+			if(pos.x<5){
+				return true;
+			}
+			return false;
+		}
+
+		MapObject.prototype.newRulerInCanvasTop = function(x,y){
+
+				const {rulerEnable} = DC.map;
+
+				if(!rulerEnable){
+					return ;
+				}
+
+				rulerObjectArray.map(function(ruler){
+					ruler.setProps({checked:false});
+				});
+
+                var props = Object.assign({}, {x,y,type:'horizontal',checked:true});
+                rulerObjectArray.push(RulerFactory(props));
+		}
+
+		MapObject.prototype.newRulerInCanvasLeft = function(x,y){
+
+
+				const {rulerEnable} = DC.map;
+
+				if(!rulerEnable){
+					return ;
+				}
+
+				rulerObjectArray.map(function(ruler){
+					ruler.setProps({checked:false});
+				});
+
+                var props = Object.assign({}, {x,y,type:'vertical',checked:true});
+                rulerObjectArray.push(RulerFactory(props));
+		}
+
+		//在canvasTop缘线上
+		MapObject.prototype.isInCanvasTopLine = function(x,y){
+
+			var pos = MapFactory.canvasToWindow(x,y);
+			if(pos.y<=8){
+				return true;
+			}
+
+			return false;
+		}
+
+
+		//在canvasLeft缘线上
+		MapObject.prototype.isInCanvasTopLeft = function(x,y){
+			var pos = MapFactory.canvasToWindow(x,y);
+			if(pos.x<=8){
+				return true;
+			}
+			return false;
+		}
+
+		//点击在标尺上
+        MapObject.prototype.isInRuler = function (x, y) {
+
+            var ruler = null;
+            var isOK = false;
+            var props = null;
+
+            for (var i = 0, len = rulerObjectArray.length; i < len; i++) {
+                ruler = rulerObjectArray[i];
+                if (ruler.hasPosition(x, y)) {
+                    isOK = true;
+                    break;
+                }
+            }
+
+            return isOK;
+
+        }
+
+
         //点击在工位上
         MapObject.prototype.isInStation = function (x, y) {
 
@@ -1978,7 +2306,6 @@ var Map = function (elementId, configs) {
 
             for (var i = 0, len = stationObjectArray.length; i < len; i++) {
                 station = stationObjectArray[i];
-
                 if (station.hasPosition(x, y)) {
 					station.onHoverIn();
                     isOK = true;
@@ -1992,11 +2319,8 @@ var Map = function (elementId, configs) {
         //拖拽地图
         MapObject.prototype.dragMap = function () {
 
-           let start = movePositionArr[0];
-            let end = movePositionArr[movePositionArr.length - 1];
-
-            var dragX = end.x - start.x;
-            var dragY = end.y - start.y;
+            var dragX = position.up.x - position.down.x;
+            var dragY = position.up.y - position.down.y;
 
             var lx = Math.abs(dragX);
             var ly = Math.abs(dragY);
@@ -2008,11 +2332,10 @@ var Map = function (elementId, configs) {
             }
 
             //计算平移单位
-            DC.map.translateX += (end.x - start.x)*2.5;
-            DC.map.translateY += (end.y - start.y)*2.5;
+            DC.map.translateX += position.up.x - position.down.x;
+            DC.map.translateY += position.up.y - position.down.y;
 
             this.render();
-            movePositionArr = [];
         }
 
         //工位拖拽-开始
@@ -2103,6 +2426,9 @@ var Map = function (elementId, configs) {
 
 			const {utils} = DC;
 
+			const self = this;
+
+
             if (!utils.isEditMode()) {
                 return;
             }
@@ -2124,11 +2450,46 @@ var Map = function (elementId, configs) {
                 stashProps = station.getStashProps();
                 move.x = stashProps.x + lx;
                 move.y = stashProps.y + ly;
+
+				var adsorbPos = self.getAdsorbPosition(move.x-stashProps.width/2,move.y-stashProps.height/2);
+
+				move.x = adsorbPos.x + stashProps.width/2;
+				move.y = adsorbPos.y + stashProps.height/2;
+
                 station.move(move.x, move.y);
             });
 
             this.render();
         }
+
+
+		MapObject.prototype.getDragRuler = function(){
+
+			var dragRuler = [];
+
+			rulerObjectArray.map(function(ruler){
+				var props = ruler.getProps();
+				if(props.checked){
+					dragRuler.push(ruler);
+				}
+
+			});
+
+			return dragRuler;
+		}
+
+		//标尺移动
+		MapObject.prototype.drawRulerMove = function(){
+			const {move} = position;
+			var dragRulerArray = this.getDragRuler();
+
+
+			dragRulerArray.map(function(ruler){
+				ruler.move(move.x,move.y);
+			});
+
+			this.render();
+		}
 
         //放大工位时
         MapObject.prototype.drawScaleStationMove = function () {
@@ -2197,8 +2558,35 @@ var Map = function (elementId, configs) {
             element.removeChild(canvas);
         }
 
+
+		//根据坐标点获取吸附点
+		MapObject.prototype.getAdsorbPosition = function(x,y){
+
+			var range = 20;
+
+			rulerObjectArray.map(function(ruler){
+				var props = ruler.getProps();
+
+				if(ruler.isHorizontalLine()){
+					if(props.y < y && y< props.y+range){
+						y = props.y;
+					}
+				}else if(ruler.isVerticalLine()){
+					if(props.x < x && x< props.x+range){
+						x = props.x;
+					}
+				}
+
+			});
+			return {x,y};
+		}
+
+		MapObject.prototype.getStationLeftTopPosition = function(){
+		}
+
         //创建新的工位
         MapObject.prototype.createStation = function (props) {
+
 
             var dragStations = this.getDragStations();
 
@@ -2216,6 +2604,11 @@ var Map = function (elementId, configs) {
             }
 
             props.z = DC.z;
+
+			var adsorbPos = this.getAdsorbPosition(props.x-props.width/2,props.y-props.height/2);
+
+			props.x = adsorbPos.x+props.width/2;
+			props.y = adsorbPos.y+props.height/2;
 
             var station = StationFactory(props);
             stationObjectArray.push(station);
@@ -2499,4 +2892,5 @@ var Map = function (elementId, configs) {
         },
     }
 };
+
 module.exports=Map;
