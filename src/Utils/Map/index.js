@@ -506,11 +506,8 @@ var Map = function (elementId, configs) {
 			props.clientY = position.y;
 
 
-			DC.z++;
-
 			this.setProps({
 				switchHoverIn:true,
-				z:DC.z
 			});
 
 			onHoverInStationCallback && onHoverInStationCallback(props);
@@ -2086,12 +2083,21 @@ var Map = function (elementId, configs) {
             return dragStations;
         }
 
-		//根据z属性，排序
-		MapObject.prototype.sortStationObjectArray = function(){
+		//根据z属性降序
+		MapObject.prototype.sortDescStationObjectArray = function(){
             stationObjectArray.sort(function (prev, next) {
                 var prevProps = prev.getProps();
                 var nextProps = next.getProps();
-                return nextProps.z - prevProps.z;
+                return parseInt(nextProps.z) - parseInt(prevProps.z);
+            });
+		}
+
+		//升序
+		MapObject.prototype.sortAscStationObjectArray = function(){
+            stationObjectArray.sort(function (prev, next) {
+                var prevProps = prev.getProps();
+                var nextProps = next.getProps();
+                return parseInt(prevProps.z) - parseInt(nextProps.z);
             });
 		}
 
@@ -2123,7 +2129,7 @@ var Map = function (elementId, configs) {
                 return;
             }
 
-			this.sortStationObjectArray();
+			this.sortDescStationObjectArray();
 
             var station = null;
             var props = null;
@@ -2158,11 +2164,7 @@ var Map = function (elementId, configs) {
             //清空上次拖拽的工位
             this.cleanDragStations();
 
-            stationObjectArray.sort(function (prev, next) {
-                var prevProps = prev.getProps();
-                var nextProps = next.getProps();
-                return nextProps.z - prevProps.z;
-            });
+			this.sortDescStationObjectArray();
 
             var station = null;
             var props = null;
@@ -2293,22 +2295,44 @@ var Map = function (elementId, configs) {
             return isOK;
         }
 
+
+		MapObject.prototype.stationOtherHoverOut = function(key){
+
+			var props = null;
+            var station = null;
+
+            for (var i = 0, len = stationObjectArray.length; i < len; i++) {
+                station = stationObjectArray[i];
+				props = station.getProps();
+
+				if(props.key === key){
+					continue;
+				}
+
+				station.onHoverOut();
+            }
+
+		}
+
         //hover
         MapObject.prototype.judgeHoverInStation = function (x, y) {
 
             const { onHoverInStationCallback } = DC.plugin;
 
+			const self = this;
+
             var station = null;
-            var isOK = false;
             var props = null;
 
-			this.sortStationObjectArray();
+			this.sortDescStationObjectArray();
 
             for (var i = 0, len = stationObjectArray.length; i < len; i++) {
-                station = stationObjectArray[i];
+                 station = stationObjectArray[i];
+				props = station.getProps();
                 if (station.hasPosition(x, y)) {
+					self.stationOtherHoverOut(props.key);
 					station.onHoverIn();
-                    isOK = true;
+					break;
                 }else{
 					station.onHoverOut();
 				}
