@@ -30,15 +30,7 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	componentWillMount(){
-
-		this.setState({
-			tebleWidth: $(window).width()-260,
-			tableHeight: $(window).height()-215
-		})
 		// State.getList();
-	}
-
-	componentDidMount(){
 		State.items =[
 				        {
 				            contractList:[
@@ -46,24 +38,6 @@ export default class PaymentRemindTable extends React.Component {
 				                contractCode:"合同编号","installmentList":[
 					                {
 					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
-					                },
-					                {
-					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:false,realBack:54160,remindDate:1496740685097
-					                },
-					                {
-					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:false,realBack:54160,remindDate:1496740685097
-					                }
-				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
-				            },{
-				                contractCode:"合同编号","installmentList":[
-					                {
-					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
-					                },
-					                {
-					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:false,realBack:54160,remindDate:1496740685097
-					                },
-					                {
-					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
 					                }
 				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
 				            }
@@ -142,20 +116,125 @@ export default class PaymentRemindTable extends React.Component {
 				            }
 				            ],"customerName":"氪空间（北京）信息技术有限公司"
 				        },
-				        
-				       
+				        {
+				            contractList:[
+				            {
+				                contractCode:"合同编号","installmentList":[
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
+					                },
+					                
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:false,realBack:54160,remindDate:1496740685097
+					                }
+				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
+				            },{
+				                contractCode:"合同编号","installmentList":[
+					                
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
+					                }
+				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
+				            }
+				            ],"customerName":"氪空间（北京）信息技术有限公司"
+				        },
+				        {
+				            contractList:[
+				            {
+				                contractCode:"合同编号","installmentList":[
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
+					                },
+					                
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:false,realBack:54160,remindDate:1496740685097
+					                }
+				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
+				            },{
+				                contractCode:"合同编号","installmentList":[
+					                
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
+					                }
+				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
+				            }
+				            ],"customerName":"氪空间（北京）信息技术有限公司"
+				        },
+				        {
+				            contractList:[
+				            {
+				                contractCode:"合同编号","installmentList":[
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
+					                },
+					                
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:false,realBack:54160,remindDate:1496740685097
+					                }
+				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
+				            },{
+				                contractCode:"合同编号","installmentList":[
+					                
+					                {
+					                    balance:16138,installmentAmount:1,installmentBegindate:1496740685097,installmentEnddate:1496740685097,installmentName:"款项",invoice:true,realBack:54160,remindDate:1496740685097
+					                }
+				                ],leaseBegindate:1496740685097,leaseEnddate:1496740685097,payCycle:"测试内容0dmc",stationNum:86558
+				            }
+				            ],"customerName":"氪空间（北京）信息技术有限公司"
+				        },
 			        ]
+		this.setState({
+			tebleWidth: $(window).width()-260,
+			tableHeight: $(window).height()-215
+		})
+		
+	}
+
+	componentWillReceiveProps(nextProps){
+		
+		if(!nextProps.sidebarShow){
+			this.setState({
+				tebleWidth : $(window).width()-80
+			})
+		}else{
+			this.setState({
+				tebleWidth: $(window).width()-260
+			})
+		}
+	}
+
+	componentDidMount(){
+		
 		this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
 		// scroll Table表格滚动
 		let _this = this;
 		$(".table-box").eq(0).scroll(function(){
-			// console.log("scrollTop",$(this).scrollTop());
-			// console.log("scrollLeft",$(this).scrollLeft());
-			_this.refs.tableHeader.style.left = -$(this).scrollLeft()+"px";
+			
+			_this.refs.tableHeader.style.left = -$(this).scrollLeft()+1+"px";
 			_this.refs.leftTitleItems.style.marginTop = 41-$(this).scrollTop()+"px";
+			
+			// 下拉加载更多……
+			var scrollTopParams = $(this).scrollTop();
+			_this.dropMore(scrollTopParams);
+			
 
 		})
 
+	}
+
+	dropMore=(scrollTopParams)=>{
+		
+		var documentH = $(".table-items").eq(0).height();
+		var scrollTop = scrollTopParams;
+		var windowH = $(".table-box").eq(0).height()-10;
+	
+		if(windowH + scrollTop + 20 >= documentH ){
+
+			if(!State.loading && State.searchParams.page < State.totalPages){
+				State.searchParams.page++;
+				State.getList();
+			}
+		}
 	}
 
 	renderItems=()=>{
@@ -165,7 +244,7 @@ export default class PaymentRemindTable extends React.Component {
 
 			return (<div className="table-item" key={index}>
 						<div className="customer-name">
-							{item.customerName}
+							<div style={{flex:1,width:250}}>{item.customerName}</div>
 						</div>
 						<div className="contract-list-box">
 							{
@@ -192,8 +271,7 @@ export default class PaymentRemindTable extends React.Component {
 																<div>{item.installmentAmount}</div>
 																<div>{item.realBack}</div>
 																<div style={{color:"#ff0000"}}>{item.balance}</div>
-																<div>{!item.invoice?<span>未开发票</span>:<span style={{display:"inline-block"}}></span>}</div>
-																<div>{!item.invoice?<span style={{color:"#319eff",cursor:"pointer"}} onClick={_this.operatePage.bind(this,item)}>开票</span>:null}</div>
+																
 															</div>
 														)
 													})	
@@ -228,12 +306,6 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 
-	operatePage=(context,item)=>{
-		console.log("context",context,"item",item);
-		State.openDialog = true;
-		// fapiao ID
-		// State.invoiceId = context.id;
-	}
 
 	export=()=>{
 
@@ -274,8 +346,8 @@ export default class PaymentRemindTable extends React.Component {
 				    			<div className="table-header-item">应缴款项</div>
 				    			<div className="table-header-item">金额</div>
 				    			<div className="table-header-item">差额</div>
-				    			<div className="table-header-item">发票</div>
-				    			<div className="table-header-item">操作</div>
+				    			{/*<div className="table-header-item">发票</div>
+				    			<div className="table-header-item">操作</div>*/}
 				    		</div>
 				    		<div className="table-items">
 				    			<div className="table-item-box">

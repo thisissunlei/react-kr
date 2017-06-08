@@ -54,7 +54,6 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.beginDate = date;
 		State.searchParams.page = 1;
-		
 
 	}
 
@@ -62,7 +61,7 @@ class SearchForm extends React.Component {
 
 		if(State.searchParams.beginDate && this.getTimeFun(State.searchParams.beginDate)>this.getTimeFun(date)){
 			Message.error("开始时间不能大于结束时间");
-			Store.dispatch(change('SearchForm', 'endDate', DateFormat(new Date(), "yyyy-mm-dd")));
+			// Store.dispatch(change('SearchForm', 'endDate', DateFormat(new Date(), "yyyy-mm-dd")));
 			return;
 		}
 		State.searchParams.endDate = date;
@@ -99,9 +98,8 @@ class SearchForm extends React.Component {
 						</ListGroupItem>
 
 						<ListGroupItem>
-							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.chooseStartTime} />
+							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.chooseStartTime}/>
 						</ListGroupItem>
-
 
 						<ListGroupItem>
 							<div className="search-form-endDate">

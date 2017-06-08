@@ -7,13 +7,13 @@ import {
 	Dialog,
 	KrField,
 } from 'kr-ui';
-import {Actions,Store} from 'kr/Redux';
+import {Actions,Store,connect} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 // import './index.less';
 import SearchForm from "./SearchForm";
 import TableIndex from "./TableIndex";
-import IntroduceForm from "./IntroduceForm";
-
+// import IntroduceForm from "./IntroduceForm";
+import $ from 'jquery';
 
 import State from './State';
 import {
@@ -21,7 +21,7 @@ import {
 } from 'mobx-react';
 @observer
 
-export default class PaymentRemindTable extends React.Component {
+ class PaymentRemindTable extends React.Component {
 	
 	constructor(props, context) {
 		super(props, context);
@@ -31,29 +31,38 @@ export default class PaymentRemindTable extends React.Component {
 		}
 	}
 
+	componentDidMount(){
+		
+		
+	}
+
 	
 	
 	render() {
+		
+		let {sidebar_nav}=this.props;
+
 		return (
 			    <div>
 					<Title value="催款表"/>
 					<Section title="催款表">
 						<SearchForm/>
-						<TableIndex/>
+						<TableIndex sidebarShow={sidebar_nav.switch_value}/>
 					</Section>
-					<Dialog
-						title="开票"
-						open={State.openDialog}
-						onClose={this.switchOpenDialog}
-						contentStyle={{width:687}}
-					>
-						<IntroduceForm/>
-
-				  	</Dialog>
 				</div>
 		);
 
 	}
 
 }
+export default connect((state) => {
+
+   var sidebar_nav = state.sidebar_nav;
+
+
+	return {
+		sidebar_nav
+	}
+
+})(PaymentRemindTable);
 

@@ -12,42 +12,39 @@ let State = observable({
 	voiceIntro :'',
 	openDialog : false,
 	items:[],
+	loading:false,
+	totalPages:0,
 	searchParams:{
 		communityId:'',
 		customerName:'',
 		beginDate:'',
 		endDate:'',
 		page:1,
-		pageSize:10
+		pageSize:5
 	}
 
 });
 
 State.getList = action(function(id) {
-
+	State.loading = true;
 	var _this = this;
 	var searchParams = State.searchParams;
 	Http.request('getPaymentRemind', searchParams).then(function(response) {
-		State.items = response.items;
+		if(State.searchParams.page ==1){
+			State.items = response.items;
+		}else{
+			State.items.push(response.items);
+		}
+		State.totalPages = response.totalPages;
+		State.loading = false;
+		console.log("加载更多");
 	}).catch(function(err) {
+		State.loading = false;
 		Message.error(err.message);
 	});
 
 });
 
-State.submitVioce = action(function(){
-
-	var _this = this;
-	var searchParams = {id:State.invoiceId,intro:State.voiceIntro};
-	console.log("searchParams",searchParams);
-	// Http.request('getPaymentRemind', searchParams).then(function(response) {
-	// 	// State.items = response.items;
-	// 	Message.success("提交成功");
-	// }).catch(function(err) {
-	// 	Message.error(err.message);
-	// });
-
-});
 
 
 module.exports = State;
