@@ -146,7 +146,7 @@ import {Http} from "kr/Utils";
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-							<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
+							<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit" /></div>
 							<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
