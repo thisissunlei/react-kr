@@ -7,6 +7,8 @@ import {
 
 import SidebarNav from './SidebarNav';
 
+import {Http} from "kr/Utils"
+
 import './index.less';
 
 const Nav = ({...props}) =>{
@@ -52,13 +54,13 @@ const More = ({...props})=>{
 
 
 const MorePerson = ({...props})=>{
-	let {person,personShow,open}=props;
+	let {person,personShow,open,logout}=props;
 	return (
 		<div className="u-header-more-person" onClick={personShow}>
 			<span className="u-header-more-icon"></span>
 			<div className={open?'u-header-person u-person-show':' u-person-hide'}>
 				<div className="u-person-name"><a href=".#/permission/personalCenter">{person.nickname}</a></div>
-				<div className="u-person-operation"><a href="http://op.krspace.cn/api/krspace-sso-web/sso/sysOwn/logout">退出</a></div>
+				<div className="u-person-operation"><a  onClick={logout}>退出</a></div>
 			</div>
 		</div>
 		)
@@ -111,11 +113,22 @@ export default class Header extends React.Component {
 	clickLogo=()=> {
 		window.open('http://krspace.cn') 
 	}
+
 	personShow=()=>{
 		this.setState({
 			Isperson:true
 		})
 	}
+
+	logout = ()=>{
+
+		Http.request('user-logout').then(function(response) {
+			window.location.href = "http://op.krspace.cn/new/login.html";
+		}).catch(function(err) {
+		
+		});
+	}
+
 	personHide=(e)=>{
 		var target=e.target.className;
 		if(target=="u-header-more-icon"){
@@ -167,7 +180,7 @@ export default class Header extends React.Component {
 					{this.renderNav(navs)}
 					{navs.length>7?<More Navs={navs} NavModel={NavModel}/>:''}
 					<TheBell />
-					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} />
+					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} logout={this.logout}/>
 				</div>
 				<Drawer 
 						open={NavModel.openSidebar} 

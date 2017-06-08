@@ -1,8 +1,11 @@
 
 
-
 module.exports = {
 
+    'user-logout': {
+        url: '/api/krspace-sso-web/sso/sysOwn/logout',
+        method: 'get'
+    },
     //个人中心-获取个人信息
     'PersonalCenterData': {
         url: '/api/krspace-sso-web/sso/sysOwn/getPersonalInfo',
