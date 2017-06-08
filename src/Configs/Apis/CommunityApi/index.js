@@ -69,7 +69,7 @@ module.exports = {
    },
     //社区经营新销控表
    'control-table':{
-      url: '/api/krspace-finance-web/cmt/sell-control/list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-finance-web/cmt/sell-control/list?communityId={communityId}&customerName={customerName}&page={page}&pageSize={pageSize}&rentalStatus={rentalStatus}',
       method: 'get'
    },
 

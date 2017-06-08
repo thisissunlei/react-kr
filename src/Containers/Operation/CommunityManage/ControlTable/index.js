@@ -6,6 +6,7 @@ import {
   arrayPush,
   initialize
 } from 'redux-form';
+import Baidu from 'kr/Utils/Baidu';
 import {
   Actions,
   Store
@@ -47,13 +48,18 @@ class ControlTable  extends React.Component{
 		this.state={
 			listData:[],
 			communityIdList:[],
-			moveStyle:{},
-			contentStyle:{},
+			moveStyle:{
+        position:"relative"
+      },
+			contentStyle:{
+        marginTop:0
+      },
 			searchParams:{
                communityId:'',
 			   customerName:'',
 			   page:19,
-			   pageSize:15,
+			   pageSize:200,
+			   rentalStatus:''
             },
 			communityName:'',
 			otherData:{
@@ -66,9 +72,10 @@ class ControlTable  extends React.Component{
 			allPage:0,
 			downLoading:false,
 			end:false,
-      		showToTop:false,
+      showToTop:false,
 			theEnd:true,
 			exportLeft:0,
+      isStandard:false,
 
 		}
 
@@ -112,32 +119,35 @@ getScrollTop = () => {
 
 	componentDidMount(){
 		var _this = this;
+		Baidu.trackEvent('销控表','访问');
 		//滚轮监听
 		window.addEventListener("scroll",this.onscrollListener,false)
 
 	}
 	onscrollListener = () =>{
 		var _this = this;
-		let {exportLeft} = this.state;
+		let {exportLeft,isStandard,showToTop,theEnd} = this.state;
 		var left = document.getElementById("m-control-table-width").getBoundingClientRect().left;
 		var t = document.documentElement.scrollTop || document.body.scrollTop;
     	var windowHeight = window.innerHeight = document.body.clientHeight;
-			//判断导出按钮的位置
-			if(_this.getScrollTop() + _this.getWindowHeight() >= _this.getScrollHeight()-85){
+			// //判断导出按钮的位置
+			if(!theEnd && (_this.getScrollTop() + _this.getWindowHeight() >= _this.getScrollHeight()-85)){
 				_this.setState({
-				theEnd:true,
+				     theEnd:true,
 				})
-			}else{
+			}
+      if(theEnd && (_this.getScrollTop() + _this.getWindowHeight() < _this.getScrollHeight()-85)){
 				_this.setState({
-				theEnd:false,
+				   theEnd:false,
 				})
 			}
 			//判断回到顶部是否出现
-			if(t>windowHeight/2){
+			if(!showToTop && t>windowHeight/2){
 				_this.setState({
-				showToTop:true,
+				      showToTop:true,
 				})
-			}else{
+			}
+      if(showToTop && t <= windowHeight/2){
 				_this.setState({
 				showToTop:false,
 				})
@@ -160,6 +170,8 @@ getScrollTop = () => {
 							customerName:searchParams.customerName,
 							page:newPage+1,
 							pageSize:searchParams.pageSize,
+							rentalStatus:searchParams.rentalStatus
+
 						},
 						end:(allPage == newPage) ? true:false
 					},function(){
@@ -170,7 +182,7 @@ getScrollTop = () => {
 			   }
 		　　}
 			//判断是否固定头部
-			if(t>145){
+			if(!isStandard && t>145){
 				_this.setState({
 					moveStyle:{
 						position:"fixed",
@@ -183,25 +195,29 @@ getScrollTop = () => {
 					},
 					contentStyle:{
 						marginTop:140
-					}
+					},
+          isStandard:true,
 				})
 
-			}else{
+			}
+      if(isStandard && t<=145){
 				_this.setState({
 					moveStyle:{
 						position:"relative"
 					},
 					contentStyle:{
 						marginTop:0
-					}
+					},
+          isStandard:false,
 				})
+
 
 			}
 	}
 	componentWillUnmount(){
 		window.removeEventListener("scroll",this.onscrollListener)
-		
-	
+
+
 	}
 
 	//获取数据
@@ -252,12 +268,14 @@ getScrollTop = () => {
    //搜索框确定点击
    onSubmit = (values) =>{
 	   const {searchParams} = this.state;
+	   console.log()
 		this.setState({
 			searchParams:{
                communityId:searchParams.communityId,
 			   customerName:values.content,
 			   page:1,
-			   pageSize:15
+			   pageSize:200,
+			   rentalStatus:searchParams.rentalStatus
             },
 			loading:true,
 			newPage:1,
@@ -272,17 +290,42 @@ getScrollTop = () => {
    }
    //搜索下拉选中
    communityChange = (values) =>{
-     console.log(values,">>>>>>");
 	   const {searchParams} = this.state;
 		this.setState({
 			searchParams:{
          communityId:values.value,
 			   customerName:'',
 			   page:1,
-			   pageSize:15,
+			   pageSize:200,
+			   rentalStatus:searchParams.rentalStatus
 
             },
 			communityName:values.label,
+			loading:true,
+			newPage:1,
+			allPage:0,
+			downLoading:false,
+			end:false,
+			listData:[],
+
+		},function(){
+			this.getcommunity();
+		})
+   }
+   //租用状态选中
+   rentalStatusChange = (values) =>{
+	console.log(values,)
+	const {searchParams,communityName} = this.state;
+		this.setState({
+			searchParams:{
+         	   communityId:searchParams.communityId,
+			   customerName:searchParams.customerName,
+			   page:1,
+			   pageSize:200,
+			   rentalStatus:values.value
+
+            },
+			communityName:communityName,
 			loading:true,
 			newPage:1,
 			allPage:0,
@@ -309,7 +352,7 @@ getScrollTop = () => {
 			<div className = "m-control-table-head clearfix" style = {moveStyle}>
 				<div className = "m-control-table-head-td head-td1" style = {{width:"26%"}}>
 					<div className= "m-control-table-head-tr">{communityName}</div>
-					<div className= "m-control-table-head-tr">当前出租率:{otherData.rentalRateStr}</div>
+					<div className= "m-control-table-head-tr"><span style = {{lineHeight:"20px",display:'inline-block'}}>当前出租率:{otherData.rentalRateStr}</span></div>
 					<div className= "m-control-table-head-tr">
 						<div className = "m-control-table-head-tr-td" style = {{width:'40%'}}>编号/名称</div>
 						<div className = "m-control-table-head-tr-td" style = {{width:'30%'}}>类型</div>
@@ -319,17 +362,18 @@ getScrollTop = () => {
 				</div>
 				<div className = "m-control-table-head-td " style = {{minHeight:120}}>
 					<div className= "m-control-table-head-tr">总面积:{otherData.totalArea}</div>
-					<div className= "m-control-table-head-tr" style = {{lineHeight:(""+otherData.incomeMonth).length>4 ? "20px":"40px"}}>{"本月收入:"+otherData.incomeMonth}</div>
-					<div className= "m-control-table-head-tr">建筑面积</div>
+					<div className= "m-control-table-head-tr" ><span style = {{lineHeight:"20px",display:'inline-block'}}>{"本月收入:"+otherData.incomeMonth}</span></div>
+					<div className= "m-control-table-head-tr">招商面积</div>
 
 				</div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>报价</div>
+				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span className="m-control-table-head-span"><span>每工位报价=</span><span>报价/容纳人数</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span>实际成交价</span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}>折扣</div>
-				<div className = "m-control-table-head-td " style = {{width:"7%"}}><span className="m-control-table-head-span"><span>每工位实际</span><span>成交价</span><span>(元/月)</span></span></div>
 				<div className = "m-control-table-head-td " style = {{width:"5%"}}><span className="m-control-table-head-span"><span>在租状态</span></span></div>
-				<div className = "m-control-table-head-td " style = {{width:"17.5%"}}><span>客户名称</span></div>
-				<div className = "m-control-table-head-td " style = {{width:"17.5%"}}>租期</div>
+				<div className = "m-control-table-head-td " style = {{width:"12.5%"}}><span>客户名称</span></div>
+				<div className = "m-control-table-head-td " style = {{width:"12.5%"}}>租赁期限</div>
+				<div className = "m-control-table-head-td " style = {{width:"10%"}}>租期</div>
 			</div>
 		)
    }
@@ -367,7 +411,7 @@ getScrollTop = () => {
    generateContent = () =>{
 	   const {listData,tableWidth} = this.state;
 	   const _this = this;
-	  
+
 	   if(listData && !listData.length){
 			return <Nothing style = {{marginTop:50}}/>
 	   }else{
@@ -376,22 +420,19 @@ getScrollTop = () => {
 					<div key={index}  className = "m-control-table-content-tr clearfix">
 							<div className="m-control-table-content-td clearfix" style = {{width:"26%"}}>
 								<div className="m-control-table-one-td" style = {{width:'40%',lineHeight:"40px"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.codeName}</span></div>
-								<div className="m-control-table-one-td" style = {{width:'30%'}}>{_this.tooltip(item.stationType=="STATION"?"工位":"独立空间")}</div>
+								<div className="m-control-table-one-td" style = {{width:'30%'}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.stationType=="STATION"?"工位":"独立空间"}</span></div>
 								<div className="m-control-table-one-td" style = {{width:'30%'}}>{item.capacity}</div>
 							</div>
 
 							<div className="m-control-table-content-td" >{item.area}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.quotedPrice}</div>
+							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.unitActualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.actualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{_this.tooltip(item.discountStr)}</div>
-							<div className="m-control-table-content-td" style = {{width:"7%"}}>{item.unitActualPrice}</div>
 							<div className="m-control-table-content-td" style = {{width:"5%"}}>{item.rentalStatusStr}</div>
-							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(item.company)}</div>
-							<div className="m-control-table-content-td" style = {{width:"17.5%"}}>{_this.tooltip(
-
-								!item.leaseBegindate ?"-": DateFormat(item.leaseBegindate,"yyyy-mm-dd")+"至"+DateFormat(item.leaseEnddate,"yyyy-mm-dd")
-								)
-								}</div>
+							<div className="m-control-table-content-td" style = {{width:"12.5%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.company}</span></div>
+							<div className="m-control-table-content-td" style = {{width:"12.5%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{!item.leaseBegindate ?"-": DateFormat(item.leaseBegindate,"yyyy-mm-dd")+" 至 "+DateFormat(item.leaseEnddate,"yyyy-mm-dd")}</span></div>
+							<div className="m-control-table-content-td" style = {{width:"10%"}}><span style = {{lineHeight:"20px",display:'inline-block'}}>{item.leaseLengthStr}</span></div>
 
 					</div>
 			)
@@ -407,7 +448,6 @@ getScrollTop = () => {
 		let exportClassName = "on-export-end";
 		let endStyle = {};
 		exportClassName = theEnd?"on-export-end":"on-export-middle";
-		endStyle = theEnd ? {}:{height:40}
 		return(
 			<div id = "control-table-width" className="m-control-table" style={{minHeight:'910'}}>
 				<Title value="销控表"/>
@@ -415,6 +455,7 @@ getScrollTop = () => {
 					<SearchFormControlTable
 						communityChange = {this.communityChange}
 						onSubmit = {this.onSubmit}
+						rentalStatusChange = {this.rentalStatusChange}
 					 />
 					{this.generateHead()}
 					<div className = "m-control-table-content clearfix" style = {contentStyle}>

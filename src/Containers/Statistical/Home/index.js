@@ -60,6 +60,8 @@ export default class Home  extends React.Component{
 			borderBottom: "1px solid #eee",
 			fontSize:16
 		}
+
+		var activeTabPanel;
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
@@ -77,7 +79,7 @@ export default class Home  extends React.Component{
 						    var activeStyle={}
 							if(this.state.action==index){
 								activeStyle=activeTab;
-								var activeTabPanel=(<PanelComponents groupList = {groupList} panels={item.templateList} groupId={this.state.groupId}/>)
+								activeTabPanel=(<PanelComponents groupList = {groupList} panels={item.templateList} groupId={this.state.groupId}/>)
 							}else{
 								activeStyle=commenTab;
 							}
