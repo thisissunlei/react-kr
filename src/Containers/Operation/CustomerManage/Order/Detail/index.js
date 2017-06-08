@@ -1,19 +1,13 @@
-import React, {
-	 
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
-import {
-	reduxForm
-} from 'redux-form';
+
+
 import Section from 'kr-ui/Section';
-
-
 import DelAgreementNotify from './DelAgreementNotify';
-
 import {
 	KrField,
 	KrDate,
@@ -21,64 +15,51 @@ import {
 	DotTitle,
 	Dialog,
 	Title,
-	UpLoadList
-} from 'kr-ui';
-
-
-import {
+	Drawer,
+	UpLoadList,
 	Grid,
 	Row,
-	Col
-} from 'kr-ui/Grid';
-
-import {
-	Snackbar
-} from 'material-ui';
-
-import {
+	Col,
 	BreadCrumbs,
 	Loading,
-	Notify
-} from 'kr-ui';
-
-import Circle from './circle';
-import './active.less';
-
-
-
-import {
-	Menu,
-	MenuItem,
-	Divider,
-	FontIcon,
-	Paper,
-	IconButton
-} from 'material-ui';
-import IconMenu from 'material-ui/IconMenu';
-
-import {
+	Notify,
 	Table,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
-	TableFooter
-} from 'kr-ui/Table';
-
+	TableFooter,
+	Message
+} from 'kr-ui';
+import EditAgreementList from "./EditAgreementList";
 
 import {
+	Snackbar,
+	Menu,
+	MenuItem,
+	Divider,
+	FontIcon,
+	Paper,
+	IconButton,
+	IconMenu,
 	List,
 	ListItem
-} from 'material-ui/List';
-
-
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+} from 'material-ui';
+import Circle from './circle';
+import './active.less';
 import {Http} from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
+
+import {Agreement} from 'kr/PureComponents';
+import TwoNewAgreement from "./TwoNewAgreement";
+import $ from 'jquery';
+import allState from "./State";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
 
 class NewCreatForm extends React.Component {
 	static PropTypes = {
@@ -218,14 +199,16 @@ class StaionInfo extends React.Component{
 
 }
 
+
+@inject("CommunityAgreementList")
+@observer
+
 export default class OrderDetail extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
 
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
-		this.getAgrementDetailUrl = this.getAgrementDetailUrl.bind(this);
-		this.getAgrementEditUrl = this.getAgrementEditUrl.bind(this);
 		this.renderTableItem = this.renderTableItem.bind(this);
 		this.getAgrementType = this.getAgrementType.bind(this);
 
@@ -325,6 +308,8 @@ export default class OrderDetail extends React.Component {
 	}
 
 	componentDidMount() {
+		allState.listId=this.props.params.customerId;
+		allState.mainBillId = this.props.params.orderId;
 		const closeAll = this.props.location.query.closeAll;
 		if (closeAll) {
 			Store.dispatch(Actions.switchSidebarNav(false));
@@ -358,30 +343,78 @@ export default class OrderDetail extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
+	submitAgreement=()=>{
 
-	openCreateAgreementDialog() {
+		var _this = this;
 
-		const {
-			contractStatusCount
-		} = this.state.response;
+		Http.request('get-order-detail', {
+			mainBillId: this.props.params.orderId
+		}).then(function(response) {
+			_this.setState({
+				response: response
+			});
 
-		if (contractStatusCount.quitRentTotoal) {
+
+			setTimeout(function() {
+				_this.setState({
+					loading: false
+				});
+			}, 0);
+
+		}).catch(function(err) {
 			Notify.show([{
-				message: '您已经签约了退租合同！',
+				message: err.message,
 				type: 'danger',
 			}]);
 
-			return;
-		}
+		});
+	}
+	closeTwoAgreement=()=>{
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openTowAgreement = false;
+		CommunityAgreementList.openLocalStorage = false;
+	}
 
+	openCreateAgreementDialog() {
+		var _this = this;
+	    let {CommunityAgreementList} = this.props;
 
-		this.setState({
-			openCreateAgreement: !this.state.openCreateAgreement
+		Http.request('contracts-creation', {mainBillId:allState.mainBillId}).then(function(response) {
+		//承租意向
+		allState.admit=response.intention;
+		//入驻合同是否可创建
+
+		// allState.enter=true;
+		allState.enter=response.enter;
+		//增租合同是否可创建
+		allState.increase=response.increase;
+		//减租合同是否可创建
+		allState.reduce=response.reduce;
+		// allState.reduce=true;
+		//续租合同是否可创建
+		allState.relet=response.relet;
+
+		//allState.relet=true;
+		//退组合同是否可创建
+		allState.returnRent=response.returnRent;
+        if(!allState.enter&&!allState.increase&&!allState.reduce&&!allState.relet&&!allState.returnRent){
+        	if(response.quitRentAll>0){
+        		Message.error('该订单已签订退租，无法继续签订合同');
+        		return ;
+        	}
+        	Message.error('没有合同可以创建');
+        	return ;
+        }
+        CommunityAgreementList.openTowAgreement=true;
+		}).catch(function(err) {
+			console.log(err)
+			Message.error(err.message);
 		});
 	}
 
 	getAgrementEditUrl(customerId, orderId, typeId, agreementId) {
-
+		let {CommunityAgreementList} = this.props; 
+		CommunityAgreementList.openEditAgreement = true;
 		var typeArray = [{
 			label: 'INTENTION',
 			value: 'admit'
@@ -407,9 +440,15 @@ export default class OrderDetail extends React.Component {
 				typeValue = value.value;
 			}
 		});
-		return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/edit';
+		allState.editParams(customerId, orderId, typeId, agreementId)
 	}
+	closeEditAgreement=()=>{
+		let {CommunityAgreementList} = this.props; 
+		CommunityAgreementList.openEditAgreement = false;
+	}
+
 	getAgrementDetailUrl(customerId, orderId, typeId, agreementId) {
+		allState.openAgreementDetail= true;
 		var typeArray = [{
 			label: 'INTENTION',
 			value: 'admit'
@@ -430,12 +469,52 @@ export default class OrderDetail extends React.Component {
 			value: 'increase'
 		}, ];
 		var typeValue = '';
-		typeArray.map((value) => {
-			if (typeId === value.label) {
-				typeValue = value.value;
-			}
-		});
-		return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/detail';
+		switch(typeId){
+			case ('INTENTION'):
+				typeValue = <Agreement.Admit.Detail
+						params={{id:agreementId,customerId:customerId,orderId:orderId}}
+			            onCancel={this.closeAgreementDetail}
+					/>
+				break;
+			case ('ENTER'):
+				typeValue = <Agreement.Join.Detail
+						params={{id:agreementId,customerId:customerId,orderId:orderId}}
+			            onCancel={this.closeAgreementDetail}
+					/>
+				break;
+			case ('LESSRENT'):
+				typeValue = <Agreement.Reduce.Detail
+						params={{id:agreementId,customerId:customerId,orderId:orderId}}
+			            onCancel={this.closeAgreementDetail}
+					/>
+				break;
+			case ('RENEW'):
+				typeValue = <Agreement.Renew.Detail
+						params={{id:agreementId,customerId:customerId,orderId:orderId}}
+			            onCancel={this.closeAgreementDetail}
+					/>
+				break;
+			case ('QUITRENT'):
+				typeValue = <Agreement.Exit.Detail
+						params={{id:agreementId,customerId:customerId,orderId:orderId}}
+			            onCancel={this.closeAgreementDetail}
+					/>
+				break;
+			case ('ADDRENT'):
+				typeValue = <Agreement.Increase.Detail
+						params={{id:agreementId,customerId:customerId,orderId:orderId}}
+			            onCancel={this.closeAgreementDetail}
+					/>
+				break;
+			default:
+				break;
+		}
+		allState.detailValue = typeValue;
+		
+		// return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/detail';
+	}
+	closeAgreementDetail=()=>{
+		allState.openAgreementDetail = false;
 	}
 
 	getAgrementType(type) {
@@ -469,10 +548,6 @@ export default class OrderDetail extends React.Component {
 		)
 	}
 
-	delArgument(id) {
-
-
-	}
 
 	renderTableItem(item) {
 		var _this = this;
@@ -493,6 +568,7 @@ export default class OrderDetail extends React.Component {
 
 	}
 	uploadFile(id){
+		console.log('=====')
 		let fileId = this.state.openId;
 		if(fileId == id){
 			this.setState({
@@ -659,7 +735,6 @@ export default class OrderDetail extends React.Component {
 			return (<Loading/>);
 		}
 		let fileList = ['入.pdf','入议书.pdf','入驻协议书.pdf','入驻协议书.pdf'];
-
 		return (
 			<div>
 
@@ -712,16 +787,23 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>{item.saler}</TableRowColumn>
 					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
-					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
+					<span className='upload-button'><Button  type="link" href="javascript:void(0)" label="查看" onTouchTap={this.getAgrementDetailUrl.bind(this,item.customerid,this.props.params.orderId,item.contracttype,item.id)} /></span>
 					<span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 					{(item.contracttype != 'QUITRENT' || showMoreOnExit)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:''}
 
 					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 					<div style={{visibility:showOpretion}} className="m-operation" >
-						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
-						{ item.contracttype !=  'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+						{item.contractstate != 'EXECUTE' &&
+						 item.editFlag && 
+						 <span style={{display:'block'}}><a  type="link" label="编辑" onTouchTap={this.getAgrementEditUrl.bind(this,item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
+						
 
-						{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+						{
+						 item.contracttype !=  'QUITRENT' &&
+						 <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+
+						{item.contracttype == 'ENTER' && 
+						item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 					</div>
 
 						{/*
@@ -841,6 +923,48 @@ export default class OrderDetail extends React.Component {
 
 			</Section>
 
+			{/*新建合同的第二页*/}
+		    <Drawer
+    			open={this.props.CommunityAgreementList.openTowAgreement}
+    			width={750}
+    			openSecondary={true}
+    			onClose={this.closeTwoAgreement}
+    			className='m-finance-drawer'
+    			containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			>
+
+			 	<TwoNewAgreement onCancel={this.closeTwoAgreement} onSubmit={this.submitAgreement}/>
+		    </Drawer>
+
+			{/*查看*/}
+		    <Drawer
+    			open={allState.openAgreementDetail}
+    			width={750}
+    			openSecondary={true}
+    			onClose={this.closeAgreementDetail}
+    			className='m-finance-drawer'
+    			containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			>
+
+			 	{allState.detailValue}
+		    </Drawer>
+
+			{/*编辑合同*/}
+		    <Drawer
+	        	open={this.props.CommunityAgreementList.openEditAgreement}
+	        	width={750}
+	        	onClose={this.closeEditAgreement}
+	        	openSecondary={true}
+	        	className='m-finance-drawer'
+	        	containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			>
+
+
+			   	<EditAgreementList onCancel={this.closeEditAgreement} onSubmit={this.submitAgreement}/>
+		    </Drawer>
+
+		    
+
 
 			<Dialog
 			title="新建合同"
@@ -861,6 +985,8 @@ export default class OrderDetail extends React.Component {
 				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 			</Dialog>
 			</div>
+
+			
 
 		);
 	}

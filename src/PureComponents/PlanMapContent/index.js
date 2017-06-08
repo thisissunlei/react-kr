@@ -9,7 +9,7 @@ import {
 import PlanMapSerarchForm from './PlanMapSerarchForm'
 import './index.less';
 
-export default class PlanMapComponent extends React.Component {
+export default class PlanMapContent extends React.Component {
 
 
 
@@ -30,9 +30,11 @@ export default class PlanMapComponent extends React.Component {
 			selectedObjs:this.props.data.selectedObjs,
 			deleteArr:[]
 		}
-		this.getData();
+		
 	}
 	getData = () =>{
+
+
 		var _this = this;
 		let {data} = this.props;
 		if(!data){
@@ -73,6 +75,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentDidMount(){
+		this.getData();
 
 	}
 
@@ -96,7 +99,6 @@ export default class PlanMapComponent extends React.Component {
 				arr = obj[item.value].data.concat(arr);
 				delArr = obj[item.value].deleteArr.concat(delArr);
 			}
-			
 		})
 
 		for(let i=0;i<data.length;i++){
@@ -190,6 +192,7 @@ export default class PlanMapComponent extends React.Component {
 		const {onClose} = this.props;
 		
 		onClose && onClose(allData,{deleteData:delData});
+		
 		
 
 
