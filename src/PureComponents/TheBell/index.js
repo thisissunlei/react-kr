@@ -347,7 +347,10 @@ class TheBell extends React.Component {
 
 			<div className="no-print">
 				
-                {showMassge && <div className = "ui-bellIcon" onClick = {this.showInfo} style = {bellStyle} ></div>}
+                {showMassge && <div className = "ui-bellIcon" onClick = {this.showInfo} style = {bellStyle} >
+										<span className="icon-info information-logo"  ></span>
+						{ showRedDrop && <span className="ui-un-read-count" ></span>}
+								</div>}
 				<Drawer 
 					open={openMassage} 
 					width={750} 
