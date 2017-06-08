@@ -71,7 +71,7 @@ const config = {
 				 compress: {
 					 warnings: false,
 					drop_debugger: true,
-					// drop_console: false
+					// drop_console: true
 				},
 				minChunkSize: 10000
 			}),

@@ -15,6 +15,8 @@ import {
 	Store
 } from 'kr/Redux';
 
+import Baidu from 'kr/Utils/Baidu';
+
 import {Http} from 'kr/Utils';
 
 import {
@@ -61,6 +63,7 @@ class CustomerList extends React.Component {
 
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
+		Baidu.trackEvent('客户管理-客户线索','访问');
 	}
     //新建编辑的数据准备
 	allDataReady=()=>{
