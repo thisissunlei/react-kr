@@ -21,7 +21,7 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("LeftIconClick")
+@inject("NavModel")
 @observer
 
 class CommunityDetail  extends React.Component{
@@ -56,7 +56,7 @@ class CommunityDetail  extends React.Component{
 			})
 		}
 		let {LeftIconClick} = this.props;
-		let  {showSideNav}=LeftIconClick;
+		// let  {showSideNav}=LeftIconClick;
 		// console.log("showSideNav==>",showSideNav);
 	}
 	
@@ -98,8 +98,8 @@ class CommunityDetail  extends React.Component{
 
 	render(){
 		let {isShowLeft}=this.state;
-		let {pageSecond,sidebar_nav}=this.props;
-		// console.log("sidebar_nav communiytDetail",sidebar_nav);
+		let {pageSecond,NavModel}=this.props;
+		// console.log("NavModel communiytDetail",NavModel.openSizebar);
 		return(
 			<div className="community-detail">
 				<div className="community-detail-box">
@@ -110,7 +110,7 @@ class CommunityDetail  extends React.Component{
 					</div>
 					<div className="community-detial-table-box" ref="communityDetailTableBox">
 						{
-							!isShowLeft?<TableIndex isLeftProps={isShowLeft} sideNavShow={sidebar_nav.switch_value}/>:null
+							!isShowLeft?<TableIndex isLeftProps={isShowLeft} sideNavShow={NavModel.openSidebar}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>
