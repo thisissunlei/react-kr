@@ -20,7 +20,7 @@ import {
 	change
 } from 'redux-form';
 import './index.less';
-
+import Tip from './tip';
 export default class FloorPlan extends React.Component {
 
 	static defaultProps = {
@@ -89,7 +89,6 @@ export default class FloorPlan extends React.Component {
 		data.pageSize=searchParams.pageSize;
 		var _this=this;
 		Http.request('getControlGraph',data).then(function(response) {
-                   
 			      var items=response.items;
 				   items.map((it,indexs)=>{
                     var stationsDataOrigin = it.figures;
@@ -204,11 +203,6 @@ export default class FloorPlan extends React.Component {
 				item.label = item.name;
 				return item;
 			});
-			communityIdList.unshift({
-				label: '请选择',
-				value: '0',
-				id: '0',
-			});
 			_this.setState({
 				communityIdList,
 			});
@@ -220,9 +214,11 @@ export default class FloorPlan extends React.Component {
 	//选择社区
 	selectCommunity=(personel)=> {
 		if (personel) {
-			this.getCommunityFloors(personel.id);
+			if(personel.id){
+              this.getCommunityFloors(personel.id);
+			}
 			var searchParams={
-			communityId:personel.id,
+			communityId:personel.id?personel.id:'',
 			floor:'',
 			page:1,
 			}
@@ -237,7 +233,8 @@ export default class FloorPlan extends React.Component {
             this.setState({
 			    searchParams,
 				canvasRender:[],
-			    downLine:false
+			    downLine:false,
+				isLoading:true
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -284,7 +281,8 @@ export default class FloorPlan extends React.Component {
             this.setState({
 			    searchParams,
 				canvasRender:[],
-				downLine:false
+				downLine:false,
+				isLoading:true
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -306,7 +304,8 @@ export default class FloorPlan extends React.Component {
 					date: personel,
 					canvasRender:[],
 					downLine:false,
-					searchParams
+					searchParams,
+					isLoading:true
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -334,7 +333,8 @@ export default class FloorPlan extends React.Component {
 					dateend: personel,
 					canvasRender:[],
 					searchParams,
-					downLine:false
+					downLine:false,
+					isLoading:true
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -457,6 +457,7 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
+
         
 		return (
 
@@ -489,14 +490,7 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-
-			        {hoverData.status=='1'&&<div className="com-tips" id='com-tips' style={{left:hoverData.clientX,top:hoverData.clientY-22}}>
-										<div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
-										<div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
-										<div>电话：{hoverData.phone?hoverData.phone:'-'}</div>
-										<div>公司：{hoverData.company?hoverData.company:'-'}</div>
-										<div>租期：{hoverData.leaseStart+'-'+hoverData.leaseEnd}</div>
-				     </div>}
+			        {hoverData.status=='1'&&<Tip hoverData={hoverData}/>}
 				  
 				  {
 					  canvasRender&&canvasRender.map((item,index)=>{
