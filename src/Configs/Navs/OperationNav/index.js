@@ -60,7 +60,8 @@ module.exports = [
 					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
-						originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
+						router: '/operation/communityAllocation/communityPlanList'
+
 					},
 					
 					{

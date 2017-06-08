@@ -202,8 +202,7 @@ class AccountList extends React.Component {
       });
     }
     //改变页码
-    onEditSubmit=()=>{
-        console.log(this.state.newPage);
+    changeP=()=>{
         var timer = new Date();
         this.setState({
             searchParams: {
@@ -211,7 +210,14 @@ class AccountList extends React.Component {
                     timer: timer,
             }
         })
+    }
+    onEditSubmit=()=>{
+        this.changeP();
         this.openEditAcc();
+    }
+    onSetSubimt=()=>{
+        this.changeP();
+        this.openSetAcc();
     }
     onPageChange=(page)=>{
         this.setState({
@@ -372,7 +378,7 @@ class AccountList extends React.Component {
                 <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
                     width: 600,
                 }}>
-                    <SetPermission detail={this.state.itemDetail} onCancel={this.openSetAcc}/>
+                    <SetPermission detail={this.state.itemDetail} onSubmit = {this.onSetSubimt} onCancel={this.openSetAcc}/>
                 </Dialog>
             </div>
         );

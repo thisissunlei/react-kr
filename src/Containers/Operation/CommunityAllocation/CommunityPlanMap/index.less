@@ -1,0 +1,300 @@
+
+html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    position: relative;
+  }
+
+  .wrap {
+    height:100%;
+    width:100%;
+    position:relative;
+  }
+
+  .m-station {
+    position:absolute;
+    left:0;
+    top:90px;
+    bottom:0;
+    width:299px;
+    height: 700px;
+    z-index:5;
+    span,div,a{
+     user-select: none;
+   }
+  }
+
+
+  .m-context-menu{
+    position:absolute;
+    height:200px;
+    width:160px;
+    border-radius:2px;
+    z-index:11;
+    background-color:#f4f4f5;
+    border:1px solid #ccc;
+    box-shadow:0px 0px 4px 4px #eee;
+  }
+
+
+
+.plan-body-left{
+	  vertical-align: top;
+    background-color: #fff;
+    margin:0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:100%;
+    width:100%;
+  }
+ .plan-body-left  .tab-list{
+        margin-bottom: 15px;
+  }
+ .plan-body-left  .tab-list  li{
+        list-style: none;
+        width:50%;
+        float:left;
+        text-align: center;
+        font-size: 14px;
+        padding-bottom: 10px;
+        cursor:pointer;
+        border-bottom: solid 2px #eee;
+        color: rgb(154, 154, 154);
+      }
+.plan-body-left  .tab-list  li:first-child{
+          border-bottom: solid 2px rgb(219, 237, 254);;
+       }
+.plan-detail-list{
+			width:100%;
+ }
+.plan-detail-list .plan-wrap-pic{
+  display:inline-block;
+  width:46px;
+  height:38px;
+  text-align:center;
+  margin-top:5px;
+}
+.plan-detail-list .plan-wrap-pic span{
+   font-size:12px;
+    color: rgb(154, 154, 154);
+}
+.station-pic{
+    cursor: pointer;
+    margin-right: 5px;
+    margin-top: 2px;
+    height: 30px;
+    border:solid 2px #499df1;
+    width: 30px;
+    margin:0 auto;
+   }
+
+.no-color{
+   border-bottom: solid 1px #eee;
+}
+
+.right-menu{
+  margin:0;
+  padding:0;
+  margin-top:20px;
+}
+.right-menu li{
+  list-style:none;
+  line-height: 30px;
+  cursor:pointer;
+  padding:0 20px;
+  font-size:14px;
+  color:#444;
+}
+.right-menu li:hover{
+   background:#499df1;
+   color:#fff;
+}
+.plan-meeting-pic{
+  width:120px;
+  height:50px;
+  display:inline-block;
+  text-align:center;
+   margin-top:15px;
+   margin-right:10px;
+}
+.meeting-pic{
+        cursor: pointer;
+        height:48px;
+        border:solid 2px #000;
+        border-radius:5px;
+        width:118px;
+        margin:0 auto;
+        text-align: center;
+        line-height:48px;
+        font-size:12px;
+        color: rgb(154, 154, 154);
+}
+
+.single-station,.single-meeting{
+    border: 2px solid rgb(219, 237, 254);
+    width: 10px;
+    border-right: none;
+    border-top: none;
+    height: 10px;
+    position: absolute;
+    background:#fff;
+    content: ' ';
+    left: 50%;
+    bottom: -6px;
+    transform:translate(-6px) rotate(135deg);
+}
+
+.plan-station{
+  margin:0 10px;
+  padding-top:10px;
+  display:inline-block;
+}
+.plan-borderRoom{
+  margin:0 10px;
+   display:inline-block; 
+}
+#tab-station,#tab-meeting{
+  position:relative;
+}
+#single-drag-square,#single-drag-meeting{
+  position:fixed;
+  left:0;
+  top:0;
+  display:none;
+  cursor:pointer;
+  z-index:5;
+}
+
+.plan-body-left .tab-list .blue-bottom-color{
+  border-bottom:2px solid rgb(219, 237, 254); 
+}
+.plan-body-left .tab-list li.no-bottom-color{
+  border-bottom:2px solid #eee;
+}
+
+.plan-header{
+    background-color: #fff;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 4px solid rgb(219, 237, 254);
+   span,div,a{
+     user-select: none;
+   }
+  }
+.plan-header .header-floor{
+     display:inline-block;
+     line-height: 32px;
+     margin-right: 10px;
+     .ui-form-label.inline{
+       margin-right:10px;
+     }
+   }
+  .size-type{
+      width: auto;
+      display: inline-block;
+      font-size: 14px;
+      color: #555;
+      margin-right: 10px;
+      margin-top: 10px;
+  }
+  .num-type{
+      margin-right: 10px;
+      display: inline-block;
+      font-size: 14px;
+      color: #555;
+    }
+     .num-type .til{
+        font-size:14px;
+    }
+  .upload-img{
+    display:inline-block;
+    }
+   .upload-img .upload-btn{
+      display:inline-block;
+      width: 60px;
+      height: 25px;
+      line-height: 25px;
+      background:#499df1;
+      text-align: center;
+      border-radius: 4px;
+      font-size: 14px;
+      color:#fff;
+      cursor:pointer;
+      margin-left: 10px;
+    }
+  .back-type{
+    display:inline-block;
+  }
+ .editorSelect{
+    border: 1px solid #ddd;
+    padding: 5px 10px 5px 5px;
+    width: 60px;
+    border-radius: 4px;
+ }
+
+.save-header{
+     display:inline-block;
+      width: 60px;
+      height: 25px;
+      line-height: 25px;
+      background:#499df1;
+      text-align: center;
+      border-radius: 4px;
+      font-size: 14px;
+      color:#fff;
+      cursor:pointer;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+}
+.save-header-none{
+      display:none;
+      width: 60px;
+      height: 25px;
+      line-height: 25px;
+      background:#ccc;
+      text-align: center;
+      border-radius: 4px;
+      font-size: 14px;
+      color:#fff;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+}
+
+.plan-file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    vertical-align: middle;
+    padding: 2px 6px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+.plan-file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    height: 26px;
+    left: 0;
+    opacity: 0;
+}
+.plan-file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+
+
+
+

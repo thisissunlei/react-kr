@@ -77,8 +77,13 @@ const config = {
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
+<<<<<<< HEAD
 				drop_console: true,
 				drop_debugger: true,
+=======
+       			 // drop_console: true,
+        		// drop_debugger: true,
+>>>>>>> master
 			},
 			output: {
 				comments: false,
@@ -94,6 +99,7 @@ const config = {
 			moveToParents: true
 		}),
 		new webpack.optimize.MinChunkSizePlugin({
+<<<<<<< HEAD
 			compress: {
 				warnings: false,
 				drop_debugger: true,
@@ -103,13 +109,23 @@ const config = {
 		}),
 		new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
 		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
+=======
+   			 compress: {
+     			 warnings: false,
+    			// drop_debugger: true,
+    			// drop_console: true
+    		},
+    		minChunkSize: 10000
+  		}),
+  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
+>>>>>>> master
 		new HtmlWebpackPlugin({
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/Page/App/index.template.html',
 			inject: 'body',
 			excludeChunks: ['page_login'],
-			hash: true,
 			cache: true,
 			showErrors: true,
 			chunksSortMode: 'none',
@@ -127,7 +143,6 @@ const config = {
 			template: './src/Page/Login/index.template.html',
 			excludeChunks: ['page_app'],
 			inject: 'body',
-			hash: true,
 			cache: false,
 			showErrors: false,
 		}),

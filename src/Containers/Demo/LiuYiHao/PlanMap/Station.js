@@ -17,7 +17,7 @@ export default class Station extends React.Component {
 
 		return (
 			<div>
-	        ddd
+	       
 	      </div>
 
 		);

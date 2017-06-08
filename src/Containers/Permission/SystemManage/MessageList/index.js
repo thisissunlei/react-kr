@@ -80,7 +80,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-message-list">
-				<Section title="信息列表" >
+				<Section title="消息日志" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" > </Col>

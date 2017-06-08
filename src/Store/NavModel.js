@@ -140,7 +140,7 @@ State.setPermissionNav = action(function (menusCode) {
 	});
 
 
-	console.log('navs:',navs);
+	
 
 	this.items = navs;
 	this.isLoadedPermissionNav = true;

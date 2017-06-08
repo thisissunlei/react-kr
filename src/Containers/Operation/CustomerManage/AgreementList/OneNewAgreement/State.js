@@ -17,6 +17,7 @@ let State = observable({
 		orderList:[],
 		customerName:"",
 		orderCount:'',
+		haveOrder:false,
 
 });
 //获取订单名称
@@ -24,7 +25,6 @@ State.orderNameInit= action(function(value) {
 	var _this=this;
 	let data={};
 	data.customerId=value;
-
 	Http.request('get-customName-orderName',data).then(function(response) {
 		_this.customerName=response.customerName;
 		_this.orderCount=response.orderCount;

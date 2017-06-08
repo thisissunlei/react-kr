@@ -91,7 +91,7 @@ export default class FloorPlan extends React.Component {
 		if (tab === 'floorplan') {
 			$(window).bind('scroll.floorplan', this.scrollLoad);
 
-		} 
+		}
 
 
 	}
@@ -319,7 +319,7 @@ export default class FloorPlan extends React.Component {
 
 	}
 	componentWillUnmount(){
-		$(window).bind('scroll.floorplan', this.scrollLoad);
+		$(window).unbind('scroll.floorplan', this.scrollLoad);
 	}
 
 	render() {
@@ -340,7 +340,7 @@ export default class FloorPlan extends React.Component {
 			handleSubmit
 		} = this.props;
 
-		
+
 
 		return (
 

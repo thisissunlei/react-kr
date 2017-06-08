@@ -4,6 +4,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
 	Title
 } from 'kr-ui';
+import Baidu from 'kr/Utils/Baidu';
 
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
@@ -33,7 +34,15 @@ export default class PanelComponents  extends React.Component{
 	}
 
 	componentDidMount() {
+		const {groupId} = this.props;
+		Baidu.trackEvent('集团经营','访问');
 
+
+		if(groupId === 1){
+			
+		}else{
+
+		}
 	}
 
 	renderGroupComponent = ()=>{

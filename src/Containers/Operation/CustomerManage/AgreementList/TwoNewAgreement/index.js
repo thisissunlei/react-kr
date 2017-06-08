@@ -1,9 +1,11 @@
-    import React,{Component} from 'react';
+import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
 
 import {
@@ -18,17 +20,14 @@ import {
 } from 'kr-ui';
 
 import $ from 'jquery';
-import Admit from "../Admit/Create";
-import Exit from "../Exit/Create";
-import Increase from "../Increase/Create";
-import Join from "../Join/Create";
-import Reduce from "../Reduce/Create";
-import Renew from "../Renew/Create";
 import allState from "../State";
 
 import { Agreement } from 'kr/PureComponents';
 
 import './index.less';
+
+
+@inject("CommunityAgreementList")
 @observer
 class LookCustomerList extends Component{
 
@@ -36,9 +35,12 @@ class LookCustomerList extends Component{
 		super(props, context);
 
 	}
-	onSubmit = (values) => {
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+	onSubmit = () => {
+
+	 this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''});
+	 Store.dispatch(change('SearchForm','contractType',""));
+	 Store.dispatch(change('SearchForm','createDateBegin',""));
+	 Store.dispatch(change('SearchForm','createDateEnd',""));
 	}
 
 	onCancel = () => {
@@ -49,17 +51,19 @@ class LookCustomerList extends Component{
 	onActive=(type)=>{
 		allState.active = type;
 	}
-	
+
 	componentWillReceiveProps(nextProps){
 
 	}
 	componentDidMount(){
 		this.getlocalSign();
+		let {CommunityAgreementList} = this.props
+		CommunityAgreementList.openLocalStorage=false;
 		allState.openLocalStorages = 0;
 		let obj = this.renderTab();
 		let defaultActive = obj.showTab[0].props.label;
 		switch (defaultActive){
-			case '入驻协议书' : 
+			case '入驻协议书' :
 				this.onActive('enter')
 				break;
 			case '增租协议书' :
@@ -78,7 +82,7 @@ class LookCustomerList extends Component{
 				this.onActive('admit')
 				break;
 		}
-		
+
 	}
 	getlocalSign=()=>{
 		allState.hasLocal = false;
@@ -86,7 +90,8 @@ class LookCustomerList extends Component{
 		let keyWord = allState.mainBillId+''+ allState.listId  ;
 		let local = [];
 		type.map((item)=>{
-			if(localStorage.getItem(keyWord + item+'createnum')-localStorage.getItem(keyWord+item+'createoldNum')>1){
+			let localData = JSON.parse(localStorage.getItem(keyWord + item+'create'));
+			if(localData && localData.num-localData.oldNum>1){
 				allState.openLocalStorage = true;
 				allState.hasLocal = true;
 				local.push(item)
@@ -107,7 +112,7 @@ class LookCustomerList extends Component{
         	noneTab:[],
         	dialogDiv:[]
         }
-        
+
         let local = allState.local;
 
 		if(!allState.enter){
@@ -116,13 +121,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')}>
-					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit} />
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="入驻协议书" onActive={this.onActive.bind(this,'enter')} type="ENTER">
-					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Join.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 		}
@@ -136,13 +141,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')} >
-					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="增租协议书" onActive={this.onActive.bind(this,'increase')} type="ADDRENT">
-					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Increase.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 		}
@@ -156,14 +161,14 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')}>
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 
 		}else{
 			showTab.push(
 				<Tab label="续租协议书" onActive={this.onActive.bind(this,'relet')} type="RENEW">
-					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Renew.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 
@@ -177,13 +182,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')}>
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="减租协议书" onActive={this.onActive.bind(this,'reduce')} type="LESSRENT">
-					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Reduce.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 		}
@@ -196,13 +201,13 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')}>
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="退租协议书" onActive={this.onActive.bind(this,'returnRent')} type="QUITRENT">
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Exit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 
@@ -216,20 +221,20 @@ class LookCustomerList extends Component{
 			dialogDiv.push(<div className="every-noneClick" style={{width:109.16}}>{text}</div>)
 			noneTab.push(
 				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')}>
-					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			)
 		}else{
 			showTab.push(
 				<Tab label="承租意向书" onActive={this.onActive.bind(this,'admit')} type='INTENTION'>
-					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}} active={allState.active} openLocalStorages={allState.openLocalStorages}/>
+					<Agreement.Admit.Create params={{customerId:allState.listId,orderId:allState.mainBillId}} onSubmit={this.onSubmit}/>
 				</Tab>
 			);
 
-		}	
+		}
 
 		obj.noneTab = noneTab;
-		
+
 		obj.dialogDiv = dialogDiv;
 		let localArr = [];
 		showTab.map((item,index)=>{
@@ -245,13 +250,14 @@ class LookCustomerList extends Component{
 
 		obj.showTab = showTab;
 
-	
-		return obj;   
-		     
+
+		return obj;
+
 
 	}
 	removeLocalStorage=()=>{
 		let keyWord = allState.mainBillId+''+allState.listId;
+
 		let removeList = [];
 		for (var i = 0; i < localStorage.length; i++) {
 			let itemName = localStorage.key(i);
@@ -259,25 +265,31 @@ class LookCustomerList extends Component{
 				 removeList.push(itemName);
 			 }
 		 }
+		 console.log(removeList)
 		 removeList.map((item)=>{
  			 localStorage.removeItem(item);
  		})
+ 		console.log('remove')
 	}
 
 	onCancelStorage=()=>{
-		allState.openLocalStorage=false;
-		allState.openLocalStorages=1;
 		this.removeLocalStorage();
+		let {CommunityAgreementList} = this.props
+		allState.openLocalStorage=false;
+		console.log('open')
+		CommunityAgreementList.openLocalStorage=false;
+		
 		allState.local = [];
 	}
 	getLocalStorage=()=>{
+		let {CommunityAgreementList} = this.props
 		allState.openLocalStorage=false
-		allState.openLocalStorages=2
+		CommunityAgreementList.openLocalStorage=true;
 	}
 
 	render(){
 		let obj = this.renderTab();
-	
+
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
@@ -292,19 +304,19 @@ class LookCustomerList extends Component{
 				>
 				{obj.showTab}
 				{obj.noneTab}
-					
-				
+
+
 			</Tabs>
 			<div className="m-noneClick" style={{width:obj.noneTab.length*109.16}}>
 			 {obj.dialogDiv}
-			</div>	
+			</div>
 					<Dialog
 				title="提示"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				onClose={this.openConfirmCreateDialog}
-				open={allState.openLocalStorage} 
+				open={allState.openLocalStorage}
 				contentStyle={{width:'400px'}}>
 					<div>
 						<p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
@@ -318,7 +330,7 @@ class LookCustomerList extends Component{
 						</Grid>
 					</div>
 
-			  </Dialog>	        
+			  </Dialog>
 		    </div>
 		);
 	}

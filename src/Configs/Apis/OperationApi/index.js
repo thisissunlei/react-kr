@@ -471,9 +471,29 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt-appointment/station/manage-list?communityId={communityId}&date={date}&endDate={endDate}&page={page}&pageSize={pageSize}',
          method: 'get'
       },
+      'setExitTotalReturn':{
+         url: '/api/krspace-finance-web/rent/total-return?mainbillId={mainbillId}&withdrawDate={withdrawDate}',
+          method: 'get'
+      },
       'getActivityCommunityList':{
          url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
          method: 'get'
+      },
+
+      //获取平面图配置信息
+       'plan-get-detail':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/edit-info?communityId={communityId}&floor={floor}',
+         method: 'get'
+      },
+      //平面图上传背景图
+       'plan-upload':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/file/actions/save',
+         method: 'post'
+      },
+      //平面图配置信息保存
+       'plan-edit':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
+         method: 'post'
       },
 
 }

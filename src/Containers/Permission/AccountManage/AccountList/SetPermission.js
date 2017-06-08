@@ -125,7 +125,7 @@ export default class SetPermission extends React.Component {
   	}
     onSubmit = () => {
         let {roleList} = this.state;
-        const {detail} = this.props;
+        const {detail,onSubmit} = this.props;
         var idList = [];
         roleList.map((item, index) => {
           if(item.ownFlag==1){
@@ -138,12 +138,11 @@ export default class SetPermission extends React.Component {
           roleIds:idList
         })).then(function(response) {
             Message.success('修改成功')
-            window.setTimeout(function(){
-              window.location.reload();
-            },800)
+            onSubmit();
         }).catch(function(err) {
             Message.error(err.message);
         });
+
     }
     render() {
       let {roleList}=this.state;

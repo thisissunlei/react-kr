@@ -18,7 +18,8 @@ import {
 	DotTitle,
 	ListGroup,
 	ListGroupItem,
-	PlanMap
+	PlanMap,
+	Loading
 } from 'kr-ui';
 export default class FloorMap extends React.Component {
 
@@ -29,8 +30,11 @@ export default class FloorMap extends React.Component {
 	render() {
 		return (
 			<div>
-          <PlanMap  />
+          
 					<h1>平面图</h1>
+
+					<Loading type = "on"/>
+					
 			</div>
 
 		);

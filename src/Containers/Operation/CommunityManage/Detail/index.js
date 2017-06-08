@@ -24,6 +24,8 @@ import {
 	Title
 } from 'kr-ui';
 
+import Baidu from 'kr/Utils/Baidu';
+
 import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
@@ -52,7 +54,7 @@ export default class CommunityManage extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Baidu.trackEvent('销控表页面','访问');
 	}
 
 	onSetCommunity = (communityId) => {
@@ -73,7 +75,7 @@ export default class CommunityManage extends React.Component {
 		});
 	}
 
-	
+
 
 	render() {
 		let {
@@ -101,11 +103,11 @@ export default class CommunityManage extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			<Title value="销控表_社区经营"/>
+			<Title value="计划表"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
 				 <Tabs className="tabs">
-					<Tab label="销控表" onActive={this.planTable} style={tableStyle}>
+					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
 						<Schedule tab={tab}/>
 
 					</Tab>

@@ -88,12 +88,12 @@ class SelectStationForm extends Component {
 		var _this = this;
 		let {
 			params
-		} = this.context;
+		} = this.props;
 		Http.request('getStationOrSettingList', {
-			mainBillid: params.orderId,
+			mainBillid: params.mainBillid,
 			page: 1,
 			pagesize: 100,
-			contractId: params.id
+			contractId: params.contractId
 		}).then(function(response) {
 			response.items = response.items.map((item)=>{
 				if(item.show){
