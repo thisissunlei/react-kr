@@ -149,7 +149,7 @@ function getUrl(path, params = {},mode = false) {
         method: 'GET',
         headers: {
           'Accept': '*',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
         },
         mode:'cors',
         credentials: 'include',
