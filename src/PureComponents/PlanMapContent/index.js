@@ -79,7 +79,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	componentWillUnmount(){
-		 this.Map.destory();
+		//  this.Map.destory();
 	}
 	dataChange = (data,allData) =>{
 		const {selectedObjs} = this.state;
@@ -204,7 +204,7 @@ export default class PlanMapComponent extends React.Component {
 		 deleteArr.map(function(item,index){
 			let obj2 = {};
 		 	obj2.id = item.id;
-		 	obj2.type = item.whereFloor;
+		 	obj2.type = item.belongType;
 			obj2.whereFloor = item.whereFloor;
 
 		 	delData.push(obj2);
@@ -221,6 +221,7 @@ export default class PlanMapComponent extends React.Component {
 
 	render() {
 		const {data,otherData} = this.state;
+		
 
 		return (
 
