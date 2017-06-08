@@ -58,7 +58,7 @@ const MorePerson = ({...props})=>{
 			<span className="u-header-more-icon"></span>
 			<div className={open?'u-header-person u-person-show':' u-person-hide'}>
 				<div className="u-person-name"><a href=".#/permission/personalCenter">{person.nickname}</a></div>
-				<div className="u-person-operation"><a href="./login.html">退出</a></div>
+				<div className="u-person-operation"><a href="http://op.krspace.cn/api/krspace-sso-web/sso/sysOwn/logout">退出</a></div>
 			</div>
 		</div>
 		)
