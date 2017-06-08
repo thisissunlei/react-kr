@@ -7,26 +7,22 @@ export default class Tip  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-        this.state={
-            width:'',
-            height:''
-        }
 	}
 
     componentDidMount(){
-        var dom=document.getElementById('com-tips');
-        this.setState({
-            width:dom.getBoundingClientRect().width/2,
-            height:dom.getBoundingClientRect().height
-        })
+        let {hoverData}=this.props;
+        var width=this.tip.getBoundingClientRect().width/2;
+        var height=this.tip.getBoundingClientRect().height;
+        this.tip.style.left=hoverData.clientX-width;
+        this.tip.style.top=hoverData.clientY-22-height;
+        console.log('ddddd',this.tip);
     }
 
 	render(){
         let {hoverData}=this.props;
-        let {width,height}=this.state;
 		return(
 
-			<div className="com-tips" id='com-tips' style={{left:hoverData.clientX-width,top:hoverData.clientY-22-height}}>
+			<div className="com-tips"  ref={(tip)=>this.tip=tip} >
                     <div>工位编号：{hoverData.name?hoverData.name:'-'}</div>
                     <div>姓名：{hoverData.pName?hoverData.pName:'-'}</div>
                     <div>电话：{hoverData.phone?hoverData.phone:'-'}</div>

@@ -233,7 +233,8 @@ export default class FloorPlan extends React.Component {
             this.setState({
 			    searchParams,
 				canvasRender:[],
-			    downLine:false
+			    downLine:false,
+				isLoading:true
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -280,7 +281,8 @@ export default class FloorPlan extends React.Component {
             this.setState({
 			    searchParams,
 				canvasRender:[],
-				downLine:false
+				downLine:false,
+				isLoading:true
 			},function(){
 				this.getRentData();
 				this.getBaseData();
@@ -302,7 +304,8 @@ export default class FloorPlan extends React.Component {
 					date: personel,
 					canvasRender:[],
 					downLine:false,
-					searchParams
+					searchParams,
+					isLoading:true
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -330,7 +333,8 @@ export default class FloorPlan extends React.Component {
 					dateend: personel,
 					canvasRender:[],
 					searchParams,
-					downLine:false
+					downLine:false,
+					isLoading:true
 				},function(){
 					this.getRentData();
 				    this.getBaseData();
@@ -453,7 +457,7 @@ export default class FloorPlan extends React.Component {
 		let {
 			handleSubmit
 		} = this.props;
-        
+
         
 		return (
 
@@ -486,7 +490,6 @@ export default class FloorPlan extends React.Component {
 			    </div>
 
                 <div className='com-body'>
-
 			        {hoverData.status=='1'&&<Tip hoverData={hoverData}/>}
 				  
 				  {
