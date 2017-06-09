@@ -123,7 +123,7 @@ export default class Header extends React.Component {
 	logout = ()=>{
 
 		Http.request('user-logout').then(function(response) {
-			window.location.href = "/new/login.html";
+			window.location.href = "http://op.krspace.cn/new/login.html";
 		}).catch(function(err) {
 		
 		});
