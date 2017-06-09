@@ -23,6 +23,7 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
+import './index.less';
 class SearchDateForm extends React.Component {
 
 	static PropTypes = {
@@ -75,8 +76,8 @@ class SearchDateForm extends React.Component {
 
 				<div className='s-date-search'>
 
-				    <ListGroup style={{width:'610'}}>
-				        <span className='statis-date-title' style={{marginRight:'10'}}>注册时间：</span>
+				    <ListGroup inline={true}>
+				        <span className='statis-date-title' style={{}}>注册时间：</span>
 						<ListGroupItem><div className='statis-date-start' style={{width:'252'}}><KrField  style={{marginLeft:-10,}} name="startDate" component="date" onChange={this.props.onStartChange} placeholder={date_2}/></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14',marginLeft:'-10'}}>至</span></div>
 						<ListGroupItem><div className='statis-date-end' style={{width:'252'}}><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={date_2}/></div></ListGroupItem>

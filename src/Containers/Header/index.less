@@ -1,0 +1,227 @@
+ul,li{
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+
+a{
+	text-decoration:none;
+	color:rgba(0, 0, 0, 0.65);
+	font-family:Roboto, sans-serif;
+}
+.u-clearfix { zoom:1; }
+.u-clearfix:after {
+  clear: both;
+  content: '.';
+  height: 0;
+  display: block;
+  visibility: hidden;
+}
+.g-header-nav{
+	width:100%;
+	height:60px;
+	background:#fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index:200;
+	border-bottom:1px solid #eee;
+	
+	.u-header-sidebar{
+		width:180px;
+		height:60px;
+		cursor: pointer;
+		text-align: center;
+		background:#fff;
+		float:left;
+		&:hover{
+				background:rgba(153,153,153,0.2);
+				border-radius:2px;
+		}
+	}
+	.u-header-sidebar-icon{
+	    height: 36px;
+	    width: 36px;
+	    display:inline-block;
+	    position:absolute;
+	}
+	.u-header-icon-heng{
+		left:75px;
+    	margin-top: 20px;
+		background: url(images/hide_heng.png) -7px -3px no-repeat;
+    	background-size: 36px 30px;
+	}
+	.u-header-icon-shu{
+		left:80px;
+		margin-top: 15px;
+		background: url(images/hide_shu.png) -7px -3px no-repeat;
+    	background-size: 30px 36px;
+	}
+	.u-header-logo{
+		width:120px;
+		height:60px;
+		float:left;
+		background: url(images/logo.png) center center no-repeat;
+		background-size:110px 110px;
+		&:hover{
+				background:rgba(153,153,153,0.2) url(images/logo.png) center center no-repeat;
+				background-size:110px 110px;
+				border-radius:2px;
+		}
+	}
+	
+	.u-header-nav{
+		display:inline-block;
+		max-width:760px;
+		height:60px;
+		background:#fff;
+		float:left;
+		overflow:hidden;
+		li{
+			min-width:88px;
+			height:60px;
+			line-height:60px;
+			display:inline-block;
+			text-align:center;
+			cursor: pointer;
+			a{
+				padding:0 16px;
+				display:inline-block;
+				height:100%;
+			}
+			&:hover{
+				background:rgba(153,153,153,0.2);
+				border-radius:2px;
+			}
+		}
+	}
+	.u-header-more{
+		color:rgba(0, 0, 0, 0.65);
+		font-size:16px;
+		float:left;
+		height:60px;
+		line-height:60px;
+		text-align:center;
+		width:88px;
+		position: relative;
+		&:hover{
+			.u-header-more-box{
+				display: inline-block;
+			}
+		}
+	}
+	.u-header-more-box{
+		width: 100px;
+		min-height:70px;
+		position:absolute;
+		right:0;
+		top:60px;
+		background:transparent;
+		display: none;
+	}
+	.ui-bellIcon{
+		position:fixed;
+		right:75px;
+		top:20px;
+		width:22px;
+		height:22px;
+		z-index:100;
+		cursor: pointer;
+	}
+	.icon-return{
+		vertical-align: middle;
+		color:#d3d4d4;
+		margin-left: 5px;
+	}
+	.u-header-more-person{
+		width:65px;
+		height:60px;
+		display:inline-block;
+		position:fixed;
+		right:10px;
+		top:0;
+		z-index:200;
+		cursor: pointer;
+		.u-header-more-icon{
+			display:inline-block;
+			width:28px;
+			height:28px;
+			background:url('images/more.svg') no-repeat center center;
+			background-size:contain;
+			display:inline-block;
+			margin:16px;
+		}
+	}
+
+	.u-header-more-list{
+		width:100px;
+		background:#fff;
+		position:absolute;
+		box-shadow: 0 1px 6px #7d7d7d;
+		left:0;
+		top:10px;
+		border-radius: 4px;
+		&:after {
+		    content: '';
+		    border: 8px solid transparent;
+		    border-bottom-color: #fff;
+		    position: absolute;
+		    height: 0;
+		    width: 0;
+		    top: -16px;
+		    left: 50%;
+		    transform: translateX(-50%);
+		}
+		li{
+			min-width:100px;
+			height:50px !important;
+			line-height:50px;
+			display:inline-block;
+			text-align:center;
+			cursor: pointer;
+			a{
+				padding:0 16px;
+				display:inline-block;
+				height:100%;
+			}
+			&:hover{
+				background:rgba(153,153,153,0.2);
+				border-radius:2px;
+			}
+		}
+	}
+	.u-header-person{
+		width:84px;
+		height:100px;
+		position: fixed;
+		right:10px;
+		top:8px;
+		background:#fff;
+		color: rgba(0, 0, 0, 0.870588);
+		border-radius: 2px;
+		box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+		div{
+			height:50px;
+			line-height:50px;
+			text-align: center;
+			width:100%;
+			font-size: 16px;
+			&:hover{
+				background:rgba(153,153,153,0.2);
+				border-radius:2px;
+			}
+		}
+	}
+	.u-person-hide{
+		display: none;
+	}
+	.u-person-show{
+		display: block;
+	}
+	
+
+}
+.u-header-active{
+	color: rgb(57, 68, 87);
+	font-weight: 600;
+}

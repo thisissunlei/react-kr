@@ -117,7 +117,7 @@ class NewCreateForm extends React.Component {
 		}
 	}
 	componentDidMount() {
-		
+
 		let {
 			initialValues,optionValues,params
 		} = this.props;
@@ -125,7 +125,7 @@ class NewCreateForm extends React.Component {
 
 
 	}
-	
+
 
 	componentWillReceiveProps(nextProps) {
 		let {initialValues,initialValue} = this.props;
@@ -559,7 +559,7 @@ class NewCreateForm extends React.Component {
 	}
 
 
-	
+
 
 
 
@@ -592,7 +592,7 @@ class NewCreateForm extends React.Component {
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
-		
+
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 		return (
@@ -718,7 +718,7 @@ class NewCreateForm extends React.Component {
 							<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 </CircleStyle>
-							
+
 							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="附件" defaultValue={optionValues.contractFileList || []} onChange={(files)=>{
 								if(files.length){
 									Store.dispatch(change('admitCreateForm','contractFileList',files));
@@ -756,7 +756,7 @@ class NewCreateForm extends React.Component {
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
-			
+
 
 			</div>);
 	}
@@ -849,7 +849,7 @@ const validate = values => {
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
-	
+
 	return errors
 }
 

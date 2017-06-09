@@ -5,11 +5,31 @@ table{
 				color:#499df1 ;
 			}
 	}
+	th,td{
+		&:nth-child(5){
+			max-width: 250px;
+			text-overflow: ellipsis;
+    		white-space: nowrap;
+			.ui-tooltip{
+				display:inline-block;
+	  			width:360px;
+	  			white-space:normal;
+	  		    word-wrap:break-word;
+	  		    word-break: normal;
+			}
+			
+			
 
+		}
+		&:nth-child(6){
+			min-width: 200px;
+		}
+	}
 		td{
 			position:relative;
 
 		}
+
 
 
 

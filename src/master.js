@@ -2,17 +2,15 @@ import React from 'react';
 
 import {Actions,Store,connect} from 'kr/Redux';
 
-import Header from './Components/Global/Header';
-import Footer from './Components/Global/Footer';
+import Header from 'kr/Containers/Header';
+import Footer from 'kr/Containers/Footer';
 import {Http} from "kr/Utils";
-import  './Styles/index.less';
+import { observer, inject } from 'mobx-react';
 
-class Master extends React.Component {
+@inject("NavModel")
+@observer
+export default class Master extends React.Component {
 
-
-	static childContextTypes =  {
-		params: React.PropTypes.object.isRequired,
-	}
 
 	getChildContext() {
 		return {
@@ -24,49 +22,43 @@ class Master extends React.Component {
 	constructor(props,context){
 		super(props, context);
 
-		Http.request('getSelfMenuInfo').then(function(response){
-			Store.dispatch(Actions.setUserNavs(response.navcodes));
-			Store.dispatch(Actions.setUserBasicInfo(response.user));
-		}).catch(function(err){
+		this.constructor.childContextTypes= {
+           params: React.PropTypes.object.isRequired
+		}
 
-		});
+		/*Http.request('getSelfMenuInfo').then(function(response){
+			//Store.dispatch(Actions.setUserNavs(response.navcodes));
+			//Store.dispatch(Actions.setUserBasicInfo(response.user));
+		}).catch(function(err){ });*/
+
 	}
 
 	render() {
 
-		var styles = {};
+		var containerStyles = {};
 
-		var {switch_value} = this.props.sidebar_nav;
+		const {NavModel} = this.props;
 
-		if(switch_value){
-			styles = {
+		if(NavModel.openSidebar){
+			containerStyles = {
 				marginLeft:180,
 			}
 		}
 
-		if(!this.props.header_nav.switch_value){
-			styles.marginTop = 0;
+		if(!NavModel.openHeaderbar){
+			containerStyles.marginTop = 0;
 		}
 
 		return (
 			<div className="app-container">
 				<Header/>
-
-				<div className="container" style={styles}>
+				<div className="container" style={containerStyles}>
 					{this.props.children}
 				</div>
 				<Footer/>
 				<div id="nowtify-wrapper"></div>
-
 			</div>
 		);
 	}
 }
 
-export default connect((state)=>{
-	return {
-		header_nav:state.header_nav,
-		sidebar_nav:state.sidebar_nav,
-		right_bar:state.right_bar
-	};
-})(Master);

@@ -37,6 +37,7 @@ export default class ZhangChi extends React.Component {
 
 		return (
 			<Section title="demo">
+				<PlanMap />
 					<XTable ajaxUrlName="signCustomers" ajaxParams={this.state.searchParams}>
 								<XTableRow label="全选" type="checkbox" name="all" width={30}/>
 								<XTableRow label="公司名称" name="signCityName" width={300} tooltip="我的世界"/>

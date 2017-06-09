@@ -78,7 +78,7 @@ function getUrl(path, params = {},mode = false) {
 
   function check401(res) {
     if (res.code ===-4011) {
-      window.location.href = '/';
+      window.location.href = '/new/login.html';
     } else if (res.code ===-4033) {
         Notify.error('您没有操作权限，请联系管理员!');
     }
@@ -149,7 +149,7 @@ function getUrl(path, params = {},mode = false) {
         method: 'GET',
         headers: {
           'Accept': '*',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
         },
         mode:'cors',
         credentials: 'include',
@@ -167,7 +167,6 @@ function getUrl(path, params = {},mode = false) {
       })
       .catch(function(err){
         if(err == 'TypeError: Failed to fetch'){
-            Debug.log('后台接口404,请联系后台开发人员');
             return ;
         }
         reject(err)
