@@ -24,12 +24,12 @@ module.exports = [
 			},
 
 			{
-				primaryText: '访客登记',
+				primaryText: '预约参观',
 				menuCode: 'com_sys_visitList_base',
 				router: '/community/communityManage/visitorsToRecord'
 			},
 			{
-				primaryText: '预约参观',
+				primaryText: '访客登记',
 				menuCode: 'visitRecord',
 				router: '/community/visitor/list'
 			},
