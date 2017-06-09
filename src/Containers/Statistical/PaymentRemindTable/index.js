@@ -17,8 +17,11 @@ import $ from 'jquery';
 
 import State from './State';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
+
+@inject("NavModel")
 @observer
 
  class PaymentRemindTable extends React.Component {
@@ -40,14 +43,14 @@ import {
 	
 	render() {
 		
-		let {sidebar_nav}=this.props;
-
+		let {sidebar_nav,NavModel}=this.props;
+		
 		return (
 			    <div>
 					<Title value="催款表"/>
 					<Section title="催款表">
 						<SearchForm/>
-						<TableIndex sidebarShow={sidebar_nav.switch_value}/>
+						<TableIndex sidebarShow={NavModel.openSidebar}/>
 					</Section>
 				</div>
 		);

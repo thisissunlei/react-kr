@@ -4,14 +4,12 @@ module.exports = [
 	{
 		primaryText: "会员中心",
 		router: 'member',
-		menuCode: 'member',
-		originUrl: '#/member/memberManage/list?mid=94',
+		originUrl: './#/member/memberManage/list?mid=94',
 		menuItems: [
 			{
 				primaryText: '会员管理',
 				iconName: 'icon-vip',
 				iconColor: '#79859a',
-				menuCode: 'memberAdmin',
 				router: '/member/memberManage/list',
 				menuItems: [
 					{
@@ -22,22 +20,22 @@ module.exports = [
 					{
 						primaryText: "会员列表",
 						router: '/member/memberManage/list',
-						menuCode: 'memberList',
+						menuCode: 'mbr_list_base',
 					}, 
 					{
 						primaryText: "会员卡管理",
 						router: '/member/memberManage/card',
-						menuCode: 'backAdmin',
+						menuCode: 'mbr_card_base',
 					}, 
 					{
 						primaryText: "会员配置",
 						router: '/member/memberManage/setting',
-						menuCode: 'memberSetting',
+						menuCode: 'mbr_define',
 					}, 
 					{
 						primaryText: "门禁授权管理",
 						router: '/member/memberManage/doormanage',
-						menuCode: 'doorPermission',
+						menuCode: 'door_base',
 					},
 					
 

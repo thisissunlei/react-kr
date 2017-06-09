@@ -153,7 +153,7 @@ class HightSearchForm extends React.Component {
 						<div className='ui-listDate'>
 							<ListGroup>
 								<ListGroupItem><div className='ui-date-start'><KrField  style={{width:255,marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
-									<div style={{display:'inline-block',marginTop:25,marginRight:3,marginLeft:-20}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+									<div style={{display:'inline-block',marginTop:25,marginRight:3}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 								<ListGroupItem><div className='ui-date-end' sty><KrField name="stopDate" style={{width:255,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		        </div>

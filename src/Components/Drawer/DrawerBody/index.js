@@ -14,10 +14,15 @@ export default class DrawerBody extends React.Component {
 
   render() {
 
-    let {children,style} = this.props;
-
+    let {children,style,openDirection} = this.props;
+    var className;
+    if(openDirection=='left'){
+      className='ui-drawer-left';
+    }else{
+      className='ui-drawer-in';
+    }
     return (
-      <div className="drawer-body ui-drawer-in" style={style} ref="drawerBody">
+      <div className={`drawer-body ${className}`} style={style} ref="drawerBody">
           {children}
       </div>
     );

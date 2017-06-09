@@ -87,11 +87,7 @@ export default class FloorPlan extends React.Component {
 			url: this.getStationUrl()
 		})
 		let {tab} = this.props;
-
-		if (tab === 'floorplan') {
-			$(window).bind('scroll.floorplan', this.scrollLoad);
-
-		}
+		$(window).bind('scroll.floorplan', this.scrollLoad);
 
 
 	}

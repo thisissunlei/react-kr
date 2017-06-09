@@ -62,7 +62,7 @@ const Finance_Manage_Audit = (location, callback) => {
 module.exports =()=>{
 	return (
 		<Route path="finance" getComponent={Basic}>
-            <IndexRedirect to="manage/audit/auditlist"/>
+           
             <Route path="manage" getComponent={Basic}>
                 <Route path="orderbill" getComponent={Basic}>
                     <Route path="receiptList" getComponent={Finance_Manage_OrderBill_ReceiptList}/> {/*订单账单*/}

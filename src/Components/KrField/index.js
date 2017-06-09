@@ -33,6 +33,7 @@ import TreeComponent from './TreeComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
+import SearchMethodComponent from './SearchMethodComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 
@@ -52,7 +53,7 @@ import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
 import SearchPayAccount from './SearchPayAccount';
-
+import SearchSourceList from './SearchSourceList';
 import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 
@@ -332,7 +333,13 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
 				);
 			}
+			if (component === 'searchMethod') {
 
+			return (
+
+				<Field {...this.props} component={SearchMethodComponent}  style={WrapStyles} {...other}/>
+				);
+			}
 			if (component === 'searchSource') {
 				return (
 					<FieldRevert {...this.props} component={SearchCustomerSourceComponent}  style={WrapStyles} {...other}/>
@@ -413,6 +420,11 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 				);
+			}
+			if (component === 'searchSourceList') {
+				return (
+					<FieldRevert {...this.props} component={SearchSourceList}  style={WrapStyles} {...other}/>
+				)
 			}
 
 			return (
