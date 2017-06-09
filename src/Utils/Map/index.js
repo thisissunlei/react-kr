@@ -33,7 +33,7 @@ var Map = function (elementId, configs) {
 
     var DC = {
         z: 1,
-        isMode: 'edit',
+        isMode: 'select',
         modes: ['edit', 'view', 'select'],
 
 		//工位和会议室数据
@@ -1954,7 +1954,7 @@ var Map = function (elementId, configs) {
 
 
                 if (scaleEnable) {
-                    window.addEventListener("mousewheel", ScaleMapEvent, false);
+                    canvas.addEventListener("mousewheel", ScaleMapEvent, false);
                 }
 
             }
@@ -1973,7 +1973,7 @@ var Map = function (elementId, configs) {
                 document.removeEventListener('keyup', KeyUpEvent, false);
                 document.removeEventListener('contextmenu', MouseDownRightEvent, false);
 
-                window.removeEventListener("mousewheel", ScaleMapEvent, false);
+                canvas.removeEventListener("mousewheel", ScaleMapEvent, false);
             }
 
             //鼠标按键
@@ -1986,7 +1986,7 @@ var Map = function (elementId, configs) {
             document.addEventListener('keyup', KeyUpEvent, false);
 
             if (scaleEnable) {
-                window.addEventListener("mousewheel", ScaleMapEvent, false);
+                canvas.addEventListener("mousewheel", ScaleMapEvent, false);
             }
 
 
@@ -2435,12 +2435,6 @@ var Map = function (elementId, configs) {
                 return !station.removed;
             });
 
-			/*
-			   dragStations.map(function(station){
-			   station.setProps({drag:false})
-			   });
-			 */
-
             this.render();
         }
 
@@ -2470,17 +2464,60 @@ var Map = function (elementId, configs) {
 
             var stashProps = null;
 
+			//左上角已经吸附
+			var isLeftTop = false;
+			//右下角已经吸附
+			var rightBottom = false;
+
+			var calcPos = {};
+
             dragStations.map(function (station, index) {
                 stashProps = station.getStashProps();
                 move.x = stashProps.x + lx;
                 move.y = stashProps.y + ly;
 
+				//左上角坐标
 				var adsorbPos = self.getAdsorbPosition(move.x-stashProps.width/2,move.y-stashProps.height/2);
 
-				move.x = adsorbPos.x + stashProps.width/2;
-				move.y = adsorbPos.y + stashProps.height/2;
+				calcPos.x = adsorbPos.x + stashProps.width/2;
+				calcPos.y = adsorbPos.y + stashProps.height/2;
+
+
+				//判断已经做了左上角吸附操作
+				if(move.x !== calcPos.x || move.y !== calcPos.y){
+					isLeftTop = true;
+				}
+
+				move.x = calcPos.x;
+				move.y = calcPos.y;
 
                 station.move(move.x, move.y);
+
+				//右下角
+				adsorbPos = self.getAdsorbPosition(move.x+stashProps.width/2,move.y+stashProps.height/2);
+
+				calcPos.x = adsorbPos.x - stashProps.width/2;
+				calcPos.y = adsorbPos.y - stashProps.height/2;
+
+				if(!isLeftTop){
+					move.x = calcPos.x;
+					move.y = calcPos.y;
+                	station.move(move.x, move.y);
+					return ;
+				}
+
+				var props = {};
+
+				var lenX = calcPos.x - move.x;
+				var lenY = calcPos.y - move.y;
+
+				props.x = move.x+lenX/2;
+				props.y = move.y+lenY/2;
+				props.width = stashProps.width+lenX/2;
+				props.height = stashProps.height+lenY/2;
+
+				station.setProps(props);
+
             });
 
             this.render();
@@ -2592,11 +2629,11 @@ var Map = function (elementId, configs) {
 				var props = ruler.getProps();
 
 				if(ruler.isHorizontalLine()){
-					if(props.y < y && y< props.y+range){
+					if(props.y-range < y && y< props.y+range){
 						y = props.y;
 					}
 				}else if(ruler.isVerticalLine()){
-					if(props.x < x && x< props.x+range){
+					if(props.x-range < x && x< props.x+range){
 						x = props.x;
 					}
 				}
@@ -2915,6 +2952,5 @@ var Map = function (elementId, configs) {
             map.createStation(params);
         },
     }
-};
-
+}
 module.exports=Map;
