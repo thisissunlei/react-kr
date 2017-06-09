@@ -17,6 +17,7 @@ import {
 	SearchForms,
 	Message
 } from 'kr-ui';
+import $ from 'jquery';
 import "./index.less";
 import {DateFormat} from 'kr/Utils';
 
@@ -43,6 +44,7 @@ class SearchForm extends React.Component {
 			State.searchParams.communityId = item.id;
 		}
 		State.searchParams.page = 1;
+		$(".table-box").eq(0).scrollTop(0);
 		State.getList();
 	}
 
@@ -55,6 +57,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.beginDate = date;
 		State.searchParams.page = 1;
+		$(".table-box").eq(0).scrollTop(0);
 		State.getList();
 
 	}
@@ -67,6 +70,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.endDate = date;
 		State.searchParams.page = 1;
+		$(".table-box").eq(0).scrollTop(0);
 		State.getList();
 
 	}
@@ -75,6 +79,7 @@ class SearchForm extends React.Component {
 		
 		State.searchParams.customerName = value.content;
 		State.searchParams.page = 1;
+		$(".table-box").eq(0).scrollTop(0);
 		State.getList();
 	}
 

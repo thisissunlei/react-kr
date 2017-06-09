@@ -36,6 +36,7 @@ export default class PaymentRemindTable extends React.Component {
 			tebleWidth: $(window).width()-260,
 			tableHeight: $(window).height()-215
 		})
+
 		State.getList();
 		
 	}
@@ -94,7 +95,7 @@ export default class PaymentRemindTable extends React.Component {
 		let Items = State.items.map(function(item,index){
 			return (<div className="table-item" key={index}>
 						<div className="customer-name">
-							<div style={{flex:1,width:250}}>{item.companyName}</div>
+							<div style={{flex:1,width:250,fontSize:14}}>{item.companyName}</div>
 						</div>
 						<div className="contract-list-box">
 							{
@@ -200,7 +201,7 @@ export default class PaymentRemindTable extends React.Component {
 		return (
 			    <div className="table-index" style={{paddingBottom:20,width:"100%",}}>
 				    <div className="table-index-box">
-
+				    	
 				    	<div  className="table-box" style={{width:tebleWidth,height:tableHeight,border:"solid 1px #eee",overflow:"scroll",boxSizing: "border-box"}} >
 				    		<div className="table-left-title"  ref="tableLeftTitle">
 				    			<div className="table-left-title-header">客户名称</div>
@@ -235,7 +236,7 @@ export default class PaymentRemindTable extends React.Component {
 				    			</div>
 				    		</div>
 				    	</div>
-				    	<div style={{position:"relative",display:State.searchParams.page==State.totalPages?"block":"none"}}>没有更多了</div>
+				    	<div style={{position:"relative",textAlign:"center",display:State.searchParams.page==State.totalPages?"block":"none"}}>已经是全部数据了</div>
 				    	<div className="export" onClick={this.export}>导出</div>
 					</div>
 
