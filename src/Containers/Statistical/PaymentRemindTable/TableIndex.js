@@ -4,7 +4,7 @@ import {
 
 	// Title,
 	// Section,
-	
+	Loading
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -201,7 +201,7 @@ export default class PaymentRemindTable extends React.Component {
 		return (
 			    <div className="table-index" style={{paddingBottom:20,width:"100%",}}>
 				    <div className="table-index-box">
-				    	
+				    	{/*<Loading/>*/}
 				    	<div  className="table-box" style={{width:tebleWidth,height:tableHeight,border:"solid 1px #eee",overflow:"scroll",boxSizing: "border-box"}} >
 				    		<div className="table-left-title"  ref="tableLeftTitle">
 				    			<div className="table-left-title-header">客户名称</div>
