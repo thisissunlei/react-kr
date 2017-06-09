@@ -227,8 +227,9 @@ export default class PaymentRemindTable extends React.Component {
 				    			<div className="table-header-item">差额</div>
 				    		</div>
 				    		{
-				    			State.loading && State.items.length == 0 && <Loading/>
+				    			State.loading && <Loading/>
 				    		}
+
 				    		<div className="table-items">
 				    			<div className="table-item-box">
 				    				
