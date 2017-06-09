@@ -20,24 +20,29 @@ let State = observable({
 		beginDate:'',
 		endDate:'',
 		page:1,
-		pageSize:5
+		pageSize:10
 	}
 
 });
 
-State.getList = action(function(id) {
+State.getList = action(function() {
 	State.loading = true;
 	var _this = this;
-	var searchParams = State.searchParams;
+	
+	var searchParams = Object.assign({},State.searchParams);
 	Http.request('getPaymentRemind', searchParams).then(function(response) {
+		
 		if(State.searchParams.page ==1){
 			State.items = response.items;
 		}else{
-			State.items.push(response.items);
+			for(var i=0;i<response.items.length;i++){
+				State.items.push(response.items[i])
+			}
 		}
-		State.totalPages = response.totalPages;
+
+		State.totalPages = response.totalCount;
 		State.loading = false;
-		console.log("加载更多");
+
 	}).catch(function(err) {
 		State.loading = false;
 		Message.error(err.message);

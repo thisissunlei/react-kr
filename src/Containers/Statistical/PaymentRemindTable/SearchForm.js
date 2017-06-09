@@ -43,6 +43,7 @@ class SearchForm extends React.Component {
 			State.searchParams.communityId = item.id;
 		}
 		State.searchParams.page = 1;
+		State.getList();
 	}
 
 	chooseStartTime=(date)=>{
@@ -54,6 +55,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.beginDate = date;
 		State.searchParams.page = 1;
+		State.getList();
 
 	}
 
@@ -61,11 +63,11 @@ class SearchForm extends React.Component {
 
 		if(State.searchParams.beginDate && this.getTimeFun(State.searchParams.beginDate)>this.getTimeFun(date)){
 			Message.error("开始时间不能大于结束时间");
-			// Store.dispatch(change('SearchForm', 'endDate', DateFormat(new Date(), "yyyy-mm-dd")));
 			return;
 		}
 		State.searchParams.endDate = date;
 		State.searchParams.page = 1;
+		State.getList();
 
 	}
 	
@@ -73,7 +75,7 @@ class SearchForm extends React.Component {
 		
 		State.searchParams.customerName = value.content;
 		State.searchParams.page = 1;
-		
+		State.getList();
 	}
 
 	// 转成时间戳

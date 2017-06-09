@@ -17,7 +17,7 @@ function getUrl(path, params = {},mode = false) {
     if(!url){
       return ;
     }
-
+   
     if(url.indexOf('mockjsdata') !==-1){
     	 server='';
     }

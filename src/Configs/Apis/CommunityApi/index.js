@@ -70,7 +70,7 @@ module.exports = {
 
    //催款表
    'getPaymentRemind':{
-      url: '/mockjsdata/38/finance/123?endDate={endDate}&customerName={customerName}&beginDate={beginDate}&communityId={communityId}&page={page}&pageSize={pageSize}',
+      url: '/apis/krspace-finance-web/finance/payment-reminder?endDate={endDate}&customerName={customerName}&beginDate={beginDate}&communityId={communityId}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
 
