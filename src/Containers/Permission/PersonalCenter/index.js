@@ -502,7 +502,6 @@ export default class PersonalCenter extends React.Component{
 					Message.error(err.message)
 				}
 			});
-
 	}
 	closePwdRevise=()=>{
 		this.setState({

@@ -35,6 +35,7 @@ import {
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
+import ToMessage from "./ToMessage";
 import {
 	observer,
 	inject
@@ -482,19 +483,19 @@ class Header extends React.Component {
 		} = this.props.sidebar_nav;
 
 		let {
-					inforLogoShow,
-					infoTab,
-					hasUnRead,
-					customerName,
-					msgExtra,
-					openLookCustomerList,
-					openMassage,
-					showRedDrop,
-					showMassge,
-					openAgreementDetail,
-					params
+				inforLogoShow,
+				infoTab,
+				hasUnRead,
+				customerName,
+				msgExtra,
+				openLookCustomerList,
+				openMassage,
+				showRedDrop,
+				showMassge,
+				openAgreementDetail,
+				params
 
-				} = this.state;
+			} = this.state;
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
 		const HeaderBar = (props) => {
 
@@ -558,7 +559,13 @@ class Header extends React.Component {
 					 < MenuItem primaryText = "退出"
 					onTouchTap = {
 						(event) => {
-							window.location.href = '/logout/logout';
+						Http.request('logout', {
+							}).then(function(response) {
+								window.setTimeout(function() {
+									window.location.reload();
+								}, 800);
+							}).catch(function(err) {
+							});
 						}
 					}
 					/>
@@ -587,7 +594,7 @@ class Header extends React.Component {
 						resettingAll = {this.resettingAll}
 					/>
 				</Drawer>
-				//客户详情
+				{/*客户详情*/}
 				<Drawer open={openLookCustomerList} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<LookCustomerList
 						 comeFrom="Merchant"
@@ -600,11 +607,12 @@ class Header extends React.Component {
 
 					/>
 				</Drawer>
-				//合同详情
+				{/*合同详情*/}
 				<Drawer open={openAgreementDetail} width={750} openSecondary={true} containerStyle={{marginTop:61,paddingBottom:48,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					{this.contractRender()}
 				</Drawer>
 				{(openLookCustomerList || openMassage || openAgreementDetail) && <div className="message-drawer" onClick={this.messageDrawerClick}></div>}
+
 			</div>
 		);
 	}

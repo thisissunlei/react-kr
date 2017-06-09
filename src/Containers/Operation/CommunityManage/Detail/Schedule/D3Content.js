@@ -334,7 +334,6 @@ export default class D3Content extends React.Component {
 			place = 'bottom';
 			top = 220*item.length;
 		}
-		console.log('itemData',itemData);
 		return (
 			<Tooltips  place={place} type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={top}>
 			<div className="react-tooltips-content">

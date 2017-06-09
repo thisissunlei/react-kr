@@ -1,63 +1,23 @@
-import {
-	Link
-} from 'react-router';
-
 import React, {
-	Component,
 	PropTypes
 } from 'react';
 import {
 	connect
 } from 'react-redux';
-
-import {
-	AppBar,
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Paper,
-	IconButton,
-	RaisedButton,
-	Drawer,
-	Divider,
-	FontIcon,
-	FloatingActionButton,
-} from 'material-ui';
-
 import {
 	List,
 	ListItem
 } from 'kr-ui';
-
-import './index.less';
-
-
-
-import {
-	Toolbar,
-	ToolbarGroup,
-	ToolbarSeparator,
-	ToolbarTitle
-} from 'material-ui/Toolbar';
-
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
-
-
 import {
 	MakeSelectable
 } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import Subheader from 'material-ui/Subheader';
+import './index.less';
 
 let SelectableList = MakeSelectable(List);
 
 function wrapState(ComposedComponent) {
 
-	return class SelectableList extends Component {
+	return class SelectableList extends React.Component {
 
 		static propTypes = {
 			children: PropTypes.node.isRequired,
@@ -99,7 +59,7 @@ function wrapState(ComposedComponent) {
 
 SelectableList = wrapState(SelectableList);
 
-export default class SidebarNav extends Component {
+export default class SidebarNav extends React.Component {
 
 	PropTypes = {
 		items: React.PropTypes.isArray,
@@ -169,7 +129,7 @@ export default class SidebarNav extends Component {
 					childStyles.backgroundColor = '#fff';
 				}
 				*/
-
+		
 		if (item.menuItems && item.menuItems.length) {
 			return (
 
@@ -183,13 +143,21 @@ export default class SidebarNav extends Component {
 					primaryTogglesNestedList={false}
 					autoGenerateNestedIndicator={false}
 					disabled={true}
-
-					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'22px 0 0 39px' }}/>
-			}
-
-			nestedItems = {
-				item.menuItems.map((it, ind) => this.renderMenuItem(it, ind, index))
-			}
+					leftIcon={
+						<div  
+							className={item.iconName}  
+							style={{
+								fontSize:18,
+								position: 'absolute',
+								margin:'22px 0 0 39px',
+								color:`${item.iconColor}`
+							}}
+							>
+						</div>
+					}
+					nestedItems = {
+						item.menuItems.map((it, ind) => this.renderMenuItem(it, ind, index))
+					}
 
 			/>
 

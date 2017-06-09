@@ -2,6 +2,8 @@ import React, {
 	PropTypes
 } from 'react';
 
+
+import './index.less';
 import {
 	Store
 } from 'kr/Redux';
@@ -108,7 +110,7 @@ class NewActivation extends React.Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="card-setting-new-form">
 
 				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur}/>
 				<div className="clearInterCode">

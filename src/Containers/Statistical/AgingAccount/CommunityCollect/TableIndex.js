@@ -44,6 +44,12 @@ export default class TableIndex extends React.Component{
 				middlePX : (_this.state.sWidth)/2-60
 			})
 		}
+		var tableContainerWidth = $(".table-container").eq(0).width();
+		var tableBoxWidth = $(".table-box").eq(0).width();
+		if(tableContainerWidth<tableBoxWidth){
+			$("td div").filter(".header-div").width((tableBoxWidth-10)/10-10);
+			$(".date-items").eq(0).width(tableBoxWidth);
+		}
 	}
 
 	thousands=(num)=>{
