@@ -30,7 +30,8 @@ class PlanMapSerarchForm extends React.Component {
 		super(props);
 		this.state={
 			inputStart:"",
-			inputEnd:""
+			inputEnd:"",
+			newFlow:0,
 		}
 	}
 
@@ -49,7 +50,6 @@ class PlanMapSerarchForm extends React.Component {
 
 	}
 	allOnSubmit = () =>{
-		console.log(">>>>")
 		const {allOnSubmit} = this.props;
 		allOnSubmit && allOnSubmit();
 	}
@@ -64,10 +64,18 @@ class PlanMapSerarchForm extends React.Component {
 		})
 	}
 	componentDidMount() {
-		const {data} = this.props;
-		Store.dispatch(change('PlanMapSerarchForm','floor',data.floors[0]));
+		
+		
 	}
+	componentWillReceiveProps(nextProps){
+		if(nextProps.data && nextProps.data.floors.length ==0 ){
+			return ;
+		}
+		
+        const {data}= nextProps;
+		Store.dispatch(change('PlanMapSerarchForm','floor',data.floors[0]));
 
+	}
 
 	render() {
 

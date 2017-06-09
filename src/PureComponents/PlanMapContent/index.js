@@ -1,6 +1,7 @@
+
 import React from 'react';
 
-import {Http,DateFormat} from 'kr/Utils';
+import {Http,DateFormat,Map} from 'kr/Utils';
 import {
 	KrField,
 	Canvas
@@ -8,7 +9,7 @@ import {
 import PlanMapSerarchForm from './PlanMapSerarchForm'
 import './index.less';
 
-export default class PlanMapContent extends React.Component {
+export default class PlanMapComponent extends React.Component {
 
 
 
@@ -29,17 +30,16 @@ export default class PlanMapContent extends React.Component {
 			selectedObjs:this.props.data.selectedObjs,
 			deleteArr:[]
 		}
-		
+		this.getData();
+		this.allDataObj = {};
+		this.delDataObj = {}
 	}
 	getData = () =>{
-
-
 		var _this = this;
 		let {data} = this.props;
 		if(!data){
 			return;
 		}
-
 		var res = {
 				communityId:data.communityId,
 				floor:data.floors,
@@ -66,7 +66,10 @@ export default class PlanMapContent extends React.Component {
 					name:name
 				},
 				newfloor:floors[0].value,
+			},function(){
+				 _this.canvasEles();
 			})
+
 
 		}).catch(function(err) {
 
@@ -74,52 +77,38 @@ export default class PlanMapContent extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getData();
 
 	}
 
-	componentWillReceiveProps(nextProps) {
 
+	componentWillUnmount(){
+		//  
 	}
-	dataChange = (floor,data,deleteData) =>{
-		let {otherData,selectedObjs,deleteArr} = this.state;
-		let obj = {};
-		let arr = [];
-		let delArr = [];
-		let deldata = [];
-		
-		otherData.floors.map(function(item,index){
-			if(floor == item.value){
-				obj[floor]={
-					data : data || [],
-					deleteArr :  deleteData || []
+	dataChange = (data,allData) =>{
+		const {selectedObjs,newfloor,submitData,deleteArr} = this.state;
+		let del = [].concat(selectedObjs);
+		var allDataObj = Object.assign({},submitData);
+		var delDataObj = Object.assign({},deleteArr)
+		for(let i=0;i<allData.length;i++){
+
+			for(let j=0;j<del.length;j++){
+				
+				let belongType = "STATION"
+				if(del[j].belongType == 2){
+					belongType = "SPACE";
 				}
-
-				arr = obj[item.value].data.concat(arr);
-				delArr = obj[item.value].deleteArr.concat(delArr);
+				
+				if(allData[i].belongId ==del[j].id && allData[i].belongType == belongType ){
+					del.splice(j, 1);
+					
+				}	
 			}
-		})
-
-		for(let i=0;i<data.length;i++){
-			for(let j=0;j<deleteArr.length;j++){
-				if(deleteArr[j].belongId == data[i].belongId && deleteArr[j].belongType == data[i].belongType ){
-					deleteArr.splice(j, 1);
-
-				}
-			}
-
 		}
-		selectedObjs && selectedObjs.map(function(item,index){
-
-				if(delArr.length !=0 && delArr[0].belongId == item.id && delArr[0].belongType == item.belongType  ){
-
-					deleteArr.push(delArr[0]);
-				}
-
-		})
+		allDataObj["a"+newfloor] = [].concat(allData);
+		delDataObj["a"+newfloor] = [].concat(del);
 		this.setState({
-			submitData:arr,
-			deleteArr:deleteArr
+			submitData:allDataObj,
+			deleteArr:delDataObj
 		})
 	}
 
@@ -127,36 +116,81 @@ export default class PlanMapContent extends React.Component {
 
 
 	canvasEles = () =>{
-		let {data,newfloor,inputStart,inputEnd,selectedObjs} = this.state;
+		const {data,newfloor,selectedObjs,inputStart,inputEnd} = this.state;
 		const _this = this;
-		var arr = data.map(function(item,index){
+		var dainitializeConfigs = {};
+		let start = Number(inputStart);
+		let end = Number(inputEnd);
+		
+		for(let i=0; i<data.length;i++){
+			if(data[i].floor == newfloor){
+				var arr = [];
+				arr = data[i].figures.map(function(item ,index){
+					var obj = {};
+						let cellName =  Number(item.cellName);
+						var x = item.cellCoordX;
+						var y = item.cellCoordY;
+						obj.x = Number(x);
+						obj.y = Number(y);
+						obj.width = Number(item.cellWidth);
+						obj.height = Number(item.cellHeight);
+						obj.name = item.cellName;
+						obj.whereFloor = item.floor;
+						obj.belongType = item.belongType;
+						obj.belongId = Number(item.belongId);
+						obj.id = Number(item.id);
+						obj.canFigureId = item.canFigureId;
+						obj.type=obj.belongType;
+						if(item.status){
+							obj.status=item.status;
+						}
+						for(let j=0; j<selectedObjs.length;j++){
+							let belongType = "STATION";
+							if(selectedObjs[j].belongType == 2){
+								belongType = "SPACE";
+							}
+							if(item.belongId ==selectedObjs[j].id && item.belongType == belongType ){
+								
+								obj.checked = true;
 
-			if(item.floor == newfloor){
+							}
+						}
+						if(cellName >= start && cellName <= end){
+							obj.checked = true;
+						}
 
-				return <Canvas
-							key = {index}
-							inputStart = {inputStart}
-							inputEnd = {inputEnd}
-							id = {index}
-							data = {item.figures}
-							url = {item.graphFilePath}
-							dataChange = {_this.dataChange}
-							selectedObjs = {selectedObjs}
-							newfloor = {newfloor}
-						/>
+						return obj;
+				})
+				dainitializeConfigs = {
+					stations:arr,
+					scale:1,
+					isMode:'select',
+					plugin:{
+						onCheckedStationCallback:_this.dataChange
+					},
+					backgroundImageUrl:"http://optest.krspace.cn" + data[i].graphFilePath
+				}
 			}
-		})
-	 	return arr;
+		}
+		this.Map =  Map("plan-map-content",dainitializeConfigs);
 	}
     floorsChange = (value) =>{
+		let _this = this;
+		this.Map.destory();
         this.setState({
             newfloor:value,
-        })
+        },function(){
+			_this.canvasEles();
+		})
     }
 	onSubmit = (data) =>{
+		var _this = this;
+		
 		this.setState({
 			inputStart:data.inputStart,
-			inputEnd:data.inputEnd
+			inputEnd:data.inputEnd,
+		},function(){
+			_this.canvasEles();
 		})
 	}
 
@@ -166,32 +200,54 @@ export default class PlanMapContent extends React.Component {
 		let {data} = this.props;
 		let allData = [];
 		let delData = [];
-		submitData.map(function(item,index){
+		let submitDataAll = [];
+		let deleteDataArr = [];
+		// submitData.map(function(item,index){
+		// 	submitDataAll = submitDataAll.concat(item);
+		// });
+		// deleteArr.map(function(item,index){
+		// 	deleteDataArr = deleteDataArr.concat(item)
+		// });
+		for(let i in submitData){
+			submitDataAll = submitDataAll.concat(submitData[i]);
+		}
+		for(let i in deleteArr){
+			deleteDataArr = deleteDataArr.concat(deleteArr[i]);
+		}
+
+
+		 
+		submitDataAll.map(function(item,index){
 			var obj1 = {};
+			let belongType = 1;
+			if( item.belongType == "SPACE"){
+				belongType = 2;
+			}
 			obj1.id = item.belongId;
-			obj1.type = item.belongType;
-			obj1.whereFloor = item.floor;
-			obj1.name = item.cellName;
+			obj1.type = belongType;
+			obj1.whereFloor = item.whereFloor;
+			obj1.name = item.name;
 			obj1.leaseBeginDate = DateFormat(data.startDate,"yyyy-mm-dd");
 			obj1.leaseEndDate =DateFormat(data.endDate,"yyyy-mm-dd");
 
 
-				allData.push(obj1);
+			allData.push(obj1);
 		})
-		
-		 deleteArr.map(function(item,index){
+
+		 deleteDataArr.map(function(item,index){
 			let obj2 = {};
-		 	obj2.id = item.belongId;
+		 	obj2.id = item.id;
 		 	obj2.type = item.belongType;
-			obj2.whereFloor = item.floor;
+			obj2.whereFloor = item.whereFloor;
 
 		 	delData.push(obj2);
 		 })
-
+		
 		const {onClose} = this.props;
 		
+
 		onClose && onClose(allData,{deleteData:delData});
-		
+		this.Map.destory();
 		
 
 
@@ -199,9 +255,8 @@ export default class PlanMapContent extends React.Component {
 
 	render() {
 		const {data,otherData} = this.state;
-		if(!data){
-			return null;
-		}
+		
+
 		return (
 
 			<div className = "plan-map-content">
@@ -215,7 +270,7 @@ export default class PlanMapContent extends React.Component {
 
 				</div>
 				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
-					{this.canvasEles()}
+
 				</div>
 			</div>
 		);
