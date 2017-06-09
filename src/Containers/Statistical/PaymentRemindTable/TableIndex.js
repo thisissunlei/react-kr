@@ -201,7 +201,7 @@ export default class PaymentRemindTable extends React.Component {
 		return (
 			    <div className="table-index" style={{paddingBottom:20,width:"100%",}}>
 				    <div className="table-index-box">
-				    	{/*<Loading/>*/}
+				    	
 				    	<div  className="table-box" style={{width:tebleWidth,height:tableHeight,border:"solid 1px #eee",overflow:"scroll",boxSizing: "border-box"}} >
 				    		<div className="table-left-title"  ref="tableLeftTitle">
 				    			<div className="table-left-title-header">客户名称</div>
@@ -226,6 +226,9 @@ export default class PaymentRemindTable extends React.Component {
 				    			<div className="table-header-item">金额</div>
 				    			<div className="table-header-item">差额</div>
 				    		</div>
+				    		{
+				    			State.loading && State.items.length == 0 && <Loading/>
+				    		}
 				    		<div className="table-items">
 				    			<div className="table-item-box">
 				    				
