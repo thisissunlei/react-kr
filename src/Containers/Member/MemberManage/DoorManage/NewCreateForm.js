@@ -116,25 +116,25 @@ export default class NewCreateForm extends React.Component {
 	render() {
 		let {detail,handleSubmit} = this.props;
 		return (
-			<div className="edit-form" style={{paddingBottom:"3"}}>
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+			<div className="edit-form" >
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:"0 20px 20px 20px"}}>
 					
 
-					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true}/>
+					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true} style={{marginTop:20}}/>
 					
 					
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" requiredValue={true} requireLabel={true}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" requiredValue={true} requireLabel={true} style={{marginTop:15}}/>
 					
-					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange}/>
+					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:15}}/>
 
-					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange}/>
+					<KrField name="endDate" grid={1} label="授权结束时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onEndChange} style={{marginTop:15}}/>
 
 
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>
-								<ListGroupItem style={{width:'270px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
-								<ListGroupItem style={{width:'240px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
+								<ListGroupItem style={{width:'240px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
+								<ListGroupItem style={{width:'200px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 							</ListGroup>
 						  </Row>
 					</Grid>

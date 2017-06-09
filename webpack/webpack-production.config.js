@@ -62,8 +62,8 @@ const config = {
     new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
-       			 drop_console: true,
-        		drop_debugger: true,
+       			 // drop_console: true,
+        		// drop_debugger: true,
 			},
 			output: {
 				comments: false,
@@ -79,8 +79,8 @@ const config = {
 		new webpack.optimize.MinChunkSizePlugin({
    			 compress: {
      			 warnings: false,
-    			drop_debugger: true,
-    			drop_console: true
+    			// drop_debugger: true,
+    			// drop_console: true
     		},
     		minChunkSize: 10000
   		}),

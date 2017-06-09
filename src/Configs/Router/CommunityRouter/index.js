@@ -19,7 +19,12 @@ const Operation_CommunityManage_Detail = (location, callback) => {
     callback(null, require('kr/Containers/Operation/CommunityManage/Detail').default)
   }, 'Operation_CommunityManage_Detail')
 }
-
+{/*新销控表*/}
+const Operation_CommunityManage_ControlTable = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/CommunityManage/ControlTable').default)
+  }, 'Operation_CommunityManage_ControlTable')
+}
 const Operation_CommunityManage_CompanyMembers = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Operation/CommunityManage/CompanyMembers').default)
@@ -67,6 +72,7 @@ module.exports =()=>{
         {/*销控表*/}
         <Route path="communityManage" getComponent={Basic}>
                 <Route path="detail" getComponent={Operation_CommunityManage_Detail}/>
+                <Route path="controlTable" getComponent={Operation_CommunityManage_ControlTable}/>
                 <Route path="visitorsToRecord" getComponent={Operation_CommunityManage_VisitorsToRecord}/>
                 <Route path="holdList" getComponent={Operation_CommunityManage_HoldList}/>
                 {/*所有预约*/}

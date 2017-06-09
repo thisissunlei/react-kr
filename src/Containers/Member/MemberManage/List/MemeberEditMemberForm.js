@@ -197,7 +197,7 @@ export default class MemeberEditMemberForm extends React.Component {
 					<div className="split-lines"></div>
 
 
-					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
+					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityList" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true} inline={false}/>
 
 					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode}/>
 

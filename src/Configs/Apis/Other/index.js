@@ -16,7 +16,9 @@ const APIS = {
     },
     //退租协议-新增-编辑
     'addFnaContractWithdrawal': {
+        // url: '/api/krspace-finance-web/rent/addFnaContractWithdrawal',
         url: '/api/krspace-finance-web/fnaContractWithdrawalController/addFnaContractWithdrawal',
+        
         method: 'post'
     },
     //续租协议-新增-编辑
@@ -78,7 +80,7 @@ const APIS = {
 
     //合同－退租合同－查看
     'getFnaContractWithdrawalById': {
-        url: '/api/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById?id={id}',
+        url: '/api/krspace-finance-web/rent/getFnaContractWithdrawalById?id={id}',
         method: 'get'
     },
 

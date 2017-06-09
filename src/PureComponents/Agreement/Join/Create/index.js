@@ -59,12 +59,17 @@ export default class JoinCreate extends Component {
 		this.state = {
 			initialValues: {},
 			optionValues: {},
+			initialValue: {},
+			optionValue: {},
 			formValues: {},
 			openConfirmCreate: false
 		}
-		Store.dispatch(reset('joinCreateForm'));
+		// Store.dispatch(reset('joinCreateForm'));
 
 		this.isConfirmSubmiting = false;
+	}
+	componentWillUnmount() {
+		Store.dispatch(reset('joinCreateForm'));
 	}
 
 	onCreateSubmit(formValues) {
@@ -73,6 +78,34 @@ export default class JoinCreate extends Component {
 		}, function() {
 			this.openConfirmCreateDialog();
 		});
+	}
+	removeLocalStorage=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId + 'ENTERcreate';
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
+	}
+	removeLocalStorages=()=>{
+		let {params} = this.props;
+		let keyWord = params.orderId+''+params.customerId;
+		let removeList = [];
+		for (var i = 0; i < localStorage.length; i++) {
+			let itemName = localStorage.key(i);
+			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
+				 removeList.push(itemName);
+			 }
+		 }
+		 removeList.map((item)=>{
+ 			 localStorage.removeItem(item);
+ 		})
 	}
 
 	onConfrimSubmit() {
@@ -88,12 +121,12 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {
-			params
+			params,onSubmit
 		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		var _this = this;
-		Http.request('addOrEditEnterContract',formValues).then(function(response) {
+		Http.request('addOrEditEnterContract','',formValues).then(function(response) {
 
 			_this.setState({baiscInf:response});
 
@@ -103,9 +136,12 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			this.props.CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
-			this.props.CommunityAgreementList.openTowAgreement=false;
-			this.props.CommunityAgreementList.openOneAgreement=false;
+			_this.removeLocalStorages();
+			onSubmit && onSubmit()
+			_this.props.CommunityAgreementList.openTowAgreement=false;
+			_this.props.CommunityAgreementList.openOneAgreement=false;
+			_this.props.CommunityAgreementList.openLocalStorage = false;
+
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			// }, 0);
@@ -113,6 +149,7 @@ export default class JoinCreate extends Component {
 
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
+			console.log(err)
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -123,9 +160,11 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		//window.history.back();
-		this.props.CommunityAgreementList.openTowAgreement=false;
-		this.props.CommunityAgreementList.openOneAgreement=false;
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.openTowAgreement=false;
+		CommunityAgreementList.openOneAgreement=false;
+		CommunityAgreementList.openLocalStorage = false;
+		this.removeLocalStorage()
 	}
 
 	openConfirmCreateDialog() {
@@ -142,6 +181,12 @@ export default class JoinCreate extends Component {
 		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
+		let initialValue = {};
+		let optionValue = {fnaCorporationList:[]};
+
+
+		let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
+		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
 		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
@@ -151,7 +196,20 @@ export default class JoinCreate extends Component {
 		}).then(function(response) {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
+			initialValues.customerId = params.customerId;
 			initialValues.agreement = '无';
+
+			initialValues.num = 1;
+			initialValues.oldNum = 1;
+			
+			// initialValues.num = localStorageData.num || 1;
+			
+			// if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+			// 	initialValues.oldNum = localStorageData.num;
+			// }else{
+			// 	initialValues.oldNum = localStorageData.oldNum;
+			// }
+
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
@@ -188,10 +246,19 @@ export default class JoinCreate extends Component {
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+			optionValue = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
+			initialValue = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
+			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
+				initialValue.oldNum = localStorageData.num;
+			}else{
+				initialValue.oldNum = localStorageData.oldNum;
+			}
 
 			_this.setState({
 				initialValues,
 				optionValues,
+				initialValue,
+				optionValue,
 			});
 
 		}).catch(function(err) {
@@ -203,23 +270,30 @@ export default class JoinCreate extends Component {
 	}
 
 
+
 	render() {
 
 		let {
 			initialValues,
-			optionValues
+			optionValues,
+			initialValue,
+			optionValue
 		} = this.state;
 
+		let {CommunityAgreementList} = this.props;
 
 		return (
 
 			<div>
 
 				<Title value="创建入驻协议书_财务管理"/>
-
-			<div style={{marginTop:10}}>
+			{CommunityAgreementList.openLocalStorage && <div style={{marginTop:10}}>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValues}/>
+			</div>}
+			{!CommunityAgreementList.openLocalStorage && <div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
-			</div>
+			</div>}
+			
 
 			<Dialog
 				title="入驻协议书"

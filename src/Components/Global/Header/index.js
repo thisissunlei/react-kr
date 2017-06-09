@@ -5,6 +5,7 @@ import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 import { AppBar, MenuItem,IconMenu, IconButton, Drawer, FontIcon, FlatButton } from 'material-ui';
 
+
 import {
 	Button,
 	Message
@@ -31,7 +32,6 @@ import InfoList from '../InfoList';
 import {
 	LookCustomerList,
 	Agreement
-
 } from 'kr/PureComponents';
 
 import MessageManagement from "./MessageManagement";
@@ -40,8 +40,9 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("NotifyModel")
+@inject("NotifyModel","LeftIconClick")
 @observer
+
 class Header extends React.Component {
 
 	static contextTypes = {
@@ -198,13 +199,19 @@ class Header extends React.Component {
 	}
 
 	handleToggle() {
-
+		
 		var {
 			actions,
 			sidebar_nav,
-			flag
+			flag,
+			LeftIconClick,
 		} = this.props;
-
+		const {showSideNav,leftIconClickFun}= LeftIconClick;
+		
+		leftIconClickFun();
+		
+		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop ;
+		document.documentElement.scrollTop = document.body.scrollTop = scrollTop+1;
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
 
 	}

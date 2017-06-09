@@ -8,12 +8,12 @@ import mobx, {
 import {
 	Message
 } from "kr-ui";
-import Http from "kr/Utils";
+import {Http} from "kr/Utils";
 import {Actions,Store} from 'kr/Redux';
 //全局store
 let State = observable({
 	contractList:[],
-	totalPaper:'',
+	totalPaper:'111',
 	page:'',
 	pageSize:'',
 	//第二次打开的新建
@@ -22,6 +22,9 @@ let State = observable({
 	openOneAgreement:false,
 	//编辑合同
 	openEditAgreement:false,
+	openLocalStorage:false,
+	openAgreementDetail:false,
+	detailValue:''
 
 });
 

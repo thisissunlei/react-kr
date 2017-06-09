@@ -23,6 +23,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {Http} from 'kr/Utils'
 
 import {
 	Form,
@@ -225,8 +226,7 @@ class SelectStationForm extends Component {
 			return false;
 		}
 
-		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
-
+		Store.dispatch(change('renewCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate))
 		selectedStationVos.forEach(function(item, index) {
 			var tmpDate = new Date();
 			tmpDate.setTime(Date.parse(item.leaseBeginDate));

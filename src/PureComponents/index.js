@@ -6,7 +6,7 @@ import LookCustomerList from './LookCustomerList';
 import InfoList from './InfoList';
 import UrgeMoney from './UrgeMoney';
 import SelectCity from './SelectCity';
-
+import PlanMapContent from './PlanMapContent';
 module.exports = {
 	Agreement,
 	AppointmentVisit,
@@ -15,5 +15,6 @@ module.exports = {
 	InfoList,
 	UrgeMoney,
     SelectCity,
-	NewIndent
+	NewIndent,
+	PlanMapContent
 }

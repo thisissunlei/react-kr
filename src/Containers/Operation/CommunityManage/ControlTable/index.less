@@ -1,0 +1,111 @@
+.m-control-table{
+    position: relative;
+    font-size: 14px;
+    .Select-control{
+        width: 150px;
+    }
+    .m-control-table-head{
+        width: auto;
+        border-left: 1px solid #499df1;
+
+        box-sizing: border-box;
+        .m-control-table-head-td{
+            float: left;
+            height: 120px;
+            line-height: 120px;
+            text-align: center;
+            width: 10%;
+            background: #499df1;
+            color: #fff;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            word-break: normal;
+
+            border-right: 1px solid #eee;
+            span{
+                line-height: 20px;
+                display: inline-block;
+            }
+            .m-control-table-head-span{
+                vertical-align: middle;
+
+            }
+            .m-control-table-head-tr{
+              
+              box-sizing: border-box;
+              border-bottom: 1px solid #eee;
+                height: 40px;
+              line-height: 40px;
+              .m-control-table-head-tr-td{
+                  float: left;
+                  width: 33.3%;
+                  box-sizing: border-box;
+                  border-right: 1px solid #eee;
+              }
+              .m-control-table-head-tr-td:last-child{
+                   border-right: 0px solid #eee;
+              }
+            }
+            .m-control-table-head-tr:last-child{
+                 border-bottom: 0px solid #eee;
+            }
+        }
+        .m-control-table-head-td:last-child{
+            border-bottom: 0px solid #eee;
+        }
+        .head-td1{
+            width: 20%;
+        }
+    }
+  .m-control-table-content-tr{
+     border-bottom: 1px solid #eee;
+     border-left: 1px solid #eee;
+     .m-control-table-content-td{
+       float: left;
+       text-align: center;
+       height: 40px;
+       line-height: 40px;
+       width: 10%;
+       box-sizing: border-box;
+       border-right: 1px solid #eee;
+       .m-control-table-one-td{
+           width: 33.33%;
+           box-sizing: border-box;
+           border-right: 1px solid #eee;
+           float: left;
+       }
+       .m-control-table-one-td:last-child{
+        border-right: 0px solid #eee;
+       }
+
+     }
+     .m-control-table-content-td:nth-of-type(1){
+        width: 20%;
+     }
+  }
+  .on-export-end{
+     
+    padding: 20px 0;
+  }
+  .on-export-middle{
+    position: fixed;
+    bottom: 1px;
+    z-index: 999;
+    left: 20px;
+  }
+  .m-control-table-width{
+      height: 100px;
+  }
+}
+.clearfix:after{
+    content: "";
+    /* 转换成块元素  */
+    display: block;
+    clear: both;
+}
+.have-tooltip{
+    overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+padding: 0 3px;
+}

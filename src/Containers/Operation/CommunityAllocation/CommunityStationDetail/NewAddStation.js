@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions,Store} from 'kr/Redux';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
 import {
 	KrField,
 	Button,
@@ -54,7 +54,7 @@ class NewAddStation  extends React.Component{
  	 }
 	}
 
- //校验工位编号
+    //校验工位编号
 	codeCompare=(params)=>{
      this.props.CommunityStationModel.codeStationCompare(params);
 	}
@@ -68,6 +68,12 @@ class NewAddStation  extends React.Component{
 		})
 	}
 
+	priceBlur=(param)=>{
+       if(!param){
+          Store.dispatch(change('NewAddStation','quotedPrice','0'))
+       }
+	}
+
 
 	render(){
 
@@ -75,14 +81,23 @@ class NewAddStation  extends React.Component{
 		let {isBelongSpace,slectNameCommunity}=this.state;
 
 		var style={};
+		var priceStyle={};
 		if(isBelongSpace){
 			style={
 				width:262
+			}
+			priceStyle={
+				width:262,
+				marginLeft:28
 			}
 		}else{
 			style={
 				width:262,
 				marginLeft:28
+			}
+			priceStyle={
+				width:262,
+				marginLeft:1
 			}
 		}
 
@@ -112,6 +127,9 @@ class NewAddStation  extends React.Component{
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
 						requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
 
+				        <KrField grid={1/2} style={priceStyle} name="quotedPrice" component="input"  label="报价"
+                        onBlur={this.priceBlur}/>		
+
             <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
               <Row>
                 <Col md={12} align="center">
@@ -139,9 +157,9 @@ const validate = values =>{
       errors.floor='请输入所在楼层';
     }
 
-		if(values.area&&isNaN(values.area)){
-			errors.area='工位面积为数字'
-		}
+	if(values.area&&isNaN(values.area)){
+		errors.area='工位面积为数字'
+	}
 
     if(!values.stationType){
       errors.stationType='请输入工位性质';
@@ -159,6 +177,14 @@ const validate = values =>{
 	 if(!values.enable){
      errors.enable='请输入启用标识';
    }
+
+    if(values.quotedPrice&&isNaN(values.quotedPrice)){
+		  errors.quotedPrice='报价为数字'
+   	}
+
+		if(values.quotedPrice&&values.quotedPrice.length>18){
+		  errors.quotedPrice='报价长度不能超过18位'
+   	}
 
 		return errors
 }
