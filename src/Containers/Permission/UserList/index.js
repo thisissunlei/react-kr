@@ -51,10 +51,12 @@ export default class UserList extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				roleId: roleId
+				roleId: roleId,
+				timer: 0,
 			},
 			itemDetail: '',
-			openDeleteDialog: false
+			openDeleteDialog: false,
+			newPage:1,
 		}
 	}
 
@@ -85,13 +87,12 @@ export default class UserList extends Component {
 			roleId: roleId,
 			userId: itemDetail.id
 		})).then(function(response) {
-			_this.openDeleteDialog();
 			Message.success('删除成功');
-			window.location.reload();
+			_this.changeP();
+			_this.openDeleteDialog();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message);
-			window.location.reload();
 		});
 	}
 	onSearchSubmit = (name) => {
@@ -104,6 +105,21 @@ export default class UserList extends Component {
 		})
 
 	}
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+        this.setState({
+            searchParams: {
+                    page: this.state.newPage,
+                    timer: timer,
+            }
+        })
+    }
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
+    }
 
 	render() {
 
@@ -129,6 +145,7 @@ export default class UserList extends Component {
 							ajaxUrlName='findUserByRoleId'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
+							onPageChange={this.onPageChange}
 							  >
 						<TableHeader>
 						<TableHeaderColumn>Id</TableHeaderColumn>

@@ -1,14 +1,23 @@
 import React, { PropTypes } from 'react';
+import {Http} from 'kr/Utils';
 import {
 	Tabs,
 	Tab,
 	Title,
 } from 'kr-ui';
+
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import './index.less';
-//import GroupManage from './GroupManage';
+import PostVoucher from './PostVoucher';
+//import DarkHouse from './DarkHouse';
+
 
 export default class AppManage extends React.Component {
-	
+
+
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -16,7 +25,11 @@ export default class AppManage extends React.Component {
 			communityId: '',
 			initSearch:''
 		}
-	
+
+	}
+
+	componentDidMount() {
+		Store.dispatch(Actions.switchSidebarNav(true));
 	}
 
 	merchants = () =>{
@@ -31,7 +44,7 @@ export default class AppManage extends React.Component {
 			initSearch
 		});
 	}
-	
+
 	personal = () => {
 		let {
 			tab,
@@ -92,15 +105,14 @@ export default class AppManage extends React.Component {
 
 			<Tabs className="tabs">
 					<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
-						
+
+
 					</Tab>
 					<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
-
-							
+						<PostVoucher />
 					</Tab>
 					<Tab label="小黑屋" onActive={this.home}  style={homeStyle}>
-
-							
+						{/*<DarkHouse />*/}
 					</Tab>
 			</Tabs>
 
@@ -109,4 +121,3 @@ export default class AppManage extends React.Component {
 		);
 	}
 }
-

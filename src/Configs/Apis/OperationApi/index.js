@@ -495,5 +495,9 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
          method: 'post'
       },
-
+      //app后台-帖子审核
+       'topic-list':{
+         url: '/api/krspace-finance-web/cluster/topic/list',
+         method: 'get'
+      },
 }
