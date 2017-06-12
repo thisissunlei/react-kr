@@ -12,8 +12,7 @@ import {
 } from 'kr/Redux';
 import './index.less';
 import PostVoucher from './PostVoucher';
-//import DarkHouse from './DarkHouse';
-
+import GroupManages from './GroupManages';
 
 export default class AppManage extends React.Component {
 
@@ -105,8 +104,7 @@ export default class AppManage extends React.Component {
 
 			<Tabs className="tabs">
 					<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
-
-
+						<GroupManages />
 					</Tab>
 					<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
 						<PostVoucher />
