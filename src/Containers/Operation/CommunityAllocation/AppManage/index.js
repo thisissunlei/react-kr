@@ -5,7 +5,7 @@ import {
 	Title,
 } from 'kr-ui';
 import './index.less';
-import GroupManage from './GroupManage';
+//import GroupManage from './GroupManage';
 
 export default class AppManage extends React.Component {
 	
@@ -92,8 +92,7 @@ export default class AppManage extends React.Component {
 
 			<Tabs className="tabs">
 					<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
-						<GroupManage />
-							
+						
 					</Tab>
 					<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
 
