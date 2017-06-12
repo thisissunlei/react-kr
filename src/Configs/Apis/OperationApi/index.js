@@ -495,5 +495,10 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
          method: 'post'
       },
+      //群组管理列表
+       'cluster-list':{
+         url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}',
+         method: 'get'
+      },
 
 }
