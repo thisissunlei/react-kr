@@ -1,37 +1,13 @@
-import React, { PropTypes } from 'react'; 
-import { connect } from 'kr/Redux';
-
-import {
-	reduxForm,
-	submitForm,
-	change,
-	reset
-} from 'redux-form';
-
-import { observer } from 'mobx-react';
-
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {Http} from 'kr/Utils';
-
+import React from 'react'; 
 import {
 	Tabs,
 	Tab,
-	Form,
-	Title,
-	Message
+	Title
 } from 'kr-ui';
 import './index.less';
-
-
-
+import GroupManage from './GroupManage';
 
 export default class AppManage extends React.Component {
-	
-
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -39,13 +15,8 @@ export default class AppManage extends React.Component {
 			communityId: '',
 			initSearch:''
 		}
-	
 	}
 
-	componentDidMount() {
-		Store.dispatch(Actions.switchSidebarNav(true));
-	}
-  
 	merchants = () =>{
 		let {
 			tab,
@@ -116,11 +87,9 @@ export default class AppManage extends React.Component {
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 			<Title value="App后台"/>
-
 			<Tabs className="tabs">
 					<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
-
-							
+						<GroupManage />
 					</Tab>
 					<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
 
