@@ -48,7 +48,7 @@ import SelectTimeComponent from './SelectTimeComponent';
 import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
 import SearchCommunityList from './SearchCommunityList';
-import searchCommunityManage from './SearchCommunity';
+import searchCommunity from './SearchCommunity';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
@@ -267,9 +267,9 @@ class FieldRevert extends React.Component {
 
 
 
-			if (component === 'searchCommunityManage') {
+			if (component === 'searchCommunityAll') {
 				return (
-					<Field {...this.props} component={searchCommunityManage}  style={WrapStyles} {...other}/>
+					<Field {...this.props} component={searchCommunity}  style={WrapStyles} {...other}/>
 				)
 			}
 
