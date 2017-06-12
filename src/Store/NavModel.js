@@ -107,7 +107,8 @@ State.loadNavData = action(function () {
 		var menusCode = response.menusCode;
 		_this.setUserInfo(response.userInfo);
 		_this.setPermissionNav(response.menusCode);
-		_this.setResourcds(response.resourcds);
+		// _this.setResourcds(response.resourcds);
+		_this.resourcdsCode = response.resourcesCode;
 		_this.isLoadNavData = true;
 	}).catch(function (err) { });
 
