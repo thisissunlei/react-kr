@@ -2,10 +2,16 @@ import React, { PropTypes } from 'react';
 import {Http} from 'kr/Utils';
 import {
 	XTable,
-	XTableRow
+	XTableRow,
+	Row,
+	Col,
+	Button,
+	ListGroup,
+	ListGroupItem,
+	SearchForms
 } from 'kr-ui';
 import './index.less';
-
+import SearchForm from './SearchForm';
 
 export default class GroupManages extends React.Component {
 
@@ -17,14 +23,39 @@ export default class GroupManages extends React.Component {
 				clusterName:'',
 				cmtId:''
 			},
+			openNewCreat:false,
 		}
 
+	}
+	openNewCreat=()=>{
+		
+	}
+	searchSubmit=(form)=>{
+		console.log('form----',form)
+		
 	}
 
 	render() {
 		
 		return (
-		<div >
+		<div className="g-group-manages">
+			<div className="m-searchform">
+				<Row style={{marginBottom:21}}>
+			          <Col
+					     align="left"
+					     style={{float:'left',marginTop: 20}}
+					   >
+							<Button
+								label="新建群组"
+								type='button'
+								onTouchTap={this.openNewCreat}
+							/>
+					  </Col>
+			          <Col  align="right" style={{marginTop:8,float:"right",marginRight:-10}}>
+				        <SearchForm onSubmit={this.searchSubmit} />
+			          </Col>
+		        </Row>
+			</div>
 			<XTable ajaxUrlName="cluster-list" ajaxParams={this.state.searchParams}>
 	            <XTableRow label="全选" type="checkbox" name="all" width={30}/>
 	            <XTableRow label="群组名称" name="clusterName" width={200} tooltip="我的世界"/>

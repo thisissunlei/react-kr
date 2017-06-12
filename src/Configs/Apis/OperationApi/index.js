@@ -495,10 +495,29 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
          method: 'post'
       },
-      //群组管理列表
+      //群组管理列表(搜索)
        'cluster-list':{
          url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}',
          method: 'get'
       },
-
+      //群组-查看群组
+       'cluster-detail':{
+         url: '/api/krspace-finance-web/cluster/manager/detail?clusterId={clusterId}',
+         method: 'get'
+      },
+      //群组-删除群组
+       'cluster-delete':{
+         url: '/api/krspace-finance-web/cluster/manager/delete?clusterId={clusterId}',
+         method: 'post'
+      },
+      //群组-新建群组
+       'cluster-insert':{
+         url: '/api/krspace-finance-web/cluster/manager/insert?allow={allow}&clusterName={clusterName}&clusterType={clusterType}&cmtId={cmtId}&follow={follow}&headUrl={headUrl}&intro={intro}&recommend={recommend}&sort={sort}',
+         method: 'post'
+      },
+      //群组-修改群组
+       'cluster-update':{
+         url: '/api/krspace-finance-web/cluster/manager/update?allow={allow}&clusterId={clusterId}&clusterName={clusterName}&clusterType={clusterType}&cmtId={cmtId}&follow={follow}&headUrl={headUrl}&intro={intro}&recommend={recommend}&sort={sort}',
+         method: 'post'
+      },
 }
