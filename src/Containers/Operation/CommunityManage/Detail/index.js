@@ -55,7 +55,7 @@ export default class CommunityManage extends React.Component {
 	}
 
 	componentDidMount() {
-		Baidu.trackEvent('销控表页面','访问');
+		Baidu.trackEvent('计划表页面','访问');
 	}
 
 	onSetCommunity = (communityId) => {
