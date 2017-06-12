@@ -520,4 +520,10 @@ module.exports = {
          url: '/api/krspace-finance-web/cluster/manager/update?allow={allow}&clusterId={clusterId}&clusterName={clusterName}&clusterType={clusterType}&cmtId={cmtId}&follow={follow}&headUrl={headUrl}&intro={intro}&recommend={recommend}&sort={sort}',
          method: 'post'
       },
+      //app后台-帖子审核
+       'topic-list':{
+         url: '/api/krspace-finance-web/cluster/topic/list',
+         method: 'get'
+      },
+
 }
