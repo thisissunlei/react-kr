@@ -236,9 +236,9 @@ export default class PaymentRemindTable extends React.Component {
 				    		{
 				    			State.loading && <Loading/>
 				    		}
-				    		{/*
-				    			!State.loading && State.items.length<1 &&<div><img src=require({"./images/nothing"})/></div>
-				    		*/}
+				    		{
+				    			!State.loading && State.items.length<1 &&<div style={{paddingTop:80,textAlign:"center"}}><img src={require('./images/nothings.png')}/><div style={{paddingLeft:20,marginTop:10,fontSize:14}}>暂时没有数据</div></div>
+				    		}
 
 				    		<div className="table-items">
 				    			<div className="table-item-box">
