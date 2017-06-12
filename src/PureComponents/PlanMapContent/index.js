@@ -27,7 +27,7 @@ export default class PlanMapComponent extends React.Component {
 			inputStart:0,
 			inputEnd:0,
 			submitData:[],
-			selectedObjs:this.props.data.selectedObjs,
+			selectedObjs:this.props.data.selectedObjs||[],
 			deleteArr:[],
 			isOperation:true,
 		}
@@ -37,7 +37,7 @@ export default class PlanMapComponent extends React.Component {
 		var _this = this;
 		let {data} = this.props;
 		console.log(this.props.data.selectedObjs,"????")
-		let {selectedObjs} = this.props.data;
+		let selectedObjs = this.props.data.selectedObjs||[];
 		
 		if(!data){
 			return;
@@ -62,12 +62,14 @@ export default class PlanMapComponent extends React.Component {
 				floors.push({value:""+item.floor,label:""+item.floor});
 				name = item.communityName;
 				item.figures.map(function(eveItem,eveIndex){
+					
 					for(let j=0; j<selectedObjs.length;j++){
 							let belongType = "STATION";
 							if(selectedObjs[j].belongType == 2){
 								belongType = "SPACE";
 							}
-							if(eveItem.belongId ==selectedObjs[j].id && eveItem.belongType == belongType ){
+							
+							if(eveItem.belongId ==selectedObjs[j].id && eveItem.belongType == belongType){
 								var obj = {};
 								obj.name = eveItem.cellName;
 								obj.whereFloor = eveItem.floor;
@@ -75,6 +77,15 @@ export default class PlanMapComponent extends React.Component {
 								obj.belongId = Number(eveItem.belongId);
 								allData.push(obj);
 							}
+
+						}
+						if(selectedObjs.length == 0 && eveItem.status && eveItem.status == 3){
+							var obj = {};
+								obj.name = eveItem.cellName;
+								obj.whereFloor = eveItem.floor;
+								obj.belongType = eveItem.belongType;
+								obj.belongId = Number(eveItem.belongId);
+								allData.push(obj);
 						}
 				})
 
