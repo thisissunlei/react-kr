@@ -68,8 +68,12 @@ module.exports = [
 						primaryText: '我的地点',
 						menuCode: 'communityNotice',
 						router: '/operation/communityAllocation/myaddress'
-					}
-
+					},
+					{
+						primaryText: 'App后台',
+						menuCode: 'oper_cluster_base',
+						router: '/operation/communityAllocation/appmanage'
+					},
 
 				]
 			},

@@ -27,7 +27,7 @@ import {
 } from './CommunityPlanList';
 
 import {default as MyAddress} from './MyAddress';
-
+import { default as AppManage } from './AppManage';
 
 
 module.exports = {
@@ -40,5 +40,7 @@ module.exports = {
 	EquipmentList,
 	MyAddress,
 	CommunityPlanMap,
-	CommunityPlanList
+	CommunityPlanList,
+	AppManage
+
 }

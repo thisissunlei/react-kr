@@ -39,6 +39,7 @@ module.exports = [
 				menuCode: 'mobile_question_base',
 				router: '/community/communityManage/holdList'
 			},
+			
 			]
 		},
 		],
