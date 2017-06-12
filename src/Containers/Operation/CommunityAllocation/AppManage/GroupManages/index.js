@@ -8,11 +8,12 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
-	SearchForms
+	SearchForms,
+	Drawer
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
-
+import CreateGroup from './CreateGroup';
 export default class GroupManages extends React.Component {
 
 
@@ -28,11 +29,13 @@ export default class GroupManages extends React.Component {
 
 	}
 	openNewCreat=()=>{
-		
+		this.setState({
+			openNewCreat:!this.state.openNewCreat
+		})
 	}
 	searchSubmit=(form)=>{
 		console.log('form----',form)
-		
+
 	}
 
 	render() {
@@ -69,7 +72,16 @@ export default class GroupManages extends React.Component {
 	                    return <Button onClick={this.onClick} label={scope.signCityName} type="button"/>;
 	                }} />
    			</XTable>
-
+			<Drawer
+             modal={true}
+             width={750}
+             open={this.state.openNewCreat}
+             onClose={this.openNewCreat}
+             openSecondary={true}
+             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+           >
+             <CreateGroup   onCancel={this.openNewCreat}  />
+           </Drawer>
 		</div>
 		);
 	}
