@@ -86,14 +86,20 @@ export default class PaymentRemindTable extends React.Component {
 			if(!State.loading && State.searchParams.page < State.totalPages){
 				State.searchParams.page++;
 				State.getList();
-				this.setState({
-					showTotle : false
-				})
+				
 			}else{
-				this.setState({
-					showTotle : true
-				})
+				console.log(windowH,scrollTop,documentH);
+				if(windowH + scrollTop-30  == documentH && !State.loading){
+					this.setState({
+						showTotle : true
+					})
+				}else{
+					this.setState({
+						showTotle : false
+					})
+				}
 			}
+
 		}
 	}
 
@@ -173,7 +179,8 @@ export default class PaymentRemindTable extends React.Component {
 	export=()=>{
 
 		// var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}&beginDate=${State.searchParams.beginDate}&endDate=${State.searchParams.endDate}&customerName=${State.searchParams.customerName}`
-		var url = `/api/krspace-finance-web/finance/payment-reminder-excel`
+		var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}`
+		console.log("URL",url);
 		window.location.href = url;
 	}
 
@@ -250,7 +257,7 @@ export default class PaymentRemindTable extends React.Component {
 				    			</div>
 				    		</div>
 				    	</div>
-				    	{/*<div style={{position:"relative",textAlign:"center",display:(State.searchParams.page==State.totalPages&&showTotle)?"block":"none",fontSize:14,marginTop:5}}>以上是全部数据了</div>*/}
+				    	<div style={{position:"relative",textAlign:"center",display:showTotle?"block":"none",fontSize:14,marginTop:5}}>以上是全部数据了</div>
 				    	<div className="export" onClick={this.export}>导出</div>
 					</div>
 
