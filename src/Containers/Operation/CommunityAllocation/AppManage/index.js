@@ -71,7 +71,18 @@ export default class AppManage extends React.Component {
 			initSearch
 		});
 	}
-	
+	home = () => {
+		let {
+			tab,
+			initSearch
+		} = this.state;
+		tab = 'home';
+		initSearch='h';
+		this.setState({
+			tab,
+			initSearch
+		});
+	}
 	render() {
 		let {
 			tab,
@@ -93,7 +104,7 @@ export default class AppManage extends React.Component {
 
 		let merchantsStyle = (tab == 'merchants'||tab=='table') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
-		
+		let homeStyle = (tab == 'home') ? activeTab : commenTab;
 
 		const inkBarStyle = {
 			background: '＃499df1',
@@ -115,7 +126,7 @@ export default class AppManage extends React.Component {
 
 							
 					</Tab>
-					<Tab label="小黑屋" onActive={this.personal}  style={personalStyle}>
+					<Tab label="小黑屋" onActive={this.home}  style={homeStyle}>
 
 							
 					</Tab>
