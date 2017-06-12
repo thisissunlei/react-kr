@@ -9,7 +9,8 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchForms,
-	Drawer
+	Drawer,
+	Dialog
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
@@ -29,8 +30,18 @@ export default class GroupManages extends React.Component {
 			openNewCreat:false,
 			openEdit:false,
 			openView:false,
+			openDele:false
 		}
 
+	}
+	//删除
+	onDeleteData=()=>{
+		this.openDele();
+	}
+	openDele=()=>{
+		this.setState({
+			openDele:!this.state.openDele
+		})
 	}
 	openView=()=>{
 		this.setState({
@@ -47,6 +58,7 @@ export default class GroupManages extends React.Component {
 			openNewCreat:!this.state.openNewCreat
 		})
 	}
+
 	searchSubmit=(form)=>{
 		console.log('form----',form)
 
@@ -56,6 +68,7 @@ export default class GroupManages extends React.Component {
 		
 		return (
 		<div className="g-group-manages">
+			<Button  label="删除" onClick={this.openView} />
 			<div className="m-searchform">
 				<Row style={{marginBottom:21}}>
 			          <Col
@@ -114,9 +127,24 @@ export default class GroupManages extends React.Component {
              openSecondary={true}
              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
-             	<ViewGroup   onCancel={this.openView}  />
+             	<ViewGroup  onCancel={this.openView}  />
            </Drawer>
-           
+           <Dialog
+              title="删除"
+              modal={true}
+              contentStyle ={{ width: '444',overflow:'visible'}}
+              open={this.state.openDele}
+              onClose={this.openDele}
+            >
+            <div className='u-list-delete'>
+              	<p className='u-delete-title' style={{textAlign:'center'}}>删除群组后，相关帖子会员都会被删除，确认删除该群组？</p>
+				<div style={{textAlign:'center',marginBottom:10}}>
+                      <div  className='ui-btn-center'>
+	                      <Button  label="确定" onClick={this.onDeleteData}/></div>
+	                      <Button  label="取消" type="button" cancle={true} onClick={this.openDele} />
+                      </div>
+            	</div>
+            </Dialog>
 		</div>
 		);
 	}
