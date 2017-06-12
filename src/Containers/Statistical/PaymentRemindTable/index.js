@@ -34,6 +34,12 @@ import {
 		}
 	}
 
+	componentWillMount(){
+
+		State.getInitialList();
+
+	}
+	
 	componentDidMount(){
 		
 		

@@ -3,13 +3,12 @@ import React, {
 } from 'react';
 import {
 	reduxForm,
+	initialize,
 	change
 } from 'redux-form';
 
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import {Actions,Store} from 'kr/Redux';
+
 import {
 	KrField,
 	ListGroup,
@@ -34,7 +33,13 @@ class SearchForm extends React.Component {
 
 	}
 	componentDidMount() {
+		
 	}
+
+	componentWillReceiveProps(nextProps){
+		
+	}
+
 
 	chooseCommunity=(item)=>{
 		
@@ -77,7 +82,7 @@ class SearchForm extends React.Component {
 	
 	inputCompanyName=(value)=>{
 		
-		State.searchParams.customerName = value.content;
+		State.searchParams.companyName = value.content;
 		State.searchParams.page = 1;
 		$(".table-box").eq(0).scrollTop(0);
 		State.getList();

@@ -2,9 +2,15 @@ import mobx, {
 	observable,
 	action,
 } from 'mobx';
-
+import {Actions,Store} from 'kr/Redux';
+import {
+	reduxForm,
+	initialize,
+	change
+} from 'redux-form';
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
+
 let State = observable({
 	// 即将开发票的ID
 	invoiceId :0,
@@ -16,7 +22,7 @@ let State = observable({
 	totalPages:0,
 	searchParams:{
 		communityId:'',
-		customerName:'',
+		companyName:'',
 		beginDate:'',
 		endDate:'',
 		page:1,
@@ -40,11 +46,28 @@ State.getList = action(function() {
 			}
 		}
 
-		State.totalPages = response.totalCount;
+		State.totalPages = response.totalPages;
 		State.loading = false;
 
 	}).catch(function(err) {
 		State.loading = false;
+		Message.error(err.message);
+	});
+
+});
+
+State.getInitialList = action(function() {
+
+	let _this =this;
+	Http.request('getCommunity', {}).then(function(response) {
+		
+		State.searchParams.communityId = response.communityInfoList[0].id;
+
+		Store.dispatch(initialize('SearchForm', State.searchParams));
+		_this.getList();
+
+	}).catch(function(err) {
+		
 		Message.error(err.message);
 	});
 

@@ -37,7 +37,8 @@ export default class PaymentRemindTable extends React.Component {
 			tableHeight: $(window).height()-215
 		})
 
-		State.getList();
+		
+		
 		
 	}
 
@@ -75,7 +76,7 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	dropMore=(scrollTopParams)=>{
-		console.log("State.items.length",State.items.length)
+		
 		var documentH = $(".table-items").eq(0).height();
 		var scrollTop = scrollTopParams;
 		var windowH = $(".table-box").eq(0).height()-10;
@@ -166,7 +167,6 @@ export default class PaymentRemindTable extends React.Component {
 
 		// var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}&beginDate=${State.searchParams.beginDate}&endDate=${State.searchParams.endDate}&customerName=${State.searchParams.customerName}`
 		var url = `/api/krspace-finance-web/finance/payment-reminder-excel`
-		console.log("url",url);
 		window.location.href = url;
 	}
 
@@ -229,6 +229,9 @@ export default class PaymentRemindTable extends React.Component {
 				    		{
 				    			State.loading && <Loading/>
 				    		}
+				    		{/*
+				    			!State.loading && <div><img src=require({"./images/nothing"})/><div>暂时没有数据~</div></div>
+				    		*/}
 
 				    		<div className="table-items">
 				    			<div className="table-item-box">
@@ -240,7 +243,7 @@ export default class PaymentRemindTable extends React.Component {
 				    			</div>
 				    		</div>
 				    	</div>
-				    	<div style={{position:"relative",textAlign:"center",display:State.searchParams.page==State.totalPages?"block":"none"}}>已经是全部数据了</div>
+				    	{/**/}<div style={{position:"relative",textAlign:"center",display:State.searchParams.page==State.totalPages?"block":"none",fontSize:14,marginTop:5}}>以上是全部数据了</div>
 				    	<div className="export" onClick={this.export}>导出</div>
 					</div>
 
