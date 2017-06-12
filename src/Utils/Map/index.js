@@ -2351,6 +2351,7 @@ var Map = function (elementId, configs) {
 
         //拖拽地图
         MapObject.prototype.dragMap = function () {
+            const { scale } = DC.map;
             let start = movePositionArr[0];
             let end = movePositionArr[movePositionArr.length - 1];
 
@@ -2367,8 +2368,9 @@ var Map = function (elementId, configs) {
             }
 
             //计算平移单位
-            DC.map.translateX += (end.x - start.x)*2;
-            DC.map.translateY += (end.y - start.y)*2;
+            DC.map.translateX += (end.x - start.x)*5;
+            DC.map.translateY += (end.y - start.y)*5;
+            console.log(scale,">>");
 
             this.render();
             movePositionArr = [];
