@@ -24,8 +24,8 @@ export default class PaymentRemindTable extends React.Component {
 		super(props, context);
 		this.state = {
 			tebleWidth: 0 ,
-			tableHeight: 0
-			
+			tableHeight: 0,
+			showTotle : false
 		}
 	}
 
@@ -80,12 +80,19 @@ export default class PaymentRemindTable extends React.Component {
 		var documentH = $(".table-items").eq(0).height();
 		var scrollTop = scrollTopParams;
 		var windowH = $(".table-box").eq(0).height()-10;
-	
+		
 		if(windowH + scrollTop + 50 >= documentH ){
-
+			
 			if(!State.loading && State.searchParams.page < State.totalPages){
 				State.searchParams.page++;
 				State.getList();
+				this.setState({
+					showTotle : false
+				})
+			}else{
+				this.setState({
+					showTotle : true
+				})
 			}
 		}
 	}
@@ -197,7 +204,7 @@ export default class PaymentRemindTable extends React.Component {
 
 	
 	render() {
-		let {tebleWidth,tableHeight}= this.state;
+		let {tebleWidth,tableHeight,showTotle}= this.state;
 		return (
 			    <div className="table-index" style={{paddingBottom:20,width:"100%",}}>
 				    <div className="table-index-box">
@@ -230,7 +237,7 @@ export default class PaymentRemindTable extends React.Component {
 				    			State.loading && <Loading/>
 				    		}
 				    		{/*
-				    			!State.loading && <div><img src=require({"./images/nothing"})/><div>暂时没有数据~</div></div>
+				    			!State.loading && State.items.length<1 &&<div><img src=require({"./images/nothing"})/></div>
 				    		*/}
 
 				    		<div className="table-items">
@@ -243,7 +250,7 @@ export default class PaymentRemindTable extends React.Component {
 				    			</div>
 				    		</div>
 				    	</div>
-				    	{/**/}<div style={{position:"relative",textAlign:"center",display:State.searchParams.page==State.totalPages?"block":"none",fontSize:14,marginTop:5}}>以上是全部数据了</div>
+				    	{/*<div style={{position:"relative",textAlign:"center",display:(State.searchParams.page==State.totalPages&&showTotle)?"block":"none",fontSize:14,marginTop:5}}>以上是全部数据了</div>*/}
 				    	<div className="export" onClick={this.export}>导出</div>
 					</div>
 
