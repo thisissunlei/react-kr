@@ -25,8 +25,7 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("CommunityDetailModel")
-@inject("NewIndentModel")
+@inject("CommunityDetailModel","NewIndentModel","NavModel")
 @observer
  class EditCustomerList extends React.Component{
 

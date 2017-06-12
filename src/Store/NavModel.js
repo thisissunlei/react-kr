@@ -19,6 +19,7 @@ let State = observable({
 	items: [],
 	isLoadedPermissionNav: false,
 	isLoadNavData: false,
+	resourcdsCode:[]
 });
 
 
@@ -106,6 +107,7 @@ State.loadNavData = action(function () {
 		var menusCode = response.menusCode;
 		_this.setUserInfo(response.userInfo);
 		_this.setPermissionNav(response.menusCode);
+		_this.setResourcds(response.resourcds);
 		_this.isLoadNavData = true;
 	}).catch(function (err) { });
 
@@ -202,6 +204,9 @@ State.setSidebarNavs = action(function () {
 	}
 	mobx.extendObservable(this, { sidebarNavs: menuItems })
 });
+State.setResourcds = action(function(menusCode){
+	this.resourcdsCode = menusCode;
+})
 
 State.toggleSidebar = action(function (value) {
 	if (typeof value === 'undefined') {
