@@ -26,7 +26,7 @@ let State = observable({
 		beginDate:'',
 		endDate:'',
 		page:1,
-		pageSize:20
+		pageSize:200
 	}
 
 });

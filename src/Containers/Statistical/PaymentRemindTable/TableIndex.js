@@ -88,7 +88,6 @@ export default class PaymentRemindTable extends React.Component {
 				State.getList();
 				
 			}else{
-				console.log(windowH,scrollTop,documentH);
 				if(windowH + scrollTop-30  == documentH && !State.loading){
 					this.setState({
 						showTotle : true
@@ -107,8 +106,7 @@ export default class PaymentRemindTable extends React.Component {
 		let _this = this;
 		// console.log("item",item);
 		var timeToday = new Date().getTime();
-		// console.log("item.installmentReminddate",item.installmentReminddate);
-		// console.log("time",time);
+		
 		if(item.installmentReminddate>timeToday){
 			return <span></span>
 		}else{
@@ -201,7 +199,7 @@ export default class PaymentRemindTable extends React.Component {
 
 		// var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}&beginDate=${State.searchParams.beginDate}&endDate=${State.searchParams.endDate}&customerName=${State.searchParams.customerName}`
 		var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}`
-		console.log("URL",url);
+		// console.log("URL",url);
 		window.location.href = url;
 	}
 
