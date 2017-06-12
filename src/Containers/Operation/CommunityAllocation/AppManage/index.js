@@ -1,13 +1,14 @@
-import React from 'react'; 
+import React, { PropTypes } from 'react';
 import {
 	Tabs,
 	Tab,
-	Title
+	Title,
 } from 'kr-ui';
 import './index.less';
 import GroupManage from './GroupManage';
 
 export default class AppManage extends React.Component {
+	
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -15,6 +16,7 @@ export default class AppManage extends React.Component {
 			communityId: '',
 			initSearch:''
 		}
+	
 	}
 
 	merchants = () =>{
@@ -87,9 +89,11 @@ export default class AppManage extends React.Component {
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 			<Title value="App后台"/>
+
 			<Tabs className="tabs">
 					<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
 						<GroupManage />
+							
 					</Tab>
 					<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
 

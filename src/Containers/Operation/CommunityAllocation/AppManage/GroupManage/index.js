@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'; 
+import React from 'react'; 
 
 
 export default class GroupManage extends React.Component {
@@ -18,12 +18,11 @@ export default class GroupManage extends React.Component {
   
 	
 	render() {
-		
 
 		return (
 
 			<div className="g-group" >
-			
+				111
 
 
 			</div>
