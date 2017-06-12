@@ -10,6 +10,7 @@ import {
 	Loading
 } from 'kr-ui';
 import { Http } from 'kr/Utils';
+import Plan from './plan.js';
 import './index.less';
 class CommunityPlanMap extends React.Component {
 
@@ -117,9 +118,11 @@ class CommunityPlanMap extends React.Component {
 				},
 				stationToSame:checked,
 				backgroundImageUrl:response.graphFilePath,
-				translateX:0,
-				translateY:0,
-				mode:'edit'
+				map:{
+                  translateX:0,
+			      translateY:0,
+				},			
+				isMode:'edit'
 			}
 
 			_this.setState({
@@ -631,7 +634,7 @@ class CommunityPlanMap extends React.Component {
 
 							</div>
 
-							<PlanMapAll
+							<Plan
 								ref={(mapComponent) => this.mapComponent = mapComponent}
 								initializeConfigs={initializeConfigs}
 								onRemove={this.onRemove}
