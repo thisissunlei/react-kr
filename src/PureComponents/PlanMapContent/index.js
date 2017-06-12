@@ -28,15 +28,17 @@ export default class PlanMapComponent extends React.Component {
 			inputEnd:0,
 			submitData:[],
 			selectedObjs:this.props.data.selectedObjs,
-			deleteArr:[]
+			deleteArr:[],
+			isOperation:true,
 		}
 		this.getData();
-		this.allDataObj = {};
-		this.delDataObj = {}
 	}
 	getData = () =>{
 		var _this = this;
 		let {data} = this.props;
+		console.log(this.props.data.selectedObjs,"????")
+		let {selectedObjs} = this.props.data;
+		
 		if(!data){
 			return;
 		}
@@ -53,10 +55,31 @@ export default class PlanMapComponent extends React.Component {
 			let floors = [];
 			let name = "";
 			let arr = [];
+			var allDataObj = {};
+			
 			arr = response.map(function(item,index){
+				var allData = [];
 				floors.push({value:""+item.floor,label:""+item.floor});
 				name = item.communityName;
+				item.figures.map(function(eveItem,eveIndex){
+					for(let j=0; j<selectedObjs.length;j++){
+							let belongType = "STATION";
+							if(selectedObjs[j].belongType == 2){
+								belongType = "SPACE";
+							}
+							if(eveItem.belongId ==selectedObjs[j].id && eveItem.belongType == belongType ){
+								var obj = {};
+								obj.name = eveItem.cellName;
+								obj.whereFloor = eveItem.floor;
+								obj.belongType = eveItem.belongType;
+								obj.belongId = Number(eveItem.belongId);
+								allData.push(obj);
+							}
+						}
+				})
 
+				allDataObj["a"+item.floor] = [].concat(allData);
+				
 			})
 
 			_this.setState({
@@ -66,6 +89,7 @@ export default class PlanMapComponent extends React.Component {
 					name:name
 				},
 				newfloor:floors[0].value,
+				submitData:allDataObj
 			},function(){
 				 _this.canvasEles();
 			})
@@ -85,6 +109,7 @@ export default class PlanMapComponent extends React.Component {
 		//  
 	}
 	dataChange = (data,allData) =>{
+
 		const {selectedObjs,newfloor,submitData,deleteArr} = this.state;
 		let del = [].concat(selectedObjs);
 		var allDataObj = Object.assign({},submitData);
@@ -97,7 +122,6 @@ export default class PlanMapComponent extends React.Component {
 				if(del[j].belongType == 2){
 					belongType = "SPACE";
 				}
-				
 				if(allData[i].belongId ==del[j].id && allData[i].belongType == belongType ){
 					del.splice(j, 1);
 					
@@ -106,9 +130,11 @@ export default class PlanMapComponent extends React.Component {
 		}
 		allDataObj["a"+newfloor] = [].concat(allData);
 		delDataObj["a"+newfloor] = [].concat(del);
+		
 		this.setState({
 			submitData:allDataObj,
-			deleteArr:delDataObj
+			deleteArr:delDataObj,
+			isOperation:false,
 		})
 	}
 
@@ -171,6 +197,7 @@ export default class PlanMapComponent extends React.Component {
 					backgroundImageUrl:"http://optest.krspace.cn" + data[i].graphFilePath
 				}
 			}
+
 		}
 		this.Map =  Map("plan-map-content",dainitializeConfigs);
 	}
