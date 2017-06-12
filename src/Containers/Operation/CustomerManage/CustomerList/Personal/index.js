@@ -110,6 +110,7 @@ class Personal extends Component{
 			}
 			State.editprojectName=response.projectCategoryName;
 			State.switchEditCustomerList();
+			State.allData = response;
 		}).catch(function(err) {
 
 		});
@@ -528,6 +529,7 @@ class Personal extends Component{
 			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
+							 allData = {State.allData}
 						/>
 					</Drawer>
 
