@@ -251,7 +251,7 @@ export default class FloorPlan extends React.Component {
         };
         var communityInfoFloorList;
         var that = this;
-        Http.request('getCommunityFloors', communityId).then(function(response) {
+        Http.request('getFloorByComunity', communityId).then(function(response) {
             communityInfoFloorList = response.floors.map(function(item, index) {
                 var obj = {};
                 obj.value = item;
@@ -481,7 +481,7 @@ export default class FloorPlan extends React.Component {
              <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign: 'right'}}>
 
                     <ListGroup>
-                        <div className='searchPlan'><KrField component='searchCommunityManage' label='社区' name='community' onChange={this.selectCommunity}/></div>
+                        <div className='searchPlan'><KrField component='searchCommunityAll' label='社区' name='community' onChange={this.selectCommunity}/></div>
                         <ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left',fontSize:'14px',marginRight:'-10px'}}>楼层</span></ListGroupItem>
                         <ListGroupItem  style={{maxWidth:120,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
                         <ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
