@@ -147,12 +147,10 @@ export default class List extends React.Component {
 
 	// 打开确认删除
 	confirmDelete=()=>{
-		// console.log("this.state.searchParams",this.state.searchParams);
 		let _this = this;
 		let {itemDetail} = this.state;
 		Http.request('doorCustomerDelete',{id:itemDetail.id}).then(function(response){
 			Message.success("操作成功");
-			// console.log("_this.state.searchParams.communityId",_this.state.searchParams.communityId);
 			_this.setState({
 				openDeleteDialog : !_this.state.openDeleteDialog,
 				searchParams:{

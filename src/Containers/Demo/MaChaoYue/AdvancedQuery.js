@@ -43,7 +43,6 @@ export default class AdvanceSearchDateForm extends Component {
 		});
 	}
 	componentDidMount() {
-		console.log(this.props.defaultUrl,upload)
 
 	}
 	componentWillReceiveProps(nextProps){
