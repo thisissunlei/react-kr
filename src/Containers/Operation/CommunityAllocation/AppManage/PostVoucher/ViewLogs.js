@@ -18,7 +18,7 @@ import {
 import './index.less';
 
 
-export default class ViewLogs extends React.Component {
+class ViewLogs extends React.Component {
 
 	static PropTypes = {
 		onCancel: React.PropTypes.func,
@@ -27,25 +27,57 @@ export default class ViewLogs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			infoList:[]
+			infoList:[],
+			ownFlag: true,
+			status:1,
 		}
 	}
 
 	componentDidMount() {
 		var _this = this;
 		var id = this.props.detail.id
-		Http.request('getOpDet', {
-						id: id
-				}, {}).then(function(response) {
-						_this.setState({infoList: response})
-				}).catch(function(err) {});
+		Http.request('topic-detail', {
+			id: id
+		}, {}).then(function(response) {
+			_this.setState({infoList: response})
+		}).catch(function(err) {});
 	}
 	onCancel = () => {
-    let {onCancel} = this.props;
-    onCancel && onCancel();
+		let {onCancel} = this.props;
+		onCancel && onCancel();
 	}
+	changeCheck=()=>{
+		this.setState({
+			ownFlag:!this.state.ownFlag,
+		})
+	}
+	onSelect=(item)=>{
 
-
+	}
+	//处理提交
+	handleSubmit=(form)=>{
+		let {
+			itemDetail,
+			status,
+		} = this.state;
+		let {
+			detail,
+			onSubmit
+		} = this.props;
+			
+		var _this = this;
+		Http.request('topic-handle', {}, {
+			content:,
+			id:detail.id,
+			status:status,
+			time:,
+		}).then(function(response) {
+			Message.success('处理成功');
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
 	render() {
 
 		let {
@@ -56,17 +88,18 @@ export default class ViewLogs extends React.Component {
 			showName,
 			customerId,
 			infoList,
-			topInfoList
+			topInfoList,
+			ownFlag,
 		} = this.state;
 		return (
 			<div className="u-audit-add  u-audit-edit">
 				<KrField
 							style={{width:260}}
-							name="payAccount"
+							name="author"
 							inline={false}
 							type="text"
 							component="labelText"
-							label="系统名称"
+							label="发帖人"
 							value={infoList.systemName}
 					/>
 				<KrField
@@ -74,14 +107,14 @@ export default class ViewLogs extends React.Component {
 						name="payName"
 						inline={false}
 						component="labelText"
-						label="业务名称"
+						label="举报类型"
 						value={infoList.sourceName}
 				/>
 				<KrField
 						style={{width:260}}
 						component="labelText"
 						inline={false}
-						label="操作类型"
+						label="举报人"
 						value={infoList.operateType}
 
 				/>
@@ -89,56 +122,42 @@ export default class ViewLogs extends React.Component {
 						style={{width:260,marginLeft:25}}
 						component="labelText"
 						inline={false}
-						label="批次号"
+						label="帖子内容"
 						value={infoList.batchNum}
 				/>
+			<form onSubmit={handleSubmit(this.handleSubmit)} style={{marginTop:50}}>
 				<KrField
 						style={{width:260}}
 						name="payAccount"
 						inline={false}
-						type="text"
-						component="labelText"
-						label="操作人"
-						value={infoList.operater}
+						component="select"
+						label="处罚"
+						options={infoList.operater}
+						onChange={this.onSelect}
 				/>
-					<KrField
-							style={{width:260,marginLeft:25}}
-							name="dealTime"
-							inline={false}
-							component="labelText"
-							label="操作时间"
-							value={< KrDate style = {{marginTop:5}} value = {
-									infoList.operateDate
-							}
-							format = "yyyy-mm-dd" />}
-					/>
-						<KrField
-								style={{width:260}}
-								component="labelText"
-								label="表主键"
-								inline={false}
-								value={infoList.entityId}
-						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								component="labelText"
-								label="扩展字段"
-								inline={false}
-								value={infoList.extra}
-						/>
-						<KrField
-								style={{width:'100%'}}
-								name="accountNum"
-								component="labelText"
-								inline={false}
-								label="操作内容"
-								value={infoList.operateRecord}
-						/>
-
-
+				<input 		
+						  type="checkbox"  
+						  value={ownFlag?'1':'0'} 
+						  name="status"
+						  checked="checked"
+						  onChange={this.changeCheck()}
+				/>删除帖子
+				<KrField
+						style={{width:260}}
+						component="input"
+						inline={true}
+						name="time"
+				/>
+				
 			</div>
-
+			</form>
 
 		);
 	}
 }
+export default ViewLogs = reduxForm({
+	form: 'ViewLogs',
+	validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true,
+})(Editdialog);
