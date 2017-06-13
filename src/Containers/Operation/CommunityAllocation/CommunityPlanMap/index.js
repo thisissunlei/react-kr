@@ -562,7 +562,7 @@ class CommunityPlanMap extends React.Component {
 									<span className="til">当前比例：</span>
 									<input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
 									<output>{this.state.scaleNumber}</output>%
-							</div>
+							   </div>
 
 								<div className='upload-img'>
 								  <a href="javascript:;" className="plan-file">选择文件 	 
