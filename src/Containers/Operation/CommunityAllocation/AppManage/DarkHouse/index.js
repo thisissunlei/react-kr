@@ -33,7 +33,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import ViewLogs from './ViewLogs';
-export default class PostVoucher extends React.Component {
+export default class DarkHouse extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -44,7 +44,8 @@ export default class PostVoucher extends React.Component {
 				timer:0,
 			},
 			itemDetail: '',
-			openHandle: false,
+			openRelease: false,
+			openAdd: false,
 			newPage:1,
 		}
 	}
@@ -55,23 +56,35 @@ export default class PostVoucher extends React.Component {
 			itemDetail
 		});
 
-		if (type == 'handle') {
-			this.openHandle();
-		}else if (type == 'operate') {
-			this.setState({
-				searchParams: {
-					batchNum: itemDetail.batchNum,
-				}
-			})
+		if (type == 'release') {
+			this.openRelease();
+		}else if (type == 'add') {
+			this.openAdd();
 		}
 	}
 	//打开查看日志
-	openHandle = () => {
+	openRelease = () => {
 		this.setState({
-			openHandle: !this.state.openHandle
+			openRelease: !this.state.openRelease
 		})
 	}
-//改变页码
+	onReleaseSubmit = () => {
+		let {
+			itemDetail
+		} = this.state;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('deleteUser', {
+			userId: itemDetail.id
+		})).then(function(response) {
+			Message.success('删除成功');
+			_this.changeP();
+			_this.openDeleteDialog();
+		}).catch(function(err) {
+			_this.openDeleteDialog();
+			Message.error(err.message);
+		});
+	}
+	//改变页码
     changeP=()=>{
         var timer = new Date();
         this.setState({
@@ -89,7 +102,7 @@ export default class PostVoucher extends React.Component {
   
 
 	render() {
-		var logFlag = true;
+	var logFlag = true;
 
 		return (
 			<div className="m-opera-logs">
@@ -99,16 +112,16 @@ export default class PostVoucher extends React.Component {
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='topic-list'
+							ajaxUrlName='punish-list'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							onPageChange={this.onPageChange}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>被举报人</TableHeaderColumn>
+						<TableHeaderColumn>被处罚人</TableHeaderColumn>
 						<TableHeaderColumn>举报类型</TableHeaderColumn>
-						<TableHeaderColumn>举报人</TableHeaderColumn>
-						<TableHeaderColumn>操作时间</TableHeaderColumn>
+						<TableHeaderColumn>处罚</TableHeaderColumn>
+						<TableHeaderColumn>处罚时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 
@@ -116,29 +129,15 @@ export default class PostVoucher extends React.Component {
 						<TableRow>
 							<TableRowColumn name="punishedName" ></TableRowColumn>
 								<TableRowColumn name="type"></TableRowColumn>
-								<TableRowColumn name="name" component={(value,oldValue,itemDetail) => {
-                                        if (value.length>2) {
-                                            logFlag = false;
-                                        }else{
-											logFlag = true;
-										}
-                                        return (
-                                            <div>
-                                                {
-                                                    logFlag
-                                                    ? <div>{value[0]}、{value[1]}</div>
-                                                    : <div></div>
-                                                }
-                                            </div>
-                                                )
-                                    }}></TableRowColumn>
+								<TableRowColumn name="intro"></TableRowColumn>
 							 <TableRowColumn name="time" type="date" component={(value)=>{
  								return (
  									<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
  								)
  							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="处理"  type="operation" operation="handle"/>
+									<Button label="提前释放"  type="operation" operation="release"/>
+									<Button label="加刑"  type="operation" operation="add"/>
 							</TableRowColumn>
 						 </TableRow>
 					</TableBody>
@@ -149,13 +148,26 @@ export default class PostVoucher extends React.Component {
 				<Dialog
 					title="查看"
 					modal={true}
-					open={this.state.openHandle}
-					onClose={this.openHandle}
-				>
-					<ViewLogs
-								onCancel={this.openHandle} detail={this.state.itemDetail}
-					/>
-				</Dialog>
+					open={this.state.openRelease}
+					onClose={this.openRelease}
+					contentStyle={{width:443,height:236}}
+					 >
+						          <div style={{marginTop:45}}>
+						            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
+						            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+						                  <Row>
+						                    <ListGroup>
+						                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+						                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
+						                      </ListGroupItem>
+						                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+						                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteDialog} />
+						                      </ListGroupItem>
+						                    </ListGroup>
+						                  </Row>
+						                </Grid>
+						          </div>
+					</Dialog>
 			</div>
 		);
 	}

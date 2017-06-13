@@ -13,6 +13,7 @@ import {
 import './index.less';
 import PostVoucher from './PostVoucher';
 import GroupManages from './GroupManages';
+import DarkHouse from './DarkHouse';
 
 export default class AppManage extends React.Component {
 
@@ -110,7 +111,7 @@ export default class AppManage extends React.Component {
 						<PostVoucher />
 					</Tab>
 					<Tab label="小黑屋" onActive={this.home}  style={homeStyle}>
-						{/*<DarkHouse />*/}
+						<DarkHouse />
 					</Tab>
 			</Tabs>
 

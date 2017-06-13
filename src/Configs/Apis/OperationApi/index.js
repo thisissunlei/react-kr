@@ -525,5 +525,10 @@ module.exports = {
          url: '/api/krspace-finance-web/cluster/topic/list',
          method: 'get'
       },
+      //app后台-小黑屋
+       'punish-list':{
+         url: '/api/krspace-op-web/cluster/punish/list',
+         method: 'get'
+      },
 
 }
