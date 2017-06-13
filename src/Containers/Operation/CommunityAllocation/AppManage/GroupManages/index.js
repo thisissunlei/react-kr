@@ -23,8 +23,9 @@ import SearchForm from './SearchForm';
 import CreateGroup from './CreateGroup';
 import EditGroup from './EditGroup';
 import ViewGroup from './ViewGroup';
-export default class GroupManages extends React.Component {
 
+
+export default class GroupManages extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -36,10 +37,34 @@ export default class GroupManages extends React.Component {
 			openNewCreat:false,
 			openEdit:false,
 			openView:false,
-			openDele:false
+			openDele:false,
+			itemDetail:'',
 		}
 
 	}
+	
+	//操作相关
+  	onOperation = (type, itemDetail) => {
+
+      this.setState({
+        itemDetail
+      });
+      switch (type){
+        case  'view':{
+         this.openView();
+          break;
+        }
+        case  'edit':{
+         this.openEdit();
+          break;
+        }
+        case  'delete':{
+         this.openDele(itemDetail);
+          break;
+        }
+      }
+    }
+
 	//删除
 	onDeleteData=()=>{
 		this.openDele();
@@ -72,9 +97,10 @@ export default class GroupManages extends React.Component {
 	selectCommunity=(form)=>{
 		console.log('form11111----',form)
 	}
+	
 
 	render() {
-		
+		let {itemDetail}=this.state;
 		return (
 		<div className="g-group-manages">
 			<div className="m-searchform">
@@ -152,7 +178,7 @@ export default class GroupManages extends React.Component {
              openSecondary={true}
              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
-             	<EditGroup   onCancel={this.openEdit}  />
+             	<EditGroup detail={itemDetail}  onCancel={this.openEdit}  />
            </Drawer>
            <Drawer
              modal={true}
@@ -162,7 +188,7 @@ export default class GroupManages extends React.Component {
              openSecondary={true}
              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
-             	<ViewGroup  onCancel={this.openView}  />
+             	<ViewGroup detail={itemDetail} onCancel={this.openView}  />
            </Drawer>
            <Dialog
               title="删除"
