@@ -54,7 +54,7 @@ class ViewGroup extends React.Component {
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<CircleStyleTwo num="1" info="头像信息">
-					<img src={viewData.headUrl} alt="" width={100} height={100}/>
+					<img src={viewData.headUrl} style={{marginLeft:16}} width={100} height={100}/>
 				</CircleStyleTwo>
 				<CircleStyleTwo num="2" info="群组信息" circle="bottom">
 					<KrField

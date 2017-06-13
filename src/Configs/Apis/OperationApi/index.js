@@ -550,11 +550,7 @@ module.exports = {
          url: '/api/krspace-finance-web/cluster/punish/inflict',
          method: 'post'
       },
-      //群组-获取社区
-       'community-list':{
-         url: '/api/krspace-finance-web/cluster/manager/community-list',
-         method: 'get'
-      },
+      
       
 
 }
