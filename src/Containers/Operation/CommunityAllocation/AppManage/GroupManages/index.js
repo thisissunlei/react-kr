@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react';
 import {Http} from 'kr/Utils';
 import {
-	XTable,
-	XTableRow,
+	Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn,
+    TableFooter,
 	Row,
 	Col,
 	Button,
@@ -71,7 +76,6 @@ export default class GroupManages extends React.Component {
 		
 		return (
 		<div className="g-group-manages">
-			<Button  label="删除" onClick={this.openView} />
 			<div className="m-searchform">
 				<Row style={{marginBottom:21}}>
 			          <Col
@@ -89,19 +93,41 @@ export default class GroupManages extends React.Component {
 			          </Col>
 		        </Row>
 			</div>
-			<XTable ajaxUrlName="cluster-list" ajaxParams={this.state.searchParams}>
-	            <XTableRow label="全选" type="checkbox" name="all" width={30}/>
-	            <XTableRow label="群组名称" name="clusterName" width={200} tooltip="我的世界"/>
-	            <XTableRow label="群组类型" name="clusterTypeName" width={100}/>
-	            <XTableRow label="成员数" name="mbrCount" type="date" width={100}/>
-	            <XTableRow label="所属社区" name="cmtName" type="date" width={200}/>
-	            <XTableRow label="所属城市" name="city" type="date" width={100}/>
-	            <XTableRow label="创建人" name="creater" type="date" width={100}/>
-	            <XTableRow label="创建时间" name="createTime" type="date" width={200} />
-	            <XTableRow label="操作" type="operation" width={300} component={(scope)=>{
-	                    return <Button onClick={this.onClick} label={scope.signCityName} type="button"/>;
-	                }} />
-   			</XTable>
+			<Table
+                  style={{marginTop:10}}
+                  ajax={true}
+                  ajaxUrlName='cluster-list'
+                  ajaxParams={this.state.searchParams}
+                  onOperation={this.onOperation}
+              >
+              <TableHeader>
+                  <TableHeaderColumn>群组名称</TableHeaderColumn>
+                  <TableHeaderColumn>群组类型</TableHeaderColumn>
+                  <TableHeaderColumn>成员数</TableHeaderColumn>
+                  <TableHeaderColumn>所属社区</TableHeaderColumn>
+                  <TableHeaderColumn>所属城市</TableHeaderColumn>
+                  <TableHeaderColumn>创建人</TableHeaderColumn>
+                  <TableHeaderColumn>创建时间</TableHeaderColumn>
+                  <TableHeaderColumn>操作</TableHeaderColumn>
+              </TableHeader>
+			  <TableBody>
+					<TableRow>
+						  <TableRowColumn name="clusterName"></TableRowColumn>
+				   		  <TableRowColumn name="clusterTypeName"></TableRowColumn>
+						  <TableRowColumn name="mbrCount"></TableRowColumn>
+						  <TableRowColumn name="cmtName"></TableRowColumn>
+						  <TableRowColumn name="city"></TableRowColumn>
+						  <TableRowColumn name="creater"></TableRowColumn>
+						  <TableRowColumn name="createTime"></TableRowColumn>
+						  <TableRowColumn>
+						  	 <Button label="查看"  type="operation"  operation="view"/>
+						  	 <Button label="编辑"  type="operation"  operation="edit"/>
+						  	 <Button label="删除"  type="operation"  operation="delete"/>
+						  </TableRowColumn>
+				   	</TableRow>
+              </TableBody>
+              <TableFooter></TableFooter>
+            </Table>
 			<Drawer
              modal={true}
              width={750}
