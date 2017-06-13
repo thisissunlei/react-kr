@@ -39,9 +39,6 @@ import {
 	constructor(props){
 		super(props);
 		let {listId}=props;
-		this.state = {
-			isPermissions:false
-		};
 		State.treeAllData();
 		this.permissions();
 
@@ -78,9 +75,7 @@ import {
 		
 		resourcdsCode.map(function(item,index){
 			if(item == "oper_csr_edit_include_source"){
-				_this.setState({
-					isPermissions:true
-				})
+				State.isPermissions = true; 
 			}
 		})
 	}
@@ -186,7 +181,6 @@ import {
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
-		let {isPermissions} = this.state;
 		
 		let sourceIdLabel = '';
 		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
@@ -196,7 +190,7 @@ import {
 			}
 			
 		})
-
+		
 
 		return (
 
@@ -209,7 +203,7 @@ import {
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									{isPermissions ? <KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
+									{State.isPermissions ? <KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
 											options={dataReady.customerSourceList}
 											requireLabel={true}
 											onChange={this.sourceCustomer}
