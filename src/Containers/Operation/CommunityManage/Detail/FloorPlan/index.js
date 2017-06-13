@@ -233,7 +233,7 @@ export default class FloorPlan extends React.Component {
 		};
 		var communityInfoFloorList;
 		var that = this;
-		Http.request('getCommunityFloors', communityId).then(function(response) {
+		Http.request('getFloorByComunity', communityId).then(function(response) {
 			communityInfoFloorList = response.floors.map(function(item, index) {
 				var obj = {};
 				obj.value = item;
