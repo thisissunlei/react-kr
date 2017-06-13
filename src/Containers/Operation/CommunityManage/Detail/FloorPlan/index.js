@@ -61,7 +61,8 @@ export default class FloorPlan extends React.Component {
             //hover信息
             hoverData:'',
             //销毁原来的canvas
-            destroyData:[]
+            destroyData:[],
+            scaleNumber:100
         }
         this.getcommunity();
         Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
@@ -79,7 +80,7 @@ export default class FloorPlan extends React.Component {
 
     //获取基本信息
     getBaseData=()=>{
-        let {dateend,date,searchParams,canvasRender,destroyData}=this.state;
+        let {dateend,date,searchParams,canvasRender,destroyData,scaleNumber}=this.state;
         var data={};
         data.startDate=date;
         data.endDate=dateend;
@@ -144,7 +145,7 @@ export default class FloorPlan extends React.Component {
                 },function(){
                     canvasRender.map((item,index)=>{
                       var map=Map(`plan-app${index}`,item);
-                      destroyData.push(map);
+                       destroyData.push(map);
                        map.onHoverInStation(function(data){
                          _this.setState({
                              hoverData:data
@@ -156,6 +157,7 @@ export default class FloorPlan extends React.Component {
                              hoverData:data
                          })
                       })
+                       map.setScale(scaleNumber/100);
                     })
                 })
                 _this.setState({
@@ -427,6 +429,19 @@ export default class FloorPlan extends React.Component {
         
     }
 
+    //放大比例
+	rangeSelect = (event) => {
+        let {destroyData}=this.state;
+		var scaleSize = Number(event.target.value);
+		var scaleNumber = parseInt(event.target.value * 100);
+		this.setState({
+			scaleNumber
+		});
+        destroyData.map((item,index)=>{
+           item.setScale(scaleSize);
+        })
+	}
+
     componentDidUpdate(){
         const {tab} = this.props;
         if(tab !== 'floorplan'){
@@ -461,7 +476,7 @@ export default class FloorPlan extends React.Component {
         
         return (
 
-            <div id="planTable" style={{margin:20,paddingBottom:30}}>
+            <div id="planTable" style={{margin:20,paddingBottom:30}} className='plan-table'>
 
              <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
 
@@ -472,6 +487,11 @@ export default class FloorPlan extends React.Component {
                         <ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
                         <ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px',fontSize:'14px'}}>至</span></ListGroupItem>
                         <ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
+                        {/*<div className="num-type">
+                                        <span className="til">当前比例：</span>
+                                        <input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
+                                        <output>{this.state.scaleNumber}</output>%
+                        </div>*/}
                     </ListGroup>
             </form>
             
