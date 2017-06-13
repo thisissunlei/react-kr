@@ -68,8 +68,6 @@ export default class Visitor extends React.Component{
 				idList.push(item.id)
 			});
 		}
-		console.log('idList----',idList)
-		
 		var url = `/api/krspace-finance-web/cmt/visit/export-excel?idList=${idList}`
 		window.location.href = url;
 	}
