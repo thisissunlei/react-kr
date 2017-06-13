@@ -63,6 +63,9 @@ export default class GroupManages extends React.Component {
 		console.log('form----',form)
 
 	}
+	selectCommunity=(form)=>{
+		console.log('form11111----',form)
+	}
 
 	render() {
 		
@@ -82,7 +85,7 @@ export default class GroupManages extends React.Component {
 							/>
 					  </Col>
 			          <Col  align="right" style={{marginTop:8,float:"right",marginRight:-10}}>
-				        <SearchForm onSubmit={this.searchSubmit} />
+				        <SearchForm onSubmit={this.searchSubmit}  onChange={this.selectCommunity}/>
 			          </Col>
 		        </Row>
 			</div>

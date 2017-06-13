@@ -22,6 +22,10 @@ export default class SearchForm extends React.Component {
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
+	selectCommunity=(form)=>{
+		let {onChange} = this.props;
+		onChange && onChange(form);
+	}
 	
 	render() {
 		
