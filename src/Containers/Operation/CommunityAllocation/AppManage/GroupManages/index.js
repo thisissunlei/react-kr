@@ -95,7 +95,11 @@ export default class GroupManages extends React.Component {
 
 	}
 	selectCommunity=(form)=>{
-		console.log('form11111----',form)
+		this.setState({
+			searchParams:{
+				cmtId:form.id,
+			}
+		})
 	}
 	
 

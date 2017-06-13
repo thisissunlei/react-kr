@@ -38,7 +38,7 @@ export default class SearchForm extends React.Component {
 				/>
 				<KrField 
 						name="community"   
-						component="searchCommunityManage" 
+						component="searchCommunityAll" 
 						label="社区" 
 						style={{width:260}} 
 						options='' 
