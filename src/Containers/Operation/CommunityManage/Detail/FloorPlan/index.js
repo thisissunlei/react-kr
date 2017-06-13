@@ -478,7 +478,7 @@ export default class FloorPlan extends React.Component {
 
             <div id="planTable" style={{margin:20,paddingBottom:30}} className='plan-table'>
 
-             <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
+             <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign: 'right'}}>
 
                     <ListGroup>
                         <div className='searchPlan'><KrField component='searchCommunityManage' label='社区' name='community' onChange={this.selectCommunity}/></div>
