@@ -497,7 +497,7 @@ module.exports = {
       },
       //群组管理列表(搜索)
        'cluster-list':{
-         url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}',
+         url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}&pageSize={pageSize}&page={page}',
          method: 'get'
       },
       //群组-查看群组
@@ -550,5 +550,11 @@ module.exports = {
          url: '/api/krspace-op-web/cluster/punish/inflict',
          method: 'post'
       },
+      //群组-获取社区
+       'community-list':{
+         url: '/api/krspace-finance-web/cluster/manager/community-list',
+         method: 'get'
+      },
+      
 
 }
