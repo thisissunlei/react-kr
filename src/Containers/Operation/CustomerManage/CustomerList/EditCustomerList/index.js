@@ -77,7 +77,7 @@ import {
 		let _this = this;
 		
 		resourcdsCode.map(function(item,index){
-			if(item == "oper_csr_edit_nosource"){
+			if(item == "oper_csr_edit_include_source"){
 				_this.setState({
 					isPermissions:true
 				})
