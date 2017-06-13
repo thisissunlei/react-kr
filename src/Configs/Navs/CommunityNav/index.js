@@ -22,17 +22,18 @@ module.exports = [
 				menuCode: 'oper_appointment_base',
 				router: '/community/communityManage/allAppointment'
 			},
+
 			{
 				primaryText: '访客登记',
 				menuCode: 'com_sys_visitList_base',
-				router: '/community/communityManage/visitorsToRecord'
+				router: '/community/visitor/list'
+				
 			},
 			{
 				primaryText: '预约参观',
 				menuCode: 'visitRecord',
-				router: '/community/visitor/list'
+				router: '/community/communityManage/visitorsToRecord'
 			},
-			
 			{
 				primaryText: '支持列表',
 				menuCode: 'mobile_question_base',
