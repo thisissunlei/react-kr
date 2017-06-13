@@ -152,7 +152,8 @@ class NewCreateMainbill extends React.Component {
 				    		left={10}
 							name="communityid"
 							type="text"
-							component="searchCommunitys"
+							inline={false}
+							component="searchCommunityAll"
 							label="所属社区"
 							requireLabel={true}
 					 />
