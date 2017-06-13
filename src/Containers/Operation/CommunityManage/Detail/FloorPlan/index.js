@@ -476,7 +476,7 @@ export default class FloorPlan extends React.Component {
         
         return (
 
-            <div id="planTable" style={{margin:20,paddingBottom:30}}>
+            <div id="planTable" style={{margin:20,paddingBottom:30}} className='plan-table'>
 
              <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
 
