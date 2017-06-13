@@ -478,14 +478,14 @@ export default class FloorPlan extends React.Component {
 
             <div id="planTable" style={{margin:20,paddingBottom:30}} className='plan-table'>
 
-             <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
+             <form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
 
                     <ListGroup>
                         <div className='searchPlan'><KrField component='searchCommunityManage' label='社区' name='community' onChange={this.selectCommunity}/></div>
-                        <ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left',fontSize:'14px'}}>楼层</span></ListGroupItem>
-                        <ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
+                        <ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left',fontSize:'14px',marginRight:'-10px'}}>楼层</span></ListGroupItem>
+                        <ListGroupItem  style={{maxWidth:120,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
                         <ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
-                        <ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px',fontSize:'14px'}}>至</span></ListGroupItem>
+                        <ListGroupItem style={{textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px',fontSize:'14px',marginRight:'-10px'}}>至</span></ListGroupItem>
                         <ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
                         <div className="num-type">
                                         <span className="til">当前比例：</span>
