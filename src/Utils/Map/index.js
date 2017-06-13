@@ -1,6 +1,6 @@
 //平面图
 var Map = function (elementId, configs) {
-    var movePositionArr = [];
+
     //画布上下文    
     var context;
 
@@ -173,8 +173,8 @@ var Map = function (elementId, configs) {
             '4':{
                 status: 'notChecked',
                 mark: '未选择',
-                textColor: '#499df1',
-                backgroundColor: '#ffffff',
+                textColor: '#fff',
+                backgroundColor: '#499df1',
             },
             '5':{
                 status: 'default',
@@ -500,10 +500,13 @@ var Map = function (elementId, configs) {
 			}
 
 			const bbox = canvas.getBoundingClientRect();
-			const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
+			//const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
+			const position = MapFactory.canvasToWindow(props.x, props.y);
 
-			props.clientX = position.x;
-			props.clientY = position.y;
+			props.clientX = position.x+bbox.left;
+			props.clientY = position.y+bbox.top;
+
+			console.log('x,y',props.clientX,props.clientY)
 
 
 			this.setProps({
@@ -528,10 +531,10 @@ var Map = function (elementId, configs) {
 			});
 
 			const bbox = canvas.getBoundingClientRect();
-			const position = MapFactory.canvasToWindow(props.x + bbox.left, props.y + bbox.top);
+			const position = MapFactory.canvasToWindow(props.x, props.y);
 
-			props.clientX = position.x;
-			props.clientY = position.y;
+			props.clientX = position.x+bbox.left;
+			props.clientY = position.y+bbox.top;
 
 			onHoverOutStationCallback && onHoverOutStationCallback(props);
 		}
@@ -1782,16 +1785,7 @@ var Map = function (elementId, configs) {
             //拖拽地图-移动
             const DragMapMoveEvent = function (event) {
                 MapFactory.setMovePosition(event);
-                movePositionArr.push(position.move);
-                let start = movePositionArr[0];
-                let end = movePositionArr[movePositionArr.length - 1];
-                if(Math.abs(start.x-end.x)>=1||Math.abs(start.y-end.y)>=1){
-                    self.dragMap();
-                }
-
                 canvas.addEventListener('mouseup', DragMapEndEvent, false);
-                // MapFactory.setMovePosition(event);
-                // canvas.addEventListener('mouseup', DragMapEndEvent, false);
             }
 
             //拖拽地图-结束
@@ -1799,9 +1793,9 @@ var Map = function (elementId, configs) {
                 MapFactory.setUpPosition(event);
                 canvas.removeEventListener('mouseup', DragMapEndEvent, false);
                 canvas.removeEventListener('mousemove', DragMapMoveEvent, false);
-                movePositionArr = [];
+
                 //拖拽地图
-                // self.dragMap();
+                self.dragMap();
             }
 
 
@@ -2351,12 +2345,9 @@ var Map = function (elementId, configs) {
 
         //拖拽地图
         MapObject.prototype.dragMap = function () {
-            const { scale } = DC.map;
-            let start = movePositionArr[0];
-            let end = movePositionArr[movePositionArr.length - 1];
 
-            var dragX = end.x - start.x;
-            var dragY = end.y - start.y;
+            var dragX = position.up.x - position.down.x;
+            var dragY = position.up.y - position.down.y;
 
             var lx = Math.abs(dragX);
             var ly = Math.abs(dragY);
@@ -2368,12 +2359,10 @@ var Map = function (elementId, configs) {
             }
 
             //计算平移单位
-            DC.map.translateX += (end.x - start.x)*5;
-            DC.map.translateY += (end.y - start.y)*5;
-            console.log(scale,">>");
+            DC.map.translateX += position.up.x - position.down.x;
+            DC.map.translateY += position.up.y - position.down.y;
 
             this.render();
-            movePositionArr = [];
         }
 
         //工位拖拽-开始
@@ -2966,5 +2955,6 @@ var Map = function (elementId, configs) {
             map.createStation(params);
         },
     }
-}
+};
+
 module.exports=Map;
