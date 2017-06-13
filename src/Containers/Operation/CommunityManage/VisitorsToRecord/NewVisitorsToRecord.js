@@ -78,7 +78,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 
 
 
-						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='select'  label="社区" inline={false}
+						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='searchCommunityAll' label="社区" inline={false}
 							requireLabel={true}
 							options={select.communitys}
 						/>
