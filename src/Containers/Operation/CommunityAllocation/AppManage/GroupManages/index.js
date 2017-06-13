@@ -74,6 +74,7 @@ export default class GroupManages extends React.Component {
 		const {itemDetail}=this.state;
 		Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
 			_this.openDele();
+			
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});

@@ -507,17 +507,17 @@ module.exports = {
       },
       //群组-删除群组
        'cluster-delete':{
-         url: '/api/krspace-finance-web/cluster/manager/delete?clusterId={clusterId}',
+         url: '/api/krspace-finance-web/cluster/manager/delete',
          method: 'post'
       },
       //群组-新建群组
        'cluster-insert':{
-         url: '/api/krspace-finance-web/cluster/manager/insert?allow={allow}&clusterName={clusterName}&clusterType={clusterType}&cmtId={cmtId}&follow={follow}&headUrl={headUrl}&intro={intro}&recommend={recommend}&sort={sort}',
+         url: '/api/krspace-finance-web/cluster/manager/insert',
          method: 'post'
       },
       //群组-修改群组
        'cluster-update':{
-         url: '/api/krspace-finance-web/cluster/manager/update?allow={allow}&clusterId={clusterId}&clusterName={clusterName}&clusterType={clusterType}&cmtId={cmtId}&follow={follow}&headUrl={headUrl}&intro={intro}&recommend={recommend}&sort={sort}',
+         url: '/api/krspace-finance-web/cluster/manager/update',
          method: 'post'
       },
       //app后台-帖子审核
