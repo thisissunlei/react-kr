@@ -49,7 +49,7 @@ class EditGroup extends React.Component {
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">新建群组</label></div>
+						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
