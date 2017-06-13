@@ -64,6 +64,16 @@ export default class SearchDetailForm extends React.Component {
 		State.getDetailList();
 	}
 	
+	changeCommunity=(item)=>{
+	  	console.log("item",item);
+	  	if(!item || !item.id){
+	   		State.communityId = '';
+	  	}else{
+	   		State.communityId = item.id;
+	  	}
+	  	State.getDetailList();
+	}
+	
 
 	render() {
 		let {handleSubmit} = this.props;
@@ -99,6 +109,12 @@ export default class SearchDetailForm extends React.Component {
 								<KrField  name="customerId" placeholder="请输入客户名称" component="searchCompany"  onChange={this.changeCustomer}  style={{width:252,marginTop: 7,marginRight:7}}/>
 								
 							</ListGroupItem>
+							<ListGroupItem>
+					        	<span style={{display:'inline-block',height:58,fontSize:14,marginTop:10,marginRight:"-10px"}}>社区:</span>
+					       	</ListGroupItem>
+					       	<ListGroupItem>
+					        	<KrField name="communityId" component="searchCommunityManage" label="" inline={false} style={{width:252,marginTop:6}} onChange={this.changeCommunity}/>
+					       	</ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 								
 								<Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:5,marginTop:16,display:'inline-block'}}/>
