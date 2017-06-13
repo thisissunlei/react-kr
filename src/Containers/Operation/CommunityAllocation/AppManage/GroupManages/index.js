@@ -105,12 +105,13 @@ export default class GroupManages extends React.Component {
 
 	}
 	selectCommunity=(form)=>{
+		var cmtId=form.id?form.id:'';
 		this.setState({
 			searchParams:{
-				cmtId:form.id,
+				cmtId:cmtId,
 				clusterName:this.state.clusterName || ''
 			},
-			cmtId:form.id
+			cmtId:cmtId
 		})
 	}
 	
