@@ -39,6 +39,8 @@ export default class GroupManages extends React.Component {
 			openView:false,
 			openDele:false,
 			itemDetail:'',
+			cmtId:'',
+			clusterName:''
 		}
 
 	}
@@ -91,14 +93,24 @@ export default class GroupManages extends React.Component {
 	}
 
 	searchSubmit=(form)=>{
-		console.log('form----',form)
+
+		this.setState({
+			searchParams:{
+				clusterName:form.content,
+				cmtId:this.state.cmtId || ''
+			},
+			clusterName:form.content
+			
+		})
 
 	}
 	selectCommunity=(form)=>{
 		this.setState({
 			searchParams:{
 				cmtId:form.id,
-			}
+				clusterName:this.state.clusterName || ''
+			},
+			cmtId:form.id
 		})
 	}
 	
