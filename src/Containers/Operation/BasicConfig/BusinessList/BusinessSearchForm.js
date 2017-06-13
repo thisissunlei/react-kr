@@ -55,7 +55,6 @@ import './index.less';
   //确定按钮
   onSubmit = (values) =>{
     let {name,no} = this.state;
-    console.log("+++++++",this.state.name,"===",no,"<<<<<<",values,this.state);
 
     values.name = name;
     values.no = no;
@@ -69,15 +68,12 @@ import './index.less';
 	}
 
   onSearchSubmit = (values) =>{
-    console.log(values,"KKKKK")
     if(values.value==="NAME"){
     
-       console.log("NAME",values.content)
       this.setState({
         name:values.content,
         no:""
       },function(){
-        console.log("newName",this.state.name)
       })
     }else{
       this.setState({

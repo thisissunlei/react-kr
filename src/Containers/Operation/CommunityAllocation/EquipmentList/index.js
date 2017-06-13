@@ -148,13 +148,9 @@ class EquipmentList  extends React.Component{
 		let _this = this;
     if(type == "edit"){
       params.id = id;
-      console.log(params,">>>>")
     }else{
       params.id = "";
-      console.log(params,"LLLLLLL")
     }
-    // console.log(params,"LLLLLLL")
-
 		Http.request('equipment-submit',params).then(function(response) {
       _this.closeNewEquipment();
 			_this.closeEditEquipment();

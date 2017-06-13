@@ -53,7 +53,6 @@ class EditEquipmentForm extends React.Component{
 		}
 	}
 	getBasicData=(detail)=>{
-		console.log("detail",detail);
 		let _this = this;
 		let SearchLocationParams = {communityId:detail.communityId,whereFloor:detail.floor,type:detail.propertyId}
 		Http.request('getLocationByProperty',SearchLocationParams)
