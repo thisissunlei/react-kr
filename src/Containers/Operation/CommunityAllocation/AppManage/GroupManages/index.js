@@ -16,7 +16,8 @@ import {
 	SearchForms,
 	Drawer,
 	Dialog,
-	KrDate
+	KrDate,
+	Message,
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
@@ -69,7 +70,15 @@ export default class GroupManages extends React.Component {
 
 	//删除
 	onDeleteData=()=>{
-		this.openDele();
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
+			_this.openDele();
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+		
+
 	}
 	openDele=()=>{
 		this.setState({
