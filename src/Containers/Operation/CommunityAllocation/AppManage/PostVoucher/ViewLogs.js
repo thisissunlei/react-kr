@@ -15,6 +15,11 @@ import {
 	ButtonGroup,
 	CircleStyleTwo
 } from 'kr-ui';
+import {
+	reduxForm,
+	initialize,
+	change
+} from 'redux-form';
 import './index.less';
 
 
@@ -67,10 +72,10 @@ class ViewLogs extends React.Component {
 			
 		var _this = this;
 		Http.request('topic-handle', {}, {
-			content:,
-			id:detail.id,
-			status:status,
-			time:,
+			// content:,
+			// id:detail.id,
+			// status:status,
+			// time:,
 		}).then(function(response) {
 			Message.success('处理成功');
 			onSubmit && onSubmit();
@@ -148,16 +153,15 @@ class ViewLogs extends React.Component {
 						inline={true}
 						name="time"
 				/>
-				
+				</form>
 			</div>
-			</form>
+			
 
 		);
 	}
 }
 export default ViewLogs = reduxForm({
 	form: 'ViewLogs',
-	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(Editdialog);
+})(ViewLogs);

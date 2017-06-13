@@ -537,17 +537,17 @@ module.exports = {
       },
       //app后台-小黑屋
        'punish-list':{
-         url: '/api/krspace-op-web/cluster/punish/list',
+         url: '/api/krspace-finance-web/cluster/punish/list',
          method: 'get'
       },
       //app后台-小黑屋-提前释放
        'punish-release':{
-         url: '/api/krspace-op-web/cluster/punish/release',
+         url: '/api/krspace-finance-web/cluster/punish/release',
          method: 'post'
       },
       //app后台-小黑屋-加刑
        'punish-add':{
-         url: '/api/krspace-op-web/cluster/punish/inflict',
+         url: '/api/krspace-finance-web/cluster/punish/inflict',
          method: 'post'
       },
       //群组-获取社区
