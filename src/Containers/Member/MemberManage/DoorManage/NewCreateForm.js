@@ -120,10 +120,10 @@ export default class NewCreateForm extends React.Component {
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:"0 20px 20px 20px"}}>
 					
 
-					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true} style={{marginTop:20}}/>
+					<KrField name="customerId"   grid={1}  label="客户名称" component="searchCompany" requireLabel={true} requiredValue={true} style={{marginTop:20}} />
 					
 					
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" requiredValue={true} requireLabel={true} style={{marginTop:15}}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunityAll" requiredValue={true} requireLabel={true} style={{marginTop:15}} inline={false}/>
 					
 					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:15}}/>
 
