@@ -497,7 +497,7 @@ module.exports = {
       },
       //群组管理列表(搜索)
        'cluster-list':{
-         url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}',
+         url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}&pageSize={pageSize}&page={page}',
          method: 'get'
       },
       //群组-查看群组

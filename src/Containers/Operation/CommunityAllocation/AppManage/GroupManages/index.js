@@ -15,7 +15,8 @@ import {
 	ListGroupItem,
 	SearchForms,
 	Drawer,
-	Dialog
+	Dialog,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
@@ -30,7 +31,7 @@ export default class GroupManages extends React.Component {
 		this.state = {
 			searchParams:{
 				clusterName:'',
-				cmtId:''
+				cmtId:'',
 			},
 			openNewCreat:false,
 			openEdit:false,
@@ -118,7 +119,12 @@ export default class GroupManages extends React.Component {
 						  <TableRowColumn name="cmtName"></TableRowColumn>
 						  <TableRowColumn name="city"></TableRowColumn>
 						  <TableRowColumn name="creater"></TableRowColumn>
-						  <TableRowColumn name="createTime"></TableRowColumn>
+						  <TableRowColumn 
+								  name="createTime" 
+								  component={(value) => {
+			                          return (<KrDate value={value} format="yyyy-mm-dd"/>)
+			                      }}
+	                      ></TableRowColumn>
 						  <TableRowColumn>
 						  	 <Button label="查看"  type="operation"  operation="view"/>
 						  	 <Button label="编辑"  type="operation"  operation="edit"/>
