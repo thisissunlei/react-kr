@@ -143,7 +143,7 @@ class StationReservationFrom extends React.Component {
 					grid={1/2}  
 					style={{width:"330px",float:"left",marginTop:"4px",}} 
 					name="contractType" 
-					component="searchCommunityManage" 
+					component="searchCommunityAll" 
 					label="社区：" 
 					inline={true}
 					options = {communityIdList}

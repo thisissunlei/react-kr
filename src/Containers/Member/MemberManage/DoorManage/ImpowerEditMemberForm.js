@@ -162,7 +162,7 @@ export default class ImpowerEditMemberForm extends React.Component {
 						<span style={{fontsize:14}}>{detail.customerName}</span>
 					</div>
 
-					<KrField name="communityId" grid={1} label="社区" component="searchCommunity" right={30} requiredValue={true} requireLabel={true} style={{padding:0,marginTop:18}}/>
+					<KrField name="communityId" grid={1} label="社区" component="searchCommunityAll" right={30} requiredValue={true} requireLabel={true} style={{padding:0,marginTop:18}} inline={false}/>
 
 					<KrField name="beginDate" grid={1} label="授权开始时间" component="date" requiredValue={true}  requireLabel={true} onChange={this.onStartChange} style={{marginTop:18}}/>
 

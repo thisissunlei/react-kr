@@ -55,16 +55,16 @@ export default class SearchCommunity extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			Http.request('getCommunity', {
+			Http.request('getTheCommunity', {
 				communityName: lastname
 			}).then(function(response) {
-				response.communityInfoList.forEach(function(item, index) {
+				var obj = [].concat(response.items);
+				obj.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.name;
-					return item;
 				});
 				resolve({
-					options: response.communityInfoList
+					options: obj
 				});
 			}).catch(function(err) {
 				reject(err);

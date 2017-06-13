@@ -28,10 +28,6 @@ module.exports = {
         method: 'get'
     },
     //运营平台-基础配置-设备定义-获取楼层
-    'getFloorByComunity': {
-        url: '/api/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
-        method: 'get'
-    },
     //运营平台-基础配置-设备定义-根据属性获取对应位置
     'getLocationByProperty': {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/community-boardroom?communityId={communityId}&whereFloor={whereFloor}&type={type}',
