@@ -158,7 +158,7 @@ class CommunityPlanMap extends React.Component {
 
 		var _this = this;
 		var href = _this.context.router.params.communityId;
-		Http.request('getCommunityFloors', {
+		Http.request('getFloorByComunity', {
 			communityId: href
 		}).then(function (response) {
 			_this.setState({

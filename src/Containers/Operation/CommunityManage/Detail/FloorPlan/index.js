@@ -510,7 +510,7 @@ export default class FloorPlan extends React.Component {
                 </div>
 
                 <div className='com-body'>
-                    {hoverData.status=='1'&&<Tip hoverData={hoverData}/>}
+                    {hoverData.status=='1'&&<Tip hoverData={hoverData} scaleNumber={this.state.scaleNumber}/>}
                   
                   {
                       canvasRender&&canvasRender.map((item,index)=>{

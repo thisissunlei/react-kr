@@ -10,11 +10,11 @@ export default class Tip  extends React.Component{
 	}
 
     componentDidMount(){
-        let {hoverData}=this.props;
+        let {hoverData,scaleNumber}=this.props;
         var width=this.tip.getBoundingClientRect().width/2;
         var height=this.tip.getBoundingClientRect().height;
         this.tip.style.left=hoverData.clientX-width+'px';
-        this.tip.style.top=hoverData.clientY-hoverData.height/2-height-8+'px';
+        this.tip.style.top=hoverData.clientY-hoverData.height/2-height-8-(scaleNumber-100)/10+'px';
     }
     
 
