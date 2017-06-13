@@ -25,8 +25,7 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("CommunityDetailModel")
-@inject("NewIndentModel")
+@inject("CommunityDetailModel","NewIndentModel","NavModel")
 @observer
  class EditCustomerList extends React.Component{
 
@@ -40,7 +39,12 @@ import {
 	constructor(props){
 		super(props);
 		let {listId}=props;
+		this.state = {
+			isPermissions:false
+		};
 		State.treeAllData();
+		this.permissions();
+
 
 	}
 	supplementZero(value) {
@@ -68,7 +72,19 @@ import {
 
 		return result;
 	}
-
+	permissions = () =>{
+		const {resourcdsCode} = this.props.NavModel;
+		let _this = this;
+		
+		resourcdsCode.map(function(item,index){
+			if(item == "oper_csr_edit_nosource"){
+				_this.setState({
+					isPermissions:true
+				})
+			}
+		})
+	}
+	
 
 
 	onSubmit = (values) => {
@@ -169,7 +185,17 @@ import {
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue} = this.props;
+		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
+		let {isPermissions} = this.state;
+		
+		let sourceIdLabel = '';
+		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
+			
+			if(item.value == allData.sourceId){
+				sourceIdLabel = item.label;
+			}
+			
+		})
 
 
 		return (
@@ -183,12 +209,12 @@ import {
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
+									{isPermissions ? <KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
 											options={dataReady.customerSourceList}
 											requireLabel={true}
 											onChange={this.sourceCustomer}
-									/>
-
+									/> :
+									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="labelText" value={sourceIdLabel} inline={false}/>}
 									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
 				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>

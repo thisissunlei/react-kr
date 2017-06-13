@@ -173,8 +173,8 @@ var Map = function (elementId, configs) {
             '4':{
                 status: 'notChecked',
                 mark: '未选择',
-                textColor: '#fff',
-                backgroundColor: '#499df1',
+                textColor: '#499df1',
+                backgroundColor: '#ffffff',
             },
             '5':{
                 status: 'default',
