@@ -43,6 +43,7 @@ export default class PostVoucher extends React.Component {
 				pageSize: 15,
 				timer:0,
 			},
+			
 			itemDetail: '',
 			openHandle: false,
 			newPage:1,
@@ -65,13 +66,18 @@ export default class PostVoucher extends React.Component {
 			})
 		}
 	}
-	//打开查看日志
+	//打开处理
 	openHandle = () => {
 		this.setState({
 			openHandle: !this.state.openHandle
 		})
 	}
-//改变页码
+	//处理提交
+	handleSubmit=()=>{
+			_this.changeP();
+			_this.openHandle();
+	}
+	//改变页码
     changeP=()=>{
         var timer = new Date();
         this.setState({
@@ -153,7 +159,7 @@ export default class PostVoucher extends React.Component {
 					onClose={this.openHandle}
 				>
 					<ViewLogs
-								onCancel={this.openHandle} detail={this.state.itemDetail}
+						onCancel={this.openHandle} detail={this.state.itemDetail} onSubmit={this.handleSubmit}
 					/>
 				</Dialog>
 			</div>

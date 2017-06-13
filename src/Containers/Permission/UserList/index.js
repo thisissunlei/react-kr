@@ -82,7 +82,6 @@ export default class UserList extends Component {
 		} = this.state;
 		var _this = this;
 		var roleId = this.props.params.userId
-		console.log('itemDetail----', itemDetail)
 		Store.dispatch(Actions.callAPI('deleteUser', {
 			roleId: roleId,
 			userId: itemDetail.id

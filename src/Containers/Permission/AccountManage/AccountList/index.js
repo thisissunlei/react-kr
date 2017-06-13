@@ -61,7 +61,6 @@ class AccountList extends React.Component {
     // 		_this.setState({
     // 			item: response,
     // 		},function(){
-    // 			console.log(this.state.item.items);
     // 		});
     // 	}).catch(function(err) {
     // 		Notify.show([{
@@ -87,7 +86,6 @@ class AccountList extends React.Component {
        
     }
     onNewCreateSubmit(form) {
-        console.log(form);
         form = Object.assign({},form);
         Http.request('createSsoUser', {}, form).then(function(response) {
             Message.success('新建成功')
@@ -156,7 +154,6 @@ class AccountList extends React.Component {
     //搜索
     onSearchSubmit = (value) => {
         let {searchParams} = this.state;
-        console.log(searchParams);
         if (value.filter == 'company') {
             this.setState({
                 searchParams: {

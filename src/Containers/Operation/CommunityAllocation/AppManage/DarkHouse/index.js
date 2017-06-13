@@ -62,7 +62,7 @@ export default class DarkHouse extends React.Component {
 			this.openAdd();
 		}
 	}
-	//打开查看日志
+	//打开提前释放
 	openRelease = () => {
 		this.setState({
 			openRelease: !this.state.openRelease
@@ -73,14 +73,34 @@ export default class DarkHouse extends React.Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('deleteUser', {
+		Store.dispatch(Actions.callAPI('punish-release', {
+			userId: itemDetail.id
+		})).then(function(response) {
+			Message.success('已提前释放');
+			_this.changeP();
+			_this.openRelease();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	//打开加刑
+	openAdd = () => {
+		this.setState({
+			openAdd: !this.state.openAdd
+		})
+	}
+	onAddSubmit = () => {
+		let {
+			itemDetail
+		} = this.state;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('punish-add', {
 			userId: itemDetail.id
 		})).then(function(response) {
 			Message.success('删除成功');
 			_this.changeP();
-			_this.openDeleteDialog();
+			_this.openAdd();
 		}).catch(function(err) {
-			_this.openDeleteDialog();
 			Message.error(err.message);
 		});
 	}
@@ -146,22 +166,45 @@ export default class DarkHouse extends React.Component {
 				</Section>
 
 				<Dialog
-					title="查看"
+					title="提前释放"
 					modal={true}
 					open={this.state.openRelease}
 					onClose={this.openRelease}
 					contentStyle={{width:443,height:236}}
 					 >
 						          <div style={{marginTop:45}}>
-						            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
+						            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要提前释放吗？</p>
 						            <Grid style={{marginTop:60,marginBottom:'4px'}}>
 						                  <Row>
 						                    <ListGroup>
 						                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-						                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
+						                        <Button  label="确定" type="submit" onClick={this.onReleaseSubmit} />
 						                      </ListGroupItem>
 						                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-						                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteDialog} />
+						                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openRelease} />
+						                      </ListGroupItem>
+						                    </ListGroup>
+						                  </Row>
+						                </Grid>
+						          </div>
+					</Dialog>
+					<Dialog
+					title="加刑"
+					modal={true}
+					open={this.state.openAdd}
+					onClose={this.openAdd}
+					contentStyle={{width:443,height:236}}
+					 >
+						          <div style={{marginTop:45}}>
+						            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要加刑吗？</p>
+						            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+						                  <Row>
+						                    <ListGroup>
+						                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+						                        <Button  label="确定" type="submit" onClick={this.onAddSubmit} />
+						                      </ListGroupItem>
+						                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+						                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openAdd} />
 						                      </ListGroupItem>
 						                    </ListGroup>
 						                  </Row>

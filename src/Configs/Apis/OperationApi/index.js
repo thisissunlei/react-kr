@@ -525,10 +525,30 @@ module.exports = {
          url: '/api/krspace-finance-web/cluster/topic/list',
          method: 'get'
       },
+      //app后台-帖子审核-获取处理数据
+       'topic-detail':{
+         url: '/api/krspace-finance-web/cluster/topic/detail?id={id}',
+         method: 'get'
+      },
+      //app后台-帖子审核-处理
+       'topic-handle':{
+         url: '/api/krspace-finance-web/cluster/topic/dispose',
+         method: 'post'
+      },
       //app后台-小黑屋
        'punish-list':{
          url: '/api/krspace-op-web/cluster/punish/list',
          method: 'get'
+      },
+      //app后台-小黑屋-提前释放
+       'punish-release':{
+         url: '/api/krspace-op-web/cluster/punish/release',
+         method: 'post'
+      },
+      //app后台-小黑屋-加刑
+       'punish-add':{
+         url: '/api/krspace-op-web/cluster/punish/inflict',
+         method: 'post'
       },
       //群组-获取社区
        'community-list':{

@@ -50,7 +50,6 @@ export default class SetPermission extends React.Component {
     getInfo=()=>{
 
     		let {roleList}=this.state;
-    		console.log('sdafsdafsadf',this.props.detail);
     		let id=this.props.detail.id;
     		var _this = this;
     		Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
@@ -63,7 +62,6 @@ export default class SetPermission extends React.Component {
 
     }
     renderData=(item,index)=>{
-      console.log("sdfa",item);
     	return (
     		<div key={index} style={{textAlign:'left',display:'inline-block',marginLeft:20}}>
     			<Checkbox
@@ -83,7 +81,6 @@ export default class SetPermission extends React.Component {
       }else{
         item.ownFlag=0;
       }
-      console.log(this.state.roleList);
       roleList.map((item, index) => {
         checked.push(item.ownFlag);
       })
@@ -106,7 +103,6 @@ export default class SetPermission extends React.Component {
       _this.setState({
         allCheck:!_this.state.allCheck,
       },function(){
-        console.log("trueOrfalse",_this.state.allCheck);
         if (_this.state.allCheck) {
           list=roleList.map((item, index) => {
                 item.ownFlag = 1;
@@ -132,7 +128,6 @@ export default class SetPermission extends React.Component {
             idList.push(item.id);
           }
         })
-        console.log("idList",idList);
         Store.dispatch(Actions.callAPI('editUserRole', {}, {
           id:detail.id,
           roleIds:idList
