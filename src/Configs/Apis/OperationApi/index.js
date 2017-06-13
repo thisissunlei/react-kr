@@ -210,10 +210,15 @@ module.exports = {
         method: 'get'
     },
     //运营平台－客户管理－新增或编辑客户
-    'customerDataEdit': {
-        url: '/api/krspace-finance-web/customer/actions/edit',
+    'managerCustomerDataEdit': {
+        url: '/api/customer/actions/manager-edit',
         method: 'post'
     },
+     //运营平台－客户管理－新增或编辑客户
+     '':{
+        url: '/api/krspace-finance-web/customer/actions/edit',
+        method: 'post'
+     },
     //运营平台－客户管理-公司名称实时校验
     'corpNameCheck': {
         url: '/api/krspace-finance-web/customer/check/company?id={id}&companyName={companyName}',

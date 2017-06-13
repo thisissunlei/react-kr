@@ -119,10 +119,10 @@ class HightSearchForm extends React.Component {
 								right={47}
 				    		left={5}
 				    		name="communityId"
-				    		type="select"
+				    		component="searchCommunityAll"
 				    		style={{marginTop:4}}
 				    		label="入驻社区"
-				  			options={communityList}
+							inline={false}
 					/>
           <KrField
               grid={1/2}

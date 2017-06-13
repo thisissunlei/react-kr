@@ -96,7 +96,7 @@ class SearchUpperForm extends React.Component {
 				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市"
 				 options={belongCity}
 				/>
-				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchSign' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
+				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchCommunityAll' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} name="mainBillType"  style={{marginLeft:-5,marginTop:4}} component='searchSignBill' label="订单类型" inline={false} onChange={this.onChangeSignBill} placeholder='请输入订单类型'/>
 				<KrField grid={1/1}  component="group" label="工位签约时间" style={{marginTop:3}}>
 				<div className='ui-listDate'>
