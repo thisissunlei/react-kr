@@ -88,9 +88,9 @@ import {
 		if(!values.company){
 			return;
 		}
-		var url = "managerCustomerDataEdit";
+		var url = "customerDataEdit";
 		if(State.isPermissions){
-			url = "customerDataEdit";
+			url = "managerCustomerDataEdit";
 		}
 		values.operType=operType;
 		if(!isNaN(values.inTime)){
@@ -99,7 +99,9 @@ import {
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
+		
 		Http.request(url,{},values).then(function(response) {
+			
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
