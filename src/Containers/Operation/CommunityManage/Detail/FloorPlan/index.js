@@ -487,11 +487,11 @@ export default class FloorPlan extends React.Component {
                         <ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
                         <ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px',fontSize:'14px'}}>至</span></ListGroupItem>
                         <ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
-                        {/*<div className="num-type">
+                        <div className="num-type">
                                         <span className="til">当前比例：</span>
                                         <input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
                                         <output>{this.state.scaleNumber}</output>%
-                        </div>*/}
+                        </div>
                     </ListGroup>
             </form>
             
