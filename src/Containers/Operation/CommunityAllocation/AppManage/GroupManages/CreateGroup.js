@@ -26,11 +26,36 @@ class CreateGroup extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+			groupList:[
+				{label:'全国群组',value:'COUNTRYWIDE'},
+				{label:'社区群组',value:'COMMUNITY'}
+			],
+			cityList:[]
 		}
+		this.getcity();
+	}
+	
+	componentDidMount() {
+        Store.dispatch(change('createGroup', 'follow', '0'));
+        Store.dispatch(change('createGroup', 'allow', '0'));
+        Store.dispatch(change('createGroup', 'recommend', '0'));
+    }
+	getcity=()=>{
+		var _this=this;
+			Http.request('getcity-list').then(function(response) {
+			var cityList=response.items.map((item)=>{
+					item.label=item.city;
+					item.value=item.cityId;
+					return item;
+				})
+				_this.setState({
+					cityList: cityList
+				})
 
+			}).catch(function(err) {});
 	}
 	onSubmit=(form)=>{
+		console.log('55555----',form)
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -46,6 +71,11 @@ class CreateGroup extends React.Component {
 				pristine,
 				reset
 			} = this.props;
+		let {
+				groupList,
+				cityList
+			}=this.state;
+			
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
@@ -79,17 +109,20 @@ class CreateGroup extends React.Component {
 						 	<KrField
 								style={{width:260,marginLeft:25}}
 								name="clusterType"
-								type="text"
-								component="input"
+								component="select"
+								options={groupList}
 								label="群组类型"
 								requireLabel={true}
 						 	/>
 						 	<KrField
 								style={{width:260}}
 								type="text"
-								component="input"
+								name="city"
+								component="select"
+								options={cityList}
 								label="所属城市"
 								requireLabel={true}
+
 						 	/>
 						 	<KrField
 								style={{width:260,marginLeft:25}}
@@ -107,14 +140,14 @@ class CreateGroup extends React.Component {
 						 		requireLabel={true} 
 							 >
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="follow" 
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
 				                    		value="1"
 				                    />
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="follow" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
@@ -129,14 +162,14 @@ class CreateGroup extends React.Component {
 						 		requireLabel={true} 
 							 >
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="allow" 
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
 				                    		value="1"
 				                    />
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="allow" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
@@ -151,14 +184,14 @@ class CreateGroup extends React.Component {
 						 		requireLabel={true} 
 							 >
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="recommend" 
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
 				                    		value="1"
 				                    />
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="recommend" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
@@ -202,28 +235,31 @@ const validate = values => {
 		const errors = {};
 
 
-		if (!values.customerId) {
-			errors.customerId = '请选择客户名称';
+		if (!values.headUrl) {
+			errors.headUrl = '请上传头像';
 		}
 
-		if (!values.mainBillId) {
-			errors.mainBillId = '请选择所属订单';
+		if (!values.clusterName) {
+			errors.clusterName = '请输入群组名称';
 		}
 
-		if (!values.payWay) {
-			errors.payWay = '请选择收款方式';
+		if (!values.clusterType) {
+			errors.clusterType = '请选择群组类型';
 		}
-		if (!values.accountId) {
-			errors.accountId = '请选择我司账户';
+		if (!values.city) {
+			errors.city = '请选择所属城市';
 		}
-		console.log('values.payAccount',values.payAccount)
-		if (!values.payAccount) {
-			errors.payAccount = '请输入付款账户';
+		
+		if (!values.cmtId) {
+			errors.cmtId = '请选择所属社区';
 		}
-		if (!values.dealTime) {
-			errors.dealTime = '请选择收款日期';
+		
+		if (!values.sort) {
+			errors.sort = '请输入排序号';
 		}
-
+		if (!values.intro) {
+			errors.intro = '请输入群组描述';
+		}
 
 		return errors
 }
