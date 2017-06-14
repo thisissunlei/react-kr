@@ -126,7 +126,7 @@ export default class FloorPlan extends React.Component {
 
                     var initializeConfigs = {
                             stations: stations,
-                            backgroundImageUrl:'http://optest.krspace.cn'+it.graphFilePath,
+                            backgroundImageUrl:it.graphFilePath,
                             map:{
                              translateX:0,
                              translateY:0,
