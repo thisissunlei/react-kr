@@ -2,6 +2,13 @@
 
 import React from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
+
+import {
+	reduxForm,
+	formValueSelector,
+	FieldArray,
+	change
+} from 'redux-form';
 import {
 	Message,
 	Dialog,
@@ -56,17 +63,22 @@ class CommunityDetail  extends React.Component{
 			})
 		}
 		let {LeftIconClick} = this.props;
-		// let  {showSideNav}=LeftIconClick;
-		// console.log("showSideNav==>",showSideNav);
+		
 	}
 	
 	componentWillUnmount(){
 		$(window).unbind();
 	}
 	componentWillReceiveProps(nextProps){
+		
+		State.communityId = nextProps.communityId;
+		Store.dispatch(change('SearchDetailForm','communityId',State.communityId));
+		if(nextProps.communityId !== this.props.communityId){
+			State.getDetailList();
+		}
 		let _this =this;
 		this.setState({
-			isShowLeft : nextProps.isLeftProps
+			isShowLeft : nextProps.isLeftProps,
 		},function(){
 			if(!_this.state.isShowLeft){
 				var tableExportHeight = $(".community-detial-table-box").eq(0).height();
@@ -97,9 +109,9 @@ class CommunityDetail  extends React.Component{
 	}
 
 	render(){
+		
 		let {isShowLeft}=this.state;
 		let {pageSecond,NavModel}=this.props;
-		// console.log("NavModel communiytDetail",NavModel.openSizebar);
 		return(
 			<div className="community-detail">
 				<div className="community-detail-box">

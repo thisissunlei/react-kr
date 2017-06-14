@@ -4,12 +4,14 @@ import React from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Message,
-	Tabs,
-	TabItem
 } from 'kr-ui';
-
-
-
+import Baidu from 'kr/Utils/Baidu';
+import {
+	Tabs
+}from 'material-ui';
+import {
+  	Tab
+} from 'material-ui/Tabs';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
 import './index.less';
@@ -26,13 +28,14 @@ class AgingAccount  extends React.Component{
 			isLeft:true,
 			hasCollect : false,
 			hasDetail : false,
-			initialSelectedNum : 'prev'
+			value : 0,
+			communityId : ''
 		}
 	}
 
 
 	componentDidMount() {
-	
+		Baidu.trackEvent('账龄分析','访问');
 		let _this =this;
 		Http.request('getSelfMenuInfo', {}).then(function(response) {
 			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")>-1){
@@ -83,52 +86,50 @@ class AgingAccount  extends React.Component{
 	componentWillUnmount(){
 		$(window).unbind();
 	}
-	demo=()=>{
+	toDetailFun=(communityId)=>{
+		let communityIdReal
+		if(communityId == 0){
+			communityIdReal = '';
+		}else{
+			communityIdReal = communityId;
+		}
 		this.setState({
-			initialSelectedNum :'next'
+			value :1,
+			communityId : communityIdReal,
+			isLeft:false
 		})
+
 	}
 	render(){
-		let {isLeft,hasDetail,hasCollect,initialSelectedNum}=this.state;
+		let {isLeft,hasDetail,hasCollect,value,communityId}=this.state;
 		let {sidebar_nav}=this.props;
-		
+		let _this =this;
 		return(
 			<div className="aging-account">
-				<Tabs inkBarStyle={{backgroundColor:"rgb(43, 141, 205)"}} 
-					tabItemContainerStyle={{backgroundColor:"#fff"}} 
+				<Tabs inkBarStyle={{backgroundColor:"rgb(43, 141, 205)",position:"relative",top:"-48px"}} 
+					tabItemContainerStyle={{backgroundColor:"#fff",borderBottom: "solid 1px #eee"}} 
 					contentContainerClassName = "contentContainer"
-					value = {initialSelectedNum}
+					value = {value}
 					onChange={(value)=>{
-						console.log('value:',value)
-				
+						this.setState({
+							value :value
+						})
 					}}
 	
 				>
-					<TabItem label="社区汇总" value="prev">
-										<span onClick = {this.demo}>sdfdskk</span>
-					</TabItem>
-					<TabItem label="社区明细" value="next">
-							afddks
-					</TabItem>
-					{/*
-						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive} style={{color:"black"}}>
-										<CommunityCollect isLeftProps={isLeft}/>
+					
+					{
+						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive} style={{color:"black"}} value={0} style={{borderRight:"solid 1px #eee",color:"black"}}>
+										<CommunityCollect isLeftProps={isLeft} toDetailFun={_this.toDetailFun}/>
 									</Tab>
 					}
 					{
-						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}}>
-							<CommunityDetail isLeftProps={isLeft}/>
+						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}} value={1} >
+							<CommunityDetail isLeftProps={isLeft} communityId={communityId}/>
 						</Tab>
-					*/}
+					}
 
-					{/*
-						!hasCollect && !hasDetail &&<Tab>
-							<div>
-								<img src={require("images/notings.png")}/>
-								<span>您没有操作权限</span>
-							</div>
-						</Tab>
-					*/}
+					
 
 				</Tabs>
 			</div>

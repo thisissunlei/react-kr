@@ -111,8 +111,9 @@ export default class TableIndex extends React.Component{
 	}
 
 	toDetailFun(params,item){
-		console.log("params",params,params.communityId);
 		
+		let {toDetailFun} = this.props;
+		toDetailFun && toDetailFun(params.communityId);
 	}
 
 	
