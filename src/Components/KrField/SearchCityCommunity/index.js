@@ -38,10 +38,14 @@ export default class SearchCityCommunity extends React.Component {
 		let {
 			input
 		} = this.props;
+		
+		
 	}
 	componentWillReceiveProps(nextProps){
 		this.setState({
 			id:nextProps.cityId
+		},function(){
+			this.select.loadOptions()
 		})
 		
 	}
@@ -110,6 +114,7 @@ export default class SearchCityCommunity extends React.Component {
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
+					ref={(select)=>this.select=select}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"

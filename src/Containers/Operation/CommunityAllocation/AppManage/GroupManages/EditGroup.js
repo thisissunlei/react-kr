@@ -35,6 +35,8 @@ class EditGroup extends React.Component {
 			cityList:[],
 			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
 			cityId:'',
+			ifCity:false,
+			infoList:{}
 		}
 		this.getcity();
 		this.getInfo();
@@ -45,16 +47,35 @@ class EditGroup extends React.Component {
     		cityId:item.cityId
     	})
 	}
-
+	selectType=(item)=>{
+		if(item.value=="COMMUNITY"){
+			this.setState({
+				ifCity:true
+			})
+		}else{
+			this.setState({
+				ifCity:false
+			})
+		}
+	}
 
 	getInfo=()=>{
 		var _this=this;
 		const {detail}=this.props;
 			Http.request('cluster-detail',{clusterId:detail.id}).then(function(response) {
-				_this.setState({
-					photoUrl:response.headUrl
-				})
+				
+				if(response.clusterType=='COMMUNITY'){
+					_this.setState({
+						ifCity:true
+					})
+				}
+				
 				Store.dispatch(initialize('editGroup', response));
+				_this.setState({
+					photoUrl:response.headUrl,
+					infoList:response,
+					cityId:response.cityId
+				})
 			}).catch(function(err) {
 				Message.error(err.messgae);
 			});
@@ -95,6 +116,7 @@ class EditGroup extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
 	
 	render() {
 		const {
@@ -108,7 +130,8 @@ class EditGroup extends React.Component {
 				cityList,
 				requestURI,
 				photoUrl,
-				cityId
+				cityId,
+				ifCity
 			}=this.state;
 			
 		return (
@@ -152,25 +175,30 @@ class EditGroup extends React.Component {
 								label="群组类型"
 								requireLabel={true}
 						 	/>
-						 	<KrField
-								style={{width:260}}
-								type="text"
-								name="city"
-								component="select"
-								options={cityList}
-								label="所属城市"
-								requireLabel={true}
-								onChange={this.selectCity}
+						 	{ifCity?(
+									<KrField
+										style={{width:260}}
+										type="text"
+										name="cityId"
+										component="select"
+										options={cityList}
+										label="所属城市"
+										requireLabel={true}
+										onChange={this.selectCity}
+								 	/>):''
+							}
+							{ifCity?(
+								<KrField
+										style={{width:260,marginLeft:25}}
+										name="cmtId"
+										inline={false}
+										cityId={cityId}
+										component="searchCityCommunity"
+										label="所属社区"
+										requireLabel={true}
 
-						 	/>
-						 	<KrField
-								style={{width:260,marginLeft:25}}
-								name="cmtId"
-								cityId={cityId}
-								component="searchCityCommunity"
-								label="所属社区"
-								requireLabel={true}
-						 	/>
+								 	/>):''
+							}
 						 	<KrField 
 						 		style={{width:260,marginBottom:10}}
 						 		name="follow" 

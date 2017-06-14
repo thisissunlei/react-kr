@@ -33,7 +33,8 @@ class CreateGroup extends React.Component {
 			],
 			cityList:[],
 			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
-			cityId:''
+			cityId:'',
+			ifCity:false
 		}
 		this.getcity();
 	}
@@ -47,6 +48,17 @@ class CreateGroup extends React.Component {
     	this.setState({
     		cityId:item.cityId
     	})
+	}
+	selectType=(item)=>{
+		if(item.value=="COMMUNITY"){
+			this.setState({
+				ifCity:true
+			})
+		}else{
+			this.setState({
+				ifCity:false
+			})
+		}
 	}
 	getcity=()=>{
 		var _this=this;
@@ -77,6 +89,7 @@ class CreateGroup extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
 	
 	render() {
 		const {
@@ -89,7 +102,8 @@ class CreateGroup extends React.Component {
 				groupList,
 				cityList,
 				requestURI,
-				cityId
+				cityId,
+				ifCity
 			}=this.state;
 			
 		return (
@@ -145,27 +159,33 @@ class CreateGroup extends React.Component {
 								options={groupList}
 								label="群组类型"
 								requireLabel={true}
+								onChange={this.selectType}
 						 	/>
-						 	<KrField
-								style={{width:260}}
-								type="text"
-								name="city"
-								component="select"
-								options={cityList}
-								label="所属城市"
-								requireLabel={true}
-								onChange={this.selectCity}
-						 	/>
-						 	<KrField
-								style={{width:260,marginLeft:25}}
-								name="cmtId"
-								inline={false}
-								cityId={cityId}
-								component="searchCityCommunity"
-								label="所属社区"
-								requireLabel={true}
+							{ifCity?(
+									<KrField
+										style={{width:260}}
+										type="text"
+										name="city"
+										component="select"
+										options={cityList}
+										label="所属城市"
+										requireLabel={true}
+										onChange={this.selectCity}
+								 	/>):''
+							}
+							{ifCity?(
+								<KrField
+										style={{width:260,marginLeft:25}}
+										name="cmtId"
+										inline={false}
+										cityId={cityId}
+										component="searchCityCommunity"
+										label="所属社区"
+										requireLabel={true}
 
-						 	/>
+								 	/>):''
+							}
+						 	
 						 	<KrField 
 						 		style={{width:260,marginBottom:10}}
 						 		name="follow" 
