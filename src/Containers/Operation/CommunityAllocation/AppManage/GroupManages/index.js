@@ -125,6 +125,14 @@ export default class GroupManages extends React.Component {
 		})
 	}
 	
+	createSubmit=()=>{
+		this.openNewCreat();
+		this.setState({
+			searchParams:{
+				date:new Date()
+			}
+		})
+	}
 	editSubmit=()=>{
 		this.openEdit();
 		this.setState({
@@ -203,7 +211,10 @@ export default class GroupManages extends React.Component {
              openSecondary={true}
              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
-             	<CreateGroup   onCancel={this.openNewCreat}  />
+             	<CreateGroup   
+             			onCancel={this.openNewCreat} 
+             			onSubmit={this.createSubmit} 
+             	 />
            </Drawer>
            <Drawer
              modal={true}

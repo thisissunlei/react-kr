@@ -15,7 +15,8 @@ import {
 	Row,
 	Col,
 	ButtonGroup,
-	Button
+	Button,
+	Message
 } from 'kr-ui';
 import './index.less';
 
@@ -62,9 +63,15 @@ class CreateGroup extends React.Component {
 			}).catch(function(err) {});
 	}
 	onSubmit=(form)=>{
-		console.log('55555----',form)
 		let {onSubmit} = this.props;
-		onSubmit && onSubmit(form);
+		var _this=this;
+			Http.request('cluster-insert',{},form).then(function(response) {
+				Message.success('新建成功')
+				onSubmit && onSubmit(form);
+			}).catch(function(err) {
+				//Message.error(err.messgae);
+			});
+		
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;
@@ -99,12 +106,27 @@ class CreateGroup extends React.Component {
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
-								pictureFormat={'JPG'}
+								sizePhoto
+								pictureFormat={'JPG,PNG'}
 								pictureMemory={'500'}
 								requestURI = {this.state.requestURI}
 								requireLabel={true}
 								label="群组头像"
 								inline={false}
+								/>
+								<KrField 
+									name="listUrl"
+									style={{width:260}}
+									component="newuploadImage"
+									innerstyle={{width:220,height:320,padding:10}}
+									photoSize={'1:1'}
+									sizePhoto
+									pictureFormat={'JPG,PNG'}
+									pictureMemory={'1000'}
+									requestURI = {this.state.requestURI}
+									requireLabel={true}
+									label="列表图片"
+									inline={false}
 								/>
 						</CircleStyleTwo>
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">

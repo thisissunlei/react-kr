@@ -33,14 +33,17 @@ class EditGroup extends React.Component {
 				{label:'社区群组',value:'COMMUNITY'}
 			],
 			cityList:[],
-			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
+			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
+			cityId:'',
 		}
 		this.getcity();
 		this.getInfo();
 	}
 	
 	selectCity=(item)=>{
-		console.log('item----',item)
+    	this.setState({
+    		cityId:item.cityId
+    	})
 	}
 
 
@@ -104,7 +107,8 @@ class EditGroup extends React.Component {
 				groupList,
 				cityList,
 				requestURI,
-				photoUrl
+				photoUrl,
+				cityId
 			}=this.state;
 			
 		return (
@@ -121,7 +125,8 @@ class EditGroup extends React.Component {
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
-								pictureFormat={'JPG'}
+								sizePhoto
+								pictureFormat={'JPG,PNG'}
 								pictureMemory={'500'}
 								requestURI = {requestURI}
 								requireLabel={true}
@@ -161,8 +166,8 @@ class EditGroup extends React.Component {
 						 	<KrField
 								style={{width:260,marginLeft:25}}
 								name="cmtId"
-								type="text"
-								component="input"
+								cityId={cityId}
+								component="searchCityCommunity"
 								label="所属社区"
 								requireLabel={true}
 						 	/>

@@ -275,16 +275,24 @@ export default class UploadImageComponent extends Component {
 							 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
 							 var standard = Math.floor(realWidth/realHeight);
 							 var proportion = width/height;
-								 if(proportion > standard && proportion < standard+1){
-										 if(xhrfile.response.data instanceof Array){
+								 if(proportion >= standard && proportion < standard+1){
+								 	     if(proportion==standard){
+                                            _this.refs.uploadImage.src = xhrfile.response.data;
+											const {input}=_this.props;
+								            input.onChange(xhrfile.response.data);
+										 }else{
+										 	if(xhrfile.response.data instanceof Array){
 											 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
 											 const {input}=_this.props;
-											 input.onChange(xhrfile.response.data[0].id);
-										 }else{
-											 _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
-											 const {input}=_this.props;
-											 input.onChange(xhrfile.response.data.id);
+												 input.onChange(xhrfile.response.data[0].id);
+											 }else{
+												 _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
+												 const {input}=_this.props;
+												 input.onChange(xhrfile.response.data.id);
+											 }
 										 }
+
+										 
 										 _this.setState({
 										 imageStatus : true,
 										 imgUpload : true,
