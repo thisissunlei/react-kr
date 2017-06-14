@@ -43,7 +43,7 @@ export default class DarkHouse extends React.Component {
 				pageSize: 15,
 				timer:0,
 			},
-			itemDetail: '',
+			itemDetail: {},
 			openRelease: false,
 			openAdd: false,
 			newPage:1,
@@ -72,10 +72,11 @@ export default class DarkHouse extends React.Component {
 		let {
 			itemDetail
 		} = this.state;
+		console.log(itemDetail);
 		var _this = this;
-		Store.dispatch(Actions.callAPI('punish-release', {
-			userId: itemDetail.id
-		})).then(function(response) {
+		Http.request('punish-release', {},{
+			id: itemDetail.id
+		}).then(function(response) {
 			Message.success('已提前释放');
 			_this.changeP();
 			_this.openRelease();
@@ -94,9 +95,9 @@ export default class DarkHouse extends React.Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('punish-add', {
-			userId: itemDetail.id
-		})).then(function(response) {
+		Http.request('punish-add', {},{
+			id: itemDetail.id
+		}).then(function(response) {
 			Message.success('删除成功');
 			_this.changeP();
 			_this.openAdd();
