@@ -125,7 +125,7 @@ class SearchForm extends React.Component {
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} onFilter={this.onFilter}/>
-				<KrField name="community"  grid={1/5} component="searchCommunityManage" label="社区"  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="community" style = {{width:"auto"}} component="searchCommunityAll" label="社区"  options={communityIdList} onChange={this.selectCommunity} inline="true"/>
 			</form>
 
 
@@ -197,6 +197,15 @@ export default class BasicTable extends React.Component {
 		this.getInstallmentplan();
 		let {tab}= this.props;
 		if (tab === 'table') {
+			$(window).bind('scroll.table', this.scrollLoading);
+		}
+	}
+
+	componentDidUpdate(){
+		const {tab} = this.props;
+		if(tab !== 'table'){
+			$(window).unbind('scroll.table', this.scrollLoading);
+		}else{
 			$(window).bind('scroll.table', this.scrollLoading);
 		}
 	}

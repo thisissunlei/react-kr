@@ -51,8 +51,6 @@ import './index.less';
   //确定按钮
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
-		console.log("kkkkk");
-
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上

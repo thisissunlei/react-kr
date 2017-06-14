@@ -8,6 +8,7 @@ import Debug from './Debug';
 import MobxForm from './MobxForm';
 import  DateFormat from './DateFormat';
 import  DateCompareValue from './DateCompareValue';
+import Map from './Map';
 import  Mouse from './Mouse';
 import Baidu from './Baidu';
 
@@ -17,6 +18,7 @@ module.exports = {
 	ShallowEqual,
 	Http,
 	Debug,
+	Map,
 	ReactHtmlParser,
 	MobxForm,
 	DateCompareValue,
