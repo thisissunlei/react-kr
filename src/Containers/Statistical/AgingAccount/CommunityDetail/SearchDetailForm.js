@@ -113,7 +113,7 @@ export default class SearchDetailForm extends React.Component {
 					        	<span style={{display:'inline-block',height:58,fontSize:14,marginTop:10,marginRight:"-10px"}}>社区:</span>
 					       	</ListGroupItem>
 					       	<ListGroupItem>
-					        	<KrField name="communityId" component="searchCommunityManage" label="" inline={false} style={{width:150,marginTop:6}} onChange={this.changeCommunity}/>
+					        	<KrField name="communityId" component="searchCommunityAll" label="" inline={false} style={{width:150,marginTop:6}} onChange={this.changeCommunity}/>
 					       	</ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 								
