@@ -2,7 +2,8 @@ import React from 'react';
 import {Http} from 'kr/Utils';
 import {
 	reduxForm,
-	change
+	change,
+	initialize
 } from 'redux-form';
 import {
 	Actions,
@@ -15,7 +16,8 @@ import {
 	Row,
 	Col,
 	ButtonGroup,
-	Button
+	Button,
+	Message
 } from 'kr-ui';
 import './index.less';
 
@@ -26,13 +28,60 @@ class EditGroup extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+			groupList:[
+				{label:'全国群组',value:'COUNTRYWIDE'},
+				{label:'社区群组',value:'COMMUNITY'}
+			],
+			cityList:[],
+			requestURI :'/api/krspace-finance-web/activity/upload-pic'
 		}
+		this.getcity();
+		this.getInfo();
+	}
 
+	getInfo=()=>{
+		var _this=this;
+		const {detail}=this.props;
+			Http.request('cluster-detail',{clusterId:detail.id}).then(function(response) {
+				_this.setState({
+					photoUrl:response.headUrl
+				})
+				Store.dispatch(initialize('editGroup', response));
+			}).catch(function(err) {
+				Message.error(err.messgae);
+			});
+	}
+
+	getcity=()=>{
+		var _this=this;
+			Http.request('getcity-list').then(function(response) {
+			var cityList=response.items.map((item)=>{
+					item.label=item.city;
+					item.value=item.cityId;
+					return item;
+				})
+				_this.setState({
+					cityList: cityList
+				})
+
+			}).catch(function(err) {
+				Message.error(err.messgae);
+			});
 	}
 	onSubmit=(form)=>{
+		const {detail}=this.props;
+		form=Object.assign({},form);
+		form.clusterId=detail.id;
 		let {onSubmit} = this.props;
-		onSubmit && onSubmit(form);
+		var _this=this;
+			Http.request('cluster-update',{},form).then(function(response) {
+				Message.success('编辑成功');
+				onSubmit && onSubmit();
+			}).catch(function(err) {
+				Message.error(err.messgae);
+			});
+		
+		
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;
@@ -46,31 +95,39 @@ class EditGroup extends React.Component {
 				pristine,
 				reset
 			} = this.props;
+		let {
+				groupList,
+				cityList,
+				requestURI,
+				photoUrl
+			}=this.state;
+			
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
+						<div><span className="u-create-icon"></span><label className="title-text">新建群组</label></div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 						<CircleStyleTwo num="1" info="头像信息">
 							<KrField 
-								name="photoUrl"
+								name="headUrl"
+								style={{width:260}}
 								component="newuploadImage"
-								innerstyle={{width:392,height:161,padding:10}}
-								
-								pictureFormat={'JPG,PNG,GIF'}
+								innerstyle={{width:120,height:120,padding:10}}
+								pictureFormat={'JPG'}
 								pictureMemory={'500'}
-								requestURI = ''
+								requestURI = {requestURI}
 								requireLabel={true}
 								label="群组头像"
 								inline={false}
+								defaultValue={photoUrl}
 								/>
 						</CircleStyleTwo>
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
 							<KrField
 								style={{width:260}}
-								name="title"
+								name="clusterName"
 								type="text"
 								component="input"
 								label="群组名称"
@@ -78,23 +135,25 @@ class EditGroup extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:260,marginLeft:25}}
-								name="title"
-								type="text"
-								component="input"
+								name="clusterType"
+								component="select"
+								options={groupList}
 								label="群组类型"
 								requireLabel={true}
 						 	/>
 						 	<KrField
 								style={{width:260}}
-								name="title"
 								type="text"
-								component="input"
+								name="city"
+								component="select"
+								options={cityList}
 								label="所属城市"
 								requireLabel={true}
+
 						 	/>
 						 	<KrField
 								style={{width:260,marginLeft:25}}
-								name="title"
+								name="cmtId"
 								type="text"
 								component="input"
 								label="所属社区"
@@ -102,73 +161,73 @@ class EditGroup extends React.Component {
 						 	/>
 						 	<KrField 
 						 		style={{width:260,marginBottom:10}}
-						 		name="publishedStatus" 
+						 		name="follow" 
 						 		component="group" 
 						 		label="允许退出群组"
 						 		requireLabel={true} 
 							 >
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="follow" 
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
-				                    		value="PUBLISHED"
+				                    		value={1}
 				                    />
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="follow" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
-				                    		value="UNPUBLISHED"
+				                    		value={0}
 				                    />
 							</KrField>
 							<KrField 
 						 		style={{width:260,marginLeft:25,marginBottom:10}}
-						 		name="publishedStatus" 
+						 		name="allow" 
 						 		component="group" 
 						 		label="允许发帖"
 						 		requireLabel={true} 
 							 >
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="allow" 
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
-				                    		value="PUBLISHED"
+				                    		value={1}
 				                    />
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="allow" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
-				                    		value="UNPUBLISHED"
+				                    		value={0}
 				                    />
 							</KrField>
 							<KrField 
 						 		style={{width:260,marginBottom:10}}
-						 		name="publishedStatus" 
+						 		name="recommend" 
 						 		component="group" 
 						 		label="是否推荐"
 						 		requireLabel={true} 
 							 >
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="recommend" 
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
-				                    		value="PUBLISHED"
+				                    		value={1}
 				                    />
 				                    <KrField 
-				                    		name="publishedStatus" 
+				                    		name="recommend" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
-				                    		value="UNPUBLISHED"
+				                    		value={0}
 				                    />
 							</KrField>
 							<KrField
 								style={{width:260,marginLeft:25}}
-								name="title"
+								name="sort"
 								type="text"
 								component="input"
 								label="排序号"
@@ -176,7 +235,7 @@ class EditGroup extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:548}}
-								name="newsDesc"
+								name="intro"
 								component="textarea"
 								label="群组描述"
 								maxSize={500}
@@ -203,28 +262,31 @@ const validate = values => {
 		const errors = {};
 
 
-		if (!values.customerId) {
-			errors.customerId = '请选择客户名称';
+		if (!values.headUrl) {
+			errors.headUrl = '请上传头像';
 		}
 
-		if (!values.mainBillId) {
-			errors.mainBillId = '请选择所属订单';
+		if (!values.clusterName) {
+			errors.clusterName = '请输入群组名称';
 		}
 
-		if (!values.payWay) {
-			errors.payWay = '请选择收款方式';
+		if (!values.clusterType) {
+			errors.clusterType = '请选择群组类型';
 		}
-		if (!values.accountId) {
-			errors.accountId = '请选择我司账户';
+		if (!values.city) {
+			errors.city = '请选择所属城市';
 		}
-		console.log('values.payAccount',values.payAccount)
-		if (!values.payAccount) {
-			errors.payAccount = '请输入付款账户';
+		
+		if (!values.cmtId) {
+			errors.cmtId = '请选择所属社区';
 		}
-		if (!values.dealTime) {
-			errors.dealTime = '请选择收款日期';
+		
+		if (!values.sort) {
+			errors.sort = '请输入排序号';
 		}
-
+		if (!values.intro) {
+			errors.intro = '请输入群组描述';
+		}
 
 		return errors
 }

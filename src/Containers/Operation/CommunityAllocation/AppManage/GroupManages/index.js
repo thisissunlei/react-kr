@@ -74,7 +74,7 @@ export default class GroupManages extends React.Component {
 		const {itemDetail}=this.state;
 		Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
 			_this.openDele();
-			
+
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});
@@ -125,6 +125,14 @@ export default class GroupManages extends React.Component {
 		})
 	}
 	
+	editSubmit=()=>{
+		this.openEdit();
+		this.setState({
+			searchParams:{
+				date:new Date()
+			}
+		})
+	}
 
 	render() {
 		let {itemDetail}=this.state;
@@ -205,7 +213,11 @@ export default class GroupManages extends React.Component {
              openSecondary={true}
              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
            >
-             	<EditGroup detail={itemDetail}  onCancel={this.openEdit}  />
+             	<EditGroup 
+             			detail={itemDetail}  
+             			onCancel={this.openEdit} 
+             			onSubmit={this.editSubmit} 
+             	/>
            </Drawer>
            <Drawer
              modal={true}
