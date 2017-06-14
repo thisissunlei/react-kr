@@ -53,7 +53,7 @@ import {
 		if(!values.teamNum){
 			values.teamNum='';
 		}
-		Http.request('customerDataEdit',{},values).then(function(response) {
+		Http.request('managerCustomerDataEdit',{},values).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
