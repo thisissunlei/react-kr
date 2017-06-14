@@ -36,7 +36,9 @@ class EditGroup extends React.Component {
 			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
 			cityId:'',
 			ifCity:false,
-			infoList:{}
+			infoList:{},
+			listUrl:'',
+			photoUrl:''
 		}
 		this.getcity();
 		this.getInfo();
@@ -74,7 +76,9 @@ class EditGroup extends React.Component {
 				_this.setState({
 					photoUrl:response.headUrl,
 					infoList:response,
-					cityId:response.cityId
+					cityId:response.cityId,
+					listUrl:response.listUrl
+
 				})
 			}).catch(function(err) {
 				Message.error(err.messgae);
@@ -131,7 +135,8 @@ class EditGroup extends React.Component {
 				requestURI,
 				photoUrl,
 				cityId,
-				ifCity
+				ifCity,
+				listUrl
 			}=this.state;
 			
 		return (
@@ -144,7 +149,7 @@ class EditGroup extends React.Component {
 						<CircleStyleTwo num="1" info="头像信息">
 							<KrField 
 								name="headUrl"
-								style={{width:260}}
+								style={{width:548}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
@@ -156,6 +161,21 @@ class EditGroup extends React.Component {
 								label="群组头像"
 								inline={false}
 								defaultValue={photoUrl}
+								/>
+								<KrField 
+									name="listUrl"
+									style={{width:548}}
+									component="newuploadImage"
+									innerstyle={{width:320,height:220,padding:10}}
+									photoSize={'1:1'}
+									sizePhoto
+									pictureFormat={'JPG,PNG'}
+									pictureMemory={'1000'}
+									requestURI = {this.state.requestURI}
+									requireLabel={true}
+									label="列表图片"
+									inline={false}
+									defaultValue={listUrl}
 								/>
 						</CircleStyleTwo>
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
