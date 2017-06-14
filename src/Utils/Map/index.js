@@ -250,15 +250,20 @@ var Map = function (elementId, configs) {
 
 	//外界事件回调函数
     DC.plugin = {
+            //删除后的回调
             onRemoveCallback: null,
+            
             onScaleMapCallback: null,
+            //工位点击的回调函数
             onCheckedStationCallback: null,
 
-			//对立事件
+			//鼠标进入的回调函数
             onHoverInStationCallback: null,
+            //鼠标离开的回调函数
             onHoverOutStationCallback: null,
-
+            //报错的回调函数
             onErrorCallback: null,
+            
             onReadyCallback: null,
             onRenderMapCallback: null,
     };
@@ -273,6 +278,8 @@ var Map = function (elementId, configs) {
             deleteEnable: true,
             scaleEnable: true,
 			rulerEnable:true,
+            stationClick:true,
+            
 
             scale: 1,
             scaleMax: 2,
@@ -1238,11 +1245,11 @@ var Map = function (elementId, configs) {
         return false;
 
     }
-
+    
     const MapFactory = function (elementId, configs) {
 
 
-        //平面构造器
+        //平面构造器&&生成canvas
         var MapObject = function (elementId, configs) {
 
             DC.db.reset();
@@ -1273,6 +1280,7 @@ var Map = function (elementId, configs) {
 
 
 			this.initializeModeConfigs();
+           
 
             if (configs.hasOwnProperty('station')) {
                 DC.station = Object.assign({}, DC.station, configs.station);
@@ -1348,6 +1356,8 @@ var Map = function (elementId, configs) {
 				DC.map.scaleEnable = true;
 				DC.map.mouseEnable = false;
 				DC.map.rulerEnable = false;
+				DC.map.stationClick = false;
+
 				operationTypeConfigs.stationHover.style = 'auto';
 
 			}
@@ -1379,6 +1389,9 @@ var Map = function (elementId, configs) {
 
                 if (typeof mapMenu === 'undefined') {
                     mapMenu = document.createElement('div');
+                    var allMenu = document.querySelectorAll('[data-type="left"]');
+                    console.log(allMenu)
+                    
 					//style
 					mapMenu.style.position = 'absolute';
 					mapMenu.style.width = '100px';
@@ -1388,6 +1401,17 @@ var Map = function (elementId, configs) {
 					mapMenu.style.border = '1px solid red';
 					mapMenu.style.zIndex = 8;
                     mapMenu.innerHTML = html;
+                    //上
+                    // allMenu[0].display = "inline-block"
+                    // allMenu[0].backgroundColor = "red"
+                    
+                    // //右
+                    // allMenu[1].display = "inline-block"
+                    // //下
+                    // allMenu[2].display = "inline-block"
+                    // //左
+                    // allMenu[3].display = "inline-block"
+                    
 
 					var timer = null;
 					mapMenu.addEventListener('mousedown',function(event){
@@ -1824,6 +1848,10 @@ var Map = function (elementId, configs) {
             //鼠标按下事件
             const MouseDownEvent = function (event) {
                 MapFactory.setDownPosition(event);
+                if(!DC.map.stationClick){
+                     canvas.addEventListener('mousemove', DragMapMoveEvent, false);
+                     return ;
+                }
 
                 const { down } = position;
 
@@ -2369,8 +2397,8 @@ var Map = function (elementId, configs) {
             }
 
             //计算平移单位
-            DC.map.translateX += (end.x - start.x)*2;
-            DC.map.translateY += (end.y - start.y)*2;
+            DC.map.translateX += (end.x - start.x)*3;
+            DC.map.translateY += (end.y - start.y)*3;
 
             this.render();
             movePositionArr = [];
@@ -2816,7 +2844,7 @@ var Map = function (elementId, configs) {
     }
 
 
-    //转换坐标
+    //转换坐标 相对于窗口的坐标转化为相对于canvas的
     MapFactory.windowToCanvas = function (event) {
 
         var position = { x: 0, y: 0 };
@@ -2836,7 +2864,7 @@ var Map = function (elementId, configs) {
 
     };
 
-
+    //转换坐标 相对于canvas的坐标转化为相对于窗口的
     MapFactory.canvasToWindow = function (x, y) {
 
         var position = { x: 0, y: 0 };
@@ -2856,7 +2884,7 @@ var Map = function (elementId, configs) {
         return MapFactory.transformPositionToView(position.x, position.y);
     }
 
-
+    //缩放后的宽高
     MapFactory.transformWidthOrHeightToView = function (w, h) {
 
         const { scale } = DC.map;
@@ -2865,8 +2893,8 @@ var Map = function (elementId, configs) {
         const height = Number(h) * scale;
 
         return { width, height };
-    }
-
+    }   
+    //原始的宽高
     MapFactory.transformWidthOrHeightToOrigin = function (w, h) {
 
         const { scale } = DC.map;

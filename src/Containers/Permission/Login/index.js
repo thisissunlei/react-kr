@@ -228,7 +228,7 @@ class Login extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('loginSubmit', {},obj)).then(function(response) {
 			//跳转？
-			window.location.href = 'http://optest.krspace.cn/new/';
+			window.location.href =  "http://"+window.location.host;
 		}).catch(function(err) {
 			 if(err.code==-1){
 			 	Message.error(err.message)
