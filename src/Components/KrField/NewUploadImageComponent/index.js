@@ -348,7 +348,6 @@ export default class UploadImageComponent extends Component {
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 		const {input}=this.props;
-		console.log("???????>>>")
 		input.onChange("");
 	}
 

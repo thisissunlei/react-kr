@@ -20,7 +20,8 @@ let State = observable({
 		},
 		isCorpName:false,
 		sourceCustomer:false,
-		treeAll:''
+		treeAll:'',
+		isPermissions:false
 
 
 });

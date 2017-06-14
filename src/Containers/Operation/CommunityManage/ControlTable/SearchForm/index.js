@@ -108,7 +108,7 @@ class SearchFormControlTable extends React.Component {
 						<div className = "intention-community" style = {{width:230,height:40,display:'inline-block',float:"right"}}>
                         <KrField grid={1/2} 
                             name="intentionCommunityId" 
-                            component='searchCommunityManage' 
+                            component='searchCommunityAll' 
                             style ={{width:220,marginTop:3}} 
                             label="社区：" 
 							inline={true}  

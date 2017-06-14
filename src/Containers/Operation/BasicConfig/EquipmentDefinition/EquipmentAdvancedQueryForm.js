@@ -76,8 +76,8 @@ class EquipmentAdvancedQueryForm extends React.Component{
     	Http.request('getFloorByComunity',CommunityId)
     	.then(function(response){
     		var arrNew = []
-    		for (var i=0;i<response.whereFloors.length;i++){
-    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
+    		for (var i=0;i<response.floors.length;i++){
+    			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
     		}
     		_this.setState({
     			floorsOptions : arrNew
@@ -138,11 +138,12 @@ class EquipmentAdvancedQueryForm extends React.Component{
 					</ListGroupItem>
 				</ListGroup>
 				<KrField name="communityId"
-					component="searchCommunity"
+					component="searchCommunityAll"
 					onChange = {this.onChangeSearchCommunity}
 					label="社区名称"
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 					onChange = {this.onSearchFloor}
+					inline={false}
 				/>
 				<KrField name="floor"
 					component="select"

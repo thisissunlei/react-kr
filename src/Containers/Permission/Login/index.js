@@ -229,7 +229,9 @@ class Login extends Component {
 		Store.dispatch(Actions.callAPI('loginSubmit', {},obj)).then(function(response) {
 			//跳转？
 
-			window.location.href = '/new/';
+			// window.location.href = '/new/';
+
+			window.location.href =  "http://"+window.location.host;
 
 		}).catch(function(err) {
 			 if(err.code==-1){

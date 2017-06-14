@@ -47,7 +47,6 @@ import {
 		// const {FormModel} = this.props;
 
 		// FormModel.initialize('EditBusiness',{});
-		// console.log("44")
 
 	}
 	onCancel = () => {
