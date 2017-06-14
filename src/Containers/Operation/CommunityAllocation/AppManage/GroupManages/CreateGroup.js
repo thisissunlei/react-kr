@@ -30,7 +30,9 @@ class CreateGroup extends React.Component {
 				{label:'全国群组',value:'COUNTRYWIDE'},
 				{label:'社区群组',value:'COMMUNITY'}
 			],
-			cityList:[]
+			cityList:[],
+			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
+
 		}
 		this.getcity();
 	}
@@ -73,7 +75,8 @@ class CreateGroup extends React.Component {
 			} = this.props;
 		let {
 				groupList,
-				cityList
+				cityList,
+				requestURI
 			}=this.state;
 			
 		return (
@@ -89,9 +92,10 @@ class CreateGroup extends React.Component {
 								style={{width:260}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
+								photoSize={'1:1'}
 								pictureFormat={'JPG'}
 								pictureMemory={'500'}
-								requestURI = ''
+								requestURI = {this.state.requestURI}
 								requireLabel={true}
 								label="群组头像"
 								inline={false}

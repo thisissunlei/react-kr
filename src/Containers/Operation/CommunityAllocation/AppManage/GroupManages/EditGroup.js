@@ -33,7 +33,7 @@ class EditGroup extends React.Component {
 				{label:'社区群组',value:'COMMUNITY'}
 			],
 			cityList:[],
-			requestURI :'/api/krspace-finance-web/activity/upload-pic'
+			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
 		}
 		this.getcity();
 		this.getInfo();
@@ -115,6 +115,7 @@ class EditGroup extends React.Component {
 								style={{width:260}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
+								photoSize={'1:1'}
 								pictureFormat={'JPG'}
 								pictureMemory={'500'}
 								requestURI = {requestURI}

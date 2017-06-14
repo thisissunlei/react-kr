@@ -270,64 +270,64 @@ export default class UploadImageComponent extends Component {
                     image.onload=function(){
                          var width = image.width;
                          var height = image.height;
-												 if(sizePhoto){
-													 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
-													 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
-													 var standard = Math.floor(realWidth/realHeight);
-													 var proportion = width/height;
-													 if(proportion > standard && proportion < standard+1){
-															 if(xhrfile.response.data instanceof Array){
-																 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
-																 const {input}=_this.props;
-																 input.onChange(xhrfile.response.data[0].id);
-															 }else{
-																 _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
-																 const {input}=_this.props;
-																 input.onChange(xhrfile.response.data.id);
-															 }
-															 _this.setState({
-															 imageStatus : true,
-															 imgUpload : true,
-															 operateImg : false,
-														    });
+						 if(sizePhoto){
+							 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
+							 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
+							 var standard = Math.floor(realWidth/realHeight);
+							 var proportion = width/height;
+								 if(proportion > standard && proportion < standard+1){
+										 if(xhrfile.response.data instanceof Array){
+											 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
+											 const {input}=_this.props;
+											 input.onChange(xhrfile.response.data[0].id);
+										 }else{
+											 _this.refs.uploadImage.src = xhrfile.response.data.ossHref;
+											 const {input}=_this.props;
+											 input.onChange(xhrfile.response.data.id);
+										 }
+										 _this.setState({
+										 imageStatus : true,
+										 imgUpload : true,
+										 operateImg : false,
+									    });
 
-													 }else{
-	                         	_this.refs.inputImg.value ="";
-	 							            _this.refs.inputImgNew.value ="";
-	 							            _this.refs.uploadImage.src="";
+								 	}else{
+			                         	_this.refs.inputImg.value ="";
+			 							            _this.refs.inputImgNew.value ="";
+			 							            _this.refs.uploadImage.src="";
 
-	                          	_this.setState({
-												errorHide: false,
-												errorTip:"图片尺寸不符合要求",
-												imageStatus : false,
-												imgUpload : false
-											});
-	                         }
-												 }else{
-													 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
-													 var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
-													 if(width == realWidth && height == realHeight){
-														_this.refs.uploadImage.src = xhrfile.response.data;
-														_this.setState({
-														imageStatus : true,
-														imgUpload : true,
-														operateImg : false
+			                          	_this.setState({
+														errorHide: false,
+														errorTip:"图片尺寸不符合要求",
+														imageStatus : false,
+														imgUpload : false
 													});
-													const {input}=_this.props;
-													input.onChange(xhrfile.response.data);
-													}else{
-														_this.refs.inputImg.value ="";
-														_this.refs.inputImgNew.value ="";
-														_this.refs.uploadImage.src="";
+			                         }
+							}else{
+								 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
+								 var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
+								 if(width == realWidth && height == realHeight){
+									_this.refs.uploadImage.src = xhrfile.response.data;
+									_this.setState({
+									imageStatus : true,
+									imgUpload : true,
+									operateImg : false
+								});
+								const {input}=_this.props;
+								input.onChange(xhrfile.response.data);
+								}else{
+									_this.refs.inputImg.value ="";
+									_this.refs.inputImgNew.value ="";
+									_this.refs.uploadImage.src="";
 
-														_this.setState({
-															errorHide: false,
-															errorTip:"图片尺寸不符合要求",
-															imageStatus : false,
-															imgUpload : false
-														});
-													 }
-												 }
+									_this.setState({
+										errorHide: false,
+										errorTip:"图片尺寸不符合要求",
+										imageStatus : false,
+										imgUpload : false
+									});
+								 }
+							 }
                      };
                     image.src= data;
                  };
