@@ -16,7 +16,8 @@ import {
 	SearchForms,
 	Drawer,
 	Dialog,
-	KrDate
+	KrDate,
+	Message,
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
@@ -39,6 +40,8 @@ export default class GroupManages extends React.Component {
 			openView:false,
 			openDele:false,
 			itemDetail:'',
+			cmtId:'',
+			clusterName:''
 		}
 
 	}
@@ -67,7 +70,16 @@ export default class GroupManages extends React.Component {
 
 	//删除
 	onDeleteData=()=>{
-		this.openDele();
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
+			_this.openDele();
+			
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+		
+
 	}
 	openDele=()=>{
 		this.setState({
@@ -91,11 +103,26 @@ export default class GroupManages extends React.Component {
 	}
 
 	searchSubmit=(form)=>{
-		console.log('form----',form)
+
+		this.setState({
+			searchParams:{
+				clusterName:form.content,
+				cmtId:this.state.cmtId || ''
+			},
+			clusterName:form.content
+			
+		})
 
 	}
 	selectCommunity=(form)=>{
-		console.log('form11111----',form)
+		var cmtId=form.id?form.id:'';
+		this.setState({
+			searchParams:{
+				cmtId:cmtId,
+				clusterName:this.state.clusterName || ''
+			},
+			cmtId:cmtId
+		})
 	}
 	
 

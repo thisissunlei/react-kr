@@ -55,11 +55,11 @@ class CreateGroup extends React.Component {
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 						<CircleStyleTwo num="1" info="头像信息">
 							<KrField 
-								name="photoUrl"
+								name="headUrl"
+								style={{width:260}}
 								component="newuploadImage"
-								innerstyle={{width:392,height:161,padding:10}}
-								photoSize={'570*212'}
-								pictureFormat={'JPG,PNG,GIF'}
+								innerstyle={{width:120,height:120,padding:10}}
+								pictureFormat={'JPG'}
 								pictureMemory={'500'}
 								requestURI = ''
 								requireLabel={true}
@@ -70,7 +70,7 @@ class CreateGroup extends React.Component {
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
 							<KrField
 								style={{width:260}}
-								name="title"
+								name="clusterName"
 								type="text"
 								component="input"
 								label="群组名称"
@@ -78,7 +78,7 @@ class CreateGroup extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:260,marginLeft:25}}
-								name="title"
+								name="clusterType"
 								type="text"
 								component="input"
 								label="群组类型"
@@ -86,7 +86,6 @@ class CreateGroup extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:260}}
-								name="title"
 								type="text"
 								component="input"
 								label="所属城市"
@@ -94,7 +93,7 @@ class CreateGroup extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:260,marginLeft:25}}
-								name="title"
+								name="cmtId"
 								type="text"
 								component="input"
 								label="所属社区"
@@ -102,7 +101,7 @@ class CreateGroup extends React.Component {
 						 	/>
 						 	<KrField 
 						 		style={{width:260,marginBottom:10}}
-						 		name="publishedStatus" 
+						 		name="follow" 
 						 		component="group" 
 						 		label="允许退出群组"
 						 		requireLabel={true} 
@@ -112,19 +111,19 @@ class CreateGroup extends React.Component {
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
-				                    		value="PUBLISHED"
+				                    		value="1"
 				                    />
 				                    <KrField 
 				                    		name="publishedStatus" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
-				                    		value="UNPUBLISHED"
+				                    		value="0"
 				                    />
 							</KrField>
 							<KrField 
 						 		style={{width:260,marginLeft:25,marginBottom:10}}
-						 		name="publishedStatus" 
+						 		name="allow" 
 						 		component="group" 
 						 		label="允许发帖"
 						 		requireLabel={true} 
@@ -134,19 +133,19 @@ class CreateGroup extends React.Component {
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
-				                    		value="PUBLISHED"
+				                    		value="1"
 				                    />
 				                    <KrField 
 				                    		name="publishedStatus" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
-				                    		value="UNPUBLISHED"
+				                    		value="0"
 				                    />
 							</KrField>
 							<KrField 
 						 		style={{width:260,marginBottom:10}}
-						 		name="publishedStatus" 
+						 		name="recommend" 
 						 		component="group" 
 						 		label="是否推荐"
 						 		requireLabel={true} 
@@ -156,19 +155,19 @@ class CreateGroup extends React.Component {
 				                    		grid={1 / 2} 
 				                    		label="是" 
 				                    		type="radio" 
-				                    		value="PUBLISHED"
+				                    		value="1"
 				                    />
 				                    <KrField 
 				                    		name="publishedStatus" 
 				                    		grid={1 / 2} 
 				                    		label="否" 
 				                    		type="radio" 
-				                    		value="UNPUBLISHED"
+				                    		value="0"
 				                    />
 							</KrField>
 							<KrField
 								style={{width:260,marginLeft:25}}
-								name="title"
+								name="sort"
 								type="text"
 								component="input"
 								label="排序号"
@@ -176,7 +175,7 @@ class CreateGroup extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:548}}
-								name="newsDesc"
+								name="intro"
 								component="textarea"
 								label="群组描述"
 								maxSize={500}
