@@ -96,7 +96,7 @@ export default class DarkHouse extends React.Component {
 		} = this.state;
 		var _this = this;
 		Http.request('punish-add', {},{
-			id: itemDetail.id
+			id: 1
 		}).then(function(response) {
 			Message.success('删除成功');
 			_this.changeP();

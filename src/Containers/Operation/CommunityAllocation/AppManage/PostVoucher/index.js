@@ -27,6 +27,7 @@ import {
 	ListGroupItem,
 	ListGroup,
 	Dialog,
+	Drawer,
 	SearchForms,
 	KrDate,
 	Message
@@ -122,7 +123,7 @@ export default class PostVoucher extends React.Component {
 						<TableRow>
 							<TableRowColumn name="punishedName" ></TableRowColumn>
 								<TableRowColumn name="type"></TableRowColumn>
-								<TableRowColumn name="name" component={(value,oldValue,itemDetail) => {
+								{/*<TableRowColumn name="name" component={(value,oldValue,itemDetail) => {
                                         if (value.length>2) {
                                             logFlag = false;
                                         }else{
@@ -137,7 +138,8 @@ export default class PostVoucher extends React.Component {
                                                 }
                                             </div>
                                                 )
-                                    }}></TableRowColumn>
+                                    }}></TableRowColumn>*/}
+							 <TableRowColumn name="name"></TableRowColumn>
 							 <TableRowColumn name="time" type="date" component={(value)=>{
  								return (
  									<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
@@ -152,16 +154,18 @@ export default class PostVoucher extends React.Component {
 					</Table>
 				</Section>
 
-				<Dialog
-					title="查看"
-					modal={true}
-					open={this.state.openHandle}
-					onClose={this.openHandle}
-				>
-					<ViewLogs
+			<Drawer
+             modal={true}
+             width={750}
+             open={this.state.openHandle}
+			 onClose={this.openHandle}
+             openSecondary={true}
+             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+           >
+             	<ViewLogs
 						onCancel={this.openHandle} detail={this.state.itemDetail} onSubmit={this.handleSubmit}
 					/>
-				</Dialog>
+           </Drawer>
 			</div>
 		);
 	}

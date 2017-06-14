@@ -29,22 +29,40 @@ class ViewLogs extends React.Component {
 		onCancel: React.PropTypes.func,
 	}
 
-	constructor(props) {
-		super(props);
+	constructor(props, context) {
+		super(props, context);
 		this.state = {
 			infoList:[],
 			ownFlag: true,
 			status:1,
-		}
+			timeFlag:false,
+			punish:[{
+				label:'永久禁言(禁止发帖与回复)',
+				value:'1'
+			},{
+				label:'禁言(禁止发帖与回复)一段时间',
+				value:'2'
+			},{
+				label:'不禁言',
+				value:'3'
+			}]
+		};
+		this.getInfo();
 	}
 
 	componentDidMount() {
+		var _this = this;
+		setTimeout(function() {
+			_this.getInfo();
+		}, 0)
+	}
+	getInfo = ()=>{
 		var _this = this;
 		var id = this.props.detail.id
 		Http.request('topic-detail', {
 			id: id
 		}, {}).then(function(response) {
-			_this.setState({infoList: response})
+			_this.setState({infoList: response.items})
 		}).catch(function(err) {});
 	}
 	onCancel = () => {
@@ -56,10 +74,25 @@ class ViewLogs extends React.Component {
 			ownFlag:!this.state.ownFlag,
 		})
 	}
-	onSelect=(item)=>{
+	 onSelect=(item)=>{
+		if(item.value=='2'){
+			this.setState({
+				timeFlag:true,
+			})
+		}
+	 }
+	renderContentImg=()=>{
+		let {
+			infoList,
+		} = this.state;
+		infoList.imgUrl.map((item,index) => {
+			return (
+				<div className="content-img" style={{backgroundImage:`${item.imgUrl}`}}>
 
+				</div>
+			)	
+		})
 	}
-	//处理提交
 	handleSubmit=(form)=>{
 		let {
 			itemDetail,
@@ -84,52 +117,65 @@ class ViewLogs extends React.Component {
 		});
 	}
 	render() {
-
+		const {
+				error,
+				handleSubmit,
+				pristine,
+				reset
+		} = this.props;
 		let {
-			totalCountMoney,
-			payment,
-			accountList,
-			mainbillInfo,
-			showName,
-			customerId,
 			infoList,
-			topInfoList,
 			ownFlag,
+			punish,
+			timeFlag
 		} = this.state;
+		console.log(infoList);
 		return (
-			<div className="u-audit-add  u-audit-edit">
-				<KrField
-							style={{width:260}}
-							name="author"
+			<div className="g-create-group">
+				<div className="u-create-title">
+						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
+						<div className="u-create-close" onClick={this.onCancel}></div>
+				</div>
+							<KrField
+							style={{width:520}}
 							inline={false}
 							type="text"
 							component="labelText"
 							label="发帖人"
-							value={infoList.systemName}
+							value={infoList.author}
 					/>
 				<KrField
-						style={{width:260,marginLeft:25}}
-						name="payName"
+						style={{width:520}}
 						inline={false}
 						component="labelText"
 						label="举报类型"
-						value={infoList.sourceName}
+						value={infoList.type}
 				/>
 				<KrField
-						style={{width:260}}
+						style={{width:520}}
 						component="labelText"
 						inline={false}
 						label="举报人"
-						value={infoList.operateType}
+						value={infoList.name}
 
 				/>
 				<KrField
-						style={{width:260,marginLeft:25}}
+						style={{width:520}}
 						component="labelText"
 						inline={false}
 						label="帖子内容"
-						value={infoList.batchNum}
 				/>
+				<div className="post-content">
+					<div className="head-title">
+						<span className="user-head" style={{backgroundImage:`${infoList.avatar}`}}></span>
+						<span className="user-name"></span>
+						<span className="timer"></span>
+					</div>
+					<div className="text">
+						{infoList.topicContent}
+						{this.renderContentImg()}
+					</div>
+				</div>
 			<form onSubmit={handleSubmit(this.handleSubmit)} style={{marginTop:50}}>
 				<KrField
 						style={{width:260}}
@@ -137,25 +183,46 @@ class ViewLogs extends React.Component {
 						inline={false}
 						component="select"
 						label="处罚"
-						options={infoList.operater}
+						options={punish}
 						onChange={this.onSelect}
 				/>
-				<input 		
-						  type="checkbox"  
-						  value={ownFlag?'1':'0'} 
-						  name="status"
-						  checked="checked"
-						  onChange={this.changeCheck()}
-				/>删除帖子
-				<KrField
-						style={{width:260}}
-						component="input"
-						inline={true}
-						name="time"
-				/>
+				{timeFlag && 
+					<div style={{display:'inline-block'}}>
+						<KrField
+								style={{width:260,marginTop:14}}
+								component="input"
+								inline={false}
+								name="time"
+						/>
+						<span style={{display:'inline-block',marginTop:32,marginLeft:20}}>小时</span>
+					</div>
+					
+				}
+			
+				<div>
+					<input 		
+							type="checkbox" 
+							style={{marginLeft:10}} 
+							value={ownFlag?'1':'0'} 
+							name="status"
+							checked="checked"
+							onChange={this.changeCheck}
+					/>删除帖子
+				</div>
+				
+						<Grid style={{marginTop:50,width:'81%'}}>
+						<Row >
+						<Col md={12} align="center">
+							<ButtonGroup>
+								<Button  label="确定" type="submit"  />
+								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
+							</ButtonGroup>
+						  </Col>
+						</Row>
+						</Grid>
+						
 				</form>
 			</div>
-			
 
 		);
 	}
