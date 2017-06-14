@@ -56,7 +56,7 @@ import SearchPayAccount from './SearchPayAccount';
 import SearchSourceList from './SearchSourceList';
 import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
-
+import SearchCityCommunity from './SearchCityCommunity';
 
 class FieldRevert extends React.Component {
 
@@ -206,6 +206,12 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
 				);
+			}
+			
+			if (component === 'searchCityCommunity') {
+				return (
+					<FieldRevert {...this.props} component={SearchCityCommunity}  style={WrapStyles} {...other}/>
+				)
 			}
 
 			if (component === 'searchPayment') {

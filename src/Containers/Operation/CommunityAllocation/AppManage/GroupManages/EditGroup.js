@@ -38,6 +38,11 @@ class EditGroup extends React.Component {
 		this.getcity();
 		this.getInfo();
 	}
+	
+	selectCity=(item)=>{
+		console.log('item----',item)
+	}
+
 
 	getInfo=()=>{
 		var _this=this;
@@ -150,6 +155,7 @@ class EditGroup extends React.Component {
 								options={cityList}
 								label="所属城市"
 								requireLabel={true}
+								onChange={this.selectCity}
 
 						 	/>
 						 	<KrField

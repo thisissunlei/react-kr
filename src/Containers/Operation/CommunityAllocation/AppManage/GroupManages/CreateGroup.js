@@ -32,7 +32,7 @@ class CreateGroup extends React.Component {
 			],
 			cityList:[],
 			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
-
+			cityId:''
 		}
 		this.getcity();
 	}
@@ -42,6 +42,11 @@ class CreateGroup extends React.Component {
         Store.dispatch(change('createGroup', 'allow', '0'));
         Store.dispatch(change('createGroup', 'recommend', '0'));
     }
+    selectCity=(item)=>{
+    	this.setState({
+    		cityId:item.cityId
+    	})
+	}
 	getcity=()=>{
 		var _this=this;
 			Http.request('getcity-list').then(function(response) {
@@ -76,7 +81,8 @@ class CreateGroup extends React.Component {
 		let {
 				groupList,
 				cityList,
-				requestURI
+				requestURI,
+				cityId
 			}=this.state;
 			
 		return (
@@ -126,15 +132,17 @@ class CreateGroup extends React.Component {
 								options={cityList}
 								label="所属城市"
 								requireLabel={true}
-
+								onChange={this.selectCity}
 						 	/>
 						 	<KrField
 								style={{width:260,marginLeft:25}}
 								name="cmtId"
-								type="text"
-								component="input"
+								inline={false}
+								cityId={cityId}
+								component="searchCityCommunity"
 								label="所属社区"
 								requireLabel={true}
+
 						 	/>
 						 	<KrField 
 						 		style={{width:260,marginBottom:10}}
