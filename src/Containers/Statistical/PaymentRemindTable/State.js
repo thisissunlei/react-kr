@@ -59,10 +59,10 @@ State.getList = action(function() {
 State.getInitialList = action(function() {
 
 	let _this =this;
-	Http.request('getCommunity', {}).then(function(response) {
+	Http.request('getTheCommunity', {}).then(function(response) {
+		console.log("response",response,response.items[0].id);
+		State.searchParams.communityId = response.items[0].id;
 		
-		State.searchParams.communityId = response.communityInfoList[0].id;
-
 		Store.dispatch(initialize('SearchForm', State.searchParams));
 		_this.getList();
 

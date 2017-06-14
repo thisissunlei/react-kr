@@ -106,7 +106,7 @@ class SearchForm extends React.Component {
 
 					<ListGroup>
 						<ListGroupItem>
-							<KrField  name="communityId" component="searchCommunityManage" label="社区名称：" inline={true} style={{width:244}} onChange={this.chooseCommunity}/>
+							<KrField  name="communityId" component="searchCommunityAll" label="社区名称：" inline={true} style={{width:244}} onChange={this.chooseCommunity}/>
 						</ListGroupItem>
 
 						<ListGroupItem>

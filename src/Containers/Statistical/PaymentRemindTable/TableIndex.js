@@ -104,13 +104,16 @@ export default class PaymentRemindTable extends React.Component {
 
 	renderBalance=(item)=>{
 		let _this = this;
-		console.log("item",item);
 		var timeToday = new Date().getTime();
 		
 		if(item.installmentReminddate>timeToday ){
-			if(item.balance == 0&&item.installmentBegindate<timeToday ){
-				return <span>-</span>
-
+			
+			if(item.installmentBegindate <= timeToday){
+			 	if(item.balance == 0 ){
+					return <span>-</span>
+				}else{
+					return <span>{this.thousands(item.balance)}</span>
+				}
 			}
 			
 		}else{
