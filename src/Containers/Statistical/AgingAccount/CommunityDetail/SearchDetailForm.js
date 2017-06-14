@@ -96,24 +96,24 @@ export default class SearchDetailForm extends React.Component {
 							</ListGroupItem>
 							<ListGroupItem style={{padding:0,mrginright:10}}>
 								
-								<KrField name="detailEndDate"  component="date" onChange={this.changeTime} style={{width:252,marginTop: 7}}  placeholder={timeDefaultValue}/>
+								<KrField name="detailEndDate"  component="date" onChange={this.changeTime} style={{width:150,marginTop: 7}}  placeholder={timeDefaultValue}/>
 							
 							</ListGroupItem>
-							<ListGroupItem style={{textAlign:'center',padding:0,verticalAlign:"top",margin:"10px 0 10px 10px"}}>
+							<ListGroupItem style={{textAlign:'center',padding:0,verticalAlign:"top",margin:"10px 0 10px 20px"}}>
 								
 								<span style={{display:'inline-block',height:58,fontSize:14}}>客户:</span>
 							
 							</ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 								
-								<KrField  name="customerId" placeholder="请输入客户名称" component="searchCompany"  onChange={this.changeCustomer}  style={{width:252,marginTop: 7,marginRight:7}}/>
+								<KrField  name="customerId" placeholder="请输入客户名称" component="searchCompany"  onChange={this.changeCustomer}  style={{width:150,marginTop: 7,marginRight:7}}/>
 								
 							</ListGroupItem>
 							<ListGroupItem>
 					        	<span style={{display:'inline-block',height:58,fontSize:14,marginTop:10,marginRight:"-10px"}}>社区:</span>
 					       	</ListGroupItem>
 					       	<ListGroupItem>
-					        	<KrField name="communityId" component="searchCommunityManage" label="" inline={false} style={{width:252,marginTop:6}} onChange={this.changeCommunity}/>
+					        	<KrField name="communityId" component="searchCommunityManage" label="" inline={false} style={{width:150,marginTop:6}} onChange={this.changeCommunity}/>
 					       	</ListGroupItem>
 							<ListGroupItem style={{padding:0}}>
 								

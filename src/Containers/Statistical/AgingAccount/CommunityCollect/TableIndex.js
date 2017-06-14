@@ -110,6 +110,11 @@ export default class TableIndex extends React.Component{
 		
 	}
 
+	toDetailFun(params,item){
+		console.log("params",params,params.communityId);
+		
+	}
+
 	
 	
 	render(){
@@ -175,7 +180,7 @@ export default class TableIndex extends React.Component{
 									   		<div className="item-div">{_this.thousands(item.rent.arrearsAmount)}</div>
 									   		<div className="item-div">{_this.thousands(item.deposit.arrearsAmount)}</div>
 									   		<div className="item-div" style={{color:"#ff0000"}}>{_this.thousands(item.lateFee)}</div>
-									   		<div className="item-div" style={{color:"#ff0000"}}>{_this.thousands(item.totalAmount)}</div>
+									   		<div className="item-div" style={{color:"#ff0000",cursor:"pointer"}} onClick={_this.toDetailFun.bind(_this,item)}>{_this.thousands(item.totalAmount)}</div>
 							   		
 							   	</div>
 						   	})

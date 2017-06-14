@@ -5,8 +5,11 @@ import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Message,
 	Tabs,
-	Tab
+	TabItem
 } from 'kr-ui';
+
+
+
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
 import './index.less';
@@ -22,7 +25,8 @@ class AgingAccount  extends React.Component{
 		this.state = {
 			isLeft:true,
 			hasCollect : false,
-			hasDetail : false
+			hasDetail : false,
+			initialSelectedNum : 'prev'
 		}
 	}
 
@@ -79,23 +83,44 @@ class AgingAccount  extends React.Component{
 	componentWillUnmount(){
 		$(window).unbind();
 	}
-
+	demo=()=>{
+		this.setState({
+			initialSelectedNum :'next'
+		})
+	}
 	render(){
-		let {isLeft,hasDetail,hasCollect}=this.state;
+		let {isLeft,hasDetail,hasCollect,initialSelectedNum}=this.state;
 		let {sidebar_nav}=this.props;
+		
 		return(
 			<div className="aging-account">
-				<Tabs>
-					{
-						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive}>
-												<CommunityCollect isLeftProps={isLeft}/>
-											</Tab>
+				<Tabs inkBarStyle={{backgroundColor:"rgb(43, 141, 205)"}} 
+					tabItemContainerStyle={{backgroundColor:"#fff"}} 
+					contentContainerClassName = "contentContainer"
+					value = {initialSelectedNum}
+					onChange={(value)=>{
+						console.log('value:',value)
+				
+					}}
+	
+				>
+					<TabItem label="社区汇总" value="prev">
+										<span onClick = {this.demo}>sdfdskk</span>
+					</TabItem>
+					<TabItem label="社区明细" value="next">
+							afddks
+					</TabItem>
+					{/*
+						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive} style={{color:"black"}}>
+										<CommunityCollect isLeftProps={isLeft}/>
+									</Tab>
 					}
 					{
-						hasDetail&&<Tab label="社区明细" onActive={this.rightActive}>
+						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}}>
 							<CommunityDetail isLeftProps={isLeft}/>
 						</Tab>
-					}
+					*/}
+
 					{/*
 						!hasCollect && !hasDetail &&<Tab>
 							<div>
