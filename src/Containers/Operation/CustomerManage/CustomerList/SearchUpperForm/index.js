@@ -113,7 +113,7 @@ class SearchUpperForm extends React.Component {
                  options={cityList}
 				 
                 />
-				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} component='searchIntend'  label="意向社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
+				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} component='searchCommunityAll'  label="意向社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类"
 				 options={levelList}
 				/>
