@@ -550,7 +550,16 @@ module.exports = {
          url: '/api/krspace-finance-web/cluster/punish/inflict',
          method: 'post'
       },
-      
+      //群组-获取所有城市
+       'getcity-list':{
+         url: '/api/krspace-finance-web/cluster/manager/city',
+         method: 'get'
+      },
+      //群组-获取所有社区
+       'getcommunity-list':{
+         url: '/api/krspace-finance-web/cmt/community/select/use/type/city',
+         method: 'get'
+      },
       
 
 }

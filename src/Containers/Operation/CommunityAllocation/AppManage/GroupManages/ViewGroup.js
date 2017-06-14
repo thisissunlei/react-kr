@@ -32,7 +32,7 @@ class ViewGroup extends React.Component {
 	}
 	getViewData=()=>{
 		var _this=this;
-		const {GroupModel,detail}=this.props;
+		const {detail}=this.props;
 		Http.request('cluster-detail',{clusterId:detail.id}).then(function (response) {
 			_this.setState({
 				viewData:response
