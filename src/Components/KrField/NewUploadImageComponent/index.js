@@ -38,14 +38,16 @@ export default class UploadImageComponent extends Component {
 
 			isInit:true
 		}
-		let {defaultValue,sizePhoto}=this.props;
-		this.setInitValue(defaultValue,sizePhoto);
 	}
 	componentWillUnmount() {
 		this.setState({
 			files: []
 		});
 
+	}
+	componentWillMount(){
+      	let {defaultValue,sizePhoto}=this.props;
+		this.setInitValue(defaultValue,sizePhoto);
 	}
 	componentDidMount() {
 
@@ -67,32 +69,27 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
-		var _this=this;
-		setTimeout(function(){
-			console.log('nextState---',_this.state.isInit)
-		},1000)
-		
 		if(nextProps.defaultValue ){
-			console.log('next3');
 			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}
 
 	}
 
 	setInitValue(defaultValue,sizePhoto) {
+		if(!defaultValue){
+           return ;
+		}
 		let {input}=this.props;
 		let {
 			isInit
 		} = this.state;
-		console.log('-----isInit',isInit);
 		if (!isInit) {
 			return;
 		}
 		
 		if(sizePhoto){
-			console.log('999999----',defaultValue)
 			this.setState({
-				//isInit: false,
+				isInit: false,
 				imgUpload:true,
 				imgSrc:defaultValue.picUrl
 		    });
@@ -101,7 +98,7 @@ export default class UploadImageComponent extends Component {
 			}
 		}else{
 			this.setState({
-				//isInit: false,
+				isInit: false,
 				imgUpload:true,
 				imgSrc:defaultValue
 		  });
@@ -359,7 +356,6 @@ export default class UploadImageComponent extends Component {
 			imgSrc: "",
 			imgUpload: false,
 			operateImg :false,
-			isInit:false
 		})
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
@@ -375,7 +371,6 @@ export default class UploadImageComponent extends Component {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
 
-		console.log('ggnnn',this.state.imgSrc);
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 

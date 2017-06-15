@@ -144,7 +144,6 @@ class EditGroup extends React.Component {
 			}=this.state;
 			
 
-			console.log('photoUrl.picUrl',typeof photoUrl.picUrl)
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
@@ -153,28 +152,30 @@ class EditGroup extends React.Component {
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 						<CircleStyleTwo num="1" info="头像信息">
-							<KrField 
+							{typeof photoUrl.picUrl!='undefined'&&<KrField 
 								name="headUrl"
 								style={{width:548}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
 								sizePhoto
+								merthd='Url'
 								pictureFormat={'JPG,PNG'}
-								pictureMemory={'50'}
+								pictureMemory={'100'}
 								requestURI = {requestURI}
 								requireLabel={true}
 								label="群组头像"
 								inline={false}
 								defaultValue={photoUrl}
-								/>
-								{/*{listUrl.picUrl!=''&&<KrField 
+								/>}
+								{typeof listUrl.picUrl!='undefined'&&<KrField 
 									name="listUrl"
 									style={{width:548}}
 									component="newuploadImage"
 									innerstyle={{width:160,height:90,padding:10}}
 									photoSize={'16:9'}
 									sizePhoto
+									merthd='Url'
 									pictureFormat={'JPG,PNG'}
 									pictureMemory={'200'}
 									requestURI = {this.state.requestURI}
@@ -182,7 +183,7 @@ class EditGroup extends React.Component {
 									label="列表图片"
 									inline={false}
 									defaultValue={listUrl}
-								/>}*/}
+								/>}
 						</CircleStyleTwo>
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
 							<KrField
