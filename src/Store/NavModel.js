@@ -98,7 +98,7 @@ State.clearSidebar=action(function(userInfo){
 
 State.loadNavData = action(function () {
 	var _this = this;
-
+	
 	if (this.isLoadNavData) {
 		return;
 	}
@@ -106,11 +106,13 @@ State.loadNavData = action(function () {
 	Http.request('newMenuInfo').then(function (response) {
 		// var userInfo = response.userInfo;
 		// var menusCode = response.menusCode;
+
 		_this.menusCode=response.menusCode;
 		_this.menusData=response.resourcesCode;
 		_this.setUserInfo(response.userInfo);
 		_this.setPermissionNav(response.menusCode);
 		_this.isLoadNavData = true;
+
 	}).catch(function (err) { });
 
 });
@@ -237,6 +239,7 @@ State.checkOperate= action(function(resourcesCode){
 });
 //校验菜单是否有权限
 State.checkMenus= action(function(menusCode){
+	
 	var menus=toJS(this.menusCode);
 	if(menus.length>0){
 		if(menus.indexOf(menusCode)>-1){

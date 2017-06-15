@@ -1,23 +1,17 @@
 import React from 'react';
 
 import {
-	KrField,
+	CheckPermission,
+	Button
 } from 'kr-ui';
-import {
-	reduxForm,
-	change
-} from 'redux-form';
-import Header from "../../Header"
+
 import './index.less';
 
-class DongFanAi extends React.Component {
+export default class DongFanAi extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state={
-			
-	        
-		}
+		
 		
 	}
 
@@ -26,18 +20,18 @@ class DongFanAi extends React.Component {
 	 
 	render() {
 		
-		
 		return (
-			<div className="ui-header-demo">
-				<div className="u-header-sidebar">
-					<span className="u-header-sidebar-icon u-header-icon-heng"></span>
-				</div>
-				<div className="u-header-logo"></div>
+			<div className="u-dongf">
+				111
+				<CheckPermission  menusCode="fina_account_list" >
+					<Button  label="确定" type="submit"  />
+				</CheckPermission>
+				<CheckPermission  operateCode="fina_account_export" >
+					<Button  label="取消" type="submit"  />
+				</CheckPermission>
 			</div>
 
 		);
 	}
 }
-export default reduxForm({
-	form: 'dongfanfi'
-})(DongFanAi);
+
