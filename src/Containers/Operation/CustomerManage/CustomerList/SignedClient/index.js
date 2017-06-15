@@ -23,7 +23,8 @@ import {
     SearchForms,
 	Drawer,
 	KrDate,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {
 	LookCustomerList,
@@ -361,11 +362,13 @@ class SignedClient extends React.Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
+					    <CheckPermission  menusCode="oper_order_add" >
 									<Button
 											label="新建订单"
 											type='button'
 											onTouchTap={this.openContractFirst}
 									/>
+						 </CheckPermission>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
