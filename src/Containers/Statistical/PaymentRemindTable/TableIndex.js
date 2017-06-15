@@ -56,9 +56,15 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	componentDidMount(){
-		
 
-		this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
+		var str = new RegExp(navigator.platform+"");
+		
+		if(str.test("Win")){
+			this.refs.tableLeftTitle.style.height = ($(window).height()-225) +"px";
+		}else{
+			this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
+		}
+
 		// scroll Table表格滚动
 		let _this = this;
 		$(".table-box").eq(0).scroll(function(){
@@ -237,7 +243,7 @@ export default class PaymentRemindTable extends React.Component {
 
 	
 	render() {
-		let {tebleWidth,tableHeight,showTotle}= this.state;
+		let {tebleWidth,tableHeight,showTotle,isWin}= this.state;
 		return (
 			    <div className="table-index" style={{paddingBottom:20,width:"100%",}}>
 				    <div className="table-index-box">
