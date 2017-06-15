@@ -609,7 +609,7 @@ class Login extends Component {
 				                   <div className="input-verifycode">
 					                   <input ref="imgCode" type="text" placeholder="请输入验证码"/>
 				                   </div>
-				                   <img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
+				                   <img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://op.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
 			                 	</li>
 										 	 }
                        <li>

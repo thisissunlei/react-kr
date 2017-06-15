@@ -205,7 +205,7 @@ export default class PlanMapComponent extends React.Component {
 					plugin:{
 						onCheckedStationCallback:_this.dataChange
 					},
-					backgroundImageUrl:"http://optest.krspace.cn" + data[i].graphFilePath
+					backgroundImageUrl:"http://"+window.location.host + data[i].graphFilePath
 				}
 			}
 
