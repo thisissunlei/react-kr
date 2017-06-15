@@ -29,7 +29,6 @@ import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
 
-
 class Operations extends React.Component {
 
 	constructor(props, context) {
@@ -49,7 +48,7 @@ class Operations extends React.Component {
 			newPage:0,
 		}
 	}
-
+	
 	//操作相关
 	onOperation = (type, itemDetail) => {
 

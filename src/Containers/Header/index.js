@@ -88,7 +88,7 @@ export default class Header extends React.Component {
 		var  navs = NavModel.getNavs();
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
-
+		
 	}
 
 	componentWillUnmount(){
