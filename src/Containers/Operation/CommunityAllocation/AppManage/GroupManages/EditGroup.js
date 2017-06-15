@@ -36,7 +36,9 @@ class EditGroup extends React.Component {
 			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
 			cityId:'',
 			ifCity:false,
-			infoList:{}
+			infoList:{},
+			listUrl:{},
+			photoUrl:{}
 		}
 		this.getcity();
 		this.getInfo();
@@ -72,9 +74,15 @@ class EditGroup extends React.Component {
 				
 				Store.dispatch(initialize('editGroup', response));
 				_this.setState({
-					photoUrl:response.headUrl,
+					photoUrl:{
+						picUrl:response.headUrl
+					},
 					infoList:response,
-					cityId:response.cityId
+					cityId:response.cityId,
+					listUrl:{
+						picUrl:response.listUrl
+					}
+
 				})
 			}).catch(function(err) {
 				Message.error(err.messgae);
@@ -131,32 +139,51 @@ class EditGroup extends React.Component {
 				requestURI,
 				photoUrl,
 				cityId,
-				ifCity
+				ifCity,
+				listUrl
 			}=this.state;
 			
+
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">新建群组</label></div>
+						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 						<CircleStyleTwo num="1" info="头像信息">
-							<KrField 
+							{typeof photoUrl.picUrl!='undefined'&&<KrField 
 								name="headUrl"
-								style={{width:260}}
+								style={{width:548}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
 								sizePhoto
+								merthd='Url'
 								pictureFormat={'JPG,PNG'}
-								pictureMemory={'500'}
+								pictureMemory={'100'}
 								requestURI = {requestURI}
 								requireLabel={true}
 								label="群组头像"
 								inline={false}
 								defaultValue={photoUrl}
-								/>
+								/>}
+								{typeof listUrl.picUrl!='undefined'&&<KrField 
+									name="listUrl"
+									style={{width:548}}
+									component="newuploadImage"
+									innerstyle={{width:160,height:90,padding:10}}
+									photoSize={'16:9'}
+									sizePhoto
+									merthd='Url'
+									pictureFormat={'JPG,PNG'}
+									pictureMemory={'200'}
+									requestURI = {this.state.requestURI}
+									requireLabel={true}
+									label="列表图片"
+									inline={false}
+									defaultValue={listUrl}
+								/>}
 						</CircleStyleTwo>
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
 							<KrField

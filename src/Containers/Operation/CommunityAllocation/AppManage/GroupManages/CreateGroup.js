@@ -116,13 +116,14 @@ class CreateGroup extends React.Component {
 						<CircleStyleTwo num="1" info="头像信息">
 							<KrField 
 								name="headUrl"
-								style={{width:260}}
+								style={{width:548}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
 								sizePhoto
+								merthd='Url'
 								pictureFormat={'JPG,PNG'}
-								pictureMemory={'500'}
+								pictureMemory={'100'}
 								requestURI = {this.state.requestURI}
 								requireLabel={true}
 								label="群组头像"
@@ -130,13 +131,14 @@ class CreateGroup extends React.Component {
 								/>
 								<KrField 
 									name="listUrl"
-									style={{width:260}}
+									style={{width:548}}
 									component="newuploadImage"
-									innerstyle={{width:220,height:320,padding:10}}
-									photoSize={'1:1'}
+									innerstyle={{width:320,height:220,padding:10}}
+									photoSize={'16:9'}
 									sizePhoto
+									merthd="Url"
 									pictureFormat={'JPG,PNG'}
-									pictureMemory={'1000'}
+									pictureMemory={'200'}
 									requestURI = {this.state.requestURI}
 									requireLabel={true}
 									label="列表图片"

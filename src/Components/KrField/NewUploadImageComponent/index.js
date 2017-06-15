@@ -43,11 +43,16 @@ export default class UploadImageComponent extends Component {
 		this.setState({
 			files: []
 		});
+
+	}
+	componentWillMount(){
+      	let {defaultValue,sizePhoto}=this.props;
+		this.setInitValue(defaultValue,sizePhoto);
 	}
 	componentDidMount() {
 
 	}
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(nextProps,nextState){
 		// if(nextProps.defaultValue){
 		// 	this.setState({
 		// 		imgSrc:nextProps.defaultValue,
@@ -64,13 +69,16 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
-		if(nextProps.defaultValue){
+		if(nextProps.defaultValue ){
 			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}
 
 	}
 
 	setInitValue(defaultValue,sizePhoto) {
+		if(!defaultValue){
+           return ;
+		}
 		let {input}=this.props;
 		let {
 			isInit
@@ -257,7 +265,7 @@ export default class UploadImageComponent extends Component {
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
 		let _this = this;
-		let {photoSize,sizePhoto}=this.props;
+		let {photoSize,sizePhoto,merthd}=this.props;
 
 		if(file ){
                 var fileData = file;
@@ -273,14 +281,15 @@ export default class UploadImageComponent extends Component {
 						 if(sizePhoto){
 							 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 							 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
-							 var standard = Math.floor(realWidth/realHeight);
+							 var standard = realWidth/realHeight;
 							 var proportion = width/height;
-								 if(proportion >= standard && proportion < standard+1){
-								 	     if(proportion==standard){
+								 if(proportion == standard){
+								 	    if(merthd=='Url'){
                                             _this.refs.uploadImage.src = xhrfile.response.data;
 											const {input}=_this.props;
 								            input.onChange(xhrfile.response.data);
-										 }else{
+										}else{
+											
 										 	if(xhrfile.response.data instanceof Array){
 											 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
 											 const {input}=_this.props;
@@ -291,8 +300,6 @@ export default class UploadImageComponent extends Component {
 												 input.onChange(xhrfile.response.data.id);
 											 }
 										 }
-
-										 
 										 _this.setState({
 										 imageStatus : true,
 										 imgUpload : true,
@@ -348,7 +355,7 @@ export default class UploadImageComponent extends Component {
 		this.setState({
 			imgSrc: "",
 			imgUpload: false,
-			operateImg :false
+			operateImg :false,
 		})
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
@@ -356,13 +363,13 @@ export default class UploadImageComponent extends Component {
 		let {onDeleteImg} = this.props;
 		onDeleteImg && onDeleteImg();
 		const {input}=this.props;
-		console.log("???????>>>")
 		input.onChange("");
 	}
 
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
+
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
