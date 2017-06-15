@@ -58,9 +58,9 @@ export default class PaymentRemindTable extends React.Component {
 	componentDidMount(){
 
 		var str = new RegExp(navigator.platform+"");
-		
+		console.log("str",str);
 		if(str.test("Win")){
-			this.refs.tableLeftTitle.style.height = ($(window).height()-225) +"px";
+			this.refs.tableLeftTitle.style.height = ($(window).height()-230) +"px";
 		}else{
 			this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
 		}
