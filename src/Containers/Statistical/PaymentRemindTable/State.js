@@ -60,7 +60,7 @@ State.getInitialList = action(function() {
 
 	let _this =this;
 	Http.request('getTheCommunity', {}).then(function(response) {
-		console.log("response",response,response.items[0].id);
+		// console.log("response",response,response.items[0].id);
 		State.searchParams.communityId = response.items[0].id;
 		
 		Store.dispatch(initialize('SearchForm', State.searchParams));
