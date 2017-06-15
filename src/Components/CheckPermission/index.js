@@ -52,7 +52,6 @@ export default class CheckPermission extends React.Component {
 	render() {
 		let {children,NavModel}=this.props;
 		let {IsOperate,IsMenus}=this.state;
-		console.log('00000000',NavModel.isLoadNavData)
 		if(IsOperate || IsMenus){
 			return (
 				<div  style={{display:'inline-block'}}>
