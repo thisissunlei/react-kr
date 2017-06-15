@@ -60,7 +60,7 @@ export default class PaymentRemindTable extends React.Component {
 			this.setState({
 				tebleWidth: $(window).width()-260,
 				tableHeight: $(window).height()-215
-			}，function(){
+			},function(){
 				_this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
 			})
 		// 是windows
