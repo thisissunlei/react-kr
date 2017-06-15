@@ -121,8 +121,9 @@ class CreateGroup extends React.Component {
 								innerstyle={{width:120,height:120,padding:10}}
 								photoSize={'1:1'}
 								sizePhoto
+								merthd='Url'
 								pictureFormat={'JPG,PNG'}
-								pictureMemory={'500'}
+								pictureMemory={'100'}
 								requestURI = {this.state.requestURI}
 								requireLabel={true}
 								label="群组头像"
@@ -133,10 +134,11 @@ class CreateGroup extends React.Component {
 									style={{width:548}}
 									component="newuploadImage"
 									innerstyle={{width:320,height:220,padding:10}}
-									photoSize={'1:1'}
+									photoSize={'16:9'}
 									sizePhoto
+									merthd="Url"
 									pictureFormat={'JPG,PNG'}
-									pictureMemory={'1000'}
+									pictureMemory={'200'}
 									requestURI = {this.state.requestURI}
 									requireLabel={true}
 									label="列表图片"

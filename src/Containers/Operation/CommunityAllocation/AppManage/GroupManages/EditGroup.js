@@ -37,8 +37,8 @@ class EditGroup extends React.Component {
 			cityId:'',
 			ifCity:false,
 			infoList:{},
-			listUrl:'',
-			photoUrl:''
+			listUrl:{},
+			photoUrl:{}
 		}
 		this.getcity();
 		this.getInfo();
@@ -74,10 +74,14 @@ class EditGroup extends React.Component {
 				
 				Store.dispatch(initialize('editGroup', response));
 				_this.setState({
-					photoUrl:response.headUrl,
+					photoUrl:{
+						picUrl:response.headUrl
+					},
 					infoList:response,
 					cityId:response.cityId,
-					listUrl:response.listUrl
+					listUrl:{
+						picUrl:response.listUrl
+					}
 
 				})
 			}).catch(function(err) {
@@ -139,10 +143,12 @@ class EditGroup extends React.Component {
 				listUrl
 			}=this.state;
 			
+
+			console.log('photoUrl.picUrl',typeof photoUrl.picUrl)
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">新建群组</label></div>
+						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
@@ -155,28 +161,28 @@ class EditGroup extends React.Component {
 								photoSize={'1:1'}
 								sizePhoto
 								pictureFormat={'JPG,PNG'}
-								pictureMemory={'500'}
+								pictureMemory={'50'}
 								requestURI = {requestURI}
 								requireLabel={true}
 								label="群组头像"
 								inline={false}
 								defaultValue={photoUrl}
 								/>
-								<KrField 
+								{/*{listUrl.picUrl!=''&&<KrField 
 									name="listUrl"
 									style={{width:548}}
 									component="newuploadImage"
-									innerstyle={{width:320,height:220,padding:10}}
-									photoSize={'1:1'}
+									innerstyle={{width:160,height:90,padding:10}}
+									photoSize={'16:9'}
 									sizePhoto
 									pictureFormat={'JPG,PNG'}
-									pictureMemory={'1000'}
+									pictureMemory={'200'}
 									requestURI = {this.state.requestURI}
 									requireLabel={true}
 									label="列表图片"
 									inline={false}
 									defaultValue={listUrl}
-								/>
+								/>}*/}
 						</CircleStyleTwo>
 						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
 							<KrField
