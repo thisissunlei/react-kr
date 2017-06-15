@@ -172,7 +172,7 @@ class EditGroup extends React.Component {
 									name="listUrl"
 									style={{width:548}}
 									component="newuploadImage"
-									innerstyle={{width:160,height:90,padding:10}}
+									innerstyle={{width:320,height:180,padding:10}}
 									photoSize={'16:9'}
 									sizePhoto
 									merthd='Url'

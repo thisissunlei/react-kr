@@ -41,7 +41,8 @@ export default class GroupManages extends React.Component {
 			openDele:false,
 			itemDetail:'',
 			cmtId:'',
-			clusterName:''
+			clusterName:'',
+			newPage:1
 		}
 
 	}
@@ -109,7 +110,8 @@ export default class GroupManages extends React.Component {
 		this.setState({
 			searchParams:{
 				clusterName:form.content,
-				cmtId:this.state.cmtId || ''
+				cmtId:this.state.cmtId || '',
+				
 			},
 			clusterName:form.content
 			
@@ -121,7 +123,8 @@ export default class GroupManages extends React.Component {
 		this.setState({
 			searchParams:{
 				cmtId:cmtId,
-				clusterName:this.state.clusterName || ''
+				clusterName:this.state.clusterName || '',
+				page: this.state.newPage,
 			},
 			cmtId:cmtId
 		})
@@ -143,6 +146,13 @@ export default class GroupManages extends React.Component {
 			}
 		})
 	}
+	
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
+    }
+  
 
 	render() {
 		let {itemDetail}=this.state;
@@ -171,6 +181,7 @@ export default class GroupManages extends React.Component {
                   ajaxUrlName='cluster-list'
                   ajaxParams={this.state.searchParams}
                   onOperation={this.onOperation}
+                  onPageChange={this.onPageChange}
               >
               <TableHeader>
                   <TableHeaderColumn>群组名称</TableHeaderColumn>
