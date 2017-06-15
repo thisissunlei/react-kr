@@ -75,8 +75,8 @@ export default class PostVoucher extends React.Component {
 	}
 	//处理提交
 	handleSubmit=()=>{
-			_this.changeP();
-			_this.openHandle();
+			this.changeP();
+			this.openHandle();
 	}
 	//改变页码
     changeP=()=>{
@@ -140,7 +140,7 @@ export default class PostVoucher extends React.Component {
                                                 )
                                     }}></TableRowColumn>*/}
 							 <TableRowColumn name="name"></TableRowColumn>
-							 <TableRowColumn name="time" type="date" component={(value)=>{
+							 <TableRowColumn name="topicDate" type="date" component={(value)=>{
  								return (
  									<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
  								)

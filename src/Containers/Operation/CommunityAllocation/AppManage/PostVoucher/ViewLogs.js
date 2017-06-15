@@ -8,8 +8,9 @@ import {
 	Row,
 	Col,
 	Button,
-	ListGroup,
 	KrDate,
+	ListGroup,
+	Message,
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
@@ -32,10 +33,13 @@ class ViewLogs extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			infoList:[],
+			infoList:{
+				imgUrl:[]
+			},
 			ownFlag: true,
 			status:1,
 			timeFlag:false,
+			img:'',
 			punish:[{
 				label:'永久禁言(禁止发帖与回复)',
 				value:'1'
@@ -70,8 +74,10 @@ class ViewLogs extends React.Component {
 		onCancel && onCancel();
 	}
 	changeCheck=()=>{
+		console.log("asdfasdf");
+		var _this = this;
 		this.setState({
-			ownFlag:!this.state.ownFlag,
+			ownFlag:!_this.state.ownFlag,
 		})
 	}
 	 onSelect=(item)=>{
@@ -79,37 +85,43 @@ class ViewLogs extends React.Component {
 			this.setState({
 				timeFlag:true,
 			})
+		}else{
+			this.setState({
+				timeFlag:false,
+			})
 		}
 	 }
 	renderContentImg=()=>{
 		let {
 			infoList,
 		} = this.state;
-		infoList.imgUrl.map((item,index) => {
-			return (
-				<div className="content-img" style={{backgroundImage:`${item.imgUrl}`}}>
+		console.log(infoList.imgUrl);
+		window.setTimeout(function (){
+			if (infoList.imgUrl) {
+				infoList.imgUrl.map((item,index) => {
+				return (
+						<div className="content-img" style={{backgroundImage:`url(${item.imgUrl})`}}>
 
-				</div>
-			)	
-		})
+						</div>
+					   )	
+					})
+				}
+		},10)
+		
+		
 	}
-	handleSubmit=(form)=>{
+	onSubmit=(form)=>{
 		let {
-			itemDetail,
 			status,
 		} = this.state;
 		let {
 			detail,
 			onSubmit
 		} = this.props;
-			
-		var _this = this;
-		Http.request('topic-handle', {}, {
-			// content:,
-			// id:detail.id,
-			// status:status,
-			// time:,
-		}).then(function(response) {
+		console.log(form);
+		form.id=detail.id;
+		form.status = this.refs.status.value;
+		Http.request('topic-handle', {},form).then(function(response) {
 			Message.success('处理成功');
 			onSubmit && onSubmit();
 		}).catch(function(err) {
@@ -127,16 +139,15 @@ class ViewLogs extends React.Component {
 			infoList,
 			ownFlag,
 			punish,
-			timeFlag
+			timeFlag,
 		} = this.state;
-		console.log(infoList);
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
+						<div><span className="u-create-icon"></span><label className="title-text">处理</label></div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-							<KrField
+						<KrField
 							style={{width:520}}
 							inline={false}
 							type="text"
@@ -167,19 +178,29 @@ class ViewLogs extends React.Component {
 				/>
 				<div className="post-content">
 					<div className="head-title">
-						<span className="user-head" style={{backgroundImage:`${infoList.avatar}`}}></span>
-						<span className="user-name"></span>
-						<span className="timer"></span>
+						<span className="user-head" style={{backgroundImage:`url(${infoList.avatar})`}}></span>
+						<span className="user-name">{infoList.author}</span>
+						<span className="timer"><KrDate value={infoList.topicDate} format="yyyy-mm-dd HH:MM:ss" /></span>
 					</div>
-					<div className="text">
+					<div className="content">
 						{infoList.topicContent}
-						{this.renderContentImg()}
+						
+						{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
+						return (
+						<div className="content-img"  style={{backgroundImage:`url(${item})`}}>
+
+						</div>)
+						
+					})}
+						<div className="content-footer">
+							来自&nbsp;&nbsp;{infoList.company}
+						</div>
 					</div>
 				</div>
-			<form onSubmit={handleSubmit(this.handleSubmit)} style={{marginTop:50}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30,marginLeft:10}}>
 				<KrField
 						style={{width:260}}
-						name="payAccount"
+						name="type"
 						inline={false}
 						component="select"
 						label="处罚"
@@ -194,7 +215,7 @@ class ViewLogs extends React.Component {
 								inline={false}
 								name="time"
 						/>
-						<span style={{display:'inline-block',marginTop:32,marginLeft:20}}>小时</span>
+						<span style={{display:'inline-block',marginTop:31,marginLeft:20}}>小时</span>
 					</div>
 					
 				}
@@ -205,7 +226,8 @@ class ViewLogs extends React.Component {
 							style={{marginLeft:10}} 
 							value={ownFlag?'1':'0'} 
 							name="status"
-							checked="checked"
+							ref="status"
+							checked={ownFlag?true:false}
 							onChange={this.changeCheck}
 					/>删除帖子
 				</div>
@@ -228,7 +250,7 @@ class ViewLogs extends React.Component {
 	}
 }
 export default ViewLogs = reduxForm({
-	form: 'ViewLogs',
+	form: 'viewLogs',
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(ViewLogs);
