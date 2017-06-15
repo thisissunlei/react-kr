@@ -32,10 +32,7 @@ export default class PaymentRemindTable extends React.Component {
 	componentWillMount(){
 		
 
-		this.setState({
-			tebleWidth: $(window).width()-260,
-			tableHeight: $(window).height()-215
-		})
+		
 
 		
 		
@@ -60,9 +57,17 @@ export default class PaymentRemindTable extends React.Component {
 		var str = new RegExp("Mac");
 		
 		if(str.test(navigator.platform+"")){
-			this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
+			// this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
+			this.setState({
+				tebleWidth: $(window).width()-260,
+				tableHeight: $(window).height()-215
+			})
 		}else{
-			this.refs.tableLeftTitle.style.height = ($(window).height()-231) +"px";
+			// this.refs.tableLeftTitle.style.height = ($(window).height()-231) +"px";
+			this.setState({
+				tebleWidth: $(window).width()-275,
+				tableHeight: $(window).height()-231
+			})
 		}
 
 		// scroll Table表格滚动
