@@ -650,7 +650,6 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
-		console.log(this.props.CommunityAgreementList)
 
 
 

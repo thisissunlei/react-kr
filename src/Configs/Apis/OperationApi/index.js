@@ -28,10 +28,6 @@ module.exports = {
         method: 'get'
     },
     //运营平台-基础配置-设备定义-获取楼层
-    'getFloorByComunity': {
-        url: '/api/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
-        method: 'get'
-    },
     //运营平台-基础配置-设备定义-根据属性获取对应位置
     'getLocationByProperty': {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/community-boardroom?communityId={communityId}&whereFloor={whereFloor}&type={type}',
@@ -214,10 +210,15 @@ module.exports = {
         method: 'get'
     },
     //运营平台－客户管理－新增或编辑客户
-    'customerDataEdit': {
-        url: '/api/krspace-finance-web/customer/actions/edit',
+    'managerCustomerDataEdit': {
+        url: '/api/krspace-finance-web/customer/actions/manager-edit',
         method: 'post'
     },
+     //运营平台－客户管理－新增或编辑客户
+     'customerDataEdit':{
+        url: '/api/krspace-finance-web/customer/actions/edit',
+        method: 'post'
+     },
     //运营平台－客户管理-公司名称实时校验
     'corpNameCheck': {
         url: '/api/krspace-finance-web/customer/check/company?id={id}&companyName={companyName}',
@@ -477,6 +478,16 @@ module.exports = {
       },
       'getActivityCommunityList':{
          url: '/api/krspace-finance-web/cmt/community/city-cmt-list',
+         method: 'get'
+      },
+      //获取销控表平面图列表信息
+      'getControlGraph':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/list?communityId={communityId}&endDate={endDate}&floor={floor}&page={page}&pageSize={pageSize}&startDate={startDate}',
+         method: 'get'
+      },
+      //获取销控表平面图列表出租数信息
+      'getGraphRent':{
+         url: '/api/krspace-finance-web/cmt/floor-graph/list-num?communityId={communityId}&endDate={endDate}&floor={floor}&startDate={startDate}',
          method: 'get'
       },
 

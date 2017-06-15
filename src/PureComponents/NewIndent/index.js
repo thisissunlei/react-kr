@@ -132,10 +132,9 @@ import {Http} from "kr/Utils";
 							requireLabel={true}
 							onChange={this.mainbilltypeChange}
 					/>
-					<KrField grid={1/2} label="所在社区" name="communityid" component="searchOrder" style={{width:262,marginLeft:30}}
-							//options={this.props.NewIndentModel.community}
-							requireLabel={true}
+					<KrField grid={1/2} label="所在社区" name="communityid" component="searchCommunityAll" style={{width:262,marginLeft:30}}
 							onChange={this.communityChange}
+							inline={false}
 					/>
 
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>

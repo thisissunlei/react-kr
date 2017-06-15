@@ -79,9 +79,7 @@ import State from './State';
 
 
 
-						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='select'  label="社区" inline={false}
-							requireLabel={true}
-							options={select.communitys}
+						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='searchCommunityAll'  label="社区" inline={false}
 						/>
 						<KrField grid={1/2}  name="typeId" style={{width:262,marginLeft:28}} component='select'  label="类型" inline={false}
 							requireLabel={true}

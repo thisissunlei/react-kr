@@ -26,15 +26,7 @@ export default class Info extends Component {
 	constructor(props,context){
 		super(props,context);
 	}
-	componentWillUnmount() {
 
-	}
-	componentDidMount() {
-		console.log(this.props.defaultUrl,upload)
-
-	}
-	componentWillReceiveProps(nextProps){
-	}
 	render() {
 		return(
 			<div className="ui-upload-header">

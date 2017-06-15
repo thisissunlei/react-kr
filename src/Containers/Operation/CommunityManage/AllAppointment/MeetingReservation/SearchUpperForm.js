@@ -144,7 +144,7 @@ class MeetingReservationFrom extends React.Component {
                     <KrField grid={1/2} label="时间:" name="time" style ={{width:310}} component="date" inline={true} placeholder={date} onChange = {this.timeChange} />
                     <KrField grid={1/2} 
 						name="intentionCommunityId" 
-						component='searchCommunityManage' 
+						component='searchCommunityAll' 
 						style ={{width:335,marginTop:3}} 
 						label="社区:" inline={true}  
 						placeholder='请输入社区名称' 
