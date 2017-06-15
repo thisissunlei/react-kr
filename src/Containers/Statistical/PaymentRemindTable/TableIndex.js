@@ -53,26 +53,28 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	componentDidMount(){
-
+		let _this = this;
 		var str = new RegExp("Mac");
-		
+		// 是mac
 		if(str.test(navigator.platform+"")){
 			this.setState({
 				tebleWidth: $(window).width()-260,
 				tableHeight: $(window).height()-215
+			}，function(){
+				_this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
 			})
-			this.refs.tableLeftTitle.style.height = ($(window).height()-215) +"px";
+		// 是windows
 		}else{
 			this.setState({
 				tebleWidth: $(window).width()-275,
 				tableHeight: $(window).height()-231
+			},function(){
+				_this.refs.tableLeftTitle.style.height = ($(window).height()-231) +"px";
 			})
-			this.refs.tableLeftTitle.style.height = ($(window).height()-231) +"px";
-
 		}
 
 		// scroll Table表格滚动
-		let _this = this;
+		
 		$(".table-box").eq(0).scroll(function(){
 			
 			_this.refs.tableHeader.style.left = -$(this).scrollLeft()+1+"px";
