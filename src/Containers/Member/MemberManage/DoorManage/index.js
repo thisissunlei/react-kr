@@ -17,7 +17,8 @@ import {
 	Grid,
 	Row,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	CheckPermission
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 
@@ -238,8 +239,9 @@ export default class List extends React.Component {
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 								<Title value="门禁授权"/>
 								<Section title={`入驻团队门禁授权`} description="" >
-										<Button label="新增授权"  onTouchTap={this.openNewCreateDialog} />
-
+										<CheckPermission  operateCode="door_oauth" >
+											<Button label="新增授权"  onTouchTap={this.openNewCreateDialog} />
+										</CheckPermission>
 										<SearchDetailForm onChange={this.onChangeCommunity}/>
 										<SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit} style={{float:"right"}}/>
 
@@ -291,9 +293,15 @@ export default class List extends React.Component {
 
 											<TableRowColumn name="endDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
-													<Button label="编辑"  type="operation" operation="edit"/>
-													<Button label="授权"  type="operation" operation="impower"/>
+													<CheckPermission  operateCode="door_oauth" >
+														<Button label="编辑"  type="operation" operation="edit"/>
+													</CheckPermission>
+													<CheckPermission  operateCode="door_oauth_operate" >
+														<Button label="授权"  type="operation" operation="impower"/>
+													</CheckPermission>
+													<CheckPermission  operateCode="door_oauth_del" >
 													<Button label="删除"  type="operation" operation="delete" onClick={this.confirmDelete.bind(this.itemDetail)}/>
+											 		</CheckPermission>
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
