@@ -359,7 +359,7 @@ class Personal extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-					   <CheckPermission  menusCode="oper_csr_add" >
+					   <CheckPermission  operateCode="oper_csr_add" >
 						<Button
 								label="新建客户"
 								type='button'
