@@ -13,6 +13,12 @@ import './index.less';
 
 import CommunityCollect from "./CommunityCollect";
 import CommunityDetail from "./CommunityDetail";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("NavModel")
+@observer
 
 class AgingAccount  extends React.Component{
 
@@ -28,36 +34,38 @@ class AgingAccount  extends React.Component{
 
 
 	componentDidMount() {
-	
+		let {NavModel} = this.props;
+		// console.log("----校验有没有菜单权限",NavModel.checkMenus("cmt_summary"),NavModel.checkMenus("cmt_explan"));
 		let _this =this;
-		Http.request('getSelfMenuInfo', {}).then(function(response) {
-			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")>-1){
-				// 有社区汇总表
-				_this.setState({
-					hasCollect:true
-				})
-			}else{
-				_this.setState({
-					isLeft:false
-				})
-			}
-			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_explan")>-1){
-				// 有社区明细表
-				_this.setState({
-					hasDetail:true,
-				})
-			}
-			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")<0 && response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_explan")>-1){
-				// 有社区明细表
-				_this.setState({
-					hasDetail:true,
-					isLeft : false
-				})
-			}
+		
+		// 有汇总
+		if(NavModel.checkMenus("cmt_summary")){
+			// 有社区汇总表
+			_this.setState({
+				hasCollect:true
+			})
+		}else{
+			_this.setState({
+				isLeft:false
+			})
+		}
+		// 有明细
+		if(NavModel.checkMenus("cmt_explan")){
+			// 有社区明细表
+			_this.setState({
+				hasDetail:true,
+			})
+		}
+		// 有明细没汇总
+		if(!NavModel.checkMenus("cmt_summary")  &&NavModel.checkMenus("cmt_explan")){
+			// 有社区明细表
+			_this.setState({
+				hasDetail:true,
+				isLeft : false
+			})
+		}
 			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		
 		
 		Store.dispatch(Actions.switchSidebarNav(false));
 

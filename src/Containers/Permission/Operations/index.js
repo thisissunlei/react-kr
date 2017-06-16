@@ -37,6 +37,7 @@ import {
 	SearchForms,
 	KrDate,
 	Drawer,
+	CheckPermission,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -98,7 +99,9 @@ class SearchForm extends Component {
 
 		return (
 			<form className="g-op-form" name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
+				<CheckPermission  operateCode="sso_resource_edit" >
+					<Button label="新建"  onTouchTap={this.openCreateDialog} />
+				</CheckPermission>
 				<SearchForms
 						onSubmit={this.onSubmit}
 						searchFilter={options}
@@ -283,8 +286,12 @@ class Operations extends Component {
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
+								<CheckPermission  operateCode="sso_resource_edit" >
 									<Button label="编辑"   type="operation" operation="edit"/>
+								</CheckPermission>
+								<CheckPermission  operateCode="sso_resource_del" >
 									<Button label="删除"  type="operation" operation="delete"/>
+								</CheckPermission>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
