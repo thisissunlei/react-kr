@@ -26,7 +26,9 @@ import {
 	Tooltip,
 	ButtonGroup,
 	KrDate,
-	Loading
+	Loading,
+	CheckPermission
+
 
 } from 'kr-ui';
 import './index.less'
@@ -222,8 +224,10 @@ class LookDetailed extends Component{
 
 
 				</div>
+				<CheckPermission  operateCode="oper_csr_edit" >
 
 				{comeFrom != "message" && <div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>}
+				</CheckPermission>
 
 
 	      </div>
