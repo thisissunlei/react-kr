@@ -28,7 +28,8 @@ import {
     ListGroupItem,
     ListGroup,
     SearchForms,
-    Dialog
+    Dialog,
+    CheckPermission
 } from 'kr-ui';
 import './index.less';
 class AccountList extends React.Component {
@@ -256,7 +257,9 @@ class AccountList extends React.Component {
                                     paddingTop: 7,
                                     paddingBottom: 6
                                 }}>
+                                <CheckPermission  operateCode="sso_userList_edit" >
                                     <Button label="新建" type="button" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/>
+                                </CheckPermission>
                                 </ListGroupItem>
                             </ListGroup>
                         </Col>
@@ -320,16 +323,26 @@ class AccountList extends React.Component {
                                         }
                                         return (
                                             <div>
+                                             <CheckPermission  operateCode="sso_userList_edit" >
                                                 <Button label="修改" onClick={this.openEditAcc.bind(this,itemDetail)} type="operation" operation="edit"/>
+                                            </CheckPermission>
+                                            <CheckPermission  operateCode="sso_userList_editRole" >
                                                 <Button label="授予" onClick={this.openSetAcc.bind(this,itemDetail)} type="operation" operation="set"/>
+                                            </CheckPermission>
+                                            <CheckPermission  operateCode="sso_userList_dataRight" >
                                                 <Button label="数据" onClick={this.openDataPermission.bind(this,itemDetail)} type="operation" operation="data"/>
+                                            </CheckPermission>
+                                            <CheckPermission  operateCode="sso_userList_reset" >
                                                 <Button label="重置" onClick={this.onReset.bind(this,itemDetail)} type="operation" operation="reset"/>
+                                            </CheckPermission>
                                                 {
                                                     logFlag
-                                                    ? <Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} type="operation"/>
-                                                    : <Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} type="operation"/>
+                                                    ? <CheckPermission  operateCode="sso_userList_Lock" ><Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} type="operation"/></CheckPermission>
+                                                    : <CheckPermission  operateCode="sso_userList_Lock" ><Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} type="operation"/></CheckPermission>
                                                 }
-                                                <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operation="dele"/>
+                                                <CheckPermission  operateCode="sso_userList_del" >
+                                                    <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operation="dele"/>
+                                                </CheckPermission>
                                             </div>
                                                 )
                                     }}>
