@@ -154,7 +154,7 @@ export default class List extends React.Component {
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<CheckPermission  operateCode="main_activity_add" >
 											<Button label="新建活动"  onTouchTap={this.openNewCreateDialog} />
-										<CheckPermission>
+										</CheckPermission>
 										{/*高级查询*/}
 										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
