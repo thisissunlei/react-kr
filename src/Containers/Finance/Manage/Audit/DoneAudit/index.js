@@ -15,7 +15,8 @@ import {
   KrDate,
   Message,
   Tooltip,
-  Drawer
+  Drawer,
+  CheckPermission
 } from 'kr-ui';
 
 import SearchsForm from './SearchForm';
@@ -37,29 +38,10 @@ export default class DoneAudit extends React.Component {
         pageSize: 10,
         verifyStatus: 'RETURNED'
       },
-      verify_back_edit:false,
-      verify_back_del:false,
+      
     }
   }
-  componentDidMount() {
-    var _this = this;
-    Http.request('getSelfMenuInfo', {},{}).then(function(response) {
-      var someBtn = response.navcodes.finance;
-      for(var i = 0;i<someBtn.length;i++){
-        if(someBtn[i]=="verify_back_edit"){
-          _this.setState({
-            verify_back_edit:true,
-          })
-        }
-        if(someBtn[i]=="verify_back_del"){
-          _this.setState({
-            verify_back_del:true,
-          })
-        }
-      }
-    }).catch(function(err) {
-    });
-  }
+  
   componentWillReceiveProps(nextProps) {
       if (nextProps.tab != this.props.tab) {
         this.setState({
@@ -320,9 +302,12 @@ export default class DoneAudit extends React.Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        {this.state.verify_back_edit && <Button label="编辑"  type="operation"  operation="edit"/>}
-                        {this.state.verify_back_del && <Button label="删除"  type="operation"  operation="delete"/>}
-
+                        <CheckPermission  operateCode="fina_verify_returnedit" >
+                            <Button label="编辑"  type="operation"  operation="edit"/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_verify_delReturn" >
+                            <Button label="删除"  type="operation"  operation="delete"/>
+                        </CheckPermission>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>
