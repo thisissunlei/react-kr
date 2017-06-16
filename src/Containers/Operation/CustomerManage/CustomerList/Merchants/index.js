@@ -24,7 +24,8 @@ import {
     SearchForms,
 	Drawer,
 	Tooltip,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import $ from 'jquery';
 import {DateFormat} from "kr/Utils";
@@ -299,11 +300,13 @@ class Merchants extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
+								<CheckPermission  menusCode="oper_csr_add" >	
 									<Button
 											label="新建客户"
 											type='button'
 											onTouchTap={this.opNewMerchants}
 									/>
+								</CheckPermission>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
