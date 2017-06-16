@@ -200,7 +200,7 @@ class StaionInfo extends React.Component{
 }
 
 
-@inject("CommunityAgreementList")
+@inject("NavModel","CommunityAgreementList")
 @observer
 
 export default class OrderDetail extends React.Component {
@@ -315,6 +315,8 @@ export default class OrderDetail extends React.Component {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
 		}
+		const {NavModel} = this.props;
+		NavModel.setSidebar(false);
 		this.getLocalStorageDate()
 
 		var _this = this;
