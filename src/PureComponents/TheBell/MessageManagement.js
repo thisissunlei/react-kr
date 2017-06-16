@@ -49,30 +49,32 @@ class MessageManagement extends Component{
 
 				//客户id
 				redNum:[],
+				
 		}
 
-		
+		this.tabNum();
 
 	}
 	//tab数字刷新
 	tabNum = () => {
 		let _this=this;
-		let {checkOperate} = this.props.NavModel;
+		let {checkMenus} = this.props.NavModel;
+			
 		Http.request('messageLookJurisdiction').then(function(response) {
 			_this.setState({
-				ARREARS_ALERT:checkOperate("oper_msg_alert")||false,
-				CUSTOMER_DUE:checkOperate("oper_msg_csr_due")||false,
-				CUSTOMER_TRANSFER:checkOperate("oper_msg_csr_trans_base")||false,
-				ORDER_VISIT:checkOperate("oper_msg_visit_base")||false,
+				ARREARS_ALERT:checkMenus("oper_msg_alert")||false,
+				CUSTOMER_DUE:checkMenus("oper_msg_csr_due")||false,
+				CUSTOMER_TRANSFER:checkMenus("oper_msg_csr_trans_base")||false,
+				ORDER_VISIT:checkMenus("oper_msg_visit_base")||false,
 				ARREARS_ALERT_NUM:response.unreadDetails.ARREARS_ALERT,
 				CUSTOMER_DUE_NUM:response.unreadDetails.CUSTOMER_DUE,
 				CUSTOMER_TRANSFER_NUM:response.unreadDetails.CUSTOMER_TRANSFER,
 				ORDER_VISIT_NUM:response.unreadDetails.ORDER_VISIT,
 
-				redNum:[{permission:checkOperate("oper_msg_csr_trans_base")||false,num:response.unreadDetails.CUSTOMER_TRANSFER},
-					{permission:checkOperate("oper_msg_visit_base")||false,num:response.unreadDetails.ORDER_VISIT},
-					{permission:checkOperate("oper_msg_alert")||false,num:response.unreadDetails.ARREARS_ALERT},
-					{permission:checkOperate("oper_msg_csr_due")||false,num:response.unreadDetails.CUSTOMER_DUE}]
+				redNum:[{permission:checkMenus("oper_msg_csr_trans_base")||false,num:response.unreadDetails.CUSTOMER_TRANSFER},
+					{permission:checkMenus("oper_msg_visit_base")||false,num:response.unreadDetails.ORDER_VISIT},
+					{permission:checkMenus("oper_msg_alert")||false,num:response.unreadDetails.ARREARS_ALERT},
+					{permission:checkMenus("oper_msg_csr_due")||false,num:response.unreadDetails.CUSTOMER_DUE}]
 			})
 		}).catch(function(err) {
 			if(!params.templateIdList){
@@ -83,7 +85,7 @@ class MessageManagement extends Component{
 	}
 
 	componentDidMount(){
-		this.tabNum();
+		
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;

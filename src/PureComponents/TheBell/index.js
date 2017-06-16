@@ -130,14 +130,27 @@ class TheBell extends React.Component {
 	  
   }
 componentDidMount(){
-	let {checkOperate} = this.props.NavModel;
-	console.log("tabNum tabNum ")
+	let {checkMenus,menusData} = this.props.NavModel;
+	console.log('hhhhh',checkMenus("oper_msg_alert"),checkMenus("oper_msg_csr_due"),checkMenus("oper_msg_csr_trans_base"),checkMenus("oper_msg_visit_base"))
+	if(
+		  checkMenus("oper_msg_alert")
+		||checkMenus("oper_msg_csr_due")
+		||checkMenus("oper_msg_csr_trans_base")
+		||checkMenus("oper_msg_visit_base")
+	  ){
+		
+		 this.setState({
+				 showMassge:true
+		})
+	}else {
+		console.log("0000000")
+		this.setState({
+				 showMassge:false
+		})
+	}
 	
-	var showMassge = checkOperate("oper_msg_alert")||checkOperate("oper_msg_csr_due")||checkOperate("oper_msg_csr_trans_base")||checkOperate("oper_msg_visit_base");
-	console.log(showMassge)
-	 _this.setState({
-			 showMassge:showMassge
-	})
+	
+	
 
 }
   
@@ -316,6 +329,7 @@ componentDidMount(){
 		})
 	}
 	render() {
+
 
 		var styles = {
 			paddingLeft: 0,

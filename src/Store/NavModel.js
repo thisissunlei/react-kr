@@ -106,7 +106,6 @@ State.loadNavData = action(function () {
 	Http.request('newMenuInfo').then(function (response) {
 		// var userInfo = response.userInfo;
 		// var menusCode = response.menusCode;
-
 		_this.menusCode=response.menusCode;
 		_this.menusData=response.resourcesCode;
 		_this.setUserInfo(response.userInfo);
@@ -227,7 +226,8 @@ State.getUser= action(function(){
 
 //校验操作项是否有权限
 State.checkOperate= action(function(resourcesCode){
-	var menusData=toJS(this.menusData);
+	
+	var menusData=toJS(State.menusData);
 	if(menusData.length>0){
 		if(menusData.indexOf(resourcesCode)>-1){
 			return true;
@@ -240,7 +240,7 @@ State.checkOperate= action(function(resourcesCode){
 //校验菜单是否有权限
 State.checkMenus= action(function(menusCode){
 	
-	var menus=toJS(this.menusCode);
+	var menus=toJS(State.menusCode);
 	if(menus.length>0){
 		if(menus.indexOf(menusCode)>-1){
 			return true;
