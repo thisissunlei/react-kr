@@ -17,7 +17,9 @@ import {
 		ListGroupItem,
 		Row,
 		Message,
-		Tooltip
+		Tooltip,
+    CheckPermission
+
 } from 'kr-ui';
 import NewCreateDefinitionForm from './NewCreateDefinitionForm';
 import EquipmentAdvanceQueryForm from './EquipmentAdvancedQueryForm';
@@ -489,7 +491,11 @@ export default class EquipmentDefinition extends React.Component {
               <Row>
                 <ListGroup>
                   <ListGroupItem>
+                    <CheckPermission  operateCode="oper_sys_deviceDefinition_edit" >
+
                     <Button label="新增定义"  onTouchTap={this.openNewCreateDefinitionDialog}/>
+                    </CheckPermission>
+
                   </ListGroupItem>
                   <ListGroupItem style={{marginLeft:10}}>
                     <Button label="批量上传图片"  onTouchTap={this.openBatchUploadDialog} style={{width:100,height:30}}/>
@@ -641,7 +647,11 @@ export default class EquipmentDefinition extends React.Component {
                     return (
                       <span>
                       <Button label="上线"  type="operation" operation="online" onClick={this.onlineOrOffline.bind(this,itemData)}/>
-                      <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditEquipmentDialog.bind(this,itemData)}/>
+                      <CheckPermission  operateCode="oper_sys_deviceDefinition_edit" >
+
+                        <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditEquipmentDialog.bind(this,itemData)}/>
+                      </CheckPermission>
+
                       <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
                       </span>
                     )

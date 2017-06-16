@@ -28,7 +28,8 @@ import {
     Tooltip,
     SnackTip,
     Message,
-    Drawer
+    Drawer,
+    CheckPermission
 } from 'kr-ui';
 
 import {browserHistory} from 'react-router'
@@ -1214,67 +1215,132 @@ export default class AttributeSetting extends React.Component {
         if (parentBtn == 'PAYMENT') {
             if (childBtn == 'basic') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_returnMoney" >
+                            <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_refund" >
+                            <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_trans" >
+                            <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/>
+                        </CheckPermission>
+                    </ButtonGroup>
                 );
             } else if (childBtn == 'fujidinjin') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="转押金" type="button" joinEditForm onTouchTap={this.openSwitchBtn}/>
-                        <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_returnMoney" >
+                            <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_toDeposit" >
+                            <Button label="转押金" type="button" joinEditForm onTouchTap={this.openSwitchBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_toIncome" >
+                            <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                        </CheckPermission>
                     </ButtonGroup>
                 );
             } else if (childBtn == 'fujiyajin' || childBtn == '005') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_returnMoney" >
+                            <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_toIncome" >
+                            <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_refund" >
+                            <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        </CheckPermission>
                     </ButtonGroup>
                 );
             } else if (childBtn == '010') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_returnMoney" >
+                            <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_toIncome" >
+                            <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_refund" >
+                            <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_trans" >
+                            <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/>
+                        </CheckPermission>
+                    </ButtonGroup>
                 );
             } else if (childBtn == '007') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_returnMoney" >
+                            <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        </CheckPermission>
                     </ButtonGroup>
                 );
             } else {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_returnMoney" >
+                            <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_refund" >
+                            <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_trans" >
+                            <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/>
+                        </CheckPermission>
+                    </ButtonGroup>
                 );
             }
         }
         if (parentBtn == 'INCOME') {
             if (childBtn == '005') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
-                        <Button label="补收入" type="button" joinEditForm onTouchTap={this.openSupplementBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_onAccount" >
+                            <Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_detail_supplement" >
+                            <Button label="补收入" type="button" joinEditForm onTouchTap={this.openSupplementBtn}/>
+                        </CheckPermission>
+                    </ButtonGroup>
                 );
             } else {
                 buttonArr.push(
-                    <ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <CheckPermission  operateCode="fina_detail_onAccount" >
+                            <Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+                        </CheckPermission>
+                    </ButtonGroup>
                 );
             }
         }
 
         if (parentBtn == 'PAYMENT' && propInfo == 'NEW') {
             buttonArr.push(
-                <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                    <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                    <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                <ButtonGroup>
+                    <CheckPermission  operateCode="fina_detail_returnMoney" >
+                        <Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                    </CheckPermission>
+                    <CheckPermission  operateCode="fina_detail_refund" >
+                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                    </CheckPermission>
+                    <CheckPermission  operateCode="fina_detail_trans" >
+                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/>
+                    </CheckPermission>
+                </ButtonGroup>
             );
         }
         if (parentBtn == 'INCOME' && propInfo == 'NEW') {
             buttonArr.push(
-                <ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
+                <ButtonGroup>
+                    <CheckPermission  operateCode="fina_detail_onAccount" >
+                        <Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+                    </CheckPermission>
+                </ButtonGroup>
             );
         }
 

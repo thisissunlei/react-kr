@@ -24,6 +24,7 @@ import {
 	Col,
 	Dialog,
 	KrDate,
+	CheckPermission,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -136,7 +137,9 @@ openHighSearch = () => {
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" >
-							<Button label="新建" type="button" onClick={this.openCreateDialog} width={70} height={26} fontSize={14}/>
+							<CheckPermission  operateCode="sso_appVersion_new" >
+								<Button label="新建" type="button" onClick={this.openCreateDialog} width={70} height={26} fontSize={14}/>
+							</CheckPermission>
 						</Col>
 						<Col md={8} align="right">
 							<div className="u-search">

@@ -22,7 +22,8 @@ import {
     Row,
     Col,
     Dialog,
-    Message
+    Message,
+    CheckPermission
 } from 'kr-ui';
 import './index.less';
 import NewCreateFund from './NewCreateFund';
@@ -127,7 +128,9 @@ export default class TotalFund extends React.Component {
                         paddingTop:2
                     }}>
                         <Col md={4} align="left">
-                            <Button label="新建款项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
+                            <CheckPermission  operateCode="fina_category_create1st" >
+                                <Button label="新建款项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
+                            </CheckPermission>
                         </Col>
 
                         <Col md={8} align="right">
@@ -190,7 +193,9 @@ export default class TotalFund extends React.Component {
                                 }}></TableRowColumn>
                                 <TableRowColumn>
                                     <Button label="查看" type="operation" operation="view"/>
-                                    <Button label="编辑" type="operation" operation="edit"/>
+                                    <CheckPermission  operateCode="fina_category_edit2nd" >
+                                        <Button label="编辑" type="operation" operation="edit"/>
+                                    </CheckPermission>
                                     <Button label="下一级" type="operation" operation="next"/>
                                 </TableRowColumn>
                             </TableRow>

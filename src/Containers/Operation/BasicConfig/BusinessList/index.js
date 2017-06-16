@@ -32,7 +32,9 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+	CheckPermission
+
 } from 'kr-ui';
 import  "./index.less";
 import {Http} from "kr/Utils";
@@ -282,11 +284,15 @@ searchChange = (values) =>{
 						     align="left"
 						     style={{float:'left'}}
 						   >
+							 <CheckPermission  operateCode="oper_cmt_businessArea_edit" >
+
 								<Button
 									label="新建商圈"
 									type='button'
 									onTouchTap={this.openNewBusiness}
 								/>
+							 </CheckPermission>
+
 						  </Col>
 
 				          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10,zIndex:99}}>
@@ -354,7 +360,11 @@ searchChange = (values) =>{
 			                ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
+												<CheckPermission  operateCode="oper_cmt_businessArea_edit" >
+
 			                    <Button label="编辑"  type="operation"  operation="edit" />
+											</CheckPermission>
+
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>

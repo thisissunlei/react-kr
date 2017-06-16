@@ -348,12 +348,14 @@ class Personal extends Component{
 
       <div className="m-personal" style={{paddingTop:25}}>
 			<Title value="客户列表"/>
-      		<div className='merchants-dialog' style={blockStyle}>
-      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
-      		  <div style={{marginRight:20,display:'inline-block'}}><Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/></div>
-      		  <Button  label="取消跟进" type="button" cancle={true} style={{height:29,minWidth:80}} onTouchTap={this.openQuitDialog}/>
-      		  <span className='mer-close' onClick={this.merClose}></span>
-      		</div>
+			<CheckPermission  operateCode="oper_csr_transfer" >
+				<div className='merchants-dialog' style={blockStyle}>
+					<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
+					<div style={{marginRight:20,display:'inline-block'}}><Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/></div>
+					<Button  label="取消跟进" type="button" cancle={true} style={{height:29,minWidth:80}} onTouchTap={this.openQuitDialog}/>
+					<span className='mer-close' onClick={this.merClose}></span>
+				</div>
+			</CheckPermission>
 	        <Row style={{marginBottom:21}}>
 			          <Col
 					     align="left"

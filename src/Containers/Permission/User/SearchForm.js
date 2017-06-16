@@ -23,6 +23,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	CheckPermission,
 	SearchForms
 } from 'kr-ui';
 
@@ -61,7 +62,9 @@ class SearchForm extends Component {
 
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
+				<CheckPermission  operateCode="sso_roleList_edit" >
+					<Button label="新建"  onTouchTap={this.openCreateDialog} />
+				</CheckPermission>
 				<SearchForms 
 						onSubmit={this.onSubmit} 
 						searchFilter={options} 
