@@ -229,11 +229,13 @@ SelectCommunity=()=>{
 											onTouchTap={this.SelectCommunity}
 										/>
 									</div>
+									<CheckPermission  operateCode="oper_cmt_station_import" >
 									<Button
 											label="导入"
 											type='button'
 											onTouchTap={this.openImporData}
 									/>
+									</CheckPermission>
 					  </Col>
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
