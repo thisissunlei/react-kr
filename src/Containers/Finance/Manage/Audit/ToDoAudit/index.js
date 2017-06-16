@@ -25,7 +25,8 @@ import {
   KrDate,
   Tooltip,
   Drawer,
-  Message
+  Message,
+  CheckPermission
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
@@ -67,38 +68,11 @@ export default class ToDoAudit extends React.Component {
       noneSomeAudit: false,
       mainBill: false,
       mainBillId: '',
-      verify_pass: false,
-      verify_wait_del: false,
-      verify_wait_edit: false,
       corporationId: ''
     }
 
   }
-  componentDidMount() {
-    var _this = this;
-
-    Http.request('getSelfMenuInfo', {}, {}).then(function(response) {
-      var someBtn = response.navcodes.finance;
-      for (var i = 0; i < someBtn.length; i++) {
-        if (someBtn[i] == "verify_wait_del") {
-          _this.setState({
-            verify_wait_del: true,
-          })
-        }
-        if (someBtn[i] == "verify_pass") {
-          _this.setState({
-            verify_pass: true,
-          })
-        }
-        if (someBtn[i] == "verify_wait_edit") {
-          _this.setState({
-            verify_wait_edit: true,
-          })
-        }
-      }
-    }).catch(function(err) {});
-
-  }
+  
   componentWillReceiveProps(nextProps) {
       if (nextProps.tab != this.props.tab) {
         this.setState({
@@ -569,9 +543,15 @@ export default class ToDoAudit extends React.Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        {this.state.verify_wait_edit && <Button label="编辑"  type="operation"  operation="edit"/>}
-                        {this.state.verify_wait_del && <Button label="删除"  type="operation"  operation="delete"/>}
-                        {this.state.verify_pass && <Button label="审核"  type="operation"  operation="audit"/>}
+                        <CheckPermission  operateCode="fina_verify_editNotVerify" >
+                            <Button label="编辑"  type="operation"  operation="edit"/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_verify_delNotVerify" >
+                            <Button label="删除"  type="operation"  operation="delete"/>
+                        </CheckPermission>
+                        <CheckPermission  operateCode="fina_verify_batch" >
+                            <Button label="审核"  type="operation"  operation="audit"/>
+                        </CheckPermission>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>

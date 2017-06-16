@@ -44,7 +44,7 @@ import SupplementBtnForm from './SupplementBtnForm';
 import ShiftBtnForm from './ShiftBtnForm';
 import ReceiveDetailTop from './ReceiveDetailTop';
 import './index.less';
-
+import { observer, inject } from 'mobx-react';
 //获取单条的金额
 var fiMoney = '';
 //得到单条数据
@@ -81,16 +81,19 @@ class ViewForm extends React.Component {
         );
     }
 }
+
+
+@inject("NavModel")
+@observer
 export default class AttributeSetting extends React.Component {
 
-    static contextTypes = {
-        router: React.PropTypes.object.isRequired
-    }
-    static childContextTypes = {
-        refresh: React.PropTypes.func,
-        //router: React.PropTypes.object.isRequired
-    }
-
+    // static contextTypes = {
+    //     router: React.PropTypes.object.isRequired
+    // }
+    // static childContextTypes = {
+    //     refresh: React.PropTypes.func,
+    //     //router: React.PropTypes.object.isRequired
+    // }
     getChildContext() {
         return {
             refresh: this.refresh,
@@ -197,7 +200,13 @@ export default class AttributeSetting extends React.Component {
         //回款计算余额所需字段值
         this.receivedBtnFormChangeValues = {};
     }
+    componentDidMount() {
+        this.initBasicInfo();
+        const {NavModel} = this.props;
+        NavModel.setSidebar(false);
+    }
 
+   
     refresh() {
         var _this = this;
         this.setState({
@@ -209,7 +218,8 @@ export default class AttributeSetting extends React.Component {
         });
 
     }
-
+    
+    
     //打开遮罩层区域
     openSearchDialog() {
         this.searchUpperFun();
@@ -872,11 +882,7 @@ export default class AttributeSetting extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.initBasicInfo();
-        Store.dispatch(Actions.switchSidebarNav(false));
-    }
-
+   
     snackTipClose = () => {
 
         var _this = this;
@@ -1398,4 +1404,8 @@ export default class AttributeSetting extends React.Component {
         );
 
     }
+}
+AttributeSetting.wrappedComponent.childContextTypes = {
+        refresh: React.PropTypes.func,
+      
 }

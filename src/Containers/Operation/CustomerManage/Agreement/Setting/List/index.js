@@ -40,7 +40,8 @@ import {
   KrDate,
   ButtonGroup,
   Title,
-  Tooltip
+  Tooltip,
+  CheckPermission
 } from 'kr-ui';
 import './index.less';
 
@@ -568,7 +569,9 @@ export default class SettingList extends React.Component {
               <TableRowColumn><span style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{item.sp.remark}</span> {item.sp.remark?<Tooltip offsetTop={5}  place='top'>{item.sp.remark}</Tooltip>:''}</TableRowColumn>
               <TableRowColumn>
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
-              <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
+              <CheckPermission  operateCode="contract_setting_edit" > 
+               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
+              </CheckPermission>
               <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
               <span className="bottomBtn"></span>
             </TableRowColumn>
@@ -586,7 +589,9 @@ export default class SettingList extends React.Component {
               <TableRowColumn><span style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{item.sp.remark}</span>{item.sp.remark?<Tooltip offsetTop={5}  place='top'>{item.sp.remark}</Tooltip>:''}</TableRowColumn>
               <TableRowColumn>
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
-              <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
+              <CheckPermission  operateCode="contract_setting_edit" > 
+               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
+              </CheckPermission>
               <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
               <span className="bottomBtn"></span>
             </TableRowColumn>
@@ -627,7 +632,9 @@ export default class SettingList extends React.Component {
                         <TableRowColumn><span style={{maxWidth:250,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{item.remark}</span>{item.remark?<Tooltip offsetTop={5}  place='top'>{item.remark}</Tooltip>:''}</TableRowColumn>
                         <TableRowColumn>
                           <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
-                          <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
+                          <CheckPermission  operateCode="contract_setting_edit" > 
+                           <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
+                          </CheckPermission> 
                         </TableRowColumn>
                       </TableRow>
 
@@ -718,8 +725,9 @@ export default class SettingList extends React.Component {
       <BreadCrumbs children={['系统运营','合同信息','基础配置']}/>
       <div className="wrap">
       <Section title="基础配置" description="">
-
+       <CheckPermission  operateCode="contract_setting_edit" >
           <Button label="新建" joinEditForm onTouchTap={this.openCreateDialog} />
+      </CheckPermission>
 
             <Table style={{marginTop:20}} className="parentTable" toggleVisibility="odd" displayCheckbox={false} page={this.state.page} pageSize={this.state.pageSize} totalCount={this.state.totalCount}>
                 <TableHeader>

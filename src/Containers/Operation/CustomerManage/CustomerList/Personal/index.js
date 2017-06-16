@@ -24,7 +24,8 @@ import {
     SearchForms,
 	Drawer,
 	Message,
-	Tooltip
+	Tooltip,
+	CheckPermission
 } from 'kr-ui';
 import {DateFormat} from "kr/Utils";
 import editsourceCustomer from "../EditCustomerList/State";
@@ -358,11 +359,13 @@ class Personal extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
+					   <CheckPermission  operateCode="oper_csr_add" >
 						<Button
 								label="新建客户"
 								type='button'
 								onTouchTap={this.switchNewMerchants}
 						/>
+						</CheckPermission>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
