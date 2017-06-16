@@ -66,7 +66,13 @@ class TheBell extends React.Component {
 			contractType:'',
 			customerId:0,
 			contractId:0,
-			mainbillId:0
+			mainbillId:0,
+			rightDetails:{
+				ARREARS_ALERT:false,
+				CUSTOMER_DUE:false,
+				CUSTOMER_TRANSFER:false,
+				ORDER_VISIT:false
+			}
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -145,7 +151,13 @@ componentDidMount(){
 	}else {
 		console.log("0000000")
 		this.setState({
-				 showMassge:false
+				 showMassge:false,
+				 rightDetails:{
+					ARREARS_ALERT:checkMenus("oper_msg_alert"),
+					CUSTOMER_DUE:checkMenus("oper_msg_csr_due"),
+					CUSTOMER_TRANSFER:checkMenus("oper_msg_csr_trans_base"),
+					ORDER_VISIT:checkMenus("oper_msg_visit_base")
+				}
 		})
 	}
 	
@@ -385,6 +397,7 @@ componentDidMount(){
 						renovateRedDrop = {this.renovateRedDrop}
 						agreementClick = {this.agreementClick}
 						resettingAll = {this.resettingAll}
+						rightDetails = {this.state.rightDetails}
 					/>
 				</Drawer>
 				{/*客户详情*/}
