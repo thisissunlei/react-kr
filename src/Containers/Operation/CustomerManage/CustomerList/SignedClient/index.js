@@ -362,7 +362,7 @@ class SignedClient extends React.Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-					    <CheckPermission  menusCode="oper_order_add" >
+					    <CheckPermission  operateCode="oper_order_add" >
 									<Button
 											label="新建订单"
 											type='button'

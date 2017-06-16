@@ -33,7 +33,8 @@ import {
 	TableRowColumn,
 	TableFooter,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	CheckPermission
 } from 'kr-ui';
 
 import $ from 'jquery';
@@ -434,8 +435,10 @@ export default class CompanyMembers extends React.Component {
 		return (
 			<td>
 			<div style={{display:'inline-block'}}>
+			<CheckPermission  operateCode="mbr_list_de" >
 			<a style={{width:80,height:30,background:'#fff',color:'#499df1',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,border:'1px solid #499df1',cursor:'pointer'}}  onClick={this.batchDelet}>删除成员</a>
-			</div>
+			</CheckPermission
+			></div>
 			</td>
 			)
 	}
@@ -458,9 +461,21 @@ export default class CompanyMembers extends React.Component {
 				<Grid>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{marginRight:10}}><Button  label="新建员工" type="button" onTouchTap={this.createMember} width={80} height={30}/></ListGroupItem>
-							<ListGroupItem><Button  label="验证员工" type="button" onTouchTap={this.validateMember} width={80} height={30}/></ListGroupItem>
-							<ListGroupItem><Button  label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30}/></ListGroupItem>
+							<ListGroupItem style={{marginRight:10}}>
+								<CheckPermission  operateCode="cmt_mbr_add" >
+								<Button  label="新建员工" type="button" onTouchTap={this.createMember} width={80} height={30}/>
+								</CheckPermission>
+							</ListGroupItem>
+							<ListGroupItem>
+								<CheckPermission  operateCode="mbr_list_validate" >
+								<Button  label="验证员工" type="button" onTouchTap={this.validateMember} width={80} height={30}/>
+								</CheckPermission>
+								</ListGroupItem>
+							<ListGroupItem>
+								<CheckPermission  operateCode="mbr_list_import" >
+								<Button  label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30}/>
+								</CheckPermission>
+							</ListGroupItem>
 						</ListGroup>
 					</Row>
 				</Grid>
@@ -516,17 +531,25 @@ export default class CompanyMembers extends React.Component {
 													if(value=="isLeader"){
 														return (
 															<span>
-															<Button label="详情"  type="operation" onTouchTap={this.detailView.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
-															<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader.bind(this,itemData)}/>
+																<Button label="详情"  type="operation" onTouchTap={this.detailView.bind(this,itemData)}/>
+															<CheckPermission  operateCode="cmt_mbr_add" >
+																<Button label="编辑"  type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
+															</CheckPermission>
+															<CheckPermission  operateCode="mbr_list_leader" >
+																<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader.bind(this,itemData)}/>
+															</CheckPermission>
 															</span>
 														)
 													}else if(value=="setLeader"){
 														return (
 															<span>
-															<Button label="详情"  type="operation" onTouchTap={this.detailView.bind(this,itemData)}/>
-															<Button label="编辑"  type="operation" type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
-															<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader.bind(this,itemData)}/>
+																<Button label="详情"  type="operation" onTouchTap={this.detailView.bind(this,itemData)}/>
+															<CheckPermission  operateCode="cmt_mbr_add" >
+																<Button label="编辑"  type="operation" type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
+															</CheckPermission>
+															<CheckPermission  operateCode="mbr_list_leader" >
+																<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader.bind(this,itemData)}/>
+															</CheckPermission>
 															</span>
 														)
 
