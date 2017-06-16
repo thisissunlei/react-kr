@@ -22,7 +22,8 @@ import {
 	Dialog,
 	Title,
 	Tooltip,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import './index.less';
 import State from './State';
@@ -155,11 +156,13 @@ class CustomerHighSea extends React.Component{
 					     align="left"
 					     style={{float:'left',marginTop:3}}
 					   >
+					   <CheckPermission  operateCode="oper_csr_market_import" >
 							<Button
 									label="导入"
 									type='button'
 									onTouchTap={this.openImportData}
 							/>
+					 </CheckPermission>
 					  </Col>
 
 			          <Col style={{marginTop:-15,float:'right'}}>
