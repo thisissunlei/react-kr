@@ -233,7 +233,7 @@ SelectCommunity=()=>{
 			          <Col
 					     style={{float:'left'}}
 					   >
-					        <CheckPermission  menusCode="oper_csr_add" >
+					        <CheckPermission  operateCode="oper_cmt_space_edit" >
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="新建"
 											type='button'
@@ -296,10 +296,10 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'禁用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-							   <CheckPermission  menusCode="oper_csr_add" >
+							   <CheckPermission  operateCode="oper_cmt_space_edit" >
 			                    <Button label="编辑"  type="operation"  operation="edit" />
 							  </CheckPermission>
-							   <CheckPermission  menusCode="oper_csr_add" >
+							   <CheckPermission  operateCode="oper_cmt_space_delete" >
 			                    <Button label="删除"  type="operation"  operation="delete" />
 							</CheckPermission>
 			                </TableRowColumn>
