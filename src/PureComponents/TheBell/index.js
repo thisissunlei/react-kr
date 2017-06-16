@@ -22,6 +22,7 @@ import {
 } from 'mobx-react';
 
 @inject("NotifyModel")
+@inject("NavModel")
 @observer
 class TheBell extends React.Component {
 
@@ -89,26 +90,18 @@ class TheBell extends React.Component {
 	 let showMassge = false;
 	 let Details=[];
 	 let sum=0;
+	
 	 Http.request('messageLookJurisdiction').then(function(response) {
-
-		for (var key in response.rightDetails){
-		    if(response.rightDetails[key]){
-				showMassge=true;
-				break;
-			}
-		}
-		for (var key in response.rightDetails){
-		    if(response.rightDetails[key]){
-				sum+=response.unreadDetails[key]||0;
-			}
+		
+		for (var key in response.unreadDetails){
+				sum+=key||0;
 		}
 		if(sum != 0){
 			showRedDrop=true;
 		}
 
 		 _this.setState({
-			 showRedDrop:showRedDrop,
-			 showMassge:showMassge
+			 showRedDrop:showRedDrop
 		 })
 	 }).catch(function(err) {
 
@@ -134,12 +127,24 @@ class TheBell extends React.Component {
 	}
 	//重置列别表
   resettingAll = () =>{
+	  
+  }
+componentDidMount(){
+	let {checkOperate} = this.props.NavModel;
+	console.log("tabNum tabNum ")
+	
+	var showMassge = checkOperate("oper_msg_alert")||checkOperate("oper_msg_csr_due")||checkOperate("oper_msg_csr_trans_base")||checkOperate("oper_msg_visit_base");
+	console.log(showMassge)
+	 _this.setState({
+			 showMassge:showMassge
+	})
 
-	}
+}
+  
 
 	onClose=()=>{
 		const {NotifyModel} = this.props;
-
+	
 		const {customerTransform,appointmentVisit,urgeMoney,infoList} = NotifyModel;
 		customerTransform.setSearchParams({
 				page: 1 ,

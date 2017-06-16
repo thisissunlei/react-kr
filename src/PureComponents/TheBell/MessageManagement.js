@@ -4,7 +4,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
 import {
 	Http
@@ -21,6 +22,7 @@ import TransferCustomer from "../TransferCustomer";
 import InfoList from "../InfoList";
 import UrgeMoney from "../UrgeMoney";
 import './index.less';
+@inject("NotifyModel","NavModel")
 @observer
 class MessageManagement extends Component{
 
@@ -49,28 +51,28 @@ class MessageManagement extends Component{
 				redNum:[],
 		}
 
-		this.tabNum();
+		
 
 	}
 	//tab数字刷新
 	tabNum = () => {
 		let _this=this;
-
+		let {checkOperate} = this.props.NavModel;
 		Http.request('messageLookJurisdiction').then(function(response) {
 			_this.setState({
-				ARREARS_ALERT:response.rightDetails.ARREARS_ALERT,
-				CUSTOMER_DUE:response.rightDetails.CUSTOMER_DUE,
-				CUSTOMER_TRANSFER:response.rightDetails.CUSTOMER_TRANSFER,
-				ORDER_VISIT:response.rightDetails.ORDER_VISIT,
+				ARREARS_ALERT:checkOperate("oper_msg_alert")||false,
+				CUSTOMER_DUE:checkOperate("oper_msg_csr_due")||false,
+				CUSTOMER_TRANSFER:checkOperate("oper_msg_csr_trans_base")||false,
+				ORDER_VISIT:checkOperate("oper_msg_visit_base")||false,
 				ARREARS_ALERT_NUM:response.unreadDetails.ARREARS_ALERT,
 				CUSTOMER_DUE_NUM:response.unreadDetails.CUSTOMER_DUE,
 				CUSTOMER_TRANSFER_NUM:response.unreadDetails.CUSTOMER_TRANSFER,
 				ORDER_VISIT_NUM:response.unreadDetails.ORDER_VISIT,
 
-				redNum:[{permission:response.rightDetails.CUSTOMER_TRANSFER,num:response.unreadDetails.CUSTOMER_TRANSFER},
-					{permission:response.rightDetails.ORDER_VISIT,num:response.unreadDetails.ORDER_VISIT},
-					{permission:response.rightDetails.ARREARS_ALERT,num:response.unreadDetails.ARREARS_ALERT},
-					{permission:response.rightDetails.CUSTOMER_DUE,num:response.unreadDetails.CUSTOMER_DUE}]
+				redNum:[{permission:checkOperate("oper_msg_csr_trans_base")||false,num:response.unreadDetails.CUSTOMER_TRANSFER},
+					{permission:checkOperate("oper_msg_visit_base")||false,num:response.unreadDetails.ORDER_VISIT},
+					{permission:checkOperate("oper_msg_alert")||false,num:response.unreadDetails.ARREARS_ALERT},
+					{permission:checkOperate("oper_msg_csr_due")||false,num:response.unreadDetails.CUSTOMER_DUE}]
 			})
 		}).catch(function(err) {
 			if(!params.templateIdList){
@@ -80,7 +82,9 @@ class MessageManagement extends Component{
 		});
 	}
 
-
+	componentDidMount(){
+		this.tabNum();
+	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
