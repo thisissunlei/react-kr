@@ -3,7 +3,7 @@ import { connect } from 'kr/Redux';
 import { reduxForm, submitForm, change, reset } from 'redux-form';
 import { Actions, Store } from 'kr/Redux';
 
-import { Tab, Dialog, Notify,Tooltip } from 'kr-ui';
+import { Tab, Dialog, Notify,Tooltip,CheckPermission } from 'kr-ui';
 
 import './index.less';
 import _ from 'lodash';
@@ -177,23 +177,30 @@ export default class ItemTable extends React.Component {
 						</td>
 						<td className="btnlist">
                  <div className="btnCon">
+                    <CheckPermission  operateCode="cmt_run_station" >
       							<div className="Station"  onTouchTap={this.onStation}   >
                       <div className="tip hide  hover">
                          分配工位 < span className = "bArrow" > < /span>
                       </div>
                     </div>
+                    </CheckPermission>
                       
+                    <CheckPermission  operateCode="cmt_run_leave" >
       					    <div className="Dismantling" onClick={this.onDismantling.bind(this,detail)}> 
                         <div className="tip hide hover ">
                              撤场日期 <span className = "bArrow"></span>
                        </div>
                     </div>
+                     </CheckPermission>
                         
+                    <CheckPermission  operateCode="cmt_mbr_list" >
         						<div className="Preson"  onTouchTap={this.onhref}>
                       <div className="tip hide  hover">
                             查看员工 <span className = "bArrow"></span>
                       </div>
                     </div>
+                     </CheckPermission>
+
                   </div>
 						</td>
 					</tr>

@@ -21,7 +21,8 @@ import {
 	Tabs,
 	Tab,
 	ButtonGroup,
-	Loading
+	Loading,
+	CheckPermission
 
 } from 'kr-ui';
 import './index.less'
@@ -91,8 +92,11 @@ class CustomerIndent extends Component{
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="离开日期:" style={unifyStyle} component="labelText" value={item.ucontractLeavedate} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} defaultValue='0' inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}} className='btnBoxShadow'>
-						{isEdit&&<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
-						<span className="interval"></span></span>}
+						<CheckPermission  operateCode="oper_mainbill_edit" >
+							<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
+							<span className="interval"></span></span>
+						</CheckPermission>
+
 						<Button  label="查看" type="button" cancle={true}>
 						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
 						</Button>

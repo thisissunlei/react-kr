@@ -290,11 +290,15 @@ class Merchants extends Component{
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
 			<Title value="客户列表"/>
-      		<div className='merchants-dialog' style={blockStyle}>
-      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
-      		  <Button  label="领取" type="button" onTouchTap={this.openCatchDialog}/>
-      		  <span className='mer-close' onClick={this.merClose}></span>
-      		</div>
+			<CheckPermission  operateCode="oper_csr_receive" >
+
+				<div className='merchants-dialog' style={blockStyle}>
+					<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
+					<Button  label="领取" type="button" onTouchTap={this.openCatchDialog}/>
+					<span className='mer-close' onClick={this.merClose}></span>
+				</div>
+			</CheckPermission>
+
 	        <Row style={{marginBottom:21}}>
 			          <Col
 					     align="left"

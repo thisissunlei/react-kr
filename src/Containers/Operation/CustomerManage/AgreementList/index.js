@@ -30,7 +30,9 @@ import {
 	UpLoadList,
 	FontIcon,
 	Pagination,
-	Loading
+	Loading,
+	CheckPermission
+
 } from 'kr-ui';
 import State from './State';
 import SearchForm from "./SearchForm";
@@ -688,11 +690,14 @@ class Merchants extends Component{
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
-					{State.editRight&&<Button
+				   <CheckPermission  operateCode="contract_create_contract" >
+
+					<Button
 						label="新建合同"
 						type='button'
 						onTouchTap={this.openOneAgreement}
-					/>}
+					/>
+				  </CheckPermission>
 
 			 	 </Col>
 			  	 <Col
@@ -818,9 +823,17 @@ class Merchants extends Component{
 										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
-												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
-												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-												{State.editRight && item.editFlag && item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+												<CheckPermission  operateCode="contract_create_contract" >
+
+													<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span>
+												</CheckPermission>
+												<CheckPermission  operateCode="oper_contract_print" >
+													<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>
+												</CheckPermission>
+												
+												<CheckPermission  operateCode="oper_contract_delete" >
+													<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>
+												</CheckPermission>
 
 											</div>
 										</div>

@@ -101,7 +101,7 @@ class CommunityCollect extends React.Component{
 
 	render(){
 		let {NavModel} = this.props;
-		console.log("NavModel",NavModel,NavModel.openSidebar);
+		// console.log("NavModel",NavModel,NavModel.openSidebar);
 		let _this = this;
 		let {dataList,isShowLeft} = this.state;
 		let {sidebar_nav}=this.props;
