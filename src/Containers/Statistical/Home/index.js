@@ -84,12 +84,12 @@ export default class Home  extends React.Component{
 
 				    <Tab label='集团经营'  key={1} onActive={this.companyTable} style={companyStyle}>
 				               <div className='tabWrap_section'>
-				                {tab=='table'&&<CompanyPanel/>}
+				               <CompanyPanel/>
 				               </div>
 				    </Tab>
 					<Tab label='招商数据' key={2} onActive={this.bussinessTable} style={businessStyle}>
 				               <div className='tabWrap_section'>
-				                {tab=='bus'&&<BussinessPanel/>}
+				                <BussinessPanel/>
 				               </div>
 				    </Tab>
 
