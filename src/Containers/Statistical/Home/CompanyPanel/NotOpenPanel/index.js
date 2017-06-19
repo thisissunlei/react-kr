@@ -1,5 +1,4 @@
 import React  from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {DateFormat} from "kr/Utils";
 import {
 	Table,
@@ -27,18 +26,11 @@ export default class NotOpenPanel  extends React.Component{
 		static defaultProps = {
 				todayDate:'2017-1-1'
 		}
-    static propTypes = {
-		groupId:React.PropTypes.number,
-		todayDate:React.PropTypes.string
-	}
 
 	constructor(props,context){
 		super(props, context);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				groupId:this.props.groupId,
 				startDate:this.props.yesterday,
 				endDate:this.props.yesterday
 			},
@@ -117,7 +109,7 @@ export default class NotOpenPanel  extends React.Component{
     render(){
 
     	let {searchParams}=this.state;
-			let {yesterday, today} = this.props;
+		let {yesterday, today} = this.props;
 		return(
           <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-in'>

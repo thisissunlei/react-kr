@@ -21,14 +21,10 @@ class SearchDateForm extends React.Component {
 	static PropTypes = {
 		onStartChange: React.PropTypes.func,
 		onEndChange:React.PropTypes.func,
-		date_2:React.PropTypes.string,
 	}
 
 	constructor(props) {
 		super(props);
-
-
-
 	}
 	componentDidMount() {
 
@@ -61,7 +57,6 @@ class SearchDateForm extends React.Component {
 			handleSubmit,
 			pristine,
 			reset,
-			date_2,
 			yesterday,
 			today,
 			todayEndDate

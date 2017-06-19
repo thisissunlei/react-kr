@@ -32,7 +32,6 @@ export default class OpenPanel  extends React.Component{
 
 	    this.state = {
 			searchParams: {
-				groupId:this.props.groupId,
 				startDate:this.props.yesterday,
 				endDate:this.props.yesterday
 			},
@@ -47,8 +46,6 @@ export default class OpenPanel  extends React.Component{
 
     	let {searchParams}=this.state;
         let start=Date.parse(DateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-
-
         let end=Date.parse(DateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         this.setState({
         	startValue:startD

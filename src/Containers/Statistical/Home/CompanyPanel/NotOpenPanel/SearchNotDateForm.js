@@ -17,15 +17,12 @@ class SearchNotDateForm extends React.Component {
 	}
 
 	static propTypes = {
-		todayDate:React.PropTypes.string,
 		onStartNotChange: React.PropTypes.func,
 		onEndNotChange:React.PropTypes.func,
-		todayDate:React.PropTypes.string,
 	}
 
 	constructor(props) {
 		super(props);
-
 	}
 
 
