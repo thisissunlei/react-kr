@@ -75,4 +75,10 @@ module.exports = {
 
 
 
+   //催款表
+   'getPaymentRemind':{
+      url: '/api/krspace-finance-web/finance/payment-reminder?endDate={endDate}&companyName={companyName}&beginDate={beginDate}&communityId={communityId}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+
 }
