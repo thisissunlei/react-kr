@@ -4,6 +4,7 @@ import {
 
 	// Title,
 	// Section,
+	Message,
 	Loading
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
@@ -219,9 +220,13 @@ export default class PaymentRemindTable extends React.Component {
 	export=()=>{
 
 		// var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}&beginDate=${State.searchParams.beginDate}&endDate=${State.searchParams.endDate}&customerName=${State.searchParams.customerName}`
-		var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}`
-		// console.log("URL",url);
-		window.location.href = url;
+		if(!State.searchParams.communityId){
+			Message.error("请选择社区");
+		}else{
+			var url = `/api/krspace-finance-web/finance/payment-reminder-excel?communityId=${State.searchParams.communityId}`
+			// console.log("URL",url);
+			window.location.href = url;
+		}
 	}
 
 
