@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
 	Section,
@@ -8,23 +7,23 @@ import {
 	Message
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
-
-import PanelComponents from './PanelComponents';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+import CompanyPanel from './CompanyPanel';
+import BussinessPanel from './BussinessPanel';
 import './index.less';
 
+@inject("NavModel")
+@observer
 export default class Home  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-
-		this.state = {
-				groupList:[
-
-				],
-				groupId:'',
-				action:0,
+		this.state={
+			tab:'table',
+			tabFlag:false
 		}
 	}
 
@@ -32,23 +31,28 @@ export default class Home  extends React.Component{
 
 	}
 
-	activeTable=(index,id)=>{
+	companyTable=()=>{
        let {
-			action,
-			groupId
+			tab,
 		} = this.state;
-
-        this.setState({
-			action:index,
-			groupId:id
-		},function(){
+		tab = 'table';
+		this.setState({
+			tab,
+		});
+	}
+    
+	bussinessTable=()=>{
+		let {
+			tab,
+		} = this.state;
+		tab = 'bus';
+		this.setState({
+			tab,
 		});
 	}
 
-
 	renderGroupTabs = ()=>{
-
-		let {groupList,active} = this.state;
+        let {tab}=this.state;
 
 		const activeTab={
 			color:'#499df1',
@@ -60,8 +64,10 @@ export default class Home  extends React.Component{
 			borderBottom: "1px solid #eee",
 			fontSize:16
 		}
-
-		var activeTabPanel;
+        
+		let companyStyle = (tab=='table') ? activeTab : commenTab;
+		let businessStyle = (tab == 'bus') ? activeTab : commenTab;
+		
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
@@ -75,70 +81,57 @@ export default class Home  extends React.Component{
 		   				paddingRight:'20'
 		   			}}
 		   	>
-					{groupList.map((item,index)=>{
-						    var activeStyle={}
-							if(this.state.action==index){
-								activeStyle=activeTab;
-								activeTabPanel=(<PanelComponents groupList = {groupList} panels={item.templateList} groupId={this.state.groupId}/>)
-							}else{
-								activeStyle=commenTab;
-							}
-							return (
-				             <Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}>
+
+				    <Tab label='集团经营'  key={1} onActive={this.companyTable} style={companyStyle}>
 				               <div className='tabWrap_section'>
-				                {activeTabPanel}
+				                {tab=='table'&&<CompanyPanel/>}
 				               </div>
-				             </Tab>
-    		                )
-						})
-				   }
+				    </Tab>
+					<Tab label='招商数据' key={2} onActive={this.bussinessTable} style={businessStyle}>
+				               <div className='tabWrap_section'>
+				                {tab=='bus'&&<BussinessPanel/>}
+				               </div>
+				    </Tab>
+
+
 	 	    </Tabs>
 	 	   </div>
 	 	  </div>
 		);
 	}
 
-
-	renderGroupSingle = ()=>{
-
-		let {groupList} = this.state;
-		let groupItem = groupList[0];
-
-
+ renderGroupSingle = ()=>{
 		return(
 		  <div className='static-section'>
-			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
+			<Section title='集团经营' style={{background:'none'}} headerStyle={{background:'#fff'}}>
 			    <div className='static-section-inner' style={{borderTop:'solid 1px #e8e9e9'}}>
-					<PanelComponents groupList = {groupList} panels={groupItem.templateList} groupId={groupItem.id}/>
+				  <CompanyPanel/>
 				</div>
 			</Section>
 		  </div>
 		);
 	}
+   
+   componentWillMount(){
+	    let {tabFlag}=this.state;
+		var _this=this;
+		setTimeout(function() {
+			tabFlag=_this.props.NavModel.checkOperate('stat_business');
+			_this.setState({
+			tabFlag
+		})
+		},1000);
+   }
 
 	componentDidMount() {
-		var _this = this;
-		Http.request('get-my-groups').then(function(response) {
-		   _this.setState({
-		   	 groupList:response.groupList,
-		   	 groupId:response.groupList[0].id
-		   })
-		}).catch(function(err) {
-			Message.error(err);
-		});
-
 		Store.dispatch(Actions.switchSidebarNav(false));
-
 	}
 
 	render(){
-
-		let {groupList} = this.state;
-
-
-		if(groupList.length == 1){
-				return this.renderGroupSingle();
-		}
+        
+	   if(!this.state.tabFlag){
+		   return this.renderGroupSingle();
+	   }
 
 		return(
 			<div className="g-statistical">
