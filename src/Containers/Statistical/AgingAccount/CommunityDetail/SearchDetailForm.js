@@ -72,6 +72,8 @@ export default class SearchDetailForm extends React.Component {
 	   		State.communityId = item.id;
 	  	}
 	  	State.getDetailList();
+	  	let {onChangeCommunity} = this.props;
+	  	onChangeCommunity && onChangeCommunity(State.communityId);
 	}
 	
 

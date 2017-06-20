@@ -87,7 +87,6 @@ class AgingAccount  extends React.Component{
 		$(window).unbind();
 	}
 	toDetailFun=(communityId)=>{
-		
 		let communityIdReal
 		if(communityId == 0){
 			communityIdReal = '';
@@ -100,6 +99,11 @@ class AgingAccount  extends React.Component{
 			isLeft:false
 		})
 
+	}
+	onChangeCommunity=(communityId)=>{
+		this.setState({
+			communityId  
+		})
 	}
 	render(){
 		let {isLeft,hasDetail,hasCollect,value,communityId}=this.state;
@@ -128,7 +132,7 @@ class AgingAccount  extends React.Component{
 					}
 					{
 						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}} value={1} >
-							<CommunityDetail isLeftProps={isLeft} communityId={communityId}/>
+							<CommunityDetail isLeftProps={isLeft} communityId={communityId} onChangeCommunity={this.onChangeCommunity}/>
 						</Tab>
 					}
 

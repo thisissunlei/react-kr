@@ -108,6 +108,11 @@ class CommunityDetail  extends React.Component{
 		
 	}
 
+	onChangeCommunity=(communityId)=>{
+		let {onChangeCommunity}= this.props;
+		onChangeCommunity && onChangeCommunity(communityId);
+	}
+
 	render(){
 		
 		let {isShowLeft}=this.state;
@@ -117,7 +122,7 @@ class CommunityDetail  extends React.Component{
 				<div className="community-detail-box">
 					<div className="search-form-community-detail">
 							
-						<SearchDetailForm/>
+						<SearchDetailForm onChangeCommunity={this.onChangeCommunity}/>
 						
 					</div>
 					<div className="community-detial-table-box" ref="communityDetailTableBox">
