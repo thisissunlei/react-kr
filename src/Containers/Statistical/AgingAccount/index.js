@@ -87,6 +87,7 @@ class AgingAccount  extends React.Component{
 		$(window).unbind();
 	}
 	toDetailFun=(communityId)=>{
+		
 		let communityIdReal
 		if(communityId == 0){
 			communityIdReal = '';
@@ -111,9 +112,11 @@ class AgingAccount  extends React.Component{
 					contentContainerClassName = "contentContainer"
 					value = {value}
 					onChange={(value)=>{
-						this.setState({
-							value :value
-						})
+						if(!isNaN(value)){
+							this.setState({
+								value :value
+							})
+						}
 					}}
 	
 				>
