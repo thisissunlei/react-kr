@@ -50,8 +50,6 @@ class MerchantsData  extends React.Component{
 
 			}
 		}
-		this.gainData();
-
 	}
 
 	onStartChange=(value)=>{
@@ -79,6 +77,9 @@ class MerchantsData  extends React.Component{
 
 
     }
+	componentWillMount(){
+      this.gainData();
+	}
     onEndChange=(value)=>{
     	let {startValue,endValue}=this.state;
 
