@@ -436,6 +436,13 @@ class CommunityList  extends React.Component{
     	State.closeAllDialog();
     }
 
+    onPageChange=(page)=>{
+      var searchParams={
+        page:page
+      }
+      State.searchParams=Object.assign({},State.searchParams,searchParams);
+    }
+
 	render(){
 
 		let searchFilter=[
@@ -486,6 +493,7 @@ class CommunityList  extends React.Component{
 	            exportSwitch={true}
 			        onExport={this.onExport}
 	            ajaxParams={State.searchParams}
+              onPageChange={this.onPageChange}
 	            ajaxUrlName='communitySearch'
 	            ajaxFieldListName="items"
 					  >

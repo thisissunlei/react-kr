@@ -82,14 +82,13 @@ class EquipmentList  extends React.Component{
    	})
    }
    //刷新列表
-   refreshList = () =>{
+   refreshList = (id) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
-
     	this.setState({
       	searchParams:{
-        	name:searchParams.name,
-     			page: searchParams.page,
+        	    name:searchParams.name,
+     			page: id==''?1:searchParams.page,
      			pageSize: searchParams.pageSize,
      			date:date
       	},
@@ -101,6 +100,7 @@ class EquipmentList  extends React.Component{
    openNewEquipment = () =>{
    		this.setState({
    			openNewEquipment:true,
+			id:''
    		});
 
    }
@@ -143,18 +143,14 @@ class EquipmentList  extends React.Component{
 
    }
    //提交新建
-	onSubmit = (params,type) =>{
+	onSubmit = (params) =>{
 		let {id} = this.state;
 		let _this = this;
-    if(type == "edit"){
-      params.id = id;
-    }else{
-      params.id = "";
-    }
+        params.id = id;
 		Http.request('equipment-submit',params).then(function(response) {
       _this.closeNewEquipment();
 			_this.closeEditEquipment();
-			_this.refreshList();
+			_this.refreshList(id);
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -162,7 +158,6 @@ class EquipmentList  extends React.Component{
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
-
 		if(type === "edit"){
 			this.setState({
    				openEditEquipment:true,
@@ -178,6 +173,16 @@ class EquipmentList  extends React.Component{
    			})
 		}
 	}
+
+	onPageChange=(page)=>{
+      var searchParams={
+		  page:page
+	  }
+	  this.setState({
+		  searchParams:Object.assign({},this.state.searchParams,searchParams)
+	  })
+	}
+
 	render(){
 		let {searchParams,openNewEquipment,openEditEquipment,openDelEquipment} = this.state;
 
@@ -216,6 +221,7 @@ class EquipmentList  extends React.Component{
 							}
 						}
 					onOperation={this.onOperation}
+					onPageChange={this.onPageChange}
 		            displayCheckbox={false}
 		            ajaxParams={searchParams}
 		            ajaxUrlName='equipment-list'
