@@ -54,7 +54,9 @@ class  CodeClassification extends React.Component{
 			codeName.push(parentName);
 			State.searchParams={
 			pid:itemDetail.id,
-		    time:+new Date()
+		    time:+new Date(),
+			page:1,
+			pageSize:15
 			}
 			State.lastFlag=true;
 			State.parentName=itemDetail.codeName;
@@ -126,6 +128,8 @@ lastGoTo=()=>{
  State.searchParams={
 	 pid:pidArr[pidArr.length-1],
 	 time:+new Date(), 
+	 page:1,
+	 pageSize:15
  }
  State.parentName=codeName[codeName.length-1];
  if(pidArr[pidArr.length-1]==0){
@@ -138,6 +142,13 @@ lastGoTo=()=>{
  	pidArr:pid,
  	codeName:name
  })
+}
+
+onPageChange=(page)=>{
+  var searchParams={
+	  page:page
+  }
+  State.searchParams=Object.assign({},State.searchParams,searchParams);
 }
 
 
@@ -176,6 +187,7 @@ lastGoTo=()=>{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
+				onPageChange={this.onPageChange}
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			    onExport={this.onExport}
