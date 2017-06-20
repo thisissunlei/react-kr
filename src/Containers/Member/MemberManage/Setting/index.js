@@ -51,6 +51,7 @@ export default class List extends React.Component {
 			itemDetail: {},
 			item: {},
 			list: {},
+			realPage:0,
 			searchParams: {
 				foreignCode:'',
 				page: 1,
@@ -183,7 +184,15 @@ export default class List extends React.Component {
 		params.interCode=values.interCode;
 		Http.request('CardEdit', {}, params).then(function(response) {
 			_this.openEditDetailDialog();
-			_this.onFlush();
+			console.log("_this.state.realPage",_this.state.realPage);
+			_this.setState({
+				searchParams: {
+					foreignCode:'',
+					page: _this.state.realPage,
+					pageSize: 15,
+					other:!_this.state.searchParams.other
+				}
+			})
 			Message.success("编辑成功");
 			
 		}).catch(function(err) {
@@ -282,6 +291,12 @@ export default class List extends React.Component {
 			isHeavilyClose:false,
 		})
 	}
+	onPageChange=(page)=>{
+		console.log("page",page);
+		this.setState({
+			realPage: page
+		})
+	}
 		render(){
 			
 			return(
@@ -311,7 +326,7 @@ export default class List extends React.Component {
 												displayCheckbox={false}
 												onExport={this.onExport}
 												ajaxParams={this.state.searchParams}
-
+												onPageChange={this.onPageChange}
 												ajaxFieldListName="items"
 												ajaxUrlName='CardActivationList'>
 												<TableHeader>
