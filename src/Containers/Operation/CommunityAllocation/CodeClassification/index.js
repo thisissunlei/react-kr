@@ -77,6 +77,12 @@ class  CodeClassification extends React.Component{
 
 	//新建代码提交
 	codeSubmit=(params)=>{
+	   if(!params.id){
+		  var searchParams={
+				page:1
+		  }
+		  State.searchParams=Object.assign({},State.searchParams,searchParams);   
+	   }
        State.addCodeSubmit(params);
 	}
 
