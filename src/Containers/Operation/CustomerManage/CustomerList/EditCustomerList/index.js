@@ -104,21 +104,21 @@ import {
 			
 			if(operType=="SHARE"){
 				merchants.searchParams={
-		         	page:1,
+		         	page:merchants.searchParams.page,
 					pageSize:15,
 					time:+new Date()
 		         }
 			}
          	if(operType=="PERSON"){
          	_this.props.NewIndentModel.searchParams={
-		         	page:1,
+		         	page:_this.props.NewIndentModel.searchParams.page,
 					pageSize:15,
 					time:+new Date()
 		        }
          	}
          	if(operType=="SIGN"){
          		signedClient.searchParams={
-		         	page:1,
+		         	page:signedClient.searchParams.page,
 					pageSize:15,
 					time:+new Date()
 		        }

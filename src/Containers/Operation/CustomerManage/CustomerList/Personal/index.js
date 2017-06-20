@@ -330,6 +330,11 @@ class Personal extends Component{
      openDeleteDialog=()=>{
      	State.openDeleteOrder();
      }
+	 pageChange = (page) =>{
+		var searchParams = Object.assign({}, this.props.NewIndentModel.searchParams);
+		searchParams.page = page;
+		this.props.NewIndentModel.searchParams = searchParams;
+	 }
 	render(){
 		let {dataReady,searchParams,orderReady}=this.props;
 		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
@@ -386,6 +391,7 @@ class Personal extends Component{
 	            ajaxParams={this.props.NewIndentModel.searchParams}
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="items"
+				onPageChange = {this.pageChange}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>

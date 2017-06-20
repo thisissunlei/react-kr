@@ -268,7 +268,11 @@ class Merchants extends Component{
 		State.closeAllMerchants();
 	}
 
-
+	pageChange = (page) =>{
+		var searchParams = Object.assign({}, State.searchParams);
+		searchParams.page = page;
+		State.searchParams = searchParams;
+	}
 
 
 	render(){
@@ -326,6 +330,7 @@ class Merchants extends Component{
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
+				onPageChange = {this.pageChange}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
