@@ -67,12 +67,16 @@ State.codeStationCompare= action(function(params) {
 //新建编辑提交
 State.stationSubmit=action(function(params){
 	var _this=this;
+	var page='';
+	if(!params.id){
+      page=1;
+	}
 	Http.request('station-edit',{},params).then(function(response) {
 	 _this.openStationEdit=false;
 	 _this.openStation=false;
 	 _this.searchParams={
 			time:+new Date(),
-			page:1,
+			page:page==1?1:_this.searchParams.page,
 			pageSize:15,
 			communityId:_this.communityId
 	 }
