@@ -203,7 +203,8 @@ export default class GroupSetting  extends Component{
 		}
 
 		this.setState({
-			searchParams: obj
+			searchParams: obj,
+			searchText:searchParams.groupName,
 		});
 		this.openSearchUpperFormDialog();
 
