@@ -143,6 +143,7 @@ class SignedClient extends React.Component{
 			State.switchEditCustomerList();
 
 			State.editprojectName=response.projectCategoryName;
+			State.allData = response;
 		}).catch(function(err) {
 
 		});
@@ -489,6 +490,7 @@ class SignedClient extends React.Component{
 			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
+							 allData = {State.allData}
 						/>
 					</Drawer>
 

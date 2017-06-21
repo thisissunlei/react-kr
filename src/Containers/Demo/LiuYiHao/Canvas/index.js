@@ -61,7 +61,6 @@ export default class Canvas extends React.Component {
 		
 	}
 	allClick = (event) =>{
-		console.log(event.clientX,">.>>")
 	}
 
 

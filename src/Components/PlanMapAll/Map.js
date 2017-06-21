@@ -315,11 +315,9 @@ var Map = (function (window) {
             this.setProps({ removed: true });
             var stations = DB.getAllStation();
 
-            console.log('1.length:',stations.length);
             DB.removeStation(key);
 
             stations = DB.getAllStation();
-            console.log('2.length:',stations.length);
 
         }
         //更新工位坐标参数

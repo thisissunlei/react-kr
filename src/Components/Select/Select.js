@@ -366,7 +366,6 @@ const Select = React.createClass({
 	},
 
 	handleMouseDownOnArrow (event) {
-		console.log("LLLLLL")
 		// if the event was triggered by a mousedown and not the primary
 		// button, or if the component is disabled, ignore it.
 		if (this.props.disabled || (event.type === 'mousedown' && event.button !== 0)) {
@@ -403,7 +402,6 @@ const Select = React.createClass({
 	closeMenu () {
 
 		if(this.props.onCloseResetsInput) {
-				console.log("input-value")
 
 			this.setState({
 				isOpen: false,

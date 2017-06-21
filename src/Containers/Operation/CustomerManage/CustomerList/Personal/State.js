@@ -35,6 +35,7 @@ let State = observable({
 		editCity:'',
 		editprojectName:'',
 		cityNameIndent:"",
+		allData:''
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
