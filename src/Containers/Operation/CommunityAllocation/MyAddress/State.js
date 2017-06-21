@@ -174,6 +174,9 @@ State.onNewAddressSubmit= action(function(data) {
 
 	 var _this=this;
 	 var page='';
+	 var searchParams = Object.assign({},this.searchParams);
+	searchParams.timer = new Date();
+	
 	 Http.request('addMyAddressData',{},data).then(function(response) {
 			_this.openNewAddress = false;
 			_this.openEditAddress = false;
@@ -183,13 +186,8 @@ State.onNewAddressSubmit= action(function(data) {
 				page=1;
 				Message.success('新增成功');
 			}
-			State.setSearchParams({
-
-				page:page==1?1:_this.searchParams.page,	
-				pageSize:15,
-				communityName:'',
-				timer:new Date()
-			})
+			searchParams.page = page == 1 ? 1 : _this.searchParams.page;
+			State.setSearchParams(searchParams)
 			State.addGuideList=[];	
 			State.address = '';
 				

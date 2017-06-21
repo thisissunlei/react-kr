@@ -71,15 +71,16 @@ State.stationSubmit=action(function(params){
 	if(!params.id){
       page=1;
 	}
+	var data = Object.assign({},this.searchParams);
+	data.page = page==1 ? 1 : this.searchParams.page;
+	data.time = +new Date();
+	data.communityId = this.communityId;
+	console.log(data,"<<<<<<")
 	Http.request('station-edit',{},params).then(function(response) {
-	 _this.openStationEdit=false;
-	 _this.openStation=false;
-	 _this.searchParams={
-			time:+new Date(),
-			page:page==1?1:_this.searchParams.page,
-			pageSize:15,
-			communityId:_this.communityId
-	 }
+	 _this.openStationEdit = false;
+	 _this.openStation = false;
+
+	 _this.searchParams = data;
  }).catch(function(err) {
 		Message.error(err.message);
  });
