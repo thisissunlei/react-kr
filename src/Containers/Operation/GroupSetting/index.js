@@ -76,7 +76,11 @@ export default class GroupSetting  extends Component{
 	onCreateSubmit=(params)=> {
 
 		var _this = this;
+		var page='';
 		params = Object.assign({}, params);
+		if(!params.id){
+		  page=1
+		}
 		if(this.state.noinit){
 			params.templateIdList="";
 			Message.error("模板列表不能为空");
@@ -85,10 +89,10 @@ export default class GroupSetting  extends Component{
 		}else{
 			params.templateIdList=this.state.templateListIds;
 		}
-
+  
 		Http.request('GroupNewAndEidt', {}, params).then(function(response) {
 			let obj = {
-				page: 1,
+				page: page==1?1:_this.state.searchParams.page,
 				pageSize: 15,
 				other:!_this.state.searchParams.other,
 				groupName:_this.state.searchText,
@@ -244,6 +248,15 @@ export default class GroupSetting  extends Component{
 		this.setState({templateListIds:ids,noinit:false})
 	}
 
+	onPageChange=(page)=>{
+      var searchParams={
+		  page:page
+	  }
+	  this.setState({
+		  searchParams:Object.assign({},this.state.searchParams,searchParams)
+	  })
+	}
+
 
 //
 //  component={(value,item)=>{<span>{value}</span>}}
@@ -277,7 +290,7 @@ export default class GroupSetting  extends Component{
 										displayCheckbox={false}
 										onExport={this.onExport}
 										ajaxParams={this.state.searchParams}
-
+										onPageChange={this.onPageChange}
 											ajaxFieldListName="items"
 											ajaxUrlName='MouldGroupList'>
 											<TableHeader>

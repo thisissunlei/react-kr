@@ -362,7 +362,7 @@ class ZhuanHuan extends React.Component{
 		 if(this.state.isErr&&+values>0&&values.length<=4){
 			 var _this=this;
 			 values=this.Trim(values);
-			 Http.requireLabel('sortCheck',{sort:values,id:''}).then(function(data) {
+			 Http.request('sortCheck',{sort:values,id:''}).then(function(data) {
 
 			 }).catch(function(err) {
 				 Message.error(err.message)

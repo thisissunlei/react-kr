@@ -173,17 +173,19 @@ State.getEditBasicDate= action(function(id) {
 State.onNewAddressSubmit= action(function(data) {
 
 	 var _this=this;
+	 var page='';
 	 Http.request('addMyAddressData',{},data).then(function(response) {
 			_this.openNewAddress = false;
 			_this.openEditAddress = false;
 			if(data.id){
 				Message.success('编辑成功');
 			}else{
+				page=1;
 				Message.success('新增成功');
 			}
 			State.setSearchParams({
 
-				page:1,	
+				page:page==1?1:_this.searchParams.page,	
 				pageSize:15,
 				communityName:'',
 				timer:new Date()
