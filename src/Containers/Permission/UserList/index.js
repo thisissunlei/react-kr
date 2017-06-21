@@ -36,7 +36,6 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	CheckPermission,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -148,9 +147,7 @@ export default class UserList extends Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-								<CheckPermission  operateCode="sso_roleList_removeUser" >
-									<Button label="移除"  type="operation" operation="delete"/>
-								</CheckPermission>
+									<Button label="移除"  type="operation" operateCode="sso_roleList_removeUser" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
