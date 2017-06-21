@@ -152,7 +152,6 @@ export default class SearchForm extends React.Component{
 				}
 			})
 		}
-		console.log(select,"BBBBB")
 		if(searchFilter){
 
 			return(
@@ -196,7 +195,6 @@ export default class SearchForm extends React.Component{
 			value:text||defaultFilter,
 			content:data.target.value||'',
 		}
-		console.log(value,"LLLLLLL");
 		onChange && onChange(all);
 	}
 

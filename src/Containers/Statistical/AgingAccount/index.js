@@ -4,9 +4,14 @@ import React from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Message,
-	Tabs,
-	Tab
 } from 'kr-ui';
+import Baidu from 'kr/Utils/Baidu';
+import {
+	Tabs
+}from 'material-ui';
+import {
+  	Tab
+} from 'material-ui/Tabs';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
 import './index.less';
@@ -28,18 +33,22 @@ class AgingAccount  extends React.Component{
 		this.state = {
 			isLeft:true,
 			hasCollect : false,
-			hasDetail : false
+			hasDetail : false,
+			value : '0',
+			communityId : ''
 		}
 	}
 
 
 	componentDidMount() {
 		let {NavModel} = this.props;
-		// console.log("----校验有没有菜单权限",NavModel.checkMenus("cmt_summary"),NavModel.checkMenus("cmt_explan"));
+		// console.log("----校验有没有菜单权限",NavModel.checkOperate("cmt_summary"),NavModel.checkOperate("cmt_explan"));
+		Baidu.trackEvent('账龄分析','访问');
+
 		let _this =this;
 		
 		// 有汇总
-		if(NavModel.checkMenus("cmt_summary")){
+		if(NavModel.checkOperate("cmt_summary")){
 			// 有社区汇总表
 			_this.setState({
 				hasCollect:true
@@ -50,14 +59,14 @@ class AgingAccount  extends React.Component{
 			})
 		}
 		// 有明细
-		if(NavModel.checkMenus("cmt_explan")){
+		if(NavModel.checkOperate("cmt_explan")){
 			// 有社区明细表
 			_this.setState({
 				hasDetail:true,
 			})
 		}
 		// 有明细没汇总
-		if(!NavModel.checkMenus("cmt_summary")  &&NavModel.checkMenus("cmt_explan")){
+		if(!NavModel.checkOperate("cmt_summary")  &&NavModel.checkOperate("cmt_explan")){
 			// 有社区明细表
 			_this.setState({
 				hasDetail:true,
@@ -87,31 +96,57 @@ class AgingAccount  extends React.Component{
 	componentWillUnmount(){
 		$(window).unbind();
 	}
+	toDetailFun=(communityId)=>{
+		let communityIdReal
+		if(communityId == 0){
+			communityIdReal = '';
+		}else{
+			communityIdReal = communityId;
+		}
+		this.setState({
+			value :'1',
+			communityId : communityIdReal,
+			isLeft:false
+		})
 
+	}
+	onChangeCommunity=(communityId)=>{
+		this.setState({
+			communityId  
+		})
+	}
 	render(){
-		let {isLeft,hasDetail,hasCollect}=this.state;
+		let {isLeft,hasDetail,hasCollect,value,communityId}=this.state;
 		let {sidebar_nav}=this.props;
+		let _this =this;
 		return(
 			<div className="aging-account">
-				<Tabs>
+				<Tabs inkBarStyle={{backgroundColor:"rgb(43, 141, 205)",position:"relative",top:"-48px"}} 
+					tabItemContainerStyle={{backgroundColor:"#fff",borderBottom: "solid 1px #eee"}} 
+					contentContainerClassName = "contentContainer"
+					value = {value}
+					onChange={(value)=>{
+						if(!isNaN(value)){
+							this.setState({
+								value :value
+							})
+						}
+					}}
+	
+				>
+					
 					{
-						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive}>
-												<CommunityCollect isLeftProps={isLeft}/>
-											</Tab>
+						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive} style={{color:"black"}} value={'0'} style={{borderRight:"solid 1px #eee",color:"black"}}>
+										<CommunityCollect isLeftProps={isLeft} toDetailFun={_this.toDetailFun}/>
+									</Tab>
 					}
 					{
-						hasDetail&&<Tab label="社区明细" onActive={this.rightActive}>
-							<CommunityDetail isLeftProps={isLeft}/>
+						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}} value={'1'} >
+							<CommunityDetail isLeftProps={isLeft} communityId={communityId} onChangeCommunity={this.onChangeCommunity}/>
 						</Tab>
 					}
-					{/*
-						!hasCollect && !hasDetail &&<Tab>
-							<div>
-								<img src={require("images/notings.png")}/>
-								<span>您没有操作权限</span>
-							</div>
-						</Tab>
-					*/}
+
+					
 
 				</Tabs>
 			</div>

@@ -198,7 +198,6 @@ class BusinessList  extends React.Component{
 		const {FormModel} = this.props;
 		if(type === "edit"){
 
-        console.log(itemDetail,"?????")
         let provinceName = !itemDetail.provinceName ? "" : itemDetail.provinceName;
         let cityName = !itemDetail.cityName ? "" : "/" + itemDetail.cityName;
         let districtName = !itemDetail.districtName ? "" : "/" + itemDetail.districtName;

@@ -243,7 +243,6 @@ export default class SearchForms extends Component{
 		let {searchFilter} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
-		console.log('88888',searchFilter);
 
 		if(searchFilter){
 

@@ -193,7 +193,6 @@ export default class Editor extends React.Component{
     if(this.init){
       return ;
     }
-    console.log(this.editor)
     if(!this.editor){
       window.setTimeout(function(){
         UE.getEditor(_this.containerId).setContent(value);

@@ -10,6 +10,7 @@ import {
 	Loading
 } from 'kr-ui';
 import { Http } from 'kr/Utils';
+import Plan from './plan.js';
 import './index.less';
 class CommunityPlanMap extends React.Component {
 
@@ -117,9 +118,11 @@ class CommunityPlanMap extends React.Component {
 				},
 				stationToSame:checked,
 				backgroundImageUrl:response.graphFilePath,
-				translateX:0,
-				translateY:0,
-				mode:'edit'
+				map:{
+                  translateX:0,
+			      translateY:0,
+				},			
+				isMode:'edit'
 			}
 
 			_this.setState({
@@ -155,7 +158,7 @@ class CommunityPlanMap extends React.Component {
 
 		var _this = this;
 		var href = _this.context.router.params.communityId;
-		Http.request('getCommunityFloors', {
+		Http.request('getFloorByComunity', {
 			communityId: href
 		}).then(function (response) {
 			_this.setState({
@@ -559,7 +562,7 @@ class CommunityPlanMap extends React.Component {
 									<span className="til">当前比例：</span>
 									<input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
 									<output>{this.state.scaleNumber}</output>%
-							</div>
+							   </div>
 
 								<div className='upload-img'>
 								  <a href="javascript:;" className="plan-file">选择文件 	 
@@ -631,7 +634,7 @@ class CommunityPlanMap extends React.Component {
 
 							</div>
 
-							<PlanMapAll
+							<Plan
 								ref={(mapComponent) => this.mapComponent = mapComponent}
 								initializeConfigs={initializeConfigs}
 								onRemove={this.onRemove}
