@@ -23,22 +23,26 @@ export default class CheckPermission extends React.Component {
 
 	}
 	componentDidMount() {
-		this.getCheck();
+		var _this=this;
+		setTimeout(function(){
+			_this.getCheck();
+		},1000)
+		
 
 	}
 
 	getCheck=()=>{
 		const {NavModel,menusCode,operateCode}=this.props;
-		var _this=this;
+		
 		if(menusCode){
 				var IsMenus=NavModel.checkMenus(menusCode);
-				_this.setState({
+				this.setState({
 					IsMenus
 				})
 		}
 		if(operateCode){
 				var IsOperate=NavModel.checkOperate(operateCode);
-				_this.setState({
+				this.setState({
 					IsOperate
 				})
 		}
