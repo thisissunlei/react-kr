@@ -169,19 +169,19 @@ export default class Card extends React.Component {
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row >
 						<Col  align="left" style={{marginLeft:0,float:'left'}}> 
-							<CheckPermission  operateCode="mbr_card_storage" >
-								<Button label="入库" type='button'  onTouchTap={this.openImportCardDialog}  /> 
-							</CheckPermission>
+							
+								<Button operateCode="mbr_card_storage" label="入库" type='button'  onTouchTap={this.openImportCardDialog}  /> 
+							
 						</Col>
 						<Col  align="left" style={{marginLeft:20,float:'left'}}> 
-							<CheckPermission  operateCode="mbr_card_hand" >
-								<Button label="领用" type='button'  onTouchTap={this.openUsingCardDialog}  /> 
-							</CheckPermission>
+						
+								<Button operateCode="mbr_card_hand" label="领用" type='button'  onTouchTap={this.openUsingCardDialog}  /> 
+					
 						</Col>
 						<Col  align="left" style={{marginLeft:20,float:'left'}}> 
-							<CheckPermission  operateCode="mbr_card_move" >
-								<Button label="转移" type='button'  onTouchTap={this.openChangeDialog}  /> 
-							</CheckPermission>
+							
+								<Button operateCode="mbr_card_move" label="转移" type='button'  onTouchTap={this.openChangeDialog}  /> 
+							
 						</Col>
 						<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 							<ListGroup>
@@ -268,9 +268,9 @@ export default class Card extends React.Component {
 									)
 								}else{
 									return (
-									<CheckPermission  operateCode="mbr_card_storage" >
-										<Button label="删除"  type="operation" onTouchTap={this.deleteItem.bind(this,itemData)}/>
-									</CheckPermission>
+								
+										<Button  operateCode="mbr_card_storage" label="删除"  type="operation" onTouchTap={this.deleteItem.bind(this,itemData)}/>
+									
 									)
 								}
 								}}>
