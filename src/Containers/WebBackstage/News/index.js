@@ -108,9 +108,7 @@ export default class News extends React.Component {
 					<Title value="新闻列表"/>
 					<Section title="新闻列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-							<CheckPermission  operateCode="main_news_add" >
-								<Button label="新建新闻"  onTouchTap={this.openNewCreateDialog} />
-							</CheckPermission>
+								<Button label="新建新闻" operateCode="main_news_add" onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
 							<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 							<SearchForms 
@@ -173,9 +171,7 @@ export default class News extends React.Component {
 		              		 <TableRowColumn name="createUser"></TableRowColumn>
 		              		 <TableRowColumn>
 								<Button label="查看"  type="operation"  operation="view"/>
-								<CheckPermission  operateCode="main_news_add" >
-									<Button label="编辑"  type="operation"  operation="edit"/>
-								</CheckPermission>
+									<Button label="编辑" operateCode="main_news_add"  type="operation"  operation="edit"/>
 		              		 </TableRowColumn>
 		              	</TableRow>
 		              </TableBody>
