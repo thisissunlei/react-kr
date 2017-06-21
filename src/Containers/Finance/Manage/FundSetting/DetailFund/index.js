@@ -131,9 +131,7 @@ export default class TotalFund extends React.Component {
                         paddingTop:2
                     }}>
                         <Col md={4} align="left">
-                             <CheckPermission  operateCode="fina_category_create1st" >
-                                    <Button label="新建子项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
-                             </CheckPermission>
+                            <Button label="新建子项" type='button' operateCode="fina_category_create1st" joinEditForm onTouchTap={this.openNewCreateFund}/>
                         </Col>
 
                         <Col md={8} align="right">
@@ -206,9 +204,8 @@ export default class TotalFund extends React.Component {
                                 }}></TableRowColumn>
                                 <TableRowColumn>
                                     <Button label="查看" type="operation" operation="view"/>
-                                     <CheckPermission  operateCode="fina_category_edit2nd" >
-                                            <Button label="编辑" type="operation" operation="edit"/>
-                                    </CheckPermission>
+                                    <Button label="编辑" operateCode="fina_category_edit2nd" type="operation" operation="edit"/>
+                                   
                                 </TableRowColumn>
                             </TableRow>
                         </TableBody>
