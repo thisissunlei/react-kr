@@ -26,6 +26,7 @@ let State = observable({
 		type:'',
 		time:''
 	},
+	newsDetail:'',
 
 });
 //新建编辑保存
@@ -60,6 +61,7 @@ State.getNewsDate = action(function(id) {
 	var _this = this;
 	Http.request('get-news-detail', {id:id}).then(function(response) {
 		_this.newsDate=response;
+		_this.newsDetail = response.newsContent;
 		Store.dispatch(initialize('editNewList',response));
 	}).catch(function(err) {
 		Message.error(err.message);
