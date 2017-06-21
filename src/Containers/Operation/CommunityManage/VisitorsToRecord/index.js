@@ -414,7 +414,7 @@ class VisitorsToRecord  extends React.Component{
 
 			                <TableRowColumn type="operation">
                           <Button label="查看"  type="operation"  operation="detail" />
-			                    <Button label="编辑"  type="operation"  operation="edit" />
+			                    <Button label="编辑" operateCode="com_sys_visit_edit" type="operation"  operation="edit" />
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>

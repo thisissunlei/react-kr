@@ -121,13 +121,12 @@ class CommunityList  extends React.Component{
                 <Col
                style={{float:'left'}}
              >
-                <CheckPermission  operateCode="oper_location_add" >
                   <Button
                       label="新建地点"
                       type='button'
                       onTouchTap={this.openNewCreate}
+                      operateCode="oper_location_add"
                   />
-                </CheckPermission>
             </Col>
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -213,12 +212,8 @@ class CommunityList  extends React.Component{
                         return (<span>{value}</span>)}}
                       ></TableRowColumn>
                       <TableRowColumn type="operation">
-                        <CheckPermission  operateCode="oper_location_add" >
-                          <Button label="编辑"  type="operation"  operation="edit" />
-                        </CheckPermission>
-                        <CheckPermission  operateCode="oper_location_del" >
-                          <Button label="删除"  type="operation"  operation="delete" />
-                        </CheckPermission>
+                          <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_location_add"/>
+                          <Button label="删除"  type="operation"  operation="delete" operateCode="oper_location_del"/>
                       </TableRowColumn>
                      </TableRow>
               </TableBody>

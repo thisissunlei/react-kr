@@ -491,10 +491,8 @@ export default class EquipmentDefinition extends React.Component {
               <Row>
                 <ListGroup>
                   <ListGroupItem>
-                    <CheckPermission  operateCode="oper_sys_deviceDefinition_edit" >
 
-                    <Button label="新增定义"  onTouchTap={this.openNewCreateDefinitionDialog}/>
-                    </CheckPermission>
+                    <Button label="新增定义"  onTouchTap={this.openNewCreateDefinitionDialog} operateCode="oper_sys_deviceDefinition_edit"/>
 
                   </ListGroupItem>
                   <ListGroupItem style={{marginLeft:10}}>
@@ -647,10 +645,8 @@ export default class EquipmentDefinition extends React.Component {
                     return (
                       <span>
                       <Button label="上线"  type="operation" operation="online" onClick={this.onlineOrOffline.bind(this,itemData)}/>
-                      <CheckPermission  operateCode="oper_sys_deviceDefinition_edit" >
 
-                        <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditEquipmentDialog.bind(this,itemData)}/>
-                      </CheckPermission>
+                        <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditEquipmentDialog.bind(this,itemData)} operateCode="SysDeviceDefinition"/>
 
                       <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
                       </span>

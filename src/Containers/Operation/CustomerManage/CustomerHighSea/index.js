@@ -156,13 +156,12 @@ class CustomerHighSea extends React.Component{
 					     align="left"
 					     style={{float:'left',marginTop:3}}
 					   >
-					   <CheckPermission  operateCode="oper_csr_market_import" >
 							<Button
 									label="导入"
 									type='button'
 									onTouchTap={this.openImportData}
+									operateCode="oper_csr_market_import"
 							/>
-					 </CheckPermission>
 					  </Col>
 
 			          <Col style={{marginTop:-15,float:'right'}}>
