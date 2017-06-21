@@ -244,9 +244,9 @@ export default class List extends React.Component {
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-										<CheckPermission  operateCode="mbr_list_add" >
-											<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
-										</CheckPermission>
+										
+											<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+									
 										{/*高级查询*/}
 										<Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
@@ -341,9 +341,9 @@ export default class List extends React.Component {
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
-													<CheckPermission  operateCode="mbr_list_edit" >
-														<Button label="编辑"  type="operation" operation="edit"/>
-													</CheckPermission>
+												
+														<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+												
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
