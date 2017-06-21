@@ -30,17 +30,14 @@ import cityDataState from "../../../../Components/KrField/CityComponent/State";
 
 @observer
 export default class List extends React.Component {
-	static contextTypes = {
-		router: React.PropTypes.object.isRequired
-	}
+
 	constructor(props, context) {
 		super(props, context);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-		this.params = this.context.router.params;
+		// this.params = this.context.router.params;
 	}
 	openNewCreateDialog=()=> {
-		console.log('============')
 		State.openNewCreate = !State.openNewCreate;
 	}
 	// 打开编辑详情的Dialog
@@ -83,6 +80,7 @@ export default class List extends React.Component {
 	onSearchSubmit=(value)=>{
 		let values ={};
 		values.name = value.content;
+		values.page = 1;
 		State.searchParams = Object.assign({},State.searchParams,values);
 	}
 	// 打开高级查询
@@ -118,7 +116,12 @@ export default class List extends React.Component {
 		State.upItemPosition(itemData.id);
 	}
 	closeItemDetail=()=>{
-		State.openDetail = false;
+		qqState.openDetail = false;
+	}
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},State.searchParams);
+		searchParams.page = page;
+		State.searchParams = searchParams;
 	}
 	closeNavs=()=>{
 		State.openCloseNavs = false;
@@ -167,6 +170,7 @@ export default class List extends React.Component {
 											onOperation={this.onOperation}
 											exportSwitch={true}
 											onExport={this.onExport}
+											onPageChange={this.onPageChange}
 											ajaxFieldListName='items'
 											ajaxUrlName='activityList'
 											ajaxParams={State.searchParams}

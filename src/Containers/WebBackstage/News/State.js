@@ -14,7 +14,18 @@ let State = observable({
 	openView:false,
 	openEdit:false,
 	openSearch:false,
-	newsDate:{}
+	newsDate:{},
+	searchParams: {
+		beginDate:'',
+		cityId:'',
+		countyId: '',
+		endDate:'',
+		name:'',
+		page: 1,
+		pageSize: 15,
+		type:'',
+		time:''
+	},
 
 });
 //新建编辑保存
@@ -32,11 +43,13 @@ State.saveNews = action(function(params) {
 //编辑保存
 State.saveEditNews = action(function(params) {
 	var _this = this;
-	console.log('111111',params)
+	let searchParams = Object.assign({},this.searchParams);
+	searchParams.time = +new Date();
+	
 	Http.request('save-news', {},params).then(function(response) {
 		 Message.success("修改成功");
 		_this.openEditDialog();
-		window.location.reload();
+		_this.searchParams = searchParams;
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -68,7 +81,6 @@ State.openEditDialog = action(function(params) {
 
 });
 State.openSearchDialog = action(function(params) {
-	console.log('111')
 	this.openSearch=!this.openSearch;
 });
 
