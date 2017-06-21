@@ -53,7 +53,6 @@ class EditEquipmentForm extends React.Component{
 		}
 	}
 	getBasicData=(detail)=>{
-		console.log("detail",detail);
 		let _this = this;
 		let SearchLocationParams = {communityId:detail.communityId,whereFloor:detail.floor,type:detail.propertyId}
 		Http.request('getLocationByProperty',SearchLocationParams)
@@ -69,8 +68,8 @@ class EditEquipmentForm extends React.Component{
 		Http.request('getFloorByComunity',{communityId:detail.communityId})
 	    	.then(function(response){
 	    		var arrNew = []
-	    		for (var i=0;i<response.whereFloors.length;i++){
-	    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
+	    		for (var i=0;i<response.floors.length;i++){
+	    			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
 	    		}
 	    		_this.setState({
 	    			floorsOptions : arrNew,
@@ -129,8 +128,8 @@ class EditEquipmentForm extends React.Component{
   		Http.request('getFloorByComunity',CommunityId)
     	.then(function(response){
     		var arrNew = []
-    		for (var i=0;i<response.whereFloors.length;i++){
-    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
+    		for (var i=0;i<response.floors.length;i++){
+    			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
     		}
     		_this.setState({
     			floorsOptions : arrNew
@@ -384,11 +383,12 @@ class EditEquipmentForm extends React.Component{
 			<div style={{padding:'35px 0 0 35px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField name="communityId"
-						component="searchCommunity"
+						component="searchCommunityAll"
 						onChange = {this.onChangeSearchCommunity}
 						label="社区名称"
 						requireLabel={true}
 						style={{width:252,margin:'0 35px 5px 0'}}
+						inline={false}
 					/>
 					<KrField name="floor"
 						component="select"

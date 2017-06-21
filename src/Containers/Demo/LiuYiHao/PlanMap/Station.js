@@ -8,10 +8,6 @@ export default class Station extends React.Component {
 
 	}
 
-	componentDidMount() {
-    console.log("2")
-  }
-
 	render() {
     let {data} = this.props;
 

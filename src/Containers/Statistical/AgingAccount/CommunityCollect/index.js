@@ -93,21 +93,28 @@ class CommunityCollect extends React.Component{
 
 
 	exportExcle=()=>{
-		// console.log(`/api/krspace-finance-web/finance/explan-summary-excel?communityId=${State.communityId}&endDate=${State.endDate}`);
+
 		window.open(`/api/krspace-finance-web/finance/explan-summary-excel?communityId=${State.communityId}&endDate=${State.endDate}`);
 
 	}
 
+	toDetailFun=(param)=>{
+		
+		let {toDetailFun} = this.props;
+		toDetailFun && toDetailFun(param);
+	}
+
+
 
 	render(){
 		let {NavModel} = this.props;
-		// console.log("NavModel",NavModel,NavModel.openSidebar);
+
 		let _this = this;
 		let {dataList,isShowLeft} = this.state;
 		let {sidebar_nav}=this.props;
-		// console.log("sidebar_nav communityCollect",sidebar_nav);
+		
 		return(
-			<div className="community-collect">
+			<div className="community-collect" >
 				<div className="community-collect-box">
 					<div className="search-form-community-collect">
 						
@@ -116,7 +123,7 @@ class CommunityCollect extends React.Component{
 					</div>
 					<div className="community-collect-table-box" ref="communityCollectTableBox">
 						{
-							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={NavModel.openSidebar}/>:null
+							isShowLeft?<TableIndex isLeftProps={isShowLeft} isLeftNavShow={NavModel.openSidebar} toDetailFun={this.toDetailFun}/>:null
 						}
 						<div className="export" onClick={this.exportExcle}>导出</div>
 					</div>

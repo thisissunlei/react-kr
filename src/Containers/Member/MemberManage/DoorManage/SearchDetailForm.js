@@ -36,7 +36,7 @@ export default class SearchDetailForm extends React.Component {
 		return (
 			<div className="edit-form" style={{display:"inline-block",padding:0,width:252,margin:"-12px 10px 0 0",float:"right"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-					<KrField name="communityId"  label="" component="searchCommunity" onChange={this.changeCommunity}/>
+					<KrField name="communityId"  label="" component="searchCommunityAll" onChange={this.changeCommunity} inline={false}/>
 				</form>
 			</div>
 )

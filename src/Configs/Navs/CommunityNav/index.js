@@ -18,6 +18,12 @@ module.exports = [
 				router: '/community/communityManage/controlTable',
 			},
 			{
+				primaryText: '催款表',
+				menuCode: 'payment_reminder',
+				router: '/community/paymentremindtable',
+			},
+			
+			{
 				primaryText: '空间预订',
 				menuCode: 'oper_appointment_base',
 				router: '/community/communityManage/allAppointment'

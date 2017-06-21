@@ -890,11 +890,6 @@ const APIS = {
         url: '/api/krspace-finance-web/community/sysDeviceDefinition/door-hardware-repetition?type={type}&code={code}&id={id}',
         method: 'get'
     },
-    //运营平台-基础配置-设备定义-获取楼层
-    'getFloorByComunity': {
-        url: '/api/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
-        method: 'get'
-    },
     
     //运营平台-基础配置-设备定义-传图片
     'postEquipmentImg': {

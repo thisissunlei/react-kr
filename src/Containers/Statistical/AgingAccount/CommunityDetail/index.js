@@ -2,6 +2,13 @@
 
 import React from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
+
+import {
+	reduxForm,
+	formValueSelector,
+	FieldArray,
+	change
+} from 'redux-form';
 import {
 	Message,
 	Dialog,
@@ -65,15 +72,22 @@ class CommunityDetail  extends React.Component{
 		// let {LeftIconClick} = this.props;
 		// let  {showSideNav}=LeftIconClick;
 		// console.log("showSideNav==>",showSideNav);
+
 	}
 	
 	componentWillUnmount(){
 		$(window).unbind();
 	}
 	componentWillReceiveProps(nextProps){
+		
+		State.communityId = nextProps.communityId;
+		Store.dispatch(change('SearchDetailForm','communityId',State.communityId));
+		if(nextProps.communityId !== this.props.communityId){
+			State.getDetailList();
+		}
 		let _this =this;
 		this.setState({
-			isShowLeft : nextProps.isLeftProps
+			isShowLeft : nextProps.isLeftProps,
 		},function(){
 			// console.log("!_this.state.isShowLeft",!_this.state.isShowLeft);
 			if(!_this.state.isShowLeft){
@@ -104,16 +118,22 @@ class CommunityDetail  extends React.Component{
 		
 	}
 
+	onChangeCommunity=(communityId)=>{
+		let {onChangeCommunity}= this.props;
+		onChangeCommunity && onChangeCommunity(communityId);
+	}
+
 	render(){
+		
 		let {isShowLeft}=this.state;
 		let {pageSecond,NavModel}=this.props;
-		// console.log("isShowLeft",isShowLeft);
+
 		return(
 			<div className="community-detail">
 				<div className="community-detail-box">
 					<div className="search-form-community-detail">
 							
-						<SearchDetailForm/>
+						<SearchDetailForm onChangeCommunity={this.onChangeCommunity}/>
 						
 					</div>
 					<div className="community-detial-table-box" ref="communityDetailTableBox">

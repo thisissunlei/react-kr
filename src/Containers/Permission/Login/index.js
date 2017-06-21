@@ -228,7 +228,11 @@ class Login extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('loginSubmit', {},obj)).then(function(response) {
 			//跳转？
-			window.location.href = 'http://op.krspace.cn/new/';
+
+			// window.location.href = '/new/';
+
+			window.location.href =  "http://"+window.location.host;
+
 		}).catch(function(err) {
 			 if(err.code==-1){
 			 	Message.error(err.message)
@@ -609,7 +613,7 @@ class Login extends Component {
 				                   <div className="input-verifycode">
 					                   <input ref="imgCode" type="text" placeholder="请输入验证码"/>
 				                   </div>
-				                   <img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://optest01.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
+				                   <img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://op.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
 			                 	</li>
 										 	 }
                        <li>

@@ -107,7 +107,8 @@ class Merchants extends Component{
 				State.hasOfficeChange(false);
 			}
 			State.switchEditCustomerList();
-
+			State.allData = response;
+			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -470,6 +471,7 @@ class Merchants extends Component{
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+
 					 >
 						<EditCustomerList
 			                 comeFrom="Merchant"
@@ -480,6 +482,7 @@ class Merchants extends Component{
 			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
+							 allData = {State.allData}
 
 						/>
 					</Drawer>
