@@ -25,7 +25,7 @@ import {
 	Message,
 	Title,
 	SnackTip,
-	CheckPermission
+	
 
 } from 'kr-ui';
 
@@ -294,9 +294,9 @@ export default class List extends React.Component {
 									<Row >
 
 									<Col  align="left" style={{marginLeft:0,float:'left'}}> 
-										<CheckPermission  operateCode="mbr_define_add" >
-											<Button label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> 
-										</CheckPermission>
+									
+											<Button operateCode="mbr_define_add" label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> 
+									
 									</Col>
 									<Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
 									<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -336,9 +336,9 @@ export default class List extends React.Component {
 														<TableRowColumn name="enable" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
 														<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
 														<TableRowColumn type="operation">
-															<CheckPermission  operateCode="mbr_define_add" >
-															  <Button label="编辑"  type="operation"  operation="edit" />
-															</CheckPermission>
+															
+															  <Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
+														
 														</TableRowColumn>
 													 </TableRow>
 											</TableBody>
