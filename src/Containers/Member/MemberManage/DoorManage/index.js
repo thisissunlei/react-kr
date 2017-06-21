@@ -17,8 +17,7 @@ import {
 	Grid,
 	Row,
 	ListGroup,
-	ListGroupItem,
-	CheckPermission
+	ListGroupItem
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 
@@ -237,9 +236,9 @@ export default class List extends React.Component {
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 								<Title value="门禁授权"/>
 								<Section title={`入驻团队门禁授权`} description="" >
-										<CheckPermission  operateCode="door_oauth" >
-											<Button label="新增授权"  onTouchTap={this.openNewCreateDialog} />
-										</CheckPermission>
+										
+											<Button label="新增授权"  operateCode="door_oauth" onTouchTap={this.openNewCreateDialog} />
+										
 										<SearchDetailForm onChange={this.onChangeCommunity}/>
 										<SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit} style={{float:"right"}}/>
 
@@ -291,15 +290,14 @@ export default class List extends React.Component {
 
 											<TableRowColumn name="endDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
-													<CheckPermission  operateCode="door_oauth" >
-														<Button label="编辑"  type="operation" operation="edit"/>
-													</CheckPermission>
-													<CheckPermission  operateCode="door_oauth_operate" >
-														<Button label="授权"  type="operation" operation="impower"/>
-													</CheckPermission>
-													<CheckPermission  operateCode="door_oauth_del" >
-													<Button label="删除"  type="operation" operation="delete" onClick={this.confirmDelete.bind(this.itemDetail)}/>
-											 		</CheckPermission>
+													
+														<Button label="编辑" operateCode="door_oauth" type="operation" operation="edit"/>
+													
+														<Button operateCode="door_oauth_operate" label="授权"  type="operation" operation="impower"/>
+												
+													
+														<Button label="删除" operateCode="door_oauth_del" type="operation" operation="delete" onClick={this.confirmDelete.bind(this.itemDetail)}/>
+											 		
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>

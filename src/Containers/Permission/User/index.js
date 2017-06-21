@@ -22,7 +22,6 @@ import {
 	KrDate,
 	Message,
 	Drawer,
-	CheckPermission,
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
@@ -194,15 +193,9 @@ class Operations extends React.Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-								<CheckPermission  operateCode="sso_roleList_edit" >
-									<Button label="编辑"   type="operation" operation="edit"/>
-								</CheckPermission>
-								<CheckPermission  operateCode="sso_roleList_del" >
-									<Button label="删除"  type="operation" operation="delete"/>
-								</CheckPermission>
-								<CheckPermission  operateCode="sso_roleList_showUser" >
-									<Button label="查看人员"  type="operation" operation="view"/>
-								</CheckPermission>
+									<Button label="编辑"   type="operation" operateCode="sso_roleList_edit" operation="edit"/>
+									<Button label="删除"  type="operation" operateCode="sso_roleList_del" operation="delete"/>
+									<Button label="查看人员"  type="operation" operateCode="sso_roleList_showUser" operation="view"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

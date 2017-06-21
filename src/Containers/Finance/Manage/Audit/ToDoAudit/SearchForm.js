@@ -14,7 +14,6 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchForms,
-	CheckPermission
 } from 'kr-ui';
 import './index.less';
 
@@ -74,13 +73,9 @@ class SearchForm extends React.Component {
 
 		return (
 			<div>
-				<CheckPermission  operateCode="fina_verify_addReturn" >
-					<Button label="添加回款" onTouchTap={this.openAdd} />
-				</CheckPermission>
+				<Button label="添加回款" operateCode="fina_verify_addReturn" onTouchTap={this.openAdd} />
 				<span className="u-span"></span>
-				<CheckPermission  operateCode="fina_verify_batch" >
-					<Button label="批量审核" onTouchTap={this.openSomeAudit} />
-				</CheckPermission>
+				<Button label="批量审核" operateCode="fina_verify_batch" onTouchTap={this.openSomeAudit} />
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
 				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称" inputName="todo"/>
 

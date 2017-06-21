@@ -79,7 +79,11 @@ export default class Button extends React.Component {
 		}
 	}
 	componentDidMount() {
-		this.getCheck();
+		var _this=this;
+		setTimeout(function(){
+			_this.getCheck();
+		},1000)
+		
 
 	}
 
@@ -97,6 +101,7 @@ export default class Button extends React.Component {
 				_this.setState({
 					IsOperate
 				})
+				
 		}
 	}
 
@@ -160,7 +165,7 @@ export default class Button extends React.Component {
         	lineHeight:'32px'
         }
 
-			
+		
 		if(operateCode || menusCode){
          if(IsOperate|| IsMenus){
 			if (type == 'link') {

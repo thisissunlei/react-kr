@@ -302,12 +302,8 @@ export default class DoneAudit extends React.Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        <CheckPermission  operateCode="fina_verify_returnedit" >
-                            <Button label="编辑"  type="operation"  operation="edit"/>
-                        </CheckPermission>
-                        <CheckPermission  operateCode="fina_verify_delReturn" >
-                            <Button label="删除"  type="operation"  operation="delete"/>
-                        </CheckPermission>
+                        <Button label="编辑" operateCode="fina_verify_returnedit" type="operation"  operation="edit"/>
+                        <Button label="删除" operateCode="fina_verify_delReturn" type="operation"  operation="delete"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>
