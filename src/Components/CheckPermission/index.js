@@ -19,38 +19,39 @@ export default class CheckPermission extends React.Component {
 			IsOperate:false,
 		}
 		
-		const {NavModel}=this.props;
+		
 
 	}
 	componentDidMount() {
-		const {NavModel,menusCode,operateCode}=this.props;
 		var _this=this;
-		if(menusCode){
-			
-			 setTimeout(function(){
-				var IsMenus=NavModel.checkMenus(menusCode);
-				_this.setState({
-					IsMenus
-				})
-			},1000)
-			
-		}
-		if(operateCode){
-			setTimeout(function(){
-				var IsOperate=NavModel.checkOperate(operateCode);
-				_this.setState({
-					IsOperate
-				})
-			},1000)
-		}
+		setTimeout(function(){
+			_this.getCheck();
+		},1000)
 		
 
 	}
 
+	getCheck=()=>{
+		const {NavModel,menusCode,operateCode}=this.props;
+		
+		if(menusCode){
+				var IsMenus=NavModel.checkMenus(menusCode);
+				this.setState({
+					IsMenus
+				})
+		}
+		if(operateCode){
+				var IsOperate=NavModel.checkOperate(operateCode);
+				this.setState({
+					IsOperate
+				})
+		}
+	}
+	
 
 	 
 	render() {
-		let {children,NavModel}=this.props;
+		let {children,NavModel,operateCode}=this.props;
 		let {IsOperate,IsMenus}=this.state;
 		if(IsOperate || IsMenus){
 			return (
