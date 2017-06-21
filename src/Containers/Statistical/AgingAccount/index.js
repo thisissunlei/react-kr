@@ -35,11 +35,11 @@ class AgingAccount  extends React.Component{
 
 	componentDidMount() {
 		let {NavModel} = this.props;
-		// console.log("----校验有没有菜单权限",NavModel.checkMenus("cmt_summary"),NavModel.checkMenus("cmt_explan"));
+		console.log("----校验有没有菜单权限",NavModel.checkOperate("cmt_summary"),NavModel.checkOperate("cmt_explan"));
 		let _this =this;
 		
 		// 有汇总
-		if(NavModel.checkMenus("cmt_summary")){
+		if(NavModel.checkOperate("cmt_summary")){
 			// 有社区汇总表
 			_this.setState({
 				hasCollect:true
@@ -50,14 +50,14 @@ class AgingAccount  extends React.Component{
 			})
 		}
 		// 有明细
-		if(NavModel.checkMenus("cmt_explan")){
+		if(NavModel.checkOperate("cmt_explan")){
 			// 有社区明细表
 			_this.setState({
 				hasDetail:true,
 			})
 		}
 		// 有明细没汇总
-		if(!NavModel.checkMenus("cmt_summary")  &&NavModel.checkMenus("cmt_explan")){
+		if(!NavModel.checkOperate("cmt_summary")  &&NavModel.checkOperate("cmt_explan")){
 			// 有社区明细表
 			_this.setState({
 				hasDetail:true,
