@@ -321,9 +321,7 @@ export default class DoAudit extends React.Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        <CheckPermission  operateCode="fina_verify_editVerified" >
-                          <Button label="编辑"  type="operation"  operation="edit"/>
-                        </CheckPermission>
+                        <Button label="编辑" operateCode="fina_verify_editVerified" type="operation"  operation="edit"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>

@@ -26,7 +26,6 @@ import {
   Tooltip,
   Drawer,
   Message,
-  CheckPermission
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
@@ -543,15 +542,9 @@ export default class ToDoAudit extends React.Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        <CheckPermission  operateCode="fina_verify_editNotVerify" >
-                            <Button label="编辑"  type="operation"  operation="edit"/>
-                        </CheckPermission>
-                        <CheckPermission  operateCode="fina_verify_delNotVerify" >
-                            <Button label="删除"  type="operation"  operation="delete"/>
-                        </CheckPermission>
-                        <CheckPermission  operateCode="fina_verify_batch" >
-                            <Button label="审核"  type="operation"  operation="audit"/>
-                        </CheckPermission>
+                        <Button label="编辑" operateCode="fina_verify_editNotVerify" type="operation"  operation="edit"/>
+                        <Button label="删除" operateCode="fina_verify_delNotVerify" type="operation"  operation="delete"/>
+                        <Button label="审核" operateCode="fina_verify_batch" type="operation"  operation="audit"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>
