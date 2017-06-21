@@ -161,10 +161,8 @@ export default class LessorManageList extends Component {
 					<Grid style={{marginBottom:20}}>
 						<Row>
 							<Col md={4}  align="left"> 
-							<CheckPermission  operateCode="lessor_management_edit" >
 
-								<Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> 
-							</CheckPermission>
+								<Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} operateCode="lessor_management_edit"/> 
 
 							</Col>
 							<Col md={8} align="right">
@@ -194,9 +192,7 @@ export default class LessorManageList extends Component {
 							<TableRowColumn name="createdate" type="date"></TableRowColumn>
 							<TableRowColumn>
 								   <Button label="查看"  type="operation" operation="view"/>
-							<CheckPermission  operateCode="lessor_management_edit" >
-							  <Button label="编辑"  type="operation" operation="edit"/>
-							</CheckPermission>
+							  <Button label="编辑"  type="operation" operation="edit" operateCode="lessor_management_edit"/>
 
 							 </TableRowColumn>
 						 </TableRow>

@@ -283,14 +283,13 @@ searchChange = (values) =>{
 						     align="left"
 						     style={{float:'left'}}
 						   >
-							 <CheckPermission  operateCode="oper_cmt_businessArea_edit" >
 
 								<Button
 									label="新建商圈"
 									type='button'
 									onTouchTap={this.openNewBusiness}
+									operateCode="oper_cmt_businessArea_edit"
 								/>
-							 </CheckPermission>
 
 						  </Col>
 
@@ -359,10 +358,8 @@ searchChange = (values) =>{
 			                ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
-												<CheckPermission  operateCode="oper_cmt_businessArea_edit" >
 
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-											</CheckPermission>
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_businessArea_edit"/>
 
 			                </TableRowColumn>
 				          </TableRow>
