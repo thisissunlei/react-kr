@@ -54,13 +54,12 @@ State.onNewCommunitySubmit= action(function(data) {
 		 page=1;
 	 }
 	 Http.request('actions-edit',{},data).then(function(response) {
+		 var data = Object.assign({},_this.searchParams);
+		 data.page = page==1?1:_this.searchParams.page;
+		 data.pageSize = 15;
 		_this.openNewCommunity=false;
 		_this.openEditCommunity=false;
-		_this.searchParams={
-			 time:+new Date(),
-			 page:page==1?1:_this.searchParams.page,
-			 pageSize:15
-		}
+		_this.searchParams=data;
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});

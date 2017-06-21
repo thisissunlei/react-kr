@@ -247,7 +247,7 @@ class Merchants extends Component{
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate==''){
 			searchParams.createEndDate=searchParams.createStartDate
 		}
-
+		  searchParams.page = 1;
       	  State.searchParams=searchParams;
 
       	State.searchUpperCustomer();
