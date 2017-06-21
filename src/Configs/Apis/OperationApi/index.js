@@ -506,5 +506,6 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
          method: 'post'
       },
+    
 
 }
