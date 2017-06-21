@@ -305,13 +305,14 @@ class Merchants extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-								<CheckPermission  operateCode="oper_csr_add" >	
+									
 									<Button
 											label="新建客户"
 											type='button'
 											onTouchTap={this.opNewMerchants}
+											operateCode="oper_csr_add"
 									/>
-								</CheckPermission>
+								
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>

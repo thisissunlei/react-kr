@@ -363,13 +363,13 @@ class SignedClient extends React.Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-					    <CheckPermission  operateCode="oper_order_add" >
-									<Button
-											label="新建订单"
-											type='button'
-											onTouchTap={this.openContractFirst}
-									/>
-						 </CheckPermission>
+					   
+							<Button
+									label="新建订单"
+									type='button'
+									onTouchTap={this.openContractFirst}
+									operateCode="oper_order_add"
+							/>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>

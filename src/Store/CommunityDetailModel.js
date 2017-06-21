@@ -23,6 +23,7 @@ let State = observable({
 
 	deleteIndentId:"",
 	presentShow:false,
+	isEditCustomer:true,
 
 });
 
