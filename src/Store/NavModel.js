@@ -235,7 +235,7 @@ State.checkOperate= action(function(resourcesCode){
 			return false;
 		}
 	}
-	
+	return false;
 });
 //校验菜单是否有权限
 State.checkMenus= action(function(menusCode){
@@ -248,6 +248,7 @@ State.checkMenus= action(function(menusCode){
 			return false;
 		}
 	}
+	return false;
 	
 });
 module.exports = State;

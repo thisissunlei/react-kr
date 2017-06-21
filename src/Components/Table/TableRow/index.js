@@ -92,16 +92,7 @@ export default class TableRow extends React.Component {
 						'data-row':rowNumber
 					});
 				}
-				if(child.props.children){
-					let {children}=child.props;
-					if(children.props.operation){
-						return React.cloneElement(children,{
-							onClick:_this.onOperation,
-							'data-operation':children.props.operation,
-							'data-row':rowNumber
-						});
-					}
-				}
+				
 				return React.cloneElement(child);
 			}else{
 				return child;

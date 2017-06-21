@@ -193,9 +193,7 @@ export default class TotalFund extends React.Component {
                                 }}></TableRowColumn>
                                 <TableRowColumn>
                                     <Button label="查看" type="operation" operation="view"/>
-                                    <CheckPermission  operateCode="fina_category_edit2nd" >
-                                        <Button label="编辑" type="operation" operation="edit"/>
-                                    </CheckPermission>
+                                    <Button label="编辑" type="operation" operateCode="fina_category_edit2nd" operation="edit"/>
                                     <Button label="下一级" type="operation" operation="next"/>
                                 </TableRowColumn>
                             </TableRow>
