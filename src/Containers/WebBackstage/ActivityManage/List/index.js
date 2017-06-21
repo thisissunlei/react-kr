@@ -152,9 +152,7 @@ export default class List extends React.Component {
 								<Title value="活动列表 "/>
 								<Section title={`活动列表`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-										<CheckPermission  operateCode="main_activity_add" >
-											<Button label="新建活动"  onTouchTap={this.openNewCreateDialog} />
-										</CheckPermission>
+											<Button label="新建活动" operateCode="main_activity_add" onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
 										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
@@ -265,12 +263,8 @@ export default class List extends React.Component {
 													return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<CheckPermission  operateCode="main_activity_add" >
-																<Button label="编辑"  type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
-															</CheckPermission>
-															<CheckPermission  operateCode="main_acitvity_down" >
-																<Button label="发布"  type="operation" onTouchTap={this.publish.bind(this,itemData)}/>
-															</CheckPermission>
+																<Button label="编辑" operateCode="main_activity_add" type="operation" onTouchTap={this.openEditDialog.bind(this,itemData)}/>
+																<Button label="发布"  operateCode="main_acitvity_down"  type="operation" onTouchTap={this.publish.bind(this,itemData)}/>
 															</span>
 														)
 												}else{
@@ -279,24 +273,16 @@ export default class List extends React.Component {
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<CheckPermission  operateCode="main_acitvity_down" >
-																<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
-															</CheckPermission>
-															<CheckPermission  operateCode="main_acitvity_top" >
-																<Button label="取消置顶"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
-															</CheckPermission>
+																<Button label="下线" operateCode="main_acitvity_down" type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
+																<Button label="取消置顶" operateCode="main_acitvity_top"  type="operation" onTouchTap={this.resetUpPosition.bind(this,itemData)}/>
 															</span>
 														)
 													}else{
 														return (
 															<span>
 															<Button label="查看"  type="operation" onTouchTap={this.openItemDetail.bind(this,itemData)}/>
-															<CheckPermission  operateCode="main_acitvity_down" >
-																<Button label="下线"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
-															</CheckPermission>
-															<CheckPermission  operateCode="main_acitvity_top" >
-															<Button label="置顶"  type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
-															</CheckPermission>
+																<Button label="下线" operateCode="main_acitvity_down"  type="operation" onTouchTap={this.downPublish.bind(this,itemData)}/>
+															<Button label="置顶" operateCode="main_acitvity_top" type="operation" onTouchTap={this.upPosition.bind(this,itemData)}/>
 															</span>
 														)
 													}
