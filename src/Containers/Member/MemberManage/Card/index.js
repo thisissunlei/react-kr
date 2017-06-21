@@ -269,7 +269,7 @@ export default class Card extends React.Component {
 								}else{
 									return (
 								
-										<Button  operateCode="mbr_card_storage" label="删除"  type="operation" onTouchTap={this.deleteItem.bind(this,itemData)}/>
+										<Button  label="删除"  type="operation" onTouchTap={this.deleteItem.bind(this,itemData)}/>
 									
 									)
 								}
