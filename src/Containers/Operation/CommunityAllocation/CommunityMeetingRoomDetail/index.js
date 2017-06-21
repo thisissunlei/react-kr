@@ -233,25 +233,23 @@ SelectCommunity=()=>{
 			          <Col
 					     style={{float:'left'}}
 					   >
-					        <CheckPermission  operateCode="oper_cmt_space_edit" >
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="新建"
 											type='button'
 											onTouchTap={this.openAddStation}
+											operateCode="oper_cmt_space_edit"
 									/></div>
-							</CheckPermission>
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="选择社区"
 											type='button'
 											onTouchTap={this.SelectCommunity}
 									/></div>
-							<CheckPermission  operateCode="oper_cmt_space_import" >
 									<Button
 											label="导入"
 											type='button'
 											onTouchTap={this.openImporData}
+											operateCode="oper_cmt_space_import"
 									/>
-							</CheckPermission>
 					  </Col>
 
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -298,12 +296,8 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'禁用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-							   <CheckPermission  operateCode="oper_cmt_space_edit" >
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-							  </CheckPermission>
-							   <CheckPermission  operateCode="oper_cmt_space_delete" >
-			                    <Button label="删除"  type="operation"  operation="delete" />
-							</CheckPermission>
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_space_edit"/>
+			                    <Button label="删除"  type="operation"  operation="delete" operateCode="oper_cmt_space_delete"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

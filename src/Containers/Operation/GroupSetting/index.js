@@ -257,10 +257,7 @@ export default class GroupSetting  extends Component{
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
 									<Col md={4} align="left"> 
-										<CheckPermission  operateCode="oper_cmt_stat_edit" >
-
-											<Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> 
-										</CheckPermission>
+											<Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  operateCode="oper_cmt_stat_edit"/> 
 									</Col>
 									<Col md={8} align="right" style={{marginTop:0}}>
 										<ListGroup>
@@ -362,9 +359,7 @@ export default class GroupSetting  extends Component{
 												></TableRowColumn>
 
 												<TableRowColumn>
-													<CheckPermission  operateCode="oper_cmt_stat_edit" >
-													  <Button label="编辑"  type="operation"  operation="edit" />
-													</CheckPermission>
+													  <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_stat_edit"/>
 												 </TableRowColumn>
 											 </TableRow>
 										</TableBody>

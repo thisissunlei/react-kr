@@ -154,13 +154,12 @@ lastGoTo=()=>{
 					     style={{float:'left'}}
 					   >
 									<div style={{display:'inline-block',marginRight:20}}>
-									  <CheckPermission  operateCode="oper_cmt_code_edit" >
 										<Button
 											label="新建代码"
 											type='button'
 											onTouchTap={this.openAddCode}
+											operateCode="oper_cmt_code_edit"
 									    />
-									 </CheckPermission> 
 									</div>
 									{State.lastFlag&&<Button
 											label="上一级"
@@ -211,9 +210,7 @@ lastGoTo=()=>{
 													 }}  ></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISENABLE'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-							 <CheckPermission  operateCode="oper_cmt_code_edit" >
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-							 </CheckPermission>
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_code_edit"/>
 								<Button label="下一级"  type="operation"  operation="next" />
 			                </TableRowColumn>
 			               </TableRow>
