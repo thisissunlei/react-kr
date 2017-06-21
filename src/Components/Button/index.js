@@ -74,7 +74,6 @@ export default class Button extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			IsMenus:false,
 			IsOperate:false,
 		}
 	}
@@ -86,16 +85,12 @@ export default class Button extends React.Component {
 		
 
 	}
-
+	componentWillReceiveProps(){
+		this.getCheck();
+	}
 	getCheck=()=>{
 		const {NavModel,menusCode,operateCode}=this.props;
 		var _this=this;
-		if(menusCode){
-				var IsMenus=NavModel.checkMenus(menusCode);
-				_this.setState({
-					IsMenus
-				})
-		}
 		if(operateCode){
 				var IsOperate=NavModel.checkOperate(operateCode);
 				_this.setState({
@@ -166,8 +161,8 @@ export default class Button extends React.Component {
         }
 
 		
-		if(operateCode || menusCode){
-         if(IsOperate|| IsMenus){
+		if(operateCode){
+         if(IsOperate){
 			if (type == 'link') {
 				if (disabled) {
 					delete other.href;
