@@ -25,6 +25,17 @@ class ViewNewList extends React.Component {
 		State.getNewsDate(detail.id);
 		
 	}
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(this.props.initializeValues,nextProps.detail)){
+			let {detail}=nextProps;
+			State.getNewsDate(detail.id);
+		}
+
+
+	}
+	componentWillUnmount(){
+		State.newsDetail='';
+	}
 	onCancel=()=>{
 		let {onCancel}=this.props;
 		onCancel && onCancel();
