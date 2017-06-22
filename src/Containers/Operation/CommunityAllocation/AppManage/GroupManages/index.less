@@ -37,11 +37,28 @@
 
 .g-create-group{
 	position: relative;
-	padding: 35px 45px 48px 53px;
+	padding: 35px 0 48px 0;
+	form{
+		padding-left: 103px;
+	}
+	
 	.u-view-img{
-		text-indent: 15px;
+		margin-bottom:16px;
 		p{
 			color:#333333;
+			display: inline-block;
+		    vertical-align: top;
+		    margin-top: 50px;
+		}
+		.u-person-img{
+			width:130px;
+			height:130px;
+			border-radius: 50% 50%;
+		}
+	}
+	.u-view-group{
+		.ui-form-label,.ui-form-controller,.ui-label-text{
+			padding-left:0;
 		}
 	}
 	.ui-detailContents,.ui-textInfos{
@@ -62,24 +79,20 @@
       background-position: center center;    
     }
     .u-create-title{
-	    position: relative;
-	    font-size: 18px;
-	    margin-left: -5px;
-	    .u-create-icon{
+	  position: relative;
+	  font-size: 18px;
+	  .title-text{
+		padding-left:103px;
+	  }
+	  .u-create-close{
+	  	  vertical-align:middle;
 	      display: inline-block;
-	      width: 42px;
-	      height: 42px;
-	      vertical-align:middle;
-	      background: url(./images/company.svg) no-repeat;
-	      background-position: center center;
-	    }
-	    
-	    label{
-	      vertical-align:middle;
-	      display: inline-block;
-	      margin-left: 10px;
-	    }
+	      margin-right: 20px;
+
+	  }
+      
+	   
   }
 
-
+	
 }

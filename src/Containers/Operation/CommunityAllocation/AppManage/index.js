@@ -5,16 +5,13 @@ import {
 	Tab,
 	Title,
 } from 'kr-ui';
-
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import { observer, inject } from 'mobx-react';
 import './index.less';
 import PostVoucher from './PostVoucher';
 import GroupManages from './GroupManages';
 import DarkHouse from './DarkHouse';
-
+@inject("NavModel")
+@observer
 export default class AppManage extends React.Component {
 
 
@@ -23,13 +20,37 @@ export default class AppManage extends React.Component {
 		this.state = {
 			tab: 'table',
 			communityId: '',
-			initSearch:''
+			initSearch:'',
+			Ifgroup:false,
+			Ifpost:false,
+			Ifdark:false,
+			timer:0
 		}
 
 	}
 
 	componentDidMount() {
-		Store.dispatch(Actions.switchSidebarNav(true));
+		var _this=this;
+		const {NavModel} = this.props;
+		var _this=this;
+		setTimeout(function(){
+			var Ifgroup=NavModel.checkOperate('cluster_list');
+			_this.setState({
+				Ifgroup
+			})
+		},1000);
+		setTimeout(function(){
+			var Ifpost=NavModel.checkOperate('cluster_topic_list');
+			_this.setState({
+				Ifpost
+			})
+		},1000);
+		setTimeout(function(){
+			var Ifdark=NavModel.checkOperate('cluster_punish_list');
+			_this.setState({
+				Ifdark
+			})
+		},1000);
 	}
 
 	merchants = () =>{
@@ -39,9 +60,11 @@ export default class AppManage extends React.Component {
 		} = this.state;
 		tab = 'merchants';
 		initSearch='m';
+		var timer = new Date();
 		this.setState({
 			tab,
-			initSearch
+			initSearch,
+			timer:timer,
 		});
 	}
 
@@ -50,11 +73,13 @@ export default class AppManage extends React.Component {
 			tab,
 			initSearch
 		} = this.state;
+		var timer = new Date();
 		tab = 'personal';
 		initSearch='p';
 		this.setState({
 			tab,
-			initSearch
+			initSearch,
+			timer:timer,
 		});
 	}
 	home = () => {
@@ -62,17 +87,22 @@ export default class AppManage extends React.Component {
 			tab,
 			initSearch
 		} = this.state;
+		var timer = new Date();
 		tab = 'home';
 		initSearch='h';
 		this.setState({
 			tab,
-			initSearch
+			initSearch,
+			timer:timer,
 		});
 	}
 	render() {
 		let {
 			tab,
-			initSearch
+			initSearch,
+			Ifgroup,
+			Ifpost,
+			Ifdark
 		} = this.state;
 
 
@@ -104,15 +134,30 @@ export default class AppManage extends React.Component {
 			<Title value="App后台"/>
 
 			<Tabs className="tabs">
-					<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
-						<GroupManages />
-					</Tab>
-					<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
-						<PostVoucher />
-					</Tab>
-					<Tab label="小黑屋" onActive={this.home}  style={homeStyle}>
-						<DarkHouse />
-					</Tab>
+					{
+					Ifgroup&&(
+								<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
+									<GroupManages timer={this.state.timer}/>
+								</Tab>
+							)
+					
+					}
+					{
+					Ifpost&&(
+								<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
+									<PostVoucher timer={this.state.timer}/>
+								</Tab>
+							)
+					
+					}
+					{
+					Ifdark&&(
+								<Tab label="小黑屋" onActive={this.home} style={homeStyle}>
+									<DarkHouse timer={this.state.timer}/>
+								</Tab>
+							)
+					
+					}
 			</Tabs>
 
 

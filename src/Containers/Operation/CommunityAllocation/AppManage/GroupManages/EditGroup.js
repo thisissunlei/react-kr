@@ -11,7 +11,6 @@ import {
 } from 'kr/Redux';
 import {
 	KrField,
-	CircleStyleTwo,
 	Grid,
 	Row,
 	Col,
@@ -38,7 +37,14 @@ class EditGroup extends React.Component {
 			ifCity:false,
 			infoList:{},
 			listUrl:{},
-			photoUrl:{}
+			photoUrl:{},
+			id:'',
+			showUrl:false,
+			groupStatus:[
+				{label:'非强制',value:'0'},
+				{label:'强制可离开',value:'2'},
+				{label:'强制不可离开',value:'1'}
+			]
 		}
 		this.getcity();
 		this.getInfo();
@@ -50,13 +56,22 @@ class EditGroup extends React.Component {
     	})
 	}
 	selectType=(item)=>{
+		
 		if(item.value=="COMMUNITY"){
 			this.setState({
-				ifCity:true
+				ifCity:true,
+			},function(){
+				this.setState({
+					cityId:this.state.id
+				})
 			})
 		}else{
 			this.setState({
-				ifCity:false
+				cityId:''
+			},function(){
+				this.setState({
+					ifCity:false,
+				})
 			})
 		}
 	}
@@ -71,7 +86,14 @@ class EditGroup extends React.Component {
 						ifCity:true
 					})
 				}
-				
+				if(response.recommend==1){
+					_this.setState({
+						showUrl:true
+					})
+				}
+				response.recommend=response.recommend.toString();
+				response.follow=response.follow.toString();
+				response.allow=response.allow.toString();
 				Store.dispatch(initialize('editGroup', response));
 				_this.setState({
 					photoUrl:{
@@ -79,6 +101,7 @@ class EditGroup extends React.Component {
 					},
 					infoList:response,
 					cityId:response.cityId,
+					id:response.cityId,
 					listUrl:{
 						picUrl:response.listUrl
 					}
@@ -124,7 +147,20 @@ class EditGroup extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	showUrl=(item)=>{
 
+		if(item.value=='1'){
+			this.setState({
+				showUrl:true
+			})
+		}else{
+			this.setState({
+				showUrl:false
+			})
+			Store.dispatch(change('editGroup', 'listUrl', ''));
+		}
+		
+	}
 	
 	render() {
 		const {
@@ -140,18 +176,18 @@ class EditGroup extends React.Component {
 				photoUrl,
 				cityId,
 				ifCity,
-				listUrl
+				listUrl,
+				showUrl,
+				groupStatus
 			}=this.state;
-			
-
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">编辑群组</label></div>
+						<div className="title-text">编辑群组</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-						<CircleStyleTwo num="1" info="头像信息">
+						
 							{typeof photoUrl.picUrl!='undefined'&&<KrField 
 								name="headUrl"
 								style={{width:548}}
@@ -168,24 +204,8 @@ class EditGroup extends React.Component {
 								inline={false}
 								defaultValue={photoUrl}
 								/>}
-								{typeof listUrl.picUrl!='undefined'&&<KrField 
-									name="listUrl"
-									style={{width:548}}
-									component="newuploadImage"
-									innerstyle={{width:320,height:180,padding:10}}
-									photoSize={'16:9'}
-									sizePhoto
-									merthd='Url'
-									pictureFormat={'JPG,PNG'}
-									pictureMemory={'200'}
-									requestURI = {this.state.requestURI}
-									requireLabel={true}
-									label="列表图片"
-									inline={false}
-									defaultValue={listUrl}
-								/>}
-						</CircleStyleTwo>
-						<CircleStyleTwo num="2" info="群组信息" circle="bottom">
+								
+						
 							<KrField
 								style={{width:260}}
 								name="clusterName"
@@ -201,6 +221,7 @@ class EditGroup extends React.Component {
 								options={groupList}
 								label="群组类型"
 								requireLabel={true}
+								onChange={this.selectType}
 						 	/>
 						 	{ifCity?(
 									<KrField
@@ -226,73 +247,16 @@ class EditGroup extends React.Component {
 
 								 	/>):''
 							}
-						 	<KrField 
-						 		style={{width:260,marginBottom:10}}
-						 		name="follow" 
-						 		component="group" 
-						 		label="允许退出群组"
-						 		requireLabel={true} 
-							 >
-				                    <KrField 
-				                    		name="follow" 
-				                    		grid={1 / 2} 
-				                    		label="是" 
-				                    		type="radio" 
-				                    		value={1}
-				                    />
-				                    <KrField 
-				                    		name="follow" 
-				                    		grid={1 / 2} 
-				                    		label="否" 
-				                    		type="radio" 
-				                    		value={0}
-				                    />
-							</KrField>
-							<KrField 
-						 		style={{width:260,marginLeft:25,marginBottom:10}}
-						 		name="allow" 
-						 		component="group" 
-						 		label="允许发帖"
-						 		requireLabel={true} 
-							 >
-				                    <KrField 
-				                    		name="allow" 
-				                    		grid={1 / 2} 
-				                    		label="是" 
-				                    		type="radio" 
-				                    		value={1}
-				                    />
-				                    <KrField 
-				                    		name="allow" 
-				                    		grid={1 / 2} 
-				                    		label="否" 
-				                    		type="radio" 
-				                    		value={0}
-				                    />
-							</KrField>
-							<KrField 
-						 		style={{width:260,marginBottom:10}}
-						 		name="recommend" 
-						 		component="group" 
-						 		label="是否推荐"
-						 		requireLabel={true} 
-							 >
-				                    <KrField 
-				                    		name="recommend" 
-				                    		grid={1 / 2} 
-				                    		label="是" 
-				                    		type="radio" 
-				                    		value={1}
-				                    />
-				                    <KrField 
-				                    		name="recommend" 
-				                    		grid={1 / 2} 
-				                    		label="否" 
-				                    		type="radio" 
-				                    		value={0}
-				                    />
-							</KrField>
-							<KrField
+						 	<KrField
+								style={{width:260,margintop:20}}
+								name="follow"
+								component="select"
+								options={groupStatus}
+								label="群组状态"
+								requireLabel={true}
+								
+						 	/>
+						 	<KrField
 								style={{width:260,marginLeft:25}}
 								name="sort"
 								type="text"
@@ -300,6 +264,74 @@ class EditGroup extends React.Component {
 								label="排序号"
 								requireLabel={true}
 						 	/>
+							<KrField 
+						 		style={{width:548,marginBottom:10}}
+						 		name="allow" 
+						 		component="group" 
+						 		label="允许发帖"
+						 		requireLabel={true} 
+						 		inline={true} 
+							 >
+				                    <KrField
+				                    		style={{marginLeft:52}} 
+				                    		name="allow" 
+				                    		grid={1 / 2} 
+				                    		label="是" 
+				                    		type="radio" 
+				                    		value="1"
+				                    />
+				                    <KrField 
+				                    		name="allow" 
+				                    		grid={1 / 2} 
+				                    		label="否" 
+				                    		type="radio" 
+				                    		value="0"
+				                    />
+							</KrField>
+							<KrField 
+						 		style={{width:548,marginBottom:10}}
+						 		name="recommend" 
+						 		component="group" 
+						 		label="是否推荐"
+						 		requireLabel={true} 
+						 		inline={true} 
+							 >
+				                    <KrField 
+				                    		style={{marginLeft:52}}
+				                    		name="recommend" 
+				                    		grid={1 / 2} 
+				                    		label="是" 
+				                    		type="radio" 
+				                    		value="1"
+				                    		onClick={this.showUrl}
+				                    />
+				                    <KrField 
+				                    		name="recommend" 
+				                    		grid={1 / 2} 
+				                    		label="否" 
+				                    		type="radio" 
+				                    		value="0"
+				                    		onClick={this.showUrl}
+				                    />
+							</KrField>
+							{showUrl &&<KrField 
+									name="listUrl"
+									style={{width:548}}
+									component="newuploadImage"
+									innerstyle={{width:320,height:200,padding:10}}
+									photoSize={'16:9'}
+									sizePhoto
+									merthd='Url'
+									pictureFormat={'JPG,PNG'}
+									pictureMemory={'200'}
+									requestURI = {this.state.requestURI}
+									requireLabel={true}
+									label="列表图片"
+									inline={false}
+									title='上传推荐图片'
+									defaultValue={typeof photoUrl.picUrl!='undefined'?listUrl:''}
+								/>}
+							
 						 	<KrField
 								style={{width:548}}
 								name="intro"
@@ -318,7 +350,6 @@ class EditGroup extends React.Component {
 						  </Col>
 						</Row>
 						</Grid>
-						</CircleStyleTwo>
 				</form>
 			</div>
 		);

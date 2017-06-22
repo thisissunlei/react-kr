@@ -50,7 +50,16 @@ export default class PostVoucher extends React.Component {
 			newPage:1,
 		}
 	}
-
+	componentWillReceiveProps(){
+		var timer = new Date();
+		this.setState({
+            searchParams: {
+				page: 1,
+				pageSize: 15,
+                timer: timer,
+            }
+        })
+	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
 		this.setState({
@@ -100,9 +109,8 @@ export default class PostVoucher extends React.Component {
 
 		return (
 			<div className="m-opera-logs">
-				<Section title="帖子审核" >
 	        		<Table
-							style={{marginTop:10}}
+							style={{marginTop:50}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
@@ -146,14 +154,12 @@ export default class PostVoucher extends React.Component {
  								)
  							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="处理"  type="operation" operation="handle"/>
+									<Button label="处理"  type="operation" operateCode="cluster_topic_dispose" operation="handle"/>
 							</TableRowColumn>
 						 </TableRow>
 					</TableBody>
 					<TableFooter></TableFooter>
 					</Table>
-				</Section>
-
 			<Drawer
              modal={true}
              width={750}

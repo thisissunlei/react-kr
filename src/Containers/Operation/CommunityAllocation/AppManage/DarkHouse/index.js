@@ -29,6 +29,7 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
+	CheckPermission,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -49,7 +50,16 @@ export default class DarkHouse extends React.Component {
 			newPage:1,
 		}
 	}
-
+	componentWillReceiveProps(){
+		var timer = new Date();
+		this.setState({
+            searchParams: {
+				page: 1,
+				pageSize: 15,
+                timer: timer,
+            }
+        })
+	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
 		this.setState({
@@ -96,9 +106,10 @@ export default class DarkHouse extends React.Component {
 		} = this.state;
 		var _this = this;
 		Http.request('punish-add', {},{
-			id: 1
+			id: itemDetail.id,
+			time:_this.refs.addTimer.value,
 		}).then(function(response) {
-			Message.success('删除成功');
+			Message.success('已加刑');
 			_this.changeP();
 			_this.openAdd();
 		}).catch(function(err) {
@@ -127,9 +138,8 @@ export default class DarkHouse extends React.Component {
 
 		return (
 			<div className="m-opera-logs">
-				<Section title="帖子审核" >
 	        		<Table
-							style={{marginTop:10}}
+							style={{marginTop:50}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
@@ -157,15 +167,17 @@ export default class DarkHouse extends React.Component {
  								)
  							}}></TableRowColumn>
 							<TableRowColumn>
+								<CheckPermission  operateCode="cluster_punish_release" >
 									<Button label="提前释放"  type="operation" operation="release"/>
+								</CheckPermission>
+								<CheckPermission  operateCode="cluster_punish_inflict" >
 									<Button label="加刑"  type="operation" operation="add"/>
+								</CheckPermission>
 							</TableRowColumn>
 						 </TableRow>
 					</TableBody>
 					<TableFooter></TableFooter>
 					</Table>
-				</Section>
-
 				<Dialog
 					title="提前释放"
 					modal={true}
@@ -197,8 +209,10 @@ export default class DarkHouse extends React.Component {
 					contentStyle={{width:443,height:236}}
 					 >
 						          <div style={{marginTop:45}}>
-						            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要加刑吗？</p>
-						            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+						            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>加刑时间
+										<input ref="addTimer" type="text" className="add-timer" />小时
+									</p>
+						            <Grid style={{marginTop:40,marginBottom:'4px'}}>
 						                  <Row>
 						                    <ListGroup>
 						                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>

@@ -42,14 +42,24 @@ export default class GroupManages extends React.Component {
 			itemDetail:'',
 			cmtId:'',
 			clusterName:'',
-			newPage:1
+			newPage:1,
+			date:''
 		}
 
 	}
 	
+	componentWillReceiveProps(){
+		var timer = new Date();
+		this.setState({
+            searchParams: {
+				page: 1,
+				pageSize: 15,
+                timer: timer,
+            }
+        })
+	}
 	//操作相关
   	onOperation = (type, itemDetail) => {
-
       this.setState({
         itemDetail
       });
@@ -75,12 +85,17 @@ export default class GroupManages extends React.Component {
 		const {itemDetail}=this.state;
 		Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
 			_this.openDele();
+			Message.success('删除成功！');
 			_this.setState({
-				date:new Date()
+				searchParams:{
+					date:new Date()
+				}
 			})
+
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});
+		
 		
 
 	}
@@ -124,7 +139,6 @@ export default class GroupManages extends React.Component {
 			searchParams:{
 				cmtId:cmtId,
 				clusterName:this.state.clusterName || '',
-				page: this.state.newPage,
 			},
 			cmtId:cmtId
 		})
@@ -167,6 +181,7 @@ export default class GroupManages extends React.Component {
 							<Button
 								label="新建群组"
 								type='button'
+								operateCode="cluster_add"
 								onTouchTap={this.openNewCreat}
 							/>
 					  </Col>
@@ -186,7 +201,7 @@ export default class GroupManages extends React.Component {
               <TableHeader>
                   <TableHeaderColumn>群组名称</TableHeaderColumn>
                   <TableHeaderColumn>群组类型</TableHeaderColumn>
-                  <TableHeaderColumn>成员数</TableHeaderColumn>
+                  {/*<TableHeaderColumn>成员数</TableHeaderColumn>*/}
                   <TableHeaderColumn>所属社区</TableHeaderColumn>
                   <TableHeaderColumn>所属城市</TableHeaderColumn>
                   <TableHeaderColumn>创建人</TableHeaderColumn>
@@ -197,20 +212,20 @@ export default class GroupManages extends React.Component {
 					<TableRow>
 						  <TableRowColumn name="clusterName"></TableRowColumn>
 				   		  <TableRowColumn name="clusterTypeName"></TableRowColumn>
-						  <TableRowColumn name="mbrCount"></TableRowColumn>
+						  {/*<TableRowColumn name="mbrCount"></TableRowColumn>*/}
 						  <TableRowColumn name="cmtName"></TableRowColumn>
 						  <TableRowColumn name="city"></TableRowColumn>
 						  <TableRowColumn name="creater"></TableRowColumn>
 						  <TableRowColumn 
 								  name="createTime" 
 								  component={(value) => {
-			                          return (<KrDate value={value} format="yyyy-mm-dd"/>)
+			                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
 			                      }}
 	                      ></TableRowColumn>
 						  <TableRowColumn>
 						  	 <Button label="查看"  type="operation"  operation="view"/>
-						  	 <Button label="编辑"  type="operation"  operation="edit"/>
-						  	 <Button label="删除"  type="operation"  operation="delete"/>
+						  	 <Button label="编辑" operateCode="cluster_update" type="operation"   operation="edit"/>
+						  	 <Button label="删除"  operateCode="cluster_delete" type="operation"  operation="delete"/>
 						  </TableRowColumn>
 				   	</TableRow>
               </TableBody>

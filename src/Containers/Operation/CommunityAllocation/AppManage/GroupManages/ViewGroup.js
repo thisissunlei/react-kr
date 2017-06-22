@@ -10,7 +10,6 @@ import {
 } from 'kr/Redux';
 import {
 	KrField,
-	CircleStyleTwo,
 	Grid,
 	Row,
 	Col,
@@ -46,23 +45,27 @@ class ViewGroup extends React.Component {
 	
 	render() {
 		let {viewData}=this.state;
+		var status;
+		if(viewData.follow==0){
+			status='非强制'
+		}else if(viewData.follow==1){
+			status='强制不可离开'
+		}else if(viewData.follow==2){
+			status='强制可离开'
+		}
 		return (
 			<div className="g-create-group">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">群组详情</label></div>
+						<div className="title-text">群组详情</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-				<CircleStyleTwo num="1" info="头像信息">
-					<div className="u-view-img">
-						<p>群组头像</p>
-						<img src={viewData.headUrl} style={{marginLeft:16}} width={100} height={100}/>
+					<form className="u-view-group">
+					<div className="u-view-img ">
+						<p  style={{display:"inline-block"}}>群组头像</p>
+						<img className="u-person-img" src={viewData.headUrl} style={{marginLeft:16}} />
 					</div>
-					<div className="u-view-img">
-						<p>列表图片</p>
-						<img src={viewData.listUrl} style={{marginLeft:16}} width={320} height={220}/>
-					</div>
-				</CircleStyleTwo>
-				<CircleStyleTwo num="2" info="群组信息" circle="bottom">
+					
+				
 					<KrField
 						style={{width:260}}
 						name="title"
@@ -79,56 +82,57 @@ class ViewGroup extends React.Component {
 						label="群组类型"
 						value={viewData.clusterType=='COUNTRYWIDE'?'全国群组':'社区群组'}
 				 	/>
-				 	<KrField
+				 	{viewData.clusterType=='COMMUNITY'?(<KrField
 						style={{width:260}}
 						name="title"
 						inline={false} 
 						component="labelText"
 						label="所属城市"
 						value={viewData.city || ''}
-				 	/>
-				 	<KrField
+				 	/>):''}
+				 	{viewData.clusterType=='COMMUNITY'?(<KrField
 						style={{width:260,marginLeft:25}}
 						name="title"
 						inline={false} 
 						component="labelText"
 						label="所属社区"
 						value={viewData.cmtName}
-				 	/>
+				 	/>):''}
 				 	<KrField 
 				 		style={{width:260,marginBottom:10}}
 				 		name="publishedStatus" 
-				 		label="允许退出群组"
-				 		inline={false} 
+				 		label="群组状态："
 						component="labelText"
-						value={viewData.follow==1?'是':'否'}
-					 />   
-					<KrField 
-				 		style={{width:260,marginLeft:25,marginBottom:10}}
-				 		name="publishedStatus"
-				 		label="允许发帖"
+						value={status}
 						inline={false} 
-						component="labelText"
-						value={viewData.allow==1?'是':'否'}
-					 /> 
-					<KrField 
-				 		style={{width:260,marginBottom:10}}
-				 		name="publishedStatus"
-						inline={false} 
-						component="labelText"
-				 		label="是否推荐"
-				 		value={viewData.recommend==1?'是':'否'}
-					 />
-		                    
-					
-					<KrField
+					 />  
+					 <KrField
 						style={{width:260,marginLeft:25}}
 						name="title"
 						inline={false} 
 						component="labelText"
 						label="排序号"
 						value={viewData.sort}
-				 	/>
+				 	/> 
+					<KrField 
+				 		style={{width:548,marginBottom:10}}
+				 		name="publishedStatus"
+				 		label="允许发帖："
+						component="labelText"
+						value={viewData.allow==1?'是':'否'}
+					 /> 
+					<KrField 
+				 		style={{width:548,marginBottom:10}}
+				 		name="publishedStatus"
+						component="labelText"
+				 		label="是否推荐："
+				 		value={viewData.recommend==1?'是':'否'}
+					 />
+		            {viewData.recommend==1?(<div className="u-view-img">
+						<img src={viewData.listUrl} style={{marginLeft:16}} width={320} height={220}/>
+					</div>):'' }     
+					
+					
 				 	<KrField
 						style={{width:548}}
 						name="newsDesc"
@@ -147,7 +151,7 @@ class ViewGroup extends React.Component {
 				  </Col>
 				</Row>
 				</Grid>
-				</CircleStyleTwo>
+				</form>
 				
 			</div>
 		);

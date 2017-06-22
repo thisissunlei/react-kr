@@ -2,6 +2,7 @@ import React from 'react';
 import {
 	Http
 } from "kr/Utils";
+import {Actions, Store} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -82,31 +83,37 @@ class ViewLogs extends React.Component {
 	}
 	 onSelect=(item)=>{
 		if(item.value=='2'){
+
 			this.setState({
 				timeFlag:true,
+				ownFlag:true,
+			},function(){
+					Store.dispatch(change('ViewLogs','hours',' '));
+			})
+		}else if (item.value=='3') {
+			this.setState({
+				ownFlag:false,
+				timeFlag:false,
 			})
 		}else{
 			this.setState({
 				timeFlag:false,
+				ownFlag:true,
 			})
 		}
+		
 	 }
 	renderContentImg=()=>{
 		let {
 			infoList,
 		} = this.state;
-		console.log(infoList.imgUrl);
-		window.setTimeout(function (){
-			if (infoList.imgUrl) {
-				infoList.imgUrl.map((item,index) => {
-				return (
-						<div className="content-img" style={{backgroundImage:`url(${item.imgUrl})`}}>
+		{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
+						return (
+						<div className="content-img"  style={{backgroundImage:`url(${item})`}}>
 
-						</div>
-					   )	
-					})
-				}
-		},10)
+						</div>)
+						
+					})}
 		
 		
 	}
@@ -142,14 +149,14 @@ class ViewLogs extends React.Component {
 			timeFlag,
 		} = this.state;
 		return (
-			<div className="g-create-group">
+			<div className="g-post">
 				<div className="u-create-title">
-						<div><span className="u-create-icon"></span><label className="title-text">处理</label></div>
+						<div className="title-text">处理</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 						<KrField
 							style={{width:520}}
-							inline={false}
+							inline={true}
 							type="text"
 							component="labelText"
 							label="发帖人"
@@ -157,7 +164,7 @@ class ViewLogs extends React.Component {
 					/>
 				<KrField
 						style={{width:520}}
-						inline={false}
+						inline={true}
 						component="labelText"
 						label="举报类型"
 						value={infoList.type}
@@ -165,13 +172,13 @@ class ViewLogs extends React.Component {
 				<KrField
 						style={{width:520}}
 						component="labelText"
-						inline={false}
+						inline={true}
 						label="举报人"
 						value={infoList.name}
 
 				/>
 				<KrField
-						style={{width:520}}
+						style={{width:520,height:30}}
 						component="labelText"
 						inline={false}
 						label="帖子内容"
@@ -183,15 +190,16 @@ class ViewLogs extends React.Component {
 						<span className="timer"><KrDate value={infoList.topicDate} format="yyyy-mm-dd HH:MM:ss" /></span>
 					</div>
 					<div className="content">
-						{infoList.topicContent}
 						
-						{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
+						{infoList.topicContent}
+						{this.renderContentImg()}
+						{/*{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
 						return (
 						<div className="content-img"  style={{backgroundImage:`url(${item})`}}>
 
 						</div>)
 						
-					})}
+					})}*/}
 						<div className="content-footer">
 							来自&nbsp;&nbsp;{infoList.company}
 						</div>
@@ -213,7 +221,7 @@ class ViewLogs extends React.Component {
 								style={{width:260,marginTop:14}}
 								component="input"
 								inline={false}
-								name="time"
+								name="hours"
 						/>
 						<span style={{display:'inline-block',marginTop:31,marginLeft:20}}>小时</span>
 					</div>
@@ -232,7 +240,7 @@ class ViewLogs extends React.Component {
 					/>删除帖子
 				</div>
 				
-						<Grid style={{marginTop:50,width:'81%'}}>
+						<Grid style={{marginTop:50}}>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -250,7 +258,7 @@ class ViewLogs extends React.Component {
 	}
 }
 export default ViewLogs = reduxForm({
-	form: 'viewLogs',
+	form: 'ViewLogs',
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(ViewLogs);

@@ -1,7 +1,8 @@
 import mobx, {
 	observable,
 	action,
-	extendObservable
+	extendObservable,
+	toJS
 } from 'mobx';
 
 import { Http } from "kr/Utils";
@@ -19,6 +20,8 @@ let State = observable({
 	items: [],
 	isLoadedPermissionNav: false,
 	isLoadNavData: false,
+	menusData:[],
+	resourcdsCode:[]
 });
 
 
@@ -96,17 +99,22 @@ State.clearSidebar=action(function(userInfo){
 
 State.loadNavData = action(function () {
 	var _this = this;
-
+	
 	if (this.isLoadNavData) {
 		return;
 	}
 
 	Http.request('newMenuInfo').then(function (response) {
-		var userInfo = response.userInfo;
-		var menusCode = response.menusCode;
+		// var userInfo = response.userInfo;
+		// var menusCode = response.menusCode;
+		_this.menusCode=response.menusCode;
+		_this.menusData=response.resourcesCode;
 		_this.setUserInfo(response.userInfo);
 		_this.setPermissionNav(response.menusCode);
+		// _this.setResourcds(response.resourcds);
+		_this.resourcdsCode = response.resourcesCode;
 		_this.isLoadNavData = true;
+
 	}).catch(function (err) { });
 
 });
@@ -202,6 +210,9 @@ State.setSidebarNavs = action(function () {
 	}
 	mobx.extendObservable(this, { sidebarNavs: menuItems })
 });
+State.setResourcds = action(function(menusCode){
+	this.resourcdsCode = menusCode;
+})
 
 State.toggleSidebar = action(function (value) {
 	if (typeof value === 'undefined') {
@@ -219,5 +230,31 @@ State.getUser= action(function(){
 	return mobx.toJS(this.userInfo);
 });
 
-
+//校验操作项是否有权限
+State.checkOperate= action(function(resourcesCode){
+	
+	var menusData=toJS(State.menusData);
+	if(menusData.length>0){
+		if(menusData.indexOf(resourcesCode)>-1){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	return false;
+});
+//校验菜单是否有权限
+State.checkMenus= action(function(menusCode){
+	
+	var menus=toJS(State.menusCode);
+	if(menus.length>0){
+		if(menus.indexOf(menusCode)>-1){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	return false;
+	
+});
 module.exports = State;
