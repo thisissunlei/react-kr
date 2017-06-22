@@ -29,6 +29,7 @@ import {
     SnackTip,
     Message,
     Drawer,
+    CheckPermission
 } from 'kr-ui';
 
 import {browserHistory} from 'react-router'
@@ -1334,10 +1335,12 @@ export default class AttributeSetting extends React.Component {
                                     <Col align="left" md={9} className='btn-left'>{buttonArr}</Col>
                                     <Col align="right" md={3} style={{
                                         'position': 'relative'
-                                    }}><Button type='search' searchClick={this.openSearchDialog}/>
-                                        <span className={colorClassName} onClick={this.historyIncomed}>
-                                            <Tooltip offsetTop={8} place='top'>重跑历史收入</Tooltip>
-                                        </span>
+                                    }}><Button  type='search' searchClick={this.openSearchDialog}/>
+                                       <CheckPermission operateCode="fina_detail_rerun">
+                                            <span className={colorClassName} onClick={this.historyIncomed}>
+                                                <Tooltip offsetTop={8} place='top'>重跑历史收入</Tooltip>
+                                            </span>
+                                        </CheckPermission>
                                     </Col>
                                 </div>
 
