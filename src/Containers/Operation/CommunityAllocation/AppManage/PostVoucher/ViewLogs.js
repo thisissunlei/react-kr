@@ -88,7 +88,7 @@ class ViewLogs extends React.Component {
 				timeFlag:true,
 				ownFlag:true,
 			},function(){
-					Store.dispatch(change('ViewLogs','hours',' '));
+					Store.dispatch(change('ViewLogs','time',' '));
 			})
 		}else if (item.value=='3') {
 			this.setState({
@@ -221,7 +221,7 @@ class ViewLogs extends React.Component {
 								style={{width:260,marginTop:14}}
 								component="input"
 								inline={false}
-								name="hours"
+								name="time"
 						/>
 						<span style={{display:'inline-block',marginTop:31,marginLeft:20}}>小时</span>
 					</div>
