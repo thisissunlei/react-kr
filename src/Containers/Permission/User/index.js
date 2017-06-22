@@ -46,7 +46,7 @@ class Operations extends React.Component {
 			openCreateDialog: false,
 			openEditDialog: false,
 			moduleDetail: '',
-			newPage:0,
+			newPage:1,
 		}
 	}
 
@@ -142,16 +142,17 @@ class Operations extends React.Component {
 	//改变页码
     changeP=()=>{
         var timer = new Date();
-        this.setState({
-            searchParams: {
-                    page: this.state.newPage,
-                    timer: timer,
-            }
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
         })
     }
-    onPageChange=(page)=>{
-        this.setState({
-            newPage:page,
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.setState({
+            searchParams:searchParams,
         })
     }
 	render() {

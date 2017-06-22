@@ -122,9 +122,12 @@ class Operations extends Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
-				pageSize: 15
-			},
+                accountName: '',
+                page: 1,
+                pageSize: 15,
+                timer: 1
+            },
+            newPage:1,
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
@@ -160,9 +163,7 @@ class Operations extends Component {
 		}).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message)
@@ -183,9 +184,7 @@ class Operations extends Component {
 		Http.request('createResources', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -196,9 +195,7 @@ class Operations extends Component {
 		Http.request('editResources', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -232,7 +229,22 @@ class Operations extends Component {
 			searchParams: searchParams
 		});
 	}
-
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
 
 	render() {
 		let {
