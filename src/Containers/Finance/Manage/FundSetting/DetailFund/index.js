@@ -65,7 +65,8 @@ export default class TotalFund extends React.Component {
                 page: 1,
                 pageSize: 15,
                 searchParam: searchParams.content,
-                parentId: this.props.params.fundId
+                parentId: this.props.params.fundId,
+                time:new Date()
             }
 
         })
@@ -87,12 +88,17 @@ export default class TotalFund extends React.Component {
     onEditSubmit = (form) => {
 
         this.openEditDetailDialog();
-
+        var _this=this;
+        var fundId=this.props.params.fundId;
         Http.request('editSubCategory', {}, form).then(function(response) {
             Message.success("编辑成功");
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 0);
+            _this.setState({
+                searchParams:{
+                    time:new Date(),
+                    pageSize:15,
+                    parentId: fundId
+                }
+           })
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -105,11 +111,18 @@ export default class TotalFund extends React.Component {
     }
 
     onNewCreateSubmit = (values) => {
+        var _this=this;
+        this.openNewCreateFund();
+         var fundId=this.props.params.fundId;
         Http.request('createSubCategory', {}, values).then(function(response) {
             Message.success("创建成功");
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 0);
+            _this.setState({
+                searchParams:{
+                    time:new Date(),
+                    pageSize:15,
+                    parentId:fundId
+                }
+           })
 
         }).catch(function(err) {
             Message.error(err.message);

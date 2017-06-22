@@ -40,7 +40,8 @@ export default class TotalFund extends React.Component {
             openNewCreateFund: false,
             itemDetail: {},
             openView: false,
-            openEditDetail: false
+            openEditDetail: false,
+            newPage:1,
         }
 
     }
@@ -75,26 +76,38 @@ export default class TotalFund extends React.Component {
         });
     }
 
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
+    }
     //编辑
     openEditDetailDialog = () => {
         this.setState({
             openEditDetail: !this.state.openEditDetail
         });
     }
-    onEditSubmit = (form) => {
 
+    onEditSubmit = (form) => {
+        var _this=this;
         this.openEditDetailDialog();
 
         Http.request('editFirstCategory', {}, form).then(function(response) {
             Message.success("编辑成功");
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 0);
+            var timer=new Date();
+           _this.setState({
+                searchParams:{
+                    //page:_this.state.newPage,
+                    date:timer
+                }
+           })
+            
         }).catch(function(err) {
             Message.error(err.message);
         });
 
     }
+
     openNewCreateFund = () => {
         this.setState({
             openNewCreateFund: !this.state.openNewCreateFund
@@ -102,11 +115,17 @@ export default class TotalFund extends React.Component {
     }
 
     onNewCreateSubmit = (values) => {
+         var _this=this;
         Http.request('createFirstCategory', {}, values).then(function(response) {
             Message.success("创建成功");
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 800);
+            var timer=new Date();
+            _this.openNewCreateFund();
+           _this.setState({
+                searchParams:{
+                    date:timer,
+                    pageSize:15
+                }
+           })
 
         }).catch(function(err) {
             Message.error(err.message);
@@ -138,7 +157,15 @@ export default class TotalFund extends React.Component {
                     </Row>
                     <Table style={{
                         marginTop: 10
-                    }} displayCheckbox={true} onLoaded={this.onLoaded} ajax={true} ajaxUrlName='findPage' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+                    }} 
+                    displayCheckbox={true} 
+                    onLoaded={this.onLoaded} 
+                    ajax={true} 
+                    ajaxUrlName='findPage' 
+                    ajaxParams={this.state.searchParams} 
+                    onOperation={this.onOperation}
+                    onPageChange={this.onPageChange} 
+                    >
 
                         <TableHeader>
                             <TableHeaderColumn>款项名称</TableHeaderColumn>
