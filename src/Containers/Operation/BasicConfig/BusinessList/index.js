@@ -162,8 +162,8 @@ class BusinessList  extends React.Component{
 
 	   	this.setState({
 	      searchParams:{
-					name:values.name,
-					page: searchParams.page,
+						name:values.name,
+						page: 1,
 	     			pageSize: searchParams.pageSize,
 	     			districtId:values.districtId,
 	     			enable:values.enable,
