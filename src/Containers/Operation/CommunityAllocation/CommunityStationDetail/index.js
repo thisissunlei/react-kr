@@ -173,6 +173,7 @@ cancelSearchUpperDialog=()=>{
 onSearchUpperSubmit=(params)=>{
  this.props.CommunityStationModel.searchParams= Object.assign({},this.props.CommunityStationModel.searchParams,params);
  this.props.CommunityStationModel.searchParams.time=+new Date();
+ this.props.CommunityStationModel.searchParams.page = 1;
  this.props.CommunityStationModel.searchUpperCustomer();
 }
 

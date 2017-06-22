@@ -190,6 +190,8 @@ cancelSearchUpperDialog=()=>{
 onSearchUpperSubmit=(params)=>{
  this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,params);
  this.props.CommunityMeetingModel.searchParams.time=+new Date();
+ this.props.CommunityMeetingModel.searchParams.page = 1;
+
  this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 
