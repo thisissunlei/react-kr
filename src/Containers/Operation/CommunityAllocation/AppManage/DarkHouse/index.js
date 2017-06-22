@@ -29,7 +29,6 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	CheckPermission,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -167,12 +166,8 @@ export default class DarkHouse extends React.Component {
  								)
  							}}></TableRowColumn>
 							<TableRowColumn>
-								<CheckPermission  operateCode="cluster_punish_release" >
-									<Button label="提前释放"  type="operation" operation="release"/>
-								</CheckPermission>
-								<CheckPermission  operateCode="cluster_punish_inflict" >
-									<Button label="加刑"  type="operation" operation="add"/>
-								</CheckPermission>
+								<Button label="提前释放" operateCode="cluster_punish_release" type="operation" operation="release"/>
+								<Button label="加刑"  operateCode="cluster_punish_inflict" type="operation" operation="add"/>
 							</TableRowColumn>
 						 </TableRow>
 					</TableBody>
