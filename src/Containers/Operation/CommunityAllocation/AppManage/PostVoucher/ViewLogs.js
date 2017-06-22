@@ -88,7 +88,7 @@ class ViewLogs extends React.Component {
 				timeFlag:true,
 				ownFlag:true,
 			},function(){
-					Store.dispatch(change('ViewLogs','time',' '));
+					Store.dispatch(change('ViewLogs','time',''));
 			})
 		}else if (item.value=='3') {
 			this.setState({
