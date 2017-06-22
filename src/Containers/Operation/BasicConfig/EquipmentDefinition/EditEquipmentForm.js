@@ -69,7 +69,7 @@ class EditEquipmentForm extends React.Component{
 	    	.then(function(response){
 	    		var arrNew = []
 	    		for (var i=0;i<response.floors.length;i++){
-	    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
+	    			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
 	    		}
 	    		_this.setState({
 	    			floorsOptions : arrNew,
