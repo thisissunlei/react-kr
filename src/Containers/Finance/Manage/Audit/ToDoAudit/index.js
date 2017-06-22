@@ -395,13 +395,22 @@ export default class ToDoAudit extends React.Component {
     }
     //批量审核
   AuditSome = () => {
+    var _this=this;
+    this.openSomeAudit();
     Http.request('batch-edit-verify-status', {}, {
       finaVerifyIds: this.AuditList,
     }).then(function(response) {
       Message.success("审核成功");
-      window.setTimeout(function() {
-        window.location.reload();
-      }, 800);
+      _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+      _this.getParentCount({
+        verifyStatus: 'UNCHECKED'
+      })
     }).catch(function(err) {
       Message.error(err.message);
     });
