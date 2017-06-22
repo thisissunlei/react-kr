@@ -85,7 +85,7 @@ export default class TableIndex extends React.Component{
 		})
 		$(".table-data").width(tableBoxWidth);
 		$(".table-box").eq(0).width($(".community-collect-box").eq(0).width());
-		$(".table-box").height($(window).height()-200);
+		$(".table-box").height($(window).height()-215);
 		
 		var tableContainerWidth = $(".table-container").eq(0).width();
 
@@ -108,6 +108,12 @@ export default class TableIndex extends React.Component{
 		   
 		});
 		
+	}
+
+	toDetailFun(params,item){
+		
+		let {toDetailFun} = this.props;
+		toDetailFun && toDetailFun(params.communityId);
 	}
 
 	
@@ -175,7 +181,7 @@ export default class TableIndex extends React.Component{
 									   		<div className="item-div">{_this.thousands(item.rent.arrearsAmount)}</div>
 									   		<div className="item-div">{_this.thousands(item.deposit.arrearsAmount)}</div>
 									   		<div className="item-div" style={{color:"#ff0000"}}>{_this.thousands(item.lateFee)}</div>
-									   		<div className="item-div" style={{color:"#ff0000"}}>{_this.thousands(item.totalAmount)}</div>
+									   		<div className="item-div" style={{color:"#ff0000",cursor:"pointer"}} onClick={_this.toDetailFun.bind(_this,item)}>{_this.thousands(item.totalAmount)}</div>
 							   		
 							   	</div>
 						   	})
