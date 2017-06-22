@@ -54,7 +54,8 @@ export default class ToDoAudit extends React.Component {
       Params: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'UNCHECKED'
+        verifyStatus: 'UNCHECKED',
+        time:new Date(),
       },
       openCreateCustomer: false,
       openCreateMainbill: false,
@@ -338,11 +339,20 @@ export default class ToDoAudit extends React.Component {
       if (!form.mainBillId) {
         return;
       }
+
       Http.request('save-flow-verify', {}, form).then(function(response) {
           Message.success('新建成功');
-          window.setTimeout(function(){
-            window.location.reload();
-          },800)
+          _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+          _this.getParentCount({
+            verifyStatus: 'UNCHECKED'
+          })
+           _this.openAddCreate();
         }).catch(function(err) {
           Message.error(err.message);
         });
