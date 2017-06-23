@@ -36,7 +36,6 @@ State.ajaxListData=action(function(ajaxData){
 		Http.request('contract-list', ajaxData).then(function(response) {
 			_this.contractList=response.items;
 			_this.totalPaper=response.totalCount;
-			_this.page=response.page;
 			_this.pageSize=response.pageSize;
 			setTimeout(function() {
 					loading: false
