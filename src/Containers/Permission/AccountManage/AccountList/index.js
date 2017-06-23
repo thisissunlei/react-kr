@@ -86,14 +86,13 @@ class AccountList extends React.Component {
     onOperation = (type, itemDetail) => {
        
     }
-    onNewCreateSubmit(form) {
-        console.log(form);
-        form = Object.assign({},form);
+    onNewCreateSubmit=(form)=> {
+        var form = Object.assign({},form);
+        var _this = this;   
         Http.request('createSsoUser', {}, form).then(function(response) {
-            Message.success('新建成功')
-            window.setTimeout(function() {
-              window.location.reload();
-            }, 800);
+            Message.success('新建成功');
+            _this.changeP();
+            _this.openNewCreate();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -110,45 +109,40 @@ class AccountList extends React.Component {
     }
     //重置
     onReset=(itemDetail)=>{
-         Store.dispatch(Actions.callAPI('resetPassword', {}, {id: itemDetail.id})).then(function(response) {
+         var _this = this;   
+         Http.request('resetPassword', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('重置成功');
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+               _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
     }
     //删除
     onDele = (itemDetail)=>{
-            
-            Store.dispatch(Actions.callAPI('delSsoUser', {id: itemDetail.id})).then(function(response) {
+            var _this = this;   
+            Http.request('delSsoUser', {id: itemDetail.id}).then(function(response) {
                  Message.success('删除成功');
-                 window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+                 _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
     }
     //加锁
     onLock=(itemDetail)=>{
-        Store.dispatch(Actions.callAPI('lockAccount', {}, {id: itemDetail.id})).then(function(response) {
+        var _this = this;
+        Http.request('lockAccount', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('已加锁')
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+                _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
     }
     //解锁
     onUnLock=(itemDetail)=>{
-        Store.dispatch(Actions.callAPI('unlockAccount', {}, {id: itemDetail.id})).then(function(response) {
+        var _this = this;
+        Http.request('unlockAccount', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('已解锁')
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+                _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
@@ -204,11 +198,17 @@ class AccountList extends React.Component {
     //改变页码
     changeP=()=>{
         var timer = new Date();
-        this.setState({
-            searchParams: {
-                    page: this.state.newPage,
-                    timer: timer,
-            }
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.setState({
+            searchParams:searchParams,
         })
     }
     onEditSubmit=()=>{
@@ -218,11 +218,6 @@ class AccountList extends React.Component {
     onSetSubimt=()=>{
         this.changeP();
         this.openSetAcc();
-    }
-    onPageChange=(page)=>{
-        this.setState({
-            newPage:page,
-        })
     }
     render() {
         let {searchParams,itemDetail} = this.state;
