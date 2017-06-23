@@ -137,9 +137,16 @@ export default class DoneAudit extends React.Component {
       _this.setState({
         delAudit: false,
       }, function() {
-        window.setTimeout(function() {
-          window.location.reload();
-        }, 800);
+         _this.setState({
+            Params:{
+              verifyStatus:'RETURNED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+          _this.getParentCount({
+            verifyStatus: 'RETURNED'
+          })
       });
     }).catch(function(err) {
       Message.error(err.message);
