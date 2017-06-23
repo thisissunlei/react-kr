@@ -72,14 +72,14 @@ import {
 	permissions = () =>{
 		const {resourcdsCode} = this.props.NavModel;
 		let _this = this;
-		
+
 		resourcdsCode.map(function(item,index){
 			if(item == "oper_csr_edit_include_source"){
-				State.isPermissions = true; 
+				State.isPermissions = true;
 			}
 		})
 	}
-	
+
 
 
 	onSubmit = (values) => {
@@ -88,10 +88,10 @@ import {
 		if(!values.company){
 			return;
 		}
-		var url = "customerDataEdit";
-		if(State.isPermissions){
-			url = "managerCustomerDataEdit";
-		}
+		// var url = "customerDataEdit";
+		// if(State.isPermissions){
+		// 	url = "managerCustomerDataEdit";
+		// }
 		values.operType=operType;
 		if(!isNaN(values.inTime)){
 			values.inTime=this.formatDate(values.inTime);
@@ -99,9 +99,9 @@ import {
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
-		
-		Http.request(url,{},values).then(function(response) {
-			
+
+		Http.request("customerDataEdit",{},values).then(function(response) {
+
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
@@ -187,16 +187,16 @@ import {
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
-		
+
 		let sourceIdLabel = '';
 		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
-			
+
 			if(item.value == allData.sourceId){
 				sourceIdLabel = item.label;
 			}
-			
+
 		})
-		
+
 
 		return (
 
