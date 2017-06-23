@@ -183,9 +183,16 @@ export default class ToDoAudit extends React.Component {
         _this.setState({
           delAudit: false,
         }, function() {
-          window.setTimeout(function() {
-            window.location.reload();
-          }, 800);
+          _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+          _this.getParentCount({
+            verifyStatus: 'UNCHECKED'
+          })
         });
       }).catch(function(err) {
         Message.error(err.message);
