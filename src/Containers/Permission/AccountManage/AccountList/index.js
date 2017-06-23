@@ -219,6 +219,10 @@ class AccountList extends React.Component {
         this.changeP();
         this.openSetAcc();
     }
+    onDataSubimt=()=>{
+        this.changeP();
+        this.openDataPermission();
+    }
     render() {
         let {searchParams,itemDetail} = this.state;
         var logFlag = '';
@@ -368,7 +372,7 @@ class AccountList extends React.Component {
                 <Dialog title="编辑数据权限" modal={true} open={this.state.openDataPermission} onClose={this.openDataPermission} contentStyle={{
                     width: 600,
                 }}>
-                    <DataPermission detail={this.state.itemDetail} onCancel={this.openDataPermission}/>
+                    <DataPermission detail={this.state.itemDetail} onSubmit = {this.onDataSubimt} onCancel={this.openDataPermission}/>
                 </Dialog>
                 <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
                     width: 600,

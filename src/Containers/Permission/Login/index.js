@@ -14,11 +14,12 @@ import {
 	initialize
 } from 'redux-form';
 
-
+import {
+	Http,
+} from "kr/Utils";
 import {
 	Actions,
 	Store,
-  connect,
 } from 'kr/Redux';
 
 import {
@@ -226,7 +227,7 @@ class Login extends Component {
 			}
 		}
 		var _this = this;
-		Store.dispatch(Actions.callAPI('loginSubmit', {},obj)).then(function(response) {
+		Http.request('loginSubmit', {},obj).then(function(response) {
 			//跳转？
 
 			// window.location.href = '/new/';
@@ -299,9 +300,9 @@ class Login extends Component {
 			togetMailtest:false,
 		},function(){
 
-			Store.dispatch(Actions.callAPI('getVcodeByMail', {
+			Http.request('getVcodeByMail', {
 				email:_this.refs.loginMail.value,
-			},{})).then(function(response) {
+			},{}).then(function(response) {
 				_this.togetMailtest()
 			}).catch(function(err) {
 				if(err.code<0){
@@ -355,10 +356,10 @@ class Login extends Component {
 	//邮箱身份验证点击确定
 	submitVerifyIDbyMail =()=>{
 			var _this = this;
-				Store.dispatch(Actions.callAPI('validEmailCode', {},{
+				Http.request('validEmailCode', {},{
 					email:_this.refs.loginMail.value,
 					code:_this.refs.verifyCodeByMail.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.setState({
 						isLegal:true,
 						//timeminMobile:"",//
@@ -384,9 +385,9 @@ class Login extends Component {
 			togetMobiletest:false,
 		},function(){
 			var _this = this;
-			Store.dispatch(Actions.callAPI('getVcodeByPhone',{
+			Http.request('getVcodeByPhone',{
 				mobile:_this.refs.loginMobile.value,
-			})).then(function(response) {
+			}).then(function(response) {
 				_this.togetMobiletest()
 			}).catch(function(err) {
 				if(err.code<0){
@@ -443,10 +444,10 @@ class Login extends Component {
 	submitVerifyIDbyMobile =()=>{
 			var _this = this;
 			//console.log("1",this.state.regettestMobileState);
-				Store.dispatch(Actions.callAPI('validPhoneCode',{},{
+				Http.request('validPhoneCode',{},{
 					mobile:_this.refs.loginMobile.value,
 					code:_this.refs.verifyCodeByMobile.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.setState({
 						isLegal:true,
 						//timeminMobile:"",//
@@ -479,11 +480,11 @@ class Login extends Component {
 	submitPwd =(values)=>{
 		console.log(values.new);
 			var _this = this;
-			Store.dispatch(Actions.callAPI('setNewPwd', {},{
+			Http.request('setNewPwd', {},{
 				pwd:values.new,
 				rePwd:values.newagain,
 				saltStr:_this.state.saltStr
-			})).then(function(response) {
+			}).then(function(response) {
 				Message.success("修改成功");
 				_this.goToEdited();
 				// window.setTimeout(function(){

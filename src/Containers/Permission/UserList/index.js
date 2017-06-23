@@ -3,9 +3,8 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
+import {Http} from 'kr/Utils';
 import {
-	connect,
 	Actions,
 	Store
 } from 'kr/Redux';
@@ -81,10 +80,10 @@ export default class UserList extends Component {
 		var _this = this;
 		var roleId = this.props.params.userId
 		console.log('itemDetail----', itemDetail)
-		Store.dispatch(Actions.callAPI('deleteUser', {
+		Http.request('deleteUser', {
 			roleId: roleId,
 			userId: itemDetail.id
-		})).then(function(response) {
+		}).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功');
 			window.location.reload();
