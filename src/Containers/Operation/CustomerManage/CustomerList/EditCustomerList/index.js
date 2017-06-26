@@ -88,18 +88,13 @@ import {
 		if(!values.company){
 			return;
 		}
-		// var url = "customerDataEdit";
-		// if(State.isPermissions){
-		// 	url = "managerCustomerDataEdit";
-		// }
-		values.operType=operType;
+		values.operType = operType;
 		if(!isNaN(values.inTime)){
 			values.inTime=this.formatDate(values.inTime);
 		}
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
-
 		Http.request("customerDataEdit",{},values).then(function(response) {
 
 			if(operType=="SHARE"){
@@ -137,7 +132,7 @@ import {
 	  if(!value){
 	  	return;
 	  }
-
+		console.log()
 	  var param=value.label;
       if(param.indexOf('推荐')!=-1){
          State.sourceCustomer=true;
