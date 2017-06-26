@@ -452,7 +452,7 @@ class NewCreateForm extends Component {
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
-			//会议室
+			//独立空间独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
 			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
@@ -651,7 +651,7 @@ class NewCreateForm extends Component {
 							}
 							return (
 								<TableRow key={index}>
-									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
@@ -729,7 +729,7 @@ class NewCreateForm extends Component {
 
 
 					<KrField style={{width:262,marginLeft:25}}  name="stationnum"  component="labelText"  label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-					<KrField  style={{width:262,marginLeft:25}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
+					<KrField  style={{width:262,marginLeft:25}} name="boardroomnum" component="labelText" type="text" label="租赁独立空间" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 
 

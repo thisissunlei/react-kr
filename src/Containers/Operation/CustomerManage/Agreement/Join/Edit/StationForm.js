@@ -85,7 +85,7 @@ class StationForm  extends Component{
 						<TableBody>
 
 								<TableRow>
-									<TableRowColumn>'工位':'会议室'</TableRowColumn>
+									<TableRowColumn>'工位':'独立空间'</TableRowColumn>
 									<TableRowColumn></TableRowColumn>
 									<TableRowColumn>
 										<input type="text" name="hah" onChange={(event)=>{this.onStationInputChange}}/>
@@ -97,7 +97,7 @@ class StationForm  extends Component{
 						{billList.map((item,index)=>{
 							return (
 								<TableRow key={index}>
-									<TableRowColumn>{(item.type == 1) ?'工位':'会议室'}</TableRowColumn>
+									<TableRowColumn>{(item.type == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.name}</TableRowColumn>
 									<TableRowColumn>
 										<input type="text" name="hah" value={item.unitprice}  onChange={(event)=>{this.onStationInputChange.bind(this,event,index)}}/>

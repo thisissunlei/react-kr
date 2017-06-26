@@ -450,7 +450,7 @@ class NewCreateForm extends Component {
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
-			//会议室
+			//独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
 			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
@@ -653,7 +653,7 @@ class NewCreateForm extends Component {
 								}
 								return (
 									<TableRow key={index}>
-										<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+										<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 										<TableRowColumn>{item.stationName}</TableRowColumn>
 										<TableRowColumn>
 												<input type="text" name="age"  valueLink={typeLink}  onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
@@ -687,7 +687,7 @@ class NewCreateForm extends Component {
 					<KrField   name="mainbillid" type="hidden" component="input" />
 
 					<KrField grid={1}  name="stationnum" type="hidden" component="input" label="工位"/>
-					<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/>
+					<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="独立空间"/>
 
 
 
@@ -738,7 +738,7 @@ class NewCreateForm extends Component {
 					<KrField  style={{width:262,marginLeft:25}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 						<KrField style={{width:262,marginLeft:25}}  name="stationnum" component="labelText" type="text" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-					<KrField  style={{width:262,marginLeft:25}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
+					<KrField  style={{width:262,marginLeft:25}} name="boardroomnum" component="labelText" type="text" label="租赁独立空间" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 					<KrField  style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 					<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>

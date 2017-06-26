@@ -55,7 +55,7 @@ export default class Station extends Component {
 			return "工位"
 		}
 		if (stationTypeName == 2) {
-			return "会议室"
+			return "独立空间"
 		}
 	}
 	getLocalTime = (beginDate) => {
