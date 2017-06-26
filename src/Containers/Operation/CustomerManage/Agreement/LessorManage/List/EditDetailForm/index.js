@@ -3,17 +3,15 @@ import React, {
 	PropTypes
 } from 'react';
 import {
-	connect
-} from 'kr/Redux';
-
-import {
 	reduxForm,
 	formValueSelector,
-	initialize
+	initialize,
+	FieldArray
 } from 'redux-form';
 import {
 	Actions,
-	Store
+	Store,
+	connect
 } from 'kr/Redux';
 import {
 	KrField,
@@ -22,12 +20,58 @@ import {
 	Col,
 	Button,
 	Notify,
-	ListGroup,
-	ListGroupItem,
-	ButtonGroup
+	ButtonGroup,
 } from 'kr-ui';
+import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
-// import './index.less'
+import './index.less'
+
+const chipData = [
+      {key: 0, label: 'Angular'},
+      {key: 1, label: 'JQuery'},
+      {key: 2, label: 'Polymer'},
+      {key: 3, label: 'ReactJS'},
+    ]
+const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label||placeholder}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+//社区亮点-亮点
+const renderBrights = ({ fields, meta: { touched, error }}) => {
+		 var krStyle={};
+			krStyle={
+				width:228,
+				marginLeft:18,
+				marginRight:3,
+		 }
+	return (
+			<ul style={{padding:0,margin:0}}>
+			{fields.map((brightsStr, index) =>
+			<li key={index} style={{width:600,listStyle:'none'}}>
+				<KrField
+					style={krStyle}
+					grid={1/2}
+					name={`${brightsStr}.brightPoints`}
+					type="text"
+					component={renderField}
+					label={index?'':'银行账户'}
+					placeholder='银行账户'
+					/>
+				<span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+				<span
+					className='minusBtn'
+					onClick={() => fields.remove(index)}/>
+			</li>
+		)}
+	</ul>
+
+ )
+}
 
 class EditDetailForm extends React.Component {
 
@@ -40,9 +84,19 @@ class EditDetailForm extends React.Component {
 
 	constructor(props) {
 		super(props);
-		// this.state = {
-		//
-		// }
+		this.state = {
+			chipData : chipData,
+		}
+		this.styles = {
+		 chip: {
+			 margin: 4,
+			 display:'inline-block'
+		 },
+		 wrapper: {
+			 display: 'flex',
+			 flexWrap: 'wrap',
+		 },
+	 };
 	}
 
 	componentDidMount() {
@@ -56,38 +110,58 @@ class EditDetailForm extends React.Component {
 	onSubmit = (values) => {
 
 
-		values = Object.assign({}, values);
-
-		var _this = this;
-
-		Http.request('editFnaCorporation', {}, values).then(function(response) {
-			Notify.show([{
-				message: '编辑成功！',
-				type: 'success',
-			}]);
-
-			const {
-				onSubmit
-			} = _this.props;
-			onSubmit && onSubmit();
-
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+		// values = Object.assign({}, values);
+		//
+		// var _this = this;
+		//
+		// Http.request('editFnaCorporation', {}, values).then(function(response) {
+		// 	Notify.show([{
+		// 		message: '编辑成功！',
+		// 		type: 'success',
+		// 	}]);
+		//
+		// 	const {
+		// 		onSubmit
+		// 	} = _this.props;
+		// 	onSubmit && onSubmit();
+		//
+		// }).catch(function(err) {
+		// 	Notify.show([{
+		// 		message: err.message,
+		// 		type: 'danger',
+		// 	}]);
+		// });
 
 
 	}
 
 	onCancel = () => {
-		const {
-			onCancel
-		} = this.props;
-		onCancel && onCancel();
+		// const {
+		// 	onCancel
+		// } = this.props;
+		// onCancel && onCancel();
 
 	}
+	//生成样式
+	renderChip(data) {
+    return (
+      <Chip
+        key={data.key}
+				
+        onRequestDelete={() => this.handleRequestDelete(data.key)}
+        style={this.styles.chip}
+      >
+        {data.label}
+      </Chip>
+    );
+  }
+	//删除方法
+	handleRequestDelete = (key) => {
+    this.chipData = this.state.chipData;
+    const chipToDelete = this.chipData.map((chip) => chip.key).indexOf(key);
+    this.chipData.splice(chipToDelete, 1);
+    this.setState({chipData: this.chipData});
+  };
 
 	render() {
 
@@ -98,14 +172,20 @@ class EditDetailForm extends React.Component {
 			reset,
 			detail
 		} = this.props;
-		return <div>mmm</div>;
+
+
+
+
+
+
+
 
 
 
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
+						<div><span className="new-icon"></span><label className="title-text">新建出租方</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 				<div className="cheek">
@@ -115,26 +195,52 @@ class EditDetailForm extends React.Component {
 							<label className="small-title">基本信息</label>
 						</div>
 						<div className="small-cheek">
-								<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-								<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchCommunityAll'  label="意向入驻社区" inline={false}  placeholder='请输入社区名称' requireLabel={true}/>
-								<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"/>
+								<KrField grid={1/2} label="出租方名称"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="注册地址" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="是否启用" name="hasOffice" style={{width:262,marginLeft:15,marginRight:13}} component="group">
+		              <KrField name="hasOffice" label="是" type="radio" value="YES" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+		             	<KrField name="hasOffice" label="否" type="radio" value="NO" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:53}}/>
+		            </KrField>
+								<div className='remaskInfo'><KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
+
+								<KrField
+                     label=""
+                     name="picId"
+                     component="newuploadImage"
+                     innerstyle={{width:364,height:254,padding:16}}
+ 										 sizePhoto
+                     photoSize={'3:2'}
+                     pictureFormat={'JPG,PNG,GIF'}
+                     pictureMemory={'300'}
+                     requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                     inline={false}
+                     formfile=' '
+                     center='center'
+                  />
+
 								<div className="middle-round"></div>
 						</div>
 
 						<div className="titleBar">
 							<span className="order-number">2</span>
 							<span className="wire"></span>
-							<label className="small-title">公司信息</label>
+							<label className="small-title">账号信息</label>
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 
-								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input"/>
-								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input"/>
-								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
-						</div>
+								<KrField grid={1/2} label="支付宝账户"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="微信账户" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<FieldArray name="bright_bright" component={renderBrights}/>
 
+						</div>
+						<div className="titleBar">
+							<span className="order-number">3</span>
+							<span className="wire"></span>
+							<label className="small-title">社区信息</label>
+						</div>
+						<div className="small-cheek" style={{paddingBottom:0}}>
+							{this.state.chipData.map(this.renderChip,this)}
+						</div>
 						<div className="end-round"></div>
 				</div>
 				<Grid style={{marginTop:30}}>

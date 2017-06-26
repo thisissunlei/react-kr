@@ -7,7 +7,7 @@
       right: 0px;
       top:0px;
       cursor: pointer;
-      background: url(../images/closeIcon.svg) no-repeat;
+      background: url(./images/closeIcon.svg) no-repeat;
       background-position: center center;
     }
   padding: 35px 45px 48px 53px;
@@ -39,7 +39,7 @@
       width: 42px;
       height: 42px;
       vertical-align:middle;
-      background: url(../images/company.svg) no-repeat;
+      background: url(./images/company.svg) no-repeat;
       background-position: center center;
     }
 
@@ -70,7 +70,7 @@
 
     .end-round,.middle-round{
       position: absolute;
-      background: url(images/middle-icon.svg) no-repeat;
+      background: url(./images/middle-icon.svg) no-repeat;
       background-position: center center;
       background-color: #fff;
 
@@ -133,5 +133,31 @@
     padding-top: 30px;
     padding-bottom:25px;
   }
-
+  .addBtn{
+   width:24px;
+   height:24px;
+   background:url(./images/add.svg) no-repeat center;
+   background-size: 200% 200%;
+   display:inline-block;
+   margin-left:8px;
+   margin-right:5px;
+   margin-bottom: -5px;
+   cursor:pointer;
+  }
+  .minusBtn{
+   width:24px;
+   height:24px;
+   background:url(./images/minus.svg) no-repeat center;
+   background-size: 200% 200%;
+   display:inline-block;
+   margin-bottom: -5px;
+   cursor:pointer;
+  }
+  li{
+   &:nth-child(1){
+     .minusBtn{
+       display:none;
+     }
+   }
+  }
 }
