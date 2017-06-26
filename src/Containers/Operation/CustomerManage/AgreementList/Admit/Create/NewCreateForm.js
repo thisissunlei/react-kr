@@ -457,7 +457,7 @@ class NewCreateForm extends React.Component {
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
-			//会议室
+			//独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
 			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
@@ -672,7 +672,7 @@ class NewCreateForm extends React.Component {
 												}
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
@@ -742,7 +742,7 @@ class NewCreateForm extends React.Component {
 
 								<KrField style={{width:545,marginLeft:25}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 								<KrField style={{width:262,marginLeft:25}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-								<KrField style={{width:262,marginLeft:25}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
+								<KrField style={{width:262,marginLeft:25}}  name="boardroomnum"  component="labelText" label="租赁独立空间" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							</div>
 
 							<div className="end-round"></div>

@@ -756,10 +756,10 @@ export default class OrderDetail extends React.Component {
 			<TableHeaderColumn>合同类型</TableHeaderColumn>
 			<TableHeaderColumn>租金金额</TableHeaderColumn>
 			<TableHeaderColumn>工位个数</TableHeaderColumn>
-			<TableHeaderColumn>会议室个数</TableHeaderColumn>
+			<TableHeaderColumn>独立空间个数</TableHeaderColumn>
 			<TableHeaderColumn>起始日期</TableHeaderColumn>
 			<TableHeaderColumn>终止日期</TableHeaderColumn>
-			<TableHeaderColumn>工位/会议室均价(月)</TableHeaderColumn>
+			<TableHeaderColumn>工位/独立空间均价(月)</TableHeaderColumn>
 			<TableHeaderColumn>销售员</TableHeaderColumn>
 			<TableHeaderColumn>录入人</TableHeaderColumn>
 			<TableHeaderColumn>操作</TableHeaderColumn>

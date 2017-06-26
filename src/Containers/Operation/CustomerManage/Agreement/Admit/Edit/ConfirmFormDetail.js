@@ -87,7 +87,7 @@ export default class ConfirmFormDetail  extends React.Component{
 							 <KrField name="firstpaydate" component="labelText" label="首付款时间" value={detail.firstpaydate} /> 
 							 <KrField name="" component="labelText" label=" 租赁项目"  /> 
 							 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum}/> 
-							 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum}/> 
+							 <KrField grid={1}  name="boardroomnum"  component="labelText" label="独立空间" value={detail.boardroomnum}/> 
 
 							 <KrField grid={1}  name="rentaluse"  component="labelText" label="租赁用途" placeholder="办公使用" value={detail.rentaluse} /> 
 
@@ -111,7 +111,7 @@ export default class ConfirmFormDetail  extends React.Component{
 										{detail && detail.stationVos && detail.stationVos.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 													<TableRowColumn>{item.stationId}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>

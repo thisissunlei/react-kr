@@ -116,7 +116,7 @@ export default class ItemTable extends React.Component {
                         <li key={index} className="company-order-zero" key={index}>
                          <p className="name">{order.name}</p>
                          <p className="zero-circle">{DateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{DateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
-                         <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
+                         <p>工位：{item.stationNum}个 &nbsp;&nbsp;独立空间：{item.meetingNum}个</p>
                         </li>
                       
                   )
@@ -125,7 +125,7 @@ export default class ItemTable extends React.Component {
                       <li key={index} className="company-order" key={index}>
                         <p className="name">{order.name}</p>
                         <p className="zero-circle">{DateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{DateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
-                        <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
+                        <p>工位：{item.stationNum}个 &nbsp;&nbsp;独立空间：{item.meetingNum}个</p>
                       </li>
                   )
                 }
