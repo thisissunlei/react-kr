@@ -99,7 +99,6 @@ module.exports =()=>{
     <Route path="systemManage" getComponent={Basic}>
      <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
       <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
-      <Route path="versionManage" getComponent={Permission_SystemManage_VersionManage}/>
     </Route>
 	  </Route>
 

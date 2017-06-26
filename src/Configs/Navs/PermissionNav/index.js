@@ -47,15 +47,10 @@ module.exports = [
 					router: '/permission/systemManage/messageList',
 					menuCode: 'sso_infoList_base',
 				},{
-					primaryText: 'PC登录日志',
-					router: '/permission/loginlog',
+					primaryText: '登录日志',
+					router: '/permission/loginLog',
 					menuCode: 'sso_loginLog_base',
-
-				},{
-					primaryText: 'APP登录日志',
-					router: '/permission/systemManage/versionManage',
-					menuCode: 'sso_appLog_base',
-				},]
+				}]
 			},{
 				primaryText: "系统管理",
 				iconName: 'icon-wendang',

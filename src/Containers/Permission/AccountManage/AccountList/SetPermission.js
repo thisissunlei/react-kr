@@ -65,9 +65,9 @@ export default class SetPermission extends React.Component {
     renderData=(item,index)=>{
       console.log("sdfa",item);
     	return (
-    		<div key={index} style={{textAlign:'left',display:'inline-block',marginLeft:20}}>
+    		<div key={index} style={{width:'33%',display:'inline-block'}}>
     			<Checkbox
-    					style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
+    					style={{display:'block',width:'100%',lineHeigitemht:'32px',color:'#333'}}
     					label={item.name}
     					checked={item.ownFlag==1?true:false}
     					onCheck={this.checked.bind(this,item,index)}
