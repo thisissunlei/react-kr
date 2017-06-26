@@ -107,7 +107,7 @@ class Merchants extends Component{
 			}
 			State.switchEditCustomerList();
 			State.allData = response;
-			
+
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
