@@ -36,7 +36,7 @@ import {
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
 import ItemDetail from './ItemDetail';
-import EditDetailForm from './EditDetailForm';
+// import EditDetailForm from './EditDetailForm';
 
 
 export default class LessorManageList extends Component {
@@ -222,10 +222,10 @@ export default class LessorManageList extends Component {
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 
 					>
-
-
+						<div>ijsdfsf</div>
+						{/*
 						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
-
+						*/}
 				  </Drawer>
 
 					<Drawer
