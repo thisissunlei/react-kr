@@ -75,6 +75,7 @@ import Snackbar from 'material-ui/Snackbar';
 import {
 	Tab
 } from 'material-ui/Tabs';
+import TextLabel from './TextLabel'
 
 module.exports = {
 	//Components
@@ -150,5 +151,6 @@ module.exports = {
 	Nothing,
 	PlanMapAll,
 	...PlanMap,
-	ToTop
+	ToTop,
+	TextLabel
 }

@@ -29,6 +29,7 @@ import {
 	Dialog,
 	BreadCrumbs,
 	Title,
+	Drawer
 } from 'kr-ui';
 
 
@@ -198,39 +199,45 @@ export default class LessorManageList extends Component {
 
 					</Section>
 
-					<Dialog
+					<Drawer
 						title="新建出租方"
-						modal={true}
 						open={this.state.openNewCreate}
-						onClose={this.openNewCreateDialog}
-						contentStyle={{width:686}}
+						width={750}
+						openSecondary={true}
+						className='m-finance-drawer'
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
-				  </Dialog>
+				  </Drawer>
 
 
-					<Dialog
+					<Drawer
 						title="编辑出租方"
-						modal={true}
 						open={this.state.openEditDetail}
-						onClose={this.openEditDetailDialog}
-						contentStyle={{width:686}}
+						width={750}
+						openSecondary={true}
+						className='m-finance-drawer'
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 
 					>
-						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
-				  </Dialog>
 
-					<Dialog
+
+						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+
+				  </Drawer>
+
+					<Drawer
 						title="查看出租方"
-						modal={true}
 						open={this.state.openView}
-						onClose={this.openViewDialog}
-						contentStyle={{width:686}}
+						width={750}
+						openSecondary={true}
+						className='m-finance-drawer'
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
 						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
-				  </Dialog>
+				  </Drawer>
 
 
 			</div>
