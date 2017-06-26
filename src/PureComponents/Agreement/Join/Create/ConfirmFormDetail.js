@@ -130,7 +130,7 @@ export default class ConfirmFormDetail extends Component {
 
 							 <KrField grid={1/2} name="firstpaydate" component="labelText" label="首付款时间" value={detail.firstpaydate} defaultValue="无" inline={false}/>
 							 <KrField grid={1/2}  name="stationnum"  component="labelText" label="租赁工位" value={detail.stationnum} defaultValue="0" inline={false}/>
-							 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁会议室" value={detail.boardroomnum} defaultValue="0" inline={false}/>
+							 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁独立空间" value={detail.boardroomnum} defaultValue="0" inline={false}/>
 
 							 
 
@@ -161,7 +161,7 @@ export default class ConfirmFormDetail extends Component {
 										{detail && detail.stationVos && detail.stationVos.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>

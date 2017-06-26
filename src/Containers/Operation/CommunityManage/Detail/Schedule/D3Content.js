@@ -342,7 +342,7 @@ export default class D3Content extends React.Component {
 					<div key={i} className="react-tooltip-content">
 						<span>{value.contractName}分期催款</span>
 						<p style={{width:'310px'}}>{DateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款&nbsp;({DateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{DateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-						<p>工位:<span className='red-content' style={{marginRight:5}}>{value.stationnum}</span>&nbsp;会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({DateFormat(value.billStartDate, "yyyy.mm.dd")}-{DateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+						<p>工位:<span className='red-content' style={{marginRight:5}}>{value.stationnum}</span>&nbsp;独立空间:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({DateFormat(value.billStartDate, "yyyy.mm.dd")}-{DateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 						<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 						<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 						<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
@@ -382,8 +382,8 @@ export default class D3Content extends React.Component {
 					<div className="react-tooltip-content" style={{width:'250px'}}>
 						<span>工位变更</span>
 						<p>{items.finaName}({DateFormat(items.leaseBeginDate, "yyyy.mm.dd")}-{DateFormat(items.leaseEndDate, "yyyy.mm.dd")})</p>
-						<p>变更前工位：<span className='blue-content'>{items.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.oldBoardroomNum}</span></p>
-						<p>变更后工位：<span className='blue-content'>{items.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.newBoardroomNum}</span></p>
+						<p>变更前工位：<span className='blue-content'>{items.oldStationNum}</span> &nbsp; 独立空间：<span className='blue-content'>{items.oldBoardroomNum}</span></p>
+						<p>变更后工位：<span className='blue-content'>{items.newStationNum}</span> &nbsp; 独立空间：<span className='blue-content'>{items.newBoardroomNum}</span></p>
 					</div>						
 			</Tooltips>
 		)

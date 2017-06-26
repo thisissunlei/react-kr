@@ -442,7 +442,7 @@ class NewCreateForm extends React.Component {
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
-			//会议室
+			//独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
 			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
@@ -646,7 +646,7 @@ class NewCreateForm extends React.Component {
 							}
 							return (
 								<TableRow key={index}>
-									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)}/>
@@ -707,7 +707,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:900,marginLeft:70}} component="group" label="租赁项目" requireLabel={true}>
 								<KrField style={{width:370}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue={0} />
-								<KrField style={{width:370,marginLeft:80}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
+								<KrField style={{width:370,marginLeft:80}}  name="boardroomnum" type="text" component="labelText" label="独立空间" value={changeValues.boardroomnum} defaultValue={0} />
 				</KrField>
 				<KrField  name="templockday"  style={{width:370,marginLeft:70}} component="input" type="text" label="保留天数" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />

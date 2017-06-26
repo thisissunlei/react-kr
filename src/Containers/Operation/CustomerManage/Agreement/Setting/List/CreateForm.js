@@ -297,7 +297,7 @@ class NewCreateForm  extends Component{
 			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
-			//会议室
+			//独立空间
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
 			startDate:DateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
@@ -383,7 +383,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 
 				<KrField grid={1}  name="stationnum" type="hidden" component="input" label="工位"/>
-				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/>
+				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="独立空间"/>
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
@@ -425,7 +425,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}>
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0"/>
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0"/>
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="独立空间" value={changeValues.station} defaultValue="0"/>
 				</KrField>
 
 				<Section title="租赁明细" description="" rightMenu = {
@@ -452,7 +452,7 @@ class NewCreateForm  extends Component{
 							}
 							return (
 								<TableRow key={index}>
-									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} />
