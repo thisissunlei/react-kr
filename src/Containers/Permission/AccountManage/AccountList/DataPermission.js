@@ -37,6 +37,7 @@ export default class DataPermission extends React.Component{
     this.state = {
 			idList:[],
 			cityList:[],
+			outSelect:false,
     };
 		this.onCancel = this.onCancel.bind(this);
 	}
@@ -70,6 +71,9 @@ export default class DataPermission extends React.Component{
 			item.communities.map((itemC,index) => {
 				itemC.ownFlag = 0;
 			})
+			_this.setState({
+				outSelect:false,
+			})
 		}else {
 			item.flag = 1;
 			item.communities.map((itemC,index) => {
@@ -77,6 +81,21 @@ export default class DataPermission extends React.Component{
 			})
 		}
 		list[index] = item;
+		var allSelect = 0;
+		list.map((itemA,indexA)=>{
+			if(itemA.flag==1){
+				allSelect++;
+			}
+		})
+		if (allSelect==list.length) {
+			_this.setState({
+				outSelect:true,
+			})
+		}else{
+			_this.setState({
+				outSelect:false,
+			})
+		}
 		_this.setState({
 			cityList:list,
 		})
@@ -101,6 +120,21 @@ export default class DataPermission extends React.Component{
 			item.flag = 0;
 		}
 		list[index] = item;
+		var allSelect = 0;
+		list.map((itemA,indexA)=>{
+			if(itemA.flag==1){
+				allSelect++;
+			}
+		})
+		if (allSelect==list.length) {
+			_this.setState({
+				outSelect:true,
+			})
+		}else{
+			_this.setState({
+				outSelect:false,
+			})
+		}
 		_this.setState({
 			cityList:list,
 		})
@@ -156,12 +190,43 @@ export default class DataPermission extends React.Component{
 	  } = this.props;
 	  onCancel && onCancel()
 	}
-
+	outSelect=()=>{
+		let {outSelect} = this.state;
+		var cityList = this.state.cityList;
+		var _this = this;
+		this.setState({
+			outSelect:!this.state.outSelect,
+		},function (){
+			if(_this.state.outSelect){
+				cityList.map((item,index)=>{
+					item.flag = 1;
+					item.communities.map((itemC,indexC)=>{
+						itemC.ownFlag = 1;
+					})
+				})
+			}else{
+				cityList.map((item,index)=>{
+					item.flag = 0;
+					item.communities.map((itemC,indexC)=>{
+						itemC.ownFlag = 0;
+					})
+				})
+			}
+			_this.setState({
+				cityList
+			})
+		})
+		
+		console.log(this.state.cityList);
+		console.log(outSelect);
+		
+	}
 
 	render(){
-		let {cityList} = this.state;
+		let {cityList,outSelect} = this.state;
 		return(
 			<div className="g-DataPermission">
+				<Checkbox label="全选" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
           <div className="leftSec">
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>
