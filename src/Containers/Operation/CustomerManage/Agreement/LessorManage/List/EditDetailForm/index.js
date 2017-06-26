@@ -21,13 +21,14 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
+	Checkbox
 } from 'kr-ui';
 import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
 import './index.less'
 
 const chipData = [
-      {key: 0, label: 'Angular'},
+      {key: 0, label: '社区信息社区信息社区信息'},
       {key: 1, label: 'JQuery'},
       {key: 2, label: 'Polymer'},
       {key: 3, label: 'ReactJS'},
@@ -90,7 +91,6 @@ class EditDetailForm extends React.Component {
 		this.styles = {
 		 chip: {
 			 margin: 4,
-			 display:'inline-block'
 		 },
 		 wrapper: {
 			 display: 'flex',
@@ -147,7 +147,7 @@ class EditDetailForm extends React.Component {
     return (
       <Chip
         key={data.key}
-				
+
         onRequestDelete={() => this.handleRequestDelete(data.key)}
         style={this.styles.chip}
       >
@@ -172,15 +172,6 @@ class EditDetailForm extends React.Component {
 			reset,
 			detail
 		} = this.props;
-
-
-
-
-
-
-
-
-
 
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
@@ -239,7 +230,11 @@ class EditDetailForm extends React.Component {
 							<label className="small-title">社区信息</label>
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-							{this.state.chipData.map(this.renderChip,this)}
+							<div style={this.styles.wrapper}>
+								{this.state.chipData.map(this.renderChip,this)}
+							</div>
+							<span style = {{display:'inline-block',margin:4,background:"#499df1",borderRadius: '4px',padding:" 5px 10px 5px 5px",color: "#fff"}}>+绑定社区</span>
+							 <Checkbox label = 'niahp'/>
 						</div>
 						<div className="end-round"></div>
 				</div>
