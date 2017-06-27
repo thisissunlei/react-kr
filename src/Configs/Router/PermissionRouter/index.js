@@ -68,11 +68,6 @@ const Permission_SystemManage_MessageList = (location, callback) => {
     callback(null, require('kr/Containers/Permission/SystemManage/MessageList').default)
   }, 'Permission_SystemManage_MessageList')
 }
-const Permission_SystemManage_VersionManage = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/SystemManage/VersionManage').default)
-  }, 'Permission_SystemManage_VersionManage')
-}
 const Permission_AccountManage_OperationSource = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/AccountManage/OperationSource').default)

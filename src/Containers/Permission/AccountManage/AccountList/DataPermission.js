@@ -172,6 +172,7 @@ export default class DataPermission extends React.Component{
 				}
 			})
 		})
+		console.log(idList);
 		Store.dispatch(Actions.callAPI('editUserCommunity',{},{
 			id:detail.id,
 			communityIds:idList

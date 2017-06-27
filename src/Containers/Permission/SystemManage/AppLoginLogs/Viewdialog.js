@@ -54,14 +54,14 @@ export default class Viewdialog extends React.Component {
                 />
                 <KrField
                     style={{width:260}}
-                    value={infoList.enable}
+                    value={infoList.enable=='ENABLE'?'启用':'未启用'}
                     label="启用标识"
                     inline={false}
                     component="labelText"
                 />
                 <KrField
                     style={{width:260,marginLeft:25}}
-                    value={infoList.forced}
+                    value={infoList.forced=='FORCED'?'强制':'不强制'}
                     label="是否强制更新"
                     inline={false}
                     component="labelText"

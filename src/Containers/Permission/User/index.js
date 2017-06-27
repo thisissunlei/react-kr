@@ -38,7 +38,7 @@ class Operations extends React.Component {
 		this.state = {
 			searchParams: {
 				page: 1,
-				pageSize: 15,
+				pageSize: 10,
 				timer: 0,
 			},
 			itemDetail: '',
@@ -69,7 +69,7 @@ class Operations extends React.Component {
 	}
 	openView = (id) => {
 		var url = `./#/permission/userlist/${id}`;
-		window.open(url)
+		window.location.href=url;
 	}
 	openDeleteDialog = () => {
 		this.setState({
