@@ -72,14 +72,14 @@ import {
 	permissions = () =>{
 		const {resourcdsCode} = this.props.NavModel;
 		let _this = this;
-		
+
 		resourcdsCode.map(function(item,index){
 			if(item == "oper_csr_edit_include_source"){
-				State.isPermissions = true; 
+				State.isPermissions = true;
 			}
 		})
 	}
-	
+
 
 
 	onSubmit = (values) => {
@@ -88,20 +88,15 @@ import {
 		if(!values.company){
 			return;
 		}
-		var url = "customerDataEdit";
-		if(State.isPermissions){
-			url = "managerCustomerDataEdit";
-		}
-		values.operType=operType;
+		values.operType = operType;
 		if(!isNaN(values.inTime)){
 			values.inTime=this.formatDate(values.inTime);
 		}
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
-		
-		Http.request(url,{},values).then(function(response) {
-			
+		Http.request("customerDataEdit",{},values).then(function(response) {
+
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
@@ -137,7 +132,7 @@ import {
 	  if(!value){
 	  	return;
 	  }
-
+		console.log()
 	  var param=value.label;
       if(param.indexOf('推荐')!=-1){
          State.sourceCustomer=true;
@@ -187,16 +182,16 @@ import {
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
-		
+
 		let sourceIdLabel = '';
 		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
-			
+
 			if(item.value == allData.sourceId){
 				sourceIdLabel = item.label;
 			}
-			
+
 		})
-		
+
 
 		return (
 
