@@ -113,7 +113,21 @@ class VisitorsToRecord  extends React.Component{
   getEidtData = (id,itemDetail) =>{
     let _this= this;
     const {FormModel} = this.props;
-
+     FormModel.getForm("EditVisitorsToRecord")
+  		.changeValues({
+        communityId:"",
+        typeId:"",
+        interviewTypeId:"",
+        activityTypeId:"",
+        name:"",
+        tel:"",
+        wechat:"",
+        num:'',
+        email:"",
+        purposeId:'',
+        interviewRoundId:'',
+        vtime:'',
+      })
 
     Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
       editData.vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM:ss");
@@ -223,7 +237,7 @@ class VisitorsToRecord  extends React.Component{
    upperFormSubmit = (values) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
-
+       
     	 this.setState({
          searchParams:{
  				searchKey:values.searchKey,
@@ -261,9 +275,7 @@ class VisitorsToRecord  extends React.Component{
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
-
 		if(type === "edit"){
-
         this.getEidtData(itemDetail.id,itemDetail);
 		}
     if(type === "detail"){
