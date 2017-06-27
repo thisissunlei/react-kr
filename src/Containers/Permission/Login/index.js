@@ -80,16 +80,17 @@ class Login extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
     this.getCanvas();
-	//	this.HandleTabKey();
+		this.HandleEnterKey();
 	}
-	//屏蔽tab
-	// HandleTabKey=(evt)=>{
-	// 			document.onkeydown = function() {
-	// 			if (event.keyCode == 9) {  //如果是其它键，换上相应在ascii 码即可。
-	// 					return false; //非常重要
-	// 			}
-	// 	}
-  //   }
+		//屏蔽tab
+	HandleEnterKey=(evt)=>{
+				var _this = this;
+				document.onkeydown = function() {
+					if (event.keyCode == 13) {  
+							_this.submitLogin();
+						}
+				}
+  }
 
   getCanvas=()=>{
     var canvas = document.getElementById('canvas'),
