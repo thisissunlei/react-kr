@@ -60,18 +60,19 @@ export default class NoticeManage extends React.Component {
 	onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		// Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
-		// 	_this.openDele();
-		// 	Message.success('删除成功！');
-		// 	_this.setState({
-		// 		searchParams:{
-		// 			date:new Date()
-		// 		}
-		// 	})
+		console.log('itemDetail----',itemDetail)
+		Http.request('del-notice',{},{topicId:itemDetail.id}).then(function (response) {
+			_this.openDelete();
+			Message.success('删除成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date()
+				}
+			})
 
-		// }).catch(function (err) { 
-		// 	Message.error(err.message)
-		// });
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
 
 	}
 	openNewCreat=()=>{
