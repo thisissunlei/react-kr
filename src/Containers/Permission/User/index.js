@@ -37,7 +37,7 @@ class Operations extends React.Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
+				page: this.props.params.page,
 				pageSize: 10,
 				timer: 0,
 			},
@@ -46,10 +46,21 @@ class Operations extends React.Component {
 			openCreateDialog: false,
 			openEditDialog: false,
 			moduleDetail: '',
-			newPage:0,
+			newPage:1,
 		}
 	}
-
+	componentDidMount() {
+		// if(!this.props.params.page){
+		// 	window.location.href = window.location.href+'/1';
+		// }
+		var _this = this;
+		this.setState({
+			newPage:this.props.params.page || '1',
+		},function(){
+			_this.changeP();
+		})
+		
+	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
 
@@ -64,11 +75,11 @@ class Operations extends React.Component {
 			
 
 		} else if (type == 'view') {
-			this.openView(itemDetail.id);
+			this.openView(itemDetail.id,this.state.newPage);
 		}
 	}
-	openView = (id) => {
-		var url = `./#/permission/userlist/${id}`;
+	openView = (id,page) => {
+		var url = `./#/permission/userlist/${id}/${page}`;
 		window.location.href=url;
 	}
 	openDeleteDialog = () => {
@@ -146,6 +157,7 @@ class Operations extends React.Component {
             searchParams: {
                     page: this.state.newPage,
                     timer: timer,
+					pageSize:10,
             }
         })
     }

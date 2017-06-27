@@ -78,7 +78,8 @@ module.exports =()=>{
 	return (
 		<Route path="permission" getComponent={Basic}>
       <IndexRedirect to="accountManage/accountList"/>
-		<Route path="user" getComponent={Permission_User}/>
+      <Route path="user" getComponent={Permission_User}/>
+		<Route path="user/:page" getComponent={Permission_User}/>
 		<Route path="operations" getComponent={Permission_Operations}/>
     <Route path="loginlog" getComponent={Permission_LoginLog}/>
     <Route path="accountManage" getComponent={Basic}>
@@ -86,7 +87,7 @@ module.exports =()=>{
         <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>
         <Route path="operationSource" getComponent={Permission_AccountManage_OperationSource}/>
     </Route>
-		<Route path="userlist/:userId" getComponent={Permission_UserList}>
+		<Route path="userlist/:userId/:page" getComponent={Permission_UserList}>
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>
 		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>

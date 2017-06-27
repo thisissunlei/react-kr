@@ -184,7 +184,7 @@ export default class DataPermission extends React.Component{
 		}).catch(function(err) {
 				Message.error(err.message);
 		});
-}
+	}
 	onCancel=()=>{
 	  const {
 	    onCancel
