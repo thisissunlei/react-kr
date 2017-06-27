@@ -11,8 +11,9 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
+	Drawer
 } from 'kr-ui';
-import { observer, inject } from 'mobx-react';
+import CreateNotice from './CreateNotice';
 import './index.less';
 export default class NoticeManage extends React.Component {
 
@@ -23,7 +24,10 @@ export default class NoticeManage extends React.Component {
 			searchParams:{
 				page:1,
 				pageSize:15
-			}
+			},
+			openNewCreat:false,
+			openView:false,
+			openDelete:false,
 		}
 
 	}
@@ -33,6 +37,12 @@ export default class NoticeManage extends React.Component {
 		
 		
 	}
+	openNewCreat=()=>{
+		this.setState({
+			openNewCreat:!this.state.openNewCreat
+		})
+
+	}
 
 	
 	render() {
@@ -41,6 +51,13 @@ export default class NoticeManage extends React.Component {
 			<div className="g-notice" >
 			<Title value="公告管理"/>
 				<Section title="公告列表" description="" style={{marginBottom:-5,minHeight:910}}>
+					<div className="m-btn">
+						<Button
+								label="新建公告"
+								type='button'
+								onTouchTap={this.openNewCreat}
+							/>
+					</div>
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}
@@ -88,6 +105,19 @@ export default class NoticeManage extends React.Component {
 			        		<TableFooter></TableFooter>
             		</Table>
 				</Section>
+				<Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openNewCreat}
+	             onClose={this.openNewCreat}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<CreateNotice 
+	             			onCancel={this.openNewCreat} 
+	             			onSubmit={this.createSubmit} 
+	             	 />
+	           </Drawer>
 			</div>
 		);
 	}
