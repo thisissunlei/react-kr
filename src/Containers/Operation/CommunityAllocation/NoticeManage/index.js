@@ -12,7 +12,9 @@ import {
 	TableFooter,
 	Button,
 	Drawer,
-	Dialog
+	Dialog,
+	Tooltip,
+	KrDate
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
 import ViewNotice from './ViewNotice';
@@ -91,6 +93,15 @@ export default class NoticeManage extends React.Component {
 			openDelete:!this.state.openDelete
 		})
 	}
+	createSubmit=()=>{
+		this.setState({
+			searchParams:{
+					date:new Date(),
+					pageSize:15
+				}
+		})
+		this.openNewCreat();
+	}
 	
 	render() {
 		return (
@@ -103,16 +114,6 @@ export default class NoticeManage extends React.Component {
 								label="新建公告"
 								type='button'
 								onTouchTap={this.openNewCreat}
-							/>
-						<Button
-								label="查看"
-								type='button'
-								onTouchTap={this.openView}
-							/>
-						<Button
-								label="删除"
-								type='button'
-								onTouchTap={this.openDelete}
 							/>
 					</div>
 					<Table
@@ -136,7 +137,12 @@ export default class NoticeManage extends React.Component {
 					              <TableRow>
 					                <TableRowColumn name="clusterName" ></TableRowColumn>
 					                <TableRowColumn name="cmtName"></TableRowColumn>
-					                <TableRowColumn name="topicDate" type='date'></TableRowColumn>
+					                <TableRowColumn 
+					                	name="topicDate" 
+					                	component={(value) => {
+					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                    }}
+					                ></TableRowColumn>
 					                <TableRowColumn name="authorName" ></TableRowColumn>
 					                <TableRowColumn 
 					                		name="topicContent" 

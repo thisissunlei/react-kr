@@ -573,12 +573,12 @@ module.exports = {
       },
       //公告管理-公告列表
        'notice-list':{
-         url: '/api/krspace-finance-web/topic/manage/findPage?page={page}&pageSize={pageSize}',
+         url: '/api/krspace-finance-web/topic/manage/find-page?page={page}&pageSize={pageSize}',
          method: 'get'
       },
       //公告管理-获取帖子详情
        'get-findDetail':{
-         url: '/api/krspace-finance-web/topic/manage/findDetail?topicId={topicId}',
+         url: '/api/krspace-finance-web/topic/manage/find-detail?topicId={topicId}',
          method: 'get'
       },
       //公告管理-删除帖子
@@ -586,14 +586,28 @@ module.exports = {
          url: '/api/krspace-finance-web/topic/manage/del',
          method: 'post'
       },
-      //公告管理-新建帖子
-       'create-notice':{
-         url: '/api/krspace-finance-web/topic/manage/create',
-         method: 'post'
-      },
       //公告管理-获取是否有全国发帖权限
        'get-findRight':{
-         url: '/api/krspace-finance-web/topic/manage/findRight',
+         url: '/api/krspace-finance-web/topic/manage/find-right',
          method: 'get'
       },
+      //公告管理-新建帖子-全国
+       'create-country-topic':{
+         url: '/api/krspace-finance-web/topic/manage/create-country-topic',
+         method: 'post'
+      },
+      //公告管理-新建帖子-社区
+       'create-cmt-topic':{
+         url: '/api/krspace-finance-web/topic/manage/create-cmt-topic',
+         method: 'post'
+      },
+      //公告管理-新建帖子-群组列表
+       'cluster-list':{
+         url: '/api/krspace-finance-web/topic/manage/cluster-list?cmtId={cmtId}',
+         method: 'get'
+      },
+
+
 }
+
+

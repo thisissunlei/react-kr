@@ -26,20 +26,41 @@ class CreateNotice extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			groupList:[
-				{label:'全国群组',value:'COUNTRYWIDE'},
-				{label:'社区群组',value:'COMMUNITY'}
-			],
+			groupList:[],
 			ifCity:false,
 			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
+			groupType:[],
 		}
-		
+		this.getType();
 	}
 	
 	componentDidMount() {
         
     }
-   
+
+   	getType=()=>{
+   		var _this=this;
+		Http.request('get-findRight').then(function(response) {
+			if(response.hasRight==1){
+				_this.setState({
+					groupType:[
+						{label:'全国群组',value:'COUNTRYWIDE'},
+						{label:'社区群组',value:'COMMUNITY'}
+					]
+				})
+			}else if(response.hasRight==0){
+				_this.setState({
+					groupType:[
+						{label:'社区群组',value:'COMMUNITY'}
+					]
+				})
+			}
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	
+
+   	}
 	selectType=(item)=>{
 		if(item.value=="COMMUNITY"){
 			this.setState({
@@ -51,15 +72,39 @@ class CreateNotice extends React.Component {
 			})
 		}
 	}
+
+	selectGroup=(item)=>{
+		var _this=this;
+		Http.request('cluster-list',{cmtId:item.id}).then(function(response) {
+			response.clusterList.map((item)=>{
+				item.label=item.clusterName;
+				item.value=item.id;
+				return item;
+			})
+			_this.setState({
+				groupList:response.clusterList
+			})
+			
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	
+	}
+
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-			// Http.request('cluster-insert',{},form).then(function(response) {
-			// 	Message.success('新建成功')
-			// 	onSubmit && onSubmit(form);
-			// }).catch(function(err) {
-			// 	Message.error(err.message);
-			// });
+		var params={
+			clusterId:form.clusterId,
+			content:form.content,
+			imgUrl:form.imgUrl  || ''
+		}
+		Http.request('create-cmt-topic',{},params).then(function(response) {
+			Message.success('新建成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
@@ -78,6 +123,7 @@ class CreateNotice extends React.Component {
 			let {
 				groupList,
 				ifCity,
+				groupType,
 			}=this.state;
 			
 		
@@ -91,23 +137,26 @@ class CreateNotice extends React.Component {
 							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
-								options={groupList}
+								name="groupType"
+								options={groupType}
 								label="群组类型"
 								requireLabel={true}
 								onChange={this.selectType}
 						 	/>
 						 	{ifCity?<KrField  
-					 			grid={1/2}
 					 			style={{width:262}} 
+					 			name="cmtName"
 					 			component='searchCommunityAll'  
 					 			label="所属社区" 
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
+						 		onChange={this.selectGroup}
 						 	/>:''}
 						 	<KrField
 								style={{width:260,margintop:20}}
 								component="select"
+								name="clusterId"
 								options={groupList}
 								label="所属群组"
 								requireLabel={true}
@@ -115,14 +164,14 @@ class CreateNotice extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:548}}
-								name="intro"
+								name="content"
 								component="textarea"
-								label="群组描述"
+								label="帖子内容"
 								maxSize={500}
 								requireLabel={true}
 							/>
 							<KrField 
-								name="headUrl"
+								name="imgUrl"
 								style={{width:548}}
 								component="newuploadImage"
 								innerstyle={{width:120,height:120,padding:10}}
@@ -132,7 +181,6 @@ class CreateNotice extends React.Component {
 								pictureFormat={'JPG,PNG'}
 								pictureMemory={'100'}
 								requestURI = {this.state.requestURI}
-								
 								label="公告图片"
 								inline={false}
 								/>
@@ -157,31 +205,22 @@ const validate = values => {
 		const errors = {};
 
 
-		if (!values.headUrl) {
-			errors.headUrl = '请上传头像';
+		if (!values.groupType) {
+			errors.groupType = '请选择群组类型';
 		}
 
-		if (!values.clusterName) {
-			errors.clusterName = '请输入群组名称';
+		if (!values.cmtName) {
+			errors.cmtName = '请选择所属社区';
 		}
 
-		if (!values.clusterType) {
-			errors.clusterType = '请选择群组类型';
+		if (!values.clusterId) {
+			errors.clusterId = '请选择所属群组';
 		}
-		if (!values.city) {
-			errors.city = '请选择所属城市';
-		}
-		
-		if (!values.cmtId) {
-			errors.cmtId = '请选择所属社区';
+		if (!values.content) {
+			errors.content = '请输入帖子内容';
 		}
 		
-		if (!values.sort) {
-			errors.sort = '请输入排序号';
-		}
-		if (!values.intro) {
-			errors.intro = '请输入群组描述';
-		}
+		
 
 		return errors
 }
