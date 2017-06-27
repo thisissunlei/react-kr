@@ -81,8 +81,6 @@ export default class TabsComponent extends React.Component {
 		}
 			
 
-
-
 			return (
 				<Tab label={label} style={style} key={i} onActive={onActives} className={label}>
 					<div className="ui-tabs-contents"> 
@@ -116,7 +114,7 @@ export default class TabsComponent extends React.Component {
 
 	render() {
 
-		let {inkBarStyle,tabItemContainerStyle}=this.props;
+		let {inkBarStyle,tabItemContainerStyle,value}=this.props;
 		const initInkBarStyle={background: '#499df1',position:'absolute',top:0,height:3}
 		const initTabItemContainerStyle={background:'#fff',color:"#333"};
 

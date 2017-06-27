@@ -275,7 +275,7 @@ class FieldRevert extends React.Component {
 
 			if (component === 'searchCommunityAll') {
 				return (
-					<Field {...this.props} component={searchCommunity}  style={WrapStyles} {...other}/>
+					<FieldRevert {...this.props} component={searchCommunity}  style={WrapStyles} {...other}/>
 				)
 			}
 

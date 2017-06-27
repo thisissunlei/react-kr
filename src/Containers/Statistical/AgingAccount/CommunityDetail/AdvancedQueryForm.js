@@ -95,12 +95,13 @@ class AdvancedQueryForm extends React.Component{
 					label="主体"
 					style={{width:252,marginRight:40}}
 				/>
-				<KrField name="communityId" 
+
+				{/*<KrField name="communityId" 
 					component="searchCommunityManage" 
 					label="社区" 
 					inline={false} 
 					style={{width:252}}
-				/>
+				/>*/}
 				<KrField name="dayType" 
 					component="select" 
 					options={daysOptions}

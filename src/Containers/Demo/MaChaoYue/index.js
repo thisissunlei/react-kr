@@ -52,12 +52,10 @@ class MaChaoYue extends React.Component {
 		}
 	}
 	onSubmit=(value)=>{
-		console.log(value);
 		let cmtIds = [];
 		value.communitys.map((item)=>{
 			cmtIds.push(item.id)
 		})
-		console.log('submit',value,cmtIds)
 	}
 
 

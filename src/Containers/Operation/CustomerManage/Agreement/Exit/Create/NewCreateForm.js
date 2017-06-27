@@ -165,7 +165,7 @@ class NewCreateForm extends React.Component {
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
-			//会议室
+			//独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos)
 		};

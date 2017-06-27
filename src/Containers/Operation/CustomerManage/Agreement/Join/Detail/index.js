@@ -136,7 +136,7 @@ export default class JoinDetail extends React.Component {
 					<KrField component="labelText" grid={1/2} label="签署日期：" value={DateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="0" requireBlue={true}/>
 
 					<KrField component="labelText" left={60} label="租赁工位：" grid={1/2}  value={basic.stationnum} requireBlue={true} defaultValue="0"/>
-					<KrField component="labelText" label="租赁办公室：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0"/>
+					<KrField component="labelText" label="租赁独立空间：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0"/>
 
 					<KrField component="labelText" grid={1/2}  left={60} label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true}/>
@@ -168,7 +168,7 @@ export default class JoinDetail extends React.Component {
 
 								return (
 									<TableRow key={index}>
-										<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+										<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 										<TableRowColumn>
 										{item.stationName}
 										</TableRowColumn>

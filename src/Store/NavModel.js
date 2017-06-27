@@ -21,7 +21,7 @@ let State = observable({
 	isLoadedPermissionNav: false,
 	isLoadNavData: false,
 	menusData:[],
-	resourcdsCode:[]
+	resourcdsCode:[],
 });
 
 

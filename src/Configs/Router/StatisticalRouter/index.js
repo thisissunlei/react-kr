@@ -23,11 +23,13 @@ const Statistical_Home = (location, callback) => {
   }, 'Statistical_Home')
 }
 
+
 const Statistical_AgingAccount = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Statistical/AgingAccount').default)
   }, 'Statistical_AgingAccount')
 }
+
 
 module.exports =()=>{
 
@@ -37,5 +39,10 @@ module.exports =()=>{
             <Route path="agingaccount" getComponent={Statistical_AgingAccount}/>
                 <IndexRedirect to="index" />
         </Route>
+
+
+
+
+
 	);
 };

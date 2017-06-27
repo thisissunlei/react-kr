@@ -27,7 +27,6 @@ export default  class Canvas extends React.Component {
 		const {data} = this.state;
 		const _this = this;
 		const host = "http://"+window.location.host;
-		console.log("host",host);
 		let img = new Image();
 		img.src = host+url;
 		img.onload = function () {
@@ -189,7 +188,6 @@ export default  class Canvas extends React.Component {
 					selectedObjs.map(function(ele,index){
 						if(item.belongId == ele.id && item.belongType == ele.belongType){
 							deleteArr.push(item);
-
 						}
 					})
 
@@ -213,7 +211,6 @@ export default  class Canvas extends React.Component {
 		const {imgW,imgH} = this.state;
 		
 		const host = "http://"+window.location.host;
-		console.log(host,">>");
 		let src = host+url;
 		return (
 

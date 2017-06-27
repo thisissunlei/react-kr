@@ -55,6 +55,14 @@ const Operation_CommunityManage_HoldList= (location, callback) => {
 	}, 'Operation_CommunityManage_HoldList')
 }
 
+
+
+const Statistical_PaymentRemindTable = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Statistical/PaymentRemindTable').default)
+  }, 'Statistical_PaymentRemindTable')
+}
+
 module.exports =()=>{
 
 
@@ -83,6 +91,9 @@ module.exports =()=>{
         <Route path="visitor" getComponent={Basic}>
                 <Route path="list" getComponent={Operation_CommunityManage_Visitor}/>
         </Route>
+        
+        <Route path="paymentremindtable" getComponent={Statistical_PaymentRemindTable}/>
+
 
     </Route>
 	);

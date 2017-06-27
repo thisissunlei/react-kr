@@ -25,8 +25,7 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("CommunityDetailModel")
-@inject("NewIndentModel")
+@inject("CommunityDetailModel","NewIndentModel","NavModel")
 @observer
  class EditCustomerList extends React.Component{
 
@@ -41,6 +40,8 @@ import {
 		super(props);
 		let {listId}=props;
 		State.treeAllData();
+		this.permissions();
+
 
 	}
 	supplementZero(value) {
@@ -68,6 +69,16 @@ import {
 
 		return result;
 	}
+	permissions = () =>{
+		const {resourcdsCode} = this.props.NavModel;
+		let _this = this;
+
+		resourcdsCode.map(function(item,index){
+			if(item == "oper_csr_edit_include_source"){
+				State.isPermissions = true;
+			}
+		})
+	}
 
 
 
@@ -77,14 +88,15 @@ import {
 		if(!values.company){
 			return;
 		}
-		values.operType=operType;
+		values.operType = operType;
 		if(!isNaN(values.inTime)){
 			values.inTime=this.formatDate(values.inTime);
 		}
 		if(!isNaN(values.deadline)){
 			values.deadline=this.formatDate(values.deadline);
 		}
-		Http.request('customerDataEdit',{},values).then(function(response) {
+		Http.request("customerDataEdit",{},values).then(function(response) {
+
 			if(operType=="SHARE"){
 				merchants.searchParams={
 		         	page:1,
@@ -120,7 +132,7 @@ import {
 	  if(!value){
 	  	return;
 	  }
-
+		console.log()
 	  var param=value.label;
       if(param.indexOf('推荐')!=-1){
          State.sourceCustomer=true;
@@ -169,7 +181,16 @@ import {
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue} = this.props;
+		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
+
+		let sourceIdLabel = '';
+		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
+
+			if(item.value == allData.sourceId){
+				sourceIdLabel = item.label;
+			}
+
+		})
 
 
 		return (
@@ -183,12 +204,12 @@ import {
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
+									{State.isPermissions ? <KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
 											options={dataReady.customerSourceList}
 											requireLabel={true}
 											onChange={this.sourceCustomer}
-									/>
-
+									/> :
+									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="labelText" value={sourceIdLabel} inline={false}/>}
 									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
 				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>

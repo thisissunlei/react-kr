@@ -35,9 +35,9 @@ export default class TableIndex extends React.Component{
 
 	componentWillReceiveProps(nextProps){
 		let _this = this;
-		console.log("nextProps.sideNavShow",nextProps.sideNavShow);
+		
 		if(!nextProps.sideNavShow){
-			// console.log("$(.table-box).eq(0).width()",$(".table-box").eq(0).width());
+			
 			$(".table-box").eq(0).width($(window).eq(0).width()-80);
 			$(".table-data-detail").eq(0).width($(window).eq(0).width()-80);
 			_this.setState({
@@ -64,7 +64,7 @@ export default class TableIndex extends React.Component{
 			middlePX :($(window).width()-80)/2-60
 		})
 		$(".table-data-detail").width(tableBoxWidth);
-		$(".table-box").height($(window).height()-200);
+		$(".table-box").height($(window).height()-225);
 		$(".table-box").eq(0).width($(".search-form-community-detail").width());
 		
 		$('.table-data-detail').eq(0).scroll(function(event){

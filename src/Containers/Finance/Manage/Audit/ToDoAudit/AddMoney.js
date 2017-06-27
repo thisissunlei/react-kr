@@ -881,7 +881,6 @@ class AddMoney extends React.Component {
 		if (!values.accountId) {
 			errors.accountId = '请选择我司账户';
 		}
-		console.log('values.payAccount',values.payAccount)
 		if (!values.payAccount) {
 			errors.payAccount = '请输入付款账户';
 		}
