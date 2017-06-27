@@ -44,6 +44,9 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 )
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {
+	if(!fields.length){
+		fields.push({});
+	}
 		 var krStyle={};
 			krStyle={
 				width:228,
