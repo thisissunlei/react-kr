@@ -36,8 +36,8 @@ class Operations extends React.Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
-				pageSize: 15,
+				page: this.props.params.page,
+				pageSize: 10,
 				timer: 0,
 			},
 			itemDetail: '',
@@ -48,7 +48,18 @@ class Operations extends React.Component {
 			newPage:1,
 		}
 	}
-	
+	componentDidMount() {
+		// if(!this.props.params.page){
+		// 	window.location.href = window.location.href+'/1';
+		// }
+		var _this = this;
+		this.setState({
+			newPage:this.props.params.page || '1',
+		},function(){
+			_this.changeP();
+		})
+		
+	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
 
@@ -63,12 +74,12 @@ class Operations extends React.Component {
 			
 
 		} else if (type == 'view') {
-			this.openView(itemDetail.id);
+			this.openView(itemDetail.id,_this.state.newPage);
 		}
 	}
-	openView = (id) => {
-		var url = `./#/permission/userlist/${id}`;
-		window.open(url)
+	openView = (id,page) => {
+		var url = `./#/permission/userlist/${id}/${page}`;
+		window.location.href=url;
 	}
 	openDeleteDialog = () => {
 		this.setState({
@@ -141,17 +152,17 @@ class Operations extends React.Component {
 	//改变页码
     changeP=()=>{
         var timer = new Date();
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.timer=timer;
-		this.setState({
-            searchParams:searchParams,
+        this.setState({
+            searchParams: {
+                    page: this.state.newPage,
+                    timer: timer,
+					pageSize:10,
+            }
         })
     }
-	onPageChange=(page)=>{
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.page=page;
-		this.setState({
-            searchParams:searchParams,
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
         })
     }
 	render() {

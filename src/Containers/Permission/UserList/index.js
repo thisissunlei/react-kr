@@ -103,7 +103,11 @@ export default class UserList extends Component {
 		})
 
 	}
-
+	back=()=>{
+		var page = this.props.params.page;
+		var url = `./#/permission/user/${page}`;
+		window.location.href=url;
+	}
 	render() {
 
 
@@ -112,7 +116,9 @@ export default class UserList extends Component {
 				<Section title="人员列表" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
-						<Col md={4} align="left" > </Col>
+						<Col md={4} align="left" >
+							<Button label="返回"  onTouchTap={this.back} />
+						 </Col>
 						<Col md={8} align="right">
 						   <ListGroup>
 							 <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>

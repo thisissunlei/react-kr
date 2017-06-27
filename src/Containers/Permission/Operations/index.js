@@ -233,6 +233,7 @@ class Operations extends Component {
     changeP=()=>{
         var timer = new Date();
 		var searchParams = Object.assign({},this.state.searchParams);
+		console.log(searchParams);
 		searchParams.timer=timer;
 		this.setState({
             searchParams:searchParams,
@@ -241,6 +242,7 @@ class Operations extends Component {
 	onPageChange=(page)=>{
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.page=page;
+		console.log(searchParams);
 		this.setState({
             searchParams:searchParams,
         })
@@ -263,7 +265,8 @@ class Operations extends Component {
 							ajaxUrlName='RosfindPage'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
-							  >
+							onPageChange={this.onPageChange}
+						>
 						<TableHeader>
 						<TableHeaderColumn>ID</TableHeaderColumn>
 						<TableHeaderColumn>名称</TableHeaderColumn>
