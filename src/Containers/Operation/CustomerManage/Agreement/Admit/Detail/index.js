@@ -156,7 +156,7 @@ export default class AdmitDetail extends React.Component {
 			<KrField label="付款方式："   left={60} grid={1/2} component="labelText" value={dicName} defaultValue="无" requireBlue={true}/>
 
 				<KrField label="租赁工位："   grid={1/2} component="labelText" value={basic.stationnum} defaultValue="0" requireBlue={true}/>
-					<KrField label="租赁会议室："  left={60} grid={1/2} component="labelText" value={basic.boardroomnum} defaultValue="0" requireBlue={true}/>
+					<KrField label="租赁独立空间："  left={60} grid={1/2} component="labelText" value={basic.boardroomnum} defaultValue="0" requireBlue={true}/>
 					<KrField label="租赁期限："   grid={1/2}  component="labelText" value={`${DateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${DateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="0" requireBlue={true}/>
 
 <KrField label="保留天数："   grid={1/2} component="labelText" left={60} value={basic.templockday} defaultValue="0" requireBlue={true}/>
@@ -186,7 +186,7 @@ export default class AdmitDetail extends React.Component {
 													basic.stationVos && basic.stationVos.map((item,index)=>{
 													return (
 														 <TableRow key={index}>
-														<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+														<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 														<TableRowColumn>
 															{item.stationName}
 														</TableRowColumn>

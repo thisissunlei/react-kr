@@ -209,11 +209,11 @@ module.exports = {
         url: '/api/krspace-finance-web/customer/actions/data-list',
         method: 'get'
     },
-    //运营平台－客户管理－新增或编辑客户
-    'managerCustomerDataEdit': {
-        url: '/api/krspace-finance-web/customer/actions/manager-edit',
-        method: 'post'
-    },
+    // //运营平台－客户管理－新增或编辑客户
+    // 'managerCustomerDataEdit': {
+    //     url: '/api/krspace-finance-web/customer/actions/medit',
+    //     method: 'post'
+    // },
      //运营平台－客户管理－新增或编辑客户
      'customerDataEdit':{
         url: '/api/krspace-finance-web/customer/actions/edit',

@@ -150,7 +150,7 @@ class NewCreateForm extends React.Component {
 			floors: changeValues.wherefloor,
 			//工位
 			goalStationNum: changeValues.stationnum,
-			//会议室
+			//独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos)
 		};
@@ -167,7 +167,7 @@ class NewCreateForm extends React.Component {
 	}
 	setTotalRent=(value)=>{
 		let {initialValues} = this.props;
-		// let _this = this;
+		let _this = this;
 		// Http.request('setExitTotalReturn', {
 		// 	mainbillId: initialValues.mainbillid,
 		// 	withdrawDate:value
@@ -222,7 +222,7 @@ class NewCreateForm extends React.Component {
 				<KrField   name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField   name="contracttype" type="hidden" component="input" />
-				<KrField grid={1}  name="contractVersionType" type="hidden" component="input" label="会议室"/>
+				<KrField grid={1}  name="contractVersionType" type="hidden" component="input" label="独立空间"/>
 
 				<KrField name="leaseId" style={{width:262,marginLeft:25}} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
 				<div className="lessor-address"><KrField style={{width:262,marginLeft:25}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false}  value={changeValues.lessorAddress}  defaultValue="无" toolTrue={true}/></div>
