@@ -64,7 +64,7 @@ class CreateNotice extends React.Component {
 		
 			
 		return (
-			<div className="g-create-group">
+			<div className="g-create-notice">
 				<div className="u-create-title">
 						<div className="title-text">新建公告</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
