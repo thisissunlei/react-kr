@@ -11,7 +11,8 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
-	Drawer
+	Drawer,
+	Dialog
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
 import ViewNotice from './ViewNotice';
@@ -37,6 +38,41 @@ export default class NoticeManage extends React.Component {
 		var _this=this;
 		
 		
+	}
+	//操作相关
+  	onOperation = (type, itemDetail) => {
+      this.setState({
+        itemDetail
+      });
+      switch (type){
+        case  'view':{
+         this.openView();
+          break;
+        }
+        
+        case  'delete':{
+         this.openDelete(itemDetail);
+          break;
+        }
+      }
+    }
+    //删除
+	onDeleteData=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		// Http.request('cluster-delete',{},{clusterId:itemDetail.id}).then(function (response) {
+		// 	_this.openDele();
+		// 	Message.success('删除成功！');
+		// 	_this.setState({
+		// 		searchParams:{
+		// 			date:new Date()
+		// 		}
+		// 	})
+
+		// }).catch(function (err) { 
+		// 	Message.error(err.message)
+		// });
+
 	}
 	openNewCreat=()=>{
 		this.setState({
@@ -71,6 +107,11 @@ export default class NoticeManage extends React.Component {
 								label="查看"
 								type='button'
 								onTouchTap={this.openView}
+							/>
+						<Button
+								label="删除"
+								type='button'
+								onTouchTap={this.openDelete}
 							/>
 					</div>
 					<Table
@@ -146,6 +187,22 @@ export default class NoticeManage extends React.Component {
 	             			
 	             	 />
 	           </Drawer>
+	           <Dialog
+	              title="删除"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openDelete}
+	              onClose={this.openDelete}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center'}}>确认要删除帖子吗？</p>
+					<div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.onDeleteData}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openDelete} />
+	                      </div>
+	            	</div>
+	            </Dialog>
 			</div>
 		);
 	}

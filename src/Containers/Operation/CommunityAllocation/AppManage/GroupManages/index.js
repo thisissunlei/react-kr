@@ -95,8 +95,6 @@ export default class GroupManages extends React.Component {
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});
-		
-		
 
 	}
 	openDele=()=>{
