@@ -80,6 +80,7 @@ class CommunityList  extends React.Component{
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
    	    value = Object.assign({},value);
+        
         //亮点开始
    	    var brightsStr=[];
         if(value.bright_basic){
@@ -201,7 +202,7 @@ class CommunityList  extends React.Component{
 
          //图片结束
 
-         
+        
    	     State.onNewCommunitySubmit(value);
 
    }
@@ -383,6 +384,7 @@ class CommunityList  extends React.Component{
      onSearchUpperSubmit=(searchParams)=>{
      	searchParams = Object.assign({},State.searchParams, searchParams);
      	searchParams.time=+new Date();
+       
 		if(searchParams.openDateBegin&&searchParams.openDateEnd&&searchParams.openDateEnd<searchParams.openDateBegin){
 			 Message.error('开始时间不能大于结束时间');
 	         return ;
@@ -393,7 +395,8 @@ class CommunityList  extends React.Component{
 		if(searchParams.openDateBegin && !searchParams.openDateEnd){
 			searchParams.openDateEnd = searchParams.openDateBegin
 		}
-
+        
+        
       	State.setSearchParams(searchParams);
       	State.searchUpperCustomer();
      }
@@ -435,6 +438,14 @@ class CommunityList  extends React.Component{
 
     whiteClose=()=>{
     	State.closeAllDialog();
+    }
+
+    onPageChange=(page)=>{
+      var searchParams={
+        page:page
+      }
+
+      State.searchParams=Object.assign({},State.searchParams,searchParams);
     }
 
 	render(){
@@ -488,6 +499,7 @@ class CommunityList  extends React.Component{
 	            exportSwitch={true}
 			        onExport={this.onExport}
 	            ajaxParams={State.searchParams}
+              onPageChange={this.onPageChange}
 	            ajaxUrlName='communitySearch'
 	            ajaxFieldListName="items"
 					  >

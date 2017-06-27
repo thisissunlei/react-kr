@@ -110,6 +110,7 @@ class BusinessList  extends React.Component{
    openNewBusiness = () =>{
    		this.setState({
    			openNewBusiness:true,
+				id:''
    		});
       const {FormModel} = this.props;
   		FormModel.getForm("NewBusinessForm")
@@ -163,8 +164,8 @@ class BusinessList  extends React.Component{
 
 	   	this.setState({
 	      searchParams:{
-					name:values.name,
-					page: searchParams.page,
+						name:values.name,
+						page: 1,
 	     			pageSize: searchParams.pageSize,
 	     			districtId:values.districtId,
 	     			enable:values.enable,
@@ -178,12 +179,14 @@ class BusinessList  extends React.Component{
 	onSubmit = (params) =>{
 		let {id} = this.state;
 		let _this = this;
+		var page='';
 
 		params.id = id;
-
-
+    if(!params.id){
+			page=1;
+		}
 		Http.request('business-new',params).then(function(response) {
-			_this.refreshList();
+			_this.refreshList(page);
 			_this.closeNewBusiness();
 			_this.closeEditBusiness();
 		}).catch(function(err) {
@@ -218,14 +221,14 @@ class BusinessList  extends React.Component{
 	}
 
   //刷新列表
-  refreshList = () =>{
+  refreshList = (page) =>{
     let {searchParams} = this.state;
 	let date = new Date();
 
    	this.setState({
       searchParams:{
 			name:searchParams.name,
-			page: searchParams.page,
+			page: page==1?1:searchParams.page,
  			pageSize: searchParams.pageSize,
  			districtId:searchParams.districtId,
  			enable:searchParams.enable,
@@ -261,6 +264,15 @@ searchChange = (values) =>{
     })
 
   }
+
+	onPageChange=(page)=>{
+     var searchParams={
+			  page:page
+		 }
+		 this.setState({
+			 searchParams:Object.assign({},this.state.searchParams,searchParams)
+		 })
+	}
 
 	render(){
 		let {
@@ -323,6 +335,7 @@ searchChange = (values) =>{
 		            ajaxUrlName='business-list'
 		            ajaxFieldListName="items"
                 onExport={this.onExport}
+								onPageChange={this.onPageChange}
                 exportSwitch={false}
 				>
 			            <TableHeader>

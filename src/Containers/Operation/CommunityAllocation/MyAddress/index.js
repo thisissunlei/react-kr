@@ -107,6 +107,12 @@ class CommunityList  extends React.Component{
     State.closeAllDialog();
   }
 
+  onPageChange=(page)=>{
+    var searchParams={
+      page:page
+    }
+     State.searchParams=Object.assign({},State.searchParams,searchParams);
+  } 
   
 
   render(){
@@ -144,6 +150,7 @@ class CommunityList  extends React.Component{
               displayCheckbox={true}
               exportSwitch={false}
               ajaxParams={State.searchParams}
+              onPageChange={this.onPageChange}
               ajaxUrlName='myAddressList'
               ajaxFieldListName="items"
             >

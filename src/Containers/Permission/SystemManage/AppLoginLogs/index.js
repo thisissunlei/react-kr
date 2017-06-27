@@ -106,9 +106,7 @@ openHighSearch = () => {
 		Http.request('save-version', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -120,13 +118,27 @@ openHighSearch = () => {
 		Http.request('save-version', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
 	}
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
 	render() {
 		let {itemDetail} = this.state;
 
@@ -153,6 +165,7 @@ openHighSearch = () => {
           ajaxUrlName='get-version-list'
           ajaxParams={this.state.searchParams}
           onOperation={this.onOperation}
+		  onPageChange={this.onPageChange}
             >
         <TableHeader>
         <TableHeaderColumn>系统版本</TableHeaderColumn>

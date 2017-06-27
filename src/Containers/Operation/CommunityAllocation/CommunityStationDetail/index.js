@@ -174,6 +174,7 @@ cancelSearchUpperDialog=()=>{
 onSearchUpperSubmit=(params)=>{
  this.props.CommunityStationModel.searchParams= Object.assign({},this.props.CommunityStationModel.searchParams,params);
  this.props.CommunityStationModel.searchParams.time=+new Date();
+ this.props.CommunityStationModel.searchParams.page = 1;
  this.props.CommunityStationModel.searchUpperCustomer();
 }
 
@@ -197,6 +198,13 @@ whiteClose=()=>{
 //选择社区
 SelectCommunity=()=>{
 	window.location.href=`./#/operation/communityAllocation/communityStation`;
+}
+
+onPageChange=(page)=>{
+   var searchParams={
+	   page:page
+   }
+   this.props.CommunityStationModel.searchParams=Object.assign({},this.props.CommunityStationModel.searchParams,searchParams);
 }
 
 	render(){
@@ -252,6 +260,7 @@ SelectCommunity=()=>{
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			    onExport={this.onExport}
+				onPageChange={this.onPageChange}
 	            ajaxParams={this.props.CommunityStationModel.searchParams}
 	            ajaxUrlName='station-list'
 	            ajaxFieldListName="items"

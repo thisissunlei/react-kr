@@ -1,5 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+	Http,
+	DateFormat,
+} from "kr/Utils";
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -50,9 +54,9 @@ export default class DataPermission extends React.Component{
 	getInfo=()=>{
 			var _this = this;
 			const {detail} = this.props;
-			Store.dispatch(Actions.callAPI('findCommunities',{
+			Http.request('findCommunities',{
 				userId:_this.props.detail.id,
-			})).then(function(response){
+			}).then(function(response){
 			  _this.setState({
 					cityList: response.cities,
 				});
@@ -129,7 +133,7 @@ export default class DataPermission extends React.Component{
 	}
 	onSubmit = () => {
 		let {cityList} = this.state;
-		const {detail} = this.props;
+		const {detail,onSubmit} = this.props;
 		var idList = [];
 		cityList.map((item, index) => {
 			item.communities.map((itemC,indexC)=>{
@@ -138,14 +142,12 @@ export default class DataPermission extends React.Component{
 				}
 			})
 		})
-		Store.dispatch(Actions.callAPI('editUserCommunity',{},{
+		Http.request('editUserCommunity',{},{
 			id:detail.id,
 			communityIds:idList
-		})).then(function(response) {
+		}).then(function(response) {
 				Message.success('修改成功')
-				window.setTimeout(function(){
-					window.location.reload();
-				},800)
+				onSubmit();
 		}).catch(function(err) {
 				Message.error(err.message);
 		});

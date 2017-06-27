@@ -191,6 +191,8 @@ cancelSearchUpperDialog=()=>{
 onSearchUpperSubmit=(params)=>{
  this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,params);
  this.props.CommunityMeetingModel.searchParams.time=+new Date();
+ this.props.CommunityMeetingModel.searchParams.page = 1;
+
  this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 
@@ -214,6 +216,13 @@ whiteClose=()=>{
 //选择社区
 SelectCommunity=()=>{
 	window.location.href=`./#/operation/communityAllocation/communityMeetingRoom`;
+}
+
+onPageChange=(page)=>{
+   var searchParams={
+	   page:page
+   }
+   this.props.CommunityMeetingModel.searchParams=Object.assign({},this.props.CommunityMeetingModel.searchParams,searchParams);
 }
 
 	render(){
@@ -268,6 +277,7 @@ SelectCommunity=()=>{
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			        onExport={this.onExport}
+					onPageChange={this.onPageChange}
 	            ajaxParams={this.props.CommunityMeetingModel.searchParams}
 	            ajaxUrlName='meeting-room-list'
 	            ajaxFieldListName="items"

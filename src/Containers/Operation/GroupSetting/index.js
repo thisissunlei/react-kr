@@ -76,7 +76,11 @@ export default class GroupSetting  extends Component{
 	onCreateSubmit=(params)=> {
 
 		var _this = this;
+		var page='';
 		params = Object.assign({}, params);
+		if(!params.id){
+		  page=1
+		}
 		if(this.state.noinit){
 			params.templateIdList="";
 			Message.error("模板列表不能为空");
@@ -85,20 +89,16 @@ export default class GroupSetting  extends Component{
 		}else{
 			params.templateIdList=this.state.templateListIds;
 		}
-
+		var obj = Object.assign({},this.state.searchParams);
+		obj.page = page==1?1:_this.state.searchParams.page;
+		obj.other = !this.state.searchParams.other;
+		obj.groupName = this.state.searchText;
 		Http.request('GroupNewAndEidt', {}, params).then(function(response) {
-			let obj = {
-				page: 1,
-				pageSize: 15,
-				other:!_this.state.searchParams.other,
-				groupName:_this.state.searchText,
-
-			};
-
 			_this.setState({
 				openNewCreate: false,
 				openEditDetail: false,
-				searchParams: obj
+				searchParams: obj,
+				searchText:_this.state.searchText||''
 
 			});
 
@@ -167,16 +167,13 @@ export default class GroupSetting  extends Component{
 	}
 	//搜索功能
 	onSearchSubmit(searchParams) {
-		let obj = {
-			groupName:searchParams.content,
-			pageSize:15,
-			page: 1,
-		}
-			Store.dispatch(initialize('SearchUpperForm',obj));
+		let obj = Object.assign({},this.state.searchParams);
+		obj.groupName = searchParams.content;
+		Store.dispatch(initialize('SearchUpperForm',obj));
 
 		this.setState({
 			searchParams: obj,
-			searchText:searchParams.content,
+			searchText:searchParams.content||'',
 
 		});
 
@@ -190,16 +187,12 @@ export default class GroupSetting  extends Component{
 	onSearchUpperForm=(searchParams)=>{
 
 		var _this=this;
-
-		let obj = {
-			groupName:searchParams.groupName||"",
-			pageSize:15,
-			page: 1,
-			enable:searchParams.enable||""
-		}
-
+		let obj = Object.assign({},this.state.searchParams);
+		obj.groupName = searchParams.groupName||"";
+		obj.enable = searchParams.enable||"";
 		this.setState({
-			searchParams: obj
+			searchParams: obj,
+			searchText:this.state.searchText||'',
 		});
 		this.openSearchUpperFormDialog();
 
@@ -244,6 +237,15 @@ export default class GroupSetting  extends Component{
 		this.setState({templateListIds:ids,noinit:false})
 	}
 
+	onPageChange=(page)=>{
+      var searchParams={
+		  page:page
+	  }
+	  this.setState({
+		  searchParams:Object.assign({},this.state.searchParams,searchParams)
+	  })
+	}
+
 
 //
 //  component={(value,item)=>{<span>{value}</span>}}
@@ -279,7 +281,7 @@ export default class GroupSetting  extends Component{
 										displayCheckbox={false}
 										onExport={this.onExport}
 										ajaxParams={this.state.searchParams}
-
+										onPageChange={this.onPageChange}
 											ajaxFieldListName="items"
 											ajaxUrlName='MouldGroupList'>
 											<TableHeader>

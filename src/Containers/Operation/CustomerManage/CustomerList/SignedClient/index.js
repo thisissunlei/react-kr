@@ -332,6 +332,12 @@ class SignedClient extends React.Component{
 		 this.props.NewIndentModel.openContract=false;
 	}
 
+	pageChange = (page) =>{
+		var searchParams = Object.assign({}, State.searchParams);
+		searchParams.page = page;
+		State.searchParams = searchParams;
+	}
+
 	render(){
 
 
@@ -392,6 +398,7 @@ class SignedClient extends React.Component{
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="items"
+				onPageChange = {this.pageChange}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>签约城市</TableHeaderColumn>

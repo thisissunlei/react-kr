@@ -152,6 +152,7 @@ class VisitorsToRecord  extends React.Component{
       const {FormModel} = this.props;
    		this.setState({
    			openNewVisitors:true,
+        id:''
    		});
       FormModel.getForm("NewVisitorsToRecord")
   		.changeValues({
@@ -241,9 +242,13 @@ class VisitorsToRecord  extends React.Component{
 
     let {id} = this.state;
     let _this = this;
+    var page='';
     params.id= !id ? "" : id;
+    if(!id){
+      page=1;
+    }
     Http.request("visit-record-edit",params).then(function(select){
-      _this.refreshList();
+      _this.refreshList(page);
       _this.closeNewVisitors();
       _this.closeEditVisitors();
 
@@ -278,7 +283,7 @@ class VisitorsToRecord  extends React.Component{
 	}
 
   //刷新列表
-  refreshList = () =>{
+  refreshList = (page) =>{
     let {searchParams} = this.state;
 	  let date = new Date();
 
@@ -286,7 +291,7 @@ class VisitorsToRecord  extends React.Component{
    	this.setState({
       searchParams:{
 				searchKey:searchParams.searchKey,
-        page: searchParams.page,
+        page: page==1?1:searchParams.page,
         pageSize: searchParams.pageSize,
         searchType:searchParams.searchType,
         visitType:searchParams.visitType,
@@ -313,6 +318,16 @@ class VisitorsToRecord  extends React.Component{
       }
     })
 
+  }
+
+
+  onPageChange=(page)=>{
+    var searchParams={
+       page:page
+    }
+    this.setState({
+       searchParams:Object.assign({},this.state.searchParams,searchParams)
+    })
   }
 
 
@@ -373,6 +388,7 @@ class VisitorsToRecord  extends React.Component{
 		            ajaxUrlName='visit-record-list'
 		            ajaxFieldListName="items"
 	                onExport={this.onExport}
+                  onPageChange={this.onPageChange}
 	                exportSwitch={false}
 				>
 			            <TableHeader>

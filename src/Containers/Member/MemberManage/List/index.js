@@ -125,10 +125,15 @@ export default class List extends React.Component {
 				searchParams:{
 					page: _this.state.realPage,
 					pageSize:"15",
-					value:'',
-					type:'COMP_NAME',
+					value:_this.state.searchParams.value,
+					type:_this.state.searchParams.type,
 					status:!_this.state.status,
 					companyId:"0",
+					startTime:_this.state.searchParams.startTime,
+					endTime:_this.state.searchParams.endTime,
+					registerSourceId:_this.state.searchParams.registerSourceId,
+					jobId:_this.state.searchParams.jobId,
+					cityId:_this.state.searchParams.cityId,
 				}
 			})
 		}).catch(function(err){

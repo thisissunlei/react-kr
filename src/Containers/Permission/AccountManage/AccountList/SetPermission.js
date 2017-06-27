@@ -1,5 +1,6 @@
 import React from 'react';
 import {Actions, Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import {
@@ -53,7 +54,7 @@ export default class SetPermission extends React.Component {
     		console.log('sdafsdafsadf',this.props.detail);
     		let id=this.props.detail.id;
     		var _this = this;
-    		Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
+    	Http.request('findRoleData',{id:id}).then(function(response) {
     		  _this.setState({
     				roleList: response.roleList
     			});
@@ -133,10 +134,10 @@ export default class SetPermission extends React.Component {
           }
         })
         console.log("idList",idList);
-        Store.dispatch(Actions.callAPI('editUserRole', {}, {
+        Http.request('editUserRole', {}, {
           id:detail.id,
           roleIds:idList
-        })).then(function(response) {
+        }).then(function(response) {
             Message.success('修改成功')
             onSubmit();
         }).catch(function(err) {

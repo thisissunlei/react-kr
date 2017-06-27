@@ -111,11 +111,12 @@ export default class LessorManageList extends Component {
 
 	onEditSubmit() {
 		this.openEditDetailDialog();
-
-		window.setTimeout(function() {
-			window.location.reload();
-		}, 0);
-
+		var params={
+			 time:+new Date()
+			}
+		this.setState({
+		  params:Object.assign({},this.state.params,params),
+	  })
 	}
 
 	//查看
@@ -142,11 +143,27 @@ export default class LessorManageList extends Component {
 	}
 
 	onNewCreateSubmit(form) {
-		window.location.reload();
+		this.openNewCreateDialog();
+		var params={
+		  page:1,
+		  time:+new Date()
+	  }
+	  this.setState({
+		  params:Object.assign({},this.state.params,params),
+	  })
 	}
 
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
+	}
+
+	onPageChange=(page)=>{
+      var params={
+		  page:page
+	  }
+	  this.setState({
+		  params:Object.assign({},this.state.params,params)
+	  })
 	}
 
 	render() {
@@ -170,7 +187,16 @@ export default class LessorManageList extends Component {
 							</Col>
 						</Row>
 					</Grid>
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation}  exportSwitch={true} onExport={this.onExport}>
+				<Table  style={{marginTop:10}} 
+				displayCheckbox={true} 
+				ajax={true}  
+				ajaxUrlName='fnaCorporationList' 
+				ajaxParams={this.state.params} 
+				onOperation={this.onOperation} 
+				onPageChange={this.onPageChange} 
+				exportSwitch={true} 
+				onExport={this.onExport}
+				>
 						<TableHeader>
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
