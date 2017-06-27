@@ -89,7 +89,7 @@ class CreateNotice extends React.Component {
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
-								style={{width:260,margintop:20}}
+								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
 								options={groupList}
 								label="群组类型"
@@ -98,7 +98,7 @@ class CreateNotice extends React.Component {
 						 	/>
 						 	{ifCity?<KrField  
 					 			grid={1/2}
-					 			style={{width:262,marginLeft:25}} 
+					 			style={{width:262}} 
 					 			component='searchCommunityAll'  
 					 			label="所属社区" 
 					 			inline={false}  

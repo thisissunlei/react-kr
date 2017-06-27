@@ -14,6 +14,7 @@ import {
 	Drawer
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
+import ViewNotice from './ViewNotice';
 import './index.less';
 export default class NoticeManage extends React.Component {
 
@@ -43,7 +44,16 @@ export default class NoticeManage extends React.Component {
 		})
 
 	}
-
+	openView=()=>{
+		this.setState({
+			openView:!this.state.openView
+		})
+	}
+	openDelete=()=>{
+		this.setState({
+			openDelete:!this.state.openDelete
+		})
+	}
 	
 	render() {
 		return (
@@ -56,6 +66,11 @@ export default class NoticeManage extends React.Component {
 								label="新建公告"
 								type='button'
 								onTouchTap={this.openNewCreat}
+							/>
+						<Button
+								label="查看"
+								type='button'
+								onTouchTap={this.openView}
 							/>
 					</div>
 					<Table
@@ -116,6 +131,19 @@ export default class NoticeManage extends React.Component {
 	             	<CreateNotice 
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
+	             	 />
+	           </Drawer>
+	           <Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openView}
+	             onClose={this.openView}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<ViewNotice 
+	             			onCancel={this.openView} 
+	             			
 	             	 />
 	           </Drawer>
 			</div>
