@@ -16,17 +16,20 @@ import {
 } from 'kr-ui';
 const jsonData = [
     {
-        cityName: "北京",
+        name: "北京",
         cityId: 1,
+				type:'city',
         isBind:false,
         community: [
             {
                 cmtId: 1,
+								type:'cmt',
                 isBind:false,
                 cmtName: "北京创业大街社区"
             },
             {
                 cmtId: 2,
+								type:'cmt',
                 isBind:false,
                 cmtName: "北京酒仙桥社区"
             }
@@ -35,16 +38,19 @@ const jsonData = [
     {
         cityName: "上海",
         cityId: 3,
+				type:'city',
         isBind:false,
         community: [
             {
                 cmtId: 3,
                 isBind:false,
+								type:'cmt',
                 cmtName: "上海田林社区"
             },
             {
                 cmtId: 4,
                 isBind:false,
+								type:'cmt',
                 cmtName: "上海传奇广场社区"
             }
         ]
@@ -53,15 +59,18 @@ const jsonData = [
 
 export default class BindCommunity extends React.Component {
 
-	static propTypes = {
-		detail: React.PropTypes.object,
-		onCancel: React.PropTypes.func,
-
-	}
+	// static propTypes = {
+	// 	detail: React.PropTypes.object,
+	// 	onCancel: React.PropTypes.func,
+	//
+	// }
 
 	constructor(props) {
 		super(props);
 		this.onCancel = this.onCancel.bind(this);
+        this.state = {
+            jsonData: jsonData,
+        }
 	}
 
 	onCancel() {
@@ -71,9 +80,17 @@ export default class BindCommunity extends React.Component {
 		onCancel && onCancel();
 	}
   renderCheckBox = () =>{
-    jsonData.map(function(item,index){
-
+		// return <div>werw</div>
+    let parentArr = jsonData.map(function(item,index){
+        let childArr = item.community.map(function(item1,index1){
+            return <div><Checkbox label = {item1.cmtName} checked = {item1.isBind} index = {item1} /></div>
+        })
+        return (<div>
+                    <div><Checkbox label = {item.cityName} checked = {item.isBind} data = {item} /></div>
+                    {childArr}
+                </div>)
     })
+    return <div>{parentArr}</div>
   }
 
 	render() {
@@ -81,7 +98,7 @@ export default class BindCommunity extends React.Component {
 		return (
 
 			<div className="bind-community" style={{marginTop:40}}>
-
+          {this.renderCheckBox()}
       </div>
 
 		);

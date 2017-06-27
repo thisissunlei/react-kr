@@ -1,15 +1,20 @@
 import React, {
 	Component
 } from 'react';
+
 import {
+	Actions,
+	Store,
 	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-
+} from 'kr/Redux';
 import './index.less';
-
+import {
+	reduxForm,
+	formValueSelector,
+	initialize,
+	FieldArray,
+	change
+} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
@@ -98,6 +103,7 @@ export default class LessorManageList extends Component {
 			this.openViewDialog();
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
+			// Store.dispatch(change('editDetailForm','bright_bright',[{}]));
 		}
 	}
 

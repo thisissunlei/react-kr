@@ -21,11 +21,13 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Checkbox
+	Checkbox,
+	Dialog
 } from 'kr-ui';
 import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
 import './index.less'
+import BindCommunity from '../BindCommunity';
 
 const chipData = [
       {key: 0, label: '社区信息社区信息社区信息'},
@@ -44,6 +46,9 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 )
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {
+	  if(fields){
+			fields.push([{}]);
+		}
 		 var krStyle={};
 			krStyle={
 				width:228,
@@ -87,6 +92,7 @@ class EditDetailForm extends React.Component {
 		super(props);
 		this.state = {
 			chipData : chipData,
+			isBindCommunitys : false
 		}
 		this.styles = {
 		 chip: {
@@ -142,6 +148,18 @@ class EditDetailForm extends React.Component {
 		// onCancel && onCancel();
 
 	}
+	bindCommunityClose = () =>{
+		let {isBindCommunity} = this.state;
+		this.setState({
+			isBindCommunity: !isBindCommunity,
+		})
+	}
+
+	bindClick = () =>{
+		console.log(">>>>>>")
+		this.bindCommunityClose();
+	}
+
 	//生成样式
 	renderChip(data) {
     return (
@@ -162,6 +180,7 @@ class EditDetailForm extends React.Component {
     this.chipData.splice(chipToDelete, 1);
     this.setState({chipData: this.chipData});
   };
+
 
 	render() {
 
@@ -233,8 +252,8 @@ class EditDetailForm extends React.Component {
 							<div style={this.styles.wrapper}>
 								{this.state.chipData.map(this.renderChip,this)}
 							</div>
-							<span style = {{display:'inline-block',margin:4,background:"#499df1",borderRadius: '4px',padding:" 5px 10px 5px 5px",color: "#fff"}}>+绑定社区</span>
-							 <Checkbox label = 'niahp'/>
+							<span onClick = {this.bindClick} style = {{display:'inline-block',margin:4,background:"#499df1",borderRadius: '4px',padding:" 5px 10px 5px 5px",color: "#fff"}}>+绑定社区</span>
+							 <Checkbox label = 'niahp' checked = {false}/>
 						</div>
 						<div className="end-round"></div>
 				</div>
@@ -249,6 +268,16 @@ class EditDetailForm extends React.Component {
 						</Col>
 					</Row>
 				</Grid>
+
+			<Dialog
+          title="编辑设备"
+          open={this.state.isBindCommunity}
+          onClose={this.bindCommunityClose}
+          contentStyle={{width:687}}
+        >
+          <BindCommunity />
+				</Dialog>
+
 			</form>
 		);
 	}
