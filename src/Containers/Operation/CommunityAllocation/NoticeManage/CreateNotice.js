@@ -26,7 +26,12 @@ class CreateNotice extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+			groupList:[
+				{label:'全国群组',value:'COUNTRYWIDE'},
+				{label:'社区群组',value:'COMMUNITY'}
+			],
+			ifCity:false,
+			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
 		}
 		
 	}
@@ -35,7 +40,17 @@ class CreateNotice extends React.Component {
         
     }
    
-	
+	selectType=(item)=>{
+		if(item.value=="COMMUNITY"){
+			this.setState({
+				ifCity:true
+			})
+		}else{
+			this.setState({
+				ifCity:false
+			})
+		}
+	}
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
@@ -52,17 +67,20 @@ class CreateNotice extends React.Component {
 		onCancel && onCancel();
 	}
 	
-
 	
 	render() {
-		const {
+			const {
 				error,
 				handleSubmit,
 				pristine,
 				reset
 			} = this.props;
-		
+			let {
+				groupList,
+				ifCity,
+			}=this.state;
 			
+		
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
@@ -70,7 +88,31 @@ class CreateNotice extends React.Component {
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
-							
+							<KrField
+								style={{width:260,margintop:20}}
+								component="select"
+								options={groupList}
+								label="群组类型"
+								requireLabel={true}
+								onChange={this.selectType}
+						 	/>
+						 	{ifCity?<KrField  
+					 			grid={1/2}
+					 			style={{width:262,marginLeft:25}} 
+					 			component='searchCommunityAll'  
+					 			label="所属社区" 
+					 			inline={false}  
+					 			placeholder='请输入社区名称' 
+						 		requireLabel={true}
+						 	/>:''}
+						 	<KrField
+								style={{width:260,margintop:20}}
+								component="select"
+								options={groupList}
+								label="所属群组"
+								requireLabel={true}
+								
+						 	/>
 						 	<KrField
 								style={{width:548}}
 								name="intro"
@@ -78,7 +120,22 @@ class CreateNotice extends React.Component {
 								label="群组描述"
 								maxSize={500}
 								requireLabel={true}
-						/>
+							/>
+							<KrField 
+								name="headUrl"
+								style={{width:548}}
+								component="newuploadImage"
+								innerstyle={{width:120,height:120,padding:10}}
+								photoSize={'1:1'}
+								sizePhoto
+								merthd='Url'
+								pictureFormat={'JPG,PNG'}
+								pictureMemory={'100'}
+								requestURI = {this.state.requestURI}
+								
+								label="公告图片"
+								inline={false}
+								/>
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
@@ -132,6 +189,5 @@ const validate = values => {
 export default reduxForm({
 		form: 'createNotice',
 		 validate,
-		// enableReinitialize: true,
-		// keepDirtyOnReinitialize: true,
+		
 	})(CreateNotice);
