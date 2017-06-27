@@ -167,7 +167,7 @@ class NewCreateForm extends React.Component {
 	}
 	setTotalRent=(value)=>{
 		let {initialValues} = this.props;
-		// let _this = this;
+		let _this = this;
 		// Http.request('setExitTotalReturn', {
 		// 	mainbillId: initialValues.mainbillid,
 		// 	withdrawDate:value
