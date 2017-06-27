@@ -23,7 +23,7 @@ import {
 	Tooltip,
 	Message,
 	Title,
-
+	CheckPermission
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
 import NewEditDetail from './EditForm';
@@ -256,7 +256,9 @@ export default class GroupSetting  extends Component{
 					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
-									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
+									<Col md={4} align="left"> 
+											<Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  operateCode="oper_cmt_stat_edit"/> 
+									</Col>
 									<Col md={8} align="right" style={{marginTop:0}}>
 										<ListGroup>
 											<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
@@ -357,7 +359,7 @@ export default class GroupSetting  extends Component{
 												></TableRowColumn>
 
 												<TableRowColumn>
-													  <Button label="编辑"  type="operation"  operation="edit" />
+													  <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_stat_edit"/>
 												 </TableRowColumn>
 											 </TableRow>
 										</TableBody>

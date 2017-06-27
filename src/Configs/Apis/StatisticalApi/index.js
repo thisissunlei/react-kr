@@ -5,7 +5,7 @@ module.exports = {
 
   //数据统计-集团经营-招商数据已开业
   'openCompanyData': {
-    url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+    url: '/api/krspace-finance-web/stat/merchant/actions/open?endDate={endDate}&startDate={startDate}',
     method: 'get'
   },
   //数据统计-集团经营-获取当前登陆人的组合模块
@@ -15,7 +15,7 @@ module.exports = {
   },
   //数据统计-集团经营-招商数据未开业
   'notOpenCompanyData': {
-    url: '/api/krspace-finance-web/stat/merchant/actions/notopen?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+    url: '/api/krspace-finance-web/stat/merchant/actions/notopen?endDate={endDate}&startDate={startDate}',
     method: 'get'
   },
   //数据统计-模板分组-模板列表
@@ -35,7 +35,7 @@ module.exports = {
   },
   //招商数据统计-all列表
  'already-open':{
-    url: '/api/krspace-finance-web/stat/merchant/data/customer?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+    url: '/api/krspace-finance-web/stat/merchant/data/customer?endDate={endDate}&startDate={startDate}',
     method: 'get'
  },
 

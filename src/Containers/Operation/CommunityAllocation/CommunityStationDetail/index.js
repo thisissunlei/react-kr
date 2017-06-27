@@ -21,7 +21,8 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {
 	observer,
@@ -217,6 +218,7 @@ SelectCommunity=()=>{
 											label="新建"
 											type='button'
 											onTouchTap={this.openAddStation}
+											operateCode="oper_cmt_station_edit"
 										/>
 									</div>
 									<div style={{display:'inline-block',marginRight:20}}>
@@ -230,6 +232,7 @@ SelectCommunity=()=>{
 											label="导入"
 											type='button'
 											onTouchTap={this.openImporData}
+											operateCode="oper_cmt_station_import"
 									/>
 					  </Col>
 
@@ -274,8 +277,8 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'未启用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-			                    <Button label="删除"  type="operation"  operation="delete" />
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_station_edit"/>
+			                    <Button label="删除"  type="operation"  operation="delete" operateCode="oper_cmt_station_delete"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

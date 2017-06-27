@@ -147,7 +147,7 @@ export default class UserList extends Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="移除"  type="operation" operation="delete"/>
+									<Button label="移除"  type="operation" operateCode="sso_roleList_removeUser" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

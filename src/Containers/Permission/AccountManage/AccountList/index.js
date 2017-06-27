@@ -28,7 +28,7 @@ import {
     ListGroupItem,
     ListGroup,
     SearchForms,
-    Dialog
+    Dialog,
 } from 'kr-ui';
 import './index.less';
 class AccountList extends React.Component {
@@ -256,7 +256,7 @@ class AccountList extends React.Component {
                                     paddingTop: 7,
                                     paddingBottom: 6
                                 }}>
-                                    <Button label="新建" type="button" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/>
+                                    <Button label="新建" type="button" operateCode="sso_userList_edit" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/>
                                 </ListGroupItem>
                             </ListGroup>
                         </Col>
@@ -320,16 +320,16 @@ class AccountList extends React.Component {
                                         }
                                         return (
                                             <div>
-                                                <Button label="修改" onClick={this.openEditAcc.bind(this,itemDetail)} type="operation" operation="edit"/>
-                                                <Button label="授予" onClick={this.openSetAcc.bind(this,itemDetail)} type="operation" operation="set"/>
-                                                <Button label="数据" onClick={this.openDataPermission.bind(this,itemDetail)} type="operation" operation="data"/>
-                                                <Button label="重置" onClick={this.onReset.bind(this,itemDetail)} type="operation" operation="reset"/>
+                                                <Button label="修改" onClick={this.openEditAcc.bind(this,itemDetail)} type="operation" operateCode="sso_userList_edit" operation="edit"/>
+                                                <Button label="授予" onClick={this.openSetAcc.bind(this,itemDetail)} type="operation" operateCode="sso_userList_editRole" operation="set"/>
+                                                <Button label="数据" onClick={this.openDataPermission.bind(this,itemDetail)} type="operation" operateCode="sso_userList_dataRight" operation="data"/>
+                                                <Button label="重置" onClick={this.onReset.bind(this,itemDetail)} type="operation" operateCode="sso_userList_reset" operation="reset"/>
                                                 {
                                                     logFlag
-                                                    ? <Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} type="operation"/>
-                                                    : <Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} type="operation"/>
+                                                    ? <Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} operateCode="sso_userList_Lock" type="operation"/>
+                                                    : <Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} operateCode="sso_userList_Lock" type="operation"/>
                                                 }
-                                                <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operation="dele"/>
+                                                    <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operateCode="sso_userList_del" operation="dele"/>
                                             </div>
                                                 )
                                     }}>

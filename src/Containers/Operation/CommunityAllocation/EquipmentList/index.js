@@ -34,8 +34,9 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-  Tooltip,
-	Message
+    Tooltip,
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 
@@ -196,6 +197,7 @@ class EquipmentList  extends React.Component{
 									label="新建设备"
 									type='button'
 									onTouchTap={this.openNewEquipment}
+									operateCode="oper_cmt_device_edit"
 								/>
 						  </Col>
 
@@ -263,8 +265,8 @@ class EquipmentList  extends React.Component{
                       </TableRowColumn>
 
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-			                    <Button label="删除"  type="operation"  operation="delete" />
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_device_edit"/>
+			                    <Button label="删除"  type="operation"  operation="delete" operateCode="oper_cmt_device_delete"/>
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>

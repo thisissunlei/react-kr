@@ -98,7 +98,7 @@ class SearchForm extends Component {
 
 		return (
 			<form className="g-op-form" name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
+					<Button label="新建" operateCode="sso_resource_edit"  onTouchTap={this.openCreateDialog} />
 				<SearchForms
 						onSubmit={this.onSubmit}
 						searchFilter={options}
@@ -283,8 +283,8 @@ class Operations extends Component {
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑"   type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
+									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
+									<Button label="删除"  type="operation" operateCode="sso_resource_del" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

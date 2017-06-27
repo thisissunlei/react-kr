@@ -76,6 +76,7 @@ import {
 	Tab
 } from 'material-ui/Tabs';
 
+import CheckPermission from './CheckPermission';
 module.exports = {
 	//Components
 
@@ -150,5 +151,6 @@ module.exports = {
 	Nothing,
 	PlanMapAll,
 	...PlanMap,
-	ToTop
+	ToTop,
+	CheckPermission,
 }

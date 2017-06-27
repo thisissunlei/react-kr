@@ -14,6 +14,7 @@ import {
 	Dialog,
 	Tooltip,
 	Drawer,
+	CheckPermission
 } from 'kr-ui';
 import {DateFormat} from 'kr/Utils';
 import {
@@ -107,7 +108,7 @@ export default class News extends React.Component {
 					<Title value="新闻列表"/>
 					<Section title="新闻列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-							<Button label="新建新闻"  onTouchTap={this.openNewCreateDialog} />
+								<Button label="新建新闻" operateCode="main_news_add" onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
 							<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 							<SearchForms 
@@ -170,7 +171,7 @@ export default class News extends React.Component {
 		              		 <TableRowColumn name="createUser"></TableRowColumn>
 		              		 <TableRowColumn>
 								<Button label="查看"  type="operation"  operation="view"/>
-								<Button label="编辑"  type="operation"  operation="edit"/>
+									<Button label="编辑" operateCode="main_news_add"  type="operation"  operation="edit"/>
 		              		 </TableRowColumn>
 		              	</TableRow>
 		              </TableBody>

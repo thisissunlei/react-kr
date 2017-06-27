@@ -14,7 +14,8 @@ import {
   KrDate,
   Tooltip,
   Drawer,
-  Message
+  Message,
+  CheckPermission
 } from 'kr-ui';
 
 import './index.less';
@@ -209,8 +210,8 @@ export default class WaitVoucher extends React.Component {
                                    }}></TableRowColumn>
                             <TableRowColumn>
                                 <Button label="查看"  type="operation"  operation="view"/>
-                                <Button label="删除"  type="operation"  operation="delete"/>
-                                <Button label="添加收款"  type="operation"  operation="add"/>
+                                  <Button label="删除"  type="operation"  operation="delete" operateCode="upload_evidence_del"/>
+                                  <Button label="添加收款"  type="operation"  operation="add" operateCode="upload_evidence_addReturn"/>
                             </TableRowColumn>
                           </TableRow>
                       </TableBody>

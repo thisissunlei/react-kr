@@ -74,6 +74,9 @@ let State = observable({
 		},
 		local:[],
 		hasLocal:false,
+		isEdit:false,
+		isPrint:false,
+		isDel:false
 
 });
 State.hasOfficeChange=action(function(params){
@@ -102,14 +105,14 @@ State.ajaxListData=action(function(ajaxData){
 })
 
 //获取登录人是否有创建合同的权限
-State.createContract=action(function(){
-	    var _this = this;
-		Http.request('edit-right').then(function(response) {
-		  _this.editRight=response.hasEditRight
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-})
+// State.createContract=action(function(){
+// 	    var _this = this;
+// 		Http.request('edit-right').then(function(response) {
+// 		  _this.editRight=response.hasEditRight
+// 		}).catch(function(err) {
+// 			Message.error(err.message);
+// 		});
+// })
 
 
 

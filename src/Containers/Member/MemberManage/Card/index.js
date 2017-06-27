@@ -6,7 +6,7 @@ import UsingCard from './UsingCard';
 import DeleteCard from './DeleteCard';
 import ViewCard from './ViewCard';
 import ChangeCard from './ChangeCard';
-import { Message,Dialog, Section,Grid,Row,Col, ListGroup,ListGroupItem, Table,SearchForms, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, } from 'kr-ui';
+import { CheckPermission,Message,Dialog, Section,Grid,Row,Col, ListGroup,ListGroupItem, Table,SearchForms, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, } from 'kr-ui';
 
 export default class Card extends React.Component {
 
@@ -168,9 +168,21 @@ export default class Card extends React.Component {
 				<Section title="会员卡管理" description="" style={{minHeight:'920px'}}>
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row >
-						<Col  align="left" style={{marginLeft:0,float:'left'}}> <Button label="入库" type='button'  onTouchTap={this.openImportCardDialog}  /> </Col>
-						<Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="领用" type='button'  onTouchTap={this.openUsingCardDialog}  /> </Col>
-						<Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="转移" type='button'  onTouchTap={this.openChangeDialog}  /> </Col>
+						<Col  align="left" style={{marginLeft:0,float:'left'}}> 
+							
+								<Button operateCode="mbr_card_storage" label="入库" type='button'  onTouchTap={this.openImportCardDialog}  /> 
+							
+						</Col>
+						<Col  align="left" style={{marginLeft:20,float:'left'}}> 
+						
+								<Button operateCode="mbr_card_hand" label="领用" type='button'  onTouchTap={this.openUsingCardDialog}  /> 
+					
+						</Col>
+						<Col  align="left" style={{marginLeft:20,float:'left'}}> 
+							
+								<Button operateCode="mbr_card_move" label="转移" type='button'  onTouchTap={this.openChangeDialog}  /> 
+							
+						</Col>
 						<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 							<ListGroup>
 								<ListGroupItem> <SearchForms placeholder='请输入' searchFilter={options} onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
@@ -256,7 +268,9 @@ export default class Card extends React.Component {
 									)
 								}else{
 									return (
-										<Button label="删除"  type="operation" onTouchTap={this.deleteItem.bind(this,itemData)}/>
+								
+										<Button  label="删除"  type="operation" onTouchTap={this.deleteItem.bind(this,itemData)}/>
+									
 									)
 								}
 								}}>

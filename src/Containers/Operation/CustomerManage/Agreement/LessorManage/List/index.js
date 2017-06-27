@@ -29,6 +29,8 @@ import {
 	Dialog,
 	BreadCrumbs,
 	Title,
+	CheckPermission
+
 } from 'kr-ui';
 
 
@@ -158,7 +160,11 @@ export default class LessorManageList extends Component {
 
 					<Grid style={{marginBottom:20}}>
 						<Row>
-							<Col md={4}  align="left"> <Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}  align="left"> 
+
+								<Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} operateCode="lessor_management_edit"/> 
+
+							</Col>
 							<Col md={8} align="right">
 									<SearchForm onSubmit={this.onSearchSubmit} />
 							</Col>
@@ -186,7 +192,8 @@ export default class LessorManageList extends Component {
 							<TableRowColumn name="createdate" type="date"></TableRowColumn>
 							<TableRowColumn>
 								   <Button label="查看"  type="operation" operation="view"/>
-							  <Button label="编辑"  type="operation" operation="edit"/>
+							  <Button label="编辑"  type="operation" operation="edit" operateCode="lessor_management_edit"/>
+
 							 </TableRowColumn>
 						 </TableRow>
 						</TableBody>

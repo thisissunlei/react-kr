@@ -30,7 +30,8 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+  CheckPermission
 } from 'kr-ui';
 
 import './index.less'
@@ -466,6 +467,7 @@ class CommunityList  extends React.Component{
 											label="新建社区"
 											type='button'
 											onTouchTap={this.openAddCommunity}
+                      operateCode="oper_cmt_community_edit"
 									/>
 					  </Col>
 
@@ -516,8 +518,8 @@ class CommunityList  extends React.Component{
 													 }}></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    {State.isFlag&&<Button label="编辑"  type="operation"  operation="edit" />}
-			                    <Button label="查看"  type="operation"  operation="watch" />
+                            <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_community_edit"/>
+			                      <Button label="查看"  type="operation"  operation="watch" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

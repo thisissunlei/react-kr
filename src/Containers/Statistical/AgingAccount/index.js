@@ -18,6 +18,12 @@ import './index.less';
 
 import CommunityCollect from "./CommunityCollect";
 import CommunityDetail from "./CommunityDetail";
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("NavModel")
+@observer
 
 class AgingAccount  extends React.Component{
 
@@ -28,43 +34,47 @@ class AgingAccount  extends React.Component{
 			isLeft:true,
 			hasCollect : false,
 			hasDetail : false,
-			value : 0,
+			value : '0',
 			communityId : ''
 		}
 	}
 
 
 	componentDidMount() {
+		let {NavModel} = this.props;
+		// console.log("----校验有没有菜单权限",NavModel.checkOperate("cmt_summary"),NavModel.checkOperate("cmt_explan"));
 		Baidu.trackEvent('账龄分析','访问');
+
 		let _this =this;
-		Http.request('getSelfMenuInfo', {}).then(function(response) {
-			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")>-1){
-				// 有社区汇总表
-				_this.setState({
-					hasCollect:true
-				})
-			}else{
-				_this.setState({
-					isLeft:false
-				})
-			}
-			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_explan")>-1){
-				// 有社区明细表
-				_this.setState({
-					hasDetail:true,
-				})
-			}
-			if(response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_summary")<0 && response.navcodes.stat &&response.navcodes.stat.indexOf("cmt_explan")>-1){
-				// 有社区明细表
-				_this.setState({
-					hasDetail:true,
-					isLeft : false
-				})
-			}
+		
+		// 有汇总
+		if(NavModel.checkOperate("cmt_summary")){
+			// 有社区汇总表
+			_this.setState({
+				hasCollect:true
+			})
+		}else{
+			_this.setState({
+				isLeft:false
+			})
+		}
+		// 有明细
+		if(NavModel.checkOperate("cmt_explan")){
+			// 有社区明细表
+			_this.setState({
+				hasDetail:true,
+			})
+		}
+		// 有明细没汇总
+		if(!NavModel.checkOperate("cmt_summary")  &&NavModel.checkOperate("cmt_explan")){
+			// 有社区明细表
+			_this.setState({
+				hasDetail:true,
+				isLeft : false
+			})
+		}
 			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		
 		
 		Store.dispatch(Actions.switchSidebarNav(false));
 
@@ -94,7 +104,7 @@ class AgingAccount  extends React.Component{
 			communityIdReal = communityId;
 		}
 		this.setState({
-			value :1,
+			value :'1',
 			communityId : communityIdReal,
 			isLeft:false
 		})
@@ -126,12 +136,12 @@ class AgingAccount  extends React.Component{
 				>
 					
 					{
-						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive} style={{color:"black"}} value={0} style={{borderRight:"solid 1px #eee",color:"black"}}>
+						hasCollect&&<Tab label="社区汇总" onActive={this.leftActive} style={{color:"black"}} value={'0'} style={{borderRight:"solid 1px #eee",color:"black"}}>
 										<CommunityCollect isLeftProps={isLeft} toDetailFun={_this.toDetailFun}/>
 									</Tab>
 					}
 					{
-						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}} value={1} >
+						hasDetail&&<Tab label="社区明细" onActive={this.rightActive} style={{color:"black"}} value={'1'} >
 							<CommunityDetail isLeftProps={isLeft} communityId={communityId} onChangeCommunity={this.onChangeCommunity}/>
 						</Tab>
 					}

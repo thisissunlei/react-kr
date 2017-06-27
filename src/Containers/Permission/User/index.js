@@ -29,7 +29,6 @@ import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
 
-
 class Operations extends React.Component {
 
 	constructor(props, context) {
@@ -49,7 +48,7 @@ class Operations extends React.Component {
 			newPage:0,
 		}
 	}
-
+	
 	//操作相关
 	onOperation = (type, itemDetail) => {
 
@@ -194,9 +193,9 @@ class Operations extends React.Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑"   type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
-									<Button label="查看人员"  type="operation" operation="view"/>
+									<Button label="编辑"   type="operation" operateCode="sso_roleList_edit" operation="edit"/>
+									<Button label="删除"  type="operation" operateCode="sso_roleList_del" operation="delete"/>
+									<Button label="查看人员"  type="operation" operateCode="sso_roleList_showUser" operation="view"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

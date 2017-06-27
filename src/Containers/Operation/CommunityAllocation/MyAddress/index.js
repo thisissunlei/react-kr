@@ -29,7 +29,8 @@ import {
   ListGroup,
   ListGroupItem,
   Message,
-  Tooltip
+  Tooltip,
+  CheckPermission
 } from 'kr-ui';
 
 import './index.less'
@@ -124,6 +125,7 @@ class CommunityList  extends React.Component{
                       label="新建地点"
                       type='button'
                       onTouchTap={this.openNewCreate}
+                      operateCode="oper_location_add"
                   />
             </Col>
 
@@ -210,8 +212,8 @@ class CommunityList  extends React.Component{
                         return (<span>{value}</span>)}}
                       ></TableRowColumn>
                       <TableRowColumn type="operation">
-                          <Button label="编辑"  type="operation"  operation="edit" />
-                          <Button label="删除"  type="operation"  operation="delete" />
+                          <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_location_add"/>
+                          <Button label="删除"  type="operation"  operation="delete" operateCode="oper_location_del"/>
                       </TableRowColumn>
                      </TableRow>
               </TableBody>

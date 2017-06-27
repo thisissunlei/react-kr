@@ -26,7 +26,9 @@ import {
 	Tooltip,
 	ButtonGroup,
 	KrDate,
-	Loading
+	Loading,
+	CheckPermission
+
 
 } from 'kr-ui';
 import './index.less'
@@ -36,7 +38,7 @@ import {
 	inject
 } from 'mobx-react';
 
-@inject("CommunityDetailModel")
+@inject("CommunityDetailModel","NavModel")
 @observer
 class LookDetailed extends Component{
 
@@ -132,7 +134,13 @@ class LookDetailed extends Component{
 
 					</div>)
 	}
-
+	componentDidMount() {
+		let {checkOperate} = this.props.NavModel;
+		if(checkOperate("oper_csr_edit_include_source")||checkOperate("oper_csr_edit")){
+			this.props.CommunityDetailModel.isEditCustomer = true;
+		}
+		console.log(checkOperate("oper_csr_edit_include_source"),"<><><>")
+	}
 
 	render(){
 		let {loading} = this.props.CommunityDetailModel;
@@ -144,7 +152,7 @@ class LookDetailed extends Component{
 		let oddStyle={width:'290px',marginLeft:-10}
 		let unifyStyle={};
 		let uniStyle={};
-		let detail=this.props.CommunityDetailModel.detail;
+		let detail=this.props.CommunityDetailModel.isEditCustomer;
 		let isDeadline=false;
 		let {editsSwitch,IndentSwitch,comeFrom}=this.props;
 		let presentShow = this.props.CommunityDetailModel.presentShow;
@@ -209,7 +217,7 @@ class LookDetailed extends Component{
 				<li className="everyText" style={{width:660,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px",color:'#666'}}>{detail.remark}</p>
 				</li>
-				{detail.showEdit && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
+				{detail && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord">
 
@@ -222,8 +230,9 @@ class LookDetailed extends Component{
 
 
 				</div>
-
-				{comeFrom != "message" && <div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>}
+				
+				{comeFrom != "message" && <div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>}
+				
 
 
 	      </div>

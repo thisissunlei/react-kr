@@ -136,7 +136,7 @@ openHighSearch = () => {
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" >
-							<Button label="新建" type="button" onClick={this.openCreateDialog} width={70} height={26} fontSize={14}/>
+								<Button label="新建" type="button" operateCode="sso_appVersion_new" onClick={this.openCreateDialog} width={70} height={26} fontSize={14}/>
 						</Col>
 						<Col md={8} align="right">
 							<div className="u-search">
