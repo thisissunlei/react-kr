@@ -74,7 +74,12 @@ module.exports = [
 						menuCode: 'oper_cluster_base',
 						router: '/operation/communityAllocation/appmanage'
 					},
-
+					{
+						primaryText: '公告管理',
+						menuCode: 'oper_notice_base',
+						router: '/operation/communityAllocation/noticemanage'
+					},
+					
 				]
 			},
 
