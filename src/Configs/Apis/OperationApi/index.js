@@ -571,6 +571,29 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/community/select/use/type/city',
          method: 'get'
       },
-      
-
+      //公告管理-公告列表
+       'notice-list':{
+         url: '/api/krspace-finance-web/topic/manage/findPage?page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+      //公告管理-获取帖子详情
+       'get-findDetail':{
+         url: '/api/krspace-finance-web/topic/manage/findDetail?topicId={topicId}',
+         method: 'get'
+      },
+      //公告管理-删除帖子
+       'del-notice':{
+         url: '/api/krspace-finance-web/topic/manage/del',
+         method: 'post'
+      },
+      //公告管理-新建帖子
+       'create-notice':{
+         url: '/api/krspace-finance-web/topic/manage/create',
+         method: 'post'
+      },
+      //公告管理-获取是否有全国发帖权限
+       'get-findRight':{
+         url: '/api/krspace-finance-web/topic/manage/findRight',
+         method: 'get'
+      },
 }
