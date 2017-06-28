@@ -13,6 +13,9 @@
     height: 180px;
     margin-bottom: 20px;
     overflow: hidden;
+    position: relative;
+
+  
     .left_box{
       width: 226px;
       height: inherit;
@@ -71,14 +74,16 @@
         }
       }
     }
+  
     .right_box{
+      float: left;
       display: inline-block;
       background: #fff;
       width: 100%;
-      float: left;
       margin-left: 226px;
       position: relative;
       height: inherit;
+ 
       .data{
         margin: 0;
         padding-left:59px;
@@ -173,6 +178,80 @@
           }
         }
       }
+
+    }
+
+
+    .wechat-wrap {
+      padding-right:20px;
+
+    }
+    .wechat {
+
+      position:relative;
+      height:200px;
+      padding-bottom:20px;
+      border-bottom: 1px dashed #dfdfdf;
+    
+      .wechat-left {
+        font-weight: 500;
+        font-size: 14px;
+        margin-left: 15px;
+        display: inline-block;
+        color: #333;
+        width: 184px;
+        position: absolute;
+        padding-top:38px;
+        padding-left:4px;
+        .desc {
+          display: block;
+          line-height:40px;
+          padding-left:20px;
+        }
+      }
+
+      .wechat-main {
+        margin-left:184px;
+        height:200px;
+        position:relative;
+       .main-desc {
+         display: inline-block;
+         float:left;
+         padding-top:80px;
+        }
+      }
+
+      .wechat-code{
+
+        float:left;
+        width:150px;
+        display: inline-block;
+        padding-top:20px;
+        text-align: center;
+
+   .desc {
+          color:#999;
+          font-size:12px;
+          text-align: center;
+          height:30px;
+          line-height: 30px;
+        }
+      
+
+        .button-link {
+          display: block;
+          width:70px;
+          height:30px;
+          line-height:30px;
+          margin:0 auto;
+          margin-top:10px;
+          border:1px solid #eee;
+          text-align: center;
+          font-size:12px;
+          color:#333;
+          border-radius:4px;
+        }
+    }
 
     }
     .password,.mobile{
