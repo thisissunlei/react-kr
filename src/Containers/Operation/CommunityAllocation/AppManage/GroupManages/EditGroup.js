@@ -32,7 +32,7 @@ class EditGroup extends React.Component {
 				{label:'社区群组',value:'COMMUNITY'}
 			],
 			cityList:[],
-			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
+			requestURI :'/api/krspace-finance-web/activity/upload-pic',
 			cityId:'',
 			ifCity:false,
 			infoList:{},
