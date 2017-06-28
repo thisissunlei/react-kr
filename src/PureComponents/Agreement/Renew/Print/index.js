@@ -14,6 +14,7 @@ import {
 	Store
 } from 'kr/Redux';
 import Print from 'kr/PureComponents/Agreement/Print';
+import CommonItem from 'kr/PureComponents/Agreement/CommonItem';
 import State from './State';
 import './index.less';
 
@@ -30,6 +31,14 @@ export default class RenewPrint extends React.Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
+		var printList = document.getElementsByClassName('print-section')[0];
+		var printHeight = printList.offsetHeight;
+		if(printHeight>1120 && printHeight-1120<=5){
+			printList.style.height = 1120+'px';
+		}else if(printHeight>1125){
+			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
+		}
+		console.log('printList',printHeight)
 		setTimeout(function() {
 			window.print();
 			window.close();
@@ -74,8 +83,8 @@ export default class RenewPrint extends React.Component {
 	render() {
 
 		return (
-
-			<div className="print-section no-print-section" >
+		<div>
+			<div className="print-section no-print-section"  style={{minHeight:1120}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
 				<Print.Header
 					 	baseInfo={State.baseInfo}
@@ -100,7 +109,8 @@ export default class RenewPrint extends React.Component {
 				{this.renderContent()}
 
 				<Print.Footer/>
-
+			</div>
+			<CommonItem />
     	</div>
 
 		);

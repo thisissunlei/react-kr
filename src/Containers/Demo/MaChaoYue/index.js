@@ -19,6 +19,9 @@ import {
 import {
 	observer
 } from 'mobx-react';
+import {
+	CommonItem
+} from 'kr/PureComponents/Agreement';
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import ReactMixin from "react-mixin";
@@ -57,6 +60,19 @@ class MaChaoYue extends React.Component {
 			cmtIds.push(item.id)
 		})
 	}
+	print=()=>{
+		window.print();
+	}
+	componentWillMount() {
+		let height = document.getElementsByClassName('demo-Machaoyue')[0];
+		console.log('will',height)
+	}
+	componentDidMount() {
+		let height = document.getElementsByClassName('demo-Machaoyue')[0].offsetHeight;
+		console.log('======',height)
+		this.pages = Math.ceil(height/1120)+1;
+		console.log('did',this.pages)
+	}
 
 
 
@@ -66,28 +82,14 @@ class MaChaoYue extends React.Component {
 		// let {communitys}=this.state;
 		const {handleSubmit}=this.props;
 		let communitys = [1,2,3];
+		let src = `http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png`;
 		
-
+		console.log('render',this.pages)
 		return (
-			    <div style={{background: '#fff',width:'750px'}}>
-			    <div>基本信息</div>
-			    <DivTitle index={1} title='进本信息'>
-			    	dsadad
-				<form onSubmit={handleSubmit(this.onSubmit)}>
+			    <div style={{background: '#fff',height:1400}} className="demo-Machaoyue">
+				<CommonItem />
 
-					<KrField name="communitys"
-						options={communitys}
-						component="activity"
-						defaultValue={communitys}
-						getList={this.getList}
-						label="活动推送社区"
-					/>
-					<Button  label="开始上传" type="submit"/>
-
-			    </form>
-			    	
-			    	
-				</DivTitle>
+				<Button onClick={this.print}>打印</Button>
 
 				</div>
 		);

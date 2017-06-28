@@ -27,6 +27,7 @@
 
  			<div className="ui-print-baseinfo">
 				<div className="baseinfo">基础信息</div>
+				<img src={`http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png`} className="logo-pic"></img>
 				<div className="baseinfo-content">
 					<div className="infolist" >
 						<div >
