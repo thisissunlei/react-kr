@@ -41,44 +41,42 @@ class AgingAccount  extends React.Component{
 
 
 	componentDidMount() {
-		let {NavModel} = this.props;
+		
 		// console.log("----校验有没有菜单权限",NavModel.checkOperate("cmt_summary"),NavModel.checkOperate("cmt_explan"));
 		Baidu.trackEvent('账龄分析','访问');
 
 		let _this =this;
-		
-		// 有汇总
-		if(NavModel.checkOperate("cmt_summary")){
-			// 有社区汇总表
-			_this.setState({
-				hasCollect:true
-			})
-		}else{
-			_this.setState({
-				isLeft:false
-			})
-		}
-		// 有明细
-		if(NavModel.checkOperate("cmt_explan")){
-			// 有社区明细表
-			_this.setState({
-				hasDetail:true,
-			})
-		}
-		// 有明细没汇总
-		if(!NavModel.checkOperate("cmt_summary")  &&NavModel.checkOperate("cmt_explan")){
-			// 有社区明细表
-			_this.setState({
-				hasDetail:true,
-				isLeft : false
-			})
-		}
-			
-		
-		
+		setTimeout(function(){
+			let {NavModel} = _this.props;
+			// 有汇总
+			if(NavModel.checkOperate("cmt_summary")){
+				// 有社区汇总表
+				_this.setState({
+					hasCollect:true
+				})
+			}else{
+				_this.setState({
+					isLeft:false
+				})
+			}
+			// 有明细
+			if(NavModel.checkOperate("cmt_explan")){
+				// 有社区明细表
+				_this.setState({
+					hasDetail:true,
+				})
+			}
+			// 有明细没汇总
+			if(!NavModel.checkOperate("cmt_summary")  &&NavModel.checkOperate("cmt_explan")){
+				// 有社区明细表
+				_this.setState({
+					hasDetail:true,
+					isLeft : false
+				})
+			}
+		},1000)
 		Store.dispatch(Actions.switchSidebarNav(false));
 
-		
 	}
 
 	leftActive=()=>{
