@@ -42,7 +42,7 @@ export default class JoinPrint extends React.Component {
 		this.pages = Math.ceil(printHeight/1120) + 1;
 		 setTimeout(function() {
 		 	window.print();
-		 	// window.close();
+		 	window.close();
 		 }, 1200)
 
 

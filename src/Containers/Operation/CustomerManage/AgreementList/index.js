@@ -351,7 +351,7 @@ class Merchants extends Component{
 			}
 		});
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print`
+		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print?print=true`
 		var newWindow = window.open(url);
 
 	}

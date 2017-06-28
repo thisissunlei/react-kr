@@ -41,12 +41,11 @@ export default class RenewPrint extends React.Component {
 		this.pages = Math.ceil(printHeight/1120) + 1;
 		setTimeout(function() {
 			window.print();
-			// window.close();
+			window.close();
 		}, 1000)
 
 	}
 	renderImg=()=>{
-		console.log('===>',this.pages)
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -55,9 +54,10 @@ export default class RenewPrint extends React.Component {
 		let whole = 160;
 		let width = Math.ceil(160/page);
 		let position = Math.ceil(100/(page-1));
+		let cachetUrl = State.baseInfo.cachetUrl;
 		for(var i = 0;i<page;i++){
 			let style={
-				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png') 100% 100%",
+				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
 				top:350+(i*1120),
@@ -113,7 +113,7 @@ export default class RenewPrint extends React.Component {
 		<div>
 			<div className="print-section no-print-section"  style={{minHeight:1120}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
-				{doms.map((item,index)=>{
+				{State.baseInfo.withCachet && doms.map((item,index)=>{
 					return item
 				})}
 				<Print.Header
@@ -140,7 +140,7 @@ export default class RenewPrint extends React.Component {
 
 				<Print.Footer/>
 			</div>
-			<CommonItem />
+			<CommonItem baseInfo={State.baseInfo}/>
     	</div>
 
 		);

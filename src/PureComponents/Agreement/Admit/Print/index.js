@@ -39,7 +39,6 @@ export default class AdmitPrint extends React.Component {
 			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
 		}
 		this.pages = Math.ceil(printHeight/1120);
-		console.log('did',this.pages,printHeight)
 		setTimeout(function() {
 			window.print();
 			// window.close();
@@ -74,7 +73,6 @@ export default class AdmitPrint extends React.Component {
 
 	render() {
 		let doms = this.renderImg() || [];
-		console.log(State.baseInfo.withCachet,State.baseInfo.cachetUrl)
 		return (
 
 			<div className="print-section no-print-section">
@@ -86,7 +84,7 @@ export default class AdmitPrint extends React.Component {
 					  baseInfo={State.baseInfo}
 						orderInfo="入驻服务意向书"
 				/>
-				<Print.BaseInfo baseInfo={State.baseInfo} />
+				<Print.BaseInfo baseInfo={State.baseInfo}  />
 
 				<Print.Station
 						orderTime={true}

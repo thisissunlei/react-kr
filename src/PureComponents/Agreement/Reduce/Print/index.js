@@ -31,14 +31,14 @@ export default class JoinPrint extends React.Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
-		var printList = document.getElementsByClassName('print-section')[0];
+		var printList = document.getElementsByClassName('g-exit-print')[0];
 		var printHeight = printList.offsetHeight;
 		if(printHeight>1120 && printHeight-1120<=5){
 			printList.style.height = 1120+'px';
 		}else if(printHeight>1125){
 			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
 		}
-		this.pages = Math.ceil(printHeight/1120) + 1;
+		this.pages = Math.ceil(printHeight/1120) ;
 		setTimeout(function() {
 			window.print();
 			window.close();
@@ -53,9 +53,10 @@ export default class JoinPrint extends React.Component {
 		let whole = 160;
 		let width = Math.ceil(160/page);
 		let position = Math.ceil(100/(page-1));
+		let cachetUrl = State.baseInfo.cachetUrl;
 		for(var i = 0;i<page;i++){
 			let style={
-				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
+				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
 				top:350+(i*1120),
@@ -109,11 +110,10 @@ export default class JoinPrint extends React.Component {
 		}
 	}
 	render() {
-		let doms = this.renderImg();
-
+		let doms = this.renderImg() || [];
 		return (
 			<div className="g-exit-print">
-				{doms.map((item,index)=>{
+				{State.baseInfo.withCachet && doms.map((item,index)=>{
 					return item
 				})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(减少)`}/>

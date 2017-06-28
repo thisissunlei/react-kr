@@ -42,8 +42,8 @@ export default class IncreasePrint extends React.Component {
 		console.log('did',this.pages,printHeight)
 		setTimeout(function() {
 			window.print();
-			// window.close();
-		}, 1000)
+			window.close();
+		}, 1300)
 
 	}
 	renderImg=()=>{
@@ -55,9 +55,10 @@ export default class IncreasePrint extends React.Component {
 		let whole = 160;
 		let width = Math.ceil(160/page);
 		let position = Math.ceil(100/(page-1));
+		let cachetUrl = State.baseInfo.cachetUrl;
 		for(var i = 0;i<page;i++){
 			let style={
-				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
+				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
 				top:350+(i*1120),
@@ -110,8 +111,8 @@ export default class IncreasePrint extends React.Component {
 		let doms = this.renderImg() || [];
 		return (
 
-			<div className="print-section no-print-section" >
-			{doms.map((item,index)=>{
+			<div className="print-section no-print-section">
+			{State.baseInfo.withCachet && doms.map((item,index)=>{
 				return item
 			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(增加)`}/>

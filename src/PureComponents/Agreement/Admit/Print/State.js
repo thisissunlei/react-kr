@@ -17,6 +17,7 @@ let State = observable({
 
 //action
 State.getBasicInfo = action(function(params) {
+	
 	var _this = this;
 	Http.request('intentletter-print-info', {
 		contractId: params.id
@@ -40,10 +41,14 @@ State.getBasicInfo = action(function(params) {
 			_this.stationVOs = stationVOs;
 
 		}
-
+		let canCachet = location.hash.split('?')[1];
+		if(canCachet==='print=true'){
+			response.withCachet = true;
+		}else{
+			response.withCachet = false;
+		}
 		_this.installmentPlans = response.installmentPlans;
 		response.cachetUrl =  "http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png";
-		response.withCachet = true;
 		_this.baseInfo = response;
 
 
