@@ -156,12 +156,12 @@ module.exports = {
   },
   //电子合同-承租意向
   'intentletter-print-info': {
-      url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+      url: '/apis/krspace-finance-web/intentletter/print-info?contractId={contractId}',
       method: 'get'
   },
   //电子合同-减租
   'fnaContractRentController': {
-      url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
+      url: '/apis/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
       method: 'get'
   },
   //计算工位总价

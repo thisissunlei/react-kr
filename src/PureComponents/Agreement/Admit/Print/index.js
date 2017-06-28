@@ -38,7 +38,8 @@ export default class AdmitPrint extends React.Component {
 		}else if(printHeight>1125){
 			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
 		}
-		this.pages = Math.ceil(printHeight/1120) + 1;
+		this.pages = Math.ceil(printHeight/1120);
+		console.log('did',this.pages,printHeight)
 		setTimeout(function() {
 			window.print();
 			// window.close();
@@ -59,7 +60,7 @@ export default class AdmitPrint extends React.Component {
 				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
 				position:'absolute',
 				backgroundSize:'cover',
-				top:650+(i*1120),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,
@@ -72,7 +73,7 @@ export default class AdmitPrint extends React.Component {
 	}
 
 	render() {
-		let doms = this.renderImg();
+		let doms = this.renderImg() || [];
 
 		return (
 

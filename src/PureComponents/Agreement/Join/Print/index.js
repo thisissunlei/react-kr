@@ -96,7 +96,7 @@ export default class JoinPrint extends React.Component {
 				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
 				position:'absolute',
 				backgroundSize:'cover',
-				top:650+(i*1120),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,

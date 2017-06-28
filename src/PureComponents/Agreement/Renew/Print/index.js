@@ -60,7 +60,7 @@ export default class RenewPrint extends React.Component {
 				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png') 100% 100%",
 				position:'absolute',
 				backgroundSize:'cover',
-				top:650+(i*1120),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,
