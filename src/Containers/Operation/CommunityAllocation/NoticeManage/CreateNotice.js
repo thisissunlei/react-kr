@@ -28,7 +28,7 @@ class CreateNotice extends React.Component {
 		this.state = {
 			groupList:[],
 			ifCity:false,
-			requestURI :'./api/krspace-finance-web/activity/upload-pic',
+			requestURI :'/api/krspace-finance-web/activity/upload-pic',
 			groupType:[],
 		}
 		this.getType();
