@@ -27,7 +27,7 @@
 
  			<div className="ui-print-baseinfo">
 				<div className="baseinfo">基础信息</div>
-				<img src={`http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png`} className="logo-pic"></img>
+				{baseInfo.withCachet && <img src={baseInfo.cachetUrl} className="logo-pic"></img>}
 				<div className="baseinfo-content">
 					<div className="infolist" >
 						<div >

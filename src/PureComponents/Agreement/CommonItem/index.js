@@ -99,7 +99,7 @@ export default class CommonItem extends Component {
 						<p></p>
 					</div>
 				</div>
-				<img src={`http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png`} className="logo-pic" />
+				{baseInfo.withCachet && <img src={baseInfo.cachetUrl} className="logo-pic"></img>}
 
 
 			</div>

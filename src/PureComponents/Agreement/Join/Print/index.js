@@ -43,7 +43,7 @@ export default class JoinPrint extends React.Component {
 		 setTimeout(function() {
 		 	window.print();
 		 	// window.close();
-		 }, 1000)
+		 }, 1200)
 
 
 	}
@@ -91,9 +91,10 @@ export default class JoinPrint extends React.Component {
 		let whole = 160;
 		let width = Math.ceil(160/page);
 		let position = Math.ceil(100/(page-1));
+		let cachetUrl = State.baseInfo.cachetUrl;
 		for(var i = 0;i<page;i++){
 			let style={
-				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
+				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
 				top:350+(i*1120),
@@ -112,7 +113,7 @@ export default class JoinPrint extends React.Component {
 		let doms = this.renderImg();
 		return (
 		<div style={{background:'#fff'}}>
-			{doms.map((item,index)=>{
+			{State.baseInfo.withCachet &&  doms.map((item,index)=>{
 				return item
 			})}
 
@@ -140,7 +141,7 @@ export default class JoinPrint extends React.Component {
 				<Print.Footer/>
 
       		</div>
-      		<CommonItem />
+      		<CommonItem baseInfo={State.baseInfo}/>
       	</div>
 
 		);

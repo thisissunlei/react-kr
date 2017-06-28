@@ -156,7 +156,7 @@ module.exports = {
   },
   //电子合同-承租意向
   'intentletter-print-info': {
-      url: '/apis/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+      url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
       method: 'get'
   },
   //电子合同-减租
