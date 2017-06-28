@@ -308,4 +308,14 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/business/detail?id={id}',
             method: 'get'
     },
+    //角色列表--业务代码
+    'user-code':{
+            url: '/api/krspace-sso-web/sso/business/all?roleId={roleId}',
+            method: 'get'
+    },
+    //角色列表--业务代码--提交
+    'user-code-submit':{
+            url: '/api/krspace-sso-web/sso/business/bound',
+            method: 'post'
+    },
 }
