@@ -465,7 +465,7 @@ class MerchantsData  extends React.Component{
 
 								{!nothingData && <div style={{display : !openShow ? "none":"block", paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
 								{!nothingData && <div style={{display : !unopenShow ? "none":"block",paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length),height:51*(unopenList.length),lineHeight: 51*(unopenList.length)+"px",}}>未开业</div>}
-								{!nothingData && <div style={{position: "absolute",zIndex: 1,width: groupList.length == 1 ?"18.3%":"18.09%",border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
+								{!nothingData && <div style={{position: "absolute",zIndex: 1,width:"18.3%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
 								{showSolid && !nothingData && <div style={{marginRight:groupList.length == 1?40:0,position: "absolute",zIndex: 1,width: "auto",background: "#dfdfdf",top:133+51*(openList.length),height:2,left:0,right:40}}></div>}
 
 							</div>}
