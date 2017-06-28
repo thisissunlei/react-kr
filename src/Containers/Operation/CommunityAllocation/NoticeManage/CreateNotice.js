@@ -93,7 +93,7 @@ class CreateNotice extends React.Component {
 
 	selectGroup=(item)=>{
 		var _this=this;
-		Http.request('cluster-list',{cmtId:item.id}).then(function(response) {
+		Http.request('topic-cluster-list',{cmtId:item.id}).then(function(response) {
 			response.clusterList.map((item)=>{
 				item.label=item.clusterName;
 				item.value=item.id;

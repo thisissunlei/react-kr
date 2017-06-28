@@ -602,7 +602,7 @@ module.exports = {
          method: 'post'
       },
       //公告管理-新建帖子-社区群组
-       'cluster-list':{
+       'topic-cluster-list':{
          url: '/api/krspace-finance-web/topic/manage/cluster-list?cmtId={cmtId}',
          method: 'get'
       },
