@@ -647,13 +647,6 @@ class Merchants extends Component{
     }
 
 
-	editSubmitAgreement=()=>{
-		 let {searchParams} = this.state;
-		 searchParams.page=1;
-		 this.props.CommunityAgreementList.ajaxListData(searchParams);	
-	}
-
-
 	render(){
 
       	let {loading}=State;
@@ -855,7 +848,7 @@ class Merchants extends Component{
            </Table>
 
 					 {loading&&<Loading style = {{width:"100%"}}/>}
-           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={searchParams.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
+           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={this.props.CommunityAgreementList.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
 
            </Section>
 					{/*新建合同的第一页*/}
@@ -897,7 +890,7 @@ class Merchants extends Component{
 			        >
 
 
-			      	<EditAgreementList onCancel={this.closeEditAgreement} onSubmit={this.editSubmitAgreement}/>
+			      	<EditAgreementList onCancel={this.closeEditAgreement} searchParams = {searchParams}/>
 		           </Drawer>
 
 					{/*新建订单*/}
