@@ -29,7 +29,12 @@ module.exports = [
 					primaryText: '操作项',
 					router: '/permission/operations',
 					menuCode: 'sso_resource_base',
-				},]
+				},
+				{
+					primaryText: '业务代码',
+					router: '/permission/opCode',
+					menuCode: 'sso_resource_base',
+				}]
 			},
 			{
 				primaryText: "日志管理",
