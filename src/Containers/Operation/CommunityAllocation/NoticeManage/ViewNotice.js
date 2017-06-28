@@ -108,7 +108,7 @@ class ViewNotice extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:548}}
-								label="帖子内容"
+								label="公告内容"
 								maxSize={500}
 								inline={false} 
 								component="labelText"

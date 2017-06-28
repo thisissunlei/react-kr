@@ -184,7 +184,7 @@ class CreateNotice extends React.Component {
 								style={{width:548}}
 								name="content"
 								component="textarea"
-								label="帖子内容"
+								label="公告内容"
 								maxSize={500}
 								requireLabel={true}
 							/>
