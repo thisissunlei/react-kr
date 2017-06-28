@@ -63,7 +63,6 @@ export default class NoticeManage extends React.Component {
 	onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		console.log('itemDetail----',itemDetail)
 		Http.request('del-notice',{},{topicId:itemDetail.topicId}).then(function (response) {
 			_this.openDelete();
 			Message.success('删除成功！');

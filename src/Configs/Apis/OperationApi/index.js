@@ -601,12 +601,17 @@ module.exports = {
          url: '/api/krspace-finance-web/topic/manage/create-cmt-topic',
          method: 'post'
       },
-      //公告管理-新建帖子-群组列表
+      //公告管理-新建帖子-社区群组
        'cluster-list':{
          url: '/api/krspace-finance-web/topic/manage/cluster-list?cmtId={cmtId}',
          method: 'get'
       },
-
+      //公告管理-新建帖子-全国群组
+       'country-cluster-list':{
+         url: '/api/krspace-finance-web/topic/manage/country-cluster-list',
+         method: 'get'
+      },
+    
 
 }
 

@@ -70,7 +70,25 @@ class CreateNotice extends React.Component {
 			this.setState({
 				ifCity:false
 			})
+			this.getGrouo();
 		}
+	}
+	getGrouo=()=>{
+		var _this=this;
+		Http.request('country-cluster-list').then(function(response) {
+			response.clusterList.map((item)=>{
+				item.label=item.clusterName;
+				item.value=item.id;
+				return item;
+			})
+			_this.setState({
+				groupList:response.clusterList
+			})
+			
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	
 	}
 
 	selectGroup=(item)=>{
