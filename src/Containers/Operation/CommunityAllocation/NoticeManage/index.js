@@ -128,9 +128,9 @@ export default class NoticeManage extends React.Component {
 				            <TableHeader>
 				              <TableHeaderColumn>群组名称</TableHeaderColumn>
 				              <TableHeaderColumn>社区名称</TableHeaderColumn>
+				              <TableHeaderColumn>发布内容</TableHeaderColumn>
 				              <TableHeaderColumn>发布时间</TableHeaderColumn>
 				              <TableHeaderColumn>发布人</TableHeaderColumn>
-				              <TableHeaderColumn>发布内容</TableHeaderColumn>
 				              <TableHeaderColumn>操作</TableHeaderColumn>
 				          	</TableHeader>
 
@@ -138,13 +138,6 @@ export default class NoticeManage extends React.Component {
 					              <TableRow>
 					                <TableRowColumn name="clusterName" ></TableRowColumn>
 					                <TableRowColumn name="cmtName"></TableRowColumn>
-					                <TableRowColumn 
-					                	name="topicDate" 
-					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
-					                    }}
-					                ></TableRowColumn>
-					                <TableRowColumn name="authorName" ></TableRowColumn>
 					                <TableRowColumn 
 					                		name="topicContent" 
 					                		component={(value,oldValue)=>{
@@ -155,11 +148,21 @@ export default class NoticeManage extends React.Component {
 												}else{
 													TooltipStyle="inline-block";
 												}
-												return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
-												 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+												return (
+													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+													<span className='tableOver' style={{maxWidth:150,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												 	</div>
 												)
 											}} 
 									></TableRowColumn>
+					                <TableRowColumn 
+					                	name="topicDate" 
+					                	component={(value) => {
+					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                    }}
+					                ></TableRowColumn>
+					                <TableRowColumn name="authorName" ></TableRowColumn>
 					                <TableRowColumn>
 					                	<Button label="查看"  type="operation"  operation="view"/>
 									  	<Button label="删除"  type="operation"  operation="delete"/>
