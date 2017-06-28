@@ -39,7 +39,6 @@ export default class JoinPrint extends React.Component {
 		}else if(printHeight>1125){
 			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
 		}
-		console.log('did');
 		this.pages = Math.ceil(printHeight/1120) + 1;
 		 setTimeout(function() {
 		 	window.print();
@@ -85,24 +84,31 @@ export default class JoinPrint extends React.Component {
 	renderImg=()=>{
 		console.log('===>',this.pages)
 		let str=[] ;
-		for(var i = 1;i<3;i++){
+		let page = this.pages;
+		if(page<=1){
+			return;
+		}
+		let whole = 160;
+		let width = Math.ceil(160/page);
+		let position = Math.ceil(100/(page-1));
+		for(var i = 0;i<page;i++){
 			let style={
-				background:url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png'),
+				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
 				position:'absolute',
-				top:800*(i+1),
-				right:0
+				backgroundSize:'cover',
+				top:650+(i*1120),
+				right:0,
+				width:width,
+				height:160,
+				backgroundPosition:`${position*i}% 0`
 			};
-			console.log(<div style={style}></div>)
 			str.push(<div style={style}></div>);
-			// return <div style={style}></div>
 
 		}
-		console.log('Img======>',str)
 		return str;
 	}
 
 	render() {
-		console.log('render')
 		let doms = this.renderImg();
 		return (
 		<div style={{background:'#fff'}}>
