@@ -28,7 +28,7 @@ class CreateNotice extends React.Component {
 		this.state = {
 			groupList:[],
 			ifCity:false,
-			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
+			requestURI :'./api/krspace-finance-web/activity/upload-pic',
 			groupType:[],
 		}
 		this.getType();
@@ -190,16 +190,12 @@ class CreateNotice extends React.Component {
 							/>
 							<KrField 
 								name="imgUrl"
-								style={{width:548}}
-								component="newuploadImage"
-								innerstyle={{width:120,height:120,padding:10}}
-								photoSize={'1:1'}
-								sizePhoto
-								merthd='Url'
-								pictureFormat={'JPG,PNG'}
-								pictureMemory={'100'}
-								requestURI = {this.state.requestURI}
 								label="公告图片"
+								component="uploadImg"
+								innerBoxStyle={{width:200,height:160}}
+								imagesStyle={{width:160}}
+                    			innerStyle={{left:0,top:60}}
+								requestURI = {this.state.requestURI}
 								inline={false}
 								/>
 						<Grid style={{marginTop:50,width:'81%'}}>

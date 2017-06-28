@@ -57,7 +57,7 @@ import SearchSourceList from './SearchSourceList';
 import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 import SearchCityCommunity from './SearchCityCommunity';
-
+import ChangeUploadImageComponent from './ChangeUploadImageComponent';
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -200,8 +200,13 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-
-
+			
+			
+			if (component === 'uploadImg') {
+				return (
+					<FieldRevert {...this.props} component={ChangeUploadImageComponent}  style={WrapStyles} {...other}/>
+				);
+			}
 			if (component === 'uploadImageList') {
 				return (
 					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
