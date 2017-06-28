@@ -596,7 +596,7 @@ export default class PersonalCenter extends React.Component {
 						<div className="wechat-main">
 								<div className="wechat-code">
 									<img src="/api/krspace-finance-web/csr/promocode/mywxaqrcode" width="120" height="120" />
-									<a href="/api/krspace-finance-web/csr/promocode/mywxaqrcode" className="button-link">点击下载</a>
+									<a download="wechatCode.jpeg" href="/api/krspace-finance-web/csr/promocode/mywxaqrcode" className="button-link" >点击下载</a>
 								</div>
 
 								<div className="main-desc">下载该二维码向外传播推广可以与您个人业绩进行绑定。</div>
