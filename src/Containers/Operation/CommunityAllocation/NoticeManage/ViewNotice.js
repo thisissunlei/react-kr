@@ -72,7 +72,7 @@ class ViewNotice extends React.Component {
 				infoList,
 				ifCity,
 			}=this.state;
-			
+			console.log('----infoList.imgUrl',infoList.imgUrl)
 		
 		return (
 			<div className="g-create-notice">
@@ -80,7 +80,7 @@ class ViewNotice extends React.Component {
 						<div className="title-text">公告详情</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-				<form>
+				<form style={{paddingLeft:90}}>
 
 							<KrField
 								style={{width:260,margintop:20}}
@@ -118,9 +118,10 @@ class ViewNotice extends React.Component {
 							/>
 						<div className="u-img-list">
 							<div className="u-list-title">公告图片</div>
-							{infoList.imgUrl&&infoList.imgUrl.map((item,index)=>{
+							{infoList.imgUrl&&infoList.imgUrl.length>0 ?infoList.imgUrl.map((item,index)=>{
 								return <img src={item}  key={index}/>
-							})}
+							}):<span style={{paddingLeft:15}}>无</span>}
+							
 						</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
