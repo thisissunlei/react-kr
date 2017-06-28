@@ -27,7 +27,7 @@ import FinishUploadImgForm from "./FinishUploadImgForm";
 import SingleUploadImgForm from "./SingleUploadImgForm";
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-
+import State from './State';
 import './index.less';
 import error2 from "./images/error2.png"
 export default class EquipmentDefinition extends React.Component {
@@ -60,6 +60,9 @@ export default class EquipmentDefinition extends React.Component {
       },
       onlineOfflineParams:{}
     }
+  }
+  componentDidMount(){
+    State.getListDic();
   }
   onLoaded=(response)=>{
     let list = response;
@@ -337,7 +340,7 @@ export default class EquipmentDefinition extends React.Component {
       }).catch(function(err){
         Message.error(err.message);
         if(values.id){
-          Message.success("编辑设备成功");
+          
           _this.setState({
             openEditEquipment : false,
             openNewCreateDefinition : false,
@@ -349,7 +352,7 @@ export default class EquipmentDefinition extends React.Component {
             }
           })
         }else{
-          Message.success("新增设备成功");
+          
           _this.setState({
             openEditEquipment : false,
               openNewCreateDefinition : false,
@@ -531,6 +534,7 @@ export default class EquipmentDefinition extends React.Component {
               <TableHeaderColumn>门编号</TableHeaderColumn>
               <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
               <TableHeaderColumn>类型</TableHeaderColumn>
+              <TableHeaderColumn>厂商</TableHeaderColumn>
               <TableHeaderColumn>属性</TableHeaderColumn>
               <TableHeaderColumn>对应功能</TableHeaderColumn>
               <TableHeaderColumn>是否上线</TableHeaderColumn>
@@ -598,6 +602,13 @@ export default class EquipmentDefinition extends React.Component {
                 if(value==""){
                   value="-"
                 }
+                return (<span>{value}</span>)}}
+              ></TableRowColumn>
+              <TableRowColumn name="maker"
+                component={(value,oldValue)=>{
+                 if(value==""){
+                    value="-"
+                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
               <TableRowColumn name="propertyName"
