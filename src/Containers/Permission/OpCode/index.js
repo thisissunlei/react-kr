@@ -40,7 +40,6 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
 
@@ -60,13 +59,6 @@ class SearchForm extends Component {
 
 	}
 
-
-	onFilter = (value) => {
-		let {
-			onFilter
-		} = this.props;
-		onFilter && onFilter(value);
-	}
 	openCreateDialog = () => {
 		let {
 			onCreate
@@ -77,33 +69,13 @@ class SearchForm extends Component {
 
 	render() {
 
-
-
-		let options = [{
-				label: '名称',
-				value: 'name'
-			}, {
-				label: '类型',
-				value: 'type'
-			}, {
-				label: '编码',
-				value: 'code'
-			},
-			{
-				label: '菜单',
-				value: 'moduleName'
-			},
-
-		];
-
 		return (
 			<form className="g-op-form" name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
+					<Button label="新建" operateCode="sso_resource_edit"  onTouchTap={this.openCreateDialog} />
 				<SearchForms
 						onSubmit={this.onSubmit}
-						searchFilter={options}
 						style={{marginTop:5}}
-						onFilter={this.onFilter}
+						placeholder="请输入业务代码"
 				/>
 			</form>
 
@@ -122,9 +94,12 @@ class Operations extends Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
-				pageSize: 15
-			},
+                accountName: '',
+                page: 1,
+                pageSize: 15,
+                timer: 1
+            },
+            newPage:1,
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
@@ -139,13 +114,11 @@ class Operations extends Component {
 			itemDetail
 		});
 
-		if (type == 'delete') {
-			this.openDeleteDialog();
-		} else if (type == 'edit') {
+		if (type == 'edit') {
 			this.openEditDialog();
 		}
 	}
-
+	
 	openCreateDialog = () => {
 		this.setState({
 			openCreateDialog: !this.state.openCreateDialog
@@ -158,12 +131,10 @@ class Operations extends Component {
 	}
 	onCreatSubmit = (params) => {
 		var _this = this;
-		Http.request('createResources', {}, params).then(function(response) {
+		Http.request('op-code-insert', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -171,46 +142,42 @@ class Operations extends Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
-		Http.request('editResources', {}, params).then(function(response) {
+		Http.request('op-code-edit', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
 	}
 	onSearch = (form) => {
-		var searchParams = {}
-		if (form.filter == "name") {
-			searchParams = {
-				name: form.content
-			}
-		} else if (form.filter == "code") {
-			searchParams = {
-				code: form.content
-			}
-		} else if (form.filter == 'type') {
-			var content;
-			if (form.content == '菜单') {
-				content = 'MENU'
-			} else if (form.content == '操作') {
-				content = 'OPERATION'
-			}
-			searchParams = {
-				type: content
-			}
-		}else if (form.filter == "moduleName") {
-			searchParams = {
-				moduleName: form.content
-			}
-		}
+		var _this = this;
 		this.setState({
-			searchParams: searchParams
-		});
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				codeName: form.content
+			}
+		})
 	}
-
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+		var searchParams = Object.assign({},this.state.searchParams);
+		console.log(searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		console.log(searchParams);
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
 
 	render() {
 		let {
@@ -226,47 +193,37 @@ class Operations extends Component {
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='RosfindPage'
+							ajaxUrlName='op-code-list'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
-							  >
+							onPageChange={this.onPageChange}
+						>
 						<TableHeader>
-						<TableHeaderColumn>ID</TableHeaderColumn>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>类型</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
+						<TableHeaderColumn>是否启用</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>所属菜单</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
-							<TableRowColumn name="name" ></TableRowColumn>
-							<TableRowColumn
-									name="type"
-									options={[
-										{label:'菜单',value:'MENU'},
-										{label:'操作',value:'OPERATION'}
-									]}
-							></TableRowColumn>
-							<TableRowColumn name="code"></TableRowColumn>
+							<TableRowColumn name="codeName"></TableRowColumn>
+							<TableRowColumn name="enableFlagName"></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn name="moduleName"></TableRowColumn>
-							<TableRowColumn type="date" name="createTime" component={(value)=>{
+							<TableRowColumn type="date" name="createDate" component={(value)=>{
 								return (
 									<KrDate value={value} />
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑"   type="operation" operation="edit"/>
+									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
 					<TableFooter></TableFooter>
 					</Table>
+					
 					 <Drawer
 						modal={true}
 						width={750}
