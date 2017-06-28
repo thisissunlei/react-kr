@@ -31,17 +31,55 @@ export default class AdmitPrint extends React.Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
+		var printList = document.getElementsByClassName('print-section')[0];
+		var printHeight = printList.offsetHeight;
+		if(printHeight>1120 && printHeight-1120<=5){
+			printList.style.height = 1120+'px';
+		}else if(printHeight>1125){
+			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
+		}
+		this.pages = Math.ceil(printHeight/1120) + 1;
 		setTimeout(function() {
 			window.print();
 			// window.close();
 		}, 1000)
 	}
+	renderImg=()=>{
+		console.log('===>',this.pages)
+		let str=[] ;
+		let page = this.pages;
+		if(page<=1){
+			return;
+		}
+		let whole = 160;
+		let width = Math.ceil(160/page);
+		let position = Math.ceil(100/(page-1));
+		for(var i = 0;i<page;i++){
+			let style={
+				background:"url('http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png') 100% 100%",
+				position:'absolute',
+				backgroundSize:'cover',
+				top:650+(i*1120),
+				right:0,
+				width:width,
+				height:160,
+				backgroundPosition:`${position*i}% 0`
+			};
+			str.push(<div style={style}></div>);
+
+		}
+		return str;
+	}
 
 	render() {
+		let doms = this.renderImg();
 
 		return (
 
 			<div className="print-section no-print-section">
+			{doms.map((item,index)=>{
+				return item
+			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务意向书`}/>
 				<Print.Header
 					  baseInfo={State.baseInfo}

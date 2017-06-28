@@ -151,7 +151,7 @@ module.exports = {
 
   //电子合同-入驻协议(入驻，增租，续租)
   'checkinagreement-print-info': {
-      url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
+      url: '/apis/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
       method: 'get'
   },
   //电子合同-承租意向
