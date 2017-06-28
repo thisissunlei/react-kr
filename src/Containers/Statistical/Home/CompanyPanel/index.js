@@ -19,8 +19,14 @@ export default class CompanyPanel  extends React.Component{
 
 	componentDidMount() {
 		const {groupId} = this.props;
-		Baidu.trackEvent('集团经营','访问');
 	}
+
+	componentDidUpdate(){
+        const {tab} = this.props;
+        if(tab == 'table'){
+		  Baidu.trackEvent('集团经营','访问');
+		} 
+    }
 
 
 	render(){
@@ -37,10 +43,10 @@ export default class CompanyPanel  extends React.Component{
 		return(
 			<div>
 			        <Title value="数据统计"/>
-					<CheckPermission  operateCode="business_open" > 
+					<CheckPermission  operateCode="business_open" style={{width:'100%'}}> 
 						<OpenPanel {...props}/>
 					</CheckPermission>
-					<CheckPermission  operateCode="business_notopen" > 
+					<CheckPermission  operateCode="business_notopen" style={{width:'100%'}}> 
 						<NotOpenPanel {...props}/>
 					</CheckPermission>
 			</div>

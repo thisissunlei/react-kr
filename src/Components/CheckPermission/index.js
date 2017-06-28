@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-
+import './index.less';
 @inject("NavModel")
 @observer
 export default class CheckPermission extends React.Component {
@@ -51,11 +51,11 @@ export default class CheckPermission extends React.Component {
 
 	 
 	render() {
-		let {children,NavModel,operateCode}=this.props;
+		let {children,NavModel,operateCode,style}=this.props;
 		let {IsOperate,IsMenus}=this.state;
 		if(IsOperate || IsMenus){
 			return (
-				<div  style={{display:'inline-block'}}>
+				<div  style={style} className='check-permission'>
 					{children}
 				</div>
 

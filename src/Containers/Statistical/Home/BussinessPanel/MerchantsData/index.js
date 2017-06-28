@@ -150,39 +150,9 @@ class MerchantsData  extends React.Component{
 
     componentDidMount() {
     	var _this=this;
-		Baidu.trackEvent('招商数据','访问');
-    	let {groupList} = this.state;
-		let right = groupList.length == 1 ? 40 :20;
-    	window.onscroll = function () {
-			var t = document.documentElement.scrollTop || document.body.scrollTop;
-			if(t>150){
-				_this.setState({
-					moveStyle:{
-						position: "fixed",
-					    marginRight: 40,
-					    lineHeight: "54px",
-					    zIndex: 99,
-					    marginLeft: 1,
-					    top:60
-
-					}
-				})
-			}else{
-				_this.setState({
-					moveStyle:{
-						position: "absolute",
-					    marginRight: right,
-					    lineHeight: "54px",
-					    zIndex: 1,
-					    marginLeft: 1,
-
-					}
-				})
-			}
-		}
+		window.addEventListener('scroll',this.scrollListener,false);
       Store.dispatch(change('merchansDateForm','startDate',this.props.yesterday));
       Store.dispatch(change('merchansDateForm','endDate',this.props.yesterday));
-
     }
     tooltip = (value) =>{
 
@@ -348,6 +318,45 @@ class MerchantsData  extends React.Component{
     				</div>
     			</div>)
     }
+
+	componentDidUpdate(){
+        const {tab} = this.props;
+        if(tab !== 'bus'){
+            window.removeEventListener('scroll',this.scrollListener,false);    
+        }else{
+		    Baidu.trackEvent('招商数据','访问');			
+            window.addEventListener('scroll',this.scrollListener,false);
+        }
+    }
+
+	scrollListener=()=>{
+      let {groupList} = this.state;		
+	   let right = groupList.length == 1 ? 40 :20;		
+       var t = document.documentElement.scrollTop || document.body.scrollTop;
+			if(t>150){
+				this.setState({
+					moveStyle:{
+						position: "fixed",
+					    marginRight: 40,
+					    lineHeight: "54px",
+					    zIndex: 99,
+					    marginLeft: 1,
+					    top:60
+					}
+				})
+			}else{
+				this.setState({
+					moveStyle:{
+						position: "absolute",
+					    marginRight: right,
+					    lineHeight: "54px",
+					    zIndex: 1,
+					    marginLeft: 1,
+
+					}
+				})
+			}
+	}
 
 
 	render(){

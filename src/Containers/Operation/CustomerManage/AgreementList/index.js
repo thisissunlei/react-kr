@@ -831,7 +831,7 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										</div>
 
-										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+										{State.isEdit||State.isPrint||State.isDel&&<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
 												
@@ -842,7 +842,7 @@ class Merchants extends Component{
 													{State.isDel && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
-										</div>
+										</div>}
 
 					                </TableRowColumn>
 					            </TableRow>
