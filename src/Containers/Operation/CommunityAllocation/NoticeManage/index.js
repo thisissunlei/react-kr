@@ -150,7 +150,7 @@ export default class NoticeManage extends React.Component {
 												}
 												return (
 													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
-													<span className='tableOver' style={{maxWidth:150,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+													<span className='tableOver' style={{maxWidth:200,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
 												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
 												 	</div>
 												)

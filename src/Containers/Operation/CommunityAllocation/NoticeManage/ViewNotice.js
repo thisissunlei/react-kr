@@ -72,8 +72,7 @@ class ViewNotice extends React.Component {
 				infoList,
 				ifCity,
 			}=this.state;
-			console.log('----infoList.imgUrl',infoList.imgUrl)
-		
+			
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
@@ -109,7 +108,7 @@ class ViewNotice extends React.Component {
 						 	/>
 						 	<KrField
 								style={{width:548}}
-								label="群组描述"
+								label="帖子内容"
 								maxSize={500}
 								inline={false} 
 								component="labelText"
