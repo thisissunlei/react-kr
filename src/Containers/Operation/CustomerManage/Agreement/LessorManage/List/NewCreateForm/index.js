@@ -125,14 +125,13 @@ const jsonData = [
 ];
 
 
-class EditDetailForm extends React.Component {
+class NewCreateForm extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			chipData : chipData1,
 			isBindCommunitys : false,
-			readyData:{}
 		}
 		this.styles = {
 		 chip: {
@@ -143,7 +142,7 @@ class EditDetailForm extends React.Component {
 			 flexWrap: 'wrap',
 		 },
 	 };
-	 this.getEditReadyData();
+	 this.bindGetData();
 	}
 
 	componentDidMount() {
@@ -153,6 +152,24 @@ class EditDetailForm extends React.Component {
 		//detail.enableflag = detail.enableflag.toString();
 		// Store.dispatch(initialize('newCreateForm', detail));
 	}
+	
+	//获取绑定社区的数据
+	bindGetData = () =>{
+		// Http.request('editFnaCorporation', {}, values).then(function(response) {
+		
+		// 	const {
+		// 		onSubmit
+		// 	} = _this.props;
+		// 	onSubmit && onSubmit();
+		
+		// }).catch(function(err) {
+		// 	// Notify.show([{
+		// 	// 	message: err.message,
+		// 	// 	type: 'danger',
+		// 	// }]);
+		// });
+	}
+
 	onSubmit = (values) => {
 
 
@@ -226,19 +243,6 @@ class EditDetailForm extends React.Component {
 		this.chipData.splice(chipToDelete, 1);
 		this.setState({chipData: this.chipData});
 	};
-	//编辑准备数据
-	getEditReadyData = () =>{
-		let self = this;
-		Http.request('getWeChatAndAlipay').then(function(response) {
-			self.setState({
-				readyData:response
-			})
-		}).catch(function(err) {
-			
-		});
-
-
-	}
 	
 	render() {
 
@@ -252,10 +256,8 @@ class EditDetailForm extends React.Component {
 		const {
 			existing,
 			chipData,
-			jsonData,
-			readyData,
+			jsonData
 		} = this.state;
-	
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
@@ -300,8 +302,8 @@ class EditDetailForm extends React.Component {
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 
-								<KrField grid={1/2} label="支付宝账户" value = {readyData && readyData.aipayAccount}  name="mail" inline = {false} style={{width:262,marginLeft:15}} component="labelText" requireLabel={true}/>
-								<KrField grid={1/2} label="微信账户"  value = {readyData && readyData.weixinAccount} name="wechat" inline = {false} style={{width:262,marginLeft:15}} component="labelText" requireLabel={true}/>
+								<KrField grid={1/2} label="支付宝账户"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="微信账户" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<FieldArray name="bankAccount" component={renderBrights}/>
 
 						</div>
@@ -376,11 +378,11 @@ const validate = values => {
 }
 
 export default reduxForm({
-	form: 'editDetailForm',
+	form: 'newCreateForm',
 	initialValues: {
 		enableflag: 'ENABLE'
 	},
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
-})(EditDetailForm);
+})(NewCreateForm);

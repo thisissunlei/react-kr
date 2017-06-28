@@ -12,95 +12,180 @@ import {
 } from 'redux-form';
 import {
 	KrField,
-  Checkbox
+	ButtonGroup,
+	Col,
+	Row,
+	Grid,
+	Button
 } from 'kr-ui';
-const jsonData = [
-    {
-        name: "北京",
-        cityId: 1,
-				type:'city',
-        isBind:false,
-        community: [
-            {
-                cmtId: 1,
-								type:'cmt',
-                isBind:false,
-                cmtName: "北京创业大街社区"
-            },
-            {
-                cmtId: 2,
-								type:'cmt',
-                isBind:false,
-                cmtName: "北京酒仙桥社区"
-            }
-        ]
-    },
-    {
-        cityName: "上海",
-        cityId: 3,
-				type:'city',
-        isBind:false,
-        community: [
-            {
-                cmtId: 3,
-                isBind:false,
-								type:'cmt',
-                cmtName: "上海田林社区"
-            },
-            {
-                cmtId: 4,
-                isBind:false,
-								type:'cmt',
-                cmtName: "上海传奇广场社区"
-            }
-        ]
-    }
-];
+import './index.less'
+import {Http} from 'kr/Utils';
 
-export default class BindCommunity extends React.Component {
-
-	// static propTypes = {
-	// 	detail: React.PropTypes.object,
-	// 	onCancel: React.PropTypes.func,
-	//
-	// }
-
+class BindCommunity extends React.Component {
 	constructor(props) {
 		super(props);
-		this.onCancel = this.onCancel.bind(this);
-        this.state = {
-            jsonData: jsonData,
-        }
+		this.state = {
+			jsonData: this.props.jsonData,
+			checkedCmt:[],
+			existing:this.props.existing
+		}
+		this.getBindCmtData();
 	}
 
-	onCancel() {
+	//名称转化
+	nameConversion = (data,existing) =>{
+		if(!data){
+			return ;
+		}
+		var allArr = [];
+		data.map(function(item,index){
+			var arr = [];
+			for (let i = 0; i<item.community.length;i++){
+				let every = item.community[i];
+				var flag = false;
+				for(let j=0;j<existing.length;j++){
+					if(every.id == existing[j].id){
+						flag = true;
+						break;
+					}
+				}
+				arr.push({
+					 checked:flag,
+					 value:every.id,
+					 label:every.name,
+				})
+			}
+			allArr.push({
+				value:item.id,
+				label:item.name,
+				community:arr
+			})
+		})
+		return allArr;
+	}
+
+
+	//选择绑定社区的数据准备
+	getBindCmtData = (id) =>{
+		let self = this;
+		let values = {id:id||''};
+		const {existing} = this.props;
+		Http.request('bindCommunity', {}, values).then(function(response) {
+			self.setState({
+				checkedCmt:self.nameConversion(response.items,existing)
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+	}
+	
+
+	onCancel = () => {
+
 		const {
 			onCancel
 		} = this.props;
 		onCancel && onCancel();
 	}
+	onSubmit = () =>{
+		let data = this.showCheckData();
+		const {checkedSubmit} = this.props;
+		checkedSubmit && checkedSubmit(data);
+		this.onCancel();
+	}
+	//筛选选中的
+	showCheckData = () =>{
+
+		let {checkedCmt} = this.state;
+		let checkedArr = [];
+		let obj = [].concat(checkedCmt);
+		for (let i = 0; i < obj.length; i++){
+				obj[i].community.map(function(item,index){
+						if(item.checked){
+							checkedArr.push({
+								id:item.value,
+								name:item.label
+							});
+						}
+				})
+		}
+
+		return checkedArr;
+	}
+
+	checkChange = (data,value,all) =>{
+
+		const {checkedCmt} = this.state;
+		let newCheckedCmt = [].concat(checkedCmt);
+		for(let i=0; i<newCheckedCmt.length; i++){
+			if(newCheckedCmt[i].id == all.value){
+				newCheckedCmt[i].community = data;
+			}
+		}
+		
+		this.setState({
+			checkedCmt:newCheckedCmt
+		})
+
+	}
+ //生成CheckBox
   renderCheckBox = () =>{
-		// return <div>werw</div>
-    let parentArr = jsonData.map(function(item,index){
-        let childArr = item.community.map(function(item1,index1){
-            return <div><Checkbox label = {item1.cmtName} checked = {item1.isBind} index = {item1} /></div>
-        })
-        return (<div>
-                    <div><Checkbox label = {item.cityName} checked = {item.isBind} data = {item} /></div>
-                    {childArr}
-                </div>)
-    })
-    return <div>{parentArr}</div>
+	const _this = this;
+	//数据转换
+	console.log(this.state.checkedCmt,"PPPPPP");
+	if(this.state.checkedCmt && this.state.checkedCmt.length !=0 && this.state.checkedCmt[0].label!=''){
+		
+	
+		
+		let parentArr = this.state.checkedCmt;
+		let arr = parentArr.map(function(item,index){
+
+			return (<div key = {index}>
+					<KrField
+						label=""
+						name='contract'
+						component="groupCheckbox"
+						defaultValue={item.community}
+						requireLabel={false}
+						checkAllData = {{label:item.label,value:item.value}}
+						isCheckAll = {true}
+						childrenInline = {true}
+						indent = {true}
+						onChange = {_this.checkChange}
+					/>
+					</div>)
+		})
+		return <div>{arr}</div>
+	}
   }
 
 	render() {
+		const {handleSubmit} = this.props;
+		console.log(this.props.jsonData,"=====11")
 
 		return (
-
-			<div className="bind-community" style={{marginTop:40}}>
-          {this.renderCheckBox()}
-      </div>
-
+			<form className="bind-community" onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
+				<div  style={{marginTop:40}}>
+	          {this.renderCheckBox()}
+	      </div>
+				<Grid style={{marginTop:30}}>
+					<Row>
+						<Col md={12} align="center">
+							<ButtonGroup>
+								<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
+								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+							</ButtonGroup>
+						</Col>
+					</Row>
+				</Grid>
+		</form>
 		);
 	}
 }
+export default reduxForm({
+	form: 'bindCommunity',
+})(BindCommunity);
