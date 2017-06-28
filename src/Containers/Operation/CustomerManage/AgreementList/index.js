@@ -205,14 +205,7 @@ class Merchants extends Component{
     	State.openAgreementDetail=true;
     }
 
-    componentWillMount(){
-		var {checkOperate} = this.props.NavModel;
-		State.isEdit = checkOperate("contract_create_contract");
-		State.isPrint = checkOperate("oper_contract_print");
-		State.isDel = checkOperate("oper_contract_delete");
-		
-    	// ---State.createContract();
-    }
+
     //查看关闭
 	cancelAgreementDetail=(event)=>{
 		State.agreementDetail();
@@ -397,6 +390,14 @@ class Merchants extends Component{
 	}
 
 	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		setTimeout(function() {
+			State.isEdit = checkOperate("contract_create_contract");
+		    State.isPrint = checkOperate("oper_contract_print");
+		    State.isDel = checkOperate("oper_contract_delete");
+		},500);	
+
+
 		this.props.CommunityAgreementList.ajaxListData(this.state.searchParams);
 		Baidu.trackEvent('合同列表','访问');
       	let _this=this;
@@ -665,8 +666,6 @@ class Merchants extends Component{
 			contractStatusCount,
 		} = this.state.response;
 
-
-
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
       let rowStyle={};
       let rowLineStyle={};
@@ -831,7 +830,7 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										</div>
 
-										{State.isEdit||State.isPrint||State.isDel&&<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+										{(State.isEdit||State.isPrint||State.isDel)&&<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
 												

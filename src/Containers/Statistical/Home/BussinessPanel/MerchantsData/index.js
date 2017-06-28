@@ -364,9 +364,10 @@ class MerchantsData  extends React.Component{
 		let {data,loading,moveStyle,tabLoading,groupList} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
-
+        
+		console.log('gr',groupList.length);
 		let right = groupList.length == 1 ? 40 :20;
-		let top = groupList.length == 1 ? 208 :133;
+		let top = groupList.length == 1 ? 133 :208;
 		let width = groupList.length == 1 ?"5.9%" : "6%";
 		let showSolid = true;
 		let openShow = true;
