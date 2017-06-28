@@ -26,21 +26,40 @@ class ViewNotice extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			groupList:[
-				{label:'全国群组',value:'COUNTRYWIDE'},
-				{label:'社区群组',value:'COMMUNITY'}
-			],
 			ifCity:false,
-			requestURI :'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic',
+			infoList:[],
+			
 		}
-		
+		this.getInfo();
 	}
 	
 	componentDidMount() {
         
     }
    
-	
+	getInfo=()=>{
+		var _this=this;
+		const {detail}=this.props;
+		Http.request('get-findDetail',{topicId:detail.topicId}).then(function(response) {
+			if(response.clusterType=='COMMUNITY'){
+				_this.setState({
+					ifCity:true
+				})
+			}else {
+				_this.setState({
+					ifCity:false
+				})
+			}
+			_this.setState({
+				infoList:response
+			})
+			
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	
+	}
+
 	onCancel=()=>{
 		let {onCancel} = this.props;
 		onCancel && onCancel();
@@ -50,7 +69,7 @@ class ViewNotice extends React.Component {
 	render() {
 			
 			let {
-				groupList,
+				infoList,
 				ifCity,
 			}=this.state;
 			
@@ -58,7 +77,7 @@ class ViewNotice extends React.Component {
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
-						<div className="title-text">新建公告</div>
+						<div className="title-text">公告详情</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form>
@@ -68,7 +87,7 @@ class ViewNotice extends React.Component {
 								label="群组类型"
 								inline={false} 
 								component="labelText"
-								value=''
+								value={infoList.clusterType=='COMMUNITY'?'社区群组':'全国群组'}
 								
 						 	/>
 						 	{ifCity?<KrField  
@@ -77,7 +96,7 @@ class ViewNotice extends React.Component {
 					 			label="所属社区" 
 					 			inline={false} 
 								component="labelText"
-								value=''
+								value={infoList.cmtName}
 						 		
 						 	/>:''}
 						 	<KrField
@@ -85,7 +104,7 @@ class ViewNotice extends React.Component {
 								label="所属群组"
 								inline={false} 
 								component="labelText"
-								value=''
+								value={infoList.clusterName}
 								
 						 	/>
 						 	<KrField
@@ -94,10 +113,15 @@ class ViewNotice extends React.Component {
 								maxSize={500}
 								inline={false} 
 								component="labelText"
-								value=''
+								value={infoList.topicContent}
 
 							/>
-							
+						<div className="u-img-list">
+							<div className="u-list-title">公告图片</div>
+							{infoList.imgUrl&&infoList.imgUrl.map((item,index)=>{
+								return <img src={item}  key={index}/>
+							})}
+						</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">

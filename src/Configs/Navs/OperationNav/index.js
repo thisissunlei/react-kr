@@ -70,7 +70,7 @@ module.exports = [
 						router: '/operation/communityAllocation/myaddress'
 					},
 					{
-						primaryText: 'App后台',
+						primaryText: '群组帖子',
 						menuCode: 'oper_cluster_base',
 						router: '/operation/communityAllocation/appmanage'
 					},

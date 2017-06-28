@@ -14,7 +14,8 @@ import {
 	Drawer,
 	Dialog,
 	Tooltip,
-	KrDate
+	KrDate,
+	Message
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
 import ViewNotice from './ViewNotice';
@@ -63,7 +64,7 @@ export default class NoticeManage extends React.Component {
 		var _this=this;
 		const {itemDetail}=this.state;
 		console.log('itemDetail----',itemDetail)
-		Http.request('del-notice',{},{topicId:itemDetail.id}).then(function (response) {
+		Http.request('del-notice',{},{topicId:itemDetail.topicId}).then(function (response) {
 			_this.openDelete();
 			Message.success('删除成功！');
 			_this.setState({
@@ -104,6 +105,7 @@ export default class NoticeManage extends React.Component {
 	}
 	
 	render() {
+		let {itemDetail}=this.state;
 		return (
 
 			<div className="g-notice" >
@@ -191,7 +193,7 @@ export default class NoticeManage extends React.Component {
 	           >
 	             	<ViewNotice 
 	             			onCancel={this.openView} 
-	             			
+	             			detail={itemDetail}
 	             	 />
 	           </Drawer>
 	           <Dialog
