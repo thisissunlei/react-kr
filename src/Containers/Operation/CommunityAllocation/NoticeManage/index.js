@@ -203,7 +203,7 @@ export default class NoticeManage extends React.Component {
 	              onClose={this.openDelete}
 	            >
 	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center'}}>确认要删除帖子吗？</p>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除帖子吗？</p>
 					<div style={{textAlign:'center',marginBottom:10}}>
 	                      <div  className='ui-btn-center'>
 		                      <Button  label="确定" onClick={this.onDeleteData}/></div>
