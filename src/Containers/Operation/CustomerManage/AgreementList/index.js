@@ -30,7 +30,10 @@ import {
 	UpLoadList,
 	FontIcon,
 	Pagination,
-	Loading
+	Loading,
+	ListGroup,
+	ListGroupItem,
+	SearchForms,
 } from 'kr-ui';
 import State from './State';
 import SearchForm from "./SearchForm";
@@ -78,7 +81,6 @@ class Merchants extends Component{
 			staionsList: [],
 
             //日期查询
-		    todayDate:'',
 		    startValue:'',
 		    endValue:'',
 
@@ -436,8 +438,6 @@ class Merchants extends Component{
 	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
 	    	this.setState({
 				searchParams
-			},function(){
-			    this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -459,8 +459,6 @@ class Merchants extends Component{
 	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue,});
 	    	this.setState({
 				searchParams
-			},function(){
-                this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -517,13 +515,28 @@ class Merchants extends Component{
 
  contractChange=(params)=>{
    let {searchParams}=this.state;
-   let {CommunityAgreementList} = this.props;
 	 if(!params.value){
 		 searchParams.contractType='';
 	 }else{
 		 searchParams.contractType=params.value;
 	 }
-	 CommunityAgreementList.ajaxListData(searchParams);
+	 searchParams=Object.assign({},this.state.searchParams,searchParams);
+	 this.setState({
+		 searchParams
+	 })
+ }
+
+ isOtherChange=(params)=>{
+    let {searchParams}=this.state;
+	 if(!params.value){
+		 searchParams.hasAgreement='';
+	 }else{
+		 searchParams.hasAgreement=params.value;
+	 }
+	 searchParams=Object.assign({},this.state.searchParams,searchParams);
+	 this.setState({
+		 searchParams
+	 })
  }
 
 	everyTd=(value)=>{
@@ -637,6 +650,26 @@ class Merchants extends Component{
           }
         return render
     }
+	
+	//高级查询打开
+	openSearchUpperDialog=()=>{
+		let {searchParams}=this.state;
+		searchParams.contractType='';
+		searchParams.createDateBegin='';
+		searchParams.createDateEnd='';
+		searchParams.hasAgreement='';
+		this.setState({
+			searchParams
+		})
+		this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper;
+	}
+
+	searchUpperSubmit=()=>{
+	   let {searchParams}=this.state;
+	   console.log('sssss',searchParams);
+       this.props.CommunityAgreementList.ajaxListData(searchParams);
+	   this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper; 
+	}
 
 
 	render(){
@@ -651,9 +684,15 @@ class Merchants extends Component{
 			contractStatusCount,
 		} = this.state.response;
 
+       let options=[
+		 {label:'公司名称',value:'company'},
+		 {label:'城市',value:'city'},
+		 {label:'社区',value:'community'},
+		 {label:'销售员',value:'people'},
+		 {label:'录入人',value:'write'},
+		]
 
-
-	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
+	    let {opretionId,opretionOpen,isShow,searchParams,noDataOpen}=this.state;
       let rowStyle={};
       let rowLineStyle={};
       let rowFootStyle={};
@@ -694,19 +733,13 @@ class Merchants extends Component{
 					/>}
 
 			 	 </Col>
-			  	 <Col
-			  		style={{float:'right',width:"90%"}}
-			  	 >
-			  		<SearchForm
-			  		  onStartChange={this.onStartChange}
-			  		  onEndChange={this.onEndChange}
-			  		  todayDate={todayDate}
-              onSearchSubmit={this.onSearchSubmit}
-							contractChange={this.contractChange}
-			  		 />
-
-			  	</Col>
-
+				  <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+				          <ListGroup>
+				            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+				          </ListGroup>
+			      </Col>
+				  
 	        </Row>
 
 
@@ -727,6 +760,7 @@ class Merchants extends Component{
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+					  <TableHeaderColumn>是否有其他约定内容</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
 				<TableBody className='noDataBody' borderBodyStyle>
@@ -756,6 +790,7 @@ class Merchants extends Component{
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+					  <TableHeaderColumn>是否有其他约定内容</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -805,6 +840,7 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.totalrent}</span>{this.everyTd(item.totalrent)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.hasAgreement}</span>{this.everyTd(item.hasAgreement)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
@@ -921,6 +957,24 @@ class Merchants extends Component{
 					contentStyle={{width:445,height:236}}>
 						<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 					</Dialog>
+
+					{/*高级查询*/}
+                    <Dialog
+						title="高级查询"
+						modal={true}
+						onClose={this.openSearchUpperDialog}
+						open={this.props.CommunityAgreementList.openSearchUpper}
+						contentStyle ={{ width: '666',height:'320px',overflow:'visible'}}
+					>
+				    <SearchForm
+			  		  onStartChange={this.onStartChange}
+			  		  onEndChange={this.onEndChange}
+					  contractChange={this.contractChange}
+					  isOtherChange={this.isOtherChange}
+					  onCancel={this.openSearchUpperDialog}
+					  onSubmit={this.searchUpperSubmit}
+			  		 />
+				    </Dialog>
 
         </div>
 		);
