@@ -78,13 +78,14 @@ class Editdialog extends React.Component {
 							 inline={true}
     	 		/>
                <KrField
-    						 left={20}
+    						 left={42}
     	 					 style={{marginTop:4}}
     	 					 label="编码"
 							 name="codeName"
 							 component="labelText"
 							 value={this.state.infoList.codeName}
 							 inline={true}
+							 requireLabel={true}
     	 		/>
 				<KrField
 						style={{width:360,marginLeft:40,marginBottom:2,marginRight:200}}
