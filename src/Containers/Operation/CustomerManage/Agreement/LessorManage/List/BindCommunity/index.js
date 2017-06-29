@@ -27,8 +27,15 @@ class BindCommunity extends React.Component {
 		this.state = {
 			jsonData: this.props.jsonData,
 			checkedCmt:[],
-			existing:this.props.existing
+			existing:this.props.existing,
+			id:'',
+
 		}
+	
+		
+	}
+	componentDidMount() {
+		console.log(this.props.cmtId,"jjjjjjjj");
 		this.getBindCmtData();
 	}
 
@@ -66,11 +73,12 @@ class BindCommunity extends React.Component {
 
 
 	//选择绑定社区的数据准备
-	getBindCmtData = (id) =>{
+	getBindCmtData = () =>{
 		let self = this;
-		let values = {id:id||''};
+		let values = {id:this.props.cmtId||''};
+		console.log(this.props.cmtId,"KKKKKKK");
 		const {existing} = this.props;
-		Http.request('bindCommunity', {}, values).then(function(response) {
+		Http.request('bindCommunity',values).then(function(response) {
 			self.setState({
 				checkedCmt:self.nameConversion(response.items,existing)
 			})
@@ -161,6 +169,15 @@ class BindCommunity extends React.Component {
 		return <div>{arr}</div>
 	}
   }
+  componentWillReceiveProps(nextProps){
+ console.log(nextProps,">>>>>>");
+// 		if(nextProps && nextProps.id ){
+// 			this.getBindCmtData(nextProps.id);
+// 			this.setState({
+// 				id:nextProps.id
+// 			})
+// 		}
+	}
 
 	render() {
 		const {handleSubmit} = this.props;

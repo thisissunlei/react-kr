@@ -229,7 +229,7 @@ class NewCreateForm extends React.Component {
 						<div className="small-cheek">
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} component="group">
+								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} requireLabel={true} component="group">
 		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
 		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
@@ -322,13 +322,22 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
+	if (!values.corName) {
+		errors.corName = '请填写出租方名称';
+	}
+	if (!values.corAddress) {
+		errors.corAddress = '请填写详细地址';
+	}
+	if(!values.enableflag){
+		errors.enableflag = '是否选择为必填'
+	}
+	if(!values.cachetUrl){
+		errors.cachetUrl = '请上传公章'
+	}
+	if(!values.bankAccount){
+		errors.bankAccount = '请填写银行账户'
+	}
 
-	// if (!values.corporationName) {
-	// 	errors.corporationName = '请填写出租方名称';
-	// }
-	// if (!values.corporationAddress) {
-	// 	errors.corporationAddress = '请填写详细地址';
-	// }
 
 	return errors
 }

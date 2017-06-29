@@ -51,7 +51,7 @@ class ItemDetail extends Component{
 		}
 		var arr = community.map(function(item,index){
 			return (
-				<span>{item.name}</span>
+				<span style = {{display: 'inline-block',padding: "3px 10px"}}>{item.name}</span>
 			)
 		})
 		return <div>{arr}</div>;
@@ -80,13 +80,13 @@ class ItemDetail extends Component{
 		return(
 		  <div className="m-item-detail" >
 		      	<div className="title" >
-  					  <div><span className="look-new-icon"></span><label className="title-text">查看</label></div>
+  					  <div><span className="look-new-icon"></span><label className="title-text">查看详情</label></div>
   					  <div className="customer-close" onClick={this.onCancel}></div>
 				    </div>
     				<div style={{height:5}}></div>
     				 <div className="m-LookDetailed" style={{marginTop:8}}>
 
-							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="出租方名称:" style={evenStyle} component="labelText" value={detail.corName} inline={true} /></li>
+							<li id = "everyText" className="everyText item-detail-name"><span className="blueDrop"></span><KrField grid={1/2} label="出租方名称:" style={evenStyle} component="labelText" value={detail.corName} inline={true} /></li>
 
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="注册地址:" style={oddStyle} component="labelText" value={detail.corAddress} inline={true} /></li>
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公章:" style={evenStyle} component="labelText" value={detail.cachetUrl} inline={true} /></li>

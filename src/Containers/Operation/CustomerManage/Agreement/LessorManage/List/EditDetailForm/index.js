@@ -83,6 +83,7 @@ class EditDetailForm extends React.Component {
 			isBindCommunitys : false,
 			readyData:{},
 			detail:{},
+			id : ''
 		}
 		this.styles = {
 		 chip: {
@@ -190,7 +191,8 @@ class EditDetailForm extends React.Component {
 		if(nextProps && nextProps.detail && nextProps.detail.id ){
 			this.setState({
 				chipData : nextProps.detail.community,
-				detail:nextProps.detail
+				detail:nextProps.detail,
+				id:nextProps.detail.id
 			})
 		}
 	}
@@ -214,7 +216,8 @@ class EditDetailForm extends React.Component {
 			chipData,
 			jsonData,
 			readyData,
-			detail
+			detail,
+			id
 		} = this.state;
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
@@ -231,7 +234,7 @@ class EditDetailForm extends React.Component {
 						<div className="small-cheek">
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} component="group">
+								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} component="group" requireLabel={true}>
 		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
 		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
@@ -246,7 +249,7 @@ class EditDetailForm extends React.Component {
 									pictureMemory={'200'}
 									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
-									label="上传列表详情图"
+									label="公章"
 									inline={false}
 									defaultValue={detail.cachetUrl}
 									onDeleteImg ={this.deleteInfoPicDefaultValue}
@@ -311,6 +314,7 @@ class EditDetailForm extends React.Component {
 					contentStyle={{width:687,height:450,overflow:'scroll'}}
        		>
           		<BindCommunity 
+				  	cmtId = {detail.id}
 				  	jsonData = {jsonData} 
 					onCancel = {this.bindCommunityClose} 
 					checkedSubmit = {this.checkedSubmit}
@@ -328,12 +332,21 @@ const validate = values => {
 
 	const errors = {}
 
-	// if (!values.corporationName) {
-	// 	errors.corporationName = '请填写出租方名称';
-	// }
-	// if (!values.corporationAddress) {
-	// 	errors.corporationAddress = '请填写详细地址';
-	// }
+	if (!values.corName) {
+		errors.corName = '请填写出租方名称';
+	}
+	if (!values.corAddress) {
+		errors.corAddress = '请填写详细地址';
+	}
+	if(!values.enableflag){
+		errors.enableflag = '是否选择为必填'
+	}
+	if(!values.cachetUrl){
+		errors.cachetUrl = '请上传公章'
+	}
+	if(!values.bankAccount){
+		errors.bankAccount = '请填写银行账户'
+	}
 
 	return errors
 }
