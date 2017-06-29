@@ -19,9 +19,9 @@ class EditAgreementList extends Component{
 
 	}
 	onSubmit = () => {
-   	
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit();
+   	 let {searchParams} = this.props;
+ 	 this.props.CommunityAgreementList.ajaxListData(searchParams)	 
+
 	}
 
 	onCancel = () => {

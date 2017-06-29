@@ -207,14 +207,7 @@ class Merchants extends Component{
     	State.openAgreementDetail=true;
     }
 
-    componentWillMount(){
-		var {checkOperate} = this.props.NavModel;
-		State.isEdit = checkOperate("contract_create_contract");
-		State.isPrint = checkOperate("oper_contract_print");
-		State.isDel = checkOperate("oper_contract_delete");
-		
-    	// ---State.createContract();
-    }
+
     //查看关闭
 	cancelAgreementDetail=(event)=>{
 		State.agreementDetail();
@@ -403,6 +396,14 @@ class Merchants extends Component{
 	}
 
 	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		setTimeout(function() {
+			State.isEdit = checkOperate("contract_create_contract");
+		    State.isPrint = checkOperate("oper_contract_print");
+		    State.isDel = checkOperate("oper_contract_delete");
+		},500);	
+
+
 		this.props.CommunityAgreementList.ajaxListData(this.state.searchParams);
 		Baidu.trackEvent('合同列表','访问');
       	let _this=this;
@@ -666,13 +667,6 @@ class Merchants extends Component{
     }
 
 
-	editSubmitAgreement=()=>{
-		 let {searchParams} = this.state;
-		 searchParams.page=1;
-		 this.props.CommunityAgreementList.ajaxListData(searchParams);	
-	}
-
-
 	render(){
 
       	let {loading}=State;
@@ -684,8 +678,6 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
-
-
 
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
       let rowStyle={};
@@ -851,7 +843,7 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										</div>
 
-										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+										{(State.isEdit||State.isPrint||State.isDel)&&<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
 												
@@ -862,7 +854,7 @@ class Merchants extends Component{
 													{State.isDel && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
-										</div>
+										</div>}
 
 					                </TableRowColumn>
 					            </TableRow>
@@ -876,7 +868,7 @@ class Merchants extends Component{
            </Table>
 
 					 {loading&&<Loading style = {{width:"100%"}}/>}
-           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={searchParams.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
+           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={this.props.CommunityAgreementList.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
 
            </Section>
 					{/*新建合同的第一页*/}
@@ -918,7 +910,7 @@ class Merchants extends Component{
 			        >
 
 
-			      	<EditAgreementList onCancel={this.closeEditAgreement} onSubmit={this.editSubmitAgreement}/>
+			      	<EditAgreementList onCancel={this.closeEditAgreement} searchParams = {searchParams}/>
 		           </Drawer>
 
 					{/*新建订单*/}

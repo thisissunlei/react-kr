@@ -139,7 +139,6 @@ class LookDetailed extends Component{
 		if(checkOperate("oper_csr_edit_include_source")||checkOperate("oper_csr_edit")){
 			this.props.CommunityDetailModel.isEditCustomer = true;
 		}
-		console.log(checkOperate("oper_csr_edit_include_source"),"<><><>")
 	}
 
 	render(){
@@ -152,7 +151,8 @@ class LookDetailed extends Component{
 		let oddStyle={width:'290px',marginLeft:-10}
 		let unifyStyle={};
 		let uniStyle={};
-		let detail=this.props.CommunityDetailModel.isEditCustomer;
+		let detail=this.props.CommunityDetailModel.detail;
+		let isBotton = this.props.CommunityDetailModel.isEditCustomer;
 		let isDeadline=false;
 		let {editsSwitch,IndentSwitch,comeFrom}=this.props;
 		let presentShow = this.props.CommunityDetailModel.presentShow;
@@ -217,7 +217,7 @@ class LookDetailed extends Component{
 				<li className="everyText" style={{width:660,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px",color:'#666'}}>{detail.remark}</p>
 				</li>
-				{detail && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
+				{isBotton && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord">
 

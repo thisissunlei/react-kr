@@ -112,7 +112,7 @@ class StationReservation extends React.Component {
 		return (
 
 			<div className="m-station-reservation" style={{minHeight:910,background:'#fff'}}>
-			<Title value="空间预定"/>
+			<Title value="空间预订"/>
              <StationReservationFrom onSubmit = {this.fromOnSubmit}/>
 			 <Table
 				    style={{marginTop:8}}

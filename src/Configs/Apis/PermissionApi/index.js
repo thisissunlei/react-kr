@@ -287,6 +287,35 @@ module.exports = {
     'source-search-data':{
             url: '/api/krspace-sso-web/sso/log/find-searchData',
             method: 'get'
-    }
-
+    },
+     //权限--业务代码--分页
+    'op-code-list':{
+            url: '/api/krspace-sso-web/sso/business/list/?page={page}&pageSize={pageSize}&codeName={codeName}&createDate={createDate}&creater={creater}&enableFlagName={enableFlagName}&id={id}&name={name}',
+            method: 'get'
+    },
+    //权限--业务代码--编辑
+    'op-code-edit':{
+            url: '/api/krspace-sso-web/sso/business/update',
+            method: 'post'
+    },
+    //权限--业务代码--新建
+    'op-code-insert':{
+            url: '/api/krspace-sso-web/sso/business/insert',
+            method: 'post'
+    },
+    //权限--业务代码--详情
+    'op-code-detail':{
+            url: '/api/krspace-sso-web/sso/business/detail?id={id}',
+            method: 'get'
+    },
+    //角色列表--业务代码
+    'user-code':{
+            url: '/api/krspace-sso-web/sso/business/all?roleId={roleId}',
+            method: 'get'
+    },
+    //角色列表--业务代码--提交
+    'user-code-submit':{
+            url: '/api/krspace-sso-web/sso/business/bound',
+            method: 'post'
+    },
 }

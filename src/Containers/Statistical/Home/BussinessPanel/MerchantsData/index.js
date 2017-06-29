@@ -150,39 +150,9 @@ class MerchantsData  extends React.Component{
 
     componentDidMount() {
     	var _this=this;
-		Baidu.trackEvent('招商数据','访问');
-    	let {groupList} = this.state;
-		let right = groupList.length == 1 ? 40 :20;
-    	window.onscroll = function () {
-			var t = document.documentElement.scrollTop || document.body.scrollTop;
-			if(t>150){
-				_this.setState({
-					moveStyle:{
-						position: "fixed",
-					    marginRight: 40,
-					    lineHeight: "54px",
-					    zIndex: 99,
-					    marginLeft: 1,
-					    top:60
-
-					}
-				})
-			}else{
-				_this.setState({
-					moveStyle:{
-						position: "absolute",
-					    marginRight: right,
-					    lineHeight: "54px",
-					    zIndex: 1,
-					    marginLeft: 1,
-
-					}
-				})
-			}
-		}
+		window.addEventListener('scroll',this.scrollListener,false);
       Store.dispatch(change('merchansDateForm','startDate',this.props.yesterday));
       Store.dispatch(change('merchansDateForm','endDate',this.props.yesterday));
-
     }
     tooltip = (value) =>{
 
@@ -349,16 +319,55 @@ class MerchantsData  extends React.Component{
     			</div>)
     }
 
+	componentDidUpdate(){
+        const {tab} = this.props;
+        if(tab !== 'bus'){
+            window.removeEventListener('scroll',this.scrollListener,false);    
+        }else{
+		    Baidu.trackEvent('招商数据','访问');			
+            window.addEventListener('scroll',this.scrollListener,false);
+        }
+    }
+
+	scrollListener=()=>{
+      let {groupList} = this.state;		
+	   let right = groupList.length == 1 ? 40 :20;		
+       var t = document.documentElement.scrollTop || document.body.scrollTop;
+			if(t>150){
+				this.setState({
+					moveStyle:{
+						position: "fixed",
+					    marginRight: 40,
+					    lineHeight: "54px",
+					    zIndex: 99,
+					    marginLeft: 1,
+					    top:60
+					}
+				})
+			}else{
+				this.setState({
+					moveStyle:{
+						position: "absolute",
+					    marginRight: right,
+					    lineHeight: "54px",
+					    zIndex: 1,
+					    marginLeft: 1,
+
+					}
+				})
+			}
+	}
+
 
 	render(){
 
 		let {data,loading,moveStyle,tabLoading,groupList} = this.state;
 		let {unopenList,openList} = data;
 		let nothingData = false;
-
+        
 		let right = groupList.length == 1 ? 40 :20;
-		let top = groupList.length == 1 ? 208 :133;
-		let width = groupList.length == 1 ?"5.9%" : "6%";
+		let top = 133;
+		let width ="6%";
 		let showSolid = true;
 		let openShow = true;
 		let unopenShow = true;
@@ -456,8 +465,8 @@ class MerchantsData  extends React.Component{
 
 								{!nothingData && <div style={{display : !openShow ? "none":"block", paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top,height:51*(openList.length),lineHeight:51*(openList.length)+"px",}}>已开业</div>}
 								{!nothingData && <div style={{display : !unopenShow ? "none":"block",paddingRight: 1,position: "absolute",zIndex: 1,width: width,border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length),height:51*(unopenList.length),lineHeight: 51*(unopenList.length)+"px",}}>未开业</div>}
-								{!nothingData && <div style={{paddingRight: groupList.length == 1 ? 0 :4 ,position: "absolute",zIndex: 1,width: groupList.length == 1 ?"17.899%":"18.09%",border:"solid 1px #eee",background: "#fff",top: top+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
-								{showSolid && !nothingData && <div style={{marginRight:groupList.length == 1?40:0,position: "absolute",zIndex: 1,width: "auto",background: "#dfdfdf",top: top+51*(openList.length),height:2,left:0,right:40}}></div>}
+								{!nothingData && <div style={{position: "absolute",zIndex: 1,width:"18.3%",border:"solid 1px #eee",background: "#fff",top: 133+51*(openList.length+unopenList.length),height:50,lineHeight:51+"px"}}>总计</div>}
+								{showSolid && !nothingData && <div style={{marginRight:groupList.length == 1?40:0,position: "absolute",zIndex: 1,width: "auto",background: "#dfdfdf",top:133+51*(openList.length),height:2,left:0,right:40}}></div>}
 
 							</div>}
 							{nothingData && this.nothingData()}

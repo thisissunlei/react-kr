@@ -28,6 +28,7 @@ import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
+import CodeDialog from './CodeDialog';
 
 class Operations extends React.Component {
 
@@ -44,6 +45,7 @@ class Operations extends React.Component {
 			openDeleteDialog: false,
 			openCreateDialog: false,
 			openEditDialog: false,
+			openCodeDialog:false,
 			moduleDetail: '',
 			newPage:1,
 		}
@@ -74,7 +76,9 @@ class Operations extends React.Component {
 			
 
 		} else if (type == 'view') {
-			this.openView(itemDetail.id,_this.state.newPage);
+			this.openView(itemDetail.id,this.state.newPage);
+		}else if (type == 'code') {
+			this.openCodeDialog();
 		}
 	}
 	openView = (id,page) => {
@@ -123,6 +127,11 @@ class Operations extends React.Component {
 			openCreateDialog: !this.state.openCreateDialog
 		})
 	}
+	openCodeDialog = () => {
+		this.setState({
+			openCodeDialog: !this.state.openCodeDialog
+		})
+	}
 	onCreatSubmit = (form) => {
 		var _this = this;
 		Http.request('createRole', {}, form).then(function(response) {
@@ -148,6 +157,10 @@ class Operations extends React.Component {
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+	onCodeSubmit=()=>{
+		this.changeP();
+		this.openCodeDialog();
 	}
 	//改变页码
     changeP=()=>{
@@ -205,9 +218,10 @@ class Operations extends React.Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑"   type="operation" operateCode="sso_roleList_edit" operation="edit"/>
-									<Button label="删除"  type="operation" operateCode="sso_roleList_del" operation="delete"/>
-									<Button label="查看人员"  type="operation" operateCode="sso_roleList_showUser" operation="view"/>
+									<Button label="编辑"   type="operation" operation="edit"/>
+									<Button label="删除"  type="operation" operation="delete"/>
+									<Button label="查看人员"  type="operation" operation="view"/>
+									<Button label="业务代码"  type="operation" operation="code"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
@@ -221,7 +235,16 @@ class Operations extends React.Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
-					< /Dialog>
+					</Dialog>
+					<Dialog
+						title="业务代码"
+						modal={true}
+						onClose={this.openCodeDialog}
+						open={this.state.openCodeDialog}
+						contentStyle={{width:540}}
+						>
+						<CodeDialog detail={itemDetail} onCancel={this.openCodeDialog} onSubmit={this.onCodeSubmit} />
+					</Dialog>
 					 <Drawer
 					 	 modal={true}
 			             width={750}

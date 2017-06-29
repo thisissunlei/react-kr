@@ -17,8 +17,14 @@ export default class BussinessPanel  extends React.Component{
 
 	componentDidMount() {
 		const {groupId} = this.props;
-		Baidu.trackEvent('集团经营','访问');
 	}
+
+	componentDidUpdate(){
+        const {tab} = this.props;
+        if(tab == 'bus'){
+		  Baidu.trackEvent('集团经营','访问');
+		} 
+    }
 
 
 	render(){
@@ -33,6 +39,7 @@ export default class BussinessPanel  extends React.Component{
 	                 var props={};
 						props.yesterday=yesterday;
 						props.today=today;
+						props.tab=this.props.tab;
 			
 
 		return(

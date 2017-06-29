@@ -63,6 +63,11 @@ const Permission_SystemManage_AppLoginLogs = (location, callback) => {
   }, 'Permission_SystemManage_AppLoginLogs')
 }
 
+const Permission_OpCode = (location, callback) => {
+  require.ensure([], require => {
+      callback(null, require('kr/Containers/Permission/OpCode').default)
+  }, 'Permission_OpCode')
+}
 const Permission_SystemManage_MessageList = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/SystemManage/MessageList').default)
@@ -90,6 +95,7 @@ module.exports =()=>{
 		<Route path="userlist/:userId/:page" getComponent={Permission_UserList}>
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>
+    <Route path="opCode" getComponent={Permission_OpCode}/>
 		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
 	  <Redirect from="permission" to="permission/personalCenter" />
     <Route path="systemManage" getComponent={Basic}>
