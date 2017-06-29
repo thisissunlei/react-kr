@@ -56,6 +56,7 @@ export default class OperationsLogs extends Component {
 			itemDetail: '',
 			openView: false,
 			openHighSearch: false,
+			Oper:true,
 		}
 	}
 
@@ -71,7 +72,8 @@ export default class OperationsLogs extends Component {
 			this.setState({
 				searchParams: {
 					batchNum: itemDetail.batchNum,
-				}
+				},
+				Oper:false,
 			})
 		}
 	}
@@ -163,7 +165,7 @@ export default class OperationsLogs extends Component {
  							}}></TableRowColumn>
 							<TableRowColumn>
 									<Button label="查看"  type="operation" operation="view"/>
-									<Button label="相关操作"  type="operation" operation="operate"/>
+									{this.state.Oper?<Button label="相关操作"  type="operation" operation="operate"/>:''}
 							</TableRowColumn>
 						 </TableRow>
 					</TableBody>

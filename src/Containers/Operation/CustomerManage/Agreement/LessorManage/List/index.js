@@ -29,6 +29,8 @@ import {
 	Dialog,
 	BreadCrumbs,
 	Title,
+	CheckPermission
+
 } from 'kr-ui';
 
 
@@ -109,11 +111,12 @@ export default class LessorManageList extends Component {
 
 	onEditSubmit() {
 		this.openEditDetailDialog();
-
-		window.setTimeout(function() {
-			window.location.reload();
-		}, 0);
-
+		var params={
+			 time:+new Date()
+			}
+		this.setState({
+		  params:Object.assign({},this.state.params,params),
+	  })
 	}
 
 	//查看
@@ -140,11 +143,27 @@ export default class LessorManageList extends Component {
 	}
 
 	onNewCreateSubmit(form) {
-		window.location.reload();
+		this.openNewCreateDialog();
+		var params={
+		  page:1,
+		  time:+new Date()
+	  }
+	  this.setState({
+		  params:Object.assign({},this.state.params,params),
+	  })
 	}
 
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
+	}
+
+	onPageChange=(page)=>{
+      var params={
+		  page:page
+	  }
+	  this.setState({
+		  params:Object.assign({},this.state.params,params)
+	  })
 	}
 
 	render() {
@@ -158,13 +177,26 @@ export default class LessorManageList extends Component {
 
 					<Grid style={{marginBottom:20}}>
 						<Row>
-							<Col md={4}  align="left"> <Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}  align="left"> 
+
+								<Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} operateCode="lessor_management_edit"/> 
+
+							</Col>
 							<Col md={8} align="right">
 									<SearchForm onSubmit={this.onSearchSubmit} />
 							</Col>
 						</Row>
 					</Grid>
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation}  exportSwitch={true} onExport={this.onExport}>
+				<Table  style={{marginTop:10}} 
+				displayCheckbox={true} 
+				ajax={true}  
+				ajaxUrlName='fnaCorporationList' 
+				ajaxParams={this.state.params} 
+				onOperation={this.onOperation} 
+				onPageChange={this.onPageChange} 
+				exportSwitch={true} 
+				onExport={this.onExport}
+				>
 						<TableHeader>
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -186,7 +218,8 @@ export default class LessorManageList extends Component {
 							<TableRowColumn name="createdate" type="date"></TableRowColumn>
 							<TableRowColumn>
 								   <Button label="查看"  type="operation" operation="view"/>
-							  <Button label="编辑"  type="operation" operation="edit"/>
+							  <Button label="编辑"  type="operation" operation="edit" operateCode="lessor_management_edit"/>
+
 							 </TableRowColumn>
 						 </TableRow>
 						</TableBody>

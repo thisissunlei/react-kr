@@ -21,7 +21,8 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {
 	observer,
@@ -190,6 +191,8 @@ cancelSearchUpperDialog=()=>{
 onSearchUpperSubmit=(params)=>{
  this.props.CommunityMeetingModel.searchParams= Object.assign({},this.props.CommunityMeetingModel.searchParams,params);
  this.props.CommunityMeetingModel.searchParams.time=+new Date();
+ this.props.CommunityMeetingModel.searchParams.page = 1;
+
  this.props.CommunityMeetingModel.searchUpperCustomer();
 }
 
@@ -215,6 +218,13 @@ SelectCommunity=()=>{
 	window.location.href=`./#/operation/communityAllocation/communityMeetingRoom`;
 }
 
+onPageChange=(page)=>{
+   var searchParams={
+	   page:page
+   }
+   this.props.CommunityMeetingModel.searchParams=Object.assign({},this.props.CommunityMeetingModel.searchParams,searchParams);
+}
+
 	render(){
 
 		let options=[
@@ -236,6 +246,7 @@ SelectCommunity=()=>{
 											label="新建"
 											type='button'
 											onTouchTap={this.openAddStation}
+											operateCode="oper_cmt_space_edit"
 									/></div>
 									<div style={{display:'inline-block',marginRight:20}}><Button
 											label="选择社区"
@@ -246,6 +257,7 @@ SelectCommunity=()=>{
 											label="导入"
 											type='button'
 											onTouchTap={this.openImporData}
+											operateCode="oper_cmt_space_import"
 									/>
 					  </Col>
 
@@ -265,6 +277,7 @@ SelectCommunity=()=>{
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			        onExport={this.onExport}
+					onPageChange={this.onPageChange}
 	            ajaxParams={this.props.CommunityMeetingModel.searchParams}
 	            ajaxUrlName='meeting-room-list'
 	            ajaxFieldListName="items"
@@ -293,8 +306,8 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'禁用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-			                    <Button label="删除"  type="operation"  operation="delete" />
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_space_edit"/>
+			                    <Button label="删除"  type="operation"  operation="delete" operateCode="oper_cmt_space_delete"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

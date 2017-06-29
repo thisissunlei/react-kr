@@ -29,7 +29,6 @@ import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
 
-
 class Operations extends React.Component {
 
 	constructor(props, context) {
@@ -37,8 +36,8 @@ class Operations extends React.Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
-				pageSize: 15,
+				page: this.props.params.page,
+				pageSize: 10,
 				timer: 0,
 			},
 			itemDetail: '',
@@ -46,10 +45,21 @@ class Operations extends React.Component {
 			openCreateDialog: false,
 			openEditDialog: false,
 			moduleDetail: '',
-			newPage:0,
+			newPage:1,
 		}
 	}
-
+	componentDidMount() {
+		// if(!this.props.params.page){
+		// 	window.location.href = window.location.href+'/1';
+		// }
+		var _this = this;
+		this.setState({
+			newPage:this.props.params.page || '1',
+		},function(){
+			_this.changeP();
+		})
+		
+	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
 
@@ -64,12 +74,12 @@ class Operations extends React.Component {
 			
 
 		} else if (type == 'view') {
-			this.openView(itemDetail.id);
+			this.openView(itemDetail.id,_this.state.newPage);
 		}
 	}
-	openView = (id) => {
-		var url = `./#/permission/userlist/${id}`;
-		window.open(url)
+	openView = (id,page) => {
+		var url = `./#/permission/userlist/${id}/${page}`;
+		window.location.href=url;
 	}
 	openDeleteDialog = () => {
 		this.setState({
@@ -146,6 +156,7 @@ class Operations extends React.Component {
             searchParams: {
                     page: this.state.newPage,
                     timer: timer,
+					pageSize:10,
             }
         })
     }
@@ -194,9 +205,9 @@ class Operations extends React.Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑"   type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
-									<Button label="查看人员"  type="operation" operation="view"/>
+									<Button label="编辑"   type="operation" operateCode="sso_roleList_edit" operation="edit"/>
+									<Button label="删除"  type="operation" operateCode="sso_roleList_del" operation="delete"/>
+									<Button label="查看人员"  type="operation" operateCode="sso_roleList_showUser" operation="view"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

@@ -28,7 +28,7 @@ import {
     ListGroupItem,
     ListGroup,
     SearchForms,
-    Dialog
+    Dialog,
 } from 'kr-ui';
 import './index.less';
 class AccountList extends React.Component {
@@ -86,14 +86,13 @@ class AccountList extends React.Component {
     onOperation = (type, itemDetail) => {
        
     }
-    onNewCreateSubmit(form) {
-        console.log(form);
-        form = Object.assign({},form);
+    onNewCreateSubmit=(form)=> {
+        var form = Object.assign({},form);
+        var _this = this;   
         Http.request('createSsoUser', {}, form).then(function(response) {
-            Message.success('新建成功')
-            window.setTimeout(function() {
-              window.location.reload();
-            }, 800);
+            Message.success('新建成功');
+            _this.changeP();
+            _this.openNewCreate();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -110,45 +109,40 @@ class AccountList extends React.Component {
     }
     //重置
     onReset=(itemDetail)=>{
-         Store.dispatch(Actions.callAPI('resetPassword', {}, {id: itemDetail.id})).then(function(response) {
+         var _this = this;   
+         Http.request('resetPassword', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('重置成功');
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+               _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
     }
     //删除
     onDele = (itemDetail)=>{
-            
-            Store.dispatch(Actions.callAPI('delSsoUser', {id: itemDetail.id})).then(function(response) {
+            var _this = this;   
+            Http.request('delSsoUser', {id: itemDetail.id}).then(function(response) {
                  Message.success('删除成功');
-                 window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+                 _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
     }
     //加锁
     onLock=(itemDetail)=>{
-        Store.dispatch(Actions.callAPI('lockAccount', {}, {id: itemDetail.id})).then(function(response) {
+        var _this = this;
+        Http.request('lockAccount', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('已加锁')
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+                _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
     }
     //解锁
     onUnLock=(itemDetail)=>{
-        Store.dispatch(Actions.callAPI('unlockAccount', {}, {id: itemDetail.id})).then(function(response) {
+        var _this = this;
+        Http.request('unlockAccount', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('已解锁')
-                window.setTimeout(function() {
-                  window.location.reload();
-                }, 800);
+                _this.changeP();
             }).catch(function(err) {
                 Message.error(err.message);
             });
@@ -204,11 +198,17 @@ class AccountList extends React.Component {
     //改变页码
     changeP=()=>{
         var timer = new Date();
-        this.setState({
-            searchParams: {
-                    page: this.state.newPage,
-                    timer: timer,
-            }
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.setState({
+            searchParams:searchParams,
         })
     }
     onEditSubmit=()=>{
@@ -219,10 +219,9 @@ class AccountList extends React.Component {
         this.changeP();
         this.openSetAcc();
     }
-    onPageChange=(page)=>{
-        this.setState({
-            newPage:page,
-        })
+    onDataSubimt=()=>{
+        this.changeP();
+        this.openDataPermission();
     }
     render() {
         let {searchParams,itemDetail} = this.state;
@@ -256,7 +255,7 @@ class AccountList extends React.Component {
                                     paddingTop: 7,
                                     paddingBottom: 6
                                 }}>
-                                    <Button label="新建" type="button" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/>
+                                    <Button label="新建" type="button" operateCode="sso_userList_edit" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/>
                                 </ListGroupItem>
                             </ListGroup>
                         </Col>
@@ -320,16 +319,16 @@ class AccountList extends React.Component {
                                         }
                                         return (
                                             <div>
-                                                <Button label="修改" onClick={this.openEditAcc.bind(this,itemDetail)} type="operation" operation="edit"/>
-                                                <Button label="授予" onClick={this.openSetAcc.bind(this,itemDetail)} type="operation" operation="set"/>
-                                                <Button label="数据" onClick={this.openDataPermission.bind(this,itemDetail)} type="operation" operation="data"/>
-                                                <Button label="重置" onClick={this.onReset.bind(this,itemDetail)} type="operation" operation="reset"/>
+                                                <Button label="修改" onClick={this.openEditAcc.bind(this,itemDetail)} type="operation" operateCode="sso_userList_edit" operation="edit"/>
+                                                <Button label="授予" onClick={this.openSetAcc.bind(this,itemDetail)} type="operation" operateCode="sso_userList_editRole" operation="set"/>
+                                                <Button label="数据" onClick={this.openDataPermission.bind(this,itemDetail)} type="operation" operateCode="sso_userList_dataRight" operation="data"/>
+                                                <Button label="重置" onClick={this.onReset.bind(this,itemDetail)} type="operation" operateCode="sso_userList_reset" operation="reset"/>
                                                 {
                                                     logFlag
-                                                    ? <Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} type="operation"/>
-                                                    : <Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} type="operation"/>
+                                                    ? <Button label="解锁" onClick={this.onUnLock.bind(this,itemDetail)} operateCode="sso_userList_Lock" type="operation"/>
+                                                    : <Button label="加锁" onClick={this.onLock.bind(this,itemDetail)} operateCode="sso_userList_Lock" type="operation"/>
                                                 }
-                                                <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operation="dele"/>
+                                                    <Button label="删除" onClick={this.onDele.bind(this,itemDetail)} type="operation" operateCode="sso_userList_del" operation="dele"/>
                                             </div>
                                                 )
                                     }}>
@@ -373,7 +372,7 @@ class AccountList extends React.Component {
                 <Dialog title="编辑数据权限" modal={true} open={this.state.openDataPermission} onClose={this.openDataPermission} contentStyle={{
                     width: 600,
                 }}>
-                    <DataPermission detail={this.state.itemDetail} onCancel={this.openDataPermission}/>
+                    <DataPermission detail={this.state.itemDetail} onSubmit = {this.onDataSubimt} onCancel={this.openDataPermission}/>
                 </Dialog>
                 <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
                     width: 600,

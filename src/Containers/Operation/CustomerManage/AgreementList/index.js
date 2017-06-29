@@ -30,7 +30,9 @@ import {
 	UpLoadList,
 	FontIcon,
 	Pagination,
-	Loading
+	Loading,
+	CheckPermission
+
 } from 'kr-ui';
 import State from './State';
 import SearchForm from "./SearchForm";
@@ -51,7 +53,7 @@ import {
 } from 'kr/PureComponents';
 
 
-@inject("CommunityAgreementList")
+@inject("CommunityAgreementList","NavModel")
 @observer
 class Merchants extends Component{
 
@@ -206,7 +208,12 @@ class Merchants extends Component{
     }
 
     componentWillMount(){
-    	State.createContract();
+		var {checkOperate} = this.props.NavModel;
+		State.isEdit = checkOperate("contract_create_contract");
+		State.isPrint = checkOperate("oper_contract_print");
+		State.isDel = checkOperate("oper_contract_delete");
+		
+    	// ---State.createContract();
     }
     //查看关闭
 	cancelAgreementDetail=(event)=>{
@@ -659,6 +666,13 @@ class Merchants extends Component{
     }
 
 
+	editSubmitAgreement=()=>{
+		 let {searchParams} = this.state;
+		 searchParams.page=1;
+		 this.props.CommunityAgreementList.ajaxListData(searchParams);	
+	}
+
+
 	render(){
 
       	let {loading}=State;
@@ -707,11 +721,14 @@ class Merchants extends Component{
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
-					{State.editRight&&<Button
+				   <CheckPermission  operateCode="contract_create_contract" >
+
+					<Button
 						label="新建合同"
 						type='button'
 						onTouchTap={this.openOneAgreement}
-					/>}
+					/>
+				  </CheckPermission>
 
 			 	 </Col>
 			  	 <Col
@@ -837,9 +854,12 @@ class Merchants extends Component{
 										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
-												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
-												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-												{State.editRight && item.editFlag && item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+												
+													{State.isEdit && <span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span>}
+												
+													{State.isPrint && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+												
+													{State.isDel && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
 										</div>
@@ -856,7 +876,7 @@ class Merchants extends Component{
            </Table>
 
 					 {loading&&<Loading style = {{width:"100%"}}/>}
-           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={this.props.CommunityAgreementList.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
+           {!loading && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={this.props.CommunityAgreementList.totalPaper} page={searchParams.page} pageSize={this.props.CommunityAgreementList.pageSize} onPageChange={this.onPageChange}/></div>}
 
            </Section>
 					{/*新建合同的第一页*/}
@@ -898,7 +918,7 @@ class Merchants extends Component{
 			        >
 
 
-			      	<EditAgreementList onCancel={this.closeEditAgreement} searchParams = {searchParams}/>
+			      	<EditAgreementList onCancel={this.closeEditAgreement} onSubmit={this.editSubmitAgreement}/>
 		           </Drawer>
 
 					{/*新建订单*/}

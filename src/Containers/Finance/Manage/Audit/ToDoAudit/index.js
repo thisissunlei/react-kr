@@ -25,7 +25,7 @@ import {
   KrDate,
   Tooltip,
   Drawer,
-  Message
+  Message,
 } from 'kr-ui';
 import SearchForm from './SearchForm';
 import HightSearchForm from './HightSearchForm';
@@ -54,7 +54,8 @@ export default class ToDoAudit extends React.Component {
       Params: {
         page: 1,
         pageSize: 10,
-        verifyStatus: 'UNCHECKED'
+        verifyStatus: 'UNCHECKED',
+        time:new Date(),
       },
       openCreateCustomer: false,
       openCreateMainbill: false,
@@ -67,38 +68,11 @@ export default class ToDoAudit extends React.Component {
       noneSomeAudit: false,
       mainBill: false,
       mainBillId: '',
-      verify_pass: false,
-      verify_wait_del: false,
-      verify_wait_edit: false,
       corporationId: ''
     }
 
   }
-  componentDidMount() {
-    var _this = this;
-
-    Http.request('getSelfMenuInfo', {}, {}).then(function(response) {
-      var someBtn = response.navcodes.finance;
-      for (var i = 0; i < someBtn.length; i++) {
-        if (someBtn[i] == "verify_wait_del") {
-          _this.setState({
-            verify_wait_del: true,
-          })
-        }
-        if (someBtn[i] == "verify_pass") {
-          _this.setState({
-            verify_pass: true,
-          })
-        }
-        if (someBtn[i] == "verify_wait_edit") {
-          _this.setState({
-            verify_wait_edit: true,
-          })
-        }
-      }
-    }).catch(function(err) {});
-
-  }
+  
   componentWillReceiveProps(nextProps) {
       if (nextProps.tab != this.props.tab) {
         this.setState({
@@ -182,9 +156,16 @@ export default class ToDoAudit extends React.Component {
         _this.setState({
           delAudit: false,
         }, function() {
-          window.setTimeout(function() {
-            window.location.reload();
-          }, 800);
+          _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+          _this.getParentCount({
+            verifyStatus: 'UNCHECKED'
+          })
         });
       }).catch(function(err) {
         Message.error(err.message);
@@ -338,11 +319,20 @@ export default class ToDoAudit extends React.Component {
       if (!form.mainBillId) {
         return;
       }
+
       Http.request('save-flow-verify', {}, form).then(function(response) {
           Message.success('新建成功');
-          window.setTimeout(function(){
-            window.location.reload();
-          },800)
+          _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+          _this.getParentCount({
+            verifyStatus: 'UNCHECKED'
+          })
+           _this.openAddCreate();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -358,7 +348,13 @@ export default class ToDoAudit extends React.Component {
       Http.request('edit-flow-unchecked-verify', {}, form).then(function(response) {
           Message.success('修改成功');
           _this.openEditCreate();
-          window.location.reload();
+          _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -385,13 +381,22 @@ export default class ToDoAudit extends React.Component {
     }
     //批量审核
   AuditSome = () => {
+    var _this=this;
+    this.openSomeAudit();
     Http.request('batch-edit-verify-status', {}, {
       finaVerifyIds: this.AuditList,
     }).then(function(response) {
       Message.success("审核成功");
-      window.setTimeout(function() {
-        window.location.reload();
-      }, 800);
+      _this.setState({
+            Params:{
+              verifyStatus:'UNCHECKED',
+              time:new Date(),
+              pageSize:15,
+            }
+          })
+      _this.getParentCount({
+        verifyStatus: 'UNCHECKED'
+      })
     }).catch(function(err) {
       Message.error(err.message);
     });
@@ -569,9 +574,9 @@ export default class ToDoAudit extends React.Component {
                            }}></TableRowColumn>
                     <TableRowColumn>
                         <Button label="查看"  type="operation"  operation="view"/>
-                        {this.state.verify_wait_edit && <Button label="编辑"  type="operation"  operation="edit"/>}
-                        {this.state.verify_wait_del && <Button label="删除"  type="operation"  operation="delete"/>}
-                        {this.state.verify_pass && <Button label="审核"  type="operation"  operation="audit"/>}
+                        <Button label="编辑" operateCode="fina_verify_editNotVerify" type="operation"  operation="edit"/>
+                        <Button label="删除" operateCode="fina_verify_delNotVerify" type="operation"  operation="delete"/>
+                        <Button label="审核" operateCode="fina_verify_batch" type="operation"  operation="audit"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>

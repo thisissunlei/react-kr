@@ -88,7 +88,7 @@ export default class Header extends React.Component {
 		var  navs = NavModel.getNavs();
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
-
+		
 	}
 
 	componentWillUnmount(){
@@ -123,7 +123,7 @@ export default class Header extends React.Component {
 	logout = ()=>{
 
 		Http.request('user-logout').then(function(response) {
-			window.location.href = "http://op.krspace.cn/new/login.html";
+			window.location.href = "/new/login.html";
 		}).catch(function(err) {
 		
 		});
@@ -179,7 +179,7 @@ export default class Header extends React.Component {
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
 					{navs.length>7?<More Navs={navs} NavModel={NavModel}/>:''}
-					<TheBell />
+					{NavModel.menusData.length>0?<TheBell  />:''}
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} logout={this.logout}/>
 				</div>
 				<Drawer 
