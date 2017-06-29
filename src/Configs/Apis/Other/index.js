@@ -850,7 +850,7 @@ const APIS = {
  },
  //合同列表-列表接口
    'contract-list':{
-   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}',
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}&hasAgreement={hasAgreement}',
    method:'get'
    },
  //合同列表-客户订单下拉接口
