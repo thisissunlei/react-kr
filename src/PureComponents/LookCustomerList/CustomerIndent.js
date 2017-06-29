@@ -93,7 +93,10 @@ class CustomerIndent extends Component{
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} defaultValue='0' inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}} className='btnBoxShadow'>
 						
-							<span><Button operateCode="oper_mainbill_edit"  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
+							<span>
+							
+							{item.contractSize?'':<Button operateCode="oper_mainbill_edit"  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>}
+							
 							<span className="interval"></span></span>
 						
 
@@ -101,7 +104,7 @@ class CustomerIndent extends Component{
 						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
 						</Button>
 						<span className="interval"></span>
-						 <Button operateCode = 'oper_mainbill_del' label="删除" type="button" cancle={true} onTouchTap={()=>{
+						 {item.contractSize?'':<Button operateCode = 'oper_mainbill_del' label="删除" type="button" cancle={true} onTouchTap={()=>{
 																			if(operType=="PERSON"){
 																			//    personal.deleteId=item.id;
 																				_this.props.CommunityDetailModel.deleteIndent(item.id);
@@ -113,7 +116,7 @@ class CustomerIndent extends Component{
 
 
 																			DeleteSwitch();
-																		}} />
+																		}} />}
 					</div>
 
 				</div>
