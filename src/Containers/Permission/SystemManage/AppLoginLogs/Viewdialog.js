@@ -47,7 +47,7 @@ export default class Viewdialog extends React.Component {
                 />
                 <KrField
                     style={{width:260,marginLeft:25}}
-                    value={infoList.version}
+                    value={infoList.osType}
                     label="设备类型"
                     inline={false}
                     component="labelText"
@@ -85,11 +85,11 @@ export default class Viewdialog extends React.Component {
                     inline={false}
                     component="labelText"
                     inline={false}
-                    label="操作时间"
+                    label="发布时间"
                     value={< KrDate style = {{marginTop:5}} value = {
                             infoList.publishTime
                     }
-                    format = "yyyy-mm-dd" />}
+                    format = "yyyy-mm-dd HH:MM:ss" />}
                 />
                 <KrField
                     style={{width:545}}
