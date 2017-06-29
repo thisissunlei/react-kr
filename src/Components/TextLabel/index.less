@@ -1,0 +1,27 @@
+.ui-text-label{
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 14px;
+  vertical-align: middle;
+  transition: all 0.3s;
+  .ui-text-label-del{
+        width: 10px;
+        height: 10px;
+        padding: 2px;
+        border-radius: 6px;
+        background: url(./images/delete.svg) no-repeat;
+        background-position: center center;
+        background-size: 100%;
+        vertical-align: top;
+        margin-top: -3px;
+        display: none;
+  }
+
+}
+.ui-text-label:hover{
+  cursor: pointer;
+  padding-right:5px;
+}
+.ui-text-label:hover .ui-text-label-del{
+    display: inline-block;
+}

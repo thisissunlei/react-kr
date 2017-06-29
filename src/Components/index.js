@@ -75,6 +75,7 @@ import Snackbar from 'material-ui/Snackbar';
 import {
 	Tab
 } from 'material-ui/Tabs';
+import TextLabel from './TextLabel'
 
 import CheckPermission from './CheckPermission';
 module.exports = {
@@ -152,5 +153,9 @@ module.exports = {
 	PlanMapAll,
 	...PlanMap,
 	ToTop,
+<<<<<<< HEAD
 	CheckPermission,
+=======
+	TextLabel
+>>>>>>> feature/新建出租方修改
 }
