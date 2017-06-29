@@ -178,20 +178,20 @@ class NewCreateForm extends React.Component {
 	setTotalRent=(value)=>{
 		let {initialValues} = this.props;
 		let _this = this;
-		// Http.request('setExitTotalReturn', {
-		// 	mainbillId: initialValues.mainbillid,
-		// 	withdrawDate:value
-		// }).then(function(response){
-		// 	_this.setState({
-		// 		totalRent:response+''
-		// 	},function(){
-		// 		Store.dispatch(change('exitCreateForm', 'totalRent', response));
-		// 		Store.dispatch(change('exitCreateForm', 'totalreturn', response));
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
+			},function(){
+				Store.dispatch(change('exitCreateForm', 'totalRent', response));
+				Store.dispatch(change('exitCreateForm', 'totalreturn', response));
 
-		// 	})
-		// }).catch(function(err){
-		// 	console.log(err)
-		// })
+			})
+		}).catch(function(err){
+			console.log(err)
+		})
 
 		
 		
@@ -273,12 +273,9 @@ class NewCreateForm extends React.Component {
 				
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额"  requireLabel={true}
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额"  requireLabel={true}
-				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-
-				{/*<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额"
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额"
 				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} 
-				value={totalRent || '0'} inline={false}/>*/}
+				value={totalRent || '0'} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
 
