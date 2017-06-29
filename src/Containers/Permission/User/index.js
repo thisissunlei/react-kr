@@ -241,7 +241,7 @@ class Operations extends React.Component {
 						modal={true}
 						onClose={this.openCodeDialog}
 						open={this.state.openCodeDialog}
-						contentStyle={{width:600}}
+						contentStyle={{width:540}}
 						>
 						<CodeDialog detail={itemDetail} onCancel={this.openCodeDialog} onSubmit={this.onCodeSubmit} />
 					</Dialog>

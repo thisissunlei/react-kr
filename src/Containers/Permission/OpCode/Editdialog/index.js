@@ -31,14 +31,17 @@ class Editdialog extends React.Component {
     componentDidMount() {
 
         var _this = this;
-        var id = this.props.detail.id
+        var id = this.props.detail.id;
+		console.log("sadfsdfsdf");
         Http.request('op-code-detail', {
                 id: id
             },{}).then(function(response) {
-                _this.setState({infoList: response},function(){
-				  
-                  Store.dispatch(initialize('editdialog', _this.state.infoList));
-                })
+				if(response.enableFlag==1){
+					response.enableFlag="1";
+				}else{
+					response.enableFlag="0";
+				}
+				Store.dispatch(initialize('editdialog', response));
             }).catch(function(err) {});
 
     }
@@ -83,13 +86,13 @@ class Editdialog extends React.Component {
 							name="enableFlag"
 							label="是"
 							type="radio"
-							value={1}
+							value="1"
 					/>
 						<KrField
 							name="enableFlag"
 							label="否"
 							type="radio"
-							value={0}
+							value="0"
 					/>
 				</KrField>
                 <Row style={{marginTop:30,marginBottom:15}}>

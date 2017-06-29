@@ -95,7 +95,7 @@ export default class DataPermission extends React.Component{
 	}
 	renderData=(item,index)=>{
 		return (
-					<div style={{display:'inline-block',lineHeight:'32px',height:32}} key={index}>
+					<div style={{display:'inline-block',width:'50%',lineHeight:'32px',height:32}} key={index}>
 						<Checkbox
 								style={{display:'inline-block',color:'#666'}}
 								label={item.codeName}
@@ -165,7 +165,7 @@ export default class DataPermission extends React.Component{
           </div>
 					<ListGroup>
                 <ListGroupItem style={{
-                    paddingLeft: 165,
+                    paddingLeft: 136,
                     paddingRight: 40,
                     paddingTop: 20,
                     paddingBottom: 6
