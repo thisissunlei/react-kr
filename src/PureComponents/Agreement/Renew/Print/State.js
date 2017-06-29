@@ -42,7 +42,7 @@ State.getBasicInfo = action(function(params) {
 		}
 
 		_this.installmentPlans = response.installmentPlans;
-		response.cachetUrl =  "http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png";
+		// response.cachetUrl =  "http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png";
 		let canCachet = location.hash.split('?')[1];
 		if(canCachet==='print=true'){
 			response.withCachet = true;

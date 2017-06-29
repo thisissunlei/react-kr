@@ -48,7 +48,7 @@ State.getBasicInfo = action(function(params) {
 			response.withCachet = false;
 		}
 		_this.installmentPlans = response.installmentPlans;
-		response.cachetUrl =  "http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png";
+		// response.cachetUrl =  "http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/activity_unzip/201706/O/115010082_546.png";
 		_this.baseInfo = response;
 
 
