@@ -39,6 +39,7 @@ import TwoNewAgreement from "./TwoNewAgreement";
 import EditAgreementList from "./EditAgreementList";
 import NewIndent from "./NewIndent";
 import DelAgreementNotify from './DelAgreementNotify';
+import PrintAgreement from './PrintAgreement';
 import './circle.less';
 import './active.less';
 import './index.less';
@@ -91,6 +92,7 @@ class Merchants extends Component{
 		    agreementListAnnex:false,
 		    agreementListOther:false,
 			isRefresh:true,
+			openCopyAgreement:false,
 
 		}
 		 this.allOrderReady();
@@ -351,8 +353,12 @@ class Merchants extends Component{
 			}
 		});
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print`
-		var newWindow = window.open(url);
+		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print?print=`
+		// var newWindow = window.open(url);
+		this.setState({
+			url:url,
+			openCopyAgreement:true
+		})
 
 	}
 
@@ -637,6 +643,20 @@ class Merchants extends Component{
           }
         return render
     }
+    openCopyAgreementDialog=()=>{
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    }
+    confirmPrintAgreement=(value)=>{
+    	console.log('confirmPrintAgreement',this.state.url+value);
+    	// return;
+    	let url = this.state.url+value;
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    	var newWindow = window.open(url);
+    }
 
 
 	render(){
@@ -920,6 +940,15 @@ class Merchants extends Component{
 					open={this.state.openDelAgreement}
 					contentStyle={{width:445,height:236}}>
 						<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
+					</Dialog>
+					 <Dialog
+					title="打印"
+					modal={true}
+					onClose={this.openCopyAgreementDialog}
+					open={this.state.openCopyAgreement}
+					contentStyle={{width:700,height:'auto'}}>
+						<PrintAgreement onSubmit={this.confirmPrintAgreement} onCancel={this.openCopyAgreementDialog}/>
+
 					</Dialog>
 
         </div>
