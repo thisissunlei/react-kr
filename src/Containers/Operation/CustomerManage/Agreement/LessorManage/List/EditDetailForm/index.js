@@ -28,11 +28,11 @@ import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
 import './index.less'
 import BindCommunity from '../BindCommunity';
-const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
+const renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type={type} placeholder={label||placeholder}/>
+      <input {...input}  placeholder={label||placeholder}/>
       {touched && error && <span>{error}</span>}
     </div>
   </div>
@@ -222,7 +222,7 @@ class EditDetailForm extends React.Component {
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建出租方</label></div>
+						<div><span className="new-icon"></span><label className="title-text">编辑出租方</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 				<div className="cheek">

@@ -6,7 +6,8 @@ import {
 	reduxForm,
 	formValueSelector,
 	initialize,
-	FieldArray
+	FieldArray,
+	change
 } from 'redux-form';
 import {
 	Actions,
@@ -63,14 +64,14 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1/2}
-					name={`${brightsStr}.brightPoints`}
+					name={`${brightsStr}`}
 					type="text"
 					component={renderField}
 					label={index?'':'银行账户'}
 					placeholder='银行账户'
 					requireLabel={index?false:true}
 					/>
-				<span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
 				<span
 					className='minusBtn'
 					onClick={() => fields.remove(index)}/>
@@ -103,7 +104,8 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
-	
+		Store.dispatch(change('newCreateForm','bankAccount',[{}]));
+
 	}
 	getEditReadyData = () =>{
 		let self = this;
@@ -129,16 +131,9 @@ class NewCreateForm extends React.Component {
 		data.cmtId =this.cmtIdData();
 		const {onSubmit} = this.props;
 		var _this = this;
+		console.log(data,"MMMMMM");
 		
 		Http.request('addFnaCorporation', {}, data).then(function(response) {
-			// Notify.show([{
-			// 	message: '编辑成功！',
-			// 	type: 'success',
-			// }]);
-		
-			// const {
-			// 	onSubmit
-			// } = _this.props;
 			onSubmit && onSubmit();
 			_this.onCancel();
 			

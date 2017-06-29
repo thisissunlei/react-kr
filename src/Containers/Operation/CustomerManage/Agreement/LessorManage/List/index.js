@@ -81,7 +81,7 @@ export default class LessorManageList extends Component {
 				idList.push(item.id)
 			})
 		}
-		var url = `/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
+		var url = `/api/krspace-finance-web/fna/corpora/export?corporationIdList=${idList}`
 		window.location.href = url;
 	}
 
