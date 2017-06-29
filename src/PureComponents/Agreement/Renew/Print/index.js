@@ -31,6 +31,7 @@ export default class RenewPrint extends React.Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
+		setTimeout(function() {
 		var printList = document.getElementsByClassName('print-section')[0];
 		var printHeight = printList.offsetHeight;
 		if(printHeight>1120 && printHeight-1120<=5){
@@ -39,7 +40,6 @@ export default class RenewPrint extends React.Component {
 			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
 		}
 		this.pages = Math.ceil(printHeight/1120) + 1;
-		setTimeout(function() {
 			window.print();
 			window.close();
 		}, 1000)
