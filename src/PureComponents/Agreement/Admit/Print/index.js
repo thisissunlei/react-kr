@@ -41,7 +41,7 @@ export default class AdmitPrint extends React.Component {
 		this.pages = Math.ceil(printHeight/1120);
 		setTimeout(function() {
 			window.print();
-			// window.close();
+			window.close();
 		}, 1200)
 	}
 	renderImg=()=>{

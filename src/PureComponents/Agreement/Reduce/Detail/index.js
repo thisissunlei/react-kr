@@ -16,9 +16,12 @@ import {
 	Section,
 	SplitLine,
 	DotTitle,
-	PaperBack
+	PaperBack,
+	Dialog
 } from 'kr-ui';
 import dateFormat from 'dateformat';
+import Print from 'kr/PureComponents/Agreement/Print';
+
 
 import {
 	KrField,
@@ -69,7 +72,9 @@ export default class ReduceDetail extends Component {
 			oldBasicStationVos:[],
 			openAdd:false,
 			openMinus:false,
-			newBasicStationVos:[]
+			newBasicStationVos:[],
+			url:'',
+			openCopyAgreement:false
 		}
 
 	}
@@ -164,10 +169,27 @@ export default class ReduceDetail extends Component {
 
 	print = () => {
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/reduce/${params.id}/print`
-		var newWindow = window.open(url);
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/reduce/${params.id}/print?print=`;
+		this.setState({
+			url:url,
+			openCopyAgreement:true
+		})
+		// var newWindow = window.open(url);
 
 	}
+	openCopyAgreementDialog=()=>{
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    }
+    confirmPrintAgreement=(value)=>{
+    	console.log('confirmPrintAgreement',this.state.url+value);
+    	let url = this.state.url+value;
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    	var newWindow = window.open(url);
+    }
 	BasicRender=(basic,newBasicStationVos,openAdd,openMinus)=>{
     	var _this=this;
 		const content = {
@@ -320,6 +342,15 @@ export default class ReduceDetail extends Component {
 					  <Col md={5} align="center"></Col>
 				  </Row>}
 			  </Grid>
+			  <Dialog
+					title="打印"
+					modal={true}
+					onClose={this.openCopyAgreementDialog}
+					open={this.state.openCopyAgreement}
+					contentStyle={{width:700,height:'auto'}}>
+						<Print.PrintDialog onSubmit={this.confirmPrintAgreement} onCancel={this.openCopyAgreementDialog} />
+
+				</Dialog>
           </div>
 
 		);
