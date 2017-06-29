@@ -174,6 +174,7 @@ export default class UploadImageComponent extends Component {
 					progress
 				});
 			}, 300);
+			
 		}
 		let imgType = file.type;
 		let realimgType = imgType.substr(-3).toUpperCase();

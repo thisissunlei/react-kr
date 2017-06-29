@@ -32,7 +32,9 @@ import {
 	Dialog,
 	BreadCrumbs,
 	Title,
-	Drawer
+	Drawer,
+	Tooltip,
+	KrDate
 } from 'kr-ui';
 
 
@@ -57,7 +59,8 @@ export default class LessorManageList extends Component {
 				cmtId:'',
 				corporationName:'',
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
+				other:false,
 			},
 			pageSize: 15,
 			page: 1,
@@ -103,13 +106,12 @@ export default class LessorManageList extends Component {
 		});
 	}
 
-	onEditSubmit = () => {
-		this.openEditDetailDialog();
-
-		window.setTimeout(function() {
-			window.location.reload();
-		}, 0);
-
+	NewAndEditSubmit = () => {
+		let params = Object.assign({},this.state.params);
+		params.other = new Date();
+		this.setState({
+			params
+		})
 	}
 
 	onClose = () =>{
@@ -131,9 +133,10 @@ export default class LessorManageList extends Component {
 		const self = this;
 		Http.request('getFnaCorporation',values).then(function(response) {
 			self.setState({
-				itemDetail:response
+				itemDetail:response,
 			})
 			if(type == "edit"){
+				Store.dispatch(change('editDetailForm','bankAccount',response.bankAccount.length?response.bankAccount:[{}]));
 				Store.dispatch(initialize('editDetailForm',response));
 			}
 		}).catch(function(err) {
@@ -169,7 +172,6 @@ export default class LessorManageList extends Component {
 		this.openNewCreateDialog();
 	}
 	onChange = (values) =>{
-		console.log(values,"????????")
 		const {params} = this.state;
 		let newParams = Object.assign({},params);
 		newParams.cmtId = values.value || '';
@@ -208,6 +210,8 @@ export default class LessorManageList extends Component {
 						<TableHeader>
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
+							<TableHeaderColumn>绑定社区</TableHeaderColumn>
+							
 						
 
 							<TableHeaderColumn>地址</TableHeaderColumn>
@@ -219,11 +223,123 @@ export default class LessorManageList extends Component {
 						<TableBody >
 							 <TableRow displayCheckbox={true}>
 							<TableRowColumn  name="id"></TableRowColumn>
-							<TableRowColumn name="corName"></TableRowColumn>
+							<TableRowColumn name="corName" component={
+								(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+
+									}else{
+										TooltipStyle="inline-block";
+									}
+										return (<div 
+													style={{display:TooltipStyle,paddingTop:5}} 
+													className='financeDetail-hover'
+												>
+													<span 
+														className='tableOver' 
+														style={{
+																maxWidth:130,
+																display:"inline-block",
+																overflowX:"hidden",
+																textOverflow:"ellipsis",
+																whiteSpace:"nowrap"
+															}}
+													>{value}</span>
+													<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												</div>)
+								}
+							}></TableRowColumn>
+
+
+							<TableRowColumn name="community" component={
+								(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+
+									}else{
+										TooltipStyle="inline-block";
+									}
+										return (<div 
+													style={{display:TooltipStyle,paddingTop:5}} 
+													className='financeDetail-hover'
+												>
+													<span 
+														className='tableOver' 
+														style={{
+																maxWidth:130,
+																display:"inline-block",
+																overflowX:"hidden",
+																textOverflow:"ellipsis",
+																whiteSpace:"nowrap"
+															}}
+													>{value}</span>
+													<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												</div>)
+								}
+							}></TableRowColumn>
 							
-							<TableRowColumn name="corAddress"></TableRowColumn>
+							
+							<TableRowColumn name="corAddress" component={
+								(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+
+									}else{
+										TooltipStyle="inline-block";
+									}
+										return (<div 
+													style={{display:TooltipStyle,paddingTop:5}} 
+													className='financeDetail-hover'
+												>
+													<span 
+														className='tableOver' 
+														style={{
+																maxWidth:130,
+																display:"inline-block",
+																overflowX:"hidden",
+																textOverflow:"ellipsis",
+																whiteSpace:"nowrap"
+															}}
+													>{value}</span>
+													<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												</div>)
+								}
+							}></TableRowColumn>
 							<TableRowColumn name="createName"></TableRowColumn>
-							<TableRowColumn name="createdate" ></TableRowColumn>
+							<TableRowColumn name="createdate" component={
+								(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+
+									}else{
+										TooltipStyle="inline-block";
+									}
+										return (<div 
+													style={{display:TooltipStyle,paddingTop:5}} 
+													className='financeDetail-hover'
+												>
+													<span 
+														className='tableOver' 
+														style={{
+																maxWidth:130,
+																display:"inline-block",
+																overflowX:"hidden",
+																textOverflow:"ellipsis",
+																whiteSpace:"nowrap"
+															}}
+													>
+														<KrDate value={value} format="yyyy-mm-dd"/>
+													</span>
+													<Tooltip offsetTop={5} place='top'>
+														<KrDate value={value} format="yyyy-mm-dd"/>
+													</Tooltip>
+												</div>)
+								}
+							} ></TableRowColumn>
 							<TableRowColumn>
 								   <Button label="查看"  type="operation" operation="view"/>
 							  <Button label="编辑"  type="operation" operation="edit"/>
@@ -248,7 +364,7 @@ export default class LessorManageList extends Component {
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 
 					>
-						<NewCreateForm bindCmtData = {bindCmtData} onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<NewCreateForm bindCmtData = {bindCmtData} onSubmit={this.NewAndEditSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Drawer>
 
@@ -264,7 +380,7 @@ export default class LessorManageList extends Component {
 
 					>
 
-						<EditDetailForm detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.NewAndEditSubmit} onCancel={this.openEditDetailDialog} />
 
 				  </Drawer>
 

@@ -28,12 +28,6 @@ import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
 import './index.less'
 import BindCommunity from '../BindCommunity';
-
-const chipData1 = [
-      
-      {id: 1, name: '北京创业大街社区'},
-      {id: 2, name: '北京酒仙桥社区'}
-    ]
 const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
   <div>
     <label>{label}</label>
@@ -63,14 +57,14 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1/2}
-					name={`${brightsStr}.brightPoints`}
+					name={`${brightsStr}`}
 					type="text"
 					component={renderField}
 					label={index?'':'银行账户'}
 					placeholder='银行账户'
 					requireLabel={index?false:true}
 					/>
-				<span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
 				<span
 					className='minusBtn'
 					onClick={() => fields.remove(index)}/>
@@ -80,59 +74,15 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 
  )
 }
-
-const jsonData = [
-    {
-        name: "北京",
-        id: 1,
-				type:'city',
-        isBind:false,
-        community: [
-            {
-                id: 1,
-				flag:1,
-                isBind:false,
-                name: "北京创业大街社区"
-            },
-            {
-                id: 2,
-				flag:0,
-                isBind:false,
-                name: "北京酒仙桥社区"
-            }
-        ]
-    },
-    {
-        name: "上海",
-        id: 3,
-				flag:'city',
-        isBind:false,
-        community: [
-            {
-                id: 3,
-                isBind:false,
-				flag:0,
-                name: "上海田林社区"
-            },
-            {
-                id: 4,
-                isBind:false,
-				flag:0,
-                name: "上海传奇广场社区"
-            }
-        ]
-    }
-];
-
-
 class EditDetailForm extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			chipData : chipData1,
+			chipData : props.detail.community||[],
 			isBindCommunitys : false,
-			readyData:{}
+			readyData:{},
+			detail:{},
 		}
 		this.styles = {
 		 chip: {
@@ -147,36 +97,32 @@ class EditDetailForm extends React.Component {
 	}
 
 	componentDidMount() {
-		// let {
-		// 	detail
-		// } = this.props;
-		//detail.enableflag = detail.enableflag.toString();
-		// Store.dispatch(initialize('newCreateForm', detail));
+	
+	}
+	cmtIdData = () =>{
+		let {chipData} = this.state;
+		var arr = chipData.map(function(item,index){
+			return item.id;
+		})
+		return arr;
 	}
 	onSubmit = (values) => {
 
-
-		// values = Object.assign({}, values);
-		//
-		// var _this = this;
-		//
-		// Http.request('editFnaCorporation', {}, values).then(function(response) {
-		// 	Notify.show([{
-		// 		message: '编辑成功！',
-		// 		type: 'success',
-		// 	}]);
-		//
-		// 	const {
-		// 		onSubmit
-		// 	} = _this.props;
-		// 	onSubmit && onSubmit();
-		//
-		// }).catch(function(err) {
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
+		const {detail} = this.state;
+		const {onSubmit} = this.props;
+		let data = Object.assign({}, values);
+		data.cmtId =this.cmtIdData();
+		data.id = detail.id;
+		
+		var _this = this;
+		Http.request('editFnaCorporation',{},data).then(function(response) {
+			onSubmit && onSubmit();
+			_this.onCancel();
+		
+		
+		}).catch(function(err) {
+			
+		});
 
 
 	}
@@ -239,7 +185,22 @@ class EditDetailForm extends React.Component {
 
 
 	}
-	
+	componentWillReceiveProps(nextProps){
+		console.log("nextProps",nextProps && nextProps.detail && nextProps.detail.id)
+		if(nextProps && nextProps.detail && nextProps.detail.id ){
+			this.setState({
+				chipData : nextProps.detail.community,
+				detail:nextProps.detail
+			})
+		}
+	}
+	deleteInfoPicDefaultValue = () =>{
+		var data = Object.assign({},this.props.detail);
+		data.cachetUrl = '';
+		this.setState({
+			detail:data
+		})
+	}
 	render() {
 
 		const {
@@ -247,15 +208,14 @@ class EditDetailForm extends React.Component {
 			handleSubmit,
 			pristine,
 			reset,
-			detail
 		} = this.props;
 		const {
 			existing,
 			chipData,
 			jsonData,
 			readyData,
+			detail
 		} = this.state;
-	
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
@@ -272,22 +232,25 @@ class EditDetailForm extends React.Component {
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} component="group">
-		              <KrField name="enableflag" label="是" type="radio" value="YES" style={{marginTop:5,display:'inline-block',width:84}}/>
-		             	<KrField name="enableflag" label="否" type="radio" value="NO"  style={{marginTop:5,display:'inline-block',width:53}}/>
+		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
+		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="corDesc" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 
 								<KrField
 									name="cachetUrl"
 									component="newuploadImage"
-									innerstyle={{width:392,height:230,padding:10}}
-									photoSize={'650*365'}
+									innerstyle={{width:497,height:497,padding:10}}
+									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
-								
+									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
 									label="上传列表详情图"
 									inline={false}
+									defaultValue={detail.cachetUrl}
+									onDeleteImg ={this.deleteInfoPicDefaultValue}
+									
 								/>
 
 								<div className="middle-round"></div>
@@ -312,7 +275,7 @@ class EditDetailForm extends React.Component {
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							<div style={this.styles.wrapper}>
-								{this.state.chipData.map(this.renderChip,this)}
+								{this.state.chipData.length !=0 && this.state.chipData.map(this.renderChip,this)}
 							</div>
 							<span onClick = {this.bindClick}
 								style = {{
@@ -345,7 +308,7 @@ class EditDetailForm extends React.Component {
 					title="编辑设备"
 					open={this.state.isBindCommunity}
 					onClose={this.bindCommunityClose}
-					contentStyle={{width:687}}
+					contentStyle={{width:687,height:450,overflow:'scroll'}}
        		>
           		<BindCommunity 
 				  	jsonData = {jsonData} 

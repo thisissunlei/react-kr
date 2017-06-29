@@ -136,7 +136,6 @@ class BindCommunity extends React.Component {
   renderCheckBox = () =>{
 	const _this = this;
 	//数据转换
-	console.log(this.state.checkedCmt,"PPPPPP");
 	if(this.state.checkedCmt && this.state.checkedCmt.length !=0 && this.state.checkedCmt[0].label!=''){
 		
 	
@@ -165,10 +164,9 @@ class BindCommunity extends React.Component {
 
 	render() {
 		const {handleSubmit} = this.props;
-		console.log(this.props.jsonData,"=====11")
 
 		return (
-			<form className="bind-community" onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
+			<div className="bind-community"  style={{marginTop: -30}}>
 				<div  style={{marginTop:40}}>
 	          {this.renderCheckBox()}
 	      </div>
@@ -176,13 +174,13 @@ class BindCommunity extends React.Component {
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+								<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" onClick={this.onSubmit}/></div>
+								<Button  label="取消" type="button" cancle={true} onClick={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
-		</form>
+		</div>
 		);
 	}
 }

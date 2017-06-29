@@ -81,57 +81,14 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
  )
 }
 
-const jsonData = [
-    {
-        name: "北京",
-        id: 1,
-				type:'city',
-        isBind:false,
-        community: [
-            {
-                id: 1,
-				flag:1,
-                isBind:false,
-                name: "北京创业大街社区"
-            },
-            {
-                id: 2,
-				flag:0,
-                isBind:false,
-                name: "北京酒仙桥社区"
-            }
-        ]
-    },
-    {
-        name: "上海",
-        id: 3,
-				flag:'city',
-        isBind:false,
-        community: [
-            {
-                id: 3,
-                isBind:false,
-				flag:0,
-                name: "上海田林社区"
-            },
-            {
-                id: 4,
-                isBind:false,
-				flag:0,
-                name: "上海传奇广场社区"
-            }
-        ]
-    }
-];
-
-
 class NewCreateForm extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			chipData : chipData1,
+			chipData : [],
 			isBindCommunitys : false,
+			readyData:{}
 		}
 		this.styles = {
 		 chip: {
@@ -142,58 +99,56 @@ class NewCreateForm extends React.Component {
 			 flexWrap: 'wrap',
 		 },
 	 };
-	 this.bindGetData();
+	 this.getEditReadyData();
 	}
 
 	componentDidMount() {
-		// let {
-		// 	detail
-		// } = this.props;
-		//detail.enableflag = detail.enableflag.toString();
-		// Store.dispatch(initialize('newCreateForm', detail));
-	}
 	
-	//获取绑定社区的数据
-	bindGetData = () =>{
-		// Http.request('editFnaCorporation', {}, values).then(function(response) {
-		
-		// 	const {
-		// 		onSubmit
-		// 	} = _this.props;
-		// 	onSubmit && onSubmit();
-		
-		// }).catch(function(err) {
-		// 	// Notify.show([{
-		// 	// 	message: err.message,
-		// 	// 	type: 'danger',
-		// 	// }]);
-		// });
 	}
-
+	getEditReadyData = () =>{
+		let self = this;
+		Http.request('getWeChatAndAlipay').then(function(response) {
+			self.setState({
+				readyData:response
+			})
+		}).catch(function(err) {
+			
+		});
+	}
+	cmtIdData = () =>{
+		let {chipData} = this.state;
+		var arr = chipData.map(function(item,index){
+			return item.id;
+		})
+		return arr;
+	}
 	onSubmit = (values) => {
+		console.log(values,"??????")
 
-
-		// values = Object.assign({}, values);
-		//
-		// var _this = this;
-		//
-		// Http.request('editFnaCorporation', {}, values).then(function(response) {
-		// 	Notify.show([{
-		// 		message: '编辑成功！',
-		// 		type: 'success',
-		// 	}]);
-		//
-		// 	const {
-		// 		onSubmit
-		// 	} = _this.props;
-		// 	onSubmit && onSubmit();
-		//
-		// }).catch(function(err) {
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
+		let data = Object.assign({}, values);
+		data.cmtId =this.cmtIdData();
+		const {onSubmit} = this.props;
+		var _this = this;
+		
+		Http.request('addFnaCorporation', {}, data).then(function(response) {
+			// Notify.show([{
+			// 	message: '编辑成功！',
+			// 	type: 'success',
+			// }]);
+		
+			// const {
+			// 	onSubmit
+			// } = _this.props;
+			onSubmit && onSubmit();
+			_this.onCancel();
+			
+		
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
 
 	}
@@ -256,7 +211,8 @@ class NewCreateForm extends React.Component {
 		const {
 			existing,
 			chipData,
-			jsonData
+			jsonData,
+			readyData
 		} = this.state;
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
@@ -274,19 +230,19 @@ class NewCreateForm extends React.Component {
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} component="group">
-		              <KrField name="enableflag" label="是" type="radio" value="YES" style={{marginTop:5,display:'inline-block',width:84}}/>
-		             	<KrField name="enableflag" label="否" type="radio" value="NO"  style={{marginTop:5,display:'inline-block',width:53}}/>
+		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
+		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="corDesc" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 
 								<KrField
 									name="cachetUrl"
 									component="newuploadImage"
-									innerstyle={{width:392,height:230,padding:10}}
-									photoSize={'650*365'}
+									innerstyle={{width:497,height:497,padding:10}}
+									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
-								
+									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
 									label="上传列表详情图"
 									inline={false}
@@ -302,8 +258,8 @@ class NewCreateForm extends React.Component {
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 
-								<KrField grid={1/2} label="支付宝账户"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-								<KrField grid={1/2} label="微信账户" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="支付宝账户" value = {readyData && readyData.aipayAccount}  name="mail" inline = {false} style={{width:262,marginLeft:15}} component="labelText" requireLabel={true}/>
+								<KrField grid={1/2} label="微信账户"  value = {readyData && readyData.weixinAccount} name="wechat" inline = {false} style={{width:262,marginLeft:15}} component="labelText" requireLabel={true}/>
 								<FieldArray name="bankAccount" component={renderBrights}/>
 
 						</div>
@@ -347,7 +303,7 @@ class NewCreateForm extends React.Component {
 					title="编辑设备"
 					open={this.state.isBindCommunity}
 					onClose={this.bindCommunityClose}
-					contentStyle={{width:687}}
+					contentStyle={{width:687,height:450,overflow:'scroll'}}
        		>
           		<BindCommunity 
 				  	jsonData = {jsonData} 

@@ -43,7 +43,19 @@ class ItemDetail extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-
+	renderCommunity = () =>{
+		const {detail} = this.props;
+		const {community} = detail;
+		if(!detail.community){
+			return ;
+		}
+		var arr = community.map(function(item,index){
+			return (
+				<span>{item.name}</span>
+			)
+		})
+		return <div>{arr}</div>;
+	}
 	
 	everyTd=(value)=>{
 		var show=false;
@@ -61,7 +73,6 @@ class ItemDetail extends Component{
 
 	render(){
 		const {detail} = this.props;
-		console.log(detail,"LLLLLL");
 		let evenStyle={width:'280px',marginLeft:-10}
 		let oddStyle={width:'290px',marginLeft:-10}
 		let unifyStyle={};
@@ -87,8 +98,11 @@ class ItemDetail extends Component{
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="微信账户:" style={evenStyle} component="labelText" value={detail.weixinAccount} inline={true} /></li>
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="银行账户:" style={oddStyle} component="labelText" value={"detail.sou"} inline={true} /></li>
 							<div className="bottomWire"></div>
-							<li className="everyText"><span className="blueDrop"></span><KrField label="社区状况:" style={evenStyle} component="labelText" value={"detail.sourc"} inline={true} /></li>
+							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="银行账户:" style={oddStyle} component="labelText" value={""} inline={true} />
+								{this.renderCommunity()}
+							</li>
 							
+														
 					</div>
 		    </div>
 	     
