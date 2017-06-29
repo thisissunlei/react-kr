@@ -79,7 +79,7 @@ export default class DelAgreementNotify extends React.Component {
 					<Col md={12} align="center">
 						<ListGroup>
 							<ListGroupItem style={{marginRight:20}}> <Button  label="预览" type="button"  height={34} onTouchTap={this.onSubmitCachet}/></ListGroupItem>
-							<ListGroupItem> <Button  label="取消" type="button" height={32} cancle={true} onTouchTap={onCancel}/></ListGroupItem>
+							<ListGroupItem style={{marginLeft:20}}> <Button  label="取消" type="button" height={32} cancle={true} onTouchTap={onCancel}/></ListGroupItem>
 						</ListGroup>
 					</Col>
 					</Row>
