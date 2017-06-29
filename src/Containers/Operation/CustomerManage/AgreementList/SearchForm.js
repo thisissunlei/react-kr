@@ -101,9 +101,9 @@ class SearchForm extends React.Component {
 						onChange={this.contractChange}
 				   />
 
-				   <KrField grid={1/2}  style={{width:"260px",marginTop:'5px',marginRight:5}} name="hasAgreement" type="select" label="是否有其他约定内容" inline={false}
+				   <KrField grid={1/2}  style={{width:"260px",marginTop:'5px',marginRight:5}} name="hasAgreement" type="select" label="其他约定" inline={false}
 						onChange={this.isOtherChange}
-						options={[{label:'是',value:'true'},{label:'否',value:'false'}]}
+						options={[{label:'有',value:'true'},{label:'无',value:'false'}]}
 				  />
 
 

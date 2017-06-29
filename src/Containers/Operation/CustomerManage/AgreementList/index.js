@@ -469,7 +469,11 @@ class Merchants extends Component{
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
    	 let {CommunityAgreementList} = this.props;
-   	 searchParams.page = 1;
+   	     searchParams.page = 1;
+	    searchParams.contractType='';
+		searchParams.createDateBegin='';
+		searchParams.createDateEnd='';
+		searchParams.hasAgreement='';
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
@@ -574,7 +578,6 @@ class Merchants extends Component{
 		CommunityAgreementList.openEditAgreement=true;
 	}
 	maskClock=()=>{
-		console.log('closeAll')
 		let {CommunityAgreementList} = this.props;
 		CommunityAgreementList.openLocalStorage = false;
 		CommunityAgreementList.openOneAgreement=false;
@@ -666,7 +669,6 @@ class Merchants extends Component{
 
 	searchUpperSubmit=()=>{
 	   let {searchParams}=this.state;
-	   console.log('sssss',searchParams);
        this.props.CommunityAgreementList.ajaxListData(searchParams);
 	   this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper; 
 	}
@@ -724,7 +726,7 @@ class Merchants extends Component{
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
-			     	style={{float:'left',marginTop:6}}
+			     	style={{float:'left'}}
 			   	>
 					{State.editRight&&<Button
 						label="新建合同"
@@ -749,18 +751,17 @@ class Merchants extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区</TableHeaderColumn>
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
 		              <TableHeaderColumn>工位数</TableHeaderColumn>
 		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
-					  <TableHeaderColumn>是否有其他约定内容</TableHeaderColumn>
+					  <TableHeaderColumn>其他约定</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
 				<TableBody className='noDataBody' borderBodyStyle>
@@ -779,18 +780,17 @@ class Merchants extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区</TableHeaderColumn>
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
 		              <TableHeaderColumn>工位数</TableHeaderColumn>
 		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
-					  <TableHeaderColumn>是否有其他约定内容</TableHeaderColumn>
+					  <TableHeaderColumn>其他约定</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -830,7 +830,6 @@ class Merchants extends Component{
 			        		return (
 				        		<TableRow key={index}>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.cityName}</span>{this.everyTd(item.cityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.communityName}</span>{this.everyTd(item.communityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{type}</span>{this.everyTd(type)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(<KrDate value={item.leaseBegindate}/>)}</TableRowColumn>
@@ -840,8 +839,8 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.totalrent}</span>{this.everyTd(item.totalrent)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
-									<TableRowColumn><span className="tableOver">{item.hasAgreement}</span>{this.everyTd(item.hasAgreement)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.hasAgreement}</span>{this.everyTd(item.hasAgreement)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
 
