@@ -25,4 +25,5 @@ module.exports = {
 	DateFormat,
 	Mouse,
 	Baidu,
+
 }
