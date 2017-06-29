@@ -81,6 +81,7 @@ class Editdialog extends React.Component {
     						 left={20}
     	 					 style={{marginTop:4}}
     	 					 label="编码"
+							 name="codeName"
 							 component="labelText"
 							 value={this.state.infoList.codeName}
 							 inline={true}
