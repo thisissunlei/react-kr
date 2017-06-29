@@ -116,6 +116,7 @@ class EditDetailForm extends React.Component {
 		data.id = detail.id;
 		
 		var _this = this;
+		console.log(values,"?????")
 		Http.request('editFnaCorporation',{},data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
@@ -194,6 +195,8 @@ class EditDetailForm extends React.Component {
 				detail:nextProps.detail,
 				id:nextProps.detail.id
 			})
+			// this.props.dispacth(detail.cachetUrl)
+
 		}
 	}
 	deleteInfoPicDefaultValue = () =>{
