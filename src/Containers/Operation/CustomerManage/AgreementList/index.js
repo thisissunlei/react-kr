@@ -31,8 +31,10 @@ import {
 	FontIcon,
 	Pagination,
 	Loading,
-	CheckPermission
-
+	CheckPermission,
+	ListGroup,
+	ListGroupItem,
+	SearchForms,
 } from 'kr-ui';
 import State from './State';
 import SearchForm from "./SearchForm";
@@ -81,7 +83,6 @@ class Merchants extends Component{
 			staionsList: [],
 
             //日期查询
-		    todayDate:'',
 		    startValue:'',
 		    endValue:'',
 
@@ -450,8 +451,6 @@ class Merchants extends Component{
 	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
 	    	this.setState({
 				searchParams
-			},function(){
-			    this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -473,8 +472,6 @@ class Merchants extends Component{
 	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue,});
 	    	this.setState({
 				searchParams
-			},function(){
-                this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -485,7 +482,11 @@ class Merchants extends Component{
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
    	 let {CommunityAgreementList} = this.props;
-   	 searchParams.page = 1;
+   	     searchParams.page = 1;
+	    searchParams.contractType='';
+		searchParams.createDateBegin='';
+		searchParams.createDateEnd='';
+		searchParams.hasAgreement='';
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
@@ -531,13 +532,28 @@ class Merchants extends Component{
 
  contractChange=(params)=>{
    let {searchParams}=this.state;
-   let {CommunityAgreementList} = this.props;
 	 if(!params.value){
 		 searchParams.contractType='';
 	 }else{
 		 searchParams.contractType=params.value;
 	 }
-	 CommunityAgreementList.ajaxListData(searchParams);
+	 searchParams=Object.assign({},this.state.searchParams,searchParams);
+	 this.setState({
+		 searchParams
+	 })
+ }
+
+ isOtherChange=(params)=>{
+    let {searchParams}=this.state;
+	 if(!params.value){
+		 searchParams.hasAgreement='';
+	 }else{
+		 searchParams.hasAgreement=params.value;
+	 }
+	 searchParams=Object.assign({},this.state.searchParams,searchParams);
+	 this.setState({
+		 searchParams
+	 })
  }
 
 	everyTd=(value)=>{
@@ -575,7 +591,6 @@ class Merchants extends Component{
 		CommunityAgreementList.openEditAgreement=true;
 	}
 	maskClock=()=>{
-		console.log('closeAll')
 		let {CommunityAgreementList} = this.props;
 		CommunityAgreementList.openLocalStorage = false;
 		CommunityAgreementList.openOneAgreement=false;
@@ -651,6 +666,7 @@ class Merchants extends Component{
           }
         return render
     }
+
     openCopyAgreementDialog=()=>{
     	this.setState({
     		openCopyAgreement:false
@@ -665,6 +681,25 @@ class Merchants extends Component{
     	})
     	var newWindow = window.open(url);
     }
+	
+	//高级查询打开
+	openSearchUpperDialog=()=>{
+		let {searchParams}=this.state;
+		searchParams.contractType='';
+		searchParams.createDateBegin='';
+		searchParams.createDateEnd='';
+		searchParams.hasAgreement='';
+		this.setState({
+			searchParams
+		})
+		this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper;
+	}
+
+	searchUpperSubmit=()=>{
+	   let {searchParams}=this.state;
+       this.props.CommunityAgreementList.ajaxListData(searchParams);
+	   this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper; 
+	}
 
 
 	render(){
@@ -679,7 +714,17 @@ class Merchants extends Component{
 			contractStatusCount,
 		} = this.state.response;
 
-	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
+
+       let options=[
+		 {label:'公司名称',value:'company'},
+		 {label:'城市',value:'city'},
+		 {label:'社区',value:'community'},
+		 {label:'销售员',value:'people'},
+		 {label:'录入人',value:'write'},
+		]
+
+	    let {opretionId,opretionOpen,isShow,searchParams,noDataOpen}=this.state;
+
       let rowStyle={};
       let rowLineStyle={};
       let rowFootStyle={};
@@ -711,7 +756,7 @@ class Merchants extends Component{
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
-			     	style={{float:'left',marginTop:6}}
+			     	style={{float:'left'}}
 			   	>
 				   <CheckPermission  operateCode="contract_create_contract" >
 
@@ -723,19 +768,13 @@ class Merchants extends Component{
 				  </CheckPermission>
 
 			 	 </Col>
-			  	 <Col
-			  		style={{float:'right',width:"90%"}}
-			  	 >
-			  		<SearchForm
-			  		  onStartChange={this.onStartChange}
-			  		  onEndChange={this.onEndChange}
-			  		  todayDate={todayDate}
-              onSearchSubmit={this.onSearchSubmit}
-							contractChange={this.contractChange}
-			  		 />
-
-			  	</Col>
-
+				  <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+				          <ListGroup>
+				            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+				          </ListGroup>
+			      </Col>
+				  
 	        </Row>
 
 
@@ -745,17 +784,17 @@ class Merchants extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区</TableHeaderColumn>
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
 		              <TableHeaderColumn>工位数</TableHeaderColumn>
 		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+					  <TableHeaderColumn>其他约定</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
 				<TableBody className='noDataBody' borderBodyStyle>
@@ -774,17 +813,17 @@ class Merchants extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区</TableHeaderColumn>
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
 		              <TableHeaderColumn>工位数</TableHeaderColumn>
 		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+					  <TableHeaderColumn>其他约定</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -824,7 +863,6 @@ class Merchants extends Component{
 			        		return (
 				        		<TableRow key={index}>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.cityName}</span>{this.everyTd(item.cityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.communityName}</span>{this.everyTd(item.communityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{type}</span>{this.everyTd(type)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(<KrDate value={item.leaseBegindate}/>)}</TableRowColumn>
@@ -835,6 +873,7 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.hasAgreement}</span>{this.everyTd(item.hasAgreement)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
 
@@ -962,6 +1001,24 @@ class Merchants extends Component{
 						<PrintAgreement onSubmit={this.confirmPrintAgreement} onCancel={this.openCopyAgreementDialog}/>
 
 					</Dialog>
+
+					{/*高级查询*/}
+                    <Dialog
+						title="高级查询"
+						modal={true}
+						onClose={this.openSearchUpperDialog}
+						open={this.props.CommunityAgreementList.openSearchUpper}
+						contentStyle ={{ width: '666',height:'320px',overflow:'visible'}}
+					>
+				    <SearchForm
+			  		  onStartChange={this.onStartChange}
+			  		  onEndChange={this.onEndChange}
+					  contractChange={this.contractChange}
+					  isOtherChange={this.isOtherChange}
+					  onCancel={this.openSearchUpperDialog}
+					  onSubmit={this.searchUpperSubmit}
+			  		 />
+				    </Dialog>
 
         </div>
 		);
