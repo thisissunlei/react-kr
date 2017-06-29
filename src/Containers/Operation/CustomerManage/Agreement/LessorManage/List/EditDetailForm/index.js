@@ -243,7 +243,7 @@ class EditDetailForm extends React.Component {
 								<KrField
 									name="cachetUrl"
 									component="newuploadImage"
-									innerstyle={{width:497,height:497,padding:10}}
+									innerstyle={{width:200,height:200,padding:10}}
 									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
@@ -350,7 +350,6 @@ const validate = values => {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
 			porTypes = porTypes.toString().replace(/[ /d]/g, '');
-			console.log(porTypes.toString(),"LLLLL");
             let memberErrors = '';
 			if (!porTypes){
               memberErrors = '请填写银行账户'

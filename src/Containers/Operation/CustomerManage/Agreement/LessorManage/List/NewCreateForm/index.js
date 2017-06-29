@@ -229,7 +229,7 @@ class NewCreateForm extends React.Component {
 								<KrField
 									name="cachetUrl"
 									component="newuploadImage"
-									innerstyle={{width:497,height:497,padding:10}}
+									innerstyle={{width:200,height:200,padding:10}}
 									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
