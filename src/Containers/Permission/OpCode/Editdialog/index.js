@@ -42,6 +42,9 @@ class Editdialog extends React.Component {
 					response.enableFlag="0";
 				}
 				Store.dispatch(initialize('editdialog', response));
+				_this.setState({
+					infoList:response,
+				});
             }).catch(function(err) {});
 
     }
@@ -75,12 +78,11 @@ class Editdialog extends React.Component {
 							 inline={true}
     	 		/>
                <KrField
-    						 left={42}
-    	 					 name="codeName"
-                			 requireLabel={true}
+    						 left={20}
     	 					 style={{marginTop:4}}
     	 					 label="编码"
-    						 component="input"
+							 component="labelText"
+							 value={this.state.infoList.codeName}
 							 inline={true}
     	 		/>
 				<KrField

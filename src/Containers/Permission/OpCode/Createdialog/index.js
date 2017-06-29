@@ -16,8 +16,12 @@ class Createdialog extends Component {
 
     constructor(props, context) {
         super(props, context);
-
     }
+
+	componentDidMount() {
+		Store.dispatch(change('createdialog', 'enableFlag', '1'));
+	}
+	
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel()
