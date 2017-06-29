@@ -153,9 +153,6 @@ module.exports = {
 	PlanMapAll,
 	...PlanMap,
 	ToTop,
-<<<<<<< HEAD
 	CheckPermission,
-=======
 	TextLabel
->>>>>>> feature/新建出租方修改
 }

@@ -166,7 +166,7 @@ export default class LessorManageList extends Component {
 
 
 
-	}
+	
 
 	onNewCreateCancel = () => {
 		this.openNewCreateDialog();

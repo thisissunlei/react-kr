@@ -344,9 +344,25 @@ const validate = values => {
 	if(!values.cachetUrl){
 		errors.cachetUrl = '请上传公章'
 	}
-	if(!values.bankAccount){
-		errors.bankAccount = '请填写银行账户'
-	}
+	if (!values.bankAccount || !values.bankAccount.length) {
+          errors.bankAccount = { _error: 'At least one member must be entered' }
+        } else {
+          const membersArrayErrors = []
+          values.bankAccount.forEach((porTypes, memberIndex) => {
+            const memberErrors = {}
+			if (!porTypes){
+              memberErrors.price = '请填写银行账户'
+				
+			}
+            if (porTypes&& isNaN(porTypes.toString().trim()) && porTypes.toString().trim().length >=30) {
+              memberErrors.price = '银行卡号必须为数字，切最长为30个数字'
+              membersArrayErrors[memberIndex] = memberErrors
+            }
+          })
+        if(membersArrayErrors.length) {
+          errors.bankAccount = membersArrayErrors
+        }
+      }
 
 	return errors
 }
