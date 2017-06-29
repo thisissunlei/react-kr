@@ -68,14 +68,22 @@ class SearchForm extends Component {
 
 
 	render() {
-
+		let options = [{
+			label: '名称',
+			value: 'name'
+		}, {
+			label: '编码',
+			value: 'codeName'
+		}];
 		return (
 			<form className="g-op-form" name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
 					<Button label="新建" operateCode="sso_resource_edit"  onTouchTap={this.openCreateDialog} />
 				<SearchForms
 						onSubmit={this.onSubmit}
 						style={{marginTop:5}}
-						placeholder="请输入业务代码"
+						placeholder="请输入"
+						searchFilter={options} 
+						onFilter={this.onFilter}
 				/>
 			</form>
 
@@ -87,7 +95,7 @@ SearchForm = reduxForm({
 	form: 'searchForm'
 })(SearchForm);
 
-class Operations extends Component {
+class OpCode extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -151,14 +159,19 @@ class Operations extends Component {
 		});
 	}
 	onSearch = (form) => {
-		var _this = this;
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
+		var searchParams = {};
+		if (form.filter == "name") {
+			searchParams = {
+				name: form.content
+			}
+		} else if (form.filter == "codeName") {
+			searchParams = {
 				codeName: form.content
 			}
-		})
+		}
+		this.setState({
+			searchParams: searchParams
+		});
 	}
 	//改变页码
     changeP=()=>{
@@ -186,7 +199,7 @@ class Operations extends Component {
 		} = this.state;
 		return (
 			<div className="g-operation">
-				<Section title="操作项" >
+				<Section title="业务代码" >
 					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} />
 	        		<Table
 							style={{marginTop:10}}
@@ -199,6 +212,7 @@ class Operations extends Component {
 							onPageChange={this.onPageChange}
 						>
 						<TableHeader>
+						<TableHeaderColumn>名称</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
 						<TableHeaderColumn>是否启用</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
@@ -208,12 +222,13 @@ class Operations extends Component {
 
 					<TableBody>
 						<TableRow>
+							<TableRowColumn name="name"></TableRowColumn>
 							<TableRowColumn name="codeName"></TableRowColumn>
 							<TableRowColumn name="enableFlagName"></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn type="date" name="createDate" component={(value)=>{
 								return (
-									<KrDate value={value} />
+									<KrDate value={value} format = "yyyy-mm-dd HH:MM:ss" />
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
@@ -252,7 +267,7 @@ class Operations extends Component {
 
 }
 export default reduxForm({
-	form: 'operations',
+	form: 'opCode',
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
-})(Operations);
+})(OpCode);

@@ -65,6 +65,15 @@ class Editdialog extends React.Component {
                 <div className="u-operations-edit-title">
                   <span>编辑业务</span>
                 </div>
+				<KrField
+    						 left={42}
+    	 					 name="name"
+                			 requireLabel={true}
+    	 					 style={{marginTop:4}}
+    	 					 label="名称"
+    						 component="input"
+							 inline={true}
+    	 		/>
                <KrField
     						 left={42}
     	 					 name="codeName"
@@ -75,10 +84,10 @@ class Editdialog extends React.Component {
 							 inline={true}
     	 		/>
 				<KrField
-						style={{width:360,marginLeft:40,marginBottom:16,marginRight:200}}
+						style={{width:360,marginLeft:40,marginBottom:2,marginRight:200}}
 						name="enableFlag"
 						component="group"
-						label="类型"
+						label="是否启用"
 						inline={true}
 						requireLabel={true}
 				>
@@ -95,7 +104,16 @@ class Editdialog extends React.Component {
 							value="0"
 					/>
 				</KrField>
-                <Row style={{marginTop:30,marginBottom:15}}>
+				<KrField
+                  grid={1}
+                  left={42}
+                  name="desc"
+                  component="textarea"
+                  maxSize={300}
+                  style={{marginTop:4,height:130}}
+                  label="备注"
+                />
+                <Row style={{marginTop:80,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
       							<div className='ui-btn-center'>
@@ -127,29 +145,17 @@ class Editdialog extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	if (!values.version) {
-		errors.version = '请输入版本';
+	if (!values.name) {
+		errors.name = '请输入名称';
 	}
-    if (!values.osType) {
-		errors.osType = '请选择设备类型';
+    if (!values.codeName) {
+		errors.codeName = '请选择编码';
 	}
-    if (!values.forced) {
-		errors.forced = '请选择是否强制更新';
+ 
+    if (!values.enableFlag) {
+		errors.enableFlag = '请选择是否启用';
 	}
-    if (!values.publishTime) {
-		errors.publishTime = '请选择发布时间';
-	}
-    if (!values.downUrl) {
-		errors.downUrl = '请输入下载地址';
-	}
-    if (!values.appType) {
-		errors.appType = '请选择app类型';
-	}
-    if (!values.enable) {
-		errors.enable = '请选择启用类型';
-	}
-
-	return errors
+	return errors;
 }
 export default reduxForm({
 	form: 'editdialog',

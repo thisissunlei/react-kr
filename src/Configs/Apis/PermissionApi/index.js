@@ -290,7 +290,7 @@ module.exports = {
     },
      //权限--业务代码--分页
     'op-code-list':{
-            url: '/api/krspace-sso-web/sso/business/list/?page={page}&pageSize={pageSize}&codeName={codeName}&createDate={createDate}&creater={creater}&enableFlagName={enableFlagName}&id={id}',
+            url: '/api/krspace-sso-web/sso/business/list/?page={page}&pageSize={pageSize}&codeName={codeName}&createDate={createDate}&creater={creater}&enableFlagName={enableFlagName}&id={id}&name={name}',
             method: 'get'
     },
     //权限--业务代码--编辑
