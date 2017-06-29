@@ -55,7 +55,7 @@ export default class DelAgreementNotify extends React.Component {
 		return (
 
 			<div className="print-dialog">
-				<div style={{textAlign:'center',marginTop:20,marginBottom:20,fontWeight:600}}>请选择您打印的合同是否需要盖公章？</div>
+				<div style={{textAlign:'center',marginTop:20,marginBottom:20,fontWeight:600,fontSize:'16px',color:'#333'}}>请选择您打印的合同是否需要盖公章？</div>
 				<Row >
 					<Col md={12} align="center">
 						<ListGroup>
@@ -63,13 +63,13 @@ export default class DelAgreementNotify extends React.Component {
 								<div className="agreement-pic no-cachet" onClick={this.noClick}>
 									{this.state.print =='false'?<span className="checked-logo"></span>:<span className="check-logo"></span>}
 								</div>
-								<p>示例一：未加盖公章的合同</p>
+								<p  style={{color:'#999',fontSize:'14px'}}>示例一：未加盖公章的合同</p>
 							</ListGroupItem>
 							<ListGroupItem style={{marginLeft:30}}> 
 								<div className="agreement-pic cachet" onClick={this.cachetClick}>
 									{this.state.print =='true'?<span className="checked-logo"></span>:<span className="check-logo"></span>}
 								</div>
-								<p>示例二：加盖公章的合同</p>
+								<p style={{color:'#999',fontSize:'14px'}}>示例二：加盖公章的合同</p>
 							</ListGroupItem>
 						</ListGroup>
 					</Col>
