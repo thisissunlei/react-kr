@@ -261,7 +261,7 @@ class EditDetailForm extends React.Component {
 									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
 									label="公章"
-									deviation = "50*50"
+									deviation = {"50*50"}
 									inline={false}
 									isInit = {true}
 									defaultValue={detail.cachetUrl}
@@ -350,6 +350,8 @@ const validate = values => {
 	}
 	if (!values.corAddress) {
 		errors.corAddress = '请填写详细地址';
+	}else if(values.corAddress.length>200){
+		errors.corAddress = '最多可填写200字';
 	}
 	if(!values.enableflag){
 		errors.enableflag = '是否选择为必填'

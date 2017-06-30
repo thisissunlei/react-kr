@@ -310,16 +310,11 @@ export default class UploadImageComponent extends Component {
 											});
 	                         }
 												 }else{
-													 let {deviation} = this.props;
-													 	let deviationW = 0;
-														let deviationH = 0;
-													 if(deviation){
-
+													 
+													let deviationW = 50;
+													let deviationH = 50;
 													
-														deviationW = Number(deviation.substr(0,photoSize.indexOf("*")));
-														deviationH = Number(deviation.substr(0,photoSize.indexOf("*")+1));
-													  }
-
+													 
 													 var realWidth = Number(photoSize.substr(0,photoSize.indexOf("*")));
 													 var realHeight =Number(photoSize.substr(photoSize.indexOf("*")+1));
 													 if((width >= (realWidth-deviationW) && width <= (realWidth+deviationW)) && (height >= (realHeight-deviationH) && height <= (realHeight+deviationH))){
@@ -374,7 +369,7 @@ export default class UploadImageComponent extends Component {
 		})
 	}
 	render() {
-		let {deviation,children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
