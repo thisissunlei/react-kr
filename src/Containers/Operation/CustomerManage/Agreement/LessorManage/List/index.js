@@ -109,6 +109,7 @@ export default class LessorManageList extends Component {
 	NewAndEditSubmit = () => {
 		let params = Object.assign({},this.state.params);
 		params.other = new Date();
+		params.pageSize = 15;
 		this.setState({
 			params
 		})

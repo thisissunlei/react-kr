@@ -206,6 +206,12 @@ class EditDetailForm extends React.Component {
 			detail:data
 		})
 	}
+	componentWillUnmount(){
+		this.setState({
+			detail:{}
+		})
+	}
+
 	render() {
 
 		const {
@@ -222,6 +228,7 @@ class EditDetailForm extends React.Component {
 			detail,
 			id
 		} = this.state;
+		console.log(detail.cachetUrl,"POOOOOO")
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">

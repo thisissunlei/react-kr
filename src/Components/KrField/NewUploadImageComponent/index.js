@@ -64,6 +64,7 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
+		console.log(nextProps.defaultValue,"UUUUUUUUUUUU",this.state.imgSrc);
 		if(nextProps.defaultValue){
 			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}
@@ -354,6 +355,11 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 
+	componentWillUnmount(){
+		this.setState({
+			imgSrc:''
+		})
+	}
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
