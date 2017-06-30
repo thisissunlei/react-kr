@@ -261,6 +261,7 @@ class EditDetailForm extends React.Component {
 									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
 									label="公章"
+									deviation = "50*50"
 									inline={false}
 									isInit = {true}
 									defaultValue={detail.cachetUrl}
