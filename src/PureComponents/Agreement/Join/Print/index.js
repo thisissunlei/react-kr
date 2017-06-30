@@ -33,16 +33,8 @@ export default class JoinPrint extends React.Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
-		// var printList = document.getElementsByClassName('print-section')[0];
-		// var printHeight = printList.offsetHeight;
-		// if(printHeight>1120 && printHeight-1120<=5){
-		// 	printList.style.height = 1120+'px';
-		// }else if(printHeight>1125){
-		// 	printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
-		// }
-		// this.pages = Math.ceil(printHeight/1120) + 1;
 		 	window.print();
-		 	window.close();
+		 	// window.close();
 		 }, 1200)
 
 
@@ -90,7 +82,7 @@ export default class JoinPrint extends React.Component {
 		if(printHeight>1120 && printHeight-1120<=5){
 			printList.style.height = 1120+'px';
 		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
+			printList.style.height = Math.ceil(printHeight/1120)*1120-10 + 'px';
 		}
 		this.pages = Math.ceil(printHeight/1120) + 1;
 		let str=[] ;
