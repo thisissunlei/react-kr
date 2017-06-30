@@ -72,7 +72,7 @@ class SearchForm extends React.Component {
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:30}}>
 					<KrField grid={1} label="" name="visitCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 				</div>
-				<div className='m-message-community'><KrField style={{position:"absolute",marginTop:7}} name="visitCommunity" component="searchCommunityAll"  onChange={this.communityChange} /></div>
+				<div className='m-message-community'><KrField style={{marginTop:7}} name="visitCommunity" component="searchCommunityAll"  onChange={this.communityChange} /></div>
 			</form>
 		);
 	}
