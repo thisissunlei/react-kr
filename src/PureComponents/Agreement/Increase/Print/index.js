@@ -26,7 +26,7 @@ export default class IncreasePrint extends React.Component {
 		super(props, context);
 		console.log(this.context.router.params)
 		let params = this.context.router.params;
-
+		this.init = false;
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
@@ -43,10 +43,9 @@ export default class IncreasePrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1100 && printHeight-1100<=5){
-			printList.style.height = 1100+'px';
-		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1100)*1100-35 + 'px';
+		if(printHeight>1105 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1100)*297-4 + 'mm';
 		}
 		this.pages = Math.ceil(printHeight/1100);
 		let str=[] ;

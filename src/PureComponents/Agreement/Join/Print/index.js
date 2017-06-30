@@ -30,6 +30,7 @@ export default class JoinPrint extends React.Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+		this.init = false;
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
@@ -39,6 +40,15 @@ export default class JoinPrint extends React.Component {
 		 }, 1200)
 
 
+	}
+	componentWillReceiveProps(nextprops){
+		// console.log('will')
+		// if(!this.init){
+		// 	let doms = this.renderImg();
+		// 	this.init = true;
+		// 	State.cachet = doms;
+		// }
+		
 	}
 	renderContent=()=>{
 		if(State.baseInfo.hasOwnProperty('agreement')){
@@ -81,8 +91,9 @@ export default class JoinPrint extends React.Component {
 		}
 		var printHeight = printList.offsetHeight;
 		console.log('height',printHeight)
-		if(printHeight>1100){
-			printList.style.height = Math.ceil(printHeight/1100)*1100-35 + 'px';
+		if(printHeight>1105 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1100)*294-4 + 'mm';
 		}
 		this.pages = Math.ceil(printHeight/1100) + 1;
 		let str=[] ;
@@ -115,13 +126,14 @@ export default class JoinPrint extends React.Component {
 	}
 	render() {
 		let doms = this.renderImg();
+		
 		return (
 		<div style={{background:'#fff'}}>
-			{State.baseInfo.withCachet &&  doms.map((item,index)=>{
+			{State.baseInfo.withCachet && doms.map((item,index)=>{
 				return item
 			})}
 
-			<div className="print-section no-print-section">
+			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
 				<Print.Header
 					baseInfo={State.baseInfo}

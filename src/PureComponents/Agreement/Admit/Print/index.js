@@ -27,7 +27,7 @@ export default class AdmitPrint extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		let params = this.context.router.params;
-
+		this.init = false;
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
@@ -43,10 +43,9 @@ export default class AdmitPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1100 && printHeight-1100<=5){
-			printList.style.height = 1100+'px';
-		}else if(printHeight>1105){
-			printList.style.height = Math.ceil(printHeight/1100)*1100-35 + 'px';
+		if(printHeight>1105 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1100)*297-4 + 'mm';
 			// printList.style.height = '2180px'
 		}
 		this.pages = Math.ceil(printHeight/1100);

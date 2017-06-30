@@ -28,6 +28,7 @@ export default class RenewPrint extends React.Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+		this.init = false;
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
@@ -43,10 +44,9 @@ export default class RenewPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1100 && printHeight-1100<=5){
-			printList.style.height = 1100+'px';
-		}else if(printHeight>1105){
-			printList.style.height = Math.ceil(printHeight/1100)*1100-35 + 'px';
+		if(printHeight>1105 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1100)*297-4 + 'mm';
 		}
 		this.pages = Math.ceil(printHeight/1100) + 1;
 		let str=[] ;
@@ -114,7 +114,7 @@ export default class RenewPrint extends React.Component {
 
 		return (
 		<div>
-			<div className="print-section no-print-section">
+			<div className="print-section no-print-section"  style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
 				{State.baseInfo.withCachet && doms.map((item,index)=>{
 					return item
