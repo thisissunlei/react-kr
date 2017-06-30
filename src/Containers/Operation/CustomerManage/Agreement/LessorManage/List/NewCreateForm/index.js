@@ -234,6 +234,7 @@ class NewCreateForm extends React.Component {
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
 									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
+									deviation = {"50*50"}
 									requireLabel={true}
 									label="上传列表详情图"
 									inline={false}
@@ -318,7 +319,10 @@ const validate = values => {
 	}
 	if (!values.corAddress) {
 		errors.corAddress = '请填写详细地址';
+	}else if(values.corAddress.length>200){
+		errors.corAddress = '最多可填写200字';
 	}
+	
 	if(!values.enableflag){
 		errors.enableflag = '是否选择为必填'
 	}

@@ -139,6 +139,9 @@ class OpCode extends Component {
 	}
 	onCreatSubmit = (params) => {
 		var _this = this;
+		params = Object.assign({},params);
+		params.codeName = _this.Trim(params.codeName);
+		params.name = _this.Trim(params.name);
 		Http.request('op-code-insert', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
@@ -150,6 +153,9 @@ class OpCode extends Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
+		params = Object.assign({},params);
+		params.codeName = _this.Trim(params.codeName);
+		params.name = _this.Trim(params.name);
 		Http.request('op-code-edit', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
@@ -172,6 +178,11 @@ class OpCode extends Component {
 		this.setState({
 			searchParams: searchParams
 		});
+	}
+	//去除前后空格
+	Trim=(str)=>{
+		str=str.toString();
+		return str.replace(/(^\s*)|(\s*$)/g, "");
 	}
 	//改变页码
     changeP=()=>{
