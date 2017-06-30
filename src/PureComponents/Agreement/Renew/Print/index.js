@@ -44,11 +44,11 @@ export default class RenewPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1105 && !this.init){
+		if(printHeight>1205 && !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1100)*297-4 + 'mm';
+			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
 		}
-		this.pages = Math.ceil(printHeight/1100) + 1;
+		this.pages = Math.ceil(printHeight/1200) + 1;
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -63,7 +63,7 @@ export default class RenewPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1100),
+				top:350+(i*1200),
 				right:0,
 				width:width,
 				height:160,
