@@ -332,8 +332,11 @@ const validate = values => {
         } else {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
-			porTypes = porTypes.toString().replace(/[ /d]/g, '');
-			console.log(porTypes.toString(),"LLLLL");
+			if(porTypes){
+				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			}
+			
+		
             let memberErrors = '';
 			if (!porTypes){
               memberErrors = '请填写银行账户'
