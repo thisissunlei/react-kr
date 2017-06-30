@@ -17,6 +17,11 @@ export default class Payment extends Component {
 		var dd = now.getDate(); //日
 		return (yy + "/" + mm + "/" + dd )
 	}
+	componentWillReceiveProps(nextProp){
+		let top = document.getElementsByClassName('table-one-content')[0].offsetTop;
+		console.log('will',top)
+	}
+
 
 	Onetable = (installmentPlans) => {
 

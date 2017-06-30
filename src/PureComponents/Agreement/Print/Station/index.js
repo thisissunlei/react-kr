@@ -25,7 +25,36 @@ export default class Station extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
+		this.state={
+			stationVOs:this.props.stationVOs,
+		}
 
+	}
+	componentDidMount() {
+		let {stationVOs} = this.props;
+		if(stationVOs.length>=34){
+			stationVOs.splice(34,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+		}
+		this.setState({
+			stationVOs:stationVOs
+		})
+	}
+	componentWillReceiveProps(nextProp){
+		console.log(nextProp.stationVOs.length)
+		let {stationVOs} = nextProp;
+		if(!this.init){
+			this.init = true;
+			if(stationVOs.length>=34){
+				stationVOs.splice(34,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			}
+			this.setState({
+				stationVOs:stationVOs
+			})
+		}
+		
+		
+
+		
 	}
 
 	method = () => {
@@ -69,7 +98,6 @@ export default class Station extends Component {
 
 	render() {
 		let {
-			stationVOs,
 			baseInfo,
 			installmentPlans,
 			baseType,
@@ -85,8 +113,11 @@ export default class Station extends Component {
 			payModel,
 			payModelList
 		} = this.props.baseInfo;
+		let {stationVOs} = this.props;
 
 		this.method();
+		console.log('render',stationVOs,stationVOs.length)
+		
 
 		return (
 

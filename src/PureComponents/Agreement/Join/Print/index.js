@@ -8,6 +8,7 @@ import {
 
 import {
 	Title,
+	Button
 } from 'kr-ui';
 import {
 	Actions,
@@ -79,12 +80,11 @@ export default class JoinPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1120 && printHeight-1120<=5){
-			printList.style.height = 1120+'px';
-		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1120)*1120-10 + 'px';
+		console.log('height',printHeight)
+		if(printHeight>1100){
+			printList.style.height = Math.ceil(printHeight/1100)*1100-35 + 'px';
 		}
-		this.pages = Math.ceil(printHeight/1120) + 1;
+		this.pages = Math.ceil(printHeight/1100) + 1;
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -99,7 +99,7 @@ export default class JoinPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1120),
+				top:350+(i*1100),
 				right:0,
 				width:width,
 				height:160,
@@ -110,7 +110,9 @@ export default class JoinPrint extends React.Component {
 		}
 		return str;
 	}
-
+	print=()=>{
+		window.print()
+	}
 	render() {
 		let doms = this.renderImg();
 		return (
@@ -119,7 +121,7 @@ export default class JoinPrint extends React.Component {
 				return item
 			})}
 
-			<div className="print-section no-print-section" style={{minHeight:1120}}>
+			<div className="print-section no-print-section">
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
 				<Print.Header
 					baseInfo={State.baseInfo}
@@ -143,6 +145,7 @@ export default class JoinPrint extends React.Component {
 				<Print.Footer/>
 
       		</div>
+      		
       		<CommonItem baseInfo={State.baseInfo}/>
       	</div>
 

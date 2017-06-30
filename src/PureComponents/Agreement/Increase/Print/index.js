@@ -33,7 +33,7 @@ export default class IncreasePrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 			window.print();
-			window.close();
+			// window.close();
 		}, 1300)
 
 	}
@@ -43,12 +43,12 @@ export default class IncreasePrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1120 && printHeight-1120<=5){
-			printList.style.height = 1120+'px';
+		if(printHeight>1100 && printHeight-1100<=5){
+			printList.style.height = 1100+'px';
 		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
+			printList.style.height = Math.ceil(printHeight/1100)*1100-10 + 'px';
 		}
-		this.pages = Math.ceil(printHeight/1120) ;
+		this.pages = Math.ceil(printHeight/1100) ;
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -63,7 +63,7 @@ export default class IncreasePrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1120),
+				top:350+(i*1100),
 				right:0,
 				width:width,
 				height:160,

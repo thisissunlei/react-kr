@@ -7,6 +7,7 @@ import {
 
 import {
 	Title,
+	Button
 } from 'kr-ui';
 
 
@@ -43,7 +44,7 @@ export default class AdmitPrint extends React.Component {
 		}
 		var printHeight = printList.offsetHeight;
 		if(printHeight>1100 && printHeight-1100<=5){
-			printList.style.height = 1120+'px';
+			printList.style.height = 1100+'px';
 		}else if(printHeight>1105){
 			printList.style.height = Math.ceil(printHeight/1100)*1100-30 + 'px';
 			// printList.style.height = '2180px'
@@ -74,6 +75,7 @@ export default class AdmitPrint extends React.Component {
 		}
 		return str;
 	}
+
 
 	render() {
 		let doms = this.renderImg() || [];
@@ -107,6 +109,7 @@ export default class AdmitPrint extends React.Component {
 						stationVOs={State.stationVOs}
 						baseInfo={State.baseInfo}
 				/>
+				
 
 				<Print.Footer />
 
