@@ -114,7 +114,7 @@ export default class RenewPrint extends React.Component {
 
 		return (
 		<div>
-			<div className="print-section no-print-section"  style={{minHeight:1100}}>
+			<div className="print-section no-print-section">
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
 				{State.baseInfo.withCachet && doms.map((item,index)=>{
 					return item

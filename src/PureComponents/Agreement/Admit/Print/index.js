@@ -46,7 +46,7 @@ export default class AdmitPrint extends React.Component {
 		if(printHeight>1100 && printHeight-1100<=5){
 			printList.style.height = 1100+'px';
 		}else if(printHeight>1105){
-			printList.style.height = Math.ceil(printHeight/1100)*1100-30 + 'px';
+			printList.style.height = Math.ceil(printHeight/1100)*1100-35 + 'px';
 			// printList.style.height = '2180px'
 		}
 		this.pages = Math.ceil(printHeight/1100);
