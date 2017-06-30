@@ -45,7 +45,8 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	componentDidMount() {
-
+		// var {defaultValue,sizePhoto} = this.props;
+		// this.setInitValue(defaultValue||'',sizePhoto);		
 	}
 	componentWillReceiveProps(nextProps){
 		// if(nextProps.defaultValue){
@@ -64,9 +65,8 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
-		console.log(nextProps.defaultValue,"UUUUUUUUUUUU",this.state.imgSrc);
 		if(nextProps.defaultValue){
-			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
+			this.setInitValue(nextProps.defaultValue||'',nextProps.sizePhoto);
 		}
 
 	}
@@ -77,6 +77,7 @@ export default class UploadImageComponent extends Component {
 			isInit
 		} = this.state;
 		if (!isInit) {
+			console.log(888888);
 			return;
 		}
 		
@@ -90,6 +91,7 @@ export default class UploadImageComponent extends Component {
                 input.onChange(defaultValue.picId);
 			}
 		}else{
+			console.log("9999999",defaultValue)
 			this.setState({
 				isInit: false,
 				imgUpload:true,
@@ -357,7 +359,8 @@ export default class UploadImageComponent extends Component {
 
 	componentWillUnmount(){
 		this.setState({
-			imgSrc:''
+			imgSrc:'',
+			isInit:true,
 		})
 	}
 	render() {

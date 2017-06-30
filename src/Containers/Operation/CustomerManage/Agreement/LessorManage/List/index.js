@@ -102,8 +102,10 @@ export default class LessorManageList extends Component {
 	//编辑
 	openEditDetailDialog = () => {
 		this.setState({
-			openEditDetail: !this.state.openEditDetail
+			openEditDetail: !this.state.openEditDetail,
+			itemDetail:{}
 		});
+		
 	}
 
 	NewAndEditSubmit = () => {
@@ -113,6 +115,7 @@ export default class LessorManageList extends Component {
 		this.setState({
 			params
 		})
+		
 	}
 
 	onClose = () =>{
@@ -167,7 +170,10 @@ export default class LessorManageList extends Component {
 
 
 
-	
+	componentWillUnmount(){
+		
+		
+	}
 
 	onNewCreateCancel = () => {
 		this.openNewCreateDialog();

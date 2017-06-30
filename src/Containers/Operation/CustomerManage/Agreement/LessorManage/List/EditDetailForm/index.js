@@ -207,6 +207,7 @@ class EditDetailForm extends React.Component {
 		})
 	}
 	componentWillUnmount(){
+		console.log("LLLLLLL")
 		this.setState({
 			detail:{}
 		})
@@ -261,6 +262,7 @@ class EditDetailForm extends React.Component {
 									requireLabel={true}
 									label="公章"
 									inline={false}
+									isInit = {true}
 									defaultValue={detail.cachetUrl}
 									onDeleteImg ={this.deleteInfoPicDefaultValue}
 									
