@@ -106,8 +106,8 @@ class ItemDetail extends Component{
 							<li id = "everyText" className="everyText item-detail-name"><span className="blueDrop"></span><KrField grid={1/2} label="出租方名称:" style={evenStyle} component="labelText" value={detail.corName} inline={true} /></li>
 
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="注册地址:" style={oddStyle} component="labelText" value={detail.corAddress} inline={true} /></li>
-							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公章:" style={evenStyle} component="labelText" value={detail.cachetUrl} inline={true} /></li>
-							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="状态:" style={oddStyle} component="labelText" value={detail.enableflag} inline={true} /></li>
+							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公章:" style={evenStyle} component="labelText" value={detail.cachetUrl}  inline={true} /></li>
+							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="状态:" style={oddStyle} component="labelText" value={detail.enableflag == "ENABLE" ? '启用':'不启用'} inline={true} /></li>
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="备注:" style={evenStyle} component="labelText" value={detail.corDesc} inline={true} /></li>
 
 							<div className="bottomWire"></div>

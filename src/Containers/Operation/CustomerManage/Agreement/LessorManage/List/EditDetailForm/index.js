@@ -311,7 +311,7 @@ class EditDetailForm extends React.Component {
 				</Grid>
 
 			<Dialog
-					title="编辑设备"
+					title="绑定社区"
 					open={this.state.isBindCommunity}
 					onClose={this.bindCommunityClose}
 					contentStyle={{width:687,height:450,overflow:'scroll'}}
@@ -362,7 +362,7 @@ const validate = values => {
 				
 			}
             if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
-              memberErrors = '银行卡号必须为数字，切最长为30个数字'
+              memberErrors = '银行卡号必须为数字，且最长为30个数字'
               
             }
 			membersArrayErrors[memberIndex] = memberErrors

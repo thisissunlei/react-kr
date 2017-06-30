@@ -291,7 +291,7 @@ class NewCreateForm extends React.Component {
 				</Grid>
 
 			<Dialog
-					title="编辑设备"
+					title="绑定社区"
 					open={this.state.isBindCommunity}
 					onClose={this.bindCommunityClose}
 					contentStyle={{width:687,height:450,overflow:'scroll'}}
