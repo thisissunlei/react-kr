@@ -311,11 +311,11 @@ export default class UploadImageComponent extends Component {
 	                         }
 												 }else{
 													 let {deviation} = this.props;
-													 let deviationW = deviation.substr(0,photoSize.indexOf("*"));
-													 let deviationH = deviation.substr(0,photoSize.indexOf("*")+1);
+													 let deviationW = Number(deviation.substr(0,photoSize.indexOf("*")));
+													 let deviationH = Number(deviation.substr(0,photoSize.indexOf("*")+1));
 
-													 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
-													 var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
+													 var realWidth = Number(photoSize.substr(0,photoSize.indexOf("*")));
+													 var realHeight =Number(photoSize.substr(photoSize.indexOf("*")+1));
 													 if((width >= (realWidth-deviationW) && width <= (realWidth+deviationW)) && (height >= (realHeight-deviationH) && height <= (realHeight+deviationH))){
 														_this.refs.uploadImage.src = xhrfile.response.data;
 														_this.setState({
@@ -399,7 +399,7 @@ export default class UploadImageComponent extends Component {
 					</div>
 
 				<p className="ui-uploadimg-notice">
-					{&& sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
+					{ sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
 				</p>
 				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 					{this.state.errorTip}
