@@ -506,6 +506,7 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
          method: 'post'
       },
+
       //群组管理列表(搜索)
        'cluster-list':{
          url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}&pageSize={pageSize}&page={page}',
@@ -611,7 +612,12 @@ module.exports = {
          url: '/api/krspace-finance-web/topic/manage/country-cluster-list',
          method: 'get'
       },
-    
+      // 获取枚举字典接口
+      'getListDic': {
+            url: '/api/krspace-finance-web/dict/common',
+            method: 'get'
+       },
+
 
 }
 

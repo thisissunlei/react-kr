@@ -12,6 +12,7 @@ import {
 	Button,
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
+import State from './State';
 class EditEquipmentForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
@@ -324,7 +325,8 @@ class EditEquipmentForm extends React.Component{
 				locationId : values.locationId,
 				propertyId : values.propertyId,
 				showTitle : values.showTitle,
-				typeId : values.typeId
+				typeId : values.typeId,
+				makerId : values.makerId
 			}
 		// 此处判断门编号是否存在
 		let deviceCodeParams = {
@@ -454,6 +456,15 @@ class EditEquipmentForm extends React.Component{
 						label="对应位置"
 						onChange = {this.onchooseCorrespondingLocation}
 						style={{width:'252px',display:this.state.locationOpen?'block':'none'}}
+					/>
+					<KrField name="makerId" 
+						component="select" 
+						label="厂家" 
+						options = {State.makerOptions}
+						requireLabel={true}  
+						errors={{requiredValue:'厂家为必填项'}} 
+						style={{width:'252px'}}
+
 					/>
 					<div style={{marginLeft:6}}>
 						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/>

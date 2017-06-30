@@ -4,6 +4,7 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
+import State from './State';
 
 import {
 	KrField,
@@ -302,7 +303,7 @@ class NewCreateDefinitionForm extends React.Component{
 						options = {floorsOptions}
 						requireLabel={true} 
 						requiredValue={true} 
-						errors={{requiredValue:'社区为必填项'}} 
+						errors={{requiredValue:'楼层为必填项'}} 
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
@@ -369,6 +370,15 @@ class NewCreateDefinitionForm extends React.Component{
 						label="对应位置"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',display:this.state.locationOpen?'block':'none'}}
+					/>
+					<KrField name="makerId" 
+						component="select" 
+						label="厂家" 
+						options = {State.makerOptions}
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'厂家为必填项'}} 
+						style={{width:'252px'}}
 					/>
 					<div style={{marginLeft:6}}>
 						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/> 
