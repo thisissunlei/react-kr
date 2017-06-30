@@ -62,6 +62,7 @@ class CreateNotice extends React.Component {
 
    	}
 	selectType=(item)=>{
+		Store.dispatch(change('createNotice', 'clusterId', ''));
 		if(item.value=="COMMUNITY"){
 			this.setState({
 				ifCity:true
