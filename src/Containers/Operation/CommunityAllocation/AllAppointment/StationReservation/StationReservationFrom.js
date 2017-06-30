@@ -40,30 +40,8 @@ class StationReservationFrom extends React.Component {
 			endValue:'',
 			communityIdList:[],
 		}
-		this.getcommunity();
 	}
-	getcommunity = () => {
-		let _this = this;
-		let {communityIdList} = this.state;
-		Http.request('getCommunity').then(function(response) {
-
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			_this.setState({
-				communityIdList,
-			});
-
-
-		}).catch(function(err) {
-
-
-
-		});
-	}
+	
 	
 	communityChange = (data) =>{
 		let {searchParams} = this.state;

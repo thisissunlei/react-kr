@@ -70,6 +70,23 @@ class ItemDetail extends Component{
 		}
 		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
+	bankData = () =>{
+		let {detail} = this.props;
+		if(!this.props.detail.bankAccount){
+			return;
+		}
+		let evenStyle={width:'280px',marginLeft:-10}
+		let oddStyle={width:'290px',marginLeft:-10}
+		let unifyStyle={};
+		let uniStyle = {};
+		
+		var arr = detail.bankAccount.map(function(item,index){
+			return (<div style = {{display:"inline-block"}}> 
+						<KrField label={index==0?"银行账户:":''} style={{marginLeft:index==0?0:70}} component="labelText" value={item} inline={true} />
+				</div>)
+		})
+		return <li className="everyText"><span className="blueDrop"></span>{arr}</li>;
+	}
 
 	render(){
 		const {detail} = this.props;
@@ -96,9 +113,9 @@ class ItemDetail extends Component{
 							<div className="bottomWire"></div>
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="支付宝账户:" style={oddStyle} component="labelText" value={detail.aipayAccount} inline={true} /></li>
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="微信账户:" style={evenStyle} component="labelText" value={detail.weixinAccount} inline={true} /></li>
-							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="银行账户:" style={oddStyle} component="labelText" value={"detail.sou"} inline={true} /></li>
+							{this.bankData()}
 							<div className="bottomWire"></div>
-							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="银行账户:" style={oddStyle} component="labelText" value={""} inline={true} />
+							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="绑定社区:" style={oddStyle} component="labelText" value={""} inline={true} />
 								{this.renderCommunity()}
 							</li>
 							

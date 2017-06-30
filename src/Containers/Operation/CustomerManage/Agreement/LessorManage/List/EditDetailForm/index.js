@@ -116,6 +116,7 @@ class EditDetailForm extends React.Component {
 		data.id = detail.id;
 		
 		var _this = this;
+		console.log(values,"?????")
 		Http.request('editFnaCorporation',{},data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
@@ -194,6 +195,8 @@ class EditDetailForm extends React.Component {
 				detail:nextProps.detail,
 				id:nextProps.detail.id
 			})
+			// this.props.dispacth(detail.cachetUrl)
+
 		}
 	}
 	deleteInfoPicDefaultValue = () =>{
@@ -243,7 +246,7 @@ class EditDetailForm extends React.Component {
 								<KrField
 									name="cachetUrl"
 									component="newuploadImage"
-									innerstyle={{width:497,height:497,padding:10}}
+									innerstyle={{width:200,height:200,padding:10}}
 									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
@@ -344,20 +347,25 @@ const validate = values => {
 	if(!values.cachetUrl){
 		errors.cachetUrl = '请上传公章'
 	}
-	if (!values.bankAccount || !values.bankAccount.length) {
+	 if (!values.bankAccount || !values.bankAccount.length) {
           errors.bankAccount = { _error: 'At least one member must be entered' }
         } else {
-          const membersArrayErrors = []
+          let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
-            const memberErrors = {}
+			
+            let memberErrors = '';
+			if(porTypes){
+				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			}
 			if (!porTypes){
-              memberErrors.price = '请填写银行账户'
+              memberErrors = '请填写银行账户'
 				
 			}
-            if (porTypes&& isNaN(porTypes.toString().trim()) && porTypes.toString().trim().length >=30) {
-              memberErrors.price = '银行卡号必须为数字，切最长为30个数字'
-              membersArrayErrors[memberIndex] = memberErrors
+            if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
+              memberErrors = '银行卡号必须为数字，切最长为30个数字'
+              
             }
+			membersArrayErrors[memberIndex] = memberErrors
           })
         if(membersArrayErrors.length) {
           errors.bankAccount = membersArrayErrors

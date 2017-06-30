@@ -229,7 +229,7 @@ class NewCreateForm extends React.Component {
 								<KrField
 									name="cachetUrl"
 									component="newuploadImage"
-									innerstyle={{width:497,height:497,padding:10}}
+									innerstyle={{width:200,height:200,padding:10}}
 									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
@@ -330,17 +330,23 @@ const validate = values => {
 	 if (!values.bankAccount || !values.bankAccount.length) {
           errors.bankAccount = { _error: 'At least one member must be entered' }
         } else {
-          const membersArrayErrors = []
+          let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
-            const memberErrors = {}
+			if(porTypes){
+				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			}
+			
+		
+            let memberErrors = '';
 			if (!porTypes){
-              memberErrors.price = '请填写银行账户'
+              memberErrors = '请填写银行账户'
 				
 			}
-            if (porTypes&& isNaN(porTypes.toString().trim()) && porTypes.toString().trim().length >=30) {
-              memberErrors.price = '银行卡号必须为数字，切最长为30个数字'
-              membersArrayErrors[memberIndex] = memberErrors
+            if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
+              memberErrors = '银行卡号必须为数字，切最长为30个数字'
+              
             }
+			membersArrayErrors[memberIndex] = memberErrors
           })
         if(membersArrayErrors.length) {
           errors.bankAccount = membersArrayErrors

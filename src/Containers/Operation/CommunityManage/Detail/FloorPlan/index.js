@@ -64,7 +64,7 @@ export default class FloorPlan extends React.Component {
             destroyData:[],
             scaleNumber:100
         }
-        this.getcommunity();
+        //this.getcommunity();
         Store.dispatch(change('FloorPlan', 'start', DateFormat(new Date(), "yyyy-mm-dd")));
         Store.dispatch(change('FloorPlan', 'end', DateFormat(new Date(), "yyyy-mm-dd")));
     }
