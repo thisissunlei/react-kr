@@ -36,7 +36,7 @@ export default class JoinPrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 		 	window.print();
-		 	// window.close();
+		 	window.close();
 		 }, 1200)
 
 
