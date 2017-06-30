@@ -45,7 +45,8 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	componentDidMount() {
-
+		// var {defaultValue,sizePhoto} = this.props;
+		// this.setInitValue(defaultValue||'',sizePhoto);		
 	}
 	componentWillReceiveProps(nextProps){
 		// if(nextProps.defaultValue){
@@ -65,7 +66,7 @@ export default class UploadImageComponent extends Component {
 		// 	})
 		// }
 		if(nextProps.defaultValue){
-			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
+			this.setInitValue(nextProps.defaultValue||'',nextProps.sizePhoto);
 		}
 
 	}
@@ -76,6 +77,7 @@ export default class UploadImageComponent extends Component {
 			isInit
 		} = this.state;
 		if (!isInit) {
+			console.log(888888);
 			return;
 		}
 		
@@ -89,6 +91,7 @@ export default class UploadImageComponent extends Component {
                 input.onChange(defaultValue.picId);
 			}
 		}else{
+			
 			this.setState({
 				isInit: false,
 				imgUpload:true,
@@ -307,9 +310,13 @@ export default class UploadImageComponent extends Component {
 											});
 	                         }
 												 }else{
-													 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
-													 var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
-													 if(width == realWidth && height == realHeight){
+													 let {deviation} = this.props;
+													 let deviationW = Number(deviation.substr(0,photoSize.indexOf("*")));
+													 let deviationH = Number(deviation.substr(0,photoSize.indexOf("*")+1));
+
+													 var realWidth = Number(photoSize.substr(0,photoSize.indexOf("*")));
+													 var realHeight =Number(photoSize.substr(photoSize.indexOf("*")+1));
+													 if((width >= (realWidth-deviationW) && width <= (realWidth+deviationW)) && (height >= (realHeight-deviationH) && height <= (realHeight+deviationH))){
 														_this.refs.uploadImage.src = xhrfile.response.data;
 														_this.setState({
 														imageStatus : true,
@@ -354,9 +361,17 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 
+	componentWillUnmount(){
+		this.setState({
+			imgSrc:'',
+			isInit:true,
+		})
+	}
 	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
+		let {deviation,children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
+		let height = deviation.substr(0,photoSize.indexOf("*"))
+		let width = deviation.substr(0,photoSize.indexOf("*")+1)
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
@@ -384,7 +399,7 @@ export default class UploadImageComponent extends Component {
 					</div>
 
 				<p className="ui-uploadimg-notice">
-					{sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
+					{ sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
 				</p>
 				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 					{this.state.errorTip}

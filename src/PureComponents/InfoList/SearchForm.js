@@ -91,7 +91,7 @@ class SearchForm extends Component {
 					<KrField grid={1} label="" name="infoCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
-				<div className='m-message-community'><KrField style={{position:"absolute",marginTop:7}} name="infoCommunity" component="searchCommunityAll"  onChange={this.communityChange} /></div>
+				<div className='m-message-community'><KrField style={{marginTop:7}} name="infoCommunity" component="searchCommunityAll"  onChange={this.communityChange} /></div>
 
 
 			</form>

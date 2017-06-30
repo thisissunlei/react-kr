@@ -43,7 +43,11 @@
     .title span{
     	font-size: 16px;
     }
-    
+   .bank{
+        .ui-form-item .ui-form-label.inline{
+            padding-left: 5px;
+        }
+    }
     .everyText{
         
     	display: inline-block;
@@ -56,6 +60,7 @@
             line-height: 34px;
             .ui-form-controller.inline{
                 padding-top:8px;
+                
             }
             .ui-form-controller.inline .ui-label-text{
                 width:226px;
@@ -64,6 +69,7 @@
                 word-wrap: break-word;
                 line-height: 18px;
             }
+            
         }
         .ui-form-label.inline{
             line-height: 34px;
@@ -276,4 +282,11 @@
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
+}
+.m-item-detail .m-LookDetailed .everyText .ui-form-item .ui-form-controller.inline .ui-label-text span{
+    text-overflow: ellipsis;
+    overflow: auto;
+    white-space: inherit;
+    display: inline-block;
+    max-width: 100%;
 }

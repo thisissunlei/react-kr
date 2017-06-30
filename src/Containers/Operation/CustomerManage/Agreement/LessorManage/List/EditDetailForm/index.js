@@ -206,6 +206,13 @@ class EditDetailForm extends React.Component {
 			detail:data
 		})
 	}
+	componentWillUnmount(){
+		console.log("LLLLLLL")
+		this.setState({
+			detail:{}
+		})
+	}
+
 	render() {
 
 		const {
@@ -222,6 +229,7 @@ class EditDetailForm extends React.Component {
 			detail,
 			id
 		} = this.state;
+		console.log(detail.cachetUrl,"POOOOOO")
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
@@ -253,7 +261,9 @@ class EditDetailForm extends React.Component {
 									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
 									label="公章"
+									deviation = "50*50"
 									inline={false}
+									isInit = {true}
 									defaultValue={detail.cachetUrl}
 									onDeleteImg ={this.deleteInfoPicDefaultValue}
 									
@@ -311,7 +321,7 @@ class EditDetailForm extends React.Component {
 				</Grid>
 
 			<Dialog
-					title="编辑设备"
+					title="绑定社区"
 					open={this.state.isBindCommunity}
 					onClose={this.bindCommunityClose}
 					contentStyle={{width:687,height:450,overflow:'scroll'}}
@@ -362,7 +372,7 @@ const validate = values => {
 				
 			}
             if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
-              memberErrors = '银行卡号必须为数字，切最长为30个数字'
+              memberErrors = '银行卡号必须为数字，且最长为30个数字'
               
             }
 			membersArrayErrors[memberIndex] = memberErrors
