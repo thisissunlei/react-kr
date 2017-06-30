@@ -18,9 +18,9 @@ class Createdialog extends Component {
         super(props, context);
     }
 
-	componentDidMount() {
-		Store.dispatch(change('createdialog', 'enableFlag', '1'));
-	}
+	// componentDidMount() {
+	// 	Store.dispatch(change('createdialog', 'enableFlag', '1'));
+	// }
 	
     onCancel = () => {
         const {onCancel} = this.props;
@@ -59,7 +59,7 @@ class Createdialog extends Component {
     						 component="input"
 							 inline={true}
     	 		/>
-				<KrField style={{width:360,marginLeft:40,marginRight:40,marginBottom:2}}  name="enableFlag" component="group" label="是否启用" inline={true} requireLabel={true}>
+				{/*<KrField style={{width:360,marginLeft:40,marginRight:40,marginBottom:2}}  name="enableFlag" component="group" label="是否启用" inline={true} requireLabel={true}>
 	                	<KrField
 	                			name="enableFlag"
 	                			label="是"
@@ -72,7 +72,7 @@ class Createdialog extends Component {
 	               		 		type="radio"
 	               		 		value="0"
 	               		 />
-				</KrField>
+				</KrField>*/}
 				<KrField
                   grid={1}
                   left={42}
