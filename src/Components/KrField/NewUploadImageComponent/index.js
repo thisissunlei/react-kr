@@ -94,7 +94,9 @@ export default class UploadImageComponent extends Component {
 				imgUpload:true,
 				imgSrc:defaultValue
 		  });
+		   input.onChange(defaultValue);
 		}
+		
 		
 	}
 
