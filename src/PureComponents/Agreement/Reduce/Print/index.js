@@ -37,7 +37,7 @@ export default class JoinPrint extends React.Component {
 		}, 1000)
 	}
 	renderImg=()=>{
-		var printList = document.getElementsByClassName('print-section')[0];
+		var printList = document.getElementsByClassName('g-exit-print')[0];
 		if(!printList){
 			return;
 		}
