@@ -93,7 +93,7 @@ export default class JoinPrint extends React.Component {
 		console.log('height',printHeight)
 		if(printHeight>1200 && !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1200)*294-4 + 'mm';
+			printList.style.height = Math.ceil(printHeight/1200)*1120 + 'px';
 		}
 		this.pages = Math.ceil(printHeight/1200) + 1;
 		let str=[] ;
