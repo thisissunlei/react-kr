@@ -34,7 +34,7 @@ export default class AdmitPrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 			window.print();
-			window.close();
+			// window.close();
 		}, 1200)
 	}
 	renderImg=()=>{
