@@ -98,7 +98,7 @@ class EditDetailForm extends React.Component {
 	}
 
 	componentDidMount() {
-	
+
 	}
 	cmtIdData = () =>{
 		let {chipData} = this.state;
@@ -114,16 +114,16 @@ class EditDetailForm extends React.Component {
 		let data = Object.assign({}, values);
 		data.cmtId =this.cmtIdData();
 		data.id = detail.id;
-		
+
 		var _this = this;
 		console.log(values,"?????")
 		Http.request('editFnaCorporation',{},data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
-		
-		
+
+
 		}).catch(function(err) {
-			
+
 		});
 
 
@@ -182,7 +182,7 @@ class EditDetailForm extends React.Component {
 				readyData:response
 			})
 		}).catch(function(err) {
-			
+
 		});
 
 
@@ -266,7 +266,7 @@ class EditDetailForm extends React.Component {
 									isInit = {true}
 									defaultValue={detail.cachetUrl}
 									onDeleteImg ={this.deleteInfoPicDefaultValue}
-									
+
 								/>
 
 								<div className="middle-round"></div>
@@ -326,10 +326,10 @@ class EditDetailForm extends React.Component {
 					onClose={this.bindCommunityClose}
 					contentStyle={{width:687,height:450,overflow:'scroll'}}
        		>
-          		<BindCommunity 
+          		<BindCommunity
 				  	cmtId = {detail.id}
-				  	jsonData = {jsonData} 
-					onCancel = {this.bindCommunityClose} 
+				  	jsonData = {jsonData}
+					onCancel = {this.bindCommunityClose}
 					checkedSubmit = {this.checkedSubmit}
 					existing = {chipData}
 				/>
@@ -347,6 +347,8 @@ const validate = values => {
 
 	if (!values.corName) {
 		errors.corName = '请填写出租方名称';
+	}else if(values.corName.length >50){
+		errors.corName = '出租方名称最多填写50字';
 	}
 	if (!values.corAddress) {
 		errors.corAddress = '请填写详细地址';
@@ -364,18 +366,18 @@ const validate = values => {
         } else {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
-			
+
             let memberErrors = '';
 			if(porTypes){
 				porTypes = porTypes.toString().replace(/[ /d]/g, '');
 			}
 			if (!porTypes){
               memberErrors = '请填写银行账户'
-				
+
 			}
             if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
               memberErrors = '银行卡号必须为数字，且最长为30个数字'
-              
+
             }
 			membersArrayErrors[memberIndex] = memberErrors
           })

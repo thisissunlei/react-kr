@@ -158,7 +158,7 @@ export default class DataPermission extends React.Component{
 		let {codeList,outSelect} = this.state;
 		console.log(codeList);
 		return(
-			<div className="g-DataPermission">
+			<div className="g-code-user">
 				<Checkbox label="全选" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
           <div className="leftSec">
 						{this.state.codeList.map((item,index)=>{return this.renderData(item,index)})}

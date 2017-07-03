@@ -75,6 +75,7 @@ class Editdialog extends React.Component {
     	 					 label="名称"
     						 component="input"
 							 inline={true}
+							 maxLength={8}
     	 		/>
                <KrField
     						 left={42}
