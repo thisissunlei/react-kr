@@ -116,7 +116,6 @@ export default class Station extends Component {
 		let {stationVOs} = this.props;
 
 		this.method();
-		console.log('render',stationVOs,stationVOs.length)
 		
 
 		return (

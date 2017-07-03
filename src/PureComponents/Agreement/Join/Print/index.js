@@ -36,19 +36,10 @@ export default class JoinPrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 		 	window.print();
-		 	// window.close();
+		 	window.close();
 		 }, 1200)
 
 
-	}
-	componentWillReceiveProps(nextprops){
-		// console.log('will')
-		// if(!this.init){
-		// 	let doms = this.renderImg();
-		// 	this.init = true;
-		// 	State.cachet = doms;
-		// }
-		
 	}
 	renderContent=()=>{
 		if(State.baseInfo.hasOwnProperty('agreement')){
