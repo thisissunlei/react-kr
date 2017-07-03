@@ -49,7 +49,7 @@ export default class LessorManageList extends Component {
 	constructor(props, context) {
 		super(props, context);
 
-		
+
 		this.state = {
 			openNewCreate: false,
 			openView: false,
@@ -92,12 +92,12 @@ export default class LessorManageList extends Component {
 			this.openViewDialog();
 			this.getDetailData(itemDetail.id,"view")
 		} else if (type == 'edit') {
-			
+
 			this.openEditDetailDialog();
 			this.getDetailData(itemDetail.id,"edit")
 		}
 	}
-	
+
 
 	//编辑
 	openEditDetailDialog = () => {
@@ -105,7 +105,7 @@ export default class LessorManageList extends Component {
 			openEditDetail: !this.state.openEditDetail,
 			itemDetail:{}
 		});
-		
+
 	}
 
 	NewAndEditSubmit = () => {
@@ -115,7 +115,7 @@ export default class LessorManageList extends Component {
 		this.setState({
 			params
 		})
-		
+
 	}
 
 	onClose = () =>{
@@ -171,8 +171,8 @@ export default class LessorManageList extends Component {
 
 
 	componentWillUnmount(){
-		
-		
+
+
 	}
 
 	onNewCreateCancel = () => {
@@ -187,8 +187,16 @@ export default class LessorManageList extends Component {
 			params : newParams
 		})
 	}
+	pageChange = (page) =>{
+		var searchParams = Object.assign({}, this.state.params);
+		searchParams.page = page;
+		this.setState({
+			params : searchParams
+		})
+	}
+
 	render() {
-		const {bindCmtData,editReadyData} = this.state; 
+		const {bindCmtData,editReadyData} = this.state;
 
 		return (
 
@@ -199,9 +207,9 @@ export default class LessorManageList extends Component {
 
 					<Grid style={{marginBottom:20}}>
 						<Row>
-							<Col md={4}  align="left"> 
+							<Col md={4}  align="left">
 
-								<Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} operateCode="lessor_management_edit"/> 
+								<Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} operateCode="lessor_management_edit"/>
 
 							</Col>
 							<Col md={8} align="right">
@@ -209,22 +217,23 @@ export default class LessorManageList extends Component {
 							</Col>
 						</Row>
 					</Grid>
-				<Table  ajaxFieldListName="items" 
-						style={{marginTop:10}} 
-						displayCheckbox={true} 
-						ajax={true}  
-						ajaxUrlName='fnaCorporationList' 
-						ajaxParams={this.state.params} 
-						onOperation={this.onOperation}  
-						exportSwitch={true} 
+				<Table  ajaxFieldListName="items"
+						style={{marginTop:10}}
+						displayCheckbox={true}
+						ajax={true}
+						ajaxUrlName='fnaCorporationList'
+						ajaxParams={this.state.params}
+						onOperation={this.onOperation}
+						exportSwitch={true}
 						onExport={this.onExport}
+						onPageChange = {this.pageChange}
 				>
 						<TableHeader>
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
 							<TableHeaderColumn>绑定社区</TableHeaderColumn>
-							
-						
+
+
 
 							<TableHeaderColumn>地址</TableHeaderColumn>
 							<TableHeaderColumn>创建人</TableHeaderColumn>
@@ -244,12 +253,12 @@ export default class LessorManageList extends Component {
 									}else{
 										TooltipStyle="inline-block";
 									}
-										return (<div 
-													style={{display:TooltipStyle,paddingTop:5}} 
+										return (<div
+													style={{display:TooltipStyle,paddingTop:5}}
 													className='financeDetail-hover'
 												>
-													<span 
-														className='tableOver' 
+													<span
+														className='tableOver'
 														style={{
 																maxWidth:130,
 																display:"inline-block",
@@ -273,12 +282,12 @@ export default class LessorManageList extends Component {
 									}else{
 										TooltipStyle="inline-block";
 									}
-										return (<div 
-													style={{display:TooltipStyle,paddingTop:5}} 
+										return (<div
+													style={{display:TooltipStyle,paddingTop:5}}
 													className='financeDetail-hover'
 												>
-													<span 
-														className='tableOver' 
+													<span
+														className='tableOver'
 														style={{
 																maxWidth:130,
 																display:"inline-block",
@@ -291,8 +300,8 @@ export default class LessorManageList extends Component {
 												</div>)
 								}
 							}></TableRowColumn>
-							
-							
+
+
 							<TableRowColumn name="corAddress" component={
 								(value,oldValue)=>{
 									var TooltipStyle=""
@@ -302,12 +311,12 @@ export default class LessorManageList extends Component {
 									}else{
 										TooltipStyle="inline-block";
 									}
-										return (<div 
-													style={{display:TooltipStyle,paddingTop:5}} 
+										return (<div
+													style={{display:TooltipStyle,paddingTop:5}}
 													className='financeDetail-hover'
 												>
-													<span 
-														className='tableOver' 
+													<span
+														className='tableOver'
 														style={{
 																maxWidth:130,
 																display:"inline-block",
@@ -330,12 +339,12 @@ export default class LessorManageList extends Component {
 									}else{
 										TooltipStyle="inline-block";
 									}
-										return (<div 
-													style={{display:TooltipStyle,paddingTop:5}} 
+										return (<div
+													style={{display:TooltipStyle,paddingTop:5}}
 													className='financeDetail-hover'
 												>
-													<span 
-														className='tableOver' 
+													<span
+														className='tableOver'
 														style={{
 																maxWidth:130,
 																display:"inline-block",
