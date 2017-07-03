@@ -36,52 +36,51 @@ export default class JoinPrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 		 	window.print();
-		 	window.close();
+		 	// window.close();
 		 }, 1200)
 
 
 	}
-	renderContent=()=>{
-		if(State.baseInfo.hasOwnProperty('agreement')){
-			var str = State.baseInfo.agreement;
-			if(str.length>45){
-				return (
-					<div className="print-text">
-						<span>双方其他约定内容：</span>
-						<span className="content">{str}</span>
-					</div>
-				)
-			}else{
-				if(!!!State.baseInfo.agreement){
-					str = '无';
-				}
-				return (
-					<div className="print-text text-none">
-						<span>双方其他约定内容：</span>
-						<span style={{paddingLeft:20}}>{str}</span>
-						<span className="border-b one-text"></span>
-						<span className="border-b two-text"></span>
-					</div>
-				)
-			}
-		}else{
-			return(
-				<div className="print-text text-none">
-					<span>双方其他约定内容：</span>
-					<span style={{paddingLeft:20}}>无</span>
-					<span className="border-b one-text"></span>
-					<span className="border-b two-text"></span>
-				</div>
-			)
-		}
-	}
+	// renderContent=()=>{
+	// 	if(State.baseInfo.hasOwnProperty('agreement')){
+	// 		var str = State.baseInfo.agreement;
+	// 		if(str.length>45){
+	// 			return (
+	// 				<div className="print-text">
+	// 					<span>双方其他约定内容：</span>
+	// 					<span className="content">{str}</span>
+	// 				</div>
+	// 			)
+	// 		}else{
+	// 			if(!!!State.baseInfo.agreement){
+	// 				str = '无';
+	// 			}
+	// 			return (
+	// 				<div className="print-text text-none">
+	// 					<span>双方其他约定内容：</span>
+	// 					<span style={{paddingLeft:20}}>{str}</span>
+	// 					<span className="border-b one-text"></span>
+	// 					<span className="border-b two-text"></span>
+	// 				</div>
+	// 			)
+	// 		}
+	// 	}else{
+	// 		return(
+	// 			<div className="print-text text-none">
+	// 				<span>双方其他约定内容：</span>
+	// 				<span style={{paddingLeft:20}}>无</span>
+	// 				<span className="border-b one-text"></span>
+	// 				<span className="border-b two-text"></span>
+	// 			</div>
+	// 		)
+	// 	}
+	// }
 	renderImg=()=>{
 		var printList = document.getElementsByClassName('print-section')[0];
 		if(!printList){
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		console.log('height',printHeight)
 		if(printHeight>1200 && !this.init){
 			this.init = true;
 			printList.style.height = Math.ceil(printHeight/1200)*1120 + 'px';
@@ -117,7 +116,6 @@ export default class JoinPrint extends React.Component {
 	}
 	render() {
 		let doms = this.renderImg();
-		
 		return (
 		<div style={{background:'#fff'}}>
 			{State.baseInfo.withCachet && doms.map((item,index)=>{
@@ -144,12 +142,27 @@ export default class JoinPrint extends React.Component {
 					installmentPlans={State.installmentPlans}
 
 				/>
-				{this.renderContent()}
+				{
+					(State.baseInfo.agreement && State.baseInfo.agreement.length>45)?(
+							<div className="print-text">
+								<span>双方其他约定内容：</span>
+								<span className="content">{State.baseInfo.agreement}</span>
+							</div>
+						):(
+							<div className="print-text text-none">
+								<span>双方其他约定内容：</span>
+								<span style={{paddingLeft:20}}>{State.baseInfo.agreement}</span>
+								<span className="border-b one-text"></span>
+								<span className="border-b two-text"></span>
+							</div>
+						)
+				}
 				<Print.Footer/>
 
       		</div>
       		
       		<CommonItem baseInfo={State.baseInfo}/>
+      		<Button onClick={this.print}>打印</Button>
       	</div>
 
 		);

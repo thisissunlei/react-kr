@@ -40,7 +40,6 @@ export default class Station extends Component {
 		})
 	}
 	componentWillReceiveProps(nextProp){
-		console.log(nextProp.stationVOs.length)
 		let {stationVOs} = nextProp;
 		if(!this.init){
 			this.init = true;
@@ -121,7 +120,7 @@ export default class Station extends Component {
 		return (
 
 
-			<div className="ui-print-Station">
+			<div className="ui-print-Station" >
 
 				<div className="normal-station-head">
 					<span className="enter-info">

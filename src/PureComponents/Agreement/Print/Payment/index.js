@@ -8,6 +8,7 @@ export default class Payment extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.init = false;
 
 	}
 	getLocalTime = (time) => {
@@ -18,12 +19,47 @@ export default class Payment extends Component {
 		return (yy + "/" + mm + "/" + dd )
 	}
 	componentWillReceiveProps(nextProp){
-		let top = document.getElementsByClassName('table-one-content')[0];
-		console.log('will',top)
+		
+	}
+	checkPosition=()=>{
+ 		let {installmentPlans} = this.props;
+ 		let obj = {
+ 			installmentName:'',
+ 			leaseDate:'',
+ 			installmentReminddate:'',
+ 			installmentAmount:''
+ 		}
+
+		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
+		if(!tableTop){
+			return;
+		}
+		let top = tableTop.offsetTop;
+		console.log('will',top,tableTop.clientHeight);
+		let height = top+tableTop.clientHeight + 66;
+		if(height>1110 && height<1250){
+			tableTop.style.marginBottom = (1250-height)+'px';
+		}
+		if(top<1060 && top>720){
+			let domHeight = 1120-top-28-27;
+			let num = parseInt(domHeight/22.5);
+			console.log('num',num)
+			if(!this.init){
+				this.init = true;
+				if(installmentPlans.length>15){
+					installmentPlans.splice(num+14,0,obj);
+				}
+				installmentPlans.splice(num,0,obj);
+			}
+			
+		}else if(top<1180 && top>1060){
+			let marginTop = 1180-top;
+			tableTop.style.marginTop = marginTop+'px';
+		}
 	}
 
-
 	Onetable = (installmentPlans) => {
+		this.checkPosition();
 
 		return (
 			<div className="table-one-content">
@@ -44,7 +80,7 @@ export default class Payment extends Component {
 										<tr key={index}>
 											<td>{item.installmentName}</td>
 											<td>{item.leaseDate}</td>
-											<td>{this.getLocalTime(item.installmentReminddate)}</td>
+											<td>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</td>
 											<td>{item.installmentAmount}</td>
 										</tr>
 										)
@@ -60,11 +96,13 @@ export default class Payment extends Component {
 	}
 
 	Twotable = (installmentPlans) => {
+		this.checkPosition();
 		var plansOne, plansTwo;
 		if (installmentPlans.length > 15) {
 			plansOne = installmentPlans.slice(0, 15);
 			plansTwo = installmentPlans.slice(15, installmentPlans.length);
 		}
+		console.log('==>',plansOne,plansTwo)
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
@@ -82,7 +120,7 @@ export default class Payment extends Component {
 												<div className="td clear" key={index}>
 													<div>{item.installmentName}</div>
 													<div>{item.leaseDate}</div>
-													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</div>
 													<div>{item.installmentAmount}</div>
 												</div>
 											)
@@ -103,7 +141,7 @@ export default class Payment extends Component {
 												<div className="td clear" key={index}>
 													<div>{item.installmentName}</div>
 													<div>{item.leaseDate}</div>
-													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</div>
 													<div>{item.installmentAmount}</div>
 												</div>
 											)

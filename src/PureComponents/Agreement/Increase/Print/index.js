@@ -33,7 +33,7 @@ export default class IncreasePrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 			window.print();
-			window.close();
+			// window.close();
 		}, 1300)
 
 	}
