@@ -8,6 +8,7 @@ import {
 
 import {
 	Title,
+	Button
 } from 'kr-ui';
 import {
 	Actions,
@@ -29,18 +30,11 @@ export default class JoinPrint extends React.Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+		this.init = false;
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
-		// var printList = document.getElementsByClassName('print-section')[0];
-		// var printHeight = printList.offsetHeight;
-		// if(printHeight>1120 && printHeight-1120<=5){
-		// 	printList.style.height = 1120+'px';
-		// }else if(printHeight>1125){
-		// 	printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
-		// }
-		// this.pages = Math.ceil(printHeight/1120) + 1;
 		 	window.print();
 		 	window.close();
 		 }, 1200)
@@ -87,12 +81,12 @@ export default class JoinPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1120 && printHeight-1120<=5){
-			printList.style.height = 1120+'px';
-		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
+		console.log('height',printHeight)
+		if(printHeight>1200 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1200)*1120 + 'px';
 		}
-		this.pages = Math.ceil(printHeight/1120) + 1;
+		this.pages = Math.ceil(printHeight/1200) + 1;
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -107,7 +101,7 @@ export default class JoinPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1120),
+				top:350+(i*1200),
 				right:0,
 				width:width,
 				height:160,
@@ -118,16 +112,19 @@ export default class JoinPrint extends React.Component {
 		}
 		return str;
 	}
-
+	print=()=>{
+		window.print()
+	}
 	render() {
 		let doms = this.renderImg();
+		
 		return (
 		<div style={{background:'#fff'}}>
-			{State.baseInfo.withCachet &&  doms.map((item,index)=>{
+			{State.baseInfo.withCachet && doms.map((item,index)=>{
 				return item
 			})}
 
-			<div className="print-section no-print-section" style={{minHeight:1120}}>
+			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
 				<Print.Header
 					baseInfo={State.baseInfo}
@@ -151,6 +148,7 @@ export default class JoinPrint extends React.Component {
 				<Print.Footer/>
 
       		</div>
+      		
       		<CommonItem baseInfo={State.baseInfo}/>
       	</div>
 

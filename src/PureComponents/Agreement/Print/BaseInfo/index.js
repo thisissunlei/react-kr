@@ -23,7 +23,7 @@
  		let {
  			baseInfo
  		} = this.props;
- 		console.log('baseInfo',baseInfo)
+ 		console.log('baseInfo===>',baseInfo)
  		return (
 
  			<div className="ui-print-baseinfo">

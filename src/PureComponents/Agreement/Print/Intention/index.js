@@ -12,6 +12,22 @@ export default class Intention extends Component {
 	static propTypes = {
 		stationVOs: React.PropTypes.object,
 	}
+	componentDidMount() {
+		let top = document.getElementsByClassName('ui-print-Intention')[0].offsetTop;
+		console.log('did',top)
+
+	}
+	componentWillReceiveProps(nextProp){
+		let Obj = document.getElementsByClassName('ui-print-Intention')[0];
+		let top = Obj.offsetTop;
+
+		console.log('will',top)
+		if(top>1089 && top<1157){
+			let margin = 1157-top;
+
+			Obj.style.marginTop = margin + 'px'; 
+		}
+	}
 	render() {
 		let {
 			stationVOs,
