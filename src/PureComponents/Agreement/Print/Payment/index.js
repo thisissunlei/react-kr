@@ -18,7 +18,7 @@ export default class Payment extends Component {
 		return (yy + "/" + mm + "/" + dd )
 	}
 	componentWillReceiveProps(nextProp){
-		let top = document.getElementsByClassName('table-one-content')[0].offsetTop;
+		let top = document.getElementsByClassName('table-one-content')[0];
 		console.log('will',top)
 	}
 
