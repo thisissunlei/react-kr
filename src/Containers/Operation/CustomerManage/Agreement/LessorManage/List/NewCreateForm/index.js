@@ -31,7 +31,7 @@ import './index.less'
 import BindCommunity from '../BindCommunity';
 
 const chipData1 = [
-      
+
       {id: 1, name: '北京创业大街社区'},
       {id: 2, name: '北京酒仙桥社区'}
     ]
@@ -110,7 +110,7 @@ class NewCreateForm extends React.Component {
 				readyData:response
 			})
 		}).catch(function(err) {
-			
+
 		});
 	}
 	cmtIdData = () =>{
@@ -128,12 +128,12 @@ class NewCreateForm extends React.Component {
 		const {onSubmit} = this.props;
 		var _this = this;
 		console.log(data,"MMMMMM");
-		
+
 		Http.request('addFnaCorporation', {}, data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
-			
-		
+
+
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -189,7 +189,7 @@ class NewCreateForm extends React.Component {
 		this.chipData.splice(chipToDelete, 1);
 		this.setState({chipData: this.chipData});
 	};
-	
+
 	render() {
 
 		const {
@@ -297,9 +297,9 @@ class NewCreateForm extends React.Component {
 					onClose={this.bindCommunityClose}
 					contentStyle={{width:687,height:450,overflow:'scroll'}}
        		>
-          		<BindCommunity 
-				  	jsonData = {jsonData} 
-					onCancel = {this.bindCommunityClose} 
+          		<BindCommunity
+				  	jsonData = {jsonData}
+					onCancel = {this.bindCommunityClose}
 					checkedSubmit = {this.checkedSubmit}
 					existing = {chipData}
 				/>
@@ -316,20 +316,22 @@ const validate = values => {
 	const errors = {}
 	if (!values.corName) {
 		errors.corName = '请填写出租方名称';
+	}else if(values.corName.length >50){
+		errors.corName = '出租方名称最多填写50字';
 	}
 	if (!values.corAddress) {
 		errors.corAddress = '请填写详细地址';
 	}else if(values.corAddress.length>200){
 		errors.corAddress = '最多可填写200字';
 	}
-	
+
 	if(!values.enableflag){
 		errors.enableflag = '是否选择为必填'
 	}
 	if(!values.cachetUrl){
 		errors.cachetUrl = '请上传公章'
 	}
-	
+
 
 	 if (!values.bankAccount || !values.bankAccount.length) {
           errors.bankAccount = { _error: 'At least one member must be entered' }
@@ -339,16 +341,16 @@ const validate = values => {
 			if(porTypes){
 				porTypes = porTypes.toString().replace(/[ /d]/g, '');
 			}
-			
-		
+
+
             let memberErrors = '';
 			if (!porTypes){
               memberErrors = '请填写银行账户'
-				
+
 			}
             if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
               memberErrors = '银行卡号必须为数字，切最长为30个数字'
-              
+
             }
 			membersArrayErrors[memberIndex] = memberErrors
           })

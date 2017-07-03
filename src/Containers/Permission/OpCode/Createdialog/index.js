@@ -49,6 +49,7 @@ class Createdialog extends Component {
     	 					 label="名称"
     						 component="input"
 							 inline={true}
+							 maxLength={8}
     	 		/>
                 <KrField
     						 left={42}
@@ -117,6 +118,7 @@ const validate = values => {
 	if (!values.name) {
 		errors.name = '请输入名称';
 	}
+	
     if (!values.codeName) {
 		errors.codeName = '请选择编码';
 	}

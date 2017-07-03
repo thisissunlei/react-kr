@@ -37,12 +37,12 @@ export default class JoinPrint extends React.Component {
 		}, 1000)
 	}
 	renderImg=()=>{
-		var printList = document.getElementsByClassName('print-section')[0];
+		var printList = document.getElementsByClassName('g-exit-print')[0];
 		if(!printList){
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1205 && !this.init){
+		if(printHeight>1200 && !this.init){
 			this.init = true;
 			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
 		}
