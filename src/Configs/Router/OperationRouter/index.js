@@ -220,20 +220,6 @@ const Operation_CustomerManage_Agreement_Reduce_Print = (location, callback) => 
 		callback(null, require('kr/PureComponents/Agreement/Reduce/Print').default)
 	}, 'Operation_CustomerManage_Agreement_Reduce_Print')
 }
-
-
-// const Operation_CustomerManage_Agreement_Exit_Create= (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Create').default)
-// 	}, 'Operation_CustomerManage_Agreement_Exit_Create')
-// }
-
-// const Operation_CustomerManage_Agreement_Exit_Edit= (location, callback) => {
-// 	require.ensure([], require => {
-// 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Edit').default)
-// 	}, 'Operation_CustomerManage_Agreement_Exit_Edit')
-// }
-
 const Operation_CustomerManage_Agreement_Exit_Detail= (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Exit/Detail').default)
@@ -245,7 +231,11 @@ const Operation_CustomerManage_Agreement_LessorManage_List= (location, callback)
 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/LessorManage/List').default)
 	}, 'Operation_CustomerManage_Agreement_LessorManage_List')
 }
-
+const Operation_CustomerManage_CustomerSource= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/CustomerSource').default)
+	}, 'Operation_CustomerManage_CustomerSource')
+}
 const Operation_CustomerManage_Agreement_Setting_List= (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/CustomerManage/Agreement/Setting/List').default)
@@ -364,11 +354,11 @@ module.exports =()=>{
     {/*基础配置*/}
     
 
-		<Route path="basicConfig" getComponent={Basic}>
-      <Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
-      {/*商圈列表*/}
-      <Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
-		</Route>
+	  <Route path="basicConfig" getComponent={Basic}>
+		<Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
+		{/*商圈列表*/}
+		<Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
+	  </Route>
 
 		{/*凭证管理*/}
 		<Route path="voucherManage" getComponent={Basic} >
@@ -383,6 +373,8 @@ module.exports =()=>{
 			{/*客户公海*/}
 			<Route path="customerHighSea" getComponent={Operation_CustomerManage_CustomerHighSea}/>
 			<Route path="list" getComponent={Operation_CustomerManage_List} />
+			{/*客户来源配置*/}
+			<Route path="customerSource" getComponent={Operation_CustomerManage_CustomerSource} />
 
 		<Route path=":customerId/" getComponent={Basic} >
 

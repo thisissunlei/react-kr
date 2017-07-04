@@ -19,22 +19,29 @@ import {
 	Grid,
 	Row,
 	Col,
-	Dialog,
+	Drawer,
 	SearchForms,
 	ListGroup,
 	ListGroupItem,
 	Tooltip,
 	Message,
 	Title,
-
 } from 'kr-ui';
 
 import './index.less';
+import EditCustomerSource from './EditCustomerSource'
 export default class CustomerSource  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
+		this.state = {
+			isEdit : false,
+			isNew : false,
+			searchParams:{
+				page:1,
+				pageSize:15,
+			}
+		}
 		
 	}
 
@@ -59,13 +66,37 @@ export default class CustomerSource  extends Component{
 	}
 
 	//操作相关
-	onOperation(type,itemDetail) {
+	onOperation = (type,itemDetail) => {
+		console.log("KKKKKK",type)
+		// this.editSwitch();
+		if(type == "edit"){
+			this.editSwitch();
+		}
+		if(type == "delete"){
+
+		}
            
     }
+	//打开新建按钮
+	openNew = () =>{
+		this.newSwidth();
+	}
 
-	//编辑
-	openEditDetailDialog=()=> {
+	//编辑开关
+	editSwitch = () => {
+	
+		let {isEdit} = this.state;
+		this.setState({
+			isEdit : !isEdit,
+		})
 		
+	}
+	//新建
+	newSwitch = () => {
+		let {isNew} = this.state;
+		this.setState({
+			isNew : !isNew,
+		})
 	}
 	//搜索功能
 	onSearchSubmit(searchParams) {
@@ -86,11 +117,13 @@ export default class CustomerSource  extends Component{
 
 
 	render(){
+		const {isEdit} = this.state;
+
 		return(
-			<div className="switchhover">
+			<div className="customer-source">
 			    <Title value="客户来源配置"/>
 
-					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
+					<Section title="客户来源配置" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
 									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
@@ -149,6 +182,14 @@ export default class CustomerSource  extends Component{
 
                         </Table>
 				</Section>
+				<Drawer
+					open={isEdit}
+					width={750}
+					openSecondary={true}
+					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				>
+					<EditCustomerSource/>
+				</Drawer>
 			</div>
 		);
 	}
