@@ -63,7 +63,7 @@ export default class AdmitPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1200),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,
