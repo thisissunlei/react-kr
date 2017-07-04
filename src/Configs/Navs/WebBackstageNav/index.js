@@ -6,7 +6,7 @@ module.exports = [
 		originUrl: './#/WebBackstage/activity/list',
 		menuItems: [
 			{
-				primaryText: "活动管理",
+				primaryText: "官网管理",
 				iconName: 'icon-com',
 				iconColor: '#79859a',
 				router :'activity',
