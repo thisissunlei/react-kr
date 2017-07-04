@@ -49,7 +49,7 @@ class Createdialog extends Component {
     	 					 label="名称"
     						 component="input"
 							 inline={true}
-							 maxLength={8}
+							 maxLength={15}
     	 		/>
                 <KrField
     						 left={42}
@@ -59,6 +59,7 @@ class Createdialog extends Component {
     	 					 label="编码"
     						 component="input"
 							 inline={true}
+							 maxLength={50}
     	 		/>
 				{/*<KrField style={{width:360,marginLeft:40,marginRight:40,marginBottom:2}}  name="enableFlag" component="group" label="是否启用" inline={true} requireLabel={true}>
 	                	<KrField
