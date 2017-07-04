@@ -69,185 +69,15 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
  )
 }
 
-//社区亮点-亮点
-const renderBrights = ({ fields, meta: { touched, error }}) => {
-     var krStyle={};
-      krStyle={
-      	width:228,
-      	marginLeft:18,
-      	marginRight:3,
-     }
-  return (
-      <ul style={{padding:0,margin:0}}>
-      {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600,listStyle:'none'}}>
-        <KrField
-          style={krStyle}
-          grid={1/2}
-          name={`${brightsStr}.brightPoints`}
-          type="text"
-          component={renderField}
-          label={index?'':'社区亮点'}
-          placeholder='社区亮点'
-          />
-        <span onClick={() => fields.insert(index+1,{type:'BRIGHTPOINTS'})} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
-        <span
-          className='minusBtn'
-          onClick={() => fields.remove(index)}/>
-      </li>
-    )}
-  </ul>
-
- )
-}
-
-//社区亮点-基础服务
-const renderBasic = ({ fields, meta: { touched, error }}) => {
-  var krStyle={};
-       krStyle={
-        width:517,
-        marginLeft:15
-      }
-  return (
-      <ul style={{padding:0,margin:0}}>
-      {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600,listStyle:'none'}}>
-        <KrField
-          style={krStyle}
-          grid={1}
-          name={`${brightsStr}.brightPoints`}
-          heightStyle={{height:"78px",width:'508px'}}
-          component="textarea"
-          maxSize={100}
-          label={index?'':'基础服务'}
-          placeholder='请输入基础服务'
-          />
-        <span onClick={() => fields.insert(index+1,{type:'BASICSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
-        <span
-          className='minusBtn'
-          onClick={() => fields.remove(index)}/>
-      </li>
-    )}
-  </ul>
-
- )
-}
-
-//社区亮点-特色服务
-const renderSpecial = ({ fields, meta: { touched, error }}) => {
-  var krStyle={};
-       krStyle={
-        width:517,
-        marginLeft:15
-      }
-  return (
-      <ul style={{padding:0,margin:0}}>
-      {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600,listStyle:'none'}}>
-        <KrField
-          style={krStyle}
-          grid={1}
-          name={`${brightsStr}.brightPoints`}
-          heightStyle={{height:"78px",width:'508px'}}
-          component="textarea"
-          maxSize={100}
-          label={index?'':'特色服务'}
-          placeholder='请输入特色服务'
-          />
-         <span onClick={() => fields.insert(index+1,{type:'SPECIALSERVICE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
-        <span
-          className='minusBtn'
-          onClick={() => fields.remove(index)}/>
-      </li>
-    )}
-  </ul>
-
- )
-}
-
-//社区亮点-基础设施
-const renderService = ({ fields, meta: { touched, error }}) => {
-  var krStyle={};
-       krStyle={
-        width:517,
-        marginLeft:15
-      }
-  return (
-      <ul style={{padding:0,margin:0}}>
-      {fields.map((brightsStr, index) =>
-      <li key={index} style={{width:600,listStyle:'none'}}>
-        <KrField
-          style={krStyle}
-           grid={1}
-           name={`${brightsStr}.brightPoints`}
-           heightStyle={{height:"78px",width:'508px'}}
-           component="textarea"
-           maxSize={100}
-           label={index?'':'基础设施'}
-           placeholder='请输入基础设施'
-          />
-        <span onClick={() => fields.insert(index+1,{type:'INFRASTRUCTURE'})} className='addBtn' style={index?{marginTop:40}:{marginTop:53}}></span>
-        <span
-          className='minusBtn'
-          onClick={() => fields.remove(index)}/>
-      </li>
-    )}
-  </ul>
-
- )
-}
-
-//工位价格
-const renderStation = ({ fields, meta: { touched, error }}) => {
-  return (
-      <ul style={{padding:0,margin:0}}>
-      {fields.map((porTypesStr, index) =>
-       <li key={index} style={{width:600,listStyle:'none'}}><KrField
-          style={{width:262,marginLeft:15}}
-          grid={1/2}
-          name={`${porTypesStr}.type`}
-          options={[{label:'移动办公桌',value:'MOBILE_DESK'},{label:'开放工作区',value:'OPEN_WORKSPACE'},{label:'独立工作区',value:'INDEPENDENT_WORKSPACE'}]}
-          component='select'
-          label="工位类型"/>
-        <div className="krFlied-box"><KrField
-          style={{width:153,marginLeft:30,marginRight:3}}
-          grid={1/2}
-          name={`${porTypesStr}.price`}
-          type="text"
-          component={renderField}
-          label="工位价格"/>
-          <span className="unit">元/工位/月</span>
-        </div>
-        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>
-        <span
-          className='minusBtn'
-          onClick={() => fields.remove(index)}/>
-      </li>
-    )}
-  </ul>
-
- )
-}
-
-
-
-
 
 @observer
  class EditCommunityList extends React.Component{
 
-	static PropTypes = {
-
-	}
-
 	constructor(props){
 		super(props);
 		this.state={
-			      openDown:true,
-            openUp:false,
-            codeName:'',
-						picUrl:'',
-						picId:''
+        codeName:'',
+				communityName:''
 		}
 	}
 
@@ -263,55 +93,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 			return ;
 		}
 
-     var flagDesk=0;
-     var flagOpen=0;
-     var flagSpace=0;
-     var twoNum=0;
-     var oneNum=0;
-     var porTypes=values.porTypes;
-     var opend=values.opened;
-     porTypes.map((item,index)=>{
-       if(item.type=='MOBILE_DESK'){
-         flagDesk++;
-       }
-       if(item.type=='OPEN_WORKSPACE'){
-         flagOpen++;
-       }
-       if(item.type=='INDEPENDENT_WORKSPACE'){
-         flagSpace++;
-       }
-     })
-     if(flagDesk>=2||flagOpen>=2||flagSpace>=2){
-       Message.error('工位类型不能重复');
-       return ;
-     }
-
-
-     if(opend=='1'){
-      if(porTypes.length<2){
-        Message.error('至少选择两种工位类型');
-        return ;
-      }
-      if(porTypes.length>=2){
-        porTypes.map((item)=>{
-          if(item.type&&item.price){
-            twoNum++;
-          }
-          if((item.type&&!item.price)||(!item.type&&item.price)){
-            oneNum++;
-          }
-        })
-        if(twoNum<2){
-          Message.error('至少填写两项完整的工位类型和价格');
-          return ;
-        }
-        if(oneNum>0){
-          Message.error('不能单写一项类型或价格');
-          return ;
-        }
-       }
-     }
-
+  
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -323,7 +105,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   //社区名称
    communityNameChange=(value)=>{
-     let {communityId}=this.state;
+     let {communityId}=this.props;
      if(!value.toString().trim()){
        this.setState({
        communityName:'无'
@@ -340,28 +122,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
    //社区编码
    communityCodeChange=(value)=>{
-    let {communityId}=this.state;
+    let {communityId}=this.props;
     this.setState({
       codeName:value
     })
-
      State.communityCode(value.toString().trim(),communityId);
    }
 
-    //社区排序
-    communityRankChange=(value)=>{
-     let {cityId,communityId}=this.state;
-     if(value){
-        State.communityRank(value,cityId,communityId);
-     }
 
-   }
-
-	//所属区县
+  	//所属区县
     cityValue=(communityId,cityId,city)=>{
-     this.setState({
-        cityId:cityId
-      })
       Store.dispatch(change('editCommunityList','countyId',communityId));
     }
 
@@ -375,37 +145,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('editCommunityList','longitude',yLocation));
     }
 
-		componentDidMount(){
-			let {picSrc,picId}=this.props;
-			this.setState({
-				picUrl:picSrc,
-				picId:picId
-			})
-		}
-
-
-
-
-			//展开
-			flagOpen=()=>{
-				this.setState({
-					openDown:false,
-					openUp:true,
-				})
-			}
-
-			flagDown=()=>{
-				this.setState({
-					openDown:true,
-					openUp:false,
-				})
-			}
 
 
 			render(){
 
 
-				let {codeName,openDown,openUp,picUrl,communityName,picId}=this.state;
+				let {codeName,communityName}=this.state;
 				var nameStyle={}
 				if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
 					nameStyle={
@@ -418,22 +163,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 				}
 
 
-          let openStyle={};
-          if(openDown){
-           openStyle={
-            paddingBottom:0
-           }
-          }else{
-           openStyle={};
-          }
+				const {handleSubmit,cityData,timeStart,timeEnd} = this.props;
 
-
-				const {handleSubmit,dataReady,open,cityData,photoF,photoL,photoD,timeStart,timeEnd} = this.props;
-
-        let defaultValue={
-					picId:picId,
-          picUrl:picUrl
-				}
 
 
 
@@ -513,99 +244,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                 </div>
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:9}} component="input" requireLabel={true}/>
-
-								<FieldArray name="bright_bright" component={renderBrights}/>
-
-                <div className="middle-round"></div>
-
-							</div>
-
-
-              <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
-              <div className="small-cheek" style={openStyle}>
-
-
-                <KrField grid={1/2} label="工位个数" name="mobileStationNum" style={{width:262,marginLeft:18}} component="input"/>
-
-                <KrField grid={1/2} label="单价(积分/天)" name="mobileStationPrice" style={{width:262,marginLeft:28}} component="input"/>
-
-								<KrField
-                     label=""
-                     name="picId"
-                     component="newuploadImage"
-                     innerstyle={{width:364,height:254,padding:16}}
- 										 sizePhoto
-                     photoSize={'3:2'}
-                     pictureFormat={'JPG,PNG,GIF'}
-                     pictureMemory={'300'}
-                     requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
-                     inline={false}
-                     formfile=' '
-										 defaultValue={defaultValue}
-                     center='center'
-                   />
-
-              {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-                <div className="end-round two-round"></div></div>}
-               {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
-
-           </div>
-
-
-							<div style={{display:openUp?'block':'none'}}>
-								<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
-								<div className="small-cheek" style={{paddingBottom:0}}>
-									<KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
-									<KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
-										<KrField name="portalShow" label="显示" type="radio" value='1' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-										<KrField name="portalShow" label="不显示" type="radio" value='0' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-									</KrField>
-									{State.isCorpRank && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该序号已存在</div>}
-
-                  <FieldArray name="porTypes" component={renderStation} />
-
-                	<div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="description" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
-
-										<FieldArray name="bright_basic" component={renderService}/>
-										<FieldArray name="bright_service" component={renderBasic} />
-										<FieldArray name="bright_special" component={renderSpecial}/>
-										<KrField grid={1} label="交通" name="brightPorts.brightPoints"  heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-										<KrField grid={1} label="周边" name="brightRound.brightPoints" heightStyle={{height:"78px",width:'530px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-										<div style={{marginTop:'-16px'}}>
-											<span className='upload-pic-first'>上传首页图片</span>
-											<KrField name="photosStr_first"
-												component="uploadImageList"
-												style={{marginTop:10,textAlign:'left'}}
-												defaultValue={photoF}
-                        imgFlag={true}
-												/>
-										</div>
-
-										<div style={{marginTop:'16px'}}>
-											<span className='upload-pic-first'>上传社区列表页图片</span>
-											<KrField name="photosStr_list"
-												component="uploadImageList"
-												style={{marginTop:10,textAlign:'left'}}
-												defaultValue={photoL}
-                        imgFlag={true}
-												/>
-										</div>
-
-
-										<div style={{marginTop:'16px'}}>
-											<span className='upload-pic-first'>上传详情页图片</span>
-											<KrField name="photosStr_detail"
-												component="uploadImageList"
-												style={{marginTop:10,textAlign:'left'}}
-												defaultValue={photoD}
-                        imgFlag={false}
-                        innerBoxStyle={{width:254,height:70}}
-                        innerStyle={{left:110,top:12}}
-												/>
-										</div>
-
-									</div>
-									<div className="end-round"></div>
+           
+									<div className="end-round" style={{left:'-42px'}}></div>
 								</div>
 
 
@@ -675,23 +315,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	       }
 
 
-	           //工位校验
-	        if (!values.porTypes || !values.porTypes.length) {
-	           errors.porTypes = { _error: 'At least one member must be entered' }
-	         } else {
-	           const membersArrayErrors = []
-	           values.porTypes.forEach((porTypes, memberIndex) => {
-	             const memberErrors = {}
-	             if (porTypes.price&&porTypes.price.toString().trim()&&!stationNP.test(porTypes.price.toString().trim())) {
-	               memberErrors.price = '价格不超过五位整数'
-	               membersArrayErrors[memberIndex] = memberErrors
-	             }
-	           })
-	         if(membersArrayErrors.length) {
-	           errors.porTypes = membersArrayErrors
-	         }
-	       }
-
+	
 
 	     if(values.floorHeight&&isNaN(values.floorHeight)){
 	        errors.floorHeight='请输入数字';
@@ -749,19 +373,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	         errors.address= '请输入详细地址';
 	       }
 
-	        //排序
-	     if(values.orderNum&&isNaN(values.orderNum)){
-	       errors.orderNum='请输入数字';
-	     }
-	     if(values.orderNum&&values.orderNum.length>3){
-	       errors.orderNum = '最多输入3个字符';
-	     }
-	     if(values.orderNum&&values.orderNum.toString().trim()&&!stationN.test(values.orderNum.toString().trim())){
-	       errors.orderNum = '请输入3位以内正整数,不能以0开头';
-	     }
 
 
-	 			//values.opened = String(values.opened);
 	       if (!values.opened) {
 	         errors.opened= '请输入社区状态';
 	       }
@@ -788,19 +401,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
 	       if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
 	         errors.contract='请输入联系方式'
-	       }
-	       if(values.mobileStationNum&&(!numberNotZero.test(values.mobileStationNum.toString().trim())&&values.mobileStationNum!=0)){
-	         errors.mobileStationNum='工位数为正整数或0'
-	       }
-	       if(values.mobileStationPrice&&(!numberNotZero.test(values.mobileStationPrice.toString().trim())&&values.mobileStationPrice!=0)){
-	         errors.mobileStationPrice='工位单价为正整数或0'
-	       }
-
-	 			if(values.mobileStationNum&&values.mobileStationNum.toString().trim().length>5){
-	         errors.mobileStationNum='工位数最多5位'
-	       }
-	       if(values.mobileStationPrice&&values.mobileStationPrice.toString().trim().length>5){
-	         errors.mobileStationPrice='工位单价最多5位'
 	       }
 
 	 			/*

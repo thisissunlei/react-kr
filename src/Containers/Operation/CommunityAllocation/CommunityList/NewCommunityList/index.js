@@ -194,7 +194,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
        }
 
 
-		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
+		const {handleSubmit} = this.props;
 
 		return (
            <div>
