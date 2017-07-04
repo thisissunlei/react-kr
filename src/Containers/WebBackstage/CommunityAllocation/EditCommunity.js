@@ -61,15 +61,30 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	constructor(props){
 		super(props);
         this.state={
-          defaultValue:''
+          defaultValue:'',
+          stationValue:{
+             picId:'',
+             picUrl:''
+          },
+          detailValue:{
+              src:''
+          }
         }
 	}
 
 
     componentDidMount(){
+      let {picId,picUrl,src}=this.props;
       Store.dispatch(change('EditCommunity','porType',[{}]));
       this.setState({
-          defaultValue:`http://krspace-upload-test-public.oss-cn-beijing.aliyuncs.com/community_public_upload/201707/M/174721120_885.png`
+          defaultValue:`http://krspace-upload-test-public.oss-cn-beijing.aliyuncs.com/community_public_upload/201707/M/174721120_885.png`,
+          stationValue:{
+             picId:picId,
+             picUrl:picUrl 
+          },
+          detailValue:{
+              src:src
+          }
       })
     }
 
@@ -117,10 +132,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     render(){
 
-        let {defaultValue}=this.state;
+        let {defaultValue,stationValue}=this.state;
  
         const {handleSubmit,communityName,opend,openDate} = this.props;
-
+      
         
     
         return (
@@ -161,7 +176,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                 inline={false}
                                 formfile=' '
-                                //defaultValue={defaultValue}
+                                defaultValue={stationValue}
                                 center='center'
                             />
 
@@ -231,7 +246,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <KrField name="detailImageId"
                                         component="uploadImageList"
                                         style={{marginTop:10,textAlign:'left'}}
-                                        //defaultValue={photoD}
+                                        defaultValue={detailValue}
                                         imgFlag={false}
                                         innerBoxStyle={{width:254,height:70}}
                                         innerStyle={{left:110,top:12}}
