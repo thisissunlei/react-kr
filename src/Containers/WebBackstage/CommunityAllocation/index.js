@@ -39,7 +39,9 @@ export default class CommunityAllocation  extends React.Component{
             //社区名称
             communityName:'',
             //开业
-            opend:''
+            opend:'',
+            //开业时间
+            openDate:''
         }
 	}
    
@@ -80,7 +82,8 @@ export default class CommunityAllocation  extends React.Component{
             Store.dispatch(initialize('EditCommunity',response));
             _this.setState({
              communityName:response.cmtName,
-             opend:response.open            
+             opend:response.open,
+             openDate:response.openDate            
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -90,7 +93,8 @@ export default class CommunityAllocation  extends React.Component{
        })
      }
    }
-
+   
+   //点击空白关闭
    whiteClose=()=>{
        this.setState({
            openEditCommunity:false
@@ -106,12 +110,18 @@ export default class CommunityAllocation  extends React.Component{
  
  //编辑提交
   editSubmit=(params)=>{
-   console.log('dddd',params);
+       console.log('dddd',params);
+       let _this=this;
+       Http.request('web-community-edit',{},params).then(function(response) {
+           console.log('222',response);
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
   }  
 
 	render(){
 
-        let {searchParams,communityName,opend}=this.state;
+        let {searchParams,communityName,opend,openDate}=this.state;
 
 		return(
            <div className='m-web-community'>
@@ -130,7 +140,6 @@ export default class CommunityAllocation  extends React.Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={true}
 	            ajaxParams={searchParams}
 	            ajaxUrlName='web-community-list'
 	            ajaxFieldListName="items"
@@ -195,6 +204,7 @@ export default class CommunityAllocation  extends React.Component{
                           onSubmit={this.editSubmit}
                           communityName={communityName}	
                           opend={opend}
+                          openDate={openDate}
 						/>
 
 		            </Drawer>
