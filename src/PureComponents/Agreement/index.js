@@ -6,6 +6,7 @@ import { default as Increase } from "./Increase";
 import { default as Reduce } from "./Reduce";
 import { default as Renew } from "./Renew";
 import { default as Join } from "./Join";
+import { default as CommonItem } from "./CommonItem";
 import './index.less';
 module.exports = {
 	JoinDetail,
@@ -15,5 +16,6 @@ module.exports = {
 	Increase,
 	Reduce,
 	Renew,
-	Join
+	Join,
+	CommonItem
 }

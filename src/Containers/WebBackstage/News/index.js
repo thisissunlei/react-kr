@@ -14,6 +14,7 @@ import {
 	Dialog,
 	Tooltip,
 	Drawer,
+	CheckPermission
 } from 'kr-ui';
 import {DateFormat} from 'kr/Utils';
 import {
@@ -34,10 +35,6 @@ export default class News extends React.Component {
 		super(props, context);
 		this.state={
 			itemDetail:{},
-			Params:{
-				page:1,
-				pageSize:15
-			},
 
 		}
 		
@@ -74,21 +71,27 @@ export default class News extends React.Component {
     //高级查询
     onSearchSubmit=(form)=>{
     	form.page=1;
-		form.pageSize=15;
-		this.setState({
-	        Params:form
-	    });
+		// form.pageSize=15;
+		// this.setState({
+	 //        Params:form
+	 //    });
+	    let searchParams = Object.assign({},State.searchParams,form);
+	    State.searchParams = searchParams;
 	    State.openSearchDialog();
     }
     //查询
     onSearch=(form)=>{
-		this.setState({
-	        Params:{
-	        	title:form.content,
-	        	page:1,
-	        	pageSize:15
-	        }
-	    });
+    	form.title = form.content;
+    	form.page = 1;
+    	let searchParams = Object.assign({},State.searchParams,form);
+	    State.searchParams = searchParams;
+		// this.setState({
+	 //        Params:{
+	 //        	title:form.content,
+	 //        	page:1,
+	 //        	pageSize:15
+	 //        }
+	 //    });
     }
     createSave=(form)=>{
     	State.saveNews(form);
@@ -97,6 +100,11 @@ export default class News extends React.Component {
     editSave=(form)=>{
 		State.saveEditNews(form);
     }
+    onPageChange=(page)=>{
+		var searchParams = Object.assign({},State.searchParams);
+		searchParams.page = page;
+		State.searchParams = searchParams;
+	}
 	
 
 	render() {
@@ -107,7 +115,7 @@ export default class News extends React.Component {
 					<Title value="新闻列表"/>
 					<Section title="新闻列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-							<Button label="新建新闻"  onTouchTap={this.openNewCreateDialog} />
+								<Button label="新建新闻" operateCode="main_news_add" onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
 							<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 							<SearchForms 
@@ -120,8 +128,9 @@ export default class News extends React.Component {
 		                  style={{marginTop:10}}
 		                  ajax={true}
 		                  ajaxUrlName='get-news-list'
-		                  ajaxParams={this.state.Params}
+		                  ajaxParams={State.searchParams}
 		                  onOperation={this.onOperation}
+		                  onPageChange={this.onPageChange}
 		              >
 		              <TableHeader>
 		                  <TableHeaderColumn width={160}>新闻标题</TableHeaderColumn>
@@ -170,7 +179,7 @@ export default class News extends React.Component {
 		              		 <TableRowColumn name="createUser"></TableRowColumn>
 		              		 <TableRowColumn>
 								<Button label="查看"  type="operation"  operation="view"/>
-								<Button label="编辑"  type="operation"  operation="edit"/>
+									<Button label="编辑" operateCode="main_news_add"  type="operation"  operation="edit"/>
 		              		 </TableRowColumn>
 		              	</TableRow>
 		              </TableBody>

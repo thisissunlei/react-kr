@@ -13,7 +13,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
-	SearchForms
+	SearchForms,
 } from 'kr-ui';
 import './index.less';
 
@@ -27,30 +27,9 @@ class SearchForm extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state={
-			verify_add_money:false,
-			verify_pass:false,
-		}
+		
 	}
-	componentDidMount() {
-		var _this = this;
-		Http.request('getSelfMenuInfo').then(function(response) {
-			var someBtn = response.navcodes.finance;
-			for(var i = 0;i<someBtn.length;i++){
-				if(someBtn[i]=="verify_add_money"){
-					_this.setState({
-						verify_add_money:true,
-					})
-				}
-				if(someBtn[i]=="verify_pass"){
-					_this.setState({
-						verify_pass:true,
-					})
-				}
-			}
-		});
-
-	}
+	
 	onSubmit = (form) => {
 		form = Object.assign({},form);
 		const {
@@ -94,9 +73,9 @@ class SearchForm extends React.Component {
 
 		return (
 			<div>
-				{this.state.verify_add_money && <Button label="添加回款" onTouchTap={this.openAdd} />}
+				<Button label="添加回款" operateCode="fina_verify_addReturn" onTouchTap={this.openAdd} />
 				<span className="u-span"></span>
-				{this.state.verify_pass && <Button label="批量审核" onTouchTap={this.openSomeAudit} />}
+				<Button label="批量审核" operateCode="fina_verify_batch" onTouchTap={this.openSomeAudit} />
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
 				<SearchForms onSubmit={this.onSubmit} placeholder="请输入客户名称" inputName="todo"/>
 

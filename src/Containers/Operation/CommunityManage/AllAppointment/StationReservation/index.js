@@ -23,8 +23,9 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-  Tooltip,
-	Message
+  	Tooltip,
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import './index.less';
 //招商线索
@@ -111,7 +112,7 @@ class StationReservation extends React.Component {
 		return (
 
 			<div className="m-station-reservation" style={{minHeight:910,background:'#fff'}}>
-			<Title value="空间预定"/>
+			<Title value="空间预订"/>
              <StationReservationFrom onSubmit = {this.fromOnSubmit}/>
 			 <Table
 				    style={{marginTop:8}}
@@ -187,14 +188,12 @@ class StationReservation extends React.Component {
 
                                 <TableRowColumn name = "deletable"
 									component={(value,oldValue,itemData)=>{
-										console.log(typeof value)
-										if(value == "true"){
-                                        	return  <span style = {{color:"#499df1",cursor:'pointer'}} onClick = {this.deleteClick.bind(this,itemData)}>删除</span>;
-
-										}else{
-                                        	return <span style = {{color:"#999"}}>删除</span>;
-
-										}
+										return (
+											<CheckPermission  operateCode="oper_appointment_del" >
+												<span style = {{color:"#499df1",cursor:'pointer'}} onClick = {this.deleteClick.bind(this,itemData)}>删除</span>
+											</CheckPermission>
+											)
+										
                                     }}
 								>
 

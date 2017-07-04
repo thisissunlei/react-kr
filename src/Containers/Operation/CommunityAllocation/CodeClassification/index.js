@@ -20,7 +20,8 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {
 	observer,
@@ -54,7 +55,9 @@ class  CodeClassification extends React.Component{
 			codeName.push(parentName);
 			State.searchParams={
 			pid:itemDetail.id,
-		    time:+new Date()
+		    time:+new Date(),
+			page:1,
+			pageSize:15
 			}
 			State.lastFlag=true;
 			State.parentName=itemDetail.codeName;
@@ -75,6 +78,12 @@ class  CodeClassification extends React.Component{
 
 	//新建代码提交
 	codeSubmit=(params)=>{
+	   if(!params.id){
+		  var searchParams={
+				page:1
+		  }
+		  State.searchParams=Object.assign({},State.searchParams,searchParams);   
+	   }
        State.addCodeSubmit(params);
 	}
 
@@ -126,6 +135,8 @@ lastGoTo=()=>{
  State.searchParams={
 	 pid:pidArr[pidArr.length-1],
 	 time:+new Date(), 
+	 page:1,
+	 pageSize:15
  }
  State.parentName=codeName[codeName.length-1];
  if(pidArr[pidArr.length-1]==0){
@@ -140,6 +151,13 @@ lastGoTo=()=>{
  })
 }
 
+onPageChange=(page)=>{
+  var searchParams={
+	  page:page
+  }
+  State.searchParams=Object.assign({},State.searchParams,searchParams);
+}
+
 
 	render(){
 
@@ -152,11 +170,14 @@ lastGoTo=()=>{
 			          <Col
 					     style={{float:'left'}}
 					   >
-									<div style={{display:'inline-block',marginRight:20}}><Button
+									<div style={{display:'inline-block',marginRight:20}}>
+										<Button
 											label="新建代码"
 											type='button'
 											onTouchTap={this.openAddCode}
-									/></div>
+											operateCode="oper_cmt_code_edit"
+									    />
+									</div>
 									{State.lastFlag&&<Button
 											label="上一级"
 											type='button'
@@ -176,6 +197,7 @@ lastGoTo=()=>{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
+				onPageChange={this.onPageChange}
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			    onExport={this.onExport}
@@ -206,8 +228,8 @@ lastGoTo=()=>{
 													 }}  ></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISENABLE'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-													<Button label="下一级"  type="operation"  operation="next" />
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_code_edit"/>
+								<Button label="下一级"  type="operation"  operation="next" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

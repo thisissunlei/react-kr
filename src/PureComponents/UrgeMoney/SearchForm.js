@@ -46,9 +46,7 @@ class SearchForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			communityIdList : [],
 		}
-		this.getcommunity();
 	}
   //日期开始
 	onStartChange=(value)=>{
@@ -73,39 +71,10 @@ class SearchForm extends Component {
 		 communityChange && communityChange(value);
 	 }
 
-	 //
-	 getcommunity = () => {
-		let _this = this;
-		let {communityIdList} = this.state;
-		Http.request('getCommunity').then(function(response) {
-
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			communityIdList.unshift({
-				label: '请选择',
-				value: '0'
-			});
-
-			_this.setState({
-				communityIdList,
-			});
-
-
-		}).catch(function(err) {
-
-
-
-		});
-	}
-
+	 
 	render() {
 
 		let {todayDate}=this.props;
-		let {communityIdList} = this.state;
 		return (
 
 			<form name="searchFormUrge" className="appointment-visit-form" style={{height:50 }}>
@@ -121,7 +90,7 @@ class SearchForm extends Component {
 					<KrField grid={1} label="" name="urgeCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
-				<KrField style={{width:222,marginLeft:-44,position:"absolute",marginTop:7}} name="urgeCommunity" component="select" search={true}  options={communityIdList} onChange={this.communityChange} />
+				<div className='m-message-community'><KrField style={{marginTop:7}} name="urgeCommunity" component="searchCommunityAll"  onChange={this.communityChange} /></div>
 
 
 			</form>

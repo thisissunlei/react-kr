@@ -28,7 +28,7 @@ import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
 import SearchForm from './SearchForm';
-
+import CodeDialog from './CodeDialog';
 
 class Operations extends React.Component {
 
@@ -37,19 +37,31 @@ class Operations extends React.Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
-				pageSize: 15,
+				page: this.props.params.page,
+				pageSize: 10,
 				timer: 0,
 			},
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
 			openEditDialog: false,
+			openCodeDialog:false,
 			moduleDetail: '',
-			newPage:0,
+			newPage:1,
 		}
 	}
-
+	componentDidMount() {
+		// if(!this.props.params.page){
+		// 	window.location.href = window.location.href+'/1';
+		// }
+		var _this = this;
+		this.setState({
+			newPage:this.props.params.page || '1',
+		},function(){
+			_this.changeP();
+		})
+		
+	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
 
@@ -64,12 +76,14 @@ class Operations extends React.Component {
 			
 
 		} else if (type == 'view') {
-			this.openView(itemDetail.id);
+			this.openView(itemDetail.id,this.state.newPage);
+		}else if (type == 'code') {
+			this.openCodeDialog();
 		}
 	}
-	openView = (id) => {
-		var url = `./#/permission/userlist/${id}`;
-		window.open(url)
+	openView = (id,page) => {
+		var url = `./#/permission/userlist/${id}/${page}`;
+		window.location.href=url;
 	}
 	openDeleteDialog = () => {
 		this.setState({
@@ -113,6 +127,11 @@ class Operations extends React.Component {
 			openCreateDialog: !this.state.openCreateDialog
 		})
 	}
+	openCodeDialog = () => {
+		this.setState({
+			openCodeDialog: !this.state.openCodeDialog
+		})
+	}
 	onCreatSubmit = (form) => {
 		var _this = this;
 		Http.request('createRole', {}, form).then(function(response) {
@@ -139,6 +158,10 @@ class Operations extends React.Component {
 			Message.error(err.message);
 		});
 	}
+	onCodeSubmit=()=>{
+		this.changeP();
+		this.openCodeDialog();
+	}
 	//改变页码
     changeP=()=>{
         var timer = new Date();
@@ -146,6 +169,7 @@ class Operations extends React.Component {
             searchParams: {
                     page: this.state.newPage,
                     timer: timer,
+					pageSize:10,
             }
         })
     }
@@ -197,6 +221,7 @@ class Operations extends React.Component {
 									<Button label="编辑"   type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>
 									<Button label="查看人员"  type="operation" operation="view"/>
+									<Button label="业务代码"  type="operation" operation="code"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
@@ -210,7 +235,16 @@ class Operations extends React.Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
-					< /Dialog>
+					</Dialog>
+					<Dialog
+						title="业务代码"
+						modal={true}
+						onClose={this.openCodeDialog}
+						open={this.state.openCodeDialog}
+						contentStyle={{width:540}}
+						>
+						<CodeDialog detail={itemDetail} onCancel={this.openCodeDialog} onSubmit={this.onCodeSubmit} />
+					</Dialog>
 					 <Drawer
 					 	 modal={true}
 			             width={750}

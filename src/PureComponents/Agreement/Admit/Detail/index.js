@@ -26,10 +26,13 @@ import {
 	DotTitle,
 	PaperBack,
 	Title,
+	Dialog
 } from 'kr-ui';
 
 
 import dateFormat from 'dateformat';
+import Agreement from 'kr/PureComponents/Agreement';
+import Print from 'kr/PureComponents/Agreement/Print';
 
 
 import {
@@ -54,7 +57,9 @@ export default class AdmitDetail extends Component {
 			oldBasicStationVos:[],
 			openAdd:false,
 			openMinus:false,
-			newBasicStationVos:[]
+			newBasicStationVos:[],
+			openCopyAgreement:false,
+			url:''
 		}
 
 
@@ -124,10 +129,27 @@ export default class AdmitDetail extends Component {
 
 	print = () => {
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/admit/${params.id}/print`
-		var newWindow = window.open(url);
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/admit/${params.id}/print?print=`;
+		this.setState({
+			url:url,
+			openCopyAgreement:true
+		})
+		// var newWindow = window.open(url);
 
 	}
+	openCopyAgreementDialog=()=>{
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    }
+    confirmPrintAgreement=(value)=>{
+    	console.log('confirmPrintAgreement',this.state.url+value);
+    	let url = this.state.url+value;
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    	var newWindow = window.open(url);
+    }
 
 	 componentWillReceiveProps(){
 	 	console.log('==componentWillReceiveProps==>')
@@ -330,6 +352,15 @@ export default class AdmitDetail extends Component {
 					  <Col md={5} align="center"></Col>
 				  </Row>}
 			     </Grid>
+			   	<Dialog
+					title="打印"
+					modal={true}
+					onClose={this.openCopyAgreementDialog}
+					open={this.state.openCopyAgreement}
+					contentStyle={{width:700,height:'auto'}}>
+						<Print.PrintDialog onSubmit={this.confirmPrintAgreement} onCancel={this.openCopyAgreementDialog} />
+
+				</Dialog>
 
 
       </div>

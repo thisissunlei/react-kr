@@ -28,7 +28,8 @@ import {
     Tooltip,
     SnackTip,
     Message,
-    Drawer
+    Drawer,
+    CheckPermission
 } from 'kr-ui';
 
 import {browserHistory} from 'react-router'
@@ -44,7 +45,7 @@ import SupplementBtnForm from './SupplementBtnForm';
 import ShiftBtnForm from './ShiftBtnForm';
 import ReceiveDetailTop from './ReceiveDetailTop';
 import './index.less';
-
+import { observer, inject } from 'mobx-react';
 //获取单条的金额
 var fiMoney = '';
 //得到单条数据
@@ -81,16 +82,19 @@ class ViewForm extends React.Component {
         );
     }
 }
+
+
+@inject("NavModel")
+@observer
 export default class AttributeSetting extends React.Component {
 
-    static contextTypes = {
-        router: React.PropTypes.object.isRequired
-    }
-    static childContextTypes = {
-        refresh: React.PropTypes.func,
-        //router: React.PropTypes.object.isRequired
-    }
-
+    // static contextTypes = {
+    //     router: React.PropTypes.object.isRequired
+    // }
+    // static childContextTypes = {
+    //     refresh: React.PropTypes.func,
+    //     //router: React.PropTypes.object.isRequired
+    // }
     getChildContext() {
         return {
             refresh: this.refresh,
@@ -197,7 +201,13 @@ export default class AttributeSetting extends React.Component {
         //回款计算余额所需字段值
         this.receivedBtnFormChangeValues = {};
     }
+    componentDidMount() {
+        this.initBasicInfo();
+        const {NavModel} = this.props;
+        NavModel.setSidebar(false);
+    }
 
+   
     refresh() {
         var _this = this;
         this.setState({
@@ -209,7 +219,8 @@ export default class AttributeSetting extends React.Component {
         });
 
     }
-
+    
+    
     //打开遮罩层区域
     openSearchDialog() {
         this.searchUpperFun();
@@ -872,11 +883,7 @@ export default class AttributeSetting extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.initBasicInfo();
-        Store.dispatch(Actions.switchSidebarNav(false));
-    }
-
+   
     snackTipClose = () => {
 
         var _this = this;
@@ -1208,67 +1215,84 @@ export default class AttributeSetting extends React.Component {
         if (parentBtn == 'PAYMENT') {
             if (childBtn == 'basic') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <Button label="回款" type="button" operateCode="fina_detail_returnMoney" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        <Button label="退款" operateCode="fina_detail_refund" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        <Button label="转移" operateCode="fina_detail_trans" type="button" onTouchTap={this.openShiftBtn}/>
+                    </ButtonGroup>
                 );
             } else if (childBtn == 'fujidinjin') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="转押金" type="button" joinEditForm onTouchTap={this.openSwitchBtn}/>
-                        <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                    <ButtonGroup>
+                        <Button label="回款" operateCode="fina_detail_returnMoney" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        <Button label="转押金" operateCode="fina_detail_toDeposit" type="button" joinEditForm onTouchTap={this.openSwitchBtn}/>
+                        <Button label="转营收" operateCode="fina_detail_toIncome" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
                     </ButtonGroup>
                 );
             } else if (childBtn == 'fujiyajin' || childBtn == '005') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                    <ButtonGroup>
+                        <Button label="回款" operateCode="fina_detail_returnMoney" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        <Button label="转营收" operateCode="fina_detail_toIncome" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                        <Button label="退款" operateCode="fina_detail_refund" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
                     </ButtonGroup>
                 );
             } else if (childBtn == '010') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="转营收" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <Button label="回款" operateCode="fina_detail_returnMoney" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        <Button label="转营收" operateCode="fina_detail_toIncome" type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+                        <Button label="退款" operateCode="fina_detail_refund" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        <Button label="转移" operateCode="fina_detail_trans" type="button" onTouchTap={this.openShiftBtn}/>
+                    </ButtonGroup>
                 );
             } else if (childBtn == '007') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                    <ButtonGroup>
+                        <Button label="回款" operateCode="fina_detail_returnMoney" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
                     </ButtonGroup>
                 );
             } else {
                 buttonArr.push(
-                    <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                        <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                        <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <Button label="回款" operateCode="fina_detail_returnMoney" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                        <Button label="退款" operateCode="fina_detail_refund" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                        <Button label="转移" operateCode="fina_detail_trans"  type="button" onTouchTap={this.openShiftBtn}/>
+                    </ButtonGroup>
                 );
             }
         }
         if (parentBtn == 'INCOME') {
             if (childBtn == '005') {
                 buttonArr.push(
-                    <ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
-                        <Button label="补收入" type="button" joinEditForm onTouchTap={this.openSupplementBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <Button label="挂账" operateCode="fina_detail_onAccount" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+                        <Button label="补收入" operateCode="fina_detail_supplement" type="button" joinEditForm onTouchTap={this.openSupplementBtn}/>
+                    </ButtonGroup>
                 );
             } else {
                 buttonArr.push(
-                    <ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
+                    <ButtonGroup>
+                        <Button label="挂账" operateCode="fina_detail_onAccount" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+                    </ButtonGroup>
                 );
             }
         }
 
         if (parentBtn == 'PAYMENT' && propInfo == 'NEW') {
             buttonArr.push(
-                <ButtonGroup><Button label="回款" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-                    <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
-                    <Button label="转移" type="button" onTouchTap={this.openShiftBtn}/></ButtonGroup>
+                <ButtonGroup>
+                    <Button label="回款" operateCode="fina_detail_returnMoney" type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+                    <Button label="退款" operateCode="fina_detail_refund" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+                    <Button label="转移"  operateCode="fina_detail_trans" type="button" onTouchTap={this.openShiftBtn}/>
+                </ButtonGroup>
             );
         }
         if (parentBtn == 'INCOME' && propInfo == 'NEW') {
             buttonArr.push(
-                <ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
+                <ButtonGroup>
+                        <Button label="挂账" operateCode="fina_detail_onAccount" type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+                </ButtonGroup>
             );
         }
 
@@ -1311,10 +1335,12 @@ export default class AttributeSetting extends React.Component {
                                     <Col align="left" md={9} className='btn-left'>{buttonArr}</Col>
                                     <Col align="right" md={3} style={{
                                         'position': 'relative'
-                                    }}><Button type='search' searchClick={this.openSearchDialog}/>
-                                        <span className={colorClassName} onClick={this.historyIncomed}>
-                                            <Tooltip offsetTop={8} place='top'>重跑历史收入</Tooltip>
-                                        </span>
+                                    }}><Button  type='search' searchClick={this.openSearchDialog}/>
+                                       <CheckPermission operateCode="fina_detail_rerun">
+                                            <span className={colorClassName} onClick={this.historyIncomed}>
+                                                <Tooltip offsetTop={8} place='top'>重跑历史收入</Tooltip>
+                                            </span>
+                                        </CheckPermission>
                                     </Col>
                                 </div>
 
@@ -1398,4 +1424,8 @@ export default class AttributeSetting extends React.Component {
         );
 
     }
+}
+AttributeSetting.wrappedComponent.childContextTypes = {
+        refresh: React.PropTypes.func,
+      
 }

@@ -22,6 +22,7 @@ import {
 } from 'mobx-react';
 
 @inject("NotifyModel")
+@inject("NavModel")
 @observer
 class TheBell extends React.Component {
 
@@ -65,7 +66,13 @@ class TheBell extends React.Component {
 			contractType:'',
 			customerId:0,
 			contractId:0,
-			mainbillId:0
+			mainbillId:0,
+			rightDetails:{
+				ARREARS_ALERT:false,
+				CUSTOMER_DUE:false,
+				CUSTOMER_TRANSFER:false,
+				ORDER_VISIT:false
+			}
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -89,26 +96,18 @@ class TheBell extends React.Component {
 	 let showMassge = false;
 	 let Details=[];
 	 let sum=0;
+	
 	 Http.request('messageLookJurisdiction').then(function(response) {
-
-		for (var key in response.rightDetails){
-		    if(response.rightDetails[key]){
-				showMassge=true;
-				break;
-			}
-		}
-		for (var key in response.rightDetails){
-		    if(response.rightDetails[key]){
-				sum+=response.unreadDetails[key]||0;
-			}
+		
+		for (var key in response.unreadDetails){
+				sum+=key||0;
 		}
 		if(sum != 0){
 			showRedDrop=true;
 		}
 
 		 _this.setState({
-			 showRedDrop:showRedDrop,
-			 showMassge:showMassge
+			 showRedDrop:showRedDrop
 		 })
 	 }).catch(function(err) {
 
@@ -134,12 +133,43 @@ class TheBell extends React.Component {
 	}
 	//重置列别表
   resettingAll = () =>{
-
+	  
+  }
+componentDidMount(){
+	let {checkMenus,menusData} = this.props.NavModel;
+	console.log('hhhhh',checkMenus("oper_msg_alert"),checkMenus("oper_msg_csr_due"),checkMenus("oper_msg_csr_trans_base"),checkMenus("oper_msg_visit_base"))
+	if(
+		  checkMenus("oper_msg_alert")
+		||checkMenus("oper_msg_csr_due")
+		||checkMenus("oper_msg_csr_trans_base")
+		||checkMenus("oper_msg_visit_base")
+	  ){
+		
+		 this.setState({
+				 showMassge:true
+		})
+	}else {
+		console.log("0000000")
+		this.setState({
+				 showMassge:false,
+				 rightDetails:{
+					ARREARS_ALERT:checkMenus("oper_msg_alert"),
+					CUSTOMER_DUE:checkMenus("oper_msg_csr_due"),
+					CUSTOMER_TRANSFER:checkMenus("oper_msg_csr_trans_base"),
+					ORDER_VISIT:checkMenus("oper_msg_visit_base")
+				}
+		})
 	}
+	
+	
+	
+
+}
+  
 
 	onClose=()=>{
 		const {NotifyModel} = this.props;
-
+	
 		const {customerTransform,appointmentVisit,urgeMoney,infoList} = NotifyModel;
 		customerTransform.setSearchParams({
 				page: 1 ,
@@ -312,6 +342,7 @@ class TheBell extends React.Component {
 	}
 	render() {
 
+
 		var styles = {
 			paddingLeft: 0,
 			position: 'fixed',
@@ -366,6 +397,7 @@ class TheBell extends React.Component {
 						renovateRedDrop = {this.renovateRedDrop}
 						agreementClick = {this.agreementClick}
 						resettingAll = {this.resettingAll}
+						rightDetails = {this.state.rightDetails}
 					/>
 				</Drawer>
 				{/*客户详情*/}
