@@ -6,6 +6,8 @@ import {
     Dialog,
 } from 'kr-ui';
 
+import {Http} from 'kr/Utils';
+
 
 export default class UpdateLog extends React.Component {
 
@@ -13,35 +15,51 @@ export default class UpdateLog extends React.Component {
         super(props, context);
 
         this.state = {
-            updateLogOpen: true,
+            show: false,
+            ver:{},
         }
+
+    }
+
+    componentDidMount(){
+
+        const that = this;
+
+        Http.request('get-version-log').then(function(response){
+            console.log('response:',response);
+            that.setState({...response});
+        });
 
     }
 
     openUpdateLog = () => {
         this.setState({
-            updateLogOpen: false
+            show: false
         });
     }
 
     renderLogList = () => {
 
-       const list = [
-           {},
-           {}
-       ]; 
+        const {ver,show} = this.state;
 
+        if(!show){
+            return null;
+        }
+
+        var list = ver.content.split('。');
+
+        list = list.filter(function(item){
+            return !!item;
+        });
 
         return (
 
             <ul className="log-list">
-                <li>
-                    1，销控表优化信息表格，更加方便我们社区的管家们查看，心情棒棒哒，快去体验吧～go~go~
-                            </li>
-                <li>
-                    2，
-                    销控表优化信息表格，更加方便我们社区的管家们查看，心
-                            </li>
+                {
+                    list.map((item,index)=>(
+                        <li key={index}>{index+1} : {item}。</li>
+                    ))
+                }
             </ul>
         );
 
@@ -51,7 +69,7 @@ export default class UpdateLog extends React.Component {
 
         return (
 
-            <Dialog modal={true} open={this.state.updateLogOpen}
+            <Dialog modal={true} open={this.state.show}
                 dialogHeaderStyle={{ backgroundColor: '#fff', display: 'none' }}
                 bodyStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0, borderRadius: 5 }}
                 contentStyle={{ width: 500, height: 600 }}
