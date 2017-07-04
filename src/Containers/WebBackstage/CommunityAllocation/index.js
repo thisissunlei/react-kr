@@ -54,14 +54,15 @@ export default class CommunityAllocation  extends React.Component{
    //高级查询提交
    searchUpperSubmit=(params)=>{
      var searchParams={
-         cmtName:param.cmtName?param.cmtName:'',
-         show:param.show?param.show:'',
-         customed:param.customed?param.customed:'',
-         appoint:param.appoint?param.appoint:''
+         cmtName:params.cmtName?params.cmtName:'',
+         show:params.show?params.show:'',
+         customed:params.customed?params.customed:'',
+         appoint:params.appoint?params.appoint:''
      }
      this.setState({
-       searchParams:Object.assign({},searchParams,this.state.searchParams)   
+       searchParams:Object.assign({},searchParams,this.state.searchParams),
      }) 
+     this.openSearchUpperDialog();
    }
   
    //搜索名称
@@ -112,13 +113,27 @@ export default class CommunityAllocation  extends React.Component{
   editSubmit=(params)=>{
        console.log('dddd',params);
        let _this=this;
+       let {searchParams}=this.state;
        Http.request('web-community-edit',{},params).then(function(response) {
-           console.log('222',response);
+           _this.setState({
+               time:+new Date(),
+               pageSize:15,
+               page:searchParams.page
+           })
         }).catch(function(err) {
             Message.error(err.message);
         });
         this.editCancel();
-  }  
+  } 
+
+  onPageChange=(page)=>{
+     var searchParams={
+         page:page
+     }
+     this.setState({
+       searchParams:Object.assign({},searchParams,this.state.searchParams)   
+     })  
+  } 
 
 	render(){
 
@@ -142,6 +157,7 @@ export default class CommunityAllocation  extends React.Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            ajaxParams={searchParams}
+                onPageChange={this.onPageChange}
 	            ajaxUrlName='web-community-list'
 	            ajaxFieldListName="items"
 					  >

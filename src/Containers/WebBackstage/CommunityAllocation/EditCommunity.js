@@ -73,16 +73,31 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              return ;
         }else{
            var num=0;
+           var deNum=0;
+           var openNum=0;
+           var inNum=0;
            values.porType.map((item,index)=>{
                if(!item.type){
                    num=1;
+               }else if(item.type=='MOBILE_DESK'){
+                   deNum++;
+               }else if(item.type=='OPEN_WORKSPACE'){
+                   openNum++;
+               }else if(item.type=='INDEPENDENT_WORKSPACE'){
+                   inNum++;
                }
            })
            if(num==1){
                 Message.error('请将工位类型选全');
                 return ;
            } 
+           if(deNum==2||openNum==2||inNum==2){
+                Message.error('工位类型不能重复');
+                return ;
+           }
         }
+
+        
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
