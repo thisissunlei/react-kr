@@ -39,6 +39,7 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
+		
 	}
 	onTokenError() {
 		Message.error('初始化上传文件失败,请重新上传');
@@ -131,6 +132,7 @@ export default class UploadImageComponent extends Component {
 					};
 					xhrfile.open('POST',requestUrl, true);
 					xhrfile.responseType = 'json';
+					xhrfile.withCredentials = true;
 					xhrfile.send(form);
 				} else {
 					_this.onTokenError();
@@ -159,19 +161,18 @@ export default class UploadImageComponent extends Component {
                      //加载图片获取图片真实宽度和高度
                     var image = new Image();
                     image.onload=function(){
-                        	_this.refs.uploadImage.src = xhrfile.response.data;
+                        	_this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
                         	_this.setState({
 								imageStatus : true,
 								imgUpload : true,
 								operateImg : false
 							});
 							const {input}=_this.props;
-							input.onChange(xhrfile.response.data);          
+							input.onChange(xhrfile.response.data[0].id);          
                     };
                     image.src= data;
                  };
                  reader.readAsDataURL(fileData);
-
              }
 	}
 	// 删除图片
@@ -194,14 +195,14 @@ export default class UploadImageComponent extends Component {
 			<div className="ui-uploadimg-box" style={style}>
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-						<img className="image"  src={this.state.imgSrc}  ref="uploadImage" />
+						<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{zIndex:10,position:'absolute',left:'50%',transform: 'translateX(-50%)',height:'75px'}}/>
 						<div className='ui-uploadimg-inner' >
 							<span className='ui-uploadimg-button'>+</span>
 							<input type='file' onChange={this.onChange} ref="inputImg"/>
 							<span className='ui-uploadimg-tip'>上传图片</span>
 						</div>
-						<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none"}}>
-							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg}>
+						<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
+							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
 								<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
 								<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
 							</div>
