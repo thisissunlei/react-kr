@@ -351,6 +351,8 @@ class NewCreateForm extends Component {
 			HeightAuto
 		} = this.state;
 		let allRentName = this.dealRentName(allRent);
+		var agreementValue = '如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印';
+
 
 		return (
 		<div style={{width:615,marginTop:'-10px',marginLeft:"-20px"}}>
@@ -453,7 +455,7 @@ class NewCreateForm extends Component {
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
 				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" label="双方其他约定内容" maxSize={200} value={agreementValue}/>
 
 				</div>
 

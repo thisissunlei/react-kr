@@ -612,6 +612,7 @@ class NewCreateForm extends React.Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		var agreementValue = initialValues.agreement='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':initialValues.agreement;
 
 		return (
 
@@ -731,7 +732,7 @@ class NewCreateForm extends React.Component {
 						<KrField  name="templockday"  style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
 						requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 						<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
-						<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+						<KrField style={{width:545,marginLeft:25}}  name="agreement" component="labelText" label="双方其他约定内容" maxSize={200} value={agreementValue}/>
 
 					</div>
 

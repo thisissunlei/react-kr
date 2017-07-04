@@ -579,6 +579,7 @@ class NewCreateForm extends Component {
 		} = this.state;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		var agreementValue = '如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印';
 
 		return (
 
@@ -699,7 +700,7 @@ class NewCreateForm extends Component {
 																 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 
 								<KrField style={{width:545,marginLeft:25}}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200}/>
-							    <KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+							    <KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" label="双方其他约定内容" maxSize={200} value={agreementValues} />
 
 								<KrField style={{width:545,marginLeft:25}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 								<KrField style={{width:262,marginLeft:25}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>

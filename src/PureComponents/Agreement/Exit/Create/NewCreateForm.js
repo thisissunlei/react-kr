@@ -222,6 +222,8 @@ class NewCreateForm extends React.Component {
 		});
 
 		let {totalRent} = this.state;
+		var agreementValue = '如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印';
+
 
 
 		return (
@@ -283,7 +285,7 @@ class NewCreateForm extends React.Component {
 
 
 				<KrField style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" label="双方其他约定内容" maxSize={200} value={agreementValue}/>
 
 				</div>
 				<div className="end-round"></div>
