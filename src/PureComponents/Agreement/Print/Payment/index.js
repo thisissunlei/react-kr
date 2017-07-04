@@ -35,7 +35,6 @@ export default class Payment extends Component {
 			return;
 		}
 		let top = tableTop.offsetTop;
-		console.log('will',top,tableTop.clientHeight);
 		let height = top+tableTop.clientHeight + 66;
 		if(height>1110 && height<1250){
 			tableTop.style.marginBottom = (1250-height)+'px';
@@ -43,7 +42,6 @@ export default class Payment extends Component {
 		if(top<1060 && top>720){
 			let domHeight = 1120-top-28-27;
 			let num = parseInt(domHeight/22.5);
-			console.log('num',num)
 			if(!this.init){
 				this.init = true;
 				// if(installmentPlans.length>15){
@@ -102,7 +100,6 @@ export default class Payment extends Component {
 			plansOne = installmentPlans.slice(0, installmentPlans.length/2);
 			plansTwo = installmentPlans.slice(installmentPlans.length/2 +1, installmentPlans.length);
 		}
-		console.log('==>',plansOne,plansTwo)
 		return (
 			<div className="table-two-list">
 					<div className="two-line">

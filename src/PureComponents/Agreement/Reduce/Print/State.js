@@ -12,7 +12,8 @@ let State = observable({
 	installmentPlans: [],
 	baseInfo: {},
 	stationVOs: [],
-	installmentPlansList: []
+	installmentPlansList: [],
+	cachet:[]
 });
 
 //action

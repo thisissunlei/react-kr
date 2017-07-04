@@ -31,8 +31,10 @@ export default class AdmitPrint extends React.Component {
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
+		let _this = this;
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
+			_this.renderImg()
 			window.print();
 			// window.close();
 		}, 1200)
@@ -72,16 +74,15 @@ export default class AdmitPrint extends React.Component {
 			str.push(<div style={style}></div>);
 
 		}
-		return str;
+		State.cachet = str;
 	}
 
 
 	render() {
-		let doms = this.renderImg() || [];
 		return (
 
 			<div className="print-section no-print-section">
-			{State.baseInfo.withCachet && doms.map((item,index)=>{
+			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务意向书`}/>

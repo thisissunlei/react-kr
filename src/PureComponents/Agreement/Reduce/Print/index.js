@@ -30,8 +30,10 @@ export default class JoinPrint extends React.Component {
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
+		let _this = this;
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
+			_this.renderImg()
 			window.print();
 			window.close();
 		}, 1000)
@@ -70,7 +72,7 @@ export default class JoinPrint extends React.Component {
 			str.push(<div style={style}></div>);
 
 		}
-		return str;
+		State.cachet = str;
 	}
 	getLocalTime = (beginDate) => {
 		var now = new Date(beginDate);
@@ -112,10 +114,9 @@ export default class JoinPrint extends React.Component {
 		}
 	}
 	render() {
-		let doms = this.renderImg() || [];
 		return (
 			<div className="g-exit-print">
-				{State.baseInfo.withCachet && doms.map((item,index)=>{
+				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(减少)`}/>

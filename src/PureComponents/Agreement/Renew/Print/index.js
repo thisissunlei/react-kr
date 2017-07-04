@@ -31,8 +31,10 @@ export default class RenewPrint extends React.Component {
 		this.init = false;
 	}
 	componentDidMount() {
+		let _this = this;
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
+			_this.renderImg()
 			window.print();
 			// window.close();
 		}, 1000)
@@ -72,7 +74,7 @@ export default class RenewPrint extends React.Component {
 			str.push(<div style={style}></div>);
 
 		}
-		return str;
+		State.cachet = str;
 	}
 	renderContent=()=>{
 		if(State.baseInfo.hasOwnProperty('agreement')){
@@ -110,13 +112,12 @@ export default class RenewPrint extends React.Component {
 	}
 
 	render() {
-		let doms = this.renderImg();
 
 		return (
 		<div>
 			<div className="print-section no-print-section"  style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
-				{State.baseInfo.withCachet && doms.map((item,index)=>{
+				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
 				<Print.Header

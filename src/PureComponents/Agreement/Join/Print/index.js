@@ -34,58 +34,29 @@ export default class JoinPrint extends React.Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
+		let _this = this;
+
 		setTimeout(function() {
+			console.log('00000000')
+			State.cachet = _this.renderImg();
 		 	window.print();
 		 	// window.close();
 		 }, 1200)
 
 
 	}
-	// renderContent=()=>{
-	// 	if(State.baseInfo.hasOwnProperty('agreement')){
-	// 		var str = State.baseInfo.agreement;
-	// 		if(str.length>45){
-	// 			return (
-	// 				<div className="print-text">
-	// 					<span>双方其他约定内容：</span>
-	// 					<span className="content">{str}</span>
-	// 				</div>
-	// 			)
-	// 		}else{
-	// 			if(!!!State.baseInfo.agreement){
-	// 				str = '无';
-	// 			}
-	// 			return (
-	// 				<div className="print-text text-none">
-	// 					<span>双方其他约定内容：</span>
-	// 					<span style={{paddingLeft:20}}>{str}</span>
-	// 					<span className="border-b one-text"></span>
-	// 					<span className="border-b two-text"></span>
-	// 				</div>
-	// 			)
-	// 		}
-	// 	}else{
-	// 		return(
-	// 			<div className="print-text text-none">
-	// 				<span>双方其他约定内容：</span>
-	// 				<span style={{paddingLeft:20}}>无</span>
-	// 				<span className="border-b one-text"></span>
-	// 				<span className="border-b two-text"></span>
-	// 			</div>
-	// 		)
-	// 	}
-	// }
 	renderImg=()=>{
 		var printList = document.getElementsByClassName('print-section')[0];
 		if(!printList){
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1200 && !this.init){
+		if(printHeight>1200  &&  !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1200)*1120 + 'px';
+			this.pages = Math.ceil(printHeight/1120) + 1;
+			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
 		}
-		this.pages = Math.ceil(printHeight/1200) + 1;
+		
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -115,10 +86,9 @@ export default class JoinPrint extends React.Component {
 		window.print()
 	}
 	render() {
-		let doms = this.renderImg();
 		return (
 		<div style={{background:'#fff'}}>
-			{State.baseInfo.withCachet && doms.map((item,index)=>{
+			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}
 
