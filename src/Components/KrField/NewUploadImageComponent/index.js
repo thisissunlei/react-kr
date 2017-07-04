@@ -273,9 +273,9 @@ export default class UploadImageComponent extends Component {
 												 if(sizePhoto){
 													 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 													 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
-													 var standard = Math.floor(realWidth/realHeight);
+													 var standard = realWidth/realHeight;
 													 var proportion = width/height;
-													 if(proportion > standard && proportion < standard+1){
+													 if(proportion==standard){
 															 if(xhrfile.response.data instanceof Array){
 																 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
 																 const {input}=_this.props;
@@ -292,7 +292,7 @@ export default class UploadImageComponent extends Component {
 														    });
 
 													 }else{
-	                         	_this.refs.inputImg.value ="";
+	                         	   _this.refs.inputImg.value ="";
 	 							            _this.refs.inputImgNew.value ="";
 	 							            _this.refs.uploadImage.src="";
 

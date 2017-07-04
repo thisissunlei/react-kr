@@ -72,12 +72,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              Message.error('至少选择两种工位类型');
              return ;
         }else{
+           var num=0;
            values.porType.map((item,index)=>{
                if(!item.type){
-                   Message.error('请选择工位类型');
-                   return ;
+                   num=1;
                }
-           }) 
+           })
+           if(num==1){
+                Message.error('请将工位类型选全');
+                return ;
+           } 
         }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
