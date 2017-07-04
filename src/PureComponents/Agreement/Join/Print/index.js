@@ -157,7 +157,7 @@ export default class JoinPrint extends React.Component {
 							</div>
 						)
 				}
-				<Print.Footer/>
+				{/*<Print.Footer/>*/}
 
       		</div>
       		
