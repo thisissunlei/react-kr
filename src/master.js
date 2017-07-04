@@ -4,20 +4,24 @@ import {Actions,Store,connect} from 'kr/Redux';
 
 import Header from 'kr/Containers/Header';
 import Footer from 'kr/Containers/Footer';
+import UpdateLog from 'kr/Containers/UpdateLog';
+
 import {Http} from "kr/Utils";
 import { observer, inject } from 'mobx-react';
+
+import {
+	Dialog,
+} from 'kr-ui';
 
 @inject("NavModel")
 @observer
 export default class Master extends React.Component {
-
 
 	getChildContext() {
 		return {
 			params:this.props.params,
 		};
 	}
-
 
 	constructor(props,context){
 		super(props, context);
@@ -26,10 +30,14 @@ export default class Master extends React.Component {
            params: React.PropTypes.object.isRequired
 		}
 
-		/*Http.request('getSelfMenuInfo').then(function(response){
-			//Store.dispatch(Actions.setUserNavs(response.navcodes));
-			//Store.dispatch(Actions.setUserBasicInfo(response.user));
-		}).catch(function(err){ });*/
+		this.state = {
+			updateLogOpen:true,
+		}
+
+	}
+
+	openUpdateLog = ()=>{
+
 
 	}
 
@@ -57,6 +65,7 @@ export default class Master extends React.Component {
 				</div>
 				<Footer/>
 				<div id="nowtify-wrapper"></div>
+				<UpdateLog />
 			</div>
 		);
 	}
