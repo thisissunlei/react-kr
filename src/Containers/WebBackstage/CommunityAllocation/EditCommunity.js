@@ -66,15 +66,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              picId:'',
              picUrl:''
           },
-          detailValue:{
-              src:''
-          }
+          detailValue:[]
+                 
         }
 	}
 
 
     componentDidMount(){
-      let {picId,picUrl,src}=this.props;
+      let {picId,picUrl,detailValue}=this.props;
       Store.dispatch(change('EditCommunity','porType',[{}]));
       this.setState({
           defaultValue:`http://krspace-upload-test-public.oss-cn-beijing.aliyuncs.com/community_public_upload/201707/M/174721120_885.png`,
@@ -82,9 +81,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              picId:picId,
              picUrl:picUrl 
           },
-          detailValue:{
-              src:src
-          }
+          detailValue:detailValue
       })
     }
 
