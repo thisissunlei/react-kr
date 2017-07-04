@@ -37,7 +37,6 @@ export default class JoinPrint extends React.Component {
 		let _this = this;
 
 		setTimeout(function() {
-			console.log('00000000')
 			State.cachet = _this.renderImg();
 		 	window.print();
 		 	// window.close();
@@ -92,6 +91,7 @@ export default class JoinPrint extends React.Component {
 				return item
 			})}
 
+
 			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
 				<Print.Header
@@ -127,7 +127,7 @@ export default class JoinPrint extends React.Component {
 							</div>
 						)
 				}
-				{/*<Print.Footer/>*/}
+				
 
       		</div>
       		
