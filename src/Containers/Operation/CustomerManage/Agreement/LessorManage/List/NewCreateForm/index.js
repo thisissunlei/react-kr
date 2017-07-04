@@ -205,7 +205,8 @@ class NewCreateForm extends React.Component {
 			jsonData,
 			readyData
 		} = this.state;
-		let host = let host = "http://"+window.location.host;
+		let host = "http://"+window.location.host;
+		console.log("http://"+window.location.host);
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
