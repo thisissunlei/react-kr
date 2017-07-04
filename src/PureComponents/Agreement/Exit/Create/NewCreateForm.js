@@ -285,7 +285,7 @@ class NewCreateForm extends React.Component {
 
 
 				<KrField style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" label="双方其他约定内容" maxSize={200} value={agreementValue}/>
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" inline={false} label="双方其他约定内容" maxSize={200} value={agreementValue}/>
 
 				</div>
 				<div className="end-round"></div>
