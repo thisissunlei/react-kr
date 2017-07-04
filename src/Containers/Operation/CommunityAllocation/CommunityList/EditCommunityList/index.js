@@ -92,7 +92,8 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 			 Message.error('营业开始时间不能大于营业结束时间');
 			return ;
 		}
-
+   
+	  console.log('ssss1',values);
   
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
@@ -230,10 +231,6 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 							<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 							<div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 							<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>
-
-
-
-
 
 								<FieldArray name="wherefloors" component={renderMembers}/>
 
