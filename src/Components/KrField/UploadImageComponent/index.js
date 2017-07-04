@@ -27,7 +27,8 @@ export default class UploadImageComponent extends Component {
 			timer :"",
 			operateImg :false,
 			files :{},
-			imageStatus : true
+			imageStatus : true,
+			isInit:true
 		}
 	}
 	componentWillUnmount() {
@@ -39,8 +40,30 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
+
+	 if(nextProps.defaultValue){
+			this.setInitValue(nextProps.defaultValue);
+		}
+	}
+
+	setInitValue(defaultValue) {
+		let {input}=this.props;
+		let {
+			isInit
+		} = this.state;
+		if (!isInit) {
+			return;
+		}
+		console.log('default',defaultValue);
+		this.setState({
+				isInit: false,
+				imgUpload:true,
+				imgSrc:defaultValue
+		});
 		
 	}
+
+
 	onTokenError() {
 		Message.error('初始化上传文件失败,请重新上传');
 	}
@@ -161,11 +184,11 @@ export default class UploadImageComponent extends Component {
                      //加载图片获取图片真实宽度和高度
                     var image = new Image();
                     image.onload=function(){
-                        	_this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
                         	_this.setState({
 								imageStatus : true,
 								imgUpload : true,
-								operateImg : false
+								operateImg : false,
+								imgSrc:xhrfile.response.data[0].ossHref
 							});
 							const {input}=_this.props;
 							input.onChange(xhrfile.response.data[0].id);          
@@ -184,7 +207,6 @@ export default class UploadImageComponent extends Component {
 		})
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
-		this.refs.uploadImage.src="";
 		const {input}=this.props;
 		input.onChange("");
 	}
@@ -195,7 +217,7 @@ export default class UploadImageComponent extends Component {
 			<div className="ui-uploadimg-box" style={style}>
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-						<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{zIndex:10,position:'absolute',left:'50%',transform: 'translateX(-50%)',height:'75px'}}/>
+						{this.state.imgSrc&&<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{zIndex:10,position:'absolute',left:'50%',transform: 'translateX(-50%)',height:'75px'}}/>}
 						<div className='ui-uploadimg-inner' >
 							<span className='ui-uploadimg-button'>+</span>
 							<input type='file' onChange={this.onChange} ref="inputImg"/>

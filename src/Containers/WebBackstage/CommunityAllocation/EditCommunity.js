@@ -60,11 +60,17 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
  class EditCommunity extends React.Component{
 	constructor(props){
 		super(props);
+        this.state={
+          defaultValue:''
+        }
 	}
 
 
     componentDidMount(){
       Store.dispatch(change('EditCommunity','porType',[{}]));
+      this.setState({
+          defaultValue:`http://krspace-upload-test-public.oss-cn-beijing.aliyuncs.com/community_public_upload/201707/M/174721120_885.png`
+      })
     }
 
 	onSubmit = (values) => {
@@ -111,12 +117,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     render(){
 
-
-
+        let {defaultValue}=this.state;
+ 
         const {handleSubmit,communityName,opend,openDate} = this.props;
 
-
-
+        
+    
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
@@ -205,6 +211,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                          component="uploadImage"
                                          requestUrl='http://optest.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                          style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
+                                         defaultValue={defaultValue}
                                     />
                                 </div>
 
@@ -215,6 +222,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                        component="uploadImage"
                                        requestUrl='http://optest.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                        style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
+                                       defaultValue={defaultValue}
                                     />
                                 </div>
 
