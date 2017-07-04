@@ -229,7 +229,7 @@ class EditDetailForm extends React.Component {
 			detail,
 			id
 		} = this.state;
-		console.log(detail.cachetUrl,"POOOOOO")
+		let host = "http://"+window.location.host;
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
@@ -258,7 +258,7 @@ class EditDetailForm extends React.Component {
 									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
-									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
+									requestURI = {host+'/api/krspace-finance-web/activity/upload-pic'}
 									requireLabel={true}
 									label="公章"
 									deviation = {"50*50"}
