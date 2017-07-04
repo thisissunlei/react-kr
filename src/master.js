@@ -4,7 +4,7 @@ import {Actions,Store,connect} from 'kr/Redux';
 
 import Header from 'kr/Containers/Header';
 import Footer from 'kr/Containers/Footer';
-import UpdateLog from 'kr/Containers/UpdateLog';
+
 
 import {Http} from "kr/Utils";
 import { observer, inject } from 'mobx-react';
@@ -35,12 +35,6 @@ export default class Master extends React.Component {
 		}
 
 	}
-
-	openUpdateLog = ()=>{
-
-
-	}
-
 	render() {
 
 		var containerStyles = {};
@@ -65,7 +59,7 @@ export default class Master extends React.Component {
 				</div>
 				<Footer/>
 				<div id="nowtify-wrapper"></div>
-				<UpdateLog />
+		
 			</div>
 		);
 	}

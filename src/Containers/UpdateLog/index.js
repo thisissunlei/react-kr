@@ -26,16 +26,27 @@ export default class UpdateLog extends React.Component {
         const that = this;
 
         Http.request('get-version-log').then(function(response){
-            console.log('response:',response);
             that.setState({...response});
         });
 
     }
 
-    openUpdateLog = () => {
+    close = () => {
+
+        const {ver,show} = this.state;
+
+        if(!show){
+            return ;
+        }
+
+         Http.request('version-log-close',{},{
+             verId:ver.id,
+         });
+
         this.setState({
             show: false
         });
+
     }
 
     renderLogList = () => {
@@ -84,7 +95,7 @@ export default class UpdateLog extends React.Component {
                         {this.renderLogList()}
                     </div>
                     <div className="log-footer">
-                        <a className="close-btn" onClick={this.openUpdateLog}>关闭</a>
+                        <a className="close-btn" onClick={this.close}>关闭</a>
                     </div>
                 </div>
             </Dialog>
