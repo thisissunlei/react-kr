@@ -30,6 +30,7 @@ import {
 
 import './index.less';
 import EditCustomerSource from './EditCustomerSource'
+import NewCustomerSource from './NewCustomerSource'
 export default class CustomerSource  extends Component{
 
 	constructor(props,context){
@@ -67,8 +68,6 @@ export default class CustomerSource  extends Component{
 
 	//操作相关
 	onOperation = (type,itemDetail) => {
-		console.log("KKKKKK",type)
-		// this.editSwitch();
 		if(type == "edit"){
 			this.editSwitch();
 		}
@@ -79,7 +78,7 @@ export default class CustomerSource  extends Component{
     }
 	//打开新建按钮
 	openNew = () =>{
-		this.newSwidth();
+		this.newSwitch();
 	}
 
 	//编辑开关
@@ -114,10 +113,16 @@ export default class CustomerSource  extends Component{
 	openSearchUpperFormDialog=()=> {
 		
 	}
+	allClose = () =>{
+		this.setState({
+			isEdit : false,
+			isNew : false
+		})
+	}
 
 
 	render(){
-		const {isEdit} = this.state;
+		const {isEdit,isNew} = this.state;
 
 		return(
 			<div className="customer-source">
@@ -126,11 +131,11 @@ export default class CustomerSource  extends Component{
 					<Section title="客户来源配置" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
-									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
+									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNew}  /> </Col>
 									<Col md={8} align="right" style={{marginTop:0}}>
 										<ListGroup>
 											<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-											<ListGroupItem> <Button searchClick={this.openSearchUpperFormDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
+											{/*<ListGroupItem> <Button searchClick={this.openSearchUpperFormDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>*/}
 										</ListGroup>
 									</Col>
 								</Row>
@@ -182,13 +187,26 @@ export default class CustomerSource  extends Component{
 
                         </Table>
 				</Section>
+				{/*编辑*/}
 				<Drawer
 					open={isEdit}
 					width={750}
 					openSecondary={true}
+					onClose={this.allClose}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				>
-					<EditCustomerSource/>
+					<EditCustomerSource onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
+				</Drawer>
+
+				{/*新建*/}
+				<Drawer
+					open={isNew}
+					width={750}
+					openSecondary={true}
+					onClose={this.allClose}
+					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				>
+					<NewCustomerSource onSubmit = {this.newSubmit} onCancel = {this.newSwitch}/>
 				</Drawer>
 			</div>
 		);
