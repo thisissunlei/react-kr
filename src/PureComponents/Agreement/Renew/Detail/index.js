@@ -171,6 +171,8 @@ export default class JoinDetail extends Component {
 			const info = {
 				paddingBottom: 10
 			}
+		var agreementValue = basic.agreement=='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':basic.agreement;
+			
 			return (
 				<div className="content agreement-detail" style={content}>
 					<Title value="续租协议书详情页_财务管理"/>
@@ -253,7 +255,7 @@ export default class JoinDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true} toolTrue='true'/>
 
 								<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
-								<KrField   name="agreement" component="labelText" label="双方其他约定内容" value={basic.agreement} defaultValue="无" requireBlue={true} inline={false}/>
+								<KrField   name="agreement" component="labelText" label="双方其他约定内容" value={agreementValue} defaultValue="无" requireBlue={true} inline={false}/>
 
 					<KrField component="group" label="上传附件：" requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{

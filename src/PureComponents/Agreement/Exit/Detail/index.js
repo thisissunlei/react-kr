@@ -128,6 +128,7 @@ export default class ExitDetail extends Component {
 			const info = {
 				paddingBottom:10
 			}
+			var agreementValue = basic.agreement=='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':basic.agreement;
 
 			return (
 				<div className="content agreement-detail" style={content}>
@@ -163,7 +164,7 @@ export default class ExitDetail extends Component {
 								<KrField component="labelText" grid={1} label="合同编号：" value={basic.contractcode} requireBlue={true} toolTrue='true'/>
 
 								<KrField component="labelText"  label="备注：" value={!basic.contractmark?"无":basic.contractmark} inline={false} requireBlue={true} defaultValue="无"/>
-							 	<KrField  name="agreement" component="labelText" label="双方其他约定内容" inline={false} requireBlue={true} defaultValue="无" value={basic.agreement}/>
+							 	<KrField  name="agreement" component="labelText" label="双方其他约定内容" inline={false} requireBlue={true} defaultValue="无" value={agreementValue}/>
 
 
 					<KrField component="group" label="上传附件："  requireBlue={true}>

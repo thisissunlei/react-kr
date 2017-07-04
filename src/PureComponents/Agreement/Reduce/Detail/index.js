@@ -187,6 +187,8 @@ export default class ReduceDetail extends Component {
 		} else {
 			dicName = '';
 		}
+		var agreementValue = basic.agreement=='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':basic.agreement;
+		
 
 			return (
 				<div className="content agreement-detail" style={content}>
@@ -254,7 +256,7 @@ export default class ReduceDetail extends Component {
 
 								<KrField component="labelText"	 grid={1/1} label="签署日期：" value={basic.signdate} type="date" defaultValue="无" requireBlue={true}/>
 								<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
-								<KrField   name="agreement"  component="labelText" label="双方其他约定内容" value={basic.agreement} defaultValue="无" requireBlue={true} inline={false}/>
+								<KrField   name="agreement"  component="labelText" label="双方其他约定内容" value={agreementValue} defaultValue="无" requireBlue={true} inline={false}/>
 
 
 

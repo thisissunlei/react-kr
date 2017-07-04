@@ -612,7 +612,7 @@ class NewCreateForm extends React.Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
-		var agreementValue = initialValues.agreement='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':initialValues.agreement;
+		var agreementValue = initialValues.agreement=='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':initialValues.agreement;
 
 		return (
 

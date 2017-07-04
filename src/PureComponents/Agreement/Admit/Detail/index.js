@@ -165,7 +165,8 @@ export default class AdmitDetail extends Component {
 		} else {
 			dicName = '';
 		}
-
+		var agreementValue = basic.agreement=='无'?'如需填写双方其他约定内容，请邮件发送法务部林玉洁（linyujie@krspace.cn）审批，抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），审批通过后技术部修改该内容，即可打印':basic.agreement;
+	
 			return (
 				<div className="content agreement-detail" style={content}>
 					<Title value="承租意向书详情页_财务管理"/>
@@ -238,7 +239,7 @@ export default class AdmitDetail extends Component {
 <KrField label="保留天数："   grid={1/2} component="labelText" left={60} value={basic.templockday} defaultValue="0" requireBlue={true} toolTrue='true'/>
 
 <KrField label="备注："   grid={1/1} component="labelText" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
-<KrField label="双方其他约定内容："   grid={1/1} component="labelText" value={basic.agreement} defaultValue="无" requireBlue={true} inline={false}/>
+<KrField label="双方其他约定内容："   grid={1/1} component="labelText" value={agreementValue} defaultValue="无" requireBlue={true} inline={false}/>
 
 
 					<KrField component="group" label="上传附件：" requireBlue={true}>
