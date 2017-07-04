@@ -34,7 +34,7 @@ export default class RenewPrint extends React.Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
 			window.print();
-			window.close();
+			// window.close();
 		}, 1000)
 
 	}

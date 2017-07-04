@@ -46,10 +46,10 @@ export default class Payment extends Component {
 			console.log('num',num)
 			if(!this.init){
 				this.init = true;
-				if(installmentPlans.length>15){
-					installmentPlans.splice(num+14,0,obj);
-				}
-				installmentPlans.splice(num,0,obj);
+				// if(installmentPlans.length>15){
+				// 	installmentPlans.splice(num+14,0,obj);
+				// }
+				// installmentPlans.splice(num,0,obj);
 			}
 			
 		}else if(top<1180 && top>1060){

@@ -32,8 +32,9 @@ export default class Station extends Component {
 	}
 	componentDidMount() {
 		let {stationVOs} = this.props;
-		if(stationVOs.length>=34){
-			stationVOs.splice(34,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+		if(stationVOs.length>=33){
+			stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 		}
 		this.setState({
 			stationVOs:stationVOs
@@ -43,8 +44,9 @@ export default class Station extends Component {
 		let {stationVOs} = nextProp;
 		if(!this.init){
 			this.init = true;
-			if(stationVOs.length>=34){
-				stationVOs.splice(34,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			if(stationVOs.length>=33){
+				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 			}
 			this.setState({
 				stationVOs:stationVOs
@@ -149,8 +151,18 @@ export default class Station extends Component {
 
 							{
 								stationVOs && stationVOs.map((item,index)=>{
+									let style = {};
+									if(!item.stationTypeName){
+										style={
+											visibility:'hidden'
+										}
+									}else{
+										style={
+											visibility:'visible'
+										}
+									}
 										return(
-											<tr key={index}>
+											<tr key={index} style={style}>
 												<td>{this.basicType(item.stationTypeName)}</td>
 												<td>{item.stationName}</td>
 												<td>{item.unitPrice}</td>
