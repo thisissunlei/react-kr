@@ -92,9 +92,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 			 Message.error('营业开始时间不能大于营业结束时间');
 			return ;
 		}
-   
-	  console.log('ssss1',values);
-  
+     
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }

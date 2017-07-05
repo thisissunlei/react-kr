@@ -72,7 +72,6 @@ class CommunityList  extends React.Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
-		    console.log('ssss',value);
    	    value = Object.assign({},value);
         
         //楼层开始
