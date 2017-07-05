@@ -4,7 +4,14 @@ import {Actions,Store,connect} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {
+	reduxForm,
+	formValueSelector,
+	initialize,
+	change,
+	FieldArray
+} from 'redux-form';
+
 
 import {
 	KrField,
@@ -14,7 +21,7 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+	Message,
 } from 'kr-ui';
 import './index.less';
  class EditCustomerSource extends Component{
@@ -42,102 +49,190 @@ import './index.less';
         let {onSubmit} = this.props;
         onSubmit && onSubmit(values);
     }
+
+	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
+	<div>
+		<label>{label}</label>
+		<div>
+		<input {...input}  placeholder={label||placeholder}/>
+		{touched && error && <span>{error}</span>}
+		</div>
+	</div>
+)
+	renderBrights = ({ fields, meta: { touched, error }}) => {
+		const self = this;
+		 var krStyle={};
+			krStyle={width:228,marginLeft:18,marginRight:3,}
+			return (
+					<ul style={{padding:0,margin:0}}>
+					<div style = {{marginLeft:20,marginBottom:20}}>
+						<Button  label="添加子项" onTouchTap={() => fields.unshift()} />
+					</div>	
+					{fields.map((brightsStr, index) =>
+					<li key={index} style={{width:600,listStyle:'none'}}>
+						<KrField
+							style={{width:190,marginLeft:18,marginRight:3,}}
+							grid={1/3}
+							name={`${brightsStr.nem}`}
+							type="text"
+							component={self.renderField}
+							label={index?'':'子项名称'}
+							placeholder='子项名称'
+							
+						/>
+						
+						
+						<KrField
+							style={{width:225,marginLeft:0,marginRight:3,}}
+							grid={1/3}
+							name={`${brightsStr.mm}`}
+							type="text"
+							component={self.renderField}
+							label={index?'':'子项编码'}
+							placeholder='子项编码'
+						/>
+						<KrField
+							style={{width:90,marginLeft:0,marginRight:3,}}
+							grid={1/3}
+							name={`${brightsStr.mm}`}
+							type="text"
+							component={self.renderField}
+							label={index?'':'子项顺序'}
+							placeholder='子项顺序'
+						/>
+						<span
+							className='minusBtn'
+							style={!index ? {marginTop:32,marginLeft:8}:{marginTop:16,marginLeft:8}}
+							onClick={() => fields.remove(index)}/>
+					</li>
+				)}
+				
+			</ul>
+
+		)
+	}
 	render(){
 		const { handleSubmit,select} = this.props;
 		const {typeValue} = this.state;
 		let fieldStyle = {width:262,marginLeft:28}
 		return (
 
-			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
-				<div className="title" style={{marginBottom:"30px"}}>
-					<div>
-						<span className="new-icon"></span>
-						<label className="title-text">编辑客户来源</label>
-					</div>
-					<div className="customer-close" onClick={this.onCancel}></div>
+			<form className = 'edit-source-from' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
+				<div className="title">
+						<div><span className="new-icon"></span><label className="title-text">编辑客户来源</label></div>
+						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
-					<KrField 
-						grid={1/2} 
-						name="communityId" 
-						style={fieldStyle} 
-						component='searchCommunityAll'  
-						label="名称" 
-						inline={false}
-					/>
-					<KrField 
-						grid={1/2}  
-						name="name" 
-						style={fieldStyle} 
-						component='input'  
-						label="编码" 
-						inline={false}  
-						placeholder='请输入姓名' 
-						requireLabel={true}
-					/>
-					<KrField 
-						grid={1/2}  
-						name="tel" 
-						style={fieldStyle} 
-						component='input'  
-						label="子项" 
-						inline={false}  
-						requireLabel={true}
-					/>
-					<KrField 
-						grid={1/2}  
-						name="email" 
-						style={fieldStyle} 
-						component='input'  
-						label="佣金" 
-						inline={false}   
-						requireLabel={true}
-					/>
-					<KrField 
-						grid={1/2}  
-						name="vtime" 
-						style={fieldStyle} 
-						component='date'  
-						label="新建编辑时候是否可选" 
-						inline={false}  
-						requireLabel={true}
-					/>
-					<KrField 
-						grid={1/2}  
-						name="vtime" 
-						style={fieldStyle} 
-						component='date'  
-						label="顺序" 
-						inline={false}  
-						requireLabel={true}
-					/>
-					<Grid style={{marginTop:30}}>
-						<Row>
-							<Col md={12} align="center" style={{marginLeft:"-27px"}}>
-								<div  className='ui-btn-center' 
-									  style={{
-										   marginRight:20,
-										   display:"inline-block"
-										   }}
-								>
-									<Button  label="确定" type="submit"/>
-								</div>
-								<div style={{
-									marginLeft:15,display:"inline-block"
-									}}
-								>
-									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
-								</div>
-							</Col>
-						</Row>
-					</Grid>
-			 </form>
+				<div className="cheek">
+						<div className="titleBar">
+							<span className="order-number">1</span>
+							<span className="wire"></span>
+							<label className="small-title">基本信息</label>
+						</div>
+						<div className="small-cheek">
+							<KrField 
+								grid={1/2} label="来源名称"  
+								name="corName" 
+								style={{width:262,marginLeft:15}} 
+								component="input" 
+								requireLabel={true}
+							/>
+							<KrField 
+								grid={1/2} 
+								label="佣金比例" 
+								name="corAddress" 
+								style={{width:262,marginLeft:15}} 
+								component="input" 
+								requireLabel={true}
+							/>
+							<KrField 
+								grid={1/2} 
+								label="来源顺序" 
+								name="corAddress" 
+								style={{width:262,marginLeft:15}} 
+								component="input" 
+								requireLabel={true}
+							/>
+							<KrField 
+								grid={1/2} 
+								label="全员开放" 
+								name="enableflag" 
+								style={{width:262,marginLeft:15,marginRight:13}} 
+								component="group" 
+								requireLabel={true}
+							>
+								<KrField 
+									name="enableflag" 
+									label="是" 
+									type="radio" 
+									value="ENABLE" 
+									style={{marginTop:5,display:'inline-block',width:84}}
+								/>
+								<KrField 
+									name="enableflag" 
+									label="否" 
+									type="radio" 
+									value="DISENABLE"  
+									style={{marginTop:5,display:'inline-block',width:53}}
+								/>
+							</KrField>
+							<div className="middle-round"></div>
+						</div>
+
+						<div className="titleBar">
+							<span className="order-number">2</span>
+							<span className="wire"></span>
+							<label className="small-title">自来源信息</label>
+						</div>
+						<div className="small-cheek" style={{paddingBottom:0}}>
+
+							<FieldArray name="bankAccount" component={this.renderBrights}/>
+
+						</div>
+						
+						<div className="end-round"></div>
+				</div>
+				<Grid style={{marginTop:30}}>
+					<Row>
+						<Col md={12} align="center">
+							<ButtonGroup>
+
+								<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
+								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+							</ButtonGroup>
+						</Col>
+					</Row>
+				</Grid>
+			</form>
 		);
 	}
 }
 const validate = values =>{
 
 	const errors = {};
+	if (!values.bankAccount || !values.bankAccount.length) {
+          errors.bankAccount = { _error: 'At least one member must be entered' }
+        } else {
+          let membersArrayErrors = []
+          values.bankAccount.forEach((porTypes, memberIndex) => {
 
+            let memberErrors = '';
+			if(porTypes){
+				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			}
+			if (!porTypes){
+              memberErrors = '请填写银行账户'
+
+			}
+            if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
+              memberErrors = '银行卡号必须为数字，且最长为30个数字'
+
+            }
+			membersArrayErrors[memberIndex] = memberErrors
+          })
+        if(membersArrayErrors.length) {
+          errors.bankAccount = membersArrayErrors
+        }
+      }
 	return errors;
 }
 export default reduxForm({ form: 'editCustomerSource',validate})(EditCustomerSource);

@@ -74,9 +74,10 @@ export default class CustomerSource  extends Component{
 			this.editSwitch();
 		}else if(type == "delete"){
 			this.delSwitch();
-		}else if(type == 'look'){
-			this.lookSwitch();
 		}
+		// else if(type == 'look'){
+		// 	this.lookSwitch();
+		// }
            
     }
 	//打开新建按钮
@@ -135,7 +136,7 @@ export default class CustomerSource  extends Component{
 			isEdit : false,
 			isNew : false,
 			isDel : false,
-			isLook : false,
+			// isLook : false,
 		})
 	}
 
@@ -199,7 +200,7 @@ export default class CustomerSource  extends Component{
                                         <TableRowColumn name="creator"></TableRowColumn>
                                         <TableRowColumn name="creator"></TableRowColumn>
                                         <TableRowColumn>
-                                            <Button label="查看"  type="operation" operation="look"/>											
+                                            {/*<Button label="查看"  type="operation" operation="look"/>*/}											
                                             <Button label="编辑"  type="operation" operation="edit"/>
                                             <Button label="删除"  type="operation" operation="delete"/>
                                         </TableRowColumn>
