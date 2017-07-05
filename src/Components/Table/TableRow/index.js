@@ -92,6 +92,7 @@ export default class TableRow extends React.Component {
 						'data-row':rowNumber
 					});
 				}
+				
 				return React.cloneElement(child);
 			}else{
 				return child;

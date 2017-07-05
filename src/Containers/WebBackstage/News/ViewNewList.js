@@ -2,11 +2,13 @@ import React from 'react';
 import {
 	ReactHtmlParser
 } from "kr/Utils";
-import {reduxForm} from 'redux-form';
 import {
 	KrField,
 	CircleStyleTwo
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
+import {reduxForm,initialize} from 'redux-form';
+import {Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
@@ -22,6 +24,17 @@ class ViewNewList extends React.Component {
 		let {detail}=this.props;
 		State.getNewsDate(detail.id);
 		
+	}
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(this.props.initializeValues,nextProps.detail)){
+			let {detail}=nextProps;
+			State.getNewsDate(detail.id);
+		}
+
+
+	}
+	componentWillUnmount(){
+		State.newsDetail='';
 	}
 	onCancel=()=>{
 		let {onCancel}=this.props;
@@ -101,7 +114,7 @@ class ViewNewList extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
 						<div style={{width:560}}>
-							{ReactHtmlParser(State.newsDate.newsContent)}
+							{State.newsDate.newsContent && ReactHtmlParser(State.newsDetail)}
 						</div>
 					</CircleStyleTwo>
 			   

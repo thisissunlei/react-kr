@@ -1,5 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+	Http,
+	DateFormat,
+} from "kr/Utils";
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
@@ -37,6 +41,7 @@ export default class DataPermission extends React.Component{
     this.state = {
 			idList:[],
 			cityList:[],
+			outSelect:false,
     };
 		this.onCancel = this.onCancel.bind(this);
 	}
@@ -50,9 +55,9 @@ export default class DataPermission extends React.Component{
 	getInfo=()=>{
 			var _this = this;
 			const {detail} = this.props;
-			Store.dispatch(Actions.callAPI('findCommunities',{
+			Http.request('findCommunities',{
 				userId:_this.props.detail.id,
-			})).then(function(response){
+			}).then(function(response){
 			  _this.setState({
 					cityList: response.cities,
 				});
@@ -70,6 +75,9 @@ export default class DataPermission extends React.Component{
 			item.communities.map((itemC,index) => {
 				itemC.ownFlag = 0;
 			})
+			_this.setState({
+				outSelect:false,
+			})
 		}else {
 			item.flag = 1;
 			item.communities.map((itemC,index) => {
@@ -77,6 +85,21 @@ export default class DataPermission extends React.Component{
 			})
 		}
 		list[index] = item;
+		var allSelect = 0;
+		list.map((itemA,indexA)=>{
+			if(itemA.flag==1){
+				allSelect++;
+			}
+		})
+		if (allSelect==list.length) {
+			_this.setState({
+				outSelect:true,
+			})
+		}else{
+			_this.setState({
+				outSelect:false,
+			})
+		}
 		_this.setState({
 			cityList:list,
 		})
@@ -101,6 +124,21 @@ export default class DataPermission extends React.Component{
 			item.flag = 0;
 		}
 		list[index] = item;
+		var allSelect = 0;
+		list.map((itemA,indexA)=>{
+			if(itemA.flag==1){
+				allSelect++;
+			}
+		})
+		if (allSelect==list.length) {
+			_this.setState({
+				outSelect:true,
+			})
+		}else{
+			_this.setState({
+				outSelect:false,
+			})
+		}
 		_this.setState({
 			cityList:list,
 		})
@@ -129,7 +167,7 @@ export default class DataPermission extends React.Component{
 	}
 	onSubmit = () => {
 		let {cityList} = this.state;
-		const {detail} = this.props;
+		const {detail,onSubmit} = this.props;
 		var idList = [];
 		cityList.map((item, index) => {
 			item.communities.map((itemC,indexC)=>{
@@ -138,30 +176,59 @@ export default class DataPermission extends React.Component{
 				}
 			})
 		})
-		Store.dispatch(Actions.callAPI('editUserCommunity',{},{
+		Http.request('editUserCommunity',{},{
 			id:detail.id,
 			communityIds:idList
-		})).then(function(response) {
+		}).then(function(response) {
 				Message.success('修改成功')
-				window.setTimeout(function(){
-					window.location.reload();
-				},800)
+				onSubmit();
 		}).catch(function(err) {
 				Message.error(err.message);
 		});
-}
+	}
 	onCancel=()=>{
 	  const {
 	    onCancel
 	  } = this.props;
 	  onCancel && onCancel()
 	}
-
+	outSelect=()=>{
+		let {outSelect} = this.state;
+		var cityList = this.state.cityList;
+		var _this = this;
+		this.setState({
+			outSelect:!this.state.outSelect,
+		},function (){
+			if(_this.state.outSelect){
+				cityList.map((item,index)=>{
+					item.flag = 1;
+					item.communities.map((itemC,indexC)=>{
+						itemC.ownFlag = 1;
+					})
+				})
+			}else{
+				cityList.map((item,index)=>{
+					item.flag = 0;
+					item.communities.map((itemC,indexC)=>{
+						itemC.ownFlag = 0;
+					})
+				})
+			}
+			_this.setState({
+				cityList
+			})
+		})
+		
+		console.log(this.state.cityList);
+		console.log(outSelect);
+		
+	}
 
 	render(){
-		let {cityList} = this.state;
+		let {cityList,outSelect} = this.state;
 		return(
 			<div className="g-DataPermission">
+				<Checkbox label="全选" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
           <div className="leftSec">
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>

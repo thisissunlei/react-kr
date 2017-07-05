@@ -4,7 +4,9 @@ import {
 import {
 	default as Basic
 } from './Basic';
-
+import {
+	default as OpCode
+} from './OpCode';
 import {
 	default as PersonalCenter
 } from './PersonalCenter';
@@ -44,4 +46,5 @@ module.exports = {
 	OperationsLogs,
 	LoginLog,
 	SystemManage,
+	OpCode,
 }

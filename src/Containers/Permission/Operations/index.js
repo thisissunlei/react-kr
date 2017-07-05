@@ -98,7 +98,7 @@ class SearchForm extends Component {
 
 		return (
 			<form className="g-op-form" name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
+					<Button label="新建" operateCode="sso_resource_edit"  onTouchTap={this.openCreateDialog} />
 				<SearchForms
 						onSubmit={this.onSubmit}
 						searchFilter={options}
@@ -122,9 +122,12 @@ class Operations extends Component {
 
 		this.state = {
 			searchParams: {
-				page: 1,
-				pageSize: 15
-			},
+                accountName: '',
+                page: 1,
+                pageSize: 15,
+                timer: 1
+            },
+            newPage:1,
 			itemDetail: '',
 			openDeleteDialog: false,
 			openCreateDialog: false,
@@ -160,9 +163,7 @@ class Operations extends Component {
 		}).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message)
@@ -183,9 +184,7 @@ class Operations extends Component {
 		Http.request('createResources', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -196,9 +195,7 @@ class Operations extends Component {
 		Http.request('editResources', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 800);
+			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -232,7 +229,24 @@ class Operations extends Component {
 			searchParams: searchParams
 		});
 	}
-
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+		var searchParams = Object.assign({},this.state.searchParams);
+		console.log(searchParams);
+		searchParams.timer=timer;
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		console.log(searchParams);
+		this.setState({
+            searchParams:searchParams,
+        })
+    }
 
 	render() {
 		let {
@@ -251,7 +265,8 @@ class Operations extends Component {
 							ajaxUrlName='RosfindPage'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
-							  >
+							onPageChange={this.onPageChange}
+						>
 						<TableHeader>
 						<TableHeaderColumn>ID</TableHeaderColumn>
 						<TableHeaderColumn>名称</TableHeaderColumn>
@@ -283,8 +298,8 @@ class Operations extends Component {
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑"   type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
+									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
+									<Button label="删除"  type="operation" operateCode="sso_resource_del" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

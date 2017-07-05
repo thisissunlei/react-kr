@@ -5,7 +5,7 @@ import {
 } from 'kr/Utils';
 
 import Checkbox from '../../Checkbox';
-
+import './index.less'
 import WrapComponent from '../WrapComponent';
 
 export default class GroupCheckboxComponent extends React.Component {
@@ -62,17 +62,29 @@ export default class GroupCheckboxComponent extends React.Component {
     } = this.state;
 
     options[index].checked = checked;
+    let checkedAll = options.length == this.checkedLength(options);
 
     this.setState({
-      options
+      options,
+      checkedAll
     }, function() {
       this.valuationInputValue();
     });
 
   }
+  checkedLength = (data) =>{
+    var sum = 0;
+    data = data || [];
+    data.map(function(item,index){
+      if(item.checked){
+        sum++;
+      }
+    })
+    return sum;
+  }
 
   onSelectAll = (checkedAll) => {
-    
+
     let {
       options
     } = this.state;
@@ -90,10 +102,11 @@ export default class GroupCheckboxComponent extends React.Component {
   }
 
   renderSelectAllSwitch = () => {
-
+    const {checkAllData} = this.props;
     var _this = this;
+    var label  = checkAllData.label ? checkAllData.label : '全部';
 
-    return <Checkbox label = "全部"
+    return <Checkbox label = {label}
     value = "all"
     checked = {
       this.state.checkedAll
@@ -114,13 +127,15 @@ export default class GroupCheckboxComponent extends React.Component {
       options
     } = this.state;
     let {
-      name
+      name,
+      childrenInline
     } = this.props;
-
+    let inline = childrenInline ? 'inline-block' : 'block';
+    let className = childrenInline ? 'inline-children-style':'';
     var _this = this;
 
     children = options.map(function(item, index) {
-      return <div key={index}>
+      return <div className = {className} key={index} style = {{display:inline}}>
          <Checkbox  label={item.label} value={item.value} checked={item.checked} onCheck={(checked)=>{
             _this.onChange(checked,index);
           }}/>
@@ -139,17 +154,18 @@ export default class GroupCheckboxComponent extends React.Component {
     let values = [];
     let {
       input,
-      onChange
+      onChange,
+      checkAllData
     } = this.props;
+    checkAllData = checkAllData || {};
 
     options.map(function(item, index) {
       if (item.checked) {
         values.push(item.value);
       }
     });
-
     input.onChange && input.onChange(values.join(','));
-    onChange && onChange(options, values.join(','));
+    onChange && onChange(options, values.join(','),checkAllData);
   }
 
   render() {
@@ -167,15 +183,24 @@ export default class GroupCheckboxComponent extends React.Component {
       placeholder,
       style,
       inline,
+      isCheckAll,
+      indent
     } = this.props;
-
+    var indentStyle = {}
+    if(indent){
+      indentStyle = {
+        marginLeft:20
+      }
+    }
     return (
 
       <WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 					<div className="ui-group-checkbox">
               <input type="hidden" name={input.name} value={input.value} />
-              {/*{this.renderSelectAllSwitch()}*/}
-              {this.renderOptions()}
+              {isCheckAll && this.renderSelectAllSwitch()}
+              <div style = {indentStyle}>
+                {this.renderOptions()}
+              </div>
 					</div>
 				</WrapComponent>
     );

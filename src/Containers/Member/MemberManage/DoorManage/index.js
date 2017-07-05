@@ -236,8 +236,9 @@ export default class List extends React.Component {
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 								<Title value="门禁授权"/>
 								<Section title={`入驻团队门禁授权`} description="" >
-										<Button label="新增授权"  onTouchTap={this.openNewCreateDialog} />
-
+										
+											<Button label="新增授权"  operateCode="door_oauth" onTouchTap={this.openNewCreateDialog} />
+										
 										<SearchDetailForm onChange={this.onChangeCommunity}/>
 										<SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit} style={{float:"right"}}/>
 
@@ -289,9 +290,14 @@ export default class List extends React.Component {
 
 											<TableRowColumn name="endDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
-													<Button label="编辑"  type="operation" operation="edit"/>
-													<Button label="授权"  type="operation" operation="impower"/>
-													<Button label="删除"  type="operation" operation="delete" onClick={this.confirmDelete.bind(this.itemDetail)}/>
+													
+														<Button label="编辑" operateCode="door_oauth" type="operation" operation="edit"/>
+													
+														<Button operateCode="door_oauth_operate" label="授权"  type="operation" operation="impower"/>
+												
+													
+														<Button label="删除" operateCode="door_oauth_del" type="operation" operation="delete" onClick={this.confirmDelete.bind(this.itemDetail)}/>
+											 		
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
