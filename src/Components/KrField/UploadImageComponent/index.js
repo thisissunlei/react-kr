@@ -54,12 +54,12 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
-		console.log('default',defaultValue);
 		this.setState({
 				isInit: false,
 				imgUpload:true,
-				imgSrc:defaultValue
+				imgSrc:defaultValue.picUrl
 		});
+		input.onChange(defaultValue.picId); 
 		
 	}
 

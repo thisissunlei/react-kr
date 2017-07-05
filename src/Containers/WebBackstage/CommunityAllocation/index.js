@@ -16,7 +16,8 @@ import {
     SearchForms,
     TableFooter,
     Dialog,
-    Drawer
+    Drawer,
+    KrDate
 } from 'kr-ui';
 import {DateFormat,Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
@@ -36,12 +37,18 @@ export default class CommunityAllocation  extends React.Component{
                 page:1,
                 pageSize:15
             },
+            //下面的七个是传到编辑
             //社区名称
             communityName:'',
             //开业
             opend:'',
             //开业时间
-            openDate:''
+            openDate:'',
+            //四个图片的
+            listValue:{},
+            firstValue:{},
+            stationValue:{},
+            detailValue:[]    
         }
 	}
    
@@ -111,7 +118,6 @@ export default class CommunityAllocation  extends React.Component{
  
  //编辑提交
   editSubmit=(params)=>{
-       console.log('dddd',params);
        let _this=this;
        let {searchParams}=this.state;
        Http.request('web-community-edit',{},params).then(function(response) {
@@ -137,7 +143,7 @@ export default class CommunityAllocation  extends React.Component{
 
 	render(){
 
-        let {searchParams,communityName,opend,openDate}=this.state;
+        let {searchParams,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue}=this.state;
 
 		return(
            <div className='m-web-community'>
@@ -155,6 +161,7 @@ export default class CommunityAllocation  extends React.Component{
 	          <Table
 			    style={{marginTop:8}}
                 ajax={true}
+                displayCheckbox={false}
                 onOperation={this.onOperation}
 	            ajaxParams={searchParams}
                 onPageChange={this.onPageChange}
@@ -184,7 +191,9 @@ export default class CommunityAllocation  extends React.Component{
 			                <TableRowColumn name="customed" options={[{label:'是',value:'true'},{label:'否',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="appoint" options={[{label:'是',value:'true'},{label:'否',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="operater"></TableRowColumn>
-                            <TableRowColumn name="operateDate"></TableRowColumn>
+                            <TableRowColumn name="operateDate" component={(value,oldValue)=>{
+                                return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                            }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />
 			                </TableRowColumn>
@@ -222,6 +231,10 @@ export default class CommunityAllocation  extends React.Component{
                           communityName={communityName}	
                           opend={opend}
                           openDate={openDate}
+                          stationValue={stationValue}
+                          detailValue={detailValue}
+                          firstValue={firstValue}
+                          listValue={listValue}
 						/>
 
 		            </Drawer>

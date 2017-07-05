@@ -61,27 +61,22 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	constructor(props){
 		super(props);
         this.state={
-          defaultValue:'',
-          stationValue:{
-             picId:'',
-             picUrl:''
-          },
-          detailValue:[]
-                 
+          listValue:{},
+          firstValue:{},
+          stationValue:{},
+          detailValue:[]           
         }
 	}
 
 
     componentDidMount(){
-      let {picId,picUrl,detailValue}=this.props;
+      let {stationValue,detailValue,firstValue,listValue}=this.props;
       Store.dispatch(change('EditCommunity','porType',[{}]));
       this.setState({
-          defaultValue:`http://krspace-upload-test-public.oss-cn-beijing.aliyuncs.com/community_public_upload/201707/M/174721120_885.png`,
-          stationValue:{
-             picId:picId,
-             picUrl:picUrl 
-          },
-          detailValue:detailValue
+          firstValue:firstValue,
+          stationValue:stationValue,
+          detailValue:detailValue,
+          listValue:listValue
       })
     }
 
@@ -129,7 +124,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     render(){
 
-        let {defaultValue,stationValue,detailValue}=this.state;
+        let {firstValue,listValue,stationValue,detailValue}=this.state;
  
         const {handleSubmit,communityName,opend,openDate} = this.props;
       
@@ -221,9 +216,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <KrField 
                                          name="pageImageId"
                                          component="uploadImage"
-                                         requestUrl='http://optest.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                         requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                          style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
-                                         defaultValue={defaultValue}
+                                         defaultValue={firstValue}
                                     />
                                 </div>
 
@@ -232,9 +227,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <KrField 
                                        name="listImageId"
                                        component="uploadImage"
-                                       requestUrl='http://optest.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                       requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                        style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
-                                       defaultValue={defaultValue}
+                                       defaultValue={listValue}
                                     />
                                 </div>
 
