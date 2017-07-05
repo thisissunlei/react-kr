@@ -61,22 +61,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	constructor(props){
 		super(props);
         this.state={
-          listValue:{},
-          firstValue:{},
-          stationValue:{},
-          detailValue:[]           
+          isCover:''          
         }
 	}
 
 
     componentDidMount(){
-      let {stationValue,detailValue,firstValue,listValue}=this.props;
+      let {isCover}=this.props;
       Store.dispatch(change('EditCommunity','porType',[{}]));
       this.setState({
-          firstValue:firstValue,
-          stationValue:stationValue,
-          detailValue:detailValue,
-          listValue:listValue
+          isCover:isCover
       })
     }
 
@@ -110,7 +104,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
-        
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -120,14 +113,41 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		onCancel && onCancel();
 	}
 
-
+   hasOfficeClick=(param)=>{
+      if(param.value=='true'){
+          this.setState({
+              isCover:'true'
+          })
+      }else{
+         this.setState({
+              isCover:'false'
+        }) 
+      }
+   }
 
     render(){
 
-        let {firstValue,listValue,stationValue,detailValue}=this.state;
+        let {isCover}=this.state;
  
-        const {handleSubmit,communityName,opend,openDate,isCover} = this.props;
-      
+        const {handleSubmit,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
+
+        var sortStyle={};
+        var chartStyle={};
+        if(isCover=='false'||isCover==false){
+           sortStyle={
+             width:262,marginLeft:15  
+           }
+           chartStyle={
+             width:262,marginLeft:30
+           }
+        }else if(isCover=='true'||isCover==true){
+           sortStyle={
+             width:262,marginLeft:25  
+           }
+           chartStyle={
+             width:262,marginLeft:15
+           }  
+        }
         
     
         return (
@@ -142,9 +162,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                         <div className="small-cheek">
 
 
-                            <KrField grid={1/2} label="社区名称" inline={false} value={communityName} style={{width:262,marginLeft:18}} component="labelText"/>
+                            <KrField grid={1/2} label="社区名称" inline={false} value={communityName?communityName:'无'} style={{width:262,marginLeft:18}} component="labelText"/>
 
-                            <KrField grid={1/2} label="开业状态" inline={false} value={opend+'('+openDate+')'} style={{width:262,marginLeft:28}} component="labelText"/>
+                            <KrField grid={1/2} label="开业状态" inline={false} value={opend?opend:'无'+openDate?'('+openDate+')':'无'} style={{width:262,marginLeft:28}} component="labelText"/>
 
                         
                     </div>
@@ -161,7 +181,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 name="stationImageId"
                                 component="newuploadImage"
                                 innerstyle={{width:364,height:254,padding:16}}
-                                sizePhoto
+                                sizePhoto={true}
                                 photoSize={'3:2'}
                                 pictureFormat={'JPG,PNG,GIF'}
                                 pictureMemory={'300'}
@@ -180,27 +200,27 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                         <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
                         <div className="small-cheek" style={{paddingBottom:0}}>
                             <KrField grid={1/2} label="是否企业定制" name="customed" style={{width:248,marginLeft:15}} component="group" requireLabel={true}>
-                                <KrField name="customed" label="非定制" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-                                <KrField name="customed" label="定制" type="radio" value='true' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="customed" label="非定制" type="radio" value="false"  style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="customed" label="定制" type="radio" value="true"  style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
-                            <KrField grid={1/2} label="是否允许预约" name="appoint" style={{width:200,marginLeft:35}} component="group" requireLabel={true}>
-                                <KrField name="appoint" label="可预约" type="radio" value='true' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-                                <KrField name="appoint" label="不可预约" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+                            <KrField grid={1/2} label="是否允许预约" name="appoint" style={{width:200,marginLeft:40}} component="group" requireLabel={true}>
+                                <KrField name="appoint" label="可预约" type="radio" value="true"  style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="appoint" label="不可预约" type="radio" value="false" style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
                             <KrField grid={1/2} label="是否显示覆盖标签" name="cover" style={{width:248,marginLeft:15}} component="group">
-                                <KrField name="cover" label="显示" type="radio" value='true' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-                                <KrField name="cover" label="不显示" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="cover" label="显示" type="radio" value="true" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="cover" label="不显示" type="radio" value="false" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
-                            <KrField grid={1/2} label="官网显示状态" name="show" style={{width:200,marginLeft:35}} component="group" requireLabel={true}>
-                                <KrField name="show" label="显示" type="radio" value='true' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-                                <KrField name="show" label="不显示" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+                            <KrField grid={1/2} label="官网显示状态" name="show" style={{width:200,marginLeft:40}} component="group" requireLabel={true}>
+                                <KrField name="show" label="显示" type="radio" value="true"  style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="show" label="不显示" type="radio" value="false"  style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
 
-                            {isCover&&<KrField grid={1/2} label="覆盖标签内容" name="coverName" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange} requireLabel={true}/>}
+                            {(isCover=='true'||isCover==true)&&<KrField grid={1/2} label="覆盖标签内容" name="coverName" component="input" style={{width:262,marginLeft:15}}  requireLabel={true}/>}
                         
-                            <KrField grid={1/2} label="排序" name="sort" component="input" style={{width:262,marginLeft:25}}/>
+                            <KrField grid={1/2} label="排序" name="sort" component="input" style={sortStyle}/>
 
-                            <KrField style={{width:262,marginLeft:15}}  name="chargeId" component="searchPersonel" label="联系人"/>
+                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="联系人"/>
                             
                             <FieldArray name="porType" component={renderStation} />
 
@@ -211,42 +231,45 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
 
-                                <div style={{marginTop:'16px'}}>
-                                    <span className='upload-pic-first'>上传首页图片</span>
-                                    <KrField 
+                               
+                                   <div className='web-page-box'> <KrField 
                                          name="pageImageId"
                                          component="uploadImage"
                                          requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
-                                         style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
+                                         style={{textAlign:'left'}}
                                          defaultValue={firstValue}
+                                         inline={false}
+                                         label='上传首页图片'
                                          requireLabel={true}
-                                    />
-                                </div>
+                                    /></div>
+                                
 
-                                <div style={{marginTop:'16px'}}>
-                                    <span className='upload-pic-first'>上传列表页图片</span>
-                                    <KrField 
+                                
+                                    <div className='web-page-box'> <KrField 
                                        name="listImageId"
                                        component="uploadImage"
                                        requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
-                                       style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
+                                       style={{textAlign:'left'}}
                                        defaultValue={listValue}
+                                       inline={false}
+                                       label='上传列表页图片'
                                        requireLabel={true}
-                                    />
-                                </div>
+                                    /></div>
+                               
 
-                                <div style={{marginTop:'16px'}}>
-                                    <span className='upload-pic-first'>上传详情页图片</span>
-                                    <KrField name="detailImageId"
+                                
+                                    <div className='web-detail-img'><KrField name="detailImageId"
                                         component="uploadImageList"
-                                        style={{marginTop:10,textAlign:'left'}}
+                                        boxStyle={{marginLeft:-35,textAlign:'left'}}
                                         defaultValue={detailValue}
                                         imgFlag={false}
                                         innerBoxStyle={{width:254,height:70}}
                                         innerStyle={{left:110,top:12}}
+                                        inline={false}
+                                        label='上传详情页图片'
                                         requireLabel={true}
-                                        />
-                                </div>
+                                    /></div>
+                               
 
                             </div>
                             <div className="end-round"></div>

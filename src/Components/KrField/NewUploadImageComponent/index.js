@@ -45,7 +45,6 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	componentDidMount() {
-
 	}
 	componentWillReceiveProps(nextProps){
 		// if(nextProps.defaultValue){
@@ -64,7 +63,9 @@ export default class UploadImageComponent extends Component {
 		// 		imgUpload : false
 		// 	})
 		// }
-		if(nextProps.defaultValue){
+		if(nextProps.defaultValue&&nextProps.sizePhoto&&nextProps.defaultValue.hasOwnProperty('picUrl')){
+			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
+		}else if(nextProps.defaultValue&&!nextProps.sizePhoto){
 			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}
 
@@ -78,7 +79,6 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
-		
 		if(sizePhoto){
 			this.setState({
 				isInit: false,
@@ -361,14 +361,14 @@ export default class UploadImageComponent extends Component {
 
 					<div className='ui-uploadimg-outbox' style={innerstyle}>
 						<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-							<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{opacity:this.state.imgUpload?1:0}}/>
+						   <img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{opacity:(this.state.imgUpload&&this.state.imgSrc)?1:0}}/>
 
 							<div className='ui-uploadimg-inner-new' >
 								<span className='ui-uploadimg-button'>+</span>
 								<input type='file' onChange={this.onChange} ref="inputImg"/>
 								<span className='ui-uploadimg-tip'>上传图片</span>
 							</div>
-							<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none",textAlign:'center'}}>
+							<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",textAlign:'center'}}>
 								<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg}>
 									<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
 									<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn" />

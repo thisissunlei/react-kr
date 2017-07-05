@@ -20,6 +20,11 @@ module.exports = [
 						menuCode: 'main_news',
 						router: '/WebBackstage/news/list',
 					},
+					{
+						primaryText: '官网社区配置',
+						menuCode: 'krspace_cmt',
+						router: '/WebBackstage/communityAllocation',
+					}
 					]
 			}, ],
 	}

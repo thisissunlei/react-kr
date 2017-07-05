@@ -11,6 +11,7 @@ import './index.less';
 import refresh from "./images/refresh.svg";
 import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
+import WrapComponent from '../WrapComponent';
 export default class UploadImageComponent extends Component {
 	static defaultProps = {
 
@@ -37,13 +38,11 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	componentDidMount() {
-
 	}
 	componentWillReceiveProps(nextProps){
-
-	 if(nextProps.defaultValue){
-			this.setInitValue(nextProps.defaultValue);
-		}
+	 if(nextProps.defaultValue&&nextProps.defaultValue.hasOwnProperty('picUrl')){
+		 this.setInitValue(nextProps.defaultValue);
+	  }
 	}
 
 	setInitValue(defaultValue) {
@@ -211,10 +210,11 @@ export default class UploadImageComponent extends Component {
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name,...other} = this.props;
+		let {children,className,style,meta: { touched, error },type,label,inline,requireLabel,name,...other} = this.props;
 		let {operateImg} = this.state;
 		return(
-			<div className="ui-uploadimg-box" style={style}>
+		 	<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
+			<div className="ui-uploadimg-box">
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 						{this.state.imgSrc&&<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{zIndex:10,position:'absolute',left:'50%',transform: 'translateX(-50%)',height:'75px'}}/>}
@@ -223,7 +223,7 @@ export default class UploadImageComponent extends Component {
 							<input type='file' onChange={this.onChange} ref="inputImg"/>
 							<span className='ui-uploadimg-tip'>上传图片</span>
 						</div>
-						<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
+						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
 							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
 								<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
 								<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
@@ -235,6 +235,8 @@ export default class UploadImageComponent extends Component {
 					</div>
 				</div>
 			</div>
+			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+		</WrapComponent>
 		);
 	}
 }

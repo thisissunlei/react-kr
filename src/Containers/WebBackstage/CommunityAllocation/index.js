@@ -17,11 +17,12 @@ import {
     TableFooter,
     Dialog,
     Drawer,
-    KrDate
+    KrDate,
+    Message
 } from 'kr-ui';
 import {DateFormat,Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
-import {initialize} from 'redux-form';
+import {initialize,change} from 'redux-form';
 import './index.less';
 import SearchUpperForm from './SearchUpperForm';
 import EditCommunity from './EditCommunity';
@@ -69,7 +70,7 @@ export default class CommunityAllocation  extends React.Component{
          appoint:params.appoint?params.appoint:''
      }
      this.setState({
-       searchParams:Object.assign({},searchParams,this.state.searchParams),
+       searchParams:Object.assign({},this.state.searchParams,searchParams)
      }) 
      this.openSearchUpperDialog();
    }
@@ -77,10 +78,12 @@ export default class CommunityAllocation  extends React.Component{
    //搜索名称
    onSearchSubmit=(param)=>{
      var searchParams={
-         cmtName:param.content
+         cmtName:param.content,
+         page:1,
+         pageSize:15
      }
      this.setState({
-       searchParams:Object.assign({},searchParams,this.state.searchParams)   
+       searchParams:searchParams  
      }) 
    }
    
@@ -89,11 +92,62 @@ export default class CommunityAllocation  extends React.Component{
      if(type=='edit'){
         let _this=this;
         Http.request('web-community-detail',{id:itemDetail.id}).then(function(response) {
+            var detailArr=[];
+            if(response.detailImage){
+                response.detailImage.map((item,index)=>{
+                var list={};
+                list.photoId=item.photoId;
+                list.src=item.photoUrl;
+                detailArr.push(list);
+                })
+            }
+             Store.dispatch(change('EditCommunity','detailImageId',detailArr));
+
+            if(response.appoint==true){
+                response.appoint='true';
+            }
+            if(response.appoint==false){
+                response.appoint='false';
+            }
+            if(response.cover==true){
+                response.cover='true';
+            }
+            if(response.cover==false){
+                response.cover='false';
+            }
+            if(response.customed==true){
+                response.customed='true';
+            }
+            if(response.customed==false){
+                response.customed='false';
+            }
+            if(response.show==true){
+                response.show='true';
+            }
+            if(response.show==false){
+                response.show='false';
+            }
+
             Store.dispatch(initialize('EditCommunity',response));
+
             _this.setState({
              communityName:response.cmtName,
              opend:response.open,
-             openDate:response.openDate            
+             openDate:response.openDate,
+             isCover:response.cover,
+             listValue:{
+                picId:response.listImageId,
+                picUrl:response.listImageUrl  
+             },
+             firstValue:{
+                picId:response.pageImageId,
+                picUrl:response.pageImageUrl  
+             },
+             stationValue:{
+                picId:response.stationImageId,
+                picUrl:response.stationImageUrl  
+             },
+             detailValue:detailArr          
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -121,12 +175,25 @@ export default class CommunityAllocation  extends React.Component{
  //编辑提交
   editSubmit=(params)=>{
        let _this=this;
+       params=Object.assign({},params);
+       var detailArr=[];
+       params.detailImageId.map((item,index)=>{
+           detailArr.push(item.photoId);
+       })
+       delete params.detailImage;
+       params.detailImageId=detailArr; 
+       params.porType=JSON.stringify(params.porType);
+       if(!params.stationImageId){
+         params.stationImageId='';   
+       }
        let {searchParams}=this.state;
        Http.request('web-community-edit',{},params).then(function(response) {
            _this.setState({
-               time:+new Date(),
-               pageSize:15,
-               page:searchParams.page
+               searchParams:{
+                  time:+new Date(),
+                  pageSize:15,
+                  page:searchParams.page
+               }     
            })
         }).catch(function(err) {
             Message.error(err.message);
@@ -139,13 +206,14 @@ export default class CommunityAllocation  extends React.Component{
          page:page
      }
      this.setState({
-       searchParams:Object.assign({},searchParams,this.state.searchParams)   
+       searchParams:Object.assign({},this.state.searchParams,searchParams)   
      })  
   } 
 
 	render(){
 
         let {searchParams,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue,isCover}=this.state;
+
 
 		return(
            <div className='m-web-community'>
@@ -194,7 +262,7 @@ export default class CommunityAllocation  extends React.Component{
 			                <TableRowColumn name="appoint" options={[{label:'是',value:'true'},{label:'否',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="operater"></TableRowColumn>
                             <TableRowColumn name="operateDate" component={(value,oldValue)=>{
-                                return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                                return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
                             }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="编辑"  type="operation"  operation="edit" />

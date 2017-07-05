@@ -15,6 +15,7 @@ import defaultRemoveImageIcon from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
 import DeleteSure from './DeleteSure';
 import FirstSure from './FirstSure';
+import WrapComponent from '../WrapComponent';
 
 export default class UploadImageListComponent extends Component {
 
@@ -49,11 +50,10 @@ export default class UploadImageListComponent extends Component {
 
 
 	setDefaultValue = (images)=>{
-
+ 
 		if (this.init){
 			return ;
 		}
-
 		if(images && images.length){
 			this.setState({
 				images
@@ -65,11 +65,18 @@ export default class UploadImageListComponent extends Component {
 	}
 
 	componentDidMount() {
-		this.setDefaultValue(this.props.defaultValue);
+	  /*if(this.props.defaultValue){
+		 this.setDefaultValue(this.props.defaultValue);         
+	  }*/
+	  if(this.props.defaultValue&&this.props.defaultValue.length>0){
+		  this.setDefaultValue(this.props.defaultValue);
+	    }
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setDefaultValue(nextProps.defaultValue);
+		/*if(nextProps.defaultValue&&nextProps.defaultValue.length>0){
+		  this.setDefaultValue(nextProps.defaultValue);
+	    }*/
 	}
 
 	onTokenError() {
@@ -271,7 +278,7 @@ export default class UploadImageListComponent extends Component {
 
 	render() {
 
-		let {children,imgFlag,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
+		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
 
         var imgStyle='';
@@ -283,7 +290,8 @@ export default class UploadImageListComponent extends Component {
 
 
 		return(
-			<div className="ui-uploadimgList-box" style={style}>
+		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
+			<div className="ui-uploadimgList-box" style={boxStyle} >
 
 				<div className='ui-uploadimg-outbox' >
 
@@ -313,7 +321,7 @@ export default class UploadImageListComponent extends Component {
 					</div>
 				</div>
 			</div>
-
+       
 
 
 
@@ -347,6 +355,8 @@ export default class UploadImageListComponent extends Component {
 				    </Dialog>
 
 		</div>
+		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+	</WrapComponent>
 	);
   }
 }
