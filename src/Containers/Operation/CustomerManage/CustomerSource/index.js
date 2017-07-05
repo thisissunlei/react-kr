@@ -38,6 +38,8 @@ export default class CustomerSource  extends Component{
 		this.state = {
 			isEdit : false,
 			isNew : false,
+			isLook : false,
+			isDel : false,
 			searchParams:{
 				page:1,
 				pageSize:15,
@@ -70,9 +72,10 @@ export default class CustomerSource  extends Component{
 	onOperation = (type,itemDetail) => {
 		if(type == "edit"){
 			this.editSwitch();
-		}
-		if(type == "delete"){
-
+		}else if(type == "delete"){
+			this.delSwitch();
+		}else if(type == 'look'){
+			this.lookSwitch();
 		}
            
     }
@@ -90,11 +93,25 @@ export default class CustomerSource  extends Component{
 		})
 		
 	}
-	//新建
+	//新建开关
 	newSwitch = () => {
 		let {isNew} = this.state;
 		this.setState({
 			isNew : !isNew,
+		})
+	}
+	//查看开关
+	lookSwitch = () => {
+		let {isLook} = this.state;
+		this.setState({
+			isLook : !isLook
+		})
+	}
+	//删除确定的开关
+	delSwitch = () =>{
+		let {isDel} = this.state;
+		this.setState({
+			isDel : !isDel
 		})
 	}
 	//搜索功能
@@ -116,7 +133,9 @@ export default class CustomerSource  extends Component{
 	allClose = () =>{
 		this.setState({
 			isEdit : false,
-			isNew : false
+			isNew : false,
+			isDel : false,
+			isLook : false,
 		})
 	}
 
@@ -156,12 +175,14 @@ export default class CustomerSource  extends Component{
                                     ajaxUrlName='MouldGroupList'
                             >
                                 <TableHeader>
-                                    <TableHeaderColumn>名称</TableHeaderColumn>
-                                    <TableHeaderColumn>编码</TableHeaderColumn>
+                                    <TableHeaderColumn>来源编码</TableHeaderColumn>
+                                    <TableHeaderColumn>来源名称</TableHeaderColumn>
                                     <TableHeaderColumn>子项</TableHeaderColumn>
                                     <TableHeaderColumn>佣金</TableHeaderColumn>
-                                    <TableHeaderColumn>新建编辑</TableHeaderColumn>
                                     <TableHeaderColumn>顺序</TableHeaderColumn>
+                                    <TableHeaderColumn>是否全员开发</TableHeaderColumn>
+                                    <TableHeaderColumn>创建人</TableHeaderColumn>
+                                    <TableHeaderColumn>创建时间</TableHeaderColumn>
                                     <TableHeaderColumn>操作</TableHeaderColumn>
 
                                 </TableHeader>
@@ -175,7 +196,10 @@ export default class CustomerSource  extends Component{
                                         <TableRowColumn name="creator"></TableRowColumn>
                                         <TableRowColumn name="creator"></TableRowColumn>
                                         <TableRowColumn name="creator"></TableRowColumn>
+                                        <TableRowColumn name="creator"></TableRowColumn>
+                                        <TableRowColumn name="creator"></TableRowColumn>
                                         <TableRowColumn>
+                                            <Button label="查看"  type="operation" operation="look"/>											
                                             <Button label="编辑"  type="operation" operation="edit"/>
                                             <Button label="删除"  type="operation" operation="delete"/>
                                         </TableRowColumn>
