@@ -48,7 +48,6 @@ export default class AdmitPrint extends React.Component {
 		if(printHeight>1205 && !this.init){
 			this.init = true;
 			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
-			// printList.style.height = '2180px'
 		}
 		this.pages = Math.ceil(printHeight/1200);
 		let str=[] ;
@@ -65,7 +64,7 @@ export default class AdmitPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1200),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,
@@ -77,8 +76,14 @@ export default class AdmitPrint extends React.Component {
 		State.cachet = str;
 	}
 
-
 	render() {
+		let style = {
+			position:'absolute',
+			top:1100,
+			width:'100%',
+			borderTop:'1px solid red',
+			height:1
+		}
 		return (
 
 			<div className="print-section no-print-section">
@@ -86,6 +91,7 @@ export default class AdmitPrint extends React.Component {
 				return item
 			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务意向书`}/>
+				<div style={style}></div>
 				<Print.Header
 					  baseInfo={State.baseInfo}
 						orderInfo="入驻服务意向书"

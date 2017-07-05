@@ -23,37 +23,30 @@ export default class Payment extends Component {
 	}
 	checkPosition=()=>{
  		let {installmentPlans} = this.props;
- 		let obj = {
- 			installmentName:'',
- 			leaseDate:'',
- 			installmentReminddate:'',
- 			installmentAmount:''
- 		}
-
+ 		let pageItem ;
 		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
 		if(!tableTop){
 			return;
 		}
 		let top = tableTop.offsetTop;
 		let height = top+tableTop.clientHeight + 66;
+		//分期下面内容换页
 		if(height>1110 && height<1250){
 			tableTop.style.marginBottom = (1250-height)+'px';
 		}
-		if(top<1060 && top>720){
+		//分期内容换页
+		// if(top<1060 && top>720){
+		if(top<1040 && top>720){
 			let domHeight = 1120-top-28-27;
 			let num = parseInt(domHeight/22.5);
-			if(!this.init){
-				this.init = true;
-				// if(installmentPlans.length>15){
-				// 	installmentPlans.splice(num+14,0,obj);
-				// }
-				// installmentPlans.splice(num,0,obj);
-			}
+			pageItem = num-1;
 			
-		}else if(top<1180 && top>1060){
+		}else if(top<1140 && top>1040){
 			let marginTop = 1180-top;
 			tableTop.style.marginTop = marginTop+'px';
 		}
+		return pageItem;
+		
 	}
 
 	Onetable = (installmentPlans) => {
@@ -94,12 +87,14 @@ export default class Payment extends Component {
 	}
 
 	Twotable = (installmentPlans) => {
-		this.checkPosition();
+		let num = this.checkPosition();
 		var plansOne, plansTwo;
 		if (installmentPlans.length > 15) {
 			plansOne = installmentPlans.slice(0, installmentPlans.length/2);
 			plansTwo = installmentPlans.slice(installmentPlans.length/2 +1, installmentPlans.length);
 		}
+		let pageSize = Math.ceil((plansOne.length-num)/48);
+		console.log('pageSize',pageSize);
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
@@ -113,8 +108,18 @@ export default class Payment extends Component {
 									</div>
 									<div className="left-td">
 										{plansOne.map((item,index)=>{
+											let style={};
+											if(!!pageSize){
+												for(let i = 0;i<pageSize;i++){
+													if(i*48+num == index+1){
+														style={
+															marginBottom:50
+														}
+													}
+												}
+											}
 											return(
-												<div className="td clear" key={index}>
+												<div className="td clear" key={index} style={style}>
 													<div>{item.installmentName}</div>
 													<div>{item.leaseDate}</div>
 													<div>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</div>
@@ -134,8 +139,18 @@ export default class Payment extends Component {
 									</div>
 									<div className="right-td">
 										{plansTwo.map((item,index)=>{
+											let style={};
+											if(!!pageSize){
+												for(let i = 0;i<pageSize;i++){
+													if(i*48+num == index+1){
+														style={
+															marginBottom:50
+														}
+													}
+												}
+											}
 											return(
-												<div className="td clear" key={index}>
+												<div className="td clear" key={index} style={style}>
 													<div>{item.installmentName}</div>
 													<div>{item.leaseDate}</div>
 													<div>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</div>
