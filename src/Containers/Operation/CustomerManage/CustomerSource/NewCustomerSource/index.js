@@ -208,11 +208,7 @@ import './index.less';
 const validate = values =>{
 
 	const errors = {};
-	if(!values.name){
-
-	}else if(values.name.length > 20){
-
-	}
+	
 	if (!values.bankAccount || !values.bankAccount.length) {
           errors.bankAccount = { _error: 'At least one member must be entered' }
         } else {
