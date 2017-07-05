@@ -17,6 +17,7 @@ import {
 	KrDate,
 	Message
 } from 'kr-ui';
+import SearchForm from './SearchForm';
 import Recharge from './Recharge';
 import CheckForm from './CheckForm';
 import ViewIntegration from './ViewIntegration';
@@ -35,17 +36,15 @@ export default class Integration extends React.Component {
 			openView:false,
 			submitGive:false,
 			itemDetail:{},
-			rechargeDetail:{}
+			rechargeDetail:{},
+			customerName:'',
+			cmtId:'',
 
 		}
 
 	}
 
-	componentDidMount() {
-		var _this=this;
-		
-		
-	}
+	
 	//操作相关
   	onOperation = (type, itemDetail) => {
       this.setState({
@@ -103,6 +102,29 @@ export default class Integration extends React.Component {
 			openGive:!this.state.openGive
 		})
 	}
+	searchSubmit=(form)=>{
+
+		this.setState({
+			searchParams:{
+				customerName:form.content,
+				cmtId:this.state.cmtId || '',
+				
+			},
+			customerName:form.content
+			
+		})
+
+	}
+	selectCommunity=(form)=>{
+		var cmtId=form.id?form.id:'';
+		this.setState({
+			searchParams:{
+				cmtId:cmtId,
+				customerName:this.state.customerName || '',
+			},
+			cmtId:cmtId
+		})
+	}
 	
 	
 	render() {
@@ -116,16 +138,7 @@ export default class Integration extends React.Component {
 			<Title value="积分管理"/>
 				<Section title="公告列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div className="m-btn">
-						<Button
-								label="充值"
-								type='button'
-								onTouchTap={this.openGive}
-							/>
-						<Button
-								label="查看"
-								type='button'
-								onTouchTap={this.openView}
-							/>
+						<SearchForm onSubmit={this.searchSubmit}  onChange={this.selectCommunity}/>
 					</div>
 					<Table
 						  style={{marginTop:10}}

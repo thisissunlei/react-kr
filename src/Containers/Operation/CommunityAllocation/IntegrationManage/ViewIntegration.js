@@ -25,7 +25,7 @@ export default class ViewIntegration extends React.Component {
 		this.state = {
 			searchParams:{
 				page:1,
-				pageSize:15
+				pageSize:15,
 				customerId:this.props.detail.customerId
 			}
 			
