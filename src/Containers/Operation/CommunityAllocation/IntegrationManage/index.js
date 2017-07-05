@@ -97,6 +97,7 @@ export default class Integration extends React.Component {
 			openView:!this.state.openView
 		})
 	}
+
 	openGive=()=>{
 		this.setState({
 			openGive:!this.state.openGive
@@ -119,6 +120,11 @@ export default class Integration extends React.Component {
 								label="充值"
 								type='button'
 								onTouchTap={this.openGive}
+							/>
+						<Button
+								label="查看"
+								type='button'
+								onTouchTap={this.openView}
 							/>
 					</div>
 					<Table
@@ -159,7 +165,7 @@ export default class Integration extends React.Component {
 	             open={this.state.openView}
 	             onClose={this.openView}
 	             openSecondary={true}
-	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:28,paddingBottom:48,zIndex:20}}
 	           >
 	             	<ViewIntegration 
 	             			onCancel={this.openView} 
