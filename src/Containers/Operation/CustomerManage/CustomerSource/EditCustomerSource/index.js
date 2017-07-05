@@ -38,6 +38,7 @@ import './index.less';
 	}
 
 	componentDidMount(){
+
 	}
 
 	onCancel = () => {
@@ -73,7 +74,7 @@ import './index.less';
 						<KrField
 							style={{width:190,marginLeft:18,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.nem}`}
+							name={`${brightsStr.name}`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项名称'}
@@ -83,7 +84,7 @@ import './index.less';
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.mm}`}
+							name={`${brightsStr.orderNum}`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项编码'}
@@ -92,7 +93,7 @@ import './index.less';
 						<KrField
 							style={{width:90,marginLeft:0,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.mm}`}
+							name={`${brightsStr.code}`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项顺序'}
@@ -101,7 +102,8 @@ import './index.less';
 						<span
 							className='minusBtn'
 							style={!index ? {marginTop:32,marginLeft:8}:{marginTop:16,marginLeft:8}}
-							onClick={() => fields.remove(index)}/>
+							onClick={() => fields.remove(index)}
+						/>
 					</li>
 				)}
 				
@@ -162,14 +164,14 @@ import './index.less';
 									name="enableflag" 
 									label="是" 
 									type="radio" 
-									value="ENABLE" 
+									value="true" 
 									style={{marginTop:5,display:'inline-block',width:84}}
 								/>
 								<KrField 
 									name="enableflag" 
 									label="否" 
 									type="radio" 
-									value="DISENABLE"  
+									value="false"  
 									style={{marginTop:5,display:'inline-block',width:53}}
 								/>
 							</KrField>
@@ -183,7 +185,7 @@ import './index.less';
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 
-							<FieldArray name="bankAccount" component={this.renderBrights}/>
+							<FieldArray name="subListStr" component={this.renderBrights}/>
 
 						</div>
 						
