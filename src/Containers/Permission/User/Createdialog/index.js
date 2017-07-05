@@ -57,7 +57,6 @@ class Createdialog extends React.Component {
 	getInfo = () => {
 		var _this = this;
 		Http.request('getModuleData').then(function(response) {
-			console.log('moduleAndResources',response)
 			_this.setState({
 				moduleDetail: response.moduleAndResources
 			})
