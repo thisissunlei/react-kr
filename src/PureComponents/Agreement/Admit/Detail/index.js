@@ -187,7 +187,8 @@ export default class AdmitDetail extends Component {
 		} else {
 			dicName = '';
 		}
-
+		var agreementValue = basic.agreement=='无'?'如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。':basic.agreement;
+	
 			return (
 				<div className="content agreement-detail" style={content}>
 					<Title value="承租意向书详情页_财务管理"/>

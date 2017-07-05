@@ -117,7 +117,7 @@ export default class List extends React.Component {
 		State.upItemPosition(itemData.id);
 	}
 	closeItemDetail=()=>{
-		qqState.openDetail = false;
+		State.openDetail = false;
 	}
 	onPageChange=(page)=>{
 		var searchParams = Object.assign({},State.searchParams);

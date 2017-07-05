@@ -61,7 +61,6 @@ class AccountList extends React.Component {
     // 		_this.setState({
     // 			item: response,
     // 		},function(){
-    // 			console.log(this.state.item.items);
     // 		});
     // 	}).catch(function(err) {
     // 		Notify.show([{
@@ -84,8 +83,9 @@ class AccountList extends React.Component {
     }
     //操作相关
     onOperation = (type, itemDetail) => {
-       
+
     }
+
     onNewCreateSubmit=(form)=> {
         var form = Object.assign({},form);
         var _this = this;   
@@ -109,7 +109,7 @@ class AccountList extends React.Component {
     }
     //重置
     onReset=(itemDetail)=>{
-         var _this = this;   
+         var _this = this;
          Http.request('resetPassword', {}, {id: itemDetail.id}).then(function(response) {
                 Message.success('重置成功');
                _this.changeP();
@@ -119,7 +119,7 @@ class AccountList extends React.Component {
     }
     //删除
     onDele = (itemDetail)=>{
-            var _this = this;   
+            var _this = this;
             Http.request('delSsoUser', {id: itemDetail.id}).then(function(response) {
                  Message.success('删除成功');
                  _this.changeP();
@@ -150,7 +150,6 @@ class AccountList extends React.Component {
     //搜索
     onSearchSubmit = (value) => {
         let {searchParams} = this.state;
-        console.log(searchParams);
         if (value.filter == 'company') {
             this.setState({
                 searchParams: {
@@ -344,7 +343,7 @@ class AccountList extends React.Component {
                                             logFlag = true;
                                         }
                                         return (
-                                            <Button 
+                                            <Button
                                                 label={logFlag
                                                 ? '解锁'
                                                 : '加锁'}>{value}</Button>

@@ -28,6 +28,7 @@ export default class Station extends Component {
 		this.state={
 			stationVOs:this.props.stationVOs,
 		}
+		this.init = false;
 
 	}
 	componentDidMount() {
@@ -41,11 +42,11 @@ export default class Station extends Component {
 		})
 	}
 	componentWillReceiveProps(nextProp){
-		console.log(nextProp.stationVOs.length)
 		let {stationVOs} = nextProp;
 		if(!this.init){
-			this.init = true;
+			
 			if(stationVOs.length>=33){
+				this.init = true;
 				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 			}
