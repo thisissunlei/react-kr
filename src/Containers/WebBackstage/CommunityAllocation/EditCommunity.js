@@ -129,7 +129,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
     render(){
 
-        let {defaultValue,stationValue}=this.state;
+        let {defaultValue,stationValue,detailValue}=this.state;
  
         const {handleSubmit,communityName,opend,openDate} = this.props;
       
