@@ -23,10 +23,12 @@
  		let {
  			baseInfo
  		} = this.props;
+ 		console.log('baseInfo===>',baseInfo)
  		return (
 
  			<div className="ui-print-baseinfo">
 				<div className="baseinfo">基础信息</div>
+				{baseInfo.withCachet && <img src={baseInfo.cachetUrl} className="logo-pic"></img>}
 				<div className="baseinfo-content">
 					<div className="infolist" >
 						<div >

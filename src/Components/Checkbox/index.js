@@ -44,7 +44,8 @@ export default class KrCheckbox extends Component {
 	onCheck = () => {
 
 		let {
-			readOnly
+			readOnly,
+			data
 		} = this.props;
 
 		if (readOnly) {

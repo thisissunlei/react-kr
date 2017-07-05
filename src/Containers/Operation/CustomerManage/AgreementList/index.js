@@ -30,7 +30,11 @@ import {
 	UpLoadList,
 	FontIcon,
 	Pagination,
-	Loading
+	Loading,
+	CheckPermission,
+	ListGroup,
+	ListGroupItem,
+	SearchForms,
 } from 'kr-ui';
 import State from './State';
 import SearchForm from "./SearchForm";
@@ -39,6 +43,7 @@ import TwoNewAgreement from "./TwoNewAgreement";
 import EditAgreementList from "./EditAgreementList";
 import NewIndent from "./NewIndent";
 import DelAgreementNotify from './DelAgreementNotify';
+import PrintAgreement from './PrintAgreement';
 import './circle.less';
 import './active.less';
 import './index.less';
@@ -50,7 +55,7 @@ import {
 } from 'kr/PureComponents';
 
 
-@inject("CommunityAgreementList")
+@inject("CommunityAgreementList","NavModel")
 @observer
 class Merchants extends Component{
 
@@ -78,7 +83,6 @@ class Merchants extends Component{
 			staionsList: [],
 
             //日期查询
-		    todayDate:'',
 		    startValue:'',
 		    endValue:'',
 
@@ -91,6 +95,7 @@ class Merchants extends Component{
 		    agreementListAnnex:false,
 		    agreementListOther:false,
 			isRefresh:true,
+			openCopyAgreement:false,
 
 		}
 		 this.allOrderReady();
@@ -203,9 +208,7 @@ class Merchants extends Component{
     	State.openAgreementDetail=true;
     }
 
-    componentWillMount(){
-    	State.createContract();
-    }
+
     //查看关闭
 	cancelAgreementDetail=(event)=>{
 		State.agreementDetail();
@@ -351,8 +354,12 @@ class Merchants extends Component{
 			}
 		});
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print`
-		var newWindow = window.open(url);
+		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print?print=`
+		// var newWindow = window.open(url);
+		this.setState({
+			url:url,
+			openCopyAgreement:true
+		})
 
 	}
 
@@ -390,6 +397,14 @@ class Merchants extends Component{
 	}
 
 	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		setTimeout(function() {
+			State.isEdit = checkOperate("contract_create_contract");
+		    State.isPrint = checkOperate("oper_contract_print");
+		    State.isDel = checkOperate("oper_contract_delete");
+		},500);	
+
+
 		this.props.CommunityAgreementList.ajaxListData(this.state.searchParams);
 		Baidu.trackEvent('合同列表','访问');
       	let _this=this;
@@ -436,8 +451,6 @@ class Merchants extends Component{
 	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
 	    	this.setState({
 				searchParams
-			},function(){
-			    this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -459,8 +472,6 @@ class Merchants extends Component{
 	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue,});
 	    	this.setState({
 				searchParams
-			},function(){
-                this.props.CommunityAgreementList.ajaxListData(searchParams);
 			});
 
         })
@@ -471,7 +482,11 @@ class Merchants extends Component{
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
    	 let {CommunityAgreementList} = this.props;
-   	 searchParams.page = 1;
+   	     searchParams.page = 1;
+	    searchParams.contractType='';
+		searchParams.createDateBegin='';
+		searchParams.createDateEnd='';
+		searchParams.hasAgreement='';
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
@@ -517,13 +532,28 @@ class Merchants extends Component{
 
  contractChange=(params)=>{
    let {searchParams}=this.state;
-   let {CommunityAgreementList} = this.props;
 	 if(!params.value){
 		 searchParams.contractType='';
 	 }else{
 		 searchParams.contractType=params.value;
 	 }
-	 CommunityAgreementList.ajaxListData(searchParams);
+	 searchParams=Object.assign({},this.state.searchParams,searchParams);
+	 this.setState({
+		 searchParams
+	 })
+ }
+
+ isOtherChange=(params)=>{
+    let {searchParams}=this.state;
+	 if(!params.value){
+		 searchParams.hasAgreement='';
+	 }else{
+		 searchParams.hasAgreement=params.value;
+	 }
+	 searchParams=Object.assign({},this.state.searchParams,searchParams);
+	 this.setState({
+		 searchParams
+	 })
  }
 
 	everyTd=(value)=>{
@@ -561,7 +591,6 @@ class Merchants extends Component{
 		CommunityAgreementList.openEditAgreement=true;
 	}
 	maskClock=()=>{
-		console.log('closeAll')
 		let {CommunityAgreementList} = this.props;
 		CommunityAgreementList.openLocalStorage = false;
 		CommunityAgreementList.openOneAgreement=false;
@@ -638,6 +667,40 @@ class Merchants extends Component{
         return render
     }
 
+    openCopyAgreementDialog=()=>{
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    }
+    confirmPrintAgreement=(value)=>{
+    	console.log('confirmPrintAgreement',this.state.url+value);
+    	// return;
+    	let url = this.state.url+value;
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    	var newWindow = window.open(url);
+    }
+	
+	//高级查询打开
+	openSearchUpperDialog=()=>{
+		let {searchParams}=this.state;
+		searchParams.contractType='';
+		searchParams.createDateBegin='';
+		searchParams.createDateEnd='';
+		searchParams.hasAgreement='';
+		this.setState({
+			searchParams
+		})
+		this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper;
+	}
+
+	searchUpperSubmit=()=>{
+	   let {searchParams}=this.state;
+       this.props.CommunityAgreementList.ajaxListData(searchParams);
+	   this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper; 
+	}
+
 
 	render(){
 
@@ -652,8 +715,16 @@ class Merchants extends Component{
 		} = this.state.response;
 
 
+       let options=[
+		 {label:'公司名称',value:'company'},
+		 {label:'城市',value:'city'},
+		 {label:'社区',value:'community'},
+		 {label:'销售员',value:'people'},
+		 {label:'录入人',value:'write'},
+		]
 
-	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
+	    let {opretionId,opretionOpen,isShow,searchParams,noDataOpen}=this.state;
+
       let rowStyle={};
       let rowLineStyle={};
       let rowFootStyle={};
@@ -685,28 +756,25 @@ class Merchants extends Component{
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
-			     	style={{float:'left',marginTop:6}}
+			     	style={{float:'left'}}
 			   	>
-					{State.editRight&&<Button
+				   <CheckPermission  operateCode="contract_create_contract" >
+
+					<Button
 						label="新建合同"
 						type='button'
 						onTouchTap={this.openOneAgreement}
-					/>}
+					/>
+				  </CheckPermission>
 
 			 	 </Col>
-			  	 <Col
-			  		style={{float:'right',width:"90%"}}
-			  	 >
-			  		<SearchForm
-			  		  onStartChange={this.onStartChange}
-			  		  onEndChange={this.onEndChange}
-			  		  todayDate={todayDate}
-              onSearchSubmit={this.onSearchSubmit}
-							contractChange={this.contractChange}
-			  		 />
-
-			  	</Col>
-
+				  <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+				          <ListGroup>
+				            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+				          </ListGroup>
+			      </Col>
+				  
 	        </Row>
 
 
@@ -716,17 +784,17 @@ class Merchants extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区</TableHeaderColumn>
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
 		              <TableHeaderColumn>工位数</TableHeaderColumn>
 		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+					  <TableHeaderColumn>其他约定</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
 				<TableBody className='noDataBody' borderBodyStyle>
@@ -745,17 +813,17 @@ class Merchants extends Component{
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>城市</TableHeaderColumn>
 		              <TableHeaderColumn>社区</TableHeaderColumn>
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
 		              <TableHeaderColumn>工位数</TableHeaderColumn>
 		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+					  <TableHeaderColumn>其他约定</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -795,7 +863,6 @@ class Merchants extends Component{
 			        		return (
 				        		<TableRow key={index}>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.cityName}</span>{this.everyTd(item.cityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.communityName}</span>{this.everyTd(item.communityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{type}</span>{this.everyTd(type)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(<KrDate value={item.leaseBegindate}/>)}</TableRowColumn>
@@ -806,6 +873,7 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.hasAgreement}</span>{this.everyTd(item.hasAgreement)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
 
@@ -814,15 +882,18 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										</div>
 
-										<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+										{(State.isEdit||State.isPrint||State.isDel)&&<div className="agreement-list-other" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
-												{State.editRight && item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
-												{item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-												{State.editRight && item.editFlag && item.contracttype=='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+												
+													{State.isEdit && <span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span>}
+												
+													{State.isPrint && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+												
+													{State.isDel && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
-										</div>
+										</div>}
 
 					                </TableRowColumn>
 					            </TableRow>
@@ -921,6 +992,33 @@ class Merchants extends Component{
 					contentStyle={{width:445,height:236}}>
 						<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 					</Dialog>
+					 <Dialog
+					title="打印"
+					modal={true}
+					onClose={this.openCopyAgreementDialog}
+					open={this.state.openCopyAgreement}
+					contentStyle={{width:700,height:'auto'}}>
+						<PrintAgreement onSubmit={this.confirmPrintAgreement} onCancel={this.openCopyAgreementDialog}/>
+
+					</Dialog>
+
+					{/*高级查询*/}
+                    <Dialog
+						title="高级查询"
+						modal={true}
+						onClose={this.openSearchUpperDialog}
+						open={this.props.CommunityAgreementList.openSearchUpper}
+						contentStyle ={{ width: '666',height:'320px',overflow:'visible'}}
+					>
+				    <SearchForm
+			  		  onStartChange={this.onStartChange}
+			  		  onEndChange={this.onEndChange}
+					  contractChange={this.contractChange}
+					  isOtherChange={this.isOtherChange}
+					  onCancel={this.openSearchUpperDialog}
+					  onSubmit={this.searchUpperSubmit}
+			  		 />
+				    </Dialog>
 
         </div>
 		);

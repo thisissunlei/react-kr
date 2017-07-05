@@ -17,6 +17,9 @@ import {
 import {
 	default as BaseInfo
 } from './BaseInfo';
+import {
+	default as PrintDialog
+} from './PrintDialog';
 
 module.exports = {
 	Payment,
@@ -24,5 +27,6 @@ module.exports = {
 	Header,
 	Footer,
 	Intention,
-	BaseInfo
+	BaseInfo,
+	PrintDialog
 }

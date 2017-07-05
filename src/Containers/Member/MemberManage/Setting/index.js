@@ -24,7 +24,8 @@ import {
 	ListGroupItem,
 	Message,
 	Title,
-	SnackTip
+	SnackTip,
+	
 
 } from 'kr-ui';
 
@@ -51,6 +52,7 @@ export default class List extends React.Component {
 			itemDetail: {},
 			item: {},
 			list: {},
+			realPage:0,
 			searchParams: {
 				foreignCode:'',
 				page: 1,
@@ -183,7 +185,15 @@ export default class List extends React.Component {
 		params.interCode=values.interCode;
 		Http.request('CardEdit', {}, params).then(function(response) {
 			_this.openEditDetailDialog();
-			_this.onFlush();
+			// console.log("_this.state.realPage",_this.state.realPage);
+			_this.setState({
+				searchParams: {
+					foreignCode:_this.state.searchParams.foreignCode,
+					page: _this.state.realPage,
+					pageSize: 15,
+					other:!_this.state.searchParams.other
+				}
+			})
 			Message.success("编辑成功");
 			
 		}).catch(function(err) {
@@ -282,6 +292,12 @@ export default class List extends React.Component {
 			isHeavilyClose:false,
 		})
 	}
+	onPageChange=(page)=>{
+		console.log("page",page);
+		this.setState({
+			realPage: page
+		})
+	}
 		render(){
 			
 			return(
@@ -291,7 +307,12 @@ export default class List extends React.Component {
 						<Section title="会员卡激活" description="" style={{minHeight:"900px"}}>
 								<Grid style={{marginBottom:22,marginTop:2}}>
 									<Row >
-									<Col  align="left" style={{marginLeft:0,float:'left'}}> <Button label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> </Col>
+
+									<Col  align="left" style={{marginLeft:0,float:'left'}}> 
+									
+											<Button operateCode="mbr_define_add" label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> 
+									
+									</Col>
 									<Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
 									<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 										<ListGroup>
@@ -311,7 +332,7 @@ export default class List extends React.Component {
 												displayCheckbox={false}
 												onExport={this.onExport}
 												ajaxParams={this.state.searchParams}
-
+												onPageChange={this.onPageChange}
 												ajaxFieldListName="items"
 												ajaxUrlName='CardActivationList'>
 												<TableHeader>
@@ -330,8 +351,10 @@ export default class List extends React.Component {
 														<TableRowColumn name="enable" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
 														<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
 														<TableRowColumn type="operation">
-															  <Button label="编辑"  type="operation"  operation="edit" />
-														 </TableRowColumn>
+															
+															  <Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
+														
+														</TableRowColumn>
 													 </TableRow>
 											</TableBody>
 

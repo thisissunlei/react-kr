@@ -1,6 +1,7 @@
 import React from 'react';
 import {Actions, Store} from 'kr/Redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Http} from 'kr/Utils';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import {
     KrField,
@@ -52,13 +53,13 @@ class EditAccount extends React.Component {
         const {onSubmit} = this.props;
         console.log("form", form);
         let {detail} = this.props;
-        Store.dispatch(Actions.callAPI('editSsoUser', {}, {
+        Http.request('editSsoUser', {}, {
             id: detail.id,
             accountName: form.accountName,
             email: form.email,
             realName: form.realName,
             mobilePhone: form.mobilePhone
-        })).then(function(response) {
+        }).then(function(response) {
             Message.success('修改成功');
             onSubmit();
             // window.setTimeout(function(){

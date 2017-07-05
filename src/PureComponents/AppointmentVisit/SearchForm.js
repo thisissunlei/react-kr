@@ -23,10 +23,8 @@ class SearchForm extends React.Component {
 		super(props);
 
 		this.state={
-			communityIdList : [],
 		}
 
-		this.getcommunity();
 	}
 
 	onStartChange=(value)=>{
@@ -55,39 +53,11 @@ class SearchForm extends React.Component {
 		communityChange && communityChange(value);
 	}
 
-	//
-	getcommunity = () => {
-		let _this = this;
-		let {communityIdList} = this.state;
-		Http.request('getCommunity').then(function(response) {
-
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			communityIdList.unshift({
-				label: '请选择',
-				value: '0'
-			});
-
-			_this.setState({
-				communityIdList,
-			});
-
-
-		}).catch(function(err) {
-
-
-
-		});
-	}
+	
 
 	render() {
 
 		let {todayDate}=this.props;
-		let {communityIdList} = this.state;
 		return (
 
 			<form name="searchFormVisit" className="appointment-visit-form" style={{height:50 }}>
@@ -102,7 +72,7 @@ class SearchForm extends React.Component {
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:30}}>
 					<KrField grid={1} label="" name="visitCreateDateEnd" style={{width:"220px"}} component="date"  inline={false} onChange={this.onStartChange} placeholder='日期'/>
 				</div>
-				<KrField style={{width:222,marginLeft:-44,position:"absolute",marginTop:7}} name="visitCommunity" component="select" search={true}  options={communityIdList} onChange={this.communityChange} />
+				<div className='m-message-community'><KrField style={{marginTop:7}} name="visitCommunity" component="searchCommunityAll"  onChange={this.communityChange} /></div>
 			</form>
 		);
 	}
