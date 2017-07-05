@@ -80,8 +80,6 @@ import './index.less';
 							placeholder='子项名称'
 							
 						/>
-						
-						
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
@@ -131,7 +129,7 @@ import './index.less';
 						<div className="small-cheek">
 							<KrField 
 								grid={1/2} label="来源名称"  
-								name="corName" 
+								name="name" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
@@ -139,7 +137,7 @@ import './index.less';
 							<KrField 
 								grid={1/2} 
 								label="佣金比例" 
-								name="corAddress" 
+								name="brokerage" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
@@ -147,7 +145,7 @@ import './index.less';
 							<KrField 
 								grid={1/2} 
 								label="来源顺序" 
-								name="corAddress" 
+								name="orderNum" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}

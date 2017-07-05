@@ -36,10 +36,9 @@ import './index.less';
 			typeValue:this.props.typeValue,
 		}
 	}
-
-	componentDidMount(){
+	componentDidMount() {
+		Store.dispatch(change('newCustomerSource','enabled',0));
 	}
-
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -73,7 +72,7 @@ import './index.less';
 						<KrField
 							style={{width:190,marginLeft:18,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.nem}`}
+							name={`${brightsStr.name}`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项名称'}
@@ -85,7 +84,7 @@ import './index.less';
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.mm}`}
+							name={`${brightsStr.orderNum}`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项编码'}
@@ -94,7 +93,7 @@ import './index.less';
 						<KrField
 							style={{width:90,marginLeft:0,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.mm}`}
+							name={`${brightsStr.code}`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项顺序'}
@@ -131,7 +130,7 @@ import './index.less';
 						<div className="small-cheek">
 							<KrField 
 								grid={1/2} label="来源名称"  
-								name="corName" 
+								name="name" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
@@ -139,7 +138,7 @@ import './index.less';
 							<KrField 
 								grid={1/2} 
 								label="佣金比例" 
-								name="corAddress" 
+								name="brokerage" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
@@ -147,7 +146,7 @@ import './index.less';
 							<KrField 
 								grid={1/2} 
 								label="来源顺序" 
-								name="corAddress" 
+								name="orderNum" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
@@ -155,20 +154,20 @@ import './index.less';
 							<KrField 
 								grid={1/2} 
 								label="全员开放" 
-								name="enableflag" 
+								name="enabled" 
 								style={{width:262,marginLeft:15,marginRight:13}} 
 								component="group" 
 								requireLabel={true}
 							>
 								<KrField 
-									name="enableflag" 
+									name="enabled" 
 									label="是" 
 									type="radio" 
 									value="ENABLE" 
 									style={{marginTop:5,display:'inline-block',width:84}}
 								/>
 								<KrField 
-									name="enableflag" 
+									name="enabled" 
 									label="否" 
 									type="radio" 
 									value="DISENABLE"  
@@ -185,7 +184,7 @@ import './index.less';
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 
-							<FieldArray name="bankAccount" component={this.renderBrights}/>
+							<FieldArray name="subListStr" component={this.renderBrights}/>
 
 						</div>
 						

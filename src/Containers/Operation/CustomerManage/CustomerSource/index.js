@@ -43,6 +43,7 @@ export default class CustomerSource  extends Component{
 			searchParams:{
 				page:1,
 				pageSize:15,
+				searchKey:''
 			}
 		}
 		
@@ -142,7 +143,7 @@ export default class CustomerSource  extends Component{
 
 
 	render(){
-		const {isEdit,isNew} = this.state;
+		const {isEdit,isNew,searchParams} = this.state;
 
 		return(
 			<div className="customer-source">
@@ -170,7 +171,7 @@ export default class CustomerSource  extends Component{
                                     }
                                     displayCheckbox={false}
                                     onExport={this.onExport}
-                                    ajaxParams={this.state.searchParams}
+                                    ajaxParams={searchParams}
 
                                     ajaxFieldListName="items"
                                     ajaxUrlName='MouldGroupList'
@@ -191,14 +192,14 @@ export default class CustomerSource  extends Component{
                                 <TableBody >
                                     <TableRow >
 
-                                        <TableRowColumn name="sort" ></TableRowColumn>
-                                        <TableRowColumn name="templateNum"></TableRowColumn>
-                                        <TableRowColumn name="creator"></TableRowColumn>
-                                        <TableRowColumn name="creator"></TableRowColumn>
-                                        <TableRowColumn name="creator"></TableRowColumn>
-                                        <TableRowColumn name="creator"></TableRowColumn>
-                                        <TableRowColumn name="creator"></TableRowColumn>
-                                        <TableRowColumn name="creator"></TableRowColumn>
+                                        <TableRowColumn name="code" ></TableRowColumn>
+                                        <TableRowColumn name="name"></TableRowColumn>
+                                        <TableRowColumn name="subSourceStr"></TableRowColumn>
+                                        <TableRowColumn name="brokerage"></TableRowColumn>
+                                        <TableRowColumn name="orderNum"></TableRowColumn>
+                                        <TableRowColumn name="enabled"></TableRowColumn>
+                                        <TableRowColumn name="creatorName"></TableRowColumn>
+                                        <TableRowColumn name="cTime"></TableRowColumn>
                                         <TableRowColumn>
                                             {/*<Button label="查看"  type="operation" operation="look"/>*/}											
                                             <Button label="编辑"  type="operation" operation="edit"/>
