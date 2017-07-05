@@ -41,7 +41,7 @@ import {
 import './index.less';
 import SearchForm from './SearchForm';
 import HighSearchForm from './HighSearchForm';
-export default class VersionManage extends React.Component {
+export default class AppLog extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Actions, Store} from 'kr/Redux';
+import {Http} from 'kr/Utils';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import {
@@ -50,10 +51,9 @@ export default class SetPermission extends React.Component {
     getInfo=()=>{
 
     		let {roleList}=this.state;
-    		console.log('sdafsdafsadf',this.props.detail);
     		let id=this.props.detail.id;
     		var _this = this;
-    		Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
+    	Http.request('findRoleData',{id:id}).then(function(response) {
     		  _this.setState({
     				roleList: response.roleList
     			});
@@ -63,11 +63,10 @@ export default class SetPermission extends React.Component {
 
     }
     renderData=(item,index)=>{
-      console.log("sdfa",item);
     	return (
-    		<div key={index} style={{textAlign:'left',display:'inline-block',marginLeft:20}}>
+    		<div key={index} style={{width:'33%',display:'inline-block'}}>
     			<Checkbox
-    					style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333'}}
+    					style={{display:'block',width:'100%',lineHeigitemht:'32px',color:'#333'}}
     					label={item.name}
     					checked={item.ownFlag==1?true:false}
     					onCheck={this.checked.bind(this,item,index)}
@@ -83,7 +82,6 @@ export default class SetPermission extends React.Component {
       }else{
         item.ownFlag=0;
       }
-      console.log(this.state.roleList);
       roleList.map((item, index) => {
         checked.push(item.ownFlag);
       })
@@ -106,7 +104,6 @@ export default class SetPermission extends React.Component {
       _this.setState({
         allCheck:!_this.state.allCheck,
       },function(){
-        console.log("trueOrfalse",_this.state.allCheck);
         if (_this.state.allCheck) {
           list=roleList.map((item, index) => {
                 item.ownFlag = 1;
@@ -132,11 +129,11 @@ export default class SetPermission extends React.Component {
             idList.push(item.id);
           }
         })
-        console.log("idList",idList);
-        Store.dispatch(Actions.callAPI('editUserRole', {}, {
+
+        Http.request('editUserRole', {}, {
           id:detail.id,
           roleIds:idList
-        })).then(function(response) {
+        }).then(function(response) {
             Message.success('修改成功')
             onSubmit();
         }).catch(function(err) {

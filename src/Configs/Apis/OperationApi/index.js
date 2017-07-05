@@ -506,10 +506,119 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/floor-graph/actions/edit',
          method: 'post'
       },
+
+      //群组管理列表(搜索)
+       'cluster-list':{
+         url: '/api/krspace-finance-web/cluster/manager/list?clusterName={clusterName}&cmtId={cmtId}&pageSize={pageSize}&page={page}',
+         method: 'get'
+      },
+      //群组-查看群组
+       'cluster-detail':{
+         url: '/api/krspace-finance-web/cluster/manager/detail?clusterId={clusterId}',
+         method: 'get'
+      },
+      //群组-删除群组
+       'cluster-delete':{
+         url: '/api/krspace-finance-web/cluster/manager/delete',
+         method: 'post'
+      },
+      //群组-新建群组
+       'cluster-insert':{
+         url: '/api/krspace-finance-web/cluster/manager/insert',
+         method: 'post'
+      },
+      //群组-修改群组
+       'cluster-update':{
+         url: '/api/krspace-finance-web/cluster/manager/update',
+         method: 'post'
+      },
+      //app后台-帖子审核
+       'topic-list':{
+         url: '/api/krspace-finance-web/cluster/topic/list',
+         method: 'get'
+      },
+      //app后台-帖子审核-获取处理数据
+       'topic-detail':{
+         url: '/api/krspace-finance-web/cluster/topic/detail?id={id}',
+         method: 'get'
+      },
+      //app后台-帖子审核-处理
+       'topic-handle':{
+         url: '/api/krspace-finance-web/cluster/topic/dispose',
+         method: 'post'
+      },
+      //app后台-小黑屋
+       'punish-list':{
+         url: '/api/krspace-finance-web/cluster/punish/list',
+         method: 'get'
+      },
+      //app后台-小黑屋-提前释放
+       'punish-release':{
+         url: '/api/krspace-finance-web/cluster/punish/release',
+         method: 'post'
+      },
+      //app后台-小黑屋-加刑
+       'punish-add':{
+         url: '/api/krspace-finance-web/cluster/punish/inflict',
+         method: 'post'
+      },
+      //群组-获取所有城市
+       'getcity-list':{
+         url: '/api/krspace-finance-web/cluster/manager/city',
+         method: 'get'
+      },
+      //群组-获取所有社区
+       'getcommunity-list':{
+         url: '/api/krspace-finance-web/cmt/community/select/use/type/city',
+         method: 'get'
+      },
+      //公告管理-公告列表
+       'notice-list':{
+         url: '/api/krspace-finance-web/topic/manage/find-page?page={page}&pageSize={pageSize}',
+         method: 'get'
+      },
+      //公告管理-获取帖子详情
+       'get-findDetail':{
+         url: '/api/krspace-finance-web/topic/manage/find-detail?topicId={topicId}',
+         method: 'get'
+      },
+      //公告管理-删除帖子
+       'del-notice':{
+         url: '/api/krspace-finance-web/topic/manage/del',
+         method: 'post'
+      },
+      //公告管理-获取是否有全国发帖权限
+       'get-findRight':{
+         url: '/api/krspace-finance-web/topic/manage/find-right',
+         method: 'get'
+      },
+      //公告管理-新建帖子-全国
+       'create-country-topic':{
+         url: '/api/krspace-finance-web/topic/manage/create-country-topic',
+         method: 'post'
+      },
+      //公告管理-新建帖子-社区
+       'create-cmt-topic':{
+         url: '/api/krspace-finance-web/topic/manage/create-cmt-topic',
+         method: 'post'
+      },
+      //公告管理-新建帖子-社区群组
+       'topic-cluster-list':{
+         url: '/api/krspace-finance-web/topic/manage/cluster-list?cmtId={cmtId}',
+         method: 'get'
+      },
+      //公告管理-新建帖子-全国群组
+       'country-cluster-list':{
+         url: '/api/krspace-finance-web/topic/manage/country-cluster-list',
+         method: 'get'
+      },
       // 获取枚举字典接口
-    'getListDic': {
-        url: '/api/krspace-finance-web/dict/common',
-        method: 'get'
-    },
+      'getListDic': {
+            url: '/api/krspace-finance-web/dict/common',
+            method: 'get'
+       },
+
 
 }
+
+

@@ -58,7 +58,6 @@ export default class OperationSource extends React.Component {
 				item.label = item.systemDesc;
 				return item;
 			})
-			console.log(searchData)
 		_this.setState({
 			searchData:searchData
 		})

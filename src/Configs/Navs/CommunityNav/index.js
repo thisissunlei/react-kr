@@ -31,13 +31,13 @@ module.exports = [
 
 			{
 				primaryText: '访客登记',
-				menuCode: 'com_sys_visitList_base',
+				menuCode: 'visitRecord',
 				router: '/community/visitor/list'
 				
 			},
 			{
 				primaryText: '预约参观',
-				menuCode: 'visitRecord',
+				menuCode: 'com_sys_visitList_base',
 				router: '/community/communityManage/visitorsToRecord'
 			},
 			{
@@ -45,6 +45,7 @@ module.exports = [
 				menuCode: 'mobile_question_base',
 				router: '/community/communityManage/holdList'
 			},
+			
 			]
 		},
 		],

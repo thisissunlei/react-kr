@@ -22,7 +22,8 @@ import {
     Row,
     Col,
     Dialog,
-    Message
+    Message,
+    CheckPermission,
 } from 'kr-ui';
 
 import './index.less';
@@ -65,7 +66,8 @@ export default class TotalFund extends React.Component {
                 page: 1,
                 pageSize: 15,
                 searchParam: searchParams.content,
-                parentId: this.props.params.fundId
+                parentId: this.props.params.fundId,
+                time:new Date()
             }
 
         })
@@ -87,12 +89,17 @@ export default class TotalFund extends React.Component {
     onEditSubmit = (form) => {
 
         this.openEditDetailDialog();
-
+        var _this=this;
+        var fundId=this.props.params.fundId;
         Http.request('editSubCategory', {}, form).then(function(response) {
             Message.success("编辑成功");
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 0);
+            _this.setState({
+                searchParams:{
+                    time:new Date(),
+                    pageSize:15,
+                    parentId: fundId
+                }
+           })
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -105,11 +112,18 @@ export default class TotalFund extends React.Component {
     }
 
     onNewCreateSubmit = (values) => {
+        var _this=this;
+        this.openNewCreateFund();
+         var fundId=this.props.params.fundId;
         Http.request('createSubCategory', {}, values).then(function(response) {
             Message.success("创建成功");
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 0);
+            _this.setState({
+                searchParams:{
+                    time:new Date(),
+                    pageSize:15,
+                    parentId:fundId
+                }
+           })
 
         }).catch(function(err) {
             Message.error(err.message);
@@ -130,7 +144,7 @@ export default class TotalFund extends React.Component {
                         paddingTop:2
                     }}>
                         <Col md={4} align="left">
-                            <Button label="新建子项" type='button' joinEditForm onTouchTap={this.openNewCreateFund}/>
+                            <Button label="新建子项" type='button' operateCode="fina_category_create1st" joinEditForm onTouchTap={this.openNewCreateFund}/>
                         </Col>
 
                         <Col md={8} align="right">
@@ -203,7 +217,8 @@ export default class TotalFund extends React.Component {
                                 }}></TableRowColumn>
                                 <TableRowColumn>
                                     <Button label="查看" type="operation" operation="view"/>
-                                    <Button label="编辑" type="operation" operation="edit"/>
+                                    <Button label="编辑" operateCode="fina_category_edit2nd" type="operation" operation="edit"/>
+                                   
                                 </TableRowColumn>
                             </TableRow>
                         </TableBody>

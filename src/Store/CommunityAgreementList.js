@@ -24,7 +24,10 @@ let State = observable({
 	openEditAgreement:false,
 	openLocalStorage:false,
 	openAgreementDetail:false,
-	detailValue:''
+	detailValue:'',
+
+	//高级查询
+	openSearchUpper:false
 
 });
 

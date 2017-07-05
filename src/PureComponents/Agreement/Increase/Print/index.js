@@ -26,7 +26,7 @@ export default class IncreasePrint extends React.Component {
 		super(props, context);
 		console.log(this.context.router.params)
 		let params = this.context.router.params;
-
+		this.init = false;
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
@@ -34,8 +34,44 @@ export default class IncreasePrint extends React.Component {
 		setTimeout(function() {
 			window.print();
 			window.close();
-		}, 1000)
+		}, 1300)
 
+	}
+	renderImg=()=>{
+		var printList = document.getElementsByClassName('print-section')[0];
+		if(!printList){
+			return;
+		}
+		var printHeight = printList.offsetHeight;
+		if(printHeight>1205 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
+		}
+		this.pages = Math.ceil(printHeight/1200);
+		let str=[] ;
+		let page = this.pages;
+		if(page<=1){
+			return;
+		}
+		let whole = 160;
+		let width = Math.ceil(160/page);
+		let position = Math.ceil(100/(page-1));
+		let cachetUrl = State.baseInfo.cachetUrl;
+		for(var i = 0;i<page;i++){
+			let style={
+				background:`url(${cachetUrl}) 100% 100%`,
+				position:'absolute',
+				backgroundSize:'cover',
+				top:350+(i*1120),
+				right:0,
+				width:width,
+				height:160,
+				backgroundPosition:`${position*i}% 0`
+			};
+			str.push(<div style={style}></div>);
+
+		}
+		return str;
 	}
 	renderContent=()=>{
 		if(State.baseInfo.hasOwnProperty('agreement')){
@@ -73,9 +109,13 @@ export default class IncreasePrint extends React.Component {
 	}
 
 	render() {
+		let doms = this.renderImg() || [];
 		return (
 
-			<div className="print-section no-print-section" >
+			<div className="print-section no-print-section">
+			{State.baseInfo.withCachet && doms.map((item,index)=>{
+				return item
+			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(增加)`}/>
 				<Print.Header
 					baseInfo={State.baseInfo}

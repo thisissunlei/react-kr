@@ -63,15 +63,15 @@ const Permission_SystemManage_AppLoginLogs = (location, callback) => {
   }, 'Permission_SystemManage_AppLoginLogs')
 }
 
+const Permission_OpCode = (location, callback) => {
+  require.ensure([], require => {
+      callback(null, require('kr/Containers/Permission/OpCode').default)
+  }, 'Permission_OpCode')
+}
 const Permission_SystemManage_MessageList = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/SystemManage/MessageList').default)
   }, 'Permission_SystemManage_MessageList')
-}
-const Permission_SystemManage_VersionManage = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/SystemManage/VersionManage').default)
-  }, 'Permission_SystemManage_VersionManage')
 }
 const Permission_AccountManage_OperationSource = (location, callback) => {
   require.ensure([], require => {
@@ -83,7 +83,8 @@ module.exports =()=>{
 	return (
 		<Route path="permission" getComponent={Basic}>
       <IndexRedirect to="accountManage/accountList"/>
-		<Route path="user" getComponent={Permission_User}/>
+      <Route path="user" getComponent={Permission_User}/>
+		<Route path="user/:page" getComponent={Permission_User}/>
 		<Route path="operations" getComponent={Permission_Operations}/>
     <Route path="loginlog" getComponent={Permission_LoginLog}/>
     <Route path="accountManage" getComponent={Basic}>
@@ -91,15 +92,15 @@ module.exports =()=>{
         <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>
         <Route path="operationSource" getComponent={Permission_AccountManage_OperationSource}/>
     </Route>
-		<Route path="userlist/:userId" getComponent={Permission_UserList}>
+		<Route path="userlist/:userId/:page" getComponent={Permission_UserList}>
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>
+    <Route path="opCode" getComponent={Permission_OpCode}/>
 		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
 	  <Redirect from="permission" to="permission/personalCenter" />
     <Route path="systemManage" getComponent={Basic}>
      <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
       <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
-      <Route path="versionManage" getComponent={Permission_SystemManage_VersionManage}/>
     </Route>
 	  </Route>
 

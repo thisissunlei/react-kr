@@ -4,7 +4,10 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import './index.less';
+import { observer, inject } from 'mobx-react';
 
+@inject("NavModel")
+@observer
 export default class Button extends React.Component {
 
 	static displayName = 'Button';
@@ -70,9 +73,32 @@ export default class Button extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state={
+			IsOperate:false,
+		}
+	}
+	componentDidMount() {
+		var _this=this;
+		setTimeout(function(){
+			_this.getCheck();
+		},200)
+		
 
 	}
-
+	componentWillReceiveProps(){
+		this.getCheck();
+	}
+	getCheck=()=>{
+		const {NavModel,menusCode,operateCode}=this.props;
+		var _this=this;
+		if(operateCode){
+				var IsOperate=NavModel.checkOperate(operateCode);
+				_this.setState({
+					IsOperate
+				})
+				
+		}
+	}
 
 	render() {
 
@@ -90,8 +116,12 @@ export default class Button extends React.Component {
 			searchStyle,
 			searchClick,
 			linkTrue,
+			operateCode,
+			menusCode,
 			...other
+			
 		} = this.props;
+		let {IsOperate,IsMenus}=this.state;
 		let border = 'none';
 		if(cancle){
 			backgroundColor = '#fff';
@@ -129,63 +159,128 @@ export default class Button extends React.Component {
         	height:'36px',
         	lineHeight:'32px'
         }
-		if (type == 'link') {
-			if (disabled) {
-				delete other.href;
-			}
-			let style={}
-			if(linkTrue){
-             style=heightLinkStyle
-			}else{
-			 style=linkStyles
-			}
-			return (
-				<div className="ui-button">
-					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} labelStyle={labelStyleLink} label={label} primary={true} style={style}  {...other}  />
-				</div>
-			);
-		}
 
-		if (type == 'button') {
-			return (
-				<div className="ui-button" style={divStyle}>
-					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} style={defaultStyle} label={label}   {...other} />
-				</div>
-			);
-		}
+		
+		if(operateCode){
+         if(IsOperate){
+			if (type == 'link') {
+				if (disabled) {
+					delete other.href;
+				}
+				let style={}
+				if(linkTrue){
+	             style=heightLinkStyle
+				}else{
+				 style=linkStyles
+				}
+				return (
+					<div className="ui-button">
+						<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} labelStyle={labelStyleLink} label={label} primary={true} style={style}  {...other}  />
+					</div>
+				);
+			}
 
-		if (type == 'operation') {
+			if (type == 'button') {
+				return (
+					<div className="ui-button" style={divStyle}>
+						<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} style={defaultStyle} label={label}   {...other} />
+					</div>
+				);
+			}
+
+			if (type == 'operation') {
+				return (
+					<div className="ui-button" >
+						<span {...other} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+					</div>
+
+				);
+			}
+
+			if (type == 'search') {
+				return (
+					<div style={searchStyle} onClick={searchClick}>
+						<span className='ui-search-upper' style={{cursor:'pointer',display:'inline-block'}}></span>
+					</div>
+
+				);
+			}
+
+			if (type == 'submit') {
+
+				return (
+					<div className="ui-button" style={divStyle}>
+						<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} label={label} style={defaultStyle}  type="submit"  {...other}/>
+					</div>
+				);
+			}
+
 			return (
 				<div className="ui-button" >
-					<span {...other} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+						<RaisedButton backgroundColor={backgroundColor || "#499df1"}  label={label} labelStyle={labelStyle} labelColor="#fff" style={defaultStyle}{...other}/>
 				</div>
 
 			);
 		}
+		return null;
+	}
+		if (type == 'link') {
+				if (disabled) {
+					delete other.href;
+				}
+				let style={}
+				if(linkTrue){
+	             style=heightLinkStyle
+				}else{
+				 style=linkStyles
+				}
+				return (
+					<div className="ui-button">
+						<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} labelStyle={labelStyleLink} label={label} primary={true} style={style}  {...other}  />
+					</div>
+				);
+			}
 
-		if (type == 'search') {
+			if (type == 'button') {
+				return (
+					<div className="ui-button" style={divStyle}>
+						<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} style={defaultStyle} label={label}   {...other} />
+					</div>
+				);
+			}
+
+			if (type == 'operation') {
+				return (
+					<div className="ui-button" >
+						<span {...other} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+					</div>
+
+				);
+			}
+
+			if (type == 'search') {
+				return (
+					<div style={searchStyle} onClick={searchClick}>
+						<span className='ui-search-upper' style={{cursor:'pointer',display:'inline-block'}}></span>
+					</div>
+
+				);
+			}
+
+			if (type == 'submit') {
+
+				return (
+					<div className="ui-button" style={divStyle}>
+						<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} label={label} style={defaultStyle}  type="submit"  {...other}/>
+					</div>
+				);
+			}
+
 			return (
-				<div style={searchStyle} onClick={searchClick}>
-					<span className='ui-search-upper' style={{cursor:'pointer',display:'inline-block'}}></span>
+				<div className="ui-button" >
+						<RaisedButton backgroundColor={backgroundColor || "#499df1"}  label={label} labelStyle={labelStyle} labelColor="#fff" style={defaultStyle}{...other}/>
 				</div>
 
 			);
-		}
-
-		if (type == 'submit') {
-
-			return (
-				<div className="ui-button" style={divStyle}>
-					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} label={label} style={defaultStyle}  type="submit"  {...other}/>
-				</div>
-			);
-		}
-
-		return (
-			<div className="ui-button" >
-					<RaisedButton backgroundColor={backgroundColor || "#499df1"}  label={label} labelStyle={labelStyle} labelColor="#fff" style={defaultStyle}{...other}/>
-			</div>
-
-		);
 	}
 }

@@ -24,7 +24,8 @@ import {
     SearchForms,
 	Drawer,
 	Message,
-	Tooltip
+	Tooltip,
+	CheckPermission
 } from 'kr-ui';
 import {DateFormat} from "kr/Utils";
 import editsourceCustomer from "../EditCustomerList/State";
@@ -330,6 +331,11 @@ class Personal extends Component{
      openDeleteDialog=()=>{
      	State.openDeleteOrder();
      }
+	 pageChange = (page) =>{
+		var searchParams = Object.assign({}, this.props.NewIndentModel.searchParams);
+		searchParams.page = page;
+		this.props.NewIndentModel.searchParams = searchParams;
+	 }
 	render(){
 		let {dataReady,searchParams,orderReady}=this.props;
 		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
@@ -348,21 +354,24 @@ class Personal extends Component{
 
       <div className="m-personal" style={{paddingTop:25}}>
 			<Title value="客户列表"/>
-      		<div className='merchants-dialog' style={blockStyle}>
-      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
-      		  <div style={{marginRight:20,display:'inline-block'}}><Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/></div>
-      		  <Button  label="取消跟进" type="button" cancle={true} style={{height:29,minWidth:80}} onTouchTap={this.openQuitDialog}/>
-      		  <span className='mer-close' onClick={this.merClose}></span>
-      		</div>
+			<CheckPermission  operateCode="oper_csr_transfer" >
+				<div className='merchants-dialog' style={blockStyle}>
+					<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
+					<div style={{marginRight:20,display:'inline-block'}}><Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/></div>
+					<Button  label="取消跟进" type="button" cancle={true} style={{height:29,minWidth:80}} onTouchTap={this.openQuitDialog}/>
+					<span className='mer-close' onClick={this.merClose}></span>
+				</div>
+			</CheckPermission>
 	        <Row style={{marginBottom:21}}>
 			          <Col
 					     align="left"
 					     style={{float:'left'}}
 					   >
 						<Button
-								label="新建客户"
-								type='button'
-								onTouchTap={this.switchNewMerchants}
+							label="新建客户"
+							type='button'
+							onTouchTap={this.switchNewMerchants}
+							operateCode="oper_csr_add"
 						/>
 					  </Col>
 
@@ -386,6 +395,7 @@ class Personal extends Component{
 	            ajaxParams={this.props.NewIndentModel.searchParams}
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="items"
+				onPageChange = {this.pageChange}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>

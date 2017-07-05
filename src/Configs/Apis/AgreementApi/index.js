@@ -95,14 +95,35 @@ module.exports = {
     method: 'get'
   },
 
-  //合同-出租方管理-新增
+  //运营平台-出租方管理-新增
   'addFnaCorporation': {
-    url: '/api/krspace-finance-web/addFnaCorporation',
+    url: '/api/krspace-finance-web/fna/corpora/insert',
     method: 'post'
   },
-  //合同-出租方管理-list
+  //运营平台-出租方管理-列表
   'fnaCorporationList': {
-    url: '/api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
+    url: '/api/krspace-finance-web/fna/corpora/list?cmtId={cmtId}&corporationName={corporationName}&page={page}&pageSize={pageSize}',
+    method: 'get'
+  },
+  //运营平台-出租方管理-编辑
+  'editFnaCorporation': {
+    url: '/api/krspace-finance-web/fna/corpora/update',
+    method: 'post'
+  },
+
+  //运营平台-出租方管理-详情页
+  'getFnaCorporation': {
+    url: '/api/krspace-finance-web/fna/corpora/detail?id={id}',
+    method: 'get'
+  },
+ //运营平台-出租方管理-绑定社区数据
+  'bindCommunity': {
+    url: '/api/krspace-finance-web/fna/corpora/cmt?id={id}',
+    method: 'get'
+  },
+  //运营平台-出租方管理-湖区微信支付宝数据
+  'getWeChatAndAlipay': {
+    url: '/api/krspace-finance-web/fna/corpora/info',
     method: 'get'
   },
   //合同-基础配置-新增
@@ -136,19 +157,6 @@ module.exports = {
     url: '/api/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
     method: 'post'
   },
-
-  //合同-出租方管理-编辑
-  'editFnaCorporation': {
-    url: '/api/krspace-finance-web/editFnaCorporation',
-    method: 'post'
-  },
-
-  //合同-出租方管理-基本信息
-  'getFnaCorporation': {
-    url: '/api/krspace-finance-web/getFnaCorporation?id={id}',
-    method: 'get'
-  },
-
   //电子合同-入驻协议(入驻，增租，续租)
   'checkinagreement-print-info': {
       url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
@@ -176,7 +184,7 @@ module.exports = {
  },
  //合同列表-列表接口
    'contract-list':{
-   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}',
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}&hasAgreement={hasAgreement}',
    method:'get'
    },
  //合同列表-客户名称下拉接口

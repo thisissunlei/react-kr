@@ -30,7 +30,8 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+  CheckPermission
 } from 'kr-ui';
 
 import './index.less'
@@ -81,7 +82,6 @@ class CommunityList  extends React.Component{
          delete value.wherefloors;
 
          //图片结束
-     
    	     State.onNewCommunitySubmit(value);
 
    }
@@ -180,6 +180,7 @@ class CommunityList  extends React.Component{
      onSearchUpperSubmit=(searchParams)=>{
      	searchParams = Object.assign({},State.searchParams, searchParams);
      	searchParams.time=+new Date();
+       
 		if(searchParams.openDateBegin&&searchParams.openDateEnd&&searchParams.openDateEnd<searchParams.openDateBegin){
 			 Message.error('开始时间不能大于结束时间');
 	         return ;
@@ -190,7 +191,8 @@ class CommunityList  extends React.Component{
 		if(searchParams.openDateBegin && !searchParams.openDateEnd){
 			searchParams.openDateEnd = searchParams.openDateBegin
 		}
-
+        
+        
       	State.setSearchParams(searchParams);
       	State.searchUpperCustomer();
      }
@@ -234,6 +236,14 @@ class CommunityList  extends React.Component{
     	State.closeAllDialog();
     }
 
+    onPageChange=(page)=>{
+      var searchParams={
+        page:page
+      }
+
+      State.searchParams=Object.assign({},State.searchParams,searchParams);
+    }
+
 	render(){
 
 		let searchFilter=[
@@ -264,6 +274,7 @@ class CommunityList  extends React.Component{
 											label="新建社区"
 											type='button'
 											onTouchTap={this.openAddCommunity}
+                      operateCode="oper_cmt_community_edit"
 									/>
 					  </Col>
 
@@ -284,6 +295,7 @@ class CommunityList  extends React.Component{
 	            exportSwitch={true}
 			        onExport={this.onExport}
 	            ajaxParams={State.searchParams}
+              onPageChange={this.onPageChange}
 	            ajaxUrlName='communitySearch'
 	            ajaxFieldListName="items"
 					  >
@@ -314,8 +326,8 @@ class CommunityList  extends React.Component{
 													 }}></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    {State.isFlag&&<Button label="编辑"  type="operation"  operation="edit" />}
-			                    <Button label="查看"  type="operation"  operation="watch" />
+                            <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_community_edit"/>
+			                      <Button label="查看"  type="operation"  operation="watch" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

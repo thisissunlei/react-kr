@@ -14,11 +14,12 @@ import {
 	initialize
 } from 'redux-form';
 
-
+import {
+	Http,
+} from "kr/Utils";
 import {
 	Actions,
 	Store,
-  connect,
 } from 'kr/Redux';
 
 import {
@@ -79,16 +80,17 @@ class Login extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
     this.getCanvas();
-	//	this.HandleTabKey();
+		this.HandleEnterKey();
 	}
-	//屏蔽tab
-	// HandleTabKey=(evt)=>{
-	// 			document.onkeydown = function() {
-	// 			if (event.keyCode == 9) {  //如果是其它键，换上相应在ascii 码即可。
-	// 					return false; //非常重要
-	// 			}
-	// 	}
-  //   }
+		//屏蔽tab
+	HandleEnterKey=(evt)=>{
+				var _this = this;
+				document.onkeydown = function() {
+					if (event.keyCode == 13) {
+							_this.submitLogin();
+						}
+				}
+  }
 
   getCanvas=()=>{
     var canvas = document.getElementById('canvas'),
@@ -226,12 +228,10 @@ class Login extends Component {
 			}
 		}
 		var _this = this;
-		Store.dispatch(Actions.callAPI('loginSubmit', {},obj)).then(function(response) {
+		Http.request('loginSubmit', {},obj).then(function(response) {
 			//跳转？
 
-			// window.location.href = '/new/';
-
-			window.location.href =  "http://"+window.location.host;
+			window.location.href = './';
 
 		}).catch(function(err) {
 			 if(err.code==-1){
@@ -292,16 +292,15 @@ class Login extends Component {
 	togetMailtestCode=()=>{
 		this.refs.verifyCodeByMail.value='';
 		var _this = this;
-		console.log(_this.refs.loginMail.value);
 		this.setState({
 			gettingMail:true,
 			regettestMailState:false,
 			togetMailtest:false,
 		},function(){
 
-			Store.dispatch(Actions.callAPI('getVcodeByMail', {
+			Http.request('getVcodeByMail', {
 				email:_this.refs.loginMail.value,
-			},{})).then(function(response) {
+			},{}).then(function(response) {
 				_this.togetMailtest()
 			}).catch(function(err) {
 				if(err.code<0){
@@ -355,10 +354,10 @@ class Login extends Component {
 	//邮箱身份验证点击确定
 	submitVerifyIDbyMail =()=>{
 			var _this = this;
-				Store.dispatch(Actions.callAPI('validEmailCode', {},{
+				Http.request('validEmailCode', {},{
 					email:_this.refs.loginMail.value,
 					code:_this.refs.verifyCodeByMail.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.setState({
 						isLegal:true,
 						//timeminMobile:"",//
@@ -371,7 +370,6 @@ class Login extends Component {
 				}).catch(function(err) {
 					if(err.code<0){
 						Message.error(err.message)
-					//           	console.log(err)
 					}
 				});
 	}
@@ -384,9 +382,9 @@ class Login extends Component {
 			togetMobiletest:false,
 		},function(){
 			var _this = this;
-			Store.dispatch(Actions.callAPI('getVcodeByPhone',{
+			Http.request('getVcodeByPhone',{
 				mobile:_this.refs.loginMobile.value,
-			})).then(function(response) {
+			}).then(function(response) {
 				_this.togetMobiletest()
 			}).catch(function(err) {
 				if(err.code<0){
@@ -432,7 +430,6 @@ class Login extends Component {
 	}
 	submitIdByMobile=()=>{
 		if(this.refs.verifyCodeByMobile.value){
-			//console.log("111",document.getElementsByClassName("code")[0].value);
 			this.submitVerifyIDbyMobile()
 		}else{
 			Message.error("请填写验证码")
@@ -442,11 +439,12 @@ class Login extends Component {
 	//手机身份验证点击确定
 	submitVerifyIDbyMobile =()=>{
 			var _this = this;
+
 			//console.log("1",this.state.regettestMobileState);
-				Store.dispatch(Actions.callAPI('validPhoneCode',{},{
+				Http.request('validPhoneCode',{},{
 					mobile:_this.refs.loginMobile.value,
 					code:_this.refs.verifyCodeByMobile.value,
-				})).then(function(response) {
+				}).then(function(response) {
 					_this.setState({
 						isLegal:true,
 						//timeminMobile:"",//
@@ -456,7 +454,6 @@ class Login extends Component {
 						forgetPwd:false,
 						canLogin:false,
 					},function(){
-					//	console.log("2",this.state.regettestMobileState);
 							_this.setState({
 
 							})
@@ -464,8 +461,6 @@ class Login extends Component {
 				}).catch(function(err) {
 					if(err.code<0){
 						Message.error(err.message)
-					//           	console.log(err)
-				//          	console.log(err);
 					}
 				});
 	}
@@ -477,13 +472,12 @@ class Login extends Component {
 	// }
 	//修改密码点击确定后的函数ing
 	submitPwd =(values)=>{
-		console.log(values.new);
 			var _this = this;
-			Store.dispatch(Actions.callAPI('setNewPwd', {},{
+			Http.request('setNewPwd', {},{
 				pwd:values.new,
 				rePwd:values.newagain,
 				saltStr:_this.state.saltStr
-			})).then(function(response) {
+			}).then(function(response) {
 				Message.success("修改成功");
 				_this.goToEdited();
 				// window.setTimeout(function(){

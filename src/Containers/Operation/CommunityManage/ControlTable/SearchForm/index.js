@@ -36,9 +36,9 @@ class SearchFormControlTable extends React.Component {
         const _this = this;
 		const {communityChange} = this.props;
         let {communityIdList} = this.state;
-        Http.request('getCommunity').then(function(response) {
-
-            communityIdList = response.communityInfoList.map(function(item, index) {
+        Http.request('getTheCommunity').then(function(response) {
+			console.log(response)
+            communityIdList = response.items.map(function(item, index) {
 
                 item.value = item.id;
                 item.label = item.name;

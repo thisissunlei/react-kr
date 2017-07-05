@@ -23,7 +23,8 @@ import {
     SearchForms,
 	Drawer,
 	KrDate,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {
 	LookCustomerList,
@@ -331,6 +332,12 @@ class SignedClient extends React.Component{
 		 this.props.NewIndentModel.openContract=false;
 	}
 
+	pageChange = (page) =>{
+		var searchParams = Object.assign({}, State.searchParams);
+		searchParams.page = page;
+		State.searchParams = searchParams;
+	}
+
 	render(){
 
 
@@ -362,11 +369,13 @@ class SignedClient extends React.Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-									<Button
-											label="新建订单"
-											type='button'
-											onTouchTap={this.openContractFirst}
-									/>
+					   
+							<Button
+									label="新建订单"
+									type='button'
+									onTouchTap={this.openContractFirst}
+									operateCode="oper_order_add"
+							/>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -389,6 +398,7 @@ class SignedClient extends React.Component{
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="items"
+				onPageChange = {this.pageChange}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>签约城市</TableHeaderColumn>
