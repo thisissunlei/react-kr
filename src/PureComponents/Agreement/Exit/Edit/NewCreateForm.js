@@ -36,6 +36,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	Notify
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -181,6 +182,10 @@ class NewCreateForm extends React.Component {
 			})
 		}).catch(function(err){
 			console.log(err)
+			Notify.show([{
+	          message: err.message,
+	          type: 'danger',
+	        }]);
 		})
 
 		
