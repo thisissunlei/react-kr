@@ -37,7 +37,7 @@ export default class CommunityAllocation  extends React.Component{
                 page:1,
                 pageSize:15
             },
-            //下面的七个是传到编辑
+            //下面的八个是传到编辑
             //社区名称
             communityName:'',
             //开业
@@ -48,7 +48,9 @@ export default class CommunityAllocation  extends React.Component{
             listValue:{},
             firstValue:{},
             stationValue:{},
-            detailValue:[]    
+            detailValue:[],
+            //是否显示覆盖
+            isCover:false    
         }
 	}
    
@@ -143,7 +145,7 @@ export default class CommunityAllocation  extends React.Component{
 
 	render(){
 
-        let {searchParams,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue}=this.state;
+        let {searchParams,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue,isCover}=this.state;
 
 		return(
            <div className='m-web-community'>
@@ -235,6 +237,7 @@ export default class CommunityAllocation  extends React.Component{
                           detailValue={detailValue}
                           firstValue={firstValue}
                           listValue={listValue}
+                          isCover={isCover}
 						/>
 
 		            </Drawer>

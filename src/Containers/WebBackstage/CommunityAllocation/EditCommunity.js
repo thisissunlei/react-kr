@@ -126,7 +126,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
         let {firstValue,listValue,stationValue,detailValue}=this.state;
  
-        const {handleSubmit,communityName,opend,openDate} = this.props;
+        const {handleSubmit,communityName,opend,openDate,isCover} = this.props;
       
         
     
@@ -179,11 +179,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                     <div style={{display:'block'}}>
                         <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">官网信息</label></div>
                         <div className="small-cheek" style={{paddingBottom:0}}>
-                            <KrField grid={1/2} label="是否企业定制" name="customed" style={{width:248,marginLeft:15}} component="group">
+                            <KrField grid={1/2} label="是否企业定制" name="customed" style={{width:248,marginLeft:15}} component="group" requireLabel={true}>
                                 <KrField name="customed" label="非定制" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
                                 <KrField name="customed" label="定制" type="radio" value='true' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
-                            <KrField grid={1/2} label="是否允许预约" name="appoint" style={{width:200,marginLeft:35}} component="group">
+                            <KrField grid={1/2} label="是否允许预约" name="appoint" style={{width:200,marginLeft:35}} component="group" requireLabel={true}>
                                 <KrField name="appoint" label="可预约" type="radio" value='true' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
                                 <KrField name="appoint" label="不可预约" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
@@ -196,20 +196,20 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 <KrField name="show" label="不显示" type="radio" value='false' onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
                             </KrField>
 
-                            <KrField grid={1/2} label="覆盖标签内容" name="coverName" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange}/>
+                            {isCover&&<KrField grid={1/2} label="覆盖标签内容" name="coverName" component="input" style={{width:262,marginLeft:15}} onChange={this.communityRankChange} requireLabel={true}/>}
                         
-                            <KrField grid={1/2} label="排序" name="sort" component="input" style={{width:262,marginLeft:25}} onChange={this.communityRankChange}/>
+                            <KrField grid={1/2} label="排序" name="sort" component="input" style={{width:262,marginLeft:25}}/>
 
-                            <KrField style={{width:262,marginLeft:15}}  name="chargeId" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel}/>
+                            <KrField style={{width:262,marginLeft:15}}  name="chargeId" component="searchPersonel" label="联系人"/>
                             
                             <FieldArray name="porType" component={renderStation} />
 
                             <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
-                                <KrField grid={1} label="基础设施" name="facility" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础设施' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>                                        
-                                <KrField grid={1} label="基础服务" name="service"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-                                <KrField grid={1} label="特色服务" name="specialServcie" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入特色服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-                                <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
-                                <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+                                <KrField grid={1} label="基础设施" name="facility" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础设施' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>                                        
+                                <KrField grid={1} label="基础服务" name="service"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
+                                <KrField grid={1} label="特色服务" name="specialServcie" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入特色服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
+                                <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
+                                <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
 
                                 <div style={{marginTop:'16px'}}>
                                     <span className='upload-pic-first'>上传首页图片</span>
@@ -219,6 +219,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                          requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                          style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
                                          defaultValue={firstValue}
+                                         requireLabel={true}
                                     />
                                 </div>
 
@@ -230,6 +231,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                        requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                        style={{textAlign:'left', marginLeft: '30px',marginTop: '10px'}}
                                        defaultValue={listValue}
+                                       requireLabel={true}
                                     />
                                 </div>
 
@@ -242,6 +244,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                         imgFlag={false}
                                         innerBoxStyle={{width:254,height:70}}
                                         innerStyle={{left:110,top:12}}
+                                        requireLabel={true}
                                         />
                                 </div>
 
@@ -294,7 +297,47 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	         }
 	       }
 
+            if(!values.customed){
+              errors.customed='请选择是否企业定制'
+            }
+            if(!values.appoint){
+              errors.appoint='请选择是否允许预约'
+            }
+            if(!values.show){
+              errors.show='请选择是否显示官网'
+            }
 
+            if(!values.specialServcie){
+              errors.specialServcie='请填写特色服务'
+            }
+            if(!values.service){
+              errors.service='请填写基础服务'
+            }
+            if(!values.facility){
+              errors.facility='请填写基础设施'
+            }
+            if(!values.arround){
+              errors.arround='请填写周边'
+            }
+            if(!values.traffic){
+              errors.traffic='请填写交通'
+            }
+
+
+            if(!values.pageImageId){
+              errors.pageImageId='请上传首页图片'
+            }
+            if(!values.listImageId){
+              errors.listImageId='请上传列表页图片'
+            }
+            if(!values.detailImageId){
+              errors.detailImageId='请上传详情图片'
+            }
+            
+
+            if(!values.coverName){
+              errors.coverName='请填写覆盖标签内容'
+            }
 	    
             //排序
             if(values.sort&&isNaN(values.sort)){
