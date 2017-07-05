@@ -130,7 +130,7 @@ export default class Integration extends React.Component {
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='notice-list'
+		                  ajaxUrlName='get-point'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
 		                 

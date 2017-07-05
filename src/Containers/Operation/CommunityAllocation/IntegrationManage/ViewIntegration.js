@@ -23,17 +23,15 @@ export default class ViewIntegration extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			ifCity:false,
-			infoList:[],
+			searchParams:{
+				page:1,
+				pageSize:15
+				customerId:this.props.detail.customerId
+			}
 			
 		}
 		
 	}
-	
-	componentDidMount() {
-        
-    }
-   
 	
 
 	onCancel=()=>{
@@ -59,7 +57,7 @@ export default class ViewIntegration extends React.Component {
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='notice-list'
+		                  ajaxUrlName='get-point-detail'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
 		                  displayCheckbox={false}

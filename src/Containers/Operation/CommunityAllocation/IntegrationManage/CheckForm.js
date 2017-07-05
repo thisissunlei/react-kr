@@ -45,12 +45,12 @@ class CheckForm extends React.Component {
 			userPwd:userPwd
 		}
 
-		// Http.request('create-cmt-topic',{},params).then(function(response) {
-		// 	Message.success('充值成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('save-add-point',{},params).then(function(response) {
+			Message.success('充值成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 
