@@ -314,7 +314,7 @@ export default class Pagination extends Component {
 		var pageMax = Math.ceil(totalCount/pageSize);
 
 
-		if(Math.ceil(totalCount/pageSize)<pageJump || page>=(pageMax-pageJump)){
+		if(Math.ceil(totalCount/pageSize)<pageJump || (page>=(pageMax-pageJump) && page!=(pageMax/2-0.5))){
 				return null;
 		}
 		const handlers = {

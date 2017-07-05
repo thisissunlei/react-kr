@@ -16,7 +16,8 @@ import {
 } from 'kr/Redux';
 
 import {
-	SearchForms
+	SearchForms,
+	KrField
 } from 'kr-ui';
 
 
@@ -52,6 +53,10 @@ class SearchForm extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
+	onChange = (values) =>{
+		const {onChange} = this.props;
+		onChange && onChange(values)
+	}
 
 	render() {
 
@@ -63,7 +68,18 @@ class SearchForm extends React.Component {
 		} = this.props;
 
 		return (
-			<div>
+			<div className = 'm-lessor-manage-search-form'>
+				 <KrField grid={1/2} 
+                            name="intentionCommunityId" 
+                            component='searchCommunityAll' 
+                            style ={{width:220,marginBottom:"-18px"}} 
+                            label="社区：" 
+							inline={true}  
+							onChange = {this.onChange}
+                            requireLabel={false}
+						
+                           
+                        />
 				<SearchForms onSubmit={this.onSubmit} />
 
 			</div>

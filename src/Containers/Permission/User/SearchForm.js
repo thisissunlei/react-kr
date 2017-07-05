@@ -61,11 +61,13 @@ class SearchForm extends Component {
 
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建" width={70} height={26}  onTouchTap={this.openCreateDialog} />
-				<SearchForms 
-						onSubmit={this.onSubmit} 
-						searchFilter={options} 
-						style={{marginTop:5}} 
+
+					<Button label="新建" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateDialog} />
+
+				<SearchForms
+						onSubmit={this.onSubmit}
+						searchFilter={options}
+						style={{marginTop:5}}
 						onFilter={this.onFilter}
 				/>
 			</form>

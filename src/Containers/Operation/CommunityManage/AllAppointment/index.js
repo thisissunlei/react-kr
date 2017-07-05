@@ -106,7 +106,7 @@ class AllAppointment extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
-			<Title value="空间预定"/>
+			<Title value="空间预订"/>
 
 			<Tabs className="tabs">
 					<Tab label="预约会议室" onActive={this.merchants} style={merchantsStyle}>

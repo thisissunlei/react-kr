@@ -21,7 +21,8 @@ import {
 	Title,
 	ListGroup,
 	ListGroupItem,
-	Message
+	Message,
+	CheckPermission
 } from 'kr-ui';
 import {
 	observer,
@@ -173,6 +174,7 @@ cancelSearchUpperDialog=()=>{
 onSearchUpperSubmit=(params)=>{
  this.props.CommunityStationModel.searchParams= Object.assign({},this.props.CommunityStationModel.searchParams,params);
  this.props.CommunityStationModel.searchParams.time=+new Date();
+ this.props.CommunityStationModel.searchParams.page = 1;
  this.props.CommunityStationModel.searchUpperCustomer();
 }
 
@@ -198,6 +200,13 @@ SelectCommunity=()=>{
 	window.location.href=`./#/operation/communityAllocation/communityStation`;
 }
 
+onPageChange=(page)=>{
+   var searchParams={
+	   page:page
+   }
+   this.props.CommunityStationModel.searchParams=Object.assign({},this.props.CommunityStationModel.searchParams,searchParams);
+}
+
 	render(){
 
 		let {communityName,stationName,spacesName,floorData}=this.state;
@@ -217,6 +226,7 @@ SelectCommunity=()=>{
 											label="新建"
 											type='button'
 											onTouchTap={this.openAddStation}
+											operateCode="oper_cmt_station_edit"
 										/>
 									</div>
 									<div style={{display:'inline-block',marginRight:20}}>
@@ -230,6 +240,7 @@ SelectCommunity=()=>{
 											label="导入"
 											type='button'
 											onTouchTap={this.openImporData}
+											operateCode="oper_cmt_station_import"
 									/>
 					  </Col>
 
@@ -249,6 +260,7 @@ SelectCommunity=()=>{
 	            displayCheckbox={true}
 	            exportSwitch={true}
 			    onExport={this.onExport}
+				onPageChange={this.onPageChange}
 	            ajaxParams={this.props.CommunityStationModel.searchParams}
 	            ajaxUrlName='station-list'
 	            ajaxFieldListName="items"
@@ -274,8 +286,8 @@ SelectCommunity=()=>{
 			                <TableRowColumn name="quotedPrice"></TableRowColumn>
 			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'未启用',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
-			                    <Button label="删除"  type="operation"  operation="delete" />
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_station_edit"/>
+			                    <Button label="删除"  type="operation"  operation="delete" operateCode="oper_cmt_station_delete"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

@@ -3,9 +3,8 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
+import {Http} from 'kr/Utils';
 import {
-	connect,
 	Actions,
 	Store
 } from 'kr/Redux';
@@ -82,10 +81,11 @@ export default class UserList extends Component {
 		} = this.state;
 		var _this = this;
 		var roleId = this.props.params.userId
-		Store.dispatch(Actions.callAPI('deleteUser', {
+		Http.request('deleteUser', {
 			roleId: roleId,
 			userId: itemDetail.id
-		})).then(function(response) {
+		}).then(function(response) {
+			_this.openDeleteDialog();
 			Message.success('删除成功');
 			_this.changeP();
 			_this.openDeleteDialog();
@@ -120,6 +120,12 @@ export default class UserList extends Component {
         })
     }
 
+	back=()=>{
+		var page = this.props.params.page;
+		var url = `./#/permission/user/${page}`;
+		window.location.href=url;
+	}
+
 	render() {
 
 
@@ -128,7 +134,9 @@ export default class UserList extends Component {
 				<Section title="人员列表" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
-						<Col md={4} align="left" > </Col>
+						<Col md={4} align="left" >
+							<Button label="返回"  onTouchTap={this.back} />
+						 </Col>
 						<Col md={8} align="right">
 						   <ListGroup>
 							 <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
@@ -163,7 +171,7 @@ export default class UserList extends Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="移除"  type="operation" operation="delete"/>
+									<Button label="移除"  type="operation" operateCode="sso_roleList_removeUser" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
@@ -177,10 +185,10 @@ export default class UserList extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
-						
+
 					 </Dialog>
 				</Section>
-					
+
 			</div>
 		);
 	}

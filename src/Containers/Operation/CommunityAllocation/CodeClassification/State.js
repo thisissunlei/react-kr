@@ -44,7 +44,7 @@ State.addCodeSubmit = action(function(params) {
 	 _this.openCode=false;
 	 _this.openCodeEdit=false;
    _this.searchParams={
-		 page:1,
+		 page:_this.searchParams.page,
 		 pageSize:15,
 		 time:+new Date(),
 		 pid:_this.searchParams.pid

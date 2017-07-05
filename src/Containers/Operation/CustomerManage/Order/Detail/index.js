@@ -33,7 +33,6 @@ import {
 	Message
 } from 'kr-ui';
 import EditAgreementList from "./EditAgreementList";
-
 import {
 	Snackbar,
 	Menu,
@@ -200,7 +199,7 @@ class StaionInfo extends React.Component{
 }
 
 
-@inject("CommunityAgreementList")
+@inject("NavModel","CommunityAgreementList")
 @observer
 
 export default class OrderDetail extends React.Component {
@@ -236,7 +235,9 @@ export default class OrderDetail extends React.Component {
 				contractList: [],
 				antecedent: [],
 			},
-			staionsList: []
+			staionsList: [],
+			openCopyAgreement:false,
+			url:''
 		}
 
 	}
@@ -315,6 +316,8 @@ export default class OrderDetail extends React.Component {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
 		}
+		const {NavModel} = this.props;
+		NavModel.setSidebar(false);
 		this.getLocalStorageDate()
 
 		var _this = this;
@@ -713,10 +716,27 @@ export default class OrderDetail extends React.Component {
 			}
 		});
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/${name}/${item.id}/print`
-		var newWindow = window.open(url);
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/${name}/${item.id}/print?print=`;
+		this.setState({
+			url:url,
+			openCopyAgreement:true,
+		})
+		// var newWindow = window.open(url);
 
 	}
+	openCopyAgreementDialog=()=>{
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    }
+    confirmPrintAgreement=(value)=>{
+    	console.log('confirmPrintAgreement',this.state.url+value);
+    	let url = this.state.url+value;
+    	this.setState({
+    		openCopyAgreement:false
+    	})
+    	var newWindow = window.open(url);
+    }
 
 	render() {
 
@@ -984,9 +1004,19 @@ export default class OrderDetail extends React.Component {
 			contentStyle={{width:445,height:236}}>
 				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 			</Dialog>
-			</div>
-
 			
+
+			 <Dialog
+					title="打印"
+					modal={true}
+					onClose={this.openCopyAgreementDialog}
+					open={this.state.openCopyAgreement}
+					contentStyle={{width:700,height:'auto'}}>
+						<Agreement.Print.PrintDialog onSubmit={this.confirmPrintAgreement} onCancel={this.openCopyAgreementDialog}/>
+
+					</Dialog>
+
+		</div>	
 
 		);
 	}

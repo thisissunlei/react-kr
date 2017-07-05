@@ -98,25 +98,20 @@ import {
 		Http.request("customerDataEdit",{},values).then(function(response) {
 
 			if(operType=="SHARE"){
-				merchants.searchParams={
-		         	page:1,
-					pageSize:15,
-					time:+new Date()
-		         }
+				var searchParams = Object.assign({},merchants.searchParams);
+				searchParams.time = +new Date();
+				merchants.searchParams = searchParams;
 			}
          	if(operType=="PERSON"){
-         	_this.props.NewIndentModel.searchParams={
-		         	page:1,
-					pageSize:15,
-					time:+new Date()
-		        }
+				var searchParams = Object.assign({},_this.props.NewIndentModel.searchParams);
+				searchParams.time = +new Date();
+				merchants.searchParams = searchParams;
+         		_this.props.NewIndentModel.searchParams = searchParams
          	}
          	if(operType=="SIGN"){
-         		signedClient.searchParams={
-		         	page:1,
-					pageSize:15,
-					time:+new Date()
-		        }
+				var searchParams = Object.assign({},signedClient.searchParams);
+				searchParams.time = +new Date();
+				signedClient.searchParams = searchParams;
          	}
          	_this.props.CommunityDetailModel.lookListId(_this.props.listId,operType);
          	// flushData.lookListId(_this.props.listId,operType);

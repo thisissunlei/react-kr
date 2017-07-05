@@ -282,20 +282,20 @@ const APIS = {
         method: 'delete'
     },
     //电子合同-入驻协议(入驻，增租，续租)
-    'checkinagreement-print-info': {
-        url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
-        method: 'get'
-    },
-    //电子合同-承租意向
-    'intentletter-print-info': {
-        url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
-        method: 'get'
-    },
-    //电子合同-减租
-    'fnaContractRentController': {
-        url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
-        method: 'get'
-    },
+    // 'checkinagreement-print-info': {
+    //     url: '/apis/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
+    //     method: 'get'
+    // },
+    // //电子合同-承租意向
+    // 'intentletter-print-info': {
+    //     url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+    //     method: 'get'
+    // },
+    // //电子合同-减租
+    // 'fnaContractRentController': {
+    //     url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
+    //     method: 'get'
+    // },
     //个人中心-获取个人信息
     'PersonalCenterData': {
         url: '/api-old/sys/sysOwn/getPersonalInfo',
@@ -850,7 +850,7 @@ const APIS = {
  },
  //合同列表-列表接口
    'contract-list':{
-   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}',
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}&contractType={contractType}&hasAgreement={hasAgreement}',
    method:'get'
    },
  //合同列表-客户订单下拉接口

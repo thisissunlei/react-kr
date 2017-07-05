@@ -8,12 +8,15 @@ import {
 
 import {
 	Title,
+	Button
 } from 'kr-ui';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
 import Print from 'kr/PureComponents/Agreement/Print';
+import CommonItem from 'kr/PureComponents/Agreement/CommonItem';
+
 import State from './State';
 import './index.less';
 
@@ -27,13 +30,14 @@ export default class JoinPrint extends React.Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+		this.init = false;
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
-		 setTimeout(function() {
+		setTimeout(function() {
 		 	window.print();
 		 	window.close();
-		 }, 1000)
+		 }, 1200)
 
 
 	}
@@ -71,35 +75,82 @@ export default class JoinPrint extends React.Component {
 			)
 		}
 	}
+	renderImg=()=>{
+		var printList = document.getElementsByClassName('print-section')[0];
+		if(!printList){
+			return;
+		}
+		var printHeight = printList.offsetHeight;
+		console.log('height',printHeight)
+		if(printHeight>1200 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1200)*1120 + 'px';
+		}
+		this.pages = Math.ceil(printHeight/1200) + 1;
+		let str=[] ;
+		let page = this.pages;
+		if(page<=1){
+			return;
+		}
+		let whole = 160;
+		let width = Math.ceil(160/page);
+		let position = Math.ceil(100/(page-1));
+		let cachetUrl = State.baseInfo.cachetUrl;
+		for(var i = 0;i<page;i++){
+			let style={
+				background:`url(${cachetUrl}) 100% 100%`,
+				position:'absolute',
+				backgroundSize:'cover',
+				top:350+(i*1120),
+				right:0,
+				width:width,
+				height:160,
+				backgroundPosition:`${position*i}% 0`
+			};
+			str.push(<div style={style}></div>);
 
+		}
+		return str;
+	}
+	print=()=>{
+		window.print()
+	}
 	render() {
-
+		let doms = this.renderImg();
+		
 		return (
+		<div style={{background:'#fff'}}>
+			{State.baseInfo.withCachet && doms.map((item,index)=>{
+				return item
+			})}
 
-			<div className="print-section no-print-section" >
-					<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
-			<Print.Header
-				baseInfo={State.baseInfo}
-				orderInfo="入驻服务协议"
-			/>
-			<Print.BaseInfo baseInfo={State.baseInfo}/>
+			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
+				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
+				<Print.Header
+					baseInfo={State.baseInfo}
+					orderInfo="入驻服务协议"
+				/>
+				<Print.BaseInfo baseInfo={State.baseInfo}/>
 
-			<Print.Station
-				orderTime={false}
-				stationVOs={State.stationVOs}
-				baseType="入驻信息"
-				baseInfo={State.baseInfo}
-			/>
+				<Print.Station
+					orderTime={false}
+					stationVOs={State.stationVOs}
+					baseType="入驻信息"
+					baseInfo={State.baseInfo}
+				/>
 
-			<Print.Payment
-				baseInfo={State.baseInfo}
-				installmentPlans={State.installmentPlans}
+				<Print.Payment
+					baseInfo={State.baseInfo}
+					installmentPlans={State.installmentPlans}
 
-			/>
-			{this.renderContent()}
-			<Print.Footer/>
+				/>
+				{this.renderContent()}
+				<Print.Footer/>
 
       		</div>
+      		
+      		<CommonItem baseInfo={State.baseInfo}/>
+      	</div>
 
 		);
 	}

@@ -29,7 +29,8 @@ import {
   ListGroup,
   ListGroupItem,
   Message,
-  Tooltip
+  Tooltip,
+  CheckPermission
 } from 'kr-ui';
 
 import './index.less'
@@ -106,6 +107,12 @@ class CommunityList  extends React.Component{
     State.closeAllDialog();
   }
 
+  onPageChange=(page)=>{
+    var searchParams={
+      page:page
+    }
+     State.searchParams=Object.assign({},State.searchParams,searchParams);
+  } 
   
 
   render(){
@@ -124,6 +131,7 @@ class CommunityList  extends React.Component{
                       label="新建地点"
                       type='button'
                       onTouchTap={this.openNewCreate}
+                      operateCode="oper_location_add"
                   />
             </Col>
 
@@ -142,6 +150,7 @@ class CommunityList  extends React.Component{
               displayCheckbox={true}
               exportSwitch={false}
               ajaxParams={State.searchParams}
+              onPageChange={this.onPageChange}
               ajaxUrlName='myAddressList'
               ajaxFieldListName="items"
             >
@@ -210,8 +219,8 @@ class CommunityList  extends React.Component{
                         return (<span>{value}</span>)}}
                       ></TableRowColumn>
                       <TableRowColumn type="operation">
-                          <Button label="编辑"  type="operation"  operation="edit" />
-                          <Button label="删除"  type="operation"  operation="delete" />
+                          <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_location_add"/>
+                          <Button label="删除"  type="operation"  operation="delete" operateCode="oper_location_del"/>
                       </TableRowColumn>
                      </TableRow>
               </TableBody>

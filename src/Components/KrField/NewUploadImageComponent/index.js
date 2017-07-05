@@ -70,7 +70,7 @@ export default class UploadImageComponent extends Component {
 		// 	})
 		// }
 		if(nextProps.defaultValue ){
-			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
+			this.setInitValue(nextProps.defaultValue||'',nextProps.sizePhoto);
 		}
 
 	}
@@ -245,7 +245,7 @@ export default class UploadImageComponent extends Component {
 						}
 					};
 					xhrfile.open('POST', requestURI, true);
-          xhrfile.withCredentials = true;
+         			xhrfile.withCredentials = true;
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -319,9 +319,17 @@ export default class UploadImageComponent extends Component {
 													});
 			                         }
 							}else{
-								 var realWidth = photoSize.substr(0,photoSize.indexOf("*"));
-								 var realHeight = photoSize.substr(photoSize.indexOf("*")+1);
-								 if(width == realWidth && height == realHeight){
+								 
+									let deviationW = 50;
+									let deviationH = 50;
+									var realWidth = Number(photoSize.substr(0,photoSize.indexOf("*")));
+									var realHeight =Number(photoSize.substr(photoSize.indexOf("*")+1));
+									if((
+										width >= (realWidth-deviationW) && 
+										width <= (realWidth+deviationW)) && 
+										(height >= (realHeight-deviationH) && 
+										height <= (realHeight+deviationH)
+										)){
 									_this.refs.uploadImage.src = xhrfile.response.data;
 									_this.setState({
 									imageStatus : true,

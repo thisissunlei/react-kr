@@ -14,6 +14,7 @@ import {
 	Dialog,
 	Message,
 	Notify,
+	CheckPermission
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -124,10 +125,15 @@ export default class List extends React.Component {
 				searchParams:{
 					page: _this.state.realPage,
 					pageSize:"15",
-					value:'',
-					type:'COMP_NAME',
+					value:_this.state.searchParams.value,
+					type:_this.state.searchParams.type,
 					status:!_this.state.status,
 					companyId:"0",
+					startTime:_this.state.searchParams.startTime,
+					endTime:_this.state.searchParams.endTime,
+					registerSourceId:_this.state.searchParams.registerSourceId,
+					jobId:_this.state.searchParams.jobId,
+					cityId:_this.state.searchParams.cityId,
 				}
 			})
 		}).catch(function(err){
@@ -243,7 +249,9 @@ export default class List extends React.Component {
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+										
+											<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+									
 										{/*高级查询*/}
 										<Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
@@ -338,7 +346,9 @@ export default class List extends React.Component {
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
-													<Button label="编辑"  type="operation" operation="edit"/>
+												
+														<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+												
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
