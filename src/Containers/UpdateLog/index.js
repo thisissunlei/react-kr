@@ -6,7 +6,7 @@ import {
     Dialog,
 } from 'kr-ui';
 
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 
 
 export default class UpdateLog extends React.Component {
@@ -16,7 +16,12 @@ export default class UpdateLog extends React.Component {
 
         this.state = {
             show: false,
-            ver:{},
+            ver:{
+                id:'',
+                version:'',
+                publishDate:+new Date(),
+                ctime:+new Date(),
+            },
         }
 
     }
@@ -78,6 +83,8 @@ export default class UpdateLog extends React.Component {
 
     render() {
 
+        const {ver} = this.state;
+
         return (
 
             <Dialog modal={true} open={this.state.show}
@@ -87,8 +94,8 @@ export default class UpdateLog extends React.Component {
             >
                 <div className="m-update-log">
                     <div className="log-header">
-                        <h3>Kr Space -v2.0</h3>
-                        <span className="time">12.20</span>
+                        <h3>Kr Space -v{ver.version}</h3>
+                        <span className="time">{DateFormat(ver.publishDate,'mm.dd')}</span>
                     </div>
                     <div className="log-body">
                         <div className="title-main">【新功能攻略】</div>
