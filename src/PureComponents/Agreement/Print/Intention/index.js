@@ -31,10 +31,9 @@ export default class Intention extends Component {
 		let top = tableTop.offsetTop;
 		if(top>1089 && top<1157){
 			let margin = 1157-top;
-			Obj.style.marginTop = margin + 'px'; 
+			tableTop.style.marginTop = margin + 'px'; 
 		}
-		console.log('ui-print-Intention',top,1120-top);
-		let pageReturn ;
+		let pageReturn = 0 ;
 		if(top>1022 && top<1092){
 			pageReturn = 1;
 			marginTop = pageHeight-top-30 +40;

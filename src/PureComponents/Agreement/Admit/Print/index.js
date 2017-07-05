@@ -36,7 +36,7 @@ export default class AdmitPrint extends React.Component {
 		setTimeout(function() {
 			_this.renderImg()
 			window.print();
-			// window.close();
+			window.close();
 		}, 1200)
 	}
 	renderImg=()=>{
@@ -77,13 +77,7 @@ export default class AdmitPrint extends React.Component {
 	}
 
 	render() {
-		let style = {
-			position:'absolute',
-			top:1100,
-			width:'100%',
-			borderTop:'1px solid red',
-			height:1
-		}
+		
 		return (
 
 			<div className="print-section no-print-section">
@@ -91,7 +85,6 @@ export default class AdmitPrint extends React.Component {
 				return item
 			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务意向书`}/>
-				<div style={style}></div>
 				<Print.Header
 					  baseInfo={State.baseInfo}
 						orderInfo="入驻服务意向书"
