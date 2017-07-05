@@ -17,6 +17,9 @@ import {
 	KrDate,
 	Message
 } from 'kr-ui';
+import Recharge from './Recharge';
+import CheckForm from './CheckForm';
+import ViewIntegration from './ViewIntegration';
 import './index.less';
 export default class Integration extends React.Component {
 
@@ -28,9 +31,12 @@ export default class Integration extends React.Component {
 				page:1,
 				pageSize:15
 			},
-			openNewCreat:false,
+			openGive:false,
 			openView:false,
-			openDelete:false,
+			submitGive:false,
+			itemDetail:{},
+			rechargeDetail:{}
+
 		}
 
 	}
@@ -51,33 +57,38 @@ export default class Integration extends React.Component {
           break;
         }
         
-        case  'delete':{
-         this.openDelete(itemDetail);
+        case  'give':{
+         this.openGive(itemDetail);
           break;
         }
       }
     }
-    //删除
-	onDeleteData=()=>{
-		var _this=this;
-		const {itemDetail}=this.state;
-		Http.request('del-notice',{},{topicId:itemDetail.topicId}).then(function (response) {
-			_this.openDelete();
-			Message.success('删除成功！');
-			_this.setState({
-				searchParams:{
-					date:new Date()
-				}
-			})
-
-		}).catch(function (err) { 
-			Message.error(err.message)
-		});
-
-	}
-	openNewCreat=()=>{
+   
+	rechargeSubmit=(form)=>{
+		form=Object.assign({}, form);
 		this.setState({
-			openNewCreat:!this.state.openNewCreat
+			rechargeDetail:form
+		})
+		this.openGive();
+		this.submitGive();
+	}
+	checkSubmit=()=>{
+		this.submitGive();
+		this.setState({
+			searchParams:{
+				page:1,
+				pageSize:15,
+				time:new Date(),
+			}
+		})
+	}
+	onCloseCheck=()=>{
+		this.submitGive();
+		this.openGive();
+	}
+	submitGive=()=>{
+		this.setState({
+			submitGive:!this.state.submitGive
 		})
 
 	}
@@ -86,33 +97,28 @@ export default class Integration extends React.Component {
 			openView:!this.state.openView
 		})
 	}
-	openDelete=()=>{
+	openGive=()=>{
 		this.setState({
-			openDelete:!this.state.openDelete
+			openGive:!this.state.openGive
 		})
-	}
-	createSubmit=()=>{
-		this.setState({
-			searchParams:{
-					date:new Date(),
-					pageSize:15
-				}
-		})
-		this.openNewCreat();
 	}
 	
+	
 	render() {
-		let {itemDetail}=this.state;
+		let {
+			  itemDetail,
+			  rechargeDetail
+			}=this.state;
 		return (
 
-			<div className="g-notice" >
-			<Title value="公告管理"/>
+			<div className="g-integration" >
+			<Title value="积分管理"/>
 				<Section title="公告列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div className="m-btn">
 						<Button
-								label="新建公告"
+								label="充值"
 								type='button'
-								onTouchTap={this.openNewCreat}
+								onTouchTap={this.openGive}
 							/>
 					</div>
 					<Table
@@ -124,46 +130,22 @@ export default class Integration extends React.Component {
 		                 
 					  >
 				            <TableHeader>
-				              <TableHeaderColumn>群组名称</TableHeaderColumn>
-				              <TableHeaderColumn>社区名称</TableHeaderColumn>
-				              <TableHeaderColumn>发布内容</TableHeaderColumn>
-				              <TableHeaderColumn>发布时间</TableHeaderColumn>
-				              <TableHeaderColumn>发布人</TableHeaderColumn>
+				              <TableHeaderColumn>客户名称</TableHeaderColumn>
+				              <TableHeaderColumn>所在社区</TableHeaderColumn>
+				              <TableHeaderColumn>会员数</TableHeaderColumn>
+				              <TableHeaderColumn>积分总数</TableHeaderColumn>
 				              <TableHeaderColumn>操作</TableHeaderColumn>
 				          	</TableHeader>
 
 					        <TableBody >
 					              <TableRow>
-					                <TableRowColumn name="clusterName" ></TableRowColumn>
+					                <TableRowColumn name="customerName" ></TableRowColumn>
 					                <TableRowColumn name="cmtName"></TableRowColumn>
-					                <TableRowColumn 
-					                		name="topicContent" 
-					                		component={(value,oldValue)=>{
-												var TooltipStyle=""
-												if(value.length==""){
-													TooltipStyle="none"
-
-												}else{
-													TooltipStyle="inline-block";
-												}
-												return (
-													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
-													<span className='tableOver' style={{maxWidth:200,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
-												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
-												 	</div>
-												)
-											}} 
-									></TableRowColumn>
-					                <TableRowColumn 
-					                	name="topicDate" 
-					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
-					                    }}
-					                ></TableRowColumn>
-					                <TableRowColumn name="authorName" ></TableRowColumn>
+					                <TableRowColumn name="memberQuantity" ></TableRowColumn>
+					                <TableRowColumn name="remainPoint" ></TableRowColumn>
 					                <TableRowColumn>
-					                	<Button label="查看"  type="operation"  operation="view"/>
-									  	<Button label="删除"  type="operation"  operation="delete"/>
+					                	<Button label="消费记录"  type="operation"  operation="view"/>
+									  	<Button label="充值"  type="operation"  operation="give"/>
 					                </TableRowColumn>
 					               </TableRow>
 					        </TableBody>
@@ -179,27 +161,38 @@ export default class Integration extends React.Component {
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	{/*<ViewNotice 
+	             	<ViewIntegration 
 	             			onCancel={this.openView} 
 	             			detail={itemDetail}
-	             	 />*/}
+	             	 />
 	           </Drawer>
 	           <Dialog
-	              title="删除"
+	              title="充值"
 	              modal={true}
-	              contentStyle ={{ width: '444',overflow:'visible'}}
-	              open={this.state.openDelete}
-	              onClose={this.openDelete}
+	              contentStyle ={{ width: 400,overflow:'visible'}}
+	              open={this.state.openGive}
+	              onClose={this.openGive}
 	            >
-	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除帖子吗？</p>
-					<div style={{textAlign:'center',marginBottom:10}}>
-	                      <div  className='ui-btn-center'>
-		                      <Button  label="确定" onClick={this.onDeleteData}/></div>
-		                      <Button  label="取消" type="button" cancle={true} onClick={this.openDelete} />
-	                      </div>
-	            	</div>
+	           		<Recharge 
+	           				detail={itemDetail} 
+	           				onCancel={this.openGive} 
+	           				onSubmit={this.rechargeSubmit}
+	           		/>
+	           </Dialog>
+			   <Dialog
+	              title="校验"
+	              modal={true}
+	              contentStyle ={{ width: 400,overflow:'visible'}}
+	              open={this.state.submitGive}
+	              onClose={this.onCloseCheck}
+	            >
+	           		<CheckForm 
+	           			info={rechargeDetail} 
+	           			onCancel={this.onCloseCheck} 
+	           			onSubmit={this.checkSubmit}
+	           		/>
 	            </Dialog>
+	            
 			</div>
 		);
 	}
