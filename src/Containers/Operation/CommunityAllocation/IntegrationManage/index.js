@@ -108,6 +108,7 @@ export default class Integration extends React.Component {
 			searchParams:{
 				customerName:form.content,
 				cmtId:this.state.cmtId || '',
+				pageSize:15,
 				
 			},
 			customerName:form.content
@@ -120,7 +121,9 @@ export default class Integration extends React.Component {
 		this.setState({
 			searchParams:{
 				cmtId:cmtId,
+				pageSize:15,
 				customerName:this.state.customerName || '',
+
 			},
 			cmtId:cmtId
 		})

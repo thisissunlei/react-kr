@@ -5,10 +5,6 @@ import {
 	change
 } from 'redux-form';
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-import {
 	KrField,
 	Grid,
 	Row,
@@ -25,11 +21,6 @@ class CheckForm extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = {
-			ifCity:false,
-			infoList:[],
-			
-		}
 		
 	}
 	
@@ -67,10 +58,7 @@ class CheckForm extends React.Component {
 				pristine,
 				reset
 			} = this.props;
-			let {
-				infoList,
-				ifCity,
-			}=this.state;
+			
 			
 		return (
 			<div className="g-checked">

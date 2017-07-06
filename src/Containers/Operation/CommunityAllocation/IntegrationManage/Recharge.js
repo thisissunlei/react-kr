@@ -25,12 +25,6 @@ class Recharge extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = {
-			ifCity:false,
-			infoList:[],
-			
-		}
-		
 	}
 	
 	
@@ -54,12 +48,9 @@ class Recharge extends React.Component {
 				error,
 				handleSubmit,
 				pristine,
-				reset
+				reset,
+				detail
 			} = this.props;
-			let {
-				infoList,
-				ifCity,
-			}=this.state;
 			
 		return (
 			<div className="g-recharge">
@@ -70,7 +61,7 @@ class Recharge extends React.Component {
 								label="客户名称："
 								inline={true} 
 								component="labelText"
-								value="1111"
+								value={detail.customerName}
 								
 						 	/>
 						 	<KrField
