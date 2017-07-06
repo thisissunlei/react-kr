@@ -51,7 +51,6 @@ class EditAccount extends React.Component {
     onSubmit = (form) => {
         var _this = this;
         const {onSubmit} = this.props;
-        console.log("form", form);
         let {detail} = this.props;
         Http.request('editSsoUser', {}, {
             id: detail.id,
@@ -72,7 +71,6 @@ class EditAccount extends React.Component {
     render() {
 
         let {detail} = this.props;
-        console.log(detail,"detail");
         const {handleSubmit} = this.props;
         return (
             <div>

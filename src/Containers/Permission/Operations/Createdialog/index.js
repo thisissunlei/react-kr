@@ -316,7 +316,6 @@ class Createdialog extends React.Component {
 			ControllerId
 		} = this.state;
 		var Controller = ControllerRender;
-		console.log(ControllerRender);
 		Controller.splice(index, 1)
 		var id = ControllerId;
 		id.splice(index, 1)
