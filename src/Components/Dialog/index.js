@@ -12,6 +12,7 @@ export default class DialogComponent extends React.Component {
 
 	static defaultProps = {
 		autoScrollBodyContent: false,
+		fxied:false,
 	}
 	constructor(props, context) {
 		super(props, context);
@@ -40,6 +41,7 @@ export default class DialogComponent extends React.Component {
 		*显示遮罩层
 		*/
 		modal: React.PropTypes.bool,
+		fixed: React.PropTypes.bool,
 		/**
 		*
 		*/
@@ -140,6 +142,7 @@ export default class DialogComponent extends React.Component {
 			contentStyle,
 			footerStyle,
 			actions,
+			fixed,
 			dialogHeaderStyle,
 			...other
 		} = this.props;
@@ -163,7 +166,7 @@ export default class DialogComponent extends React.Component {
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose} style={closeStyle}></span>
 						</div>
-						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
+						{open && <DialogBody bodyStyle={bodyStyle} fixed={fixed}> {children} </DialogBody>}
 						{open && actions &&  <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>
