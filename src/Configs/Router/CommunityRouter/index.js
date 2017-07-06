@@ -56,6 +56,7 @@ const Operation_CommunityManage_HoldList= (location, callback) => {
 }
 
 
+
 const Statistical_PaymentRemindTable = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Statistical/PaymentRemindTable').default)
@@ -78,6 +79,7 @@ module.exports =()=>{
                 {/*所有预约*/}
                 
                 <Route path="allAppointment" getComponent={Operation_CommunityManage_AllAppointment}/>
+                
       
         </Route>
             
@@ -91,6 +93,7 @@ module.exports =()=>{
         </Route>
         
         <Route path="paymentremindtable" getComponent={Statistical_PaymentRemindTable}/>
+
 
     </Route>
 	);

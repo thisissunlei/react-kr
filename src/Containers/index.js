@@ -14,6 +14,7 @@ import Retail from './Retail';
 import OA from './OA';
 import Statistical from './Statistical';
 import WebBackstage from './WebBackstage';
+import UpdateLog from './UpdateLog';
 
 module.exports = {
 	Welcome,
@@ -32,4 +33,5 @@ module.exports = {
 	OA,
 	Statistical,
 	WebBackstage,
+	UpdateLog,
 }

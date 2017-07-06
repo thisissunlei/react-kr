@@ -32,15 +32,14 @@ class Editdialog extends React.Component {
 
         var _this = this;
         var id = this.props.detail.id;
-		console.log("sadfsdfsdf");
         Http.request('op-code-detail', {
                 id: id
             },{}).then(function(response) {
-				if(response.enableFlag==1){
-					response.enableFlag="1";
-				}else{
-					response.enableFlag="0";
-				}
+				// if(response.enableFlag==1){
+				// 	response.enableFlag="1";
+				// }else{
+				// 	response.enableFlag="0";
+				// }
 				Store.dispatch(initialize('editdialog', response));
 				_this.setState({
 					infoList:response,
@@ -76,6 +75,7 @@ class Editdialog extends React.Component {
     	 					 label="名称"
     						 component="input"
 							 inline={true}
+							 maxLength={15}
     	 		/>
                <KrField
     						 left={42}
@@ -86,8 +86,9 @@ class Editdialog extends React.Component {
 							 value={this.state.infoList.codeName}
 							 inline={true}
 							 requireLabel={true}
+							 maxLength={50}
     	 		/>
-				<KrField
+				{/*<KrField
 						style={{width:360,marginLeft:40,marginBottom:2,marginRight:200}}
 						name="enableFlag"
 						component="group"
@@ -107,7 +108,7 @@ class Editdialog extends React.Component {
 							type="radio"
 							value="0"
 					/>
-				</KrField>
+				</KrField>*/}
 				<KrField
                   grid={1}
                   left={42}

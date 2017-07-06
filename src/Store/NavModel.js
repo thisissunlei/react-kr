@@ -21,7 +21,8 @@ let State = observable({
 	isLoadedPermissionNav: false,
 	isLoadNavData: false,
 	menusData:[],
-	resourcdsCode:[]
+	resourcdsCode:[],
+
 });
 
 
@@ -99,7 +100,7 @@ State.clearSidebar=action(function(userInfo){
 
 State.loadNavData = action(function () {
 	var _this = this;
-	
+
 	if (this.isLoadNavData) {
 		return;
 	}
@@ -141,14 +142,14 @@ State.setPermissionNav = action(function (menusCode) {
 				originUrl = '#'+childItem.router;
 				item.originUrl = originUrl;
 			}
-			
+
 		}
 
 		return item;
 	});
 
 
-	
+
 
 	this.items = navs;
 	this.isLoadedPermissionNav = true;
@@ -232,7 +233,7 @@ State.getUser= action(function(){
 
 //校验操作项是否有权限
 State.checkOperate= action(function(resourcesCode){
-	
+
 	var menusData=toJS(State.menusData);
 	if(menusData.length>0){
 		if(menusData.indexOf(resourcesCode)>-1){
@@ -245,7 +246,7 @@ State.checkOperate= action(function(resourcesCode){
 });
 //校验菜单是否有权限
 State.checkMenus= action(function(menusCode){
-	
+
 	var menus=toJS(State.menusCode);
 	if(menus.length>0){
 		if(menus.indexOf(menusCode)>-1){
@@ -255,6 +256,6 @@ State.checkMenus= action(function(menusCode){
 		}
 	}
 	return false;
-	
+
 });
 module.exports = State;

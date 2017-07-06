@@ -28,24 +28,27 @@ export default class RenewPrint extends React.Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+		this.init = false;
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
-		var printList = document.getElementsByClassName('print-section')[0];
-		var printHeight = printList.offsetHeight;
-		if(printHeight>1120 && printHeight-1120<=5){
-			printList.style.height = 1120+'px';
-		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
-		}
-		this.pages = Math.ceil(printHeight/1120) + 1;
 			window.print();
 			window.close();
 		}, 1000)
 
 	}
 	renderImg=()=>{
+		var printList = document.getElementsByClassName('print-section')[0];
+		if(!printList){
+			return;
+		}
+		var printHeight = printList.offsetHeight;
+		if(printHeight>1205 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
+		}
+		this.pages = Math.ceil(printHeight/1200) + 1;
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
@@ -111,7 +114,7 @@ export default class RenewPrint extends React.Component {
 
 		return (
 		<div>
-			<div className="print-section no-print-section"  style={{minHeight:1120}}>
+			<div className="print-section no-print-section"  style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
 				{State.baseInfo.withCachet && doms.map((item,index)=>{
 					return item

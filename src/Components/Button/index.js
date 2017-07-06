@@ -81,7 +81,7 @@ export default class Button extends React.Component {
 		var _this=this;
 		setTimeout(function(){
 			_this.getCheck();
-		},50)
+		},200)
 		
 
 	}

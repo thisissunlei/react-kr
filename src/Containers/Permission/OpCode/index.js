@@ -37,7 +37,8 @@ import {
 	SearchForms,
 	KrDate,
 	Drawer,
-	Message
+	Message,
+	Tooltip
 } from 'kr-ui';
 import './index.less';
 import Createdialog from './Createdialog';
@@ -139,6 +140,9 @@ class OpCode extends Component {
 	}
 	onCreatSubmit = (params) => {
 		var _this = this;
+		params = Object.assign({},params);
+		params.codeName = _this.Trim(params.codeName);
+		params.name = _this.Trim(params.name);
 		Http.request('op-code-insert', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
@@ -150,6 +154,9 @@ class OpCode extends Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
+		params = Object.assign({},params);
+		params.codeName = _this.Trim(params.codeName);
+		params.name = _this.Trim(params.name);
 		Http.request('op-code-edit', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
@@ -172,6 +179,11 @@ class OpCode extends Component {
 		this.setState({
 			searchParams: searchParams
 		});
+	}
+	//去除前后空格
+	Trim=(str)=>{
+		str=str.toString();
+		return str.replace(/(^\s*)|(\s*$)/g, "");
 	}
 	//改变页码
     changeP=()=>{
@@ -214,7 +226,6 @@ class OpCode extends Component {
 						<TableHeader>
 						<TableHeaderColumn>名称</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
-						<TableHeaderColumn>是否启用</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
@@ -223,8 +234,22 @@ class OpCode extends Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="name"></TableRowColumn>
-							<TableRowColumn name="codeName"></TableRowColumn>
-							<TableRowColumn name="enableFlagName"></TableRowColumn>
+							<TableRowColumn name="codeName" 
+								 component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
+
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:220,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}
+							></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn type="date" name="createDate" component={(value)=>{
 								return (

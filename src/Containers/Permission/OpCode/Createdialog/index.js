@@ -18,9 +18,9 @@ class Createdialog extends Component {
         super(props, context);
     }
 
-	componentDidMount() {
-		Store.dispatch(change('createdialog', 'enableFlag', '1'));
-	}
+	// componentDidMount() {
+	// 	Store.dispatch(change('createdialog', 'enableFlag', '1'));
+	// }
 	
     onCancel = () => {
         const {onCancel} = this.props;
@@ -49,6 +49,7 @@ class Createdialog extends Component {
     	 					 label="名称"
     						 component="input"
 							 inline={true}
+							 maxLength={15}
     	 		/>
                 <KrField
     						 left={42}
@@ -58,8 +59,9 @@ class Createdialog extends Component {
     	 					 label="编码"
     						 component="input"
 							 inline={true}
+							 maxLength={50}
     	 		/>
-				<KrField style={{width:360,marginLeft:40,marginRight:40,marginBottom:2}}  name="enableFlag" component="group" label="是否启用" inline={true} requireLabel={true}>
+				{/*<KrField style={{width:360,marginLeft:40,marginRight:40,marginBottom:2}}  name="enableFlag" component="group" label="是否启用" inline={true} requireLabel={true}>
 	                	<KrField
 	                			name="enableFlag"
 	                			label="是"
@@ -72,7 +74,7 @@ class Createdialog extends Component {
 	               		 		type="radio"
 	               		 		value="0"
 	               		 />
-				</KrField>
+				</KrField>*/}
 				<KrField
                   grid={1}
                   left={42}
@@ -117,6 +119,7 @@ const validate = values => {
 	if (!values.name) {
 		errors.name = '请输入名称';
 	}
+	
     if (!values.codeName) {
 		errors.codeName = '请选择编码';
 	}

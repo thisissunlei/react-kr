@@ -26,26 +26,28 @@ export default class IncreasePrint extends React.Component {
 		super(props, context);
 		console.log(this.context.router.params)
 		let params = this.context.router.params;
-
+		this.init = false;
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
-		var printList = document.getElementsByClassName('print-section')[0];
-		var printHeight = printList.offsetHeight;
-		if(printHeight>1120 && printHeight-1120<=5){
-			printList.style.height = 1120+'px';
-		}else if(printHeight>1125){
-			printList.style.height = Math.ceil(printHeight/1120)*1120 + 'px';
-		}
-		this.pages = Math.ceil(printHeight/1120);
 			window.print();
 			window.close();
 		}, 1300)
 
 	}
 	renderImg=()=>{
+		var printList = document.getElementsByClassName('print-section')[0];
+		if(!printList){
+			return;
+		}
+		var printHeight = printList.offsetHeight;
+		if(printHeight>1205 && !this.init){
+			this.init = true;
+			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
+		}
+		this.pages = Math.ceil(printHeight/1200);
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){

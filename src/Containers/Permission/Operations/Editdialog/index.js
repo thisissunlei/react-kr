@@ -310,7 +310,6 @@ class Editdialog extends React.Component {
 		Store.dispatch(change('editdialog', 'controller', ''));
 		ControllerId.push(idlist);
 		if(arr.length>0){
-			console.log(11111)
 			arr.map((items,index)=>{
 				arr1.push(items.controller);
 
@@ -320,7 +319,6 @@ class Editdialog extends React.Component {
 				}
 
 		}else {
-			console.log()
 			arr.push(item);
 		}
 		this.setState({
@@ -340,7 +338,6 @@ class Editdialog extends React.Component {
 		var list;
 		if (ControllerRender.length > 0) {
 				list = ControllerRender.map((item, index) => {
-					console.log(item.controller.length);
 					if (item.controller.length>67) {
 						return (
 

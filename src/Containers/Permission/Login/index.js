@@ -86,7 +86,7 @@ class Login extends Component {
 	HandleEnterKey=(evt)=>{
 				var _this = this;
 				document.onkeydown = function() {
-					if (event.keyCode == 13) {  
+					if (event.keyCode == 13) {
 							_this.submitLogin();
 						}
 				}
@@ -231,9 +231,7 @@ class Login extends Component {
 		Http.request('loginSubmit', {},obj).then(function(response) {
 			//跳转？
 
-			// window.location.href = '/new/';
-
-			window.location.href =  "http://"+window.location.host;
+			window.location.href = './';
 
 		}).catch(function(err) {
 			 if(err.code==-1){
@@ -294,7 +292,6 @@ class Login extends Component {
 	togetMailtestCode=()=>{
 		this.refs.verifyCodeByMail.value='';
 		var _this = this;
-		console.log(_this.refs.loginMail.value);
 		this.setState({
 			gettingMail:true,
 			regettestMailState:false,
@@ -373,7 +370,6 @@ class Login extends Component {
 				}).catch(function(err) {
 					if(err.code<0){
 						Message.error(err.message)
-					//           	console.log(err)
 					}
 				});
 	}
@@ -434,7 +430,6 @@ class Login extends Component {
 	}
 	submitIdByMobile=()=>{
 		if(this.refs.verifyCodeByMobile.value){
-			//console.log("111",document.getElementsByClassName("code")[0].value);
 			this.submitVerifyIDbyMobile()
 		}else{
 			Message.error("请填写验证码")
@@ -444,6 +439,7 @@ class Login extends Component {
 	//手机身份验证点击确定
 	submitVerifyIDbyMobile =()=>{
 			var _this = this;
+
 			//console.log("1",this.state.regettestMobileState);
 				Http.request('validPhoneCode',{},{
 					mobile:_this.refs.loginMobile.value,
@@ -458,7 +454,6 @@ class Login extends Component {
 						forgetPwd:false,
 						canLogin:false,
 					},function(){
-					//	console.log("2",this.state.regettestMobileState);
 							_this.setState({
 
 							})
@@ -466,8 +461,6 @@ class Login extends Component {
 				}).catch(function(err) {
 					if(err.code<0){
 						Message.error(err.message)
-					//           	console.log(err)
-				//          	console.log(err);
 					}
 				});
 	}
@@ -479,7 +472,6 @@ class Login extends Component {
 	// }
 	//修改密码点击确定后的函数ing
 	submitPwd =(values)=>{
-		console.log(values.new);
 			var _this = this;
 			Http.request('setNewPwd', {},{
 				pwd:values.new,

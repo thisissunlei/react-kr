@@ -75,6 +75,7 @@ import Snackbar from 'material-ui/Snackbar';
 import {
 	Tab
 } from 'material-ui/Tabs';
+import TextLabel from './TextLabel'
 
 import CheckPermission from './CheckPermission';
 module.exports = {
@@ -153,4 +154,5 @@ module.exports = {
 	...PlanMap,
 	ToTop,
 	CheckPermission,
+	TextLabel
 }

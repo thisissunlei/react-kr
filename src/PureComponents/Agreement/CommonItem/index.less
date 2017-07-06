@@ -1,6 +1,7 @@
 .ui-print-Common-item{
-	padding:0 25px;
+	padding:0 10px;
 	position: relative;
+	// border:1px solid red;
 	.logo-pic{
 		position: absolute;
 		bottom:90px;
@@ -12,14 +13,16 @@
 		font-size: 22px;
 		text-align: center;
 		border-bottom:2px solid #499df1;
+		
 		padding: 15px 0;
+		padding-bottom:0;
 	}
 	.ui-print-Common-item-content{ 
 		padding-top: 15px; 
 		display: -webkit-flex;
 		justify-content:space-between;
 		&>div{
-			width:48%;
+			width:49%;
 			p{
 				color:#333;
 				margin:0;
@@ -28,4 +31,21 @@
 			}
 		}
 	}
+}
+@media print
+{
+
+    .no-print-section
+    {
+       margin-top:-1px;
+    }
+
+	p{
+		font-size: 13px;
+	}
+   
+
+   @page {
+       size: 210mm 297mm;
+   }
 }
