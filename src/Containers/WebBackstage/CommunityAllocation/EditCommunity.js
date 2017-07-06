@@ -116,7 +116,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
-    console.log('submit',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }

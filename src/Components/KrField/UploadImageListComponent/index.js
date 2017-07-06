@@ -50,8 +50,7 @@ export default class UploadImageListComponent extends Component {
 
 
 	setDefaultValue = (images)=>{
- 
-		if (this.init){
+		if (this.init&&images.length>0){
 			return ;
 		}
 		if(images && images.length){
@@ -65,7 +64,7 @@ export default class UploadImageListComponent extends Component {
 	}
 
 	componentDidMount() {
-		 this.setDefaultValue(this.props.defaultValue);
+
 	}
 
 	componentWillReceiveProps(nextProps){
