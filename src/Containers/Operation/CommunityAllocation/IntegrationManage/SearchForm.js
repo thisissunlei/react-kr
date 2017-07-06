@@ -30,7 +30,7 @@ export default class SearchForm extends React.Component {
 	render() {
 		
 		return (
-			 <form name="searchForm" className="g-searchform" style={{marginBottom:10,marginTop:12,height:45}}>
+			 <form name="searchForm" className="g-integration-searchform" style={{marginBottom:10,marginTop:12,height:45}}>
 				<SearchForms 
 						onSubmit={this.onSubmit} 
 						placeholder="请输入客户名称" 
