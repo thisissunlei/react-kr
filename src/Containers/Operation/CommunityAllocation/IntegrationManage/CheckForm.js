@@ -14,8 +14,9 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less';
-
-
+import { observer, inject } from 'mobx-react';
+@inject("NavModel")
+@observer
 class CheckForm extends React.Component {
 
 
@@ -58,7 +59,7 @@ class CheckForm extends React.Component {
 				pristine,
 				reset
 			} = this.props;
-			
+			let {userInfo}=this.props.NavModel
 			
 		return (
 			<div className="g-checked">
@@ -69,7 +70,7 @@ class CheckForm extends React.Component {
 								label="当前用户："
 								inline={true} 
 								component="labelText"
-								value="1111"
+								value={userInfo.nickname}
 						 	/>
 						 	<div className="u-checked-label">
 						 		<span className="u-require">*</span>
