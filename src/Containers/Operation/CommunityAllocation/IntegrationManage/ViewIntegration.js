@@ -1,11 +1,6 @@
 import React from 'react';
 import {
 	KrField,
-	Grid,
-	Row,
-	Col,
-	ButtonGroup,
-	Button,
 	Table,
 	TableBody,
 	TableHeader,
@@ -148,15 +143,6 @@ export default class ViewIntegration extends React.Component {
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
-					<Grid style={{marginTop:50,width:'96%',marginBottom:20}}>
-					<Row >
-					<Col md={12} align="center">
-						<ButtonGroup>
-							<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
-						</ButtonGroup>
-					  </Col>
-					</Row>
-					</Grid>
 				</div>
 			</div>
 		);
