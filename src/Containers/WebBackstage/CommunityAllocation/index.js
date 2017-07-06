@@ -212,7 +212,7 @@ export default class CommunityAllocation  extends React.Component{
                detailValue:'',
                stationValue:''
            })
-           this.editCancel();
+           _this.editCancel();
         }).catch(function(err) {
             Message.error(err.message);
         });
