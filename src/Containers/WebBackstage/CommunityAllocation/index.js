@@ -188,7 +188,6 @@ export default class CommunityAllocation  extends React.Component{
        let _this=this;
        params=Object.assign({},params);
        var detailArr=[];
-       console.log('params',params.detailImageId);
        params.detailImageId.map((item,index)=>{
            detailArr.push(item.photoId);
        })
