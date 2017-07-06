@@ -77,13 +77,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   componentWillReceiveProps(nextProps){
      let {isInit}=this.state;
-     if(isInit&&nextProps.isCover==this.state.isCover){
-        return ;
+     console.log("LLLL--",isInit);
+     if(!isInit && nextProps.isCover == "true"){
+        this.setState({
+          isCover:nextProps.isCover,
+          isInit:true
+        })
+       
      }
-     this.setState({
-       isCover:nextProps.isCover,
-       isInit:true
-     })
+     
+    
   }
 
 	onSubmit = (values) => {
@@ -126,6 +129,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	}
 
    hasOfficeClick=(param)=>{
+     
       if(param.value=='true'){
           this.setState({
               isCover:'true'
@@ -161,7 +165,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              width:262,marginLeft:15
            }  
         }
-            
+        console.log("++++++",isCover);  
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
@@ -232,7 +236,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                         
                             <KrField grid={1/2} label="排序" name="sort" component="input" style={sortStyle}/>
 
-                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" placeholder={chargeName}/>
+                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" placeholder={chargeName}s/>
                             
                             <FieldArray name="porType" component={renderStation} />
 
