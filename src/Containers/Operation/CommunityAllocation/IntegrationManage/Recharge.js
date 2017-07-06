@@ -103,8 +103,6 @@ const validate = values => {
 		if (!values.pointNum && !numberNotZero.test(values.pointNum)) {
 			errors.pointNum = '请输入正整数';
 		}
-		
-		
 
 		return errors
 }
