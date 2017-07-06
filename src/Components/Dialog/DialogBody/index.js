@@ -30,6 +30,8 @@ export default class DialogBody extends React.Component {
 
 	initializeDialogBodyStyles = ()=>{
 
+		const {fixed} = this.props;
+
 		var ele = null;
 
 		try{
@@ -56,6 +58,10 @@ export default class DialogBody extends React.Component {
 
 		ele.style.maxHeight = page.height-200+'px';
 		ele.style.minHeight = 100 +'px';
+
+		if(fixed){
+			return ;
+		}
 
 		if(eleBoxStyle.height >= page.height-250){
 			ele.style.overflowY = 'scroll';
