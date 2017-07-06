@@ -39,7 +39,6 @@ export default class Integration extends React.Component {
 			rechargeDetail:{},
 			customerName:'',
 			cmtId:'',
-			info:''
 		}
 
 	}
@@ -78,12 +77,14 @@ export default class Integration extends React.Component {
 				page:1,
 				pageSize:15,
 				time:new Date(),
-			}
+			},
 		})
 	}
 	onCloseCheck=(info)=>{
+		var {itemDetail}=this.state;
+		itemDetail.info=info;
 		this.setState({
-			info
+			itemDetail
 		})
 		this.submitGive();
 		this.openGive();
@@ -92,7 +93,7 @@ export default class Integration extends React.Component {
 	}
 	submitGive=()=>{
 		this.setState({
-			submitGive:!this.state.submitGive
+			submitGive:!this.state.submitGive,
 		})
 
 	}
@@ -104,7 +105,8 @@ export default class Integration extends React.Component {
 
 	openGive=()=>{
 		this.setState({
-			openGive:!this.state.openGive
+			openGive:!this.state.openGive,
+			info:''
 		})
 	}
 	searchSubmit=(form)=>{
@@ -197,13 +199,12 @@ export default class Integration extends React.Component {
 	           <Dialog
 	              title="充值"
 	              modal={true}
-	              contentStyle ={{ width: 400,overflow:'visible'}}
+	              contentStyle ={{ width: 400}}
 	              open={this.state.openGive}
 	              onClose={this.openGive}
 	            >
 	           		<Recharge 
 	           				detail={itemDetail} 
-	           				info={info}
 	           				onCancel={this.openGive} 
 	           				onSubmit={this.rechargeSubmit}
 	           		/>
@@ -211,7 +212,7 @@ export default class Integration extends React.Component {
 			   <Dialog
 	              title="校验"
 	              modal={true}
-	              contentStyle ={{ width: 400,overflow:'visible'}}
+	              contentStyle ={{ width: 400}}
 	              open={this.state.submitGive}
 	              onClose={this.onCloseCheck}
 	            >
