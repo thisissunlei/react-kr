@@ -58,6 +58,7 @@ class Recharge extends React.Component {
 				reset,
 				detail,
 			} = this.props;
+
 		return (
 			<div className="g-recharge">
 				

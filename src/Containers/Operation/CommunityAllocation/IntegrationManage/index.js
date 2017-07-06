@@ -71,6 +71,8 @@ export default class Integration extends React.Component {
 		this.submitGive();
 	}
 	checkSubmit=()=>{
+		var {itemDetail}=this.state;
+		itemDetail.info=null;
 		this.submitGive();
 		this.setState({
 			searchParams:{
@@ -78,6 +80,7 @@ export default class Integration extends React.Component {
 				pageSize:15,
 				time:new Date(),
 			},
+
 		})
 	}
 	onCloseCheck=(info)=>{
@@ -87,7 +90,7 @@ export default class Integration extends React.Component {
 			itemDetail
 		})
 		this.submitGive();
-		this.openGive();
+		this.openGivetwo();
 
 
 	}
@@ -95,7 +98,12 @@ export default class Integration extends React.Component {
 		this.setState({
 			submitGive:!this.state.submitGive,
 		})
-
+	}
+	openGivetwo=()=>{
+		this.setState({
+			openGive:!this.state.openGive,
+			
+		})
 	}
 	openView=()=>{
 		this.setState({
@@ -104,9 +112,15 @@ export default class Integration extends React.Component {
 	}
 
 	openGive=()=>{
+		var {itemDetail}=this.state;
+		if(itemDetail.info){
+			itemDetail.info=null;
+			this.setState({
+				itemDetail
+			})
+		}
 		this.setState({
-			openGive:!this.state.openGive,
-			info:''
+			openGive:!this.state.openGive
 		})
 	}
 	searchSubmit=(form)=>{
