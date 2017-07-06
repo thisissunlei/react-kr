@@ -23,7 +23,13 @@ import {
 	ButtonGroup,
 	Message,
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 import './index.less';
+var isName = true;
+var isChildName = [];
+var isCode = true;
+var isChildCode = [];
+var isRequire = [];
  class EditCustomerSource extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -50,63 +56,164 @@ import './index.less';
         let {onSubmit} = this.props;
         onSubmit && onSubmit(values);
     }
+	//监听name发生变化
+	nameChange = (data,index) =>{
+		
+		var value = {id : '',name : data}
+		
+		if(data != '' && index != 'no'){
+			isRequire[index] = true;
+		}else if(data === '' && index != 'no'){
+			isRequire[index] = false;
+		}
+		
+
+		Http.request('check-name-source',value).then(function(response) {
+			if(index=="no" && response.code == "-1"){
+				isName = false;
+			}
+			if(index=="no" && response.code == "1"){
+				isName = true;
+			}
+			if(index != "no" && response.code == "-1"){
+				isChildName[index]=false;
+			}
+			if(index != "no" && response.code == "1"){
+				isChildName[index]=true;
+			}
+		}).catch(function(err) {
+			
+		});
+	}
+	//监听code发生变化
+	codeChange = (data,index) => {
+		var value = {id : '',name : data}
+		if(data === '' && index != 'no'){
+			isRequire[index] = true;
+		}
+		Http.request('check-name-source',value).then(function(response) {
+			if(index=="no" && response.code == "-1"){
+				isCode = false;
+			}
+			if(index=="no" && response.code == "1"){
+				isCode = true;
+			}
+			if(index != "no" && response.code == "-1"){
+				isChildCode[index]=false;
+			}
+			if(index != "no" && response.code == "1"){
+				isChildCode[index]=true;
+			}
+		}).catch(function(err) {
+			
+		});
+	}
+	//
+	orderNumChange = (data,index) =>{
+		if(data === '' && index != undefined){
+			isRequire[index] = true;
+		}
+	}
 
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
-	<div>
-		<label>{label}</label>
 		<div>
-		<input {...input}  placeholder={label||placeholder}/>
-		{touched && error && <span>{error}</span>}
+			<label>{label}</label>
+			<div>
+			<input {...input}  placeholder={label||placeholder}/>
+			{touched && error && <span>{error}</span>}
+			</div>
 		</div>
-	</div>
-)
+	)
 	renderBrights = ({ fields, meta: { touched, error }}) => {
 		const self = this;
-		 var krStyle={};
-			krStyle={width:228,marginLeft:18,marginRight:3,}
-			return (
-					<ul style={{padding:0,margin:0}}>
-					<div style = {{marginLeft:20,marginBottom:20}}>
-						<Button  label="添加子项" onTouchTap={() => fields.unshift()} />
-					</div>	
-					{fields.map((brightsStr, index) =>
-					<li key={index} style={{width:600,listStyle:'none'}}>
+		var krStyle={};
+		var nameArr = [];
+		var codeArr = [];
+		var requireArr = [];
+		krStyle={width:228,marginLeft:18,marginRight:3,}
+			
+	   var brights = fields.map(function(brightsStr, index){
+		   		if(!isChildName[index]){
+					nameArr.push(false);
+				}else{
+					nameArr.push(true);
+				}
+				if(isChildCode[index]){
+					codeArr.push(false);
+				}else{
+					codeArr.push(true);
+				}
+				if(isRequire[index]){
+					requireArr.push(true);
+				}else{
+					requireArr.push(false);
+				}
+				
+				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<KrField
 							style={{width:190,marginLeft:18,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.name}`}
+							name={`${brightsStr}.name`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项名称'}
 							placeholder='子项名称'
+							onChange = {(data) =>{
+								
+								self.nameChange(data,index);
+							}} 
 							
 						/>
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.orderNum}`}
+							name={`${brightsStr}.orderNum`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项编码'}
 							placeholder='子项编码'
+							onChange = {(data) =>{
+								self.nameChange(data,index)
+							}} 
 						/>
 						<KrField
 							style={{width:90,marginLeft:0,marginRight:3,}}
 							grid={1/3}
-							name={`${brightsStr.code}`}
+							name={`${brightsStr}.code`}
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项顺序'}
 							placeholder='子项顺序'
+							onChange = { (data) =>{
+								self.orderNumChange(data,index)
+							}} 
 						/>
 						<span
 							className='minusBtn'
 							style={!index ? {marginTop:32,marginLeft:8}:{marginTop:16,marginLeft:8}}
-							onClick={() => fields.remove(index)}
+							onClick={() => {
+								fields.remove(index)
+								isRequire.splice(index,1);
+								isChildCode.splice(index,1);
+								isChildName.splice(index,1);
+							}}
 						/>
-					</li>
-				)}
-				
+					</li>)
+	   		})
+			isChildName = [].concat(nameArr);
+			isChildCode = [].concat(codeArr);
+			isRequire = [].concat(requireArr);
+			return (
+			<ul style={{padding:0,margin:0}}>
+				<div style = {{marginLeft:20,marginBottom:20}}>
+					<Button  label="添加子项" onTouchTap={() => {
+							fields.unshift();
+							isRequire.unshift(false);
+							isChildCode.unshift(true);
+							isChildName.unshift(true);
+						}} />
+				</div>	
+				{brights}
 			</ul>
 
 		)
@@ -135,19 +242,28 @@ import './index.less';
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
+								onChange = {this.nameChange.bind(this,"no")}
+							/>
+							<KrField 
+								grid={1/2} label="来源编码"  
+								name="code" 
+								style={{width:262,marginLeft:15}} 
+								component="input" 
+								requireLabel={true}
+								onChange = {this.codeChange.bind(this,"no")}
 							/>
 							<KrField 
 								grid={1/2} 
-								label="佣金比例" 
-								name="brokerage" 
+								label="来源顺序" 
+								name="orderNum" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
 							/>
 							<KrField 
 								grid={1/2} 
-								label="来源顺序" 
-								name="orderNum" 
+								label="佣金比例" 
+								name="brokerage" 
 								style={{width:262,marginLeft:15}} 
 								component="input" 
 								requireLabel={true}
@@ -209,28 +325,65 @@ import './index.less';
 const validate = values =>{
 
 	const errors = {};
-	if (!values.bankAccount || !values.bankAccount.length) {
-          errors.bankAccount = { _error: 'At least one member must be entered' }
+	if(!values.name){
+		errors.name = '来源名称必填';
+	}else if(values.name.length > 20){
+		errors.name = "来源名称最多20个文字";
+	}else if(!isName){
+		errors.name = "来源名称已存在";
+	}
+
+	if(!values.code){
+		errors.code = '来源编码必填';
+	}else if(values.code.length > 30){
+		errors.code = "来源名称最多30个字符";
+	}else if(!isCode){
+		errors.code = "来源编码已存在"
+	}
+
+
+	if(!values.brokerage){
+		errors.brokerage = '拥金比例为必填项';
+	}else if(!values.brokerage){
+		errors.brokerage = ''
+	}
+	if (!values.subListStr || !values.subListStr.length) {
+          errors.subListStr = { _error: 'At least one member must be entered' }
         } else {
           let membersArrayErrors = []
-          values.bankAccount.forEach((porTypes, memberIndex) => {
 
-            let memberErrors = '';
-			if(porTypes){
-				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+          values.subListStr.forEach((porTypes, memberIndex) => {
+
+             let memberErrors ={};
+			if(!porTypes){
+				return ;
 			}
-			if (!porTypes){
-              memberErrors = '请填写银行账户'
-
+			if (isRequire[memberIndex] && !porTypes.name){
+              memberErrors.name = '该子项名称必填';
 			}
-            if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
-              memberErrors = '银行卡号必须为数字，且最长为30个数字'
-
+			if (isRequire[memberIndex] && !porTypes.code){
+              memberErrors.code = '该子项编码必填';
+			}
+			if (isRequire[memberIndex] && !porTypes.orderNum){
+              memberErrors.orderNum = '该子项排序必填';
+			}
+            if (!isChildName[memberIndex]){
+              memberErrors.name = '该子项名称已存在';
             }
-			membersArrayErrors[memberIndex] = memberErrors
+			if (!isChildCode[memberIndex]){
+              memberErrors.code = '该子项编码已存在';
+            }
+			if (porTypes.name && porTypes.name.length > 20){
+				memberErrors.name = '子项名称最多20个字';
+			}	
+			if (porTypes.code && porTypes.code.length > 30){
+				memberErrors.code = '子项编码最多30个字符';
+			}
+			membersArrayErrors[memberIndex] = memberErrors;
           })
+
         if(membersArrayErrors.length) {
-          errors.bankAccount = membersArrayErrors
+          errors.subListStr = membersArrayErrors
         }
       }
 	return errors;

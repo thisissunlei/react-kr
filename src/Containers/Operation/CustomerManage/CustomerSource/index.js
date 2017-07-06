@@ -20,6 +20,7 @@ import {
 	Row,
 	Col,
 	Drawer,
+	Dialog,
 	SearchForms,
 	ListGroup,
 	ListGroupItem,
@@ -27,10 +28,11 @@ import {
 	Message,
 	Title,
 } from 'kr-ui';
-
+import {Http} from 'kr/Utils';
 import './index.less';
-import EditCustomerSource from './EditCustomerSource'
-import NewCustomerSource from './NewCustomerSource'
+import EditCustomerSource from './EditCustomerSource';
+import NewCustomerSource from './NewCustomerSource';
+import DeleteSource from './DeleteSource';
 export default class CustomerSource  extends Component{
 
 	constructor(props,context){
@@ -44,7 +46,8 @@ export default class CustomerSource  extends Component{
 				page:1,
 				pageSize:15,
 				searchKey:''
-			}
+			},
+			sourceId:'',
 		}
 		
 	}
@@ -73,12 +76,15 @@ export default class CustomerSource  extends Component{
 	onOperation = (type,itemDetail) => {
 		if(type == "edit"){
 			this.editSwitch();
+			this.getDetailEdit(itemDetail.id)
 		}else if(type == "delete"){
+
 			this.delSwitch();
+			
 		}
-		// else if(type == 'look'){
-		// 	this.lookSwitch();
-		// }
+		this.setState({
+			sourceId:itemDetail.id,
+		})
            
     }
 	//打开新建按钮
@@ -117,33 +123,65 @@ export default class CustomerSource  extends Component{
 		})
 	}
 	//搜索功能
-	onSearchSubmit(searchParams) {
+	onSearchSubmit = (data) => {
+		let searchParams = Object.assign({},this.state.searchParams);
+		searchParams.searchKey = data.value;
+		this.setState({
+			searchParams,
+		})
 
 	}
-	//高级搜索功能点击确定
-	onSearchUpperForm=(searchParams)=>{
-
+	//获取编辑的信息
+	getDetailEdit = (id) =>{
+		var value = {id:id}
+		Http.request('get-detail-source',value).then(function(response) {
+			Store.dispatch(initialize('editCustomerSource',response));
+		}).catch(function(err) {
+			
+		});
 	}
-	//新建
-	openNewCreateDialog=()=> {
-		
+	//删除客户来源
+	delSubmit = () =>{
+		const {sourceId} = this.props;
+		var value = {id:sourceId};
+		const self = this;
+		Http.request('delete-source',value).then(function(response) {
+			self.delSwitch();
+		}).catch(function(err) {
+			
+		});
 	}
-    //高级搜索
-	openSearchUpperFormDialog=()=> {
-		
-	}
+	//关闭所有的侧滑
 	allClose = () =>{
 		this.setState({
 			isEdit : false,
 			isNew : false,
-			isDel : false,
+			// isDel : false,
 			// isLook : false,
 		})
 	}
-
+	//编辑提交
+	editSubmit = (data) =>{
+		const self = this;
+		var value = Object.assign({},data);
+		Http.request('edit-source',{},value).then(function(response) {
+			self.editSwitch();
+		}).catch(function(err) {
+			
+		});
+	}
+	newSubmit = (data) =>{
+		const self = this;
+		var value = Object.assign({},data);
+		Http.request('new-source',{},value).then(function(response) {
+			self.newSwitch();
+		}).catch(function(err) {
+			
+		});
+	}
 
 	render(){
-		const {isEdit,isNew,searchParams} = this.state;
+		const {isEdit,isNew,searchParams,isDel} = this.state;
 
 		return(
 			<div className="customer-source">
@@ -174,7 +212,7 @@ export default class CustomerSource  extends Component{
                                     ajaxParams={searchParams}
 
                                     ajaxFieldListName="items"
-                                    ajaxUrlName='MouldGroupList'
+                                    ajaxUrlName='list-source'
                             >
                                 <TableHeader>
                                     <TableHeaderColumn>来源编码</TableHeaderColumn>
@@ -182,7 +220,7 @@ export default class CustomerSource  extends Component{
                                     <TableHeaderColumn>子项</TableHeaderColumn>
                                     <TableHeaderColumn>佣金</TableHeaderColumn>
                                     <TableHeaderColumn>顺序</TableHeaderColumn>
-                                    <TableHeaderColumn>是否全员开发</TableHeaderColumn>
+                                    <TableHeaderColumn>是否全员开放</TableHeaderColumn>
                                     <TableHeaderColumn>创建人</TableHeaderColumn>
                                     <TableHeaderColumn>创建时间</TableHeaderColumn>
                                     <TableHeaderColumn>操作</TableHeaderColumn>
@@ -234,6 +272,18 @@ export default class CustomerSource  extends Component{
 				>
 					<NewCustomerSource onSubmit = {this.newSubmit} onCancel = {this.newSwitch}/>
 				</Drawer>
+				<Dialog
+					title="删除合同"
+					modal={true}
+					onClose={this.delSwitch}
+					open={isDel}
+					contentStyle={{width:445,height:236}}
+       			>
+					<DeleteSource 
+						onCancel = {this.delSwitch}
+						onSubmit = {this.delSubmit}	
+					/>
+		    	</Dialog>
 			</div>
 		);
 	}
