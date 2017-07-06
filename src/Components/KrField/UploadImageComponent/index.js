@@ -40,7 +40,7 @@ export default class UploadImageComponent extends Component {
 	componentDidMount() {
 	}
 	componentWillReceiveProps(nextProps){
-	 if(nextProps.defaultValue&&nextProps.defaultValue.hasOwnProperty('picUrl')){
+	 if(nextProps.defaultValue&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
 		 this.setInitValue(nextProps.defaultValue);
 	  }
 	}
