@@ -376,7 +376,7 @@ class CommunityList  extends React.Component{
 										title="高级查询"
 										onClose={this.openSearchUpperDialog}
 										open={State.openSearchUpper}
-										contentStyle ={{ width: '666px',height:'458px'}}
+										contentStyle ={{ width: '666px',height:'385px'}}
 										>
 											<SearchUpperForm
 													onCancel={this.openSearchUpperDialog}
