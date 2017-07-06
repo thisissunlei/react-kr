@@ -51,7 +51,7 @@ export default class CommunityAllocation  extends React.Component{
             stationValue:{},
             detailValue:[],
             //是否显示覆盖
-            isCover:false,
+            isCover:"false",
             //负责人
             chargeName:''    
         }
@@ -168,7 +168,8 @@ export default class CommunityAllocation  extends React.Component{
            firstValue:'',
            listValue:'',
            detailValue:'',
-           stationValue:''
+           stationValue:'',
+           isCover:"false",
        })  
    }
   
@@ -179,7 +180,8 @@ export default class CommunityAllocation  extends React.Component{
            firstValue:'',
            listValue:'',
            detailValue:'',
-           stationValue:''
+           stationValue:'',
+           isCover:"false",
        })
    }
  
@@ -210,10 +212,11 @@ export default class CommunityAllocation  extends React.Component{
                detailValue:'',
                stationValue:''
            })
+           this.editCancel();
         }).catch(function(err) {
             Message.error(err.message);
         });
-        this.editCancel();
+        
   } 
 
   onPageChange=(page)=>{
