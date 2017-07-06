@@ -1,6 +1,11 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import './index.less';
+
+
+import UpdateLog from '../UpdateLog';
+
+
 @inject("NavModel")
 @observer
 export default class Help extends React.Component{
@@ -17,6 +22,7 @@ export default class Help extends React.Component{
 		     
 		    }
 	}
+
 	componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
@@ -31,6 +37,8 @@ export default class Help extends React.Component{
 			<div>
 				<div className="m-welcome" style={styles}>
 				</div>
+
+						<UpdateLog />
 			</div>
 		);
 

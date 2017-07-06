@@ -1,6 +1,17 @@
 const APIS = {
 
     //获取文件token－－－－－－－>名字没用到，上传文件组件里面用到此地址
+
+     'version-log-close': {
+        url: '/api/krspace-sso-web/sso/record-sso-ver',
+        method: 'post'
+    },
+    'get-version-log': {
+        url: '/api/krspace-sso-web/sso/show-sso-ver',
+        method: 'get'
+    },
+
+    //获取文件token－－－－－－－>名字没用到，上传文件组件里面用到此地址
     'getSourceServiceToken': {
         url: '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
         method: 'get'
