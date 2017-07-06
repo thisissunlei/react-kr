@@ -77,7 +77,8 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 		super(props);
 		this.state={
         codeName:'',
-				communityName:''
+				communityName:'',
+				cityId:''
 		}
 	}
 
@@ -131,6 +132,9 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 
   	//所属区县
     cityValue=(communityId,cityId,city)=>{
+			this.setState({
+				cityId:cityId
+			})
       Store.dispatch(change('editCommunityList','countyId',communityId));
     }
 
@@ -143,7 +147,25 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
       Store.dispatch(change('editCommunityList','latitude',xLocation));
       Store.dispatch(change('editCommunityList','longitude',yLocation));
     }
+   
+		//排序
+		orderChange=(params)=>{
+				let {cityId}=this.state;
+				let {communityId}=this.props;
+				if(!cityId){
+					 Message.error('请先填写城市');
+           return ;
+				}
+				State.communityRank(params.toString().trim(),cityId,communityId);
+		}
 
+
+		componentDidMount(){
+			let {cityId}=this.props;
+			this.setState({
+				cityId:cityId
+			})
+		}
 
 
 			render(){
@@ -222,8 +244,9 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
-
-							<KrField grid={1} label="开业时间" name="openDate" style={{width:'262px',marginLeft:15,display:'block'}} component="date" requireLabel={true}/>
+              <KrField grid={1/2} label="排序" name="orderNum" style={{width:'262px',marginLeft:15}} component="input" onChange={this.orderChange}></KrField>
+							<KrField grid={1/2} label="开业时间" name="openDate" style={{width:'262px',marginLeft:32}} component="date" requireLabel={true}/>
+						  {State.isCorpRank&&<div style={{display:'block',color:'red',paddingLeft:'25px',paddingBottom:'10px'}}>该序号已存在</div>}
 							<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 							<div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
