@@ -62,7 +62,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		super(props);
         this.state={
           isCover:'',
-          isInit:false          
+          isInit:false,
+          chargeName:'社区负责人',
+          isChargeName:false,          
         }
 	}
 
@@ -76,14 +78,19 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
   componentWillReceiveProps(nextProps){
-     let {isInit}=this.state;
-     console.log("LLLL--",isInit);
+     let {isInit,isChargeName}=this.state;
      if(!isInit && nextProps.isCover == "true"){
         this.setState({
           isCover:nextProps.isCover,
           isInit:true
         })
        
+     }
+     if(!isChargeName && nextProps.chargeName ){
+       this.setState({
+          chargeName:nextProps.chargeName,
+          isChargeName:true
+        })
      }
      
     
@@ -140,13 +147,19 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         }) 
       }
    }
-
+   changeCharge = (data) =>{
+      if(!data){
+        this.setState({
+          chargeName:'社区负责人'
+        })
+      }
+   }
   
     render(){
 
-        let {isCover}=this.state;
+        let {isCover,chargeName}=this.state;
  
-        const {handleSubmit,chargeName,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
+        const {handleSubmit,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
 
         var sortStyle={};
         var chartStyle={};
@@ -164,8 +177,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            chartStyle={
              width:262,marginLeft:15
            }  
-        }
-        console.log("++++++",isCover);  
+        }  
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
@@ -236,7 +248,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                         
                             <KrField grid={1/2} label="排序" name="sort" component="input" style={sortStyle}/>
 
-                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" placeholder={chargeName}s/>
+                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" onChange = {this.changeCharge} placeholder={chargeName}/>
                             
                             <FieldArray name="porType" component={renderStation} />
 
