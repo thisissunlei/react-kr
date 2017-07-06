@@ -145,7 +145,7 @@ export default class Integration extends React.Component {
 
 			<div className="g-integration" >
 			<Title value="积分管理"/>
-				<Section title="公告列表" description="" style={{marginBottom:-5,minHeight:910}}>
+				<Section title="积分列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div className="m-btn">
 						<SearchForm onSubmit={this.searchSubmit}  onChange={this.selectCommunity}/>
 					</div>
