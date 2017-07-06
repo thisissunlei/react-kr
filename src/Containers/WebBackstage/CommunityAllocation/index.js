@@ -198,14 +198,13 @@ export default class CommunityAllocation  extends React.Component{
        if(!params.stationImageId){
          params.stationImageId='';   
        }
-       let {searchParams}=this.state;
        Http.request('web-community-edit',{},params).then(function(response) {
+           var searchParams={
+              time:+new Date()
+           }
+           searchParams=Object.assign({},_this.state.searchParams,searchParams);
            _this.setState({
-               searchParams:{
-                  time:+new Date(),
-                  pageSize:15,
-                  page:searchParams.page
-               },
+               searchParams,
                firstValue:'',     
                listValue:'',
                detailValue:'',
