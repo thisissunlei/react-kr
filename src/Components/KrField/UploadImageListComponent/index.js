@@ -65,18 +65,11 @@ export default class UploadImageListComponent extends Component {
 	}
 
 	componentDidMount() {
-	  /*if(this.props.defaultValue){
-		 this.setDefaultValue(this.props.defaultValue);         
-	  }*/
-	  if(this.props.defaultValue&&this.props.defaultValue.length>0){
-		  this.setDefaultValue(this.props.defaultValue);
-	    }
+		 this.setDefaultValue(this.props.defaultValue);
 	}
 
 	componentWillReceiveProps(nextProps){
-		/*if(nextProps.defaultValue&&nextProps.defaultValue.length>0){
 		  this.setDefaultValue(nextProps.defaultValue);
-	    }*/
 	}
 
 	onTokenError() {

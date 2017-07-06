@@ -61,18 +61,30 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	constructor(props){
 		super(props);
         this.state={
-          isCover:''          
+          isCover:'',
+          isInit:false          
         }
 	}
 
 
-    componentDidMount(){
+  componentDidMount(){
       let {isCover}=this.props;
       Store.dispatch(change('EditCommunity','porType',[{}]));
       this.setState({
           isCover:isCover
       })
     }
+
+  componentWillReceiveProps(nextProps){
+     let {isInit}=this.state;
+     if(isInit){
+        return ;
+     }
+     this.setState({
+       isCover:nextProps.isCover,
+       isInit:true
+     })
+  }
 
 	onSubmit = (values) => {
         if(values.porType.length<2){
@@ -103,7 +115,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                 return ;
            }
         }
-
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -345,7 +356,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             if(!values.traffic){
               errors.traffic='请填写交通'
             }
-
+            
 
             if(!values.pageImageId){
               errors.pageImageId='请上传首页图片'
@@ -353,7 +364,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             if(!values.listImageId){
               errors.listImageId='请上传列表页图片'
             }
-            if(!values.detailImageId){
+            if(values.detailImageId&&values.detailImageId.length<1){
               errors.detailImageId='请上传详情图片'
             }
             
@@ -362,6 +373,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
               errors.coverName='请填写覆盖标签内容'
             }
             
+            if(values.coverName&&values.coverName.length>5){
+              errors.coverName='最多输入5个字符'
+            }
 	    
             //排序
             if(values.sort&&isNaN(values.sort)){
