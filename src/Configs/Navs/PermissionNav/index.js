@@ -56,17 +56,28 @@ module.exports = [
 					router: '/permission/loginLog',
 					menuCode: 'sso_loginLog_base',
 				}]
-			},{
+			},
+			{
 				primaryText: "系统管理",
 				iconName: 'icon-wendang',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
-				menuItems: [{
+				menuItems: [
+					{
 					primaryText: '版本管理',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'sso_appVersion_base',
-				},]
-			}
+				},
+				{
+					primaryText: 'Pc版本管理',
+					router: '/permission/systemManage/update-log',
+					menuCode: 'sso_appVersion_base',
+				},
+				]
+			},
+
+
+
 		]
 	}
 
