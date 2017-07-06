@@ -129,7 +129,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
         let {isCover}=this.state;
  
-        const {handleSubmit,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
+        const {handleSubmit,chargeName,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
 
         var sortStyle={};
         var chartStyle={};
@@ -149,7 +149,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }  
         }
         
-        console.log('ggggg',openDate);
     
         return (
             <div>
@@ -165,7 +164,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                             <KrField grid={1/2} label="社区名称" inline={false} value={communityName?communityName:'无'} style={{width:262,marginLeft:18}} component="labelText"/>
 
-                            <KrField grid={1/2} label="开业状态" inline={false} value={opend?opend:'无'+(openDate?'('+openDate+')':'无')} style={{width:262,marginLeft:28}} component="labelText"/>
+                            <KrField grid={1/2} label="开业状态" inline={false} value={(opend?opend:'无')+(openDate?'('+openDate+')':'无')} style={{width:262,marginLeft:28}} component="labelText"/>
 
                         
                     </div>
@@ -221,7 +220,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                         
                             <KrField grid={1/2} label="排序" name="sort" component="input" style={sortStyle}/>
 
-                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人"/>
+                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" placeholder={chargeName}/>
                             
                             <FieldArray name="porType" component={renderStation} />
 

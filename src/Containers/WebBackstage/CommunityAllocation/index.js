@@ -51,7 +51,9 @@ export default class CommunityAllocation  extends React.Component{
             stationValue:{},
             detailValue:[],
             //是否显示覆盖
-            isCover:false    
+            isCover:false,
+            //负责人
+            chargeName:''    
         }
 	}
    
@@ -147,7 +149,8 @@ export default class CommunityAllocation  extends React.Component{
                 picId:response.stationImageId,
                 picUrl:response.stationImageUrl  
              },
-             detailValue:detailArr          
+             detailValue:detailArr,
+             chargeName:response.chargeName          
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -212,7 +215,7 @@ export default class CommunityAllocation  extends React.Component{
 
 	render(){
 
-        let {searchParams,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue,isCover}=this.state;
+        let {searchParams,chargeName,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue,isCover}=this.state;
 
 
 		return(
@@ -306,6 +309,7 @@ export default class CommunityAllocation  extends React.Component{
                           firstValue={firstValue}
                           listValue={listValue}
                           isCover={isCover}
+                          chargeName={chargeName}
 						/>
 
 		            </Drawer>
