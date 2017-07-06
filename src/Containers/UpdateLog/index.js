@@ -97,7 +97,10 @@ export default class UpdateLog extends React.Component {
                 <div className="m-update-log">
                     <div className="log-close" onClick={this.close}></div>
                     <div className="log-header">
-                        <h3>Kr Space -v{ver.version}</h3>
+                        <h3> 
+                            <span className="bg"></span>
+                            <span className="text"> Kr Space -v{ver.version} </span>
+                        </h3>
                         <span className="time">{DateFormat(ver.publishDate,'mm.dd')}</span>
                     </div>
                     <div className="log-body">
