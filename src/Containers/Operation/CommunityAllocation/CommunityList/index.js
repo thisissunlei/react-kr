@@ -52,6 +52,7 @@ class CommunityList  extends React.Component{
       timeStart:'',
       timeEnd:'',
       communityId:'',
+			cityId:''
     }
 	}
 
@@ -63,6 +64,7 @@ class CommunityList  extends React.Component{
    //新建社区开关
    openAddCommunity=()=>{
    	  cityDataState.setCity("请选择");
+			State.isCorpRank=false;
    	  State.searchDataHere();
       State.switchNewCommunityList();
    }
@@ -106,6 +108,7 @@ class CommunityList  extends React.Component{
          return ;
       }
        if(type=='edit'){
+				  State.isCorpRank=false;
       	  State.searchDataHere();
           this.ajaxSendData(itemDetail.id);
       }
@@ -131,6 +134,7 @@ class CommunityList  extends React.Component{
             timeStart:response.businessBegin,
             timeEnd:response.businessEnd,
             communityId:response.id,
+						cityId:response.cityId,
             cityData:`${response.provinceName}/${response.cityName}/${response.countyName}`
           })
       
@@ -257,7 +261,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,communityId}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId}=this.state;
 
 		return(
 
@@ -304,7 +308,6 @@ class CommunityList  extends React.Component{
                   <TableHeaderColumn>所属城市</TableHeaderColumn>
                   <TableHeaderColumn><span style={{fontSize:'16px',display:'inline-block',paddingBottom:'4px'}}>社区面积m</span><sup>2</sup></TableHeaderColumn>
 		              <TableHeaderColumn>社区排序</TableHeaderColumn>
-		              <TableHeaderColumn>官网显示状态</TableHeaderColumn>
 		              <TableHeaderColumn>开业时间</TableHeaderColumn>
 		              <TableHeaderColumn>开业状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -319,7 +322,6 @@ class CommunityList  extends React.Component{
 			                <TableRowColumn name="orderNum" component={(value,oldValue)=>{
                              return (<div>{value?value:'-'}</div>)
                            }}></TableRowColumn>
-			                <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
@@ -344,6 +346,7 @@ class CommunityList  extends React.Component{
 												<NewCommunityList
 														onSubmit={this.onNewCommunitySubmit}
 														onCancel={this.cancelAddCommunity}
+														communityId={communityId}
 												/>
 
 		            </Drawer>
@@ -363,6 +366,7 @@ class CommunityList  extends React.Component{
 												timeStart={timeStart}
 												timeEnd={timeEnd}
 												communityId={communityId}
+												cityId={cityId}
 										/>
 
 									</Drawer>
