@@ -132,7 +132,6 @@ export default class JoinPrint extends React.Component {
       		</div>
       		
       		<CommonItem baseInfo={State.baseInfo}/>
-      		<Button onClick={this.print}>打印</Button>
       	</div>
 
 		);

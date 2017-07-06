@@ -31,21 +31,21 @@ export default class Intention extends Component {
 		let top = tableTop.offsetTop;
 		if(top>1089 && top<1157){
 			let margin = 1157-top;
-			tableTop.style.marginTop = margin + 'px'; 
+			tableTop.style.marginTop = margin +100+ 'px'; 
 		}
 		let pageReturn = 0 ;
 		if(top>1022 && top<1092){
 			pageReturn = 1;
-			marginTop = pageHeight-top-30 +40;
+			marginTop = pageHeight-top-30 +60;
 		}else if(top>967 && top<1022){
 			pageReturn =2;
-			marginTop = pageHeight-top-100 +40;
+			marginTop = pageHeight-top-100 +60;
 		}else if(top>892 && top<967){
 			pageReturn = 3;
-			marginTop = pageHeight-top-155 +40;
+			marginTop = pageHeight-top-155 +60;
 		}else if(top>725 && top<892){
 			pageReturn = 4;
-			marginTop = pageHeight-top-208+40;
+			marginTop = pageHeight-top-208+60;
 		}
 
 		return {pageReturn:pageReturn,marginTop:marginTop}

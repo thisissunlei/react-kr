@@ -3,21 +3,47 @@
 	position: relative;
 	height:297mm;
 	width:750px;
-	border:1px solid red;
+	// border:1px solid red;
 	margin:0 auto;
+	display: flex;
+	justify-content:space-between;
+	flex-direction:column;
 	.logo-pic{
 		position: absolute;
 		bottom:90px;
 		width: 160px;
 		height: 160px;
-		right:20%;
+		left:5%;
 	}
 	.print-Item-Bottom{
-		border-top:3px solid #499df1;
+		border-top:1px solid #499df1;
+		border-bottom:2px solid #499df1;
+		position: relative;
+		text-align: right;
+		padding:10px 0;
 		margin:0;
+		margin-bottom: 4mm;
+		
 		&>p{
 			margin:0;
 		}
+		span{
+	      font-size: 14px;
+	    }
+	    .dott{
+	      width: 0;
+	      height: 0;
+	      font-size: 0;
+	      display: inline-block;
+	      position: absolute;
+	      top:20px;
+	      border:1.5px solid #666;
+	      border-radius: 100%;
+	      font-family: "FZLTHJW  GB1 0";
+	    }
+	    .tel{
+	      font-size: 13px;
+	    }
 	}
 	.ui-print-Common-item-title{
 		font-size: 22px;
@@ -29,10 +55,10 @@
 	}
 	.ui-print-Common-item-content{ 
 		padding-top: 10px; 
-		display: -webkit-flex;
-		justify-content:space-between;
+		// display: -webkit-flex;
+		// justify-content:space-between;
 		&>div{
-			width:370px;
+			width:100%;
 			p{
 				color:#333;
 				margin:0;
@@ -40,6 +66,10 @@
 				font-family: "FZLTHJW -GB1-0";
 			}
 		}
+	}
+	.company-cachet{
+		display: flex;
+		justify-content:space-between;
 	}
 }
 @media print
