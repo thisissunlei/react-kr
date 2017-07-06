@@ -64,7 +64,7 @@ class Recharge extends React.Component {
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 							<KrField
 								style={{width:260,marginLeft:30,marginTop:20}}
-								label="客户名称："
+								label="客户名称 "
 								inline={true} 
 								component="labelText"
 								value={detail.customerName}
@@ -76,9 +76,9 @@ class Recharge extends React.Component {
 								type="text"
 								inline={true} 
 								component="input"
-								label="充值："
+								label="积分"
 								requireLabel={true}
-						 	/><span className="u-txt">积分</span>
+						 	/>
 						<Grid style={{marginTop:50,width:'96%'}}>
 						<Row >
 						 <Col md={12} align="center">
@@ -98,8 +98,10 @@ class Recharge extends React.Component {
 const validate = values => {
 
 		const errors = {};
-		if (!values.pointNum) {
-			errors.pointNum = '请输入充值数';
+		//正整数
+		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
+		if (!values.pointNum && !numberNotZero.test(values.pointNum)) {
+			errors.pointNum = '请输入正整数';
 		}
 		
 		
