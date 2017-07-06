@@ -13,6 +13,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
+	Tooltip
 } from 'kr-ui';
 import './index.less';
 
@@ -72,11 +73,77 @@ export default class ViewIntegration extends React.Component {
 
 					        <TableBody >
 					              <TableRow>
-					                <TableRowColumn name="customerName" ></TableRowColumn>
-					                <TableRowColumn name="cmtName"></TableRowColumn>
-					                <TableRowColumn name="descr" ></TableRowColumn>
+					                <TableRowColumn 
+					                	name="customerName"
+					                	component={(value,oldValue)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
+
+												}else{
+													TooltipStyle="inline-block";
+												}
+												return (
+													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+													<span className='tableOver' style={{maxWidth:150,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												 	</div>
+												)
+											}} 
+					                >
+					                </TableRowColumn>
+					                <TableRowColumn 
+					                		name="cmtName"
+					                		component={(value,oldValue)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
+
+												}else{
+													TooltipStyle="inline-block";
+												}
+												return (
+													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+													<span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												 	</div>
+												)
+											}} ></TableRowColumn>
+					                <TableRowColumn 
+					                		name="descr" 
+					                		component={(value,oldValue)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
+
+												}else{
+													TooltipStyle="inline-block";
+												}
+												return (
+													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+													<span className='tableOver' style={{maxWidth:180,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												 	</div>
+												)
+											}}></TableRowColumn>
 					                <TableRowColumn name="pointAmount" ></TableRowColumn>
-					                <TableRowColumn name="operater" ></TableRowColumn>
+					                <TableRowColumn 
+					                		name="operater" 
+					                		component={(value,oldValue)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
+
+												}else{
+													TooltipStyle="inline-block";
+												}
+												return (
+													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+													<span className='tableOver' style={{maxWidth:150,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
+												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
+												 	</div>
+												)
+											}} ></TableRowColumn>
 					               </TableRow>
 					        </TableBody>
 			        		<TableFooter></TableFooter>
