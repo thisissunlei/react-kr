@@ -78,11 +78,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
     }
 
   componentWillReceiveProps(nextProps){
-<<<<<<< HEAD
      let {isInit,isChargeName}=this.state;
-=======
-     let {isInit}=this.state;
->>>>>>> 75b5a0b1efdf1e20a4e69fbf1eac2d24459f2cf5
      if(!isInit && nextProps.isCover == "true"){
         this.setState({
           isCover:nextProps.isCover,
