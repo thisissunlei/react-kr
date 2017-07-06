@@ -46,29 +46,11 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillMount(){
-      	let {defaultValue,sizePhoto}=this.props;
-		this.setInitValue(defaultValue,sizePhoto);
 	}
 	componentDidMount() {
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		// if(nextProps.defaultValue){
-		// 	this.setState({
-		// 		imgSrc:nextProps.defaultValue,
-		// 		imgUpload : true
-		// 	})
-		// }else if(nextProps.input.value){
-		// 	this.setState({
-		// 		imgSrc:nextProps.input.value,
-		// 		imgUpload : true
-		// 	})
-		// }else{
-		// 	this.setState({
-		// 		imgSrc:'',
-		// 		imgUpload : false
-		// 	})
-		// }
-		if(nextProps.defaultValue&&nextProps.sizePhoto&&nextProps.defaultValue.hasOwnProperty('picUrl')){
+		if(nextProps.defaultValue&&nextProps.sizePhoto&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
 			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}else if(nextProps.defaultValue&&!nextProps.sizePhoto){
 			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);

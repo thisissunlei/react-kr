@@ -77,7 +77,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   componentWillReceiveProps(nextProps){
      let {isInit}=this.state;
-     if(isInit){
+     if(isInit&&nextProps.isCover==this.state.isCover){
         return ;
      }
      this.setState({
@@ -115,6 +115,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                 return ;
            }
         }
+
+    console.log('submit',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
