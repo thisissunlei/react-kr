@@ -142,7 +142,6 @@ export default class RenewPrint extends React.Component {
 
 				{this.renderContent()}
 
-				<Print.Footer/>
 			</div>
 			<CommonItem baseInfo={State.baseInfo}/>
     	</div>

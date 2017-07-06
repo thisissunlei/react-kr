@@ -39,7 +39,7 @@ export default class Payment extends Component {
 		if(top<1040 && top>720){
 			let domHeight = 1120-top-28-27;
 			let num = parseInt(domHeight/22.5);
-			pageItem = num-1;
+			pageItem = num-2;
 			
 		}else if(top<1140 && top>1040){
 			let marginTop = 1180-top;

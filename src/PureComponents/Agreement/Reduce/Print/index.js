@@ -39,14 +39,14 @@ export default class JoinPrint extends React.Component {
 		}, 1000)
 	}
 	renderImg=()=>{
-		var printList = document.getElementsByClassName('g-exit-print')[0];
+		var printList = document.getElementsByClassName('print-section')[0];
 		if(!printList){
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1200 && !this.init){
+		if(printHeight>1120 && !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
+			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
 		}
 		this.pages = Math.ceil(printHeight/1200);
 		let str=[] ;
@@ -63,7 +63,7 @@ export default class JoinPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1200),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,
@@ -115,12 +115,12 @@ export default class JoinPrint extends React.Component {
 	}
 	render() {
 		return (
-			<div className="g-exit-print">
+			<div className="g-exit-print" >
 				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(减少)`}/>
-				<div className="print-section no-print-section" >
+				<div className="print-section no-print-section" style={{minHeight:'293mm'}} >
 
 					<Print.Header
 						baseInfo={State.baseInfo}

@@ -32,9 +32,9 @@ export default class Station extends Component {
 	}
 	componentDidMount() {
 		let {stationVOs} = this.props;
-		if(stationVOs.length>=33){
-			stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
-			stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+		if(stationVOs.length>=32){
+			stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 		}
 		this.setState({
 			stationVOs:stationVOs
@@ -44,9 +44,9 @@ export default class Station extends Component {
 		let {stationVOs} = nextProp;
 		if(!this.init){
 			this.init = true;
-			if(stationVOs.length>=33){
-				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
-				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			if(stationVOs.length>=32){
+				stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+				stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 			}
 			this.setState({
 				stationVOs:stationVOs
