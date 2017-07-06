@@ -403,7 +403,8 @@ class Personal extends Component{
 		              <TableHeaderColumn>意向社区</TableHeaderColumn>
 		              <TableHeaderColumn>意向工位数</TableHeaderColumn>
 		              <TableHeaderColumn>来源</TableHeaderColumn>
-		              <TableHeaderColumn>客户分类</TableHeaderColumn>
+		              <TableHeaderColumn>联系人</TableHeaderColumn>
+		              <TableHeaderColumn>联系人电话</TableHeaderColumn>
 		              <TableHeaderColumn>领取人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -447,6 +448,7 @@ class Personal extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
+							{/*联系人*/}
 			                <TableRowColumn name="levelName"  component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
@@ -457,7 +459,21 @@ class Personal extends Component{
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
+													 }}>
+							</TableRowColumn>
+							{/*联系人电话*/}
+							 <TableRowColumn name="levelName"  component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}>
+							</TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
 						                				let show="inline-block";

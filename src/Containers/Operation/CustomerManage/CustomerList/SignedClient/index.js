@@ -406,6 +406,7 @@ class SignedClient extends React.Component{
 		              <TableHeaderColumn>订单总额</TableHeaderColumn>
 		              <TableHeaderColumn>已回款额</TableHeaderColumn>
 		              <TableHeaderColumn>未回款额</TableHeaderColumn>
+		              <TableHeaderColumn>客户来源</TableHeaderColumn>
 		              <TableHeaderColumn>客户创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>订单创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -414,30 +415,37 @@ class SignedClient extends React.Component{
 
 			        <TableBody >
 			              <TableRow >
-			                <TableRowColumn name="signCityName" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+			                <TableRowColumn 
+								name="signCityName" 
+								component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
 
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
-			                <TableRowColumn name="company" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+									}else{
+										TooltipStyle="inline-block";
+									}
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+									}}>
+							</TableRowColumn>
+			                <TableRowColumn name="company" 
+								component={(value,oldValue)=>{
+											var TooltipStyle=""
+											if(value.length==""){
+												TooltipStyle="none"
 
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
+											}else{
+												TooltipStyle="inline-block";
+											}
+												return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+												<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+											}}>
+							</TableRowColumn>
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
+			                <TableRowColumn name="unBackamount"></TableRowColumn>
+							{/*客户来源*/}
 			                <TableRowColumn name="unBackamount"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
 

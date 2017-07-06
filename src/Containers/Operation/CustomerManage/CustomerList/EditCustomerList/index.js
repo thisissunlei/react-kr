@@ -41,6 +41,7 @@ import {
 		let {listId}=props;
 		State.treeAllData();
 		this.permissions();
+		this.screening = ["内部推荐","外部推荐","中介人计划","中介推荐的话"];
 
 
 	}
@@ -127,13 +128,26 @@ import {
 	  if(!value){
 	  	return;
 	  }
-		console.log()
+	  var isTrue = false;
 	  var param=value.label;
-      if(param.indexOf('推荐')!=-1){
+	  for(let i=0;i<this.screening.length;i++){
+		  if(this.screening[i]==param){
+			isTrue = true;
+			break;
+		  }
+			  
+	  }
+      if(isTrue){
          State.sourceCustomer=true;
       }else{
       	 State.sourceCustomer=false;
       }
+	  if(param == "中介人计划"){
+		State.noEditIntroduce = true;
+	  }else{
+		State.noEditIntroduce = false;
+	  }
+	  
 
 	}
 
@@ -179,10 +193,14 @@ import {
 		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
 
 		let sourceIdLabel = '';
+		let introduceName = "";
+		let introduceTel = '';
 		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
 
 			if(item.value == allData.sourceId){
 				sourceIdLabel = item.label;
+				console.log(item,"|||||||||||")
+				// introduceName = item.
 			}
 
 		})
@@ -205,8 +223,10 @@ import {
 											onChange={this.sourceCustomer}
 									/> :
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="labelText" value={sourceIdLabel} inline={false}/>}
-									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
-				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
+									{!State.noEditIntroduce && State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
+				   					{!State.noEditIntroduce && State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
+									{State.noEditIntroduce && <KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="labelText" requireLabel={true} value = {sourceIdLabel}/>}
+									{State.noEditIntroduce && <KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:28}} component="labelText" requireLabel={true} value = {sourceIdLabel}/>}
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>
 
 									</KrField><span className="unit">个</span></div>
