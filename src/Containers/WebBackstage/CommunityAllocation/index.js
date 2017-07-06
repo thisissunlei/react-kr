@@ -190,7 +190,6 @@ export default class CommunityAllocation  extends React.Component{
        let _this=this;
        params=Object.assign({},params);
        var detailArr=[];
-       console.log('params',params.detailImageId);
        params.detailImageId.map((item,index)=>{
            detailArr.push(item.photoId);
        })
@@ -213,7 +212,7 @@ export default class CommunityAllocation  extends React.Component{
                detailValue:'',
                stationValue:''
            })
-           this.editCancel();
+           _this.editCancel();
         }).catch(function(err) {
             Message.error(err.message);
         });
