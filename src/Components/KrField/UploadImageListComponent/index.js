@@ -265,7 +265,6 @@ export default class UploadImageListComponent extends Component {
 		},function(){
 			onChange && onChange(images);
 		});
-
     }
 
 

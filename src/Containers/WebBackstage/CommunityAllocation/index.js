@@ -103,7 +103,6 @@ export default class CommunityAllocation  extends React.Component{
                 detailArr.push(list);
                 })
             }
-             Store.dispatch(change('EditCommunity','detailImageId',detailArr));
 
             if(response.appoint==true){
                 response.appoint='true';

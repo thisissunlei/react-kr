@@ -62,7 +62,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 		super(props);
         this.state={
           isCover:'',
-          isInit:false          
+          isInit:false,
+          detailTip:false          
         }
 	}
 
@@ -117,7 +118,17 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                 return ;
            }
         }
-
+      
+   if(values.detailImageId.length<1){
+       this.setState({
+         detailTip:true
+       })
+       return ;
+    }else{
+      this.setState({
+         detailTip:false
+       })
+    }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -140,10 +151,22 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       }
    }
 
+   picChange=(imgs)=>{
+     if(imgs.length<1){
+       this.setState({
+         detailTip:true
+       })
+     }else{
+       this.setState({
+         detailTip:false
+       })
+     }
+   }
+
   
     render(){
 
-        let {isCover}=this.state;
+        let {isCover,detailTip}=this.state;
  
         const {handleSubmit,chargeName,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
 
@@ -164,7 +187,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              width:262,marginLeft:15
            }  
         }
-        console.log("++++++",isCover);  
+
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
@@ -235,7 +258,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                         
                             <KrField grid={1/2} label="排序" name="sort" component="input" style={sortStyle}/>
 
-                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" placeholder={chargeName}s/>
+                            <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" placeholder={chargeName}/>
                             
                             <FieldArray name="porType" component={renderStation} />
 
@@ -283,7 +306,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                         inline={false}
                                         label='上传详情页图片'
                                         requireLabel={true}
-                                    /></div>
+                                        onChange={this.picChange}
+                                    />
+                                    {detailTip&&<div style={{color:'red',display:'block'}}>请上传详情图片</div>}
+                                    </div>
                                
 
                             </div>
@@ -368,10 +394,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             if(!values.listImageId){
               errors.listImageId='请上传列表页图片'
             }
-            if(values.detailImageId&&values.detailImageId.length<1){
-              errors.detailImageId='请上传详情图片'
-            }
-            
 
             if(!values.coverName){
               errors.coverName='请填写覆盖标签内容'
