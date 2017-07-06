@@ -74,12 +74,9 @@ export default class ViewIntegration extends React.Component {
 					              <TableRow>
 					                <TableRowColumn name="customerName" ></TableRowColumn>
 					                <TableRowColumn name="cmtName"></TableRowColumn>
-					                <TableRowColumn name="memberQuantity" ></TableRowColumn>
-					                <TableRowColumn name="remainPoint" ></TableRowColumn>
-					                <TableRowColumn>
-					                	<Button label="消费记录"  type="operation"  operation="view"/>
-									  	<Button label="充值"  type="operation"  operation="give"/>
-					                </TableRowColumn>
+					                <TableRowColumn name="descr" ></TableRowColumn>
+					                <TableRowColumn name="pointAmount" ></TableRowColumn>
+					                <TableRowColumn name="operater" ></TableRowColumn>
 					               </TableRow>
 					        </TableBody>
 			        		<TableFooter></TableFooter>

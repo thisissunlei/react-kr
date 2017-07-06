@@ -25,10 +25,16 @@ class Recharge extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		
 	}
-	
-	
-   
+
+	componentDidMount() {
+		let {info}=this.props;
+		if(info.pointNum){
+			Store.dispatch(change('recharge', 'pointNum', info.pointNum));
+		}
+		
+    }
 	onSubmit=(form)=>{
 		let {onSubmit,detail} = this.props;
 		form=Object.assign({}, form);
@@ -49,9 +55,8 @@ class Recharge extends React.Component {
 				handleSubmit,
 				pristine,
 				reset,
-				detail
+				detail,
 			} = this.props;
-			
 		return (
 			<div className="g-recharge">
 				

@@ -39,7 +39,7 @@ export default class Integration extends React.Component {
 			rechargeDetail:{},
 			customerName:'',
 			cmtId:'',
-
+			info:''
 		}
 
 	}
@@ -81,9 +81,14 @@ export default class Integration extends React.Component {
 			}
 		})
 	}
-	onCloseCheck=()=>{
+	onCloseCheck=(info)=>{
+		this.setState({
+			info
+		})
 		this.submitGive();
 		this.openGive();
+
+
 	}
 	submitGive=()=>{
 		this.setState({
@@ -133,7 +138,8 @@ export default class Integration extends React.Component {
 	render() {
 		let {
 			  itemDetail,
-			  rechargeDetail
+			  rechargeDetail,
+			  info
 			}=this.state;
 		return (
 
@@ -197,6 +203,7 @@ export default class Integration extends React.Component {
 	            >
 	           		<Recharge 
 	           				detail={itemDetail} 
+	           				info={info}
 	           				onCancel={this.openGive} 
 	           				onSubmit={this.rechargeSubmit}
 	           		/>
