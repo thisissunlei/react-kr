@@ -1,79 +1,76 @@
 .m-update-log {
-    height:600px;
+    height:460px;
     position: relative;
+    border-radius: 4px;
+
+    .log-close {
+        background-image:url('./images/icon_close.png');
+        background-size:contain;
+        position: absolute;
+        top:-36px;
+        right:-40px;
+        border-radius:40px;
+        width:40px;
+        height:40px;
+    }
+
     .log-header {
-        height:260px;
+        height:219px;
         background-image:url('./images/pic.png');
-        background-size:500px 260px;
+        background-size:421px 219px;
         background-repeat: no-repeat;
         position: relative;
+        border-radius:4px 4px 0 0 ;
 
         h3{
-              top: 42px;
+              top: 35px;
     position: absolute;
     font-weight: 600;
     left: 65px;
-    font-size: 22px;
+    font-size: 20px;
     color: #0E0E0E;
         }
         .time{
-            right:70px;
-            top:80px;
-            font-size: 24px;
+            right:60px;
+            top:70px;
+            font-size: 19px;
 color: #0E0E0E;
 font-weight:600;
             position: absolute;
         }
     }
     .log-body {
-        height:260px;
+      
         background-color:#fff;
-        padding-left:27px;
-        padding-right:27px;
+       
         padding-top:20px;
+        border-radius:0 0 4px 4px;
+        height:241px;
+        box-sizing:border-box;
 
         .title-main {
 font-size: 20px;
 color: #0E0E0E;
 margin-left:-10px;
 font-weight:600;
+margin-bottom:21px;
+ padding-left:27px;
+    padding-right:27px;
         }
 
         .log-list {
-            margin-top:20px;
 font-size: 16px;
 color: #333333;
-height:120px;
-overflow-y:scroll;
+  height:140px;
+  overflow-y:scroll;
+   padding-left:27px;
+    padding-right:27px;
 
             li{
                 margin-bottom:10px;
                 line-height:30px;
+                 word-break: break-all;
             }
         }
     }
-
-    .log-footer{
-
-        border-top:1px solid #ddd;
-        padding-top:10px;
-        padding-bottom:10px;
-        text-align: center;
-
-        .close-btn {
-            width:120px;
-            height:40px;
-            line-height: 40px;
-            display: inline-block;
-            border: 1px solid #394457;
-            border-radius: 4px;
-
-            font-size: 20px;
-            color: #394457;
-            cursor: pointer;
-
-        }
-
-    }
-
 }

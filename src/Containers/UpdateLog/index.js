@@ -62,6 +62,8 @@ export default class UpdateLog extends React.Component {
             return null;
         }
 
+        ver.content = "俄方但舒服的沙发上。dsfdsfdsf 。23432432423423对方但舒服的沙发对方但舒服的沙发但舒服的沙发。32432434324324sdfsdfdsfsdfdsf。"
+
         var list = ver.content.split('。');
 
         list = list.filter(function(item){
@@ -73,7 +75,7 @@ export default class UpdateLog extends React.Component {
             <ul className="log-list">
                 {
                     list.map((item,index)=>(
-                        <li key={index}>{index+1} : {item}。</li>
+                        <li key={index}>{index+1}, {item}。</li>
                     ))
                 }
             </ul>
@@ -87,12 +89,13 @@ export default class UpdateLog extends React.Component {
 
         return (
 
-            <Dialog modal={true} open={this.state.show}
+            <Dialog ref={(name)=>this.dialog=name} modal={true} fixed={true} open={this.state.show}
                 dialogHeaderStyle={{ backgroundColor: '#fff', display: 'none' }}
-                bodyStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0, borderRadius: 5 }}
-                contentStyle={{ width: 500, height: 600 }}
+                bodyStyle={{ paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0, borderRadius: 4}}
+                contentStyle={{ width: 421, height: 460,borderRadius:4 }}
             >
                 <div className="m-update-log">
+                    <div className="log-close" onClick={this.close}></div>
                     <div className="log-header">
                         <h3>Kr Space -v{ver.version}</h3>
                         <span className="time">{DateFormat(ver.publishDate,'mm.dd')}</span>
@@ -100,9 +103,6 @@ export default class UpdateLog extends React.Component {
                     <div className="log-body">
                         <div className="title-main">【新功能攻略】</div>
                         {this.renderLogList()}
-                    </div>
-                    <div className="log-footer">
-                        <a className="close-btn" onClick={this.close}>关闭</a>
                     </div>
                 </div>
             </Dialog>
