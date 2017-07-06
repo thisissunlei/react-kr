@@ -12,12 +12,13 @@ export default class DialogComponent extends React.Component {
 
 	static defaultProps = {
 		autoScrollBodyContent: false,
+		fxied: false,
 	}
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
-			contentStyle:{marginTop:0}
+			contentStyle: { marginTop: 0 }
 		}
 
 	}
@@ -40,6 +41,7 @@ export default class DialogComponent extends React.Component {
 		*显示遮罩层
 		*/
 		modal: React.PropTypes.bool,
+		fixed: React.PropTypes.bool,
 		/**
 		*
 		*/
@@ -51,79 +53,83 @@ export default class DialogComponent extends React.Component {
 		actions: React.PropTypes.node,
 	}
 
-	componentDidMount(){
+	componentDidMount() {
+		this.initializeStyles();
+		window.addEventListener('resize', function () {
 			this.initializeStyles();
-			window.addEventListener('resize',function(){
-				this.initializeStyles();
-			}.bind(this));
+		}.bind(this));
+	}
+
+	componentDidUpdate() {
+
+		const { fixed } = this.props;
+
+		var dialogContentEle = this.refs.dialogContent;
+		var height = dialogContentEle.getBoundingClientRect().height;
+		if (!dialogContentEle) {
+			return
+		}
+
+		if (fixed) {
+			dialogContentEle.style.transform = `translateY(-${Math.floor(height / 2)}px)`;
+			return;
+		}
+		dialogContentEle.style.transform = `translateY(-${Math.floor(height / 2 + 30)}px)`;
 	}
 
 
+	getPageWidthOrHeight = () => {
 
-	
-
-	componentDidUpdate(){
-			var dialogContentEle = this.refs.dialogContent;
-			var height = dialogContentEle.getBoundingClientRect().height;
-			if(!dialogContentEle){
-				return 
-			}
-			dialogContentEle.style.transform = `translateY(-${Math.floor(height/2+30)}px)`;
+		var page = {};
+		page.width = window.innerWidth;
+		page.height = window.innerHeight;
+		if (document.compatMode == 'CSS1Compat') {
+			page.width = document.documentElement.clientWidth;
+			page.height = document.documentElement.clientHeight;
+		} else {
+			page.width = document.body.clientWidth;
+			page.height = document.body.clientHeight;
+		}
+		return Object.assign({}, page);
 	}
 
+	initializeStyles = () => {
 
-	getPageWidthOrHeight = ()=>{
+		var ele;
+		try {
+			ele = this.refs.dialog;
+		} catch (err) {
+			ele = null;
+		}
 
-			var page = {};
-			 page.width = window.innerWidth;
-			 page.height = window.innerHeight;
-			if(document.compatMode == 'CSS1Compat'){
-				 page.width = document.documentElement.clientWidth;
-				 page.height = document.documentElement.clientHeight;
-			}else{
-				page.width = document.body.clientWidth;
-				page.height = document.body.clientHeight;
-			}
-			return  Object.assign({},page);
-	}
+		if (!ele) {
+			return;
+		}
 
-	initializeStyles = ()=>{
+		var position = {};
 
-			var ele;
-			try{
-				ele = this.refs.dialog;
-			}catch(err){
-				ele = null;
-			}
+		try {
+			position = ele.getBoundingClientRect();
+		} catch (err) {
+			position = {};
+		}
 
-			if(!ele){
-				return;
-			}
+		var page = this.getPageWidthOrHeight();
 
-			var position = {};
-
-			try{
-					position = ele.getBoundingClientRect();
-			}catch(err){
-				position = {};
-			}
-
-			var page = this.getPageWidthOrHeight();
-
-			ele.style.width = page.width+'px';
-			ele.style.height = page.height+'px';
-			ele.style.zIndex = 1001;
-			ele.style.top = -position.top +'px';
-			ele.style.left = -position.left+'px';
-			ele.style.bottom = -position.bottom+'px';
-			ele.style.right = -0+'px';
+		ele.style.width = page.width + 'px';
+		ele.style.height = page.height + 'px';
+		ele.style.zIndex = 1001;
+		ele.style.top = -position.top + 'px';
+		ele.style.left = -position.left + 'px';
+		ele.style.bottom = -position.bottom + 'px';
+		ele.style.right = -0 + 'px';
 
 	}
 
 
-	onClose = ()=>{
-			const {onClose} = this.props;
-			onClose && onClose();
+	onClose = () => {
+		const { onClose } = this.props;
+		onClose && onClose();
 	}
 
 	render() {
@@ -140,31 +146,32 @@ export default class DialogComponent extends React.Component {
 			contentStyle,
 			footerStyle,
 			actions,
+			fixed,
 			dialogHeaderStyle,
 			...other
 		} = this.props;
 
 		let styles = {};
-        let closeStyle={};
-		if(open){
-				styles.display = 'block';
-		}else{
-				styles.display = 'none';
+		let closeStyle = {};
+		if (open) {
+			styles.display = 'block';
+		} else {
+			styles.display = 'none';
 		}
-		if(typeof onClose!='function'){
-		  closeStyle.display='none';
+		if (typeof onClose != 'function') {
+			closeStyle.display = 'none';
 		}
 
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
 				<div className="dialog-modal"></div>
 				<div id="dialog-content" ref="dialogContent" className="dialog-content" style={contentStyle}>
-						<div className="dialog-header" style={dialogHeaderStyle}>
-								<div className="dialog-header-title"> {title} </div>
-								<span className="close" onClick={this.onClose} style={closeStyle}></span>
-						</div>
-						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
-						{open && actions &&  <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
+					<div className="dialog-header" style={dialogHeaderStyle}>
+						<div className="dialog-header-title"> {title} </div>
+						<span className="close" onClick={this.onClose} style={closeStyle}></span>
+					</div>
+					{open && <DialogBody bodyStyle={bodyStyle} fixed={fixed}> {children} </DialogBody>}
+					{open && actions && <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>
 		);
