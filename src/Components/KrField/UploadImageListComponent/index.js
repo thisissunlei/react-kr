@@ -169,7 +169,7 @@ export default class UploadImageListComponent extends Component {
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
 									fileResponse.data.map((item,index)=>{
-                    images.push({
+                                     images.push({
 										photoId:item.id,
 										src:item.ossHref,
 									 });
@@ -187,9 +187,10 @@ export default class UploadImageListComponent extends Component {
 							}
 						}
 					};
-					xhrfile.open('POST', '/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
+					xhrfile.open('POST', 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
 					xhrfile.responseType = 'json';
-					xhrfile.send(form);
+					xhrfile.withCredentials = true;
+					xhrfile.send(form); 
 				} else {
 					_this.onTokenError();
 				}

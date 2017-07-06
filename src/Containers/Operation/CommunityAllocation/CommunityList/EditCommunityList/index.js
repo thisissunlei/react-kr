@@ -48,7 +48,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
           <span className="unit">层</span>
         </div>
         <div className="krFlied-box"><KrField
-          style={{width:201,marginLeft:33,marginRight:3}}
+          style={{width:201,marginLeft:32,marginRight:3}}
           requireLabel={true}
           grid={1/2}
           name={`${wherefloorsStr}.stationCount`}
@@ -223,8 +223,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
-							<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:'1'},{label:'未开业',value:'0'}]}/>
-							<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+							<KrField grid={1} label="开业时间" name="openDate" style={{width:'262px',marginLeft:15,display:'block'}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 							<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 							<div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
@@ -238,7 +237,7 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 								<KrField component="selectTime"  style={{width:140,zIndex:5,marginLeft:-1,marginTop:15}} name='businessEnd' timeNum={timeEnd}/>
                 </div>
 
-								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:9}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:8}} component="input" requireLabel={true}/>
            
 									<div className="end-round" style={{left:'-42px'}}></div>
 								</div>

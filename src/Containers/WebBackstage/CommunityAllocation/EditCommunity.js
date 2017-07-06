@@ -137,6 +137,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       }
    }
 
+  
     render(){
 
         let {isCover}=this.state;
@@ -160,8 +161,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
              width:262,marginLeft:15
            }  
         }
-        
-    
+            
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
@@ -197,7 +197,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 photoSize={'3:2'}
                                 pictureFormat={'JPG,PNG,GIF'}
                                 pictureMemory={'300'}
-                                requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                requestURI = 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                 inline={false}
                                 formfile=' '
                                 defaultValue={stationValue}

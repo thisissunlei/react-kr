@@ -164,14 +164,22 @@ export default class CommunityAllocation  extends React.Component{
    //点击空白关闭
    whiteClose=()=>{
        this.setState({
-           openEditCommunity:false
+           openEditCommunity:false,
+           firstValue:'',
+           listValue:'',
+           detailValue:'',
+           stationValue:''
        })  
    }
   
   //编辑取消
    editCancel=()=>{
       this.setState({
-           openEditCommunity:!this.state.openEditCommunity
+           openEditCommunity:!this.state.openEditCommunity,
+           firstValue:'',
+           listValue:'',
+           detailValue:'',
+           stationValue:''
        })
    }
  
@@ -189,7 +197,6 @@ export default class CommunityAllocation  extends React.Component{
        if(!params.stationImageId){
          params.stationImageId='';   
        }
-       console.log('sear',params);
        let {searchParams}=this.state;
        Http.request('web-community-edit',{},params).then(function(response) {
            _this.setState({
@@ -197,7 +204,11 @@ export default class CommunityAllocation  extends React.Component{
                   time:+new Date(),
                   pageSize:15,
                   page:searchParams.page
-               }     
+               },
+               firstValue:'',     
+               listValue:'',
+               detailValue:'',
+               stationValue:''
            })
         }).catch(function(err) {
             Message.error(err.message);
@@ -213,6 +224,8 @@ export default class CommunityAllocation  extends React.Component{
        searchParams:Object.assign({},this.state.searchParams,searchParams)   
      })  
   } 
+
+  
 
 	render(){
 

@@ -193,7 +193,7 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		var form = new FormData();
-		form.append(formfile, file);
+		form.append('file', file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -231,10 +231,6 @@ export default class UploadImageComponent extends Component {
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
-					_this.setState({
-						operateImg:false,
-						mgUpload: false,
-					})
 					_this.onTokenError();
 				}
 			}
@@ -243,6 +239,11 @@ export default class UploadImageComponent extends Component {
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
+		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
+		_this.setState({
+			imgUpload: true,
+			operateImg : false
+		});
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
