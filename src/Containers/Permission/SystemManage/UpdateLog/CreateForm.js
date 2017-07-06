@@ -28,6 +28,9 @@ import {
 } from 'kr-ui';
 
 
+import {Http} from 'kr/Utils';
+
+
 class UpdateLogCreateForm extends React.Component {
 
 	constructor(props, context) {
@@ -39,21 +42,14 @@ class UpdateLogCreateForm extends React.Component {
 
 		return (
 			<div >
-			<KrField
-	 					 grid={1}
 
-						 left={42}
-						 right={18}
-	 					 name="version"
-	 					 style={{marginTop:4}}
-	 					 label="系统版本"
-						 component="input"
-	 			 		/>	
+	<KrField name="version" label="id" component="input" type="hidden" />	
 
 
-                          	<KrField
-	 					 grid={1}
+			<KrField grid={1} left={42} right={18} name="version" style={{marginTop:4}} label="系统版本" component="input" />	
 
+
+                      	<KrField
 						 left={42}
 						 right={18}
 	 					 name="version"

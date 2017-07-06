@@ -33,15 +33,8 @@ class UpdateLog extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-			},
 			itemDetail: '',
-			openHighSearch: false,
 			openCreateDialog: false,
-			openEditDialog: false,
-			openViewDialog:false,
 		}
 	}
 	//操作相关
@@ -56,83 +49,22 @@ class UpdateLog extends React.Component {
 			this.openEditDialog();
 		}
 	}
-//高级查询
-openHighSearch = () => {
-    this.setState({
-      openHighSearch: !this.state.openHighSearch
-    })
-  }
 
-	onSearchSubmit = (form) => {
-		this.setState({
-			searchParams:form
-		})
-		this.openHighSearch();
-	}
-//普通查询
-	searchParams = (form) => {
-		var _this = this;
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				version: form.content
-			}
-		})
-	}
-	openViewDialog = () => {
-		this.setState({
-			openViewDialog: !this.state.openViewDialog
-		})
-	}
+
 	openCreateDialog = () => {
 		this.setState({
 			openCreateDialog: !this.state.openCreateDialog
 		})
 	}
-	openEditDialog = () => {
-		this.setState({
-			openEditDialog: !this.state.openEditDialog
-		})
-	}
-	onCreatSubmit = (params) => {
-		var _this = this;
-		Http.request('save-version', {}, params).then(function(response) {
-			_this.openCreateDialog();
-			Message.success('新建成功');
-			_this.changeP();
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
 
-	}
-	onEditSubmit = (params) => {
-		var _this = this;
-		params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
-		Http.request('save-version', {}, params).then(function(response) {
-			_this.openEditDialog();
-			Message.success('修改成功');
-			_this.changeP();
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
-	}
-	//改变页码
-    changeP=()=>{
-        var timer = new Date();
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.timer=timer;
-		this.setState({
-            searchParams:searchParams,
-        })
+    onCancel = ()=>{
+        this.openCreateDialog();
     }
-	onPageChange=(page)=>{
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.page=page;
-		this.setState({
-            searchParams:searchParams,
-        })
+
+    onSubmit = ()=>{
+        this.openCreateDialog();
     }
+
 	render() {
 		let {itemDetail} = this.state;
 
@@ -154,11 +86,13 @@ openHighSearch = () => {
           onOperation={this.onOperation}
           >
         <TableHeader>
-        <TableHeaderColumn>系统版本</TableHeaderColumn>
-        <TableHeaderColumn>设备类型</TableHeaderColumn>
-        <TableHeaderColumn>下载地址</TableHeaderColumn>
-		<TableHeaderColumn>版本升级内容</TableHeaderColumn>
-		<TableHeaderColumn>发布时间</TableHeaderColumn>
+        <TableHeaderColumn>编号</TableHeaderColumn>
+        <TableHeaderColumn>版本号</TableHeaderColumn>
+		<TableHeaderColumn>更新内容</TableHeaderColumn>
+        <TableHeaderColumn>发布状态</TableHeaderColumn>
+        <TableHeaderColumn>发布时间</TableHeaderColumn>
+		<TableHeaderColumn>创建时间</TableHeaderColumn>
+		<TableHeaderColumn>创建人</TableHeaderColumn>
 		<TableHeaderColumn>操作</TableHeaderColumn>
       </TableHeader>
 
@@ -166,6 +100,8 @@ openHighSearch = () => {
         <TableRow>
           <TableRowColumn name="version" ></TableRowColumn>
 
+          <TableRowColumn name="osTypeName"></TableRowColumn>
+          <TableRowColumn name="osTypeName"></TableRowColumn>
           <TableRowColumn name="osTypeName"></TableRowColumn>
 
           <TableRowColumn name="appTypeName"></TableRowColumn>
@@ -200,7 +136,6 @@ openHighSearch = () => {
       </Table>
 				</Section>
 
-
               <Dialog
 					title="创建"
 					modal={true}
@@ -209,7 +144,7 @@ openHighSearch = () => {
 					contentStyle={{width:666}}
 				>
 
-                <CreateForm />
+                <CreateForm onCancel={this.onCancel} onSubmint={this.onSubmint}/>
 			
 				</Dialog>
 				
