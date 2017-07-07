@@ -64,10 +64,10 @@ class UpdateLogCreateForm extends React.Component {
 					<KrField name="version" label="id" component="input" type="hidden" />
 
 
-					<KrField grid={1} left={42} right={18} name="version" style={{ marginTop: 4 }} label="系统版本" component="input" />
+					<KrField grid={1} left={42} right={18} name="version" style={{ marginTop: 4 }} label="系统版本" placeholder="比如:v1.0.0" component="input" />
 
 
-					<KrField left={42} right={18} name="content" style={{ marginTop: 4 }} label="新增具体功能" component="textarea" />
+					<KrField left={42} right={18} name="content" style={{ marginTop: 4 }} label="新增具体功能" placeholder="每条更新的内容以中文句号。分割" component="textarea" maxSize={500}/>
 
 					<Grid style={{ marginTop: 15, marginBottom: 5 }}>
 						<Row>

@@ -209,7 +209,7 @@ class UpdateLog extends React.Component {
                                 <TableRowColumn type="operation" component={(item) => {
 
                                     if(item.publishStatus){
-                                        return null;
+                                        return <span>-</span>;
                                     }
 
                                     return (
