@@ -70,7 +70,7 @@ export default class JoinPrint extends React.Component {
 				background:`url(${cachetUrl}) 100% 100%`,
 				position:'absolute',
 				backgroundSize:'cover',
-				top:350+(i*1200),
+				top:350+(i*1120),
 				right:0,
 				width:width,
 				height:160,
@@ -87,13 +87,11 @@ export default class JoinPrint extends React.Component {
 	render() {
 		return (
 		<div style={{background:'#fff'}}>
-			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
-				return item
-			})}
-
-
 			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
+				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
+					return item
+				})}
 				<Print.Header
 					baseInfo={State.baseInfo}
 					orderInfo="入驻服务协议"

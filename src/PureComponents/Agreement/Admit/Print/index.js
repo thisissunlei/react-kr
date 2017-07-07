@@ -80,7 +80,8 @@ export default class AdmitPrint extends React.Component {
 		
 		return (
 
-			<div className="print-section no-print-section">
+			<div className="print-section no-print-section print-flex" style={{display:'flex'}}>
+			<div style={{height:'auto'}}>
 			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}
@@ -108,6 +109,7 @@ export default class AdmitPrint extends React.Component {
 						stationVOs={State.stationVOs}
 						baseInfo={State.baseInfo}
 				/>
+				</div>
 				
 
 				<Print.Footer />

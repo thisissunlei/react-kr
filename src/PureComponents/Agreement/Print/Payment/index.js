@@ -48,6 +48,9 @@ export default class Payment extends Component {
 		return pageItem;
 		
 	}
+	checkFooter=()=>{
+		let tableFooter = document.getElementsByClassName('reminders')[0];
+	}
 
 	Onetable = (installmentPlans) => {
 		this.checkPosition();
