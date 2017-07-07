@@ -79,6 +79,12 @@ module.exports = [
 						menuCode: 'oper_notice_base',
 						router: '/operation/communityAllocation/noticemanage'
 					},
+					{
+						primaryText: '积分管理',
+						menuCode: 'oper_integration_base',
+						router: '/operation/communityAllocation/integration'
+					},
+					
 					
 				]
 			},

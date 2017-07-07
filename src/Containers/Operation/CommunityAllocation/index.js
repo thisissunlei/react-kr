@@ -29,7 +29,7 @@ import {
 import {default as MyAddress} from './MyAddress';
 import { default as AppManage } from './AppManage';
 import { default as NoticeManage } from './NoticeManage';
-
+import {default as IntegrationManage} from './IntegrationManage';
 
 module.exports = {
 	CommunityList,
@@ -44,5 +44,6 @@ module.exports = {
 	CommunityPlanList,
 	AppManage,
 	NoticeManage,
+	IntegrationManage,
 
 }
