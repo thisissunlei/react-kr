@@ -213,11 +213,14 @@ export default class UploadImageComponent extends Component {
 		let {children,className,style,meta: { touched, error },type,label,inline,requireLabel,name,...other} = this.props;
 		let {operateImg} = this.state;
 		return(
+			
 		 	<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimg-box">
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-						{this.state.imgSrc&&<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{zIndex:10,position:'absolute',left:'50%',transform: 'translateX(-50%)',height:'75px'}}/>}
+						{this.state.imgSrc&&
+						 <div style={{position:'absolute',zIndex:'10',backgroundImage:`url(${this.state.imgSrc})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain',width:'120px',height:'75px'}}></div>
+						 }
 						<div className='ui-uploadimg-inner' >
 							<span className='ui-uploadimg-button'>+</span>
 							<input type='file' onChange={this.onChange} ref="inputImg"/>

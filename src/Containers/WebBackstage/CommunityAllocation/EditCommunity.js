@@ -172,7 +172,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
    }
 
    changeCharge = (data) =>{
-      if(!data){
+      if(!data||(data&&data.length==0)){
         this.setState({
           chargeName:'社区负责人'
         })
@@ -182,7 +182,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   
     render(){
-
+       
         let {isCover,chargeName,detailTip}=this.state;
  
         const {handleSubmit,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
