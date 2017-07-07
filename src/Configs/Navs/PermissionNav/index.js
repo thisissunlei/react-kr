@@ -71,7 +71,7 @@ module.exports = [
 				{
 					primaryText: 'Pc版本管理',
 					router: '/permission/systemManage/update-log',
-					menuCode: 'sso_appVersion_base',
+					menuCode: 'op_ver',
 				},
 				]
 			},
