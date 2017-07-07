@@ -134,7 +134,7 @@ class UpdateLog extends React.Component {
             }
             that.setState({ searchParams, openUpdateDialog: false });
         }).catch(function (err) {
-            Message.error(err);
+            Message.error(err.message);
         });
 
     }
@@ -218,7 +218,6 @@ class UpdateLog extends React.Component {
                                             <Button label="发布" type="operation" operation="publish" onClick={this.openPublishDialog.bind(this,item)} /> 
                                         </div>
                                     )
-
                                 }}>
 
 
