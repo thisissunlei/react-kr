@@ -87,7 +87,7 @@ export default class JoinPrint extends React.Component {
 	render() {
 		let style={
 			position:'absolute',
-			top:1100,
+			top:1070,
 			border:'1px solid red',
 			width:'100%',
 			height:1
@@ -118,6 +118,7 @@ export default class JoinPrint extends React.Component {
 					installmentPlans={State.installmentPlans}
 
 				/>
+				{/*<Button onClick={this.print}>print</Button>*/}
 				{
 					(State.baseInfo.agreement && State.baseInfo.agreement.length>45)?(
 							<div className="print-text">

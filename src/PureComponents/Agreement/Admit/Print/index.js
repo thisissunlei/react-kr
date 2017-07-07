@@ -80,7 +80,7 @@ export default class AdmitPrint extends React.Component {
 		
 		return (
 
-			<div className="print-section no-print-section print-flex">
+			<div className="print-section no-print-section print-flex" style={{minHeight:'293mm'}}>
 			<div style={{height:'auto'}}>
 			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item

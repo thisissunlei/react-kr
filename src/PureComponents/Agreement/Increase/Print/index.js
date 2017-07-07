@@ -113,7 +113,7 @@ export default class IncreasePrint extends React.Component {
 	render() {
 		return (
 
-			<div className="print-section no-print-section">
+			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}

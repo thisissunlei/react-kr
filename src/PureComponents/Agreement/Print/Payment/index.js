@@ -26,12 +26,13 @@ export default class Payment extends Component {
  		let pageItem ;
 		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
 		let tableBottom = document.getElementsByClassName('reminders')[0];
+		this.init = false;
 		if(!tableTop){
 			return;
 		}
 		let top = tableTop.offsetTop;
 		let height = top+tableTop.clientHeight +55;
-		let tableBottomHeight = top+tableTop.clientHeight-30;
+		let tableBottomHeight = top+tableTop.clientHeight - 35;
 		//分期下面内容换页
 		if(height>1080 && height<1140){
 			tableTop.style.marginBottom = (1140-height)+'px';
@@ -51,14 +52,12 @@ export default class Payment extends Component {
 			let marginTop = 1180-top;
 			tableTop.style.marginTop = marginTop+'px';
 		}
-		if(tableBottomHeight>1070 && tableBottomHeight<1140){
-			tableBottom.style.marginTop = (1140-tableBottomHeight)+'px';
+		if(tableBottomHeight>1050 && tableBottomHeight<1148 && !this.init){
+			tableBottom.style.marginTop = (1150-tableBottomHeight)+'px';
+			this.init = true
 		}
 		return pageItem;
 		
-	}
-	checkFooter=()=>{
-		let tableFooter = document.getElementsByClassName('reminders')[0];
 	}
 
 	Onetable = (installmentPlans) => {
