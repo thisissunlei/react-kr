@@ -143,7 +143,7 @@ class UpdateLog extends React.Component {
 
         return (
             <div className="g-applogin-list">
-                <Section title="Pc版本管理" >
+                <Section title="PC版本管理" >
                     <Grid style={{ marginBottom: 22, marginTop: 2 }}>
                         <Row>
                             <Col md={4} align="left" >
@@ -188,6 +188,9 @@ class UpdateLog extends React.Component {
                                 }}>
                                 </TableRowColumn>
                                 <TableRowColumn name="publishStatus" component={(value) => {
+                                    if(value === 'false'){
+                                        value = false;
+                                    }
                                     return (
                                         <span>{value ? '已发布' : '未发布'}</span>
                                     )

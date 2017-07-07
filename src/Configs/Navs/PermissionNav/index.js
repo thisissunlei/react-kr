@@ -69,7 +69,7 @@ module.exports = [
 					menuCode: 'sso_appVersion_base',
 				},
 				{
-					primaryText: 'Pc版本管理',
+					primaryText: 'PC版本管理',
 					router: '/permission/systemManage/update-log',
 					menuCode: 'op_ver',
 				},
