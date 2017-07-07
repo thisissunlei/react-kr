@@ -30,8 +30,10 @@ export default class IncreasePrint extends React.Component {
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
+		let _this = this;
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
+			_this.renderImg()
 			window.print();
 			window.close();
 		}, 1300)
@@ -71,7 +73,7 @@ export default class IncreasePrint extends React.Component {
 			str.push(<div style={style}></div>);
 
 		}
-		return str;
+		State.cachet = str;
 	}
 	renderContent=()=>{
 		if(State.baseInfo.hasOwnProperty('agreement')){
@@ -109,11 +111,10 @@ export default class IncreasePrint extends React.Component {
 	}
 
 	render() {
-		let doms = this.renderImg() || [];
 		return (
 
-			<div className="print-section no-print-section">
-			{State.baseInfo.withCachet && doms.map((item,index)=>{
+			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
+			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(增加)`}/>

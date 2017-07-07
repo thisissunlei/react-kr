@@ -30,21 +30,23 @@ export default class JoinPrint extends React.Component {
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
+		let _this = this;
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
+			_this.renderImg()
 			window.print();
 			window.close();
 		}, 1000)
 	}
 	renderImg=()=>{
-		var printList = document.getElementsByClassName('g-exit-print')[0];
+		var printList = document.getElementsByClassName('print-section')[0];
 		if(!printList){
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1200 && !this.init){
+		if(printHeight>1120 && !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
+			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
 		}
 		this.pages = Math.ceil(printHeight/1200);
 		let str=[] ;
@@ -70,7 +72,7 @@ export default class JoinPrint extends React.Component {
 			str.push(<div style={style}></div>);
 
 		}
-		return str;
+		State.cachet = str;
 	}
 	getLocalTime = (beginDate) => {
 		var now = new Date(beginDate);
@@ -112,14 +114,13 @@ export default class JoinPrint extends React.Component {
 		}
 	}
 	render() {
-		let doms = this.renderImg() || [];
 		return (
-			<div className="g-exit-print">
-				{State.baseInfo.withCachet && doms.map((item,index)=>{
+			<div className="g-exit-print" >
+				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(减少)`}/>
-				<div className="print-section no-print-section" >
+				<div className="print-section no-print-section" style={{minHeight:'293mm'}} >
 
 					<Print.Header
 						baseInfo={State.baseInfo}
