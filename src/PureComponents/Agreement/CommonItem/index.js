@@ -102,7 +102,7 @@ export default class CommonItem extends Component {
 				
 				<p className="print-Item-Bottom">
 					<span style={{fontSize:'14px'}}>氪空间&ensp;<span className="dott"></span>&ensp;让办公更简单</span>
-					<span  style={{fontSize:'13px'}} className="tel">Tel：400-807-3636</span>
+					<span  style={{fontSize:'13px',marginLeft:25}} className="tel">Tel：400-807-3636</span>
 				</p>
 
 

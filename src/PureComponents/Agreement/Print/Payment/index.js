@@ -25,25 +25,34 @@ export default class Payment extends Component {
  		let {installmentPlans} = this.props;
  		let pageItem ;
 		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
+		let tableBottom = document.getElementsByClassName('reminders')[0];
 		if(!tableTop){
 			return;
 		}
 		let top = tableTop.offsetTop;
-		let height = top+tableTop.clientHeight + 66;
+		let height = top+tableTop.clientHeight +55;
+		let tableBottomHeight = top+tableTop.clientHeight-30;
 		//分期下面内容换页
-		if(height>1110 && height<1250){
-			tableTop.style.marginBottom = (1250-height)+'px';
+		if(height>1080 && height<1140){
+			tableTop.style.marginBottom = (1140-height)+'px';
 		}
 		//分期内容换页
 		// if(top<1060 && top>720){
 		if(top<1040 && top>720){
 			let domHeight = 1120-top-28-27;
 			let num = parseInt(domHeight/22.5);
-			pageItem = num-2;
+			if(domHeight%22.5>14){
+				pageItem = num -1;
+			}else{
+				pageItem = num-2;
+			}
 			
 		}else if(top<1140 && top>1040){
 			let marginTop = 1180-top;
 			tableTop.style.marginTop = marginTop+'px';
+		}
+		if(tableBottomHeight>1070 && tableBottomHeight<1140){
+			tableBottom.style.marginTop = (1140-tableBottomHeight)+'px';
 		}
 		return pageItem;
 		
@@ -97,7 +106,6 @@ export default class Payment extends Component {
 			plansTwo = installmentPlans.slice(installmentPlans.length/2 +1, installmentPlans.length);
 		}
 		let pageSize = Math.ceil((plansOne.length-num)/48);
-		console.log('pageSize',pageSize);
 		return (
 			<div className="table-two-list">
 					<div className="two-line">

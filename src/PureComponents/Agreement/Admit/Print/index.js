@@ -36,7 +36,7 @@ export default class AdmitPrint extends React.Component {
 		setTimeout(function() {
 			_this.renderImg()
 			window.print();
-			// window.close();
+			window.close();
 		}, 1200)
 	}
 	renderImg=()=>{
@@ -80,7 +80,7 @@ export default class AdmitPrint extends React.Component {
 		
 		return (
 
-			<div className="print-section no-print-section print-flex" style={{display:'flex'}}>
+			<div className="print-section no-print-section print-flex">
 			<div style={{height:'auto'}}>
 			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item

@@ -35,7 +35,7 @@ export default class IncreasePrint extends React.Component {
 		setTimeout(function() {
 			_this.renderImg()
 			window.print();
-			// window.close();
+			window.close();
 		}, 1300)
 
 	}

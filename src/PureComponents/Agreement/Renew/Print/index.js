@@ -36,7 +36,7 @@ export default class RenewPrint extends React.Component {
 		setTimeout(function() {
 			_this.renderImg()
 			window.print();
-			// window.close();
+			window.close();
 		}, 1000)
 
 	}
@@ -112,7 +112,13 @@ export default class RenewPrint extends React.Component {
 	}
 
 	render() {
-
+		let style={
+			position:'absolute',
+			top:1100,
+			border:'1px solid red',
+			width:'100%',
+			height:1
+		}
 		return (
 		<div>
 			<div className="print-section no-print-section"  style={{minHeight:'293mm'}}>

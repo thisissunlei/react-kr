@@ -39,7 +39,7 @@ export default class JoinPrint extends React.Component {
 		setTimeout(function() {
 			State.cachet = _this.renderImg();
 		 	window.print();
-		 	// window.close();
+		 	window.close();
 		 }, 1200)
 
 
@@ -85,10 +85,18 @@ export default class JoinPrint extends React.Component {
 		window.print()
 	}
 	render() {
+		let style={
+			position:'absolute',
+			top:1100,
+			border:'1px solid red',
+			width:'100%',
+			height:1
+		}
 		return (
 		<div style={{background:'#fff'}}>
 			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
+			{/*<div style={style}></div>*/}
 				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
