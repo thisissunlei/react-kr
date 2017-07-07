@@ -149,18 +149,17 @@ class SearchUpperForm extends React.Component {
 		return(
 			<div style={dateBoxStyle} className='customer-searchUpper list-community-supper' onclick={this.customerClick}>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-                <SearchForm placeholder='请输入关键字' searchFilter={searchFilter} style={{width:262,marginTop:57,marginLeft:-1,marginBottom:15}} onSubmit={this.onSearchSubmit} defaultFilter='NAME'/>
-                <KrField  grid={1/2} style={{marginTop:1,width:262}} name={cityCountId} component="city" onSubmit={this.cityValue} label="所属地区" openCity  
+				<KrField  grid={1/2} style={{marginTop:1,width:262,marginRight:'27px'}} name={cityCountId} component="city" onSubmit={this.cityValue} label="所属地区" openCity  
                 />
-				<KrField  grid={1/2}  style={{marginLeft:28,width:262}}  name="opened" type="select"  label="社区状态" 
+                <SearchForm placeholder='请输入关键字' searchFilter={searchFilter} style={{width:262,marginTop:22,display:'inline-block',marginLeft:-1,marginBottom:15}} onSubmit={this.onSearchSubmit} defaultFilter='NAME'/>
+                
+				<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="opened" type="select"  label="社区状态" 
 				 options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]} 
 				/>
-				<KrField  grid={1/2}  name="businessAreaId" type="select"  style={{marginTop:4,width:262}} label="所属商圈" 
+				<KrField  grid={1/2}  name="businessAreaId" type="select"  style={{width:262}} label="所属商圈" 
 				  options={State.searchData}
 				></KrField>
-				<KrField  grid={1/2}  name="portalShow" type="select"  style={{marginTop:4,marginLeft:28,width:262}} label="官网显示状态" 
-				  options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}
-				></KrField>
+				
 				<KrField grid={1/1}  component="group" label="开业时间" style={{marginTop:3}}>
 				<div className='list-listDate'>
 					<ListGroup>

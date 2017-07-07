@@ -41,7 +41,7 @@ export default class FirstSure extends Component{
 					
 
 					  <div style={{paddingLeft:'100px'}}>
-									<div  className='ui-btn-center'><Button  label="确定"  onTouchTap={this.onSubmit}/></div>
+									<div  className='ui-btn-center' style={{display:'inline-block',marginRight:'30px'}}><Button  label="确定"  onTouchTap={this.onSubmit}/></div>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /> 
 								
                      </div>

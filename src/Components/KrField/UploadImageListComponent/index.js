@@ -15,6 +15,7 @@ import defaultRemoveImageIcon from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
 import DeleteSure from './DeleteSure';
 import FirstSure from './FirstSure';
+import WrapComponent from '../WrapComponent';
 
 export default class UploadImageListComponent extends Component {
 
@@ -49,11 +50,9 @@ export default class UploadImageListComponent extends Component {
 
 
 	setDefaultValue = (images)=>{
-
-		if (this.init){
+		if (this.init&&images.length>0){
 			return ;
 		}
-
 		if(images && images.length){
 			this.setState({
 				images
@@ -65,11 +64,11 @@ export default class UploadImageListComponent extends Component {
 	}
 
 	componentDidMount() {
-		this.setDefaultValue(this.props.defaultValue);
+
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setDefaultValue(nextProps.defaultValue);
+		  this.setDefaultValue(nextProps.defaultValue);
 	}
 
 	onTokenError() {
@@ -170,7 +169,7 @@ export default class UploadImageListComponent extends Component {
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
 									fileResponse.data.map((item,index)=>{
-                    images.push({
+                                     images.push({
 										photoId:item.id,
 										src:item.ossHref,
 									 });
@@ -188,9 +187,10 @@ export default class UploadImageListComponent extends Component {
 							}
 						}
 					};
-					xhrfile.open('POST', '/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
+					xhrfile.open('POST', 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
 					xhrfile.responseType = 'json';
-					xhrfile.send(form);
+					xhrfile.withCredentials = true;
+					xhrfile.send(form); 
 				} else {
 					_this.onTokenError();
 				}
@@ -265,13 +265,12 @@ export default class UploadImageListComponent extends Component {
 		},function(){
 			onChange && onChange(images);
 		});
-
     }
 
 
 	render() {
 
-		let {children,imgFlag,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
+		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
 
         var imgStyle='';
@@ -283,7 +282,8 @@ export default class UploadImageListComponent extends Component {
 
 
 		return(
-			<div className="ui-uploadimgList-box" style={style}>
+		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
+			<div className="ui-uploadimgList-box" style={boxStyle} >
 
 				<div className='ui-uploadimg-outbox' >
 
@@ -313,7 +313,7 @@ export default class UploadImageListComponent extends Component {
 					</div>
 				</div>
 			</div>
-
+       
 
 
 
@@ -347,6 +347,8 @@ export default class UploadImageListComponent extends Component {
 				    </Dialog>
 
 		</div>
+		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+	</WrapComponent>
 	);
   }
 }

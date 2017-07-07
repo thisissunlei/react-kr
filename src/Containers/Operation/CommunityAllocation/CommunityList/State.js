@@ -57,6 +57,7 @@ State.onNewCommunitySubmit= action(function(data) {
 		 var data = Object.assign({},_this.searchParams);
 		 data.page = page==1?1:_this.searchParams.page;
 		 data.pageSize = 15;
+		 data.time=+new Date();
 		_this.openNewCommunity=false;
 		_this.openEditCommunity=false;
 		_this.searchParams=data;

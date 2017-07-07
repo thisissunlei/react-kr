@@ -67,4 +67,19 @@ module.exports = {
       url: '/api/krspace-finance-web/news/get-news-detail?id={id}',
       method: 'get'
    },
+    //官网社区配置列表
+   'web-community-list':{
+      url: '/api/krspace-finance-web/cmt/list?appoint={appoint}&cmtName={cmtName}&customed={customed}&page={page}&pageSize={pageSize}&show={show}',
+      method: 'get'
+   },
+    //官网社区配置编辑
+   'web-community-edit':{
+      url: '/api/krspace-finance-web/cmt/edit',
+      method: 'post'
+   },
+   //官网社区配置详情
+   'web-community-detail':{
+      url: '/api/krspace-finance-web/cmt/detail?id={id}',
+      method: 'get'
+   },
 }
