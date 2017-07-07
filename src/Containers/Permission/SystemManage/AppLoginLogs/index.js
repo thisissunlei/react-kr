@@ -144,7 +144,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-applogin-list">
-				<Section title="版本管理" >
+				<Section title="APP版本管理" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" >

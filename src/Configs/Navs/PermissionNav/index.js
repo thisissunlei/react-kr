@@ -64,7 +64,7 @@ module.exports = [
 				router: 'permission/systemManage',
 				menuItems: [
 					{
-					primaryText: '版本管理',
+					primaryText: 'APP版本管理',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'sso_appVersion_base',
 				},

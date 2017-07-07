@@ -159,7 +159,6 @@ class UpdateLog extends React.Component {
                         ajaxUrlName='version-log-list'
                     >
                         <TableHeader>
-                            <TableHeaderColumn>编号</TableHeaderColumn>
                             <TableHeaderColumn>版本号</TableHeaderColumn>
                             <TableHeaderColumn>更新内容</TableHeaderColumn>
                             <TableHeaderColumn>发布状态</TableHeaderColumn>
@@ -171,7 +170,6 @@ class UpdateLog extends React.Component {
 
                         <TableBody>
                             <TableRow>
-                                <TableRowColumn name="id" ></TableRowColumn>
                                 <TableRowColumn name="version"></TableRowColumn>
                                 <TableRowColumn name="content" component={(value) => {
                                     var styles = {
@@ -183,8 +181,14 @@ class UpdateLog extends React.Component {
                                     } else {
                                         styles.display = "block";
                                     }
-                                    return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{ maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>{value}</span>
-                                        <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                                    return (<div style={styles} className='update-log-hover'><span className='tableOver' style={{ maxWidth: 100, display: "inline-block", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>{value}</span>
+                                        <Tooltip offsetTop={5} place='top'>
+                                            
+                                        	<div style={{width:"200px",maxHeight:"160px",whiteSpace:"normal",lineHeight:"22px",wordWrap:'break-word',overflowY:'scroll'}}>{value}</div>
+                                            </Tooltip>
+
+
+                                        </div>)
                                 }}>
                                 </TableRowColumn>
                                 <TableRowColumn name="publishStatus" component={(value) => {
