@@ -3,7 +3,7 @@ const APIS = {
     //获取文件token－－－－－－－>名字没用到，上传文件组件里面用到此地址
 
    'version-log-list': {
-        url: '/api/krspace-sso-web/sso/show-all-ver',
+        url: '/api/krspace-sso-web/sso/show-all-ver?page={page}&pageSize={pageSize}&time={time}',
         method: 'get'
     },
 
