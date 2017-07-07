@@ -2,7 +2,8 @@ import React from 'react';
 import {Http} from 'kr/Utils';
 import {
 	reduxForm,
-	change
+	change,
+	initialize
 } from 'redux-form';
 import {
 	Actions,
@@ -31,9 +32,8 @@ class Recharge extends React.Component {
 	componentDidMount() {
 		let {detail}=this.props;
 		if(detail.info){
-			Store.dispatch(change('recharge', 'pointNum', detail.info.pointNum));
+			Store.dispatch(initialize('recharge', detail.info));
 		}
-		
     }
     
 	onSubmit=(form)=>{
@@ -101,9 +101,14 @@ const validate = values => {
 		const errors = {};
 		//正整数
 		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
-		if (!values.pointNum && !numberNotZero.test(values.pointNum)) {
+		console.log('000000',numberNotZero.test(values.pointNum))
+		if (!values.pointNum ) {
 			errors.pointNum = '请输入正整数';
 		}
+		if(!numberNotZero.test(values.pointNum)){
+			errors.pointNum = '请输入正整数';
+		}
+		
 
 		return errors
 }
