@@ -66,7 +66,7 @@ class CheckForm extends React.Component {
 				
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 							<KrField
-								style={{width:260,marginLeft:30,marginTop:20}}
+								style={{width:260,marginLeft:50,marginTop:20}}
 								label="当前用户："
 								inline={true} 
 								component="labelText"
