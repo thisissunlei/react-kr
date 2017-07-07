@@ -31,7 +31,7 @@ export default class Intention extends Component {
 		let top = tableTop.offsetTop;
 		if(top>1089 && top<1157){
 			let margin = 1157-top;
-			tableTop.style.marginTop = margin +100+ 'px'; 
+			tableTop.style.marginTop = margin + 'px'; 
 		}
 		let pageReturn = 0 ;
 		if(top>1022 && top<1092){
