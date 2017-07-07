@@ -168,6 +168,7 @@ export default class CommunityAllocation  extends React.Component{
            listValue:'',
            detailValue:'',
            stationValue:'',
+           chargeName:'',
            isCover:"false",
        })  
    }
@@ -180,6 +181,7 @@ export default class CommunityAllocation  extends React.Component{
            listValue:'',
            detailValue:'',
            stationValue:'',
+           chargeName:'',
            isCover:"false",
        })
    }
@@ -208,7 +210,8 @@ export default class CommunityAllocation  extends React.Component{
                firstValue:'',     
                listValue:'',
                detailValue:'',
-               stationValue:''
+               stationValue:'',
+               chargeName:''
            })
            _this.editCancel();
         }).catch(function(err) {
