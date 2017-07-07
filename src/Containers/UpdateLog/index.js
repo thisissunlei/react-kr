@@ -73,7 +73,7 @@ export default class UpdateLog extends React.Component {
             <ul className="log-list">
                 {
                     list.map((item,index)=>(
-                        <li key={index}>{index+1}, {item}。</li>
+                        <li key={index}>{index+1}. {item}。</li>
                     ))
                 }
             </ul>
