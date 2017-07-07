@@ -621,7 +621,7 @@ module.exports = {
 
     //客户来源配置-删除客户来源
     'delete-source': {
-        url: '/api/krspace-finance-web/csr/source/delete',
+        url: '/api/krspace-finance-web/csr/source/delete?id={id}',
         method: 'delete'
     },
     //客户来源配置-客户来源列表

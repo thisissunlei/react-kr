@@ -5,7 +5,7 @@ import {
     initialize,
     change
 } from 'redux-form';
-
+import {Actions,Store,connect} from 'kr/Redux';
 import {
 	Table,
 	TableBody,
@@ -27,6 +27,7 @@ import {
 	Tooltip,
 	Message,
 	Title,
+	KrDate
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import './index.less';
@@ -45,11 +46,13 @@ export default class CustomerSource  extends Component{
 			searchParams:{
 				page:1,
 				pageSize:15,
-				searchKey:''
+				searchKey:'',
+				other:'',
 			},
 			sourceId:'',
+			childs : [],
 		}
-		
+
 	}
 
 	//新建提交数据和编辑数据的提交
@@ -80,12 +83,12 @@ export default class CustomerSource  extends Component{
 		}else if(type == "delete"){
 
 			this.delSwitch();
-			
+
 		}
 		this.setState({
 			sourceId:itemDetail.id,
 		})
-           
+
     }
 	//打开新建按钮
 	openNew = () =>{
@@ -94,12 +97,12 @@ export default class CustomerSource  extends Component{
 
 	//编辑开关
 	editSwitch = () => {
-	
+
 		let {isEdit} = this.state;
 		this.setState({
 			isEdit : !isEdit,
 		})
-		
+
 	}
 	//新建开关
 	newSwitch = () => {
@@ -134,21 +137,31 @@ export default class CustomerSource  extends Component{
 	//获取编辑的信息
 	getDetailEdit = (id) =>{
 		var value = {id:id}
+		const self = this;
 		Http.request('get-detail-source',value).then(function(response) {
-			Store.dispatch(initialize('editCustomerSource',response));
+			var data = Object.assign({},response);
+			data.enabled = data.enabledStr;
+			var childs = data.subListStr;
+			self.setState({
+				childs
+			})
+			Store.dispatch(initialize('editCustomerSource',data));
 		}).catch(function(err) {
-			
+
 		});
 	}
+	
+	
 	//删除客户来源
 	delSubmit = () =>{
-		const {sourceId} = this.props;
-		var value = {id:sourceId};
+		const {sourceId} = this.state;
+		var value = {id:sourceId||''};
 		const self = this;
 		Http.request('delete-source',value).then(function(response) {
 			self.delSwitch();
+			self.refreshList();
 		}).catch(function(err) {
-			
+
 		});
 	}
 	//关闭所有的侧滑
@@ -163,25 +176,53 @@ export default class CustomerSource  extends Component{
 	//编辑提交
 	editSubmit = (data) =>{
 		const self = this;
+		let arr = [];
+		for(let i = 0; i<data.subListStr.length;i++){
+			if(data.subListStr[i]!=null){
+				arr.push(data.subListStr[i])
+			}
+		}
+		var subListStr = JSON.stringify(arr);
+		data = Object.assign({},data);
+		data.subListStr = subListStr;
 		var value = Object.assign({},data);
 		Http.request('edit-source',{},value).then(function(response) {
 			self.editSwitch();
+			self.refreshList();
 		}).catch(function(err) {
-			
+
 		});
 	}
+	//新建提交
 	newSubmit = (data) =>{
 		const self = this;
+		let arr = [];
+		for(let i = 0; i<data.subListStr.length;i++){
+			if(data.subListStr[i]!=null){
+				arr.push(data.subListStr[i])
+			}
+		}
+		var subListStr = JSON.stringify(arr);
+		data = Object.assign({},data);
+		data.subListStr = subListStr;
 		var value = Object.assign({},data);
 		Http.request('new-source',{},value).then(function(response) {
 			self.newSwitch();
+			self.refreshList();
 		}).catch(function(err) {
-			
+
 		});
 	}
-
+	//刷新列表
+	refreshList = () =>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.other = +new Date();
+		this.setState({
+			searchParams,
+		})
+	}
 	render(){
-		const {isEdit,isNew,searchParams,isDel} = this.state;
+		const {isEdit,isNew,searchParams,isDel,childs} = this.state;
 
 		return(
 			<div className="customer-source">
@@ -232,18 +273,64 @@ export default class CustomerSource  extends Component{
 
                                         <TableRowColumn name="code" ></TableRowColumn>
                                         <TableRowColumn name="name"></TableRowColumn>
-                                        <TableRowColumn name="subSourceStr"></TableRowColumn>
+                                        <TableRowColumn name="subSourceStr" component={(value,oldValue)=>{
+						                				let show="inline-block";
+						                				if(value.length==0){
+						                					show="none";
+						                				}else{
+						                					show="inline-block";
+						                				}
+														 return (
+															 <div style={{display:"inline-block"}}>
+																 <span className='tableOver' 
+																 	style={{
+																		 maxWidth:130,
+																		 marginTop:5,
+																		 display:"inline-block",
+																		 overflowX:"hidden",
+																		 textOverflow:" ellipsis",
+																		 whiteSpace:" nowrap"}}
+																	>
+																	{value}
+																</span>
+																<Tooltip 
+																	offsetTop={10} 
+																	place='top' 
+																	style={{left:50,display:"show"}}
+																>
+																	<div>{value}</div>
+																</Tooltip>
+															 </div>
+															 )
+										}}></TableRowColumn>
                                         <TableRowColumn name="brokerage"></TableRowColumn>
                                         <TableRowColumn name="orderNum"></TableRowColumn>
-                                        <TableRowColumn name="enabled"></TableRowColumn>
+                                        <TableRowColumn name="enabled" component={(value,oldValue)=>{
+											var label = "是";
+											if(value == "false"){
+												var label = "否";
+											}
+											return <div>{label}</div>
+										}}></TableRowColumn>
                                         <TableRowColumn name="creatorName"></TableRowColumn>
-                                        <TableRowColumn name="cTime"></TableRowColumn>
+                                        <TableRowColumn name="cTime" component={(value,oldValue)=>{
+						                				let show="inline-block";
+						                				if(value.length==0){
+						                					show="none";
+						                				}else{
+						                					show="inline-block";
+						                				}
+														 return (<div style={{display:"inline-block"}}><span className='tableOver' style={{maxWidth:130,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd"/><span>...</span></span>
+														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
+																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+														 	</Tooltip></div>)
+										}}></TableRowColumn>
                                         <TableRowColumn>
-                                            {/*<Button label="查看"  type="operation" operation="look"/>*/}											
+                                            {/*<Button label="查看"  type="operation" operation="look"/>*/}
                                             <Button label="编辑"  type="operation" operation="edit"/>
                                             <Button label="删除"  type="operation" operation="delete"/>
                                         </TableRowColumn>
-                                                        
+
                                     </TableRow>
                                 </TableBody>
 
@@ -259,7 +346,7 @@ export default class CustomerSource  extends Component{
 					onClose={this.allClose}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				>
-					<EditCustomerSource onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
+					<EditCustomerSource childs = {childs} onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
 				</Drawer>
 
 				{/*新建*/}
@@ -279,9 +366,9 @@ export default class CustomerSource  extends Component{
 					open={isDel}
 					contentStyle={{width:445,height:236}}
        			>
-					<DeleteSource 
+					<DeleteSource
 						onCancel = {this.delSwitch}
-						onSubmit = {this.delSubmit}	
+						onSubmit = {this.delSubmit}
 					/>
 		    	</Dialog>
 			</div>

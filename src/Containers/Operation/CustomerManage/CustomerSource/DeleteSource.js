@@ -26,6 +26,7 @@ export default class DelAgreementNotify extends React.Component {
 		super(props, context);
 
 	}
+	
 
 	render() {
 

@@ -1,9 +1,7 @@
 
 import React, {Component, PropTypes} from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
-import {
-	observer
-} from 'mobx-react';
+
 import {
 	reduxForm,
 	formValueSelector,
@@ -25,11 +23,12 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {Http} from 'kr/Utils';
-var isName = true;
-var isChildName = [];
-var isCode = true;
-var isChildCode = [];
-var isRequire = [];
+import State from './State';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@observer
 class NewCustomerSource extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -56,62 +55,49 @@ class NewCustomerSource extends Component{
     }
 	//监听name发生变化
 	nameChange = (data,index) =>{
-		
+
 		var value = {id : '',name : data}
-		
-		if(data != '' && index != 'no'){
-			isRequire[index] = true;
-		}else if(data === '' && index != 'no'){
-			isRequire[index] = false;
-		}
-		
 
 		Http.request('check-name-source',value).then(function(response) {
+
 			if(index=="no" && response.code == "-1"){
-				isName = false;
+				State.isName = false;
 			}
 			if(index=="no" && response.code == "1"){
-				isName = true;
+				State.isName = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				isChildName[index]=false;
+				State.isChildName[index]=false;
 			}
 			if(index != "no" && response.code == "1"){
-				isChildName[index]=true;
+				State.isChildName[index]=true;
 			}
+
 		}).catch(function(err) {
-			
+
 		});
 	}
 	//监听code发生变化
 	codeChange = (data,index) => {
 		var value = {id : '',name : data}
-		if(data === '' && index != 'no'){
-			isRequire[index] = true;
-		}
-		Http.request('check-name-source',value).then(function(response) {
+		Http.request('check-code-source',value).then(function(response) {
 			if(index=="no" && response.code == "-1"){
-				isCode = false;
+				State.isCode = false;
 			}
 			if(index=="no" && response.code == "1"){
-				isCode = true;
+				State.isCode = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				isChildCode[index]=false;
+				State.isChildCode[index]=false;
 			}
 			if(index != "no" && response.code == "1"){
-				isChildCode[index]=true;
+				State.isChildCode[index]=true;
 			}
 		}).catch(function(err) {
-			
+
 		});
 	}
-	//
-	orderNumChange = (data,index) =>{
-		if(data === '' && index != undefined){
-			isRequire[index] = true;
-		}
-	}
+
 
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
 		<div>
@@ -127,27 +113,25 @@ class NewCustomerSource extends Component{
 		var krStyle={};
 		var nameArr = [];
 		var codeArr = [];
-		var requireArr = [];
-		krStyle={width:228,marginLeft:18,marginRight:3,}
-			
+		krStyle={width:228,marginLeft:18,marginRight:3}
+		let promptStyle = {marginLeft : 25,color : "red"};
+		let columnStyle = {display:"inline-block",verticalAlign:"top"};
+		
+
 	   var brights = fields.map(function(brightsStr, index){
-		   		if(!isChildName[index]){
+		   		if(State.isChildName[index] === false){
 					nameArr.push(false);
 				}else{
 					nameArr.push(true);
 				}
-				if(isChildCode[index]){
+				if(State.isChildCode[index] === false){
 					codeArr.push(false);
 				}else{
 					codeArr.push(true);
 				}
-				if(isRequire[index]){
-					requireArr.push(true);
-				}else{
-					requireArr.push(false);
-				}
-				
+
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
+						<div style = {columnStyle}>
 						<KrField
 							style={{width:190,marginLeft:18,marginRight:3,}}
 							grid={1/3}
@@ -157,11 +141,14 @@ class NewCustomerSource extends Component{
 							label={index?'':'子项名称'}
 							placeholder='子项名称'
 							onChange = {(data) =>{
-								
+
 								self.nameChange(data,index);
-							}} 
-							
+							}}
+
 						/>
+						{!State.isChildName[index] && <div style = {promptStyle}>该名称已存在</div>}
+						</div>
+						<div style = {columnStyle}>
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
@@ -173,9 +160,11 @@ class NewCustomerSource extends Component{
 							placeholder='子项编码'
 							onChange = {(data) =>{
 								self.nameChange(data,index)
-							}} 
+							}}
 
 						/>
+						{!State.isChildCode[index] &&<div style = {promptStyle}>该编码已存在</div>}
+						</div>
 						<KrField
 							style={{width:90,marginLeft:0,marginRight:3,}}
 							grid={1/3}
@@ -184,9 +173,6 @@ class NewCustomerSource extends Component{
 							component={self.renderField}
 							label={index?'':'子项顺序'}
 							placeholder='子项顺序'
-							onChange = { (data) =>{
-								self.orderNumChange(data,index)
-							}} 
 						/>
 						<span
 							className='minusBtn'
@@ -194,26 +180,25 @@ class NewCustomerSource extends Component{
 
 							onClick={() => {
 								fields.remove(index)
-								isRequire.splice(index,1);
-								isChildCode.splice(index,1);
-								isChildName.splice(index,1);
+								State.isRequire.splice(index,1);
+								State.isChildCode.splice(index,1);
+								State.isChildName.splice(index,1);
 							}}
 						/>
 					</li>)
 	   		})
-			isChildName = [].concat(nameArr);
-			isChildCode = [].concat(codeArr);
-			isRequire = [].concat(requireArr);
+			State.isChildName = [].concat(nameArr);
+			State.isChildCode = [].concat(codeArr);
 			return (
 			<ul style={{padding:0,margin:0}}>
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
+							console.log(State.isChildCode,"KKKKKK");
 							fields.unshift();
-							isRequire.unshift(false);
-							isChildCode.unshift(true);
-							isChildName.unshift(true);
+							State.isChildCode.unshift(true);
+							State.isChildName.unshift(true);
 						}} />
-				</div>	
+				</div>
 				{brights}
 			</ul>
 
@@ -222,7 +207,9 @@ class NewCustomerSource extends Component{
 	render(){
 		const { handleSubmit,select} = this.props;
 		const {typeValue} = this.state;
-		let fieldStyle = {width:262,marginLeft:28}
+		let fieldStyle = {width:262,marginLeft:28};
+		let promptStyle = {marginLeft : 25,color : "red"};
+		let columnStyle = {display:"inline-block",verticalAlign:"top"};
 		return (
 
 			<form className = 'edit-source-from' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
@@ -237,58 +224,69 @@ class NewCustomerSource extends Component{
 							<label className="small-title">基本信息</label>
 						</div>
 						<div className="small-cheek">
-							<KrField 
-								grid={1/2} label="来源名称"  
-								name="name" 
-								style={{width:262,marginLeft:15}} 
-								component="input" 
+						<div style = {columnStyle}>
+							<KrField
+								grid={1/2} label="来源名称"
+								name="name"
+								style={{width:262,marginLeft:15}}
+								component="input"
 								requireLabel={true}
-								onChange = {this.nameChange.bind(this,"no")}
+								onChange = {(data) =>{
+									this.nameChange(data,"no")
+								}}
 							/>
-							<KrField 
-								grid={1/2} label="来源编码"  
-								name="code" 
-								style={{width:262,marginLeft:15}} 
-								component="input" 
+							{!State.isName && <div style = {promptStyle}>来源名称已存在</div>}
+							</div>
+							<div style = {columnStyle}>
+							<KrField
+								grid={1/2} label="来源编码"
+								name="code"
+								style={{width:262,marginLeft:15}}
+								component="input"
 								requireLabel={true}
-								onChange = {this.codeChange.bind(this,"no")}
+								onChange = {(data) =>{
+									this.codeChange(data,"no")
+								}}
+
 							/>
-							<KrField 
-								grid={1/2} 
-								label="来源顺序" 
-								name="orderNum" 
-								style={{width:262,marginLeft:15}} 
-								component="input" 
+							{!State.isCode && <div style = {promptStyle}>来源编码已存在</div>}
+							</div>
+							<KrField
+								grid={1/2}
+								label="来源顺序"
+								name="orderNum"
+								style={{width:262,marginLeft:15}}
+								component="input"
 								requireLabel={true}
 							/>
-							<KrField 
-								grid={1/2} 
-								label="佣金比例" 
-								name="brokerage" 
-								style={{width:262,marginLeft:15}} 
-								component="input" 
+							<KrField
+								grid={1/2}
+								label="佣金比例"
+								name="brokerage"
+								style={{width:262,marginLeft:15}}
+								component="input"
 								requireLabel={true}
 							/>
-							<KrField 
-								grid={1/2} 
-								label="全员开放" 
-								name="enabled" 
-								style={{width:262,marginLeft:15,marginRight:13}} 
-								component="group" 
+							<KrField
+								grid={1/2}
+								label="全员开放"
+								name="enabled"
+								style={{width:262,marginLeft:15,marginRight:13}}
+								component="group"
 								requireLabel={true}
 							>
-								<KrField 
-									name="enabled" 
-									label="是" 
-									type="radio" 
-									value="true" 
+								<KrField
+									name="enabled"
+									label="是"
+									type="radio"
+									value="true"
 									style={{marginTop:5,display:'inline-block',width:84}}
 								/>
-								<KrField 
-									name="enabled" 
-									label="否" 
-									type="radio" 
-									value="false"  
+								<KrField
+									name="enabled"
+									label="否"
+									type="radio"
+									value="false"
 									style={{marginTop:5,display:'inline-block',width:53}}
 								/>
 							</KrField>
@@ -305,7 +303,7 @@ class NewCustomerSource extends Component{
 							<FieldArray name="subListStr" component={this.renderBrights}/>
 
 						</div>
-						
+
 						<div className="end-round"></div>
 				</div>
 				<Grid style={{marginTop:30}}>
@@ -326,29 +324,30 @@ class NewCustomerSource extends Component{
 const validate = values =>{
 
 	let errors = {};
-
 	if(!values.name){
 		errors.name = '来源名称必填';
 	}else if(values.name.length > 20){
 		errors.name = "来源名称最多20个文字";
-	}else if(!isName){
-		errors.name = "来源名称已存在";
 	}
 
 	if(!values.code){
 		errors.code = '来源编码必填';
 	}else if(values.code.length > 30){
 		errors.code = "来源名称最多30个字符";
-	}else if(!isCode){
-		errors.code = "来源编码已存在"
 	}
 
+	if(!values.orderNum){
+		errors.orderNum = "序号为必填项"
+	}else if(isNaN(values.orderNum.toString().trim())){
+		errors.orderNum = "序号必须为正整数"
+	}
 
 	if(!values.brokerage){
 		errors.brokerage = '拥金比例为必填项';
 	}else if(!values.brokerage){
 		errors.brokerage = ''
 	}
+
 	if (!values.subListStr || !values.subListStr.length) {
           errors.subListStr = { _error: 'At least one member must be entered' }
         } else {
@@ -357,27 +356,30 @@ const validate = values =>{
           values.subListStr.forEach((porTypes, memberIndex) => {
 
             let memberErrors ={};
+			let must = false;
+			
 			if(!porTypes){
 				return ;
 			}
-			if (isRequire[memberIndex] && !porTypes.name){
+
+			if(porTypes.name || porTypes.code || porTypes.orderNum){
+				must = true;
+			}
+			console.log(porTypes,">>>>>")
+
+			if (must && !porTypes.name){
               memberErrors.name = '该子项名称必填';
 			}
-			if (isRequire[memberIndex] && !porTypes.code){
+			if (must && !porTypes.code){
               memberErrors.code = '该子项编码必填';
 			}
-			if (isRequire[memberIndex] && !porTypes.orderNum){
+			if (must && !porTypes.orderNum){
               memberErrors.orderNum = '该子项排序必填';
 			}
-            if (!isChildName[memberIndex]){
-              memberErrors.name = '该子项名称已存在';
-            }
-			if (!isChildCode[memberIndex]){
-              memberErrors.code = '该子项编码已存在';
-            }
+
 			if (porTypes.name && porTypes.name.length > 20){
 				memberErrors.name = '子项名称最多20个字';
-			}	
+			}
 			if (porTypes.code && porTypes.code.length > 30){
 				memberErrors.code = '子项编码最多30个字符';
 			}
