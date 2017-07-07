@@ -399,7 +399,7 @@ class Merchants extends Component{
 									}}>
 							</TableRowColumn>
 							{/*联系人*/}
-			                <TableRowColumn name="levelName" component={(value,oldValue)=>{
+			                <TableRowColumn name="name" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -411,7 +411,7 @@ class Merchants extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 							{/*联系人电话*/}
-							<TableRowColumn name="levelName" component={(value,oldValue)=>{
+							<TableRowColumn name="tel" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"

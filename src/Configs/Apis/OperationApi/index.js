@@ -621,42 +621,42 @@ module.exports = {
 
     //客户来源配置-删除客户来源
     'delete-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/delete',
+        url: '/api/krspace-finance-web/csr/source/delete',
         method: 'delete'
     },
     //客户来源配置-客户来源列表
     'list-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/list/type/search?page={page}&pageSize={pageSize}&searchKey={searchKey}',
+        url: '/api/krspace-finance-web/csr/source/list/type/search?page={page}&pageSize={pageSize}&searchKey={searchKey}',
         method: 'get'
     },
     //客户来源配置-新增客户来源
     'new-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/add',
+        url: '/api/krspace-finance-web/csr/source/add',
         method: 'post'
     },
     //客户来源配置-编辑客户来源
     'edit-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/update',
+        url: '/api/krspace-finance-web/csr/source/update',
         method: 'post'
     },
      //客户来源配置-子项是否可删除
     'del-child-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/check/delete/sub?id={id}',
+        url: '/api/krspace-finance-web/csr/source/check/delete/sub?id={id}',
         method: 'get'
     },
      //客户来源配置-校验客户来源名称
     'check-name-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/check/name?id={id}&name={name}',
+        url: '/api/krspace-finance-web/csr/source/check/name?id={id}&name={name}',
         method: 'get'
     },
     //客户来源配置-校验客户来源编码
     'check-code-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
+        url: '/api/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
         method: 'get'
     },
     //客户来源配置-获取客户来源信息
     'get-detail-source': {
-        url: '/mockjsdata/48/krspace-finance-web/csr/source/info/type/edit?id={id}',
+        url: '/api/krspace-finance-web/csr/source/info/type/edit?id={id}',
         method: 'get'
     },
 }
