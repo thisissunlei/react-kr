@@ -62,8 +62,6 @@ export default class UpdateLog extends React.Component {
             return null;
         }
 
-        ver.content = "俄方但舒服的沙发上。dsfdsfdsf 。23432432423423对方但舒服的沙发对方但舒服的沙发但舒服的沙发。32432434324324sdfsdfdsfsdfdsf。"
-
         var list = ver.content.split('。');
 
         list = list.filter(function(item){
