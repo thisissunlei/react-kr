@@ -53,52 +53,148 @@ class NewCustomerSource extends Component{
         let {onSubmit} = this.props;
         onSubmit && onSubmit(values);
     }
+
+	/*
+	*	判断是否有重复
+	*	返回true 存在重复
+	*	返回false 不存在重复
+	*/
+	flog = (index,datas) =>{
+		
+		var judge = false;
+		for(let i in datas){
+			if(i!=index && datas[i]==value ){
+				judge = true;
+				break;
+			}
+		}
+		return judge;
+	}
+	//删除储存数据
+	remove = (index) =>{
+		var names = Object.assign({},this.state.names);
+		var codes = Object.assign({},this.state.codes);
+		var orders = Object.assign({},this.state.orders);
+		
+		if(names[index]){
+			delete names[index];
+		}
+
+		if(codes[index]){
+			delete codes[index];
+		}
+
+		if(orders[index]){
+			delete orders[index];
+		}
+		
+		
+		var nameData = this.conversion(names);
+		var codeData = this.conversion(codes);
+		var orderData = this.conversion(orders);
+		State.names = nameData;
+		State.codes = codeData;
+		State.orderData = orderData;
+		
+	}
+	//转换数据格式
+	conversion = (names) =>{
+		var arr = [];
+		var obj={};
+		for(var key in names){
+			arr.push(names[key])
+		}
+		
+		arr.map((item,index)=>{
+			obj[index] = item;
+		})
+		return obj;
+	}
+
 	//监听name发生变化
 	nameChange = (data,index) =>{
 
-		var value = {id : '',name : data}
+		var names = Object.assign({},State.names);
+		names[index] = data;
+		State.names = names;
+		if(this.flog(index,names) && index != "no"){
+			State.isChildName[index] = true;
+		}else if(this.flog(index,names) && index == "no"){
+			State.isName = true;
+		}else{
+			var value = {id : '',name : data}
+			Http.request('check-name-source',value).then(function(response) {
 
-		Http.request('check-name-source',value).then(function(response) {
+				if(index=="no" && response.code == "-1"){
+					State.isName = false;
+				}
+				if(index=="no" && response.code == "1"){
+					State.isName = true;
+				}
+				if(index != "no" && response.code == "-1"){
+					State.isChildName[index] = false;
+				}
+				if(index != "no" && response.code == "1"){
+					State.isChildName[index] = true;
+				}
 
-			if(index=="no" && response.code == "-1"){
-				State.isName = false;
-			}
-			if(index=="no" && response.code == "1"){
-				State.isName = true;
-			}
-			if(index != "no" && response.code == "-1"){
-				State.isChildName[index]=false;
-			}
-			if(index != "no" && response.code == "1"){
-				State.isChildName[index]=true;
-			}
+			}).catch(function(err) {
 
-		}).catch(function(err) {
+			});
 
-		});
+		}
 	}
 	//监听code发生变化
 	codeChange = (data,index) => {
-		var value = {id : '',name : data}
-		Http.request('check-code-source',value).then(function(response) {
-			if(index=="no" && response.code == "-1"){
-				State.isCode = false;
-			}
-			if(index=="no" && response.code == "1"){
-				State.isCode = true;
-			}
-			if(index != "no" && response.code == "-1"){
-				State.isChildCode[index]=false;
-			}
-			if(index != "no" && response.code == "1"){
-				State.isChildCode[index]=true;
-			}
-		}).catch(function(err) {
+		var codes = Object.assign({},State.codes)
+		codes[index] = data;
+		if(this.flog(index,codes)&& index != "no"){
+			State.isChildCode[index]=true;
+		}else if(this.flog(index,codes) && index == "no"){
+			State.isCode = true;
+		}else{
+			var value = {id : '',code : data}
+			Http.request('check-code-source',value).then(function(response) {
+				if(index=="no" && response.code == "-1"){
+					State.isCode = false;
+				}
+				if(index=="no" && response.code == "1"){
+					State.isCode = true;
+				}
+				if(index != "no" && response.code == "-1"){
+					State.isChildCode[index]=false;
+				}
+				if(index != "no" && response.code == "1"){
+					State.isChildCode[index]=true;
+				}
+			}).catch(function(err) {
 
-		});
+			});
+		}
 	}
+	//排序校验
+	orderChange = (data,index) =>{
+		var orderNums = Object.assign({},State.orderNums)
+			orderNums[index] = data;
+		if(index=="no"){
+			var value = {id : '',code : data}
+			Http.request('check-orderNum-source',value).then(function(response) {
+				if(response.code == "-1"){
+					State.isOrderName = false;
+				}
+				if(response.code == "1"){
+					State.isOrderName = true;
+				}
+			}).catch(function(err) {
 
-
+			});
+		}else{ //本地排序的存储
+			if(this.flog(index,codes)){
+				State.isChildOrderNum[index]=true;
+			}
+		}
+		
+	}
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
 		<div>
 			<label>{label}</label>
@@ -113,6 +209,7 @@ class NewCustomerSource extends Component{
 		var krStyle={};
 		var nameArr = [];
 		var codeArr = [];
+		var orderArr = [];
 		krStyle={width:228,marginLeft:18,marginRight:3}
 		let promptStyle = {marginLeft : 25,color : "red"};
 		let columnStyle = {display:"inline-block",verticalAlign:"top"};
@@ -129,10 +226,16 @@ class NewCustomerSource extends Component{
 				}else{
 					codeArr.push(true);
 				}
+				if(State.isChildOrderName[index] === false){
+					orderArr.push(false);
+				}else{
+					orderArr.push(true);
+				}
 
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<div style = {columnStyle}>
 						<KrField
+							
 							style={{width:190,marginLeft:18,marginRight:3,}}
 							grid={1/3}
 							name={`${brightsStr}.name`}
@@ -180,23 +283,25 @@ class NewCustomerSource extends Component{
 
 							onClick={() => {
 								fields.remove(index)
-								State.isRequire.splice(index,1);
 								State.isChildCode.splice(index,1);
 								State.isChildName.splice(index,1);
+								State.isChildOrderNum.splice(index,1);
+								self.remove(index);
 							}}
 						/>
 					</li>)
 	   		})
 			State.isChildName = [].concat(nameArr);
 			State.isChildCode = [].concat(codeArr);
+			State.isChildOrderNum = [].concat(orderArr);
 			return (
 			<ul style={{padding:0,margin:0}}>
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
-							console.log(State.isChildCode,"KKKKKK");
 							fields.unshift();
 							State.isChildCode.unshift(true);
 							State.isChildName.unshift(true);
+							State.isChildOrderNum.unshift(true);
 						}} />
 				</div>
 				{brights}
@@ -231,6 +336,7 @@ class NewCustomerSource extends Component{
 								style={{width:262,marginLeft:15}}
 								component="input"
 								requireLabel={true}
+								
 								onChange = {(data) =>{
 									this.nameChange(data,"no")
 								}}
@@ -251,6 +357,7 @@ class NewCustomerSource extends Component{
 							/>
 							{!State.isCode && <div style = {promptStyle}>来源编码已存在</div>}
 							</div>
+							<div style = {columnStyle}>
 							<KrField
 								grid={1/2}
 								label="来源顺序"
@@ -259,6 +366,9 @@ class NewCustomerSource extends Component{
 								component="input"
 								requireLabel={true}
 							/>
+							</div>
+							{!State.isOrderName && <div style = {promptStyle}>该序号已存在</div>}
+							
 							<KrField
 								grid={1/2}
 								label="佣金比例"
@@ -365,7 +475,7 @@ const validate = values =>{
 			if(porTypes.name || porTypes.code || porTypes.orderNum){
 				must = true;
 			}
-			console.log(porTypes,">>>>>")
+			
 
 			if (must && !porTypes.name){
               memberErrors.name = '该子项名称必填';

@@ -49,8 +49,7 @@ export default class CustomerSource  extends Component{
 				searchKey:'',
 				other:'',
 			},
-			sourceId:'',
-			childs : [],
+			sourceId:''
 		}
 
 	}
@@ -101,6 +100,7 @@ export default class CustomerSource  extends Component{
 		let {isEdit} = this.state;
 		this.setState({
 			isEdit : !isEdit,
+			sourceId:'',
 		})
 
 	}
@@ -128,7 +128,8 @@ export default class CustomerSource  extends Component{
 	//搜索功能
 	onSearchSubmit = (data) => {
 		let searchParams = Object.assign({},this.state.searchParams);
-		searchParams.searchKey = data.value;
+		searchParams.searchKey = data.content||'';
+		
 		this.setState({
 			searchParams,
 		})
@@ -147,7 +148,7 @@ export default class CustomerSource  extends Component{
 			})
 			Store.dispatch(initialize('editCustomerSource',data));
 		}).catch(function(err) {
-
+			Message.error(err);
 		});
 	}
 	
@@ -161,7 +162,7 @@ export default class CustomerSource  extends Component{
 			self.delSwitch();
 			self.refreshList();
 		}).catch(function(err) {
-
+			Message.error(err);			
 		});
 	}
 	//关闭所有的侧滑
@@ -190,7 +191,7 @@ export default class CustomerSource  extends Component{
 			self.editSwitch();
 			self.refreshList();
 		}).catch(function(err) {
-
+			Message.error(err);
 		});
 	}
 	//新建提交
@@ -210,7 +211,7 @@ export default class CustomerSource  extends Component{
 			self.newSwitch();
 			self.refreshList();
 		}).catch(function(err) {
-
+			Message.error(err);
 		});
 	}
 	//刷新列表
@@ -222,8 +223,8 @@ export default class CustomerSource  extends Component{
 		})
 	}
 	render(){
-		const {isEdit,isNew,searchParams,isDel,childs} = this.state;
-
+		const {isEdit,isNew,searchParams,isDel,childs,sourceId} = this.state;
+		
 		return(
 			<div className="customer-source">
 			    <Title value="客户来源配置"/>
@@ -234,7 +235,7 @@ export default class CustomerSource  extends Component{
 									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNew}  /> </Col>
 									<Col md={8} align="right" style={{marginTop:0}}>
 										<ListGroup>
-											<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+											<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} /></ListGroupItem>
 											{/*<ListGroupItem> <Button searchClick={this.openSearchUpperFormDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>*/}
 										</ListGroup>
 									</Col>
@@ -342,11 +343,12 @@ export default class CustomerSource  extends Component{
 				<Drawer
 					open={isEdit}
 					width={750}
+					
 					openSecondary={true}
 					onClose={this.allClose}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				>
-					<EditCustomerSource childs = {childs} onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
+					<EditCustomerSource sourceId = {sourceId} childs = {childs} onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
 				</Drawer>
 
 				{/*新建*/}

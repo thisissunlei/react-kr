@@ -14,7 +14,12 @@ let State = observable({
     isChildName : [],
     isCode : true,
     isChildCode : [],
-    isRequire : []
+    isRequire : [],
+	isOrderName:true,
+	isChildOrderName:[],
+	names : {} ,
+	codes : {} ,
+	orderNums :{},
 });
 
 module.exports = State;

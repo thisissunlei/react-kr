@@ -225,8 +225,8 @@ import {
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="labelText" value={sourceIdLabel} inline={false}/>}
 									{!State.noEditIntroduce && State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
 				   					{!State.noEditIntroduce && State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
-									{State.noEditIntroduce && <KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="labelText" requireLabel={true} value = {sourceIdLabel}/>}
-									{State.noEditIntroduce && <KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:28}} component="labelText" requireLabel={true} value = {sourceIdLabel}/>}
+									{State.noEditIntroduce && <KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="labelText" requireLabel={true} />}
+									{State.noEditIntroduce && <KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:28}} component="labelText" requireLabel={true} />}
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>
 
 									</KrField><span className="unit">个</span></div>

@@ -654,6 +654,11 @@ module.exports = {
         url: '/api/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
         method: 'get'
     },
+    //客户来源配置-校验客户来源编码
+    'check-order-source': {
+        url: '/api/krspace-finance-web/csr/source/check/order?id={id}&orderNum={orderNum}',
+        method: 'get'
+    },
     //客户来源配置-获取客户来源信息
     'get-detail-source': {
         url: '/api/krspace-finance-web/csr/source/info/type/edit?id={id}',

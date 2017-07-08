@@ -52,8 +52,9 @@ class EditCustomerSource extends Component{
     }
 	//监听name发生变化
 	nameChange = (data,index) =>{
-
-		var value = {id : '',name : data}
+		let {sourceId} = this.props;
+		console.log(sourceId,"LLLL");
+		var value = {id :sourceId || '',name : data}
 
 		Http.request('check-name-source',value).then(function(response) {
 
@@ -76,7 +77,8 @@ class EditCustomerSource extends Component{
 	}
 	//监听code发生变化
 	codeChange = (data,index) => {
-		var value = {id : '',name : data}
+		const {sourceId} = this.props;
+		var value = {id :sourceId|| '',code : data}
 		Http.request('check-code-source',value).then(function(response) {
 			if(index=="no" && response.code == "-1"){
 				State.isCode = false;
@@ -94,15 +96,7 @@ class EditCustomerSource extends Component{
 
 		});
 	}
-	//是否可删除子项
-	isDelChild = (id) =>{
-		var value = {id:id}
-		Http.request('del-child-source',value).then(function(response) {
-			
-		}).catch(function(err) {
 
-		});
-	}
 
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
 		<div>
@@ -113,6 +107,15 @@ class EditCustomerSource extends Component{
 			</div>
 		</div>
 	)
+	componentWillReceiveProps(nextProps){
+		// // console.log(nextProps,"ooooooo")
+		// if(nextProps){
+		// 	this.setState({
+		// 		sourceId : nextProps.sourceId
+		// 	})
+		// }
+
+	}
 	renderBrights = ({ fields, meta: { touched, error }}) => {
 		const self = this;
 		var krStyle={};
@@ -135,7 +138,7 @@ class EditCustomerSource extends Component{
 				}else{
 					codeArr.push(true);
 				}
-				console.log(State.isChildName,">>>>>");
+				
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<div style = {columnStyle}>
 						<KrField
@@ -256,7 +259,8 @@ class EditCustomerSource extends Component{
 							</div>
 							<div style = {columnStyle}>
 							<KrField
-								grid={1/2} label="来源编码"
+								grid={1/2} 
+								label="来源编码"
 								name="code"
 								style={{width:262,marginLeft:15}}
 								component="input"
@@ -376,7 +380,6 @@ const validate = values =>{
 			if(porTypes.name || porTypes.code || porTypes.orderNum){
 				must = true;
 			}
-			console.log(porTypes,">>>>>")
 
 			if (must && !porTypes.name){
               memberErrors.name = '该子项名称必填';
