@@ -75,28 +75,28 @@ class NewCustomerSource extends Component{
 		return judge;
 	}
 	//操作
-	// allRepeat = (arr,type) => {
-	// 	var yesList = [];
-	// 	for(var i = 0; i < arr.length; i++) {
-	// 		var hasRead = false;
-	// 		for(var k = 0; k < yesList.length; k++) {
-	// 			if(i == yesList[k]) {
-	// 				hasRead = true;
-	// 			}
-	// 		}
-	// 		if(hasRead) { break; }
-	// 		for(var j = i + 1; j < arr.length; j++) {
-	// 			if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
-	// 				console.log(j,'LLLLLLLL')
-	// 				yesList.push(j);
-	// 				document.getElementById(type+(j-1)).innerHTML="该名称已存在"
-	// 			}else{
-	// 				document.getElementById(type+(j-1)).innerHTML=""					
-	// 			}
-	// 		}
-	// 	}
-	// 	return yesList;
-	// }
+	allRepeat = (arr,type) => {
+		var yesList = [];
+		for(var i = 0; i < arr.length; i++) {
+			var hasRead = false;
+			for(var k = 0; k < yesList.length; k++) {
+				if(i == yesList[k]) {
+					hasRead = true;
+				}
+			}
+			if(hasRead) { break; }
+			for(var j = i + 1; j < arr.length; j++) {
+				if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
+					
+					yesList.push(j);
+					document.getElementById(type+(j-1)).innerHTML="该名称已存在"
+				}else{
+					document.getElementById(type+(j-1)).innerHTML=""					
+				}
+			}
+		}
+		return yesList;
+	}
 
 
 	//删除储存数据
@@ -167,11 +167,16 @@ class NewCustomerSource extends Component{
 				State.isName = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				document.getElementById("customerSourceName"+index).innerHTML="该名称已存在";
+				document.getElementById("child-prompt-new").innerHTML="该名称已存在";
 				
 			}
 			if(index != "no" && response.code == "1"){
-				self.allRepeat(self.jsonToArr(names),"customerSourceName")
+				if(self.flog(index,names,data)){
+						document.getElementById("child-prompt-new").innerHTML="该名称已存在"
+				}else{
+						document.getElementById("child-prompt-new").innerHTML=""
+						
+				}
 				
 			}
 			
@@ -199,11 +204,15 @@ class NewCustomerSource extends Component{
 					State.isCode = true;
 				}
 				if(index != "no" && response.code == "-1"){
-					document.getElementById("customerSourceCode"+index).innerHTML="该编码已存在"
+					document.getElementById("child-prompt-new").innerHTML="该编码已存在"
 					
 				}
 				if(index != "no" && response.code == "1"){
-					self.allRepeat(self.jsonToArr(codes),"customerSourceCode")
+					if(self.flog(index,codes,data)){
+						document.getElementById("child-prompt-new").innerHTML="该编码已存在"
+					}else{
+						document.getElementById("child-prompt-new").innerHTML=""
+					}
 					
 				}
 			}).catch(function(err) {
@@ -228,7 +237,11 @@ class NewCustomerSource extends Component{
 
 			});
 		}else{ //本地排序的存储
-			this.allRepeat(this.jsonToArr(orderNums),"customerSourceOrder")
+			if(this.flog(index,orderNums,data)){
+				document.getElementById("child-prompt-new").innerHTML="该序号已存在"
+			}else{
+				document.getElementById("child-prompt-new").innerHTML=""		
+			}
 		}
 		
 	}
@@ -442,6 +455,7 @@ class NewCustomerSource extends Component{
 							<label className="small-title">自来源信息</label>
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
+							<div id = "child-prompt-new" style = {{textAlign:"center",color:"red",marginBottom:20}}></div>
 
 							<FieldArray name="subListStr" component={this.renderBrights}/>
 

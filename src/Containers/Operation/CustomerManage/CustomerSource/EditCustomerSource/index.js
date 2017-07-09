@@ -52,7 +52,6 @@ class EditCustomerSource extends Component{
     }
 
 	allRepeat = (arr,type) => {
-		console.log(">>>>>>","<<<<<<<");
 		var yesList = [];
 		for(var i = 0; i < arr.length; i++) {
 			var hasRead = false;
@@ -148,11 +147,16 @@ class EditCustomerSource extends Component{
 				State.isName = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				document.getElementById("customerSourceName"+index).innerHTML="该编码已存在"
+				document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
 
 			}
 			if(index != "no" && response.code == "1"){
-				self.allRepeat(self.jsonToArr(names),"customerSourceName")				
+				if(self.flog(index,names,data)){
+						document.getElementById("child-prompt-edit").innerHTML="该名称已存在"
+				}else{
+						document.getElementById("child-prompt-edit").innerHTML=""
+						
+				}			
 			}
 
 		}).catch(function(err) {
@@ -166,7 +170,7 @@ class EditCustomerSource extends Component{
 		var codes = Object.assign({},State.codes);
 			codes[index] = data;
 			State.codes = codes;
-			console.log(codes,">>>>");
+			
 		var value = {id :sourceId|| '',code : data}
 		Http.request('check-code-source',value).then(function(response) {
 			if(index=="no" && response.code == "-1"){
@@ -176,12 +180,17 @@ class EditCustomerSource extends Component{
 				State.isCode = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				document.getElementById("customerSourceCode"+index).innerHTML="该编码已存在"
+				document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
 
 			}
 			if(index != "no" && response.code == "1"){
-				console.log("OOOOOOO")
-				self.allRepeat(self.jsonToArr(codes),"customerSourceCode")
+				if(self.flog(index,codes,data)){
+						document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
+				}else{
+						document.getElementById("child-prompt-edit").innerHTML=""
+						
+				}		
+				
 			}
 		}).catch(function(err) {
 
@@ -208,7 +217,12 @@ class EditCustomerSource extends Component{
 
 			});
 		}else{ //本地排序的存储
-			self.allRepeat(self.jsonToArr(orderNums),"customerSourceOrder")
+			if(this.flog(index,orderNums,data)){
+					document.getElementById("child-prompt-edit").innerHTML="该序号已存在"
+			}else{
+					document.getElementById("child-prompt-edit").innerHTML=""
+					
+			}	
 		}
 		
 	}
@@ -225,6 +239,23 @@ class EditCustomerSource extends Component{
 	componentWillReceiveProps(nextProps){
 		
 
+	}
+
+	/*
+	*	判断是否有重复
+	*	返回true 存在重复
+	*	返回false 不存在重复
+	*/
+	flog = (index,datas,value) =>{
+		
+		var judge = false;
+		for(let i in datas){
+			if(i!=index && datas[i]==value ){
+				judge = true;
+				break;
+			}
+		}
+		return judge;
 	}
 	renderBrights = ({ fields, meta: { touched, error }}) => {
 		const self = this;
@@ -439,6 +470,7 @@ class EditCustomerSource extends Component{
 							<label className="small-title">自来源信息</label>
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
+							<div id = "child-prompt-edit" style = {{textAlign:"center",color:"red",marginBottom:20}}></div>
 
 							<FieldArray name="subListStr" component={this.renderBrights}/>
 
@@ -484,7 +516,7 @@ const validate = values =>{
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
 	}
 	if (!values.subListStr || !values.subListStr.length) {
-          errors.subListStr = { _error: 'At least one member must be entered' }
+         
         } else {
           let membersArrayErrors = []
 
