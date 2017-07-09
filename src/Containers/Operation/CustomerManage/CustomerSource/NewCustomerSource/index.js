@@ -75,28 +75,28 @@ class NewCustomerSource extends Component{
 		return judge;
 	}
 	//操作
-	allRepeat = (arr,type) => {
-		var yesList = [];
-		for(var i = 0; i < arr.length; i++) {
-			var hasRead = false;
-			for(var k = 0; k < yesList.length; k++) {
-				if(i == yesList[k]) {
-					hasRead = true;
-				}
-			}
-			if(hasRead) { break; }
-			for(var j = i + 1; j < arr.length; j++) {
-				if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
-					console.log(j,'LLLLLLLL')
-					yesList.push(j);
-					document.getElementById(type+(j-1)).innerHTML="该名称已存在"
-				}else{
-					document.getElementById(type+(j-1)).innerHTML=""					
-				}
-			}
-		}
-		return yesList;
-	}
+	// allRepeat = (arr,type) => {
+	// 	var yesList = [];
+	// 	for(var i = 0; i < arr.length; i++) {
+	// 		var hasRead = false;
+	// 		for(var k = 0; k < yesList.length; k++) {
+	// 			if(i == yesList[k]) {
+	// 				hasRead = true;
+	// 			}
+	// 		}
+	// 		if(hasRead) { break; }
+	// 		for(var j = i + 1; j < arr.length; j++) {
+	// 			if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
+	// 				console.log(j,'LLLLLLLL')
+	// 				yesList.push(j);
+	// 				document.getElementById(type+(j-1)).innerHTML="该名称已存在"
+	// 			}else{
+	// 				document.getElementById(type+(j-1)).innerHTML=""					
+	// 			}
+	// 		}
+	// 	}
+	// 	return yesList;
+	// }
 
 
 	//删除储存数据
@@ -216,7 +216,6 @@ class NewCustomerSource extends Component{
 			orderNums[index] = data;
 			State.orderNums=orderNums;
 		if(index=="no"){
-			console.log("LLLLLLL")
 			var value = {id : '',orderNum : data}
 			Http.request('check-order-source',value).then(function(response) {
 				if(response.code == "-1"){
@@ -492,9 +491,10 @@ const validate = values =>{
 	}else if(!decimal.test(values.brokerage)){
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
 	}
-
+  console.log(values.subListStr,"LLLLL");
 	if (!values.subListStr || !values.subListStr.length) {
-          errors.subListStr = { _error: 'At least one member must be entered' }
+		  
+          
         } else {
           let membersArrayErrors = []
 
@@ -531,6 +531,7 @@ const validate = values =>{
 			if(porTypes.orderNum && isNaN(porTypes.orderNum.toString().trim())){
 				 memberErrors.orderNum = '序号必须为正整数';
 			}
+
 			membersArrayErrors[memberIndex] = memberErrors
           })
 

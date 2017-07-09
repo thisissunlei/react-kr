@@ -218,9 +218,12 @@ export default class CustomerSource  extends Component{
 	newSubmit = (data) =>{
 		const self = this;
 		let arr = [];
-		for(let i = 0; i<data.subListStr.length;i++){
-			if(data.subListStr[i] && data.subListStr[i].name && data.subListStr[i] != null){
-				arr.push(data.subListStr[i])
+		console.log("OOOOOO");
+		if(data.subListStr){
+			for(let i = 0; i<data.subListStr.length;i++){
+				if(data.subListStr[i] && data.subListStr[i].name && data.subListStr[i] != null){
+					arr.push(data.subListStr[i])
+				}
 			}
 		}
 		var subListStr = JSON.stringify(arr);
