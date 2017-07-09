@@ -82,7 +82,8 @@ class EditCustomerSource extends Component{
 		var names = Object.assign({},State.names);
 		var codes = Object.assign({},State.codes);
 		var orders = Object.assign({},State.orders);
-		var childs = [].concat(State.childs);
+		console.log(State.childs,">>>>>>>>");
+		var childs = Object.assign({},State.child)
 
 		
 		if(names[index]){
@@ -97,15 +98,16 @@ class EditCustomerSource extends Component{
 			delete orders[index];
 		}
 		
-		childs.splice(index,1);
 		var nameData = this.conversion(names);
 		var codeData = this.conversion(codes);
 		var orderData = this.conversion(orders);
+		childs.splice(index,1);
+		
 		State.names = nameData;
 		State.codes = codeData;
 		State.orderData = orderData;
 		State.childs = childs;
-		
+		console.log(childs,"KKKKKKK");
 	}
 	//jsonToArr
 	jsonToArr = (names) =>{
@@ -330,11 +332,12 @@ class EditCustomerSource extends Component{
 									fields.remove(index)
 									self.remove(index);
 								}else{
-									console.log(index,State.childs[index].id);
+									console.log(index,State.childs[index]);
 									Http.request('del-child-source',{id:State.childs[index].id}).then(function(response) {
 										if(response.code == 1){
 											fields.remove(index)
 											self.remove(index);
+											
 
 										}else{
 											Message.error("该子项不可删除");
