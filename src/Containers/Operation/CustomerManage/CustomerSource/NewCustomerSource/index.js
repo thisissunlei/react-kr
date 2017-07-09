@@ -155,7 +155,9 @@ class NewCustomerSource extends Component{
 		var names = Object.assign({},State.names);
 		
 		var self = this;
-		names[index] = data;
+		if(data != ""){
+			names[index] = data;
+		}
 		State.names = names;
 		var value = {id : '',name : data}
 		Http.request('check-name-source',value).then(function(response) {
@@ -192,7 +194,9 @@ class NewCustomerSource extends Component{
 	codeChange = (data,index) => {
 		var codes = Object.assign({},State.codes)
 		var self = this;
-		codes[index] = data;
+		if(data != ""){
+			codes[index] = data;
+		}
 		State.codes = codes;
 		
 			var value = {id : '',code : data}
@@ -221,8 +225,10 @@ class NewCustomerSource extends Component{
 	}
 	//排序校验
 	orderChange = (data,index) =>{
-		var orderNums = Object.assign({},State.orderNums)
-			orderNums[index] = data;
+		var orderNums = Object.assign({},State.orderNums);
+			if(data != ""){
+				orderNums[index] = data;
+			}
 			State.orderNums=orderNums;
 		if(index=="no"){
 			var value = {id : '',orderNum : data}
