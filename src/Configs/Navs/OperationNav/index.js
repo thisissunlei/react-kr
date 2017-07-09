@@ -97,7 +97,7 @@ module.exports = [
 					},
 					{
 						primaryText: "客户来源配置",
-						menuCode: 'contract_setting_base',
+						menuCode: 'oper_csr_sourceList_base',
 						router: '/operation/customerManage/customerSource',
 					},
 					{
