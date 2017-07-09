@@ -303,12 +303,14 @@ const validate = values =>{
 			errors.sourceId = '请填写客户来源';
 		}
 
-		if (!values.stationNum) {
+		if (!values.stationNum && values.stationNum!=0) {
 			errors.stationNum = '请填写意向工位个数';
 		}else if(isNaN(+values.stationNum)){
 			errors.stationNum = '意向工位个数为数字格式';
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
+		}else if(values.stationNum == 0){
+			errors.stationNum = '意向工位个数不能为0';			
 		}
 
 		if(!values.recommendName){
