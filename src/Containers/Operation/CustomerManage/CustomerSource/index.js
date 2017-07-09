@@ -34,6 +34,12 @@ import './index.less';
 import EditCustomerSource from './EditCustomerSource';
 import NewCustomerSource from './NewCustomerSource';
 import DeleteSource from './DeleteSource';
+import editState from './EditCustomerSource/State';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@observer
 export default class CustomerSource  extends Component{
 
 	constructor(props,context){
@@ -142,16 +148,30 @@ export default class CustomerSource  extends Component{
 		Http.request('get-detail-source',value).then(function(response) {
 			var data = Object.assign({},response);
 			data.enabled = data.enabledStr;
-			var childs = data.subListStr;
-			self.setState({
-				childs
-			})
+			self.initEditChild(data);
 			Store.dispatch(initialize('editCustomerSource',data));
 		}).catch(function(err) {
 			Message.error(err);
 		});
 	}
-	
+	initEditChild = (data) =>{
+		var names = {};
+		var codes = {};
+		var orders = {}
+
+		names["no"] = data.name;
+		codes["no"] = data.code;
+		orders["no"] = data.orderNum;
+		data.subListStr.map(function(item,index){
+			names[index] = item.name;
+			codes[index] = item.code;
+			orders[index] = item.orderNum;
+		})
+		editState.names = names;
+		editState.codes = codes;
+		editState.orders = orders;
+		editState.childs = data.subListStr;
+	}
 	
 	//删除客户来源
 	delSubmit = () =>{
@@ -199,7 +219,7 @@ export default class CustomerSource  extends Component{
 		const self = this;
 		let arr = [];
 		for(let i = 0; i<data.subListStr.length;i++){
-			if(data.subListStr[i]!=null){
+			if(data.subListStr[i] && data.subListStr[i].name && data.subListStr[i] != null){
 				arr.push(data.subListStr[i])
 			}
 		}
@@ -223,7 +243,7 @@ export default class CustomerSource  extends Component{
 		})
 	}
 	render(){
-		const {isEdit,isNew,searchParams,isDel,childs,sourceId} = this.state;
+		const {isEdit,isNew,searchParams,isDel,sourceId} = this.state;
 		
 		return(
 			<div className="customer-source">
@@ -348,7 +368,7 @@ export default class CustomerSource  extends Component{
 					onClose={this.allClose}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				>
-					<EditCustomerSource sourceId = {sourceId} childs = {childs} onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
+					<EditCustomerSource sourceId = {sourceId} onSubmit = {this.editSubmit} onCancel = {this.editSwitch}/>
 				</Drawer>
 
 				{/*新建*/}

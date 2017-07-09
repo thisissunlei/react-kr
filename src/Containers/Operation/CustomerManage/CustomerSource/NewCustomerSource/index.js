@@ -46,7 +46,11 @@ class NewCustomerSource extends Component{
 	}
 	onCancel = () => {
 		const {onCancel} = this.props;
+		
 		onCancel && onCancel();
+	}
+	componentWillUnmount() {
+		State.names= {};
 	}
 
     onSubmit = (values) =>{
@@ -70,11 +74,36 @@ class NewCustomerSource extends Component{
 		}
 		return judge;
 	}
+	//操作
+	allRepeat = (arr,type) => {
+		var yesList = [];
+		for(var i = 0; i < arr.length; i++) {
+			var hasRead = false;
+			for(var k = 0; k < yesList.length; k++) {
+				if(i == yesList[k]) {
+					hasRead = true;
+				}
+			}
+			if(hasRead) { break; }
+			for(var j = i + 1; j < arr.length; j++) {
+				if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
+					console.log(j,'LLLLLLLL')
+					yesList.push(j);
+					document.getElementById(type+(j-1)).innerHTML="该名称已存在"
+				}else{
+					document.getElementById(type+(j-1)).innerHTML=""					
+				}
+			}
+		}
+		return yesList;
+	}
+
+
 	//删除储存数据
 	remove = (index) =>{
-		var names = Object.assign({},this.state.names);
-		var codes = Object.assign({},this.state.codes);
-		var orders = Object.assign({},this.state.orders);
+		var names = Object.assign({},State.names);
+		var codes = Object.assign({},State.codes);
+		var orders = Object.assign({},State.orders);
 		
 		if(names[index]){
 			delete names[index];
@@ -96,6 +125,15 @@ class NewCustomerSource extends Component{
 		State.codes = codeData;
 		State.orderData = orderData;
 		
+	}
+	//jsonToArr
+	jsonToArr = (names) =>{
+		var arr = [];
+		for(var key in names){
+			arr.push(names[key])
+		}
+		arr.unshift(arr.splice(arr.length-1,1)[0]);
+		return arr;
 	}
 	//转换数据格式
 	conversion = (names) =>{
@@ -119,58 +157,39 @@ class NewCustomerSource extends Component{
 		var self = this;
 		names[index] = data;
 		State.names = names;
-		
-		if(!this.flog(index,names,data) && index != "no"){
-			document.getElementById("customerSourceName"+index).innerHTML=""
-			
-		}else if(this.flog(index,names,data)){
-			document.getElementById("customerSourceName"+index).innerHTML="该名称已存在"
-		}else if(this.flog(index,names,data) && index == "no"){
-			State.isName = false;
-		}else{
-			var value = {id : '',name : data}
-			Http.request('check-name-source',value).then(function(response) {
+		var value = {id : '',name : data}
+		Http.request('check-name-source',value).then(function(response) {
 
-				if(index=="no" && response.code == "-1"){
-					State.isName = false;
-				}
-				if(index=="no" && response.code == "1"){
-					State.isName = true;
-				}
-				if(index != "no" && response.code == "-1"){
-					document.getElementById("customerSourceName"+index).innerHTML="该名称已存在";
-					
-				}
-				if(index != "no" && response.code == "1"){
-					document.getElementById("customerSourceName"+index).innerHTML="";
-					
-				}
+			if(index=="no" && response.code == "-1"){
+				State.isName = false;
+			}
+			if(index=="no" && response.code == "1"){
+				State.isName = true;
+			}
+			if(index != "no" && response.code == "-1"){
+				document.getElementById("customerSourceName"+index).innerHTML="该名称已存在";
 				
+			}
+			if(index != "no" && response.code == "1"){
+				self.allRepeat(self.jsonToArr(names),"customerSourceName")
+				
+			}
+			
 
-			}).catch(function(err) {
+		}).catch(function(err) {
 
-			});
+		});
 
-		}
+
 	
 	}
 	//监听code发生变化
 	codeChange = (data,index) => {
 		var codes = Object.assign({},State.codes)
+		var self = this;
 		codes[index] = data;
 		State.codes = codes;
-		console.log(codes,this.flog(index,codes,data),"LLLLLL")
-		if(!this.flog(index,codes,data) && index != "no"){
-			document.getElementById("customerSourceCode"+index).innerHTML=""
-			
-		}else if(this.flog(index,codes,data)&& index != "no"){
-			
-			document.getElementById("customerSourceCode"+index).innerHTML="该编码已存在"
-			
-
-		}else if(this.flog(index,codes,data) && index == "no"){
-			State.isCode = false;
-		}else{
+		
 			var value = {id : '',code : data}
 			Http.request('check-code-source',value).then(function(response) {
 				if(index=="no" && response.code == "-1"){
@@ -184,13 +203,12 @@ class NewCustomerSource extends Component{
 					
 				}
 				if(index != "no" && response.code == "1"){
-					document.getElementById("customerSourceCode"+index).innerHTML=""
+					self.allRepeat(self.jsonToArr(codes),"customerSourceCode")
 					
 				}
 			}).catch(function(err) {
 
 			});
-		}
 	}
 	//排序校验
 	orderChange = (data,index) =>{
@@ -210,13 +228,7 @@ class NewCustomerSource extends Component{
 
 			});
 		}else{ //本地排序的存储
-			if(this.flog(index,orderNums,data)){
-				document.getElementById("customerSourceOrder"+index).innerHTML="该编码已存在"
-				
-			}else{
-				document.getElementById("customerSourceOrder"+index).innerHTML=""
-				
-			}
+			this.allRepeat(this.jsonToArr(orderNums),"customerSourceOrder")
 		}
 		
 	}
@@ -303,8 +315,7 @@ class NewCustomerSource extends Component{
 
 							onClick={() => {
 								
-								fields.remove(index)
-								
+								fields.remove(index);
 								self.remove(index);
 							}}
 						/>
@@ -313,13 +324,14 @@ class NewCustomerSource extends Component{
 			
 			return (
 			<ul style={{padding:0,margin:0}}>
+				
+				{brights}
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
 							fields.push();
 							
 						}} />
 				</div>
-				{brights}
 			</ul>
 
 		)
@@ -451,6 +463,7 @@ class NewCustomerSource extends Component{
 const validate = values =>{
 
 	let errors = {};
+	let decimal = /^-?\d{0,6}\.?\d{0,4}$/;
 	if(!values.name){
 		errors.name = '来源名称必填';
 	}else if(values.name.length > 20){
@@ -471,8 +484,8 @@ const validate = values =>{
 
 	if(!values.brokerage){
 		errors.brokerage = '拥金比例为必填项';
-	}else if(!values.brokerage){
-		errors.brokerage = ''
+	}else if(!decimal.test(values.brokerage)){
+		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
 	}
 
 	if (!values.subListStr || !values.subListStr.length) {
@@ -509,6 +522,9 @@ const validate = values =>{
 			}
 			if (porTypes.code && porTypes.code.length > 30){
 				memberErrors.code = '子项编码最多30个字符';
+			}
+			if(porTypes.orderNum && isNaN(porTypes.orderNum.toString().trim())){
+				 memberErrors.orderNum = '序号必须为正整数';
 			}
 			membersArrayErrors[memberIndex] = memberErrors
           })

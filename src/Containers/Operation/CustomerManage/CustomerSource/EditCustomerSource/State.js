@@ -10,11 +10,13 @@ import {
 	Store
 } from 'kr/Redux';
 let State = observable({
-		isName : true,
-    isChildName : [],
+	isName : true,
     isCode : true,
-    isChildCode : [],
-    isRequire : []
+	isOrderName:true,
+	names : {} ,
+	codes : {} ,
+	orderNums :{},
+	childs:{},
 });
 
 module.exports = State;

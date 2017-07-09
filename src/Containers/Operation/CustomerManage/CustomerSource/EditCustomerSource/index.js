@@ -50,12 +50,95 @@ class EditCustomerSource extends Component{
         let {onSubmit} = this.props;
         onSubmit && onSubmit(values);
     }
+
+	allRepeat = (arr,type) => {
+		console.log(">>>>>>","<<<<<<<");
+		var yesList = [];
+		for(var i = 0; i < arr.length; i++) {
+			var hasRead = false;
+			for(var k = 0; k < yesList.length; k++) {
+				if(i == yesList[k]) {
+					hasRead = true;
+				}
+			}
+			if(hasRead) { break; }
+			for(var j = i + 1; j < arr.length; j++) {
+				if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
+					yesList.push(j);
+					
+					
+					document.getElementById(type+(j-1)).innerHTML="该名称已存在"
+				}else{
+					document.getElementById(type+(j-1)).innerHTML=""					
+				}
+			}
+		}
+		return yesList;
+	}
+
+
+	
+		//删除储存数据
+	remove = (index) =>{
+		var names = Object.assign({},State.names);
+		var codes = Object.assign({},State.codes);
+		var orders = Object.assign({},State.orders);
+		var childs = [].concat(State.childs);
+
+		
+		if(names[index]){
+			delete names[index];
+		}
+
+		if(codes[index]){
+			delete codes[index];
+		}
+
+		if(orders[index]){
+			delete orders[index];
+		}
+		
+		childs.splice(index,1);
+		var nameData = this.conversion(names);
+		var codeData = this.conversion(codes);
+		var orderData = this.conversion(orders);
+		State.names = nameData;
+		State.codes = codeData;
+		State.orderData = orderData;
+		State.childs = childs;
+		
+	}
+	//jsonToArr
+	jsonToArr = (names) =>{
+		var arr = [];
+		for(var key in names){
+			arr.push(names[key])
+		}
+		arr.unshift(arr.splice(arr.length-1,1)[0]);
+		return arr;
+	}
+	//转换数据格式
+	conversion = (names) =>{
+		var arr = [];
+		var obj={};
+		for(var key in names){
+			arr.push(names[key])
+		}
+		
+		arr.map((item,index)=>{
+			obj[index] = item;
+		})
+		return obj;
+	}
+
 	//监听name发生变化
 	nameChange = (data,index) =>{
 		let {sourceId} = this.props;
-		console.log(sourceId,"LLLL");
-		var value = {id :sourceId || '',name : data}
-
+		var names = Object.assign({},State.names);
+		var self = this;
+		names[index] = data;
+		State.names = names;
+		var value = {id :sourceId|| '',code : data}
 		Http.request('check-name-source',value).then(function(response) {
 
 			if(index=="no" && response.code == "-1"){
@@ -65,10 +148,11 @@ class EditCustomerSource extends Component{
 				State.isName = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				State.isChildName[index]=false;
+				document.getElementById("customerSourceName"+index).innerHTML="该编码已存在"
+
 			}
 			if(index != "no" && response.code == "1"){
-				State.isChildName[index]=true;
+				self.allRepeat(self.jsonToArr(names),"customerSourceName")				
 			}
 
 		}).catch(function(err) {
@@ -78,6 +162,11 @@ class EditCustomerSource extends Component{
 	//监听code发生变化
 	codeChange = (data,index) => {
 		const {sourceId} = this.props;
+		const self = this;
+		var codes = Object.assign({},State.codes);
+			codes[index] = data;
+			State.codes = codes;
+			console.log(codes,">>>>");
 		var value = {id :sourceId|| '',code : data}
 		Http.request('check-code-source',value).then(function(response) {
 			if(index=="no" && response.code == "-1"){
@@ -87,16 +176,42 @@ class EditCustomerSource extends Component{
 				State.isCode = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				State.isChildCode[index]=false;
+				document.getElementById("customerSourceCode"+index).innerHTML="该编码已存在"
+
 			}
 			if(index != "no" && response.code == "1"){
-				State.isChildCode[index]=true;
+				console.log("OOOOOOO")
+				self.allRepeat(self.jsonToArr(codes),"customerSourceCode")
 			}
 		}).catch(function(err) {
 
 		});
 	}
 
+	//排序校验
+	orderChange = (data,index) =>{
+		const {sourceId} = this.props;
+		const self = this;		
+		var orderNums = Object.assign({},State.orderNums);
+			orderNums[index] = data;
+			State.orderNums=orderNums;
+		if(index=="no"){
+			var value = {id : sourceId||'',code : data}
+			Http.request('check-orderNum-source',value).then(function(response) {
+				if(response.code == "-1"){
+					State.isOrderName = false;
+				}
+				if(response.code == "1"){
+					State.isOrderName = true;
+				}
+			}).catch(function(err) {
+
+			});
+		}else{ //本地排序的存储
+			self.allRepeat(self.jsonToArr(orderNums),"customerSourceOrder")
+		}
+		
+	}
 
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
 		<div>
@@ -108,37 +223,21 @@ class EditCustomerSource extends Component{
 		</div>
 	)
 	componentWillReceiveProps(nextProps){
-		// // console.log(nextProps,"ooooooo")
-		// if(nextProps){
-		// 	this.setState({
-		// 		sourceId : nextProps.sourceId
-		// 	})
-		// }
+		
 
 	}
 	renderBrights = ({ fields, meta: { touched, error }}) => {
 		const self = this;
 		var krStyle={};
-		var nameArr = [];
-		var codeArr = [];
-		var childs = this.props.childs || [];
+		
+		
 		krStyle={width:228,marginLeft:18,marginRight:3}
 		let promptStyle = {marginLeft : 25,color : "red"};
 		let columnStyle = {display:"inline-block",verticalAlign:"top"};
 		
 
 	   var brights = fields.map(function(brightsStr, index){
-		   		if( State.isChildName[index] === false){
-					nameArr.push(false);
-				}else{
-					nameArr.push(true);
-				}
-				if(State.isChildCode[index] === false){
-					codeArr.push(false);
-				}else{
-					codeArr.push(true);
-				}
-				
+		   	
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<div style = {columnStyle}>
 						<KrField
@@ -155,7 +254,7 @@ class EditCustomerSource extends Component{
 							}}
 
 						/>
-						{State.isChildName.length != 0 &&!State.isChildName[index] && <div style = {promptStyle}>该名称已存在</div>}
+						 <div id = {"customerSourceName"+index} style = {promptStyle}></div>
 						</div>
 						<div style = {columnStyle}>
 						<KrField
@@ -168,12 +267,13 @@ class EditCustomerSource extends Component{
 							label={index?'':'子项编码'}
 							placeholder='子项编码'
 							onChange = {(data) =>{
-								self.nameChange(data,index)
+								self.codeChange(data,index)
 							}}
 
 						/>
-						{State.isChildName.length != 0 && !State.isChildCode[index] &&<div style = {promptStyle}>该编码已存在</div>}
+						<div id = {"customerSourceCode"+index} style = {promptStyle}></div>
 						</div>
+						<div style = {columnStyle}>
 						<KrField
 							style={{width:90,marginLeft:0,marginRight:3,}}
 							grid={1/3}
@@ -182,44 +282,54 @@ class EditCustomerSource extends Component{
 							component={self.renderField}
 							label={index?'':'子项顺序'}
 							placeholder='子项顺序'
+							onChange = {(data) =>{
+								self.orderChange(data,index)
+							}}
 						/>
+						<div id = {"customerSourceOrder"+index} style = {promptStyle}></div>
+						
+						</div>
 						<span
 							className='minusBtn'
 							style={!index ? {marginTop:32,marginLeft:8}:{marginTop:16,marginLeft:8}}
 
 							onClick={() => {
 								
-								Http.request('del-child-source',{id:childs[index].id}).then(function(response) {
-									if(response.code == 1){
-										fields.remove(index)
-										State.isRequire.splice(index,1);
-										State.isChildCode.splice(index,1);
-										State.isChildName.splice(index,1);
-									}else{
-										Message.error("该子项不可删除");
-									}
-								}).catch(function(err) {
+								if(!State.childs[index]){
+									console.log(index,"LLLL")
+									fields.remove(index)
+									self.remove(index);
+								}else{
+									console.log(index,State.childs[index].id);
+									Http.request('del-child-source',{id:State.childs[index].id}).then(function(response) {
+										if(response.code == 1){
+											fields.remove(index)
+											self.remove(index);
 
-								});
+										}else{
+											Message.error("该子项不可删除");
+										}
+									}).catch(function(err) {
+
+									});
+								}
 								
 
 							}}
 						/>
 					</li>)
 	   		})
-			State.isChildName = [].concat(nameArr);
-			State.isChildCode = [].concat(codeArr);
 			return (
 			<ul style={{padding:0,margin:0}}>
+				
+				{brights}
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
-							console.log(State.isChildCode,"KKKKKK");
-							fields.unshift();
-							State.isChildCode.unshift(true);
-							State.isChildName.unshift(true);
+							
+							fields.push();
+							
 						}} />
 				</div>
-				{brights}
 			</ul>
 
 		)
@@ -345,6 +455,7 @@ class EditCustomerSource extends Component{
 const validate = values =>{
 
 	let errors = {};
+	let decimal = /^-?\d{0,6}\.?\d{0,4}$/;
 	if(!values.name){
 		errors.name = '来源名称必填';
 	}else if(values.name.length > 20){
@@ -360,8 +471,8 @@ const validate = values =>{
 
 	if(!values.brokerage){
 		errors.brokerage = '拥金比例为必填项';
-	}else if(!values.brokerage){
-		errors.brokerage = ''
+	}else if(!decimal.test(values.brokerage)){
+		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
 	}
 	if (!values.subListStr || !values.subListStr.length) {
           errors.subListStr = { _error: 'At least one member must be entered' }
@@ -396,6 +507,9 @@ const validate = values =>{
 			}
 			if (porTypes.code && porTypes.code.length > 30){
 				memberErrors.code = '子项编码最多30个字符';
+			}
+			if(porTypes.orderNum && isNaN(porTypes.orderNum.toString().trim())){
+				 memberErrors.orderNum = '序号必须为正整数';
 			}
 			membersArrayErrors[memberIndex] = memberErrors
           })
