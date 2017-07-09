@@ -59,7 +59,7 @@ class NewCustomerSource extends Component{
 	*	返回true 存在重复
 	*	返回false 不存在重复
 	*/
-	flog = (index,datas) =>{
+	flog = (index,datas,value) =>{
 		
 		var judge = false;
 		for(let i in datas){
@@ -112,15 +112,21 @@ class NewCustomerSource extends Component{
 	}
 
 	//监听name发生变化
-	nameChange = (data,index) =>{
-
+	nameChange = (data,index,fields) =>{
+		
 		var names = Object.assign({},State.names);
+		
+		var self = this;
 		names[index] = data;
 		State.names = names;
-		if(this.flog(index,names) && index != "no"){
-			State.isChildName[index] = true;
-		}else if(this.flog(index,names) && index == "no"){
-			State.isName = true;
+		
+		if(!this.flog(index,names,data) && index != "no"){
+			document.getElementById("customerSourceName"+index).innerHTML=""
+			
+		}else if(this.flog(index,names,data)){
+			document.getElementById("customerSourceName"+index).innerHTML="该名称已存在"
+		}else if(this.flog(index,names,data) && index == "no"){
+			State.isName = false;
 		}else{
 			var value = {id : '',name : data}
 			Http.request('check-name-source',value).then(function(response) {
@@ -132,26 +138,38 @@ class NewCustomerSource extends Component{
 					State.isName = true;
 				}
 				if(index != "no" && response.code == "-1"){
-					State.isChildName[index] = false;
+					document.getElementById("customerSourceName"+index).innerHTML="该名称已存在";
+					
 				}
 				if(index != "no" && response.code == "1"){
-					State.isChildName[index] = true;
+					document.getElementById("customerSourceName"+index).innerHTML="";
+					
 				}
+				
 
 			}).catch(function(err) {
 
 			});
 
 		}
+	
 	}
 	//监听code发生变化
 	codeChange = (data,index) => {
 		var codes = Object.assign({},State.codes)
 		codes[index] = data;
-		if(this.flog(index,codes)&& index != "no"){
-			State.isChildCode[index]=true;
-		}else if(this.flog(index,codes) && index == "no"){
-			State.isCode = true;
+		State.codes = codes;
+		console.log(codes,this.flog(index,codes,data),"LLLLLL")
+		if(!this.flog(index,codes,data) && index != "no"){
+			document.getElementById("customerSourceCode"+index).innerHTML=""
+			
+		}else if(this.flog(index,codes,data)&& index != "no"){
+			
+			document.getElementById("customerSourceCode"+index).innerHTML="该编码已存在"
+			
+
+		}else if(this.flog(index,codes,data) && index == "no"){
+			State.isCode = false;
 		}else{
 			var value = {id : '',code : data}
 			Http.request('check-code-source',value).then(function(response) {
@@ -162,10 +180,12 @@ class NewCustomerSource extends Component{
 					State.isCode = true;
 				}
 				if(index != "no" && response.code == "-1"){
-					State.isChildCode[index]=false;
+					document.getElementById("customerSourceCode"+index).innerHTML="该编码已存在"
+					
 				}
 				if(index != "no" && response.code == "1"){
-					State.isChildCode[index]=true;
+					document.getElementById("customerSourceCode"+index).innerHTML=""
+					
 				}
 			}).catch(function(err) {
 
@@ -176,6 +196,7 @@ class NewCustomerSource extends Component{
 	orderChange = (data,index) =>{
 		var orderNums = Object.assign({},State.orderNums)
 			orderNums[index] = data;
+			State.orderNums=orderNums;
 		if(index=="no"){
 			var value = {id : '',code : data}
 			Http.request('check-orderNum-source',value).then(function(response) {
@@ -189,8 +210,12 @@ class NewCustomerSource extends Component{
 
 			});
 		}else{ //本地排序的存储
-			if(this.flog(index,codes)){
-				State.isChildOrderNum[index]=true;
+			if(this.flog(index,orderNums,data)){
+				document.getElementById("customerSourceOrder"+index).innerHTML="该编码已存在"
+				
+			}else{
+				document.getElementById("customerSourceOrder"+index).innerHTML=""
+				
 			}
 		}
 		
@@ -205,33 +230,18 @@ class NewCustomerSource extends Component{
 		</div>
 	)
 	renderBrights = ({ fields, meta: { touched, error }}) => {
+		
+		
 		const self = this;
 		var krStyle={};
-		var nameArr = [];
-		var codeArr = [];
-		var orderArr = [];
+		
 		krStyle={width:228,marginLeft:18,marginRight:3}
 		let promptStyle = {marginLeft : 25,color : "red"};
 		let columnStyle = {display:"inline-block",verticalAlign:"top"};
+	
 		
-
 	   var brights = fields.map(function(brightsStr, index){
-		   		if(State.isChildName[index] === false){
-					nameArr.push(false);
-				}else{
-					nameArr.push(true);
-				}
-				if(State.isChildCode[index] === false){
-					codeArr.push(false);
-				}else{
-					codeArr.push(true);
-				}
-				if(State.isChildOrderName[index] === false){
-					orderArr.push(false);
-				}else{
-					orderArr.push(true);
-				}
-
+		   		
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<div style = {columnStyle}>
 						<KrField
@@ -244,30 +254,33 @@ class NewCustomerSource extends Component{
 							label={index?'':'子项名称'}
 							placeholder='子项名称'
 							onChange = {(data) =>{
-
 								self.nameChange(data,index);
 							}}
 
 						/>
-						{!State.isChildName[index] && <div style = {promptStyle}>该名称已存在</div>}
+						<div 
+							id = {"customerSourceName"+index} 
+							style = {promptStyle}>
+						</div>
 						</div>
 						<div style = {columnStyle}>
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
 							name={`${brightsStr}.code`}
-
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项编码'}
 							placeholder='子项编码'
 							onChange = {(data) =>{
-								self.nameChange(data,index)
+								self.codeChange(data,index)
 							}}
 
 						/>
-						{!State.isChildCode[index] &&<div style = {promptStyle}>该编码已存在</div>}
+						<div id = {"customerSourceCode"+index} style = {promptStyle}></div>
+						
 						</div>
+						<div style = {columnStyle}>
 						<KrField
 							style={{width:90,marginLeft:0,marginRight:3,}}
 							grid={1/3}
@@ -276,32 +289,34 @@ class NewCustomerSource extends Component{
 							component={self.renderField}
 							label={index?'':'子项顺序'}
 							placeholder='子项顺序'
+							onChange = {(data) =>{
+								
+								self.orderChange(data,index)
+							}}
 						/>
+							<div id = {"customerSourceOrder"+index} style = {{marginLeft:7,color:'red'}}></div>
+							
+						</div>
 						<span
 							className='minusBtn'
 							style={!index ? {marginTop:32,marginLeft:8}:{marginTop:16,marginLeft:8}}
 
 							onClick={() => {
+								
 								fields.remove(index)
-								State.isChildCode.splice(index,1);
-								State.isChildName.splice(index,1);
-								State.isChildOrderNum.splice(index,1);
+								
 								self.remove(index);
 							}}
 						/>
 					</li>)
 	   		})
-			State.isChildName = [].concat(nameArr);
-			State.isChildCode = [].concat(codeArr);
-			State.isChildOrderNum = [].concat(orderArr);
+			
 			return (
 			<ul style={{padding:0,margin:0}}>
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
-							fields.unshift();
-							State.isChildCode.unshift(true);
-							State.isChildName.unshift(true);
-							State.isChildOrderNum.unshift(true);
+							fields.push();
+							
 						}} />
 				</div>
 				{brights}
@@ -315,6 +330,8 @@ class NewCustomerSource extends Component{
 		let fieldStyle = {width:262,marginLeft:28};
 		let promptStyle = {marginLeft : 25,color : "red"};
 		let columnStyle = {display:"inline-block",verticalAlign:"top"};
+
+		
 		return (
 
 			<form className = 'edit-source-from' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>

@@ -446,7 +446,7 @@ class SignedClient extends React.Component{
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
 			                <TableRowColumn name="unBackamount"></TableRowColumn>
 							{/*客户来源*/}
-			                <TableRowColumn name="unBackamount"></TableRowColumn>
+			                <TableRowColumn name="sourceName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
 
 														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)

@@ -36,7 +36,7 @@ import {
 	constructor(props){
 		super(props);
 		State.treeAllData();
-		this.screening = ["内部推荐","外部推荐","中介人计划","中介推荐的话"];
+		this.screening = ["内部推荐","外部推荐","推介人计划","中介客源"];
 	}
 	onSubmit = (values) => {
 		if(values.projectCategoryId&& typeof values.projectCategoryId!='number'){

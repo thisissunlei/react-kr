@@ -236,7 +236,7 @@ module.exports = {
     },
     //运营平台－客户管理－签约客户列表
     'signCustomers': {
-        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}&mainBillType={mainBillType}',
+        url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}&mainBillType={mainBillType}&sourceId={sourceId}',
         method: 'get'
     },
     //运营平台－客户管理－签约客户列表－导出
