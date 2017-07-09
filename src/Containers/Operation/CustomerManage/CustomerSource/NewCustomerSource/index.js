@@ -399,8 +399,9 @@ class NewCustomerSource extends Component{
 									this.orderChange(data,"no")
 								}}
 							/>
-							</div>
 							{!State.isOrderName && <div style = {promptStyle}>该序号已存在</div>}
+							
+							</div>
 							
 							<KrField
 								grid={1/2}
