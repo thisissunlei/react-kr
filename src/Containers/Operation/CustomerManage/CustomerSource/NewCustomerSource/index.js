@@ -394,6 +394,9 @@ class NewCustomerSource extends Component{
 								style={{width:262,marginLeft:15}}
 								component="input"
 								requireLabel={true}
+								onChange = {(data) =>{
+									this.orderChange(data,"no")
+								}}
 							/>
 							</div>
 							{!State.isOrderName && <div style = {promptStyle}>该序号已存在</div>}

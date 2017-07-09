@@ -389,6 +389,9 @@ class EditCustomerSource extends Component{
 								style={{width:262,marginLeft:15}}
 								component="input"
 								requireLabel={true}
+								onChange = {(data) =>{
+									this.orderChange(data,"no")
+								}}
 							/>
 							<KrField
 								grid={1/2}
