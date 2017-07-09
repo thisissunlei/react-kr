@@ -82,7 +82,6 @@ class EditCustomerSource extends Component{
 		var names = Object.assign({},State.names);
 		var codes = Object.assign({},State.codes);
 		var orders = Object.assign({},State.orders);
-		console.log(State.childs,">>>>>>>>");
 		var childs = Object.assign({},State.child)
 
 		
@@ -137,7 +136,10 @@ class EditCustomerSource extends Component{
 		let {sourceId} = this.props;
 		var names = Object.assign({},State.names);
 		var self = this;
-		names[index] = data;
+		if(data != ""){
+			names[index] = data;
+		}
+		
 		State.names = names;
 		var value = {id :sourceId|| '',code : data}
 		Http.request('check-name-source',value).then(function(response) {
@@ -170,7 +172,9 @@ class EditCustomerSource extends Component{
 		const {sourceId} = this.props;
 		const self = this;
 		var codes = Object.assign({},State.codes);
-			codes[index] = data;
+			if(data != ""){
+				codes[index] = data;
+			}
 			State.codes = codes;
 			
 		var value = {id :sourceId|| '',code : data}
@@ -204,7 +208,9 @@ class EditCustomerSource extends Component{
 		const {sourceId} = this.props;
 		const self = this;		
 		var orderNums = Object.assign({},State.orderNums);
-			orderNums[index] = data;
+			if(data != ""){
+				orderNums[index] = data;
+			}
 			State.orderNums=orderNums;
 		if(index=="no"){
 			var value = {id : sourceId||'',orderNum : data}
@@ -540,10 +546,10 @@ const validate = values =>{
               memberErrors.name = '该子项名称必填';
 			}
 			if (must && !porTypes.code){
-              memberErrors.code = '该子项编码必填';
+              memberErrors.code = '编码必填';
 			}
 			if (must && !porTypes.orderNum){
-              memberErrors.orderNum = '该子项排序必填';
+              memberErrors.orderNum = '排序必填';
 			}
 
 			if (porTypes.name && porTypes.name.length > 20){
