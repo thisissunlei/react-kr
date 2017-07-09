@@ -216,8 +216,9 @@ class NewCustomerSource extends Component{
 			orderNums[index] = data;
 			State.orderNums=orderNums;
 		if(index=="no"){
-			var value = {id : '',code : data}
-			Http.request('check-orderNum-source',value).then(function(response) {
+			console.log("LLLLLLL")
+			var value = {id : '',orderNum : data}
+			Http.request('check-order-source',value).then(function(response) {
 				if(response.code == "-1"){
 					State.isOrderName = false;
 				}

@@ -196,8 +196,8 @@ class EditCustomerSource extends Component{
 			orderNums[index] = data;
 			State.orderNums=orderNums;
 		if(index=="no"){
-			var value = {id : sourceId||'',code : data}
-			Http.request('check-orderNum-source',value).then(function(response) {
+			var value = {id : sourceId||'',orderNum : data}
+			Http.request('check-order-source',value).then(function(response) {
 				if(response.code == "-1"){
 					State.isOrderName = false;
 				}
@@ -296,7 +296,6 @@ class EditCustomerSource extends Component{
 							onClick={() => {
 								
 								if(!State.childs[index]){
-									console.log(index,"LLLL")
 									fields.remove(index)
 									self.remove(index);
 								}else{
@@ -382,6 +381,7 @@ class EditCustomerSource extends Component{
 							/>
 							{!State.isCode && <div style = {promptStyle}>来源编码已存在</div>}
 							</div>
+							<div style = {columnStyle}>
 							<KrField
 								grid={1/2}
 								label="来源顺序"
@@ -392,7 +392,13 @@ class EditCustomerSource extends Component{
 								onChange = {(data) =>{
 									this.orderChange(data,"no")
 								}}
+								
+								
 							/>
+							{!State.isOrderName && <div style = {promptStyle}>来源编码已存在</div>}
+							
+							</div>
+
 							<KrField
 								grid={1/2}
 								label="佣金比例"
