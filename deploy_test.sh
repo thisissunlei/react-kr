@@ -11,6 +11,7 @@ target_site_port=9830
 
 
 test01_ip=ali-docker-test01
+test02_ip=ali-docker-test02
 
 case $1 in
   test | test00)
@@ -24,7 +25,7 @@ case $1 in
   ;;
 
   test02 | test04 | test06)
-    target_site=www@114.215.78.48
+    target_site="www@${test02_ip}"
     target_site_port=22
   ;;
 
