@@ -51,7 +51,10 @@ import {
 		}
 		return value
 	}
-
+	componentWillMount() {
+		console.log(this.props.CommunityDetailModel.presentShow,"KKKKKKKK");
+		State.sourceCustomer=this.props.CommunityDetailModel.presentShow;
+	}
 	formatDate(value) {
 
 		var dt = new Date(value);
