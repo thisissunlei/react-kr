@@ -151,7 +151,7 @@ export default class CustomerSource  extends Component{
 			self.initEditChild(data);
 			Store.dispatch(initialize('editCustomerSource',data));
 		}).catch(function(err) {
-			Message.error(err);
+			Message.error(err.message);
 		});
 	}
 	initEditChild = (data) =>{
@@ -182,7 +182,7 @@ export default class CustomerSource  extends Component{
 			self.delSwitch();
 			self.refreshList();
 		}).catch(function(err) {
-			Message.error(err);			
+			Message.error(err.message);			
 		});
 	}
 	//关闭所有的侧滑
@@ -211,7 +211,7 @@ export default class CustomerSource  extends Component{
 			self.editSwitch();
 			self.refreshList();
 		}).catch(function(err) {
-			Message.error(err);
+			Message.error(err.message);
 		});
 	}
 	//新建提交
@@ -234,7 +234,7 @@ export default class CustomerSource  extends Component{
 			self.newSwitch();
 			self.refreshList();
 		}).catch(function(err) {
-			Message.error(err);
+			Message.error(err.message);
 		});
 	}
 	//刷新列表
