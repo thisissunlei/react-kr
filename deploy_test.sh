@@ -10,6 +10,8 @@ target_site=www@10.1.60.201
 target_site_port=9830
 
 
+test01_ip=192.168.10.2
+
 case $1 in
   test | test00)
     target_site=www@10.1.60.201
@@ -17,7 +19,7 @@ case $1 in
   ;;
 
   test01 | test03 | test05)
-    target_site=www@114.215.78.9
+    target_site="www@${test01_ip}"
     target_site_port=22
   ;;
 
