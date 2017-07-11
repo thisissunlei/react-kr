@@ -21,22 +21,20 @@ export default class ReportDetail extends React.Component{
 	render(){
         
 		return(
-
 			<div className='detail-report'>
-				<Section description="" style={{marginBottom:-5}}>
 	         <Table
-                    style={{marginTop:8}}
-                    ajax={true}
+                    //style={{}}
+                    //ajax={true}
                     onOperation={this.onOperation}
                     displayCheckbox={false}
                     exportSwitch={true}
                     onExport={this.onExport}
                     onPageChange={this.onPageChange}
                     //ajaxParams={this.props.CommunityStationModel.searchParams}
-                    ajaxUrlName='station-list'
-                    ajaxFieldListName="items"
+                    //ajaxUrlName='station-list'
+                    //ajaxFieldListName="items"
 					  >
-		            <TableHeader>
+		            <TableHeader className='detail-header'>
 		              <TableHeaderColumn>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn>客户来源</TableHeaderColumn>
                       <TableHeaderColumn>客户名称</TableHeaderColumn>
@@ -49,19 +47,18 @@ export default class ReportDetail extends React.Component{
 
 			        <TableBody >
 			              <TableRow>
-			                <TableRowColumn name="code"></TableRowColumn>
-                            <TableRowColumn name="floor"></TableRowColumn>
-			                <TableRowColumn name="stationType" options={[{label:'开放',value:'OPEN'},{label:'半开放',value:'HALF_OPEN'},{label:'封闭',value:'CLOSED'}]}></TableRowColumn>
-                            <TableRowColumn name="belongSpace"  options={[{label:'属于',value:'true'},{label:'不属于',value:'false'}]}></TableRowColumn>
-			                <TableRowColumn name="spaceName"></TableRowColumn>
-			                <TableRowColumn name="quotedPrice"></TableRowColumn>
-			                <TableRowColumn name="enable" options={[{label:'启用',value:'true'},{label:'未启用',value:'false'}]}></TableRowColumn>
-			                <TableRowColumn type="operation"></TableRowColumn>
+			                <TableRowColumn>12</TableRowColumn>
+                            <TableRowColumn>34</TableRowColumn>
+			                <TableRowColumn>34</TableRowColumn>
+                            <TableRowColumn>45</TableRowColumn>
+			                <TableRowColumn>56</TableRowColumn>
+			                <TableRowColumn>tu</TableRowColumn>
+			                <TableRowColumn>dfg</TableRowColumn>
+			                <TableRowColumn>cv</TableRowColumn>
 			               </TableRow>
 			        </TableBody>
 			        <TableFooter></TableFooter>
             </Table>
-       </Section>
 	 </div>
 	 );
   }

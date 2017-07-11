@@ -19,25 +19,26 @@ export default class DataReport extends React.Component {
 				
 	}
 
- detailClick=()=>{
-   this.setState({
-	openReportDetail:true 
-   })
- }
+	detailClick=()=>{
+	this.setState({
+		openReportDetail:true 
+	})
+	}
 
 	 
 	render() {
 		
 		return (
 			<div className="data-report">
-			 <div onClick={this.detailClick}>button</div>
-			{/*高级查询*/}
-			<Dialog
-				title="报表明细"
-				onClose={this.detailClick}
-				open={this.state.openReportDetail}
+				<div onClick={this.detailClick}>button</div>
+			    {/*高级查询*/}
+				<Dialog
+					title="报表明细"
+					onClose={this.detailClick}
+					open={this.state.openReportDetail}
+					contentStyle ={{ width: '666px',height:'auto'}}
 				>
-				<ReportDetail />
+					<ReportDetail />
 				</Dialog>
 			</div>
 
