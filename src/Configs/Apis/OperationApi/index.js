@@ -473,7 +473,7 @@ module.exports = {
          method: 'get'
       },
       'setExitTotalReturn':{
-         url: '/api/krspace-finance-web/rent/total-return?mainbillId={mainbillId}&withdrawDate={withdrawDate}',
+         url: '/api/krspace-finance-web/fnaContractWithdrawalController/total-return?mainbillId={mainbillId}&withdrawDate={withdrawDate}',
           method: 'get'
       },
       'getActivityCommunityList':{
@@ -617,7 +617,21 @@ module.exports = {
             url: '/api/krspace-finance-web/dict/common',
             method: 'get'
        },
-
+      // 获取积分列表
+      'get-point': {
+         url: '/api/krspace-finance-web/point/manage/find-page?cmtId={cmtId}&customerName={customerName}&page={page}&pageSize={pageSize}',
+         method: 'get'
+       },
+       // 获取积分消费记录
+      'get-point-detail': {
+         url: '/api/krspace-finance-web/point/manage/find-log-page?customerId={customerId}&page={page}&pageSize={pageSize}',
+         method: 'get'
+       },
+       // 充值积分
+      'save-add-point': {
+            url: '/api/krspace-finance-web/point/manage/add-point',
+            method: 'post'
+       },
 
     //客户来源配置-删除客户来源
     'delete-source': {
