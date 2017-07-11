@@ -8,7 +8,8 @@ import {
     TableRow,
     TableRowColumn,
     TableFooter,
-	Tooltip
+	Tooltip,
+	SearchForms
 } from 'kr-ui';
 import './detail.less';
 import State from './State.js';
@@ -42,12 +43,17 @@ export default class ReportDetail extends React.Component{
 		window.location.href = url;
 	}
 
+	onSearchSubmit=(value)=>{
+      console.log('value',value);
+	}
+
 	render(){
 
 		let {searchParams}=this.state;
         
 		return(
 			<div className='detail-report'>
+			 {/*<div className='report-search'><SearchForms placeholder='请输入关键字'  onSubmit={this.onSearchSubmit}/></div>*/}
 	         <Table
                     //ajax={true}
                     onOperation={this.onOperation}
