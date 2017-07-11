@@ -1,8 +1,36 @@
 .data-report{
-
+    .data-report-table{
+        padding-top: 10px;
+		width: 100%;
+		height: 800px;
+		overflow: auto;
+		.report-table{
+			width: 100%;
+			margin-bottom: 20px;
+			border-right:1px solid #E1E6EB ;
+			border-bottom:1px solid #E1E6EB ;
+			.header-tr{
+				background: #F6F6F6;
+			}
+			td{
+				border-left:1px solid #E1E6EB;
+				border-top:1px solid #E1E6EB;
+				min-width: 100px;
+				text-align: center;
+				padding:11px 21px; 
+			}
+			tr:hover td{
+				background: #F6F6F6;
+			}
+			td:hover{
+				cursor: pointer;
+			}
+		}
+    }
+	
 }
-.search-payment-remind-form{
-	margin-bottom: 10px;
+.search-data-report-form{
+    float: right;
 	.ui-form-controller{
 		width:155px;
 	}

@@ -14,9 +14,9 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchForms,
-	Message
+	Message,
+	Button
 } from 'kr-ui';
-import $ from 'jquery';
 import "./index.less";
 import {DateFormat} from 'kr/Utils';
 
@@ -102,11 +102,8 @@ class SearchForm extends React.Component {
 
 			<form>
 
-				<div className='search-payment-remind-form'>
+				<div className='search-data-report-form'>
 					<ListGroup>
-						<ListGroupItem>
-							<KrField  name="communityId" component="searchCommunityAll" label="社区名称：" inline={true} style={{width:244}} onChange={this.chooseCommunity}/>
-						</ListGroupItem>
 
 						<ListGroupItem>
 							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.chooseStartTime}/>
@@ -117,7 +114,8 @@ class SearchForm extends React.Component {
 								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.chooseEndTime} />
 							</div>
 						</ListGroupItem>
-						
+						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+
 					</ListGroup>
 
 				</div>

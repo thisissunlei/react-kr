@@ -9,6 +9,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import ReportDetail from './ReportDetail';
+import ReportTable from './ReportTable';
 import State from './State';
 // import {
 // 	observer,
@@ -25,34 +26,45 @@ export default class DataReport extends React.Component {
 				
 	}
 
- detailClick=()=>{
-   this.setState({
-	openReportDetail:true 
-   })
- }
-
+	detailClick=()=>{
+		this.setState({
+			openReportDetail:true 
+		})
+	}
+	componentDidMount(){
+		var winHeight = 0;
+		if (window.innerHeight)
+		winHeight = window.innerHeight;
+		else if ((document.body) && (document.body.clientHeight))
+		winHeight = document.body.clientHeight;
+		console.log(winHeight,">>>>>>>>>");
+        window.addEventListener("scroll",this.domOnscroll,false)
+    }
 	 
 	render() {
 		
 		return (
-			<div className="data-report">
+			<div className="data-report" style = {{height:''}}>
 				<Title value="催款表"/>
-					<Section title="催款表">
-						<SearchForm/>
+				<Section title="催款表">
+					<SearchForm/>
+					<div onClick={this.detailClick}>button</div>
+					<div className = "data-report-table">
+						<ReportTable />
+					</div>
+					{/*详情*/}
+					<Dialog
+						title="报表明细"
+						onClose={this.detailClick}
+						open={this.state.openReportDetail}
+					>
 
-							<div onClick={this.detailClick}>button</div>
+						<ReportDetail />
 
-							{/*详情*/}
-							<Dialog
-								title="报表明细"
-								onClose={this.detailClick}
-								open={this.state.openReportDetail}
-							>
+					</Dialog>
 
-								<ReportDetail />
-							</Dialog>
-					</Section>
-             
+				</Section>
+
 			</div>
 
 		);
