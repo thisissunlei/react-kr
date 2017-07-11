@@ -8,6 +8,7 @@ import {
 import './index.less';
 import ReportDetail from './ReportDetail';
 import State from './State';
+import SearchUpper from './SearchUpper.js';
 import {
 	observer,
 } from 'mobx-react';
@@ -17,15 +18,29 @@ export default class DataReport extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-          openReportDetail:false
+          openReportDetail:false,
+		  openSearchUpper:false
 		}
 				
 	}
-
+    
+	//账单明细关闭
 	detailClick=()=>{
-	this.setState({
-		openReportDetail:!this.state.openReportDetail 
-	})
+		this.setState({
+			openReportDetail:!this.state.openReportDetail 
+		})
+	}
+    
+	//高级查询关闭
+	searchClick=()=>{
+       this.setState({
+		   openSearchUpper:!this.state.openSearchUpper
+	   })
+	}
+
+	//高级查询提交
+	searchSubmit=(params)=>{
+      
 	}
 
 	 
@@ -33,8 +48,9 @@ export default class DataReport extends React.Component {
 		
 		return (
 			<div className="data-report">
-				<div onClick={this.detailClick}>button</div>
-			    {/*高级查询*/}
+				<div onClick={this.detailClick}>detail</div>
+				<div onClick={this.searchClick}>search</div>
+			    {/*报表明细*/}
 				<Dialog
 					title="报表明细"
 					onClose={this.detailClick}
@@ -42,6 +58,19 @@ export default class DataReport extends React.Component {
 					contentStyle ={{ width: '85%',height:'auto'}}
 				>
 					<ReportDetail 
+					/>
+				</Dialog>
+
+				{/*高级查询*/}
+				<Dialog
+					title="高级查询"
+					onClose={this.searchClick}
+					open={this.state.openSearchUpper}
+					contentStyle ={{ width: '665px',height:'234px'}}
+				>
+					<SearchUpper 
+					   onSubmit={this.searchSubmit}
+					   onCancel={this.searchClick}
 					/>
 				</Dialog>
 			</div>
