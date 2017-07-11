@@ -318,4 +318,49 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/business/bound',
             method: 'post'
     },
+    //菜单配置--列表
+    'get-menu-list':{
+            url: '/api/krspace-sso-web/sso/module/menu-list',
+            method: 'get'
+    },
+    //菜单配置--新建导航
+    'first-level-save':{
+            url: '/api/krspace-sso-web/sso/module/first-level-save',
+            method: 'post'
+    },
+    //菜单配置--新建分类
+    'sub-level-save':{
+            url: '/api/krspace-sso-web/sso/module/sub-level-save',
+            method: 'post'
+    },
+    //菜单配置--新建子模块
+    'three-level-save':{
+            url: '/api/krspace-sso-web/sso/module/three-level-save',
+            method: 'post'
+    },
+    //菜单配置--编辑子模块
+    'three-level-save':{
+            url: '/api/krspace-sso-web/sso/module/three-level-update',
+            method: 'post'
+    },
+    //菜单配置--编辑分类
+    'sub-level-save':{
+            url: '/api/krspace-sso-web/sso/module/sub-level-update',
+            method: 'post'
+    },
+    //菜单配置--编辑导航
+    'first-level-save':{
+            url: '/api/krspace-sso-web/sso/module/first-level-update',
+            method: 'post'
+    },
+    //菜单配置--删除导航、分类
+    'first-second-delete':{
+            url: '/api/krspace-sso-web/sso/module/delete',
+            method: 'post'
+    },
+    //菜单配置--删除子模块
+    'third-delete':{
+            url: '/api/krspace-sso-web/sso/module/delete-three-level',
+            method: 'post'
+    },
 }

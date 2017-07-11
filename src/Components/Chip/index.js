@@ -63,7 +63,7 @@ export default class Chip extends Component {
 			edit,
 			label,
 			style,
-			heightStyle,
+			editStyle,
 		} = this.props;
 
         
