@@ -10,7 +10,8 @@ export default class ReportTable extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-          openReportDetail:false
+          openReportDetail:false,
+          winHeight : 0,
 		}
         this.add = ["Ap1","Ap2","Ap3","Ap4","Ap5","Ap6","Ap7","Ap8","Ap9","Ap10","Ap11"]
         this.signing = ["sig1","sig2","sig3","sig4","sig5","sig6","sig7","sig8","sig9","sig10","sig11"]
@@ -170,7 +171,17 @@ export default class ReportTable extends React.Component {
         })
         return <div>{allSign}</div>
     }
+    
     componentDidMount(){
+        var winHeight = 0;
+		if (window.innerHeight)
+		winHeight = window.innerHeight;
+		else if ((document.body) && (document.body.clientHeight))
+		winHeight = document.body.clientHeight-200;
+		console.log(winHeight,">>>>>>>>>");
+        this.setState({
+            winHeight,
+        })
         window.addEventListener("scroll",this.domOnscroll,false)
     }
 
@@ -198,9 +209,10 @@ export default class ReportTable extends React.Component {
 
 	render() {
         const allData = this.allData;
+        const {winHeight} = this.state;
 
 		return (
-            <div>
+            <div style = {{height:winHeight,overflow:"auto",width:'100%'}}>
             <div 
                 ref = {
                     (ref)=>{

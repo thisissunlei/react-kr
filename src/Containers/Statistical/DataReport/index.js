@@ -11,40 +11,53 @@ import './index.less';
 import ReportDetail from './ReportDetail';
 import ReportTable from './ReportTable';
 import State from './State';
-// import {
-// 	observer,
-// } from 'mobx-react';
-import SearchForm from "./SearchForm";
-// @observer
+
+import SearchUpper from './SearchUpper.js';
+import SearchForm from './SearchForm';
+import {
+	observer,
+} from 'mobx-react';
+@observer
 export default class DataReport extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-          openReportDetail:false
+          openReportDetail:false,
+		  openSearchUpper:false
 		}
 				
 	}
-
+    
+	//账单明细关闭
 	detailClick=()=>{
 		this.setState({
-			openReportDetail:true 
+			openReportDetail:!this.state.openReportDetail 
 		})
 	}
+    
+	//高级查询关闭
+	searchClick=()=>{
+       this.setState({
+		   openSearchUpper:!this.state.openSearchUpper
+	   })
+	}
+
 	componentDidMount(){
-		var winHeight = 0;
-		if (window.innerHeight)
-		winHeight = window.innerHeight;
-		else if ((document.body) && (document.body.clientHeight))
-		winHeight = document.body.clientHeight;
-		console.log(winHeight,">>>>>>>>>");
-        window.addEventListener("scroll",this.domOnscroll,false)
+		
     }
+
+	//高级查询提交
+	searchSubmit=(params)=>{
+      
+	}
+
+
 	 
 	render() {
 		
 		return (
-			<div className="data-report" style = {{height:''}}>
+			<div className="data-report">
 				<Title value="催款表"/>
 				<Section title="催款表">
 					<SearchForm/>
@@ -52,19 +65,36 @@ export default class DataReport extends React.Component {
 					<div className = "data-report-table">
 						<ReportTable />
 					</div>
+
 					{/*详情*/}
+					<div onClick={this.detailClick}>detail</div>
+					<div onClick={this.searchClick}>search</div>
+
+					{/*报表明细*/}
 					<Dialog
 						title="报表明细"
 						onClose={this.detailClick}
 						open={this.state.openReportDetail}
+						contentStyle ={{ width: '85%',height:'auto'}}
 					>
+						<ReportDetail 
+						/>
+					</Dialog>
 
-						<ReportDetail />
-
+					{/*高级查询*/}
+					<Dialog
+						title="高级查询"
+						onClose={this.searchClick}
+						open={this.state.openSearchUpper}
+						contentStyle ={{ width: '665px',height:'234px'}}
+					>
+					<SearchUpper 
+						onSubmit={this.searchSubmit}
+						onCancel={this.searchClick}
+					/>
 					</Dialog>
 
 				</Section>
-
 			</div>
 
 		);
