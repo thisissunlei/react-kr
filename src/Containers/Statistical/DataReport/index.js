@@ -5,10 +5,13 @@ import {
 	Button,
 	Dialog
 } from 'kr-ui';
-
 import './index.less';
 import ReportDetail from './ReportDetail';
-
+import State from './State';
+import {
+	observer,
+} from 'mobx-react';
+@observer
 export default class DataReport extends React.Component {
 
 	constructor(props, context) {
@@ -30,15 +33,15 @@ export default class DataReport extends React.Component {
 		
 		return (
 			<div className="data-report">
-			 <div onClick={this.detailClick}>button</div>
-			{/*高级查询*/}
-			<Dialog
-				title="报表明细"
-				onClose={this.detailClick}
-				open={this.state.openReportDetail}
-				>
-				<ReportDetail />
-				</Dialog>
+                <div onClick={this.detailClick}>button</div>
+                {/*高级查询*/}
+                <Dialog
+                    title="报表明细"
+                    onClose={this.detailClick}
+                    open={this.state.openReportDetail}
+                >
+                    <ReportDetail />
+                </Dialog>
 			</div>
 
 		);
