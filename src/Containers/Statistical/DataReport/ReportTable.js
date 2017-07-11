@@ -177,7 +177,7 @@ export default class ReportTable extends React.Component {
 		if (window.innerHeight)
 		winHeight = window.innerHeight;
 		else if ((document.body) && (document.body.clientHeight))
-		winHeight = document.body.clientHeight-200;
+		winHeight = document.body.clientHeight;
 		console.log(winHeight,">>>>>>>>>");
         this.setState({
             winHeight,
