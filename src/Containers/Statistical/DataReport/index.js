@@ -21,7 +21,7 @@ export default class DataReport extends React.Component {
 
 	detailClick=()=>{
 	this.setState({
-		openReportDetail:true 
+		openReportDetail:!this.state.openReportDetail 
 	})
 	}
 
@@ -36,9 +36,11 @@ export default class DataReport extends React.Component {
 					title="报表明细"
 					onClose={this.detailClick}
 					open={this.state.openReportDetail}
-					contentStyle ={{ width: '800px',height:'auto'}}
+					contentStyle ={{ width: '85%',height:'auto'}}
 				>
-					<ReportDetail />
+					<ReportDetail 
+						isStation={false}
+					/>
 				</Dialog>
 			</div>
 
