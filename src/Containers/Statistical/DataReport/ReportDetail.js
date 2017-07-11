@@ -11,6 +11,7 @@ import {
 	Tooltip
 } from 'kr-ui';
 import './detail.less';
+import State from './State.js';
 
 export default class ReportDetail extends React.Component{
 
@@ -43,7 +44,6 @@ export default class ReportDetail extends React.Component{
 
 	render(){
 
-		let {isStation}=this.props;
 		let {searchParams}=this.state;
         
 		return(
@@ -62,16 +62,16 @@ export default class ReportDetail extends React.Component{
 		              <TableHeaderColumn className='header-row'>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn className='header-row'>客户来源</TableHeaderColumn>
                       <TableHeaderColumn className='header-row'>客户名称</TableHeaderColumn>
-		              {isStation&&<TableHeaderColumn className='header-row'>意向工位</TableHeaderColumn>}
-		              {isStation&&<TableHeaderColumn className='header-row'>联系人</TableHeaderColumn>}
-		              {isStation&&<TableHeaderColumn className='header-row'>联系电话</TableHeaderColumn>}
+		              {State.isStation&&<TableHeaderColumn className='header-row'>意向工位</TableHeaderColumn>}
+		              {State.isStation&&<TableHeaderColumn className='header-row'>联系人</TableHeaderColumn>}
+		              {State.isStation&&<TableHeaderColumn className='header-row'>联系电话</TableHeaderColumn>}
 		              <TableHeaderColumn className='header-row'>创建日期</TableHeaderColumn>
-					  {!isStation&&<TableHeaderColumn className='header-row'>签约时间</TableHeaderColumn>}
-					  {!isStation&&<TableHeaderColumn className='header-row'>签约用时</TableHeaderColumn>}
-					  {!isStation&&<TableHeaderColumn className='header-row'>签约工位数</TableHeaderColumn>}
-					  {!isStation&&<TableHeaderColumn className='header-row'>签约独立办公空间数</TableHeaderColumn>}
-					  {!isStation&&<TableHeaderColumn className='header-row'>合同开始日期</TableHeaderColumn>}
-					  {!isStation&&<TableHeaderColumn className='header-row'>合同结束日期</TableHeaderColumn>}
+					  {!State.isStation&&<TableHeaderColumn className='header-row'>签约时间</TableHeaderColumn>}
+					  {!State.isStation&&<TableHeaderColumn className='header-row'>签约用时</TableHeaderColumn>}
+					  {!State.isStation&&<TableHeaderColumn className='header-row'>签约工位数</TableHeaderColumn>}
+					  {!State.isStation&&<TableHeaderColumn className='header-row'>签约独立办公空间数</TableHeaderColumn>}
+					  {!State.isStation&&<TableHeaderColumn className='header-row'>合同开始日期</TableHeaderColumn>}
+					  {!State.isStation&&<TableHeaderColumn className='header-row'>合同结束日期</TableHeaderColumn>}
 		              <TableHeaderColumn className='header-row'>领取人</TableHeaderColumn>
 		          	</TableHeader>
 
@@ -98,32 +98,32 @@ export default class ReportDetail extends React.Component{
 		 										}
 		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}>34</TableRowColumn>
-                            {isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
-			                {isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
-			                {isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
+                            {State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
+			                {State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
+			                {State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>dfg</TableRowColumn>
-							{!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
-							{!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
+							{!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
+							{!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>cv</TableRowColumn>
 			               </TableRow>
                            <TableRow className='detail-row'>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
                             <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>34</TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>34</TableRowColumn>
-                            {isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
-			                {isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
-			                {isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
+                            {State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
+			                {State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
+			                {State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>dfg</TableRowColumn>
-							{!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
-							{!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
-			                {!isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
+							{!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
+							{!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>45</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>56</TableRowColumn>}
+			                {!State.isStation&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>tu</TableRowColumn>}
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>cv</TableRowColumn>
 			               </TableRow>
 			        </TableBody>

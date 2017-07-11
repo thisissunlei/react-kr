@@ -5,10 +5,13 @@ import {
 	Button,
 	Dialog
 } from 'kr-ui';
-
 import './index.less';
 import ReportDetail from './ReportDetail';
-
+import State from './State';
+import {
+	observer,
+} from 'mobx-react';
+@observer
 export default class DataReport extends React.Component {
 
 	constructor(props, context) {
@@ -39,7 +42,6 @@ export default class DataReport extends React.Component {
 					contentStyle ={{ width: '85%',height:'auto'}}
 				>
 					<ReportDetail 
-						isStation={false}
 					/>
 				</Dialog>
 			</div>
