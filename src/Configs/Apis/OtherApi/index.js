@@ -2,6 +2,21 @@ const APIS = {
 
     //获取文件token－－－－－－－>名字没用到，上传文件组件里面用到此地址
 
+   'version-log-list': {
+        url: '/api/krspace-sso-web/sso/show-all-ver?page={page}&pageSize={pageSize}&time={time}',
+        method: 'get'
+    },
+
+     'version-log-create-or-edit': {
+        url: '/api/krspace-sso-web/sso/save-update-ver',
+        method: 'post'
+    },
+
+    'version-log-publish': {
+        url: '/api/krspace-sso-web/sso/publish-ver',
+        method: 'post'
+    },
+
      'version-log-close': {
         url: '/api/krspace-sso-web/sso/record-sso-ver',
         method: 'post'

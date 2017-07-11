@@ -36,6 +36,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	Notify
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -168,20 +169,24 @@ class NewCreateForm extends React.Component {
 	setTotalRent=(value)=>{
 		let {initialValues} = this.props;
 		let _this = this;
-		// Http.request('setExitTotalReturn', {
-		// 	mainbillId: initialValues.mainbillid,
-		// 	withdrawDate:value
-		// }).then(function(response){
-		// 	_this.setState({
-		// 		totalRent:response+''
-		// 	},function(){
-		// 		Store.dispatch(change('exitEditForm', 'totalRent', response));
-		// 		Store.dispatch(change('exitEditForm', 'totalreturn', response));
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
+			},function(){
+				Store.dispatch(change('exitEditForm', 'totalRent', response));
+				Store.dispatch(change('exitEditForm', 'totalreturn', response));
 
-		// 	})
-		// }).catch(function(err){
-		// 	console.log(err)
-		// })
+			})
+		}).catch(function(err){
+			console.log(err)
+			Notify.show([{
+	          message: err.message,
+	          type: 'danger',
+	        }]);
+		})
 
 		
 		
@@ -254,12 +259,9 @@ class NewCreateForm extends React.Component {
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
 
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额"  requireLabel={true}
-				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-
-				{/*<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额" requireLabel={true}
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}
-				value={totalRent} inline={false}/>*/}
+				value={totalRent} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" inline={false} label="双方其他约定内容" maxSize={200} value={agreementValue}/>
