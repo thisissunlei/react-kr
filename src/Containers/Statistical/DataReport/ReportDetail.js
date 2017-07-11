@@ -9,14 +9,14 @@ import {
     TableRowColumn,
     TableFooter
 } from 'kr-ui';
+import './detail.less';
 
 export default class ReportDetail extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+       
 	}
-
-
 
 	render(){
         
@@ -35,7 +35,7 @@ export default class ReportDetail extends React.Component{
                     //ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
-		              <TableHeaderColumn>社区名称</TableHeaderColumn>
+		              <TableHeaderColumn className='header-row'>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn>客户来源</TableHeaderColumn>
                       <TableHeaderColumn>客户名称</TableHeaderColumn>
 		              <TableHeaderColumn>意向工位</TableHeaderColumn>
@@ -46,8 +46,18 @@ export default class ReportDetail extends React.Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow>
-			                <TableRowColumn>12</TableRowColumn>
+			              <TableRow className='detail-row'>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
+                            <TableRowColumn>34</TableRowColumn>
+			                <TableRowColumn>34</TableRowColumn>
+                            <TableRowColumn>45</TableRowColumn>
+			                <TableRowColumn>56</TableRowColumn>
+			                <TableRowColumn>tu</TableRowColumn>
+			                <TableRowColumn>dfg</TableRowColumn>
+			                <TableRowColumn>cv</TableRowColumn>
+			               </TableRow>
+                           <TableRow className='detail-row'>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
                             <TableRowColumn>34</TableRowColumn>
 			                <TableRowColumn>34</TableRowColumn>
                             <TableRowColumn>45</TableRowColumn>

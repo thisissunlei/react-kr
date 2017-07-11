@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../Button';
+import './index.less';
 
 export default class TableRow extends React.Component {
 
@@ -146,8 +147,13 @@ export default class TableRow extends React.Component {
 		const {
 			className,
 			visibility,
+			isHover,
 			...other,
 		} = this.props;
+
+		if(isHover){
+          className=className+' hover';
+		}
 
 		if(visibility){
 			return (
