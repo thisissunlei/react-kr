@@ -41,6 +41,13 @@ class EditCustomerSource extends Component{
 			typeValue:this.props.typeValue,
 		}
 	}
+
+	componentWillUnmount() {
+		State.isOrderName=true;
+        State.isName=true;
+		State.isCode=true;
+	}
+	
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -506,6 +513,9 @@ const validate = values =>{
 
 	let errors = {};
 	let decimal = /^-?\d{0,6}\.?\d{0,4}$/;
+    //正整数
+	let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
+
 	if(!values.name){
 		errors.name = '来源名称必填';
 	}else if(values.name.length > 20){
@@ -517,13 +527,23 @@ const validate = values =>{
 	}else if(values.code.length > 30){
 		errors.code = "来源名称最多30个字符";
 	}
-
+    
+	if(!values.orderNum){
+		errors.orderNum = "序号为必填项"
+	}else if(values.orderNum.toString().trim()&&!numberNotZero.test(values.orderNum.toString().trim())){
+		errors.orderNum = "序号必须为正整数"
+	}
 
 	if(!values.brokerage){
 		errors.brokerage = '拥金比例为必填项';
 	}else if(!decimal.test(values.brokerage)){
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
+	}else if(values.brokerage.length>6){
+		errors.brokerage = '佣金比例最多6位';
 	}
+
+
+
 	if (!values.subListStr || !values.subListStr.length) {
 
         } else {
@@ -558,7 +578,7 @@ const validate = values =>{
 			if (porTypes.code && porTypes.code.length > 30){
 				memberErrors.code = '子项编码最多30个字符';
 			}
-			if(porTypes.orderNum && isNaN(porTypes.orderNum.toString().trim())){
+			if(porTypes.orderNum && porTypes.orderNum.toString().trim()&&!numberNotZero.test(porTypes.orderNum.toString().trim())){
 				 memberErrors.orderNum = '序号必须为正整数';
 			}
 			membersArrayErrors[memberIndex] = memberErrors
