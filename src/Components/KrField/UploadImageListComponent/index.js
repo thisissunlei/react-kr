@@ -119,11 +119,11 @@ export default class UploadImageListComponent extends Component {
 		})
 		let _this = this;
 		let file = event.target.files[0];
-
+        console.log('file1',file);
 		if (!file) {
 			return;
 		}
-
+        console.log('file2',file);
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {

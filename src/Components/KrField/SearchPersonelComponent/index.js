@@ -65,6 +65,7 @@ export default class  SearchPersonelComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
+					filterOptions={false}
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}

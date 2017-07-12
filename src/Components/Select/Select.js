@@ -940,12 +940,13 @@ const Select = React.createClass({
 	filterOptions (excludeOptions) {
 		var filterValue = this.state.inputValue;
 		var options = this.props.options || [];
+
 		if (this.props.filterOptions) {
 			// Maintain backwards compatibility with boolean attribute
 			const filterOptions = typeof this.props.filterOptions === 'function'
 				? this.props.filterOptions
 				: defaultFilterOptions;
-
+			           
 			return filterOptions(
 				options,
 				filterValue,
@@ -1061,8 +1062,8 @@ const Select = React.createClass({
 	render () {
 		let valueArray = this.getValueArray(this.props.value);
 		let options =	this._visibleOptions = this.filterOptions(this.props.multi ? this.getValueArray(this.props.value) : null);
-		console.log('options',options,'34',this.props.multi);
 		let isOpen = this.state.isOpen;
+
 		if (this.props.multi && !options.length && valueArray.length && !this.state.inputValue) isOpen = false;
 		const focusedOptionIndex = this.getFocusableOptionIndex(valueArray[0]);
 
