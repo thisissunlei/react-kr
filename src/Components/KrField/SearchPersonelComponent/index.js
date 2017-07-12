@@ -44,12 +44,12 @@ export default class  SearchPersonelComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname){
+	getOptions(phoneOrEmail){
 		return new Promise((resolve, reject) => {
-			Http.request('getHrmResourceExtListByLastname',{ lastname:lastname }).then(function(response){
+			Http.request('web-user-select',{ phoneOrEmail:phoneOrEmail }).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.sysloginid;
-					item.label = item.lastname;
+					item.value = item.userId;
+					item.label = item.userName;
 				});
 				resolve({options:response});
 			}).catch(function(err){
