@@ -16,7 +16,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
-class CreateFirst extends React.Component {
+class CreateSecond extends React.Component {
     static PropTypes = {
         detail: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
@@ -88,7 +88,7 @@ class CreateFirst extends React.Component {
 
 }
 export default reduxForm({
-	form: 'CreateFirst',
+	form: 'CreateSecond',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(CreateFirst);
+})(CreateSecond);
