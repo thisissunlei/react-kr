@@ -120,6 +120,7 @@ class MeetingsearchUpperForm extends React.Component {
 	 						style={{width:"auto",marginLeft:28,marginRight:42}}
 	 						component="groupCheckbox"
 	 						defaultValue={deviceSpace}
+							childrenInline = {true}
 
 	 					/>
 	 				</div>

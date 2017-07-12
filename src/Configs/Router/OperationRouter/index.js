@@ -329,6 +329,11 @@ const Operation_CommunityAllocation_NoticeManage=(location, callback)=>{
     callback(null, require('kr/Containers/Operation/CommunityAllocation/NoticeManage').default)
   }, 'Operation_CommunityAllocation_NoticeManage')
 }
+const Operation_CommunityAllocation_Integration=(location, callback)=>{
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/CommunityAllocation/IntegrationManage').default)
+  }, 'Operation_CommunityAllocation_Integration')
+}
 
 module.exports =()=>{
 	return (
@@ -362,6 +367,7 @@ module.exports =()=>{
 		{/*App管理后台*/}
 		<Route path="appmanage" getComponent={Operation_CommunityAllocation_AppManage}/>
 		<Route path="noticemanage" getComponent={Operation_CommunityAllocation_NoticeManage}/>
+		<Route path="integration" getComponent={Operation_CommunityAllocation_Integration}/>
 		
 	</Route>
     {/*基础配置*/}

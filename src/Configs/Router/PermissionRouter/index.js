@@ -73,6 +73,14 @@ const Permission_SystemManage_MessageList = (location, callback) => {
     callback(null, require('kr/Containers/Permission/SystemManage/MessageList').default)
   }, 'Permission_SystemManage_MessageList')
 }
+
+const Permission_SystemManage_UpdateLog = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/SystemManage/UpdateLog').default)
+  }, 'Permission_SystemManage_UpdateLog')
+}
+
+
 const Permission_AccountManage_OperationSource = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/AccountManage/OperationSource').default)
@@ -101,6 +109,7 @@ module.exports =()=>{
     <Route path="systemManage" getComponent={Basic}>
      <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
       <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
+          <Route path="update-log" getComponent={Permission_SystemManage_UpdateLog}/>
     </Route>
 	  </Route>
 

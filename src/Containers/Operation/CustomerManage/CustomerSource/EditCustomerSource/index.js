@@ -64,11 +64,11 @@ class EditCustomerSource extends Component{
 			for(var j = i + 1; j < arr.length; j++) {
 				if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
 					yesList.push(j);
-					
-					
+
+
 					document.getElementById(type+(j-1)).innerHTML="该名称已存在"
 				}else{
-					document.getElementById(type+(j-1)).innerHTML=""					
+					document.getElementById(type+(j-1)).innerHTML=""
 				}
 			}
 		}
@@ -76,7 +76,7 @@ class EditCustomerSource extends Component{
 	}
 
 
-	
+
 		//删除储存数据
 	remove = (index) =>{
 		var names = Object.assign({},State.names);
@@ -84,7 +84,7 @@ class EditCustomerSource extends Component{
 		var orders = Object.assign({},State.orders);
 		var childs = Object.assign({},State.child)
 
-		
+
 		if(names[index]){
 			delete names[index];
 		}
@@ -96,12 +96,12 @@ class EditCustomerSource extends Component{
 		if(orders[index]){
 			delete orders[index];
 		}
-		
+
 		var nameData = this.conversion(names);
 		var codeData = this.conversion(codes);
 		var orderData = this.conversion(orders);
 		childs.splice(index,1);
-		
+
 		State.names = nameData;
 		State.codes = codeData;
 		State.orderData = orderData;
@@ -124,7 +124,7 @@ class EditCustomerSource extends Component{
 		for(var key in names){
 			arr.push(names[key])
 		}
-		
+
 		arr.map((item,index)=>{
 			obj[index] = item;
 		})
@@ -139,7 +139,7 @@ class EditCustomerSource extends Component{
 		if(data != ""){
 			names[index] = data;
 		}
-		
+
 		State.names = names;
 		var value = {id :sourceId|| '',code : data}
 		Http.request('check-name-source',value).then(function(response) {
@@ -159,8 +159,8 @@ class EditCustomerSource extends Component{
 						document.getElementById("child-prompt-edit").innerHTML="该名称已存在"
 				}else{
 						document.getElementById("child-prompt-edit").innerHTML=""
-						
-				}			
+
+				}
 			}
 
 		}).catch(function(err) {
@@ -176,7 +176,7 @@ class EditCustomerSource extends Component{
 				codes[index] = data;
 			}
 			State.codes = codes;
-			
+
 		var value = {id :sourceId|| '',code : data}
 		Http.request('check-code-source',value).then(function(response) {
 			if(index=="no" && response.code == "-1"){
@@ -194,9 +194,9 @@ class EditCustomerSource extends Component{
 						document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
 				}else{
 						document.getElementById("child-prompt-edit").innerHTML=""
-						
-				}		
-				
+
+				}
+
 			}
 		}).catch(function(err) {
 
@@ -206,7 +206,7 @@ class EditCustomerSource extends Component{
 	//排序校验
 	orderChange = (data,index) =>{
 		const {sourceId} = this.props;
-		const self = this;		
+		const self = this;
 		var orderNums = Object.assign({},State.orderNums);
 			if(data != ""){
 				orderNums[index] = data;
@@ -229,10 +229,10 @@ class EditCustomerSource extends Component{
 					document.getElementById("child-prompt-edit").innerHTML="该序号已存在"
 			}else{
 					document.getElementById("child-prompt-edit").innerHTML=""
-					
-			}	
+
+			}
 		}
-		
+
 	}
 
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
@@ -245,7 +245,7 @@ class EditCustomerSource extends Component{
 		</div>
 	)
 	componentWillReceiveProps(nextProps){
-		
+
 
 	}
 
@@ -255,7 +255,7 @@ class EditCustomerSource extends Component{
 	*	返回false 不存在重复
 	*/
 	flog = (index,datas,value) =>{
-		
+
 		var judge = false;
 		for(let i in datas){
 			if(i!=index && datas[i]==value ){
@@ -268,15 +268,15 @@ class EditCustomerSource extends Component{
 	renderBrights = ({ fields, meta: { touched, error }}) => {
 		const self = this;
 		var krStyle={};
-		
-		
+
+
 		krStyle={width:228,marginLeft:18,marginRight:3}
 		let promptStyle = {marginLeft : 25,color : "red"};
 		let columnStyle = {display:"inline-block",verticalAlign:"top"};
-		
+
 
 	   var brights = fields.map(function(brightsStr, index){
-		   	
+
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<div style = {columnStyle}>
 						<KrField
@@ -326,14 +326,14 @@ class EditCustomerSource extends Component{
 							}}
 						/>
 						<div id = {"customerSourceOrder"+index} style = {promptStyle}></div>
-						
+
 						</div>
 						<span
 							className='minusBtn'
 							style={!index ? {marginTop:32,marginLeft:8}:{marginTop:16,marginLeft:8}}
 
 							onClick={() => {
-								
+
 								if(!State.childs[index]){
 									fields.remove(index)
 									self.remove(index);
@@ -343,7 +343,7 @@ class EditCustomerSource extends Component{
 										if(response.code == 1){
 											fields.remove(index)
 											self.remove(index);
-											
+
 
 										}else{
 											Message.error("该子项不可删除");
@@ -352,7 +352,7 @@ class EditCustomerSource extends Component{
 
 									});
 								}
-								
+
 
 							}}
 						/>
@@ -360,13 +360,13 @@ class EditCustomerSource extends Component{
 	   		})
 			return (
 			<ul style={{padding:0,margin:0}}>
-				
+
 				{brights}
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
-							
+
 							fields.push();
-							
+
 						}} />
 				</div>
 			</ul>
@@ -408,7 +408,7 @@ class EditCustomerSource extends Component{
 							</div>
 							<div style = {columnStyle}>
 							<KrField
-								grid={1/2} 
+								grid={1/2}
 								label="来源编码"
 								name="code"
 								style={{width:262,marginLeft:15}}
@@ -432,11 +432,11 @@ class EditCustomerSource extends Component{
 								onChange = {(data) =>{
 									this.orderChange(data,"no")
 								}}
-								
-								
+
+
 							/>
 							{!State.isOrderName && <div style = {promptStyle}>来源编码已存在</div>}
-							
+
 							</div>
 
 							<KrField
@@ -476,7 +476,7 @@ class EditCustomerSource extends Component{
 						<div className="titleBar">
 							<span className="order-number">2</span>
 							<span className="wire"></span>
-							<label className="small-title">自来源信息</label>
+							<label className="small-title">子来源信息</label>
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							<div id = "child-prompt-edit" style = {{textAlign:"center",color:"red",marginBottom:20}}></div>
@@ -525,7 +525,7 @@ const validate = values =>{
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
 	}
 	if (!values.subListStr || !values.subListStr.length) {
-         
+
         } else {
           let membersArrayErrors = []
 
@@ -533,7 +533,7 @@ const validate = values =>{
 
             let memberErrors ={};
 			let must = false;
-			
+
 			if(!porTypes){
 				return ;
 			}

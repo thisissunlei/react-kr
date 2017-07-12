@@ -262,6 +262,8 @@ class SignedClient extends React.Component{
       State.searchParams.signEndDate='';
       State.searchParams.signStartDate='';
       State.searchParams.mainBillType='';
+      State.searchParams.sourceId='';
+
       State.searchUpperCustomer();
 	}
 

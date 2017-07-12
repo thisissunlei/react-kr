@@ -369,6 +369,7 @@ class EditMeeting  extends React.Component{
 							component="groupCheckbox"
               defaultValue={listDevice}
               onChange={this.deviceChange}
+			  	childrenInline = {true}
 						/></div>
 
 
