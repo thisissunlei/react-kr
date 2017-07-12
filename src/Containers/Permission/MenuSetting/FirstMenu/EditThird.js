@@ -14,6 +14,7 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
+import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class EditThird extends React.Component {
     static PropTypes = {
@@ -27,14 +28,13 @@ class EditThird extends React.Component {
             SecondSelect:[],
             FirstSelect:[],
         }
+        this.getFirstData();
     }
     componentDidMount() {
-        this.getFirstData();
-        this.getSecondData();
         var _this = this;
         var id = this.props.detail.id
         var infoList = {};
-        Http.request('three-leve-detail', {
+        Http.request('three-level-detail', {
                 threeLevelId: id
             },{}).then(function(response) {
                 infoList.subLevelId = response.subLevelId;
@@ -43,6 +43,7 @@ class EditThird extends React.Component {
                 _this.setState({
                     infoList:infoList
                 },function() {
+                     _this.getSecondData();
                     Store.dispatch(initialize('EditThird',infoList));
                 })
                 
@@ -50,14 +51,17 @@ class EditThird extends React.Component {
 
     }
     getFirstData=()=>{
-          Http.request('first-leve-list', {},{}).then(function(response) {
-                var FirstSelect = response.map((item, index) => {
+          var _this = this;
+          Http.request('first-level-list', {},{}).then(function(response) {
+                var FirstSelect = response.items.map((item, index) => {
                     item.label = item.name;
                     item.value = item.id;
                     return item;
 			    });
-                this.setState({
+                _this.setState({
                     FirstSelect: FirstSelect
+                },function(){
+                   
                 })
             }).catch(function(err) {});
 
@@ -68,11 +72,12 @@ class EditThird extends React.Component {
         Http.request('sub-level-info', {
             firstLevelId:infoList.firstLevelId
         },{}).then(function(response) {
-                var SecondSelect = response.map((item, index) => {
+                var SecondSelect = response.items.map((item, index) => {
                     item.label = item.name;
                     item.value = item.id;
                     return item;
 			    });
+                console.log(SecondSelect);
                 _this.setState({
                     SecondSelect: SecondSelect
                 })
@@ -97,7 +102,7 @@ class EditThird extends React.Component {
         Http.request('sub-level-info', {
             firstLevelId:item.id
         }, {}).then(function(response) {
-                var SecondSelect = response.map((item, index) => {
+                var SecondSelect = response.items.map((item, index) => {
                     item.value = item.id;
                     item.label = item.name;
                     return item;
@@ -110,39 +115,42 @@ class EditThird extends React.Component {
         });
 	}
     render() {
-        const {handleSubmit} = this.props;
+        const {handleSubmit,detail} = this.props;
         let {FirstSelect,SecondSelect} = this.state;
+        console.log(detail);
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
-                <KrField
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:550,marginTop:30,paddingRight:40,paddingBottom:30}}  >
+                <div className="level-group">
+                    <KrField
                         name="firstLevelId"
-                        style={{width:310,marginLeft:14}}
+                        style={{width:260,marginLeft:14}}
                         component="select"
                         label="所属菜单"
                         options={FirstSelect}
                         inline={true}
                         requireLabel={true}
                         onChange={this.onSelect}
-				/>
-                <KrField
-                        name="subLevelId"
-                        style={{width:200,marginLeft:14}}
-                        component="select"
-                        label="所属菜单"
-                        options={SecondSelect}
-                        inline={true}
-                        requireLabel={true}
-                        onChange={this.onSelect}
-				/>
+                    />
+                    <KrField
+                            name="subLevelId"
+                            style={{width:200,marginLeft:13}}
+                            component="select"
+                            label=""
+                            options={this.state.SecondSelect}
+                            inline={true}
+                    />
+                </div>
+                
                 <KrField
                         name="name"
-                        style={{width:200,marginLeft:14}}
+                        style={{width:300,marginLeft:14}}
                         component="input"
-                        label=" "
+                        label="分类名称"
                         inline={true}
                         requireLabel={true}
+                        value={detail.name}
 				/>
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

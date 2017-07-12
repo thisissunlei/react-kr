@@ -78,9 +78,11 @@ export default class FirstMenu extends React.Component {
 						this.openSecondEdit(item,index)} 
 					} onDel={this.openDeleteSecond.bind(this,item,index)}
 					 label={item.name}/></div>
-					{item.childList && item.childList.map((itemA,indexA)=>{
-						return this.renderThirdItem(itemA,indexA)
-					})}
+					 <div className="second-items">
+						{item.childList && item.childList.map((itemA,indexA)=>{
+							return this.renderThirdItem(itemA,indexA)
+						})}
+					</div>
 					{editState && <Button label="新增" type="button" onClick={this.openThirdCreate.bind(this,item,index)} width={70} height={30} fontSize={14}/>}
 				</div>
 			</div>
@@ -89,11 +91,11 @@ export default class FirstMenu extends React.Component {
 	renderThirdItem=(item,index)=>{
 		let {editStyle,editState} = this.state;
 		return (
-			<div key={index} style={{paddingRight:20}}>
+			<div key={index} style={{width:'46%',marginLeft:10,lineHeight:'46px'}}>
 				<Chip edit={editState} editStyle={editStyle} onDel={()=>{
 						this.openDeleteThird(item,index)}
 					}  onEdit={()=>{
-						this.openThirdEdit.bind(this,item,index)} 
+						this.openThirdEdit(item,index)} 
 					} label={item.name}/>
 			</div>
 		)
@@ -141,27 +143,49 @@ export default class FirstMenu extends React.Component {
 	onEditFirstSubmit=(form)=>{
 		const {
 			onSubmit,
+			detail
 		} = this.props;
 		var _this = this;
 		Http.request('first-level-update', {},form).then(function(response) {
 			onSubmit();
+			// window.setTimeout(function() {
+			// 	console.log(detail);
+			// 	_this.setState({
+			// 		item:_this.props.detail
+			// 	})
+     		//  }, 1000);
+			// window.setTimeout(function() {
+				_this.openFirstEdit();
+			 	Message.success("更改成功");
+     		// }, 300);
+			
 		}).catch(function(err) {});
 	}
 	onEditSecondSubmit=(form)=>{
 		const {
 			onSubmit,
 		} = this.props;
+		var _this = this;
 		Http.request('sub-level-update', {},form).then(function(response) {
 			onSubmit();
-		}).catch(function(err) {});
+			Message.success("更改成功");
+			_this.openSecondEdit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onEditThirdSubmit=(form)=>{
 		const {
 			onSubmit,
 		} = this.props;
+		var _this = this;
 		Http.request('three-level-update', {},form).then(function(response) {
 			onSubmit();
-		}).catch(function(err) {});
+			Message.success("更改成功");
+			_this.openThirdEdit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onCreateSecondSubmit=(form)=>{
 		const {
@@ -169,7 +193,11 @@ export default class FirstMenu extends React.Component {
 		} = this.props;
 		Http.request('sub-level-save', {},form).then(function(response) {
 			onSubmit();
-		}).catch(function(err) {});
+			_this.openSecondCreate();
+			Message.success("新建成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onCreateThirdSubmit=(form)=>{
 		const {
@@ -177,7 +205,11 @@ export default class FirstMenu extends React.Component {
 		} = this.props;
 		Http.request('three-level-save', {},form).then(function(response) {
 			onSubmit();
-		}).catch(function(err) {});
+			_this.openThirdCreate();
+			Message.success("新建成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	openDeleteFirst=(item)=>{
 		let openDeleteFirst = this.state.openDeleteFirst;
@@ -203,21 +235,51 @@ export default class FirstMenu extends React.Component {
 			openDeleteThird:!openDeleteThird
 		})
 	}
-	onDel=(item,index)=>{
+	onDel=()=>{
 		const {
 			onSubmit,
 		} = this.props;
-		Http.request('first-second-delete', {},form).then(function(response) {
+		var _this = this;
+		let itemDetail = this.state.itemDetail;
+		Http.request('first-second-delete', {},{
+			id:itemDetail.id
+		}).then(function(response) {
 			onSubmit();
-		}).catch(function(err) {});
+			Message.success("删除成功");
+			_this.openDeleteFirst();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
-	onDelThird=(item,index)=>{
+	onDelSecond=()=>{
 		const {
 			onSubmit,
 		} = this.props;
-		Http.request('third-delete', {},form).then(function(response) {
+		let itemDetail = this.state.itemDetail;
+		Http.request('first-second-delete', {},{
+			id:itemDetail.id
+		}).then(function(response) {
 			onSubmit();
-		}).catch(function(err) {});
+			Message.success("删除成功");
+			_this.openDeleteSecond();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	onDelThird=()=>{
+		const {
+			onSubmit,
+		} = this.props;
+		let itemDetail = this.state.itemDetail;
+		Http.request('third-delete', {},{
+			threeLevelId:itemDetail.id
+		}).then(function(response) {
+			onSubmit();
+			Message.success("删除成功");
+			_this.openDeleteThird();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onEditState=()=>{
 		const {
@@ -236,17 +298,18 @@ export default class FirstMenu extends React.Component {
 	
 	render() {
         let {item,editStyle,editState,itemDetail} = this.state;
+		//console.log(this.state.item);		
 		return (
 			<div className="first-menu">
 				<div className="first-title-row">
-					<div className="first-title"><Chip edit={editState} editStyle={editStyle} label={item.name} onEdit={this.openFirstEdit.bind(this,item)} onDel={this.openDeleteFirst.bind(this,item)}/></div>
+					<div className="first-title"><Chip edit={editState} editStyle={editStyle} label={this.props.detail.name} onEdit={this.openFirstEdit.bind(this,item)} onDel={this.openDeleteFirst.bind(this,item)}/></div>
 					{!editState && <Button label="编辑" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
 					{editState && <Button label="新增分类" type="button" onClick={this.openSecondCreate.bind(this,item)} width={100} height={30} fontSize={14}/>}
 					{editState && <Button label="完成" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
 					
 				</div>
 				<div className="main">
-					{item.childList && item.childList.map((itemA,index)=>{
+					{this.props.detail.childList && this.props.detail.childList.map((itemA,index)=>{
 						return this.renderSecondItem(itemA,index)
 					})}
 				</div>
@@ -255,7 +318,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openThirdEdit}
 						onClose={this.openThirdEdit}
-						contentStyle={{width:666}}
+						contentStyle={{width:550}}
 					>
 						<EditThird  detail={itemDetail} onSubmit = {this.onEditThirdSubmit} onCancel={this.openThirdEdit} />
 				</Dialog>
@@ -264,7 +327,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openSecondEdit}
 						onClose={this.openSecondEdit}
-						contentStyle={{width:666}}
+						contentStyle={{width:500}}
 					>
 						<EditSecond  detail={itemDetail} onSubmit = {this.onEditSecondSubmit} onCancel={this.openSecondEdit} />
 				</Dialog>
@@ -273,7 +336,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openFirstEdit}
 						onClose={this.openFirstEdit}
-						contentStyle={{width:666}}
+						contentStyle={{width:500}}
 					>
 						<EditFirst  detail={itemDetail} onSubmit = {this.onEditFirstSubmit} onCancel={this.openFirstEdit} />
 				</Dialog>
@@ -282,7 +345,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openSecondCreate}
 						onClose={this.openSecondCreate}
-						contentStyle={{width:666}}
+						contentStyle={{width:500}}
 					>
 						<CreateSecond  detail={itemDetail} onSubmit = {this.onCreateSecondSubmit} onCancel={this.openSecondCreate} />
 				</Dialog>
@@ -291,7 +354,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openThirdCreate}
 						onClose={this.openThirdCreate}
-						contentStyle={{width:666}}
+						contentStyle={{width:500}}
 					>
 						<CreateThird  detail={itemDetail} onSubmit = {this.onCreateThirdSubmit} onCancel={this.openThirdCreate} />
 				</Dialog>
@@ -302,7 +365,7 @@ export default class FirstMenu extends React.Component {
 						open={this.state.openDeleteFirst}
 						contentStyle={{width:460}}
 						>
-						<DeleteFirst detail={itemDetail} onCancel={this.openDeleteFirst} onSubmit={this.onDel} />
+						<DeleteFirst onCancel={this.openDeleteFirst} onSubmit={this.onDel} />
 
 				</Dialog>
 				<Dialog
@@ -312,7 +375,7 @@ export default class FirstMenu extends React.Component {
 						open={this.state.openDeleteSecond}
 						contentStyle={{width:460}}
 						>
-						<DeleteSecond detail={itemDetail} onCancel={this.openDeleteSecond} onSubmit={this.onDel} />
+						<DeleteSecond onCancel={this.openDeleteSecond} onSubmit={this.onDelSecond} />
 
 				</Dialog>
 				<Dialog
@@ -322,7 +385,7 @@ export default class FirstMenu extends React.Component {
 						open={this.state.openDeleteThird}
 						contentStyle={{width:460}}
 						>
-						<DeleteThird detail={itemDetail} onCancel={this.openDeleteThird} onSubmit={this.onDelThird} />
+						<DeleteThird onCancel={this.openDeleteThird} onSubmit={this.onDelThird} />
 
 				</Dialog>
 			</div>

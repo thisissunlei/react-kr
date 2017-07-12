@@ -14,6 +14,7 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
+import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class EditFirst extends React.Component {
     static PropTypes = {
@@ -26,7 +27,8 @@ class EditFirst extends React.Component {
         
     }
     componentDidMount() {
-        
+        const detail = this.props.detail;
+        Store.dispatch(change('EditFirst',"name",detail.name));
     }
 
     onCancel = () => {
@@ -43,12 +45,12 @@ class EditFirst extends React.Component {
     }
     
     render() {
-        const {handleSubmit} = this.props;
-        let {FirstSelect,SecondSelect} = this.state;
+        const {handleSubmit,detail} = this.props;
+        console.log(detail);
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:410,marginTop:30,paddingLeft:40,paddingRight:40}}  >
                 <KrField
                         name="name"
                         style={{width:310,marginLeft:14}}

@@ -14,6 +14,8 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
+
+import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class CreateFirst extends React.Component {
     static PropTypes = {
@@ -34,18 +36,21 @@ class CreateFirst extends React.Component {
         onCancel && onCancel();
     }
     onSubmit = (form) => {
-		onSubmit && onSubmit(form);
+		const {onSubmit,detail} = this.props;
+        var params = {
+            name: form.name,
+        }
+		onSubmit && onSubmit(params);
     }
     
     render() {
         const {handleSubmit} = this.props;
-        let {FirstSelect,SecondSelect} = this.state;
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:330,marginTop:30,paddingLeft:40,paddingRight:40}}  >
                 <KrField
-                    style={{width:310}}
+                    style={{width:314}}
                     inline={true}
                     label="导航名称"
                     component="input"

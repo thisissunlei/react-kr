@@ -36,7 +36,7 @@ import {
 import './Delete.less';
 
 
-export default class Deletedialog extends Component {
+export default class DeleteSecond extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 

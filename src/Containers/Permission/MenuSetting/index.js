@@ -49,94 +49,41 @@ export default class MenuSetting extends Component {
 		var roleId = this.props.params.userId;
 		this.state = {
 			openFirstCreate:false,
-			data: [
-    {
-        "name": "th1",
-        "childList": [
-            {
-                "name": "th2",
-                "id": 99
-            },
-            {
-                "name": "th2",
-                "childList": [
-                    {
-                        "name": "th3",
-                        "id": 100
-                    },
-                    {
-                        "name": "th3",
-                        "id": 101
-                    },
-                    {
-                        "name": "th3",
-                        "id": 102
-                    }
-                ],
-                "id": 11
-            }
-        ],
-        "id": 10
-    },
-    {
-        "name": "th1",
-        "childList": [
-            {
-                "name": "th2",
-                "id": 99
-            },
-            {
-                "name": "th2",
-                "childList": [
-                    {
-                        "name": "th3",
-                        "id": 100
-                    },
-                    {
-                        "name": "th3",
-                        "id": 101
-                    },
-                    {
-                        "name": "th3",
-                        "id": 102
-                    }
-                ],
-                "id": 11
-            }
-        ],
-        "id": 10
-    }
-],
+			data: [],
 		}
 	}
-	// componentDidMount() {
+	componentDidMount() {
 
-    //     var _this = this;
-    //     Http.request('get-version-detail', {
+        // var _this = this;
+        // Http.request('get-version-detail', {
 
-    //         },{}).then(function(response) {
-    //             _this.setState({data: response},function(){
+        //     },{}).then(function(response) {
+        //         _this.setState({data: response},function(){
 
-    //             })
-    //         }).catch(function(err) {});
-    // }
+        //         })
+        //     }).catch(function(err) {});
+		this.updateData();
+    }
 	onSearchSubmit = () => {
 	
 
 	}
 
 	renderData=(item,index)=>{
+		//console.log("重新renderdata");
+		//console.log(item,"renderdata");
 		return (
 			<FirstMenu key={index} detail={item} onSubmit={this.updateData}/>
 		)
 	}
 	updateData=()=>{
 		    var _this = this;
+			//console.log("进入update");
 			Http.request('get-menu-list', {
 
             },{}).then(function(response) {
-                _this.setState({data: response},function(){
-
+                _this.setState({data: response.items},function(){
+					
                 })
             }).catch(function(err) {});
     
@@ -155,11 +102,15 @@ export default class MenuSetting extends Component {
 		} = this.props;
 		Http.request('first-level-save', {},form).then(function(response) {
 			_this.updateData();
-		}).catch(function(err) {});
+			_this.openFirstCreate();
+			Message.success("新建成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	render() {
         let data = this.state.data;
-		console.log(data);
+		//console.log(data);
 		return (
 			<div className="g-menu">
                 <Section title="菜单配置" >
@@ -167,7 +118,7 @@ export default class MenuSetting extends Component {
 						<Button label="新增导航" type="button" onClick={this.openFirstCreate} width={100} height={40} fontSize={14}/>
 					</div>
                     <div className="list">
-						{data.map((item,index)=>{
+						{this.state.data.map((item,index)=>{
 							return this.renderData(item,index);
 						})}
                     </div>
@@ -177,9 +128,9 @@ export default class MenuSetting extends Component {
 						modal={true}
 						open={this.state.openFirstCreate}
 						onClose={this.openFirstCreate}
-						contentStyle={{width:666}}
+						contentStyle={{width:460}}
 					>
-						<CreateFirst  onSubmit = {this.onCreateFirstSubmit} onCancel={this.openFirstCreate} />
+						<CreateFirst onSubmit={this.onCreateFirstSubmit} onCancel={this.openFirstCreate} />
 				</Dialog>
 			</div>
 		);

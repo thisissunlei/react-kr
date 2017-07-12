@@ -339,17 +339,17 @@ module.exports = {
             method: 'post'
     },
     //菜单配置--编辑子模块
-    'three-level-save':{
+    'three-level-update':{
             url: '/api/krspace-sso-web/sso/module/three-level-update',
             method: 'post'
     },
     //菜单配置--编辑分类
-    'sub-level-save':{
+    'sub-level-update':{
             url: '/api/krspace-sso-web/sso/module/sub-level-update',
             method: 'post'
     },
     //菜单配置--编辑导航
-    'first-level-save':{
+    'first-level-update':{
             url: '/api/krspace-sso-web/sso/module/first-level-update',
             method: 'post'
     },
@@ -362,5 +362,30 @@ module.exports = {
     'third-delete':{
             url: '/api/krspace-sso-web/sso/module/delete-three-level',
             method: 'post'
+    },
+    //菜单配置--一级详情
+    'first-level-detail':{
+            url: '/api/krspace-sso-web/sso/module/first-level-detail?firstLevelId={firstLevelId}',
+            method: 'get'
+    },
+    //菜单配置--二级详情
+    'sub-level-detail':{
+            url: '/api/krspace-sso-web/sso/module/sub-leve-detail?subLevelId={subLevelId}',
+            method: 'get'
+    },
+    //菜单配置--三级详情
+    'three-level-detail':{
+            url: '/api/krspace-sso-web/sso/module/three-leve-detail?threeLevelId={threeLevelId}',
+            method: 'get'
+    },
+    //菜单配置--一级列表
+    'first-level-list':{
+            url: '/api/krspace-sso-web/sso/module/first-leve-list',
+            method: 'get'
+    },
+    //菜单配置--一级查询二级
+    'sub-level-info':{
+            url: '/api/krspace-sso-web/sso/module/sub-level-info?firstLevelId={firstLevelId}',
+            method: 'get'
     },
 }

@@ -14,6 +14,7 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
+import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class CreateFirst extends React.Component {
     static PropTypes = {

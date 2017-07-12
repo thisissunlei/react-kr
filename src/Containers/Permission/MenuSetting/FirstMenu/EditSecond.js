@@ -14,6 +14,7 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
+import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class EditSecond extends React.Component {
     static PropTypes = {
@@ -26,13 +27,14 @@ class EditSecond extends React.Component {
         this.state={
             FirstSelect:[],
         }
+        this.getFirstData();
     }
     componentDidMount() {
-        this.getFirstData();
+        
         var _this = this;
         var id = this.props.detail.id
         var infoList = {};
-        Http.request('sub-leve-detail', {
+        Http.request('sub-level-detail', {
                 subLevelId: id
             },{}).then(function(response) {
                 infoList.firstLevelId = response.firstLevelId;
@@ -43,17 +45,21 @@ class EditSecond extends React.Component {
                     Store.dispatch(initialize('EditSecond',infoList));
                 })
                 
-            }).catch(function(err) {});
+        }).catch(function(err) {});
 
     }
     getFirstData=()=>{
-          Http.request('first-leve-list', {},{}).then(function(response) {
-                var FirstSelect = response.map((item, index) => {
+          var _this = this;
+          Http.request('first-level-list', {},{}).then(function(response) {
+                
+                var FirstSelect = response.items.map((item, index) => {
                     item.label = item.name;
                     item.value = item.id;
                     return item;
 			    });
-                this.setState({
+                console.log(response);
+                console.log(FirstSelect,"FirstSelect");
+                _this.setState({
                     FirstSelect: FirstSelect
                 })
             }).catch(function(err) {});
@@ -74,12 +80,13 @@ class EditSecond extends React.Component {
     }
     
     render() {
-        const {handleSubmit} = this.props;
-        let {FirstSelect,SecondSelect} = this.state;
+        const {handleSubmit,detail} = this.props;
+        let FirstSelect = this.state.FirstSelect;
+        //console.log(this.state.FirstSelect);
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:410,marginTop:30,paddingLeft:40,paddingRight:40,paddingBottom:30}}  >
                 <KrField
                         name="firstLevelId"
                         style={{width:310,marginLeft:14}}

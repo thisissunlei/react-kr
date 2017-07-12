@@ -36,7 +36,7 @@ import {
 import './Delete.less';
 
 
-export default class Deletedialog extends Component {
+export default class DeleteFirst extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
@@ -66,7 +66,7 @@ export default class Deletedialog extends Component {
 				<Row style={{marginTop:50,marginBottom:15}}>
 				<Col md={12} align="center">
 					<ButtonGroup>
-						<div  className='ui-btn-center'><Button  label="确定" type="button"   onTouchTap={this.onSubmit} height={34} width={90}/></div>
+						<div  className='ui-btn-center'><Button  label="确定" type="button"  onTouchTap={this.onSubmit} height={34} width={90}/></div>
 						<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
 					</ButtonGroup>
 

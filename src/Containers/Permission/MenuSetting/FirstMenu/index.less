@@ -8,13 +8,8 @@
         float: right;
     }
     .second-title,.first-title,.third-title{
-        padding: 0 25px;
-    }
-    .first-title{
-        padding: 0 15px;
-    }
-    div{
-        display: inline-block
+        padding-left:25px;
+        display: inline-block;
     }
     .btn{
         line-height: 30px;
@@ -22,10 +17,13 @@
         border-radius: 6px;
     }
     .first-title-row{
-        display: block !important;
+        
         line-height: 50px;
         .first-title{
+            padding: 0 15px;
+            display: inline-block;
             font-size: 25px;
+            font-weight: 600;
         }
         .ui-button{
             margin-top: 8px;
@@ -34,18 +32,45 @@
     }
     .main{
         .second-menu{
-            display: block !important;
+            
             margin: 10px 0;
             .second-title-row{
+                display: inline-block;
                 line-height: 40px;
+                width: 100%;
+                position: relative;
+                .second-items{
+                  width: 65%;   
+                }
+                div{
+                    display: inline-block;
+                }
                 .second-title{
                     font-size: 18px;
+                    font-weight: 600;
+                    width: 20%;
+                    vertical-align: top;
+                    line-height: 46px;
                  }
                  .ui-button{
                     margin-top: 5px;
                 }
             }
            
+        }
+    }
+    .ui-dialog{
+        .Select{
+            width:169px;
+        }
+        .ui-button{
+            float: none;
+        }
+        .ui-btn-center{
+                display: inline-block;
+        }
+        .ui-form-label{
+            margin-right: 20px;
         }
     }
 }
