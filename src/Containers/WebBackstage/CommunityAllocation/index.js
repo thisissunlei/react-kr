@@ -286,7 +286,7 @@ export default class CommunityAllocation  extends React.Component{
                                 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
                             }}></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="krspace_cmt_visit"/>
+			                    <Button label="编辑"  type="operation"  operation="edit" operateCode="krspace_cmt_edit"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

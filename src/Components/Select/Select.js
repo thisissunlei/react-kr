@@ -1046,7 +1046,6 @@ const Select = React.createClass({
 		if (!menu) {
 			return null;
 		}
-
 		return (
 			<div ref={ref => this.menuContainer = ref} className="Select-menu-outer" style={{maxHeight:'248px',zIndex:'100'}}>
 				<div ref={ref => this.menu = ref} role="listbox" className="Select-menu" id={this._instancePrefix + '-list'}
@@ -1062,6 +1061,7 @@ const Select = React.createClass({
 	render () {
 		let valueArray = this.getValueArray(this.props.value);
 		let options =	this._visibleOptions = this.filterOptions(this.props.multi ? this.getValueArray(this.props.value) : null);
+		console.log('options',options,'34',this.props.multi);
 		let isOpen = this.state.isOpen;
 		if (this.props.multi && !options.length && valueArray.length && !this.state.inputValue) isOpen = false;
 		const focusedOptionIndex = this.getFocusableOptionIndex(valueArray[0]);
@@ -1097,7 +1097,6 @@ const Select = React.createClass({
 				</span>
 			);
 		}
-
 		return (
 			<div ref={ref => this.wrapper = ref}
 				 className={className}

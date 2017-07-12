@@ -82,4 +82,9 @@ module.exports = {
       url: '/api/krspace-finance-web/cmt/detail?id={id}',
       method: 'get'
    },
+   //人员组件
+   'web-user-select':{
+      url: '/api/krspace-sso-web/sso/ssoUser/select?phoneOrEmail={phoneOrEmail}',
+      method: 'get'
+   },
 }

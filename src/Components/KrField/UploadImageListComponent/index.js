@@ -197,7 +197,7 @@ export default class UploadImageListComponent extends Component {
 			}
 		};
 
-		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
+		xhr.open('GET', 'http://optest02.krspace.cn/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
 		// 暂时觉得此处用不着了，等连上服务器需要再检查一下

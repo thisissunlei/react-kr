@@ -95,8 +95,7 @@ export default class Async extends Component {
 			loadOptions
 		} = this.props;
 		const cache = this._cache;
-
-
+       
 		/*if (
 			cache &&
 			cache.hasOwnProperty(inputValue)
