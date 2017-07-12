@@ -138,6 +138,8 @@ export default class ReportTable extends React.Component {
 
         ];
         this.isFixed = false;
+        this.scrollYNum = 0;
+        this.scrollXNum = 0;
         
 	}
     //点击任何一个数据
@@ -171,6 +173,39 @@ export default class ReportTable extends React.Component {
         })
         return <div>{allSign}</div>
     }
+    publicTitle = () =>{
+        var style = {
+            width:100,
+            height:90,
+            textAlign:"center",
+            borderLeft:"1px solid #E1E6EB",
+		    borderTop:"1px solid #E1E6EB",
+            display:'inline-block',
+            padding:'0px 21px',
+            textAlign:'center',
+            lineHeight:'90px',
+            background:'#F6F6F6'
+        }
+        return (
+        <div ref = {(ref) =>{
+                    this.pubilc = ref;
+            }}
+            className = "report-table" 
+            style = {{
+                zIndex:12,
+                position:"absolute",
+                width:286
+            }}
+        >
+            <div>
+                <div style = {style} >城市1</div>
+                <div style = {style} >社区1</div>
+            </div>   
+            
+        </div>
+        )
+
+    }
     
     componentDidMount(){
         var winHeight = 0;
@@ -178,31 +213,76 @@ export default class ReportTable extends React.Component {
 		winHeight = window.innerHeight;
 		else if ((document.body) && (document.body.clientHeight))
 		winHeight = document.body.clientHeight;
-		console.log(winHeight,">>>>>>>>>");
-        this.setState({
-            winHeight,
-        })
-        window.addEventListener("scroll",this.domOnscroll,false)
+		
+        this.box.style.height = ((+winHeight-283))+"px";
+        this.header.style.zIndex = "10";
+        this.spreads.style.zIndex = "5";
+        
+        this.box.addEventListener("scroll",this.domOnscroll,false)
     }
 
     domOnscroll = () =>{
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        var scrollLeft= document.documentElement.scrollLeft || document.body.scrollLeft;
-        if(scrollTop>100){
-           this.header.style.position = "fixed";
-           this.header.style.top = "50px";
-           
-
-        }else{
-            this.header.style.position = "relative";
-            this.header.style.top = "0px";
-            
-        }
+        var scrollTop = this.box.scrollTop;
+        var scrollLeft= this.box.scrollLeft;
+        
+        // console.log(scrollTop)
+            scrollTop = scrollTop>0?scrollTop:0;
+            scrollLeft = scrollLeft>0?scrollLeft:0;
+            if(scrollTop>=0){
+                this.header.style.position = "absolute";
+                this.header.style.top = scrollTop+"px";
+                this.box.style.paddingTop = "90px";
+                this.pubilc.style.top = scrollTop+"px";
+                this.spreads.style.top = 90+"px";
+                
+            }
+            if(scrollLeft >=0){
+                this.spreads.style.position = "absolute";
+                this.spreads.style.left = scrollLeft+"px";
+                this.pubilc.style.left = scrollLeft+"px";
+            }
+        
     }
-    //判断头部是否固定
-    flagFixed = () =>{
+    renderSpreads = () =>{
+        var city = [];
+        for(let i=0;i< this.allData.length;i++){
+            var communitys = this.allData[i].communitys;
+            for(let j=0;j< communitys.length;j++){
+                let every = (
+                    <tr>
+                        {j == 0 &&<td rowSpan={communitys.length}>{communitys[j].city}</td>}
+                        <td>{communitys[j].communityName}</td>
+                    </tr>
+                )
+                city.push(every);
+            }
+        }
 
+        return (
+                <div
+                    ref = {
+                        (ref)=>{
+                            this.spreads = ref;
+                        }
+                    } 
+                >
+                <table className = "report-table" width = "186" cellSpacing="0" cellPadding="5" >
+                    <tbody>
+                        <tr>
+                            <td >全国</td>
+                            <td >全部</td>
+                        </tr>
+                        {city}
+                    
+                    </tbody>
+                </table>
+                </div>
+                    
+                )
+    }
 
+    componentWillUnmount(){
+        this.box.removeEventListener("scroll",this.domOnscroll,false)
     }
 
 
@@ -212,7 +292,13 @@ export default class ReportTable extends React.Component {
         const {winHeight} = this.state;
 
 		return (
-            <div style = {{height:winHeight,overflow:"auto",width:'100%'}}>
+            <div 
+                ref = {
+                    (ref) =>{
+                        this.box = ref;
+                    }
+                } 
+                style = {{overflow:"auto",width:'100%',position:"relative"}}>
             <div 
                 ref = {
                     (ref)=>{
@@ -234,10 +320,9 @@ export default class ReportTable extends React.Component {
                <tbody>
                    
                         <tr className = "header-tr">
-                            <span>
+                           
                             <td rowSpan="2">城市</td>
                             <td rowSpan="2">社区</td>
-                            </span>
                             <td colSpan="11">新增总量</td>
                             <td colSpan="11">签约总量</td>
                         </tr>
@@ -270,13 +355,14 @@ export default class ReportTable extends React.Component {
                         </tbody>
                  </table>
                  </div>
+                 <div>
                  <table className = "report-table" width = "100%" cellSpacing="0" cellPadding="5" >
                     <tbody>
                         <tr>
-                            <span>
+
                             <td >全国</td>
                             <td >全部</td>
-                            </span>
+                            
                             <td colSpan="11">新增总量</td>
                             <td colSpan="11">签约总量</td>
                         </tr>
@@ -293,7 +379,11 @@ export default class ReportTable extends React.Component {
                     
                 </tbody>
 
-            </table>
+            </table> 
+           
+            </div>
+            {this.renderSpreads()}
+            {this.publicTitle()}
             </div> 
 		);
 	}
