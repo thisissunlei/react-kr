@@ -172,6 +172,7 @@ export default class UploadImageListComponent extends Component {
 										src:item.ossHref,
 									 });
 									})
+									_this.refs.inputImg.value ="";
 									_this.changeImages(images);
 									Message.warntimeout('图片上传成功', 'success');
 								} else {
