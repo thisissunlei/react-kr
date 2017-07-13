@@ -3,7 +3,7 @@ import {
 	Button,
 } from 'kr-ui';
 import './index.less';
-
+import data from './Data/head.json'
 // @observer
 export default class ReportTable extends React.Component {
 
@@ -13,6 +13,8 @@ export default class ReportTable extends React.Component {
           openReportDetail:false,
           winHeight : 0,
 		}
+        console.log(data,">>>>>>");
+        this.headerData = [];
         this.add = ["Ap1","Ap2","Ap3","Ap4","Ap5","Ap6","Ap7","Ap8","Ap9","Ap10","Ap11"]
         this.signing = ["sig1","sig2","sig3","sig4","sig5","sig6","sig7","sig8","sig9","sig10","sig11"]
         this.allData = [
@@ -144,7 +146,8 @@ export default class ReportTable extends React.Component {
 	}
     //点击任何一个数据
 	detailClick=()=>{
-
+        const {everyClick} = this.props;
+        everyClick && everyClick();
 	}
    
     renderTr = (city,community) =>{
@@ -158,20 +161,32 @@ export default class ReportTable extends React.Component {
                     </tr>)
 
         })
-        return <div>{com}</div>;
+        return com;
     }
+    
+    //新增数据渲染被点击
     renderAdd = (adds) =>{
+        const self = this;
         var allAdd = this.add.map((item,index) => {
             
-            return <td>{adds.newAdd[item]}</td>
+            return <td
+                        key= {index} 
+                        onClick = {()=>{
+                            console.log("LLLLL>>>>>")
+                            self.detailClick();
+                        }}
+                    >
+                        {adds.newAdd[item]}
+                    </td>
         })
-        return <div>{allAdd}</div>
+        return allAdd
     }
+    //签约
     renderSign = (signs) =>{
         var allSign = this.signing.map((item,index) =>{
-            return <td>{signs.signing[item]}</td>
+            return <td key= {index}>{signs.signing[item]}</td>
         })
-        return <div>{allSign}</div>
+        return allSign
     }
     publicTitle = () =>{
         var style = {
@@ -220,7 +235,7 @@ export default class ReportTable extends React.Component {
         
         this.box.addEventListener("scroll",this.domOnscroll,false)
     }
-
+    //滚轮监听
     domOnscroll = () =>{
         var scrollTop = this.box.scrollTop;
         var scrollLeft= this.box.scrollLeft;

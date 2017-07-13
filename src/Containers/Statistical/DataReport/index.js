@@ -63,7 +63,7 @@ export default class DataReport extends React.Component {
 					<SearchForm/>
 					<div onClick={this.detailClick}>button</div>
 					<div className = "data-report-table">
-						<ReportTable />
+						<ReportTable everyClick = {this.detailClick} />
 					</div>
 
 					{/*详情*/}
