@@ -68,9 +68,6 @@ export default class DataReport extends React.Component {
 						<ReportTable everyClick = {this.detailClick} />
 					</div>
 
-					{/*详情*/}
-					<div onClick={this.detailClick}>detail</div>
-
 					{/*报表明细*/}
 					<Dialog
 						title="报表明细"
