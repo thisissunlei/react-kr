@@ -40,6 +40,13 @@ class SearchForm extends React.Component {
 		
 	}
 
+	openSearchUpperDialog=()=>{
+	     const {
+			openSearchUpperDialog
+		} = this.props;
+		openSearchUpperDialog && openSearchUpperDialog();		
+	}
+
 
 	chooseCommunity=(item)=>{
 		

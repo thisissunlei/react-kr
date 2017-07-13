@@ -49,7 +49,8 @@ export default class DataReport extends React.Component {
 
 	//高级查询提交
 	searchSubmit=(params)=>{
-      
+	  
+      this.searchClick();
 	}
 
 
@@ -60,15 +61,15 @@ export default class DataReport extends React.Component {
 			<div className="data-report">
 				<Title value="催款表"/>
 				<Section title="催款表">
-					<SearchForm/>
-					<div onClick={this.detailClick}>button</div>
+					<SearchForm
+					  openSearchUpperDialog={this.searchClick}
+					/>
 					<div className = "data-report-table">
 						<ReportTable everyClick = {this.detailClick} />
 					</div>
 
 					{/*详情*/}
 					<div onClick={this.detailClick}>detail</div>
-					<div onClick={this.searchClick}>search</div>
 
 					{/*报表明细*/}
 					<Dialog

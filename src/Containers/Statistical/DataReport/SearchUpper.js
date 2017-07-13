@@ -18,7 +18,65 @@ class SearchUpper  extends React.Component{
 		super(props, context);
         this.state={
 			dateBoxStyle:{marginTop:25,marginLeft:26 ,height:"auto"},
+			city:[],
+			community:[]
 		}
+	}
+
+	componentWillMount(){
+	  var city=[
+            {
+                "label": "北京市",
+                "value": 1
+            },
+            {
+                "label": "天津市",
+                "value": 2
+            },
+            {
+                "label": "广州市",
+                "value": 198
+            },
+            {
+                "label": "杭州市",
+                "value": 88
+            },
+            {
+                "label": "深圳市",
+                "value": 200
+            },
+            {
+                "label": "上海市",
+                "value": 74
+            },
+            {
+                "label": "武汉市",
+                "value": 170
+            },
+            {
+                "label": "南京市",
+                "value": 75
+            },
+            {
+                "label": "成都市",
+                "value": 238
+            },
+            {
+                "label": "苏州市",
+                "value": 79
+            }
+        ] ;
+	  var cityArr=[];
+	  city.map((item,index)=>{
+        var list={};
+		list.label=item.label;
+		list.value=item.value;
+		cityArr.push(list);
+	  })
+	  cityArr.push({"label": "全部城市","value":" "})
+      this.setState({
+		 city:cityArr
+	  }) 
 	}
 
     onSubmit=(values)=> {
@@ -27,7 +85,7 @@ class SearchUpper  extends React.Component{
 		} = this.props;
 		onSubmit && onSubmit(values);
 	}
-
+    
 	onCancel=()=> {
 	   const {
 			onCancel
@@ -38,13 +96,14 @@ class SearchUpper  extends React.Component{
 	render(){
 
         let {handleSubmit}=this.props;
-        let {dateBoxStyle}=this.state;
+        let {dateBoxStyle,city}=this.state;
 
 		return(
 
 			<div>
 			    <form style={dateBoxStyle} onSubmit={handleSubmit(this.onSubmit)}>
                     <KrField  grid={1/2} style={{marginTop:1,width:262,marginRight:'26px'}} name='city' component="select" label="城市" 
+					 options={city}
                     />
                     
                     <KrField  grid={1/2}  name="intentionCommunityId" style={{marginTop:2,width:262}} component='searchCommunityAll'  label="社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
