@@ -41,7 +41,7 @@ export default class UploadImageListComponent extends Component {
 			openDelete:false,
 			openFirst:false,
 			deleteIndex:'',
-			firstIndex:''
+			firstIndex:'',
 		}
 
 		this.init = false;
@@ -109,8 +109,9 @@ export default class UploadImageListComponent extends Component {
 		});
 	}
 	updateImage=(event)=>{
-        let {images}=this.state;
 
+        let {images}=this.state;
+       
 		this.setState({
 			operateImg :false,
 			imgUpload :false,
@@ -279,6 +280,7 @@ export default class UploadImageListComponent extends Component {
           imgStyle='detailImg'
         }
 
+        
 
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >

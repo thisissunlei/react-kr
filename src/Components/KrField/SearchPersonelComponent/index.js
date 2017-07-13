@@ -49,8 +49,8 @@ export default class  SearchPersonelComponent extends React.Component {
 		return new Promise((resolve, reject) => {
 			Http.request('web-user-select',{ phoneOrEmail:phoneOrEmail }).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.userId;
-					item.label = item.userName;
+					item.value = item.id;
+					item.label = item.lastname;
 				});
 				resolve({options:response});
 			}).catch(function(err){
