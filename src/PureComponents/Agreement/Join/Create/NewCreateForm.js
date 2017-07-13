@@ -543,7 +543,6 @@ class NewCreateForm extends Component {
 	onChangeSearchPersonel(personel) {
 		// var stationVos = Object.assign({},personel);
 		// stationVos.lessorContactName = personel.label;
-		console.log(personel,">>>>>");
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
 		this.setState({

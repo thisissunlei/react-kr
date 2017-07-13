@@ -126,6 +126,7 @@ class NewCreateForm extends Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:this.props.initialValues.totalrent || '0',
+			lessorContactName:''
 		}
 	}
 
@@ -363,7 +364,8 @@ class NewCreateForm extends Component {
 
 
 		let {
-			stationVos
+			stationVos,
+			lessorContactName
 		} = this.state;
 		if (!stationVos.length) {
 			Notify.show([{
@@ -409,7 +411,7 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-
+		form.lessorContactName = lessorContactName;
 		//form.stationVos = JSON.stringify(stationVos);
 
 		const {
@@ -509,7 +511,9 @@ class NewCreateForm extends Component {
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('increaseCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('increaseCreateForm', 'lessorContactName', personel.lastname));
-
+		this.setState({
+			lessorContactName : personel.label
+		})
 	}
 	showMore = () => {
 		this.setState({
