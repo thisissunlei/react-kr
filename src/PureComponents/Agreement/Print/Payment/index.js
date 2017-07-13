@@ -19,11 +19,13 @@ export default class Payment extends Component {
 		return (yy + "/" + mm + "/" + dd )
 	}
 	componentWillReceiveProps(nextProp){
-		
+	}
+	componentDidMount(){
+
 	}
 	checkPosition=()=>{
  		let {installmentPlans} = this.props;
- 		let pageItem ;
+ 		let pageItem =null;
 		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
 		let tableBottom = document.getElementsByClassName('reminders')[0];
 		this.init = false;
@@ -63,8 +65,21 @@ export default class Payment extends Component {
 	}
 
 	Onetable = (installmentPlans) => {
-		this.checkPosition();
-
+		let num = this.checkPosition();
+		let obj = {
+			installmentName:'',
+			leaseDate:'',
+			installmentReminddate:'',
+			installmentAmount:''
+		}
+		if(!this.inits && installmentPlans.length){
+			
+			installmentPlans.splice(num,0,obj);
+			installmentPlans.splice(num,0,obj);
+			this.inits = true;
+			console.log('componentWillReceiveProps',installmentPlans.length)
+			
+		}
 		return (
 			<div className="table-one-content">
 				<div className="table-list">
@@ -78,7 +93,7 @@ export default class Payment extends Component {
 								</tr>
 							</thead>
 							<tbody>
-							{
+							{	
 								installmentPlans.map((item,index)=>{
 									return(
 										<tr key={index}>
