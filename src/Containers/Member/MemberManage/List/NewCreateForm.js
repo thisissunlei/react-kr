@@ -249,7 +249,8 @@ class NewCreateForm extends React.Component{
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50'}}/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
 					</KrField>
-					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px'}} />
+					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px',marginRight:'30'}} />
+					<KrField grid={1/2} name="idCardNo" type="text" label="身份证号" style={{width:'252px'}} />
 
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
@@ -274,6 +275,10 @@ const validate = values => {
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
+	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
+    if( values.idCardNo && !reg.test(values.idCardNo)){  
+        errors.idCardNo = '身份证输入不合法';   
+    }
 	// if (!values.email) {
 	// 	errors.email = '请输入邮箱';
 	// }
