@@ -36,6 +36,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	Notify
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -168,20 +169,24 @@ class NewCreateForm extends React.Component {
 	setTotalRent=(value)=>{
 		let {initialValues} = this.props;
 		let _this = this;
-		// Http.request('setExitTotalReturn', {
-		// 	mainbillId: initialValues.mainbillid,
-		// 	withdrawDate:value
-		// }).then(function(response){
-		// 	_this.setState({
-		// 		totalRent:response+''
-		// 	},function(){
-		// 		Store.dispatch(change('exitEditForm', 'totalRent', response));
-		// 		Store.dispatch(change('exitEditForm', 'totalreturn', response));
+		Http.request('setExitTotalReturn', {
+			mainbillId: initialValues.mainbillid,
+			withdrawDate:value
+		}).then(function(response){
+			_this.setState({
+				totalRent:response+''
+			},function(){
+				Store.dispatch(change('exitEditForm', 'totalRent', response));
+				Store.dispatch(change('exitEditForm', 'totalreturn', response));
 
-		// 	})
-		// }).catch(function(err){
-		// 	console.log(err)
-		// })
+			})
+		}).catch(function(err){
+			console.log(err)
+			Notify.show([{
+	          message: err.message,
+	          type: 'danger',
+	        }]);
+		})
 
 		
 		
@@ -209,6 +214,8 @@ class NewCreateForm extends React.Component {
 			}
 		});
 		let {totalRent} = this.state;
+		var agreementValue = initialValues.agreement=='无'?'如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。':initialValues.agreement;
+
 
 		return (
 
@@ -252,15 +259,12 @@ class NewCreateForm extends React.Component {
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
 
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="input" label="退租金总额"  requireLabel={true}
-				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-
-				{/*<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额" requireLabel={true}
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}
-				value={totalRent} inline={false}/>*/}
+				value={totalRent} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="labelText" inline={false} label="双方其他约定内容" maxSize={200} value={agreementValue}/>
 
 				<div className="end-round"></div>
 				</div>

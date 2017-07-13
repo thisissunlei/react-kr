@@ -886,11 +886,11 @@ class Merchants extends Component{
 											{otherBootom && <Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>}
 											<div style={{visibility:showOpretion,border:border}} className="m-operation" >
 												
-													{State.isEdit && <span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span>}
+													{State.isEdit && item.editFlag && <span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span>}
 												
-													{State.isPrint && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+													{State.isPrint && item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 												
-													{State.isDel && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+													{State.isDel && item.editFlag && item.contracttype=='ENTER' && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
 										</div>}

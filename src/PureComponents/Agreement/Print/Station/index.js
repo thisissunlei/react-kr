@@ -28,6 +28,7 @@ export default class Station extends Component {
 		this.state={
 			stationVOs:this.props.stationVOs,
 		}
+		this.init = false;
 
 	}
 	componentDidMount() {

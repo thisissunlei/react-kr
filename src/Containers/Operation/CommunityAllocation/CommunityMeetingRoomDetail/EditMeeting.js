@@ -226,8 +226,7 @@ class EditMeeting  extends React.Component{
 			picId:picId,
             picUrl:picUrl
 	  }
-
-
+   
     return(
 
     <div className='m-newMerchants new-meeting'>
@@ -318,7 +317,7 @@ class EditMeeting  extends React.Component{
 
 
 
-			{(watchMeeting||watchHouse)&&<KrField
+			{(watchMeeting||watchHouse)&&(defaultValue.picUrl!='')&&<KrField
 					 label="空间图片"
 					 name="picId"
 					 component="newuploadImage"

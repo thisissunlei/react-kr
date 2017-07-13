@@ -33,7 +33,7 @@ module.exports = [
 				{
 					primaryText: '业务代码',
 					router: '/permission/opCode',
-					menuCode: 'sso_resource_base',
+					menuCode: 'sso_businessCode_base',
 				}]
 			},
 			{
@@ -56,17 +56,28 @@ module.exports = [
 					router: '/permission/loginLog',
 					menuCode: 'sso_loginLog_base',
 				}]
-			},{
+			},
+			{
 				primaryText: "系统管理",
 				iconName: 'icon-wendang',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
-				menuItems: [{
-					primaryText: '版本管理',
+				menuItems: [
+					{
+					primaryText: 'APP版本管理',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'sso_appVersion_base',
-				},]
-			}
+				},
+				{
+					primaryText: 'PC版本管理',
+					router: '/permission/systemManage/update-log',
+					menuCode: 'op_ver',
+				},
+				]
+			},
+
+
+
 		]
 	}
 

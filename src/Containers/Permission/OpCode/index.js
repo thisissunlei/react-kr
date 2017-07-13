@@ -37,7 +37,8 @@ import {
 	SearchForms,
 	KrDate,
 	Drawer,
-	Message
+	Message,
+	Tooltip
 } from 'kr-ui';
 import './index.less';
 import Createdialog from './Createdialog';
@@ -233,7 +234,22 @@ class OpCode extends Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="name"></TableRowColumn>
-							<TableRowColumn name="codeName"></TableRowColumn>
+							<TableRowColumn name="codeName" 
+								 component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
+
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:220,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}
+							></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn type="date" name="createDate" component={(value)=>{
 								return (

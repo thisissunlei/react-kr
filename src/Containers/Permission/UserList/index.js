@@ -50,10 +50,12 @@ export default class UserList extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				roleId: roleId
+				roleId: roleId,
+				timer: 0,
 			},
 			itemDetail: '',
-			openDeleteDialog: false
+			openDeleteDialog: false,
+			newPage:1,
 		}
 	}
 
@@ -79,18 +81,17 @@ export default class UserList extends Component {
 		} = this.state;
 		var _this = this;
 		var roleId = this.props.params.userId
-		console.log('itemDetail----', itemDetail)
 		Http.request('deleteUser', {
 			roleId: roleId,
 			userId: itemDetail.id
 		}).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功');
-			window.location.reload();
+			_this.changeP();
+			_this.openDeleteDialog();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message);
-			window.location.reload();
 		});
 	}
 	onSearchSubmit = (name) => {
@@ -103,11 +104,28 @@ export default class UserList extends Component {
 		})
 
 	}
+	//改变页码
+    changeP=()=>{
+        var timer = new Date();
+        this.setState({
+            searchParams: {
+                    page: this.state.newPage,
+                    timer: timer,
+            }
+        })
+    }
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
+    }
+
 	back=()=>{
 		var page = this.props.params.page;
 		var url = `./#/permission/user/${page}`;
 		window.location.href=url;
 	}
+
 	render() {
 
 
@@ -134,6 +152,7 @@ export default class UserList extends Component {
 							ajaxUrlName='findUserByRoleId'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
+							onPageChange={this.onPageChange}
 							  >
 						<TableHeader>
 						<TableHeaderColumn>Id</TableHeaderColumn>
@@ -166,10 +185,10 @@ export default class UserList extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
-						
+
 					 </Dialog>
 				</Section>
-					
+
 			</div>
 		);
 	}

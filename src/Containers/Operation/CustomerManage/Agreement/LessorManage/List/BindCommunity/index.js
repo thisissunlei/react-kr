@@ -170,14 +170,8 @@ class BindCommunity extends React.Component {
 	}
   }
   componentWillReceiveProps(nextProps){
- console.log(nextProps,">>>>>>");
-// 		if(nextProps && nextProps.id ){
-// 			this.getBindCmtData(nextProps.id);
-// 			this.setState({
-// 				id:nextProps.id
-// 			})
-// 		}
-	}
+	
+  }
 
 	render() {
 		const {handleSubmit} = this.props;

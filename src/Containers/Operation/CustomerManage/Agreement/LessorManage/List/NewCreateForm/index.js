@@ -205,6 +205,8 @@ class NewCreateForm extends React.Component {
 			jsonData,
 			readyData
 		} = this.state;
+		let host = "http://"+window.location.host;
+		console.log("http://"+window.location.host);
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
@@ -233,7 +235,7 @@ class NewCreateForm extends React.Component {
 									photoSize={'497*497'}
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
-									requestURI = {'http://optest02.krspace.cn/api/krspace-finance-web/activity/upload-pic'}
+									requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
 									deviation = {"50*50"}
 									requireLabel={true}
 									label="上传列表详情图"

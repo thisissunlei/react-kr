@@ -75,7 +75,7 @@ class Editdialog extends React.Component {
     	 					 label="名称"
     						 component="input"
 							 inline={true}
-							 maxLength={8}
+							 maxLength={15}
     	 		/>
                <KrField
     						 left={42}
@@ -86,6 +86,7 @@ class Editdialog extends React.Component {
 							 value={this.state.infoList.codeName}
 							 inline={true}
 							 requireLabel={true}
+							 maxLength={50}
     	 		/>
 				{/*<KrField
 						style={{width:360,marginLeft:40,marginBottom:2,marginRight:200}}
