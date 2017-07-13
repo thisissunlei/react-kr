@@ -244,7 +244,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 photoSize={'3:2'}
                                 pictureFormat={'JPG,PNG,GIF'}
                                 pictureMemory={'300'}
-                                requestURI = 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                 inline={false}
                                 formfile=' '
                                 defaultValue={stationValue}
@@ -295,7 +295,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                    <div className='web-page-box'> <KrField 
                                          name="pageImageId"
                                          component="uploadImage"
-                                         requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                         requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                          style={{textAlign:'left'}}
                                          defaultValue={firstValue}
                                          inline={false}
@@ -308,7 +308,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <div className='web-page-box'> <KrField 
                                        name="listImageId"
                                        component="uploadImage"
-                                       requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                       requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                        style={{textAlign:'left'}}
                                        defaultValue={listValue}
                                        inline={false}
