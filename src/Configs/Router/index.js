@@ -30,6 +30,7 @@ import StatisticalRouter from './StatisticalRouter';
 import OARouter from './OARouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
+import SynchronizationRouter from './SynchronizationRouter';
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -112,6 +113,8 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
+
+        {SynchronizationRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>
