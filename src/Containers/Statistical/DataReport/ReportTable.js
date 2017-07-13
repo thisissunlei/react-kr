@@ -172,7 +172,6 @@ export default class ReportTable extends React.Component {
             return <td
                         key= {index} 
                         onClick = {()=>{
-                            console.log("LLLLL>>>>>")
                             self.detailClick();
                         }}
                     >
@@ -213,8 +212,8 @@ export default class ReportTable extends React.Component {
             }}
         >
             <div>
-                <div style = {style} >城市1</div>
-                <div style = {style} >社区1</div>
+                <div style = {style} >城市</div>
+                <div style = {style} >社区</div>
             </div>   
             
         </div>
