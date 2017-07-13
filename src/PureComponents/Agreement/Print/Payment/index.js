@@ -40,13 +40,15 @@ export default class Payment extends Component {
 		//分期内容换页
 		// if(top<1060 && top>720){
 		if(top<1040 && top>720){
+			console.log('top',top)
 			let domHeight = 1120-top-28-27;
 			let num = parseInt(domHeight/22.5);
 			if(domHeight%22.5>14){
 				pageItem = num -1;
 			}else{
-				pageItem = num-2;
+				pageItem = (num-2>0)?num-2:0;
 			}
+			console.log('---->',pageItem)
 			
 		}else if(top<1140 && top>1040){
 			let marginTop = 1180-top;
@@ -128,6 +130,11 @@ export default class Payment extends Component {
 													}
 												}
 											}
+											if(num == 0 && index == num ){
+												style={
+															marginTop:50
+														}
+											}
 											return(
 												<div className="td clear" key={index} style={style}>
 													<div>{item.installmentName}</div>
@@ -158,6 +165,11 @@ export default class Payment extends Component {
 														}
 													}
 												}
+											}
+											if(num == 0 && index == num ){
+												style={
+															marginTop:50
+														}
 											}
 											return(
 												<div className="td clear" key={index} style={style}>
