@@ -132,6 +132,7 @@ class NewCreateForm extends Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			lessorContactName:''
 
 		}
 	}
@@ -377,13 +378,9 @@ class NewCreateForm extends Component {
 	onSubmit(form) {
 
 
-
 		let {
-			stationVos
-		} = this.state;
-
-
-		let {
+			stationVos,
+			lessorContactName,
 			billList
 		} = this.state;
 
@@ -411,6 +408,8 @@ class NewCreateForm extends Component {
 		var _this = this;
 
 		form.stationVos = stationVos;
+		form.lessorContactName = lessorContactName;
+		console.log("OOOOOO",form)
 		const {
 			onSubmit
 		} = this.props;
@@ -542,8 +541,16 @@ class NewCreateForm extends Component {
 	}
 
 	onChangeSearchPersonel(personel) {
+		// var stationVos = Object.assign({},personel);
+		// stationVos.lessorContactName = personel.label;
+		console.log(personel,">>>>>");
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
+		this.setState({
+			lessorContactName : personel.label
+		})
+
+	
 	}
 	showMore = () => {
 		this.setState({

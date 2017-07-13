@@ -38,6 +38,7 @@ export default class  SearchPersonelComponent extends React.Component {
 	}
 
 	onChange(item){
+		console.log(item,"++++++++")
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
