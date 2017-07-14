@@ -6,7 +6,7 @@ module.exports = [
 		originUrl: './#/WebBackstage/activity/list',
 		menuItems: [
 			{
-				primaryText: "活动管理",
+				primaryText: "官网管理",
 				iconName: 'icon-com',
 				iconColor: '#79859a',
 				router :'activity',
@@ -20,6 +20,11 @@ module.exports = [
 						menuCode: 'main_news',
 						router: '/WebBackstage/news/list',
 					},
+					{
+						primaryText: '官网社区配置',
+						menuCode: 'krspace_cmt',
+						router: '/WebBackstage/communityAllocation',
+					}
 					]
 			}, ],
 	}
