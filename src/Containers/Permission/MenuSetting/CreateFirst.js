@@ -13,6 +13,7 @@ import {
     Row,
     Col,
     Dialog,
+    Message
 } from 'kr-ui';
 
 import './index.less';
@@ -37,14 +38,15 @@ class CreateFirst extends React.Component {
     }
     onSubmit = (form) => {
 		const {onSubmit,detail} = this.props;
-        var params = {
-            name: form.name,
+       if(form.name == undefined){
+            Message.errortimeout("请输入导航名称");
+            return ;
         }
-		onSubmit && onSubmit(params);
+		onSubmit && onSubmit(form);
     }
     
     render() {
-        const {handleSubmit} = this.props;
+        const {handleSubmit,error} = this.props;
         return (
 
             <div>
@@ -88,8 +90,18 @@ class CreateFirst extends React.Component {
     }
 
 }
+// const validate = values => {
+
+// 	const errors = {};
+// 	if (!values.name) {
+// 		errors.name = '请输入导航名称';
+// 	}
+	
+// 	return errors;
+// }
 export default reduxForm({
 	form: 'CreateFirst',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
+   // validate,
 })(CreateFirst);
