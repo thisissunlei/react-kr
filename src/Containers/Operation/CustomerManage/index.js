@@ -4,6 +4,7 @@ import { default as Agreement} from './Agreement';
 import { default as CustomerList } from './CustomerList';
 import { default as AgreementList} from './AgreementList';
 import { default as CustomerHighSea} from './CustomerHighSea';
+import { default as CustomerSource} from './CustomerSource';
 
 module.exports = {
 	List,
@@ -12,4 +13,5 @@ module.exports = {
 	CustomerList,
 	AgreementList,
 	CustomerHighSea,
+	CustomerSource
 }

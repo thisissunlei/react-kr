@@ -5,12 +5,13 @@ import {
 	Field,
 	reduxForm
 } from 'redux-form';
-import Notify from '../../Notify';
+import Message from '../../Message';
 import ReactDOM from 'react-dom';
 import './index.less';
 import refresh from "./images/refresh.svg";
 import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
+import WrapComponent from '../WrapComponent';
 export default class UploadImageComponent extends Component {
 	static defaultProps = {
 
@@ -22,14 +23,13 @@ export default class UploadImageComponent extends Component {
 		super(props,context);
 		this.state={
 			imgSrc:'',
-			errorHide: true,
-			errorTip:'',
 			// 图片是否已经上传到界面
 			imgUpload: false,
 			timer :"",
 			operateImg :false,
 			files :{},
-			imageStatus : true
+			imageStatus : true,
+			isInit:true
 		}
 	}
 	componentWillUnmount() {
@@ -38,15 +38,33 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	componentDidMount() {
-
 	}
 	componentWillReceiveProps(nextProps){
+	 if(nextProps.defaultValue&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
+		 this.setInitValue(nextProps.defaultValue);
+	  }
 	}
+
+	setInitValue(defaultValue) {
+		let {input}=this.props;
+		let {
+			isInit
+		} = this.state;
+		if (!isInit) {
+			return;
+		}
+		this.setState({
+				isInit: false,
+				imgUpload:true,
+				imgSrc:defaultValue.picUrl
+		});
+		input.onChange(defaultValue.picId); 
+		
+	}
+
+
 	onTokenError() {
-		Notify.show([{
-			message: '初始化上传文件失败,请重新上传',
-			type: 'danger',
-		}]);
+		Message.error('初始化上传文件失败,请重新上传');
 	}
 	operationImg=()=>{
 		if(this.state.imgUpload){
@@ -69,22 +87,18 @@ export default class UploadImageComponent extends Component {
 	}
 	onError=(message)=>{
 		message = message || '上传文件失败，请重新上传';
-		Notify.show([{
-			message: message,
-			type: 'danger',
-		}]);
-
+        Message.error(message);
 		this.setState({
 			progress: 0,
 			imgUpload: false
 		});
 	}
 	onChange=(event)=>{
+		let {requestUrl}=this.props;
 		this.setState({
 			imgSrc: "",
 			operateImg :false,
 			imgUpload :false,
-			errorHide: true
 		})
 		let _this = this;
 		let file = event.target.files[0];
@@ -97,10 +111,6 @@ export default class UploadImageComponent extends Component {
 			var timer = window.setInterval(function() {
 				if (progress >= 100) {
 					window.clearInterval(timer);
-					// _this.setState({
-					// 	progress: 0,
-					// 	isUploading: false
-					// });
 				}
 				progress += 10;
 				_this.setState({
@@ -108,28 +118,7 @@ export default class UploadImageComponent extends Component {
 				});
 			}, 300);
 		}
-		let imgType = file.type;
-		let imgSize = Math.round(file.size/1024*100)/100;
-		if(imgType!== "image/jpg" && imgType!== "image/jpeg"){
-			this.refs.inputImg.value ="";
-			this.refs.inputImgNew.value ="";
-			this.refs.uploadImage.src="";
-			_this.setState({
-  				errorHide: false,
-  				errorTip:"请上传正确格式的图片"
-  			})
-  			return;
-		}
-		if(imgSize>32){
-			this.refs.inputImg.value ="";
-			this.refs.inputImgNew.value ="";
-			this.refs.uploadImage.src="";
-			_this.setState({
-				errorHide: false,
-				errorTip:"图片尺寸不得大于32K"
-			})
-			return;
-		}
+		
 		var form = new FormData();
 		form.append('file', file);
 		var xhr = new XMLHttpRequest();
@@ -163,8 +152,9 @@ export default class UploadImageComponent extends Component {
 							}
 						}
 					};
-					xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
+					xhrfile.open('POST',requestUrl, true);
 					xhrfile.responseType = 'json';
+					xhrfile.withCredentials = true;
 					xhrfile.send(form);
 				} else {
 					_this.onTokenError();
@@ -193,34 +183,18 @@ export default class UploadImageComponent extends Component {
                      //加载图片获取图片真实宽度和高度
                     var image = new Image();
                     image.onload=function(){
-                         var width = image.width;
-                         var height = image.height;
-                         if(width !== 212 || height !== 136){
-                         	_this.refs.inputImg.value ="";
-							_this.refs.inputImgNew.value ="";
-							_this.refs.uploadImage.src="";
-                         	_this.setState({
-								errorHide: false,
-								errorTip:"图片宽度必须是212*136",
-								imageStatus : false,
-								imgUpload : false
-							});
-                        }else{
-                        	_this.refs.uploadImage.src = xhrfile.response.data;
                         	_this.setState({
 								imageStatus : true,
 								imgUpload : true,
-								operateImg : false
+								operateImg : false,
+								imgSrc:xhrfile.response.data[0].ossHref
 							});
 							const {input}=_this.props;
-							input.onChange(xhrfile.response.data);
-                        }
-
+							input.onChange(xhrfile.response.data[0].id);          
                     };
                     image.src= data;
                  };
                  reader.readAsDataURL(fileData);
-
              }
 	}
 	// 删除图片
@@ -232,25 +206,28 @@ export default class UploadImageComponent extends Component {
 		})
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
-		this.refs.uploadImage.src="";
 		const {input}=this.props;
 		input.onChange("");
 	}
 	render() {
-		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
+		let {children,className,style,meta: { touched, error },type,label,inline,requireLabel,name,...other} = this.props;
 		let {operateImg} = this.state;
 		return(
-			<div className="ui-uploadimg-box" style={style}>
+			
+		 	<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
+			<div className="ui-uploadimg-box">
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
+						{this.state.imgSrc&&
+						 <div style={{position:'absolute',zIndex:'10',backgroundImage:`url(${this.state.imgSrc})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain',width:'120px',height:'75px'}}></div>
+						 }
 						<div className='ui-uploadimg-inner' >
-							<img className="image"  src={this.state.imgSrc}  ref="uploadImage" />
 							<span className='ui-uploadimg-button'>+</span>
 							<input type='file' onChange={this.onChange} ref="inputImg"/>
 							<span className='ui-uploadimg-tip'>上传图片</span>
 						</div>
-						<div className="ui-uploadimg-fresh-delete" style={{display:this.state.operateImg?"block":"none"}}>
-							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg}>
+						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
+							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
 								<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
 								<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
 							</div>
@@ -260,13 +237,9 @@ export default class UploadImageComponent extends Component {
 						</div>
 					</div>
 				</div>
-				<p className="ui-uploadimg-notice">
-					提示：图片尺寸为{photoSize}，图片小于{pictureMemory},格式为{pictureFormat}
-				</p>
-				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
-					{this.state.errorTip}
-				</p>
 			</div>
+			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+		</WrapComponent>
 		);
 	}
 }

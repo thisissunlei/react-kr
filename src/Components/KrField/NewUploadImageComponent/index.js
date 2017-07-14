@@ -46,31 +46,14 @@ export default class UploadImageComponent extends Component {
 
 	}
 	componentWillMount(){
-      	let {defaultValue,sizePhoto}=this.props;
-		this.setInitValue(defaultValue,sizePhoto);
 	}
 	componentDidMount() {
-
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		// if(nextProps.defaultValue){
-		// 	this.setState({
-		// 		imgSrc:nextProps.defaultValue,
-		// 		imgUpload : true
-		// 	})
-		// }else if(nextProps.input.value){
-		// 	this.setState({
-		// 		imgSrc:nextProps.input.value,
-		// 		imgUpload : true
-		// 	})
-		// }else{
-		// 	this.setState({
-		// 		imgSrc:'',
-		// 		imgUpload : false
-		// 	})
-		// }
-		if(nextProps.defaultValue ){
-			this.setInitValue(nextProps.defaultValue||'',nextProps.sizePhoto);
+		if(nextProps.defaultValue&&nextProps.sizePhoto&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
+			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
+		}else if(nextProps.defaultValue&&!nextProps.sizePhoto){
+			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 		}
 
 	}
@@ -86,7 +69,6 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
-		
 		if(sizePhoto){
 			this.setState({
 				isInit: false,
@@ -211,7 +193,7 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		var form = new FormData();
-		form.append(formfile, file);
+		form.append('file', file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -249,10 +231,6 @@ export default class UploadImageComponent extends Component {
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
-					_this.setState({
-						operateImg:false,
-						mgUpload: false,
-					})
 					_this.onTokenError();
 				}
 			}
@@ -261,6 +239,11 @@ export default class UploadImageComponent extends Component {
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
+		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
+		_this.setState({
+			imgUpload: true,
+			operateImg : false
+		});
 	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
@@ -278,6 +261,7 @@ export default class UploadImageComponent extends Component {
                     image.onload=function(){
                          var width = image.width;
                          var height = image.height;
+
 						 if(sizePhoto){
 							 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 							 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
@@ -303,7 +287,7 @@ export default class UploadImageComponent extends Component {
 										 _this.setState({
 										 imageStatus : true,
 										 imgUpload : true,
-										 operateImg : false,
+										 operateImg : true,
 									    });
 
 								 	}else{
@@ -385,7 +369,7 @@ export default class UploadImageComponent extends Component {
 
 					<div className='ui-uploadimg-outbox' style={innerstyle}>
 						<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
-							<img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{opacity:this.state.imgUpload?1:0}}/>
+						   <img className="image"  src={this.state.imgSrc}  ref="uploadImage" style={{opacity:this.state.imgUpload?1:0}}/>
 
 							<div className='ui-uploadimg-inner-new' >
 								<span className='ui-uploadimg-button'>+</span>

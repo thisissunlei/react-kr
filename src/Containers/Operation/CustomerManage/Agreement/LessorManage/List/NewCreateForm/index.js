@@ -121,14 +121,10 @@ class NewCreateForm extends React.Component {
 		return arr;
 	}
 	onSubmit = (values) => {
-		console.log(values,"??????")
-
 		let data = Object.assign({}, values);
 		data.cmtId =this.cmtIdData();
 		const {onSubmit} = this.props;
 		var _this = this;
-		console.log(data,"MMMMMM");
-
 		Http.request('addFnaCorporation', {}, data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
