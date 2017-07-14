@@ -300,8 +300,10 @@ class NewAddMeeting  extends React.Component{
 							label="设备情况"
 							name='deviceIds'
 							component="groupCheckbox"
-                            defaultValue={deviceSpace}
-                            onChange={this.deviceChange}
+              defaultValue={deviceSpace}
+              onChange={this.deviceChange}
+							childrenInline = {true}
+						
 						/></div>
 
 

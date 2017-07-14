@@ -26,6 +26,12 @@ const WebBackstage_News = (location, callback) => {
   }, 'WebBackstage_News')
 }
 
+const WebBackstage_CommunityAllocation = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/WebBackstage/CommunityAllocation').default)
+  }, 'WebBackstage_CommunityAllocation')
+}
+
 module.exports =()=>{
 
 
@@ -38,6 +44,8 @@ module.exports =()=>{
 			<Route path="news" getComponent={Basic}>
 				<Route path="list" getComponent={WebBackstage_News}/>
 			</Route>
+      {/*官网社区配置*/}
+			<Route path="communityAllocation" getComponent={WebBackstage_CommunityAllocation}/>
 		</Route>
 	);
 };

@@ -79,15 +79,19 @@ class SearchUpperForm extends React.Component {
     }
 	renderSigned=()=>{
 		   let {flag,searchParams,searchSignParams}=this.props;
+		   var sourceList = [];
 		    if(searchParams){
 		    	var cityList=searchParams.intentionCities;
 			    var communityList=searchParams.intentionCommunities;
 			    var levelList=searchParams.levelIds;
-			    var sourceList=searchParams.sourceIds;
+			    sourceList=searchParams.sourceIds;
 		    }
 		    if(searchSignParams){
 		    	var belongCity=searchSignParams.cities;
 		    }
+			if(flag == '签约'){
+				sourceList = searchSignParams.sources
+			}
 
 
 		      var selectData='';
@@ -98,7 +102,11 @@ class SearchUpperForm extends React.Component {
 				/>
 				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchCommunityAll' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} name="mainBillType"  style={{marginLeft:-5,marginTop:4}} component='searchSignBill' label="订单类型" inline={false} onChange={this.onChangeSignBill} placeholder='请输入订单类型'/>
+				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源"
+				  options={sourceList}
+				></KrField>
 				<KrField grid={1/1}  component="group" label="工位签约时间" style={{marginTop:3}}>
+				
 				<div className='ui-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="signStartDate" component="date" /></div></ListGroupItem>

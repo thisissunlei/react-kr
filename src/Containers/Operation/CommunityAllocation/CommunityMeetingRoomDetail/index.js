@@ -362,7 +362,7 @@ onPageChange=(page)=>{
 				title="高级查询"
 				onClose={this.cancelSearchUpperDialog}
 				open={this.props.CommunityMeetingModel.openSearchUpper}
-				contentStyle ={{ width: '666px',height:'390px'}}
+				contentStyle ={{ width: '666px',height:'435px'}}
 				>
 				<MeetingsearchUpperForm
 					onCancel={this.cancelSearchUpperDialog}

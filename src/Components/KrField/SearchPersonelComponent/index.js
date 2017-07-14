@@ -38,17 +38,18 @@ export default class  SearchPersonelComponent extends React.Component {
 	}
 
 	onChange(item){
+		console.log(item,"++++++++")
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname){
+	getOptions(phoneOrEmail){
 		return new Promise((resolve, reject) => {
-			Http.request('getHrmResourceExtListByLastname',{ lastname:lastname }).then(function(response){
+			Http.request('web-user-select',{ phoneOrEmail:phoneOrEmail }).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.sysloginid;
+					item.value = item.id;
 					item.label = item.lastname;
 				});
 				resolve({options:response});
@@ -65,6 +66,7 @@ export default class  SearchPersonelComponent extends React.Component {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
+					filterOptions={false}
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}

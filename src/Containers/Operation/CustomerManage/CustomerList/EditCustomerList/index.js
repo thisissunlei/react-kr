@@ -41,6 +41,7 @@ import {
 		let {listId}=props;
 		State.treeAllData();
 		this.permissions();
+		this.screening = ["内部推荐","外部推荐","推介人计划","中介客源"];
 
 
 	}
@@ -50,7 +51,10 @@ import {
 		}
 		return value
 	}
-
+	componentWillMount() {
+		console.log(this.props.CommunityDetailModel.presentShow,"KKKKKKKK");
+		State.sourceCustomer=this.props.CommunityDetailModel.presentShow;
+	}
 	formatDate(value) {
 
 		var dt = new Date(value);
@@ -127,13 +131,21 @@ import {
 	  if(!value){
 	  	return;
 	  }
-		console.log()
+	  var isTrue = false;
 	  var param=value.label;
-      if(param.indexOf('推荐')!=-1){
+	  for(let i=0;i<this.screening.length;i++){
+		  if(this.screening[i]==param){
+			isTrue = true;
+			break;
+		  }
+			  
+	  }
+      if(isTrue){
          State.sourceCustomer=true;
       }else{
       	 State.sourceCustomer=false;
       }
+	 
 
 	}
 
@@ -179,14 +191,22 @@ import {
 		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue,allData} = this.props;
 
 		let sourceIdLabel = '';
+		let introduceName = "";
+		let introduceTel = '';
+		let isShow = false;
+		
 		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
 
 			if(item.value == allData.sourceId){
 				sourceIdLabel = item.label;
+				isShow = true;
+				
 			}
 
 		})
-
+		if(!isShow){
+			sourceIdLabel = allData.sourceName;
+		}
 
 		return (
 
@@ -286,12 +306,14 @@ const validate = values =>{
 			errors.sourceId = '请填写客户来源';
 		}
 
-		if (!values.stationNum) {
+		if (!values.stationNum && values.stationNum!=0) {
 			errors.stationNum = '请填写意向工位个数';
 		}else if(isNaN(+values.stationNum)){
 			errors.stationNum = '意向工位个数为数字格式';
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
+		}else if(values.stationNum == 0){
+			errors.stationNum = '意向工位个数不能为0';			
 		}
 
 		if(!values.recommendName){
