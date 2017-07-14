@@ -13,6 +13,7 @@ import {
     Row,
     Col,
     Dialog,
+    Message
 } from 'kr-ui';
 import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
@@ -72,6 +73,10 @@ class EditSecond extends React.Component {
     }
     onSubmit = (form) => {
             const {onSubmit,detail} = this.props;
+            if(form.name == undefined){
+                Message.errortimeout("请输入分类名称");
+                return ;
+            }
 			var params = {
 				firstLevelId: form.firstLevelId,
 				name: form.name,

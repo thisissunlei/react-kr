@@ -13,6 +13,7 @@ import {
     Row,
     Col,
     Dialog,
+    Message,
 } from 'kr-ui';
 import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
@@ -52,6 +53,10 @@ class CreateThird extends React.Component {
     }
     onSubmit = (form) => {
 		const {onSubmit,detail} = this.props;
+        if(form.name == undefined){
+            Message.errortimeout("请输入子模块名称");
+            return ;
+        }
         var params = {
             subLevelId: detail.id,
             name: form.name,
@@ -60,7 +65,7 @@ class CreateThird extends React.Component {
     }
     
     render() {
-        const {handleSubmit} = this.props;
+        const {handleSubmit,error} = this.props;
         let infoList = this.state.infoList;
         return (
             <div>
@@ -113,8 +118,18 @@ class CreateThird extends React.Component {
     }
 
 }
+// const validate = values => {
+
+// 	const errors = {};
+// 	if (!values.name) {
+// 		errors.name = '请输入子模块名称';
+// 	}
+	
+// 	return errors;
+// }
 export default reduxForm({
 	form: 'CreateThird',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
+   // validate,
 })(CreateThird);

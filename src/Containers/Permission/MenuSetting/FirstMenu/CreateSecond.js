@@ -13,6 +13,7 @@ import {
     Row,
     Col,
     Dialog,
+    Message
 } from 'kr-ui';
 import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
@@ -34,6 +35,10 @@ class CreateSecond extends React.Component {
     }
     onSubmit = (form) => {
         const {onSubmit,detail} = this.props;
+        if(form.name == undefined){
+            Message.errortimeout("请输入分类名称");
+            return ;
+        }
         var params = {
             firstLevelId: detail.id,
             name: form.name,
@@ -42,7 +47,7 @@ class CreateSecond extends React.Component {
     }
     
     render() {
-        const {handleSubmit} = this.props;
+        const {handleSubmit,error} = this.props;
         return (
 
             <div>
@@ -86,8 +91,18 @@ class CreateSecond extends React.Component {
     }
 
 }
+// const validate = values => {
+
+// 	const errors = {};
+// 	if (!values.name) {
+// 		errors.name = '请输入分类名称';
+// 	}
+	
+// 	return errors;
+// }
 export default reduxForm({
 	form: 'CreateSecond',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
+    //validate,
 })(CreateSecond);

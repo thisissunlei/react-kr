@@ -13,6 +13,7 @@ import {
     Row,
     Col,
     Dialog,
+    Message
 } from 'kr-ui';
 import './index.less';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
@@ -36,6 +37,10 @@ class EditFirst extends React.Component {
         onCancel && onCancel();
     }
     onSubmit = (form) => {
+            if(form.name == undefined){
+                Message.errortimeout("请输入导航名称");
+                return ;
+            }
             const {onSubmit,detail} = this.props;
 			var params = {
 				firstLevelId: detail.id,
