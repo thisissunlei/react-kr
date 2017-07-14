@@ -154,7 +154,9 @@ class NewCreateForm extends Component {
 	}
 
 	onStationCancel() {
-		this.openStationDialog();
+		this.setState({
+			openStation: false
+		});
 	}
 
 	onStationSubmit(stationVos) {
