@@ -165,6 +165,8 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
+		console.log('===cancle===>2')
+
 		this.setState({
 			openStation: false
 		});
