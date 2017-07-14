@@ -10,7 +10,8 @@ let State = observable({
 	openEditSystem:false,
 	openSynchro:false,
 	synchroList:[],
-	pages:{page:0}
+	pages:{page:0},
+	openSearch:true,
 });
 
 State.itemDownPublish = action(function(id) {

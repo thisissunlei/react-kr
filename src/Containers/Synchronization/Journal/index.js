@@ -17,12 +17,14 @@ import {
 	KrField,
 	Row,
 	Col,
+	ListGroup,
+	ListGroupItem,
 	CheckPermission
 } from 'kr-ui';
 import State from './State';
 import {DateFormat} from 'kr/Utils';
 import {reduxForm,initialize} from 'redux-form';
-// import NewCreateSystem from './NewCreateSystem';
+import SearchList from './SearchList';
 // import EditSystem from './EditSystem';
 // import Synchro from './Synchro';
 import {
@@ -63,6 +65,13 @@ export default class Journal extends React.Component {
 	}
 	openSearchUpperDialog=()=>{
 		console.log('=====')
+		State.openSearch = !State.openSearch;
+	}
+	onSearchSubmit=()=>{
+		console.log('dddd')
+	}
+	onSearchContentSubmit=(value)=>{
+		console.log(value)
 	}
 	
 
@@ -72,16 +81,16 @@ export default class Journal extends React.Component {
 		return (
 			    <div>
 					<Title value="日志列表"/>
+					<Section title="日志列表"  >
 					<Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 						  <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 						          <ListGroup>
-						            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+						            <ListGroupItem><SearchForms placeholder='请输入查询内容' onSubmit={this.onSearchContentSubmit}/></ListGroupItem>
 						            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 						          </ListGroup>
 					      </Col>
 						  
 			        </Row>
-					<Section title="日志列表"  >
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
@@ -143,7 +152,18 @@ export default class Journal extends React.Component {
 		              </TableBody>
 		               <TableFooter></TableFooter>
 		            </Table>
+		            <Dialog
+							title="高级查询"
+							open={State.openSearch}
+							modal={true}
+							autoScrollBodyContent={true}
+							autoDetectWindowHeight={true}
+							onClose={this.openSearchUpperDialog}>
+								<SearchList onSubmit={this.onSearchSubmit} onCancel={this.openSearchUpperDialog}/>
+					    </Dialog>
 					</Section>
+					
+
 
 				</div>
 		);
