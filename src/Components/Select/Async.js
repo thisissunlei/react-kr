@@ -95,8 +95,7 @@ export default class Async extends Component {
 			loadOptions
 		} = this.props;
 		const cache = this._cache;
-
-
+       
 		/*if (
 			cache &&
 			cache.hasOwnProperty(inputValue)
@@ -110,6 +109,7 @@ export default class Async extends Component {
 			}
 
 		}*/
+
 		const callback = (error, data) => {
 			if (callback === this._callback) {
 				this._callback = null;
@@ -119,6 +119,7 @@ export default class Async extends Component {
 				if (cache) {
 					cache[inputValue] = options;
 				}
+
 
 				this.setState({
 					isLoading: false,

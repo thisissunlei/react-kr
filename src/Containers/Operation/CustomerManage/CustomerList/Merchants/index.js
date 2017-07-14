@@ -346,7 +346,8 @@ class Merchants extends Component{
 		              <TableHeaderColumn>意向社区</TableHeaderColumn>
 		              <TableHeaderColumn>意向工位数</TableHeaderColumn>
 		              <TableHeaderColumn>来源</TableHeaderColumn>
-		              <TableHeaderColumn>客户分类</TableHeaderColumn>
+		              <TableHeaderColumn>联系人</TableHeaderColumn>
+		              <TableHeaderColumn>联系人手机号</TableHeaderColumn>
 		              <TableHeaderColumn>领取人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -355,31 +356,50 @@ class Merchants extends Component{
 
 			        <TableBody >
 			              <TableRow>
-			                <TableRowColumn name="company" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+			                <TableRowColumn name="company" 
+								component={(value,oldValue)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
 
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }} ></TableRowColumn>
+								}else{
+									TooltipStyle="inline-block";
+								}
+									return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+								}} >
+							</TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
-			                <TableRowColumn name="intentionCommunityName" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+			                <TableRowColumn 
+								name="intentionCommunityName" 
+								component={(value,oldValue)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
 
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }} ></TableRowColumn>
+								}else{
+									TooltipStyle="inline-block";
+								}
+									return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+								}} >
+							</TableRowColumn>
 			                <TableRowColumn name="stationNum"></TableRowColumn>
-			                <TableRowColumn name="sourceName" component={(value,oldValue)=>{
+			                <TableRowColumn name="sourceName" 
+								component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+
+									}else{
+										TooltipStyle="inline-block";
+									}
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+									}}>
+							</TableRowColumn>
+							{/*联系人*/}
+			                <TableRowColumn name="name" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -390,7 +410,8 @@ class Merchants extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
-			                <TableRowColumn name="levelName" component={(value,oldValue)=>{
+							{/*联系人电话*/}
+							<TableRowColumn name="tel" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -410,7 +431,7 @@ class Merchants extends Component{
 						                					show="inline-block";
 						                				}
 														 return (<div style={{display:"inline-block"}}><span className='tableOver' style={{maxWidth:130,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd"/><span>...</span></span>
-														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
+														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:"show"}}>
 																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 														 	</Tooltip></div>)
 													 }}></TableRowColumn>

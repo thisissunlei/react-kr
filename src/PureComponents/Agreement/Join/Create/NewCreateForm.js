@@ -377,13 +377,8 @@ class NewCreateForm extends Component {
 	onSubmit(form) {
 
 
-
 		let {
-			stationVos
-		} = this.state;
-
-
-		let {
+			stationVos,
 			billList
 		} = this.state;
 
@@ -411,6 +406,7 @@ class NewCreateForm extends Component {
 		var _this = this;
 
 		form.stationVos = stationVos;
+		console.log("OOOOOO",form)
 		const {
 			onSubmit
 		} = this.props;
@@ -513,7 +509,6 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		console.log("billList",billList);
 
 		try {
 			billList.map(function(item, index) {

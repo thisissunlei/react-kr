@@ -26,6 +26,9 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 
 //工位价格
 const renderStation = ({ fields, meta: { touched, error }}) => {
+  if(!fields.length){
+    fields.push({})
+  }
   return (
       <ul style={{padding:0,margin:0}}>
       {fields.map((porTypesStr, index) =>
@@ -72,7 +75,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   componentDidMount(){
       let {isCover}=this.props;
-      Store.dispatch(change('EditCommunity','porType',[{}]));
       this.setState({
           isCover:isCover
       })
@@ -98,6 +100,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
+        console.log('values',values);
         if(values.porType.length<2){
              Message.error('至少选择两种工位类型');
              return ;
@@ -131,6 +134,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        this.setState({
          detailTip:true
        })
+       Message.error('请上传详情图片');
        return ;
     }else{
       this.setState({
@@ -240,7 +244,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 photoSize={'3:2'}
                                 pictureFormat={'JPG,PNG,GIF'}
                                 pictureMemory={'300'}
-                                requestURI = 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                 inline={false}
                                 formfile=' '
                                 defaultValue={stationValue}
@@ -291,7 +295,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                    <div className='web-page-box'> <KrField 
                                          name="pageImageId"
                                          component="uploadImage"
-                                         requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                         requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                          style={{textAlign:'left'}}
                                          defaultValue={firstValue}
                                          inline={false}
@@ -304,7 +308,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     <div className='web-page-box'> <KrField 
                                        name="listImageId"
                                        component="uploadImage"
-                                       requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                       requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                        style={{textAlign:'left'}}
                                        defaultValue={listValue}
                                        inline={false}
@@ -358,7 +362,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             let stationNP=/^([0-9][0-9]{0,4})$/;
 			//正整数
 			let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
-		
+		  
 			
             
 

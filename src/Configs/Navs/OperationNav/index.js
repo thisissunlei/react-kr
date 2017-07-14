@@ -102,6 +102,11 @@ module.exports = [
 						originUrl: '/krspace_operate_web/sys/sysParam/toSysParamList?mid=60',
 					},
 					{
+						primaryText: "客户来源配置",
+						menuCode: 'oper_csr_sourceList_base',
+						router: '/operation/customerManage/customerSource',
+					},
+					{
 						primaryText: "合同配置",
 						menuCode: 'contract_setting_base',
 						router: '/operation/customerManage/agreement/setting/list',

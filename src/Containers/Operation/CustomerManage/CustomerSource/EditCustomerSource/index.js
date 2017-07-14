@@ -29,7 +29,7 @@ import {
 	inject
 } from 'mobx-react';
 @observer
-class NewCustomerSource extends Component{
+class EditCustomerSource extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
@@ -41,19 +41,16 @@ class NewCustomerSource extends Component{
 			typeValue:this.props.typeValue,
 		}
 	}
-	componentDidMount() {
-		Store.dispatch(change('newCustomerSource','enabled',"true"));
-	}
-	onCancel = () => {
-		const {onCancel} = this.props;
 
-		onCancel && onCancel();
-	}
 	componentWillUnmount() {
-		State.names= {};
 		State.isOrderName=true;
         State.isName=true;
 		State.isCode=true;
+	}
+	
+	onCancel = () => {
+		const {onCancel} = this.props;
+		onCancel && onCancel();
 	}
 
     onSubmit = (values) =>{
@@ -61,23 +58,6 @@ class NewCustomerSource extends Component{
         onSubmit && onSubmit(values);
     }
 
-	/*
-	*	判断是否有重复
-	*	返回true 存在重复
-	*	返回false 不存在重复
-	*/
-	flog = (index,datas,value) =>{
-
-		var judge = false;
-		for(let i in datas){
-			if(i!=index && datas[i]==value ){
-				judge = true;
-				break;
-			}
-		}
-		return judge;
-	}
-	//操作
 	allRepeat = (arr,type) => {
 		var yesList = [];
 		for(var i = 0; i < arr.length; i++) {
@@ -90,8 +70,9 @@ class NewCustomerSource extends Component{
 			if(hasRead) { break; }
 			for(var j = i + 1; j < arr.length; j++) {
 				if(arr[i] == arr[j] && arr[i] != "" && arr[i] != "") {
-
 					yesList.push(j);
+
+
 					document.getElementById(type+(j-1)).innerHTML="该名称已存在"
 				}else{
 					document.getElementById(type+(j-1)).innerHTML=""
@@ -102,11 +83,14 @@ class NewCustomerSource extends Component{
 	}
 
 
-	//删除储存数据
+
+		//删除储存数据
 	remove = (index) =>{
 		var names = Object.assign({},State.names);
 		var codes = Object.assign({},State.codes);
 		var orders = Object.assign({},State.orders);
+		var childs = Object.assign({},State.child)
+
 
 		if(names[index]){
 			delete names[index];
@@ -120,14 +104,16 @@ class NewCustomerSource extends Component{
 			delete orders[index];
 		}
 
-
 		var nameData = this.conversion(names);
 		var codeData = this.conversion(codes);
 		var orderData = this.conversion(orders);
+		childs.splice(index,1);
+
 		State.names = nameData;
 		State.codes = codeData;
 		State.orderData = orderData;
-
+		State.childs = childs;
+		console.log(childs,"KKKKKKK");
 	}
 	//jsonToArr
 	jsonToArr = (names) =>{
@@ -153,16 +139,16 @@ class NewCustomerSource extends Component{
 	}
 
 	//监听name发生变化
-	nameChange = (data,index,fields) =>{
-
+	nameChange = (data,index) =>{
+		let {sourceId} = this.props;
 		var names = Object.assign({},State.names);
-
 		var self = this;
 		if(data != ""){
 			names[index] = data;
 		}
+
 		State.names = names;
-		var value = {id : '',name : data}
+		var value = {id :sourceId|| '',code : data}
 		Http.request('check-name-source',value).then(function(response) {
 
 			if(index=="no" && response.code == "-1"){
@@ -172,69 +158,69 @@ class NewCustomerSource extends Component{
 				State.isName = true;
 			}
 			if(index != "no" && response.code == "-1"){
-				document.getElementById("child-prompt-new").innerHTML="该名称已存在";
+				document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
 
 			}
 			if(index != "no" && response.code == "1"){
 				if(self.flog(index,names,data)){
-						document.getElementById("child-prompt-new").innerHTML="该名称已存在"
+						document.getElementById("child-prompt-edit").innerHTML="该名称已存在"
 				}else{
-						document.getElementById("child-prompt-new").innerHTML=""
+						document.getElementById("child-prompt-edit").innerHTML=""
 
 				}
-
 			}
-
 
 		}).catch(function(err) {
 
 		});
-
-
-
 	}
 	//监听code发生变化
 	codeChange = (data,index) => {
-		var codes = Object.assign({},State.codes)
-		var self = this;
-		if(data != ""){
-			codes[index] = data;
-		}
-		State.codes = codes;
+		const {sourceId} = this.props;
+		const self = this;
+		var codes = Object.assign({},State.codes);
+			if(data != ""){
+				codes[index] = data;
+			}
+			State.codes = codes;
 
-			var value = {id : '',code : data}
-			Http.request('check-code-source',value).then(function(response) {
-				if(index=="no" && response.code == "-1"){
-					State.isCode = false;
-				}
-				if(index=="no" && response.code == "1"){
-					State.isCode = true;
-				}
-				if(index != "no" && response.code == "-1"){
-					document.getElementById("child-prompt-new").innerHTML="该编码已存在"
+		var value = {id :sourceId|| '',code : data}
+		Http.request('check-code-source',value).then(function(response) {
+			if(index=="no" && response.code == "-1"){
+				State.isCode = false;
+			}
+			if(index=="no" && response.code == "1"){
+				State.isCode = true;
+			}
+			if(index != "no" && response.code == "-1"){
+				document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
+
+			}
+			if(index != "no" && response.code == "1"){
+				if(self.flog(index,codes,data)){
+						document.getElementById("child-prompt-edit").innerHTML="该编码已存在"
+				}else{
+						document.getElementById("child-prompt-edit").innerHTML=""
 
 				}
-				if(index != "no" && response.code == "1"){
-					if(self.flog(index,codes,data)){
-						document.getElementById("child-prompt-new").innerHTML="该编码已存在"
-					}else{
-						document.getElementById("child-prompt-new").innerHTML=""
-					}
 
-				}
-			}).catch(function(err) {
-     
-			});
+			}
+		}).catch(function(err) {
+
+		});
 	}
+
 	//排序校验
 	orderChange = (data,index) =>{
+		const {sourceId} = this.props;
+		const self = this;
 		var orderNums = Object.assign({},State.orderNums);
 			if(data != ""){
 				orderNums[index] = data;
 			}
 			State.orderNums=orderNums;
 		if(index=="no"){
-			var value = {id : '',orderNum : data}
+			var value = {id : sourceId||'',orderNum : data}
 			Http.request('check-order-source',value).then(function(response) {
 				if(response.code == "-1"){
 					State.isOrderName = false;
@@ -247,13 +233,15 @@ class NewCustomerSource extends Component{
 			});
 		}else{ //本地排序的存储
 			if(this.flog(index,orderNums,data)){
-				document.getElementById("child-prompt-new").innerHTML="该序号已存在"
+					document.getElementById("child-prompt-edit").innerHTML="该序号已存在"
 			}else{
-				document.getElementById("child-prompt-new").innerHTML=""
+					document.getElementById("child-prompt-edit").innerHTML=""
+
 			}
 		}
 
 	}
+
 	renderField = ({ input, label, placeholder, meta: { touched, error }}) => (
 		<div>
 			<label>{label}</label>
@@ -263,11 +251,31 @@ class NewCustomerSource extends Component{
 			</div>
 		</div>
 	)
+	componentWillReceiveProps(nextProps){
+
+
+	}
+
+	/*
+	*	判断是否有重复
+	*	返回true 存在重复
+	*	返回false 不存在重复
+	*/
+	flog = (index,datas,value) =>{
+
+		var judge = false;
+		for(let i in datas){
+			if(i!=index && datas[i]==value ){
+				judge = true;
+				break;
+			}
+		}
+		return judge;
+	}
 	renderBrights = ({ fields, meta: { touched, error }}) => {
-
-
 		const self = this;
 		var krStyle={};
+
 
 		krStyle={width:228,marginLeft:18,marginRight:3}
 		let promptStyle = {marginLeft : 25,color : "red"};
@@ -279,7 +287,6 @@ class NewCustomerSource extends Component{
 				return (<li key={index} style={{width:600,listStyle:'none'}}>
 						<div style = {columnStyle}>
 						<KrField
-
 							style={{width:190,marginLeft:18,marginRight:3,}}
 							grid={1/3}
 							name={`${brightsStr}.name`}
@@ -288,20 +295,19 @@ class NewCustomerSource extends Component{
 							label={index?'':'子项名称'}
 							placeholder='子项名称'
 							onChange = {(data) =>{
+
 								self.nameChange(data,index);
 							}}
 
 						/>
-						<div
-							id = {"customerSourceName"+index}
-							style = {promptStyle}>
-						</div>
+						 <div id = {"customerSourceName"+index} style = {promptStyle}></div>
 						</div>
 						<div style = {columnStyle}>
 						<KrField
 							style={{width:225,marginLeft:0,marginRight:3,}}
 							grid={1/3}
 							name={`${brightsStr}.code`}
+
 							type="text"
 							component={self.renderField}
 							label={index?'':'子项编码'}
@@ -312,7 +318,6 @@ class NewCustomerSource extends Component{
 
 						/>
 						<div id = {"customerSourceCode"+index} style = {promptStyle}></div>
-
 						</div>
 						<div style = {columnStyle}>
 						<KrField
@@ -324,11 +329,10 @@ class NewCustomerSource extends Component{
 							label={index?'':'子项顺序'}
 							placeholder='子项顺序'
 							onChange = {(data) =>{
-
 								self.orderChange(data,index)
 							}}
 						/>
-							<div id = {"customerSourceOrder"+index} style = {{marginLeft:7,color:'red'}}></div>
+						<div id = {"customerSourceOrder"+index} style = {promptStyle}></div>
 
 						</div>
 						<span
@@ -337,19 +341,37 @@ class NewCustomerSource extends Component{
 
 							onClick={() => {
 
-								fields.remove(index);
-								self.remove(index);
+								if(!State.childs[index]){
+									fields.remove(index)
+									self.remove(index);
+								}else{
+									console.log(index,State.childs[index]);
+									Http.request('del-child-source',{id:State.childs[index].id}).then(function(response) {
+										if(response.code == 1){
+											fields.remove(index)
+											self.remove(index);
+
+
+										}else{
+											Message.error("该子项不可删除");
+										}
+									}).catch(function(err) {
+
+									});
+								}
+
+
 							}}
 						/>
 					</li>)
 	   		})
-
 			return (
 			<ul style={{padding:0,margin:0}}>
 
 				{brights}
 				<div style = {{marginLeft:20,marginBottom:20}}>
 					<Button  label="添加子项" onTouchTap={() => {
+
 							fields.push();
 
 						}} />
@@ -364,8 +386,6 @@ class NewCustomerSource extends Component{
 		let fieldStyle = {width:262,marginLeft:28};
 		let promptStyle = {marginLeft : 25,color : "red"};
 		let columnStyle = {display:"inline-block",verticalAlign:"top"};
-
-
 		return (
 
 			<form className = 'edit-source-from' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
@@ -387,7 +407,6 @@ class NewCustomerSource extends Component{
 								style={{width:262,marginLeft:15}}
 								component="input"
 								requireLabel={true}
-
 								onChange = {(data) =>{
 									this.nameChange(data,"no")
 								}}
@@ -396,7 +415,8 @@ class NewCustomerSource extends Component{
 							</div>
 							<div style = {columnStyle}>
 							<KrField
-								grid={1/2} label="来源编码"
+								grid={1/2}
+								label="来源编码"
 								name="code"
 								style={{width:262,marginLeft:15}}
 								component="input"
@@ -419,8 +439,10 @@ class NewCustomerSource extends Component{
 								onChange = {(data) =>{
 									this.orderChange(data,"no")
 								}}
+
+
 							/>
-							{!State.isOrderName && <div style = {promptStyle}>该序号已存在</div>}
+							{!State.isOrderName && <div style = {promptStyle}>来源编码已存在</div>}
 
 							</div>
 
@@ -464,7 +486,7 @@ class NewCustomerSource extends Component{
 							<label className="small-title">子来源信息</label>
 						</div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-							<div id = "child-prompt-new" style = {{textAlign:"center",color:"red",marginBottom:20}}></div>
+							<div id = "child-prompt-edit" style = {{textAlign:"center",color:"red",marginBottom:20}}></div>
 
 							<FieldArray name="subListStr" component={this.renderBrights}/>
 
@@ -491,9 +513,8 @@ const validate = values =>{
 
 	let errors = {};
 	let decimal = /^-?\d{0,6}\.?\d{0,4}$/;
-	//正整数
+    //正整数
 	let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
-
 
 	if(!values.name){
 		errors.name = '来源名称必填';
@@ -506,13 +527,12 @@ const validate = values =>{
 	}else if(values.code.length > 30){
 		errors.code = "来源名称最多30个字符";
 	}
-
+    
 	if(!values.orderNum){
 		errors.orderNum = "序号为必填项"
 	}else if(values.orderNum.toString().trim()&&!numberNotZero.test(values.orderNum.toString().trim())){
 		errors.orderNum = "序号必须为正整数"
 	}
-	
 
 	if(!values.brokerage){
 		errors.brokerage = '拥金比例为必填项';
@@ -523,8 +543,8 @@ const validate = values =>{
 	}
 
 
-	if (!values.subListStr || !values.subListStr.length) {
 
+	if (!values.subListStr || !values.subListStr.length) {
 
         } else {
           let membersArrayErrors = []
@@ -542,15 +562,14 @@ const validate = values =>{
 				must = true;
 			}
 
-
 			if (must && !porTypes.name){
               memberErrors.name = '该子项名称必填';
 			}
 			if (must && !porTypes.code){
-              memberErrors.code = '该子项编码必填';
+              memberErrors.code = '编码必填';
 			}
 			if (must && !porTypes.orderNum){
-              memberErrors.orderNum = '该子项排序必填';
+              memberErrors.orderNum = '排序必填';
 			}
 
 			if (porTypes.name && porTypes.name.length > 20){
@@ -562,7 +581,6 @@ const validate = values =>{
 			if(porTypes.orderNum && porTypes.orderNum.toString().trim()&&!numberNotZero.test(porTypes.orderNum.toString().trim())){
 				 memberErrors.orderNum = '序号必须为正整数';
 			}
-
 			membersArrayErrors[memberIndex] = memberErrors
           })
 
@@ -572,4 +590,4 @@ const validate = values =>{
       }
 	return errors;
 }
-export default reduxForm({ form: 'newCustomerSource',validate})(NewCustomerSource);
+export default reduxForm({ form: 'editCustomerSource',validate})(EditCustomerSource);

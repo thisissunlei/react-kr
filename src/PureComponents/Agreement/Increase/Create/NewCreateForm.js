@@ -363,7 +363,7 @@ class NewCreateForm extends Component {
 
 
 		let {
-			stationVos
+			stationVos,			
 		} = this.state;
 		if (!stationVos.length) {
 			Notify.show([{
@@ -409,9 +409,6 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-
-		//form.stationVos = JSON.stringify(stationVos);
-
 		const {
 			onSubmit
 		} = this.props;
@@ -509,7 +506,6 @@ class NewCreateForm extends Component {
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('increaseCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('increaseCreateForm', 'lessorContactName', personel.lastname));
-
 	}
 	showMore = () => {
 		this.setState({

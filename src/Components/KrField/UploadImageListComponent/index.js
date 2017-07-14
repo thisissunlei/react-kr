@@ -41,7 +41,7 @@ export default class UploadImageListComponent extends Component {
 			openDelete:false,
 			openFirst:false,
 			deleteIndex:'',
-			firstIndex:''
+			firstIndex:'',
 		}
 
 		this.init = false;
@@ -111,7 +111,7 @@ export default class UploadImageListComponent extends Component {
 	updateImage=(event)=>{
 
         let {images}=this.state;
-
+       
 		this.setState({
 			operateImg :false,
 			imgUpload :false,
@@ -119,11 +119,10 @@ export default class UploadImageListComponent extends Component {
 		})
 		let _this = this;
 		let file = event.target.files[0];
-
+       
 		if (!file) {
 			return;
 		}
-
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
@@ -174,6 +173,7 @@ export default class UploadImageListComponent extends Component {
 										src:item.ossHref,
 									 });
 									})
+									_this.refs.inputImg.value ="";
 									_this.changeImages(images);
 									Message.warntimeout('图片上传成功', 'success');
 								} else {
@@ -187,7 +187,7 @@ export default class UploadImageListComponent extends Component {
 							}
 						}
 					};
-					xhrfile.open('POST', 'http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
+					xhrfile.open('POST', '/api/krspace-finance-web/cmt/community/upload-photo/type/multi', true);
 					xhrfile.responseType = 'json';
 					xhrfile.withCredentials = true;
 					xhrfile.send(form); 
@@ -280,6 +280,7 @@ export default class UploadImageListComponent extends Component {
           imgStyle='detailImg'
         }
 
+        
 
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
