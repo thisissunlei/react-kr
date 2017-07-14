@@ -91,7 +91,7 @@ export default class FirstMenu extends React.Component {
 	renderThirdItem=(item,index)=>{
 		let {editStyle,editState} = this.state;
 		return (
-			<div key={index} style={{width:'31%',marginLeft:10,marginBottom:6,verticalAlign:'top'}}>
+			<div key={index} style={{width:'31%',marginLeft:10,marginBottom:10,verticalAlign:'top'}}>
 				<Chip edit={editState} editStyle={editStyle} onDel={()=>{
 						this.openDeleteThird(item,index)}
 					}  onEdit={()=>{
