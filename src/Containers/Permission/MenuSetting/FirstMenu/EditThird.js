@@ -157,7 +157,6 @@ class EditThird extends React.Component {
                         inline={true}
                         requireLabel={true}
                         value={detail.name}
-                        maxLength={8}
 				/>
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

@@ -87,7 +87,6 @@ class CreateThird extends React.Component {
                     name="name"
                     requireLabel={true}
                     placeholder="比如：运营平台"
-                    maxLength={8}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
