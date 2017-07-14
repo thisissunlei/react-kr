@@ -59,7 +59,6 @@ class CreateFirst extends React.Component {
                     name="name"
                     placeholder="比如：运营平台"
                     requireLabel={true}
-                    maxLength={8}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
