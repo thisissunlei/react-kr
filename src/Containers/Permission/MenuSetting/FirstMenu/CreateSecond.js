@@ -24,12 +24,10 @@ class CreateSecond extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
-        
+        this.state={
+            infoList:{},
+        }
     }
-    componentDidMount() {
-        
-    }
-
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel();
@@ -45,18 +43,19 @@ class CreateSecond extends React.Component {
     
     render() {
         const {handleSubmit} = this.props;
-        let {FirstSelect,SecondSelect} = this.state;
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:356,marginTop:30,paddingLeft:40,paddingRight:40}}  >
                 <KrField
-                    style={{width:310}}
+                    style={{width:310,paddingLeft:20}}
                     inline={true}
                     label="分类名称"
                     component="input"
                     name="name"
                     placeholder="比如：运营平台"
+                    requireLabel={true}
+                    maxLength={8}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

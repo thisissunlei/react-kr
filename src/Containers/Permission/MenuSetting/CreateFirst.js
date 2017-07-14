@@ -48,14 +48,16 @@ class CreateFirst extends React.Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:330,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:356,marginTop:30,paddingLeft:40,paddingRight:40}}  >
                 <KrField
-                    style={{width:314}}
+                    style={{width:314,paddingLeft:20}}
                     inline={true}
                     label="导航名称"
                     component="input"
                     name="name"
                     placeholder="比如：运营平台"
+                    requireLabel={true}
+                    maxLength={8}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

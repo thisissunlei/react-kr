@@ -115,7 +115,7 @@ export default class MenuSetting extends Component {
 			<div className="g-menu">
                 <Section title="菜单配置" >
 					<div className="new-nav">
-						<Button label="新增导航" type="button" onClick={this.openFirstCreate} width={100} height={40} fontSize={14}/>
+						<Button label="新增导航" type="button" onClick={this.openFirstCreate} width={82} height={30} fontSize={14}/>
 					</div>
                     <div className="list">
 						{this.state.data.map((item,index)=>{

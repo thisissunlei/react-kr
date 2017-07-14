@@ -26,6 +26,7 @@ class EditSecond extends React.Component {
         super(props, context);
         this.state={
             FirstSelect:[],
+            infoList:{},
         }
         this.getFirstData();
     }
@@ -103,6 +104,7 @@ class EditSecond extends React.Component {
                         label="分类名称"
                         inline={true}
                         requireLabel={true}
+                        maxLength={8}
 				/>
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

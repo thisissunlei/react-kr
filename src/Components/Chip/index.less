@@ -3,24 +3,41 @@
    line-height: 30px;
    padding-left:15px;
    padding-right:15px;
-   border-radius: 6px;
+   border-radius: 4px;
+   position: relative;
   .label{
     line-height: 30px;
     display:inline-block;
     padding: 0 20px;
+    color: #666;
+    font-size: 14px;
   }
-  .del,.edit{
+  .edit{
       width: 16px;
       height: 16px;
       display:inline-block;
       cursor: pointer;
   }
   .del{
+      width: 18px;
+      height: 18px;
+      display:inline-block;
+      cursor: pointer;
+  }
+  .del{
       background: url(./images/del.svg) no-repeat center ;
       background-size: cover;
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
   }
   .edit{
       background: url(./images/edit.svg) no-repeat center ;
       background-size: cover;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
   }
 }

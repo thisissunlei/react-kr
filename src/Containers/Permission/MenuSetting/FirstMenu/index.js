@@ -91,7 +91,7 @@ export default class FirstMenu extends React.Component {
 	renderThirdItem=(item,index)=>{
 		let {editStyle,editState} = this.state;
 		return (
-			<div key={index} style={{width:'46%',marginLeft:10,lineHeight:'46px'}}>
+			<div key={index} style={{width:'31%',marginLeft:10,marginBottom:6,verticalAlign:'top'}}>
 				<Chip edit={editState} editStyle={editStyle} onDel={()=>{
 						this.openDeleteThird(item,index)}
 					}  onEdit={()=>{
@@ -191,6 +191,7 @@ export default class FirstMenu extends React.Component {
 		const {
 			onSubmit,
 		} = this.props;
+		var _this = this;
 		Http.request('sub-level-save', {},form).then(function(response) {
 			onSubmit();
 			_this.openSecondCreate();
@@ -203,6 +204,7 @@ export default class FirstMenu extends React.Component {
 		const {
 			onSubmit,
 		} = this.props;
+		var _this = this;
 		Http.request('three-level-save', {},form).then(function(response) {
 			onSubmit();
 			_this.openThirdCreate();
@@ -249,12 +251,14 @@ export default class FirstMenu extends React.Component {
 			_this.openDeleteFirst();
 		}).catch(function(err) {
 			Message.error(err.message);
+			_this.openDeleteFirst();
 		});
 	}
 	onDelSecond=()=>{
 		const {
 			onSubmit,
 		} = this.props;
+		var _this = this;
 		let itemDetail = this.state.itemDetail;
 		Http.request('first-second-delete', {},{
 			id:itemDetail.id
@@ -264,12 +268,14 @@ export default class FirstMenu extends React.Component {
 			_this.openDeleteSecond();
 		}).catch(function(err) {
 			Message.error(err.message);
+			_this.openDeleteSecond();
 		});
 	}
 	onDelThird=()=>{
 		const {
 			onSubmit,
 		} = this.props;
+		var _this = this;
 		let itemDetail = this.state.itemDetail;
 		Http.request('third-delete', {},{
 			threeLevelId:itemDetail.id
@@ -279,6 +285,7 @@ export default class FirstMenu extends React.Component {
 			_this.openDeleteThird();
 		}).catch(function(err) {
 			Message.error(err.message);
+			_this.openDeleteThird();
 		});
 	}
 	onEditState=()=>{
@@ -298,11 +305,15 @@ export default class FirstMenu extends React.Component {
 	
 	render() {
         let {item,editStyle,editState,itemDetail} = this.state;
+		var editStyleFirst = {
+			'border':'1px solid #e8e9e9',
+			'lineHeight':'35px'
+		}
 		//console.log(this.state.item);		
 		return (
 			<div className="first-menu">
 				<div className="first-title-row">
-					<div className="first-title"><Chip edit={editState} editStyle={editStyle} label={this.props.detail.name} onEdit={this.openFirstEdit.bind(this,item)} onDel={this.openDeleteFirst.bind(this,item)}/></div>
+					<div className="first-title"><Chip edit={editState} editStyle={editStyleFirst} style={{lineHeight:'35px'}} label={this.props.detail.name} onEdit={this.openFirstEdit.bind(this,item)} onDel={this.openDeleteFirst.bind(this,item)}/></div>
 					{!editState && <Button label="编辑" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
 					{editState && <Button label="新增分类" type="button" onClick={this.openSecondCreate.bind(this,item)} width={100} height={30} fontSize={14}/>}
 					{editState && <Button label="完成" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
@@ -345,7 +356,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openSecondCreate}
 						onClose={this.openSecondCreate}
-						contentStyle={{width:500}}
+						contentStyle={{width:460}}
 					>
 						<CreateSecond  detail={itemDetail} onSubmit = {this.onCreateSecondSubmit} onCancel={this.openSecondCreate} />
 				</Dialog>
@@ -354,7 +365,7 @@ export default class FirstMenu extends React.Component {
 						modal={true}
 						open={this.state.openThirdCreate}
 						onClose={this.openThirdCreate}
-						contentStyle={{width:500}}
+						contentStyle={{width:460}}
 					>
 						<CreateThird  detail={itemDetail} onSubmit = {this.onCreateThirdSubmit} onCancel={this.openThirdCreate} />
 				</Dialog>

@@ -58,6 +58,7 @@ class EditFirst extends React.Component {
                         label="导航名称"
                         inline={true}
                         requireLabel={true}
+                        maxLength={8}
 				/>
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

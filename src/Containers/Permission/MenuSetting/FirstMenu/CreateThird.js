@@ -24,10 +24,26 @@ class CreateThird extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
-        
+        this.state={
+            infoList:{},
+        }
     }
     componentDidMount() {
-        
+        var _this = this;
+        var id = this.props.detail.id
+        var infoList = {};
+        Http.request('sub-level-detail', {
+            subLevelId: id
+        },{}).then(function(response) {
+            infoList.subLevelName = response.name;
+            console.log(response);
+            _this.setState({
+                infoList:infoList
+            },function() {
+                Store.dispatch(initialize('CreateThird',infoList));
+            })
+            
+        }).catch(function(err) {});
     }
 
     onCancel = () => {
@@ -45,24 +61,28 @@ class CreateThird extends React.Component {
     
     render() {
         const {handleSubmit} = this.props;
-        let {FirstSelect,SecondSelect} = this.state;
+        let infoList = this.state.infoList;
         return (
-
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}>
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:356,marginTop:30,paddingLeft:40,paddingRight:40}}>
                 <KrField
-                    style={{width:310}}
+                    style={{width:310,paddingLeft:20}}
                     inline={true}
                     label="所属分类"
                     component="labelText"
+                    requireLabel={true}
+                    name="subLevelName"
+                    value={infoList.subLevelName}
                 />  
                 <KrField
-                    style={{width:310}}
+                    style={{width:310,paddingLeft:10}}
                     inline={true}
                     label="子模块名称"
                     component="input"
                     name="name"
+                    requireLabel={true}
                     placeholder="比如：运营平台"
+                    maxLength={8}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
