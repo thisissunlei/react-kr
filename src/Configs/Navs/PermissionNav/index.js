@@ -34,6 +34,10 @@ module.exports = [
 					primaryText: '业务代码',
 					router: '/permission/opCode',
 					menuCode: 'sso_businessCode_base',
+				},{
+					primaryText: '菜单配置',
+					router: '/permission/menuSetting',
+					menuCode: 'sso_resource_base',
 				}]
 			},
 			{
