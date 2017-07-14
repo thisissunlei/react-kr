@@ -91,7 +91,7 @@ export default class FirstMenu extends React.Component {
 	renderThirdItem=(item,index)=>{
 		let {editStyle,editState} = this.state;
 		return (
-			<div key={index} style={{width:'31%',marginLeft:10,marginBottom:10,verticalAlign:'top'}}>
+			<div key={index} style={{maxWidth:'31%',marginLeft:10,marginBottom:10,verticalAlign:'top'}}>
 				<Chip edit={editState} editStyle={editStyle} onDel={()=>{
 						this.openDeleteThird(item,index)}
 					}  onEdit={()=>{
@@ -314,8 +314,8 @@ export default class FirstMenu extends React.Component {
 			<div className="first-menu">
 				<div className="first-title-row">
 					<div className="first-title"><Chip edit={editState} editStyle={editStyleFirst} style={{lineHeight:'35px'}} label={this.props.detail.name} onEdit={this.openFirstEdit.bind(this,item)} onDel={this.openDeleteFirst.bind(this,item)}/></div>
-					{!editState && <Button label="编辑" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
-					{editState && <Button label="新增分类" type="button" onClick={this.openSecondCreate.bind(this,item)} width={100} height={30} fontSize={14}/>}
+					{!editState && <Button label="编辑" cancle={true} type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
+					{editState && <Button label="新增分类" type="button" cancle={true} onClick={this.openSecondCreate.bind(this,item)} width={100} height={30} fontSize={14}/>}
 					{editState && <Button label="完成" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
 					
 				</div>
