@@ -148,7 +148,7 @@ class EditThird extends React.Component {
                         name="name"
                         style={{width:300,marginLeft:14}}
                         component="input"
-                        label="分类名称"
+                        label="子模块名称"
                         inline={true}
                         requireLabel={true}
                         value={detail.name}
