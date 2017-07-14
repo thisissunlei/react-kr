@@ -228,6 +228,7 @@ class SelectStationForm extends Component {
 
 
 	onCancel() {
+		console.log('===cancle===>1')
 		const {
 			onCancel
 		} = this.props;
