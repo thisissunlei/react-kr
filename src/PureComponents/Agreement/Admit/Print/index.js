@@ -36,7 +36,7 @@ export default class AdmitPrint extends React.Component {
 		setTimeout(function() {
 			_this.renderImg()
 			window.print();
-			// window.close();
+			window.close();
 		}, 1200)
 	}
 	renderImg=()=>{

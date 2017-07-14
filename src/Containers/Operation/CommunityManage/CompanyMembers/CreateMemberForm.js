@@ -251,6 +251,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
+        <KrField grid={1/2} name="idCardNo" type="text" label="身份证号" style={{width:'252px'}} />
 				<Grid style={{marginTop:19,marginBottom:20}}>
 					<Row>
 							<ListGroup>
@@ -297,6 +298,10 @@ const validate = values => {
     }
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
+    }
+    var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
+    if( values.idCardNo && !reg.test(values.idCardNo)){   
+        errors.idCardNo = '身份证输入不合法';   
     }
     if (/^\s+$/gi.test(values.name) ) {
         errors.name = '请输入正确姓名';

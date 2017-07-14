@@ -473,7 +473,7 @@ module.exports = {
          method: 'get'
       },
       'setExitTotalReturn':{
-         url: '/api/krspace-finance-web/rent/total-return?mainbillId={mainbillId}&withdrawDate={withdrawDate}',
+         url: '/api/krspace-finance-web/fnaContractWithdrawalController/total-return?mainbillId={mainbillId}&withdrawDate={withdrawDate}',
           method: 'get'
       },
       'getActivityCommunityList':{

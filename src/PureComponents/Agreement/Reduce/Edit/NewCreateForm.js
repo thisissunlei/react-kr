@@ -186,7 +186,9 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
-		this.openStationDialog();
+		this.setState({
+			openStation: false
+		});
 	}
 
 
@@ -382,6 +384,10 @@ class NewCreateForm extends React.Component {
 		form.delStationVos = JSON.stringify(delStationVos);
 		if(!!!form.agreement){
 			form.agreement = '无';
+		}
+
+		if(!!!form.contractmark){
+			form.contractmark = '';
 		}
 		const {
 			onSubmit

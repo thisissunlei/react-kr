@@ -50,14 +50,15 @@ export default class JoinPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1200  &&  !this.init){
+		if(printHeight>1120  &&  !this.init){
 			this.init = true;
 			this.pages = Math.ceil(printHeight/1120) + 1;
 			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
 		}
 		
 		let str=[] ;
-		let page = this.pages;
+		let page = this.pages || 2;
+		console.log(this.page)
 		if(page<=1){
 			return;
 		}
@@ -87,7 +88,7 @@ export default class JoinPrint extends React.Component {
 	render() {
 		let style={
 			position:'absolute',
-			top:1070,
+			top:1120,
 			border:'1px solid red',
 			width:'100%',
 			height:1

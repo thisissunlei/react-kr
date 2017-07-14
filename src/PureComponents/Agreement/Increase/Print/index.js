@@ -45,13 +45,13 @@ export default class IncreasePrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
-		if(printHeight>1205 && !this.init){
+		if(printHeight>1120 && !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
+			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
 		}
-		this.pages = Math.ceil(printHeight/1200);
+		this.pages = Math.ceil(printHeight/1120);
 		let str=[] ;
-		let page = this.pages;
+		let page = this.pages || 1;
 		if(page<=1){
 			return;
 		}

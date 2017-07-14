@@ -50,7 +50,7 @@ export default class JoinPrint extends React.Component {
 		}
 		this.pages = Math.ceil(printHeight/1200);
 		let str=[] ;
-		let page = this.pages;
+		let page = this.pages || 1;
 		if(page<=1){
 			return;
 		}
