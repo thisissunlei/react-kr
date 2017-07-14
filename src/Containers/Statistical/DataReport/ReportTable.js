@@ -13,8 +13,7 @@ export default class ReportTable extends React.Component {
           openReportDetail:false,
           winHeight : 0,
 		}
-        console.log(data,">>>>>>");
-        this.headerData = [];
+        this.headerData = data.data;
         this.add = ["Ap1","Ap2","Ap3","Ap4","Ap5","Ap6","Ap7","Ap8","Ap9","Ap10","Ap11"]
         this.signing = ["sig1","sig2","sig3","sig4","sig5","sig6","sig7","sig8","sig9","sig10","sig11"]
         this.allData = [
