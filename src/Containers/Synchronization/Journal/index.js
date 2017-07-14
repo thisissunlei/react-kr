@@ -15,6 +15,8 @@ import {
 	SearchForms,
 	Section,
 	KrField,
+	Row,
+	Col,
 	CheckPermission
 } from 'kr-ui';
 import State from './State';
@@ -59,14 +61,26 @@ export default class Journal extends React.Component {
 	onSubmit=()=>{
 		console.log('0000')
 	}
+	openSearchUpperDialog=()=>{
+		console.log('=====')
+	}
 	
 
 	render() {
-		let options = [{label:'a',value:'1'},{label:'a',value:'2'},{label:'a',value:'3'},{label:'a',value:'4'},]
+
 		let {handleSubmit} = this.props;
 		return (
 			    <div>
 					<Title value="日志列表"/>
+					<Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
+						  <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+						          <ListGroup>
+						            <ListGroupItem><SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit}/></ListGroupItem>
+						            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+						          </ListGroup>
+					      </Col>
+						  
+			        </Row>
 					<Section title="日志列表"  >
 						<Table
 		                  style={{marginTop:10}}
