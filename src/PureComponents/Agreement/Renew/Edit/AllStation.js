@@ -257,7 +257,7 @@ class SelectStationForm extends Component {
 			maxHeight: 667,
 		}
 		return (
-			<div style={{height:667,marginTop:20}}>
+			<div style={{minHeight:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 			<KrField grid={1/2}  name="rentBeginDate" component="date" label="续租结束时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
       <Table onSelect={this.onSelect} style={overfolw}>
