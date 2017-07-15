@@ -88,7 +88,7 @@ export default class ReportTable extends React.Component {
 	}
    
     renderTr = (community,isGlobal) =>{
-        var bgColor = {background:"#fff"};
+        var bgColor = {background:"#fff",cursor : "text"};
         let show = true;
 
         var com = community.communitys.map((item,index)=>{ 
@@ -116,16 +116,18 @@ export default class ReportTable extends React.Component {
         var allAdd = []
         
            allAdd = this.add.map((item,index) => {
-                
-            return (!adds.addList ?<td  key= {index} >{"-"}</td> : <td
+            let haveData = !this.arrToObject(adds.addList)[item.code]?false:true;
+            let cursor = !haveData? "text":"pointer";
+            return (!adds.addList ?<td  key= {index} style = {{cursor:"text"}} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId || '';
                             State.sourceId = item.sourceId || '';
                             State.isAdd='add';
-                            this.arrToObject(adds.addList)[item.code] && self.detailClick();
+                            haveData && self.detailClick();
                         }}
+                        style = {{cursor:cursor}} 
                     >
                         {this.arrToObject(adds.addList)[item.code]||"-"}
                     </td>)
@@ -136,15 +138,19 @@ export default class ReportTable extends React.Component {
     //签约
     renderSign = (cityId,communityId,signs) =>{
         let self = this;
+        
         var allSign = this.signing.map((item,index) =>{
-            return (!signs.signList ?<td  key= {index} >{"-"}</td> :<td key= {index}
+            let haveData = !this.arrToObject(signs.signList)[item.code]?false:true;
+            let cursor = !haveData? "text":"pointer";
+            return (!signs.signList ?<td  key= {index} style = {{cursor:"text"}}  >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId || '';
                             State.sourceId = item.sourceId || '';
                             State.isAdd='sign';
-                            this.arrToObject(signs.signList)[item.code] && self.detailClick();
+                            haveData && self.detailClick();
                         }}
+                        style = {{cursor:cursor}} 
             
                     >
                         {this.arrToObject(signs.signList)[item.code]||'-'}
@@ -237,8 +243,8 @@ export default class ReportTable extends React.Component {
             for(let j=0;j< communitys.length;j++){
                 let every = (
                     <tr>
-                        {j == 0 &&<td rowSpan={communitys.length}>{communitys[j].cityName}</td>}
-                        <td>{communitys[j].communityName}</td>
+                        {j == 0 &&<td style = {{background:"#fff",cursor : "text"}} rowSpan={communitys.length}>{communitys[j].cityName}</td>}
+                        <td style = {{background:"#fff",cursor : "text"}}>{communitys[j].communityName}</td>
                     </tr>
                 )
                 city.push(every);
@@ -274,7 +280,6 @@ export default class ReportTable extends React.Component {
 	render() {
         const allData = this.allData;
         const {winHeight,isRender,isLoading} = this.state;
-        console.log(isLoading,"BBBBB");
        
 		return (
             <div 
@@ -324,7 +329,7 @@ export default class ReportTable extends React.Component {
                             </tbody>
                     </table>
                  </div>
-                 <div>
+                 <div >
                  <table className = "report-table" width = "100%" cellSpacing="0" cellPadding="5" >
                     <tbody>
                             

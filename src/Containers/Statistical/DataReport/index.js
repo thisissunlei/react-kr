@@ -48,6 +48,23 @@ export default class DataReport extends React.Component {
 	componentDidMount(){
 		
     }
+	openAddCommunity = () =>{
+		var searchParams={
+            cityId:State.detailCityId,
+			communityId:State.detailCommunityId,
+			searchStartDate:State.searchStartDate,
+			searchEndDate:State.searchEndDate
+		}
+		var where=[];
+		for(var item in searchParams){
+			if(searchParams.hasOwnProperty(item)){
+			where.push(`${item}=${searchParams[item]}`);
+			}
+		}
+		var url = `http://optest02.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/list?${where.join('&')}`
+		window.location.href = url;
+	}
+	
 
 	//高级查询提交
 	searchSubmit=(params)=>{
@@ -80,11 +97,13 @@ export default class DataReport extends React.Component {
 						 ref={(reportTable) => this.reportTable = reportTable}
 						 everyClick = {this.detailClick} 
 						 />
+						<div style = {{marginTop:20}}>
 						<Button
 							label="导出"
 							type='button'
 							onTouchTap={this.openAddCommunity}
 						/>
+						</div>
 					</div>
 						
 					{/*报表明细*/}
