@@ -80,8 +80,8 @@ export default class DataReport extends React.Component {
 		
 		return (
 			<div className="data-report">
-				<Title value="数据报表"/>
-				<Section title="数据报表">
+				<Title value="客户数据分析"/>
+				<Section title="客户数据分析">
 					<SearchForm
 					  openSearchUpperDialog={this.searchClick}
 					  chooseStartTime = {() =>{
