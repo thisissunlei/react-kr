@@ -73,11 +73,11 @@ module.exports = {
     url: '/api/krspace-finance-web/fna-corporation-list',
     method: 'get'
   },
-
-   'getMainbody':{
-    url: '/api/krspace-finance-web/fna-corporation-list',
-    method: 'get'
-  },
+  //数据报表-总列表
+   'getReportList':{
+      url: '/api/krspace-finance-web/csr/source/stat/list/type/search?cityId={cityId}&communityId={cityId}&searchStartDate={searchStartDate}&searchEndDate={searchEndDate}',
+      method: 'get'
+    },
 
    //数据报表－工位详情
    'report-station-detail':{

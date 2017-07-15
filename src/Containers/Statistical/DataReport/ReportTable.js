@@ -2,9 +2,12 @@ import React from 'react';
 import {
 	Button,
 } from 'kr-ui';
+import { observer } from 'mobx-react';
+import {Http} from 'kr/Utils'
 import './index.less';
+import State from './State';
 import data from './Data/head.json'
-// @observer
+@observer
 export default class ReportTable extends React.Component {
 
 	constructor(props, context) {
@@ -12,138 +15,54 @@ export default class ReportTable extends React.Component {
 		this.state={
           openReportDetail:false,
           winHeight : 0,
+          isRender:'',
 		}
         this.headerData = data.data;
-        this.add = ["Ap1","Ap2","Ap3","Ap4","Ap5","Ap6","Ap7","Ap8","Ap9","Ap10","Ap11"]
-        this.signing = ["sig1","sig2","sig3","sig4","sig5","sig6","sig7","sig8","sig9","sig10","sig11"]
-        this.allData = [
-            {
-                city:"北京",
-                communitys:[
-                    {
-                        city:'北京',
-                        communityName:"创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888},
-                    },
-                    {
-                        city:'北京',
-                        communityName:"创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888},
-                    },
-                     {
-                        city:'北京',
-                        communityName:"创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888},
-                    },
-                     {
-                        city:'北京',
-                        communityName:"创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                ]
-            },
-            {
-                city:"上海",
-                communitys:[
-                    {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                    {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
-                     {
-                        city:'上海',
-                        communityName:"上海创业大街社区",
-                        newAdd:{Ap1:123,Ap2:123,Ap3:123,Ap4:123,Ap5:123,Ap6:123,Ap7:123,Ap8:123,Ap9:123,Ap10:123,Ap11:123},
-                        signing:{sig1:888,sig2:888,sig3:888,sig4:888,sig5:888,sig6:888,sig7:888,sig8:888,sig9:888,sig10:888,sig11:888}
-                    },
+        this.add = [];
+        this.signing = [];
+        this.allData = [];//所有数据
+ 
+        this.signHeaderList = [];//头部签约数据
+        this.addHeaderList = [];//头部新增数据
 
-                ]
-            }
-
-        ];
         this.isFixed = false;
         this.scrollYNum = 0;
         this.scrollXNum = 0;
         this.filterHeader();
+        this.getReportList();
         
 	}
+
+    //是否渲染页面
+    isRender = () =>{
+        this.setState({
+             isRender : new Date()
+        })
+       
+    }
+    //获取详情页的数据
+    getReportList = () =>{
+        const self = this;
+        Http.request('getReportList',State.searchParams).then(function(response) {
+            console.log(response,"KKKKK");
+			var add = [],signing=[];
+            self.signHeaderList = response.signHeaderList;
+            self.addHeaderList = response.addHeaderList;
+            add = self.addHeaderList.map((item,index)=>{
+                return item.code;
+            });
+            signing = self.signHeaderList.map((item,index)=>{
+                return item.code;
+            });
+            
+            self.add = [].concat(add);
+            self.signing = [].concat(signing);
+            self.allData = response.items;
+            self.isRender();
+		}).catch(function(err) {
+
+		});
+    }
     //过滤头部数组
     filterHeader =() =>{
         var signList = [];
@@ -163,44 +82,74 @@ export default class ReportTable extends React.Component {
         everyClick && everyClick();
 	}
    
-    renderTr = (city,community) =>{
+    renderTr = (community) =>{
         var bgColor = {background:"#fff"};
-        var com = community.communitys.map((item,index)=>{
+        console.log(community,"????")
+        let show = true;
+        var com = community.communitys.map((item,index)=>{ 
             return (<tr>
                        
-                        {index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{city}</td>}
+                        {index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{item.cityName}</td>}
                         <td style = {bgColor}>{item.communityName}</td>
-                        {this.renderAdd(item)}
-                        {this.renderSign(item)}
+                        {this.renderAdd(community.cityId,item.communityId,item)}
+                        {this.renderSign(community.cityId,item.communityId,item)}
                     </tr>)
-
         })
         return com;
     }
-    
+    arrToObject = (arr) =>{
+        let obj = {};
+       
+        arr && arr.map((item,index)=>{
+            obj[item.sourceCode] = item.countNum;
+        })
+        return obj;
+    }
     //新增数据渲染被点击
-    renderAdd = (adds) =>{
+    renderAdd = (cityId,communityId,adds) =>{
         const self = this;
-        var allAdd = this.add.map((item,index) => {
-            
-            return <td
+        var allAdd = []
+        
+           allAdd = this.add.map((item,index) => {
+                
+            return (!adds.addList ?<td  key= {index} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
-                            self.detailClick();
+                            State.searchParams.cityId = cityId || '';
+                            State.searchParams.communityId = communityId || '';
+                            State.searchParams.sourceId = '';
+                            State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
+                            State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
+                            this.arrToObject(adds.addList)[item] && self.detailClick();
                         }}
                     >
-                        {adds.newAdd[item]}
-                    </td>
-        })
-        return allAdd
+                        {this.arrToObject(adds.addList)[item]||"-"}
+                    </td>)
+            })
+        
+        return allAdd;
     }
     //签约
-    renderSign = (signs) =>{
+    renderSign = (cityId,communityId,signs) =>{
+        let self = this;
         var allSign = this.signing.map((item,index) =>{
-            return <td key= {index}>{signs.signing[item]}</td>
+            return (!signs.signList ?<td  key= {index} >{"-"}</td> :<td key= {index}
+                        onClick = {()=>{
+                            State.searchParams.cityId = cityId || '';
+                            State.searchParams.communityId = communityId || '';
+                            State.searchParams.sourceId = '';
+                            State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
+                            State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
+                            this.arrToObject(signs.signList)[item] && self.detailClick();
+                        }}
+            
+                    >
+                        {this.arrToObject(signs.signList)[item]||'-'}
+                    </td>)
         })
-        return allSign
+        return allSign;
     }
+    //城市社区
     publicTitle = () =>{
         var style = {
             width:100,
@@ -271,6 +220,7 @@ export default class ReportTable extends React.Component {
             }
         
     }
+    //侧滑
     renderSpreads = () =>{
         var city = [];
         for(let i=0;i< this.allData.length;i++){
@@ -278,7 +228,7 @@ export default class ReportTable extends React.Component {
             for(let j=0;j< communitys.length;j++){
                 let every = (
                     <tr>
-                        {j == 0 &&<td rowSpan={communitys.length}>{communitys[j].city}</td>}
+                        {j == 0 &&<td rowSpan={communitys.length}>{communitys[j].cityName}</td>}
                         <td>{communitys[j].communityName}</td>
                     </tr>
                 )
@@ -296,10 +246,6 @@ export default class ReportTable extends React.Component {
                 >
                 <table className = "report-table" width = "186" cellSpacing="0" cellPadding="5" >
                     <tbody>
-                        <tr>
-                            <td >全国</td>
-                            <td >全部</td>
-                        </tr>
                         {city}
                     
                     </tbody>
@@ -317,7 +263,7 @@ export default class ReportTable extends React.Component {
 
 	render() {
         const allData = this.allData;
-        const {winHeight} = this.state;
+        const {winHeight,isRender} = this.state;
 
 		return (
             <div 
@@ -351,33 +297,17 @@ export default class ReportTable extends React.Component {
                            
                             <td rowSpan="2">城市</td>
                             <td rowSpan="2">社区</td>
-                            <td colSpan="11">新增总量</td>
-                            <td colSpan="11">签约总量</td>
+                            <td colSpan={this.signHeaderList.length}>新增总量</td>
+                            <td colSpan={this.signHeaderList.length}>签约总量</td>
                         </tr>
                         <tr className = "header-tr">
-
-                            <td >app预约</td>
-                            <td >官网预约</td>
-                            <td >58同城</td>
-                            <td >安居客</td>
-                            <td >闲鱼网</td>
-                            <td >今日头条</td>
-                            <td >微信公众号</td>
-                            <td >400电话</td>
-                            <td >市场合作</td>
-                            <td >中介客源</td>
-                            <td >合计</td>
-                            <td >app预约</td>
-                            <td >官网预约</td>
-                            <td >58同城</td>
-                            <td >安居客</td>
-                            <td >闲鱼网</td>
-                            <td >今日头条</td>
-                            <td >微信公众号</td>
-                            <td >400电话</td>
-                            <td >市场合作</td>
-                            <td >中介客源</td>
-                            <td >合计</td>
+                            {this.signHeaderList.map((item,index)=>{
+                                return <td>{item.name}</td>
+                            })}
+                            {this.addHeaderList.map((item,index)=>{
+                                return <td>{item.name}</td>
+                            })}
+                            
                         </tr>
                          
                         </tbody>
@@ -386,22 +316,9 @@ export default class ReportTable extends React.Component {
                  <div>
                  <table className = "report-table" width = "100%" cellSpacing="0" cellPadding="5" >
                     <tbody>
-                        <tr>
-
-                            <td >全国</td>
-                            <td >全部</td>
-                            
-                            <td colSpan="11">新增总量</td>
-                            <td colSpan="11">签约总量</td>
-                        </tr>
                         {
                             allData.map((item,index) => {
-
-                                var city = item.city;
-
-                                return this.renderTr(city,item);
-
-
+                                return this.renderTr(item);
                             })
                         }
                     
