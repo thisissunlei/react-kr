@@ -56,7 +56,7 @@ class SearchForm extends React.Component {
 			State.searchParams.communityId = item.id;
 		}
 		State.searchParams.page = 1;
-		$(".table-box").eq(0).scrollTop(0);
+		// $(".table-box").eq(0).scrollTop(0);
 		State.getList();
 	}
 
@@ -69,7 +69,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.beginDate = date;
 		State.searchParams.page = 1;
-		$(".table-box").eq(0).scrollTop(0);
+		// $(".table-box").eq(0).scrollTop(0);
 		State.getList();
 
 	}
@@ -82,7 +82,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.endDate = date;
 		State.searchParams.page = 1;
-		$(".table-box").eq(0).scrollTop(0);
+		// $(".table-box").eq(0).scrollTop(0);
 		State.getList();
 
 	}
@@ -91,7 +91,7 @@ class SearchForm extends React.Component {
 		
 		State.searchParams.companyName = value.content;
 		State.searchParams.page = 1;
-		$(".table-box").eq(0).scrollTop(0);
+		// $(".table-box").eq(0).scrollTop(0);
 		State.getList();
 	}
 
