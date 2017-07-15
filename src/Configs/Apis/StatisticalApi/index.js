@@ -74,6 +74,10 @@ module.exports = {
     method: 'get'
   },
 
+   'getMainbody':{
+    url: '/api/krspace-finance-web/fna-corporation-list',
+    method: 'get'
+  },
 
   
 

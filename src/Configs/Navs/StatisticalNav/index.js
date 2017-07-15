@@ -20,7 +20,7 @@ module.exports = [
 					menuCode: 'finance_explan',
 				},
 				{
-					primaryText: "账龄统计",
+					primaryText: "数据报表",
 					router: '/statistical/dataReport',
 					menuCode: 'finance_explan',
 				},

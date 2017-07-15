@@ -66,8 +66,13 @@ export default class DataReport extends React.Component {
 					/>
 					<div className = "data-report-table">
 						<ReportTable everyClick = {this.detailClick} />
+						<Button
+							label="导出"
+							type='button'
+							onTouchTap={this.openAddCommunity}
+						/>
 					</div>
-
+						
 					{/*报表明细*/}
 					<Dialog
 						title="报表明细"

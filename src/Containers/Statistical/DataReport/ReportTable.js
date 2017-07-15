@@ -141,8 +141,22 @@ export default class ReportTable extends React.Component {
         this.isFixed = false;
         this.scrollYNum = 0;
         this.scrollXNum = 0;
+        this.filterHeader();
         
 	}
+    //过滤头部数组
+    filterHeader =() =>{
+        var signList = [];
+        var addList = [];
+        this.headerData.signList.map((item,index)=>{
+            signList.push(item.code)
+        })
+        this.headerData.addList.map((item,index)=>{
+            addList.push(item.code)
+        })
+        this.signList = signList;
+        this.addList = addList;
+    }
     //点击任何一个数据
 	detailClick=()=>{
         const {everyClick} = this.props;
@@ -150,11 +164,12 @@ export default class ReportTable extends React.Component {
 	}
    
     renderTr = (city,community) =>{
+        var bgColor = {background:"#fff"};
         var com = community.communitys.map((item,index)=>{
             return (<tr>
                        
-                        {index == 0 && <td style = {{background:"#fff"}} rowSpan= {community.communitys.length}>{city}</td>}
-                        <td>{item.communityName}</td>
+                        {index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{city}</td>}
+                        <td style = {bgColor}>{item.communityName}</td>
                         {this.renderAdd(item)}
                         {this.renderSign(item)}
                     </tr>)

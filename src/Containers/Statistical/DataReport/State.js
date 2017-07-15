@@ -3,8 +3,8 @@ import mobx, {
 	action,
 } from 'mobx';
 let State = observable({
-	//是否是移动工位
-	isStation:false
+	//是否是签约
+	isAdd:"add" //add 和 sign
     //点击传参
 	
 });
