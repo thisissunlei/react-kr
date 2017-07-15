@@ -10,10 +10,10 @@ let State = observable({
 	listSearchParams:{
 		cityId :'',
 		communityId:'',
-		// searchStartDate:DateFormat(new Date() ,"yyyy-mm-dd HH:MM:ss"),
-		// searchEndDate:DateFormat(new Date() ,"yyyy-mm-dd HH:MM:ss"),
-		searchStartDate:"",
-		searchEndDate:"",
+		searchStartDate:DateFormat(new Date() ,"yyyy-mm-dd HH:MM:ss"),
+		searchEndDate:DateFormat(new Date() ,"yyyy-mm-dd HH:MM:ss"),
+		// searchStartDate:"",
+		// searchEndDate:"",
 
 	},
     //点击传参
