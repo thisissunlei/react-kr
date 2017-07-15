@@ -1,6 +1,8 @@
 import React from 'react';
 import {
 	Button,
+    Nothing,
+    Loading
 } from 'kr-ui';
 import { observer } from 'mobx-react';
 import {Http} from 'kr/Utils'
@@ -18,6 +20,7 @@ export default class ReportTable extends React.Component {
           openReportDetail:false,
           winHeight : 0,
           isRender:'',
+          isLoading:true,
 		}
         this.headerData = data.data;
         this.add = [];
@@ -30,7 +33,7 @@ export default class ReportTable extends React.Component {
         this.isFixed = false;
         this.scrollYNum = 0;
         this.scrollXNum = 0;
-        this.filterHeader();
+        
         this.getReportList();
         
 	}
@@ -45,6 +48,9 @@ export default class ReportTable extends React.Component {
     //获取详情页的数据
     getReportList = () =>{
         const self = this;
+        this.setState({
+            isLoading:true
+        })
         Http.request('getReportList',{
             cityId :State.cityId,
             communityId:State.communityId,
@@ -66,23 +72,15 @@ export default class ReportTable extends React.Component {
             self.signing = [].concat(signing);
             self.allData = response.items;
             self.isRender();
+             self.setState({
+                isLoading:false
+            })
 		}).catch(function(err) {
 
 		});
     }
     //过滤头部数组
-    filterHeader =() =>{
-        var signList = [];
-        var addList = [];
-        this.headerData.signList.map((item,index)=>{
-            signList.push(item.code)
-        })
-        this.headerData.addList.map((item,index)=>{
-            addList.push(item.code)
-        })
-        this.signList = signList;
-        this.addList = addList;
-    }
+   
     //点击任何一个数据
 	detailClick=()=>{
         const {everyClick} = this.props;
@@ -156,7 +154,7 @@ export default class ReportTable extends React.Component {
     publicTitle = () =>{
         var style = {
             width:100,
-            height:90,
+            height:89,
             textAlign:"center",
             borderLeft:"1px solid #E1E6EB",
 		    borderTop:"1px solid #E1E6EB",
@@ -174,7 +172,9 @@ export default class ReportTable extends React.Component {
             style = {{
                 zIndex:12,
                 position:"absolute",
-                width:286
+                width:286,
+                display:"none"
+
             }}
         >
             <div>
@@ -189,15 +189,15 @@ export default class ReportTable extends React.Component {
     
     componentDidMount(){
         var winHeight = 0;
+        
 		if (window.innerHeight)
 		winHeight = window.innerHeight;
 		else if ((document.body) && (document.body.clientHeight))
 		winHeight = document.body.clientHeight;
 		
-        this.box.style.height = ((+winHeight-283))+"px";
+        this.box.style.maxHeight = ((+winHeight-283))+"px";
         this.header.style.zIndex = "10";
         this.spreads.style.zIndex = "5";
-        
         this.box.addEventListener("scroll",this.domOnscroll,false)
     }
     //滚轮监听
@@ -214,12 +214,16 @@ export default class ReportTable extends React.Component {
                 this.box.style.paddingTop = "90px";
                 this.pubilc.style.top = scrollTop+"px";
                 this.spreads.style.top = 90+"px";
+                this.pubilc.style.display = "block";
+                this.spreads.style.display = "block";
                 
             }
             if(scrollLeft >=0){
                 this.spreads.style.position = "absolute";
                 this.spreads.style.left = scrollLeft+"px";
                 this.pubilc.style.left = scrollLeft+"px";
+                this.pubilc.style.display = "block";
+                this.spreads.style.display = "block";
             }
         
     }
@@ -246,6 +250,7 @@ export default class ReportTable extends React.Component {
                             this.spreads = ref;
                         }
                     } 
+                    style = {{display:"none"}}
                 >
                 <table className = "report-table" width = "186" cellSpacing="0" cellPadding="5" >
                     <tbody>
@@ -259,15 +264,16 @@ export default class ReportTable extends React.Component {
     }
 
     componentWillUnmount(){
-        this.box.removeEventListener("scroll",this.domOnscroll,false)
+       this.box && this.box.removeEventListener("scroll",this.domOnscroll,false)
     }
 
 
 
 	render() {
         const allData = this.allData;
-        const {winHeight,isRender} = this.state;
-
+        const {winHeight,isRender,isLoading} = this.state;
+        console.log(isLoading,"BBBBB");
+       
 		return (
             <div 
                 ref = {
@@ -287,52 +293,56 @@ export default class ReportTable extends React.Component {
                     top:0,
                 }} 
             >
-            <table 
-                className = "report-table" 
-                width = "100%" 
-                cellSpacing="0" 
-                cellPadding="5" 
-                style = {{marginBottom:0,borderBottom:0}} 
-            >
-               <tbody>
-                   
-                        <tr className = "header-tr">
-                           
-                            <td rowSpan="2">城市</td>
-                            <td rowSpan="2">社区</td>
-                            <td colSpan={this.signHeaderList.length}>新增总量</td>
-                            <td colSpan={this.signHeaderList.length}>签约总量</td>
-                        </tr>
-                        <tr className = "header-tr">
-                            {this.signHeaderList.map((item,index)=>{
-                                return <td>{item.name}</td>
-                            })}
-                            {this.addHeaderList.map((item,index)=>{
-                                return <td>{item.name}</td>
-                            })}
+                <table 
+                    className = "report-table" 
+                    width = "100%" 
+                    cellSpacing="0" 
+                    cellPadding="5" 
+                    style = {{marginBottom:0,borderBottom:0}} 
+                >
+                <tbody>
+                    
+                            <tr className = "header-tr">
                             
-                        </tr>
-                         
-                        </tbody>
-                 </table>
+                                <td rowSpan="2">城市</td>
+                                <td rowSpan="2">社区</td>
+                                <td colSpan={this.signHeaderList.length}>新增总量</td>
+                                <td colSpan={this.signHeaderList.length}>签约总量</td>
+                            </tr>
+                            <tr className = "header-tr">
+                                {this.signHeaderList.map((item,index)=>{
+                                    return <td>{item.name}</td>
+                                })}
+                                {this.addHeaderList.map((item,index)=>{
+                                    return <td>{item.name}</td>
+                                })}
+                                
+                            </tr>
+                            
+                            </tbody>
+                    </table>
                  </div>
                  <div>
                  <table className = "report-table" width = "100%" cellSpacing="0" cellPadding="5" >
                     <tbody>
-                        {
-                            allData.map((item,index) => {
-                                let isGlobal = index==0 ? true : false;
-                                return this.renderTr(item,isGlobal);
-                            })
-                        }
-                    
-                </tbody>
+                            
+                            {
+                                
+                                allData.map((item,index) => {
+                                    let isGlobal = index==0 ? true : false;
+                                    return this.renderTr(item,isGlobal);
+                                })
+                            }
+                        
+                    </tbody>
 
-            </table> 
+                </table> 
+                {!isLoading && allData.length == 0 &&<Nothing />}
+                {isLoading && <Loading />}
            
-            </div>
-            {this.renderSpreads()}
-            {this.publicTitle()}
+                </div>
+                {this.renderSpreads()}
+                {this.publicTitle()}
             </div> 
 		);
 	}
