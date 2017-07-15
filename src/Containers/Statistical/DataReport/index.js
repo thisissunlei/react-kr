@@ -49,7 +49,11 @@ export default class DataReport extends React.Component {
 
 	//高级查询提交
 	searchSubmit=(params)=>{
-	  console.log('params',params);
+	   var listSearchParams={
+         cityId:params.cityId,
+		 communityId:params.communityId,
+      }
+      State.listSearchParams=Object.assign({},State.listSearchParams,listSearchParams);
       this.searchClick();
 	}
 
@@ -78,7 +82,7 @@ export default class DataReport extends React.Component {
 						title="报表明细"
 						onClose={this.detailClick}
 						open={this.state.openReportDetail}
-						contentStyle ={{ width: '85%',height:'650px'}}
+						contentStyle ={{ width: '85%',height:'650px',overflowY:'scroll'}}
 					>
 						<ReportDetail 
 						/>

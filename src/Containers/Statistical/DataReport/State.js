@@ -20,7 +20,7 @@ let State = observable({
 	searchParams:{
        page:1,
 	   pageSize:10,
-	   cityId:'',
+	   cityId:1,
 	   communityId:'',
 	   sourceId:'',
 	   searchStartDate:'',

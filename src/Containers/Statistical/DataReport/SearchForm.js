@@ -57,7 +57,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 	}
 
 	chooseStartTime=(date)=>{
@@ -70,7 +70,7 @@ class SearchForm extends React.Component {
 		State.searchParams.beginDate = date;
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 
 	}
 
@@ -83,7 +83,7 @@ class SearchForm extends React.Component {
 		State.searchParams.endDate = date;
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 
 	}
 	
@@ -92,7 +92,7 @@ class SearchForm extends React.Component {
 		State.searchParams.companyName = value.content;
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 	}
 
 	// 转成时间戳
@@ -113,12 +113,12 @@ class SearchForm extends React.Component {
 					<ListGroup>
 
 						<ListGroupItem>
-							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.chooseStartTime}/>
+							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3,zIndex:11}} onChange={this.chooseStartTime}/>
 						</ListGroupItem>
 
 						<ListGroupItem>
 							<div className="search-form-endDate">
-								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.chooseEndTime} />
+								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3,zIndex:11}} onChange={this.chooseEndTime} />
 							</div>
 						</ListGroupItem>
 						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
