@@ -21,6 +21,7 @@ import "./index.less";
 import {DateFormat} from 'kr/Utils';
 
 import State from './State';
+import {toJS} from 'mobx'
 import {
 	observer
 } from 'mobx-react';
@@ -62,29 +63,32 @@ class SearchForm extends React.Component {
 
 	chooseStartTime=(date)=>{
 		
-		
-		if(State.searchParams.endDate && this.getTimeFun(date)>this.getTimeFun(State.searchParams.endDate)){
+		let {chooseStartTime} = this.props;
+		let Search =State.listSearchParams;
+		if(State.listSearchParams.searchEndDate && this.getTimeFun(date)>this.getTimeFun(State.listSearchParams.searchEndDate)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		State.searchParams.beginDate = date;
-		State.searchParams.page = 1;
-		// $(".table-box").eq(0).scrollTop(0);
-		// State.getList();
+		var searchStartDate = State.listSearchParams.searchStartDate;
+		console.log(searchStartDate,"------");
+		// State.listSearchParams.searchStartDate = date;
+		
+		chooseStartTime && chooseStartTime()
 
 	}
 
 	chooseEndTime=(date)=>{
+		let {chooseEndTime} = this.props;
 
-		if(State.searchParams.beginDate && this.getTimeFun(State.searchParams.beginDate)>this.getTimeFun(date)){
+		
+		if(State.listSearchParams.searchStartDate && this.getTimeFun(State.listSearchParams.searchStartDate)>this.getTimeFun(date)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		State.searchParams.endDate = date;
-		State.searchParams.page = 1;
-		// $(".table-box").eq(0).scrollTop(0);
-		// State.getList();
-
+		// State.listSearchParams.searchEndDate= date;
+		console.log(toJS(State.listSearchParams),">>>>>>")
+		
+		chooseEndTime && chooseEndTime();
 	}
 	
 	inputCompanyName=(value)=>{
@@ -97,7 +101,7 @@ class SearchForm extends React.Component {
 
 	// 转成时间戳
 	getTimeFun=(date)=>{
-
+		
 		var timeDateArr = date.split(" ");
 		var timeDate = Date.parse(timeDateArr[0]);
 		return timeDate;
@@ -113,12 +117,12 @@ class SearchForm extends React.Component {
 					<ListGroup>
 
 						<ListGroupItem>
-							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3,zIndex:11}} onChange={this.chooseStartTime}/>
+							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3,zIndex:11}} onChange={this.chooseStartTime} placeholder={DateFormat(new Date() ,"yyyy-mm-dd")}/>
 						</ListGroupItem>
 
 						<ListGroupItem>
 							<div className="search-form-endDate">
-								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3,zIndex:11}} onChange={this.chooseEndTime} />
+								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3,zIndex:11}} onChange={this.chooseEndTime} placeholder={DateFormat(new Date() ,"yyyy-mm-dd")}/>
 							</div>
 						</ListGroupItem>
 						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>

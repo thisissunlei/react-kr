@@ -65,6 +65,13 @@ export default class DataReport extends React.Component {
 				<Section title="催款表">
 					<SearchForm
 					  openSearchUpperDialog={this.searchClick}
+					  chooseStartTime = {() =>{
+						  {/*this.reportTable.getReportList();*/}
+					  }}
+					   chooseEndTime = {() =>{
+						  {/*this.reportTable.getReportList();*/}
+					  }}
+					  
 					/>
 					<div className = "data-report-table">
 						<ReportTable 
