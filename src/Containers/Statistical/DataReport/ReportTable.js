@@ -63,6 +63,10 @@ export default class ReportTable extends React.Component {
             self.signing = [].concat(signing);
             self.allData = response.items;
             self.isRender();
+            if(self.allData.length == 0){
+                self.box.scrollLeft = 0;
+            }
+             
              self.setState({
                 isLoading:false
             })
@@ -85,8 +89,8 @@ export default class ReportTable extends React.Component {
             let bg = index == community.communitys.length-1 && index!=0 ? "#F5F6FA":"#fff";
             return (<tr>
                        
-                        { index == 0 && <td style = {{background:"#fff",cursor : "text"}} rowSpan= {community.communitys.length}>{item.cityName}</td>}
-                        <td className = {bgColor} style = {{background:bg,cursor : "text"}}>{item.communityName}</td>
+                        { index == 0 && <td style = {{background:"#fff",cursor : "text",minWidth:50}} rowSpan= {community.communitys.length}>{item.cityName}</td>}
+                        <td className = {bgColor} style = {{background:bg,cursor : "text",minWidth:140}}>{item.communityName}</td>
                         {this.renderAdd(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item,bgColor)}
                         {this.renderSign(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item,bgColor)}
                     </tr>)
@@ -115,8 +119,10 @@ export default class ReportTable extends React.Component {
                         key= {index} 
                         onClick = {()=>{
                             if(!communityId || Number(communityId)<=0){
-                                communityId = "";
+                                 cityId =  State.cityId||""
+                                 communityId =State.communityId|| "";
                             }
+                            
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId;
                             State.sourceId = item.sourceId || '';
@@ -143,7 +149,8 @@ export default class ReportTable extends React.Component {
             return (!signs.signList ?<td  key= {index} style = {{cursor:"text"}}  >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
                             if(!communityId || Number(communityId)<=0){
-                                communityId = "";
+                                 cityId =  State.cityId||""
+                                 communityId =State.communityId|| "";
                             }
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId;
@@ -162,8 +169,20 @@ export default class ReportTable extends React.Component {
     }
     //城市社区
     publicTitle = () =>{
-        var style = {
-            width:100,
+        var style1 = {
+            width:50,
+            height:89,
+            textAlign:"center",
+            borderLeft:"1px solid #E1E6EB",
+		    borderTop:"1px solid #E1E6EB",
+            display:'inline-block',
+            padding:'0px 21px',
+            textAlign:'center',
+            lineHeight:'90px',
+            background:'#F6F6F6'
+        }
+        var style2 = {
+            width:140,
             height:89,
             textAlign:"center",
             borderLeft:"1px solid #E1E6EB",
@@ -182,14 +201,14 @@ export default class ReportTable extends React.Component {
             style = {{
                 zIndex:12,
                 position:"absolute",
-                width:286,
+                width:276,
                 display:"none"
 
             }}
         >
             <div>
-                <div style = {style} >城市</div>
-                <div style = {style} >社区</div>
+                <div style = {style1} >城市</div>
+                <div style = {style2} >社区</div>
             </div>   
             
         </div>
@@ -210,6 +229,7 @@ export default class ReportTable extends React.Component {
         this.spreads.style.zIndex = "5";
         this.box.addEventListener("scroll",this.domOnscroll,false)
     }
+    
     //滚轮监听
     domOnscroll = () =>{
         var scrollTop = this.box.scrollTop;
@@ -244,8 +264,8 @@ export default class ReportTable extends React.Component {
                 let bgColor = j == communitys.length-1 && j!=0  ? "#F5F6FA" : "#fff";
                 let every = (
                     <tr>
-                        {j == 0 &&<td style = {{background:"#fff",cursor : "text"}} rowSpan={communitys.length}>{communitys[j].cityName}</td>}
-                        <td  style = {{background:bgColor,cursor : "text"}}>{communitys[j].communityName}</td>
+                        {j == 0 &&<td style = {{background:"#fff",minWidth:50}} rowSpan={communitys.length}>{communitys[j].cityName}</td>}
+                        <td  style = {{background:bgColor,cursor : "text",minWidth:140}}>{communitys[j].communityName}</td>
                     </tr>
                 )
                 city.push(every);
@@ -312,8 +332,8 @@ export default class ReportTable extends React.Component {
                     
                             <tr className = "header-tr">
                             
-                                <td rowSpan="2">城市</td>
-                                <td rowSpan="2">社区</td>
+                                <td rowSpan="2" style = {{minWidth:50}}>城市</td>
+                                <td rowSpan="2" style = {{minWidth:140}}>社区</td>
                                 <td colSpan={this.addHeaderList.length}>新增总量</td>
                                 <td colSpan={this.signHeaderList.length}>签约总量</td>
                             </tr>
