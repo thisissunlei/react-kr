@@ -77,16 +77,18 @@ export default class ReportTable extends React.Component {
 	}
    
     renderTr = (community,isGlobal) =>{
-        var bgColor = {background:"#fff",cursor : "text"};
+        
         let show = true;
 
         var com = community.communitys.map((item,index)=>{ 
+            let bgColor = index == community.communitys.length-1 && index!=0 ? "is-last-style":"no-last-style";
+            let bg = index == community.communitys.length-1 && index!=0 ? "#F5F6FA":"#fff";
             return (<tr>
                        
-                        { index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{item.cityName}</td>}
-                        <td style = {bgColor}>{item.communityName}</td>
-                        {this.renderAdd(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item)}
-                        {this.renderSign(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item)}
+                        { index == 0 && <td style = {{background:"#fff",cursor : "text"}} rowSpan= {community.communitys.length}>{item.cityName}</td>}
+                        <td className = {bgColor} style = {{background:bg,cursor : "text"}}>{item.communityName}</td>
+                        {this.renderAdd(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item,bgColor)}
+                        {this.renderSign(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item,bgColor)}
                     </tr>)
         })
         return com;
@@ -101,13 +103,14 @@ export default class ReportTable extends React.Component {
         return obj;
     }
     //新增数据渲染被点击
-    renderAdd = (cityId,communityId,adds) =>{
+    renderAdd = (cityId,communityId,adds,bgColor) =>{
         const self = this;
         var allAdd = []
         
            allAdd = this.add.map((item,index) => {
             let haveData = !this.arrToObject(adds.addList)[item.code]?false:true;
             let cursor = !haveData? "text":"pointer";
+            let color = index == (this.add.length-1) && index!=0 ? "#F3A738":"#000"
             return (!adds.addList ?<td  key= {index} style = {{cursor:"text"}} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
@@ -120,7 +123,8 @@ export default class ReportTable extends React.Component {
                             State.isAdd='add';
                             haveData && self.detailClick();
                         }}
-                        style = {{cursor:cursor}} 
+                        className = {bgColor} 
+                        style = {{cursor:cursor,color:color}} 
                     >
                         {this.arrToObject(adds.addList)[item.code]||"-"}
                     </td>)
@@ -129,12 +133,13 @@ export default class ReportTable extends React.Component {
         return allAdd;
     }
     //签约
-    renderSign = (cityId,communityId,signs) =>{
+    renderSign = (cityId,communityId,signs,bgColor) =>{
         let self = this;
         
         var allSign = this.signing.map((item,index) =>{
             let haveData = !this.arrToObject(signs.signList)[item.code]?false:true;
             let cursor = !haveData? "text":"pointer";
+            let color = index == (this.signing.length-1) && index!=0  ? "#F3A738":"#000"
             return (!signs.signList ?<td  key= {index} style = {{cursor:"text"}}  >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
                             if(!communityId || Number(communityId)<=0){
@@ -146,7 +151,8 @@ export default class ReportTable extends React.Component {
                             State.isAdd='sign';
                             haveData && self.detailClick();
                         }}
-                        style = {{cursor:cursor}} 
+                        className = {bgColor} 
+                        style = {{cursor:cursor,color:color}} 
             
                     >
                         {this.arrToObject(signs.signList)[item.code]||'-'}
@@ -235,10 +241,11 @@ export default class ReportTable extends React.Component {
         for(let i=0;i< this.allData.length;i++){
             var communitys = this.allData[i].communitys;
             for(let j=0;j< communitys.length;j++){
+                let bgColor = j == communitys.length-1 && j!=0  ? "#F5F6FA" : "#fff";
                 let every = (
                     <tr>
                         {j == 0 &&<td style = {{background:"#fff",cursor : "text"}} rowSpan={communitys.length}>{communitys[j].cityName}</td>}
-                        <td style = {{background:"#fff",cursor : "text"}}>{communitys[j].communityName}</td>
+                        <td  style = {{background:bgColor,cursor : "text"}}>{communitys[j].communityName}</td>
                     </tr>
                 )
                 city.push(every);
@@ -307,15 +314,18 @@ export default class ReportTable extends React.Component {
                             
                                 <td rowSpan="2">城市</td>
                                 <td rowSpan="2">社区</td>
-                                <td colSpan={this.signHeaderList.length}>新增总量</td>
+                                <td colSpan={this.addHeaderList.length}>新增总量</td>
                                 <td colSpan={this.signHeaderList.length}>签约总量</td>
                             </tr>
                             <tr className = "header-tr">
-                                {this.signHeaderList.map((item,index)=>{
-                                    return <td>{item.name}</td>
-                                })}
                                 {this.addHeaderList.map((item,index)=>{
-                                    return <td>{item.name}</td>
+                                    let color = index == (this.addHeaderList.length-1) ? "#F3A738":"#000"
+
+                                    return <td style = {{color:color}}>{item.name}</td>
+                                })}
+                                {this.signHeaderList.map((item,index)=>{
+                                    let color = index == (this.signHeaderList.length-1) ? "#F3A738":"#000"
+                                    return <td style = {{color:color}}>{item.name}</td>
                                 })}
                                 
                             </tr>
