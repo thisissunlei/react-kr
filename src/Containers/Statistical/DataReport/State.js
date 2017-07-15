@@ -8,7 +8,12 @@ let State = observable({
     //点击传参
 	searchParams:{
        page:1,
-	   pageSize:10
+	   pageSize:10,
+	   cityId:'',
+	   communityId:'',
+	   sourceId:'',
+	   searchStartDate:'',
+	   searchEndDate:''
 	}
 });
 module.exports = State;
