@@ -49,7 +49,11 @@ export default class DataReport extends React.Component {
 
 	//高级查询提交
 	searchSubmit=(params)=>{
-	  console.log('params',params);
+	   var listSearchParams={
+         cityId:params.cityId,
+		 communityId:params.communityId,
+      }
+      State.listSearchParams=Object.assign({},State.listSearchParams,listSearchParams);
       this.searchClick();
 	}
 
