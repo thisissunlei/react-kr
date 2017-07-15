@@ -57,7 +57,7 @@ class SearchForm extends React.Component {
 		}
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 	}
 
 	chooseStartTime=(date)=>{
@@ -70,7 +70,7 @@ class SearchForm extends React.Component {
 		State.searchParams.beginDate = date;
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 
 	}
 
@@ -83,7 +83,7 @@ class SearchForm extends React.Component {
 		State.searchParams.endDate = date;
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 
 	}
 	
@@ -92,7 +92,7 @@ class SearchForm extends React.Component {
 		State.searchParams.companyName = value.content;
 		State.searchParams.page = 1;
 		// $(".table-box").eq(0).scrollTop(0);
-		State.getList();
+		// State.getList();
 	}
 
 	// 转成时间戳
