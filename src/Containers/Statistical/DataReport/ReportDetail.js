@@ -28,40 +28,38 @@ export default class ReportDetail extends React.Component{
 
 	//导出
 	onExportSign=(values)=>{
-		let {searchParams}=State;
-		let ids = [];
-			if (values.length != 0) {
-				values.map((item, value) => {
-					ids.push(item.id)
-				});
-			}
+		var searchParams={
+            cityId:State.detailCityId,
+			communityId:State.detailCommunityId,
+			sourceId:State.sourceId,
+			searchStartDate:State.searchStartDate,
+			searchEndDate:State.searchEndDate
+		}
 		var where=[];
 		for(var item in searchParams){
 			if(searchParams.hasOwnProperty(item)){
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		where.push(`ids=${ids}`);
 		var url = `/api/krspace-finance-web/csr/source/stat/export/type/sign?${where.join('&')}`
 		window.location.href = url;
 	}
 
 	//导出
 	onExportAdd=(values)=>{
-		let {searchParams}=State;
-		let ids = [];
-			if (values.length != 0) {
-				values.map((item, value) => {
-					ids.push(item.id)
-				});
-			}
+		var searchParams={
+            cityId:State.detailCityId,
+			communityId:State.detailCommunityId,
+			sourceId:State.sourceId,
+			searchStartDate:State.searchStartDate,
+			searchEndDate:State.searchEndDate
+		}
 		var where=[];
 		for(var item in searchParams){
 			if(searchParams.hasOwnProperty(item)){
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		where.push(`ids=${ids}`);
 		var url = `/api/krspace-finance-web/csr/source/stat/export/type/add?${where.join('&')}`
 		window.location.href = url;
 	}

@@ -125,6 +125,7 @@ export default class ReportTable extends React.Component {
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId || '';
                             State.sourceId = item.sourceId || '';
+                            State.isAdd='add';
                             this.arrToObject(adds.addList)[item.code] && self.detailClick();
                         }}
                     >
@@ -143,6 +144,7 @@ export default class ReportTable extends React.Component {
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId || '';
                             State.sourceId = item.sourceId || '';
+                            State.isAdd='sign';
                             this.arrToObject(signs.signList)[item.code] && self.detailClick();
                         }}
             
