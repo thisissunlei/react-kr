@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+	observable
+} from 'mobx';
 import {
 	CheckPermission,
 	Button,
@@ -49,12 +51,7 @@ export default class DataReport extends React.Component {
 
 	//高级查询提交
 	searchSubmit=(params)=>{
-	   var listSearchParams={
-         cityId:params.cityId,
-		 communityId:params.communityId,
-      }
-      State.listSearchParams=Object.assign({},State.listSearchParams,listSearchParams);
-	  this.reportTable.getReportList(State.listSearchParams);
+	  this.reportTable.getReportList();
       this.searchClick();
 	}
 

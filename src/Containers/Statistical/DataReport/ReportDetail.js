@@ -27,8 +27,8 @@ export default class ReportDetail extends React.Component{
 	
 
 	//导出
-	onExport=(values)=>{
-		let {searchParams}=this.state;
+	onExportSign=(values)=>{
+		let {searchParams}=State;
 		let ids = [];
 			if (values.length != 0) {
 				values.map((item, value) => {
@@ -42,9 +42,30 @@ export default class ReportDetail extends React.Component{
 			}
 		}
 		where.push(`ids=${ids}`);
-		var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
+		var url = `/api/krspace-finance-web/csr/source/stat/export/type/sign?${where.join('&')}`
 		window.location.href = url;
 	}
+
+	//导出
+	onExportAdd=(values)=>{
+		let {searchParams}=State;
+		let ids = [];
+			if (values.length != 0) {
+				values.map((item, value) => {
+					ids.push(item.id)
+				});
+			}
+		var where=[];
+		for(var item in searchParams){
+			if(searchParams.hasOwnProperty(item)){
+			where.push(`${item}=${searchParams[item]}`);
+			}
+		}
+		where.push(`ids=${ids}`);
+		var url = `/api/krspace-finance-web/csr/source/stat/export/type/add?${where.join('&')}`
+		window.location.href = url;
+	}
+    
     
 	/*onSearchSubmit=(value)=>{
       console.log('value',value);
@@ -60,8 +81,16 @@ export default class ReportDetail extends React.Component{
                     onOperation={this.onOperation}
                     displayCheckbox={false}
                     exportSwitch={true}
-                    onExport={this.onExport}
-                    ajaxParams={State.searchParams}
+                    onExport={State.isAdd=='sign'?this.onExportSign:this.onExportAdd}
+                    ajaxParams={{
+						searchStartDate:State.searchStartDate,
+						searchEndDate:State.searchEndDate,
+						page:State.page,
+						pageSize:State.pageSize,
+						cityId:State.detailCityId,
+						communityId:State.detailCommunityId,
+						sourceId:State.sourceId,
+					}}
                     ajaxUrlName={State.isAdd=='sign'?'report-sign-detail':'report-station-detail'}
                     ajaxFieldListName="items"
 					  >

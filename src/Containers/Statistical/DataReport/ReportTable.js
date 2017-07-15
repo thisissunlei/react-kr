@@ -45,7 +45,12 @@ export default class ReportTable extends React.Component {
     //获取详情页的数据
     getReportList = () =>{
         const self = this;
-        Http.request('getReportList',State.listSearchParams).then(function(response) {
+        Http.request('getReportList',{
+            cityId :State.cityId,
+            communityId:State.communityId,
+            searchStartDate:State.searchStartDate,
+            searchEndDate:State.searchEndDate,
+        }).then(function(response) {
             console.log(response,"KKKKK");
 			var add = [],signing=[];
             self.signHeaderList = response.signHeaderList;
@@ -117,12 +122,9 @@ export default class ReportTable extends React.Component {
             return (!adds.addList ?<td  key= {index} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
-                            State.searchParams.cityId = cityId || '';
-                            State.searchParams.communityId = communityId || '';
-                            State.searchParams.sourceId = item.sourceId ||'';
-                            State.searchParams.pageSize=10;
-                            State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
-                            State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
+                            State.detailCityId = cityId || '';
+                            State.detailCommunityId = communityId || '';
+                            State.sourceId = item.sourceId || '';
                             this.arrToObject(adds.addList)[item.code] && self.detailClick();
                         }}
                     >
@@ -138,12 +140,9 @@ export default class ReportTable extends React.Component {
         var allSign = this.signing.map((item,index) =>{
             return (!signs.signList ?<td  key= {index} >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
-                            State.searchParams.cityId = cityId || '';
-                            State.searchParams.communityId = communityId || '';
-                            State.searchParams.sourceId = item.sourceId || '';
-                            State.searchParams.pageSize=10;
-                            State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
-                            State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
+                            State.detailCityId = cityId || '';
+                            State.detailCommunityId = communityId || '';
+                            State.sourceId = item.sourceId || '';
                             this.arrToObject(signs.signList)[item.code] && self.detailClick();
                         }}
             
