@@ -81,7 +81,7 @@ class SearchForm extends React.Component {
 					<ListGroup>
 
 						<ListGroupItem>
-							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3,zIndex:11}} onChange={this.chooseStartTime} placeholder={DateFormat(new Date() ,"yyyy-mm-dd")}/>
+							<KrField label="时间：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3,zIndex:11}} onChange={this.chooseStartTime} placeholder={DateFormat(new Date() ,"yyyy-mm-dd")}/>
 						</ListGroupItem>
 
 						<ListGroupItem>
