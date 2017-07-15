@@ -89,5 +89,10 @@ module.exports = {
       url: '/api/krspace-finance-web/csr/source/stat/detail/type/sign?cityId={cityId}&communityId={communityId}&sourceId={sourceId}&searchStartDate={searchStartDate}&searchEndDate={searchEndDate}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
+    //数据报表－高级查询
+   'report-data-list':{
+      url: '/api/krspace-finance-web/cmt/city/select/use/type/list',
+      method: 'get'
+   },
 
 }
