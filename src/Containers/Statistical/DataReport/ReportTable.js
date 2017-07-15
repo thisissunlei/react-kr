@@ -51,10 +51,10 @@ export default class ReportTable extends React.Component {
             self.signHeaderList = response.signHeaderList;
             self.addHeaderList = response.addHeaderList;
             add = self.addHeaderList.map((item,index)=>{
-                return item.code;
+                return {code:item.code || '',sourceId:item.id || ''};
             });
             signing = self.signHeaderList.map((item,index)=>{
-                return item.code;
+                return {code:item.code || '',sourceId:item.id || ''};
             });
             
             self.add = [].concat(add);
@@ -84,17 +84,17 @@ export default class ReportTable extends React.Component {
         everyClick && everyClick();
 	}
    
-    renderTr = (community) =>{
+    renderTr = (community,isGlobal) =>{
         var bgColor = {background:"#fff"};
-        console.log(community,"????")
         let show = true;
+
         var com = community.communitys.map((item,index)=>{ 
             return (<tr>
                        
-                        {index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{item.cityName}</td>}
+                        { index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{item.cityName}</td>}
                         <td style = {bgColor}>{item.communityName}</td>
-                        {this.renderAdd(community.cityId,item.communityId,item)}
-                        {this.renderSign(community.cityId,item.communityId,item)}
+                        {this.renderAdd(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item)}
+                        {this.renderSign(isGlobal ? '' : community.cityId,isGlobal ? '' : item.communityId,item)}
                     </tr>)
         })
         return com;
@@ -119,14 +119,14 @@ export default class ReportTable extends React.Component {
                         onClick = {()=>{
                             State.searchParams.cityId = cityId || '';
                             State.searchParams.communityId = communityId || '';
-                            State.searchParams.sourceId = '';
+                            State.searchParams.sourceId = item.sourceId ||'';
                             State.searchParams.pageSize=10;
                             State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
                             State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
-                            this.arrToObject(adds.addList)[item] && self.detailClick();
+                            this.arrToObject(adds.addList)[item.code] && self.detailClick();
                         }}
                     >
-                        {this.arrToObject(adds.addList)[item]||"-"}
+                        {this.arrToObject(adds.addList)[item.code]||"-"}
                     </td>)
             })
         
@@ -140,15 +140,15 @@ export default class ReportTable extends React.Component {
                         onClick = {()=>{
                             State.searchParams.cityId = cityId || '';
                             State.searchParams.communityId = communityId || '';
-                            State.searchParams.sourceId = '';
+                            State.searchParams.sourceId = item.sourceId || '';
                             State.searchParams.pageSize=10;
                             State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
                             State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
-                            this.arrToObject(signs.signList)[item] && self.detailClick();
+                            this.arrToObject(signs.signList)[item.code] && self.detailClick();
                         }}
             
                     >
-                        {this.arrToObject(signs.signList)[item]||'-'}
+                        {this.arrToObject(signs.signList)[item.code]||'-'}
                     </td>)
         })
         return allSign;
@@ -322,7 +322,8 @@ export default class ReportTable extends React.Component {
                     <tbody>
                         {
                             allData.map((item,index) => {
-                                return this.renderTr(item);
+                                let isGlobal = index==0 ? true : false;
+                                return this.renderTr(item,isGlobal);
                             })
                         }
                     
