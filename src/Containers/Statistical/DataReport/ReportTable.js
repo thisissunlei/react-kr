@@ -91,8 +91,8 @@ export default class ReportTable extends React.Component {
                        
                         {index == 0 && <td style = {bgColor} rowSpan= {community.communitys.length}>{item.cityName}</td>}
                         <td style = {bgColor}>{item.communityName}</td>
-                        {this.renderAdd(item)}
-                        {this.renderSign(item)}
+                        {this.renderAdd(community.cityId,item.communityId,item)}
+                        {this.renderSign(community.cityId,item.communityId,item)}
                     </tr>)
         })
         return com;
@@ -106,7 +106,7 @@ export default class ReportTable extends React.Component {
         return obj;
     }
     //新增数据渲染被点击
-    renderAdd = (adds) =>{
+    renderAdd = (cityId,communityId,adds) =>{
         const self = this;
         var allAdd = []
         
@@ -115,6 +115,11 @@ export default class ReportTable extends React.Component {
             return (!adds.addList ?<td  key= {index} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
+                            State.searchParams.cityId = cityId || '';
+                            State.searchParams.communityId = communityId || '';
+                            State.searchParams.sourceId = '';
+                            State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
+                            State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
                             this.arrToObject(adds.addList)[item] && self.detailClick();
                         }}
                     >
@@ -125,12 +130,16 @@ export default class ReportTable extends React.Component {
         return allAdd;
     }
     //签约
-    renderSign = (signs) =>{
+    renderSign = (cityId,communityId,signs) =>{
         let self = this;
         var allSign = this.signing.map((item,index) =>{
             return (!signs.signList ?<td  key= {index} >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
-
+                            State.searchParams.cityId = cityId || '';
+                            State.searchParams.communityId = communityId || '';
+                            State.searchParams.sourceId = '';
+                            State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
+                            State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
                             this.arrToObject(signs.signList)[item] && self.detailClick();
                         }}
             
@@ -237,10 +246,6 @@ export default class ReportTable extends React.Component {
                 >
                 <table className = "report-table" width = "186" cellSpacing="0" cellPadding="5" >
                     <tbody>
-                        <tr>
-                            <td >全国</td>
-                            <td >全部</td>
-                        </tr>
                         {city}
                     
                     </tbody>
@@ -311,14 +316,6 @@ export default class ReportTable extends React.Component {
                  <div>
                  <table className = "report-table" width = "100%" cellSpacing="0" cellPadding="5" >
                     <tbody>
-                        <tr>
-
-                            <td >全国</td>
-                            <td >全部</td>
-                            
-                            <td colSpan="11">新增总量</td>
-                            <td colSpan="11">签约总量</td>
-                        </tr>
                         {
                             allData.map((item,index) => {
                                 return this.renderTr(item);

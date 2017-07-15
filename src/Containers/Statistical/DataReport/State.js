@@ -7,7 +7,7 @@ let State = observable({
 	//是否是签约
 	isAdd:"add", //add 和 sign
     //参数
-	searchParams:{
+	listSearchParams:{
 		cityId :'',
 		communityId:'',
 		// searchStartDate:DateFormat(new Date() ,"yyyy-mm-dd HH:MM:ss"),
@@ -15,7 +15,16 @@ let State = observable({
 		searchStartDate:"",
 		searchEndDate:"",
 
+	},
+    //点击传参
+	searchParams:{
+       page:1,
+	   pageSize:10,
+	   cityId:'',
+	   communityId:'',
+	   sourceId:'',
+	   searchStartDate:'',
+	   searchEndDate:''
 	}
-	
 });
 module.exports = State;

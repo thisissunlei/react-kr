@@ -11,6 +11,7 @@ import {
     ButtonGroup,
     Button	
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 
 class SearchUpper  extends React.Component{
 
@@ -24,60 +25,40 @@ class SearchUpper  extends React.Component{
 	}
 
 	componentWillMount(){
-	  var city=[
-            {
-                "label": "北京市",
-                "value": 1
-            },
-            {
-                "label": "天津市",
-                "value": 2
-            },
-            {
-                "label": "广州市",
-                "value": 198
-            },
-            {
-                "label": "杭州市",
-                "value": 88
-            },
-            {
-                "label": "深圳市",
-                "value": 200
-            },
-            {
-                "label": "上海市",
-                "value": 74
-            },
-            {
-                "label": "武汉市",
-                "value": 170
-            },
-            {
-                "label": "南京市",
-                "value": 75
-            },
-            {
-                "label": "成都市",
-                "value": 238
-            },
-            {
-                "label": "苏州市",
-                "value": 79
-            }
-        ] ;
-	  var cityArr=[];
-	  city.map((item,index)=>{
-        var list={};
-		list.label=item.label;
-		list.value=item.value;
-		cityArr.push(list);
-	  })
-	  cityArr.push({"label": "全部城市","value":" "})
-      this.setState({
-		 city:cityArr
-	  }) 
-	}
+        var _this=this;
+        Http.request('report-data-list').then(function(response) {
+               var cityArr=[];
+                response.items.map((item,index)=>{
+                    var list={};
+                    list.label=item.label;
+                    list.value=item.value;
+                    cityArr.push(list);
+                })
+                cityArr.push({"label": "全部城市","value":" "})
+                _this.setState({
+                    city:cityArr
+                }) 
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+
+        Http.request('getTheCommunity').then(function(response) {
+				var communityArr=[];
+                response.items.map((item,index)=>{
+                    var list={};
+                    list.label=item.name;
+                    list.value=item.id;
+                    communityArr.push(list);
+                })
+                communityArr.push({"label": "全部社区","value":" "})
+                _this.setState({
+                    community:communityArr
+                }) 
+			}).catch(function(err) {
+				Message.error(err.message);
+		});
+    } 
+	 
 
     onSubmit=(values)=> {
 	  const {
@@ -96,17 +77,19 @@ class SearchUpper  extends React.Component{
 	render(){
 
         let {handleSubmit}=this.props;
-        let {dateBoxStyle,city}=this.state;
+        let {dateBoxStyle,city,community}=this.state;
 
 		return(
 
 			<div>
 			    <form style={dateBoxStyle} onSubmit={handleSubmit(this.onSubmit)}>
-                    <KrField  grid={1/2} style={{marginTop:1,width:262,marginRight:'26px'}} name='city' component="select" label="城市" 
+                    <KrField  grid={1/2} style={{marginTop:1,width:262,marginRight:'26px'}} name='cityId' component="select" label="城市" 
 					 options={city}
                     />
                     
-                    <KrField  grid={1/2}  name="intentionCommunityId" style={{marginTop:2,width:262}} component='searchCommunityAll'  label="社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
+                    <KrField  grid={1/2}  name="communityId" style={{marginTop:2,width:262}} component='select'  label="社区" 
+                      options={community}
+                    />
         
                     <Grid style={{marginTop:20,marginBottom:5,marginLeft:-24}}>
                         <Row>
