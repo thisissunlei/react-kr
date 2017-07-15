@@ -186,7 +186,9 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
-		this.openStationDialog();
+		this.setState({
+			openStation: false
+		});
 	}
 
 

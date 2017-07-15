@@ -8,6 +8,7 @@ export default class Payment extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.init = false;
 
 	}
 	getLocalTime = (time) => {
@@ -18,13 +19,67 @@ export default class Payment extends Component {
 		return (yy + "/" + mm + "/" + dd )
 	}
 	componentWillReceiveProps(nextProp){
-		let top = document.getElementsByClassName('table-one-content')[0];
-		console.log('will',top)
+	}
+	componentDidMount(){
+
+	}
+	checkPosition=()=>{
+ 		let {installmentPlans} = this.props;
+ 		let pageItem =null;
+		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
+		let tableBottom = document.getElementsByClassName('reminders')[0];
+		this.init = false;
+		if(!tableTop){
+			return;
+		}
+		let top = tableTop.offsetTop;
+		let height = top+tableTop.clientHeight +55;
+		let tableBottomHeight = top+tableTop.clientHeight - 35;
+		//分期下面内容换页
+		if(height>1080 && height<1140){
+			tableTop.style.marginBottom = (1140-height)+'px';
+		}
+		//分期内容换页
+		// if(top<1060 && top>720){
+		if(top<1040 && top>720){
+			console.log('top',top)
+			let domHeight = 1120-top-28-27;
+			let num = parseInt(domHeight/22.5);
+			if(domHeight%22.5>14){
+				pageItem = num -1;
+			}else{
+				pageItem = (num-2>0)?num-2:0;
+			}
+			console.log('---->',pageItem)
+			
+		}else if(top<1140 && top>1040){
+			let marginTop = 1180-top;
+			tableTop.style.marginTop = marginTop+'px';
+		}
+		if(tableBottomHeight>1050 && tableBottomHeight<1148 && !this.init){
+			tableBottom.style.marginTop = (1150-tableBottomHeight)+'px';
+			this.init = true
+		}
+		return pageItem;
+		
 	}
 
-
 	Onetable = (installmentPlans) => {
-
+		let num = this.checkPosition();
+		let obj = {
+			installmentName:'',
+			leaseDate:'',
+			installmentReminddate:'',
+			installmentAmount:''
+		}
+		if(!this.inits && installmentPlans.length){
+			
+			installmentPlans.splice(num,0,obj);
+			installmentPlans.splice(num,0,obj);
+			this.inits = true;
+			console.log('componentWillReceiveProps',installmentPlans.length)
+			
+		}
 		return (
 			<div className="table-one-content">
 				<div className="table-list">
@@ -38,13 +93,13 @@ export default class Payment extends Component {
 								</tr>
 							</thead>
 							<tbody>
-							{
+							{	
 								installmentPlans.map((item,index)=>{
 									return(
 										<tr key={index}>
 											<td>{item.installmentName}</td>
 											<td>{item.leaseDate}</td>
-											<td>{this.getLocalTime(item.installmentReminddate)}</td>
+											<td>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</td>
 											<td>{item.installmentAmount}</td>
 										</tr>
 										)
@@ -60,11 +115,13 @@ export default class Payment extends Component {
 	}
 
 	Twotable = (installmentPlans) => {
+		let num = this.checkPosition();
 		var plansOne, plansTwo;
 		if (installmentPlans.length > 15) {
-			plansOne = installmentPlans.slice(0, 15);
-			plansTwo = installmentPlans.slice(15, installmentPlans.length);
+			plansOne = installmentPlans.slice(0, installmentPlans.length/2);
+			plansTwo = installmentPlans.slice(installmentPlans.length/2 +1, installmentPlans.length);
 		}
+		let pageSize = Math.ceil((plansOne.length-num)/48);
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
@@ -78,11 +135,26 @@ export default class Payment extends Component {
 									</div>
 									<div className="left-td">
 										{plansOne.map((item,index)=>{
+											let style={};
+											if(!!pageSize){
+												for(let i = 0;i<pageSize;i++){
+													if(i*48+num == index+1){
+														style={
+															marginBottom:50
+														}
+													}
+												}
+											}
+											if(num == 0 && index == num ){
+												style={
+															marginTop:50
+														}
+											}
 											return(
-												<div className="td clear" key={index}>
+												<div className="td clear" key={index} style={style}>
 													<div>{item.installmentName}</div>
 													<div>{item.leaseDate}</div>
-													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</div>
 													<div>{item.installmentAmount}</div>
 												</div>
 											)
@@ -99,11 +171,26 @@ export default class Payment extends Component {
 									</div>
 									<div className="right-td">
 										{plansTwo.map((item,index)=>{
+											let style={};
+											if(!!pageSize){
+												for(let i = 0;i<pageSize;i++){
+													if(i*48+num == index+1){
+														style={
+															marginBottom:50
+														}
+													}
+												}
+											}
+											if(num == 0 && index == num ){
+												style={
+															marginTop:50
+														}
+											}
 											return(
-												<div className="td clear" key={index}>
+												<div className="td clear" key={index} style={style}>
 													<div>{item.installmentName}</div>
 													<div>{item.leaseDate}</div>
-													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentReminddate?this.getLocalTime(item.installmentReminddate):''}</div>
 													<div>{item.installmentAmount}</div>
 												</div>
 											)
@@ -189,6 +276,7 @@ export default class Payment extends Component {
 				<div className="payment-content">
 					<div className="table-content">
 						{installmentPlans && installmentPlans.length > 15 ? this.Twotable(installmentPlans):this.Onetable(installmentPlans)}
+						{/*installmentPlans && installmentPlans.length > 15 ? this.Twotable(installmentPlans):this.Onetable(installmentPlans)*/}
 					</div>
 					<div className="reminders">
 						注：每期服务期到期之日前15日支付下期服务费

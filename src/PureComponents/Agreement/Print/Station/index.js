@@ -33,9 +33,9 @@ export default class Station extends Component {
 	}
 	componentDidMount() {
 		let {stationVOs} = this.props;
-		if(stationVOs.length>=33){
-			stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
-			stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+		if(stationVOs.length>=32){
+			stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 		}
 		this.setState({
 			stationVOs:stationVOs
@@ -44,11 +44,10 @@ export default class Station extends Component {
 	componentWillReceiveProps(nextProp){
 		let {stationVOs} = nextProp;
 		if(!this.init){
-			
-			if(stationVOs.length>=33){
-				this.init = true;
-				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
-				stationVOs.splice(33,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+			this.init = true;
+			if(stationVOs.length>=32){
+				stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
+				stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 			}
 			this.setState({
 				stationVOs:stationVOs
@@ -124,7 +123,7 @@ export default class Station extends Component {
 		return (
 
 
-			<div className="ui-print-Station">
+			<div className="ui-print-Station" >
 
 				<div className="normal-station-head">
 					<span className="enter-info">
@@ -153,8 +152,18 @@ export default class Station extends Component {
 
 							{
 								stationVOs && stationVOs.map((item,index)=>{
+									let style = {};
+									if(!item.stationTypeName){
+										style={
+											visibility:'hidden'
+										}
+									}else{
+										style={
+											visibility:'visible'
+										}
+									}
 										return(
-											<tr key={index}>
+											<tr key={index} style={style}>
 												<td>{this.basicType(item.stationTypeName)}</td>
 												<td>{item.stationName}</td>
 												<td>{item.unitPrice}</td>
