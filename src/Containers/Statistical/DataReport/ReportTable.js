@@ -10,6 +10,8 @@ import data from './Data/head.json'
 @observer
 export default class ReportTable extends React.Component {
 
+
+
 	constructor(props, context) {
 		super(props, context);
 		this.state={
@@ -43,7 +45,7 @@ export default class ReportTable extends React.Component {
     //获取详情页的数据
     getReportList = () =>{
         const self = this;
-        Http.request('getReportList',State.searchParams).then(function(response) {
+        Http.request('getReportList',State.listSearchParams).then(function(response) {
             console.log(response,"KKKKK");
 			var add = [],signing=[];
             self.signHeaderList = response.signHeaderList;
