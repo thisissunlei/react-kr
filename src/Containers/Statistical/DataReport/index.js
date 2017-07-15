@@ -54,6 +54,7 @@ export default class DataReport extends React.Component {
 		 communityId:params.communityId,
       }
       State.listSearchParams=Object.assign({},State.listSearchParams,listSearchParams);
+	  this.reportTable.getReportList(State.listSearchParams);
       this.searchClick();
 	}
 
@@ -69,7 +70,10 @@ export default class DataReport extends React.Component {
 					  openSearchUpperDialog={this.searchClick}
 					/>
 					<div className = "data-report-table">
-						<ReportTable everyClick = {this.detailClick} />
+						<ReportTable 
+						 ref={(reportTable) => this.reportTable = reportTable}
+						 everyClick = {this.detailClick} 
+						 />
 						<Button
 							label="导出"
 							type='button'
