@@ -4,8 +4,11 @@ import mobx, {
 } from 'mobx';
 let State = observable({
 	//是否是签约
-	isAdd:"add" //add 和 sign
+	isAdd:"add", //add 和 sign
     //点击传参
-	
+	searchParams:{
+       page:1,
+	   pageSize:10
+	}
 });
 module.exports = State;

@@ -67,14 +67,4 @@ module.exports = {
       url: '/api/krspace-finance-web/news/get-news-detail?id={id}',
       method: 'get'
    },
-   //数据报表－工位
-   'report-station':{
-      url: '/api/krspace-finance-web/csr/source/stat/detail/type/add?cityId={cityId}&communityId={communityId}&sourceId={sourceId}&searchStartDate={searchStartDate}&searchEndDate={searchEndDate}',
-      method: 'get'
-   },
-   //数据报表－签约
-   'report-sign':{
-      url: '/api/krspace-finance-web/csr/source/stat/detail/type/sign?cityId={cityId}&communityId={communityId}&sourceId={sourceId}&searchStartDate={searchStartDate}&searchEndDate={searchEndDate}',
-      method: 'get'
-   },
 }
