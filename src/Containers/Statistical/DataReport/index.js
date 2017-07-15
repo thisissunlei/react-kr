@@ -49,7 +49,7 @@ export default class DataReport extends React.Component {
 
 	//高级查询提交
 	searchSubmit=(params)=>{
-	  
+	  console.log('params',params);
       this.searchClick();
 	}
 

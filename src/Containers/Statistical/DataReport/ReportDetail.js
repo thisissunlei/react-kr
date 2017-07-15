@@ -109,20 +109,30 @@ export default class ReportDetail extends React.Component{
 			                {State.isAdd=='add'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>}
 			                {State.isAdd=='add'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='tel'></TableRowColumn>}
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='createDate' component={(value,oldValue)=>{
-		 										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 		 					}}
 							></TableRowColumn>
-							{State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='signDate'></TableRowColumn>}
+							{State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='signDate' component={(value,oldValue)=>{
+		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+		 					}}></TableRowColumn>}
 			                {State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='useTime'></TableRowColumn>}
 			                {State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='stationNum'></TableRowColumn>}
 							{State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='boardroomNum'></TableRowColumn>}
 			                {State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseBeginDate' component={(value,oldValue)=>{
-		 										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 		 					}}></TableRowColumn>}
 			                {State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEndDate' component={(value,oldValue)=>{
-		 										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 		 					}}></TableRowColumn>}
-			                {State.isAdd=='add'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}  name='receiveName'></TableRowColumn>}
+			                {State.isAdd=='add'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}  name='receiveName' component={(value,oldValue)=>{
+								                 var param='';
+								                 if(value){
+													param=value;
+												 }else{
+													param='-'
+												 }
+		 										return (<span>{param}</span>)
+		 					}}></TableRowColumn>}
 			               </TableRow>
 			        </TableBody>
 			        <TableFooter></TableFooter>
