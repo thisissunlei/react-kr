@@ -15,7 +15,7 @@ test02_ip=ali-docker-test02
 
 case $1 in
   test | test00)
-    target_site=www@10.1.60.201
+    target_site=www@10.6.60.201
     target_site_port=9830
   ;;
 

@@ -63,7 +63,9 @@ class EditMoney extends React.Component {
 			accountList: [],
 			infoList: {},
 			corporationId: '',
-			Loading: false
+			Loading: false,
+			//我司账户名称
+			accountNum:''
 		}
 
 		this.getDetailInfo();
@@ -77,6 +79,13 @@ class EditMoney extends React.Component {
 		setTimeout(function() {
 			_this.getPayInfo();
 		}, 0)
+	}
+
+
+	accountChange=(param)=>{
+        this.setState({
+			accountNum:param.accountNum
+		})
 	}
 
 
@@ -151,7 +160,8 @@ class EditMoney extends React.Component {
 				_this.setState({
 					infoList: response,
 					flowAmount: response.flowAmount.replace(/,/gi,''),
-					corporationId: response.corporationId
+					corporationId: response.corporationId,
+					accountNum:response.accountNum
 				})
 				var form = {
 					"value": response.payWay
@@ -302,6 +312,7 @@ class EditMoney extends React.Component {
 
 	}
 	onSubmit = (form) => {
+		let {accountNum}=this.state;
 		this.setState({
 			Loading: false
 		})
@@ -377,6 +388,7 @@ class EditMoney extends React.Component {
 
 		var id = this.props.detail.id;
 		var params = {
+			accountNum:accountNum,
 			accountId: form.accountId,
 			customerId: form.customerId,
 			dealTime: form.dealTime,
@@ -800,7 +812,7 @@ class EditMoney extends React.Component {
 								label="我司账户"
 								options={accountList}
 								requireLabel={true}
-
+								onChange={this.accountChange}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}

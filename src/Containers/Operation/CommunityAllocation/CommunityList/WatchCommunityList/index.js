@@ -17,16 +17,8 @@ import State from '../State';
 @observer
  class WatchCommunityList extends  React.Component{
 
-	static PropTypes = {
-
-	}
-
 	constructor(props){
 		super(props);
-		this.state={
-			openDown:true,
-            openUp:false,
-		}
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -38,36 +30,7 @@ import State from '../State';
 		onCancel && onCancel();
 	}
 
-
-
-
-
-	componentDidMount(){
-
-	}
-
-	componentWillReceiveProps(nextProps) {
-
-	}
-
-
-
-    //展开
-    flagOpen=()=>{
-      this.setState({
-      	openDown:false,
-        openUp:true,
-      })
-    }
-
-    flagDown=()=>{
-      this.setState({
-      	openDown:true,
-        openUp:false,
-      })
-    }
-
-
+	
 	render(){
 
     var homeDecoration='';
@@ -114,7 +77,6 @@ import State from '../State';
     var startTime='';
     var endTime='';
     var inforStyle='';
-    var hereWatch='';
     openTime=DateFormat(toJS(State.detailData.openDate),"yyyy-mm-dd");
     startTime=DateFormat(toJS(State.detailData.signStartDate),"yyyy-mm-dd");
     endTime=DateFormat(toJS(State.detailData.signEndDate),"yyyy-mm-dd");
@@ -126,60 +88,11 @@ import State from '../State';
       inforStyle='未开业';
     }
 
-    if(toJS(State.detailData.portalShow)==true){
-      hereWatch='显示';
-    }
-    if(toJS(State.detailData.portalShow)==false){
-      hereWatch='不显示';
-    }
-
-
-      var brights_brights=[];
-	    var brights_basic=[];
-	    var brights_special=[];
-	    var brights_ports=[];
-	    var brights_round=[];
-	    var brights_service=[];
-	    var whereFloor=[];
-	    var photo=[];
-	    var propType=[];
-    if(State.detailData.brights){
-    	State.detailData.brights.map((item,index)=>{
-       if(item.type=='BRIGHTPOINTS'){
-       	 brights_brights.push(item);
-       }
-       if(item.type=='INFRASTRUCTURE'){
-       	 brights_basic.push(item);
-       }
-       if(item.type=='SPECIALSERVICE'){
-       	 brights_special.push(item);
-       }
-       if(item.type=='TRANSPORTATION'){
-       	 brights_ports.push(item);
-       }
-       if(item.type=='PERIMETER'){
-       	 brights_round.push(item);
-       }
-       if(item.type=='BASICSERVICE'){
-       	 brights_service.push(item);
-       }
-    })
-
-    }
-
+	  var whereFloor=[];
+  
     if(State.detailData.wherefloors){
       State.detailData.wherefloors.map((item,index)=>{
         whereFloor.push(item);
-      })
-    }
-    if(State.detailData.photos){
-      State.detailData.photos.map((item,index)=>{
-        photo.push(item);
-      })
-    }
-    if(State.detailData.porTypes){
-      State.detailData.porTypes.map((item,index)=>{
-        propType.push(item);
       })
     }
 
@@ -191,42 +104,8 @@ import State from '../State';
     }
 
 
-    //if(State.detailData.)
 
-
-    let {openDown,openUp}=this.state;
-
-     let openStyle={};
-      if(openDown){
-       openStyle={
-        paddingBottom:0
-       }
-      }else{
-       openStyle={};
-      }
-
-      var stationNum='';
-			var stationPrice='';
-			if(State.detailData.mobileStationNum){
-				stationNum=State.detailData.mobileStationNum;
-			}else if(State.detailData.mobileStationNum==0){
-				stationNum='0';
-			}else{
-				stationNum='无'
-			}
-
-			if(State.detailData.mobileStationPrice){
-				stationPrice=State.detailData.mobileStationPrice;
-			}else if(State.detailData.mobileStationPrice==0){
-				stationPrice='0';
-			}else{
-				stationPrice='无'
-			}
-
-
-
-
-		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
+		const {handleSubmit} = this.props;
 
 		return (
            <div className='communityList-m' style={{paddingLeft:9}}>
@@ -239,15 +118,15 @@ import State from '../State';
 							<div className="small-cheek">
 									<KrField grid={1/2} label="社区名称"  component="labelText" style={{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.name)?toJS(State.detailData.name):'无'}/>
 
-                                    <KrField grid={1/2} label="社区编码"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.code)?toJS(State.detailData.code):'无'} />
+                        <KrField grid={1/2} label="社区编码"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.code)?toJS(State.detailData.code):'无'} />
 
-                                    <KrField grid={1/2} label="社区面积"  style={{width:262,marginLeft:15}} inline={false} component="labelText" value={(<div style={{marginTop:-5}}><span>{area}</span><span>m</span><sup>2</sup></div>)}></KrField>
+                        <KrField grid={1/2} label="社区面积"  style={{width:262,marginLeft:15}} inline={false} component="labelText" value={(<div style={{marginTop:-5}}><span>{area}</span><span>m</span><sup>2</sup></div>)}></KrField>
 
 
-                                    <KrField  grid={1/2}  style={{width:262,marginLeft:28}} component='labelText'  label="所属商圈" inline={false} value={toJS(State.detailData.businessAreaName)?toJS(State.detailData.businessAreaName):'无'}
-                                    />
+                        <KrField  grid={1/2}  style={{width:262,marginLeft:28}} component='labelText'  label="所属商圈" inline={false} value={toJS(State.detailData.businessAreaName)?toJS(State.detailData.businessAreaName):'无'}
+                        />
 
-                                    <KrField grid={1/2} label="所属区县"   style={{width:262,marginLeft:15}} component="labelText" inline={false} value={State.detailData.provinceName&&State.detailData.cityName&&State.detailData.countyName?State.detailData.provinceName+'/'+State.detailData.cityName+'/'+State.detailData.countyName:'无'}/>
+                        <KrField grid={1/2} label="所属区县"   style={{width:262,marginLeft:15}} component="labelText" inline={false} value={State.detailData.provinceName&&State.detailData.cityName&&State.detailData.countyName?State.detailData.provinceName+'/'+State.detailData.cityName+'/'+State.detailData.countyName:'无'}/>
 
 									<KrField grid={1/2} label="详细地址"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.address)?toJS(State.detailData.address):'无'}/>
 
@@ -286,13 +165,10 @@ import State from '../State';
                                	whereFloor.map((item,index)=>{
                                    return (<div>
                                      <KrField grid={1/2} label="所在楼层"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={item.floor+'层'}></KrField>
-								     <KrField grid={1/2} label="可出租工位数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.stationCount+'个'}></KrField>
+								                     <KrField grid={1/2} label="可出租工位数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.stationCount+'个'}></KrField>
                                    	</div>)
                                	})
                                }
-
-
-
 
                                 <KrField grid={1/2}  component="labelText" label="营业时间" style={{width:262,marginLeft:15}} inline={false} value={State.detailData.businessBegin&&State.detailData.businessEnd?State.detailData.businessBegin+' 至 '+State.detailData.businessEnd:'无'}>
 
@@ -301,137 +177,9 @@ import State from '../State';
 
 
 								<KrField grid={1/2} label="联系方式" style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.contract)?toJS(State.detailData.contract):'无'}/>
-
-                                {
-                                  brights_brights.map((item,index)=>{
-                                     return  <KrField grid={1} label="社区亮点"  style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>
-                                  })
-                                }
-						                     <div className="middle-round"></div>
-
-						</div>
-
-
-            <div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">移动工位</label></div>
-            <div className="small-cheek" style={openStyle}>
-
-                <KrField grid={1/2} label="工位个数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={stationNum}/>
-                <KrField grid={1/2} label="单价(积分/天)"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={stationPrice}/>
-
-
-								<div style={{marginBottom:'20px'}}>
-									<span className='pic-first'>工位图片</span>
-									<div style={{marginLeft:30}}>{
-										State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
-											 if(item.type=='MOBILE_STATION'){
-												 return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
-											 }
-										})
-									}
-									</div>
-								</div>
-
-
-
-                {openDown&&<div><div className='commmunity-open'><div className='open-inner' onClick={this.flagOpen}><span className='list-text'>展开</span><span className='list-pic'></span></div></div>
-                <div className="end-round two-round"></div></div>}
-
-                {openUp&&<div><div className='commmunity-down'><div className='open-inner' onClick={this.flagDown}><span className='list-text'>收起</span><span className='list-pic'></span></div></div><div className="middle-round"></div></div>}
-
-            </div>
-
-
-                      {openUp&&<div>
-						<div className="titleBar"><span className="order-number">4</span><span className="wire"></span><label className="small-title">官网信息</label></div>
-						<div className="small-cheek" style={{paddingBottom:0}}>
-							 <KrField grid={1/2} label="排序" component="labelText" style= {{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.orderNum)?toJS(State.detailData.orderNum):'－'}/>
-							 <KrField grid={1/2} label="官网显示状态"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={hereWatch}>
-					         </KrField>
-
-                              {
-                               	propType.map((item,index)=>{
-                                   return (<div>
-                                     <KrField grid={1/2} label="工位类型"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={item.type=='MOBILE_DESK'?'移动办公桌':(item.type=='OPEN_WORKSPACE'?'开放工作区':(item.type=='INDEPENDENT_WORKSPACE'?'独立工作区':'无'))}></KrField>
-								     <KrField grid={1/2} label="工位价格"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={item.price=='0'?'0':item.price}></KrField>
-                                   	</div>)
-                               	})
-                               }
-
-
-					         <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="labelText"   lengthClass='list-length-textarea' inline={false} value={toJS(State.detailData.description)?toJS(State.detailData.description):'无'}/></div>
-
-						       {
-                                  brights_basic.map((item,index)=>{
-                                     return  <KrField grid={1} label="基础设施" style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>
-                                  })
-                                }
-
-						        {
-                                  brights_service.map((item,index)=>{
-                                     return  <KrField grid={1} label="基础服务" style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>
-                                  })
-                                }
-
-						        {
-                                  brights_special.map((item,index)=>{
-                                     return  <KrField grid={1} label="特色服务" style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints} />
-                                  })
-                                }
-
-						        {
-                                  brights_ports.map((item,index)=>{
-                                     return  <KrField grid={1} label="交通" style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>
-                                  })
-                                }
-
-						        {
-                                  brights_round.map((item,index)=>{
-                                     return  <KrField grid={1} label="周边"  style= {{marginLeft:15}} component="labelText" inline={false} value={item.brightPoints}/>
-                                  })
-                                }
-
-                    <div style={{marginTop:'-4px',marginBottom:'20px'}}>
-                      <span className='pic-first'>首页图片</span>
-                      <div style={{marginLeft:30}}>{
-                        State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
-                           if(item.type=='THEFIRST'){
-                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'100% 100%',display: 'inline-block',marginRight:10}}></div>
-                           }
-                        })
-                      }
-                      </div>
-                    </div>
-
-                    <div style={{marginTop:'16px',marginBottom:'20px'}}>
-                      <span className='pic-first'>社区列表页图片</span>
-                      <div style={{marginLeft:30}}>{
-                        State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
-                           if(item.type=='LIST'){
-                             return <div style={{width:120,height:75,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
-                           }
-                        })
-                      }
-                      </div>
-                    </div>
-
-
-                    <div style={{marginTop:'16px',marginBottom:'20px'}}>
-                      <span className='pic-first'>详情页图片</span>
-                      <div style={{marginLeft:30}}>{
-                        State.detailData.photoVOs&&State.detailData.photoVOs.map((item,index)=>{
-                           if(item.type=='DETAILS'){
-                             return <div style={{width:225,height:70,background:`url(${item.photoUrl}) no-repeat center`,backgroundSize:'contain',display: 'inline-block',marginRight:10}}></div>
-                           }
-                        })
-                      }
-                      </div>
-                    </div>
-
-
-						</div>
-						<div className="end-round"></div>
-                     </div>}
-
+                
+                    <div className="end-round" style={{left:'-42px'}}></div>
+                </div>
 
 				    </div>
 
@@ -440,4 +188,4 @@ import State from '../State';
 	}
 }
 
-export default reduxForm({ form: 'WatchCommunityList',enableReinitialize:true,keepDirtyOnReinitialize:true})(WatchCommunityList);
+export default reduxForm({ form: 'WatchCommunityList'})(WatchCommunityList);

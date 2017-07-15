@@ -21,7 +21,8 @@ let State = observable({
 		isCorpName:false,
 		sourceCustomer:false,
 		treeAll:'',
-		isPermissions:false
+		isPermissions:false,
+		noEditIntroduce:false,
 
 
 });
