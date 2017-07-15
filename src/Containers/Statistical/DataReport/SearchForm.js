@@ -113,12 +113,12 @@ class SearchForm extends React.Component {
 					<ListGroup>
 
 						<ListGroupItem>
-							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.chooseStartTime}/>
+							<KrField label="催款日期：" name="startDate" component="date" inline={true} style={{width:244,marginTop:-3,zIndex:11}} onChange={this.chooseStartTime}/>
 						</ListGroupItem>
 
 						<ListGroupItem>
 							<div className="search-form-endDate">
-								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.chooseEndTime} />
+								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3,zIndex:11}} onChange={this.chooseEndTime} />
 							</div>
 						</ListGroupItem>
 						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
