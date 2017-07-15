@@ -64,30 +64,23 @@ class SearchForm extends React.Component {
 	chooseStartTime=(date)=>{
 		
 		let {chooseStartTime} = this.props;
-		let Search =State.listSearchParams;
-		if(State.listSearchParams.searchEndDate && this.getTimeFun(date)>this.getTimeFun(State.listSearchParams.searchEndDate)){
+		if(State.searchEndDate && this.getTimeFun(date)>this.getTimeFun(State.searchEndDate)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		var searchStartDate = State.listSearchParams.searchStartDate;
-		console.log(searchStartDate,"------");
-		// State.listSearchParams.searchStartDate = date;
-		
+		State.searchStartDate=date;		
 		chooseStartTime && chooseStartTime()
 
 	}
 
 	chooseEndTime=(date)=>{
 		let {chooseEndTime} = this.props;
-
 		
-		if(State.listSearchParams.searchStartDate && this.getTimeFun(State.listSearchParams.searchStartDate)>this.getTimeFun(date)){
+		if(State.searchStartDate && this.getTimeFun(State.searchStartDate)>this.getTimeFun(date)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		// State.listSearchParams.searchEndDate= date;
-		console.log(toJS(State.listSearchParams),">>>>>>")
-		
+		 State.searchEndDate= date;		
 		chooseEndTime && chooseEndTime();
 	}
 	

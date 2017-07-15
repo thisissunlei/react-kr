@@ -51,6 +51,8 @@ export default class DataReport extends React.Component {
 
 	//高级查询提交
 	searchSubmit=(params)=>{
+	  State.cityId=params.cityId;
+	  State.communityId=params.communityId;
 	  this.reportTable.getReportList();
       this.searchClick();
 	}
@@ -66,10 +68,10 @@ export default class DataReport extends React.Component {
 					<SearchForm
 					  openSearchUpperDialog={this.searchClick}
 					  chooseStartTime = {() =>{
-						  {/*this.reportTable.getReportList();*/}
+						  this.reportTable.getReportList();
 					  }}
 					   chooseEndTime = {() =>{
-						  {/*this.reportTable.getReportList();*/}
+						  this.reportTable.getReportList();
 					  }}
 					  
 					/>
