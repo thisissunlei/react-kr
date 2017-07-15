@@ -118,6 +118,7 @@ export default class ReportTable extends React.Component {
                             State.searchParams.cityId = cityId || '';
                             State.searchParams.communityId = communityId || '';
                             State.searchParams.sourceId = '';
+                            State.searchParams.pageSize=10;
                             State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
                             State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
                             this.arrToObject(adds.addList)[item] && self.detailClick();
@@ -138,6 +139,7 @@ export default class ReportTable extends React.Component {
                             State.searchParams.cityId = cityId || '';
                             State.searchParams.communityId = communityId || '';
                             State.searchParams.sourceId = '';
+                            State.searchParams.pageSize=10;
                             State.searchParams.searchStartDate = State.listSearchParams.searchStartDate||'';
                             State.searchParams.searchEndDate = State.listSearchParams.searchEndDate||'';
                             this.arrToObject(signs.signList)[item] && self.detailClick();
