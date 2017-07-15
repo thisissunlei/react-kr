@@ -8,7 +8,6 @@ import { observer } from 'mobx-react';
 import {Http} from 'kr/Utils'
 import './index.less';
 import State from './State';
-import data from './Data/head.json'
 @observer
 export default class ReportTable extends React.Component {
 
@@ -17,22 +16,15 @@ export default class ReportTable extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-          openReportDetail:false,
-          winHeight : 0,
           isRender:'',
           isLoading:true,
 		}
-        this.headerData = data.data;
         this.add = [];
         this.signing = [];
         this.allData = [];//所有数据
  
         this.signHeaderList = [];//头部签约数据
         this.addHeaderList = [];//头部新增数据
-
-        this.isFixed = false;
-        this.scrollYNum = 0;
-        this.scrollXNum = 0;
         
         this.getReportList();
         
@@ -57,7 +49,6 @@ export default class ReportTable extends React.Component {
             searchStartDate:State.searchStartDate,
             searchEndDate:State.searchEndDate,
         }).then(function(response) {
-            console.log(response,"KKKKK");
 			var add = [],signing=[];
             self.signHeaderList = response.signHeaderList;
             self.addHeaderList = response.addHeaderList;
@@ -79,8 +70,6 @@ export default class ReportTable extends React.Component {
 
 		});
     }
-    //过滤头部数组
-   
     //点击任何一个数据
 	detailClick=()=>{
         const {everyClick} = this.props;
@@ -102,6 +91,7 @@ export default class ReportTable extends React.Component {
         })
         return com;
     }
+    //数组转对象
     arrToObject = (arr) =>{
         let obj = {};
        
@@ -121,8 +111,11 @@ export default class ReportTable extends React.Component {
             return (!adds.addList ?<td  key= {index} style = {{cursor:"text"}} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
+                            if(!communityId || Number(communityId)<=0){
+                                communityId = "";
+                            }
                             State.detailCityId = cityId || '';
-                            State.detailCommunityId = communityId || '';
+                            State.detailCommunityId = communityId;
                             State.sourceId = item.sourceId || '';
                             State.isAdd='add';
                             haveData && self.detailClick();
@@ -144,8 +137,11 @@ export default class ReportTable extends React.Component {
             let cursor = !haveData? "text":"pointer";
             return (!signs.signList ?<td  key= {index} style = {{cursor:"text"}}  >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
+                            if(!communityId || Number(communityId)<=0){
+                                communityId = "";
+                            }
                             State.detailCityId = cityId || '';
-                            State.detailCommunityId = communityId || '';
+                            State.detailCommunityId = communityId;
                             State.sourceId = item.sourceId || '';
                             State.isAdd='sign';
                             haveData && self.detailClick();
@@ -212,8 +208,6 @@ export default class ReportTable extends React.Component {
     domOnscroll = () =>{
         var scrollTop = this.box.scrollTop;
         var scrollLeft= this.box.scrollLeft;
-        
-        // console.log(scrollTop)
             scrollTop = scrollTop>0?scrollTop:0;
             scrollLeft = scrollLeft>0?scrollLeft:0;
             if(scrollTop>=0){
@@ -279,7 +273,7 @@ export default class ReportTable extends React.Component {
 
 	render() {
         const allData = this.allData;
-        const {winHeight,isRender,isLoading} = this.state;
+        const {isLoading} = this.state;
        
 		return (
             <div 
@@ -334,7 +328,6 @@ export default class ReportTable extends React.Component {
                     <tbody>
                             
                             {
-                                
                                 allData.map((item,index) => {
                                     let isGlobal = index==0 ? true : false;
                                     return this.renderTr(item,isGlobal);

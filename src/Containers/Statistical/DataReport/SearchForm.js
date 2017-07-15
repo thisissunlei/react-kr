@@ -21,7 +21,6 @@ import "./index.less";
 import {DateFormat} from 'kr/Utils';
 
 import State from './State';
-import {toJS} from 'mobx'
 import {
 	observer
 } from 'mobx-react';
@@ -33,32 +32,12 @@ class SearchForm extends React.Component {
 		super(props);
 
 	}
-	componentDidMount() {
-		
-	}
-
-	componentWillReceiveProps(nextProps){
-		
-	}
 
 	openSearchUpperDialog=()=>{
 	     const {
 			openSearchUpperDialog
 		} = this.props;
 		openSearchUpperDialog && openSearchUpperDialog();		
-	}
-
-
-	chooseCommunity=(item)=>{
-		
-		if(!item || !item.id){
-			State.searchParams.communityId = '';
-		}else{
-			State.searchParams.communityId = item.id;
-		}
-		State.searchParams.page = 1;
-		// $(".table-box").eq(0).scrollTop(0);
-		// State.getList();
 	}
 
 	chooseStartTime=(date)=>{
@@ -82,14 +61,6 @@ class SearchForm extends React.Component {
 		}
 		 State.searchEndDate= date;		
 		chooseEndTime && chooseEndTime();
-	}
-	
-	inputCompanyName=(value)=>{
-		
-		State.searchParams.companyName = value.content;
-		State.searchParams.page = 1;
-		// $(".table-box").eq(0).scrollTop(0);
-		// State.getList();
 	}
 
 	// 转成时间戳
