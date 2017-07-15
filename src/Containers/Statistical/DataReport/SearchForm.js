@@ -21,6 +21,7 @@ import "./index.less";
 import {DateFormat} from 'kr/Utils';
 
 import State from './State';
+import {toJS} from 'mobx'
 import {
 	observer
 } from 'mobx-react';
@@ -63,23 +64,30 @@ class SearchForm extends React.Component {
 	chooseStartTime=(date)=>{
 		
 		let {chooseStartTime} = this.props;
+		let Search =State.listSearchParams;
 		if(State.listSearchParams.searchEndDate && this.getTimeFun(date)>this.getTimeFun(State.listSearchParams.searchEndDate)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		State.listSearchParams.searchStartDate = date;
+		var searchStartDate = State.listSearchParams.searchStartDate;
+		console.log(searchStartDate,"------");
+		// State.listSearchParams.searchStartDate = date;
+		
 		chooseStartTime && chooseStartTime()
 
 	}
 
 	chooseEndTime=(date)=>{
 		let {chooseEndTime} = this.props;
+
 		
 		if(State.listSearchParams.searchStartDate && this.getTimeFun(State.listSearchParams.searchStartDate)>this.getTimeFun(date)){
 			Message.error("开始时间不能大于结束时间");
 			return;
 		}
-		State.listSearchParams.searchEndDate = date;
+		// State.listSearchParams.searchEndDate= date;
+		console.log(toJS(State.listSearchParams),">>>>>>")
+		
 		chooseEndTime && chooseEndTime();
 	}
 	
@@ -93,7 +101,7 @@ class SearchForm extends React.Component {
 
 	// 转成时间戳
 	getTimeFun=(date)=>{
-
+		
 		var timeDateArr = date.split(" ");
 		var timeDate = Date.parse(timeDateArr[0]);
 		return timeDate;
