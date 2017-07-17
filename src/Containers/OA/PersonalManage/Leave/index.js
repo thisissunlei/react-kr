@@ -37,7 +37,9 @@ export default class Leave extends Component{
 	}
 
 
+	onExport = () =>{
 
+	}
 
 	//搜索确定
 	onSearchSubmit = ()=>{
@@ -53,7 +55,6 @@ export default class Leave extends Component{
 	render(){
 		return(
       	<div className="oa-leave-position" style={{paddingTop:25}}>
-			<Title value="客户列表"/>
 		
 	        <Row style={{marginBottom:21}}>
 			        
@@ -68,7 +69,7 @@ export default class Leave extends Component{
 					<ListGroup>
 						<ListGroupItem>
 							<SearchForms 
-								placeholder='请输入公司名称' 
+								placeholder='请输入姓名' 
 								onSubmit={this.onSearchSubmit}
 							/>
 						</ListGroupItem>
@@ -81,11 +82,13 @@ export default class Leave extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={false}
+	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
+				onExport={this.onExport}
+				exportSwitch={true}
 			>
 				<TableHeader>
 					<TableHeaderColumn>部门</TableHeaderColumn>
