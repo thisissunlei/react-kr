@@ -224,7 +224,7 @@ export default class ReportTable extends React.Component {
 		else if ((document.body) && (document.body.clientHeight))
 		winHeight = document.body.clientHeight;
 		
-        this.box.style.maxHeight = ((+winHeight-283))+"px";
+        this.box.style.height = ((+winHeight-283))+"px";
         this.header.style.zIndex = "10";
         this.spreads.style.zIndex = "5";
         this.box.addEventListener("scroll",this.domOnscroll,false)

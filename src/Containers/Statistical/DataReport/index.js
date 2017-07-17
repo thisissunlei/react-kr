@@ -50,8 +50,8 @@ export default class DataReport extends React.Component {
     }
 	openAddCommunity = () =>{
 		var searchParams={
-            cityId:State.detailCityId,
-			communityId:State.detailCommunityId,
+            cityId:State.cityId,
+			communityId:State.communityId,
 			searchStartDate:State.searchStartDate,
 			searchEndDate:State.searchEndDate
 		}
