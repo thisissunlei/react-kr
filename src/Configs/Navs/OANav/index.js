@@ -69,16 +69,9 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '在职列表',
-						menuCode: 'oa_hrm_resourceActive_base',
-						router: 'hrmresourcelistactive',
-						originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45'
-					}, 
-					{
-						primaryText: '离职列表',
-						menuCode: 'oa_hrm_resourceLeave_base',
-						router: 'hrmresourcelistleave',
-						originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListLeave?mid=55'
-					}, ]
-			}, ]
+						menuCode: 'hrmOrganization',
+						router: 'oa/personalManage',
+					},]
+			},]
 	}
 ]
