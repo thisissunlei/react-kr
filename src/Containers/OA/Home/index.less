@@ -12,18 +12,23 @@
             background-position:cover; 
             margin: 25px 2%;
             position: relative;
+            cursor: pointer;
             &:hover .item-edit{
                 display: inline-block;
             }
             .item-edit{
-                width: 17px;
-                height: 17px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
                 position: absolute;
                 right: 15px;
                 top: 15px;
                 background: url('./images/edit.svg') no-repeat center;
-                background-position: cover;
+                background-size: 17px 17px;
                 display: none;
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.3)
+                }
             }
             .item-text{
                 display: inline-block;
@@ -36,5 +41,12 @@
                 color: #fff;
             }
         }
+        .item-add{
+            background: url('./images/add.svg') no-repeat center;
+        }
+    }
+    .ui-btn-center{
+        margin-right: 40px;
+        display: inline-block;
     }
 }
