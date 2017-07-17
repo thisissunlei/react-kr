@@ -25,11 +25,18 @@ const OA_Home = (location, callback) => {
   }, 'OA_Home')
 }
 
+const OA_PersonalManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/PersonalManage').default)
+  }, 'OA_PersonalManage')
+}
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
-				
             <Route path="home" getComponent={OA_Home}/>
+						{/*人员管理*/}
+						<Route path="personalManage" getComponent={OA_PersonalManage}/>
         </Route>
 	);
 };
