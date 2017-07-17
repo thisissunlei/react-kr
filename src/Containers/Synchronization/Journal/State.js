@@ -11,7 +11,7 @@ let State = observable({
 	openSynchro:false,
 	synchroList:[],
 	pages:{page:0},
-	openSearch:true,
+	openSearch:false,
 });
 
 State.itemDownPublish = action(function(id) {

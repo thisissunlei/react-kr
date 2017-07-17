@@ -107,9 +107,11 @@ export default class TabsComponent extends React.Component {
 			}
 		}
 		lines = lines.map((item,index)=>{
-			return (
-				<span className='tabs-lines' style={{marginLeft:`${item}%`}} key={index}></span>
-			);
+			if(item != 100){
+				return (
+					<span className='tabs-lines' style={{marginLeft:`${item}%`}} key={index}></span>
+				);
+			}
 			
 		})
 		return lines;

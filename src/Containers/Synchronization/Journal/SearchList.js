@@ -64,12 +64,17 @@ export default class Journal extends React.Component {
 	onSubmit=(values)=>{
 		console.log('0000',values)
 	}
+	onCancel=()=>{
+		let {onCancel} = this.props;
+		onCancel && onCancel()
+	}
 	
 
 	render() {
 		let options = [{label:'a',value:'1'},{label:'a',value:'2'},{label:'a',value:'3'},{label:'a',value:'4'},]
 		let {handleSubmit} = this.props;
 		return (
+			<div style={{marginTop:30}}>
 			<form className="m-new-create m-new-dialog-create" onSubmit={handleSubmit(this.onSubmit)} >
 					<KrField 
 						name="wherefloor" 
@@ -108,7 +113,7 @@ export default class Journal extends React.Component {
 							</ListGroup>
 		                </div>
 					</KrField>
-					<Grid style={{paddingBottom:50,textAlign:"center"}}>
+					<Grid style={{paddingBottom:20,textAlign:"center",paddingTop:20}}>
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" width={81} height={30} fontSize={16}/></ListGroupItem>
@@ -118,6 +123,7 @@ export default class Journal extends React.Component {
 					</Grid>
 
 			</form>
+			</div>
 		);
 
 	}
