@@ -34,7 +34,7 @@ const OA_PersonalManage = (location, callback) => {
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
-            <Route path="index" getComponent={OA_Home}/>
+            <Route path="home" getComponent={OA_Home}/>
 						{/*人员管理*/}
 						<Route path="personalManage" getComponent={OA_PersonalManage}/>
         </Route>
