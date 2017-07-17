@@ -91,7 +91,7 @@ export default class FirstMenu extends React.Component {
 	renderThirdItem=(item,index)=>{
 		let {editStyle,editState} = this.state;
 		return (
-			<div key={index} style={{width:'31%',marginLeft:10,marginBottom:10,verticalAlign:'top'}}>
+			<div key={index} style={{maxWidth:'31%',marginLeft:10,marginBottom:10,verticalAlign:'top'}}>
 				<Chip edit={editState} editStyle={editStyle} onDel={()=>{
 						this.openDeleteThird(item,index)}
 					}  onEdit={()=>{
@@ -148,18 +148,11 @@ export default class FirstMenu extends React.Component {
 		var _this = this;
 		Http.request('first-level-update', {},form).then(function(response) {
 			onSubmit();
-			// window.setTimeout(function() {
-			// 	console.log(detail);
-			// 	_this.setState({
-			// 		item:_this.props.detail
-			// 	})
-     		//  }, 1000);
-			// window.setTimeout(function() {
-				_this.openFirstEdit();
-			 	Message.success("更改成功");
-     		// }, 300);
-			
-		}).catch(function(err) {});
+			_this.openFirstEdit();
+			Message.success("更改成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onEditSecondSubmit=(form)=>{
 		const {
@@ -309,13 +302,13 @@ export default class FirstMenu extends React.Component {
 			'border':'1px solid #e8e9e9',
 			'lineHeight':'35px'
 		}
-		//console.log(this.state.item);		
+		console.log(this.state.item);		
 		return (
 			<div className="first-menu">
 				<div className="first-title-row">
 					<div className="first-title"><Chip edit={editState} editStyle={editStyleFirst} style={{lineHeight:'35px'}} label={this.props.detail.name} onEdit={this.openFirstEdit.bind(this,item)} onDel={this.openDeleteFirst.bind(this,item)}/></div>
-					{!editState && <Button label="编辑" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
-					{editState && <Button label="新增分类" type="button" onClick={this.openSecondCreate.bind(this,item)} width={100} height={30} fontSize={14}/>}
+					{!editState && <Button label="编辑" cancle={true} type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
+					{editState && <Button label="新增分类" type="button" cancle={true} onClick={this.openSecondCreate.bind(this,item)} width={100} height={30} fontSize={14}/>}
 					{editState && <Button label="完成" type="button" onClick={this.onEditState} width={70} height={30} fontSize={14}/>}
 					
 				</div>
@@ -349,7 +342,7 @@ export default class FirstMenu extends React.Component {
 						onClose={this.openFirstEdit}
 						contentStyle={{width:500}}
 					>
-						<EditFirst  detail={itemDetail} onSubmit = {this.onEditFirstSubmit} onCancel={this.openFirstEdit} />
+						<EditFirst  detail={this.state.itemDetail} onSubmit = {this.onEditFirstSubmit} onCancel={this.openFirstEdit} />
 				</Dialog>
 				<Dialog
 						title="新增分类"

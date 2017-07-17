@@ -28,8 +28,20 @@ class EditFirst extends React.Component {
         
     }
     componentDidMount() {
-        const detail = this.props.detail;
-        Store.dispatch(change('EditFirst',"name",detail.name));
+        var id = this.props.detail.id
+        var infoList = {};
+        var _this = this;
+        Http.request('first-level-detail', {
+                firstLevelId: id
+            },{}).then(function(response) {
+                infoList.name = response.name;
+                _this.setState({
+                    infoList:infoList
+                },function() {
+                    Store.dispatch(initialize('EditFirst',infoList));
+                })
+                
+        }).catch(function(err) {});
     }
 
     onCancel = () => {
