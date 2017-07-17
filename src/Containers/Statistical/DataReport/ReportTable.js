@@ -87,7 +87,6 @@ export default class ReportTable extends React.Component {
         var com = community.communitys.map((item,index)=>{ 
             let bgColor = index == community.communitys.length-1 && index!=0 ? "is-last-style":"no-last-style";
             let bg = index == community.communitys.length-1 && index!=0 ? "#F5F6FA":"#fff";
-            console.log(isGlobal,community.cityId,item.communityId,"=======");
             return (<tr>
                        
                         { index == 0 && <td style = {{background:"#fff",cursor : "text",minWidth:50}} rowSpan= {community.communitys.length}>{item.cityName}</td>}
@@ -119,7 +118,6 @@ export default class ReportTable extends React.Component {
             return (!adds.addList ?<td  key= {index} style = {{cursor:"text"}} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
-                            console.log(cityId,communityId,">>>>>>");
                             if(communityId !='' || Number(communityId)<=0){
                                   cityId =  State.cityId != "" ? State.cityId : cityId;
                                  communityId = State.communityId != "" ? State.communityId : ""; 
@@ -151,9 +149,9 @@ export default class ReportTable extends React.Component {
             let color = index == (this.signing.length-1) && index!=0  ? "#F3A738":"#000"
             return (!signs.signList ?<td  key= {index} style = {{cursor:"text"}}  >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
-                            if(!communityId || Number(communityId)<=0){
-                                 cityId =  State.cityId||""
-                                 communityId =State.communityId|| "";
+                            if(communityId !='' || Number(communityId)<=0){
+                                  cityId =  State.cityId != "" ? State.cityId : cityId;
+                                 communityId = State.communityId != "" ? State.communityId : ""; 
                             }
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId;
