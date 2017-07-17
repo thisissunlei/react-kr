@@ -31,8 +31,10 @@ export default class AdmitPrint extends React.Component {
 		State.getBasicInfo(params);
 	}
 	componentDidMount() {
+		let _this = this;
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
+			_this.renderImg()
 			window.print();
 			window.close();
 		}, 1200)
@@ -46,7 +48,6 @@ export default class AdmitPrint extends React.Component {
 		if(printHeight>1205 && !this.init){
 			this.init = true;
 			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
-			// printList.style.height = '2180px'
 		}
 		this.pages = Math.ceil(printHeight/1200);
 		let str=[] ;
@@ -72,16 +73,16 @@ export default class AdmitPrint extends React.Component {
 			str.push(<div style={style}></div>);
 
 		}
-		return str;
+		State.cachet = str;
 	}
 
-
 	render() {
-		let doms = this.renderImg() || [];
+		
 		return (
 
-			<div className="print-section no-print-section">
-			{State.baseInfo.withCachet && doms.map((item,index)=>{
+			<div className="print-section no-print-section print-flex" style={{minHeight:'293mm'}}>
+			<div style={{height:'auto'}}>
+			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}
 				<Title value={`${State.baseInfo.leaseName}-入驻服务意向书`}/>
@@ -108,6 +109,7 @@ export default class AdmitPrint extends React.Component {
 						stationVOs={State.stationVOs}
 						baseInfo={State.baseInfo}
 				/>
+				</div>
 				
 
 				<Print.Footer />
