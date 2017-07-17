@@ -28,7 +28,8 @@ const OA_Home = (location, callback) => {
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
-            <Route path="index" getComponent={OA_Home}/>
+				
+            <Route path="home" getComponent={OA_Home}/>
         </Route>
 	);
 };

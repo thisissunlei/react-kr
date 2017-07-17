@@ -3,10 +3,23 @@ module.exports = [
 
 	{
 		primaryText: "OA办公",
-		menuCode: 'oa',
+		//menuCode: 'oa',
 		router: 'oa',
-		originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
+		//originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
 		menuItems: [
+			{
+				primaryText: '机构维度',
+				iconName: 'icon-schema',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '机构维度',
+						menuCode: 'sso_userList_base',
+						router: '/oa/home',
+					}
+				]
+				
+			}, 
 			{
 				primaryText: '组织架构',
 				menuCode: 'hrmOrganization',
@@ -79,6 +92,8 @@ module.exports = [
 						router: 'hrmresourcelistleave',
 						originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListLeave?mid=55'
 					}, ]
-			}, ]
+			}, 
+			
+			]
 	}
 ]

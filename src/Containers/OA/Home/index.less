@@ -1,0 +1,40 @@
+.g-oa{
+    .main{
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding: 5px 3% 20px;
+        .item{
+            width: 200px;
+            height: 260px;
+            background-position:cover; 
+            margin: 25px 2%;
+            position: relative;
+            &:hover .item-edit{
+                display: inline-block;
+            }
+            .item-edit{
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                background: url('./images/edit.svg') no-repeat center;
+                background-position: cover;
+                display: none;
+            }
+            .item-text{
+                display: inline-block;
+                position: absolute;
+                top: 44px;
+                left: 40px;
+                width: 123px;
+                height: 66px;
+                font-size: 24px;
+                color: #fff;
+            }
+        }
+    }
+}
