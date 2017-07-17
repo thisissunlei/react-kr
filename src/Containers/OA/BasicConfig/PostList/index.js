@@ -34,6 +34,14 @@ export default class PostList extends Component{
 		this.state={
 			searchParams : {},
 		}
+		this.allConfig = {
+			openNew : false,
+			openEdit : false,
+			openDel : false,
+			searchParams : {
+
+			}
+		}
 	}
 
 
@@ -45,8 +53,21 @@ export default class PostList extends Component{
 	onSearchSubmit = ()=>{
 
 	}
+	//新建页开关
+	newSwidth = () =>{
+		let {openNew} = this.allConfig;
+		this.allConfig.openNew = !openNew;
+	}
 	
-	
+	//编辑页开关
+	editSwidth = () =>{
+		let {openEdit} = this.allConfig;
+		this.allConfig.openEdit = !openEdit;
+	}
+	//删除页面的开关
+	delSwidth = () =>{
+		
+	}
 	//关闭所有侧滑
 	allClose = () =>{
 
@@ -54,10 +75,18 @@ export default class PostList extends Component{
 
 	render(){
 		return(
-      	<div className="oa-leave-position" style={{paddingTop:25}}>
+      	<div className="basic-post-list" style={{paddingTop:25,background:"#fff"}}>
 		
 	        <Row style={{marginBottom:21}}>
-			        
+			    <Col
+					style={{float:'left'}}
+				>
+					<Button
+							label="新建用户"
+							type='button'
+							onTouchTap={this.openAddPersonal}
+					/>
+				</Col>
 				<Col
 					align="right" 
 					style={{
