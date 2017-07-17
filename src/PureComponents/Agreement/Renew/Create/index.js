@@ -221,7 +221,7 @@ export default class JoinCreate extends Component {
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
-
+			initialValues.stationVos= [];
 			optionValue = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
 			initialValue = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
 			if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
@@ -237,6 +237,7 @@ export default class JoinCreate extends Component {
 			});
 
 		}).catch(function(err) {
+			console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员6',
 				type: 'danger',

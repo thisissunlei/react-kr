@@ -114,6 +114,10 @@ class NewCreateForm extends Component {
 			openStationUnitPrice: false,
 			allRent:this.props.initialValues.totalrent || '0',
 			HeightAuto: false,
+			openAdd:false,
+	  	 	openMinus:false,
+	  	 	oldBasicStationVos:this.props.initialValues.stationVos || [],
+
 		}
 	}
 
@@ -132,6 +136,7 @@ class NewCreateForm extends Component {
 	}
 
 	showMore = () => {
+		console.log('showmore')
 		this.setState({
 			HeightAuto: !this.state.HeightAuto
 		})
@@ -165,12 +170,32 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
-		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
-
+		let {initialValues} = this.props;
+		let oldStationsVos = this.state.stationVos;
+		let delStationVos = Object.assign([],oldStationsVos,this.state.delStationVos)
+		stationVos.map(item=>{
+			oldStationsVos.map((values,index)=>{
+				if(item.stationId == values.stationId){
+					delStationVos.splice(index,1)
+				}
+			})
+		})
 		this.setAllRent(stationVos);
 
+		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
+		Store.dispatch(change('renewCreateForm', 'delStationVos', delStationVos));
+
+		let openAdd = stationVos.length>5?true:false;
+
 		this.setState({
-			stationVos
+			stationVos,
+			openAdd,
+			delStationVos,
+			oldBasicStationVos:stationVos
+		},function(){
+			if(openAdd){
+				this.minusClick()
+			}
 		});
 
 		this.openStationDialog();
@@ -244,6 +269,7 @@ class NewCreateForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		let _this = this;
 
 		if(this.props.initialValues!= nextProps.initialValues){
 			Store.dispatch(initialize('renewCreateForm', nextProps.initialValues));
@@ -255,6 +281,34 @@ class NewCreateForm extends Component {
 				allRent:nextProps.initialValues.totalrent || '0'
 			})
 		}
+
+		let initialValues = nextProps.initialValues;
+		console.log(nextProps.initialValues.stationVos)
+		if (!this.isInit && nextProps.initialValues.stationVos) {
+			let stationVos = nextProps.initialValues.stationVos;
+			let originStationVos = [].concat(stationVos);
+			this.setState({
+				stationVos,
+				originStationVos,
+				oldBasicStationVos:stationVos
+			},function(){
+				let {stationVos,oldBasicStationVos,openAdd}=_this.state;
+			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+			            _this.setState({
+			            	stationVos:oldBasicStationVos.slice(0,5),
+			            	openAdd:true
+			            })
+			        }
+			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
+			        	_this.setState({
+			        		stationVos:oldBasicStationVos,
+			        		openAdd:false
+			        	})
+			        }
+
+			});
+			this.isInit = true;
+		};
 
 	}
 
@@ -323,6 +377,40 @@ class NewCreateForm extends Component {
 		}
 		return name;
 	}
+	addClick=()=>{
+      let {oldBasicStationVos,stationVos,openMinus,openAdd}=this.state;
+      console.log('add',oldBasicStationVos)
+	   this.setState({
+	  	 stationVos:oldBasicStationVos,
+	  	 openMinus:true,
+	  	 openAdd:false
+	    })
+	}
+
+	minusClick=()=>{
+      let {oldBasicStationVos,stationVos,openAdd,openMinus}=this.state;
+      console.log('minu',oldBasicStationVos,oldBasicStationVos.slice(0,5))
+	   
+	   this.setState({
+	  	 stationVos:oldBasicStationVos.slice(0,5),
+	  	 openAdd:true,
+	  	 openMinus:false
+	    })
+	}
+
+	addRender=()=>{
+    	    var _this=this;
+            let add='';
+             add=(<div onClick={_this.addClick} className='arrow-wrap'><span className='arrow-open'>展开</span><span className='arrow-pic'></span></div>)
+            return add
+        }
+
+     minusRender=()=>{
+    	 var _this=this;
+            let minus='';
+             minus=(<div onClick={_this.minusClick} className='arrow-wrap'><span className='arrow-open'>收起</span><span className='arrow-pic-do'></span></div>)
+            return minus
+    }
 
 	render() {
 
@@ -341,6 +429,7 @@ class NewCreateForm extends Component {
 			fnaCorporationList
 		} = optionValues;
 
+
 		fnaCorporationList && fnaCorporationList.map(function(item, index) {
 			if (changeValues.leaseId == item.id) {
 				changeValues.lessorAddress = item.corporationAddress;
@@ -350,8 +439,11 @@ class NewCreateForm extends Component {
 		let {
 			stationVos,
 			allRent,
-			HeightAuto
+			HeightAuto,
+			openAdd,
+			openMinus
 		} = this.state;
+		console.log('=====>',openAdd)
 		let allRentName = this.dealRentName(allRent);
 		var agreementValue = '如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。';
 
@@ -405,7 +497,9 @@ class NewCreateForm extends Component {
 						</Table>
 
 						</div>
-                      {stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
+                      {/*stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''*/}
+                      {openAdd&&this.addRender()}
+			           {openMinus&&this.minusRender()}
 
                      </DotTitle>
                      <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent || '0'}</span><span>{allRentName}</span></div>
@@ -503,7 +597,8 @@ class NewCreateForm extends Component {
 
 const validate = values => {
 
-	const errors = {}
+	const errors = {};
+	console.log('====>',values)
 
 	++values.num;
 	localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'create',JSON.stringify(values));
