@@ -25,14 +25,14 @@ import {
 	Drawer,
 	Tooltip,
 	Message,
-	CheckPermission
+	Section
 } from 'kr-ui';
 export default class PostType extends Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams : {},
+			openPostType:false
 		}
 	}
 
@@ -43,9 +43,15 @@ export default class PostType extends Component{
 
 	//搜索确定
 	onSearchSubmit = ()=>{
-
+       
 	}
 	
+	//新建职务类型
+	openAddPost=()=>{
+      this.setState({
+		  openPostType:!this.state.openPostType
+	  })
+	}
 	
 	//关闭所有侧滑
 	allClose = () =>{
@@ -54,27 +60,26 @@ export default class PostType extends Component{
 
 	render(){
 		return(
-      	<div className="oa-leave-position" style={{paddingTop:25}}>
-		
+      	<div className="oa-post-type" style={{paddingTop:25}}>
+		    <Section title="职务类型" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
-			        
+
 				<Col
-					align="right" 
-					style={{
-							marginTop:0,
-							float:"right",
-							marginRight:-10
-						   }}
+					style={{float:'left'}}
 				>
-					<ListGroup>
-						<ListGroupItem>
-							<SearchForms 
-								placeholder='请输入姓名' 
-								onSubmit={this.onSearchSubmit}
-							/>
-						</ListGroupItem>
-					</ListGroup>
+					<Button
+							label="新建"
+							type='button'
+							onTouchTap={this.openAddPost}
+					/>
 				</Col>
+			        
+					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
+								<ListGroup>
+									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入姓名' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+								</ListGroup>
+					</Col>
+
 	        </Row>
 
 
@@ -82,22 +87,20 @@ export default class PostType extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={true}
+	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-				onExport={this.onExport}
-				exportSwitch={true}
 			>
 				<TableHeader>
-					<TableHeaderColumn>部门</TableHeaderColumn>
-					<TableHeaderColumn>姓名</TableHeaderColumn>
-					<TableHeaderColumn>人员编码</TableHeaderColumn>
-					<TableHeaderColumn>职位</TableHeaderColumn>
-					<TableHeaderColumn>入职时间</TableHeaderColumn>
-					<TableHeaderColumn>状态</TableHeaderColumn>
-
+					<TableHeaderColumn>职务类型名称</TableHeaderColumn>
+					<TableHeaderColumn>编码</TableHeaderColumn>
+					<TableHeaderColumn>描述</TableHeaderColumn>
+					<TableHeaderColumn>排序号</TableHeaderColumn>
+					<TableHeaderColumn>操作人</TableHeaderColumn>
+					<TableHeaderColumn>更新时间</TableHeaderColumn>
+					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
@@ -107,10 +110,24 @@ export default class PostType extends Component{
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
+						<TableRowColumn type="operation">
+                            <Button label="编辑"  type="operation"  operation="edit"/>
+			                <Button label="删除"  type="operation"  operation="delete" />
+			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
-				<TableFooter></TableFooter>
            </Table>
+		  </Section>
+
+		  {/*新建职务*/}
+			<Drawer
+					open={this.state.openPostType}
+					width={750}
+					openSecondary={true}
+					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				>
+				
+			</Drawer>
         </div>
 		);
 	}
