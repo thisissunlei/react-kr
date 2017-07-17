@@ -9,7 +9,7 @@ import {
     Button
 } from 'kr-ui';
 
-class Transfer extends React.Component{
+class OpenCard extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -39,14 +39,20 @@ class Transfer extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
-                            label="原部门"
-                            requireLabel={true}
+                            label="姓名:"
+						/>
+                 <KrField grid={1}
+                            style={{width:262,marginLeft:28}}
+                            name="area"
+                            component="labelText"
+                            label="手机号:"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
-                            label="部门"
+                            label="会员卡号:"
+                            inline={true}
                             requireLabel={true}
 					    />
 
@@ -64,6 +70,7 @@ class Transfer extends React.Component{
 			</div>
 		);
 	}
+
 }
 
 const validate = values =>{
@@ -72,4 +79,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'Transfer',validate})(Transfer);
+export default reduxForm({ form: 'OpenCard',validate})(OpenCard);

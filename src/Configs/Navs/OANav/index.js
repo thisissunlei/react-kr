@@ -8,18 +8,55 @@ module.exports = [
 		//originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
 		menuItems: [
 			{
-				primaryText: '机构维度',
+				primaryText: '组织架构',
 				iconName: 'icon-schema',
 				iconColor: '#79859a',
 				menuItems: [
 					{
 						primaryText: '机构维度',
 						menuCode: 'sso_userList_base',
-						router: '/oa/home',
+						router: '/oa/organization/home',
 					}
 				]
 				
 			}, 
+			{
+				primaryText: '人员管理',
+				iconName: 'icon-schema',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '在职列表',
+						menuCode: 'sso_userList_base',
+						router: 'oa/personalManage/peopleState',
+					}
+				]
+			}, 
+			{
+				primaryText: '基础配置',
+				iconName: 'icon-schema',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '职务类型',
+						menuCode: 'sso_userList_base',
+						router: 'oa/basicConfig/postType',
+					},
+					{
+						primaryText: '职务列表',
+						menuCode: 'sso_userList_base',
+						router: 'oa/basicConfig/postList',
+					},
+					{
+						primaryText: '职级列表',
+						menuCode: 'sso_userList_base',
+						router: 'oa/basicConfig/rankList',
+					}
+				]
+			}, 
+
+
+			/* ---- 老系统 ---- */
 			{
 				primaryText: '组织架构',
 				menuCode: 'hrmOrganization',
@@ -70,20 +107,7 @@ module.exports = [
 					},
 
 				]
-			}, 
-			{
-				primaryText: '人员管理',
-				menuCode: 'hrmOrganization',
-				iconName: 'icon-schema',
-				iconColor: '#79859a',
-				router: 'personalManage',
-				menuItems: [
-					{
-						primaryText: '在职列表',
-						menuCode: 'hrmOrganization',
-						router: 'oa/personalManage',
-					},]
-			},]
+			}]
 
 	}
 ]
