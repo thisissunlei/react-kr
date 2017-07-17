@@ -29,8 +29,8 @@ export default class Remove extends React.Component{
 		return(
 
 			<div>
-               <p>确定解除登录帐号吗？</p>
-			   <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+               <p style={{textAlign:'center'}}>确定解除登录帐号吗？</p>
+			   <Grid style={{marginTop:17,marginBottom:5}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

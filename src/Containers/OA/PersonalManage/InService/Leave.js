@@ -29,8 +29,8 @@ export default class Leave extends React.Component{
 		return(
 
 			<div>
-               <p>确定离职吗？</p>
-			   <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+               <p style={{textAlign:'center'}}>确定离职吗？</p>
+			   <Grid style={{marginTop:17,marginBottom:5}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

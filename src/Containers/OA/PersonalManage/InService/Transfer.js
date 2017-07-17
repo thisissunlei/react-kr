@@ -36,7 +36,7 @@ class Transfer extends React.Component{
               <form onSubmit={handleSubmit(this.onSubmit)}>
                
                 <KrField grid={1}
-                            style={{width:262}}
+                            style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
                             label="原部门"
@@ -50,7 +50,7 @@ class Transfer extends React.Component{
                             requireLabel={true}
 					    />
 
-			   <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+			   <Grid style={{marginTop:17,marginBottom:5}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -64,7 +64,6 @@ class Transfer extends React.Component{
 			</div>
 		);
 	}
-
 }
 
 const validate = values =>{

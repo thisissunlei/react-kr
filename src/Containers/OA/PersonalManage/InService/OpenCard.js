@@ -36,13 +36,13 @@ class OpenCard extends React.Component{
               <form onSubmit={handleSubmit(this.onSubmit)}>
                
                 <KrField grid={1}
-                            style={{width:262}}
+                            style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
                             label="姓名"
 						/>
                  <KrField grid={1}
-                            style={{width:262}}
+                            style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
                             label="手机号"
@@ -55,7 +55,7 @@ class OpenCard extends React.Component{
                             requireLabel={true}
 					    />
 
-			   <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+			   <Grid style={{marginTop:17,marginBottom:5}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
