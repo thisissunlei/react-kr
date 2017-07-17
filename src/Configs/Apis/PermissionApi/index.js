@@ -365,7 +365,7 @@ module.exports = {
     },
     //菜单配置--一级详情
     'first-level-detail':{
-            url: '/api/krspace-sso-web/sso/module/first-level-detail?firstLevelId={firstLevelId}',
+            url: '/api/krspace-sso-web/sso/module/first-leve-detail?firstLevelId={firstLevelId}',
             method: 'get'
     },
     //菜单配置--二级详情
