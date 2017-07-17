@@ -148,18 +148,11 @@ export default class FirstMenu extends React.Component {
 		var _this = this;
 		Http.request('first-level-update', {},form).then(function(response) {
 			onSubmit();
-			// window.setTimeout(function() {
-			// 	console.log(detail);
-			// 	_this.setState({
-			// 		item:_this.props.detail
-			// 	})
-     		//  }, 1000);
-			// window.setTimeout(function() {
-				_this.openFirstEdit();
-			 	Message.success("更改成功");
-     		// }, 300);
-			
-		}).catch(function(err) {});
+			_this.openFirstEdit();
+			Message.success("更改成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onEditSecondSubmit=(form)=>{
 		const {
@@ -309,7 +302,7 @@ export default class FirstMenu extends React.Component {
 			'border':'1px solid #e8e9e9',
 			'lineHeight':'35px'
 		}
-		//console.log(this.state.item);		
+		console.log(this.state.item);		
 		return (
 			<div className="first-menu">
 				<div className="first-title-row">
@@ -349,7 +342,7 @@ export default class FirstMenu extends React.Component {
 						onClose={this.openFirstEdit}
 						contentStyle={{width:500}}
 					>
-						<EditFirst  detail={itemDetail} onSubmit = {this.onEditFirstSubmit} onCancel={this.openFirstEdit} />
+						<EditFirst  detail={this.state.itemDetail} onSubmit = {this.onEditFirstSubmit} onCancel={this.openFirstEdit} />
 				</Dialog>
 				<Dialog
 						title="新增分类"
