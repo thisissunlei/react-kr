@@ -118,12 +118,13 @@ export default class ReportTable extends React.Component {
             return (!adds.addList ?<td  key= {index} style = {{cursor:"text"}} >{"-"}</td> : <td
                         key= {index} 
                         onClick = {()=>{
-                            if(communityId !='' || Number(communityId)<=0){
+                            if(communityId == '' || Number(communityId)<=0){
                                   cityId =  State.cityId != "" ? State.cityId : cityId;
-                                 communityId = State.communityId != "" ? State.communityId : ""; 
+                                 communityId = State.communityId != "" ? State.communityId : communityId; 
                             }
-                            console.log(cityId,communityId,"PPPPP");
-                            
+                            if( communityId !='' && Number(communityId)<=0){
+                                communityId = ""
+                            }
                             State.detailCityId = cityId ;
                             State.detailCommunityId = communityId;
                             State.sourceId = item.sourceId || '';
@@ -149,9 +150,12 @@ export default class ReportTable extends React.Component {
             let color = index == (this.signing.length-1) && index!=0  ? "#F3A738":"#000"
             return (!signs.signList ?<td  key= {index} style = {{cursor:"text"}}  >{"-"}</td> :<td key= {index}
                         onClick = {()=>{
-                            if(communityId !='' || Number(communityId)<=0){
+                            if(communityId == '' || Number(communityId)<=0){
                                   cityId =  State.cityId != "" ? State.cityId : cityId;
-                                 communityId = State.communityId != "" ? State.communityId : ""; 
+                                 communityId = State.communityId != "" ? State.communityId : communityId; 
+                            }
+                            if( communityId !='' && Number(communityId)<=0){
+                                communityId = ""
                             }
                             State.detailCityId = cityId || '';
                             State.detailCommunityId = communityId;
