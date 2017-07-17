@@ -31,18 +31,9 @@ class EditDialog extends React.Component {
     }
     componentDidMount() {
         var _this = this;
-        var id = this.props.detail.id
         var infoList = {};
-        // Http.request('sub-level-detail', {
-        //     subLevelId: id
-        // },{}).then(function(response) {
-        //     _this.setState({
-        //         infoList:infoList
-        //     },function() {
-        //         Store.dispatch(initialize('EditDialog',infoList));
-        //     })
-            
-        // }).catch(function(err) {});
+        infoList = this.props.detail;
+        Store.dispatch(initialize('EditDialog', infoList));
     }
 
     onCancel = () => {
@@ -70,7 +61,6 @@ class EditDialog extends React.Component {
                     name="name"
                     requireLabel={true}
                     placeholder="机构维度"
-                    value={this.props.detail.name}
                 />
                 <KrField
                     style={{width:262}}
@@ -80,7 +70,6 @@ class EditDialog extends React.Component {
                     name="name"
                     requireLabel={true}
                     placeholder="排序"
-                    value={detail.name}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
