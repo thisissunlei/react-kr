@@ -123,7 +123,7 @@ export default class InService  extends React.Component{
 
 			<div>
 					<Title value="在职列表"/>
-						<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
+						<Row style={{marginBottom:21,position:'relative',zIndex:5,marginTop:20}}>
 
 							<Col
 								style={{float:'left'}}
