@@ -39,19 +39,20 @@ class OpenCard extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
-                            label="姓名"
+                            label="姓名:"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
-                            label="手机号"
+                            label="手机号:"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
-                            label="会员卡号"
+                            label="会员卡号:"
+                            inline={true}
                             requireLabel={true}
 					    />
 

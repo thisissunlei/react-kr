@@ -39,14 +39,15 @@ class Transfer extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
-                            label="原部门"
+                            label="原部门:"
                             requireLabel={true}
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
-                            label="部门"
+                            label="部门:"
+                            inline={true}
                             requireLabel={true}
 					    />
 
