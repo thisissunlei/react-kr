@@ -42,7 +42,6 @@ export default class FailList extends React.Component {
 
 		return (
 			<div style={{marginTop:30}}>
-				<Button  label="重新同步" type="submit" width={100} height={30} fontSize={16}/>
 				<Table
 		                  style={{marginTop:20}}
 		                  ajax={true}
