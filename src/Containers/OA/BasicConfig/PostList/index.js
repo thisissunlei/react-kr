@@ -33,6 +33,7 @@ export default class PostList extends Component{
 		super(props, context);
 		this.state={
 			searchParams : {},
+			other:"",
 		}
 		this.allConfig = {
 			openNew : false,
@@ -48,7 +49,12 @@ export default class PostList extends Component{
 	onExport = () =>{
 
 	}
-
+	//是否要渲染
+	isRender = () =>{
+		this.setState({
+			other : new Date,
+		})
+	}
 	//搜索确定
 	onSearchSubmit = ()=>{
 
@@ -57,20 +63,28 @@ export default class PostList extends Component{
 	newSwidth = () =>{
 		let {openNew} = this.allConfig;
 		this.allConfig.openNew = !openNew;
+		this.isRender();
 	}
 	
 	//编辑页开关
 	editSwidth = () =>{
 		let {openEdit} = this.allConfig;
 		this.allConfig.openEdit = !openEdit;
+		this.isRender();
 	}
 	//删除页面的开关
 	delSwidth = () =>{
-		
+		let {openDel} = this.allConfig;
+		this.allConfig.openDel = !openDel;
+		this.isRender();
 	}
 	//关闭所有侧滑
 	allClose = () =>{
-
+		let {openNew,openEdit,openDel} = this.allConfig;
+		this.allConfig.openNew = false;
+		this.allConfig.openEdit = false;
+		this.allConfig.openDel = false;
+		this.isRender();
 	}
 
 	render(){
