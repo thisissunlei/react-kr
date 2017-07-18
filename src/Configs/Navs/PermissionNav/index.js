@@ -37,7 +37,7 @@ module.exports = [
 				},{
 					primaryText: '菜单配置',
 					router: '/permission/menuSetting',
-					menuCode: 'sso_resource_base',
+					menuCode: 'sso_module_list',
 				}]
 			},
 			{
