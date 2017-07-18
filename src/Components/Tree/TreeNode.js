@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import Animate from 'rc-animate';
 import { browser } from './util';
 import toArray from 'rc-util/lib/Children/toArray';
+import './assets/index.less'
 
 const browserUa = typeof window !== 'undefined' ? browser(window.navigator) : '';
 const ieOrEdge = /.*(IE|Edge).+/.test(browserUa);
