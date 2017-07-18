@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev:test",
-    "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --inline --hot",
+    "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --inline",
     "dev:test01": " export NODE_ENV=test01  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "build": "export NODE_ENV=production  &&  npm run dll && webpack --config ./webpack/webpack-production.config.js --progress --colors",

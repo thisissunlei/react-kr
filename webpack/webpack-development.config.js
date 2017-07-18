@@ -63,6 +63,11 @@ const webpackConfigs = {
 		publicPath: "/"
 	},
 	plugins: [
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require(path.join(buildPath,'vendors/manifest.json')),
+           	 name:'lib'
+        }),
 		new webpack.HotModuleReplacementPlugin(),
 		new HappyPack({
 			id: 'jsx',
