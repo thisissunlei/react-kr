@@ -60,7 +60,6 @@ export default class Home extends React.Component {
     if (imageNum == 0){
       imageNum = 6;
     }
-
     var style = {
       'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
     };
@@ -104,6 +103,17 @@ export default class Home extends React.Component {
       
         //     })
         // }).catch(function(err) {});
+	}
+updateData=()=>{
+		  var _this = this;
+			Http.request('dim-list', {
+
+      },{}).then(function(response) {
+          _this.setState({dimension: response.items},function(){
+    
+          })
+      }).catch(function(err) {});
+    
 	}
   render() {
 
