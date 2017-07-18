@@ -16,24 +16,25 @@ var env = process.env.NODE_ENV || 'development';
 const webpackConfigs = {
 	entry: {
 		page_app: [
+			'webpack/hot/dev-server',
 			path.join(process.cwd(), '/src/Page/App/index.js'),
 		],
 		page_login: path.join(process.cwd(), '/src/Page/Login/index.js')
 	},
 	resolve: {
 		extensions: ['', '.js', '.less', '.png', '.jpg', '.svg'],
-		root:[
+		root: [
 			path.resolve(node_modules_dir)
 		],
 		modulesDirectories: ['node_modules'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
-			'react-dom':path.join(node_modules_dir,'/react-dom/dist/react-dom.min'),
+			'react-dom': path.join(node_modules_dir, '/react-dom/dist/react-dom.min'),
 			'react-redux': path.join(node_modules_dir, '/react-redux/dist/react-redux.min'),
-			'react-select':path.join(node_modules_dir,'/react-select/dist/react-select.min'),
-			'redux':path.join(node_modules_dir,'/redux/dist/redux.min'),
-			'redux-from':path.join(node_modules_dir,'/redux-form/redux-form.min'),
+			'react-select': path.join(node_modules_dir, '/react-select/dist/react-select.min'),
+			'redux': path.join(node_modules_dir, '/redux/dist/redux.min'),
+			'redux-from': path.join(node_modules_dir, '/redux-form/redux-form.min'),
 			'mobx': path.join(node_modules_dir, 'mobx'),
 			'mobx-react': path.join(node_modules_dir, 'mobx-react'),
 			'react-router': path.join(node_modules_dir, 'react-router'),
@@ -44,7 +45,7 @@ const webpackConfigs = {
 	devServer: {
 		contentBase: buildPath,
 		devtool: 'eval',
-		inline: true,
+		cache:true,
 		port: 8001,
 		outputPath: buildPath,
 		disableHostCheck: true,
@@ -55,16 +56,12 @@ const webpackConfigs = {
 			}
 		}
 	},
-	externals: {
-		React: true,
-	},
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].js',
 		chunkFilename: 'scripts/[name].js',
 		publicPath: "/"
 	},
-
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new HappyPack({
@@ -103,11 +100,6 @@ const webpackConfigs = {
 		exprContextCritical: false,
 		noParse: [
 			'/node_modules/',
-			path.join(node_modules_dir,'/react-dom/dist/react-dom.min'),
-			path.join(node_modules_dir, '/react-redux/dist/react-redux.min'),
-			path.join(node_modules_dir,'/react-select/dist/react-select.min'),
-			path.join(node_modules_dir,'/redux/dist/redux.min'),
-			path.join(node_modules_dir,'/redux-form/redux-form.min'),	
 		],
 		/*
 		preLoaders: [
@@ -175,5 +167,6 @@ const webpackConfigs = {
 		historyApiFallback: true
 	},
 };
+
 
 module.exports = webpackConfigs;
