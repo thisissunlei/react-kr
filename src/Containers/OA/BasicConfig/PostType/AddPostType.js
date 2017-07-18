@@ -34,20 +34,16 @@ class AddPostType  extends React.Component{
 
 			<div className='m-add-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">新建职务类型</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
 
                        <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,display:'block'}}
                             name="area"
                             component="input"
                             label="职务类型名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,display:'block'}}
                             name="area"
                             component="input"
                             label="编码"

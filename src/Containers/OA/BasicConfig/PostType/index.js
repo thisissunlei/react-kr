@@ -17,7 +17,6 @@ import {
     ListGroup,
     ListGroupItem,
     SearchForms,
-	Drawer,
 	Tooltip,
 	Message,
 	Section
@@ -164,32 +163,30 @@ export default class PostType extends Component{
 		  </Section>
 
 		  {/*新建职务*/}
-			<Drawer
+			<Dialog
+					title="新增职务类型"
+					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					width={750}
-					openSecondary={true}
-					onClose={this.allClose}
-					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					contentStyle ={{ width: '630px',height:'450px'}}
 				>
 			  <AddPostType 
 			    onSubmit={this.addPostSubmit}
 				onCancel={this.openAddPost}
 			  />
-			</Drawer>
+			</Dialog>
 
 			{/*编辑职务*/}
-			<Drawer
+			<Dialog
+					title="编辑职务类型"
+					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					width={750}
-					openSecondary={true}
-					onClose={this.allClose}
-					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					contentStyle ={{ width: '630px',height:'520px'}}
 				>
 			  <EditPostType 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
 			  />
-			</Drawer>
+			</Dialog>
 
 			{/*删除*/}
 			<Dialog
