@@ -314,7 +314,7 @@ export default class ReportTable extends React.Component {
                         this.box = ref;
                     }
                 } 
-                style = {{overflow:"auto",width:'100%',position:"relative"}}>
+                style = {{overflow:"auto",width:'100%',position:"relative",boxSizing:"border-box"}}>
             <div 
                 ref = {
                     (ref)=>{
