@@ -57,7 +57,7 @@ import Nothing from './Nothing';
 import PlanMapAll from './PlanMapAll';
 import ToTop from './ToTop';
 import Tree from './Tree';
-
+import SliderTree from './SliderTree'
 import {
 	Grid,
 	Row,
@@ -156,5 +156,6 @@ module.exports = {
 	ToTop,
 	CheckPermission,
 	TextLabel,
-	Tree
+	Tree,
+	SliderTree
 }

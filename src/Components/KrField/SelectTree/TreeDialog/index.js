@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import TreePublic from'../TreePublic'
+import SliderTree from'../../../SliderTree'
 export default class TreeDialog extends React.Component{
 	constructor(props,context){
 		super(props,context)
@@ -12,7 +12,7 @@ export default class TreeDialog extends React.Component{
        
 		return (
             <div>
-              <TreePublic />
+              <SliderTree />
             </div>
         )
 	 }
