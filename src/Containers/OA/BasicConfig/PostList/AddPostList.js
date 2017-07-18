@@ -67,46 +67,6 @@ class AddPostList  extends React.Component{
                             label="姓名"
                             requireLabel={true}
 						/>
-                        <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="姓名"
-                            requireLabel={true}
-						/>
-                         {/*部门和职位*/}
-
-                        <KrField grid={1/2}
-								style={{width:262,marginLeft:28}}
-								name="floor"
-								component="select"
-								label="员工属性"
-							 	requireLabel={true}
-							 	//options={}
-						 />
-
-                         <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="身份证"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
-                            name="area"
-                            component="input"
-                            label="手机号"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="工资卡号"
-                            requireLabel={true}
-						/>
-
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
