@@ -14,8 +14,10 @@ import {
 	Drawer,
 	SearchForms,
 	Section,
+	KrField,
 	CheckPermission
 } from 'kr-ui';
+import {reduxForm,initialize} from 'redux-form';
 import State from './State';
 import {DateFormat} from 'kr/Utils';
 import NewCreateSystem from './NewCreateSystem';
@@ -39,36 +41,75 @@ export default class List extends React.Component {
 	NewCreateCancle=()=>{
 		State.createSystem = false;
 	}
-	openEditSystem=()=>{
-		State.openEditSystem = true;
+	openEditSystem=(itemData)=>{
+		State.setEditSystem(itemData);
 	}
 	closeEditSystem=()=>{
 		State.openEditSystem = false;
 	}
-	editSystemSubmit=()=>{
-		console.log('submit')
+	editSystemSubmit=(values)=>{
+		console.log('submit',values)
 	}
-	openSynchro=()=>{
+	openSynchro=(item)=>{
+		console.log('openSynchro')
+		State.editData = item;
 		State.openSynchro = true;
 	}
 	closeSynchro=()=>{
 		State.openSynchro = false;
 	}
+	NewCreateSubmit=(values)=>{
+		console.log('submit',values)
+	}
+	changeToJournal=(value)=>{
+		console.log('change',value)
+		location.href = '/#/Synchronization/journal/'+'2/3';
+	}
+	changeContent=(person)=>{
+		let value = {
+			mainId:person.value
+		}
+		State.searchParams = Object.assign({},State.searchParams,value);
+	}
+	changeSystem=(person)=>{
+		let value = {
+			systemId:person.value
+		}
+		State.searchParams = Object.assign({},State.searchParams,value);
+	}
 	
 
 	render() {
+		let options =[{label:'1',value:'1'},{label:'12',value:'12'},{label:'13',value:'13'},]
 		return (
 			    <div>
-					<Title value="同步主体列表"/>
-					<Section title="同步主体列表"  >
+					<Title value="系统订阅列表"/>
+					<Section title="系统订阅列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-								<Button label="新建"  onTouchTap={this.openNewCreat} />
-							{/*高级查询*/}
-							<SearchForms 
-									onSubmit={this.onSearch} 
-									placeholder="请输入系统名称"  
-									style={{marginTop:5,zIndex:10000}} 
-							/>
+							<Button label="新建"  onTouchTap={this.openNewCreat} />
+							<KrField
+								name="mainId"
+								type="text"
+								component="select"
+								label="同步主体：  "
+								right={20}
+								inline={true}
+								options={options}
+								style={{width:210,float:'right'}}
+								onChange={this.changeContent}
+						 	/>
+						 	<KrField
+								name="systemId"
+								type="text"
+								component="select"
+								label="同步系统：  "
+								right={20}
+								inline={true}
+								options={options}
+								style={{width:210,float:'right'}}
+								onChange={this.changeSystem}
+						 	/>
+							
 						</form>
 						<Table
 		                  style={{marginTop:10}}
@@ -80,8 +121,8 @@ export default class List extends React.Component {
 		              >
 		              <TableHeader>
 		                  <TableHeaderColumn width={160}>主体名称</TableHeaderColumn>
-		                  <TableHeaderColumn width={160}>编码</TableHeaderColumn>
-		                  <TableHeaderColumn>同步系统</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>主体编码</TableHeaderColumn>
+		                  <TableHeaderColumn>订阅系统</TableHeaderColumn>
 		                  <TableHeaderColumn>接口地址</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
@@ -122,11 +163,16 @@ export default class List extends React.Component {
 		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
 		              		 <TableRowColumn name="orderNum"></TableRowColumn>
 		              		 <TableRowColumn name="createUser"></TableRowColumn>
-		              		 <TableRowColumn>
-									<Button label="编辑" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem} />
-									<Button label="同步" operateCode="main_news_add" type="operation" onTouchTap={this.openSynchro} />
-									<Button label="日志" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem} />
-		              		 </TableRowColumn>
+		              		 <TableRowColumn name="createUser"
+								component={(value,oldValue,itemData)=>{
+									return(
+										<span>
+											<Button label="编辑" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem.bind(this,itemData)} />
+											<Button label="同步" operateCode="main_news_add" type="operation" onTouchTap={this.openSynchro.bind(this,itemData)} />
+											<Button label="日志" operateCode="main_news_add" type="operation" onTouchTap={this.changeToJournal.bind(this,itemData)} />
+										</span>
+									)	
+								}}></TableRowColumn>
 		              	</TableRow>
 		              </TableBody>
 		               <TableFooter></TableFooter>
@@ -149,7 +195,7 @@ export default class List extends React.Component {
 			             onClose={this.closeEditSystem}
 			             openSecondary={true}
 			           >
-			             <EditSystem onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem}/>
+			             <EditSystem onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem} itemData={State.editData}/>
 			        </Drawer>
 			        <Drawer
 			             modal={true}
@@ -158,7 +204,7 @@ export default class List extends React.Component {
 			             onClose={this.closeSynchro}
 			             openSecondary={true}
 			           >
-			             <Synchro  onCancel={this.closeSynchro}/>
+			             <Synchro onCancel={this.closeSynchro} itemData={State.editData}/>
 			        </Drawer>
 				</div>
 		);
@@ -166,3 +212,8 @@ export default class List extends React.Component {
 	}
 
 }
+
+List = reduxForm({
+	form: 'List',
+	// validate,
+})(List);

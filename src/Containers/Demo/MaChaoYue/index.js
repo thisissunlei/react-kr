@@ -40,38 +40,13 @@ class MaChaoYue extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			picUrl:'',
-			selectedCommunitys:[],
-			batchUploadNum :false,
-			openSchedule : false,
-			submitValues : '',
-			submitNum : 0,
-			innerBoxWidth :0,
-			uploadedNum:0,
-			totalNum:0,
-			submitValuesParams:{},
-			requestURI:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
-			communitys: []
 		}
 	}
 	onSubmit=(value)=>{
-		let cmtIds = [];
-		value.communitys.map((item)=>{
-			cmtIds.push(item.id)
-		})
-	}
-	print=()=>{
-		window.print();
 	}
 	componentWillMount() {
-		let height = document.getElementsByClassName('demo-Machaoyue')[0];
-		console.log('will',height)
 	}
 	componentDidMount() {
-		let height = document.getElementsByClassName('demo-Machaoyue')[0].offsetHeight;
-		console.log('======',height)
-		this.pages = Math.ceil(height/1120)+1;
-		console.log('did',this.pages)
 	}
 
 
@@ -79,18 +54,13 @@ class MaChaoYue extends React.Component {
 	
 	
 	render() {
-		// let {communitys}=this.state;
-		const {handleSubmit}=this.props;
-		let communitys = [1,2,3];
-		let src = `http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png`;
-		
 		console.log('render',this.pages)
 		return (
 			    <div style={{background: '#fff',height:1400}} className="demo-Machaoyue">
-				<CommonItem />
 
-				<Button onClick={this.print}>打印</Button>
-
+			    <div style={{width:200,border:'1px solid red'}}>
+			    	大叔大婶大所大所大所大所大所多打算大多的撒大大所大所多的撒大大多大大所大大所多大所大所大所多大叔大婶
+			    </div>
 				</div>
 		);
 

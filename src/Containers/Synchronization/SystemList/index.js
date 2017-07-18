@@ -38,23 +38,42 @@ export default class List extends React.Component {
 	NewCreateCancle=()=>{
 		State.createSystem = false;
 	}
-	openEditSystem=()=>{
-		State.openEditSystem = true;
+	openEditSystem=(itemData)=>{
+		itemData.name = 'aaa';
+		itemData.code = '12';
+		State.openEditSystemFn(itemData);
 	}
 	closeEditSystem=()=>{
 		State.openEditSystem = false;
 	}
-	editSystemSubmit=()=>{
-		console.log('submit')
+	editSystemSubmit=(value)=>{
+		State.submitForm(value);
+	}
+
+	NewCreateSubmit=(value)=>{
+		State.submitForm(value);
+	}
+	onSearch=(values)=>{
+		State.searchParams= {
+			title:values.content,
+			name:values.content,
+			time:+new Date()
+		}
 	}
 	
+	onPageChange=(page)=>{
+		let value = {
+			page:page
+		}
+		State.searchParams = Object.assign({},State.searchParams,value);
+	}
 
 	render() {
 		return (
-			    <div>
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 					<Title value="同步系统列表"/>
 					<Section title="同步系统列表"  >
-						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
+						<form name="searchForm" className="searchForm searchList" style={{marginBottom:20,height:45}}>
 								<Button label="新建"  onTouchTap={this.openNewCreat} />
 							{/*高级查询*/}
 							<SearchForms 
@@ -74,11 +93,8 @@ export default class List extends React.Component {
 		              <TableHeader>
 		                  <TableHeaderColumn width={160}>系统名称</TableHeaderColumn>
 		                  <TableHeaderColumn width={160}>编码</TableHeaderColumn>
-		                  <TableHeaderColumn>系统IP/域名</TableHeaderColumn>
-		                  <TableHeaderColumn>联系人/电话</TableHeaderColumn>
-		                  <TableHeaderColumn>失败数</TableHeaderColumn>
-		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
-		                  <TableHeaderColumn>最近同步主体</TableHeaderColumn>
+		                  <TableHeaderColumn>联系人</TableHeaderColumn>
+		                  <TableHeaderColumn>电话</TableHeaderColumn>
 		                  <TableHeaderColumn>备注</TableHeaderColumn>
 		                  <TableHeaderColumn>操作</TableHeaderColumn>
 		              </TableHeader>
@@ -114,15 +130,19 @@ export default class List extends React.Component {
 		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
 		              		 <TableRowColumn name="stickStatusName"></TableRowColumn>
 		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
-		              		 <TableRowColumn name="orderNum"></TableRowColumn>
-		              		 <TableRowColumn name="createUser"></TableRowColumn>
-		              		 <TableRowColumn name="createUser"></TableRowColumn>
-		              		 <TableRowColumn>
-									<Button label="编辑" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem} />
+		              		 <TableRowColumn  name="createUser"
+		              		 	component={(value,oldValue,itemData)=>{
+									return (
+										<span>
+										<Button label="编辑" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem.bind(this,itemData)} />
+										</span>
+									)		
+								}}>
 		              		 </TableRowColumn>
+
 		              	</TableRow>
 		              </TableBody>
-		               <TableFooter></TableFooter>
+		              {/* <TableFooter></TableFooter>*/}
 		            </Table>
 					</Section>
 
@@ -142,7 +162,7 @@ export default class List extends React.Component {
 			             onClose={this.closeEditSystem}
 			             openSecondary={true}
 			           >
-			             <EditSystem onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem}/>
+			             <EditSystem onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem} itemData={State.EditSystemData}/>
 			        </Drawer>
 				</div>
 		);

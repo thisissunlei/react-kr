@@ -39,6 +39,15 @@ export default class Journal extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		
+	}
+
+	componentDidMount(){
+		let value = {
+			mainpartId:this.props.params.main,
+			systemId:this.props.params.system
+		}
+		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 
 	openNewCreat=()=>{
@@ -66,19 +75,18 @@ export default class Journal extends React.Component {
 		console.log('0000')
 	}
 	openSearchUpperDialog=()=>{
-		console.log('=====')
 		State.openSearch = !State.openSearch;
 	}
-	onSearchSubmit=()=>{
-		console.log('dddd')
+	onSearchSubmit=(value)=>{
+		State.openSearch = false;
+		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 	onSearchContentSubmit=(value)=>{
-		console.log(value)
+		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 	
 
 	render() {
-
 		let {handleSubmit} = this.props;
 		return (
 			    <div>
@@ -95,10 +103,10 @@ export default class Journal extends React.Component {
 			        </Row>
 					<Tabs className="tabs">
 						<Tab label="失败记录">
-						   <FailList />
+						   <FailList searchList={State.searchParams}/>
 						</Tab>
 						<Tab label="成功记录" >
-						  <SuccessList />
+						  <SuccessList searchList={State.searchParams}/>
 						</Tab>
 					</Tabs>
 		            <Dialog
@@ -108,7 +116,7 @@ export default class Journal extends React.Component {
 							autoScrollBodyContent={true}
 							autoDetectWindowHeight={true}
 							onClose={this.openSearchUpperDialog}>
-								<SearchList onSubmit={this.onSearchSubmit} onCancel={this.openSearchUpperDialog}/>
+								<SearchList onSubmit={this.onSearchSubmit} onCancel={this.openSearchUpperDialog} params={State.searchParams}/>
 					    </Dialog>
 					</Section>
 					

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Store} from 'kr/Redux';
 import {
 	Title,
 	Table,
@@ -38,6 +39,7 @@ export default class Journal extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		console.log('searchList',this.props.params)
 	}
 
 	openNewCreat=()=>{
@@ -62,44 +64,58 @@ export default class Journal extends React.Component {
 		State.openSynchro = false;
 	}
 	onSubmit=(values)=>{
-		console.log('0000',values)
+		let {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;
 		onCancel && onCancel()
 	}
+	componentDidMount(){
+		let {params} = this.props;
+		console.log('=======',params);
+		Store.dispatch(initialize('Journal', params));
+	}
+	componentWillReceiveProps(nextProps) {
+		if(this.props.params != nextProps.params){
+			console.log(nextProps.params)
+			Store.dispatch(initialize('Journal', nextProps.params));
+		}
+	}
 	
 
 	render() {
-		let options = [{label:'a',value:'1'},{label:'a',value:'2'},{label:'a',value:'3'},{label:'a',value:'4'},]
+		let options = [{label:'a',value:'1'},{label:'b',value:'2'},{label:'c',value:'3'},{label:'d',value:'4'},]
 		let {handleSubmit} = this.props;
 		return (
 			<div style={{marginTop:30}}>
 			<form className="m-new-create m-new-dialog-create" onSubmit={handleSubmit(this.onSubmit)} >
 					<KrField 
-						name="wherefloor" 
+						name="systemId" 
 						component="select" 
 						label="同步系统" 
 						grid={1/2}
 						right={34}
-						options={[{label:1,value:'1'}]}  
+						options={options}  
 						/>
 					<KrField 
 						grid={1/2}  
-						name="stationnum" 
-						type="input" 
+						name="mainpartId" 
+						type="select" 
 						label="同步主体" 
 						right={34}
-						component="input" />
+						options={options}
+						component="select" />
 					<KrField 
 						grid={1/2}  
-						name="boardroomnum" 
+						name="mode" 
 						type="input" 
 						label="同步方式"
 						right={34} 
-						component="input" />
+						options={options}
+						component="select" />
 					<KrField grid={1/2}  
-						name="stationVos" 
+						name="content" 
 						type="input" 
 						label="同步内容" 
 						right={34}
@@ -107,9 +123,9 @@ export default class Journal extends React.Component {
 					<KrField grid={1/1}  component="group" label="同步时间" style={{marginTop:3}}>
 						<div className='ui-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="beginDate" component="date" /></div></ListGroupItem>
 									<div style = {{display:"inline-block",marginTop:20}} className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="createEndDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-end'><KrField name="endDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		                </div>
 					</KrField>

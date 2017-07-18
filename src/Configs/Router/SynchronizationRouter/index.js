@@ -19,18 +19,23 @@ const Basic = (location, callback) => {
 
 const Synchronization_System_List = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Synchronization/CooperativeSystem').default)
+    callback(null, require('kr/Containers/Synchronization/SystemList').default)
   }, 'Synchronization_System_List')
 }
 const Synchronization_Content_List = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Synchronization/SynchronizationContent').default)
+    callback(null, require('kr/Containers/Synchronization/SyncList').default)
   }, 'Synchronization_Content_List')
 }
 const Synchronization_Journal_List = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Synchronization/Journal').default)
   }, 'Synchronization_Journal_List')
+}
+const Synchronization_MainPart_List = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Synchronization/MainPart').default)
+  }, 'Synchronization_MainPart_List')
 }
 module.exports =()=>{
 
@@ -39,7 +44,8 @@ module.exports =()=>{
 		<Route path="Synchronization" getComponent={Basic}>
 			<Route path="system" getComponent={Synchronization_System_List}/>
 			<Route path="content" getComponent={Synchronization_Content_List}/>
-			<Route path="journal" getComponent={Synchronization_Journal_List}/>
+			<Route path="main" getComponent={Synchronization_MainPart_List}/>
+			<Route path="journal/:main/:system" getComponent={Synchronization_Journal_List}/>
 		</Route>
 	);
 };

@@ -1,9 +1,11 @@
-import { default as CooperativeSystem} from './CooperativeSystem';
-import { default as SynchronizationContent from './SynchronizationContent';
+import { default as SystemList} from './SystemList';
+import { default as SyncList from './SyncList';
 import { default as Journal from './Journal';
+import { default as MainPart from './MainPart';
 module.exports = {
-	SynchronizationContent,
-	CooperativeSystem,
-	Journal
+	SyncList,
+	SystemList,
+	Journal,
+	MainPart
 
 }

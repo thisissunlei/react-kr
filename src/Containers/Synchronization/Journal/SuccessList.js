@@ -35,18 +35,40 @@ export default class FailList extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state= {
+			searchList:{}
+		}
+	}
+	componentDidMount(){
+		let {searchList} = this.props;
+		let value = {status:1};
+		value = Object.assign({},searchList,value);
+		this.setState({
+			searchList:value
+		})
+	}
+	componentWillReceiveProps(nextProps) {
+		if(this.props.searchList != nextProps.searchList){
+
+			let {searchList} = nextProps;
+			let value = {status:1};
+			value = Object.assign({},searchList,value);
+			this.setState({
+				searchList:value
+			})
+		}
 	}
 	
 
 	render() {
-
+		console.log('success',this.state.searchList)
 		return (
 			<div style={{marginTop:30}}>
 				<Table
 		                  style={{marginTop:20}}
 		                  ajax={true}
 		                  ajaxUrlName='get-news-list'
-		                  ajaxParams={State.searchParams}
+		                  ajaxParams={this.state.searchList}
 		                  onOperation={this.onOperation}
 		                  onPageChange={this.onPageChange}
 		              >

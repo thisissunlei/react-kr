@@ -15,10 +15,10 @@ import {
 import {
 	observer
 } from 'mobx-react';
-import './index.less';
+// import './index.less';
 import State from './State';
 @observer
-class EditNewList extends React.Component {
+class CreateNewList extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -26,19 +26,6 @@ class EditNewList extends React.Component {
 			
 		}
 		
-	}
-	componentDidMount(){
-		let obj = {
-			name:'111',
-			code:'110120',
-			ip:'198.160.10.6',
-			people:'你好',
-			telephone:'110',
-			newsContent:'dddddd'
-
-		}
-		Store.dispatch(initialize('EditNewList', obj));
-		console.log('====>');
 	}
 	componentWillMount() {
 	}
@@ -48,6 +35,7 @@ class EditNewList extends React.Component {
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
+		console.log('=====>')
 		let {onSubmit}=this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -60,7 +48,7 @@ class EditNewList extends React.Component {
 			<div className="new-create-system">
 				<div className="u-title-box">
 						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">编辑系统</span>
+						<span className="u-title-text">新建同步主体</span>
 						<span className="u-close-page" onClick={this.onCancel}>
 							<img 
 								src={require('./images/closeIMG.svg')} 
@@ -75,50 +63,24 @@ class EditNewList extends React.Component {
 							name="name"
 							type="text"
 							component="input"
-							label="系统名称"
-							style={{marginRight:30,width:280}}
+							label="主体名称"
+							style={{marginRight:20,width:280}}
 							requireLabel={true}
 							grid={1/2}
 
 					 	/>
 					 	<KrField
 							name="code"
-							component="input"
-							label="系统编码"
-							left={20}
-							requireLabel={true}
-							grid={1/2}
-					 	/>
-					 	<KrField
-							name="ip"
 							type="text"
 							component="input"
-							label="系统IP"
-							right={20}
+							label="主体编码"
+							style={{marginLeft:20,width:280}}
 							grid={1/2}
 							requireLabel={true}
 					 	/>
-	                	<KrField
-								grid={1/2}
-								name="people"
-								component="input"
-								label="联系人"
-								maxSize={300}
-								requireLabel={true}
-								left={20}
-						/>
-						<KrField 
-								name="telephone"
-								component="input"
-								requireLabel={true}
-								label="联系人手机号"
-								grid={1/2}
-								right={20}
-
-								/>
 						<KrField 
 								component="textarea" 
-								name="newsContent" 
+								name="remark" 
 								label="备注" 
 								defaultValue=''
 								/>
@@ -141,33 +103,15 @@ class EditNewList extends React.Component {
 	}
 }
 const validate = values => {
-	const errors = {}
-	let numContr =/^[1-9]\d{0,4}$/;
-	if(!values.title){
-		errors.title = '请输入新闻标题';
+	let errors = {};
+	if(!values.name){
+		errors.name = '请输入主体名称';
 	}
-	if(values.title){
-		if(values.title.length>50){
-			errors.title = '新闻标题不能超过50字';
-		}
+	if(values.name && values.name.length>50){
+		errors.name = '主体名称不能超过50字';
 	}
-	if(!values.publishedTime){
-		errors.publishedTime = '请选择发布时间';
-	}
-	if(!values.orderNum){
-		errors.orderNum = '请输入排序号';
-	}
-	if(values.orderNum){
-		var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-		if(!numContr.test(orderNum)){
-			errors.orderNum = '排序号必须为五位以内正整数';
-		}
-	}
-	if(!values.newsDesc){
-		errors.newsDesc = '请输入新闻简介';
-	}
-	if(!values.photoUrl){
-		errors.photoUrl = '请上传新闻列表图片';
+	if(!values.code){
+		errors.code = '请输入主体编码';
 	}
 	
 	
@@ -175,8 +119,8 @@ const validate = values => {
 	return errors
 }
 
-export default EditNewList = reduxForm({
-	form: 'EditNewList',
+export default CreateNewList = reduxForm({
+	form: 'createNewList',
 	validate,
-})(EditNewList);
+})(CreateNewList);
 

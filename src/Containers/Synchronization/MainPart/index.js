@@ -14,20 +14,21 @@ import {
 	Drawer,
 	SearchForms,
 	Section,
+	KrField,
 	CheckPermission
 } from 'kr-ui';
+import {reduxForm,initialize} from 'redux-form';
 import State from './State';
 import {DateFormat} from 'kr/Utils';
-import NewCreateSystem from './NewCreateSystem';
-import EditSystem from './EditSystem';
-import Synchro from './Synchro';
+import Create from './Create';
+import Edit from './Edit';
 import {
 	observer
 } from 'mobx-react';
 import './index.less';
 
 @observer
-export default class Journal extends React.Component {
+export default class List extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -39,36 +40,48 @@ export default class Journal extends React.Component {
 	NewCreateCancle=()=>{
 		State.createSystem = false;
 	}
-	openEditSystem=()=>{
-		State.openEditSystem = true;
+	openEditSystem=(itemData)=>{
+		itemData.name = 'aaa';
+		State.setEditSystem(itemData);
 	}
 	closeEditSystem=()=>{
 		State.openEditSystem = false;
 	}
-	editSystemSubmit=()=>{
-		console.log('submit')
+	editSystemSubmit=(values)=>{
+		State.syncMainPart(values);
 	}
-	openSynchro=()=>{
-		State.openSynchro = true;
+	NewCreateSubmit=(values)=>{
+		State.syncMainPart(values);
 	}
-	closeSynchro=()=>{
-		State.openSynchro = false;
+	onSearch=(values)=>{
+		let value = {
+			title:values.content,
+			name:values.content
+		}
+		State.searchParams = Object.assign({},State.searchParams,value);
+		console.log('onSearch',State.searchParams)
 	}
-	
+	onPageChange=(page)=>{
+		let value = {
+			page:page,
+			pageSize:15
+		};
+		State.searchParams = Object.assign({},State.searchParams,value);
+	}
 
 	render() {
 		return (
-			    <div>
-					<Title value="日志列表"/>
-					<Section title="日志列表"  >
+			    <div style={{minHeight:910}}>
+					<Title value="同步主体列表"/>
+					<Section title="同步主体列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-								<Button label="新建"  onTouchTap={this.openNewCreat} />
-							{/*高级查询*/}
+							<Button label="新建"  onTouchTap={this.openNewCreat} />
 							<SearchForms 
-									onSubmit={this.onSearch} 
-									placeholder="请输入系统名称"  
-									style={{marginTop:5,zIndex:10000}} 
+								onSubmit={this.onSearch} 
+								placeholder="请输入系统名称"  
+								style={{marginTop:5,zIndex:10000}} 
 							/>
+							
 						</form>
 						<Table
 		                  style={{marginTop:10}}
@@ -81,8 +94,6 @@ export default class Journal extends React.Component {
 		              <TableHeader>
 		                  <TableHeaderColumn width={160}>主体名称</TableHeaderColumn>
 		                  <TableHeaderColumn width={160}>编码</TableHeaderColumn>
-		                  <TableHeaderColumn>同步系统</TableHeaderColumn>
-		                  <TableHeaderColumn>接口地址</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
 		                  <TableHeaderColumn>备注</TableHeaderColumn>
@@ -100,7 +111,9 @@ export default class Journal extends React.Component {
 										TooltipStyle="block";
 									}
 									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+									 	<Tooltip offsetTop={5} place='top' >
+											{value}
+									 	</Tooltip></div>)
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
@@ -117,28 +130,49 @@ export default class Journal extends React.Component {
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="stickStatusName"></TableRowColumn>
 		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
 		              		 <TableRowColumn name="orderNum"></TableRowColumn>
 		              		 <TableRowColumn name="createUser"></TableRowColumn>
-		              		 <TableRowColumn>
-									<Button label="编辑" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem} />
-									<Button label="同步" operateCode="main_news_add" type="operation" onTouchTap={this.openSynchro} />
-									<Button label="日志" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem} />
-		              		 </TableRowColumn>
+		              		 <TableRowColumn name="createUser"
+								component={(value,oldValue,itemData)=>{
+									return(
+										<span>
+											<Button label="编辑" operateCode="main_news_add" type="operation" onTouchTap={this.openEditSystem.bind(this,itemData)} />
+										</span>
+									)	
+								}}></TableRowColumn>
 		              	</TableRow>
 		              </TableBody>
 		               <TableFooter></TableFooter>
 		            </Table>
 					</Section>
 
+					<Drawer
+			             modal={true}
+			             width={750}
+			             open={State.createSystem}
+			             onClose={this.NewCreateCancle}
+			             openSecondary={true}
+			           >
+			             <Create onSubmit={this.NewCreateSubmit}  onCancel={this.NewCreateCancle}/>
+			        </Drawer>
+			        <Drawer
+			             modal={true}
+			             width={750}
+			             open={State.openEditSystem}
+			             onClose={this.closeEditSystem}
+			             openSecondary={true}
+			           >
+			             <Edit onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem} itemData={State.editData}/>
+			        </Drawer>
 				</div>
 		);
 
 	}
 
 }
-Journal = reduxForm({
-    form: 'Journal'
-})(Journal);
+
+List = reduxForm({
+	form: 'List',
+	// validate,
+})(List);

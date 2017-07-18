@@ -35,6 +35,7 @@ class CreateNewList extends React.Component {
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
+		console.log('=====>')
 		let {onSubmit}=this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -42,6 +43,7 @@ class CreateNewList extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
+		let options = [{label:'1',value:'1'},{label:'12',value:'12'},]
 		
 		return (
 			<div className="new-create-system">
@@ -59,53 +61,38 @@ class CreateNewList extends React.Component {
 							
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 						<KrField
-							name="name"
+							name="mainId"
 							type="text"
-							component="input"
-							label="系统名称"
+							component="select"
+							label="同步主体"
 							style={{marginRight:30,width:280}}
 							requireLabel={true}
 							grid={1/2}
+							options={options}
 
 					 	/>
 					 	<KrField
-							name="code"
-							component="input"
-							label="系统编码"
-							left={20}
-							requireLabel={true}
-							grid={1/2}
-					 	/>
-					 	<KrField
-							name="ip"
+							name="systemId"
 							type="text"
-							component="input"
-							label="系统IP"
-							right={20}
+							component="select"
+							label="同步系统"
+							left={20}
 							grid={1/2}
+							options={options}
 							requireLabel={true}
 					 	/>
 	                	<KrField
 								grid={1/2}
-								name="peaple"
+								name="interfaceAdd"
 								component="input"
-								label="联系人"
+								label="接口地址"
 								maxSize={300}
 								requireLabel={true}
-								left={20}
+								right={30}
 						/>
 						<KrField 
-								name="telephone"
-								component="input"
-								requireLabel={true}
-								label="联系人手机号"
-								grid={1/2}
-								right={20}
-
-								/>
-						<KrField 
 								component="textarea" 
-								name="newsContent" 
+								name="remark" 
 								label="备注" 
 								defaultValue=''
 								/>
@@ -128,33 +115,15 @@ class CreateNewList extends React.Component {
 	}
 }
 const validate = values => {
-	const errors = {}
-	let numContr =/^[1-9]\d{0,4}$/;
-	if(!values.title){
-		errors.title = '请输入新闻标题';
+	let errors = {};
+	if(!values.mainId){
+		errors.mainId = '请选择主体';
 	}
-	if(values.title){
-		if(values.title.length>50){
-			errors.title = '新闻标题不能超过50字';
-		}
+	if(!values.systemId){
+		errors.systemId = '请选择同步系统';
 	}
-	if(!values.publishedTime){
-		errors.publishedTime = '请选择发布时间';
-	}
-	if(!values.orderNum){
-		errors.orderNum = '请输入排序号';
-	}
-	if(values.orderNum){
-		var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-		if(!numContr.test(orderNum)){
-			errors.orderNum = '排序号必须为五位以内正整数';
-		}
-	}
-	if(!values.newsDesc){
-		errors.newsDesc = '请输入新闻简介';
-	}
-	if(!values.photoUrl){
-		errors.photoUrl = '请上传新闻列表图片';
+	if(!values.interfaceAdd){
+		errors.interfaceAdd = '请输入接口地址';
 	}
 	
 	

@@ -28,19 +28,16 @@ class EditNewList extends React.Component {
 		
 	}
 	componentDidMount(){
-		let obj = {
-			name:'111',
-			code:'110120',
-			ip:'198.160.10.6',
-			people:'你好',
-			telephone:'110',
-			newsContent:'dddddd'
-
-		}
-		Store.dispatch(initialize('EditNewList', obj));
-		console.log('====>');
+		let {itemData} = this.props;
+		Store.dispatch(initialize('EditNewList', itemData));
+		
 	}
 	componentWillMount() {
+	}
+	componentWillReceiveProps(nextProps) {
+		if(this.props.itemData != nextProps.itemData){
+			Store.dispatch(initialize('EditNewList', nextProps.itemData));
+		}
 	}
 
 	onCancel=()=>{
@@ -83,11 +80,12 @@ class EditNewList extends React.Component {
 					 	/>
 					 	<KrField
 							name="code"
-							component="input"
+							component="label"
 							label="系统编码"
 							left={20}
 							requireLabel={true}
 							grid={1/2}
+							inline={false}
 					 	/>
 					 	<KrField
 							name="ip"
@@ -100,7 +98,7 @@ class EditNewList extends React.Component {
 					 	/>
 	                	<KrField
 								grid={1/2}
-								name="people"
+								name="linkman"
 								component="input"
 								label="联系人"
 								maxSize={300}
@@ -108,7 +106,7 @@ class EditNewList extends React.Component {
 								left={20}
 						/>
 						<KrField 
-								name="telephone"
+								name="phone"
 								component="input"
 								requireLabel={true}
 								label="联系人手机号"
@@ -118,7 +116,7 @@ class EditNewList extends React.Component {
 								/>
 						<KrField 
 								component="textarea" 
-								name="newsContent" 
+								name="remark" 
 								label="备注" 
 								defaultValue=''
 								/>
@@ -141,33 +139,29 @@ class EditNewList extends React.Component {
 	}
 }
 const validate = values => {
-	const errors = {}
-	let numContr =/^[1-9]\d{0,4}$/;
-	if(!values.title){
-		errors.title = '请输入新闻标题';
+	let errors = {};
+	if(!values.name){
+		errors.name = '请输入系统名称';
 	}
-	if(values.title){
-		if(values.title.length>50){
-			errors.title = '新闻标题不能超过50字';
+	if(values.name){
+		if(values.name.length>50){
+			errors.name = '系统名称不能超过50字';
 		}
 	}
-	if(!values.publishedTime){
-		errors.publishedTime = '请选择发布时间';
+	if(!values.code){
+		errors.code = '请输入系统编码';
 	}
-	if(!values.orderNum){
-		errors.orderNum = '请输入排序号';
+	if(!values.ip){
+		errors.ip = '请输入系统IP';
 	}
-	if(values.orderNum){
-		var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-		if(!numContr.test(orderNum)){
-			errors.orderNum = '排序号必须为五位以内正整数';
-		}
+	if(!values.linkman){
+		errors.linkman = '请输入联系人';
 	}
-	if(!values.newsDesc){
-		errors.newsDesc = '请输入新闻简介';
+	if(!values.phone){
+		errors.phone = '请输入联系人手机号';
 	}
-	if(!values.photoUrl){
-		errors.photoUrl = '请上传新闻列表图片';
+	if( values.phone && !(/^1[3|5][0-9]\d{4,8}$/.test(values.phone))){
+		errors.phone = '请输入正确联系人手机号';
 	}
 	
 	

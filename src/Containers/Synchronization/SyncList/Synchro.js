@@ -10,7 +10,14 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
-	ButtonGroup
+	ButtonGroup,
+	Table,
+	TableHeader,
+	TableBody,
+	TableRow,
+	TableHeaderColumn,
+	TableRowColumn,
+	Pagination
 } from 'kr-ui';
 import {
 	observer
@@ -29,32 +36,24 @@ export default class Synchro extends React.Component {
 	componentWillMount() {
 	}
 	onSubmit=(value)=>{
-		console.log("dsadasda",value);
-		this.getData()
+		State.getSyncList(value);
 		
 	}
-	getData=()=>{
-		console.log('=========')
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
-					State.synchroListe = xhr.response.data;
-				}else{
-					alert('err')
-				}
-			}
+	onPageChange=(page)=>{
+		console.log('page',page)
+		let value = {
+			page:page
 		};
-
-		xhr.open('GET', 'http://optest02.krspace.cn/api/krspace-finance-web/news/get-news-list?createUser=&publishedStatus=&stickStatus=&title=&page=1&pageSize=&',false);
-		xhr.send(null);
+		State.getSyncList(value);
 	}
 	
 
 	render() {
 		let communityInfoFloorList = [{value:1,label:'1'}]
 		let {handleSubmit} = this.props;
-		
+		let rowFootStyle ={
+			marginTop:30
+		}
 		return (
 		<div className="m-synchro-system">
 			<div className="u-title-box">
@@ -69,7 +68,7 @@ export default class Synchro extends React.Component {
 			</div>
 			<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
 				<KrField
-							name="name"
+							name="interfaceAdd"
 							type="text"
 							component="input"
 							label="接口地址 ：  "
@@ -79,7 +78,7 @@ export default class Synchro extends React.Component {
 
 					 	/>
                 <KrField 
-                	name="start" 
+                	name="remark" 
                 	grid={1/3} 
                 	component="input"  
                 	label="备注：  " 
@@ -89,28 +88,35 @@ export default class Synchro extends React.Component {
                 <Button  label="同步" type="submit"  width={60}/>
             </form>
 
-             {State.synchroList.length && <Table
-			    style={rowStyle}
+            {!!State.synchroList.length && 
+            	<div className="m-sync-result">
+            		导入完成【成功：{State.pages.page}条，失败：<span style={{color:'red'}}>{State.pages.page}</span>条】
+            	</div>
+            }
+
+             {!!State.synchroList.length && <Table
 	            displayCheckbox={false}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>序号</TableHeaderColumn>
 		              <TableHeaderColumn>时间</TableHeaderColumn>
+		              <TableHeaderColumn>状态</TableHeaderColumn>
 		              <TableHeaderColumn>内容</TableHeaderColumn>
 		          	</TableHeader>
 				<TableBody className='noDataBody' >
 					{State.synchroList.map((item,index)=>{
 			        		return (
 				        		<TableRow key={index}>
-					                <TableRowColumn><span className="tableOver">{item.createUser}</span>{this.everyTd(item.company)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.orderNum}</span>{this.everyTd(item.communityName)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{title}</span>{this.everyTd(type)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.createUser}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.orderNum}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.orderNum}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.id}</span></TableRowColumn>
 					            </TableRow>
 					          	);
 			        	})}
 				</TableBody>
 			</Table>}
-           {State.pages.page && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.pages.totalPaper} page={State.pages.page} pageSize={State.pages.pageSize} onPageChange={this.onPageChange}/></div>}
+           {!!State.pages.page && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.pages.totalCount} page={State.pages.page} pageSize={State.pages.pageSize} onPageChange={this.onPageChange}/></div>}
 
 				
 		</div>
