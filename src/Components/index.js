@@ -57,6 +57,7 @@ import Nothing from './Nothing';
 import PlanMapAll from './PlanMapAll';
 import ToTop from './ToTop';
 import Tree from './Tree';
+import TabsControl from './TabsControl';
 
 import {
 	Grid,
@@ -156,5 +157,6 @@ module.exports = {
 	ToTop,
 	CheckPermission,
 	TextLabel,
-	Tree
+	Tree,
+	TabsControl,
 }
