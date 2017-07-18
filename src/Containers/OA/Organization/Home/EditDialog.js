@@ -52,7 +52,7 @@ class EditDialog extends React.Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:30,paddingLeft:32}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20,paddingLeft:32}}  >
                 <KrField
                     style={{width:262}}
                     inline={false}

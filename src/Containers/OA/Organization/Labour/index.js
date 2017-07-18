@@ -31,6 +31,7 @@ import SearchForm from './SearchForm';
 import CreateDialog from './Createdialog';
 import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
+import CancelDialog from './CancelDialog';
 
 
 @inject("NavModel")
@@ -44,12 +45,13 @@ export default class Labour extends React.Component {
 				page: 1,
 				pageSize: 15,
 			},
+			data:{},
 			itemDetail: '',
-			openHighSearch: false,
 			openCreateDialog: false,
 			openEditDialog: false,
 			openViewDialog:false,
 			tabSelect:1,
+			openCancelDialog:false,
 		}
 	}
 	checkTab=(item)=>{
@@ -67,25 +69,11 @@ export default class Labour extends React.Component {
 			itemDetail
 		});
 
-		if (type == 'view') {
-			this.openViewDialog();
-		}else if (type == 'edit') {
-			this.openEditDialog();
+		if (type == 'cancle') {
+			this.openCancelDialog();
 		}
 	}
-//高级查询
-openHighSearch = () => {
-    this.setState({
-      openHighSearch: !this.state.openHighSearch
-    })
-  }
 
-	onSearchSubmit = (form) => {
-		this.setState({
-			searchParams:form
-		})
-		this.openHighSearch();
-	}
 //普通查询
 	searchParams = (form) => {
 		var _this = this;
@@ -95,6 +83,11 @@ openHighSearch = () => {
 				pageSize: 15,
 				version: form.content
 			}
+		})
+	}
+	openCancelDialog=()=>{
+		this.setState({
+			openCancelDialog: !this.state.openCancelDialog
 		})
 	}
 	openViewDialog = () => {
@@ -134,6 +127,23 @@ openHighSearch = () => {
 			Message.error(err.message)
 		});
 	}
+	onCancelSubmit=()=>{
+		let {
+			itemDetail
+		} = this.state;
+		var _this = this;
+		Http.request('org-cancel', {
+			orgId: itemDetail.orgId,
+			orgType:itemDetail.orgType,
+		}).then(function(response) {
+			_this.openCancelDialog();
+			Message.success('封存成功');
+			_this.changeP();
+		}).catch(function(err) {
+			_this.openCancelDialog();
+			Message.error(err.message)
+		});
+	}
 	//改变页码
     changeP=()=>{
         var timer = new Date();
@@ -151,7 +161,7 @@ openHighSearch = () => {
         })
     }
 	render() {
-		let {itemDetail} = this.state;
+		let {itemDetail,data} = this.state;
 
 		return (
 			<div className="g-oa-labour">
@@ -161,6 +171,9 @@ openHighSearch = () => {
 							<span className="searching">
 
 							</span>
+						</div>
+						<div className="oa-tree">
+							
 						</div>							
 					</div>
 					<div className="right">
@@ -220,7 +233,7 @@ openHighSearch = () => {
 								<Button
       									label="查看"
       									type="button"
-      									onTouchTap={this.onCancel}
+      									onTouchTap={this.openViewDialog}
       									height={30}
       									width={80}
 												backgroundColor='#F5F6FA'
@@ -275,8 +288,7 @@ openHighSearch = () => {
 									)
 								}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="查看"  type="operation" operation="view"/>
-									<Button label="编辑"  type="operation" operation="edit"/>
+									<Button label="封存"  type="operation" operation="cancle"/>
 							</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -353,15 +365,15 @@ openHighSearch = () => {
 		}
 		</div>
         <Dialog 
-            title="新建机构维度" 
+            title="查看XXX" 
             modal={true} 
-            open={this.state.openCreate} 
-            onClose={this.openCreate} 
+            open={this.state.openViewDialog} 
+            onClose={this.openViewDialog} 
             contentStyle={{
                 width: 374
             }}
         >
-                <CreateDialog onSubmit={this.onNewCreateSubmit} onCancel={this.openCreate} />
+                <Viewdialog detail={this.state.data} onCancel={this.openViewDialog} />
         </Dialog>
         <Dialog 
                 title="编辑机构维度" 
@@ -373,6 +385,17 @@ openHighSearch = () => {
                 }}
         >
                 <EditDialog detail={this.state.itemDetail} onSubmit={this.onNewEditSubmit} onCancel={this.openEdit} />
+        </Dialog>
+				<Dialog 
+                title="提示" 
+                modal={true} 
+                open={this.state.openCancelDialog} 
+                onClose={this.openCancelDialog} 
+                contentStyle={{
+                    width: 374
+                }}
+        >
+                <CancelDialog detail={this.state.itemDetail} onSubmit={this.onCancelSubmit} onCancel={this.openCancelDialog} />
         </Dialog>
 </div>
 		);
