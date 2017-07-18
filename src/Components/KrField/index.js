@@ -58,6 +58,7 @@ import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 import SearchCityCommunity from './SearchCityCommunity';
 import ChangeUploadImageComponent from './ChangeUploadImageComponent';
+import SelectTree from './SelectTree';
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -435,6 +436,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchSourceList') {
 				return (
 					<FieldRevert {...this.props} component={SearchSourceList}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'selectTree') {
+				return (
+					<FieldRevert {...this.props} component={SelectTree}  style={WrapStyles} {...other}/>
 				)
 			}
 

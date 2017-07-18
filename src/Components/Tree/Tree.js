@@ -8,7 +8,7 @@ import {
   filterParentPosition, handleCheckState, getCheck,
   getStrictlyValue, arraysEqual,
 } from './util';
-
+import './assets/index.less'
 function noop() {
 }
 

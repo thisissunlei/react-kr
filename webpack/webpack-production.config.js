@@ -52,6 +52,12 @@ const config = {
 		React: true
 	},
 	plugins: [
+
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require(path.join(buildPath,'vendors/manifest.json')),
+           	 name:'lib'
+        }),	
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),

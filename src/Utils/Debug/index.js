@@ -11,7 +11,6 @@ function log(){
 
   var now = DateFormat(Date.now(),'hh:MM:ss');
   var prevStr = `%c${logCounter}%c[${now}]`;
-  //Notify.error(message);
   //var messages = [].slice.apply(arguments);
   //messages.unshift(prevStr,'background:#499df1;color:#fff;font-size:12px;padding:2px;','color:#333;');
   logCounter++;
